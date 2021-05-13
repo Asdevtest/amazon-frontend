@@ -1,0 +1,23 @@
+{
+  "useTabs": false,
+  "printWidth": 120,
+  "tabWidth": 2,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "semi": false,
+  "bracketSpacing": false,
+  "arrowParens": "avoid",
+  "importOrder": [
+    "^react$",
+    "^(?:@)?(react-|material)|^(?!react)([a-z]+)",
+    "^@constants/(.*)$",
+    "^@navigation/(.*)$",
+    "^@services/(.*)$",
+    "^@styles/(.*)$",
+    "^@components/(.*)$",
+    "^@views/(.*)$",
+    "^@utils/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true
+}

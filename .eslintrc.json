@@ -1,0 +1,218 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+  "extends": [ 
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2020,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [ "prettier", "react", "unicorn", "prefer-arrow", "no-null" ],
+  "rules": {
+
+    // React
+    "react/forbid-prop-types": "error",
+    "react/no-multi-comp": [ "error", { "ignoreStateless": true }],
+    "react/no-set-state": "off",
+    "react/no-string-refs": "error",
+    "react/prefer-es6-class": "error",
+    "react/prefer-stateless-function": "error",
+    "react/require-render-return": "error",
+    "react/sort-comp": ["error", {
+      "order": [
+        "static-methods",
+        "lifecycle",
+        "render",
+        "/^render.+$/",
+        "/^on.+$/",
+        "everything-else"
+      ],
+      "groups": {
+        "lifecycle": [
+          "displayName",
+          "propTypes",
+          "contextTypes",
+          "childContextTypes",
+          "mixins",
+          "statics",
+          "defaultProps",
+          "constructor",
+          "getDefaultProps",
+          "state",
+          "getInitialState",
+          "getChildContext",
+          "getDerivedStateFromProps",
+          "componentWillMount",
+          "UNSAFE_componentWillMount",
+          "componentDidMount",
+          "componentWillReceiveProps",
+          "UNSAFE_componentWillReceiveProps",
+          "shouldComponentUpdate",
+          "componentWillUpdate",
+          "UNSAFE_componentWillUpdate",
+          "getSnapshotBeforeUpdate",
+          "componentDidUpdate",
+          "componentDidCatch",
+          "componentWillUnmount"
+        ]
+      }
+    }],
+    "react/sort-prop-types": "error",
+
+    // JSX
+    "react/jsx-boolean-value": "error",
+    "react/jsx-curly-spacing": [ "error", { "when": "never", "children": true } ],
+    "react/jsx-equals-spacing": "error",
+    "react/jsx-handler-names": "error",
+    "react/jsx-indent": [ "error", 2 ],
+    "react/jsx-key": "error",
+    "react/jsx-no-bind": "error",
+    "react/jsx-no-literals": "off",
+    "react/jsx-no-target-blank": "error",
+    "react/jsx-pascal-case": "error",
+    "react/jsx-sort-props": "error",
+    "react/jsx-first-prop-new-line": [2, "multiline"],
+    "react/jsx-max-props-per-line": [
+      2,
+      { "maximum": 1, "when": "multiline" }
+    ],
+    "react/jsx-indent-props": [2, 2],
+    "react/jsx-closing-bracket-location": [
+      2,
+      "tag-aligned"
+    ],
+
+    // Other
+    "arrow-body-style": "error",
+    "arrow-parens": ["off", "as-needed"],
+    "camelcase": "off",
+    "capitalized-comments": "off",
+    "complexity": "off",
+    "constructor-super": "error",
+    "curly": "error",
+    "dot-notation": "error",
+    "eol-last": "off",
+    "eqeqeq": ["error", "smart"],
+    "guard-for-in": "error",
+    "id-blacklist": ["error", "any", "Number", "String", "string", "Boolean", "Undefined"],
+    "id-match": "error",
+    "import/no-default-export": "error",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-internal-modules": "off",
+    "import/order": "off",
+    "import/named": "off",
+    "import/default": "off",
+    "linebreak-style": "off",
+    "max-classes-per-file": ["error", 1],
+    "max-len": "off",
+    "new-parens": "error",
+    "newline-per-chained-call": "off",
+    "no-bitwise": "error",
+    "no-caller": "error",
+    "no-cond-assign": "error",
+    "no-console": "off",
+    "no-debugger": "error",
+    "no-duplicate-case": "error",
+    "no-duplicate-imports": "off",
+    "no-empty": "error",
+    "no-eval": "error",
+    "no-extra-bind": "error",
+    "no-extra-semi": "off",
+    "no-fallthrough": "off",
+    "no-invalid-this": "off",
+    "no-irregular-whitespace": "off",
+    "no-multiple-empty-lines": "off",
+    "no-new-func": "error",
+    "no-new-wrappers": "error",
+    "no-null/no-null": "off",
+    "no-redeclare": "error",
+    "no-return-await": "error",
+    "no-sequences": "error",
+    "no-shadow": [
+      "error",
+      {
+        "hoist": "all"
+      }
+    ],
+    "no-sparse-arrays": "error",
+    "no-template-curly-in-string": "error",
+    "no-throw-literal": "error",
+    "no-trailing-spaces": "off",
+    "no-undef-init": "error",
+    "no-underscore-dangle": ["error", {"allowAfterThis": false}],
+    "no-unsafe-finally": "error",
+    "no-unused-expressions": "error",
+    "no-unused-labels": "error",
+    "no-var": "error",
+    "object-shorthand": "error",
+    "one-var": ["error", "never"],
+    "prefer-arrow/prefer-arrow-functions": "error",
+    "prefer-const": "error",
+    "prefer-object-spread": "error",
+    "quote-props": "off",
+    "radix": "off",
+    "space-before-function-paren": "off",
+    "spaced-comment": "error",
+    "unicorn/filename-case": "error",
+    "use-isnan": "error",
+    "valid-typeof": "off",
+    "semi": "off",
+    "prettier/prettier": "off",
+    "import/namespace": "off",
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
+    "react/prop-types": "off",
+    "react/display-name": "off",
+    "react/react-in-jsx-scope": "off"
+  },
+  "settings": {
+    "react": {
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "fragment": "Fragment",
+      "version": "detect"
+    },
+    "propWrapperFunctions": [
+        "forbidExtraProps",
+        {"property": "freeze", "object": "Object"},
+        {"property": "myFavoriteWrapper"}
+    ],
+    "componentWrapperFunctions": [
+        "observer",
+        {"property": "styled"},
+        {"property": "observer", "object": "Mobx"},
+        {"property": "observer", "object": "<pragma>"}
+    ],
+    "linkComponents": [
+      "Hyperlink",
+      {"name": "Link", "linkAttribute": "to"}
+    ],
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@constants","./src/constants/"],
+          ["@navigation","./src/navigation/"],
+          ["@services","./src/services/"],
+          ["@styles","./src/styles/"],
+          ["@components","./src/ui/components/"],
+          ["@views","./src/ui/views/"],
+          ["@utils","./src/utils"]
+        ],
+        "extensions": [".ts", ".js", ".jsx", ".json"]
+      }
+    }
+  }
+}
