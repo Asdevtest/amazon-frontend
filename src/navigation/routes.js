@@ -1,10 +1,9 @@
-import { ClientDashBoardView } from "@views/client/client-dashboard-view";
+import {ClientDashBoardView} from '@views/client/client-dashboard-view'
 
 export const routes = [
   {
-    routePath: "/dashboard",
+    routePath: '/dashboard',
     component: ClientDashBoardView,
     exact: false,
   },
-
 ]

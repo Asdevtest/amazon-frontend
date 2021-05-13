@@ -10,9 +10,7 @@ export class ClientDashBoardView extends Component {
   render() {
     // const {activeCategory, activeSubCategory, drawerOpen} = this.state
     // const styles = useStyles()
-    return (
-      <h1>ClientDashBoardView</h1>
-    )
+    return <h1>ClientDashBoardView</h1>
   }
 
   onChangeCategory = index => {
