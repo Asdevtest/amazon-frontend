@@ -214,5 +214,8 @@
         "extensions": [".ts", ".js", ".jsx", ".json"]
       }
     }
-  }
+  },
+  "ignorePatterns": [
+    "src/services/rest-api/codegen"
+  ]
 }
