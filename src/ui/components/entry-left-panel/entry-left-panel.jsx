@@ -2,11 +2,13 @@ import React from 'react'
 
 import {Typography} from '@material-ui/core'
 
-import {textsEn} from '@constants/texts'
+import {texts} from '@constants/texts'
+
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './entry-left-panel.style'
 
-const textConsts = textsEn.entryLeftPanel
+const textConsts = getLocalizedTexts(texts, 'en').entryLeftPanel
 
 export const EntryLeftPanel = () => {
   const classNames = useClassNames()

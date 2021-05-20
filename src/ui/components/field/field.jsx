@@ -7,12 +7,12 @@ import {Input} from '@components/input'
 
 import {useClassNames} from './field.style'
 
-export const Field = ({label, containerClasses, containerProps, ...others}) => {
+export const Field = ({label, containerClasses, containerProps, ...restProps}) => {
   const classNames = useClassNames()
   return (
     <div className={clsx(classNames.root, containerClasses)} {...containerProps}>
       <Typography className={classNames.label}>{label}</Typography>
-      <Input className={classNames.input} {...others} />
+      <Input className={classNames.input} {...restProps} />
     </div>
   )
 }
