@@ -216,6 +216,6 @@
     }
   },
   "ignorePatterns": [
-    "src/services/rest-api/codegen"
+    "src/services/rest-api-service/codegen"
   ]
 }
