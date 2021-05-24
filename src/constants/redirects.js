@@ -1,7 +1,7 @@
 export const redirectConfigs = [
   {
     from: '/',
-    to: '/dashboard',
+    to: '/documentation',
   },
   {
     from: '/supervisor',
