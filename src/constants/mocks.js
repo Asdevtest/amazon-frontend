@@ -100,3 +100,11 @@ export const CATEGORIES_LIST = {
     {icon: InfoOutlinedIcon, title: 'Регистрация', subtitles: null},
   ],
 }
+
+export const INVENTORY_CARD_LIST = [
+  {count: 7, label: 'Товаров в инвентаре', timer: null},
+  {count: 45, label: 'Товаров купленных на бирже', timer: '59:03'},
+  {count: 23, label: 'Товаров добавлено', timer: null},
+  {count: 20, label: 'Заказов оформлено', timer: null},
+  {count: 420, label: 'Куплено за 30 дней', timer: null},
+]
