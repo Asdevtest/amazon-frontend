@@ -79,7 +79,7 @@
     "react/jsx-handler-names": "error",
     "react/jsx-indent": [ "error", 2 ],
     "react/jsx-key": "error",
-   // "react/jsx-no-bind": "error",
+    "react/jsx-no-bind": "error",
     "react/jsx-no-literals": "off",
     "react/jsx-no-target-blank": "error",
     "react/jsx-pascal-case": "error",
@@ -208,7 +208,6 @@
           ["@services","./src/services/"],
           ["@styles","./src/styles/"],
           ["@components","./src/ui/components/"],
-          ["@components","./src/ui/components/documentation"],
           ["@views","./src/ui/views/"],
           ["@utils","./src/utils"]
         ],
