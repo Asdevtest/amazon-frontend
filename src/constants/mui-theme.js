@@ -9,6 +9,11 @@ export const muiTheme = createMuiTheme({
       primary: '#3d5170',
     },
   },
+  typography: {
+    h5: {
+      fontWeight: 500,
+    },
+  },
   overrides: {
     MuiButton: {
       root: {

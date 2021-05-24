@@ -1,4 +1,5 @@
 import {AuthView} from '@views/auth'
+import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientDashBoardView} from '@views/client/client-dashboard-view'
 import {Inventory} from '@views/client/inventory'
 import {Documentation} from '@views/documentation'
@@ -17,7 +18,7 @@ export const routes = [
   },
   {
     routePath: '/dashboard',
-    component: ClientDashBoardView,
+    component: ClientDashboardView,
     exact: false,
   },
   {
