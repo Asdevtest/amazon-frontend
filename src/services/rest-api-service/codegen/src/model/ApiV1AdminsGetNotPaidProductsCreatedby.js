@@ -25,7 +25,7 @@ class ApiV1AdminsGetNotPaidProductsCreatedby {
      * @param _id {String} GUID пользователя в БД.
      * @param name {String} Имя пользователя.
      * @param email {String} email
-     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.director = 1    roles.super = 2    roles.manager = 3    roles.buyer = 4    roles.candidate = 5    
+     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.director = 1    roles.super = 2    roles.researcher = 3    roles.buyer = 4    roles.candidate = 5    
      * @param fba {Boolean} Флаг fba.
      * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
      * @param rate {Number} Ставка, по который оплачивается сотрудник.
@@ -108,7 +108,7 @@ ApiV1AdminsGetNotPaidProductsCreatedby.prototype['name'] = undefined;
 ApiV1AdminsGetNotPaidProductsCreatedby.prototype['email'] = undefined;
 
 /**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.director = 1    roles.super = 2    roles.manager = 3    roles.buyer = 4    roles.candidate = 5    
+ * Код роли присвоенный пользователю.    roles.root = 0    roles.director = 1    roles.super = 2    roles.researcher = 3    roles.buyer = 4    roles.candidate = 5    
  * @member {Number} role
  */
 ApiV1AdminsGetNotPaidProductsCreatedby.prototype['role'] = undefined;

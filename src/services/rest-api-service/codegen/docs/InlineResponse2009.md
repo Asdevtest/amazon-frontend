@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | id поставщика. | [optional] 
-**name** | **String** | Название поставщика. | [optional] 
-**link** | **String** | Ссылка на поставщика. | [optional] 
-**price** | **Number** | Цена | [optional] 
-**delivery** | **Number** | Тип доставки | [optional] 
-**amount** | **Number** | кол-во | [optional] 
-**minlot** | **Number** | Минимальный лот. | [optional] 
-**lotcost** | **Number** | Стоимость лота. | [optional] 
-**comment** | **String** | Комментарий | [optional] 
-**_id** | **String** | GUID поставщика в БД | [optional] 
+**id** | **String** | id продукта(asin) | 
+**images** | **[String]** | массив с именами файлов | 
+**title** | **String** | Заголовок продукта | 
+**about** | **String** | О продукте. | 
+**description** | **String** | Описание | 
+**price** | **String** | Цена. | 
+**availability** | **String** | Доступность. | 
+**detail** | **String** | Детали. | 
+**asin** | **String** | ASIN | 
+**bsr** | **String** | BSR | 
+**weight** | **String** | Вес. | 
 
 

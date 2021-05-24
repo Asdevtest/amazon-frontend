@@ -60,14 +60,26 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property name (base name: "name")', function() {
-      // uncomment below and update the code to test the property name
+    it('should have the property images (base name: "images")', function() {
+      // uncomment below and update the code to test the property images
       //var instance = new Amazonapi.InlineResponse2009();
       //expect(instance).to.be();
     });
 
-    it('should have the property link (base name: "link")', function() {
-      // uncomment below and update the code to test the property link
+    it('should have the property title (base name: "title")', function() {
+      // uncomment below and update the code to test the property title
+      //var instance = new Amazonapi.InlineResponse2009();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property about (base name: "about")', function() {
+      // uncomment below and update the code to test the property about
+      //var instance = new Amazonapi.InlineResponse2009();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property description (base name: "description")', function() {
+      // uncomment below and update the code to test the property description
       //var instance = new Amazonapi.InlineResponse2009();
       //expect(instance).to.be();
     });
@@ -78,38 +90,32 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property delivery (base name: "delivery")', function() {
-      // uncomment below and update the code to test the property delivery
+    it('should have the property availability (base name: "availability")', function() {
+      // uncomment below and update the code to test the property availability
       //var instance = new Amazonapi.InlineResponse2009();
       //expect(instance).to.be();
     });
 
-    it('should have the property amount (base name: "amount")', function() {
-      // uncomment below and update the code to test the property amount
+    it('should have the property detail (base name: "detail")', function() {
+      // uncomment below and update the code to test the property detail
       //var instance = new Amazonapi.InlineResponse2009();
       //expect(instance).to.be();
     });
 
-    it('should have the property minlot (base name: "minlot")', function() {
-      // uncomment below and update the code to test the property minlot
+    it('should have the property asin (base name: "asin")', function() {
+      // uncomment below and update the code to test the property asin
       //var instance = new Amazonapi.InlineResponse2009();
       //expect(instance).to.be();
     });
 
-    it('should have the property lotcost (base name: "lotcost")', function() {
-      // uncomment below and update the code to test the property lotcost
+    it('should have the property bsr (base name: "bsr")', function() {
+      // uncomment below and update the code to test the property bsr
       //var instance = new Amazonapi.InlineResponse2009();
       //expect(instance).to.be();
     });
 
-    it('should have the property comment (base name: "comment")', function() {
-      // uncomment below and update the code to test the property comment
-      //var instance = new Amazonapi.InlineResponse2009();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property _id (base name: "_id")', function() {
-      // uncomment below and update the code to test the property _id
+    it('should have the property weight (base name: "weight")', function() {
+      // uncomment below and update the code to test the property weight
       //var instance = new Amazonapi.InlineResponse2009();
       //expect(instance).to.be();
     });

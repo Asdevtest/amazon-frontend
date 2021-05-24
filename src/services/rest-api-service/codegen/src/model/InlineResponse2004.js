@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BuyersPaymentsMyCreatedBy from './ApiV1BuyersPaymentsMyCreatedBy';
 
 /**
  * The InlineResponse2004 model module.
@@ -22,13 +23,10 @@ class InlineResponse2004 {
     /**
      * Constructs a new <code>InlineResponse2004</code>.
      * @alias module:model/InlineResponse2004
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxId {String} GUID коробки для которой создана задача
-     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      */
-    constructor(taskId, boxId, status) { 
+    constructor() { 
         
-        InlineResponse2004.initialize(this, taskId, boxId, status);
+        InlineResponse2004.initialize(this);
     }
 
     /**
@@ -36,10 +34,7 @@ class InlineResponse2004 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, boxId, status) { 
-        obj['taskId'] = taskId;
-        obj['boxId'] = boxId;
-        obj['status'] = status;
+    static initialize(obj) { 
     }
 
     /**
@@ -53,17 +48,23 @@ class InlineResponse2004 {
         if (data) {
             obj = obj || new InlineResponse2004();
 
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('boxId')) {
-                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
+            if (data.hasOwnProperty('createdDate')) {
+                obj['createdDate'] = ApiClient.convertToType(data['createdDate'], 'Date');
             }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1BuyersPaymentsMyCreatedBy.constructFromObject(data['createdBy']);
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('recipient')) {
+                obj['recipient'] = ApiV1BuyersPaymentsMyCreatedBy.constructFromObject(data['recipient']);
+            }
+            if (data.hasOwnProperty('sum')) {
+                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
             }
         }
         return obj;
@@ -73,28 +74,38 @@ class InlineResponse2004 {
 }
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * GUID платежа
+ * @member {String} _id
  */
-InlineResponse2004.prototype['taskId'] = undefined;
+InlineResponse2004.prototype['_id'] = undefined;
 
 /**
- * GUID коробки для которой создана задача
- * @member {String} boxId
+ * Дата создания.
+ * @member {Date} createdDate
  */
-InlineResponse2004.prototype['boxId'] = undefined;
+InlineResponse2004.prototype['createdDate'] = undefined;
 
 /**
- * GUID сотрудника склада, который выполняет задачу.
- * @member {String} storekeeperId
+ * @member {module:model/ApiV1BuyersPaymentsMyCreatedBy} createdBy
  */
-InlineResponse2004.prototype['storekeeperId'] = undefined;
+InlineResponse2004.prototype['createdBy'] = undefined;
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
- * @member {Number} status
+ * GUID продукта.
+ * @member {String} productId
  */
-InlineResponse2004.prototype['status'] = undefined;
+InlineResponse2004.prototype['productId'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BuyersPaymentsMyCreatedBy} recipient
+ */
+InlineResponse2004.prototype['recipient'] = undefined;
+
+/**
+ * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+ * @member {Number} sum
+ */
+InlineResponse2004.prototype['sum'] = undefined;
 
 
 

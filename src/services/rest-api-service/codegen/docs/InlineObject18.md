@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Only 0,1,2,3,4,5 code are allowed for supervisor | 
+**status** | **Number** | См. описание статусов например в readMe.md | 
 **checkednotes** | **String** | Комментарий к статусу проверки. | 
 
 
@@ -12,17 +12,15 @@ Name | Type | Description | Notes
 ## Enum: StatusEnum
 
 
-* `0` (value: `0`)
+* `20` (value: `20`)
 
-* `1` (value: `1`)
+* `30` (value: `30`)
 
-* `2` (value: `2`)
+* `70` (value: `70`)
 
-* `3` (value: `3`)
+* `80` (value: `80`)
 
-* `4` (value: `4`)
-
-* `5` (value: `5`)
+* `90` (value: `90`)
 
 
 

@@ -59,6 +59,9 @@ class InlineObject8 {
         if (data) {
             obj = obj || new InlineObject8();
 
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
@@ -83,6 +86,12 @@ class InlineObject8 {
 
 
 }
+
+/**
+ * Код текущего состояния заказа.
+ * @member {Number} status
+ */
+InlineObject8.prototype['status'] = undefined;
 
 /**
  * Кол-во продукта по этой позиции.

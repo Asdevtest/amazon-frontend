@@ -60,12 +60,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property material (base name: "material")', function() {
-      // uncomment below and update the code to test the property material
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
     it('should have the property lamazon (base name: "lamazon")', function() {
       // uncomment below and update the code to test the property lamazon
       //var instance = new Amazonapi.InlineObject14();
@@ -78,26 +72,14 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property fba (base name: "fba")', function() {
-      // uncomment below and update the code to test the property fba
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property express (base name: "express")', function() {
-      // uncomment below and update the code to test the property express
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property minpurchase (base name: "minpurchase")', function() {
-      // uncomment below and update the code to test the property minpurchase
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
     it('should have the property bsr (base name: "bsr")', function() {
       // uncomment below and update the code to test the property bsr
+      //var instance = new Amazonapi.InlineObject14();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property status (base name: "status")', function() {
+      // uncomment below and update the code to test the property status
       //var instance = new Amazonapi.InlineObject14();
       //expect(instance).to.be();
     });
@@ -108,50 +90,14 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property height (base name: "height")', function() {
-      // uncomment below and update the code to test the property height
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property width (base name: "width")', function() {
-      // uncomment below and update the code to test the property width
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property length (base name: "length")', function() {
-      // uncomment below and update the code to test the property length
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property weight (base name: "weight")', function() {
-      // uncomment below and update the code to test the property weight
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
     it('should have the property supplier (base name: "supplier")', function() {
       // uncomment below and update the code to test the property supplier
       //var instance = new Amazonapi.InlineObject14();
       //expect(instance).to.be();
     });
 
-    it('should have the property fbalink (base name: "fbalink")', function() {
-      // uncomment below and update the code to test the property fbalink
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
     it('should have the property fbafee (base name: "fbafee")', function() {
       // uncomment below and update the code to test the property fbafee
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property fbaamount (base name: "fbaamount")', function() {
-      // uncomment below and update the code to test the property fbaamount
       //var instance = new Amazonapi.InlineObject14();
       //expect(instance).to.be();
     });
@@ -168,74 +114,8 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property status (base name: "status")', function() {
-      // uncomment below and update the code to test the property status
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property checkednotes (base name: "checkednotes")', function() {
-      // uncomment below and update the code to test the property checkednotes
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property managerFine (base name: "managerFine")', function() {
-      // uncomment below and update the code to test the property managerFine
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property managerFineComment (base name: "managerFineComment")', function() {
-      // uncomment below and update the code to test the property managerFineComment
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property supervisorFine (base name: "supervisorFine")', function() {
-      // uncomment below and update the code to test the property supervisorFine
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property supervisorFineComment (base name: "supervisorFineComment")', function() {
-      // uncomment below and update the code to test the property supervisorFineComment
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property dirdecision (base name: "dirdecision")', function() {
-      // uncomment below and update the code to test the property dirdecision
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property amazonDescription (base name: "amazonDescription")', function() {
-      // uncomment below and update the code to test the property amazonDescription
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property amazonDetail (base name: "amazonDetail")', function() {
-      // uncomment below and update the code to test the property amazonDetail
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property amazonTitle (base name: "amazonTitle")', function() {
-      // uncomment below and update the code to test the property amazonTitle
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property profit (base name: "profit")', function() {
-      // uncomment below and update the code to test the property profit
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property margin (base name: "margin")', function() {
-      // uncomment below and update the code to test the property margin
+    it('should have the property images (base name: "images")', function() {
+      // uncomment below and update the code to test the property images
       //var instance = new Amazonapi.InlineObject14();
       //expect(instance).to.be();
     });

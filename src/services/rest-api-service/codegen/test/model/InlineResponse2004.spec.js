@@ -54,26 +54,38 @@
       //expect(instance).to.be.a(Amazonapi.InlineResponse2004);
     });
 
-    it('should have the property taskId (base name: "taskId")', function() {
-      // uncomment below and update the code to test the property taskId
+    it('should have the property _id (base name: "_id")', function() {
+      // uncomment below and update the code to test the property _id
       //var instance = new Amazonapi.InlineResponse2004();
       //expect(instance).to.be();
     });
 
-    it('should have the property boxId (base name: "boxId")', function() {
-      // uncomment below and update the code to test the property boxId
+    it('should have the property createdDate (base name: "createdDate")', function() {
+      // uncomment below and update the code to test the property createdDate
       //var instance = new Amazonapi.InlineResponse2004();
       //expect(instance).to.be();
     });
 
-    it('should have the property storekeeperId (base name: "storekeeperId")', function() {
-      // uncomment below and update the code to test the property storekeeperId
+    it('should have the property createdBy (base name: "createdBy")', function() {
+      // uncomment below and update the code to test the property createdBy
       //var instance = new Amazonapi.InlineResponse2004();
       //expect(instance).to.be();
     });
 
-    it('should have the property status (base name: "status")', function() {
-      // uncomment below and update the code to test the property status
+    it('should have the property productId (base name: "productId")', function() {
+      // uncomment below and update the code to test the property productId
+      //var instance = new Amazonapi.InlineResponse2004();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property recipient (base name: "recipient")', function() {
+      // uncomment below and update the code to test the property recipient
+      //var instance = new Amazonapi.InlineResponse2004();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property sum (base name: "sum")', function() {
+      // uncomment below and update the code to test the property sum
       //var instance = new Amazonapi.InlineResponse2004();
       //expect(instance).to.be();
     });

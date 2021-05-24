@@ -52,11 +52,11 @@ class InlineObject {
             if (data.hasOwnProperty('dirdecision')) {
                 obj['dirdecision'] = ApiClient.convertToType(data['dirdecision'], 'Number');
             }
-            if (data.hasOwnProperty('managerFine')) {
-                obj['managerFine'] = ApiClient.convertToType(data['managerFine'], 'Number');
+            if (data.hasOwnProperty('researcherFine')) {
+                obj['researcherFine'] = ApiClient.convertToType(data['researcherFine'], 'Number');
             }
-            if (data.hasOwnProperty('managerFineComment')) {
-                obj['managerFineComment'] = ApiClient.convertToType(data['managerFineComment'], 'String');
+            if (data.hasOwnProperty('researcherFineComment')) {
+                obj['researcherFineComment'] = ApiClient.convertToType(data['researcherFineComment'], 'String');
             }
             if (data.hasOwnProperty('supervisorFine')) {
                 obj['supervisorFine'] = ApiClient.convertToType(data['supervisorFine'], 'Number');
@@ -79,15 +79,15 @@ InlineObject.prototype['dirdecision'] = undefined;
 
 /**
  * Штраф на менеджера.
- * @member {Number} managerFine
+ * @member {Number} researcherFine
  */
-InlineObject.prototype['managerFine'] = undefined;
+InlineObject.prototype['researcherFine'] = undefined;
 
 /**
  * Комментарии к штрафу на менеджера.
- * @member {String} managerFineComment
+ * @member {String} researcherFineComment
  */
-InlineObject.prototype['managerFineComment'] = undefined;
+InlineObject.prototype['researcherFineComment'] = undefined;
 
 /**
  * Штраф на супервайзера.

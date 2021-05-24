@@ -4,9 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
-**boxId** | **String** | GUID коробки для которой создана задача | 
-**storekeeperId** | **String** | GUID сотрудника склада, который выполняет задачу. | [optional] 
-**status** | **Number** | Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено. | 
+**_id** | **String** | GUID платежа | [optional] 
+**createdDate** | **Date** | Дата создания. | [optional] 
+**createdBy** | [**ApiV1BuyersPaymentsMyCreatedBy**](ApiV1BuyersPaymentsMyCreatedBy.md) |  | [optional] 
+**productId** | **String** | GUID продукта. | [optional] 
+**recipient** | [**ApiV1BuyersPaymentsMyCreatedBy**](ApiV1BuyersPaymentsMyCreatedBy.md) |  | [optional] 
+**sum** | **Number** | Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления. | [optional] 
 
 

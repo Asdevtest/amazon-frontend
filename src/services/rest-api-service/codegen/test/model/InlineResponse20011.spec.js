@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new Amazonapi.InlineResponse2012();
+    instance = new Amazonapi.InlineResponse20011();
   });
 
   var getProperty = function(object, getter, property) {
@@ -47,16 +47,34 @@
       object[property] = value;
   }
 
-  describe('InlineResponse2012', function() {
-    it('should create an instance of InlineResponse2012', function() {
-      // uncomment below and update the code to test InlineResponse2012
-      //var instane = new Amazonapi.InlineResponse2012();
-      //expect(instance).to.be.a(Amazonapi.InlineResponse2012);
+  describe('InlineResponse20011', function() {
+    it('should create an instance of InlineResponse20011', function() {
+      // uncomment below and update the code to test InlineResponse20011
+      //var instane = new Amazonapi.InlineResponse20011();
+      //expect(instance).to.be.a(Amazonapi.InlineResponse20011);
     });
 
-    it('should have the property token (base name: "token")', function() {
-      // uncomment below and update the code to test the property token
-      //var instance = new Amazonapi.InlineResponse2012();
+    it('should have the property _id (base name: "_id")', function() {
+      // uncomment below and update the code to test the property _id
+      //var instance = new Amazonapi.InlineResponse20011();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property taskId (base name: "taskId")', function() {
+      // uncomment below and update the code to test the property taskId
+      //var instance = new Amazonapi.InlineResponse20011();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property boxId (base name: "boxId")', function() {
+      // uncomment below and update the code to test the property boxId
+      //var instance = new Amazonapi.InlineResponse20011();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property status (base name: "status")', function() {
+      // uncomment below and update the code to test the property status
+      //var instance = new Amazonapi.InlineResponse20011();
       //expect(instance).to.be();
     });
 

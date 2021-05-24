@@ -47,9 +47,6 @@ class InlineResponse2003 {
         if (data) {
             obj = obj || new InlineResponse2003();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
             if (data.hasOwnProperty('lengthCm')) {
                 obj['lengthCm'] = ApiClient.convertToType(data['lengthCm'], 'Number');
             }
@@ -137,21 +134,12 @@ class InlineResponse2003 {
             if (data.hasOwnProperty('ordersId')) {
                 obj['ordersId'] = ApiClient.convertToType(data['ordersId'], [Object]);
             }
-            if (data.hasOwnProperty('isActual')) {
-                obj['isActual'] = ApiClient.convertToType(data['isActual'], 'Boolean');
-            }
         }
         return obj;
     }
 
 
 }
-
-/**
- * GUID коробки.
- * @member {String} _id
- */
-InlineResponse2003.prototype['_id'] = undefined;
 
 /**
  * Поле в которое наследуем данные размеров коробок
@@ -326,12 +314,6 @@ InlineResponse2003.prototype['lastModifiedBy'] = undefined;
  * @member {Array.<Object>} ordersId
  */
 InlineResponse2003.prototype['ordersId'] = undefined;
-
-/**
- * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
- * @member {Boolean} isActual
- */
-InlineResponse2003.prototype['isActual'] = undefined;
 
 
 

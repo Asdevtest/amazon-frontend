@@ -60,14 +60,14 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property managerFine (base name: "managerFine")', function() {
-      // uncomment below and update the code to test the property managerFine
+    it('should have the property researcherFine (base name: "researcherFine")', function() {
+      // uncomment below and update the code to test the property researcherFine
       //var instance = new Amazonapi.InlineObject();
       //expect(instance).to.be();
     });
 
-    it('should have the property managerFineComment (base name: "managerFineComment")', function() {
-      // uncomment below and update the code to test the property managerFineComment
+    it('should have the property researcherFineComment (base name: "researcherFineComment")', function() {
+      // uncomment below and update the code to test the property researcherFineComment
       //var instance = new Amazonapi.InlineObject();
       //expect(instance).to.be();
     });

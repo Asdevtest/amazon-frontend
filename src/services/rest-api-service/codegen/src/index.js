@@ -15,6 +15,7 @@
 import ApiClient from './ApiClient';
 import ApiV1AdminsGetNotPaidProductsCreatedby from './model/ApiV1AdminsGetNotPaidProductsCreatedby';
 import ApiV1BuyersOrdersVacItemList from './model/ApiV1BuyersOrdersVacItemList';
+import ApiV1BuyersPaymentsMyCreatedBy from './model/ApiV1BuyersPaymentsMyCreatedBy';
 import InlineObject from './model/InlineObject';
 import InlineObject1 from './model/InlineObject1';
 import InlineObject10 from './model/InlineObject10';
@@ -40,6 +41,10 @@ import InlineObject8 from './model/InlineObject8';
 import InlineObject9 from './model/InlineObject9';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
+import InlineResponse20010 from './model/InlineResponse20010';
+import InlineResponse20011 from './model/InlineResponse20011';
+import InlineResponse20012 from './model/InlineResponse20012';
+import InlineResponse20013 from './model/InlineResponse20013';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
@@ -50,13 +55,20 @@ import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
-import InlineResponse2012 from './model/InlineResponse2012';
 import InlineResponse400 from './model/InlineResponse400';
 import InlineResponse403 from './model/InlineResponse403';
 import InlineResponse404 from './model/InlineResponse404';
 import InlineResponse409 from './model/InlineResponse409';
 import InlineResponse500 from './model/InlineResponse500';
-import DefaultApi from './api/DefaultApi';
+import AdministratorApi from './api/AdministratorApi';
+import BuyerApi from './api/BuyerApi';
+import ClientApi from './api/ClientApi';
+import ProductForTestOnlyApi from './api/ProductForTestOnlyApi';
+import ReseacherApi from './api/ReseacherApi';
+import StorekeepersApi from './api/StorekeepersApi';
+import SupervisorApi from './api/SupervisorApi';
+import SupplierApi from './api/SupplierApi';
+import UserApi from './api/UserApi';
 
 
 /**
@@ -108,6 +120,12 @@ export {
      * @property {module:model/ApiV1BuyersOrdersVacItemList}
      */
     ApiV1BuyersOrdersVacItemList,
+
+    /**
+     * The ApiV1BuyersPaymentsMyCreatedBy model constructor.
+     * @property {module:model/ApiV1BuyersPaymentsMyCreatedBy}
+     */
+    ApiV1BuyersPaymentsMyCreatedBy,
 
     /**
      * The InlineObject model constructor.
@@ -260,6 +278,30 @@ export {
     InlineResponse2001,
 
     /**
+     * The InlineResponse20010 model constructor.
+     * @property {module:model/InlineResponse20010}
+     */
+    InlineResponse20010,
+
+    /**
+     * The InlineResponse20011 model constructor.
+     * @property {module:model/InlineResponse20011}
+     */
+    InlineResponse20011,
+
+    /**
+     * The InlineResponse20012 model constructor.
+     * @property {module:model/InlineResponse20012}
+     */
+    InlineResponse20012,
+
+    /**
+     * The InlineResponse20013 model constructor.
+     * @property {module:model/InlineResponse20013}
+     */
+    InlineResponse20013,
+
+    /**
      * The InlineResponse2002 model constructor.
      * @property {module:model/InlineResponse2002}
      */
@@ -320,12 +362,6 @@ export {
     InlineResponse2011,
 
     /**
-     * The InlineResponse2012 model constructor.
-     * @property {module:model/InlineResponse2012}
-     */
-    InlineResponse2012,
-
-    /**
      * The InlineResponse400 model constructor.
      * @property {module:model/InlineResponse400}
      */
@@ -356,8 +392,56 @@ export {
     InlineResponse500,
 
     /**
-    * The DefaultApi service constructor.
-    * @property {module:api/DefaultApi}
+    * The AdministratorApi service constructor.
+    * @property {module:api/AdministratorApi}
     */
-    DefaultApi
+    AdministratorApi,
+
+    /**
+    * The BuyerApi service constructor.
+    * @property {module:api/BuyerApi}
+    */
+    BuyerApi,
+
+    /**
+    * The ClientApi service constructor.
+    * @property {module:api/ClientApi}
+    */
+    ClientApi,
+
+    /**
+    * The ProductForTestOnlyApi service constructor.
+    * @property {module:api/ProductForTestOnlyApi}
+    */
+    ProductForTestOnlyApi,
+
+    /**
+    * The ReseacherApi service constructor.
+    * @property {module:api/ReseacherApi}
+    */
+    ReseacherApi,
+
+    /**
+    * The StorekeepersApi service constructor.
+    * @property {module:api/StorekeepersApi}
+    */
+    StorekeepersApi,
+
+    /**
+    * The SupervisorApi service constructor.
+    * @property {module:api/SupervisorApi}
+    */
+    SupervisorApi,
+
+    /**
+    * The SupplierApi service constructor.
+    * @property {module:api/SupplierApi}
+    */
+    SupplierApi,
+
+    /**
+    * The UserApi service constructor.
+    * @property {module:api/UserApi}
+    */
+    UserApi
 };

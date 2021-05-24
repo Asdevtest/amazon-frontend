@@ -85,7 +85,7 @@ InlineObject2.prototype['name'] = undefined;
 InlineObject2.prototype['email'] = undefined;
 
 /**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.director = 1    roles.super = 2    roles.manager = 3    roles.buyer = 4    roles.candidate = 5    
+ * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
  * @member {Number} role
  */
 InlineObject2.prototype['role'] = undefined;

@@ -22,10 +22,16 @@ class InlineResponse2005 {
     /**
      * Constructs a new <code>InlineResponse2005</code>.
      * @alias module:model/InlineResponse2005
+     * @param amount {Number} Кол-во продукта по этой позиции.
+     * @param deliveryMethod {Number} Код метода доставки.
+     * @param warehouse {Number} Номер склада.
+     * @param clientComment {String} Комментарии клиента.
+     * @param barCode {String} Ссылка на баркод.
+     * @param product {String} GUID заказанного продукта
      */
-    constructor() { 
+    constructor(amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
         
-        InlineResponse2005.initialize(this);
+        InlineResponse2005.initialize(this, amount, deliveryMethod, warehouse, clientComment, barCode, product);
     }
 
     /**
@@ -33,7 +39,13 @@ class InlineResponse2005 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
+        obj['amount'] = amount;
+        obj['deliveryMethod'] = deliveryMethod;
+        obj['warehouse'] = warehouse;
+        obj['clientComment'] = clientComment;
+        obj['barCode'] = barCode;
+        obj['product'] = product;
     }
 
     /**
@@ -47,8 +59,26 @@ class InlineResponse2005 {
         if (data) {
             obj = obj || new InlineResponse2005();
 
-            if (data.hasOwnProperty('isExist')) {
-                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = ApiClient.convertToType(data['product'], 'String');
             }
         }
         return obj;
@@ -58,10 +88,46 @@ class InlineResponse2005 {
 }
 
 /**
- * Флаг, показывает есть ли такой id в базе или нет
- * @member {Boolean} isExist
+ * Код текущего состояния заказа.
+ * @member {Number} status
  */
-InlineResponse2005.prototype['isExist'] = undefined;
+InlineResponse2005.prototype['status'] = undefined;
+
+/**
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
+ */
+InlineResponse2005.prototype['amount'] = undefined;
+
+/**
+ * Код метода доставки.
+ * @member {Number} deliveryMethod
+ */
+InlineResponse2005.prototype['deliveryMethod'] = undefined;
+
+/**
+ * Номер склада.
+ * @member {Number} warehouse
+ */
+InlineResponse2005.prototype['warehouse'] = undefined;
+
+/**
+ * Комментарии клиента.
+ * @member {String} clientComment
+ */
+InlineResponse2005.prototype['clientComment'] = undefined;
+
+/**
+ * Ссылка на баркод.
+ * @member {String} barCode
+ */
+InlineResponse2005.prototype['barCode'] = undefined;
+
+/**
+ * GUID заказанного продукта
+ * @member {String} product
+ */
+InlineResponse2005.prototype['product'] = undefined;
 
 
 

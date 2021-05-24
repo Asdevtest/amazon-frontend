@@ -54,26 +54,8 @@
       //expect(instance).to.be.a(Amazonapi.InlineResponse2008);
     });
 
-    it('should have the property _id (base name: "_id")', function() {
-      // uncomment below and update the code to test the property _id
-      //var instance = new Amazonapi.InlineResponse2008();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property taskId (base name: "taskId")', function() {
-      // uncomment below and update the code to test the property taskId
-      //var instance = new Amazonapi.InlineResponse2008();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property boxId (base name: "boxId")', function() {
-      // uncomment below and update the code to test the property boxId
-      //var instance = new Amazonapi.InlineResponse2008();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property status (base name: "status")', function() {
-      // uncomment below and update the code to test the property status
+    it('should have the property isExist (base name: "isExist")', function() {
+      // uncomment below and update the code to test the property isExist
       //var instance = new Amazonapi.InlineResponse2008();
       //expect(instance).to.be();
     });
