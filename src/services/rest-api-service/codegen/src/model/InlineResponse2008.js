@@ -22,14 +22,10 @@ class InlineResponse2008 {
     /**
      * Constructs a new <code>InlineResponse2008</code>.
      * @alias module:model/InlineResponse2008
-     * @param _id {String} GUID задачи в DB
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxId {String} GUID коробки для которой создана задача
-     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      */
-    constructor(_id, taskId, boxId, status) { 
+    constructor() { 
         
-        InlineResponse2008.initialize(this, _id, taskId, boxId, status);
+        InlineResponse2008.initialize(this);
     }
 
     /**
@@ -37,11 +33,7 @@ class InlineResponse2008 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, taskId, boxId, status) { 
-        obj['_id'] = _id;
-        obj['taskId'] = taskId;
-        obj['boxId'] = boxId;
-        obj['status'] = status;
+    static initialize(obj) { 
     }
 
     /**
@@ -55,17 +47,8 @@ class InlineResponse2008 {
         if (data) {
             obj = obj || new InlineResponse2008();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
-            }
-            if (data.hasOwnProperty('boxId')) {
-                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
         }
         return obj;
@@ -75,28 +58,10 @@ class InlineResponse2008 {
 }
 
 /**
- * GUID задачи в DB
- * @member {String} _id
+ * Флаг, показывает есть ли такой id в базе или нет
+ * @member {Boolean} isExist
  */
-InlineResponse2008.prototype['_id'] = undefined;
-
-/**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
- */
-InlineResponse2008.prototype['taskId'] = undefined;
-
-/**
- * GUID коробки для которой создана задача
- * @member {String} boxId
- */
-InlineResponse2008.prototype['boxId'] = undefined;
-
-/**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
- * @member {Number} status
- */
-InlineResponse2008.prototype['status'] = undefined;
+InlineResponse2008.prototype['isExist'] = undefined;
 
 
 

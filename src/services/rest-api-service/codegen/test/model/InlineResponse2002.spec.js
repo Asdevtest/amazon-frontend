@@ -54,20 +54,14 @@
       //expect(instance).to.be.a(Amazonapi.InlineResponse2002);
     });
 
-    it('should have the property amount (base name: "amount")', function() {
-      // uncomment below and update the code to test the property amount
+    it('should have the property _id (base name: "_id")', function() {
+      // uncomment below and update the code to test the property _id
       //var instance = new Amazonapi.InlineResponse2002();
       //expect(instance).to.be();
     });
 
-    it('should have the property deliveryMethod (base name: "deliveryMethod")', function() {
-      // uncomment below and update the code to test the property deliveryMethod
-      //var instance = new Amazonapi.InlineResponse2002();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property warehouse (base name: "warehouse")', function() {
-      // uncomment below and update the code to test the property warehouse
+    it('should have the property buyerId (base name: "buyerId")', function() {
+      // uncomment below and update the code to test the property buyerId
       //var instance = new Amazonapi.InlineResponse2002();
       //expect(instance).to.be();
     });
@@ -78,8 +72,44 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property barCode (base name: "barCode")', function() {
-      // uncomment below and update the code to test the property barCode
+    it('should have the property buyerComment (base name: "buyerComment")', function() {
+      // uncomment below and update the code to test the property buyerComment
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property warehouse (base name: "warehouse")', function() {
+      // uncomment below and update the code to test the property warehouse
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property deliveryMethod (base name: "deliveryMethod")', function() {
+      // uncomment below and update the code to test the property deliveryMethod
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property itemList (base name: "itemList")', function() {
+      // uncomment below and update the code to test the property itemList
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fba (base name: "fba")', function() {
+      // uncomment below and update the code to test the property fba
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property status (base name: "status")', function() {
+      // uncomment below and update the code to test the property status
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property deliveryCostToTheWarehouse (base name: "deliveryCostToTheWarehouse")', function() {
+      // uncomment below and update the code to test the property deliveryCostToTheWarehouse
       //var instance = new Amazonapi.InlineResponse2002();
       //expect(instance).to.be();
     });

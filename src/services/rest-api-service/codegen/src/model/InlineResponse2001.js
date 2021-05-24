@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BuyersOrdersVacItemList from './ApiV1BuyersOrdersVacItemList';
 
 /**
  * The InlineResponse2001 model module.
@@ -23,18 +22,17 @@ class InlineResponse2001 {
     /**
      * Constructs a new <code>InlineResponse2001</code>.
      * @alias module:model/InlineResponse2001
-     * @param buyerId {String} GUID пользователя(байера)
-     * @param clientComment {String} Комментарии клиента.
-     * @param buyerComment {String} комментарии байера.
-     * @param warehouse {Number} Номер склада.
-     * @param deliveryMethod {Number} Вид доставки.
-     * @param itemList {Array.<module:model/ApiV1BuyersOrdersVacItemList>} Список товаров.
-     * @param fba {Boolean} Признак FBA это заказ или нет.
-     * @param deliveryCostToTheWarehouse {Number} Стоимость доставки до склада.
+     * @param _id {String} GUID пользователя в БД.
+     * @param name {String} Имя пользователя.
+     * @param email {String} email
+     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
+     * @param fba {Boolean} Флаг fba.
+     * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
+     * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
-    constructor(buyerId, clientComment, buyerComment, warehouse, deliveryMethod, itemList, fba, deliveryCostToTheWarehouse) { 
+    constructor(_id, name, email, role, fba, active, rate) { 
         
-        InlineResponse2001.initialize(this, buyerId, clientComment, buyerComment, warehouse, deliveryMethod, itemList, fba, deliveryCostToTheWarehouse);
+        InlineResponse2001.initialize(this, _id, name, email, role, fba, active, rate);
     }
 
     /**
@@ -42,15 +40,14 @@ class InlineResponse2001 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, buyerId, clientComment, buyerComment, warehouse, deliveryMethod, itemList, fba, deliveryCostToTheWarehouse) { 
-        obj['buyerId'] = buyerId;
-        obj['clientComment'] = clientComment;
-        obj['buyerComment'] = buyerComment;
-        obj['warehouse'] = warehouse;
-        obj['deliveryMethod'] = deliveryMethod;
-        obj['itemList'] = itemList;
+    static initialize(obj, _id, name, email, role, fba, active, rate) { 
+        obj['_id'] = _id;
+        obj['name'] = name;
+        obj['email'] = email;
+        obj['role'] = role;
         obj['fba'] = fba;
-        obj['deliveryCostToTheWarehouse'] = deliveryCostToTheWarehouse;
+        obj['active'] = active;
+        obj['rate'] = rate;
     }
 
     /**
@@ -67,32 +64,23 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('buyerId')) {
-                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('itemList')) {
-                obj['itemList'] = ApiClient.convertToType(data['itemList'], [ApiV1BuyersOrdersVacItemList]);
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
             if (data.hasOwnProperty('fba')) {
                 obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('active')) {
+                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
             }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
+            if (data.hasOwnProperty('rate')) {
+                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
             }
         }
         return obj;
@@ -102,125 +90,49 @@ class InlineResponse2001 {
 }
 
 /**
- * GUID данной записи в БД.
+ * GUID пользователя в БД.
  * @member {String} _id
  */
 InlineResponse2001.prototype['_id'] = undefined;
 
 /**
- * GUID пользователя(байера)
- * @member {String} buyerId
+ * Имя пользователя.
+ * @member {String} name
  */
-InlineResponse2001.prototype['buyerId'] = undefined;
+InlineResponse2001.prototype['name'] = undefined;
 
 /**
- * Комментарии клиента.
- * @member {String} clientComment
+ * email
+ * @member {String} email
  */
-InlineResponse2001.prototype['clientComment'] = undefined;
+InlineResponse2001.prototype['email'] = undefined;
 
 /**
- * комментарии байера.
- * @member {String} buyerComment
+ * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
+ * @member {Number} role
  */
-InlineResponse2001.prototype['buyerComment'] = undefined;
+InlineResponse2001.prototype['role'] = undefined;
 
 /**
- * Номер склада.
- * @member {Number} warehouse
- */
-InlineResponse2001.prototype['warehouse'] = undefined;
-
-/**
- * Вид доставки.
- * @member {Number} deliveryMethod
- */
-InlineResponse2001.prototype['deliveryMethod'] = undefined;
-
-/**
- * Список товаров.
- * @member {Array.<module:model/ApiV1BuyersOrdersVacItemList>} itemList
- */
-InlineResponse2001.prototype['itemList'] = undefined;
-
-/**
- * Признак FBA это заказ или нет.
+ * Флаг fba.
  * @member {Boolean} fba
  */
 InlineResponse2001.prototype['fba'] = undefined;
 
 /**
- * tmp
- * @member {module:model/InlineResponse2001.StatusEnum} status
- * @default StatusEnum.1
+ * Если истина - пользователь активен. Если нет - заблокирован админом.
+ * @member {Boolean} active
  */
-InlineResponse2001.prototype['status'] = StatusEnum.1;
+InlineResponse2001.prototype['active'] = undefined;
 
 /**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
+ * Ставка, по который оплачивается сотрудник.
+ * @member {Number} rate
  */
-InlineResponse2001.prototype['deliveryCostToTheWarehouse'] = undefined;
+InlineResponse2001.prototype['rate'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
- */
-InlineResponse2001['StatusEnum'] = {
-
-    /**
-     * value: 0
-     * @const
-     */
-    "0": 0,
-
-    /**
-     * value: 1
-     * @const
-     */
-    "1": 1,
-
-    /**
-     * value: 10
-     * @const
-     */
-    "10": 10,
-
-    /**
-     * value: 15
-     * @const
-     */
-    "15": 15,
-
-    /**
-     * value: 20
-     * @const
-     */
-    "20": 20,
-
-    /**
-     * value: 25
-     * @const
-     */
-    "25": 25,
-
-    /**
-     * value: 30
-     * @const
-     */
-    "30": 30,
-
-    /**
-     * value: 35
-     * @const
-     */
-    "35": 35
-};
 
 
 

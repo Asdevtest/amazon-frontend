@@ -1,6 +1,5 @@
 import {AuthView} from '@views/auth'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
-import {ClientDashBoardView} from '@views/client/client-dashboard-view'
 import {Inventory} from '@views/client/inventory'
 import {Documentation} from '@views/documentation'
 import {RegisterView} from '@views/register'

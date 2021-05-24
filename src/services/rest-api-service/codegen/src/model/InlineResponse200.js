@@ -23,10 +23,19 @@ class InlineResponse200 {
     /**
      * Constructs a new <code>InlineResponse200</code>.
      * @alias module:model/InlineResponse200
+     * @param _id {String} GUID продукта в базе данных
+     * @param id {String} ASIN продукта
+     * @param lamazon {String} Ссылка на этот продукт на амазоне.
+     * @param lsupplier {String} Ссылка на поставщика.
+     * @param fba {Boolean} Признак fba
+     * @param bsr {Number} 
+     * @param amazon {Number} 
+     * @param supplier {Number} Код поставщика
+     * @param icomment {String} Комментарии к товару.
      */
-    constructor() { 
+    constructor(_id, id, lamazon, lsupplier, fba, bsr, amazon, supplier, icomment) { 
         
-        InlineResponse200.initialize(this);
+        InlineResponse200.initialize(this, _id, id, lamazon, lsupplier, fba, bsr, amazon, supplier, icomment);
     }
 
     /**
@@ -34,7 +43,16 @@ class InlineResponse200 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id, id, lamazon, lsupplier, fba, bsr, amazon, supplier, icomment) { 
+        obj['_id'] = _id;
+        obj['id'] = id;
+        obj['lamazon'] = lamazon;
+        obj['lsupplier'] = lsupplier;
+        obj['fba'] = fba;
+        obj['bsr'] = bsr;
+        obj['amazon'] = amazon;
+        obj['supplier'] = supplier;
+        obj['icomment'] = icomment;
     }
 
     /**
@@ -48,6 +66,9 @@ class InlineResponse200 {
         if (data) {
             obj = obj || new InlineResponse200();
 
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
@@ -111,11 +132,11 @@ class InlineResponse200 {
             if (data.hasOwnProperty('checkednotes')) {
                 obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
             }
-            if (data.hasOwnProperty('managerFine')) {
-                obj['managerFine'] = ApiClient.convertToType(data['managerFine'], 'Number');
+            if (data.hasOwnProperty('researcherFine')) {
+                obj['researcherFine'] = ApiClient.convertToType(data['researcherFine'], 'Number');
             }
-            if (data.hasOwnProperty('managerFineComment')) {
-                obj['managerFineComment'] = ApiClient.convertToType(data['managerFineComment'], 'String');
+            if (data.hasOwnProperty('researcherFineComment')) {
+                obj['researcherFineComment'] = ApiClient.convertToType(data['researcherFineComment'], 'String');
             }
             if (data.hasOwnProperty('supervisorFine')) {
                 obj['supervisorFine'] = ApiClient.convertToType(data['supervisorFine'], 'Number');
@@ -141,12 +162,6 @@ class InlineResponse200 {
             if (data.hasOwnProperty('margin')) {
                 obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
             }
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('sku')) {
-                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
-            }
             if (data.hasOwnProperty('currentSupplier')) {
                 obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'String');
             }
@@ -160,10 +175,10 @@ class InlineResponse200 {
                 obj['checkedat'] = ApiClient.convertToType(data['checkedat'], 'Date');
             }
             if (data.hasOwnProperty('buyer')) {
-                obj['buyer'] = ApiClient.convertToType(data['buyer'], 'String');
+                obj['buyer'] = ApiV1AdminsGetNotPaidProductsCreatedby.constructFromObject(data['buyer']);
             }
-            if (data.hasOwnProperty('paidby')) {
-                obj['paidby'] = ApiV1AdminsGetNotPaidProductsCreatedby.constructFromObject(data['paidby']);
+            if (data.hasOwnProperty('buyerscomment')) {
+                obj['buyerscomment'] = ApiClient.convertToType(data['buyerscomment'], 'String');
             }
             if (data.hasOwnProperty('barCode')) {
                 obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
@@ -174,6 +189,12 @@ class InlineResponse200 {
 
 
 }
+
+/**
+ * GUID продукта в базе данных
+ * @member {String} _id
+ */
+InlineResponse200.prototype['_id'] = undefined;
 
 /**
  * ASIN продукта
@@ -299,15 +320,15 @@ InlineResponse200.prototype['checkednotes'] = undefined;
 
 /**
  * Размер штрафа менеджеру.
- * @member {Number} managerFine
+ * @member {Number} researcherFine
  */
-InlineResponse200.prototype['managerFine'] = undefined;
+InlineResponse200.prototype['researcherFine'] = undefined;
 
 /**
  * Комментарии к штрафу.
- * @member {String} managerFineComment
+ * @member {String} researcherFineComment
  */
-InlineResponse200.prototype['managerFineComment'] = undefined;
+InlineResponse200.prototype['researcherFineComment'] = undefined;
 
 /**
  * Размер штрафа на супервайзера.
@@ -358,18 +379,6 @@ InlineResponse200.prototype['profit'] = undefined;
 InlineResponse200.prototype['margin'] = undefined;
 
 /**
- * GUID продукта в БД
- * @member {String} _id
- */
-InlineResponse200.prototype['_id'] = undefined;
-
-/**
- * SKU - ставит склад - только для склада
- * @member {String} sku
- */
-InlineResponse200.prototype['sku'] = undefined;
-
-/**
  * GUID поставщика
  * @member {String} currentSupplier
  */
@@ -393,15 +402,15 @@ InlineResponse200.prototype['createdat'] = undefined;
 InlineResponse200.prototype['checkedat'] = undefined;
 
 /**
- * Закупщик
- * @member {String} buyer
+ * @member {module:model/ApiV1AdminsGetNotPaidProductsCreatedby} buyer
  */
 InlineResponse200.prototype['buyer'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetNotPaidProductsCreatedby} paidby
+ * Комментарии к товару от байера.
+ * @member {String} buyerscomment
  */
-InlineResponse200.prototype['paidby'] = undefined;
+InlineResponse200.prototype['buyerscomment'] = undefined;
 
 /**
  * Баркод

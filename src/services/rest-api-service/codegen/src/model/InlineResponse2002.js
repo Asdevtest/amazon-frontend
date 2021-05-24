@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BuyersOrdersVacItemList from './ApiV1BuyersOrdersVacItemList';
 
 /**
  * The InlineResponse2002 model module.
@@ -22,16 +23,15 @@ class InlineResponse2002 {
     /**
      * Constructs a new <code>InlineResponse2002</code>.
      * @alias module:model/InlineResponse2002
-     * @param amount {Number} Кол-во продукта по этой позиции.
-     * @param deliveryMethod {Number} Код метода доставки.
-     * @param warehouse {Number} Номер склада.
      * @param clientComment {String} Комментарии клиента.
-     * @param barCode {String} Ссылка на баркод.
-     * @param product {String} GUID заказанного продукта
+     * @param warehouse {Number} Номер склада.
+     * @param deliveryMethod {Number} Вид доставки.
+     * @param deliveryCostToTheWarehouse {Number} Стоимость доставки до склада.
+     * @param product {String} GUID продукта
      */
-    constructor(amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
+    constructor(clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) { 
         
-        InlineResponse2002.initialize(this, amount, deliveryMethod, warehouse, clientComment, barCode, product);
+        InlineResponse2002.initialize(this, clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product);
     }
 
     /**
@@ -39,12 +39,11 @@ class InlineResponse2002 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
-        obj['amount'] = amount;
-        obj['deliveryMethod'] = deliveryMethod;
-        obj['warehouse'] = warehouse;
+    static initialize(obj, clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) { 
         obj['clientComment'] = clientComment;
-        obj['barCode'] = barCode;
+        obj['warehouse'] = warehouse;
+        obj['deliveryMethod'] = deliveryMethod;
+        obj['deliveryCostToTheWarehouse'] = deliveryCostToTheWarehouse;
         obj['product'] = product;
     }
 
@@ -59,20 +58,35 @@ class InlineResponse2002 {
         if (data) {
             obj = obj || new InlineResponse2002();
 
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            if (data.hasOwnProperty('buyerId')) {
+                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
             }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('itemList')) {
+                obj['itemList'] = ApiClient.convertToType(data['itemList'], [ApiV1BuyersOrdersVacItemList]);
+            }
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
             }
             if (data.hasOwnProperty('product')) {
                 obj['product'] = ApiClient.convertToType(data['product'], 'String');
@@ -85,22 +99,16 @@ class InlineResponse2002 {
 }
 
 /**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
+ * GUID данной записи в БД.
+ * @member {String} _id
  */
-InlineResponse2002.prototype['amount'] = undefined;
+InlineResponse2002.prototype['_id'] = undefined;
 
 /**
- * Код метода доставки.
- * @member {Number} deliveryMethod
+ * GUID пользователя(байера)
+ * @member {String} buyerId
  */
-InlineResponse2002.prototype['deliveryMethod'] = undefined;
-
-/**
- * Номер склада.
- * @member {Number} warehouse
- */
-InlineResponse2002.prototype['warehouse'] = undefined;
+InlineResponse2002.prototype['buyerId'] = undefined;
 
 /**
  * Комментарии клиента.
@@ -109,19 +117,113 @@ InlineResponse2002.prototype['warehouse'] = undefined;
 InlineResponse2002.prototype['clientComment'] = undefined;
 
 /**
- * Ссылка на баркод.
- * @member {String} barCode
+ * комментарии байера.
+ * @member {String} buyerComment
  */
-InlineResponse2002.prototype['barCode'] = undefined;
+InlineResponse2002.prototype['buyerComment'] = undefined;
 
 /**
- * GUID заказанного продукта
+ * Номер склада.
+ * @member {Number} warehouse
+ */
+InlineResponse2002.prototype['warehouse'] = undefined;
+
+/**
+ * Вид доставки.
+ * @member {Number} deliveryMethod
+ */
+InlineResponse2002.prototype['deliveryMethod'] = undefined;
+
+/**
+ * Список товаров.
+ * @member {Array.<module:model/ApiV1BuyersOrdersVacItemList>} itemList
+ */
+InlineResponse2002.prototype['itemList'] = undefined;
+
+/**
+ * Признак FBA это заказ или нет.
+ * @member {Boolean} fba
+ */
+InlineResponse2002.prototype['fba'] = undefined;
+
+/**
+ * tmp
+ * @member {module:model/InlineResponse2002.StatusEnum} status
+ * @default StatusEnum.1
+ */
+InlineResponse2002.prototype['status'] = StatusEnum.1;
+
+/**
+ * Стоимость доставки до склада.
+ * @member {Number} deliveryCostToTheWarehouse
+ */
+InlineResponse2002.prototype['deliveryCostToTheWarehouse'] = undefined;
+
+/**
+ * GUID продукта
  * @member {String} product
  */
 InlineResponse2002.prototype['product'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>status</code> property.
+ * @enum {Number}
+ * @readonly
+ */
+InlineResponse2002['StatusEnum'] = {
+
+    /**
+     * value: 0
+     * @const
+     */
+    "0": 0,
+
+    /**
+     * value: 1
+     * @const
+     */
+    "1": 1,
+
+    /**
+     * value: 10
+     * @const
+     */
+    "10": 10,
+
+    /**
+     * value: 15
+     * @const
+     */
+    "15": 15,
+
+    /**
+     * value: 20
+     * @const
+     */
+    "20": 20,
+
+    /**
+     * value: 25
+     * @const
+     */
+    "25": 25,
+
+    /**
+     * value: 30
+     * @const
+     */
+    "30": 30,
+
+    /**
+     * value: 35
+     * @const
+     */
+    "35": 35
+};
 
 
 

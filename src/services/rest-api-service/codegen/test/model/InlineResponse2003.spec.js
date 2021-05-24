@@ -54,12 +54,6 @@
       //expect(instance).to.be.a(Amazonapi.InlineResponse2003);
     });
 
-    it('should have the property _id (base name: "_id")', function() {
-      // uncomment below and update the code to test the property _id
-      //var instance = new Amazonapi.InlineResponse2003();
-      //expect(instance).to.be();
-    });
-
     it('should have the property lengthCm (base name: "lengthCm")', function() {
       // uncomment below and update the code to test the property lengthCm
       //var instance = new Amazonapi.InlineResponse2003();
@@ -230,12 +224,6 @@
 
     it('should have the property ordersId (base name: "ordersId")', function() {
       // uncomment below and update the code to test the property ordersId
-      //var instance = new Amazonapi.InlineResponse2003();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property isActual (base name: "isActual")', function() {
-      // uncomment below and update the code to test the property isActual
       //var instance = new Amazonapi.InlineResponse2003();
       //expect(instance).to.be();
     });

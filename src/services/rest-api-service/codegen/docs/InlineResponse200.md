@@ -4,29 +4,30 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | ASIN продукта | [optional] 
+**_id** | **String** | GUID продукта в базе данных | 
+**id** | **String** | ASIN продукта | 
 **material** | **String** |  | [optional] 
-**lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
-**lsupplier** | **String** | Ссылка на поставщика. | [optional] 
-**fba** | **Boolean** | Признак fba | [optional] 
+**lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
+**lsupplier** | **String** | Ссылка на поставщика. | 
+**fba** | **Boolean** | Признак fba | 
 **express** | **Boolean** | Признак экспресс доставки. | [optional] 
 **minpurchase** | **Number** | Минимальный заказ | [optional] 
-**bsr** | **Number** |  | [optional] 
-**amazon** | **Number** |  | [optional] 
+**bsr** | **Number** |  | 
+**amazon** | **Number** |  | 
 **height** | **Number** | Высота | [optional] 
 **width** | **Number** | Ширина | [optional] 
 **length** | **Number** | Длинна | [optional] 
 **weight** | **Number** | Вес | [optional] 
-**supplier** | **Number** | Код поставщика | [optional] 
+**supplier** | **Number** | Код поставщика | 
 **fbalink** | **String** | ФБА ссылка | [optional] 
 **fbafee** | **Number** | ФБА комиссия | [optional] 
 **fbaamount** | **Number** | ФБА кол-во | [optional] 
 **delivery** | **Number** | Стоимость доставки. | [optional] 
-**icomment** | **String** | Комментарии к товару. | [optional] 
+**icomment** | **String** | Комментарии к товару. | 
 **status** | **Number** | Код текущего статуса | [optional] 
 **checkednotes** | **String** |  | [optional] 
-**managerFine** | **Number** | Размер штрафа менеджеру. | [optional] 
-**managerFineComment** | **String** | Комментарии к штрафу. | [optional] 
+**researcherFine** | **Number** | Размер штрафа менеджеру. | [optional] 
+**researcherFineComment** | **String** | Комментарии к штрафу. | [optional] 
 **supervisorFine** | **Number** | Размер штрафа на супервайзера. | [optional] 
 **supervisorFineComment** | **String** | Комментарии к штрафу | [optional] 
 **dirdecision** | **Number** | Код решения директора. | [optional] 
@@ -35,14 +36,12 @@ Name | Type | Description | Notes
 **amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
 **profit** | **Number** | Прибыль | [optional] 
 **margin** | **Number** | Маржа | [optional] 
-**_id** | **String** | GUID продукта в БД | [optional] 
-**sku** | **String** | SKU - ставит склад - только для склада | [optional] 
 **currentSupplier** | **String** | GUID поставщика | [optional] 
 **createdby** | [**ApiV1AdminsGetNotPaidProductsCreatedby**](ApiV1AdminsGetNotPaidProductsCreatedby.md) |  | [optional] 
 **createdat** | **Date** | Дата создания | [optional] 
 **checkedat** | **Date** | Дата проверки | [optional] 
-**buyer** | **String** | Закупщик | [optional] 
-**paidby** | [**ApiV1AdminsGetNotPaidProductsCreatedby**](ApiV1AdminsGetNotPaidProductsCreatedby.md) |  | [optional] 
+**buyer** | [**ApiV1AdminsGetNotPaidProductsCreatedby**](ApiV1AdminsGetNotPaidProductsCreatedby.md) |  | [optional] 
+**buyerscomment** | **String** | Комментарии к товару от байера. | [optional] 
 **barCode** | **String** | Баркод | [optional] 
 
 

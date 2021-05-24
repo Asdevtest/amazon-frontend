@@ -1,3 +1,14 @@
+import AllInboxIcon from '@material-ui/icons/AllInbox'
+import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined'
+import AssignmentIcon from '@material-ui/icons/Assignment'
+import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined'
+import GavelIcon from '@material-ui/icons/Gavel'
+import InboxOutlinedIcon from '@material-ui/icons/InboxOutlined'
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
+import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined'
+import PeopleIcon from '@material-ui/icons/People'
+import SettingsIcon from '@material-ui/icons/Settings'
+
 export const inventorySection = {
   title: 'Инвентарь',
   items: [
@@ -26,17 +37,6 @@ export const exchangeSection = {
 
 export const clientUsername = 'Client'
 export const clientBalance = '$4 012'
-
-import AllInboxIcon from '@material-ui/icons/AllInbox'
-import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined'
-import AssignmentIcon from '@material-ui/icons/Assignment'
-import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined'
-import GavelIcon from '@material-ui/icons/Gavel'
-import InboxOutlinedIcon from '@material-ui/icons/InboxOutlined'
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined'
-import PeopleIcon from '@material-ui/icons/People'
-import SettingsIcon from '@material-ui/icons/Settings'
 
 export const userPopperItems = {
   client: [

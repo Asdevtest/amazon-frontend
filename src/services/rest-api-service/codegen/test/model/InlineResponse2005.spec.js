@@ -54,8 +54,44 @@
       //expect(instance).to.be.a(Amazonapi.InlineResponse2005);
     });
 
-    it('should have the property isExist (base name: "isExist")', function() {
-      // uncomment below and update the code to test the property isExist
+    it('should have the property status (base name: "status")', function() {
+      // uncomment below and update the code to test the property status
+      //var instance = new Amazonapi.InlineResponse2005();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property amount (base name: "amount")', function() {
+      // uncomment below and update the code to test the property amount
+      //var instance = new Amazonapi.InlineResponse2005();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property deliveryMethod (base name: "deliveryMethod")', function() {
+      // uncomment below and update the code to test the property deliveryMethod
+      //var instance = new Amazonapi.InlineResponse2005();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property warehouse (base name: "warehouse")', function() {
+      // uncomment below and update the code to test the property warehouse
+      //var instance = new Amazonapi.InlineResponse2005();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property clientComment (base name: "clientComment")', function() {
+      // uncomment below and update the code to test the property clientComment
+      //var instance = new Amazonapi.InlineResponse2005();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property barCode (base name: "barCode")', function() {
+      // uncomment below and update the code to test the property barCode
+      //var instance = new Amazonapi.InlineResponse2005();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property product (base name: "product")', function() {
+      // uncomment below and update the code to test the property product
       //var instance = new Amazonapi.InlineResponse2005();
       //expect(instance).to.be();
     });

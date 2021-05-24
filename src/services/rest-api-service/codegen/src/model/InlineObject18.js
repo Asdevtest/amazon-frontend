@@ -22,7 +22,7 @@ class InlineObject18 {
     /**
      * Constructs a new <code>InlineObject18</code>.
      * @alias module:model/InlineObject18
-     * @param status {module:model/InlineObject18.StatusEnum} Only 0,1,2,3,4,5 code are allowed for supervisor
+     * @param status {module:model/InlineObject18.StatusEnum} См. описание статусов например в readMe.md
      * @param checkednotes {String} Комментарий к статусу проверки.
      */
     constructor(status, checkednotes) { 
@@ -65,7 +65,7 @@ class InlineObject18 {
 }
 
 /**
- * Only 0,1,2,3,4,5 code are allowed for supervisor
+ * См. описание статусов например в readMe.md
  * @member {module:model/InlineObject18.StatusEnum} status
  */
 InlineObject18.prototype['status'] = undefined;
@@ -88,40 +88,34 @@ InlineObject18.prototype['checkednotes'] = undefined;
 InlineObject18['StatusEnum'] = {
 
     /**
-     * value: 0
+     * value: 20
      * @const
      */
-    "0": 0,
+    "20": 20,
 
     /**
-     * value: 1
+     * value: 30
      * @const
      */
-    "1": 1,
+    "30": 30,
 
     /**
-     * value: 2
+     * value: 70
      * @const
      */
-    "2": 2,
+    "70": 70,
 
     /**
-     * value: 3
+     * value: 80
      * @const
      */
-    "3": 3,
+    "80": 80,
 
     /**
-     * value: 4
+     * value: 90
      * @const
      */
-    "4": 4,
-
-    /**
-     * value: 5
-     * @const
-     */
-    "5": 5
+    "90": 90
 };
 
 

@@ -60,38 +60,20 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property buyerId (base name: "buyerId")', function() {
-      // uncomment below and update the code to test the property buyerId
+    it('should have the property name (base name: "name")', function() {
+      // uncomment below and update the code to test the property name
       //var instance = new Amazonapi.InlineResponse2001();
       //expect(instance).to.be();
     });
 
-    it('should have the property clientComment (base name: "clientComment")', function() {
-      // uncomment below and update the code to test the property clientComment
+    it('should have the property email (base name: "email")', function() {
+      // uncomment below and update the code to test the property email
       //var instance = new Amazonapi.InlineResponse2001();
       //expect(instance).to.be();
     });
 
-    it('should have the property buyerComment (base name: "buyerComment")', function() {
-      // uncomment below and update the code to test the property buyerComment
-      //var instance = new Amazonapi.InlineResponse2001();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property warehouse (base name: "warehouse")', function() {
-      // uncomment below and update the code to test the property warehouse
-      //var instance = new Amazonapi.InlineResponse2001();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property deliveryMethod (base name: "deliveryMethod")', function() {
-      // uncomment below and update the code to test the property deliveryMethod
-      //var instance = new Amazonapi.InlineResponse2001();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property itemList (base name: "itemList")', function() {
-      // uncomment below and update the code to test the property itemList
+    it('should have the property role (base name: "role")', function() {
+      // uncomment below and update the code to test the property role
       //var instance = new Amazonapi.InlineResponse2001();
       //expect(instance).to.be();
     });
@@ -102,14 +84,14 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property status (base name: "status")', function() {
-      // uncomment below and update the code to test the property status
+    it('should have the property active (base name: "active")', function() {
+      // uncomment below and update the code to test the property active
       //var instance = new Amazonapi.InlineResponse2001();
       //expect(instance).to.be();
     });
 
-    it('should have the property deliveryCostToTheWarehouse (base name: "deliveryCostToTheWarehouse")', function() {
-      // uncomment below and update the code to test the property deliveryCostToTheWarehouse
+    it('should have the property rate (base name: "rate")', function() {
+      // uncomment below and update the code to test the property rate
       //var instance = new Amazonapi.InlineResponse2001();
       //expect(instance).to.be();
     });
