@@ -6,11 +6,11 @@ import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
 import {EntryLeftPanel} from '@components/entry-left-panel'
 import {EntryRightPanel} from '@components/entry-right-panel'
 import {Field} from '@components/field'
+
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {styles} from './register-view.style'
 
