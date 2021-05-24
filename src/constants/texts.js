@@ -32,6 +32,15 @@ export const texts = {
       termsAndConditions: 'Terms & Conditions',
       button: 'Register',
     },
+    clientDashboardView: {
+      appbarTitle: 'Dashboard',
+      balance: 'My balance',
+      withdraw: 'Withdraw money',
+      replenish: 'Add money',
+      inventoryTitle: 'Inventory',
+      ordersTitle: 'Orders',
+      exchangeTitle: 'Exchange',
+    },
     documentationView: {
       appBarTitle: 'Documentation',
       appBarUserName: 'User',
