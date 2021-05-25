@@ -20,7 +20,6 @@ import InlineResponse201 from '../model/InlineResponse201';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse500 from '../model/InlineResponse500';
-import Null from '../model/Null';
 
 /**
 * ProductForTestOnly service.
@@ -41,13 +40,6 @@ export default class ProductForTestOnlyApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the apiV1ProductsIdDelete operation.
-     * @callback module:api/ProductForTestOnlyApi~apiV1ProductsIdDeleteCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Удалить продукт.
@@ -55,10 +47,9 @@ export default class ProductForTestOnlyApi {
      * @param {String} id GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/ProductForTestOnlyApi~apiV1ProductsIdDeleteCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1ProductsIdDelete(id, opts, callback) {
+    apiV1ProductsIdDeleteWithHttpInfo(id, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -84,17 +75,25 @@ export default class ProductForTestOnlyApi {
       return this.apiClient.callApi(
         '/api/v1/products/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1ProductsIdGet operation.
-     * @callback module:api/ProductForTestOnlyApi~apiV1ProductsIdGetCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse200} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Удалить продукт.
+     * ## Удалить продукт.   
+     * @param {String} id GUID продукта.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1ProductsIdDelete(id, opts) {
+      return this.apiV1ProductsIdDeleteWithHttpInfo(id, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Получить продукт по GUID.
@@ -102,10 +101,9 @@ export default class ProductForTestOnlyApi {
      * @param {String} id GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/ProductForTestOnlyApi~apiV1ProductsIdGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
      */
-    apiV1ProductsIdGet(id, opts, callback) {
+    apiV1ProductsIdGetWithHttpInfo(id, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -131,17 +129,25 @@ export default class ProductForTestOnlyApi {
       return this.apiClient.callApi(
         '/api/v1/products/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1ProductsIdPatch operation.
-     * @callback module:api/ProductForTestOnlyApi~apiV1ProductsIdPatchCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Получить продукт по GUID.
+     * ## Получить продукт по GUID.   
+     * @param {String} id GUID продукта в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
      */
+    apiV1ProductsIdGet(id, opts) {
+      return this.apiV1ProductsIdGetWithHttpInfo(id, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Изменить продукт.
@@ -150,10 +156,9 @@ export default class ProductForTestOnlyApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject13} opts.InlineObject13 
-     * @param {module:api/ProductForTestOnlyApi~apiV1ProductsIdPatchCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1ProductsIdPatch(id, opts, callback) {
+    apiV1ProductsIdPatchWithHttpInfo(id, opts) {
       opts = opts || {};
       let postBody = opts['InlineObject13'];
       // verify the required parameter 'id' is set
@@ -179,17 +184,26 @@ export default class ProductForTestOnlyApi {
       return this.apiClient.callApi(
         '/api/v1/products/{id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1ProductsPost operation.
-     * @callback module:api/ProductForTestOnlyApi~apiV1ProductsPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse201} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Изменить продукт.
+     * ## Изменить продукт.   
+     * @param {String} id GUID продукта, который будет изменен
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject13} opts.InlineObject13 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1ProductsIdPatch(id, opts) {
+      return this.apiV1ProductsIdPatchWithHttpInfo(id, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Добавить новый продукт.
@@ -197,10 +211,9 @@ export default class ProductForTestOnlyApi {
      * @param {module:model/InlineObject12} InlineObject12 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/ProductForTestOnlyApi~apiV1ProductsPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse201}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
      */
-    apiV1ProductsPost(InlineObject12, opts, callback) {
+    apiV1ProductsPostWithHttpInfo(InlineObject12, opts) {
       opts = opts || {};
       let postBody = InlineObject12;
       // verify the required parameter 'InlineObject12' is set
@@ -225,8 +238,23 @@ export default class ProductForTestOnlyApi {
       return this.apiClient.callApi(
         '/api/v1/products/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Добавить новый продукт.
+     * ## Добавить новый продукт.   
+     * @param {module:model/InlineObject12} InlineObject12 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
+     */
+    apiV1ProductsPost(InlineObject12, opts) {
+      return this.apiV1ProductsPostWithHttpInfo(InlineObject12, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

@@ -120,8 +120,8 @@ export const Navbar = ({
                   <ListItem
                     button
                     disableGutters
-                    onClick={() => itemHandleClick(index, user)}
                     selected={activeItem === index}
+                    onClick={() => itemHandleClick(index, user)}
                   >
                     <ListItemIcon
                       className={clsx(classes.iconWrapper, {
@@ -138,10 +138,10 @@ export const Navbar = ({
                       <List disablePadding>
                         {item.subtitles.map((subItem, subIndex) => (
                           <ListSubItem
-                            button
                             key={'subKey' + subIndex}
-                            onClick={() => subItemHandleClick(index, subIndex, user)}
+                            button
                             selected={activeSubItem === subIndex}
+                            onClick={() => subItemHandleClick(index, subIndex, user)}
                           >
                             <ListItemText disableTypography primary={subItem} />
                           </ListSubItem>
@@ -161,7 +161,7 @@ export const Navbar = ({
   return (
     <React.Fragment>
       <Hidden smDown>
-        <Drawer classes={{root: classes.root, paper: classes.paper}} open variant="permanent">
+        <Drawer open classes={{root: classes.root, paper: classes.paper}} variant="permanent">
           {DRAWER_CONTENT}
         </Drawer>
       </Hidden>
@@ -169,8 +169,8 @@ export const Navbar = ({
         <Drawer
           anchor="left"
           classes={{root: classes.root, paper: classes.paper}}
-          onClose={() => setDrawerOpen(false)}
           open={drawerOpen}
+          onClose={() => setDrawerOpen(false)}
         >
           {DRAWER_CONTENT}
         </Drawer>

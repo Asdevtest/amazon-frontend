@@ -1,3 +1,6 @@
 {
-  "modelPropertyNaming": "original"
+  "modelPropertyNaming": "original",
+  "useES6": true,
+  "useInheritance": true,
+  "usePromises": true
 }

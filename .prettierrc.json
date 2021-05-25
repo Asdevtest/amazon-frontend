@@ -11,6 +11,8 @@
     "^react$",
     "^(?:@)?(react-|material)|^(?!react)([a-z]+)",
     "^@constants/(.*)$",
+    "@models/authentication-model","./src/models/authentication-model",
+    "^@models/(.*)$",
     "^@navigation/(.*)$",
     "^@services/(.*)$",
     "^@styles/(.*)$",

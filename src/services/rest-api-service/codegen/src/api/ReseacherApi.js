@@ -24,7 +24,6 @@ import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
 import InlineResponse500 from '../model/InlineResponse500';
-import Null from '../model/Null';
 
 /**
 * Reseacher service.
@@ -45,13 +44,6 @@ export default class ReseacherApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the apiV1ResearchersCheckProductsIdGet operation.
-     * @callback module:api/ReseacherApi~apiV1ResearchersCheckProductsIdGetCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2008} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Проверить продукт по ID существует ли он в базе.
@@ -59,10 +51,9 @@ export default class ReseacherApi {
      * @param {String} id id для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/ReseacherApi~apiV1ResearchersCheckProductsIdGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2008}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2008} and HTTP response
      */
-    apiV1ResearchersCheckProductsIdGet(id, opts, callback) {
+    apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -88,17 +79,25 @@ export default class ReseacherApi {
       return this.apiClient.callApi(
         '/api/v1/researchers/check_products/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1ResearchersParseAmazonIdGet operation.
-     * @callback module:api/ReseacherApi~apiV1ResearchersParseAmazonIdGetCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2009} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Проверить продукт по ID существует ли он в базе.
+     * Проверить продукт по ID существует ли он в базе.  В базе id продукта (asin) должно быть уникально. База не даст завести дубль. Перед добавление продукта   нужно проверить, нет ли в базе уже продукта с таким ID   
+     * @param {String} id id для проверки
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2008}
      */
+    apiV1ResearchersCheckProductsIdGet(id, opts) {
+      return this.apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Получить данные о продукте с сайта Амазон по id(asin)
@@ -106,10 +105,9 @@ export default class ReseacherApi {
      * @param {String} id id(asin) для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/ReseacherApi~apiV1ResearchersParseAmazonIdGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2009}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2009} and HTTP response
      */
-    apiV1ResearchersParseAmazonIdGet(id, opts, callback) {
+    apiV1ResearchersParseAmazonIdGetWithHttpInfo(id, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -135,17 +133,25 @@ export default class ReseacherApi {
       return this.apiClient.callApi(
         '/api/v1/researchers/parse_amazon/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1ResearchersParseSellercentralGet operation.
-     * @callback module:api/ReseacherApi~apiV1ResearchersParseSellercentralGetCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2009} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Получить данные о продукте с сайта Амазон по id(asin)
+     * Получить данные о продукте с сайта Амазон по id(asin)  
+     * @param {String} id id(asin) для проверки
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2009}
      */
+    apiV1ResearchersParseAmazonIdGet(id, opts) {
+      return this.apiV1ResearchersParseAmazonIdGetWithHttpInfo(id, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Получить данные о продукте с SellerCentral
@@ -154,10 +160,9 @@ export default class ReseacherApi {
      * @param {String} opts.id ASIN продукта
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/ReseacherApi~apiV1ResearchersParseSellercentralGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2009}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2009} and HTTP response
      */
-    apiV1ResearchersParseSellercentralGet(opts, callback) {
+    apiV1ResearchersParseSellercentralGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -180,27 +185,35 @@ export default class ReseacherApi {
       return this.apiClient.callApi(
         '/api/v1/researchers/parse_sellercentral', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1ResearchersPaymentsMyGet operation.
-     * @callback module:api/ReseacherApi~apiV1ResearchersPaymentsMyGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse2004>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Получить данные о продукте с SellerCentral
+     * Получить данные о продукте с SellerCentral  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.id ASIN продукта
+     * @param {Number} opts.price Цена продукта.
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2009}
      */
+    apiV1ResearchersParseSellercentralGet(opts) {
+      return this.apiV1ResearchersParseSellercentralGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Получить информацию об платежах для этого менеджера.
      * Получить информацию об платежах для этого менеджера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/ReseacherApi~apiV1ResearchersPaymentsMyGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
-    apiV1ResearchersPaymentsMyGet(opts, callback) {
+    apiV1ResearchersPaymentsMyGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -221,27 +234,33 @@ export default class ReseacherApi {
       return this.apiClient.callApi(
         '/api/v1/researchers/payments/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1ResearchersProductsGet operation.
-     * @callback module:api/ReseacherApi~apiV1ResearchersProductsGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse200>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Получить информацию об платежах для этого менеджера.
+     * Получить информацию об платежах для этого менеджера.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */
+    apiV1ResearchersPaymentsMyGet(opts) {
+      return this.apiV1ResearchersPaymentsMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Получить список товаров созданных данным пользователем.
      * Получить список товаров созданных данным пользователем.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/ReseacherApi~apiV1ResearchersProductsGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1ResearchersProductsGet(opts, callback) {
+    apiV1ResearchersProductsGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -262,17 +281,24 @@ export default class ReseacherApi {
       return this.apiClient.callApi(
         '/api/v1/researchers/products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1ResearchersProductsGuidDelete operation.
-     * @callback module:api/ReseacherApi~apiV1ResearchersProductsGuidDeleteCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Получить список товаров созданных данным пользователем.
+     * Получить список товаров созданных данным пользователем.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
+    apiV1ResearchersProductsGet(opts) {
+      return this.apiV1ResearchersProductsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Удалить продукт.
@@ -280,10 +306,9 @@ export default class ReseacherApi {
      * @param {String} guid GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/ReseacherApi~apiV1ResearchersProductsGuidDeleteCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1ResearchersProductsGuidDelete(guid, opts, callback) {
+    apiV1ResearchersProductsGuidDeleteWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
@@ -309,17 +334,25 @@ export default class ReseacherApi {
       return this.apiClient.callApi(
         '/api/v1/researchers/products/{guid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1ResearchersProductsGuidGet operation.
-     * @callback module:api/ReseacherApi~apiV1ResearchersProductsGuidGetCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse200} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Удалить продукт.
+     * ## Удалить продукт.   
+     * @param {String} guid GUID продукта.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1ResearchersProductsGuidDelete(guid, opts) {
+      return this.apiV1ResearchersProductsGuidDeleteWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Получить товар по GUID.
@@ -327,10 +360,9 @@ export default class ReseacherApi {
      * @param {String} guid GUID запрашиваемого ресурса.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/ReseacherApi~apiV1ResearchersProductsGuidGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
      */
-    apiV1ResearchersProductsGuidGet(guid, opts, callback) {
+    apiV1ResearchersProductsGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
@@ -356,17 +388,25 @@ export default class ReseacherApi {
       return this.apiClient.callApi(
         '/api/v1/researchers/products/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1ResearchersProductsGuidPatch operation.
-     * @callback module:api/ReseacherApi~apiV1ResearchersProductsGuidPatchCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Получить товар по GUID.
+     * Получить товар по GUID.
+     * @param {String} guid GUID запрашиваемого ресурса.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
      */
+    apiV1ResearchersProductsGuidGet(guid, opts) {
+      return this.apiV1ResearchersProductsGuidGetWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * #  Изменить продукт.
@@ -375,10 +415,9 @@ export default class ReseacherApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject15} opts.InlineObject15 
-     * @param {module:api/ReseacherApi~apiV1ResearchersProductsGuidPatchCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1ResearchersProductsGuidPatch(guid, opts, callback) {
+    apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = opts['InlineObject15'];
       // verify the required parameter 'guid' is set
@@ -404,17 +443,26 @@ export default class ReseacherApi {
       return this.apiClient.callApi(
         '/api/v1/researchers/products/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1ResearchersProductsPost operation.
-     * @callback module:api/ReseacherApi~apiV1ResearchersProductsPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse201} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * #  Изменить продукт.
+     * ## Изменить продукт.   ## ASIN нельзя менять после того как создан продукт.   
+     * @param {String} guid GUID продукта БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject15} opts.InlineObject15 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1ResearchersProductsGuidPatch(guid, opts) {
+      return this.apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Добавить новый продукт.
@@ -422,10 +470,9 @@ export default class ReseacherApi {
      * @param {module:model/InlineObject14} InlineObject14 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/ReseacherApi~apiV1ResearchersProductsPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse201}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
      */
-    apiV1ResearchersProductsPost(InlineObject14, opts, callback) {
+    apiV1ResearchersProductsPostWithHttpInfo(InlineObject14, opts) {
       opts = opts || {};
       let postBody = InlineObject14;
       // verify the required parameter 'InlineObject14' is set
@@ -450,8 +497,23 @@ export default class ReseacherApi {
       return this.apiClient.callApi(
         '/api/v1/researchers/products', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * # Добавить новый продукт.
+     * ## Добавить новый продукт.   
+     * @param {module:model/InlineObject14} InlineObject14 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
+     */
+    apiV1ResearchersProductsPost(InlineObject14, opts) {
+      return this.apiV1ResearchersProductsPostWithHttpInfo(InlineObject14, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

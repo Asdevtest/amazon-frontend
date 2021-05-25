@@ -2,10 +2,7 @@ import {createStyles} from '@material-ui/styles'
 
 export const styles = theme =>
   createStyles({
-    root: {
-      display: 'flex',
-      height: '100%',
-    },
+    root: {},
     formFields: {
       display: 'flex',
       alignItems: 'center',
@@ -13,13 +10,10 @@ export const styles = theme =>
       flexWrap: 'wrap',
     },
     field: {
-      flexBasis: '45%',
+      flexBasis: '100%',
     },
     checkbox: {
       marginLeft: '-12px',
-    },
-    fullWidth: {
-      flexBasis: '100%',
     },
     formFooter: {
       alignItems: 'center',

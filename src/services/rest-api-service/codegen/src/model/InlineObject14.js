@@ -108,6 +108,26 @@ class InlineObject14 {
 }
 
 /**
+ * Allowed values for the <code>status</code> property.
+ * @enum {Number}
+ * @readonly
+ */
+ InlineObject14['StatusEnum'] = {
+
+    /**
+     * value: 0
+     * @const
+     */
+    "0": 0,
+
+    /**
+     * value: 10
+     * @const
+     */
+    "10": 10
+};
+
+/**
  * ASIN продукта
  * @member {String} id
  */
@@ -135,7 +155,7 @@ InlineObject14.prototype['bsr'] = undefined;
  * @member {module:model/InlineObject14.StatusEnum} status
  * @default StatusEnum.0
  */
-InlineObject14.prototype['status'] = StatusEnum.0;
+InlineObject14.prototype['status'] = InlineObject14.StatusEnum[0];
 
 /**
  * @member {Number} amazon
@@ -170,30 +190,6 @@ InlineObject14.prototype['icomment'] = undefined;
  * @member {Array.<String>} images
  */
 InlineObject14.prototype['images'] = undefined;
-
-
-
-
-
-/**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
- */
-InlineObject14['StatusEnum'] = {
-
-    /**
-     * value: 0
-     * @const
-     */
-    "0": 0,
-
-    /**
-     * value: 10
-     * @const
-     */
-    "10": 10
-};
 
 
 

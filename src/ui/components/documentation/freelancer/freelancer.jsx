@@ -18,9 +18,9 @@ export const Freelancer = ({refs}) => {
     <React.Fragment>
       <Section>
         <SectionMain
+          ref={refs.freelancerMainRef}
           img={FreelancerMainPage}
           link={'https://stoic-northcutt-f04ad5.netlify.app/freelancer/dashboard'}
-          ref={refs.freelancerMainRef}
           title={texts.ru.freelancerComponent.mainPage}
         />
 
@@ -34,18 +34,18 @@ export const Freelancer = ({refs}) => {
 
       <Section>
         <SectionMain
+          ref={refs.freelancerOrdersRef}
           img={FreelancerOrders}
           link={'https://stoic-northcutt-f04ad5.netlify.app/freelancer/orders'}
-          ref={refs.freelancerOrdersRef}
           title={texts.ru.freelancerComponent.myOrders}
         />
       </Section>
 
       <Section>
         <SectionMain
+          ref={refs.freelancerSettingsRef}
           img={FreelancerSettings}
           link={'https://stoic-northcutt-f04ad5.netlify.app/freelancer/settings'}
-          ref={refs.freelancerSettingsRef}
           title={texts.ru.freelancerComponent.settings}
         />
       </Section>

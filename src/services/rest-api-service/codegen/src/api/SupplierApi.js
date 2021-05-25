@@ -20,7 +20,6 @@ import InlineResponse201 from '../model/InlineResponse201';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse500 from '../model/InlineResponse500';
-import Null from '../model/Null';
 
 /**
 * Supplier service.
@@ -41,23 +40,15 @@ export default class SupplierApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the apiV1SuppliersGet operation.
-     * @callback module:api/SupplierApi~apiV1SuppliersGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse20013>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * # Получить список поставщиков.
      * ## Получить список поставщиков.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/SupplierApi~apiV1SuppliersGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse20013>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20013>} and HTTP response
      */
-    apiV1SuppliersGet(opts, callback) {
+    apiV1SuppliersGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -78,17 +69,24 @@ export default class SupplierApi {
       return this.apiClient.callApi(
         '/api/v1/suppliers/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1SuppliersGuidDelete operation.
-     * @callback module:api/SupplierApi~apiV1SuppliersGuidDeleteCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse201} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить список поставщиков.
+     * ## Получить список поставщиков.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20013>}
      */
+    apiV1SuppliersGet(opts) {
+      return this.apiV1SuppliersGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Удалить поставщика.
@@ -96,10 +94,9 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/SupplierApi~apiV1SuppliersGuidDeleteCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse201}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
      */
-    apiV1SuppliersGuidDelete(guid, opts, callback) {
+    apiV1SuppliersGuidDeleteWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
@@ -125,17 +122,25 @@ export default class SupplierApi {
       return this.apiClient.callApi(
         '/api/v1/suppliers/{guid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1SuppliersGuidGet operation.
-     * @callback module:api/SupplierApi~apiV1SuppliersGuidGetCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse20013} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Удалить поставщика.
+     * ##  Удалить поставщика.   
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
      */
+    apiV1SuppliersGuidDelete(guid, opts) {
+      return this.apiV1SuppliersGuidDeleteWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить одного поставщика.
@@ -143,10 +148,9 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/SupplierApi~apiV1SuppliersGuidGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse20013}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20013} and HTTP response
      */
-    apiV1SuppliersGuidGet(guid, opts, callback) {
+    apiV1SuppliersGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
@@ -172,17 +176,25 @@ export default class SupplierApi {
       return this.apiClient.callApi(
         '/api/v1/suppliers/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1SuppliersGuidPatch operation.
-     * @callback module:api/SupplierApi~apiV1SuppliersGuidPatchCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить одного поставщика.
+     * ## Получить одного поставщика.   
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20013}
      */
+    apiV1SuppliersGuidGet(guid, opts) {
+      return this.apiV1SuppliersGuidGetWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Изменить поставщика.
@@ -191,10 +203,9 @@ export default class SupplierApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject20} opts.InlineObject20 
-     * @param {module:api/SupplierApi~apiV1SuppliersGuidPatchCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1SuppliersGuidPatch(guid, opts, callback) {
+    apiV1SuppliersGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = opts['InlineObject20'];
       // verify the required parameter 'guid' is set
@@ -220,17 +231,26 @@ export default class SupplierApi {
       return this.apiClient.callApi(
         '/api/v1/suppliers/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1SuppliersPost operation.
-     * @callback module:api/SupplierApi~apiV1SuppliersPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse201} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Изменить поставщика.
+     * ## Изменить  поставщика.   
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject20} opts.InlineObject20 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1SuppliersGuidPatch(guid, opts) {
+      return this.apiV1SuppliersGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Добавить нового поставщика.
@@ -238,10 +258,9 @@ export default class SupplierApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject19} opts.InlineObject19 
-     * @param {module:api/SupplierApi~apiV1SuppliersPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse201}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
      */
-    apiV1SuppliersPost(opts, callback) {
+    apiV1SuppliersPostWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['InlineObject19'];
 
@@ -262,8 +281,23 @@ export default class SupplierApi {
       return this.apiClient.callApi(
         '/api/v1/suppliers/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * # Добавить нового поставщика.
+     * ## Добавить нового поставщика.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject19} opts.InlineObject19 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
+     */
+    apiV1SuppliersPost(opts) {
+      return this.apiV1SuppliersPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

@@ -8,7 +8,7 @@ export const MainNav = () => (
     <Switch>
       {generateRedirects()}
       {routes.map((route, index) => (
-        <Route component={route.component} exact={route.exact} key={index} path={route.routePath} />
+        <Route key={index} component={route.component} exact={route.exact} path={route.routePath} />
       ))}
     </Switch>
   </Router>

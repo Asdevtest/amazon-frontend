@@ -111,14 +111,12 @@ var api = new Amazonapi.AdministratorApi()
 var opts = {
   'Accept_Encoding': gzip, deflate // {String} 
 };
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.apiV1AdminsGetCheckingProductsGet(opts, callback);
+api.apiV1AdminsGetCheckingProductsGet(opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
 
 ```
 

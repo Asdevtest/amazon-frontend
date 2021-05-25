@@ -1,12 +1,15 @@
 const path = require("path")
+const { addDecoratorsLegacy, override } = require('customize-cra')
 
 module.exports = config => ({
+    ...override(addDecoratorsLegacy())(config),
     ...config,
     resolve: {
       ...config.resolve,
       alias: {
         ...config.alias,
         '@constants': path.resolve(__dirname, 'src/constants'),
+        '@models': path.resolve(__dirname, 'src/models'),
         '@navigation': path.resolve(__dirname, 'src/navigation'),
         '@services': path.resolve(__dirname, 'src/services'),
         '@styles': path.resolve(__dirname, 'src/styles'),

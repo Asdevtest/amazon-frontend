@@ -22,8 +22,8 @@ export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawe
           <React.Fragment key={index}>
             <NavbarCategory
               button
-              component={Link}
               disableGutters
+              component={Link}
               selected={index === activeCategory}
               to={category.route}
             >
@@ -31,8 +31,8 @@ export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawe
                 <SvgIcon className={classNames.icon} component={category.icon}></SvgIcon>
               </ListItemIcon>
               <ListItemText
-                className={clsx({[classNames.selected]: index === activeCategory})}
                 disableTypography
+                className={clsx({[classNames.selected]: index === activeCategory})}
                 primary={category.title}
               />
             </NavbarCategory>
@@ -41,16 +41,16 @@ export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawe
               <List disablePadding>
                 {category.subtitles?.map((subCategory, subIndex) => (
                   <NavbarSubCategory
-                    button
-                    component={Link}
-                    disableGutters
                     key={subIndex}
+                    button
+                    disableGutters
+                    component={Link}
                     selected={subIndex === activeSubCategory}
                     to={subCategory.subRoute}
                   >
                     <ListItemText
-                      className={clsx({[classNames.selected]: subIndex === activeSubCategory})}
                       disableTypography
+                      className={clsx({[classNames.selected]: subIndex === activeSubCategory})}
                       primary={subCategory.subtitle}
                     />
                   </NavbarSubCategory>
@@ -66,8 +66,8 @@ export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawe
     <>
       <Hidden smDown>
         <Drawer
-          classes={{root: classNames.root, paper: clsx(classNames.paper, classNames.positionStatic)}}
           open
+          classes={{root: classNames.root, paper: clsx(classNames.paper, classNames.positionStatic)}}
           variant="permanent"
         >
           {drawerContent}
@@ -77,8 +77,8 @@ export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawe
         <Drawer
           anchor="left"
           classes={{root: classNames.root, paper: classNames.paper}}
-          onClose={handlerTriggerDrawer}
           open={drawerOpen}
+          onClose={handlerTriggerDrawer}
         >
           {drawerContent}
         </Drawer>
