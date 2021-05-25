@@ -13,17 +13,16 @@ import {ListItemUser} from './list-item-user'
 import {ListSubItem} from './list-sub-item'
 import {useStyles} from './navbar-documentation.style'
 
-export const Navbar = ({
+export const NavbarDocumentation = ({
   activeItem,
   setItem,
   activeSubItem,
   setSubItem,
-  drawerWidth,
   drawerOpen,
   setDrawerOpen,
   refs,
 }) => {
-  const classes = useStyles({drawerWidth})()
+  const classNames = useStyles()
   const [activeUser, setActiveUser] = useState(null)
 
   const ROUTES = {
@@ -103,7 +102,7 @@ export const Navbar = ({
 
   const DRAWER_CONTENT = (
     <React.Fragment>
-      <div className={classes.logo}>
+      <div className={classNames.logo}>
         <img alt="company logo" src={logoSrc} />
       </div>
       <Divider />
@@ -124,11 +123,11 @@ export const Navbar = ({
                     onClick={() => itemHandleClick(index, user)}
                   >
                     <ListItemIcon
-                      className={clsx(classes.iconWrapper, {
-                        [classes.selected]: activeItem === index,
+                      className={clsx(classNames.iconWrapper, {
+                        [classNames.selected]: activeItem === index,
                       })}
                     >
-                      <SvgIcon className={classes.icon} component={item.icon} />
+                      <SvgIcon className={classNames.icon} component={item.icon} />
                     </ListItemIcon>
                     <ListItemText disableTypography primary={item.title} />
                   </ListItem>
@@ -161,14 +160,18 @@ export const Navbar = ({
   return (
     <React.Fragment>
       <Hidden smDown>
-        <Drawer open classes={{root: classes.root, paper: classes.paper}} variant="permanent">
+        <Drawer
+          open
+          classes={{root: classNames.root, paper: clsx(classNames.paper, classNames.positionStatic)}}
+          variant="permanent"
+        >
           {DRAWER_CONTENT}
         </Drawer>
       </Hidden>
       <Hidden mdUp>
         <Drawer
           anchor="left"
-          classes={{root: classes.root, paper: classes.paper}}
+          classes={{root: classNames.root, paper: classNames.paper}}
           open={drawerOpen}
           onClose={() => setDrawerOpen(false)}
         >

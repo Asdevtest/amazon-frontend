@@ -1,1 +1,1 @@
-export {Navbar} from './navbar-documentation'
+export {NavbarDocumentation} from './navbar-documentation'
