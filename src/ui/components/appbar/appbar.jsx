@@ -35,7 +35,7 @@ export const Appbar = ({avatarSrc, children, handlerTriggerDrawer, title, userna
           <Typography className={classNames.title}>{title}</Typography>
 
           <Divider orientation="vertical" />
-          <Badge badgeContent={2} showZero>
+          <Badge showZero badgeContent={2}>
             <NotificationsIcon color="action" />
           </Badge>
           <Divider orientation="vertical" />

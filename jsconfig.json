@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
       "@constants*": ["src/constants*"],
+      "@models*": ["src/models*"],
       "@navigation*": ["src/navigation*"],
       "@services*": ["src/services*"],
       "@styles*": ["src/styles*"],

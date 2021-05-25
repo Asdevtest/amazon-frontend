@@ -73,52 +73,11 @@ class InlineObject3 {
 }
 
 /**
- * комментарии байера.
- * @member {String} buyerComment
- */
-InlineObject3.prototype['buyerComment'] = undefined;
-
-/**
- * Номер склада.
- * @member {Number} warehouse
- */
-InlineObject3.prototype['warehouse'] = undefined;
-
-/**
- * Вид доставки.
- * @member {Number} deliveryMethod
- */
-InlineObject3.prototype['deliveryMethod'] = undefined;
-
-/**
- * Признак FBA это заказ или нет.
- * @member {Boolean} fba
- */
-InlineObject3.prototype['fba'] = undefined;
-
-/**
- * tmp
- * @member {module:model/InlineObject3.StatusEnum} status
- * @default StatusEnum.1
- */
-InlineObject3.prototype['status'] = StatusEnum.1;
-
-/**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
- */
-InlineObject3.prototype['deliveryCostToTheWarehouse'] = undefined;
-
-
-
-
-
-/**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
  * @readonly
  */
-InlineObject3['StatusEnum'] = {
+ InlineObject3['StatusEnum'] = {
 
     /**
      * value: 0
@@ -168,6 +127,43 @@ InlineObject3['StatusEnum'] = {
      */
     "35": 35
 };
+
+/**
+ * комментарии байера.
+ * @member {String} buyerComment
+ */
+InlineObject3.prototype['buyerComment'] = undefined;
+
+/**
+ * Номер склада.
+ * @member {Number} warehouse
+ */
+InlineObject3.prototype['warehouse'] = undefined;
+
+/**
+ * Вид доставки.
+ * @member {Number} deliveryMethod
+ */
+InlineObject3.prototype['deliveryMethod'] = undefined;
+
+/**
+ * Признак FBA это заказ или нет.
+ * @member {Boolean} fba
+ */
+InlineObject3.prototype['fba'] = undefined;
+
+/**
+ * tmp
+ * @member {module:model/InlineObject3.StatusEnum} status
+ * @default StatusEnum.1
+ */
+InlineObject3.prototype['status'] = InlineObject3.StatusEnum[1];
+
+/**
+ * Стоимость доставки до склада.
+ * @member {Number} deliveryCostToTheWarehouse
+ */
+InlineObject3.prototype['deliveryCostToTheWarehouse'] = undefined;
 
 
 

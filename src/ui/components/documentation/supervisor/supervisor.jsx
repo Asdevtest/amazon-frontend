@@ -20,9 +20,9 @@ export const Supervisor = ({refs}) => {
     <React.Fragment>
       <Section>
         <SectionMain
+          ref={refs.supervisorMainRef}
           img={SupervisorMainPage}
           link={'https://stoic-northcutt-f04ad5.netlify.app/supervisor/dashboard'}
-          ref={refs.supervisorMainRef}
           title={texts.ru.supervisorComponent.mainPage}
         />
 
@@ -39,35 +39,35 @@ export const Supervisor = ({refs}) => {
 
       <Section>
         <SectionMain
+          ref={refs.supervisorReadyToCheckRef}
           img={SupervisorReadyToCheck}
           link={'https://stoic-northcutt-f04ad5.netlify.app/supervisor/ready-to-check'}
-          ref={refs.supervisorReadyToCheckRef}
           title={texts.ru.supervisorComponent.supervisorPrepares}
         />
       </Section>
 
       <Section>
         <SectionMain
+          ref={refs.supervisorProductsRef}
           img={SupervisorProducts}
           link={'https://stoic-northcutt-f04ad5.netlify.app/supervisor/products'}
-          ref={refs.supervisorProductsRef}
           title={texts.ru.supervisorComponent.supervisorMyGoods}
         />
       </Section>
 
       <Section>
         <SectionMain
+          ref={refs.supervisorSettingsRef}
           img={SupervisorSettings}
           link={'https://stoic-northcutt-f04ad5.netlify.app/supervisor/settings'}
-          ref={refs.supervisorSettingsRef}
           title={texts.ru.supervisorComponent.settings}
         />
       </Section>
       <Section>
         <SectionMain
+          ref={refs.supervisorSettingsRef}
           img={SupervisorSettings}
           link={'https://stoic-northcutt-f04ad5.netlify.app/supervisor/product'}
-          ref={refs.supervisorSettingsRef}
           title={texts.ru.supervisorComponent.productVar1}
         />
       </Section>

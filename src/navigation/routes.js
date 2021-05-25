@@ -2,9 +2,19 @@ import {AuthView} from '@views/auth'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {Inventory} from '@views/client/inventory'
 import {Documentation} from '@views/documentation'
-import {RegisterView} from '@views/register'
+import {RegistrationView} from '@views/registration'
 
 export const routes = [
+  {
+    routePath: '/auth',
+    component: AuthView,
+    exact: false,
+  },
+  {
+    routePath: '/registration',
+    component: RegistrationView,
+    exact: false,
+  },
   {
     routePath: '/documentation',
     component: Documentation,
@@ -18,16 +28,6 @@ export const routes = [
   {
     routePath: '/dashboard',
     component: ClientDashboardView,
-    exact: false,
-  },
-  {
-    routePath: '/auth',
-    component: AuthView,
-    exact: false,
-  },
-  {
-    routePath: '/register',
-    component: RegisterView,
     exact: false,
   },
 ]

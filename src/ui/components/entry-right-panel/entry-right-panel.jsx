@@ -4,7 +4,7 @@ import {Divider, Typography} from '@material-ui/core'
 
 import {useClassNames} from './entry-right-panel.style.js'
 
-export const EntryRightPanel = ({handleRedirectClick, redirect, title, children}) => {
+export const EntryRightPanel = ({onClickRedirect, redirect, title, children}) => {
   const classNames = useClassNames()
 
   return (
@@ -12,7 +12,7 @@ export const EntryRightPanel = ({handleRedirectClick, redirect, title, children}
       <div className={classNames.formWrapper}>
         <div className={classNames.formHeader}>
           <Typography className={classNames.title}>{title}</Typography>
-          <Typography onClick={handleRedirectClick}>{redirect}</Typography>
+          <Typography onClick={onClickRedirect}>{redirect}</Typography>
         </div>
         <Divider className={classNames.divider} />
         {children}

@@ -42,9 +42,9 @@ export const Client = ({refs}) => {
     <React.Fragment>
       <Section>
         <SectionMain
+          ref={refs.clientMainRef}
           img={ClientMainPage}
           link={'https://stoic-northcutt-f04ad5.netlify.app/dashboard'}
-          ref={refs.clientMainRef}
           title={texts.ru.clientComponent.mainPage}
         />
 
@@ -63,9 +63,9 @@ export const Client = ({refs}) => {
 
       <Section>
         <SectionMain
+          ref={refs.clientExchangeExchangeRef}
           img={ClientExchangeExchange}
           link={'https://stoic-northcutt-f04ad5.netlify.app/exchange'}
-          ref={refs.clientExchangeExchangeRef}
           title={texts.ru.clientComponent.marketForks}
         />
         <Typography className={classes.marginTop}>{texts.ru.clientComponent.clickName}</Typography>
@@ -76,18 +76,18 @@ export const Client = ({refs}) => {
 
       <Section>
         <SectionMain
+          ref={refs.clientExchangePrivateLabelRef}
           img={ClientExchangePrivateLabel}
           link={'https://stoic-northcutt-f04ad5.netlify.app/exchange/private-label'}
-          ref={refs.clientExchangePrivateLabelRef}
           title={texts.ru.clientComponent.privateLabel}
         />
       </Section>
 
       <Section>
         <SectionMain
+          ref={refs.clientExchangeMyRequestsRef}
           img={ClientExchangeMyRequests}
           link={'https://stoic-northcutt-f04ad5.netlify.app/exchange/my-requests'}
-          ref={refs.clientExchangeMyRequestsRef}
           title={texts.ru.clientComponent.marketGoodsMyOrders}
         />
 
@@ -104,9 +104,9 @@ export const Client = ({refs}) => {
 
       <Section>
         <SectionMain
+          ref={refs.clientInventoryRef}
           img={ClientInventory}
           link={'https://stoic-northcutt-f04ad5.netlify.app/inventory'}
-          ref={refs.clientInventoryRef}
           title={texts.ru.clientComponent.clientInventory}
         />
 
@@ -128,9 +128,9 @@ export const Client = ({refs}) => {
 
       <Section>
         <SectionMain
+          ref={refs.clientOrdersRef}
           img={ClientOrders}
           link={'https://stoic-northcutt-f04ad5.netlify.app/orders'}
-          ref={refs.clientOrdersRef}
           title={texts.ru.clientComponent.clientMyOrders}
         />
 
@@ -143,9 +143,9 @@ export const Client = ({refs}) => {
 
       <Section>
         <SectionMain
+          ref={refs.clientWarehouseRef}
           img={ClientWarehouse}
           link={'https://stoic-northcutt-f04ad5.netlify.app/warehouse'}
-          ref={refs.clientWarehouseRef}
           title={texts.ru.clientComponent.clientMyStore}
         />
 
@@ -172,9 +172,9 @@ export const Client = ({refs}) => {
 
       <Section>
         <SectionMain
+          ref={refs.clientUsersMyProfileRef}
           img={ClientUserMyProfile}
           link={'https://stoic-northcutt-f04ad5.netlify.app/user'}
-          ref={refs.clientUsersMyProfileRef}
           title={texts.ru.clientComponent.clientUsersMyProfile}
         />
 
@@ -186,9 +186,9 @@ export const Client = ({refs}) => {
 
       <Section>
         <SectionMain
+          ref={refs.clientUsersMySubUsersRef}
           img={ClientUserMySubUsers}
           link={'https://stoic-northcutt-f04ad5.netlify.app/user/subusers'}
-          ref={refs.clientUsersMySubUsersRef}
           title={texts.ru.clientComponent.clientUsersMyUsers}
         />
 
@@ -218,9 +218,9 @@ export const Client = ({refs}) => {
 
       <Section>
         <SectionMain
+          ref={refs.clientProductRef}
           img={ClientProduct}
           link={'https://stoic-northcutt-f04ad5.netlify.app/product'}
-          ref={refs.clientProductRef}
           title={texts.ru.clientComponent.clientProduct}
         />
 

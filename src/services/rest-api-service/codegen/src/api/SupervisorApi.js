@@ -20,7 +20,6 @@ import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
 import InlineResponse500 from '../model/InlineResponse500';
-import Null from '../model/Null';
 
 /**
 * Supervisor service.
@@ -41,23 +40,15 @@ export default class SupervisorApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the apiV1SupervisorsPaymentsCreatedByThisSuperGet operation.
-     * @callback module:api/SupervisorApi~apiV1SupervisorsPaymentsCreatedByThisSuperGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse2004>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * # Получить оплаты созданные данным супервайзером.
      * ## Получить оплаты созданные данным супервайзером.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/SupervisorApi~apiV1SupervisorsPaymentsCreatedByThisSuperGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
-    apiV1SupervisorsPaymentsCreatedByThisSuperGet(opts, callback) {
+    apiV1SupervisorsPaymentsCreatedByThisSuperGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -78,27 +69,33 @@ export default class SupervisorApi {
       return this.apiClient.callApi(
         '/api/v1/supervisors/payments/created_by_this_super', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1SupervisorsPaymentsMyGet operation.
-     * @callback module:api/SupervisorApi~apiV1SupervisorsPaymentsMyGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse2004>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить оплаты созданные данным супервайзером.
+     * ## Получить оплаты созданные данным супервайзером.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */
+    apiV1SupervisorsPaymentsCreatedByThisSuperGet(opts) {
+      return this.apiV1SupervisorsPaymentsCreatedByThisSuperGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить все оплаты, которые были начислены супервайзеру.
      * ## Получить все оплаты, которые были начислены супервайзеру.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/SupervisorApi~apiV1SupervisorsPaymentsMyGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
-    apiV1SupervisorsPaymentsMyGet(opts, callback) {
+    apiV1SupervisorsPaymentsMyGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -119,17 +116,24 @@ export default class SupervisorApi {
       return this.apiClient.callApi(
         '/api/v1/supervisors/payments/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1SupervisorsProductsGuidPatch operation.
-     * @callback module:api/SupervisorApi~apiV1SupervisorsProductsGuidPatchCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить все оплаты, которые были начислены супервайзеру.
+     * ## Получить все оплаты, которые были начислены супервайзеру.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */
+    apiV1SupervisorsPaymentsMyGet(opts) {
+      return this.apiV1SupervisorsPaymentsMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Изменить статус и дать комментарий доя продукта.
@@ -138,10 +142,9 @@ export default class SupervisorApi {
      * @param {module:model/InlineObject18} InlineObject18 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/SupervisorApi~apiV1SupervisorsProductsGuidPatchCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1SupervisorsProductsGuidPatch(guid, InlineObject18, opts, callback) {
+    apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, InlineObject18, opts) {
       opts = opts || {};
       let postBody = InlineObject18;
       // verify the required parameter 'guid' is set
@@ -171,27 +174,35 @@ export default class SupervisorApi {
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1SupervisorsProductsMyGet operation.
-     * @callback module:api/SupervisorApi~apiV1SupervisorsProductsMyGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse200>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Изменить статус и дать комментарий доя продукта.
+     * ## Изменить статус и дать комментарий для продукта.  ## 20, 70, 80, 90 - эти статусы запускают процесс выплат. После того как поставлен   ## одн из таких статусов - больше нельзя така как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,      researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,       // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/    
+     * @param {String} guid GUID продукта, который планируем изменить
+     * @param {module:model/InlineObject18} InlineObject18 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1SupervisorsProductsGuidPatch(guid, InlineObject18, opts) {
+      return this.apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, InlineObject18, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить список товаров взятых на проверку супервайзером.
      * ## Получить список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/SupervisorApi~apiV1SupervisorsProductsMyGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1SupervisorsProductsMyGet(opts, callback) {
+    apiV1SupervisorsProductsMyGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -212,17 +223,24 @@ export default class SupervisorApi {
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1SupervisorsProductsPickupGuidPost operation.
-     * @callback module:api/SupervisorApi~apiV1SupervisorsProductsPickupGuidPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить список товаров взятых на проверку супервайзером.
+     * ## Получить список товаров взятых на проверку супервайзером.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
+    apiV1SupervisorsProductsMyGet(opts) {
+      return this.apiV1SupervisorsProductsMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Закрепить продукт за супервайзером. Взять его в работу.
@@ -230,10 +248,9 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/SupervisorApi~apiV1SupervisorsProductsPickupGuidPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1SupervisorsProductsPickupGuidPost(guid, opts, callback) {
+    apiV1SupervisorsProductsPickupGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
@@ -259,27 +276,34 @@ export default class SupervisorApi {
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/pickup/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1SupervisorsProductsVacGet operation.
-     * @callback module:api/SupervisorApi~apiV1SupervisorsProductsVacGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse200>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Закрепить продукт за супервайзером. Взять его в работу.
+     * ## Закрепить продукт за супервайзером. Взять его в работу.  ##  Выставляет у продукта поле checkedby  
+     * @param {String} guid GUID продукта, который планируем изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1SupervisorsProductsPickupGuidPost(guid, opts) {
+      return this.apiV1SupervisorsProductsPickupGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить список вакантных товаров.
      * ## Получить список вакантных товаров.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/SupervisorApi~apiV1SupervisorsProductsVacGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1SupervisorsProductsVacGet(opts, callback) {
+    apiV1SupervisorsProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -300,8 +324,22 @@ export default class SupervisorApi {
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * # Получить список вакантных товаров.
+     * ## Получить список вакантных товаров.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     */
+    apiV1SupervisorsProductsVacGet(opts) {
+      return this.apiV1SupervisorsProductsVacGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

@@ -104,10 +104,10 @@ export const Documentation = () => {
         drawerWidth={DRAWER_WIDTH}
         notificationCount={2}
         // avatarSrc={avatar}
-        onHistory={onHistory}
         setDrawerOpen={setDrawerOpen}
         title={texts.en.documentationView.appBarTitle}
         username={texts.en.documentationView.appBarUserName}
+        onHistory={onHistory}
       >
         <Navbar
           activeItem={activeCategory}

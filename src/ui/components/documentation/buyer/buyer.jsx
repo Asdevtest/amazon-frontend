@@ -25,9 +25,9 @@ export const Buyer = ({refs}) => {
     <React.Fragment>
       <Section>
         <SectionMain
+          ref={refs.buyerProductsRef}
           img={BuyerProducts}
           link={'https://stoic-northcutt-f04ad5.netlify.app/buyer/products'}
-          ref={refs.buyerProductsRef}
           title={texts.ru.buyerComponent.goods}
         />
 
@@ -41,36 +41,36 @@ export const Buyer = ({refs}) => {
 
       <Section>
         <SectionMain
+          ref={refs.buyerMyProductsRef}
           img={BuyerMyProducts}
           link={'https://stoic-northcutt-f04ad5.netlify.app/buyer/my-products'}
-          ref={refs.buyerMyProductsRef}
           title={texts.ru.buyerComponent.myGoods}
         />
       </Section>
 
       <Section>
         <SectionMain
+          ref={refs.buyerOrdersMyOrdersRef}
           img={BuyerOrdersMyOrders}
           link={'https://stoic-northcutt-f04ad5.netlify.app/buyer/orders/my-orders'}
-          ref={refs.buyerOrdersMyOrdersRef}
           title={texts.ru.buyerComponent.myOrders}
         />
       </Section>
 
       <Section>
         <SectionMain
+          ref={refs.buyerOrdersFreeOrdersRef}
           img={BuyerOrdersFreeOrders}
           link={'https://stoic-northcutt-f04ad5.netlify.app/buyer/orders/free-orders'}
-          ref={refs.buyerOrdersFreeOrdersRef}
           title={texts.ru.buyerComponent.freeOrders}
         />
       </Section>
 
       <Section>
         <SectionMain
+          ref={refs.buyerWarehouseRef}
           img={BuyerWarehouse}
           link={'https://stoic-northcutt-f04ad5.netlify.app/buyer/warehouse'}
-          ref={refs.buyerWarehouseRef}
           title={texts.ru.buyerComponent.myStore}
         />
 
@@ -97,27 +97,27 @@ export const Buyer = ({refs}) => {
 
       <Section>
         <SectionMain
+          ref={refs.buyerBatchesRef}
           img={BuyerBatches}
           link={'https://stoic-northcutt-f04ad5.netlify.app/buyer/batches'}
-          ref={refs.buyerBatchesRef}
           title={texts.ru.buyerComponent.batchGoods}
         />
       </Section>
 
       <Section>
         <SectionMain
+          ref={refs.buyerUsersMyProfileRef}
           img={FreelancerMainPage}
           link={'https://stoic-northcutt-f04ad5.netlify.app/buyer/user'}
-          ref={refs.buyerUsersMyProfileRef}
           title={texts.ru.buyerComponent.myProfile}
         />
       </Section>
 
       <Section>
         <SectionMain
+          ref={refs.buyerUsersMySubUsersRef}
           img={FreelancerMainPage}
           link={'https://stoic-northcutt-f04ad5.netlify.app/buyer/subusers'}
-          ref={refs.buyerUsersMySubUsersRef}
           title={texts.ru.buyerComponent.myUsers}
         />
       </Section>

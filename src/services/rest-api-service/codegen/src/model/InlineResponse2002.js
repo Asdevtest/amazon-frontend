@@ -94,9 +94,63 @@ class InlineResponse2002 {
         }
         return obj;
     }
-
-
 }
+
+/**
+ * Allowed values for the <code>status</code> property.
+ * @enum {Number}
+ * @readonly
+ */
+ InlineResponse2002['StatusEnum'] = {
+
+    /**
+     * value: 0
+     * @const
+     */
+    "0": 0,
+
+    /**
+     * value: 1
+     * @const
+     */
+    "1": 1,
+
+    /**
+     * value: 10
+     * @const
+     */
+    "10": 10,
+
+    /**
+     * value: 15
+     * @const
+     */
+    "15": 15,
+
+    /**
+     * value: 20
+     * @const
+     */
+    "20": 20,
+
+    /**
+     * value: 25
+     * @const
+     */
+    "25": 25,
+
+    /**
+     * value: 30
+     * @const
+     */
+    "30": 30,
+
+    /**
+     * value: 35
+     * @const
+     */
+    "35": 35
+};
 
 /**
  * GUID данной записи в БД.
@@ -151,7 +205,7 @@ InlineResponse2002.prototype['fba'] = undefined;
  * @member {module:model/InlineResponse2002.StatusEnum} status
  * @default StatusEnum.1
  */
-InlineResponse2002.prototype['status'] = StatusEnum.1;
+InlineResponse2002.prototype['status'] = InlineResponse2002.StatusEnum[1];
 
 /**
  * Стоимость доставки до склада.
@@ -164,66 +218,6 @@ InlineResponse2002.prototype['deliveryCostToTheWarehouse'] = undefined;
  * @member {String} product
  */
 InlineResponse2002.prototype['product'] = undefined;
-
-
-
-
-
-/**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
- */
-InlineResponse2002['StatusEnum'] = {
-
-    /**
-     * value: 0
-     * @const
-     */
-    "0": 0,
-
-    /**
-     * value: 1
-     * @const
-     */
-    "1": 1,
-
-    /**
-     * value: 10
-     * @const
-     */
-    "10": 10,
-
-    /**
-     * value: 15
-     * @const
-     */
-    "15": 15,
-
-    /**
-     * value: 20
-     * @const
-     */
-    "20": 20,
-
-    /**
-     * value: 25
-     * @const
-     */
-    "25": 25,
-
-    /**
-     * value: 30
-     * @const
-     */
-    "30": 30,
-
-    /**
-     * value: 35
-     * @const
-     */
-    "35": 35
-};
 
 
 

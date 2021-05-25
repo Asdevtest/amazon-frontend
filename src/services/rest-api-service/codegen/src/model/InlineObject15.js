@@ -89,9 +89,27 @@ class InlineObject15 {
         }
         return obj;
     }
-
-
 }
+
+/**
+ * Allowed values for the <code>status</code> property.
+ * @enum {Number}
+ * @readonly
+ */
+ InlineObject15['StatusEnum'] = {
+
+    /**
+     * value: 0
+     * @const
+     */
+    "0": 0,
+
+    /**
+     * value: 10
+     * @const
+     */
+    "10": 10
+};
 
 /**
  * Ссылка на этот продукт на амазоне.
@@ -115,7 +133,7 @@ InlineObject15.prototype['bsr'] = undefined;
  * @member {module:model/InlineObject15.StatusEnum} status
  * @default StatusEnum.0
  */
-InlineObject15.prototype['status'] = StatusEnum.0;
+InlineObject15.prototype['status'] = InlineObject15.StatusEnum[0];
 
 /**
  * @member {Number} amazon
@@ -169,30 +187,6 @@ InlineObject15.prototype['profit'] = undefined;
  * @member {Number} margin
  */
 InlineObject15.prototype['margin'] = undefined;
-
-
-
-
-
-/**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
- */
-InlineObject15['StatusEnum'] = {
-
-    /**
-     * value: 0
-     * @const
-     */
-    "0": 0,
-
-    /**
-     * value: 10
-     * @const
-     */
-    "10": 10
-};
 
 
 

@@ -52,10 +52,10 @@ export class ClientDashboardViewRaw extends Component {
                   {textConsts.balance}
                 </Typography>
                 <Typography className={classes.balanceTitle}>{clientBalance}</Typography>
-                <Button className={classes.mr2} color="primary" disableElevation variant="contained">
+                <Button disableElevation className={classes.mr2} color="primary" variant="contained">
                   {textConsts.withdraw}
                 </Button>
-                <Button color="primary" disableElevation>
+                <Button disableElevation color="primary">
                   {textConsts.replenish}
                 </Button>
               </div>
@@ -78,7 +78,7 @@ export class ClientDashboardViewRaw extends Component {
       </Typography>
       <Grid container justify="center" spacing={3}>
         {section.items.map((item, index) => (
-          <Grid item key={index} lg={4} sm={6} xs={12}>
+          <Grid key={index} item lg={4} sm={6} xs={12}>
             <InfoCard color={item.color} title={item.title} value={item.value} />
           </Grid>
         ))}

@@ -65,7 +65,7 @@ export const Inventory = () => {
           <Main drawerWidth={DRAWER_WIDTH}>
             <Grid container justify="center" spacing={1}>
               {INVENTORY_CARD_LIST.map((el, index) => (
-                <Grid item key={index}>
+                <Grid key={index} item>
                   <ContentCard count={el.count} timer={el.timer} title={el.label} />
                 </Grid>
               ))}

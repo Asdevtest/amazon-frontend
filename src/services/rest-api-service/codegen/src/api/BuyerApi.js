@@ -25,7 +25,6 @@ import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
 import InlineResponse500 from '../model/InlineResponse500';
-import Null from '../model/Null';
 
 /**
 * Buyer service.
@@ -46,13 +45,6 @@ export default class BuyerApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the apiV1BuyersBoxesGuidPatch operation.
-     * @callback module:api/BuyerApi~apiV1BuyersBoxesGuidPatchCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse201} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * # Изменить коробку с товаром.
@@ -61,10 +53,9 @@ export default class BuyerApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject5} opts.InlineObject5 
-     * @param {module:api/BuyerApi~apiV1BuyersBoxesGuidPatchCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse201}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
      */
-    apiV1BuyersBoxesGuidPatch(guid, opts, callback) {
+    apiV1BuyersBoxesGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = opts['InlineObject5'];
       // verify the required parameter 'guid' is set
@@ -90,27 +81,35 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/boxes/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1BuyersBoxesMyGet operation.
-     * @callback module:api/BuyerApi~apiV1BuyersBoxesMyGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse2003>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Изменить коробку с товаром.
+     * ## Изменить коробку с товаром.  ## Выборка идет по GUID коробки и байера, кто ее создавал. Нельзя отредактировать чужую коробку.  
+     * @param {String} guid GUID коробки, которую мы хотим изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject5} opts.InlineObject5 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
      */
+    apiV1BuyersBoxesGuidPatch(guid, opts) {
+      return this.apiV1BuyersBoxesGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Посмотреть мои коробки.
      * ## Посмотреть мои коробки.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/BuyerApi~apiV1BuyersBoxesMyGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse2003>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
      */
-    apiV1BuyersBoxesMyGet(opts, callback) {
+    apiV1BuyersBoxesMyGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -131,17 +130,24 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/boxes/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1BuyersBoxesPost operation.
-     * @callback module:api/BuyerApi~apiV1BuyersBoxesPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse201} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Посмотреть мои коробки.
+     * ## Посмотреть мои коробки.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
      */
+    apiV1BuyersBoxesMyGet(opts) {
+      return this.apiV1BuyersBoxesMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Создать коробку с товаром.
@@ -149,10 +155,9 @@ export default class BuyerApi {
      * @param {module:model/InlineObject4} InlineObject4 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/BuyerApi~apiV1BuyersBoxesPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse201}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
      */
-    apiV1BuyersBoxesPost(InlineObject4, opts, callback) {
+    apiV1BuyersBoxesPostWithHttpInfo(InlineObject4, opts) {
       opts = opts || {};
       let postBody = InlineObject4;
       // verify the required parameter 'InlineObject4' is set
@@ -177,17 +182,25 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/boxes', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1BuyersBoxesSendToStorekeeperGuidPost operation.
-     * @callback module:api/BuyerApi~apiV1BuyersBoxesSendToStorekeeperGuidPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Создать коробку с товаром.
+     * ## Создать коробку с товаром.  
+     * @param {module:model/InlineObject4} InlineObject4 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
      */
+    apiV1BuyersBoxesPost(InlineObject4, opts) {
+      return this.apiV1BuyersBoxesPostWithHttpInfo(InlineObject4, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Отправить коробку на обработку на склад.
@@ -195,10 +208,9 @@ export default class BuyerApi {
      * @param {String} guid GUID коробки, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/BuyerApi~apiV1BuyersBoxesSendToStorekeeperGuidPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1BuyersBoxesSendToStorekeeperGuidPost(guid, opts, callback) {
+    apiV1BuyersBoxesSendToStorekeeperGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
@@ -224,17 +236,25 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/boxes/send_to_storekeeper/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1BuyersOrdersGuidGet operation.
-     * @callback module:api/BuyerApi~apiV1BuyersOrdersGuidGetCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2002} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Отправить коробку на обработку на склад.
+     * ## Отправить коробку на обработку на склад.  ## Установит статус коробки в 20.   
+     * @param {String} guid GUID коробки, которую мы хотим изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1BuyersBoxesSendToStorekeeperGuidPost(guid, opts) {
+      return this.apiV1BuyersBoxesSendToStorekeeperGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить конкретный заказ по его GUID.
@@ -242,10 +262,9 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/BuyerApi~apiV1BuyersOrdersGuidGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
      */
-    apiV1BuyersOrdersGuidGet(guid, opts, callback) {
+    apiV1BuyersOrdersGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
@@ -271,17 +290,25 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1BuyersOrdersGuidPatch operation.
-     * @callback module:api/BuyerApi~apiV1BuyersOrdersGuidPatchCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить конкретный заказ по его GUID.
+     * ## Получить конкретный заказ по его GUID.   
+     * @param {String} guid GUID заказа.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
      */
+    apiV1BuyersOrdersGuidGet(guid, opts) {
+      return this.apiV1BuyersOrdersGuidGetWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Редактировать заказ.
@@ -290,10 +317,9 @@ export default class BuyerApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject3} opts.InlineObject3 
-     * @param {module:api/BuyerApi~apiV1BuyersOrdersGuidPatchCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1BuyersOrdersGuidPatch(guid, opts, callback) {
+    apiV1BuyersOrdersGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = opts['InlineObject3'];
       // verify the required parameter 'guid' is set
@@ -319,27 +345,35 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1BuyersOrdersMyGet operation.
-     * @callback module:api/BuyerApi~apiV1BuyersOrdersMyGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse2002>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Редактировать заказ.
+     * ## Редактировать заказ.   
+     * @param {String} guid GUID заказа, который планируем изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject3} opts.InlineObject3 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1BuyersOrdersGuidPatch(guid, opts) {
+      return this.apiV1BuyersOrdersGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить список заказов текущего байера.
      * ## Получить список заказов текущего байера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/BuyerApi~apiV1BuyersOrdersMyGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse2002>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
      */
-    apiV1BuyersOrdersMyGet(opts, callback) {
+    apiV1BuyersOrdersMyGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -360,17 +394,24 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1BuyersOrdersPickupGuidPost operation.
-     * @callback module:api/BuyerApi~apiV1BuyersOrdersPickupGuidPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить список заказов текущего байера.
+     * ## Получить список заказов текущего байера.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
      */
+    apiV1BuyersOrdersMyGet(opts) {
+      return this.apiV1BuyersOrdersMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Закрепить заказ за байером. Взять его в работу.
@@ -378,10 +419,9 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/BuyerApi~apiV1BuyersOrdersPickupGuidPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1BuyersOrdersPickupGuidPost(guid, opts, callback) {
+    apiV1BuyersOrdersPickupGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
@@ -407,27 +447,34 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/pickup/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1BuyersOrdersVacGet operation.
-     * @callback module:api/BuyerApi~apiV1BuyersOrdersVacGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse2002>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Закрепить заказ за байером. Взять его в работу.
+     * ## Закрепить заказ за байером. Взять его в работу.  ##  На основании заказа НУЖНО СФОРМИРОВАТЬ коробки по кол-ву товаров в заказе.   ## Эндпоинт НЕ ВЕРНЕТ сформированные коробки что бы не плодить МАГИЮ или ГЛЮКИ.   ## Запросите закрепление заказа. Если операция пройдет успешно 204 - запросите создание коробки.   ## Следующим этапом сделаем возможность закреплять пачку заказов и пачку коробок готовить одним запросом. Но потом.   ## Текущая база не поддерживает транзакции.   
+     * @param {String} guid GUID заказа, который планируем изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1BuyersOrdersPickupGuidPost(guid, opts) {
+      return this.apiV1BuyersOrdersPickupGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить список свободных заказов.
      * ## Получить список свободных заказов.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/BuyerApi~apiV1BuyersOrdersVacGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse2002>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
      */
-    apiV1BuyersOrdersVacGet(opts, callback) {
+    apiV1BuyersOrdersVacGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -448,27 +495,33 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1BuyersPaymentsMyGet operation.
-     * @callback module:api/BuyerApi~apiV1BuyersPaymentsMyGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse2004>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить список свободных заказов.
+     * ## Получить список свободных заказов.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
      */
+    apiV1BuyersOrdersVacGet(opts) {
+      return this.apiV1BuyersOrdersVacGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Получить информацию об платежах для этого байера.
      * Получить информацию об платежах для этого байера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/BuyerApi~apiV1BuyersPaymentsMyGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
-    apiV1BuyersPaymentsMyGet(opts, callback) {
+    apiV1BuyersPaymentsMyGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -489,17 +542,24 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/payments/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1BuyersProductsGuidPatch operation.
-     * @callback module:api/BuyerApi~apiV1BuyersProductsGuidPatchCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Получить информацию об платежах для этого байера.
+     * Получить информацию об платежах для этого байера.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */
+    apiV1BuyersPaymentsMyGet(opts) {
+      return this.apiV1BuyersPaymentsMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Внести изменения в продукт.
@@ -508,10 +568,9 @@ export default class BuyerApi {
      * @param {Object.<String, {String: Object}>} request_body 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/BuyerApi~apiV1BuyersProductsGuidPatchCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1BuyersProductsGuidPatch(guid, request_body, opts, callback) {
+    apiV1BuyersProductsGuidPatchWithHttpInfo(guid, request_body, opts) {
       opts = opts || {};
       let postBody = request_body;
       // verify the required parameter 'guid' is set
@@ -541,27 +600,35 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/products/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1BuyersProductsMyGet operation.
-     * @callback module:api/BuyerApi~apiV1BuyersProductsMyGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse200>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Внести изменения в продукт.
+     * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 30, 40, 50, 60.   
+     * @param {String} guid GUID продукта, который планируем изменить
+     * @param {Object.<String, {String: Object}>} request_body 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1BuyersProductsGuidPatch(guid, request_body, opts) {
+      return this.apiV1BuyersProductsGuidPatchWithHttpInfo(guid, request_body, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить список товаров взятых на проверку супервайзером.
      * ## Получить список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/BuyerApi~apiV1BuyersProductsMyGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1BuyersProductsMyGet(opts, callback) {
+    apiV1BuyersProductsMyGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -582,17 +649,24 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/products/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1BuyersProductsPickupGuidPost operation.
-     * @callback module:api/BuyerApi~apiV1BuyersProductsPickupGuidPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить список товаров взятых на проверку супервайзером.
+     * ## Получить список товаров взятых на проверку супервайзером.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
+    apiV1BuyersProductsMyGet(opts) {
+      return this.apiV1BuyersProductsMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Закрепить продукт за байером. Взять его в работу.
@@ -600,10 +674,9 @@ export default class BuyerApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/BuyerApi~apiV1BuyersProductsPickupGuidPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1BuyersProductsPickupGuidPost(guid, opts, callback) {
+    apiV1BuyersProductsPickupGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
@@ -629,27 +702,34 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/products/pickup/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1BuyersProductsVacGet operation.
-     * @callback module:api/BuyerApi~apiV1BuyersProductsVacGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse200>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Закрепить продукт за байером. Взять его в работу.
+     * ## Закрепить продукт за байером. Взять его в работу.  
+     * @param {String} guid GUID продукта, который планируем изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1BuyersProductsPickupGuidPost(guid, opts) {
+      return this.apiV1BuyersProductsPickupGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить список вакантных товаров.
      * ## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/BuyerApi~apiV1BuyersProductsVacGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1BuyersProductsVacGet(opts, callback) {
+    apiV1BuyersProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -670,8 +750,22 @@ export default class BuyerApi {
       return this.apiClient.callApi(
         '/api/v1/buyers/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * # Получить список вакантных товаров.
+     * ## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     */
+    apiV1BuyersProductsVacGet(opts) {
+      return this.apiV1BuyersProductsVacGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

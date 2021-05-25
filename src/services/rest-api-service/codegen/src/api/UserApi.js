@@ -41,23 +41,15 @@ export default class UserApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the apiV1UsersInfoGet operation.
-     * @callback module:api/UserApi~apiV1UsersInfoGetCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiV1AdminsGetNotPaidProductsCreatedby} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Получить информацию от текущем пользователе.
      * ## Получить информацию от текущем пользователе.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/UserApi~apiV1UsersInfoGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiV1AdminsGetNotPaidProductsCreatedby}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsGetNotPaidProductsCreatedby} and HTTP response
      */
-    apiV1UsersInfoGet(opts, callback) {
+    apiV1UsersInfoGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -78,17 +70,24 @@ export default class UserApi {
       return this.apiClient.callApi(
         '/api/v1/users/info', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1UsersPost operation.
-     * @callback module:api/UserApi~apiV1UsersPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiV1AdminsGetNotPaidProductsCreatedby} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Получить информацию от текущем пользователе.
+     * ## Получить информацию от текущем пользователе.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsGetNotPaidProductsCreatedby}
      */
+    apiV1UsersInfoGet(opts) {
+      return this.apiV1UsersInfoGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Создание нового пользователя. Регистрация.
@@ -96,10 +95,9 @@ export default class UserApi {
      * @param {module:model/InlineObject21} InlineObject21 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/UserApi~apiV1UsersPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiV1AdminsGetNotPaidProductsCreatedby}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsGetNotPaidProductsCreatedby} and HTTP response
      */
-    apiV1UsersPost(InlineObject21, opts, callback) {
+    apiV1UsersPostWithHttpInfo(InlineObject21, opts) {
       opts = opts || {};
       let postBody = InlineObject21;
       // verify the required parameter 'InlineObject21' is set
@@ -124,17 +122,25 @@ export default class UserApi {
       return this.apiClient.callApi(
         '/api/v1/users/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1UsersSignInPost operation.
-     * @callback module:api/UserApi~apiV1UsersSignInPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2011} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Создание нового пользователя. Регистрация.
+     * ## Создание нового пользователя. Регистрация.   
+     * @param {module:model/InlineObject21} InlineObject21 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsGetNotPaidProductsCreatedby}
      */
+    apiV1UsersPost(InlineObject21, opts) {
+      return this.apiV1UsersPostWithHttpInfo(InlineObject21, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получение токена авторизации.
@@ -142,10 +148,9 @@ export default class UserApi {
      * @param {module:model/InlineObject22} InlineObject22 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/UserApi~apiV1UsersSignInPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2011}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
      */
-    apiV1UsersSignInPost(InlineObject22, opts, callback) {
+    apiV1UsersSignInPostWithHttpInfo(InlineObject22, opts) {
       opts = opts || {};
       let postBody = InlineObject22;
       // verify the required parameter 'InlineObject22' is set
@@ -170,8 +175,23 @@ export default class UserApi {
       return this.apiClient.callApi(
         '/api/v1/users/sign_in', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * # Получение токена авторизации.
+     * ## Получение токена авторизации.   ## Время жизни токена 96 часов   
+     * @param {module:model/InlineObject22} InlineObject22 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
+     */
+    apiV1UsersSignInPost(InlineObject22, opts) {
+      return this.apiV1UsersSignInPostWithHttpInfo(InlineObject22, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

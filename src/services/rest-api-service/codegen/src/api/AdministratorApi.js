@@ -22,7 +22,6 @@ import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
 import InlineResponse500 from '../model/InlineResponse500';
-import Null from '../model/Null';
 
 /**
 * Administrator service.
@@ -43,23 +42,15 @@ export default class AdministratorApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the apiV1AdminsGetCheckingProductsGet operation.
-     * @callback module:api/AdministratorApi~apiV1AdminsGetCheckingProductsGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse200>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * # Получить список товаров, которые находятся на проверке. 
      * ## Получить список товаров, которые находятся на проверке.   ## У таких товаров dircheckedby != null && paidat = null   ## !!! Тоже из тех времен когда директор что-то проверял.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/AdministratorApi~apiV1AdminsGetCheckingProductsGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1AdminsGetCheckingProductsGet(opts, callback) {
+    apiV1AdminsGetCheckingProductsGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -80,27 +71,33 @@ export default class AdministratorApi {
       return this.apiClient.callApi(
         '/api/v1/admins/get_checking_products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1AdminsGetNotPaidProductsGet operation.
-     * @callback module:api/AdministratorApi~apiV1AdminsGetNotPaidProductsGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse200>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить список товаров, которые находятся на проверке. 
+     * ## Получить список товаров, которые находятся на проверке.   ## У таких товаров dircheckedby != null && paidat = null   ## !!! Тоже из тех времен когда директор что-то проверял.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
+    apiV1AdminsGetCheckingProductsGet(opts) {
+      return this.apiV1AdminsGetCheckingProductsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить список не оплаченных товаров.
      * ## Получить список не оплаченных товаров.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/AdministratorApi~apiV1AdminsGetNotPaidProductsGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1AdminsGetNotPaidProductsGet(opts, callback) {
+    apiV1AdminsGetNotPaidProductsGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -121,27 +118,33 @@ export default class AdministratorApi {
       return this.apiClient.callApi(
         '/api/v1/admins/get_not_paid_products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1AdminsGetVacProductsGet operation.
-     * @callback module:api/AdministratorApi~apiV1AdminsGetVacProductsGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse200>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить список не оплаченных товаров.
+     * ## Получить список не оплаченных товаров.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
+    apiV1AdminsGetNotPaidProductsGet(opts) {
+      return this.apiV1AdminsGetNotPaidProductsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить список товаров, которые ожидают проверку. 
      * ## !!!Эндпоинт был завязан на поля поверки директором(сущность которую   ## переименовали в клиент. Возможно, уже не нужен.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/AdministratorApi~apiV1AdminsGetVacProductsGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1AdminsGetVacProductsGet(opts, callback) {
+    apiV1AdminsGetVacProductsGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -162,27 +165,33 @@ export default class AdministratorApi {
       return this.apiClient.callApi(
         '/api/v1/admins/get_vac_products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1AdminsGetWaitingProductsGet operation.
-     * @callback module:api/AdministratorApi~apiV1AdminsGetWaitingProductsGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse200>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить список товаров, которые ожидают проверку. 
+     * ## !!!Эндпоинт был завязан на поля поверки директором(сущность которую   ## переименовали в клиент. Возможно, уже не нужен.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
+    apiV1AdminsGetVacProductsGet(opts) {
+      return this.apiV1AdminsGetVacProductsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить список товаров, которые ожидают проверку. 
      * ## Получить список товаров, которые ожидают проверку.   ## У таких товаров status = 0   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/AdministratorApi~apiV1AdminsGetWaitingProductsGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1AdminsGetWaitingProductsGet(opts, callback) {
+    apiV1AdminsGetWaitingProductsGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -203,17 +212,24 @@ export default class AdministratorApi {
       return this.apiClient.callApi(
         '/api/v1/admins/get_waiting_products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1AdminsMakePaymentPost operation.
-     * @callback module:api/AdministratorApi~apiV1AdminsMakePaymentPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить список товаров, которые ожидают проверку. 
+     * ## Получить список товаров, которые ожидают проверку.   ## У таких товаров status = 0   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
+    apiV1AdminsGetWaitingProductsGet(opts) {
+      return this.apiV1AdminsGetWaitingProductsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Оплатить выбранные продукты.
@@ -221,10 +237,9 @@ export default class AdministratorApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject1} opts.InlineObject1 
-     * @param {module:api/AdministratorApi~apiV1AdminsMakePaymentPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1AdminsMakePaymentPost(opts, callback) {
+    apiV1AdminsMakePaymentPostWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['InlineObject1'];
 
@@ -245,17 +260,25 @@ export default class AdministratorApi {
       return this.apiClient.callApi(
         '/api/v1/admins/make_payment', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1AdminsPatchProductsGuidPatch operation.
-     * @callback module:api/AdministratorApi~apiV1AdminsPatchProductsGuidPatchCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Оплатить выбранные продукты.
+     * ## Оплатить выбранные продукты.   ## ВНИМАНИЕ: нет проверки все ли guid корректны. По корректным GUID обновит. Битые заигнорит..   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject1} opts.InlineObject1 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1AdminsMakePaymentPost(opts) {
+      return this.apiV1AdminsMakePaymentPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Внести изменения в продукт.
@@ -264,10 +287,9 @@ export default class AdministratorApi {
      * @param {module:model/InlineObject} InlineObject 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/AdministratorApi~apiV1AdminsPatchProductsGuidPatchCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1AdminsPatchProductsGuidPatch(guid, InlineObject, opts, callback) {
+    apiV1AdminsPatchProductsGuidPatchWithHttpInfo(guid, InlineObject, opts) {
       opts = opts || {};
       let postBody = InlineObject;
       // verify the required parameter 'guid' is set
@@ -297,17 +319,26 @@ export default class AdministratorApi {
       return this.apiClient.callApi(
         '/api/v1/admins/patch_products/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1AdminsPickupItemGuidPost operation.
-     * @callback module:api/AdministratorApi~apiV1AdminsPickupItemGuidPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Внести изменения в продукт.
+     * ## Внести изменения в продукт.   
+     * @param {String} guid GUID продукта в БД.
+     * @param {module:model/InlineObject} InlineObject 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1AdminsPatchProductsGuidPatch(guid, InlineObject, opts) {
+      return this.apiV1AdminsPatchProductsGuidPatchWithHttpInfo(guid, InlineObject, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Взять продукт на проверку.
@@ -315,10 +346,9 @@ export default class AdministratorApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/AdministratorApi~apiV1AdminsPickupItemGuidPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1AdminsPickupItemGuidPost(guid, opts, callback) {
+    apiV1AdminsPickupItemGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
@@ -344,27 +374,34 @@ export default class AdministratorApi {
       return this.apiClient.callApi(
         '/api/v1/admins/pickup_item/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1AdminsUsersGet operation.
-     * @callback module:api/AdministratorApi~apiV1AdminsUsersGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse2001>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Взять продукт на проверку.
+     * ## Взять продукт на проверку.   ## Берет на проверку от имени директора. Думаю это устаревший эндпоинт.   
+     * @param {String} guid GUID продукта в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1AdminsPickupItemGuidPost(guid, opts) {
+      return this.apiV1AdminsPickupItemGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Получить всех пользователей.
      * ## Получить всех пользователей.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/AdministratorApi~apiV1AdminsUsersGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse2001>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2001>} and HTTP response
      */
-    apiV1AdminsUsersGet(opts, callback) {
+    apiV1AdminsUsersGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -385,17 +422,24 @@ export default class AdministratorApi {
       return this.apiClient.callApi(
         '/api/v1/admins/users', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1AdminsUsersGuidDelete operation.
-     * @callback module:api/AdministratorApi~apiV1AdminsUsersGuidDeleteCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Получить всех пользователей.
+     * ## Получить всех пользователей.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2001>}
      */
+    apiV1AdminsUsersGet(opts) {
+      return this.apiV1AdminsUsersGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Изменить пользователя.
@@ -403,10 +447,9 @@ export default class AdministratorApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/AdministratorApi~apiV1AdminsUsersGuidDeleteCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1AdminsUsersGuidDelete(guid, opts, callback) {
+    apiV1AdminsUsersGuidDeleteWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
@@ -432,17 +475,25 @@ export default class AdministratorApi {
       return this.apiClient.callApi(
         '/api/v1/admins/users/{guid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1AdminsUsersGuidPatch operation.
-     * @callback module:api/AdministratorApi~apiV1AdminsUsersGuidPatchCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Изменить пользователя.
+     * ##  Изменить пользователя.  ##  Эндпоинт предназначен в большой степени для тестов. Удаление пользователя  ##  предполагалось логическим. Для этого в поле active нужно поставить false.   
+     * @param {String} guid GUID продукта в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1AdminsUsersGuidDelete(guid, opts) {
+      return this.apiV1AdminsUsersGuidDeleteWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Изменить пользователя.
@@ -451,10 +502,9 @@ export default class AdministratorApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject2} opts.InlineObject2 
-     * @param {module:api/AdministratorApi~apiV1AdminsUsersGuidPatchCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1AdminsUsersGuidPatch(guid, opts, callback) {
+    apiV1AdminsUsersGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = opts['InlineObject2'];
       // verify the required parameter 'guid' is set
@@ -480,8 +530,24 @@ export default class AdministratorApi {
       return this.apiClient.callApi(
         '/api/v1/admins/users/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Изменить пользователя.
+     * ##  Изменить пользователя.  
+     * @param {String} guid GUID продукта в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject2} opts.InlineObject2 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     */
+    apiV1AdminsUsersGuidPatch(guid, opts) {
+      return this.apiV1AdminsUsersGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

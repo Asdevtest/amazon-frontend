@@ -22,7 +22,6 @@ import InlineResponse201 from '../model/InlineResponse201';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse500 from '../model/InlineResponse500';
-import Null from '../model/Null';
 
 /**
 * Storekeepers service.
@@ -43,23 +42,15 @@ export default class StorekeepersApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the apiV1StorekeepersBatchesGet operation.
-     * @callback module:api/StorekeepersApi~apiV1StorekeepersBatchesGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse20012>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * # Получить партии....
      * ## Получить партии...  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/StorekeepersApi~apiV1StorekeepersBatchesGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse20012>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20012>} and HTTP response
      */
-    apiV1StorekeepersBatchesGet(opts, callback) {
+    apiV1StorekeepersBatchesGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -80,17 +71,24 @@ export default class StorekeepersApi {
       return this.apiClient.callApi(
         '/api/v1/storekeepers/batches', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1StorekeepersBoxesGuidPatch operation.
-     * @callback module:api/StorekeepersApi~apiV1StorekeepersBoxesGuidPatchCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse201} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить партии....
+     * ## Получить партии...  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20012>}
      */
+    apiV1StorekeepersBatchesGet(opts) {
+      return this.apiV1StorekeepersBatchesGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Изменить коробку с товаром.
@@ -99,10 +97,9 @@ export default class StorekeepersApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject16} opts.InlineObject16 
-     * @param {module:api/StorekeepersApi~apiV1StorekeepersBoxesGuidPatchCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse201}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
      */
-    apiV1StorekeepersBoxesGuidPatch(guid, opts, callback) {
+    apiV1StorekeepersBoxesGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = opts['InlineObject16'];
       // verify the required parameter 'guid' is set
@@ -128,27 +125,35 @@ export default class StorekeepersApi {
       return this.apiClient.callApi(
         '/api/v1/storekeepers/boxes/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1StorekeepersBoxesMyGet operation.
-     * @callback module:api/StorekeepersApi~apiV1StorekeepersBoxesMyGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse20010>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Изменить коробку с товаром.
+     * ## Изменить коробку с товаром.  ## Выборка идет по GUID коробки и кладовщика/сборщика, кто ее подобрал. Нельзя отредактировать чужую коробку.  
+     * @param {String} guid GUID коробки, которую мы хотим изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject16} opts.InlineObject16 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
      */
+    apiV1StorekeepersBoxesGuidPatch(guid, opts) {
+      return this.apiV1StorekeepersBoxesGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить коробки закрепленные за данным сборщиком..
      * ## Получить коробки закрепленные за данным сборщиком.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/StorekeepersApi~apiV1StorekeepersBoxesMyGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse20010>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20010>} and HTTP response
      */
-    apiV1StorekeepersBoxesMyGet(opts, callback) {
+    apiV1StorekeepersBoxesMyGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -169,17 +174,24 @@ export default class StorekeepersApi {
       return this.apiClient.callApi(
         '/api/v1/storekeepers/boxes/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1StorekeepersBoxesPickupGuidPost operation.
-     * @callback module:api/StorekeepersApi~apiV1StorekeepersBoxesPickupGuidPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить коробки закрепленные за данным сборщиком..
+     * ## Получить коробки закрепленные за данным сборщиком.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20010>}
      */
+    apiV1StorekeepersBoxesMyGet(opts) {
+      return this.apiV1StorekeepersBoxesMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Закрепить коробку за сборщиками.
@@ -187,10 +199,9 @@ export default class StorekeepersApi {
      * @param {String} guid GUID коробки, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/StorekeepersApi~apiV1StorekeepersBoxesPickupGuidPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1StorekeepersBoxesPickupGuidPost(guid, opts, callback) {
+    apiV1StorekeepersBoxesPickupGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
@@ -216,27 +227,34 @@ export default class StorekeepersApi {
       return this.apiClient.callApi(
         '/api/v1/storekeepers/boxes/pickup/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1StorekeepersBoxesVacGet operation.
-     * @callback module:api/StorekeepersApi~apiV1StorekeepersBoxesVacGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse20010>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Закрепить коробку за сборщиками.
+     * ## Закрепить коробку за сборщиками.   
+     * @param {String} guid GUID коробки, которую мы хотим изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1StorekeepersBoxesPickupGuidPost(guid, opts) {
+      return this.apiV1StorekeepersBoxesPickupGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить коробки не закрепленные за сборщиками.
      * ## Получить коробки не закрепленные за сборщиками.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/StorekeepersApi~apiV1StorekeepersBoxesVacGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse20010>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20010>} and HTTP response
      */
-    apiV1StorekeepersBoxesVacGet(opts, callback) {
+    apiV1StorekeepersBoxesVacGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -257,17 +275,24 @@ export default class StorekeepersApi {
       return this.apiClient.callApi(
         '/api/v1/storekeepers/boxes/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1StorekeepersTasksGuidPatch operation.
-     * @callback module:api/StorekeepersApi~apiV1StorekeepersTasksGuidPatchCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить коробки не закрепленные за сборщиками.
+     * ## Получить коробки не закрепленные за сборщиками.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20010>}
      */
+    apiV1StorekeepersBoxesVacGet(opts) {
+      return this.apiV1StorekeepersBoxesVacGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Изменить задачу.
@@ -276,10 +301,9 @@ export default class StorekeepersApi {
      * @param {module:model/InlineObject17} InlineObject17 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/StorekeepersApi~apiV1StorekeepersTasksGuidPatchCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1StorekeepersTasksGuidPatch(guid, InlineObject17, opts, callback) {
+    apiV1StorekeepersTasksGuidPatchWithHttpInfo(guid, InlineObject17, opts) {
       opts = opts || {};
       let postBody = InlineObject17;
       // verify the required parameter 'guid' is set
@@ -309,27 +333,35 @@ export default class StorekeepersApi {
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1StorekeepersTasksMyGet operation.
-     * @callback module:api/StorekeepersApi~apiV1StorekeepersTasksMyGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse20011>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Изменить задачу.
+     * ## Изменить задачу. Здесь только статус.   
+     * @param {String} guid GUID задачи, которую мы хотим изменить
+     * @param {module:model/InlineObject17} InlineObject17 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1StorekeepersTasksGuidPatch(guid, InlineObject17, opts) {
+      return this.apiV1StorekeepersTasksGuidPatchWithHttpInfo(guid, InlineObject17, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить задачи закрепленные за данным сборщиком..
      * ## Получить задачи закрепленные за данным сборщиком.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/StorekeepersApi~apiV1StorekeepersTasksMyGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse20011>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20011>} and HTTP response
      */
-    apiV1StorekeepersTasksMyGet(opts, callback) {
+    apiV1StorekeepersTasksMyGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -350,17 +382,24 @@ export default class StorekeepersApi {
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1StorekeepersTasksPickupGuidPost operation.
-     * @callback module:api/StorekeepersApi~apiV1StorekeepersTasksPickupGuidPostCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Null} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Получить задачи закрепленные за данным сборщиком..
+     * ## Получить задачи закрепленные за данным сборщиком.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20011>}
      */
+    apiV1StorekeepersTasksMyGet(opts) {
+      return this.apiV1StorekeepersTasksMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Закрепить задачу за сборщиком.
@@ -368,10 +407,9 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/StorekeepersApi~apiV1StorekeepersTasksPickupGuidPostCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
-    apiV1StorekeepersTasksPickupGuidPost(guid, opts, callback) {
+    apiV1StorekeepersTasksPickupGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
@@ -397,27 +435,34 @@ export default class StorekeepersApi {
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks/pickup/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the apiV1StorekeepersTasksVacGet operation.
-     * @callback module:api/StorekeepersApi~apiV1StorekeepersTasksVacGetCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InlineResponse20011>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * # Закрепить задачу за сборщиком.
+     * ## Закрепить задачу за сборщиком.   
+     * @param {String} guid GUID задачи, которую мы хотим изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
+    apiV1StorekeepersTasksPickupGuidPost(guid, opts) {
+      return this.apiV1StorekeepersTasksPickupGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * # Получить задачи не закрепленные за сотрудниками склада.
      * ## Получить задачи не закрепленные за сотрудниками склада.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:api/StorekeepersApi~apiV1StorekeepersTasksVacGetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InlineResponse20011>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20011>} and HTTP response
      */
-    apiV1StorekeepersTasksVacGet(opts, callback) {
+    apiV1StorekeepersTasksVacGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -438,8 +483,22 @@ export default class StorekeepersApi {
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * # Получить задачи не закрепленные за сотрудниками склада.
+     * ## Получить задачи не закрепленные за сотрудниками склада.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20011>}
+     */
+    apiV1StorekeepersTasksVacGet(opts) {
+      return this.apiV1StorekeepersTasksVacGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 
