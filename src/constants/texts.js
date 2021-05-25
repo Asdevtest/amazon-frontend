@@ -54,11 +54,9 @@ export const texts = {
       registerLink: 'https://stoic-northcutt-f04ad5.netlify.app/register',
       registerDescription: `При нажатии на "Already have account" перенесет на страницу Аутентификации`,
     },
-    iventoryView: {
-      appBarTitle: 'Inventory',
-      appBarUsername: 'Client',
-      appUser: 'client',
-      listOfGoods: 'Список товаров',
+    inventoryView: {
+      appbarTitle: 'Inventory',
+      productsList: 'Products list',
     },
   },
   ru: {
