@@ -1,1 +1,1 @@
-export {Documentation} from './documentation'
+export {DocumentationView} from './documentation-view'

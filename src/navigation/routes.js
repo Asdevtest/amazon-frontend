@@ -1,7 +1,7 @@
 import {AuthView} from '@views/auth'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {Inventory} from '@views/client/inventory'
-import {Documentation} from '@views/documentation'
+import {DocumentationView} from '@views/documentation'
 import {RegistrationView} from '@views/registration'
 
 export const routes = [
@@ -17,7 +17,7 @@ export const routes = [
   },
   {
     routePath: '/documentation',
-    component: Documentation,
+    component: DocumentationView,
     exact: false,
   },
   {

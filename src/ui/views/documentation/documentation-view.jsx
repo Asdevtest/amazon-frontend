@@ -11,20 +11,15 @@ import {Freelancer} from '@components/documentation/freelancer'
 import {Offset} from '@components/documentation/offset/offset'
 import {Supervisor} from '@components/documentation/supervisor/supervisor'
 import {Main} from '@components/main'
-import {Navbar} from '@components/navbar-documentation'
+import {MainContent} from '@components/main-content'
+import {NavbarDocumentation} from '@components/navbar-documentation'
 
 import {Appbar} from '../../components/appbar'
 import Auth from './assets/Auth.jpg'
 import Register from './assets/Register.jpg'
-import {useStyles} from './documentation.style'
+import {useStyles} from './documentation-view.style'
 
-const DRAWER_WIDTH = 200
-
-const onHistory = () => {
-  /*	!!item.route && history.push(item.route);*/
-}
-
-export const Documentation = () => {
+export const DocumentationView = () => {
   const classes = useStyles()
   const [activeCategory, setCategory] = useState(null) // category Биржа товаров
   const [activeSubCategory, setSubCategory] = useState(0) // subCategory
@@ -98,29 +93,30 @@ export const Documentation = () => {
     registerRef,
   }
 
+  const onTriggerDrawer = () => {
+    setDrawerOpen(!drawerOpen)
+  }
+
   return (
     <React.Fragment>
-      <Appbar
-        drawerWidth={DRAWER_WIDTH}
-        notificationCount={2}
-        // avatarSrc={avatar}
+      <NavbarDocumentation
+        activeItem={activeCategory}
+        activeSubItem={activeSubCategory}
+        drawerOpen={drawerOpen}
+        refs={refs}
         setDrawerOpen={setDrawerOpen}
-        title={texts.en.documentationView.appBarTitle}
-        username={texts.en.documentationView.appBarUserName}
-        onHistory={onHistory}
-      >
-        <Navbar
-          activeItem={activeCategory}
-          activeSubItem={activeSubCategory}
-          drawerOpen={drawerOpen}
-          drawerWidth={DRAWER_WIDTH}
-          refs={refs}
-          setDrawerOpen={setDrawerOpen}
-          setItem={setCategory}
-          setSubItem={setSubCategory}
-        />
-        <Main drawerWidth={DRAWER_WIDTH}>
-          <div className={classes.mainWrapper}>
+        setItem={setCategory}
+        setSubItem={setSubCategory}
+      />
+      <Main>
+        <Appbar
+          notificationCount={2}
+          // avatarSrc={avatar}
+          handlerTriggerDrawer={onTriggerDrawer}
+          title={texts.en.documentationView.appBarTitle}
+          username={texts.en.documentationView.appBarUserName}
+        >
+          <MainContent>
             <Typography variant="h3">{texts.en.documentationView.mainTitle}</Typography>
             <Divider className={classes.dividerL} />
             <div className={classes.updateWrapper}>
@@ -164,9 +160,9 @@ export const Documentation = () => {
               </div>
               <Offset />
             </React.Fragment>
-          </div>
-        </Main>
-      </Appbar>
+          </MainContent>
+        </Appbar>
+      </Main>
     </React.Fragment>
   )
 }
