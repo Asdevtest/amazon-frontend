@@ -1,6 +1,6 @@
 import {AuthView} from '@views/auth'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
-import {Inventory} from '@views/client/inventory'
+import {ClientInventoryView} from '@views/client/client-inventory-view'
 import {DocumentationView} from '@views/documentation'
 import {RegistrationView} from '@views/registration'
 
@@ -22,7 +22,7 @@ export const routes = [
   },
   {
     routePath: '/inventory',
-    component: Inventory,
+    component: ClientInventoryView,
     exact: false,
   },
   {
