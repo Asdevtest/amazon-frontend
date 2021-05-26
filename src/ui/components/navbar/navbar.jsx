@@ -1,11 +1,11 @@
 import React from 'react'
 
-import {Collapse, Divider, Drawer, Hidden, SvgIcon, List, ListItemIcon, ListItemText} from '@material-ui/core'
+import {Divider, Drawer, Hidden, SvgIcon, List, ListItemIcon, ListItemText} from '@material-ui/core'
 import clsx from 'clsx'
 import {Link} from 'react-router-dom'
 
 import {NavbarCategory} from './navbar-category'
-import {NavbarSubCategory} from './navbar-sub-category'
+import {NavbarCollapse} from './navbar-collapse'
 import {useClassNames} from './navbar.style'
 
 export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawerOpen, handlerTriggerDrawer}) => {
@@ -27,8 +27,12 @@ export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawe
               selected={index === activeCategory}
               to={category.route}
             >
-              <ListItemIcon className={clsx(classNames.iconWrapper, {[classNames.selected]: index === activeCategory})}>
-                <SvgIcon className={classNames.icon} component={category.icon}></SvgIcon>
+              <ListItemIcon
+                className={clsx(classNames.iconWrapper, {
+                  [classNames.selected]: index === activeCategory,
+                })}
+              >
+                <SvgIcon className={classNames.icon} component={category.icon} />
               </ListItemIcon>
               <ListItemText
                 disableTypography
@@ -37,26 +41,12 @@ export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawe
               />
             </NavbarCategory>
 
-            <Collapse in={index === activeCategory}>
-              <List disablePadding>
-                {category.subtitles?.map((subCategory, subIndex) => (
-                  <NavbarSubCategory
-                    key={subIndex}
-                    button
-                    disableGutters
-                    component={Link}
-                    selected={subIndex === activeSubCategory}
-                    to={subCategory.subRoute}
-                  >
-                    <ListItemText
-                      disableTypography
-                      className={clsx({[classNames.selected]: subIndex === activeSubCategory})}
-                      primary={subCategory.subtitle}
-                    />
-                  </NavbarSubCategory>
-                ))}
-              </List>
-            </Collapse>
+            <NavbarCollapse
+              activeCategory={activeCategory}
+              activeSubCategory={activeSubCategory}
+              category={category}
+              index={index}
+            />
           </React.Fragment>
         ))}
       </List>
@@ -66,6 +56,10 @@ export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawe
     <>
       <Hidden smDown>
         <Drawer
+          classes={{
+            root: classNames.root,
+            paper: clsx(classNames.paper, classNames.positionStatic),
+          }}
           open
           classes={{root: classNames.root, paper: clsx(classNames.paper, classNames.positionStatic)}}
           variant="permanent"
