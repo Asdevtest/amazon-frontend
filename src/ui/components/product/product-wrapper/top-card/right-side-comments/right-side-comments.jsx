@@ -20,43 +20,43 @@ export const RightSideComments = ({onChangeField, product}) => {
       <Box className={classNames.rightBoxComments}>
         <Typography className={classNames.title}>{textConsts.typographyComments}</Typography>
         <Field
-          className={classNames.heightFieldAuto}
           disabled
           multiline
-          onChange={onChangeField('commentManager')}
+          className={classNames.heightFieldAuto}
           rows={4}
           rowsMax={6}
           title={textConsts.fieldManager}
           value={product.commentManager}
+          onChange={onChangeField('commentManager')}
         />
         <Field
-          className={classNames.heightFieldAuto}
           multiline
-          onChange={onChangeField('commentSupervisor')}
+          className={classNames.heightFieldAuto}
           rows={4}
           rowsMax={6}
           title={textConsts.fieldSoperviser}
           value={product.commentSupervisor}
+          onChange={onChangeField('commentSupervisor')}
         />
         <Field
-          className={classNames.heightFieldAuto}
           disabled
           multiline
-          onChange={onChangeField('commentBuyer')}
+          className={classNames.heightFieldAuto}
           rows={4}
           rowsMax={6}
           title={textConsts.fieldBuyer}
           value={product.commentBuyer}
+          onChange={onChangeField('commentBuyer')}
         />
 
         <div className={classNames.buttonsWrapper}>
           <Button className={classNames.buttonNormal} color="primary" variant="contained">
             {textConsts.buttonAccept}
           </Button>
-          <Button className={classNames.buttonNormal} color="primary" danger variant="contained">
+          <Button danger className={classNames.buttonNormal} color="primary" variant="contained">
             {textConsts.buttonCancel}
           </Button>
-          <Button className={classNames.buttonDelete} color="primary" danger disabled variant="contained">
+          <Button danger disabled className={classNames.buttonDelete} color="primary" variant="contained">
             {textConsts.buttonDelete}
           </Button>
         </div>

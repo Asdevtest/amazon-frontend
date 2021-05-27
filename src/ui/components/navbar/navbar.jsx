@@ -56,12 +56,11 @@ export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawe
     <>
       <Hidden smDown>
         <Drawer
+          open
           classes={{
             root: classNames.root,
             paper: clsx(classNames.paper, classNames.positionStatic),
           }}
-          open
-          classes={{root: classNames.root, paper: clsx(classNames.paper, classNames.positionStatic)}}
           variant="permanent"
         >
           {drawerContent}

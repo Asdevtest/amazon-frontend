@@ -9,40 +9,26 @@ import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutline
 import PeopleIcon from '@material-ui/icons/People'
 import SettingsIcon from '@material-ui/icons/Settings'
 
-export const categoriesList = {
+export const CATEGORIES_LIST = {
   client: [
-    {icon: InfoOutlinedIcon, title: 'Главная страница', route: '/dashboard', subtitles: null},
+    {icon: InfoOutlinedIcon, title: 'Главная страница', subtitles: null},
     {
       icon: GavelIcon,
       title: 'Биржа товаров',
-      route: '/exchange',
-      subtitles: [
-        {subtitle: 'Биржа вилок', subRoute: '/exchange'},
-        {subtitle: 'Private Label', subRoute: '/exchange/private-label'},
-        {subtitle: 'Мои заявки', subRoute: '/exchange/requests'},
-      ],
+      subtitles: ['Биржа вилок', 'Private Label', 'Мои заявки'],
     },
-    {icon: InboxOutlinedIcon, title: 'Инвентарь', route: '/inventory', subtitles: null},
-    {icon: AssignmentIcon, title: 'Мои заказы', route: '/orders', subtitles: null},
-    {icon: ArchiveOutlinedIcon, title: 'Мой склад', route: '/warehouse', subtitles: null},
-    {icon: AllInboxIcon, title: 'Мои отправления', route: '/batches', subtitles: null},
+    {icon: InboxOutlinedIcon, title: 'Инвентарь', subtitles: null},
+    {icon: AssignmentIcon, title: 'Мои заказы', subtitles: null},
+    {icon: ArchiveOutlinedIcon, title: 'Мой склад'},
     {
       icon: PeopleIcon,
       title: 'Пользователи',
-      route: '/user',
-      subtitles: [
-        {subtitle: 'Мой профиль', subRoute: '/user'},
-        {subtitle: 'Мои пользователи', subRoute: '/user/subusers'},
-      ],
+      subtitles: ['Мой профиль', 'Мои пользователи'],
     },
-    {icon: SettingsIcon, title: 'Настройки', route: '/settings', subtitles: null},
-    {
-      icon: ChatBubbleOutlineOutlinedIcon,
-      title: 'Сообщения',
-      route: '/messages',
-      subtitles: null,
-    },
-    {icon: MonetizationOnOutlinedIcon, title: 'Финансы', route: '/finances', subtitles: null},
+    {icon: SettingsIcon, title: 'Настройки', subtitles: null},
+    {icon: ChatBubbleOutlineOutlinedIcon, title: 'Сообщения', subtitles: null},
+    {icon: MonetizationOnOutlinedIcon, title: 'Финансы', subtitles: null},
+    {icon: InfoOutlinedIcon, title: 'Продукт', subtitles: null},
   ],
   freelancer: [
     {icon: InfoOutlinedIcon, title: 'Главная страница', subtitles: null},
@@ -61,6 +47,14 @@ export const categoriesList = {
     {icon: AssignmentIcon, title: 'Заказы', subtitles: ['Мои заказы', 'Свободные заказы']},
     {icon: ArchiveOutlinedIcon, title: 'Мой склад', subtitles: null},
     {icon: AllInboxIcon, title: 'Партии товаров', subtitles: null},
-    {icon: PeopleIcon, title: 'Пользователи', subtitles: ['Мой профиль', 'Мои пользователи']},
+    {
+      icon: PeopleIcon,
+      title: 'Пользователи',
+      subtitles: ['Мой профиль', 'Мои пользователи'],
+    },
+  ],
+  others: [
+    {icon: InfoOutlinedIcon, title: 'Аутентификация', subtitles: null},
+    {icon: InfoOutlinedIcon, title: 'Регистрация', subtitles: null},
   ],
 }

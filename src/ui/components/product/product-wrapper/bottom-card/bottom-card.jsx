@@ -22,19 +22,19 @@ export const BottomCard = ({product, setProduct, onChangeField}) => {
       <Grid container spacing={2}>
         <Grid item sm={7} xs={12}>
           <Paper className={classNames.cardPadding}>
-            <Field onChange={onChangeField('bsr')} title={textConsts.bsr} value={product.bsr} />
-            <Field onChange={onChangeField('buyBoxPrice')} title={textConsts.buyBoxPrice} value={product.buyBoxPrice} />
-            <Field onChange={onChangeField('width')} title={textConsts.fieldWidth} value={product.width} />
-            <Field onChange={onChangeField('height')} title={textConsts.fieldHeight} value={product.height} />
-            <Field onChange={onChangeField('length')} title={textConsts.fieldLength} value={product.length} />
-            <Field disabled onChange={onChangeField('minPrice')} title={textConsts.minPrice} value={product.minPrice} />
+            <Field title={textConsts.bsr} value={product.bsr} onChange={onChangeField('bsr')} />
+            <Field title={textConsts.buyBoxPrice} value={product.buyBoxPrice} onChange={onChangeField('buyBoxPrice')} />
+            <Field title={textConsts.fieldWidth} value={product.width} onChange={onChangeField('width')} />
+            <Field title={textConsts.fieldHeight} value={product.height} onChange={onChangeField('height')} />
+            <Field title={textConsts.fieldLength} value={product.length} onChange={onChangeField('length')} />
+            <Field disabled title={textConsts.minPrice} value={product.minPrice} onChange={onChangeField('minPrice')} />
             <Field
               disabled
-              onChange={onChangeField('supplier')}
               title={textConsts.fieldSupplier}
               value={product.supplier}
+              onChange={onChangeField('supplier')}
             />
-            <Container className={classNames.checkboxContainer} disableGutters maxWidth={false}>
+            <Container disableGutters className={classNames.checkboxContainer} maxWidth={false}>
               <Typography className={(classNames.label, classNames.typoMarginRight)}>
                 {textConsts.typoExpress}
               </Typography>
@@ -50,26 +50,26 @@ export const BottomCard = ({product, setProduct, onChangeField}) => {
             </Container>
             <Field
               disabled
-              onChange={onChangeField('maxDeliveryPrice')}
               title={textConsts.maxDeliveryPrice}
               value={product.maxDeliveryPrice}
+              onChange={onChangeField('maxDeliveryPrice')}
             />
             <Field
               disabled
-              onChange={onChangeField('refferalFee')}
               title={textConsts.refferalFee}
               value={product.refferalFee}
+              onChange={onChangeField('refferalFee')}
             />
-            <Field onChange={onChangeField('fbaFee')} title={textConsts.fbaFee} value={product.fbaFee} />
-            <Field disabled onChange={onChangeField('totalFba')} title={textConsts.totalFba} value={product.totalFba} />
+            <Field title={textConsts.fbaFee} value={product.fbaFee} onChange={onChangeField('fbaFee')} />
+            <Field disabled title={textConsts.totalFba} value={product.totalFba} onChange={onChangeField('totalFba')} />
             <Field
-              onChange={onChangeField('recConsignmentQty')}
               title={textConsts.recConsignmentQty}
               value={product.recConsignmentQty}
+              onChange={onChangeField('recConsignmentQty')}
             />
-            <Field disabled onChange={onChangeField('revenue')} title={textConsts.revenue} value={product.revenue} />
-            <Field disabled onChange={onChangeField('margin')} title={textConsts.fieldMargin} value={product.margin} />
-            <Field disabled onChange={onChangeField('status')} title={textConsts.fieldStatus} value={product.status} />
+            <Field disabled title={textConsts.revenue} value={product.revenue} onChange={onChangeField('revenue')} />
+            <Field disabled title={textConsts.fieldMargin} value={product.margin} onChange={onChangeField('margin')} />
+            <Field disabled title={textConsts.fieldStatus} value={product.status} onChange={onChangeField('status')} />
           </Paper>
         </Grid>
         <Grid item sm={5} xs={12}>
@@ -84,26 +84,26 @@ export const BottomCard = ({product, setProduct, onChangeField}) => {
           </Paper>
           <Paper className={classNames.cardPadding}>
             <Typography className={classNames.title}>{textConsts.descriptionOFGoods}</Typography>
-            <Field disabled onChange={onChangeField('csCode')} title={textConsts.csCode} value={product.csCode} />
+            <Field disabled title={textConsts.csCode} value={product.csCode} onChange={onChangeField('csCode')} />
             <Field
-              className={classNames.heightFieldAuto}
               disabled
               multiline
-              onChange={onChangeField('summary')}
+              className={classNames.heightFieldAuto}
               rows={4}
               rowsMax={6}
               title={textConsts.summary}
               value={product.summary}
+              onChange={onChangeField('summary')}
             />
             <Field
-              className={classNames.heightFieldAuto}
               disabled
               multiline
-              onChange={onChangeField('description')}
+              className={classNames.heightFieldAuto}
               rows={4}
               rowsMax={6}
               title={textConsts.description}
               value={product.description}
+              onChange={onChangeField('description')}
             />
           </Paper>
         </Grid>

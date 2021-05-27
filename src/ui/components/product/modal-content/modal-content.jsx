@@ -42,54 +42,54 @@ export const ModalContent = ({title, setOpenModal, suppliers, setSuppliers, sele
   }
 
   return (
-    <Container className={classNames.modalContainer} disableGutters>
+    <Container disableGutters className={classNames.modalContainer}>
       <Typography className={classNames.modalTitle}>{title}</Typography>
       <Divider className={classNames.titleDivider} />
 
-      <Field onChange={onChangeField('name')} title={textConsts.name} value={tmpSupplier.name} />
-      <Field onChange={onChangeField('link')} title={textConsts.link} value={tmpSupplier.link} />
-      <Field onChange={onChangeField('price')} title={textConsts.price} value={tmpSupplier.price} />
+      <Field title={textConsts.name} value={tmpSupplier.name} onChange={onChangeField('name')} />
+      <Field title={textConsts.link} value={tmpSupplier.link} onChange={onChangeField('link')} />
+      <Field title={textConsts.price} value={tmpSupplier.price} onChange={onChangeField('price')} />
       <Field
-        onChange={onChangeField('deliveryPrice')}
         title={textConsts.deliveryPrice}
         value={tmpSupplier.deliveryPrice}
+        onChange={onChangeField('deliveryPrice')}
       />
-      <Field onChange={onChangeField('qty')} title={textConsts.qty} value={tmpSupplier.qty} />
-      <Field onChange={onChangeField('minQty')} title={textConsts.minQty} value={tmpSupplier.minQty} />
+      <Field title={textConsts.qty} value={tmpSupplier.qty} onChange={onChangeField('qty')} />
+      <Field title={textConsts.minQty} value={tmpSupplier.minQty} onChange={onChangeField('minQty')} />
       <Field
         disabled
-        onChange={onChangeField('csCode')}
         title={textConsts.csCode}
         value={priceCalculation(tmpSupplier.price, tmpSupplier.deliveryPrice, tmpSupplier.qty)}
+        onChange={onChangeField('csCode')}
       />
       <Field
-        className={classNames.commentField}
         multiline
-        onChange={onChangeField('comment')}
+        className={classNames.commentField}
         rows={4}
         rowsMax={6}
         title={textConsts.comment}
         value={tmpSupplier.comment}
+        onChange={onChangeField('comment')}
       />
 
       <Divider className={classNames.fieldsDivider} />
 
       <div className={classNames.buttonsWrapper}>
         <Button
-          className={classNames.saveBtn}
           disableElevation
+          className={classNames.saveBtn}
+          variant="contained"
           onClick={() => {
             onClickSaveBtn()
           }}
-          variant="contained"
         >
           {textConsts.savBtn}
         </Button>
         <Button
-          className={classNames.cancelBtn}
           disableElevation
-          onClick={() => setOpenModal(false)}
+          className={classNames.cancelBtn}
           variant="contained"
+          onClick={() => setOpenModal(false)}
         >
           {textConsts.cancelBtn}
         </Button>

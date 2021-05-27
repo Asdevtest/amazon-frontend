@@ -31,16 +31,16 @@ export const TopCard = ({onChangeField, product, setProduct, onClick, suppliers,
               <Alert className={classNames.alert} elevation={0} title={textConsts.alertSuccess} type={'success'} />
             </Grid>
             <FieldsAndSuppliers
-              onChangeField={onChangeField}
-              onClick={onClick}
-              onClickSupplier={onClickSupplier}
               product={product}
               selected={selected}
               setProduct={setProduct}
               suppliers={suppliers}
+              onChangeField={onChangeField}
+              onClick={onClick}
+              onClickSupplier={onClickSupplier}
             />
           </Grid>
-          <RightSideComments onChangeField={onChangeField} product={product} />
+          <RightSideComments product={product} onChangeField={onChangeField} />
         </Grid>
       </Paper>
     </React.Fragment>

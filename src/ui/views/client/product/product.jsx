@@ -8,6 +8,11 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
+import categoryImgBeautyAndPersonalCare from '@components/product/assets/beautyAndPersonalCare.jpg'
+import categoryImgHealthHouseholdAndBabyCare from '@components/product/assets/healthHouseholdAndBabyCare.jpg'
+import categoryImgHomeAndKitchen from '@components/product/assets/homeAndKitchen.jpg'
+import categoryImgSportsAndOutdoors from '@components/product/assets/sportsAndOutdoors.jpg'
+import categoryImgToysAndGames from '@components/product/assets/toysAndGames.jpg'
 import {ModalContent} from '@components/product/modal-content'
 import {ProductWrapper} from '@components/product/product-wrapper'
 
@@ -17,12 +22,20 @@ import avatar from './assets/clientAvatar.jpg'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productView
 
+const PRODUCT_IMAGES = [
+  categoryImgHomeAndKitchen,
+  categoryImgSportsAndOutdoors,
+  categoryImgToysAndGames,
+  categoryImgHealthHouseholdAndBabyCare,
+  categoryImgBeautyAndPersonalCare,
+]
+
 const DRAWER_WIDTH = 200
 
 export const ProductPage = () => {
   const [activeCategory, setCategory] = useState(null)
   const [activeSubCategory, setSubCategory] = useState(0)
-  const [product, setProduct] = useState(PRODUCT_INITIAL_PRODUCT)
+  const [product, setProduct] = useState({...PRODUCT_INITIAL_PRODUCT, images: PRODUCT_IMAGES})
   const [suppliers, setSuppliers] = useState(PRODUCT_INITIAL_SUPPLIERS)
   const [selectedSupplier, setSelectedSupplier] = useState(0)
   const [modalAddSupplier, setModalAddSupplier] = useState(false)
@@ -65,11 +78,11 @@ export const ProductPage = () => {
         <Main drawerWidth={DRAWER_WIDTH}>
           <ProductWrapper
             handleSupplierButtons={handleSupplierButtons}
-            onClickSupplier={setSelectedSupplier}
             product={product}
             selected={selectedSupplier}
             setProduct={setProduct}
             suppliers={suppliers}
+            onClickSupplier={setSelectedSupplier}
           />
         </Main>
       </Appbar>

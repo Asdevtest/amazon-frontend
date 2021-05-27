@@ -9,11 +9,11 @@ export const Modal = props => {
   return (
     <Dialog
       maxWidth={false}
+      open={props.openModal}
+      scroll="body"
       onClose={() => {
         props.setOpenModal(false)
       }}
-      open={props.openModal}
-      scroll={'body'}
     >
       <DialogContent className={classNames.dialogPadding}>{props.children}</DialogContent>
     </Dialog>

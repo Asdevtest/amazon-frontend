@@ -15,16 +15,16 @@ export const NavbarCollapse = ({activeCategory, activeSubCategory, category, ind
       <List disablePadding>
         {category.subtitles?.map((subCategory, subIndex) => (
           <NavbarSubCategory
-            button
-            component={Link}
-            disableGutters
             key={subIndex}
+            button
+            disableGutters
+            component={Link}
             selected={subIndex === activeSubCategory}
             to={subCategory.subRoute}
           >
             <ListItemText
-              className={clsx({[classNames.selected]: subIndex === activeSubCategory})}
               disableTypography
+              className={clsx({[classNames.selected]: subIndex === activeSubCategory})}
               primary={subCategory.subtitle}
             />
           </NavbarSubCategory>

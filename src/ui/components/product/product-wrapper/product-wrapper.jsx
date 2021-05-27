@@ -10,15 +10,15 @@ export const ProductWrapper = ({product, setProduct, handleSupplierButtons, supp
   return (
     <React.Fragment>
       <TopCard
-        onChangeField={onChangeField}
-        onClick={handleSupplierButtons}
-        onClickSupplier={onClickSupplier}
         product={product}
         selected={selected}
         setProduct={setProduct}
         suppliers={suppliers}
+        onChangeField={onChangeField}
+        onClick={handleSupplierButtons}
+        onClickSupplier={onClickSupplier}
       />
-      <BottomCard onChangeField={onChangeField} product={product} setProduct={setProduct} />
+      <BottomCard product={product} setProduct={setProduct} onChangeField={onChangeField} />
     </React.Fragment>
   )
 }
