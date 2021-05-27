@@ -8,14 +8,14 @@ import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
-import {ContentCard} from '@components/content-card'
+import {InfoCard} from '@components/info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-// import avatar from './assets/clientAvatar.jpg'
+import avatar from './assets/clientAvatar.jpg'
 import {styles} from './client-inventory-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').inventoryView
@@ -41,7 +41,7 @@ export class ClientInventoryViewRaw extends Component {
         />
         <Main>
           <Appbar
-            avatarSrc=""
+            avatarSrc={avatar}
             handlerTriggerDrawer={this.onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
@@ -50,7 +50,7 @@ export class ClientInventoryViewRaw extends Component {
               <Grid container justify="center" spacing={1}>
                 {INVENTORY_CARD_LIST.map((el, index) => (
                   <Grid key={index} item>
-                    <ContentCard count={el.count} timer={el.timer} title={el.label} />
+                    <InfoCard color="primary" viewMore="Показать" value={el.count} title={el.label} />
                   </Grid>
                 ))}
               </Grid>

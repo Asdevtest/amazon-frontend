@@ -5,7 +5,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import clsx from 'clsx'
 
-import {CATEGORIES_LIST} from '@constants/mocks'
+import {CATEGORIES_LIST} from '@constants/categories-list-documentation'
 
 import logoSrc from './assets/logo.svg'
 import {ListItem} from './list-item'
@@ -162,7 +162,10 @@ export const NavbarDocumentation = ({
       <Hidden smDown>
         <Drawer
           open
-          classes={{root: classNames.root, paper: clsx(classNames.paper, classNames.positionStatic)}}
+          classes={{
+            root: classNames.root,
+            paper: clsx(classNames.paper, classNames.positionStatic),
+          }}
           variant="permanent"
         >
           {DRAWER_CONTENT}

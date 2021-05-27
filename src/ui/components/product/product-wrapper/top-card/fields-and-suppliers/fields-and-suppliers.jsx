@@ -31,20 +31,20 @@ export const FieldsAndSuppliers = ({
   return (
     <Grid item xs={12}>
       <Box className={classNames.productFieldBox}>
-        <Field disabled onChange={onChangeField('asin')} title={textConsts.fieldAsin} value={product.asin} />
-        <Field onChange={onChangeField('linkAmazon')} title={textConsts.fieldLinkAmazon} value={product.linkAmazon} />
+        <Field disabled title={textConsts.fieldAsin} value={product.asin} onChange={onChangeField('asin')} />
+        <Field title={textConsts.fieldLinkAmazon} value={product.linkAmazon} onChange={onChangeField('linkAmazon')} />
         <Box className={classNames.productCheckboxBox} mb={2.5}>
           <Typography className={(classNames.label, classNames.typoCheckbox)}>{textConsts.checkboxFba}</Typography>
 
           <MuiCheckbox
-            checked={product.fba}
             disabled
+            checked={product.fba}
             onClick={() => {
               setProduct({...product, fba: !product.fba})
             }}
           />
         </Box>
-        <Container className={classNames.supplierContainer} disableGutters>
+        <Container disableGutters className={classNames.supplierContainer}>
           <IconButton className={(classNames.iconButton, classNames.supplierIcon)} onClick={() => onClick('add')}>
             <AddIcon />
           </IconButton>
@@ -58,7 +58,7 @@ export const FieldsAndSuppliers = ({
             <DeleteIcon />
           </IconButton>
         </Container>
-        <TableSupplier onClickSupplier={onClickSupplier} selected={selected} suppliers={suppliers} />
+        <TableSupplier selected={selected} suppliers={suppliers} onClickSupplier={onClickSupplier} />
       </Box>
     </Grid>
   )

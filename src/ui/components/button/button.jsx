@@ -9,8 +9,8 @@ export const Button = ({variant, color, children, success, danger, className, di
   const classNames = useClassNames()
   return (
     <StyledButton
-      color={color || 'primary'}
       disableElevation
+      color={color || 'primary'}
       disabled={disabled && !(success || danger)}
       variant={variant || 'contained'}
       {...restProps}

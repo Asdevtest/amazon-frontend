@@ -34,7 +34,7 @@ export const TableSupplier = ({suppliers, selected, onClickSupplier}) => {
         <TableBody>
           {suppliers.length !== 0 ? (
             suppliers.map((supplier, index) => (
-              <TableRow key={index} onClick={() => onClickSupplier(index)} selected={index === selected}>
+              <TableRow key={index} selected={index === selected} onClick={() => onClickSupplier(index)}>
                 <TableCell className={(classNames.alignCenter, classNames.tableCellPadding)}>{supplier.name}</TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.link}</TableCell>
                 <TableCell className={classNames.alignRight}>{'$' + supplier.price.toFixed(2)}</TableCell>
