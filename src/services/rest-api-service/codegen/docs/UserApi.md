@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersPost
 
-> ApiV1AdminsGetNotPaidProductsCreatedby apiV1UsersPost(InlineObject21, opts)
+> ApiV1AdminsGetNotPaidProductsCreatedby apiV1UsersPost(InlineObject20, opts)
 
 Создание нового пользователя. Регистрация.
 
@@ -76,11 +76,11 @@ Name | Type | Description  | Notes
 import Amazonapi from 'amazonapi';
 
 let apiInstance = new Amazonapi.UserApi();
-let InlineObject21 = new Amazonapi.InlineObject21(); // InlineObject21 | 
+let InlineObject20 = new Amazonapi.InlineObject20(); // InlineObject20 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1UsersPost(InlineObject21, opts).then((data) => {
+apiInstance.apiV1UsersPost(InlineObject20, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -93,7 +93,7 @@ apiInstance.apiV1UsersPost(InlineObject21, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject21** | [**InlineObject21**](InlineObject21.md)|  | 
+ **InlineObject20** | [**InlineObject20**](InlineObject20.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
@@ -112,7 +112,7 @@ No authorization required
 
 ## apiV1UsersSignInPost
 
-> InlineResponse2011 apiV1UsersSignInPost(InlineObject22, opts)
+> InlineResponse2011 apiV1UsersSignInPost(InlineObject21, opts)
 
 # Получение токена авторизации.
 
@@ -124,11 +124,11 @@ No authorization required
 import Amazonapi from 'amazonapi';
 
 let apiInstance = new Amazonapi.UserApi();
-let InlineObject22 = new Amazonapi.InlineObject22(); // InlineObject22 | 
+let InlineObject21 = new Amazonapi.InlineObject21(); // InlineObject21 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1UsersSignInPost(InlineObject22, opts).then((data) => {
+apiInstance.apiV1UsersSignInPost(InlineObject21, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -141,7 +141,7 @@ apiInstance.apiV1UsersSignInPost(InlineObject22, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject22** | [**InlineObject22**](InlineObject22.md)|  | 
+ **InlineObject21** | [**InlineObject21**](InlineObject21.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type

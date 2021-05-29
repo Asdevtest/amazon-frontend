@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20010 from './InlineResponse20010';
 
 /**
  * The InlineResponse20012 model module.
@@ -23,16 +22,14 @@ class InlineResponse20012 {
     /**
      * Constructs a new <code>InlineResponse20012</code>.
      * @alias module:model/InlineResponse20012
-     * @param destination {String} Пункт назначения.
-     * @param deliveryMethod {module:model/InlineResponse20012.DeliveryMethodEnum} Метод доставки - 1: Air , 2: Sea
-     * @param status {Number} 0- новый, 10 - принята в работу сборщиком. Отправлена - 20, Доставлена - 30
-     * @param boxes {Array.<module:model/InlineResponse20010>} 
-     * @param totalCoast {Number} Стоимость партии.
-     * @param invoice {String} Инвойс - сопроводительный документ описывающий состав партии в деталях.
+     * @param _id {String} GUID задачи в DB
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param boxId {String} GUID коробки для которой создана задача
+     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      */
-    constructor(destination, deliveryMethod, status, boxes, totalCoast, invoice) { 
+    constructor(_id, taskId, boxId, status) { 
         
-        InlineResponse20012.initialize(this, destination, deliveryMethod, status, boxes, totalCoast, invoice);
+        InlineResponse20012.initialize(this, _id, taskId, boxId, status);
     }
 
     /**
@@ -40,13 +37,11 @@ class InlineResponse20012 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, destination, deliveryMethod, status, boxes, totalCoast, invoice) { 
-        obj['destination'] = destination;
-        obj['deliveryMethod'] = deliveryMethod;
+    static initialize(obj, _id, taskId, boxId, status) { 
+        obj['_id'] = _id;
+        obj['taskId'] = taskId;
+        obj['boxId'] = boxId;
         obj['status'] = status;
-        obj['boxes'] = boxes;
-        obj['totalCoast'] = totalCoast;
-        obj['invoice'] = invoice;
     }
 
     /**
@@ -60,26 +55,17 @@ class InlineResponse20012 {
         if (data) {
             obj = obj || new InlineResponse20012();
 
-            if (data.hasOwnProperty('destination')) {
-                obj['destination'] = ApiClient.convertToType(data['destination'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            }
+            if (data.hasOwnProperty('boxId')) {
+                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
             }
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [InlineResponse20010]);
-            }
-            if (data.hasOwnProperty('totalCoast')) {
-                obj['totalCoast'] = ApiClient.convertToType(data['totalCoast'], 'Number');
-            }
-            if (data.hasOwnProperty('invoice')) {
-                obj['invoice'] = ApiClient.convertToType(data['invoice'], 'String');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
             }
         }
         return obj;
@@ -89,69 +75,31 @@ class InlineResponse20012 {
 }
 
 /**
- * Пункт назначения.
- * @member {String} destination
+ * GUID задачи в DB
+ * @member {String} _id
  */
-InlineResponse20012.prototype['destination'] = undefined;
+InlineResponse20012.prototype['_id'] = undefined;
 
 /**
- * Метод доставки - 1: Air , 2: Sea
- * @member {module:model/InlineResponse20012.DeliveryMethodEnum} deliveryMethod
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
  */
-InlineResponse20012.prototype['deliveryMethod'] = undefined;
+InlineResponse20012.prototype['taskId'] = undefined;
 
 /**
- * 0- новый, 10 - принята в работу сборщиком. Отправлена - 20, Доставлена - 30
+ * GUID коробки для которой создана задача
+ * @member {String} boxId
+ */
+InlineResponse20012.prototype['boxId'] = undefined;
+
+/**
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
  * @member {Number} status
  */
 InlineResponse20012.prototype['status'] = undefined;
 
-/**
- * @member {Array.<module:model/InlineResponse20010>} boxes
- */
-InlineResponse20012.prototype['boxes'] = undefined;
-
-/**
- * Стоимость партии.
- * @member {Number} totalCoast
- */
-InlineResponse20012.prototype['totalCoast'] = undefined;
-
-/**
- * Инвойс - сопроводительный документ описывающий состав партии в деталях.
- * @member {String} invoice
- */
-InlineResponse20012.prototype['invoice'] = undefined;
-
-/**
- * Дата создания.
- * @member {String} createdAt
- */
-InlineResponse20012.prototype['createdAt'] = undefined;
 
 
-
-
-
-/**
- * Allowed values for the <code>deliveryMethod</code> property.
- * @enum {Number}
- * @readonly
- */
-InlineResponse20012['DeliveryMethodEnum'] = {
-
-    /**
-     * value: 1
-     * @const
-     */
-    "1": 1,
-
-    /**
-     * value: 2
-     * @const
-     */
-    "2": 2
-};
 
 
 

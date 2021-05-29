@@ -22,11 +22,12 @@ class InlineObject17 {
     /**
      * Constructs a new <code>InlineObject17</code>.
      * @alias module:model/InlineObject17
-     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
+     * @param status {module:model/InlineObject17.StatusEnum} См. описание статусов например в readMe.md
+     * @param checkednotes {String} Комментарий к статусу проверки.
      */
-    constructor(status) { 
+    constructor(status, checkednotes) { 
         
-        InlineObject17.initialize(this, status);
+        InlineObject17.initialize(this, status, checkednotes);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject17 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, status) { 
+    static initialize(obj, status, checkednotes) { 
         obj['status'] = status;
+        obj['checkednotes'] = checkednotes;
     }
 
     /**
@@ -52,6 +54,9 @@ class InlineObject17 {
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
+            if (data.hasOwnProperty('checkednotes')) {
+                obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
+            }
         }
         return obj;
     }
@@ -60,10 +65,54 @@ class InlineObject17 {
 }
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
- * @member {Number} status
+ * Allowed values for the <code>status</code> property.
+ * @enum {Number}
+ * @readonly
+ */
+ InlineObject17['StatusEnum'] = {
+
+    /**
+     * value: 20
+     * @const
+     */
+    "20": 20,
+
+    /**
+     * value: 30
+     * @const
+     */
+    "30": 30,
+
+    /**
+     * value: 70
+     * @const
+     */
+    "70": 70,
+
+    /**
+     * value: 80
+     * @const
+     */
+    "80": 80,
+
+    /**
+     * value: 90
+     * @const
+     */
+    "90": 90
+};
+
+/**
+ * См. описание статусов например в readMe.md
+ * @member {module:model/InlineObject17.StatusEnum} status
  */
 InlineObject17.prototype['status'] = undefined;
+
+/**
+ * Комментарий к статусу проверки.
+ * @member {String} checkednotes
+ */
+InlineObject17.prototype['checkednotes'] = undefined;
 
 
 

@@ -94,6 +94,8 @@ class InlineResponse2002 {
         }
         return obj;
     }
+
+
 }
 
 /**
@@ -218,6 +220,8 @@ InlineResponse2002.prototype['deliveryCostToTheWarehouse'] = undefined;
  * @member {String} product
  */
 InlineResponse2002.prototype['product'] = undefined;
+
+
 
 
 

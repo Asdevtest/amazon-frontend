@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1ClientsBatchesId from './ApiV1ClientsBatchesId';
 
 /**
  * The InlineResponse2008 model module.
@@ -22,10 +23,12 @@ class InlineResponse2008 {
     /**
      * Constructs a new <code>InlineResponse2008</code>.
      * @alias module:model/InlineResponse2008
+     * @param _id {module:model/ApiV1ClientsBatchesId} 
+     * @param boxes {Array.<String>} 
      */
-    constructor() { 
+    constructor(_id, boxes) { 
         
-        InlineResponse2008.initialize(this);
+        InlineResponse2008.initialize(this, _id, boxes);
     }
 
     /**
@@ -33,7 +36,9 @@ class InlineResponse2008 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id, boxes) { 
+        obj['_id'] = _id;
+        obj['boxes'] = boxes;
     }
 
     /**
@@ -47,8 +52,11 @@ class InlineResponse2008 {
         if (data) {
             obj = obj || new InlineResponse2008();
 
-            if (data.hasOwnProperty('isExist')) {
-                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiV1ClientsBatchesId.constructFromObject(data['_id']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
             }
         }
         return obj;
@@ -58,10 +66,14 @@ class InlineResponse2008 {
 }
 
 /**
- * Флаг, показывает есть ли такой id в базе или нет
- * @member {Boolean} isExist
+ * @member {module:model/ApiV1ClientsBatchesId} _id
  */
-InlineResponse2008.prototype['isExist'] = undefined;
+InlineResponse2008.prototype['_id'] = undefined;
+
+/**
+ * @member {Array.<String>} boxes
+ */
+InlineResponse2008.prototype['boxes'] = undefined;
 
 
 

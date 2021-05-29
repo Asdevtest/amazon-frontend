@@ -16,6 +16,7 @@ import ApiClient from './ApiClient';
 import ApiV1AdminsGetNotPaidProductsCreatedby from './model/ApiV1AdminsGetNotPaidProductsCreatedby';
 import ApiV1BuyersOrdersVacItemList from './model/ApiV1BuyersOrdersVacItemList';
 import ApiV1BuyersPaymentsMyCreatedBy from './model/ApiV1BuyersPaymentsMyCreatedBy';
+import ApiV1ClientsBatchesId from './model/ApiV1ClientsBatchesId';
 import InlineObject from './model/InlineObject';
 import InlineObject1 from './model/InlineObject1';
 import InlineObject10 from './model/InlineObject10';
@@ -31,7 +32,6 @@ import InlineObject19 from './model/InlineObject19';
 import InlineObject2 from './model/InlineObject2';
 import InlineObject20 from './model/InlineObject20';
 import InlineObject21 from './model/InlineObject21';
-import InlineObject22 from './model/InlineObject22';
 import InlineObject3 from './model/InlineObject3';
 import InlineObject4 from './model/InlineObject4';
 import InlineObject5 from './model/InlineObject5';
@@ -128,6 +128,12 @@ export {
     ApiV1BuyersPaymentsMyCreatedBy,
 
     /**
+     * The ApiV1ClientsBatchesId model constructor.
+     * @property {module:model/ApiV1ClientsBatchesId}
+     */
+    ApiV1ClientsBatchesId,
+
+    /**
      * The InlineObject model constructor.
      * @property {module:model/InlineObject}
      */
@@ -216,12 +222,6 @@ export {
      * @property {module:model/InlineObject21}
      */
     InlineObject21,
-
-    /**
-     * The InlineObject22 model constructor.
-     * @property {module:model/InlineObject22}
-     */
-    InlineObject22,
 
     /**
      * The InlineObject3 model constructor.

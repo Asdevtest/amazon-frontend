@@ -13,8 +13,8 @@
 
 
 import ApiClient from "../ApiClient";
+import InlineObject18 from '../model/InlineObject18';
 import InlineObject19 from '../model/InlineObject19';
-import InlineObject20 from '../model/InlineObject20';
 import InlineResponse20013 from '../model/InlineResponse20013';
 import InlineResponse201 from '../model/InlineResponse201';
 import InlineResponse400 from '../model/InlineResponse400';
@@ -202,12 +202,12 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject20} opts.InlineObject20 
+     * @param {module:model/InlineObject19} opts.InlineObject19 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
     apiV1SuppliersGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject20'];
+      let postBody = opts['InlineObject19'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1SuppliersGuidPatch");
@@ -241,7 +241,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject20} opts.InlineObject20 
+     * @param {module:model/InlineObject19} opts.InlineObject19 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
     apiV1SuppliersGuidPatch(guid, opts) {
@@ -257,12 +257,12 @@ export default class SupplierApi {
      * ## Добавить нового поставщика.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject19} opts.InlineObject19 
+     * @param {module:model/InlineObject18} opts.InlineObject18 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
      */
     apiV1SuppliersPostWithHttpInfo(opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject19'];
+      let postBody = opts['InlineObject18'];
 
       let pathParams = {
       };
@@ -290,7 +290,7 @@ export default class SupplierApi {
      * ## Добавить нового поставщика.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject19} opts.InlineObject19 
+     * @param {module:model/InlineObject18} opts.InlineObject18 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
      */
     apiV1SuppliersPost(opts) {

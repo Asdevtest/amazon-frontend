@@ -119,7 +119,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsGuidPatch
 
-> Null apiV1SupervisorsProductsGuidPatch(guid, InlineObject18, opts)
+> Null apiV1SupervisorsProductsGuidPatch(guid, InlineObject17, opts)
 
 # Изменить статус и дать комментарий доя продукта.
 
@@ -138,11 +138,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new Amazonapi.SupervisorApi();
 let guid = "guid_example"; // String | GUID продукта, который планируем изменить
-let InlineObject18 = new Amazonapi.InlineObject18(); // InlineObject18 | 
+let InlineObject17 = new Amazonapi.InlineObject17(); // InlineObject17 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1SupervisorsProductsGuidPatch(guid, InlineObject18, opts).then((data) => {
+apiInstance.apiV1SupervisorsProductsGuidPatch(guid, InlineObject17, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -156,7 +156,7 @@ apiInstance.apiV1SupervisorsProductsGuidPatch(guid, InlineObject18, opts).then((
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта, который планируем изменить | 
- **InlineObject18** | [**InlineObject18**](InlineObject18.md)|  | 
+ **InlineObject17** | [**InlineObject17**](InlineObject17.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type

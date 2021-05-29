@@ -22,10 +22,13 @@ class InlineObject20 {
     /**
      * Constructs a new <code>InlineObject20</code>.
      * @alias module:model/InlineObject20
+     * @param name {String} Имя пользователя.
+     * @param email {String} email
+     * @param password {String} Пароль
      */
-    constructor() { 
+    constructor(name, email, password) { 
         
-        InlineObject20.initialize(this);
+        InlineObject20.initialize(this, name, email, password);
     }
 
     /**
@@ -33,7 +36,10 @@ class InlineObject20 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, email, password) { 
+        obj['name'] = name;
+        obj['email'] = email;
+        obj['password'] = password;
     }
 
     /**
@@ -50,26 +56,11 @@ class InlineObject20 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
-            }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('password')) {
+                obj['password'] = ApiClient.convertToType(data['password'], 'String');
             }
         }
         return obj;
@@ -79,52 +70,22 @@ class InlineObject20 {
 }
 
 /**
- * Название поставщика.
+ * Имя пользователя.
  * @member {String} name
  */
 InlineObject20.prototype['name'] = undefined;
 
 /**
- * Ссылка на поставщика.
- * @member {String} link
+ * email
+ * @member {String} email
  */
-InlineObject20.prototype['link'] = undefined;
+InlineObject20.prototype['email'] = undefined;
 
 /**
- * Цена
- * @member {Number} price
+ * Пароль
+ * @member {String} password
  */
-InlineObject20.prototype['price'] = undefined;
-
-/**
- * Тип доставки
- * @member {Number} delivery
- */
-InlineObject20.prototype['delivery'] = undefined;
-
-/**
- * кол-во
- * @member {Number} amount
- */
-InlineObject20.prototype['amount'] = undefined;
-
-/**
- * Минимальный лот.
- * @member {Number} minlot
- */
-InlineObject20.prototype['minlot'] = undefined;
-
-/**
- * Стоимость лота.
- * @member {Number} lotcost
- */
-InlineObject20.prototype['lotcost'] = undefined;
-
-/**
- * Комментарий
- * @member {String} comment
- */
-InlineObject20.prototype['comment'] = undefined;
+InlineObject20.prototype['password'] = undefined;
 
 
 

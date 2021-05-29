@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**isExist** | **Boolean** | Флаг, показывает есть ли такой id в базе или нет | [optional] 
+**_id** | [**ApiV1ClientsBatchesId**](ApiV1ClientsBatchesId.md) |  | 
+**boxes** | **[String]** |  | 
 
 

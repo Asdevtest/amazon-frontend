@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiV1ClientsBatchesGet**](ClientApi.md#apiV1ClientsBatchesGet) | **GET** /api/v1/clients/batches | # Получить партии.
 [**apiV1ClientsBoxesGet**](ClientApi.md#apiV1ClientsBoxesGet) | **GET** /api/v1/clients/boxes | # Показать все коробки.
 [**apiV1ClientsBoxesGuidGet**](ClientApi.md#apiV1ClientsBoxesGuidGet) | **GET** /api/v1/clients/boxes/{guid} | # Показать коробку по GUID.
 [**apiV1ClientsMakePaymentsPost**](ClientApi.md#apiV1ClientsMakePaymentsPost) | **POST** /api/v1/clients/make_payments | # Оплатить товары.
@@ -22,6 +23,58 @@ Method | HTTP request | Description
 [**apiV1ClientsUsersGet**](ClientApi.md#apiV1ClientsUsersGet) | **GET** /api/v1/clients/users | # Получить список пользователей.
 [**apiV1ClientsUsersGuidPatch**](ClientApi.md#apiV1ClientsUsersGuidPatch) | **PATCH** /api/v1/clients/users/{guid} | # Изменить пользователя.
 
+
+
+## apiV1ClientsBatchesGet
+
+> [InlineResponse2008] apiV1ClientsBatchesGet(opts)
+
+# Получить партии.
+
+## Получить партии.  
+
+### Example
+
+```javascript
+import Amazonapi from 'amazonapi';
+let defaultClient = Amazonapi.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new Amazonapi.ClientApi();
+let opts = {
+  'Accept_Encoding': gzip, deflate // String | 
+};
+apiInstance.apiV1ClientsBatchesGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+
+### Return type
+
+[**[InlineResponse2008]**](InlineResponse2008.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html
 
 
 ## apiV1ClientsBoxesGet

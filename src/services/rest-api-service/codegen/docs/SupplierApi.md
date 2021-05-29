@@ -195,7 +195,7 @@ let apiInstance = new Amazonapi.SupplierApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject20': new Amazonapi.InlineObject20() // InlineObject20 | 
+  'InlineObject19': new Amazonapi.InlineObject19() // InlineObject19 | 
 };
 apiInstance.apiV1SuppliersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject20** | [**InlineObject20**](InlineObject20.md)|  | [optional] 
+ **InlineObject19** | [**InlineObject19**](InlineObject19.md)|  | [optional] 
 
 ### Return type
 
@@ -250,7 +250,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new Amazonapi.SupplierApi();
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject19': new Amazonapi.InlineObject19() // InlineObject19 | 
+  'InlineObject18': new Amazonapi.InlineObject18() // InlineObject18 | 
 };
 apiInstance.apiV1SuppliersPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -266,7 +266,7 @@ apiInstance.apiV1SuppliersPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject19** | [**InlineObject19**](InlineObject19.md)|  | [optional] 
+ **InlineObject18** | [**InlineObject18**](InlineObject18.md)|  | [optional] 
 
 ### Return type
 

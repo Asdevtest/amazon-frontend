@@ -127,7 +127,7 @@
     "import/named": "off",
     "import/default": "off",
     "linebreak-style": "off",
-    "max-classes-per-file": ["error", 1],
+    "max-classes-per-file": "off",
     "max-len": "off",
     "new-parens": "error",
     "newline-per-chained-call": "off",

@@ -4,24 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | См. описание статусов например в readMe.md | 
-**checkednotes** | **String** | Комментарий к статусу проверки. | 
-
-
-
-## Enum: StatusEnum
-
-
-* `20` (value: `20`)
-
-* `30` (value: `30`)
-
-* `70` (value: `70`)
-
-* `80` (value: `80`)
-
-* `90` (value: `90`)
-
-
+**id** | **String** | id поставщика. | [optional] 
+**name** | **String** | Название поставщика. | [optional] 
+**link** | **String** | Ссылка на поставщика. | [optional] 
+**price** | **Number** | Цена | [optional] 
+**delivery** | **Number** | Тип доставки | [optional] 
+**amount** | **Number** | кол-во | [optional] 
+**minlot** | **Number** | Минимальный лот. | [optional] 
+**lotcost** | **Number** | Стоимость лота. | [optional] 
+**comment** | **String** | Комментарий | [optional] 
 
 

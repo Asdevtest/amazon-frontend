@@ -22,12 +22,10 @@ class InlineObject18 {
     /**
      * Constructs a new <code>InlineObject18</code>.
      * @alias module:model/InlineObject18
-     * @param status {module:model/InlineObject18.StatusEnum} См. описание статусов например в readMe.md
-     * @param checkednotes {String} Комментарий к статусу проверки.
      */
-    constructor(status, checkednotes) { 
+    constructor() { 
         
-        InlineObject18.initialize(this, status, checkednotes);
+        InlineObject18.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject18 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, status, checkednotes) { 
-        obj['status'] = status;
-        obj['checkednotes'] = checkednotes;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,32 @@ class InlineObject18 {
         if (data) {
             obj = obj || new InlineObject18();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
-            if (data.hasOwnProperty('checkednotes')) {
-                obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('delivery')) {
+                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            }
+            if (data.hasOwnProperty('lotcost')) {
+                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -65,58 +82,61 @@ class InlineObject18 {
 }
 
 /**
- * См. описание статусов например в readMe.md
- * @member {module:model/InlineObject18.StatusEnum} status
+ * id поставщика.
+ * @member {String} id
  */
-InlineObject18.prototype['status'] = undefined;
+InlineObject18.prototype['id'] = undefined;
 
 /**
- * Комментарий к статусу проверки.
- * @member {String} checkednotes
+ * Название поставщика.
+ * @member {String} name
  */
-InlineObject18.prototype['checkednotes'] = undefined;
-
-
-
-
+InlineObject18.prototype['name'] = undefined;
 
 /**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
+ * Ссылка на поставщика.
+ * @member {String} link
  */
-InlineObject18['StatusEnum'] = {
+InlineObject18.prototype['link'] = undefined;
 
-    /**
-     * value: 20
-     * @const
-     */
-    "20": 20,
+/**
+ * Цена
+ * @member {Number} price
+ */
+InlineObject18.prototype['price'] = undefined;
 
-    /**
-     * value: 30
-     * @const
-     */
-    "30": 30,
+/**
+ * Тип доставки
+ * @member {Number} delivery
+ */
+InlineObject18.prototype['delivery'] = undefined;
 
-    /**
-     * value: 70
-     * @const
-     */
-    "70": 70,
+/**
+ * кол-во
+ * @member {Number} amount
+ */
+InlineObject18.prototype['amount'] = undefined;
 
-    /**
-     * value: 80
-     * @const
-     */
-    "80": 80,
+/**
+ * Минимальный лот.
+ * @member {Number} minlot
+ */
+InlineObject18.prototype['minlot'] = undefined;
 
-    /**
-     * value: 90
-     * @const
-     */
-    "90": 90
-};
+/**
+ * Стоимость лота.
+ * @member {Number} lotcost
+ */
+InlineObject18.prototype['lotcost'] = undefined;
+
+/**
+ * Комментарий
+ * @member {String} comment
+ */
+InlineObject18.prototype['comment'] = undefined;
+
+
+
 
 
 

@@ -1,6 +1,10 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {AuthenticationModel} from '@models/authentication-model'
+import {loadingStatuses} from '@constants/loading-statuses'
+
+import {UserModel} from '@models/user-model'
+
+import {getLoggerServiceModel} from '@services/logger-service'
 
 import {getObjectKeys} from '@utils/object'
 
@@ -18,9 +22,12 @@ export class AuthViewModel {
     password: null,
   }
 
-  constructor() {
+  logger = undefined
+
+  constructor({history}) {
     this.history = history
     makeAutoObservable(this)
+    this.logger = getLoggerServiceModel(this)
   }
 
   get hasFormErrors() {
@@ -37,26 +44,28 @@ export class AuthViewModel {
   onSubmitForm = async () => {
     try {
       runInAction(() => {
-        this.requestStatus = 'isLoading'
+        this.requestStatus = loadingStatuses.isLoading
         this.error = undefined
       })
-      await AuthenticationModel.signIn(this.email, this.password)
-      if (AuthenticationModel.accessToken) {
+      await UserModel.signIn(this.email, this.password)
+      if (UserModel.accessToken) {
         runInAction(() => {
-          this.requestStatus = 'success'
+          this.requestStatus = loadingStatuses.success
         })
       } else {
         runInAction(() => {
-          this.requestStatus = 'failed'
+          this.requestStatus = loadingStatuses.failed
           this.error = new Error('No accessToken in response')
         })
       }
     } catch (error) {
-      console.log('AuthViewModel, onSubmitForm: Cought error', error)
+      this.logger.logCoughtError('onSubmitForm', error)
       runInAction(() => {
-        this.requestStatus = 'failed'
+        this.requestStatus = loadingStatuses.failed
         this.error = error
       })
     }
   }
+
+  reset
 }
