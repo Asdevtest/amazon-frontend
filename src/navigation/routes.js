@@ -10,6 +10,7 @@ import {DashboardView} from '@views/freelancer/dashboard-view'
 import {ProductsView} from '@views/freelancer/products-view'
 import {SettingsView} from '@views/freelancer/settings-view'
 import {RegistrationView} from '@views/registration'
+import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
 
 export const routes = [
   {
@@ -70,6 +71,11 @@ export const routes = [
   {
     routePath: '/exchange/requests',
     component: ClientExchangeRequestsView,
+    exact: false,
+  },
+  {
+    routePath: '/supervisor/dashboard',
+    component: SupervisorDashboardView,
     exact: false,
   },
 ]

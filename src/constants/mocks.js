@@ -592,3 +592,10 @@ export const FREELANCER_PRODUCT_LIST = [
     bsr: 224.0,
   },
 ]
+
+export const SUPERVISOR_DASHBOARD_LIST = [
+  {value: 11, title: 'Новых товаров в базе', color: '#63c2de'},
+  {value: 4, title: 'У меня на проверке', color: '#FFC107'},
+  {value: 525, title: 'Начислено', color: '#4dbd74'},
+  {value: 0, title: 'Штрафы', color: '#f86c6b'},
+]
