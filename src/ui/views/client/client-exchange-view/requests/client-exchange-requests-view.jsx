@@ -1,0 +1,197 @@
+import {Component} from 'react'
+
+import {Button, TableCell, TableRow, Typography} from '@material-ui/core'
+import {withStyles} from '@material-ui/styles'
+
+import {clientExchangeRequestsViewTable, clientUsername} from '@constants/mocks'
+import {categoriesList} from '@constants/navbar'
+import {texts} from '@constants/texts'
+
+import {Appbar} from '@components/appbar'
+import {Field} from '@components/field'
+import {RequestForm} from '@components/forms/request-form'
+import {Main} from '@components/main'
+import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
+import {Navbar} from '@components/navbar'
+import {Table} from '@components/table'
+import {ExchangeRequestsBodyRow} from '@components/table-rows/client/exchange-requests'
+
+import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {getRequiredListByKeys} from '@utils/get-required-list-by-keys'
+
+import {styles} from './client-exchange-requests-view.style'
+
+const textConsts = getLocalizedTexts(texts, 'en').clientExchangeRequestsView
+
+const {headCells, tableKeys, requestsListRaw} = clientExchangeRequestsViewTable
+
+const requestsList = getRequiredListByKeys(requestsListRaw, tableKeys)
+
+const formFields = {
+  strategy: '',
+  monthlySales: '',
+  budget: '',
+  amazonPrice: '',
+  avgBSR: '',
+  avgReviews: '',
+  avgRevenue: '',
+  notes: '',
+  checkboxForbid: '',
+  checkboxNoPay: '',
+  deadline: Date.now(),
+  checkboxNoCheck: '',
+}
+
+export class ClientExchangeRequestsViewRaw extends Component {
+  state = {
+    activeCategory: 1,
+    activeSubCategory: 2,
+    drawerOpen: false,
+    paginationPage: 1,
+    rowsPerPage: 5,
+    modalNewRequest: false,
+    modalEditRequest: false,
+    modalCloseRequest: false,
+    selectedIndex: null,
+  }
+
+  render() {
+    const {
+      activeCategory,
+      activeSubCategory,
+      drawerOpen,
+      paginationPage,
+      rowsPerPage,
+      modalNewRequest,
+      modalEditRequest,
+      modalCloseRequest,
+    } = this.state
+    const {classes: classNames} = this.props
+    const rowsHandlers = {
+      edit: () => this.onClickOpenModal('modalEditRequest'),
+      close: () => this.onClickOpenModal('modalCloseRequest'),
+    }
+
+    return (
+      <>
+        <Navbar
+          activeCategory={activeCategory}
+          activeSubCategory={activeSubCategory}
+          categoriesList={categoriesList.client}
+          drawerOpen={drawerOpen}
+          handlerTriggerDrawer={this.onTriggerDrawer}
+        />
+        <Main>
+          <Appbar
+            avatarSrc=""
+            handlerTriggerDrawer={this.onTriggerDrawer}
+            title={textConsts.appbarTitle}
+            username={clientUsername}
+          >
+            <MainContent>
+              <div className={classNames.mb5}>
+                <Typography paragraph variant="h6">
+                  {textConsts.mainTitle}
+                </Typography>
+              </div>
+              <Table
+                buttons={this.renderButtons}
+                currentPage={paginationPage}
+                data={requestsList}
+                handlerPageChange={this.onChangePagination}
+                handlerRowsPerPage={this.onChangeRowsPerPage}
+                pageCount={Math.ceil(requestsList.length / rowsPerPage)}
+                BodyRow={ExchangeRequestsBodyRow}
+                renderHeadRow={this.renderHeadRow}
+                rowsPerPage={rowsPerPage}
+                rowsHandlers={rowsHandlers}
+              />
+            </MainContent>
+          </Appbar>
+        </Main>
+        <Modal openModal={modalNewRequest} setOpenModal={() => this.onClickCloseModal('modalNewRequest')}>
+          <Typography variant="h5">{textConsts.modalNewRequestTitle}</Typography>
+          <RequestForm formFields={formFields} btnLabel={textConsts.modalBtnSendRequest} />
+        </Modal>
+        <Modal openModal={modalEditRequest} setOpenModal={() => this.onClickCloseModal('modalEditRequest')}>
+          <Typography variant="h5">{textConsts.modalEditRequestTitle}</Typography>
+          <RequestForm formFields={formFields} btnLabel={textConsts.modalBtnSaveRequest} />
+        </Modal>
+        <Modal openModal={modalCloseRequest} setOpenModal={() => this.onClickCloseModal('modalCloseRequest')}>
+          <Typography variant="h5">{textConsts.modalCloseRequestTitle}</Typography>
+          <Field
+            multiline
+            rows={4}
+            rowsMax={6}
+            className={classNames.multiline}
+            containerClasses={classNames.field}
+            label={textConsts.formCloseReasonLabel}
+          />
+          <Button
+            disableElevation
+            color="primary"
+            variant="contained"
+            onClick={() => this.onClickCloseModal('modalCloseRequest')}
+          >
+            {textConsts.modalBtnCloseRequest}
+          </Button>
+        </Modal>
+      </>
+    )
+  }
+
+  renderHeadRow = (
+    <TableRow>
+      <TableCell>#</TableCell>
+      {headCells.map((item, index) => (
+        <TableCell key={index}>{item.label}</TableCell>
+      ))}
+      <TableCell />
+      <TableCell />
+    </TableRow>
+  )
+
+  renderButtons = (
+    <>
+      <Button
+        disableElevation
+        color="primary"
+        variant="contained"
+        onClick={() => this.onClickOpenModal('modalNewRequest')}
+      >
+        {textConsts.newRequest}
+      </Button>
+    </>
+  )
+
+  onChangeCategory = index => {
+    this.setState({activeCategory: index})
+  }
+
+  onChangeSubCategory = index => {
+    this.setState({activeSubCategory: index})
+  }
+
+  onTriggerDrawer = () => {
+    const {drawerOpen} = this.state
+    this.setState({drawerOpen: !drawerOpen})
+  }
+
+  onChangePagination = (e, value) => {
+    this.setState({paginationPage: value})
+  }
+
+  onChangeRowsPerPage = e => {
+    this.setState({rowsPerPage: Number(e.target.value), paginationPage: 1})
+  }
+
+  onClickCloseModal = modalState => {
+    this.setState({[modalState]: false})
+  }
+  onClickOpenModal = modalState => {
+    this.setState({[modalState]: true})
+  }
+}
+
+export const ClientExchangeRequestsView = withStyles(styles)(ClientExchangeRequestsViewRaw)

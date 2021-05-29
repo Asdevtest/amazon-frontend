@@ -1,4 +1,5 @@
 import {createMuiTheme} from '@material-ui/core'
+import {grey} from '@material-ui/core/colors'
 
 export const muiTheme = createMuiTheme({
   palette: {
@@ -20,9 +21,17 @@ export const muiTheme = createMuiTheme({
         textTransform: 'none',
       },
     },
+    MuiPaper: {
+      elevation1: {
+        boxShadow: '0px 5px 19px 0px rgb(90 97 105 / 12%)',
+      },
+    },
     MuiTableCell: {
       root: {
         padding: '10px',
+      },
+      body: {
+        color: grey[600],
       },
     },
   },

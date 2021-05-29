@@ -1,0 +1,74 @@
+import {makeStyles} from '@material-ui/styles'
+
+export const useClassNames = makeStyles(theme => ({
+  root: {
+    borderRadius: '8px',
+    minHeight: '380px',
+    width: '440px',
+    display: 'flex',
+    flexDirection: 'column',
+    [theme.breakpoints.down('sm')]: {
+      width: '320px',
+    },
+  },
+  img: {
+    borderRadius: '8px 8px 0px 0px',
+  },
+  wrapper: {
+    padding: '16px 24px 24px 24px',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    justifyContent: 'space-between',
+  },
+  title: {
+    color: 'rgba(61, 81, 112, 1)',
+    fontSize: '20px',
+    fontWeight: 600,
+    lineHeight: '26px',
+    marginBottom: '12px',
+  },
+  textWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '4px 0px',
+  },
+  text: {
+    color: theme.palette.text.secondary,
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '20px',
+  },
+  label: {
+    flexGrow: 1,
+  },
+  value: {
+    whiteSpace: 'nowrap',
+  },
+  inputWrapper: {
+    flexShrink: 1,
+    border: '1px solid rgba(143, 152, 165, 1)',
+    borderRadius: '4px',
+    width: '54px',
+  },
+  input: {
+    color: 'rgba(143, 152, 165, 1)',
+    padding: '0',
+    fontSize: '14px',
+    textAlign: 'center',
+    fontWeight: 400,
+    lineHeight: 'initial',
+  },
+  buttonsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: theme.spacing(2),
+  },
+  button: {
+    width: 'max-content',
+  },
+  divider: {
+    marginBottom: '4px',
+  },
+}))

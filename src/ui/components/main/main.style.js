@@ -5,5 +5,6 @@ export const useClassNames = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
+    width: '60%',
   },
 })

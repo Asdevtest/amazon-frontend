@@ -13,7 +13,7 @@ import {styles} from './exchange-body-row.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').exchangeBodyRow
 
-const ExchangeBodyRowRaw = ({item, handlers, ...restProps}) => {
+const ExchangeBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
   const classNames = restProps.classes
 
   const ImgCell = imgSrc => <img alt="" className={classNames.imgCell} src={imgSrc} />
@@ -50,7 +50,7 @@ const ExchangeBodyRowRaw = ({item, handlers, ...restProps}) => {
         </TableCell>
       ))}
       <TableCell>
-        <Button color="primary" onClick={() => handlers.privateLabel(item)}>
+        <Button color="primary" onClick={() => handlers.privateLabel(itemIndex)}>
           {textConsts.labelBtn}
         </Button>
       </TableCell>
