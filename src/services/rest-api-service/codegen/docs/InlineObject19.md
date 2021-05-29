@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | id поставщика. | [optional] 
 **name** | **String** | Название поставщика. | [optional] 
 **link** | **String** | Ссылка на поставщика. | [optional] 
 **price** | **Number** | Цена | [optional] 

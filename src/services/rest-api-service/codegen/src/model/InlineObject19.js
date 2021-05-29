@@ -47,9 +47,6 @@ class InlineObject19 {
         if (data) {
             obj = obj || new InlineObject19();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
-            }
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
@@ -80,12 +77,6 @@ class InlineObject19 {
 
 
 }
-
-/**
- * id поставщика.
- * @member {String} id
- */
-InlineObject19.prototype['id'] = undefined;
 
 /**
  * Название поставщика.

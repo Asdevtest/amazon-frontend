@@ -13,6 +13,21 @@ import {RegistrationView} from '@views/registration'
 
 export const routes = [
   {
+    routePath: '/auth',
+    component: AuthView,
+    exact: false,
+  },
+  {
+    routePath: '/registration',
+    component: RegistrationView,
+    exact: false,
+  },
+  {
+    routePath: '/documentation',
+    component: DocumentationView,
+    exact: false,
+  },
+  {
     routePath: '/freelancer/settings',
     component: SettingsView,
     exact: false,
@@ -28,28 +43,18 @@ export const routes = [
     exact: false,
   },
   {
-    routePath: '/auth',
-    component: AuthView,
+    routePath: '/client/inventory',
+    component: ClientInventoryView,
     exact: false,
   },
   {
-    routePath: '/product',
+    routePath: '/client/product',
     component: ClientProductView,
     exact: false,
   },
   {
-    routePath: '/registration',
-    component: RegistrationView,
-    exact: false,
-  },
-  {
-    routePath: '/documentation',
-    component: DocumentationView,
-    exact: false,
-  },
-  {
-    routePath: '/inventory',
-    component: ClientInventoryView,
+    routePath: '/client/dashboard',
+    component: ClientDashboardView,
     exact: false,
   },
   {
@@ -65,11 +70,6 @@ export const routes = [
   {
     routePath: '/exchange/requests',
     component: ClientExchangeRequestsView,
-    exact: false,
-  },
-  {
-    routePath: '/dashboard',
-    component: ClientDashboardView,
     exact: false,
   },
 ]

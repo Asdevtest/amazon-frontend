@@ -150,6 +150,7 @@ Class | Method | HTTP request | Description
 *Amazonapi.BuyerApi* | [**apiV1BuyersProductsMyGet**](docs/BuyerApi.md#apiV1BuyersProductsMyGet) | **GET** /api/v1/buyers/products/my | # Получить список товаров взятых на проверку супервайзером.
 *Amazonapi.BuyerApi* | [**apiV1BuyersProductsPickupGuidPost**](docs/BuyerApi.md#apiV1BuyersProductsPickupGuidPost) | **POST** /api/v1/buyers/products/pickup/{guid} | # Закрепить продукт за байером. Взять его в работу.
 *Amazonapi.BuyerApi* | [**apiV1BuyersProductsVacGet**](docs/BuyerApi.md#apiV1BuyersProductsVacGet) | **GET** /api/v1/buyers/products/vac | # Получить список вакантных товаров.
+*Amazonapi.ClientApi* | [**apiV1ClientsBatchesGet**](docs/ClientApi.md#apiV1ClientsBatchesGet) | **GET** /api/v1/clients/batches | # Получить партии.
 *Amazonapi.ClientApi* | [**apiV1ClientsBoxesGet**](docs/ClientApi.md#apiV1ClientsBoxesGet) | **GET** /api/v1/clients/boxes | # Показать все коробки.
 *Amazonapi.ClientApi* | [**apiV1ClientsBoxesGuidGet**](docs/ClientApi.md#apiV1ClientsBoxesGuidGet) | **GET** /api/v1/clients/boxes/{guid} | # Показать коробку по GUID.
 *Amazonapi.ClientApi* | [**apiV1ClientsMakePaymentsPost**](docs/ClientApi.md#apiV1ClientsMakePaymentsPost) | **POST** /api/v1/clients/make_payments | # Оплатить товары.
@@ -185,7 +186,6 @@ Class | Method | HTTP request | Description
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersBoxesMyGet**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesMyGet) | **GET** /api/v1/storekeepers/boxes/my | # Получить коробки закрепленные за данным сборщиком..
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersBoxesPickupGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesPickupGuidPost) | **POST** /api/v1/storekeepers/boxes/pickup/{guid} | # Закрепить коробку за сборщиками.
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersBoxesVacGet**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesVacGet) | **GET** /api/v1/storekeepers/boxes/vac | # Получить коробки не закрепленные за сборщиками.
-*Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersTasksGuidPatch) | **PATCH** /api/v1/storekeepers/tasks/{guid} | # Изменить задачу.
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksMyGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksMyGet) | **GET** /api/v1/storekeepers/tasks/my | # Получить задачи закрепленные за данным сборщиком..
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksPickupGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksPickupGuidPost) | **POST** /api/v1/storekeepers/tasks/pickup/{guid} | # Закрепить задачу за сборщиком.
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksVacGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksVacGet) | **GET** /api/v1/storekeepers/tasks/vac | # Получить задачи не закрепленные за сотрудниками склада.
@@ -210,6 +210,7 @@ Class | Method | HTTP request | Description
  - [Amazonapi.ApiV1AdminsGetNotPaidProductsCreatedby](docs/ApiV1AdminsGetNotPaidProductsCreatedby.md)
  - [Amazonapi.ApiV1BuyersOrdersVacItemList](docs/ApiV1BuyersOrdersVacItemList.md)
  - [Amazonapi.ApiV1BuyersPaymentsMyCreatedBy](docs/ApiV1BuyersPaymentsMyCreatedBy.md)
+ - [Amazonapi.ApiV1ClientsBatchesId](docs/ApiV1ClientsBatchesId.md)
  - [Amazonapi.InlineObject](docs/InlineObject.md)
  - [Amazonapi.InlineObject1](docs/InlineObject1.md)
  - [Amazonapi.InlineObject10](docs/InlineObject10.md)
@@ -225,7 +226,6 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineObject2](docs/InlineObject2.md)
  - [Amazonapi.InlineObject20](docs/InlineObject20.md)
  - [Amazonapi.InlineObject21](docs/InlineObject21.md)
- - [Amazonapi.InlineObject22](docs/InlineObject22.md)
  - [Amazonapi.InlineObject3](docs/InlineObject3.md)
  - [Amazonapi.InlineObject4](docs/InlineObject4.md)
  - [Amazonapi.InlineObject5](docs/InlineObject5.md)

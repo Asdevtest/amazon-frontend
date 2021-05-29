@@ -89,6 +89,8 @@ class InlineObject15 {
         }
         return obj;
     }
+
+
 }
 
 /**
@@ -187,6 +189,8 @@ InlineObject15.prototype['profit'] = undefined;
  * @member {Number} margin
  */
 InlineObject15.prototype['margin'] = undefined;
+
+
 
 
 

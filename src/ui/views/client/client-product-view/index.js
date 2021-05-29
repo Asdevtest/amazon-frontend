@@ -1,1 +1,1 @@
-export {ClientProductView} from './client-product-view'
+export * from './client-product-view'

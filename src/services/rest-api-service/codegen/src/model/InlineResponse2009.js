@@ -22,21 +22,10 @@ class InlineResponse2009 {
     /**
      * Constructs a new <code>InlineResponse2009</code>.
      * @alias module:model/InlineResponse2009
-     * @param id {String} id продукта(asin)
-     * @param images {Array.<String>} массив с именами файлов
-     * @param title {String} Заголовок продукта
-     * @param about {String} О продукте.
-     * @param description {String} Описание
-     * @param price {String} Цена.
-     * @param availability {String} Доступность.
-     * @param detail {String} Детали.
-     * @param asin {String} ASIN
-     * @param bsr {String} BSR
-     * @param weight {String} Вес.
      */
-    constructor(id, images, title, about, description, price, availability, detail, asin, bsr, weight) { 
+    constructor() { 
         
-        InlineResponse2009.initialize(this, id, images, title, about, description, price, availability, detail, asin, bsr, weight);
+        InlineResponse2009.initialize(this);
     }
 
     /**
@@ -44,18 +33,7 @@ class InlineResponse2009 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, images, title, about, description, price, availability, detail, asin, bsr, weight) { 
-        obj['id'] = id;
-        obj['images'] = images;
-        obj['title'] = title;
-        obj['about'] = about;
-        obj['description'] = description;
-        obj['price'] = price;
-        obj['availability'] = availability;
-        obj['detail'] = detail;
-        obj['asin'] = asin;
-        obj['bsr'] = bsr;
-        obj['weight'] = weight;
+    static initialize(obj) { 
     }
 
     /**
@@ -69,38 +47,8 @@ class InlineResponse2009 {
         if (data) {
             obj = obj || new InlineResponse2009();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('about')) {
-                obj['about'] = ApiClient.convertToType(data['about'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'String');
-            }
-            if (data.hasOwnProperty('availability')) {
-                obj['availability'] = ApiClient.convertToType(data['availability'], 'String');
-            }
-            if (data.hasOwnProperty('detail')) {
-                obj['detail'] = ApiClient.convertToType(data['detail'], 'String');
-            }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
-            }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'String');
-            }
-            if (data.hasOwnProperty('weight')) {
-                obj['weight'] = ApiClient.convertToType(data['weight'], 'String');
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
         }
         return obj;
@@ -110,70 +58,10 @@ class InlineResponse2009 {
 }
 
 /**
- * id продукта(asin)
- * @member {String} id
+ * Флаг, показывает есть ли такой id в базе или нет
+ * @member {Boolean} isExist
  */
-InlineResponse2009.prototype['id'] = undefined;
-
-/**
- * массив с именами файлов
- * @member {Array.<String>} images
- */
-InlineResponse2009.prototype['images'] = undefined;
-
-/**
- * Заголовок продукта
- * @member {String} title
- */
-InlineResponse2009.prototype['title'] = undefined;
-
-/**
- * О продукте.
- * @member {String} about
- */
-InlineResponse2009.prototype['about'] = undefined;
-
-/**
- * Описание
- * @member {String} description
- */
-InlineResponse2009.prototype['description'] = undefined;
-
-/**
- * Цена.
- * @member {String} price
- */
-InlineResponse2009.prototype['price'] = undefined;
-
-/**
- * Доступность.
- * @member {String} availability
- */
-InlineResponse2009.prototype['availability'] = undefined;
-
-/**
- * Детали.
- * @member {String} detail
- */
-InlineResponse2009.prototype['detail'] = undefined;
-
-/**
- * ASIN
- * @member {String} asin
- */
-InlineResponse2009.prototype['asin'] = undefined;
-
-/**
- * BSR
- * @member {String} bsr
- */
-InlineResponse2009.prototype['bsr'] = undefined;
-
-/**
- * Вес.
- * @member {String} weight
- */
-InlineResponse2009.prototype['weight'] = undefined;
+InlineResponse2009.prototype['isExist'] = undefined;
 
 
 

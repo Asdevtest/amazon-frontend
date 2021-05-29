@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Имя пользователя. | 
-**email** | **String** | email | 
-**password** | **String** | Пароль | 
+**email** | **String** |  | 
+**password** | **String** |  | 
 
 

@@ -22,13 +22,12 @@ class InlineObject21 {
     /**
      * Constructs a new <code>InlineObject21</code>.
      * @alias module:model/InlineObject21
-     * @param name {String} Имя пользователя.
-     * @param email {String} email
-     * @param password {String} Пароль
+     * @param email {String} 
+     * @param password {String} 
      */
-    constructor(name, email, password) { 
+    constructor(email, password) { 
         
-        InlineObject21.initialize(this, name, email, password);
+        InlineObject21.initialize(this, email, password);
     }
 
     /**
@@ -36,8 +35,7 @@ class InlineObject21 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, email, password) { 
-        obj['name'] = name;
+    static initialize(obj, email, password) { 
         obj['email'] = email;
         obj['password'] = password;
     }
@@ -53,9 +51,6 @@ class InlineObject21 {
         if (data) {
             obj = obj || new InlineObject21();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
             if (data.hasOwnProperty('email')) {
                 obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
@@ -70,19 +65,11 @@ class InlineObject21 {
 }
 
 /**
- * Имя пользователя.
- * @member {String} name
- */
-InlineObject21.prototype['name'] = undefined;
-
-/**
- * email
  * @member {String} email
  */
 InlineObject21.prototype['email'] = undefined;
 
 /**
- * Пароль
  * @member {String} password
  */
 InlineObject21.prototype['password'] = undefined;

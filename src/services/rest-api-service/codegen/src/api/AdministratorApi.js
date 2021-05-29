@@ -45,7 +45,7 @@ export default class AdministratorApi {
 
     /**
      * # Получить список товаров, которые находятся на проверке. 
-     * ## Получить список товаров, которые находятся на проверке.   ## У таких товаров dircheckedby != null && paidat = null   ## !!! Тоже из тех времен когда директор что-то проверял.   
+     * ## Получить список товаров, которые находятся на проверке.   ## У таких товаров dircheckedby != null && paidat = null   ## !!! Тоже из тех времен когда директор что-то проверял.   ## !!! Думаю надо деприкнуть его.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
@@ -77,7 +77,7 @@ export default class AdministratorApi {
 
     /**
      * # Получить список товаров, которые находятся на проверке. 
-     * ## Получить список товаров, которые находятся на проверке.   ## У таких товаров dircheckedby != null && paidat = null   ## !!! Тоже из тех времен когда директор что-то проверял.   
+     * ## Получить список товаров, которые находятся на проверке.   ## У таких товаров dircheckedby != null && paidat = null   ## !!! Тоже из тех времен когда директор что-то проверял.   ## !!! Думаю надо деприкнуть его.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
@@ -139,7 +139,7 @@ export default class AdministratorApi {
 
     /**
      * # Получить список товаров, которые ожидают проверку. 
-     * ## !!!Эндпоинт был завязан на поля поверки директором(сущность которую   ## переименовали в клиент. Возможно, уже не нужен.   
+     * ## переименовали в клиент. Возможно, уже не нужен.   ## Сейчас показывает товары со статусом 0, 10, 40, 50, 60 - т.е. требуют проверки супером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
@@ -171,7 +171,7 @@ export default class AdministratorApi {
 
     /**
      * # Получить список товаров, которые ожидают проверку. 
-     * ## !!!Эндпоинт был завязан на поля поверки директором(сущность которую   ## переименовали в клиент. Возможно, уже не нужен.   
+     * ## переименовали в клиент. Возможно, уже не нужен.   ## Сейчас показывает товары со статусом 0, 10, 40, 50, 60 - т.е. требуют проверки супером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
@@ -233,7 +233,7 @@ export default class AdministratorApi {
 
     /**
      * # Оплатить выбранные продукты.
-     * ## Оплатить выбранные продукты.   ## ВНИМАНИЕ: нет проверки все ли guid корректны. По корректным GUID обновит. Битые заигнорит..   
+     * ## Оплатить выбранные продукты. У данных продуктов будет выставлена дата оплаты.   ## В дальнейшем все продукты у которых выставлена дата полаты можно не показывать.   ## ВНИМАНИЕ: нет проверки все ли guid корректны. По корректным GUID обновит. Битые заигнорит..   ## ВНИМАНИЕ: ПОХОЖЕ ЭТО УСТАРЕВШИЙ ФУНКЦИОНАЛ  Оплаты идут от супервайзера как отдельная сущность.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject1} opts.InlineObject1 
@@ -266,7 +266,7 @@ export default class AdministratorApi {
 
     /**
      * # Оплатить выбранные продукты.
-     * ## Оплатить выбранные продукты.   ## ВНИМАНИЕ: нет проверки все ли guid корректны. По корректным GUID обновит. Битые заигнорит..   
+     * ## Оплатить выбранные продукты. У данных продуктов будет выставлена дата оплаты.   ## В дальнейшем все продукты у которых выставлена дата полаты можно не показывать.   ## ВНИМАНИЕ: нет проверки все ли guid корректны. По корректным GUID обновит. Битые заигнорит..   ## ВНИМАНИЕ: ПОХОЖЕ ЭТО УСТАРЕВШИЙ ФУНКЦИОНАЛ  Оплаты идут от супервайзера как отдельная сущность.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject1} opts.InlineObject1 
@@ -282,7 +282,7 @@ export default class AdministratorApi {
 
     /**
      * # Внести изменения в продукт.
-     * ## Внести изменения в продукт.   
+     * ## Внести изменения в продукт.   ## УТОЧНИТЬ ПОХОЖЕ УЖЕУСТАРЕЛО. .   
      * @param {String} guid GUID продукта в БД.
      * @param {module:model/InlineObject} InlineObject 
      * @param {Object} opts Optional parameters
@@ -325,7 +325,7 @@ export default class AdministratorApi {
 
     /**
      * # Внести изменения в продукт.
-     * ## Внести изменения в продукт.   
+     * ## Внести изменения в продукт.   ## УТОЧНИТЬ ПОХОЖЕ УЖЕУСТАРЕЛО. .   
      * @param {String} guid GUID продукта в БД.
      * @param {module:model/InlineObject} InlineObject 
      * @param {Object} opts Optional parameters

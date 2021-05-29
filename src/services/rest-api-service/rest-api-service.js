@@ -11,22 +11,37 @@ import SupervisorApi from './codegen/src/api/SupervisorApi'
 import SupplierApi from './codegen/src/api/SupplierApi'
 import UserApi from './codegen/src/api/UserApi'
 
+const apiKeyPrefix = 'Bearer'
+
 class RestApiService {
+  apiClient = undefined
+
   constructor() {
-    const apiClient = ApiClient.instance
-    apiClient.basePath = BACKEND_API_URL
-    apiClient.defaultHeaders = {
+    this.apiClient = new ApiClient()
+    this.apiClient.basePath = BACKEND_API_URL
+    this.apiClient.defaultHeaders = {
       'Access-Control-Allow-Origin': 'null',
     }
-    this.administratorApi = new AdministratorApi()
-    this.buyerApi = new BuyerApi()
-    this.clientApi = new ClientApi()
-    this.productForTestOnlyApi = new ProductForTestOnlyApi()
-    this.researcherApi = new ReseacherApi()
-    this.strokeepersApi = new StorekeepersApi()
-    this.supervisorApi = new SupervisorApi()
-    this.supplierApi = new SupplierApi()
-    this.userApi = new UserApi()
+    this.administratorApi = new AdministratorApi(this.apiClient)
+    this.buyerApi = new BuyerApi(this.apiClient)
+    this.clientApi = new ClientApi(this.apiClient)
+    this.productForTestOnlyApi = new ProductForTestOnlyApi(this.apiClient)
+    this.researcherApi = new ReseacherApi(this.apiClient)
+    this.strokeepersApi = new StorekeepersApi(this.apiClient)
+    this.supervisorApi = new SupervisorApi(this.apiClient)
+    this.supplierApi = new SupplierApi(this.apiClient)
+    this.userApi = new UserApi(this.apiClient)
+  }
+
+  setAccessToken = accessToken => {
+    this.apiClient.authentications = {
+      AccessTokenBearer: {...this.apiClient.authentications.AccessTokenBearer, apiKeyPrefix, apiKey: accessToken},
+    }
+  }
+
+  removeAccessToken = () => {
+    delete this.apiClient.authentications.AccessTokenBearer.apiKeyPrefix
+    delete this.apiClient.authentications.AccessTokenBearer.apiKey
   }
 }
 

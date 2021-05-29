@@ -1,6 +1,10 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {AuthenticationModel} from '@models/authentication-model'
+import {loadingStatuses} from '@constants/loading-statuses'
+
+import {UserModel} from '@models/user-model'
+
+import {getLoggerServiceModel} from '@services/logger-service'
 
 import {getObjectKeys} from '@utils/object'
 
@@ -23,9 +27,12 @@ export class RegistrationViewModel {
     confirmPassword: null,
   }
 
+  logger = undefined
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this)
+    this.logger = getLoggerServiceModel(this)
   }
 
   get hasFormErrors() {
@@ -42,20 +49,20 @@ export class RegistrationViewModel {
   onSubmitForm = async () => {
     try {
       runInAction(() => {
-        this.requestStatus = 'isLoading'
+        this.requestStatus = loadingStatuses.isLoading
         this.error = undefined
       })
-      await AuthenticationModel.signUp(this.email, this.email, this.password) // TODO: change first parametr to name
+      await UserModel.signUp(this.email, this.email, this.password) // TODO: change first parametr to name
       runInAction(() => {
-        this.requestStatus = 'success'
+        this.requestStatus = loadingStatuses.success
       })
       setTimeout(() => {
         this.history.push('/auth')
       }, delayRedirectToAuthTime)
     } catch (error) {
-      console.log('RegistrationViewModel, onSubmitForm: Cought error', error)
+      this.logger.logCoughtError('onSubmitForm', error)
       runInAction(() => {
-        this.requestStatus = 'failed'
+        this.requestStatus = loadingStatuses.failed
         this.error = error
       })
     }

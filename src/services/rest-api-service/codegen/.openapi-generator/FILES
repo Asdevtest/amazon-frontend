@@ -6,6 +6,7 @@ docs/AdministratorApi.md
 docs/ApiV1AdminsGetNotPaidProductsCreatedby.md
 docs/ApiV1BuyersOrdersVacItemList.md
 docs/ApiV1BuyersPaymentsMyCreatedBy.md
+docs/ApiV1ClientsBatchesId.md
 docs/BuyerApi.md
 docs/ClientApi.md
 docs/InlineObject.md
@@ -23,7 +24,6 @@ docs/InlineObject19.md
 docs/InlineObject2.md
 docs/InlineObject20.md
 docs/InlineObject21.md
-docs/InlineObject22.md
 docs/InlineObject3.md
 docs/InlineObject4.md
 docs/InlineObject5.md
@@ -75,6 +75,7 @@ src/index.js
 src/model/ApiV1AdminsGetNotPaidProductsCreatedby.js
 src/model/ApiV1BuyersOrdersVacItemList.js
 src/model/ApiV1BuyersPaymentsMyCreatedBy.js
+src/model/ApiV1ClientsBatchesId.js
 src/model/InlineObject.js
 src/model/InlineObject1.js
 src/model/InlineObject10.js
@@ -90,7 +91,6 @@ src/model/InlineObject19.js
 src/model/InlineObject2.js
 src/model/InlineObject20.js
 src/model/InlineObject21.js
-src/model/InlineObject22.js
 src/model/InlineObject3.js
 src/model/InlineObject4.js
 src/model/InlineObject5.js
@@ -119,3 +119,4 @@ src/model/InlineResponse403.js
 src/model/InlineResponse404.js
 src/model/InlineResponse409.js
 src/model/InlineResponse500.js
+test/model/ApiV1ClientsBatchesId.spec.js

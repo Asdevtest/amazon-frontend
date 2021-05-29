@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## apiV1ResearchersCheckProductsIdGet
 
-> InlineResponse2008 apiV1ResearchersCheckProductsIdGet(id, opts)
+> InlineResponse2009 apiV1ResearchersCheckProductsIdGet(id, opts)
 
 Проверить продукт по ID существует ли он в базе.
 
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2008**](InlineResponse2008.md)
+[**InlineResponse2009**](InlineResponse2009.md)
 
 ### Authorization
 
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersParseAmazonIdGet
 
-> InlineResponse2009 apiV1ResearchersParseAmazonIdGet(id, opts)
+> InlineResponse20010 apiV1ResearchersParseAmazonIdGet(id, opts)
 
 Получить данные о продукте с сайта Амазон по id(asin)
 
@@ -112,7 +112,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2009**](InlineResponse2009.md)
+[**InlineResponse20010**](InlineResponse20010.md)
 
 ### Authorization
 
@@ -126,7 +126,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersParseSellercentralGet
 
-> InlineResponse2009 apiV1ResearchersParseSellercentralGet(opts)
+> InlineResponse20010 apiV1ResearchersParseSellercentralGet(opts)
 
 Получить данные о продукте с SellerCentral
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2009**](InlineResponse2009.md)
+[**InlineResponse20010**](InlineResponse20010.md)
 
 ### Authorization
 

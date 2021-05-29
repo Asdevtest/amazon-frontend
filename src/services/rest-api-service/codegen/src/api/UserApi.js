@@ -14,8 +14,8 @@
 
 import ApiClient from "../ApiClient";
 import ApiV1AdminsGetNotPaidProductsCreatedby from '../model/ApiV1AdminsGetNotPaidProductsCreatedby';
+import InlineObject20 from '../model/InlineObject20';
 import InlineObject21 from '../model/InlineObject21';
-import InlineObject22 from '../model/InlineObject22';
 import InlineResponse2011 from '../model/InlineResponse2011';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse403 from '../model/InlineResponse403';
@@ -92,17 +92,17 @@ export default class UserApi {
     /**
      * Создание нового пользователя. Регистрация.
      * ## Создание нового пользователя. Регистрация.   
-     * @param {module:model/InlineObject21} InlineObject21 
+     * @param {module:model/InlineObject20} InlineObject20 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsGetNotPaidProductsCreatedby} and HTTP response
      */
-    apiV1UsersPostWithHttpInfo(InlineObject21, opts) {
+    apiV1UsersPostWithHttpInfo(InlineObject20, opts) {
       opts = opts || {};
-      let postBody = InlineObject21;
-      // verify the required parameter 'InlineObject21' is set
-      if (InlineObject21 === undefined || InlineObject21 === null) {
-        throw new Error("Missing the required parameter 'InlineObject21' when calling apiV1UsersPost");
+      let postBody = InlineObject20;
+      // verify the required parameter 'InlineObject20' is set
+      if (InlineObject20 === undefined || InlineObject20 === null) {
+        throw new Error("Missing the required parameter 'InlineObject20' when calling apiV1UsersPost");
       }
 
       let pathParams = {
@@ -129,13 +129,13 @@ export default class UserApi {
     /**
      * Создание нового пользователя. Регистрация.
      * ## Создание нового пользователя. Регистрация.   
-     * @param {module:model/InlineObject21} InlineObject21 
+     * @param {module:model/InlineObject20} InlineObject20 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsGetNotPaidProductsCreatedby}
      */
-    apiV1UsersPost(InlineObject21, opts) {
-      return this.apiV1UsersPostWithHttpInfo(InlineObject21, opts)
+    apiV1UsersPost(InlineObject20, opts) {
+      return this.apiV1UsersPostWithHttpInfo(InlineObject20, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -145,17 +145,17 @@ export default class UserApi {
     /**
      * # Получение токена авторизации.
      * ## Получение токена авторизации.   ## Время жизни токена 96 часов   
-     * @param {module:model/InlineObject22} InlineObject22 
+     * @param {module:model/InlineObject21} InlineObject21 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
      */
-    apiV1UsersSignInPostWithHttpInfo(InlineObject22, opts) {
+    apiV1UsersSignInPostWithHttpInfo(InlineObject21, opts) {
       opts = opts || {};
-      let postBody = InlineObject22;
-      // verify the required parameter 'InlineObject22' is set
-      if (InlineObject22 === undefined || InlineObject22 === null) {
-        throw new Error("Missing the required parameter 'InlineObject22' when calling apiV1UsersSignInPost");
+      let postBody = InlineObject21;
+      // verify the required parameter 'InlineObject21' is set
+      if (InlineObject21 === undefined || InlineObject21 === null) {
+        throw new Error("Missing the required parameter 'InlineObject21' when calling apiV1UsersSignInPost");
       }
 
       let pathParams = {
@@ -182,13 +182,13 @@ export default class UserApi {
     /**
      * # Получение токена авторизации.
      * ## Получение токена авторизации.   ## Время жизни токена 96 часов   
-     * @param {module:model/InlineObject22} InlineObject22 
+     * @param {module:model/InlineObject21} InlineObject21 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
      */
-    apiV1UsersSignInPost(InlineObject22, opts) {
-      return this.apiV1UsersSignInPostWithHttpInfo(InlineObject22, opts)
+    apiV1UsersSignInPost(InlineObject21, opts) {
+      return this.apiV1UsersSignInPostWithHttpInfo(InlineObject21, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
