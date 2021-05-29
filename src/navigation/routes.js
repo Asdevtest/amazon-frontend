@@ -58,7 +58,7 @@ export const routes = [
     exact: false,
   },
   {
-    routePath: '/exchange',
+    routePath: '/client/exchange',
     component: ClientExchangeView,
     exact: true,
   },
