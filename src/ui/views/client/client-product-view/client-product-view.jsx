@@ -6,6 +6,7 @@ import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
+import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 import categoryImgBeautyAndPersonalCare from '@components/product/assets/beautyAndPersonalCare.jpg'
@@ -30,9 +31,7 @@ const PRODUCT_IMAGES = [
   categoryImgBeautyAndPersonalCare,
 ]
 
-const DRAWER_WIDTH = 200
-
-export const ProductPage = () => {
+export const ClientProductView = () => {
   const [activeCategory, setCategory] = useState(null)
   const [activeSubCategory, setSubCategory] = useState(0)
   const [product, setProduct] = useState({...PRODUCT_INITIAL_PRODUCT, images: PRODUCT_IMAGES})
@@ -55,37 +54,36 @@ export const ProductPage = () => {
 
   return (
     <React.Fragment>
-      <Appbar
-        avatarSrc={avatar}
-        drawerWidth={DRAWER_WIDTH}
-        notificationCount={2}
+      <Navbar
+        activeItem={activeCategory}
+        activeSubItem={activeSubCategory}
+        categoriesList={categoriesList.client}
+        drawerOpen={drawerOpen}
         setDrawerOpen={setDrawerOpen}
-        title={textConsts.appBarTitle}
-        username={textConsts.appBarUsername}
-      >
-        <Navbar
-          activeItem={activeCategory}
-          activeSubItem={activeSubCategory}
-          categoriesList={categoriesList.client}
-          drawerOpen={drawerOpen}
-          drawerWidth={DRAWER_WIDTH}
+        setItem={setCategory}
+        setSubItem={setSubCategory}
+        user={textConsts.appUser}
+      />
+      <Main>
+        <Appbar
+          avatarSrc={avatar}
+          notificationCount={2}
           setDrawerOpen={setDrawerOpen}
-          setItem={setCategory}
-          setSubItem={setSubCategory}
-          user={textConsts.appUser}
-        />
-
-        <Main drawerWidth={DRAWER_WIDTH}>
-          <ProductWrapper
-            handleSupplierButtons={handleSupplierButtons}
-            product={product}
-            selected={selectedSupplier}
-            setProduct={setProduct}
-            suppliers={suppliers}
-            onClickSupplier={setSelectedSupplier}
-          />
-        </Main>
-      </Appbar>
+          title={textConsts.appBarTitle}
+          username={textConsts.appBarUsername}
+        >
+          <MainContent>
+            <ProductWrapper
+              handleSupplierButtons={handleSupplierButtons}
+              product={product}
+              selected={selectedSupplier}
+              setProduct={setProduct}
+              suppliers={suppliers}
+              onClickSupplier={setSelectedSupplier}
+            />
+          </MainContent>
+        </Appbar>
+      </Main>
       <Modal openModal={modalAddSupplier} setOpenModal={setModalAddSupplier}>
         <ModalContent
           modeAddOrEdit={'add'}

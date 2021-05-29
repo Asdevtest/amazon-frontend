@@ -4,7 +4,7 @@ import {ClientExchangeView} from '@views/client/client-exchange-view/exchange'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-view/private-label'
 import {ClientExchangeRequestsView} from '@views/client/client-exchange-view/requests'
 import {ClientInventoryView} from '@views/client/client-inventory-view'
-import {Product} from '@views/client/product'
+import {ClientProductView} from '@views/client/client-product-view'
 import {DocumentationView} from '@views/documentation'
 import {DashboardView} from '@views/freelancer/dashboard-view'
 import {ProductsView} from '@views/freelancer/products-view'
@@ -34,7 +34,7 @@ export const routes = [
   },
   {
     routePath: '/product',
-    component: Product,
+    component: ClientProductView,
     exact: false,
   },
   {
