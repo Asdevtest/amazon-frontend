@@ -15,6 +15,7 @@
     "lint:fix": "eslint --fix --ext .js,.jsx ."
   },
   "dependencies": {
+    "@date-io/date-fns": "1.x",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
@@ -23,6 +24,7 @@
     "@typescript-eslint/parser": "^4.23.0",
     "clsx": "^1.1.1",
     "customize-cra": "^1.0.0",
+    "date-fns": "^2.22.1",
     "husky": "^6.0.0",
     "js-cookie": "^2.2.1",
     "mobx": "^6.3.2",

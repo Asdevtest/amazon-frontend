@@ -6,6 +6,20 @@ export const texts = {
       greetingSubtitle: 'Just register to join with us',
       footer: 'Footer',
     },
+    rangeInput: {
+      start: 'from',
+      end: 'to',
+    },
+    privateLabelCard: {
+      price: 'Price',
+      qty: 'Qty',
+      avgPrice: 'Average price',
+      recConsignmentQty: 'Рекомендуемая партия к запуску Private Label',
+      recConsignmentWeight: 'Вес рекомендованной партии',
+      avgBSR: 'Average BSR',
+      avgReviews: 'Average Reviews',
+      avgRevenue: 'Average Revenue',
+    },
     authView: {
       title: 'Sign in',
       redirect: 'Create account',
@@ -40,6 +54,62 @@ export const texts = {
       inventoryTitle: 'Inventory',
       ordersTitle: 'Orders',
       exchangeTitle: 'Exchange',
+    },
+    tableToolbar: {
+      filter: 'Filter',
+      searchPlaceholder: 'Search...',
+      rowsPerPage: 'Rows per page',
+    },
+    clientExchangeView: {
+      appbarTitle: 'Exchange',
+      mainTitle: 'Active offers on exchange',
+      modalOrderProductTitle: 'Order product',
+    },
+    exchangeBodyRow: {
+      labelBtn: 'Private Label',
+      priceBtn: 'Add $9.99',
+    },
+    clientExchangePrivateLabelView: {
+      appbarTitle: 'Exchange - PrivateLabel',
+      mainTitle: 'Information about Private Label',
+    },
+    clientExchangeRequestsView: {
+      appbarTitle: 'Exchange - Requests',
+      mainTitle: 'My requests on exchange',
+      newRequest: 'New request',
+
+      modalNewRequestTitle: 'New request',
+      modalEditRequestTitle: 'Edit request',
+      modalCloseRequestTitle: 'Close request',
+
+      modalBtnSendRequest: 'Send request',
+      modalBtnSaveRequest: 'Save request',
+      modalBtnCloseRequest: 'Send',
+
+      formStrategyLabel: 'Strategy',
+      formMonthlySalesLabel: 'Monthly sales',
+      formBudgetLabel: 'Budget',
+      formAmazonPriceLabel: 'Amazon price',
+      formAvgBSRLabel: 'Average BSR',
+      formAvgReviewsLabel: 'Average Reviews',
+      formAvgRevenueLabel: 'Average Revenue',
+      formNotesLabel: 'Notes',
+      formCheckboxForbidLabel:
+        'Запрещать добавлять товары которые когда либо были проданы на площадке по данной стратегии',
+      formCheckboxNoPayLabel: 'Не оплачиваю повторно купленные товары',
+      formDeadlineLabel: 'Target date',
+      formCheckboxNoCheckLabel: 'Сотрудники платформы не будут участвовать в проверке качества найденого товара',
+
+      formCloseReasonLabel: 'Describe the reason for closing request',
+
+      selectOptionFlipping: 'Flipping',
+      selectOptionDropshipping: 'Dropshipping',
+      selectOptionOnlineArbitrage: 'OnlineArbitrage',
+      selectOptionPrivateLabel: 'PrivateLabel',
+    },
+    exchangeRequestsBodyRow: {
+      editBtn: 'Edit',
+      closeBtn: 'Close',
     },
     documentationView: {
       appBarTitle: 'Documentation',
@@ -87,15 +157,6 @@ export const texts = {
       fieldFba: 'FBA',
       saveBtn: 'Сохранить',
       cancelBtn: 'Отменить',
-    },
-    tableToolbar: {
-      filter: 'Filter',
-      searchPlaceholder: 'Search...',
-      rowsPerPage: 'Rows per page',
-    },
-    exchangeBodyRow: {
-      labelBtn: 'Private Label',
-      priceBtn: 'Add $9.99',
     },
   },
   ru: {

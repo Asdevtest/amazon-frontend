@@ -27,7 +27,7 @@ export const Table = ({
           <TableHead className={classNames.tableHead}>{renderHeadRow}</TableHead>
           <TableBody className={classNames.tableBody}>
             {data.slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage).map((el, index) => (
-              <BodyRow key={index} item={el} handlers={rowsHandlers} />
+              <BodyRow key={index} item={el} itemIndex={index} handlers={rowsHandlers} />
             ))}
           </TableBody>
         </MuiTable>

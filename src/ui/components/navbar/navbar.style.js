@@ -21,6 +21,10 @@ export const useClassNames = makeStyles(theme => ({
   logo: {
     height: '100%',
   },
+  categoriesWrapper: {
+    overflow: 'auto',
+    padding: 0,
+  },
   iconWrapper: {
     minWidth: '0',
     margin: '16px 16px 16px 11px',

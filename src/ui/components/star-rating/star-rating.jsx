@@ -15,8 +15,8 @@ export const StarRating = ({rating}) => {
       <div className={classNames.starWrapper}>
         {Array(starsAmount)
           .fill(true)
-          .map(el => (
-            <StarIcon key={el} className={clsx(classNames.star, {[classNames.active]: flooredRating >= el})} />
+          .map((el, index) => (
+            <StarIcon key={index} className={clsx(classNames.star, {[classNames.active]: flooredRating >= el})} />
           ))}
       </div>
     </div>

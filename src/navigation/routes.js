@@ -1,5 +1,8 @@
 import {AuthView} from '@views/auth'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
+import {ClientExchangeView} from '@views/client/client-exchange-view/exchange'
+import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-view/private-label'
+import {ClientExchangeRequestsView} from '@views/client/client-exchange-view/requests'
 import {ClientInventoryView} from '@views/client/client-inventory-view'
 import {Product} from '@views/client/product'
 import {DocumentationView} from '@views/documentation'
@@ -47,6 +50,21 @@ export const routes = [
   {
     routePath: '/inventory',
     component: ClientInventoryView,
+    exact: false,
+  },
+  {
+    routePath: '/exchange',
+    component: ClientExchangeView,
+    exact: true,
+  },
+  {
+    routePath: '/exchange/private-label',
+    component: ClientExchangePrivateLabelView,
+    exact: true,
+  },
+  {
+    routePath: '/exchange/requests',
+    component: ClientExchangeRequestsView,
     exact: false,
   },
   {

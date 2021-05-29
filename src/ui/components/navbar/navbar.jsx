@@ -17,7 +17,7 @@ export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawe
         <img alt="company logo" className={classNames.logo} src={'/logo192.png'} />
       </div>
       <Divider />
-      <List disablePadding>
+      <List className={classNames.categoriesWrapper}>
         {categoriesList.map((category, index) => (
           <React.Fragment key={index}>
             <NavbarCategory
