@@ -8,7 +8,7 @@ import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
-import {ContentCard} from '@components/freelancer/content-card'
+import {DashboardCard} from '@components/freelancer/dashboard-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -56,7 +56,7 @@ export class SupervisorDashboardViewRaw extends Component {
                 <Grid container justify="center" spacing={3}>
                   {SUPERVISOR_DASHBOARD_LIST.map((item, index) => (
                     <Grid key={index} item xs={6} lg={4}>
-                      <ContentCard
+                      <DashboardCard
                         value={item.value}
                         title={item.title}
                         color={item.color}

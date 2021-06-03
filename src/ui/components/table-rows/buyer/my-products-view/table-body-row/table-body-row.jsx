@@ -13,13 +13,13 @@ import clsx from 'clsx'
 import calculateSrc from './assets/calculate.svg'
 import {styles} from './table-body-row.style'
 
-const TableBodyRowRaw = ({item, rowIndex, ...restProps}) => {
+const TableBodyRowRaw = ({item, itemIndex, ...restProps}) => {
   const classNames = restProps.classes
 
   return (
     <TableRow key={item.asin} hover role="checkbox">
       <TableCell className={classNames.indexCell}>
-        <Typography>{rowIndex + 1}</Typography>
+        <Typography>{itemIndex + 1}</Typography>
       </TableCell>
       <TableCell padding="checkbox">
         <Checkbox />

@@ -1,75 +1,75 @@
-import categoryImgBaby from '@views/buyer/users-views/user-profile-view/assets/categories/baby.jpg';
-import categoryImgBeautyAndPersonalCare from '@views/buyer/users-views/user-profile-view/assets/categories/beautyAndPersonalCare.jpg';
-import categoryImgClothingShoesAndJewelry from '@views/buyer/users-views/user-profile-view/assets/categories/clothingShoesAndJewelry.jpg';
-import categoryImgGardenAndOutdoor from '@views/buyer/users-views/user-profile-view/assets/categories/gardenAndOutdoor.jpg';
-import categoryImgHealthHouseholdAndBabyCare from '@views/buyer/users-views/user-profile-view/assets/categories/healthHouseholdAndBabyCare.jpg';
-import categoryImgHomeAndKitchen from '@views/buyer/users-views/user-profile-view/assets/categories/homeAndKitchen.jpg';
-import categoryImgKitchenAndDining from '@views/buyer/users-views/user-profile-view/assets/categories/kitchenAndDining.jpg';
-import categoryImgSportsAndOutdoors from '@views/buyer/users-views/user-profile-view/assets/categories/sportsAndOutdoors.jpg';
-import categoryImgToolsAndHomeImprovement from '@views/buyer/users-views/user-profile-view/assets/categories/toolsAndHomeImprovement.jpg';
-import categoryImgToysAndGames from '@views/buyer/users-views/user-profile-view/assets/categories/toysAndGames.jpg';
+import categoryImgBaby from '@views/buyer/users-views/user-profile-view/assets/categories/baby.jpg'
+import categoryImgBeautyAndPersonalCare from '@views/buyer/users-views/user-profile-view/assets/categories/beautyAndPersonalCare.jpg'
+import categoryImgClothingShoesAndJewelry from '@views/buyer/users-views/user-profile-view/assets/categories/clothingShoesAndJewelry.jpg'
+import categoryImgGardenAndOutdoor from '@views/buyer/users-views/user-profile-view/assets/categories/gardenAndOutdoor.jpg'
+import categoryImgHealthHouseholdAndBabyCare from '@views/buyer/users-views/user-profile-view/assets/categories/healthHouseholdAndBabyCare.jpg'
+import categoryImgHomeAndKitchen from '@views/buyer/users-views/user-profile-view/assets/categories/homeAndKitchen.jpg'
+import categoryImgKitchenAndDining from '@views/buyer/users-views/user-profile-view/assets/categories/kitchenAndDining.jpg'
+import categoryImgSportsAndOutdoors from '@views/buyer/users-views/user-profile-view/assets/categories/sportsAndOutdoors.jpg'
+import categoryImgToolsAndHomeImprovement from '@views/buyer/users-views/user-profile-view/assets/categories/toolsAndHomeImprovement.jpg'
+import categoryImgToysAndGames from '@views/buyer/users-views/user-profile-view/assets/categories/toysAndGames.jpg'
 
 export const inventorySection = {
   title: 'Инвентарь',
   items: [
-    { value: 7, title: 'Товаров в инвентаре', color: '#20a8d8' },
-    { value: 5, title: 'Общая стоимость склада', color: '#63c2de' },
-    { value: 0, title: 'Товаров с повторной закупкой', color: '#4dbd74' }
-  ]
-};
+    {value: 7, title: 'Товаров в инвентаре', color: '#20a8d8'},
+    {value: 5, title: 'Общая стоимость склада', color: '#63c2de'},
+    {value: 0, title: 'Товаров с повторной закупкой', color: '#4dbd74'},
+  ],
+}
 
 export const ordersSection = {
   title: 'Заказы',
   items: [
-    { value: 2, title: 'Неоплаченные заказы', color: '#ffc107' },
-    { value: 0, title: 'Оплаченные заказы', color: '#f86c6b' },
-    { value: 24, title: 'Отмененные заказы', color: '#20a8d8' }
-  ]
-};
+    {value: 2, title: 'Неоплаченные заказы', color: '#ffc107'},
+    {value: 0, title: 'Оплаченные заказы', color: '#f86c6b'},
+    {value: 24, title: 'Отмененные заказы', color: '#20a8d8'},
+  ],
+}
 export const exchangeSection = {
   title: 'Товары',
   items: [
-    { value: 53, title: 'Продано товаров на бирже', color: '#63c2de' },
-    { value: 1, title: 'Начислено ресерчерам', color: '#4dbd74' },
-    { value: 17, title: 'Споров по товарам', color: '#f86c6b' }
-  ]
-};
+    {value: 53, title: 'Продано товаров на бирже', color: '#63c2de'},
+    {value: 1, title: 'Начислено ресерчерам', color: '#4dbd74'},
+    {value: 17, title: 'Споров по товарам', color: '#f86c6b'},
+  ],
+}
 
-export const clientUsername = 'Client';
-export const clientBalance = '$4 012';
+export const clientUsername = 'Client'
+export const clientBalance = '$4 012'
 
 export const clientExchangeViewTable = {
   headCells: [
-    { id: 'img', label: 'Image' },
-    { id: 'img', label: 'Category' },
-    { id: 'img', label: 'Цена' },
-    { id: 'img', label: 'Кол-во' },
-    { id: 'img', label: 'Средняя цена' },
+    {id: 'img', label: 'Image'},
+    {id: 'img', label: 'Category'},
+    {id: 'img', label: 'Цена'},
+    {id: 'img', label: 'Кол-во'},
+    {id: 'img', label: 'Средняя цена'},
 
-    { id: 'img', label: 'Рекомендуемая партия' },
-    { id: 'img', label: 'Вес' },
+    {id: 'img', label: 'Рекомендуемая партия'},
+    {id: 'img', label: 'Вес'},
 
-    { id: 'img', label: 'avg BSR' },
-    { id: 'img', label: 'avg Reviews' },
-    { id: 'img', label: 'avg Revenue' },
-    { id: 'img', label: 'Researcher' },
-    { id: 'img', label: 'Стоимость запуска' }
+    {id: 'img', label: 'avg BSR'},
+    {id: 'img', label: 'avg Reviews'},
+    {id: 'img', label: 'avg Revenue'},
+    {id: 'img', label: 'Researcher'},
+    {id: 'img', label: 'Стоимость запуска'},
   ],
   modalHeadCells: [
-    { id: 'img', label: 'Image' },
-    { id: 'img', label: 'Category' },
-    { id: 'img', label: 'Price' },
-    { id: 'img', label: 'Qty' },
-    { id: 'img', label: 'avg Price' },
+    {id: 'img', label: 'Image'},
+    {id: 'img', label: 'Category'},
+    {id: 'img', label: 'Price'},
+    {id: 'img', label: 'Qty'},
+    {id: 'img', label: 'avg Price'},
 
-    { id: 'img', label: 'Рекомендуемая партия' },
-    { id: 'img', label: 'Вес' },
+    {id: 'img', label: 'Рекомендуемая партия'},
+    {id: 'img', label: 'Вес'},
 
-    { id: 'img', label: 'avg BSR' },
-    { id: 'img', label: 'avg Reviews' },
-    { id: 'img', label: 'avg Revenue' },
-    { id: 'img', label: 'Стоимость запуска' },
-    { id: 'img', label: 'Manager' }
+    {id: 'img', label: 'avg BSR'},
+    {id: 'img', label: 'avg Reviews'},
+    {id: 'img', label: 'avg Revenue'},
+    {id: 'img', label: 'Стоимость запуска'},
+    {id: 'img', label: 'Manager'},
   ],
   mainTableKeys: [
     'categoryImg',
@@ -83,7 +83,7 @@ export const clientExchangeViewTable = {
     'avgReviews',
     'avgRevenue',
     'researcher',
-    'privateLabelPrice'
+    'privateLabelPrice',
   ],
   modalTableKeys: [
     'categoryImg',
@@ -97,7 +97,7 @@ export const clientExchangeViewTable = {
     'avgReviews',
     'avgRevenue',
     'privateLabelPrice',
-    'managers'
+    'managers',
   ],
   productList: [
     {
@@ -113,9 +113,9 @@ export const clientExchangeViewTable = {
       avgReviews: 255,
       avgRevenue: 1000,
 
-      researcher: { rating: 4.2, username: 'Username' },
+      researcher: {rating: 4.2, username: 'Username'},
       privateLabelPrice: 499.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/sportsAndOutdoors.jpg',
@@ -128,9 +128,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 4.7, username: 'Dave Bains' },
+      researcher: {rating: 4.7, username: 'Dave Bains'},
       privateLabelPrice: 129.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/toysAndGames.jpg',
@@ -143,9 +143,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 3.9, username: 'Nella Oconnell' },
+      researcher: {rating: 3.9, username: 'Nella Oconnell'},
       privateLabelPrice: 432.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/healthHouseholdAndBabyCare.jpg',
@@ -158,9 +158,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 5.0, username: 'Latisha Gould' },
+      researcher: {rating: 5.0, username: 'Latisha Gould'},
       privateLabelPrice: 80.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/beautyAndPersonalCare.jpg',
@@ -173,9 +173,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 4.3, username: 'Heena Goodwin' },
+      researcher: {rating: 4.3, username: 'Heena Goodwin'},
       privateLabelPrice: 499.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/kitchenAndDining.jpg',
@@ -188,9 +188,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 2.2, username: 'Brodie Magana' },
+      researcher: {rating: 2.2, username: 'Brodie Magana'},
       privateLabelPrice: 2999.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/clothingShoesAndJewelry.jpg',
@@ -203,9 +203,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 4.5, username: 'Lani Vazquez' },
+      researcher: {rating: 4.5, username: 'Lani Vazquez'},
       privateLabelPrice: 249.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/baby.jpg',
@@ -218,9 +218,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 1.2, username: 'Kohen Reilly' },
+      researcher: {rating: 1.2, username: 'Kohen Reilly'},
       privateLabelPrice: 189.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/gardenAndOutdoor.jpg',
@@ -233,9 +233,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 3.3, username: 'Albie Gilbert' },
+      researcher: {rating: 3.3, username: 'Albie Gilbert'},
       privateLabelPrice: 1199.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/toolsAndHomeImprovement.jpg',
@@ -248,12 +248,12 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 4.8, username: 'Nicky Barajas' },
+      researcher: {rating: 4.8, username: 'Nicky Barajas'},
       privateLabelPrice: 799.49,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
-    }
-  ]
-};
+      managers: ['manager0', 'manager1', 'manager2'],
+    },
+  ],
+}
 
 export const clientExchangePrivateLabelView = {
   listKeys: [
@@ -266,7 +266,7 @@ export const clientExchangePrivateLabelView = {
     'recConsignmentWeight',
     'avgBSR',
     'avgReviews',
-    'avgRevenue'
+    'avgRevenue',
   ],
   productList: [
     {
@@ -282,9 +282,9 @@ export const clientExchangePrivateLabelView = {
       avgReviews: 255,
       avgRevenue: 1000,
 
-      researcher: { rating: 4.2, username: 'Username' },
+      researcher: {rating: 4.2, username: 'Username'},
       privateLabelPrice: 499.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/sportsAndOutdoors.jpg',
@@ -297,9 +297,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 4.7, username: 'Dave Bains' },
+      researcher: {rating: 4.7, username: 'Dave Bains'},
       privateLabelPrice: 129.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/toysAndGames.jpg',
@@ -312,9 +312,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 3.9, username: 'Nella Oconnell' },
+      researcher: {rating: 3.9, username: 'Nella Oconnell'},
       privateLabelPrice: 432.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/healthHouseholdAndBabyCare.jpg',
@@ -327,9 +327,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 5.0, username: 'Latisha Gould' },
+      researcher: {rating: 5.0, username: 'Latisha Gould'},
       privateLabelPrice: 80.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/beautyAndPersonalCare.jpg',
@@ -342,9 +342,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 4.3, username: 'Heena Goodwin' },
+      researcher: {rating: 4.3, username: 'Heena Goodwin'},
       privateLabelPrice: 499.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/kitchenAndDining.jpg',
@@ -357,9 +357,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 2.2, username: 'Brodie Magana' },
+      researcher: {rating: 2.2, username: 'Brodie Magana'},
       privateLabelPrice: 2999.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/clothingShoesAndJewelry.jpg',
@@ -372,9 +372,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 4.5, username: 'Lani Vazquez' },
+      researcher: {rating: 4.5, username: 'Lani Vazquez'},
       privateLabelPrice: 249.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/baby.jpg',
@@ -387,9 +387,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 1.2, username: 'Kohen Reilly' },
+      researcher: {rating: 1.2, username: 'Kohen Reilly'},
       privateLabelPrice: 189.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/gardenAndOutdoor.jpg',
@@ -402,9 +402,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 3.3, username: 'Albie Gilbert' },
+      researcher: {rating: 3.3, username: 'Albie Gilbert'},
       privateLabelPrice: 1199.99,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
+      managers: ['manager0', 'manager1', 'manager2'],
     },
     {
       categoryImg: '/assets/img/categories/toolsAndHomeImprovement.jpg',
@@ -417,76 +417,76 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: { rating: 4.8, username: 'Nicky Barajas' },
+      researcher: {rating: 4.8, username: 'Nicky Barajas'},
       privateLabelPrice: 799.49,
-      managers: [ 'manager0', 'manager1', 'manager2' ]
-    }
-  ]
-};
+      managers: ['manager0', 'manager1', 'manager2'],
+    },
+  ],
+}
 
 export const clientExchangeRequestsViewTable = {
   headCells: [
-    { id: 'img', label: 'Budget' },
-    { id: 'img', label: 'Target date' },
-    { id: 'img', label: 'Status' },
-    { id: 'img', label: 'Strategy' }
+    {id: 'img', label: 'Budget'},
+    {id: 'img', label: 'Target date'},
+    {id: 'img', label: 'Status'},
+    {id: 'img', label: 'Strategy'},
   ],
-  tableKeys: [ 'budget', 'deadline', 'status', 'strategy' ],
+  tableKeys: ['budget', 'deadline', 'status', 'strategy'],
   requestsListRaw: [
-    { budget: 50000, deadline: '20/04/2022', status: 'Обрабатывается', strategy: 'Flipping' },
-    { budget: 27420.42, deadline: '19/11/2021', status: 'Обрабатано', strategy: 'PrivateLabel' }
-  ]
-};
+    {budget: 50000, deadline: '20/04/2022', status: 'Обрабатывается', strategy: 'Flipping'},
+    {budget: 27420.42, deadline: '19/11/2021', status: 'Обрабатано', strategy: 'PrivateLabel'},
+  ],
+}
 
 export const userPopperItems = {
   client: [
-    { label: 'Ваш счёт $4 352', color: '#5a6169', route: null },
-    { label: 'Пополнить баланс', color: '#5a6169', route: null },
-    { label: 'Сообщения', color: '#5a6169', route: null },
-    { label: 'Профиль', color: '#5a6169', route: '/user' },
-    { label: 'Выйти', color: '#d22323', route: '/auth' }
+    {label: 'Ваш счёт $4 352', color: '#5a6169', route: null},
+    {label: 'Пополнить баланс', color: '#5a6169', route: null},
+    {label: 'Сообщения', color: '#5a6169', route: null},
+    {label: 'Профиль', color: '#5a6169', route: '/user'},
+    {label: 'Выйти', color: '#d22323', route: '/auth'},
   ],
   buyer: [
-    { label: 'Ваш счёт $4 352', color: '#5a6169', route: null },
-    { label: 'Пополнить баланс', color: '#5a6169', route: null },
-    { label: 'Сообщения', color: '#5a6169', route: null },
-    { label: 'Профиль', color: '#5a6169', route: '/buyer/user' },
-    { label: 'Выйти', color: '#d22323', route: '/auth' }
+    {label: 'Ваш счёт $4 352', color: '#5a6169', route: null},
+    {label: 'Пополнить баланс', color: '#5a6169', route: null},
+    {label: 'Сообщения', color: '#5a6169', route: null},
+    {label: 'Профиль', color: '#5a6169', route: '/buyer/user'},
+    {label: 'Выйти', color: '#d22323', route: '/auth'},
   ],
   freelancer: [
-    { label: 'Ваш счёт $4 352', color: '#5a6169', route: null },
-    { label: 'Пополнить баланс', color: '#5a6169', route: null },
-    { label: 'Сообщения', color: '#5a6169', route: null },
-    { label: 'Профиль', color: '#5a6169', route: null },
-    { label: 'Выйти', color: '#d22323', route: '/auth' }
+    {label: 'Ваш счёт $4 352', color: '#5a6169', route: null},
+    {label: 'Пополнить баланс', color: '#5a6169', route: null},
+    {label: 'Сообщения', color: '#5a6169', route: null},
+    {label: 'Профиль', color: '#5a6169', route: null},
+    {label: 'Выйти', color: '#d22323', route: '/auth'},
   ],
   supervisor: [
-    { label: 'Ваш счёт $4 352', color: '#5a6169', route: null },
-    { label: 'Пополнить баланс', color: '#5a6169', route: null },
-    { label: 'Сообщения', color: '#5a6169', route: null },
-    { label: 'Профиль', color: '#5a6169', route: null },
-    { label: 'Выйти', color: '#d22323', route: '/auth' }
-  ]
-};
+    {label: 'Ваш счёт $4 352', color: '#5a6169', route: null},
+    {label: 'Пополнить баланс', color: '#5a6169', route: null},
+    {label: 'Сообщения', color: '#5a6169', route: null},
+    {label: 'Профиль', color: '#5a6169', route: null},
+    {label: 'Выйти', color: '#d22323', route: '/auth'},
+  ],
+}
 export const userRoutes = {
   client: {
     0: null,
     1: null,
     2: null,
     3: '/user',
-    4: 'auth'
+    4: 'auth',
   },
   buyer: {},
-  freelancer: {}
-};
+  freelancer: {},
+}
 
 export const INVENTORY_CARD_LIST = [
-  { count: 7, label: 'Товаров в инвентаре', timer: null },
-  { count: 45, label: 'Товаров купленных на бирже', timer: '59:03' },
-  { count: 23, label: 'Товаров добавлено', timer: null },
-  { count: 20, label: 'Заказов оформлено', timer: null },
-  { count: 420, label: 'Куплено за 30 дней', timer: null }
-];
+  {count: 7, label: 'Товаров в инвентаре', timer: null},
+  {count: 45, label: 'Товаров купленных на бирже', timer: '59:03'},
+  {count: 23, label: 'Товаров добавлено', timer: null},
+  {count: 20, label: 'Заказов оформлено', timer: null},
+  {count: 420, label: 'Куплено за 30 дней', timer: null},
+]
 
 export const PRODUCT_INITIAL_PRODUCT = {
   images: {},
@@ -517,8 +517,8 @@ export const PRODUCT_INITIAL_PRODUCT = {
     'Product information Size:Leaf Technical Details Manufacturer HYQO Brand HYQO Item Weight 4.7 ounces Package Dimensions 7.05 x 5.28 x 1.77 inches Color Green, Yellow, Blue, Brown Material Type Silicone Size Leaf Manufacturer Part Number Leaf Additional Information ASIN B08CH6J8NF Customer Reviews 4.1 out of 5 stars 69 ratings 4.1 out of 5 stars Best Sellers Rank #23,309 in Office Products (See Top 100 in Office Products) #173 in Door Stops Date First Available July 7, 2020 Warranty & Support Product Warranty: For warranty information about this product, please click here Feedback Would you like to tell us about a lower price?',
   commentManager: "Manager's comment",
   commentSupervisor: "Supervisor's comment",
-  commentBuyer: "Buyer's comment"
-};
+  commentBuyer: "Buyer's comment",
+}
 export const PRODUCT_INITIAL_SUPPLIERS = [
   {
     name: 'Jakki Chan',
@@ -527,7 +527,7 @@ export const PRODUCT_INITIAL_SUPPLIERS = [
     deliveryPrice: 4.99,
     qty: 400,
     minQty: 100,
-    comment: 'Делает скидку если слать поцелуи'
+    comment: 'Делает скидку если слать поцелуи',
   },
   {
     name: 'Jakki No Chan',
@@ -536,9 +536,9 @@ export const PRODUCT_INITIAL_SUPPLIERS = [
     deliveryPrice: 2.88,
     qty: 888,
     minQty: 10,
-    comment: 'Не делает скидку если слать поцелуи'
-  }
-];
+    comment: 'Не делает скидку если слать поцелуи',
+  },
+]
 export const PRODUCT_EMPTY_SUPPLIERS = {
   name: '',
   link: '',
@@ -546,24 +546,24 @@ export const PRODUCT_EMPTY_SUPPLIERS = {
   deliveryPrice: 0,
   qty: 0,
   minQty: 0,
-  comment: ''
-};
+  comment: '',
+}
 
 export const FREELANCER_DASHBOARD_LIST = [
-  { value: 11, title: 'Мои товары', color: '#63c2de' },
-  { value: 525, title: 'Текущий баланс', color: '#4dbd74' },
-  { value: 42, title: 'Штрафы', color: '#f86c6b' }
-];
+  {value: 11, title: 'Мои товары', color: '#63c2de'},
+  {value: 525, title: 'Текущий баланс', color: '#4dbd74'},
+  {value: 42, title: 'Штрафы', color: '#f86c6b'},
+]
 
 export const FREELANCER_HEAD_CELLS = [
-  { title: 'ASIN' },
-  { title: 'Status' },
-  { title: 'Created' },
-  { title: 'Manager' },
-  { title: 'Amazon price' },
-  { title: 'Price' },
-  { title: 'BSR' }
-];
+  {title: 'ASIN'},
+  {title: 'Status'},
+  {title: 'Created'},
+  {title: 'Manager'},
+  {title: 'Amazon price'},
+  {title: 'Price'},
+  {title: 'BSR'},
+]
 
 export const FREELANCER_PRODUCT_LIST = [
   {
@@ -573,7 +573,7 @@ export const FREELANCER_PRODUCT_LIST = [
     manager: 'Anton',
     amazonPrice: 41.99,
     price: 450.0,
-    bsr: 800.0
+    bsr: 800.0,
   },
   {
     asin: '6edh695',
@@ -582,7 +582,7 @@ export const FREELANCER_PRODUCT_LIST = [
     manager: 'Jack',
     amazonPrice: 4.99,
     price: 45.0,
-    bsr: 315.0
+    bsr: 315.0,
   },
   {
     asin: '2ndw464',
@@ -591,7 +591,7 @@ export const FREELANCER_PRODUCT_LIST = [
     manager: 'Jim',
     amazonPrice: 142.99,
     price: 150.0,
-    bsr: 750.0
+    bsr: 750.0,
   },
   {
     asin: '4rdo025',
@@ -600,16 +600,16 @@ export const FREELANCER_PRODUCT_LIST = [
     manager: 'Ni9ck',
     amazonPrice: 52.99,
     price: 138.0,
-    bsr: 224.0
-  }
-];
+    bsr: 224.0,
+  },
+]
 
 export const SUPERVISOR_DASHBOARD_LIST = [
-  { value: 11, title: 'Новых товаров в базе', color: '#63c2de' },
-  { value: 4, title: 'У меня на проверке', color: '#FFC107' },
-  { value: 525, title: 'Начислено', color: '#4dbd74' },
-  { value: 0, title: 'Штрафы', color: '#f86c6b' }
-];
+  {value: 11, title: 'Новых товаров в базе', color: '#63c2de'},
+  {value: 4, title: 'У меня на проверке', color: '#FFC107'},
+  {value: 525, title: 'Начислено', color: '#4dbd74'},
+  {value: 0, title: 'Штрафы', color: '#f86c6b'},
+]
 
 export const BUYER_BATCHES_BOXES_EXAMPLES = [
   {
@@ -627,13 +627,13 @@ export const BUYER_BATCHES_BOXES_EXAMPLES = [
     material: 'metal',
     destination: 'Не назначен',
     product: 'Product',
-    boxId: [ '509991', '509992', '509993', '509994' ],
+    boxId: ['509991', '509992', '509993', '509994'],
     boxQty: 4,
     price: 2000,
     weight: 105,
     grossWeight: 125,
     trackId: '91023891273812738111',
-    chip: '27381111'
+    chip: '27381111',
   },
   {
     status: 'test1',
@@ -649,13 +649,13 @@ export const BUYER_BATCHES_BOXES_EXAMPLES = [
     material: 'plastic',
     destination: 'Не назначен',
     product: 'Product',
-    boxId: [ '509991', '509992', '509993', '509994' ],
+    boxId: ['509991', '509992', '509993', '509994'],
     boxQty: 4,
     price: 5000,
     weight: 50,
     grossWeight: null,
     trackId: '91023891273812738111',
-    chip: null
+    chip: null,
   },
   {
     status: 'test4',
@@ -672,13 +672,13 @@ export const BUYER_BATCHES_BOXES_EXAMPLES = [
     material: 'Alkaline',
     destination: 'Не назначен',
     product: 'Product',
-    boxId: [ 'EnergyID' ],
+    boxId: ['EnergyID'],
     boxQty: 1,
     price: 2500,
     weight: 25,
     grossWeight: null,
     trackId: '91023891273812738142',
-    chip: null
+    chip: null,
   },
   {
     status: 'test2',
@@ -695,13 +695,13 @@ export const BUYER_BATCHES_BOXES_EXAMPLES = [
     material: 'metal',
     destination: 'ONT 8 AMAZON',
     product: 'Product',
-    boxId: [ 'boxId3' ],
+    boxId: ['boxId3'],
     boxQty: 1,
     price: 2000,
     weight: 105,
     grossWeight: 125,
     trackId: '91023891273812738111',
-    chip: '63514941'
+    chip: '63514941',
   },
   {
     status: 'test2',
@@ -717,25 +717,25 @@ export const BUYER_BATCHES_BOXES_EXAMPLES = [
     material: 'plastic',
     destination: 'ONT 8 AMAZON',
     product: 'Product',
-    boxId: [ 'boxId3' ],
+    boxId: ['boxId3'],
     boxQty: 1,
     price: 5000,
     weight: 50,
     grossWeight: null,
     trackId: '91023891273812738111',
-    chip: null
-  }
-];
+    chip: null,
+  },
+]
 
 export const BUYER_BATCHES_HEAD_CELLS = [
-  { title: 'ClientID' },
-  { title: 'Status' },
-  { title: 'Created' },
-  { title: 'Updated' },
-  { title: 'Warehouse' },
-  { title: 'Delivery' },
-  { title: 'Track ID' }
-];
+  {title: 'ClientID'},
+  {title: 'Status'},
+  {title: 'Created'},
+  {title: 'Updated'},
+  {title: 'Warehouse'},
+  {title: 'Delivery'},
+  {title: 'Track ID'},
+]
 
 export const BUYER_USER_HEADER_LIST = {
   countInvestors: {value: '255', text: 'Количество инвесторов'},
@@ -795,10 +795,9 @@ export const BUYER_MY_PRODUCTS_DATA = [
     amazonPrice: 111.98,
     bsr: 111.98,
     fba: 111.98,
-    img:
-      'https://i.picsum.photos/id/250/128/128.jpg?hmac=GQZBEmT1uFN-7PhpZK6KMi9ZXcGUrBzaWBPOuGjaymc',
+    img: 'https://i.picsum.photos/id/250/128/128.jpg?hmac=GQZBEmT1uFN-7PhpZK6KMi9ZXcGUrBzaWBPOuGjaymc',
     exchangePrice: null,
-    exchangePriceFlag: null
+    exchangePriceFlag: null,
   },
   {
     asin: '6gdh464',
@@ -815,10 +814,9 @@ export const BUYER_MY_PRODUCTS_DATA = [
     amazonPrice: 121.98,
     bsr: 221.98,
     fba: 221.98,
-    img:
-      'https://i.picsum.photos/id/2/128/128.jpg?hmac=0d1s6bHe-mbCvnHmsuROMJVnk7Du7j-ftrhadIipy-8',
+    img: 'https://i.picsum.photos/id/2/128/128.jpg?hmac=0d1s6bHe-mbCvnHmsuROMJVnk7Du7j-ftrhadIipy-8',
     exchangePrice: null,
-    exchangePriceFlag: null
+    exchangePriceFlag: null,
   },
   {
     asin: '6gdh465',
@@ -835,10 +833,9 @@ export const BUYER_MY_PRODUCTS_DATA = [
     amazonPrice: 21.98,
     bsr: 21.98,
     fba: 21.98,
-    img:
-      'https://i.picsum.photos/id/533/128/128.jpg?hmac=BkWp6S8z7gMLifbg5sohzJSI80LduTZWIVvJ8u4l0I8',
+    img: 'https://i.picsum.photos/id/533/128/128.jpg?hmac=BkWp6S8z7gMLifbg5sohzJSI80LduTZWIVvJ8u4l0I8',
     exchangePrice: null,
-    exchangePriceFlag: null
+    exchangePriceFlag: null,
   },
   {
     asin: '6gdh466',
@@ -855,10 +852,9 @@ export const BUYER_MY_PRODUCTS_DATA = [
     amazonPrice: 17.98,
     bsr: 17.98,
     fba: 17.98,
-    img:
-      'https://i.picsum.photos/id/360/128/128.jpg?hmac=sCdhPPkDyfXnSWJpzyRTuPiLVBdZ2E8q1JpculA5vR4',
+    img: 'https://i.picsum.photos/id/360/128/128.jpg?hmac=sCdhPPkDyfXnSWJpzyRTuPiLVBdZ2E8q1JpculA5vR4',
     exchangePrice: null,
-    exchangePriceFlag: null
+    exchangePriceFlag: null,
   },
   {
     asin: '6gdh467',
@@ -875,10 +871,9 @@ export const BUYER_MY_PRODUCTS_DATA = [
     amazonPrice: 7.98,
     bsr: 7.98,
     fba: 7.98,
-    img:
-      'https://i.picsum.photos/id/139/128/128.jpg?hmac=qI9eV3bt9QxcWJnwZe9HKWkgUDdXyraThmoIer_sty0',
+    img: 'https://i.picsum.photos/id/139/128/128.jpg?hmac=qI9eV3bt9QxcWJnwZe9HKWkgUDdXyraThmoIer_sty0',
     exchangePrice: null,
-    exchangePriceFlag: null
+    exchangePriceFlag: null,
   },
   {
     asin: '6gdh468',
@@ -895,10 +890,9 @@ export const BUYER_MY_PRODUCTS_DATA = [
     amazonPrice: 3.98,
     bsr: 3.98,
     fba: 3.98,
-    img:
-      'https://i.picsum.photos/id/844/128/128.jpg?hmac=KvSq3pUqDPHmNMCKMOlha5Nwb4gs9MtiIZmtHEiDyaA',
+    img: 'https://i.picsum.photos/id/844/128/128.jpg?hmac=KvSq3pUqDPHmNMCKMOlha5Nwb4gs9MtiIZmtHEiDyaA',
     exchangePrice: null,
-    exchangePriceFlag: null
+    exchangePriceFlag: null,
   },
   {
     asin: '6gdh469',
@@ -915,10 +909,9 @@ export const BUYER_MY_PRODUCTS_DATA = [
     amazonPrice: 14.98,
     bsr: 14.98,
     fba: 14.98,
-    img:
-      'https://i.picsum.photos/id/789/128/128.jpg?hmac=pyc9bet-foHf2cUf74nuHurYNBGB1vGE8rY-6Ofc3Oo',
+    img: 'https://i.picsum.photos/id/789/128/128.jpg?hmac=pyc9bet-foHf2cUf74nuHurYNBGB1vGE8rY-6Ofc3Oo',
     exchangePrice: null,
-    exchangePriceFlag: null
+    exchangePriceFlag: null,
   },
   {
     asin: '6gdh470',
@@ -935,10 +928,9 @@ export const BUYER_MY_PRODUCTS_DATA = [
     amazonPrice: 2500,
     bsr: 2500,
     fba: 2500,
-    img:
-      'https://i.picsum.photos/id/1042/128/128.jpg?hmac=7saioCZ7yjrTmGcOtJffGquJGwq7X-lsGg5ZXzNUPQc',
+    img: 'https://i.picsum.photos/id/1042/128/128.jpg?hmac=7saioCZ7yjrTmGcOtJffGquJGwq7X-lsGg5ZXzNUPQc',
     exchangePrice: null,
-    exchangePriceFlag: null
+    exchangePriceFlag: null,
   },
   {
     asin: '6gdh411',
@@ -955,27 +947,26 @@ export const BUYER_MY_PRODUCTS_DATA = [
     amazonPrice: 21.98,
     bsr: 21.98,
     fba: 21.98,
-    img:
-      'https://i.picsum.photos/id/891/128/128.jpg?hmac=L_K1ls-Hmiy8fqWGLi0JiWiZEyTEL9_L0z-fADNZjXI',
+    img: 'https://i.picsum.photos/id/891/128/128.jpg?hmac=L_K1ls-Hmiy8fqWGLi0JiWiZEyTEL9_L0z-fADNZjXI',
     exchangePrice: null,
-    exchangePriceFlag: null
-  }
-];
+    exchangePriceFlag: null,
+  },
+]
 
 export const BUYER_MY_PRODUCTS_HEAD_CELLS = [
-  { id: 'asin', align: 'center', disablePadding: true, label: 'ASIN' },
-  { id: 'price', align: 'right', disablePadding: false, label: 'Price' },
-  { id: 'fees', align: 'left', disablePadding: false, label: 'Fees & Net' },
-  { id: 'rank', align: 'right', disablePadding: false, label: 'Rank' },
-  { id: 'rating', align: 'center', disablePadding: false, label: 'Rating' },
-  { id: 'sales', align: 'right', disablePadding: false, label: 'Sales' },
-  { id: 'salersTotal', align: 'center', disablePadding: false, label: 'Salers total' },
-  { id: 'type', align: 'right', disablePadding: false, label: 'Type' },
-  { id: 'revenue', align: 'right', disablePadding: false, label: 'Revenue' },
-  { id: 'amazonPrice', align: 'right', disablePadding: false, label: 'Amazon $' },
-  { id: 'bsr', align: 'right', disablePadding: false, label: 'BSR' },
-  { id: 'fba', align: 'right', disablePadding: false, label: 'FBA' }
-];
+  {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},
+  {id: 'price', align: 'right', disablePadding: false, label: 'Price'},
+  {id: 'fees', align: 'left', disablePadding: false, label: 'Fees & Net'},
+  {id: 'rank', align: 'right', disablePadding: false, label: 'Rank'},
+  {id: 'rating', align: 'center', disablePadding: false, label: 'Rating'},
+  {id: 'sales', align: 'right', disablePadding: false, label: 'Sales'},
+  {id: 'salersTotal', align: 'center', disablePadding: false, label: 'Salers total'},
+  {id: 'type', align: 'right', disablePadding: false, label: 'Type'},
+  {id: 'revenue', align: 'right', disablePadding: false, label: 'Revenue'},
+  {id: 'amazonPrice', align: 'right', disablePadding: false, label: 'Amazon $'},
+  {id: 'bsr', align: 'right', disablePadding: false, label: 'BSR'},
+  {id: 'fba', align: 'right', disablePadding: false, label: 'FBA'},
+]
 
 export const FREE_ORDERS_DATA = [
   {
@@ -1001,7 +992,7 @@ export const FREE_ORDERS_DATA = [
     weight: 25,
     grossWeight: null,
     trackId: '91023891273812738142',
-    barcode: null
+    barcode: null,
   },
   {
     status: 'At process',
@@ -1020,13 +1011,13 @@ export const FREE_ORDERS_DATA = [
     material: 'metal',
     destination: 'ONT 8 AMAZON',
     product: 'Product',
-    boxId: [ 'boxId' ],
+    boxId: ['boxId'],
     boxQty: 1,
     price: 2000,
     weight: 105,
     grossWeight: 125,
     trackId: '91023891273812738111',
-    barcode: '27381111'
+    barcode: '27381111',
   },
   {
     status: 'At process',
@@ -1045,15 +1036,15 @@ export const FREE_ORDERS_DATA = [
     material: 'plastic',
     destination: 'Не назначен',
     product: 'Product',
-    boxId: [ '509991', '509992', '509993', '509994' ],
+    boxId: ['509991', '509992', '509993', '509994'],
     boxQty: 4,
     price: 5000,
     weight: 50,
     grossWeight: null,
     trackId: '91023891273812738111',
-    barcode: null
-  }
-];
+    barcode: null,
+  },
+]
 
 export const FREE_ORDERS_TABLE_HEADERS = [
   'Статус',
@@ -1064,8 +1055,8 @@ export const FREE_ORDERS_TABLE_HEADERS = [
   'Склад',
   'Способ доставки',
   'Комментарий клиента',
-  'Комментарий байера'
-];
+  'Комментарий байера',
+]
 
 export const ORDERS_MODAL_HEAD_CELLS = [
   'Фото',
@@ -1078,8 +1069,8 @@ export const ORDERS_MODAL_HEAD_CELLS = [
   'Долларов за партию',
   'Материал',
   'Себестоимость в закупке',
-  'Tracking Number China'
-];
+  'Tracking Number China',
+]
 
 export const MY_ORDERS_DATA = [
   {
@@ -1099,13 +1090,13 @@ export const MY_ORDERS_DATA = [
     material: 'metal',
     destination: 'ONT 8 AMAZON',
     product: 'Product',
-    boxId: [ 'boxId' ],
+    boxId: ['boxId'],
     boxQty: 1,
     price: 2000,
     weight: 105,
     grossWeight: 125,
     trackId: '91023891273812738111',
-    barcode: '27381111'
+    barcode: '27381111',
   },
   {
     status: 'At process',
@@ -1124,13 +1115,13 @@ export const MY_ORDERS_DATA = [
     material: 'plastic',
     destination: 'Не назначен',
     product: 'Product',
-    boxId: [ '509991', '509992', '509993', '509994' ],
+    boxId: ['509991', '509992', '509993', '509994'],
     boxQty: 4,
     price: 5000,
     weight: 50,
     grossWeight: null,
     trackId: '91023891273812738111',
-    barcode: null
+    barcode: null,
   },
   {
     status: 'Paid',
@@ -1155,9 +1146,9 @@ export const MY_ORDERS_DATA = [
     weight: 25,
     grossWeight: null,
     trackId: '91023891273812738142',
-    barcode: null
-  }
-];
+    barcode: null,
+  },
+]
 
 export const MY_ORDER_TABLE_HEADERS = [
   'Статус',
@@ -1168,8 +1159,8 @@ export const MY_ORDER_TABLE_HEADERS = [
   'Склад',
   'Способ доставки',
   'Комментарий клиента',
-  'Комментарий байера'
-];
+  'Комментарий байера',
+]
 
 export const BUYER_INITIAL_PRODUCT = {
   images: {},
@@ -1200,8 +1191,8 @@ export const BUYER_INITIAL_PRODUCT = {
     'Product information Size:Leaf Technical Details Manufacturer HYQO Brand HYQO Item Weight 4.7 ounces Package Dimensions 7.05 x 5.28 x 1.77 inches Color Green, Yellow, Blue, Brown Material Type Silicone Size Leaf Manufacturer Part Number Leaf Additional Information ASIN B08CH6J8NF Customer Reviews 4.1 out of 5 stars 69 ratings 4.1 out of 5 stars Best Sellers Rank #23,309 in Office Products (See Top 100 in Office Products) #173 in Door Stops Date First Available July 7, 2020 Warranty & Support Product Warranty: For warranty information about this product, please click here Feedback Would you like to tell us about a lower price?',
   commentManager: "Manager's comment",
   commentSupervisor: "Supervisor's comment",
-  commentBuyer: "Buyer's comment"
-};
+  commentBuyer: "Buyer's comment",
+}
 export const BUYER_INITIAL_SUPPLIERS = [
   {
     name: 'Jakki Chan',
@@ -1210,7 +1201,7 @@ export const BUYER_INITIAL_SUPPLIERS = [
     deliveryPrice: 4.99,
     qty: 400,
     minQty: 100,
-    comment: 'Делает скидку если слать поцелуи'
+    comment: 'Делает скидку если слать поцелуи',
   },
   {
     name: 'Jakki No Chan',
@@ -1219,9 +1210,9 @@ export const BUYER_INITIAL_SUPPLIERS = [
     deliveryPrice: 2.88,
     qty: 888,
     minQty: 10,
-    comment: 'Не делает скидку если слать поцелуи'
-  }
-];
+    comment: 'Не делает скидку если слать поцелуи',
+  },
+]
 export const BUYER_EMPTY_SUPPLIER = {
   name: '',
   link: '',
@@ -1229,8 +1220,8 @@ export const BUYER_EMPTY_SUPPLIER = {
   deliveryPrice: 0,
   qty: 0,
   minQty: 0,
-  comment: ''
-};
+  comment: '',
+}
 
 export const BUYER_PRODUCTS_DATA = [
   {
@@ -1248,10 +1239,9 @@ export const BUYER_PRODUCTS_DATA = [
     amazonPrice: 21.98,
     bsr: 21.98,
     fba: 21.98,
-    img:
-      'https://i.picsum.photos/id/533/128/128.jpg?hmac=BkWp6S8z7gMLifbg5sohzJSI80LduTZWIVvJ8u4l0I8',
+    img: 'https://i.picsum.photos/id/533/128/128.jpg?hmac=BkWp6S8z7gMLifbg5sohzJSI80LduTZWIVvJ8u4l0I8',
     exchangePrice: null,
-    exchangePriceFlag: null
+    exchangePriceFlag: null,
   },
   {
     asin: '6gdh466',
@@ -1268,10 +1258,9 @@ export const BUYER_PRODUCTS_DATA = [
     amazonPrice: 17.98,
     bsr: 17.98,
     fba: 17.98,
-    img:
-      'https://i.picsum.photos/id/360/128/128.jpg?hmac=sCdhPPkDyfXnSWJpzyRTuPiLVBdZ2E8q1JpculA5vR4',
+    img: 'https://i.picsum.photos/id/360/128/128.jpg?hmac=sCdhPPkDyfXnSWJpzyRTuPiLVBdZ2E8q1JpculA5vR4',
     exchangePrice: null,
-    exchangePriceFlag: null
+    exchangePriceFlag: null,
   },
   {
     asin: '6gdh467',
@@ -1288,10 +1277,9 @@ export const BUYER_PRODUCTS_DATA = [
     amazonPrice: 7.98,
     bsr: 7.98,
     fba: 7.98,
-    img:
-      'https://i.picsum.photos/id/139/128/128.jpg?hmac=qI9eV3bt9QxcWJnwZe9HKWkgUDdXyraThmoIer_sty0',
+    img: 'https://i.picsum.photos/id/139/128/128.jpg?hmac=qI9eV3bt9QxcWJnwZe9HKWkgUDdXyraThmoIer_sty0',
     exchangePrice: null,
-    exchangePriceFlag: null
+    exchangePriceFlag: null,
   },
   {
     asin: '6gdh468',
@@ -1308,10 +1296,9 @@ export const BUYER_PRODUCTS_DATA = [
     amazonPrice: 3.98,
     bsr: 3.98,
     fba: 3.98,
-    img:
-      'https://i.picsum.photos/id/844/128/128.jpg?hmac=KvSq3pUqDPHmNMCKMOlha5Nwb4gs9MtiIZmtHEiDyaA',
+    img: 'https://i.picsum.photos/id/844/128/128.jpg?hmac=KvSq3pUqDPHmNMCKMOlha5Nwb4gs9MtiIZmtHEiDyaA',
     exchangePrice: null,
-    exchangePriceFlag: null
+    exchangePriceFlag: null,
   },
   {
     asin: '6gdh469',
@@ -1328,10 +1315,9 @@ export const BUYER_PRODUCTS_DATA = [
     amazonPrice: 14.98,
     bsr: 14.98,
     fba: 14.98,
-    img:
-      'https://i.picsum.photos/id/789/128/128.jpg?hmac=pyc9bet-foHf2cUf74nuHurYNBGB1vGE8rY-6Ofc3Oo',
+    img: 'https://i.picsum.photos/id/789/128/128.jpg?hmac=pyc9bet-foHf2cUf74nuHurYNBGB1vGE8rY-6Ofc3Oo',
     exchangePrice: null,
-    exchangePriceFlag: null
+    exchangePriceFlag: null,
   },
   {
     asin: '6gdh411',
@@ -1348,40 +1334,39 @@ export const BUYER_PRODUCTS_DATA = [
     amazonPrice: 21.98,
     bsr: 21.98,
     fba: 21.98,
-    img:
-      'https://i.picsum.photos/id/891/128/128.jpg?hmac=L_K1ls-Hmiy8fqWGLi0JiWiZEyTEL9_L0z-fADNZjXI',
+    img: 'https://i.picsum.photos/id/891/128/128.jpg?hmac=L_K1ls-Hmiy8fqWGLi0JiWiZEyTEL9_L0z-fADNZjXI',
     exchangePrice: null,
-    exchangePriceFlag: null
-  }
-];
+    exchangePriceFlag: null,
+  },
+]
 
 export const BUYER_PRODUCTS_HEAD_CELLS = [
-  { id: 'asin', align: 'center', disablePadding: true, label: 'ASIN' },
-  { id: 'price', align: 'right', disablePadding: false, label: 'Price' },
-  { id: 'fees', align: 'left', disablePadding: false, label: 'Fees & Net' },
-  { id: 'rank', align: 'right', disablePadding: false, label: 'Rank' },
-  { id: 'rating', align: 'center', disablePadding: false, label: 'Rating' },
-  { id: 'sales', align: 'right', disablePadding: false, label: 'Sales' },
-  { id: 'salersTotal', align: 'center', disablePadding: false, label: 'Salers total' },
-  { id: 'type', align: 'right', disablePadding: false, label: 'Type' },
-  { id: 'revenue', align: 'right', disablePadding: false, label: 'Revenue' },
-  { id: 'amazonPrice', align: 'right', disablePadding: false, label: 'Amazon $' },
-  { id: 'bsr', align: 'right', disablePadding: false, label: 'BSR' },
-  { id: 'fba', align: 'right', disablePadding: false, label: 'FBA' }
-];
+  {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},
+  {id: 'price', align: 'right', disablePadding: false, label: 'Price'},
+  {id: 'fees', align: 'left', disablePadding: false, label: 'Fees & Net'},
+  {id: 'rank', align: 'right', disablePadding: false, label: 'Rank'},
+  {id: 'rating', align: 'center', disablePadding: false, label: 'Rating'},
+  {id: 'sales', align: 'right', disablePadding: false, label: 'Sales'},
+  {id: 'salersTotal', align: 'center', disablePadding: false, label: 'Salers total'},
+  {id: 'type', align: 'right', disablePadding: false, label: 'Type'},
+  {id: 'revenue', align: 'right', disablePadding: false, label: 'Revenue'},
+  {id: 'amazonPrice', align: 'right', disablePadding: false, label: 'Amazon $'},
+  {id: 'bsr', align: 'right', disablePadding: false, label: 'BSR'},
+  {id: 'fba', align: 'right', disablePadding: false, label: 'FBA'},
+]
 
 export const SUB_USERS_INITIAL_DATA = [
-  { date: '12/09/2019', email: 'email@example.com' },
-  { date: '29/11/2017', email: 'email@example.com' },
-  { date: '03/02/2020', email: 'email@example.com' }
-];
+  {date: '12/09/2019', email: 'email@example.com'},
+  {date: '29/11/2017', email: 'email@example.com'},
+  {date: '03/02/2020', email: 'email@example.com'},
+]
 
 export const SUB_USERS_TABLE_CELLS = [
-  { id: 'created', label: 'Created' },
-  { id: 'email', label: 'Email' },
-  { id: 'bu', label: 'Bussines unit' },
-  { id: 'admin', label: 'Admin' }
-];
+  {id: 'created', label: 'Created'},
+  {id: 'email', label: 'Email'},
+  {id: 'bu', label: 'Bussines unit'},
+  {id: 'admin', label: 'Admin'},
+]
 
 export const BUYER_USER_INITIAL_LIST = [
   {
@@ -1395,7 +1380,7 @@ export const BUYER_USER_INITIAL_LIST = [
     avgBSR: 1900,
     avgReviews: 255,
     avgRevenue: 1000,
-    qty: 450
+    qty: 450,
   },
   {
     categoryImg: categoryImgSportsAndOutdoors,
@@ -1408,7 +1393,7 @@ export const BUYER_USER_INITIAL_LIST = [
     avgBSR: 1900,
     avgReviews: 255,
     avgRevenue: 1000,
-    qty: 450
+    qty: 450,
   },
   {
     categoryImg: categoryImgToysAndGames,
@@ -1421,7 +1406,7 @@ export const BUYER_USER_INITIAL_LIST = [
     avgBSR: 1900,
     avgReviews: 255,
     avgRevenue: 1000,
-    qty: 450
+    qty: 450,
   },
   {
     categoryImg: categoryImgHealthHouseholdAndBabyCare,
@@ -1434,7 +1419,7 @@ export const BUYER_USER_INITIAL_LIST = [
     avgBSR: 1900,
     avgReviews: 255,
     avgRevenue: 1000,
-    qty: 450
+    qty: 450,
   },
   {
     categoryImg: categoryImgBeautyAndPersonalCare,
@@ -1447,7 +1432,7 @@ export const BUYER_USER_INITIAL_LIST = [
     avgBSR: 1900,
     avgReviews: 255,
     avgRevenue: 1000,
-    qty: 450
+    qty: 450,
   },
   {
     categoryImg: categoryImgKitchenAndDining,
@@ -1460,7 +1445,7 @@ export const BUYER_USER_INITIAL_LIST = [
     avgBSR: 1900,
     avgReviews: 255,
     avgRevenue: 1000,
-    qty: 450
+    qty: 450,
   },
   {
     categoryImg: categoryImgClothingShoesAndJewelry,
@@ -1473,7 +1458,7 @@ export const BUYER_USER_INITIAL_LIST = [
     avgBSR: 1900,
     avgReviews: 255,
     avgRevenue: 1000,
-    qty: 450
+    qty: 450,
   },
   {
     categoryImg: categoryImgBaby,
@@ -1486,7 +1471,7 @@ export const BUYER_USER_INITIAL_LIST = [
     avgBSR: 1900,
     avgReviews: 255,
     avgRevenue: 1000,
-    qty: 450
+    qty: 450,
   },
   {
     categoryImg: categoryImgGardenAndOutdoor,
@@ -1499,7 +1484,7 @@ export const BUYER_USER_INITIAL_LIST = [
     avgBSR: 1900,
     avgReviews: 255,
     avgRevenue: 1000,
-    qty: 450
+    qty: 450,
   },
   {
     categoryImg: categoryImgToolsAndHomeImprovement,
@@ -1512,28 +1497,27 @@ export const BUYER_USER_INITIAL_LIST = [
     avgBSR: 1900,
     avgReviews: 255,
     avgRevenue: 1000,
-    qty: 450
-  }
-];
+    qty: 450,
+  },
+]
 
 export const BUYER_USER_INITIAL_USER = {
-  img:
-    'https://fl-club.com/wp-content/uploads/2016/10/Igrovoy-noutbuk-2016-za-40000-rubley-kakoy-luchshe-720x380.jpg',
+  img: 'https://fl-club.com/wp-content/uploads/2016/10/Igrovoy-noutbuk-2016-za-40000-rubley-kakoy-luchshe-720x380.jpg',
   username: 'Username',
-  status: 'Принимаю заказы на ресерч'
-};
+  status: 'Принимаю заказы на ресерч',
+}
 
 export const BUYER_USER_HEAD_CELL = [
-  { id: 'image', label: 'Image' },
-  { id: 'image', label: 'Category' },
-  { id: 'image', label: 'Цена' },
-  { id: 'image', label: 'Кол-во' },
-  { id: 'image', label: 'Средняя цена' },
-  { id: 'image', label: 'Рекомендуемая партия' },
-  { id: 'image', label: 'Вес' },
-  { id: 'image', label: 'avg BSR' },
-  { id: 'image', label: 'avg Reviews' },
-  { id: 'image', label: 'avg Revenue' },
-  { id: 'image', label: 'Стоимость запуска' },
-  { id: 'image', label: 'Аккаунт менеджер' }
-];
+  {id: 'image', label: 'Image'},
+  {id: 'image', label: 'Category'},
+  {id: 'image', label: 'Цена'},
+  {id: 'image', label: 'Кол-во'},
+  {id: 'image', label: 'Средняя цена'},
+  {id: 'image', label: 'Рекомендуемая партия'},
+  {id: 'image', label: 'Вес'},
+  {id: 'image', label: 'avg BSR'},
+  {id: 'image', label: 'avg Reviews'},
+  {id: 'image', label: 'avg Revenue'},
+  {id: 'image', label: 'Стоимость запуска'},
+  {id: 'image', label: 'Аккаунт менеджер'},
+]

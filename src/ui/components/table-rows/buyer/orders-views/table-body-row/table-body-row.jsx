@@ -4,11 +4,11 @@ import {Box, Chip, TableCell, TableRow, Typography} from '@material-ui/core'
 
 import {useClassNames} from './table-body-row.style'
 
-export const TableBodyRow = ({item, rowIndex, handlers}) => {
+export const TableBodyRow = ({item, itemIndex, handlers}) => {
   const classNames = useClassNames()
   return (
     <TableRow
-      onClick={() => handlers.onSelector(rowIndex)}
+      onClick={() => handlers.onSelector(itemIndex)}
       onDoubleClick={() => {
         handlers.onOrder()
       }}

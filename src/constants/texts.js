@@ -4,11 +4,11 @@ export const texts = {
       companyName: 'Amazontop',
       greetingTitle: 'Hello, nice to meet you',
       greetingSubtitle: 'Just register to join with us',
-      footer: 'Footer'
+      footer: 'Footer',
     },
     rangeInput: {
       start: 'from',
-      end: 'to'
+      end: 'to',
     },
     privateLabelCard: {
       price: 'Price',
@@ -18,7 +18,7 @@ export const texts = {
       recConsignmentWeight: 'Вес рекомендованной партии',
       avgBSR: 'Average BSR',
       avgReviews: 'Average Reviews',
-      avgRevenue: 'Average Revenue'
+      avgRevenue: 'Average Revenue',
     },
     authView: {
       title: 'Sign in',
@@ -30,7 +30,7 @@ export const texts = {
       passwordPlaceholder: 'password',
       checkboxLabel: 'Remember me',
       forgotPassword: 'Forgot password',
-      button: 'Login'
+      button: 'Login',
     },
     registerScreen: {
       title: 'Register',
@@ -44,7 +44,7 @@ export const texts = {
       rePasswordPlaceholder: 'password',
       checkboxLabel: 'Agree with ',
       termsAndConditions: 'Terms & Conditions',
-      button: 'Register'
+      button: 'Register',
     },
     clientDashboardView: {
       appbarTitle: 'Dashboard',
@@ -53,25 +53,25 @@ export const texts = {
       replenish: 'Add money',
       inventoryTitle: 'Inventory',
       ordersTitle: 'Orders',
-      exchangeTitle: 'Exchange'
+      exchangeTitle: 'Exchange',
     },
     tableToolbar: {
       filter: 'Filter',
       searchPlaceholder: 'Search...',
-      rowsPerPage: 'Rows per page'
+      rowsPerPage: 'Rows per page',
     },
     clientExchangeView: {
       appbarTitle: 'Exchange',
       mainTitle: 'Active offers on exchange',
-      modalOrderProductTitle: 'Order product'
+      modalOrderProductTitle: 'Order product',
     },
     exchangeBodyRow: {
       labelBtn: 'Private Label',
-      priceBtn: 'Add $9.99'
+      priceBtn: 'Add $9.99',
     },
     clientExchangePrivateLabelView: {
       appbarTitle: 'Exchange - PrivateLabel',
-      mainTitle: 'Information about Private Label'
+      mainTitle: 'Information about Private Label',
     },
     clientExchangeRequestsView: {
       appbarTitle: 'Exchange - Requests',
@@ -98,19 +98,18 @@ export const texts = {
         'Запрещать добавлять товары которые когда либо были проданы на площадке по данной стратегии',
       formCheckboxNoPayLabel: 'Не оплачиваю повторно купленные товары',
       formDeadlineLabel: 'Target date',
-      formCheckboxNoCheckLabel:
-        'Сотрудники платформы не будут участвовать в проверке качества найденого товара',
+      formCheckboxNoCheckLabel: 'Сотрудники платформы не будут участвовать в проверке качества найденого товара',
 
       formCloseReasonLabel: 'Describe the reason for closing request',
 
       selectOptionFlipping: 'Flipping',
       selectOptionDropshipping: 'Dropshipping',
       selectOptionOnlineArbitrage: 'OnlineArbitrage',
-      selectOptionPrivateLabel: 'PrivateLabel'
+      selectOptionPrivateLabel: 'PrivateLabel',
     },
     exchangeRequestsBodyRow: {
       editBtn: 'Edit',
-      closeBtn: 'Close'
+      closeBtn: 'Close',
     },
     documentationView: {
       appBarTitle: 'Documentation',
@@ -123,17 +122,17 @@ export const texts = {
       authDescription: `При нажатии на "Create account" перенесет на страницу Регистрации`,
       registerTitle: 'Регистрация',
       registerLink: 'https://stoic-northcutt-f04ad5.netlify.app/register',
-      registerDescription: `При нажатии на "Already have account" перенесет на страницу Аутентификации`
+      registerDescription: `При нажатии на "Already have account" перенесет на страницу Аутентификации`,
     },
     inventoryView: {
       appbarTitle: 'Inventory',
-      productsList: 'Products list'
+      productsList: 'Products list',
     },
     freelancerDashboardView: {
       appBarTitle: 'Dashboard',
       appBarUsername: 'Freelancer',
       appUser: 'freelancer',
-      mainTitle: 'Dashboard'
+      mainTitle: 'Dashboard',
     },
     freelancerProductsView: {
       appBarTitle: 'Products',
@@ -144,7 +143,7 @@ export const texts = {
       linkAmazon: 'Введите ссылку на амазоне',
       codeOfGood: 'Код товара',
       buttonChek: 'Проверить',
-      buttonAdd: 'Добавить'
+      buttonAdd: 'Добавить',
     },
     freelancerSettingsView: {
       appBarTitle: 'Settings',
@@ -157,14 +156,14 @@ export const texts = {
       fieldRole: 'Role',
       fieldFba: 'FBA',
       saveBtn: 'Сохранить',
-      cancelBtn: 'Отменить'
+      cancelBtn: 'Отменить',
     },
 
     batchesModalEditBatch: {
       batchDestination: 'Не назначен',
       mainTitle: 'Просмотр/редактирование партии',
       saveBtn: 'Сохранить',
-      cancelBtn: 'Отмена'
+      cancelBtn: 'Отмена',
     },
     batchesModalEditBoxList: {
       listBoxes: 'Список коробок',
@@ -178,7 +177,7 @@ export const texts = {
       typoWeight: `Weight: _KG`,
       typoVolumeWeight: `volumeWeight: _KG`,
       typoWeightFinal: `weightFinal: _KG`,
-      count: 'Кол-во:'
+      count: 'Кол-во:',
     },
     batchesModalEditFillList: {
       listFills: 'Список полей для заполнения',
@@ -199,7 +198,7 @@ export const texts = {
       valueSend: 'Отправлена',
       valueReceived: 'Получена',
       treckerNum: 'Трек номер США:',
-      typoCloseButch: 'needCloseButch'
+      typoCloseButch: 'needCloseButch',
     },
     ordersViewsModalSelectFields: {
       warehouse: 'Склад',
@@ -223,31 +222,31 @@ export const texts = {
       valueReturnOrder: 'Return order',
       typoClientComment: 'Client comment',
       typoBuyerComment: 'Buyer comment',
-      typoShipPrice: 'Стоимость доставки до склада'
+      typoShipPrice: 'Стоимость доставки до склада',
     },
     ordersViewsModalProductTable: {
       alert: 'Barcode deleting',
-      formulaCell: 'Формула'
+      formulaCell: 'Формула',
     },
     buyerProductView: {
       appBarTitle: 'Product',
       appBarUsername: 'Buyer',
       appUser: 'buyer',
       modalAddTitle: 'Добавить нового поставщика',
-      modalEditTitle: 'Редактировать поставщика'
+      modalEditTitle: 'Редактировать поставщика',
     },
     buyerProductsView: {
       appBarTitle: 'Products',
       appBarUsername: 'Buyer',
       appUser: 'buyer',
-      mainTitle: 'Товары'
+      mainTitle: 'Товары',
     },
     subUsersModalContent: {
       email: 'Email',
       password: 'Password',
       rePassword: 'Re-type password',
       fieldSecurity: 'Security/Sharing options',
-      manageBtn: 'Manage Premission'
+      manageBtn: 'Manage Premission',
     },
     subUsersModalPermission: {
       title: 'Subuser permissions',
@@ -259,7 +258,7 @@ export const texts = {
       researcherTitle: 'Researcher',
       acManagerTitle: 'Account manager',
       warehouseManagerTitle: 'Warehouse manager',
-      saveBtn: 'Save'
+      saveBtn: 'Save',
     },
     buyerSubUsersView: {
       addUserBtn: 'Add User',
@@ -270,44 +269,44 @@ export const texts = {
       modalAddTitle: 'Create new subuser',
       modalAddBtn: 'Add Subuser',
       modalEditTitle: 'Edit subuser',
-      modalEditBtn: 'Save changes'
+      modalEditBtn: 'Save changes',
     },
     buyerUserView: {
       timer: '14 минут',
       appBarTitle: 'User page',
       appBarUsername: 'Buyer',
-      appUser: 'buyer'
+      appUser: 'buyer',
     },
     buyerSubUsersBodyRow: {
       bussinesUnit: 'N/A',
       editBtn: 'Edit User',
-      deleteBtn: 'Delete'
-    }
+      deleteBtn: 'Delete',
+    },
   },
   ru: {
     clientDashboardView: {
       withdrawFunds: 'Вывод средств',
-      fillAccount: 'Пополнить счёт'
+      fillAccount: 'Пополнить счёт',
     },
     productView: {
       appBarTitle: 'Product',
       appBarUsername: 'Client',
       appUser: 'client',
       addVendor: 'Добавить нового поставщика',
-      editVendor: 'Редактировать поставщика'
+      editVendor: 'Редактировать поставщика',
     },
     entryLeftPanel: {
       companyName: 'Amazontop',
       greetingTitle: 'Hello, nice to meet you',
       greetingSubtitle: 'Just register to join with us',
-      footer: 'Footer'
+      footer: 'Footer',
     },
     appbarComponent: {
       addGood: 'Добавлен новый товар у ресерчера на которого вы подписаны!',
       statusStart: 'Ваш запуск #77777 был ',
       statusEnd: 'обработан!',
       sendGood: 'Заказ #10391 был отправлен на склад платформы',
-      allNotifications: 'View all Notifications'
+      allNotifications: 'View all Notifications',
     },
     buyerComponent: {
       goods: 'Байер - Продукты',
@@ -321,7 +320,7 @@ export const texts = {
       haveHistory: `Имеется история действий, которые можно отменять.`,
       batchGoods: 'Байер - Партии товаров',
       myProfile: 'Байер - Пользователи - Мой профиль',
-      myUsers: 'Байер - Пользователи - Мои пользователи '
+      myUsers: 'Байер - Пользователи - Мои пользователи ',
     },
     clientComponent: {
       mainPage: 'Клиент - Главная страница',
@@ -366,14 +365,14 @@ export const texts = {
       clientProduct: 'Клиент - Продукт',
       clickAddButton: `При нажатии на кнопку добавления появляется модальное окно с формой.`,
       clickEditButton: `При нажатии на кнопку редактирования появляется модальное окно с формой.`,
-      clickDeleteButton: `При нажатии на кнопки удаления, поставщик исчезает из списка.`
+      clickDeleteButton: `При нажатии на кнопки удаления, поставщик исчезает из списка.`,
     },
     freelancerComponent: {
       mainPage: 'Ресерчер - Главная страница',
       moveToMyOrders: `Возможно перейти на страницу "Мои заказы"`,
       viewMore: `Переход на другие страницы осуществляется путем нажатие кнопки "View more".`,
       myOrders: 'Ресерчер - Мои заказы',
-      settings: 'Ресерчер - Настройки'
+      settings: 'Ресерчер - Настройки',
     },
     supervisorComponent: {
       mainPage: 'Супервизор - Главная страница',
@@ -385,10 +384,10 @@ export const texts = {
       supervisorPrepares: 'Супервизор - Готовые к проверке',
       supervisorMyGoods: 'Супервизор - Мои товары',
       settings: 'Супервизор - Настройки',
-      productVar1: 'Супервизор - Продукт вариант 1'
+      productVar1: 'Супервизор - Продукт вариант 1',
     },
     contentCardComponent: {
-      time: 'Время осталось'
+      time: 'Время осталось',
     },
     modalContent: {
       name: 'Название',
@@ -400,7 +399,7 @@ export const texts = {
       csCode: 'Цена партии',
       comment: 'Комментарий',
       saveBtn: 'Сохранить',
-      cancelBtn: 'Отменить'
+      cancelBtn: 'Отменить',
     },
     productWrapperComponent: {
       buttonParseAmazon: ' Parse Amazon ',
@@ -447,89 +446,89 @@ export const texts = {
       descriptionOFGoods: 'Описание товара',
       csCode: 'Заголовок товара на Amazon',
       summary: 'Краткое описание на Amazon',
-      description: 'Подробно'
+      description: 'Подробно',
     },
     batchesView: {
       editBatch: 'Редактировать партию',
       mainTitle: 'Партии товаров',
       appBarTitle: 'Batches',
       appBarUsername: 'Buyer',
-      appUser: 'buyer'
+      appUser: 'buyer',
     },
     ordersViewsModalSetBarcode: {
       title: 'Установить штрихкод',
       code: 'Штрихкод товара:',
       saveBtn: 'Сохранить',
-      closeBtn: 'Закрыть'
+      closeBtn: 'Закрыть',
     },
     ordersViewsModalEditOrder: {
       title: 'Редактирование заказа',
       orderNum: 'Заказ ID0001',
       productNum: 'Продукт  ID1002',
       saveBtn: 'Сохранить',
-      cancelBtn: 'Отмена'
+      cancelBtn: 'Отмена',
     },
     freeOrdersView: {
       mainTitle: 'Свободные заказы',
       appBarTitle: 'Страница заказов',
       appBarUsername: 'Buyer',
       appUser: 'buyer',
-      ordersBtn: 'Мои заказы'
+      ordersBtn: 'Мои заказы',
     },
     myProductsView: {
       mainTitle: 'Мои товары',
       appBarTitle: 'Products',
       appBarUsername: 'Buyer',
-      appUser: 'buyer'
+      appUser: 'buyer',
     },
     myOrdersView: {
       mainTitle: 'Мои заказы',
       appBarTitle: 'Страница заказов',
       appBarUsername: 'Buyer',
       appUser: 'buyer',
-      ordersBtn: 'Мои заказы'
+      ordersBtn: 'Мои заказы',
     },
     buyerUserExchangeItem: {
       standartPrice: '$ 499',
       startBtn: 'Запустить',
       addBtn: 'Добавить за $ ',
-      addBtnAlert: 'Card button click'
+      addBtnAlert: 'Card button click',
     },
     buyerUserActiveOrders: {
       mainTitle: 'Активные предложения на бирже товаров',
       buyGoodsOfUser: 'Купить товары пользователя',
-      noActiveOffers: 'Активных предложений не найдено'
+      noActiveOffers: 'Активных предложений не найдено',
     },
     buerUserPurchaseHistory: {
       mainTitle: 'История ваших покупок у ',
       buyInfo: 'Вы приобрели информацию',
       pushedGoods: 'Запущенные товары',
-      noHistory: 'История сделок не найдена'
+      noHistory: 'История сделок не найдена',
     },
     buerUserReviews: {
       mainTitle: 'Отзывы',
       fromBuyers: 'От покупателей',
       fromSellers: 'От продавцов',
-      noReviews: 'Отзывы не найдены'
+      noReviews: 'Отзывы не найдены',
     },
     buerUserFeedbackCard: {
       positiveReview: 'Положительный отзыв',
-      negativeReview: 'Негативный отзыв'
+      negativeReview: 'Негативный отзыв',
     },
     buyerUserHeaderInfo: {
-      mainTitle: 'Информация'
+      mainTitle: 'Информация',
     },
     buerUserHeaderTested: {
       mainTitle: 'Прошел проверку по стратегиям',
       flipping: 'Флипинг',
       dropShiping: 'Дропшипинг с Ибей',
       usa: 'Wholesale USA',
-      privateLabel: 'Private Label'
+      privateLabel: 'Private Label',
     },
     buerUserHeader: {
       sendBtn: 'Отправить заказ',
       filter: 'Фильтровать его товары',
-      ignore: 'Игнорировать его товары'
+      ignore: 'Игнорировать его товары',
     },
     buyerUserModalContent: {
       mainTitle: 'Заказ товара',
@@ -546,7 +545,7 @@ export const texts = {
       costStart: 'Стоимость запуска',
       acManager: 'Аккаунт менеджер',
       buyNowBtn: 'Заказать сразу',
-      cancelBtn: 'Отменить'
-    }
-  }
-};
+      cancelBtn: 'Отменить',
+    },
+  },
+}

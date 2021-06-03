@@ -2,11 +2,11 @@ import React from 'react'
 
 import {TableCell, TableRow} from '@material-ui/core'
 
-export const TableBodyRow = ({item, rowIndex, handlers}) => (
+export const TableBodyRow = ({item, itemIndex, handlers}) => (
   <TableRow
     selected={handlers.selected}
-    onClick={() => handlers.onSelected(rowIndex)}
-    onDoubleClick={() => handlers.onDoubleClick(rowIndex)}
+    onClick={() => handlers.onSelected(itemIndex)}
+    onDoubleClick={() => handlers.onDoubleClick(itemIndex)}
   >
     {/* Метод Евгения, пока будем использовать фиксированные клетки 
       {Object.entries(item).map(([ key, value ], index) => (

@@ -12,12 +12,12 @@ import clsx from 'clsx'
 import calculateSrc from '../assets/calculate.svg'
 import {useClassNames} from './table-body-row.style'
 
-export const TableBodyRow = ({item, rowIndex}) => {
+export const TableBodyRow = ({item, itemIndex}) => {
   const classNames = useClassNames()
   return (
     <TableRow key={item.asin} hover role="checkbox">
       <TableCell className={classNames.indexCell}>
-        <Typography>{rowIndex + 1}</Typography>
+        <Typography>{itemIndex + 1}</Typography>
       </TableCell>
       <TableCell padding="checkbox">
         <Checkbox />
