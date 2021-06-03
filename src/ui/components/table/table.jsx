@@ -1,10 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-import {Paper, Table as MuiTable, TableBody, TableContainer, TableHead, Toolbar} from '@material-ui/core'
-import {Pagination} from '@material-ui/lab'
+import {
+  Paper,
+  Table as MuiTable,
+  TableBody,
+  TableContainer,
+  TableHead,
+  Toolbar
+} from '@material-ui/core';
+import { Pagination } from '@material-ui/lab';
 
-import {TableToolbar} from './table-toolbar'
-import {useClassNames} from './table.style'
+import { TableToolbar } from './table-toolbar';
+import { useClassNames } from './table.style';
 
 export const Table = ({
   rowsPerPage,
@@ -16,9 +23,9 @@ export const Table = ({
   pageCount,
   handlerPageChange,
   buttons,
-  rowsHandlers,
+  rowsHandlers
 }) => {
-  const classNames = useClassNames()
+  const classNames = useClassNames();
   return (
     <Paper className={classNames.root}>
       <TableToolbar handlerRowsPerPage={handlerRowsPerPage} rowsPerPage={rowsPerPage} />
@@ -26,9 +33,11 @@ export const Table = ({
         <MuiTable className={classNames.table}>
           <TableHead className={classNames.tableHead}>{renderHeadRow}</TableHead>
           <TableBody className={classNames.tableBody}>
-            {data.slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage).map((el, index) => (
-              <BodyRow key={index} item={el} itemIndex={index} handlers={rowsHandlers} />
-            ))}
+            {data
+              .slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage)
+              .map((el, index) => (
+                <BodyRow key={index} item={el} itemIndex={index} handlers={rowsHandlers} />
+              ))}
           </TableBody>
         </MuiTable>
       </TableContainer>
@@ -45,5 +54,5 @@ export const Table = ({
         />
       </Toolbar>
     </Paper>
-  )
-}
+  );
+};

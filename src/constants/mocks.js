@@ -1,64 +1,75 @@
+import categoryImgBaby from '@views/buyer/users-views/user-profile-view/assets/categories/baby.jpg';
+import categoryImgBeautyAndPersonalCare from '@views/buyer/users-views/user-profile-view/assets/categories/beautyAndPersonalCare.jpg';
+import categoryImgClothingShoesAndJewelry from '@views/buyer/users-views/user-profile-view/assets/categories/clothingShoesAndJewelry.jpg';
+import categoryImgGardenAndOutdoor from '@views/buyer/users-views/user-profile-view/assets/categories/gardenAndOutdoor.jpg';
+import categoryImgHealthHouseholdAndBabyCare from '@views/buyer/users-views/user-profile-view/assets/categories/healthHouseholdAndBabyCare.jpg';
+import categoryImgHomeAndKitchen from '@views/buyer/users-views/user-profile-view/assets/categories/homeAndKitchen.jpg';
+import categoryImgKitchenAndDining from '@views/buyer/users-views/user-profile-view/assets/categories/kitchenAndDining.jpg';
+import categoryImgSportsAndOutdoors from '@views/buyer/users-views/user-profile-view/assets/categories/sportsAndOutdoors.jpg';
+import categoryImgToolsAndHomeImprovement from '@views/buyer/users-views/user-profile-view/assets/categories/toolsAndHomeImprovement.jpg';
+import categoryImgToysAndGames from '@views/buyer/users-views/user-profile-view/assets/categories/toysAndGames.jpg';
+
 export const inventorySection = {
   title: 'Инвентарь',
   items: [
-    {value: 7, title: 'Товаров в инвентаре', color: '#20a8d8'},
-    {value: 5, title: 'Общая стоимость склада', color: '#63c2de'},
-    {value: 0, title: 'Товаров с повторной закупкой', color: '#4dbd74'},
-  ],
-}
+    { value: 7, title: 'Товаров в инвентаре', color: '#20a8d8' },
+    { value: 5, title: 'Общая стоимость склада', color: '#63c2de' },
+    { value: 0, title: 'Товаров с повторной закупкой', color: '#4dbd74' }
+  ]
+};
 
 export const ordersSection = {
   title: 'Заказы',
   items: [
-    {value: 2, title: 'Неоплаченные заказы', color: '#ffc107'},
-    {value: 0, title: 'Оплаченные заказы', color: '#f86c6b'},
-    {value: 24, title: 'Отмененные заказы', color: '#20a8d8'},
-  ],
-}
+    { value: 2, title: 'Неоплаченные заказы', color: '#ffc107' },
+    { value: 0, title: 'Оплаченные заказы', color: '#f86c6b' },
+    { value: 24, title: 'Отмененные заказы', color: '#20a8d8' }
+  ]
+};
 export const exchangeSection = {
   title: 'Товары',
   items: [
-    {value: 53, title: 'Продано товаров на бирже', color: '#63c2de'},
-    {value: 1, title: 'Начислено ресерчерам', color: '#4dbd74'},
-    {value: 17, title: 'Споров по товарам', color: '#f86c6b'},
-  ],
-}
+    { value: 53, title: 'Продано товаров на бирже', color: '#63c2de' },
+    { value: 1, title: 'Начислено ресерчерам', color: '#4dbd74' },
+    { value: 17, title: 'Споров по товарам', color: '#f86c6b' }
+  ]
+};
 
-export const clientUsername = 'Client'
-export const clientBalance = '$4 012'
+export const clientUsername = 'Client';
+export const clientBalance = '$4 012';
 
 export const clientExchangeViewTable = {
   headCells: [
-    {id: 'img', label: 'Image'},
-    {id: 'img', label: 'Category'},
-    {id: 'img', label: 'Цена'},
-    {id: 'img', label: 'Кол-во'},
-    {id: 'img', label: 'Средняя цена'},
+    { id: 'img', label: 'Image' },
+    { id: 'img', label: 'Category' },
+    { id: 'img', label: 'Цена' },
+    { id: 'img', label: 'Кол-во' },
+    { id: 'img', label: 'Средняя цена' },
 
-    {id: 'img', label: 'Рекомендуемая партия'},
-    {id: 'img', label: 'Вес'},
+    { id: 'img', label: 'Рекомендуемая партия' },
+    { id: 'img', label: 'Вес' },
 
-    {id: 'img', label: 'avg BSR'},
-    {id: 'img', label: 'avg Reviews'},
-    {id: 'img', label: 'avg Revenue'},
-    {id: 'img', label: 'Researcher'},
-    {id: 'img', label: 'Стоимость запуска'},
+    { id: 'img', label: 'avg BSR' },
+    { id: 'img', label: 'avg Reviews' },
+    { id: 'img', label: 'avg Revenue' },
+    { id: 'img', label: 'Researcher' },
+    { id: 'img', label: 'Стоимость запуска' }
   ],
   modalHeadCells: [
-    {id: 'img', label: 'Image'},
-    {id: 'img', label: 'Category'},
-    {id: 'img', label: 'Price'},
-    {id: 'img', label: 'Qty'},
-    {id: 'img', label: 'avg Price'},
+    { id: 'img', label: 'Image' },
+    { id: 'img', label: 'Category' },
+    { id: 'img', label: 'Price' },
+    { id: 'img', label: 'Qty' },
+    { id: 'img', label: 'avg Price' },
 
-    {id: 'img', label: 'Рекомендуемая партия'},
-    {id: 'img', label: 'Вес'},
+    { id: 'img', label: 'Рекомендуемая партия' },
+    { id: 'img', label: 'Вес' },
 
-    {id: 'img', label: 'avg BSR'},
-    {id: 'img', label: 'avg Reviews'},
-    {id: 'img', label: 'avg Revenue'},
-    {id: 'img', label: 'Стоимость запуска'},
-    {id: 'img', label: 'Manager'},
+    { id: 'img', label: 'avg BSR' },
+    { id: 'img', label: 'avg Reviews' },
+    { id: 'img', label: 'avg Revenue' },
+    { id: 'img', label: 'Стоимость запуска' },
+    { id: 'img', label: 'Manager' }
   ],
   mainTableKeys: [
     'categoryImg',
@@ -72,7 +83,7 @@ export const clientExchangeViewTable = {
     'avgReviews',
     'avgRevenue',
     'researcher',
-    'privateLabelPrice',
+    'privateLabelPrice'
   ],
   modalTableKeys: [
     'categoryImg',
@@ -86,7 +97,7 @@ export const clientExchangeViewTable = {
     'avgReviews',
     'avgRevenue',
     'privateLabelPrice',
-    'managers',
+    'managers'
   ],
   productList: [
     {
@@ -102,9 +113,9 @@ export const clientExchangeViewTable = {
       avgReviews: 255,
       avgRevenue: 1000,
 
-      researcher: {rating: 4.2, username: 'Username'},
+      researcher: { rating: 4.2, username: 'Username' },
       privateLabelPrice: 499.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/sportsAndOutdoors.jpg',
@@ -117,9 +128,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 4.7, username: 'Dave Bains'},
+      researcher: { rating: 4.7, username: 'Dave Bains' },
       privateLabelPrice: 129.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/toysAndGames.jpg',
@@ -132,9 +143,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 3.9, username: 'Nella Oconnell'},
+      researcher: { rating: 3.9, username: 'Nella Oconnell' },
       privateLabelPrice: 432.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/healthHouseholdAndBabyCare.jpg',
@@ -147,9 +158,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 5.0, username: 'Latisha Gould'},
+      researcher: { rating: 5.0, username: 'Latisha Gould' },
       privateLabelPrice: 80.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/beautyAndPersonalCare.jpg',
@@ -162,9 +173,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 4.3, username: 'Heena Goodwin'},
+      researcher: { rating: 4.3, username: 'Heena Goodwin' },
       privateLabelPrice: 499.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/kitchenAndDining.jpg',
@@ -177,9 +188,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 2.2, username: 'Brodie Magana'},
+      researcher: { rating: 2.2, username: 'Brodie Magana' },
       privateLabelPrice: 2999.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/clothingShoesAndJewelry.jpg',
@@ -192,9 +203,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 4.5, username: 'Lani Vazquez'},
+      researcher: { rating: 4.5, username: 'Lani Vazquez' },
       privateLabelPrice: 249.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/baby.jpg',
@@ -207,9 +218,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 1.2, username: 'Kohen Reilly'},
+      researcher: { rating: 1.2, username: 'Kohen Reilly' },
       privateLabelPrice: 189.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/gardenAndOutdoor.jpg',
@@ -222,9 +233,9 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 3.3, username: 'Albie Gilbert'},
+      researcher: { rating: 3.3, username: 'Albie Gilbert' },
       privateLabelPrice: 1199.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/toolsAndHomeImprovement.jpg',
@@ -237,12 +248,12 @@ export const clientExchangeViewTable = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 4.8, username: 'Nicky Barajas'},
+      researcher: { rating: 4.8, username: 'Nicky Barajas' },
       privateLabelPrice: 799.49,
-      managers: ['manager0', 'manager1', 'manager2'],
-    },
-  ],
-}
+      managers: [ 'manager0', 'manager1', 'manager2' ]
+    }
+  ]
+};
 
 export const clientExchangePrivateLabelView = {
   listKeys: [
@@ -255,7 +266,7 @@ export const clientExchangePrivateLabelView = {
     'recConsignmentWeight',
     'avgBSR',
     'avgReviews',
-    'avgRevenue',
+    'avgRevenue'
   ],
   productList: [
     {
@@ -271,9 +282,9 @@ export const clientExchangePrivateLabelView = {
       avgReviews: 255,
       avgRevenue: 1000,
 
-      researcher: {rating: 4.2, username: 'Username'},
+      researcher: { rating: 4.2, username: 'Username' },
       privateLabelPrice: 499.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/sportsAndOutdoors.jpg',
@@ -286,9 +297,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 4.7, username: 'Dave Bains'},
+      researcher: { rating: 4.7, username: 'Dave Bains' },
       privateLabelPrice: 129.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/toysAndGames.jpg',
@@ -301,9 +312,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 3.9, username: 'Nella Oconnell'},
+      researcher: { rating: 3.9, username: 'Nella Oconnell' },
       privateLabelPrice: 432.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/healthHouseholdAndBabyCare.jpg',
@@ -316,9 +327,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 5.0, username: 'Latisha Gould'},
+      researcher: { rating: 5.0, username: 'Latisha Gould' },
       privateLabelPrice: 80.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/beautyAndPersonalCare.jpg',
@@ -331,9 +342,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 4.3, username: 'Heena Goodwin'},
+      researcher: { rating: 4.3, username: 'Heena Goodwin' },
       privateLabelPrice: 499.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/kitchenAndDining.jpg',
@@ -346,9 +357,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 2.2, username: 'Brodie Magana'},
+      researcher: { rating: 2.2, username: 'Brodie Magana' },
       privateLabelPrice: 2999.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/clothingShoesAndJewelry.jpg',
@@ -361,9 +372,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 4.5, username: 'Lani Vazquez'},
+      researcher: { rating: 4.5, username: 'Lani Vazquez' },
       privateLabelPrice: 249.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/baby.jpg',
@@ -376,9 +387,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 1.2, username: 'Kohen Reilly'},
+      researcher: { rating: 1.2, username: 'Kohen Reilly' },
       privateLabelPrice: 189.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/gardenAndOutdoor.jpg',
@@ -391,9 +402,9 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 3.3, username: 'Albie Gilbert'},
+      researcher: { rating: 3.3, username: 'Albie Gilbert' },
       privateLabelPrice: 1199.99,
-      managers: ['manager0', 'manager1', 'manager2'],
+      managers: [ 'manager0', 'manager1', 'manager2' ]
     },
     {
       categoryImg: '/assets/img/categories/toolsAndHomeImprovement.jpg',
@@ -406,76 +417,76 @@ export const clientExchangePrivateLabelView = {
       avgBSR: 1900,
       avgReviews: 255,
       avgRevenue: 1000,
-      researcher: {rating: 4.8, username: 'Nicky Barajas'},
+      researcher: { rating: 4.8, username: 'Nicky Barajas' },
       privateLabelPrice: 799.49,
-      managers: ['manager0', 'manager1', 'manager2'],
-    },
-  ],
-}
+      managers: [ 'manager0', 'manager1', 'manager2' ]
+    }
+  ]
+};
 
 export const clientExchangeRequestsViewTable = {
   headCells: [
-    {id: 'img', label: 'Budget'},
-    {id: 'img', label: 'Target date'},
-    {id: 'img', label: 'Status'},
-    {id: 'img', label: 'Strategy'},
+    { id: 'img', label: 'Budget' },
+    { id: 'img', label: 'Target date' },
+    { id: 'img', label: 'Status' },
+    { id: 'img', label: 'Strategy' }
   ],
-  tableKeys: ['budget', 'deadline', 'status', 'strategy'],
+  tableKeys: [ 'budget', 'deadline', 'status', 'strategy' ],
   requestsListRaw: [
-    {budget: 50000, deadline: '20/04/2022', status: 'Обрабатывается', strategy: 'Flipping'},
-    {budget: 27420.42, deadline: '19/11/2021', status: 'Обрабатано', strategy: 'PrivateLabel'},
-  ],
-}
+    { budget: 50000, deadline: '20/04/2022', status: 'Обрабатывается', strategy: 'Flipping' },
+    { budget: 27420.42, deadline: '19/11/2021', status: 'Обрабатано', strategy: 'PrivateLabel' }
+  ]
+};
 
 export const userPopperItems = {
   client: [
-    {label: 'Ваш счёт $4 352', color: '#5a6169', route: null},
-    {label: 'Пополнить баланс', color: '#5a6169', route: null},
-    {label: 'Сообщения', color: '#5a6169', route: null},
-    {label: 'Профиль', color: '#5a6169', route: '/user'},
-    {label: 'Выйти', color: '#d22323', route: '/auth'},
+    { label: 'Ваш счёт $4 352', color: '#5a6169', route: null },
+    { label: 'Пополнить баланс', color: '#5a6169', route: null },
+    { label: 'Сообщения', color: '#5a6169', route: null },
+    { label: 'Профиль', color: '#5a6169', route: '/user' },
+    { label: 'Выйти', color: '#d22323', route: '/auth' }
   ],
   buyer: [
-    {label: 'Ваш счёт $4 352', color: '#5a6169', route: null},
-    {label: 'Пополнить баланс', color: '#5a6169', route: null},
-    {label: 'Сообщения', color: '#5a6169', route: null},
-    {label: 'Профиль', color: '#5a6169', route: '/buyer/user'},
-    {label: 'Выйти', color: '#d22323', route: '/auth'},
+    { label: 'Ваш счёт $4 352', color: '#5a6169', route: null },
+    { label: 'Пополнить баланс', color: '#5a6169', route: null },
+    { label: 'Сообщения', color: '#5a6169', route: null },
+    { label: 'Профиль', color: '#5a6169', route: '/buyer/user' },
+    { label: 'Выйти', color: '#d22323', route: '/auth' }
   ],
   freelancer: [
-    {label: 'Ваш счёт $4 352', color: '#5a6169', route: null},
-    {label: 'Пополнить баланс', color: '#5a6169', route: null},
-    {label: 'Сообщения', color: '#5a6169', route: null},
-    {label: 'Профиль', color: '#5a6169', route: null},
-    {label: 'Выйти', color: '#d22323', route: '/auth'},
+    { label: 'Ваш счёт $4 352', color: '#5a6169', route: null },
+    { label: 'Пополнить баланс', color: '#5a6169', route: null },
+    { label: 'Сообщения', color: '#5a6169', route: null },
+    { label: 'Профиль', color: '#5a6169', route: null },
+    { label: 'Выйти', color: '#d22323', route: '/auth' }
   ],
   supervisor: [
-    {label: 'Ваш счёт $4 352', color: '#5a6169', route: null},
-    {label: 'Пополнить баланс', color: '#5a6169', route: null},
-    {label: 'Сообщения', color: '#5a6169', route: null},
-    {label: 'Профиль', color: '#5a6169', route: null},
-    {label: 'Выйти', color: '#d22323', route: '/auth'},
-  ],
-}
+    { label: 'Ваш счёт $4 352', color: '#5a6169', route: null },
+    { label: 'Пополнить баланс', color: '#5a6169', route: null },
+    { label: 'Сообщения', color: '#5a6169', route: null },
+    { label: 'Профиль', color: '#5a6169', route: null },
+    { label: 'Выйти', color: '#d22323', route: '/auth' }
+  ]
+};
 export const userRoutes = {
   client: {
     0: null,
     1: null,
     2: null,
     3: '/user',
-    4: 'auth',
+    4: 'auth'
   },
   buyer: {},
-  freelancer: {},
-}
+  freelancer: {}
+};
 
 export const INVENTORY_CARD_LIST = [
-  {count: 7, label: 'Товаров в инвентаре', timer: null},
-  {count: 45, label: 'Товаров купленных на бирже', timer: '59:03'},
-  {count: 23, label: 'Товаров добавлено', timer: null},
-  {count: 20, label: 'Заказов оформлено', timer: null},
-  {count: 420, label: 'Куплено за 30 дней', timer: null},
-]
+  { count: 7, label: 'Товаров в инвентаре', timer: null },
+  { count: 45, label: 'Товаров купленных на бирже', timer: '59:03' },
+  { count: 23, label: 'Товаров добавлено', timer: null },
+  { count: 20, label: 'Заказов оформлено', timer: null },
+  { count: 420, label: 'Куплено за 30 дней', timer: null }
+];
 
 export const PRODUCT_INITIAL_PRODUCT = {
   images: {},
@@ -506,8 +517,8 @@ export const PRODUCT_INITIAL_PRODUCT = {
     'Product information Size:Leaf Technical Details Manufacturer HYQO Brand HYQO Item Weight 4.7 ounces Package Dimensions 7.05 x 5.28 x 1.77 inches Color Green, Yellow, Blue, Brown Material Type Silicone Size Leaf Manufacturer Part Number Leaf Additional Information ASIN B08CH6J8NF Customer Reviews 4.1 out of 5 stars 69 ratings 4.1 out of 5 stars Best Sellers Rank #23,309 in Office Products (See Top 100 in Office Products) #173 in Door Stops Date First Available July 7, 2020 Warranty & Support Product Warranty: For warranty information about this product, please click here Feedback Would you like to tell us about a lower price?',
   commentManager: "Manager's comment",
   commentSupervisor: "Supervisor's comment",
-  commentBuyer: "Buyer's comment",
-}
+  commentBuyer: "Buyer's comment"
+};
 export const PRODUCT_INITIAL_SUPPLIERS = [
   {
     name: 'Jakki Chan',
@@ -516,7 +527,7 @@ export const PRODUCT_INITIAL_SUPPLIERS = [
     deliveryPrice: 4.99,
     qty: 400,
     minQty: 100,
-    comment: 'Делает скидку если слать поцелуи',
+    comment: 'Делает скидку если слать поцелуи'
   },
   {
     name: 'Jakki No Chan',
@@ -525,9 +536,9 @@ export const PRODUCT_INITIAL_SUPPLIERS = [
     deliveryPrice: 2.88,
     qty: 888,
     minQty: 10,
-    comment: 'Не делает скидку если слать поцелуи',
-  },
-]
+    comment: 'Не делает скидку если слать поцелуи'
+  }
+];
 export const PRODUCT_EMPTY_SUPPLIERS = {
   name: '',
   link: '',
@@ -535,24 +546,24 @@ export const PRODUCT_EMPTY_SUPPLIERS = {
   deliveryPrice: 0,
   qty: 0,
   minQty: 0,
-  comment: '',
-}
+  comment: ''
+};
 
 export const FREELANCER_DASHBOARD_LIST = [
-  {value: 11, title: 'Мои товары', color: '#63c2de'},
-  {value: 525, title: 'Текущий баланс', color: '#4dbd74'},
-  {value: 42, title: 'Штрафы', color: '#f86c6b'},
-]
+  { value: 11, title: 'Мои товары', color: '#63c2de' },
+  { value: 525, title: 'Текущий баланс', color: '#4dbd74' },
+  { value: 42, title: 'Штрафы', color: '#f86c6b' }
+];
 
 export const FREELANCER_HEAD_CELLS = [
-  {title: 'ASIN'},
-  {title: 'Status'},
-  {title: 'Created'},
-  {title: 'Manager'},
-  {title: 'Amazon price'},
-  {title: 'Price'},
-  {title: 'BSR'},
-]
+  { title: 'ASIN' },
+  { title: 'Status' },
+  { title: 'Created' },
+  { title: 'Manager' },
+  { title: 'Amazon price' },
+  { title: 'Price' },
+  { title: 'BSR' }
+];
 
 export const FREELANCER_PRODUCT_LIST = [
   {
@@ -562,7 +573,7 @@ export const FREELANCER_PRODUCT_LIST = [
     manager: 'Anton',
     amazonPrice: 41.99,
     price: 450.0,
-    bsr: 800.0,
+    bsr: 800.0
   },
   {
     asin: '6edh695',
@@ -571,7 +582,7 @@ export const FREELANCER_PRODUCT_LIST = [
     manager: 'Jack',
     amazonPrice: 4.99,
     price: 45.0,
-    bsr: 315.0,
+    bsr: 315.0
   },
   {
     asin: '2ndw464',
@@ -580,7 +591,7 @@ export const FREELANCER_PRODUCT_LIST = [
     manager: 'Jim',
     amazonPrice: 142.99,
     price: 150.0,
-    bsr: 750.0,
+    bsr: 750.0
   },
   {
     asin: '4rdo025',
@@ -589,13 +600,940 @@ export const FREELANCER_PRODUCT_LIST = [
     manager: 'Ni9ck',
     amazonPrice: 52.99,
     price: 138.0,
-    bsr: 224.0,
-  },
-]
+    bsr: 224.0
+  }
+];
 
 export const SUPERVISOR_DASHBOARD_LIST = [
-  {value: 11, title: 'Новых товаров в базе', color: '#63c2de'},
-  {value: 4, title: 'У меня на проверке', color: '#FFC107'},
-  {value: 525, title: 'Начислено', color: '#4dbd74'},
-  {value: 0, title: 'Штрафы', color: '#f86c6b'},
+  { value: 11, title: 'Новых товаров в базе', color: '#63c2de' },
+  { value: 4, title: 'У меня на проверке', color: '#FFC107' },
+  { value: 525, title: 'Начислено', color: '#4dbd74' },
+  { value: 0, title: 'Штрафы', color: '#f86c6b' }
+];
+
+export const BUYER_BATCHES_BOXES_EXAMPLES = [
+  {
+    status: 'test1',
+    created: '12/12/2018',
+    updated: '12/12/2018',
+    deliveryMethod: 'Sea',
+    clientId: 'clientID0001',
+
+    csCode: 'Вкладыш для холодильника',
+    img: 'https://images-na.ssl-images-amazon.com/images/I/61PgqkN76dL._AC_SX679_.jpg',
+    orderId: 'ID590101',
+    asin: 'B0878YDFMK',
+    qty: 100,
+    material: 'metal',
+    destination: 'Не назначен',
+    product: 'Product',
+    boxId: [ '509991', '509992', '509993', '509994' ],
+    boxQty: 4,
+    price: 2000,
+    weight: 105,
+    grossWeight: 125,
+    trackId: '91023891273812738111',
+    chip: '27381111'
+  },
+  {
+    status: 'test1',
+    created: '12/12/2018',
+    updated: '12/12/2018',
+    deliveryMethod: 'Sea',
+
+    csCode: 'Xолодильника',
+    img: 'https://images-na.ssl-images-amazon.com/images/I/51ZEDgERzPL._AC_SX679_.jpg',
+    orderId: 'ID590102',
+    asin: 'C1878YDFMK',
+    qty: 100,
+    material: 'plastic',
+    destination: 'Не назначен',
+    product: 'Product',
+    boxId: [ '509991', '509992', '509993', '509994' ],
+    boxQty: 4,
+    price: 5000,
+    weight: 50,
+    grossWeight: null,
+    trackId: '91023891273812738111',
+    chip: null
+  },
+  {
+    status: 'test4',
+    created: '24/11/2020',
+    updated: '25/11/2020',
+    deliveryMethod: 'Sea',
+    clientId: 'clientID0002',
+
+    csCode: 'Упаковка батареек АА 48 шт.',
+    img: 'https://images-na.ssl-images-amazon.com/images/I/71IdKRlm8%2BL._AC_SX569_.jpg',
+    orderId: 'ID590322',
+    asin: 'B00MNV8E0C',
+    qty: 75,
+    material: 'Alkaline',
+    destination: 'Не назначен',
+    product: 'Product',
+    boxId: [ 'EnergyID' ],
+    boxQty: 1,
+    price: 2500,
+    weight: 25,
+    grossWeight: null,
+    trackId: '91023891273812738142',
+    chip: null
+  },
+  {
+    status: 'test2',
+    created: '16/02/2020',
+    updated: '16/02/2020',
+    deliveryMethod: 'Air',
+    clientId: 'clientID0007',
+
+    csCode: 'Настенное крепление',
+    img: 'https://images-na.ssl-images-amazon.com/images/I/71jcxZXEaGL._AC_SL1500_.jpg',
+    orderId: 'ID590101',
+    asin: 'F1578YDFMK',
+    qty: 10,
+    material: 'metal',
+    destination: 'ONT 8 AMAZON',
+    product: 'Product',
+    boxId: [ 'boxId3' ],
+    boxQty: 1,
+    price: 2000,
+    weight: 105,
+    grossWeight: 125,
+    trackId: '91023891273812738111',
+    chip: '63514941'
+  },
+  {
+    status: 'test2',
+    created: '16/02/2020',
+    updated: '16/02/2020',
+    deliveryMethod: 'Air',
+
+    csCode: 'Книжный шкаф',
+    img: 'https://images-na.ssl-images-amazon.com/images/I/818idL5RrlL._AC_SL1500_.jpg',
+    orderId: 'ID590101',
+    asin: 'CMYK0YDFMK',
+    qty: 150,
+    material: 'plastic',
+    destination: 'ONT 8 AMAZON',
+    product: 'Product',
+    boxId: [ 'boxId3' ],
+    boxQty: 1,
+    price: 5000,
+    weight: 50,
+    grossWeight: null,
+    trackId: '91023891273812738111',
+    chip: null
+  }
+];
+
+export const BUYER_BATCHES_HEAD_CELLS = [
+  { title: 'ClientID' },
+  { title: 'Status' },
+  { title: 'Created' },
+  { title: 'Updated' },
+  { title: 'Warehouse' },
+  { title: 'Delivery' },
+  { title: 'Track ID' }
+];
+
+export const BUYER_USER_HEADER_LIST = {
+  countInvestors: {value: '255', text: 'Количество инвесторов'},
+  foundGoods: {value: '875', text: 'Товаров нашел'},
+  volumeTrans: {value: '$ 7555', text: 'Объем сделок'},
+  earned: {value: '$ 1255', text: 'Заработано'},
+  addInSave: {value: '12 инвесторов', text: 'Добавили в избранное'},
+  inBlocked: {value: '12 инвесторов', text: 'Заблокирован(-а)'},
+  youBlocked: {value: '14 инвесторов', text: 'Заблокировал(-а)'},
+  createAc: {value: '11 инвесторов', text: 'Аккаунт создан'},
+}
+
+export const BUYER_MANAGERS_LIST = [
+  {value: 'Дмитрий', text: 'Дмитрий'},
+  {value: 'Георгий', text: 'Георгий'},
+  {value: 'subuser0', text: 'subuser0'},
+  {value: 'subuser1', text: 'subuser1'},
+  {value: 'subuser2', text: 'subuser2'},
 ]
+
+export const BUYER_WAREHOUSE_LIST = [
+  {value: 'MEM1 Memphis, TN', text: 'MEM1 Memphis, TN'},
+  {value: 'MDW2 Joliet, IL', text: 'MDW2 Joliet, IL'},
+  {value: 'LAX9 FONTANA, CA', text: 'LAX9 FONTANA, CA'},
+  {value: 'LGB8 Rialto, CA', text: 'LGB8 Rialto, CA'},
+  {value: 'ONT8 AMAZON', text: 'ONT8 AMAZON'},
+]
+
+export const BUYER_STATUS_LIST = [
+  {value: 'Formed', text: 'Formed'},
+  {value: 'New', text: 'New'},
+  {value: 'ReadyToProcess', text: 'ReadyToProcess'},
+  {value: 'Paid', text: 'Paid'},
+  {value: 'TrackNumberIssued', text: 'TrackNumberIssued'},
+  {value: 'InStock', text: 'InStock'},
+  {value: 'ReturnOrder', text: 'ReturnOrder'},
+]
+
+export const BUYER_DELIVERY_LIST = [
+  {value: 'Sea', text: 'Sea'},
+  {value: 'Air', text: 'Air'},
+]
+
+export const BUYER_MY_PRODUCTS_DATA = [
+  {
+    asin: '6gdh463',
+    csCode: 'Винтажная фотокамера Zeiß',
+    price: 305,
+    avgPrice: 305,
+    fees: 3.7,
+    rank: 67,
+    rating: 4.3,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 111.98,
+    amazonPrice: 111.98,
+    bsr: 111.98,
+    fba: 111.98,
+    img:
+      'https://i.picsum.photos/id/250/128/128.jpg?hmac=GQZBEmT1uFN-7PhpZK6KMi9ZXcGUrBzaWBPOuGjaymc',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  },
+  {
+    asin: '6gdh464',
+    csCode: 'Сетевое зарядное устройство Apple',
+    price: 452,
+    avgPrice: 455,
+    fees: 25,
+    rank: 51,
+    rating: 4.9,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 121.98,
+    amazonPrice: 121.98,
+    bsr: 221.98,
+    fba: 221.98,
+    img:
+      'https://i.picsum.photos/id/2/128/128.jpg?hmac=0d1s6bHe-mbCvnHmsuROMJVnk7Du7j-ftrhadIipy-8',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  },
+  {
+    asin: '6gdh465',
+    csCode: 'Циркуль стальной металический',
+    price: 21.98,
+    avgPrice: 22.98,
+    fees: 16,
+    rank: 24,
+    rating: 5,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 21.98,
+    amazonPrice: 21.98,
+    bsr: 21.98,
+    fba: 21.98,
+    img:
+      'https://i.picsum.photos/id/533/128/128.jpg?hmac=BkWp6S8z7gMLifbg5sohzJSI80LduTZWIVvJ8u4l0I8',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  },
+  {
+    asin: '6gdh466',
+    csCode: 'Цветы искуственные декоративные розовые',
+    price: 30.5,
+    avgPrice: 30.5,
+    fees: 3.7,
+    rank: 67,
+    rating: 4.3,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 17.98,
+    amazonPrice: 17.98,
+    bsr: 17.98,
+    fba: 17.98,
+    img:
+      'https://i.picsum.photos/id/360/128/128.jpg?hmac=sCdhPPkDyfXnSWJpzyRTuPiLVBdZ2E8q1JpculA5vR4',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  },
+  {
+    asin: '6gdh467',
+    csCode: 'Древесина брус 18х18 орешник красный',
+    price: 452.49,
+    avgPrice: 529.49,
+    fees: 25,
+    rank: 51,
+    rating: 4.9,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 7.98,
+    amazonPrice: 7.98,
+    bsr: 7.98,
+    fba: 7.98,
+    img:
+      'https://i.picsum.photos/id/139/128/128.jpg?hmac=qI9eV3bt9QxcWJnwZe9HKWkgUDdXyraThmoIer_sty0',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  },
+  {
+    asin: '6gdh468',
+    csCode: 'Бамбук декоративный',
+    price: 262.32,
+    avgPrice: 102.32,
+    fees: 16,
+    rank: 24,
+    rating: 5,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 3.98,
+    amazonPrice: 3.98,
+    bsr: 3.98,
+    fba: 3.98,
+    img:
+      'https://i.picsum.photos/id/844/128/128.jpg?hmac=KvSq3pUqDPHmNMCKMOlha5Nwb4gs9MtiIZmtHEiDyaA',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  },
+  {
+    asin: '6gdh469',
+    csCode: 'Кактус Цереус комнатный семена',
+    price: 305.24,
+    avgPrice: 305.24,
+    fees: 3.7,
+    rank: 67,
+    rating: 4.3,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 14.98,
+    amazonPrice: 14.98,
+    bsr: 14.98,
+    fba: 14.98,
+    img:
+      'https://i.picsum.photos/id/789/128/128.jpg?hmac=pyc9bet-foHf2cUf74nuHurYNBGB1vGE8rY-6Ofc3Oo',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  },
+  {
+    asin: '6gdh470',
+    csCode: 'Картина "НЕзвездная ночь" акварель',
+    price: 4520.45,
+    avgPrice: 9419.45,
+    fees: 25,
+    rank: 51,
+    rating: 4.9,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 2500,
+    amazonPrice: 2500,
+    bsr: 2500,
+    fba: 2500,
+    img:
+      'https://i.picsum.photos/id/1042/128/128.jpg?hmac=7saioCZ7yjrTmGcOtJffGquJGwq7X-lsGg5ZXzNUPQc',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  },
+  {
+    asin: '6gdh411',
+    csCode: 'Рога оленя искуственные',
+    price: 2629.19,
+    avgPrice: 2729.19,
+    fees: 16,
+    rank: 24,
+    rating: 5,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 21.98,
+    amazonPrice: 21.98,
+    bsr: 21.98,
+    fba: 21.98,
+    img:
+      'https://i.picsum.photos/id/891/128/128.jpg?hmac=L_K1ls-Hmiy8fqWGLi0JiWiZEyTEL9_L0z-fADNZjXI',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  }
+];
+
+export const BUYER_MY_PRODUCTS_HEAD_CELLS = [
+  { id: 'asin', align: 'center', disablePadding: true, label: 'ASIN' },
+  { id: 'price', align: 'right', disablePadding: false, label: 'Price' },
+  { id: 'fees', align: 'left', disablePadding: false, label: 'Fees & Net' },
+  { id: 'rank', align: 'right', disablePadding: false, label: 'Rank' },
+  { id: 'rating', align: 'center', disablePadding: false, label: 'Rating' },
+  { id: 'sales', align: 'right', disablePadding: false, label: 'Sales' },
+  { id: 'salersTotal', align: 'center', disablePadding: false, label: 'Salers total' },
+  { id: 'type', align: 'right', disablePadding: false, label: 'Type' },
+  { id: 'revenue', align: 'right', disablePadding: false, label: 'Revenue' },
+  { id: 'amazonPrice', align: 'right', disablePadding: false, label: 'Amazon $' },
+  { id: 'bsr', align: 'right', disablePadding: false, label: 'BSR' },
+  { id: 'fba', align: 'right', disablePadding: false, label: 'FBA' }
+];
+
+export const FREE_ORDERS_DATA = [
+  {
+    status: 'Paid',
+    created: '12/12/2018',
+    updated: '12/12/2018',
+    deliveryMethod: 'Sea',
+    clientComment: "client's comment test1",
+    buyerComment: "buyer's comment test0+1",
+    avgDeliveryPrice: 20,
+
+    csCode: 'Упаковка батареек АА 48 шт.',
+    img: 'https://images-na.ssl-images-amazon.com/images/I/71IdKRlm8%2BL._AC_SX569_.jpg',
+    orderId: 'ID590322',
+    asin: 'B00MNV8E0C',
+    qty: 75,
+    material: 'Alkaline',
+    destination: 'Не назначен',
+    product: 'Product',
+    boxId: null,
+    boxQty: 4,
+    price: 2500,
+    weight: 25,
+    grossWeight: null,
+    trackId: '91023891273812738142',
+    barcode: null
+  },
+  {
+    status: 'At process',
+    created: '24/11/2020',
+    updated: '25/11/2020',
+    deliveryMethod: 'Sea',
+    clientComment: "client's comment test2",
+    buyerComment: "buyer's comment test02",
+    avgDeliveryPrice: 20,
+
+    csCode: 'Вкладыш для холодильника',
+    img: 'https://images-na.ssl-images-amazon.com/images/I/61PgqkN76dL._AC_SX679_.jpg',
+    orderId: 'ID590101',
+    asin: 'B0878YDFMK',
+    qty: 100,
+    material: 'metal',
+    destination: 'ONT 8 AMAZON',
+    product: 'Product',
+    boxId: [ 'boxId' ],
+    boxQty: 1,
+    price: 2000,
+    weight: 105,
+    grossWeight: 125,
+    trackId: '91023891273812738111',
+    barcode: '27381111'
+  },
+  {
+    status: 'At process',
+    created: '16/02/2020',
+    updated: '16/02/2020',
+    deliveryMethod: 'Air',
+    clientComment: "client's comment test2",
+    buyerComment: "buyer's comment test4",
+    avgDeliveryPrice: 20,
+
+    csCode: 'Xолодильника',
+    img: 'https://images-na.ssl-images-amazon.com/images/I/51ZEDgERzPL._AC_SX679_.jpg',
+    orderId: 'ID590102',
+    asin: 'C1878YDFMK',
+    qty: 100,
+    material: 'plastic',
+    destination: 'Не назначен',
+    product: 'Product',
+    boxId: [ '509991', '509992', '509993', '509994' ],
+    boxQty: 4,
+    price: 5000,
+    weight: 50,
+    grossWeight: null,
+    trackId: '91023891273812738111',
+    barcode: null
+  }
+];
+
+export const FREE_ORDERS_TABLE_HEADERS = [
+  'Статус',
+  'Товар',
+  'Штрихкод',
+  'Создан',
+  'Изменён',
+  'Склад',
+  'Способ доставки',
+  'Комментарий клиента',
+  'Комментарий байера'
+];
+
+export const ORDERS_MODAL_HEAD_CELLS = [
+  'Фото',
+  'Асин',
+  'Цена',
+  'Ср. цена доставки за 1 шт.',
+  'Кол-во',
+  'Итого',
+  'Штрихкод',
+  'Долларов за партию',
+  'Материал',
+  'Себестоимость в закупке',
+  'Tracking Number China'
+];
+
+export const MY_ORDERS_DATA = [
+  {
+    status: 'At process',
+    created: '24/11/2020',
+    updated: '25/11/2020',
+    deliveryMethod: 'Sea',
+    clientComment: "client's comment test2",
+    buyerComment: "buyer's comment test02",
+    avgDeliveryPrice: 20,
+
+    csCode: 'Вкладыш для холодильника',
+    img: 'https://images-na.ssl-images-amazon.com/images/I/61PgqkN76dL._AC_SX679_.jpg',
+    orderId: 'ID590101',
+    asin: 'B0878YDFMK',
+    qty: 100,
+    material: 'metal',
+    destination: 'ONT 8 AMAZON',
+    product: 'Product',
+    boxId: [ 'boxId' ],
+    boxQty: 1,
+    price: 2000,
+    weight: 105,
+    grossWeight: 125,
+    trackId: '91023891273812738111',
+    barcode: '27381111'
+  },
+  {
+    status: 'At process',
+    created: '16/02/2020',
+    updated: '16/02/2020',
+    deliveryMethod: 'Air',
+    clientComment: "client's comment test2",
+    buyerComment: "buyer's comment test4",
+    avgDeliveryPrice: 20,
+
+    csCode: 'Xолодильника',
+    img: 'https://images-na.ssl-images-amazon.com/images/I/51ZEDgERzPL._AC_SX679_.jpg',
+    orderId: 'ID590102',
+    asin: 'C1878YDFMK',
+    qty: 100,
+    material: 'plastic',
+    destination: 'Не назначен',
+    product: 'Product',
+    boxId: [ '509991', '509992', '509993', '509994' ],
+    boxQty: 4,
+    price: 5000,
+    weight: 50,
+    grossWeight: null,
+    trackId: '91023891273812738111',
+    barcode: null
+  },
+  {
+    status: 'Paid',
+    created: '12/12/2018',
+    updated: '12/12/2018',
+    deliveryMethod: 'Sea',
+    clientComment: "client's comment test1",
+    buyerComment: "buyer's comment test0+1",
+    avgDeliveryPrice: 20,
+
+    csCode: 'Упаковка батареек АА 48 шт.',
+    img: 'https://images-na.ssl-images-amazon.com/images/I/71IdKRlm8%2BL._AC_SX569_.jpg',
+    orderId: 'ID590322',
+    asin: 'B00MNV8E0C',
+    qty: 75,
+    material: 'Alkaline',
+    destination: 'Не назначен',
+    product: 'Product',
+    boxId: null,
+    boxQty: 4,
+    price: 2500,
+    weight: 25,
+    grossWeight: null,
+    trackId: '91023891273812738142',
+    barcode: null
+  }
+];
+
+export const MY_ORDER_TABLE_HEADERS = [
+  'Статус',
+  'Товар',
+  'Штрихкод',
+  'Создан',
+  'Изменён',
+  'Склад',
+  'Способ доставки',
+  'Комментарий клиента',
+  'Комментарий байера'
+];
+
+export const BUYER_INITIAL_PRODUCT = {
+  images: {},
+  csCode:
+    'Leaf Style Door Stopper Set - Silicone Rubber Stoppers Colorful Door Stop Wedge Cute Finger Guard Door Stoppers with Silicone Holders Window / Door Stopper for Home and Office',
+  asin: 'B07RKM1PSD',
+  linkAmazon: 'https://www.amazon.com/dp/B07RKM1PSD',
+  fba: true,
+  bsr: 23.309,
+  buyBoxPrice: 5.99,
+  width: 5.2756,
+  height: 7.0472,
+  length: 1.7717,
+  weight: 2.5,
+  minPrice: 0.541,
+  supplier: 5,
+  express: true,
+  maxDeliveryPrice: 0.6512,
+  refferalFee: 0.8894,
+  fbaFee: 5.02,
+  totalFba: 5.02,
+  recConsignmentQty: 10,
+  revenue: 10.412,
+  margin: 12,
+  status: 'status',
+  summary: 'some summary',
+  description:
+    'Product information Size:Leaf Technical Details Manufacturer HYQO Brand HYQO Item Weight 4.7 ounces Package Dimensions 7.05 x 5.28 x 1.77 inches Color Green, Yellow, Blue, Brown Material Type Silicone Size Leaf Manufacturer Part Number Leaf Additional Information ASIN B08CH6J8NF Customer Reviews 4.1 out of 5 stars 69 ratings 4.1 out of 5 stars Best Sellers Rank #23,309 in Office Products (See Top 100 in Office Products) #173 in Door Stops Date First Available July 7, 2020 Warranty & Support Product Warranty: For warranty information about this product, please click here Feedback Would you like to tell us about a lower price?',
+  commentManager: "Manager's comment",
+  commentSupervisor: "Supervisor's comment",
+  commentBuyer: "Buyer's comment"
+};
+export const BUYER_INITIAL_SUPPLIERS = [
+  {
+    name: 'Jakki Chan',
+    link: 'alibaba.com',
+    price: 10.49,
+    deliveryPrice: 4.99,
+    qty: 400,
+    minQty: 100,
+    comment: 'Делает скидку если слать поцелуи'
+  },
+  {
+    name: 'Jakki No Chan',
+    link: 'not-alibaba.com',
+    price: 7.88,
+    deliveryPrice: 2.88,
+    qty: 888,
+    minQty: 10,
+    comment: 'Не делает скидку если слать поцелуи'
+  }
+];
+export const BUYER_EMPTY_SUPPLIER = {
+  name: '',
+  link: '',
+  price: 0,
+  deliveryPrice: 0,
+  qty: 0,
+  minQty: 0,
+  comment: ''
+};
+
+export const BUYER_PRODUCTS_DATA = [
+  {
+    asin: '6gdh465',
+    csCode: 'Циркуль стальной металический',
+    price: 21.98,
+    avgPrice: 22.98,
+    fees: 16,
+    rank: 24,
+    rating: 5,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 21.98,
+    amazonPrice: 21.98,
+    bsr: 21.98,
+    fba: 21.98,
+    img:
+      'https://i.picsum.photos/id/533/128/128.jpg?hmac=BkWp6S8z7gMLifbg5sohzJSI80LduTZWIVvJ8u4l0I8',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  },
+  {
+    asin: '6gdh466',
+    csCode: 'Цветы искуственные декоративные розовые',
+    price: 30.5,
+    avgPrice: 30.5,
+    fees: 3.7,
+    rank: 67,
+    rating: 4.3,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 17.98,
+    amazonPrice: 17.98,
+    bsr: 17.98,
+    fba: 17.98,
+    img:
+      'https://i.picsum.photos/id/360/128/128.jpg?hmac=sCdhPPkDyfXnSWJpzyRTuPiLVBdZ2E8q1JpculA5vR4',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  },
+  {
+    asin: '6gdh467',
+    csCode: 'Древесина брус 18х18 орешник красный',
+    price: 452.49,
+    avgPrice: 529.49,
+    fees: 25,
+    rank: 51,
+    rating: 4.9,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 7.98,
+    amazonPrice: 7.98,
+    bsr: 7.98,
+    fba: 7.98,
+    img:
+      'https://i.picsum.photos/id/139/128/128.jpg?hmac=qI9eV3bt9QxcWJnwZe9HKWkgUDdXyraThmoIer_sty0',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  },
+  {
+    asin: '6gdh468',
+    csCode: 'Бамбук декоративный',
+    price: 262.32,
+    avgPrice: 102.32,
+    fees: 16,
+    rank: 24,
+    rating: 5,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 3.98,
+    amazonPrice: 3.98,
+    bsr: 3.98,
+    fba: 3.98,
+    img:
+      'https://i.picsum.photos/id/844/128/128.jpg?hmac=KvSq3pUqDPHmNMCKMOlha5Nwb4gs9MtiIZmtHEiDyaA',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  },
+  {
+    asin: '6gdh469',
+    csCode: 'Кактус Цереус комнатный семена',
+    price: 305.24,
+    avgPrice: 305.24,
+    fees: 3.7,
+    rank: 67,
+    rating: 4.3,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 14.98,
+    amazonPrice: 14.98,
+    bsr: 14.98,
+    fba: 14.98,
+    img:
+      'https://i.picsum.photos/id/789/128/128.jpg?hmac=pyc9bet-foHf2cUf74nuHurYNBGB1vGE8rY-6Ofc3Oo',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  },
+  {
+    asin: '6gdh411',
+    csCode: 'Рога оленя искуственные',
+    price: 2629.19,
+    avgPrice: 2729.19,
+    fees: 16,
+    rank: 24,
+    rating: 5,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 21.98,
+    amazonPrice: 21.98,
+    bsr: 21.98,
+    fba: 21.98,
+    img:
+      'https://i.picsum.photos/id/891/128/128.jpg?hmac=L_K1ls-Hmiy8fqWGLi0JiWiZEyTEL9_L0z-fADNZjXI',
+    exchangePrice: null,
+    exchangePriceFlag: null
+  }
+];
+
+export const BUYER_PRODUCTS_HEAD_CELLS = [
+  { id: 'asin', align: 'center', disablePadding: true, label: 'ASIN' },
+  { id: 'price', align: 'right', disablePadding: false, label: 'Price' },
+  { id: 'fees', align: 'left', disablePadding: false, label: 'Fees & Net' },
+  { id: 'rank', align: 'right', disablePadding: false, label: 'Rank' },
+  { id: 'rating', align: 'center', disablePadding: false, label: 'Rating' },
+  { id: 'sales', align: 'right', disablePadding: false, label: 'Sales' },
+  { id: 'salersTotal', align: 'center', disablePadding: false, label: 'Salers total' },
+  { id: 'type', align: 'right', disablePadding: false, label: 'Type' },
+  { id: 'revenue', align: 'right', disablePadding: false, label: 'Revenue' },
+  { id: 'amazonPrice', align: 'right', disablePadding: false, label: 'Amazon $' },
+  { id: 'bsr', align: 'right', disablePadding: false, label: 'BSR' },
+  { id: 'fba', align: 'right', disablePadding: false, label: 'FBA' }
+];
+
+export const SUB_USERS_INITIAL_DATA = [
+  { date: '12/09/2019', email: 'email@example.com' },
+  { date: '29/11/2017', email: 'email@example.com' },
+  { date: '03/02/2020', email: 'email@example.com' }
+];
+
+export const SUB_USERS_TABLE_CELLS = [
+  { id: 'created', label: 'Created' },
+  { id: 'email', label: 'Email' },
+  { id: 'bu', label: 'Bussines unit' },
+  { id: 'admin', label: 'Admin' }
+];
+
+export const BUYER_USER_INITIAL_LIST = [
+  {
+    categoryImg: categoryImgHomeAndKitchen,
+    category: 'Home & Kitchen',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450
+  },
+  {
+    categoryImg: categoryImgSportsAndOutdoors,
+    category: 'Sports & Outdoors',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450
+  },
+  {
+    categoryImg: categoryImgToysAndGames,
+    category: 'Toys & Games',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450
+  },
+  {
+    categoryImg: categoryImgHealthHouseholdAndBabyCare,
+    category: 'Health, Household & Baby Care',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450
+  },
+  {
+    categoryImg: categoryImgBeautyAndPersonalCare,
+    category: 'Beauty & Personal Care',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450
+  },
+  {
+    categoryImg: categoryImgKitchenAndDining,
+    category: 'Kitchen & Dining',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450
+  },
+  {
+    categoryImg: categoryImgClothingShoesAndJewelry,
+    category: 'Clothing, Shoes & Jewelry',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450
+  },
+  {
+    categoryImg: categoryImgBaby,
+    category: 'Baby',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450
+  },
+  {
+    categoryImg: categoryImgGardenAndOutdoor,
+    category: 'Garden & Outdoor',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450
+  },
+  {
+    categoryImg: categoryImgToolsAndHomeImprovement,
+    category: 'Tools & Home Improvement',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450
+  }
+];
+
+export const BUYER_USER_INITIAL_USER = {
+  img:
+    'https://fl-club.com/wp-content/uploads/2016/10/Igrovoy-noutbuk-2016-za-40000-rubley-kakoy-luchshe-720x380.jpg',
+  username: 'Username',
+  status: 'Принимаю заказы на ресерч'
+};
+
+export const BUYER_USER_HEAD_CELL = [
+  { id: 'image', label: 'Image' },
+  { id: 'image', label: 'Category' },
+  { id: 'image', label: 'Цена' },
+  { id: 'image', label: 'Кол-во' },
+  { id: 'image', label: 'Средняя цена' },
+  { id: 'image', label: 'Рекомендуемая партия' },
+  { id: 'image', label: 'Вес' },
+  { id: 'image', label: 'avg BSR' },
+  { id: 'image', label: 'avg Reviews' },
+  { id: 'image', label: 'avg Revenue' },
+  { id: 'image', label: 'Стоимость запуска' },
+  { id: 'image', label: 'Аккаунт менеджер' }
+];

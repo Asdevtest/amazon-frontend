@@ -108,6 +108,7 @@ export const useClassNames = makeStyles(() => ({
   },
   heightFieldAuto: {
     height: 'auto',
+    width: '100%',
   },
   buttonsWrapper: {
     display: 'flex',

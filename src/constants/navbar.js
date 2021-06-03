@@ -56,11 +56,27 @@ export const categoriesList = {
     {icon: SettingsIcon, title: 'Настройки', subtitles: null},
   ],
   buyer: [
-    {icon: InboxOutlinedIcon, title: 'Товары', subtitles: null},
-    {icon: InboxOutlinedIcon, title: 'Мои товары', subtitles: null},
-    {icon: AssignmentIcon, title: 'Заказы', subtitles: ['Мои заказы', 'Свободные заказы']},
+    {icon: InboxOutlinedIcon, title: 'Товары', route: '/buyer/products', subtitles: null},
+    {icon: InboxOutlinedIcon, title: 'Мои товары', route: '/buyer/my-products', subtitles: null},
+    {
+      icon: AssignmentIcon,
+      title: 'Заказы',
+      route: '/buyer/orders/my-orders',
+      subtitles: [
+        {subtitle: 'Мои заказы', subRoute: '/buyer/orders/my-orders'},
+        {subtitle: 'Свободные заказы', subRoute: '/buyer/orders/free-orders'},
+      ],
+    },
     {icon: ArchiveOutlinedIcon, title: 'Мой склад', subtitles: null},
-    {icon: AllInboxIcon, title: 'Партии товаров', subtitles: null},
-    {icon: PeopleIcon, title: 'Пользователи', subtitles: ['Мой профиль', 'Мои пользователи']},
+    {icon: AllInboxIcon, title: 'Партии товаров', route: '/buyer/batches', subtitles: null},
+    {
+      icon: PeopleIcon,
+      title: 'Пользователи',
+      route: '/buyer/users/user-profile',
+      subtitles: [
+        {subtitle: 'Мой профиль', subRoute: '/buyer/users/user-profile'},
+        {subtitle: 'Мои пользователи', subRoute: '/buyer/users/sub-users'},
+      ],
+    },
   ],
 }

@@ -80,5 +80,6 @@ export const useClassNames = makeStyles(() => ({
   },
   heightFieldAuto: {
     height: 'auto',
+    width: '100%',
   },
 }))

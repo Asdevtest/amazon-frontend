@@ -15,7 +15,18 @@ import {useClassNames} from './top-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
-export const TopCard = ({onChangeField, product, setProduct, onClick, suppliers, selected, onClickSupplier}) => {
+export const TopCard = ({
+  onChangeField,
+  product,
+  setProduct,
+  onClick,
+  suppliers,
+  selected,
+  onClickSupplier,
+  chipList,
+  activeChip,
+  setActiveChip,
+}) => {
   const classNames = useClassNames()
 
   return (
@@ -40,7 +51,13 @@ export const TopCard = ({onChangeField, product, setProduct, onClick, suppliers,
               onClickSupplier={onClickSupplier}
             />
           </Grid>
-          <RightSideComments product={product} onChangeField={onChangeField} />
+          <RightSideComments
+            chipList={chipList}
+            activeChip={activeChip}
+            setActiveChip={setActiveChip}
+            product={product}
+            onChangeField={onChangeField}
+          />
         </Grid>
       </Paper>
     </React.Fragment>
