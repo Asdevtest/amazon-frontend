@@ -2,9 +2,9 @@ import {React} from 'react'
 
 import {Paper, Typography} from '@material-ui/core'
 
-import {useClassNames} from './content-card.style'
+import {useClassNames} from './dashboard-card.style'
 
-export const ContentCard = props => {
+export const DashboardCard = props => {
   const classNames = useClassNames()
   return (
     <Paper className={classNames.paper}>

@@ -21,8 +21,8 @@ import {useStyles} from './documentation-view.style'
 
 export const DocumentationView = () => {
   const classes = useStyles()
-  const [activeCategory, setCategory] = useState(null) // category Биржа товаров
-  const [activeSubCategory, setSubCategory] = useState(0) // subCategory
+  const [activeCategory, setCategory] = useState(0)
+  const [activeSubCategory, setSubCategory] = useState(0)
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   const clientMainRef = useRef(null)

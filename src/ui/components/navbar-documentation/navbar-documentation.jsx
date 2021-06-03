@@ -79,7 +79,7 @@ export const NavbarDocumentation = ({
       1: {mainRoute: refs.registerRef},
     },
   }
-  const userHandleClick = user => {
+  const onClickNavBtn = user => {
     if (activeUser === user) {
       setActiveUser(null)
       setItem(null)
@@ -109,7 +109,7 @@ export const NavbarDocumentation = ({
       <List disablePadding>
         {Object.entries(CATEGORIES_LIST).map(([user, userPages], userIndex) => (
           <React.Fragment key={userIndex}>
-            <ListItemUser button disableGutters onClick={userHandleClick}>
+            <ListItemUser button disableGutters onClick={() => onClickNavBtn(user)}>
               <ListItemText>{user.charAt(0).toUpperCase() + user.slice(1)}</ListItemText>
               {activeUser === user ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </ListItemUser>

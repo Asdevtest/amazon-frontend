@@ -4,6 +4,7 @@ import {Box, Grid, Typography, Button} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
+import {ColoredChip} from '@components/colored-chip'
 import {Field} from '@components/field'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -12,7 +13,7 @@ import {useClassNames} from './right-side-comments.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
-export const RightSideComments = ({onChangeField, product}) => {
+export const RightSideComments = ({onChangeField, product, chipList, activeChip, setActiveChip}) => {
   const classNames = useClassNames()
 
   return (
@@ -29,6 +30,24 @@ export const RightSideComments = ({onChangeField, product}) => {
           value={product.commentManager}
           onChange={onChangeField('commentManager')}
         />
+        {chipList && (
+          <Box marginBottom={2}>
+            <Grid container spacing={1}>
+              {chipList.map(chip => (
+                <Grid key={chip.key} item>
+                  <ColoredChip
+                    label={chip.label}
+                    color={chip.color}
+                    colorHover={chip.colorHover}
+                    selected={activeChip === chip.key}
+                    onClick={() => setActiveChip(chip.key)}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        )}
+
         <Field
           multiline
           className={classNames.heightFieldAuto}
