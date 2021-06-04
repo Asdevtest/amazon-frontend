@@ -25,7 +25,7 @@ export const categoriesList = {
     {icon: InboxOutlinedIcon, title: 'Инвентарь', route: '/inventory', subtitles: null},
     {icon: AssignmentIcon, title: 'Мои заказы', route: '/orders', subtitles: null},
     {icon: ArchiveOutlinedIcon, title: 'Мой склад', route: '/warehouse', subtitles: null},
-    {icon: AllInboxIcon, title: 'Мои отправления', route: '/batches', subtitles: null},
+    {icon: AllInboxIcon, title: 'Мои отправления', route: '/client/batches', subtitles: null},
     {
       icon: PeopleIcon,
       title: 'Пользователи',

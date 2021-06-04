@@ -15,7 +15,7 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from './assets/clientAvatar.jpg'
+import avatar from '../assets/clientAvatar.jpg'
 import {styles} from './client-inventory-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').inventoryView

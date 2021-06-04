@@ -19,10 +19,10 @@ import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/buyerAvatar.jpg'
-import {styles} from './batches-view.style'
+import avatar from '../assets/clientAvatar.jpg'
+import {styles} from './client-batches-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').buyerBatchesView
+const textConsts = getLocalizedTexts(texts, 'ru').clientBatchesView
 
 const batchesData = [
   [BATCHES_BOXES_EXAMPLES[0], BATCHES_BOXES_EXAMPLES[2]],
@@ -31,7 +31,7 @@ const batchesData = [
   [BATCHES_BOXES_EXAMPLES[0]],
 ]
 
-class BatchesViewRaw extends Component {
+class ClientBatchesViewRaw extends Component {
   state = {
     activeCategory: 4,
     activeSubCategory: null,
@@ -92,11 +92,11 @@ class BatchesViewRaw extends Component {
 
         <Modal openModal={this.state.modalEditBoxes} setOpenModal={this.onChangeModalEditBoxes}>
           <EditBatchModal
-            batch={batchesData[this.state.selected]}
+            batch={[[BATCHES_BOXES_EXAMPLES]]}
             setModal={this.onChangeModalEditBoxes}
             warehouseList={BUYER_WAREHOUSE_LIST}
             deliveryList={BUYER_DELIVERY_LIST}
-            type={'buyer'}
+            type={'client'}
           />
         </Modal>
       </React.Fragment>
@@ -149,6 +149,6 @@ class BatchesViewRaw extends Component {
   }
 }
 
-const BatchesView = withStyles(styles)(BatchesViewRaw)
+const ClientBatchesView = withStyles(styles)(ClientBatchesViewRaw)
 
-export {BatchesView}
+export {ClientBatchesView}

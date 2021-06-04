@@ -8,11 +8,11 @@ import {Input} from '@components/input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import {useClassNames} from './form.style'
+import {useClassNames} from './buyer-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').batchesModalEditFillList
 
-export const Form = ({
+export const BuyerForm = ({
   warehouseCheckbox,
   warehouse,
   setWarehouse,

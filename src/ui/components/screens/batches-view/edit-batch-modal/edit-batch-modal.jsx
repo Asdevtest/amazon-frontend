@@ -9,12 +9,13 @@ import {Button} from '@components/button'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {BoxList} from './box-list'
+import {BuyerForm} from './buyer-form'
+import {ClientForm} from './client-form'
 import {useClassNames} from './edit-batch-modal.style'
-import {Form} from './form'
 
 const textConsts = getLocalizedTexts(texts, 'en').batchesModalEditBatch
 
-export const EditBatchModal = ({batch, setModal, warehouseList, deliveryList}) => {
+export const EditBatchModal = ({batch, setModal, warehouseList, deliveryList, type}) => {
   const classNames = useClassNames()
 
   const [warehouse, setWarehouse] = useState(batch[0][0].destination)
@@ -24,26 +25,36 @@ export const EditBatchModal = ({batch, setModal, warehouseList, deliveryList}) =
     batch[0][0].destination !== textConsts.batchDestination ? true : false,
   )
   const [deliveryCheckbox, setDeliveryCheckbox] = useState(!!batch[0][0].deliveryMethod)
-  // const [ selectedBoxes, setSelectedBoxes ] = useState(batch); закомментировано пока не использается setSelectedBoxes
+
+  const renderSwitchForm = param => {
+    switch (param) {
+      case 'client':
+        return <ClientForm batch={batch} />
+      case 'buyer':
+        return (
+          <BuyerForm
+            warehouseCheckbox={warehouseCheckbox}
+            warehouse={warehouse}
+            setWarehouse={setWarehouse}
+            setWarehouseCheckbox={setWarehouseCheckbox}
+            deliveryCheckbox={deliveryCheckbox}
+            setDeliveryCheckbox={setDeliveryCheckbox}
+            setDelivery={setDelivery}
+            setStatus={setStatus}
+            delivery={delivery}
+            status={status}
+            warehouseList={warehouseList}
+            deliveryList={deliveryList}
+          />
+        )
+    }
+  }
 
   return (
     <Box className={classNames.listsBox}>
       <Typography className={classNames.modalTitle}>{textConsts.mainTitle}</Typography>
 
-      <Form
-        warehouseCheckbox={warehouseCheckbox}
-        warehouse={warehouse}
-        setWarehouse={setWarehouse}
-        setWarehouseCheckbox={setWarehouseCheckbox}
-        deliveryCheckbox={deliveryCheckbox}
-        setDeliveryCheckbox={setDeliveryCheckbox}
-        setDelivery={setDelivery}
-        setStatus={setStatus}
-        delivery={delivery}
-        status={status}
-        warehouseList={warehouseList}
-        deliveryList={deliveryList}
-      />
+      {renderSwitchForm(type)}
 
       <BoxList selectedBoxes={batch} warehouse={warehouse} delivery={delivery} />
 
