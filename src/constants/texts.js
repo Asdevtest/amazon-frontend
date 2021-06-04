@@ -448,12 +448,19 @@ export const texts = {
       summary: 'Краткое описание на Amazon',
       description: 'Подробно',
     },
-    batchesView: {
+    buyerBatchesView: {
       editBatch: 'Редактировать партию',
       mainTitle: 'Партии товаров',
       appBarTitle: 'Batches',
       appBarUsername: 'Buyer',
       appUser: 'buyer',
+    },
+    clientBatchesView: {
+      editBatch: 'Редактировать партию',
+      mainTitle: 'Мои отправления',
+      appBarTitle: 'Batches',
+      appBarUsername: 'Client',
+      appUser: 'client',
     },
     ordersViewsModalSetBarcode: {
       title: 'Установить штрихкод',
@@ -546,6 +553,19 @@ export const texts = {
       acManager: 'Аккаунт менеджер',
       buyNowBtn: 'Заказать сразу',
       cancelBtn: 'Отменить',
+    },
+    clientBatchesForm: {
+      title: 'Список полей для заполнения',
+      typoSetChoosenBoxe: 'Задайте нужные значения всем выбранным коробкам.',
+      makeChoose: 'Выбор стиля отображения:',
+      spaceBetweenStyle: 'Стиль расположения элементов space-between:',
+      spaceEvenlyStyle: 'Стиль расположения элементов space-evenly:',
+      alignRightStyle: 'Стиль расположения элементов align=right, element spacing=32px:',
+      widthHalfStyle: 'Стиль расположения элементов width=1/2 of parent width:',
+      warehouse: 'Склад:',
+      deliveryMethod: 'Способ доставки:',
+      status: 'Статус:',
+      track: 'Трек номер США:',
     },
   },
 }

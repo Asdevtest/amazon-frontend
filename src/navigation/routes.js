@@ -7,6 +7,7 @@ import {BuyerProductView} from '@views/buyer/product-view/'
 import {BuyerProductsView} from '@views/buyer/products-view/'
 import {SubUsersView} from '@views/buyer/users-views/sub-users-view'
 import {UserProfileView} from '@views/buyer/users-views/user-profile-view'
+import {ClientBatchesView} from '@views/client/client-batches-view'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangeView} from '@views/client/client-exchange-view/exchange'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-view/private-label'
@@ -129,6 +130,11 @@ export const routes = [
   {
     routePath: '/supervisor/dashboard',
     component: SupervisorDashboardView,
+    exact: false,
+  },
+  {
+    routePath: '/client/batches',
+    component: ClientBatchesView,
     exact: false,
   },
 ]

@@ -16,12 +16,14 @@ export const BoxList = ({selectedBoxes, warehouse, delivery}) => {
 
   return (
     <Paper elevation={0} className={classNames.mainPaperWrapper}>
-      <Typography className={classNames.modalText}>{textConsts.o}</Typography>
+      <Typography className={classNames.modalText}>{textConsts.listBoxes}</Typography>
       <Typography className={(classNames.modalText, classNames.typoSure)}>{textConsts.checkBoxes}</Typography>
-      {selectedBoxes.map((box, boxIndex) => {
-        ;<Paper key={boxIndex} elevation={0} className={classNames.subPaperWrapper}>
+
+      {selectedBoxes.map((box, boxIndex) => (
+        <Paper key={boxIndex} elevation={0} className={classNames.subPaperWrapper}>
           <Typography className={classNames.modalText}>{textConsts.boxNum}</Typography>
           <Divider className={classNames.divider} />
+
           <Box mt={1}>
             <Typography
               className={(classNames.modalText, classNames.boxDataTypo)}
@@ -51,7 +53,7 @@ export const BoxList = ({selectedBoxes, warehouse, delivery}) => {
             ))}
           </Box>
         </Paper>
-      })}
+      ))}
     </Paper>
   )
 }

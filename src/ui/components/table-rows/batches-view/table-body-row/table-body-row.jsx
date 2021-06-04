@@ -4,7 +4,7 @@ import {TableCell, TableRow} from '@material-ui/core'
 
 export const TableBodyRow = ({item, itemIndex, handlers}) => (
   <TableRow
-    selected={handlers.selected}
+    selected={handlers.selected === itemIndex}
     onClick={() => handlers.onSelected(itemIndex)}
     onDoubleClick={() => handlers.onDoubleClick(itemIndex)}
   >
@@ -18,12 +18,12 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => (
       </TableCell>
     ))} */}
 
-    <TableCell>{item.clientId}</TableCell>
-    <TableCell>{item.status}</TableCell>
-    <TableCell>{item.created}</TableCell>
-    <TableCell>{item.updated}</TableCell>
-    <TableCell>{item.destination}</TableCell>
-    <TableCell>{item.deliveryMethod}</TableCell>
-    <TableCell>{item.trackId}</TableCell>
+    <TableCell>{item[0][0].clientId}</TableCell>
+    <TableCell>{item[0][0].status}</TableCell>
+    <TableCell>{item[0][0].created}</TableCell>
+    <TableCell>{item[0][0].updated}</TableCell>
+    <TableCell>{item[0][0].destination}</TableCell>
+    <TableCell>{item[0][0].deliveryMethod}</TableCell>
+    <TableCell>{item[0][0].trackId}</TableCell>
   </TableRow>
 )
