@@ -118,23 +118,23 @@ export const routes = [
     exact: true,
   },
   {
-    routePath: '/exchange/private-label',
+    routePath: '/client/exchange/private-label',
     component: ClientExchangePrivateLabelView,
     exact: true,
   },
   {
-    routePath: '/exchange/requests',
+    routePath: '/client/exchange/requests',
     component: ClientExchangeRequestsView,
-    exact: false,
-  },
-  {
-    routePath: '/supervisor/dashboard',
-    component: SupervisorDashboardView,
     exact: false,
   },
   {
     routePath: '/client/batches',
     component: ClientBatchesView,
+    exact: false,
+  },
+  {
+    routePath: '/supervisor/dashboard',
+    component: SupervisorDashboardView,
     exact: false,
   },
 ]

@@ -11,38 +11,38 @@ import SettingsIcon from '@material-ui/icons/Settings'
 
 export const categoriesList = {
   client: [
-    {icon: InfoOutlinedIcon, title: 'Главная страница', route: '/dashboard', subtitles: null},
+    {icon: InfoOutlinedIcon, title: 'Главная страница', route: '/client/dashboard', subtitles: null},
     {
       icon: GavelIcon,
       title: 'Биржа товаров',
-      route: '/exchange',
+      route: '/client/exchange',
       subtitles: [
-        {subtitle: 'Биржа вилок', subRoute: '/exchange'},
-        {subtitle: 'Private Label', subRoute: '/exchange/private-label'},
-        {subtitle: 'Мои заявки', subRoute: '/exchange/requests'},
+        {subtitle: 'Биржа вилок', subRoute: '/client/exchange'},
+        {subtitle: 'Private Label', subRoute: '/client/exchange/private-label'},
+        {subtitle: 'Мои заявки', subRoute: '/client/exchange/requests'},
       ],
     },
-    {icon: InboxOutlinedIcon, title: 'Инвентарь', route: '/inventory', subtitles: null},
-    {icon: AssignmentIcon, title: 'Мои заказы', route: '/orders', subtitles: null},
-    {icon: ArchiveOutlinedIcon, title: 'Мой склад', route: '/warehouse', subtitles: null},
+    {icon: InboxOutlinedIcon, title: 'Инвентарь', route: '/client/inventory', subtitles: null},
+    {icon: AssignmentIcon, title: 'Мои заказы', route: '/client/orders', subtitles: null},
+    {icon: ArchiveOutlinedIcon, title: 'Мой склад', route: '/client/warehouse', subtitles: null},
     {icon: AllInboxIcon, title: 'Мои отправления', route: '/client/batches', subtitles: null},
     {
       icon: PeopleIcon,
       title: 'Пользователи',
-      route: '/user',
+      route: '/client/user',
       subtitles: [
-        {subtitle: 'Мой профиль', subRoute: '/user'},
-        {subtitle: 'Мои пользователи', subRoute: '/user/subusers'},
+        {subtitle: 'Мой профиль', subRoute: '/client/user'},
+        {subtitle: 'Мои пользователи', subRoute: '/client/user/subusers'},
       ],
     },
-    {icon: SettingsIcon, title: 'Настройки', route: '/settings', subtitles: null},
+    {icon: SettingsIcon, title: 'Настройки', route: '/client/settings', subtitles: null},
     {
       icon: ChatBubbleOutlineOutlinedIcon,
       title: 'Сообщения',
-      route: '/messages',
+      route: '/client/messages',
       subtitles: null,
     },
-    {icon: MonetizationOnOutlinedIcon, title: 'Финансы', route: '/finances', subtitles: null},
+    {icon: MonetizationOnOutlinedIcon, title: 'Финансы', route: '/client/finances', subtitles: null},
   ],
   freelancer: [
     {icon: InfoOutlinedIcon, title: 'Главная страница', subtitles: null},
