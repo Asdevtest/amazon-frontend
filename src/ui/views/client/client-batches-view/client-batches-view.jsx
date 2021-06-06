@@ -51,7 +51,7 @@ class ClientBatchesViewRaw extends Component {
           activeCategory={activeCategory}
           setItem={this.onChangeCategory}
           activeSubCategory={activeSubCategory}
-          categoriesList={categoriesList.buyer}
+          categoriesList={categoriesList.client}
           setSubItem={this.onChangeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={this.onChangeDrawerOpen}

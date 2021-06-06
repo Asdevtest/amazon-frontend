@@ -13,6 +13,8 @@ import {ClientExchangeView} from '@views/client/client-exchange-view/exchange'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-view/private-label'
 import {ClientExchangeRequestsView} from '@views/client/client-exchange-view/requests'
 import {ClientInventoryView} from '@views/client/client-inventory-view'
+import {ClientOrderView} from '@views/client/client-orders-views/order'
+import {ClientOrdersView} from '@views/client/client-orders-views/orders'
 import {ClientProductView} from '@views/client/client-product-view'
 import {DocumentationView} from '@views/documentation'
 import {DashboardView} from '@views/freelancer/dashboard-view'
@@ -135,6 +137,16 @@ export const routes = [
   {
     routePath: '/supervisor/dashboard',
     component: SupervisorDashboardView,
+    exact: false,
+  },
+  {
+    routePath: '/client/orders',
+    component: ClientOrdersView,
+    exact: true,
+  },
+  {
+    routePath: '/client/orders/order',
+    component: ClientOrderView,
     exact: false,
   },
 ]

@@ -3,14 +3,7 @@ import React, {Component} from 'react'
 import {Typography, Container, Button} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
-import {
-  MY_ORDER_TABLE_HEADERS,
-  MY_ORDERS_DATA,
-  ORDERS_MODAL_HEAD_CELLS,
-  BUYER_WAREHOUSE_LIST,
-  BUYER_STATUS_LIST,
-  BUYER_DELIVERY_LIST,
-} from '@constants/mocks'
+import {CLIENT_ORDERS_DATA, CLIENT_ORDERS_HEAD_CELL} from '@constants/mocks'
 import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
@@ -19,32 +12,30 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
-import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
-import {SetBarcodeModal} from '@components/screens/buyer/orders-view/set-barcode-modal'
+import {SetBarcodeModal} from '@components/screens/client/orders-view/set-barcode-modal'
 import {Table} from '@components/table'
-import {TableBodyRow} from '@components/table-rows/buyer/orders-views/table-body-row'
-import {TableHeadRow} from '@components/table-rows/buyer/orders-views/table-head-row'
+import {TableBodyRow} from '@components/table-rows/client/orders-views/orders/table-body-row'
+import {TableHeadRow} from '@components/table-rows/client/orders-views/orders/table-head-row'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/buyerAvatar.jpg'
-import {styles} from './my-orders-view.style'
+import avatar from '../../assets/clientAvatar.jpg'
+import {styles} from './client-orders-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').myOrdersView
+const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersView
 
-class MyOrdersViewRaw extends Component {
+class ClientOrdersViewRaw extends Component {
   state = {
-    activeCategory: 2,
-    activeSubCategory: 0,
+    activeCategory: 3,
+    activeSubCategory: 2,
     drawerOpen: false,
     modalBarcode: false,
-    modalOrder: false,
     rowsPerPage: 5,
     paginationPage: 1,
-    selectedOrder: 0,
   }
+
   render() {
-    const {activeCategory, activeSubCategory, drawerOpen} = this.state
+    const {activeCategory, activeSubCategory, drawerOpen, modalBarcode, rowsPerPage, paginationPage} = this.state
 
     return (
       <React.Fragment>
@@ -52,19 +43,17 @@ class MyOrdersViewRaw extends Component {
           activeCategory={activeCategory}
           setItem={this.onChangeCategory}
           activeSubCategory={activeSubCategory}
-          categoriesList={categoriesList.buyer}
+          categoriesList={categoriesList.client}
           setSubItem={this.onChangeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={this.onChangeDrawerOpen}
           user={textConsts.appUser}
         />
-
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={this.onChangeDrawerOpen}
           >
@@ -72,37 +61,24 @@ class MyOrdersViewRaw extends Component {
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
 
               <Table
-                buttons={this.renderButtons}
-                currentPage={this.state.paginationPage}
-                data={MY_ORDERS_DATA}
+                buttons={this.buttonsContent}
+                currentPage={paginationPage}
+                data={CLIENT_ORDERS_DATA}
                 handlerPageChange={this.onChangePagination}
                 handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(MY_ORDERS_DATA.length / this.state.rowsPerPage)}
+                pageCount={Math.ceil(CLIENT_ORDERS_DATA.length / rowsPerPage)}
                 BodyRow={TableBodyRow}
                 renderHeadRow={this.renderHeadRow}
-                rowsPerPage={this.state.rowsPerPage}
+                rowsPerPage={rowsPerPage}
                 rowsHandlers={{
-                  onOrder: this.onChangeModalOrder,
                   onBarcode: this.onChangeModalBarcode,
-                  onSelector: this.onChangeSelectedOrder,
                 }}
               />
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={this.state.modalOrder} setOpenModal={this.onChangeModalOrder}>
-          <EditOrderModal
-            order={MY_ORDERS_DATA[this.state.selectedOrder]}
-            setModal={this.onChangeModalOrder}
-            setModalBarcode={this.onChangeModalBarcode}
-            modalHeadCells={ORDERS_MODAL_HEAD_CELLS}
-            warehouseList={BUYER_WAREHOUSE_LIST}
-            deliveryList={BUYER_DELIVERY_LIST}
-            statusList={BUYER_STATUS_LIST}
-          />
-        </Modal>
-        <Modal openModal={this.state.modalBarcode} setOpenModal={this.onChangeModalBarcode}>
+        <Modal openModal={modalBarcode} setOpenModal={this.onChangeModalBarcode}>
           <SetBarcodeModal setModalBarcode={this.onChangeModalBarcode} />
         </Modal>
       </React.Fragment>
@@ -115,18 +91,10 @@ class MyOrdersViewRaw extends Component {
     </Container>
   )
 
-  renderHeadRow = (<TableHeadRow headCells={MY_ORDER_TABLE_HEADERS} />)
-
-  onChangeSelectedOrder = value => {
-    this.setState({selectedOrder: value})
-  }
+  renderHeadRow = (<TableHeadRow headCells={CLIENT_ORDERS_HEAD_CELL} />)
 
   onChangeModalBarcode = () => {
     this.setState({modalBarcode: !this.state.modalBarcode})
-  }
-
-  onChangeModalOrder = () => {
-    this.setState({modalOrder: !this.state.modalOrder})
   }
 
   onChangeDrawerOpen = (e, value) => {
@@ -150,6 +118,6 @@ class MyOrdersViewRaw extends Component {
   }
 }
 
-const MyOrdersView = withStyles(styles)(MyOrdersViewRaw)
+const ClientOrdersView = withStyles(styles)(ClientOrdersViewRaw)
 
-export {MyOrdersView}
+export {ClientOrdersView}
