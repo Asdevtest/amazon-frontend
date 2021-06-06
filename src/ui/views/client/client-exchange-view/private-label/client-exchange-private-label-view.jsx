@@ -36,7 +36,7 @@ const textConsts = getLocalizedTexts(texts, 'en').clientExchangePrivateLabelView
 const {listKeys, productList} = clientExchangePrivateLabelView
 
 const filteredProductList = getRequiredListByKeys(productList, listKeys)
-console.log(filteredProductList)
+
 export class ClientExchangePrivateLabelViewRaw extends Component {
   state = {
     activeCategory: 1,

@@ -1,8 +1,7 @@
 import React from 'react'
 
-import {Divider, Drawer, Hidden, SvgIcon, List, ListItemIcon, ListItemText} from '@material-ui/core'
+import {Divider, Drawer, Hidden, List} from '@material-ui/core'
 import clsx from 'clsx'
-import {Link} from 'react-router-dom'
 
 import {NavbarCategory} from './navbar-category'
 import {NavbarCollapse} from './navbar-collapse'
@@ -22,24 +21,11 @@ export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawe
           <React.Fragment key={index}>
             <NavbarCategory
               button
-              disableGutters
-              component={Link}
-              selected={index === activeCategory}
+              isSelected={index === activeCategory}
               to={category.route}
-            >
-              <ListItemIcon
-                className={clsx(classNames.iconWrapper, {
-                  [classNames.selected]: index === activeCategory,
-                })}
-              >
-                <SvgIcon className={classNames.icon} component={category.icon} />
-              </ListItemIcon>
-              <ListItemText
-                disableTypography
-                className={clsx({[classNames.selected]: index === activeCategory})}
-                primary={category.title}
-              />
-            </NavbarCategory>
+              icon={category.icon}
+              title={category.title}
+            />
 
             <NavbarCollapse
               activeCategory={activeCategory}

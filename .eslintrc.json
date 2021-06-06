@@ -41,7 +41,7 @@
         "lifecycle",
         "render",
         "/^render.+$/",
-        "/^on.+$/",
+        "/^(on|set).+$/",
         "everything-else"
       ],
       "groups": {

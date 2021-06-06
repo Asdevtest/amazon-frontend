@@ -3,7 +3,12 @@ import React, {Component} from 'react'
 import {Grid, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
-import {clientUsername, INVENTORY_CARD_LIST} from '@constants/mocks'
+import {
+  clientUsername,
+  INVENTORY_CARD_LIST,
+  CLIENT_INVENTORY_PRODUCTS_DATA,
+  CLIENT_INVENTORY_MY_PRODUCTS_HEAD_CELLS,
+} from '@constants/mocks'
 import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
@@ -11,8 +16,14 @@ import {Appbar} from '@components/appbar'
 import {InfoCard} from '@components/info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
+import {SetBarcodeModalContent} from '@components/set-barcode-modal-content'
+import {Table} from '@components/table'
+import {TableBodyRow} from '@components/table-rows/client/inventory/products-view/table-body-row'
+import {TableHeadRow} from '@components/table-rows/client/inventory/products-view/table-head-row'
 
+import {copyToClipBoard} from '@utils/clipboard'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/clientAvatar.jpg'
@@ -25,11 +36,21 @@ export class ClientInventoryViewRaw extends Component {
     activeCategory: 2,
     activeSubCategory: null,
     drawerOpen: false,
+    rowsPerPage: 5,
+    paginationPage: 1,
+    showSetBarcodeModal: false,
+    curProduct: undefined,
   }
 
   render() {
-    const {activeCategory, activeSubCategory, drawerOpen} = this.state
-    const {classes} = this.props
+    const {activeCategory, activeSubCategory, drawerOpen, curProduct, showSetBarcodeModal} = this.state
+    const {classes: classNames} = this.props
+    const tableRowHandlers = {
+      onClickBarcode: this.onClickBarcode,
+      onClickExchange: this.onClickExchange,
+      onDoubleClickBarcode: this.onDoubleClickBarcode,
+      onDeleteBarcode: this.onDeleteBarcode,
+    }
     return (
       <React.Fragment>
         <Navbar
@@ -54,20 +75,75 @@ export class ClientInventoryViewRaw extends Component {
                   </Grid>
                 ))}
               </Grid>
-              <Typography variant="h5" className={classes.someClass}>
+              <Typography variant="h5" className={classNames.someClass}>
                 {textConsts.productsList}
               </Typography>
-              {/* ЖДЕМ ГОТОВЫЙ КОМПОНЕНТ ОТ Евгения <InventoryTable />*/}
+              <Table
+                currentPage={this.state.paginationPage}
+                data={CLIENT_INVENTORY_PRODUCTS_DATA}
+                handlerPageChange={this.onChangePagination}
+                handlerRowsPerPage={this.onChangeRowsPerPage}
+                pageCount={Math.ceil(CLIENT_INVENTORY_PRODUCTS_DATA.length / this.state.rowsPerPage)}
+                BodyRow={TableBodyRow}
+                renderHeadRow={this.renderHeadRow}
+                rowsPerPage={this.state.rowsPerPage}
+                rowsHandlers={tableRowHandlers}
+              />
             </MainContent>
           </Appbar>
         </Main>
+        <Modal openModal={showSetBarcodeModal} setOpenModal={this.onTriggerShowBarcodeModal}>
+          <SetBarcodeModalContent
+            barcodeValue={(curProduct && curProduct.barcode) || ''}
+            onClose={this.onTriggerShowBarcodeModal}
+            onSaveBarcode={this.onSaveBarcode}
+          />
+        </Modal>
       </React.Fragment>
     )
+  }
+
+  renderHeadRow = (<TableHeadRow headCells={CLIENT_INVENTORY_MY_PRODUCTS_HEAD_CELLS} />)
+
+  onClickBarcode = item => {
+    if (item.barcode) {
+      copyToClipBoard(item.barcode)
+    } else {
+      this.setCurProduct(item)
+      this.onTriggerShowBarcodeModal()
+    }
+  }
+
+  onClickExchange = () => {}
+
+  onDoubleClickBarcode = item => {
+    this.setCurProduct(item)
+    this.onTriggerShowBarcodeModal()
+  }
+
+  onDeleteBarcode = () => {}
+
+  onSaveBarcode = () => {}
+
+  onChangePagination = (e, value) => {
+    this.setState({paginationPge: value})
+  }
+
+  onChangeRowsPerPage = e => {
+    this.setState({rowsPerPage: Number(e.target.value), paginationPge: 1})
   }
 
   onTriggerDrawer = () => {
     const {drawerOpen} = this.state
     this.setState({drawerOpen: !drawerOpen})
+  }
+
+  onTriggerShowBarcodeModal = () => {
+    this.setState({showSetBarcodeModal: !this.state.showSetBarcodeModal})
+  }
+
+  setCurProduct = item => {
+    this.setState({curProduct: item})
   }
 }
 

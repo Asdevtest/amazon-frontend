@@ -30,9 +30,6 @@ export const useClassNames = makeStyles(theme => ({
     margin: '16px 16px 16px 11px',
     color: 'rgba(189, 194, 209, 1)',
   },
-  selected: {
-    color: theme.palette.primary.main,
-  },
   icon: {
     fontSize: theme.spacing(3),
   },

@@ -69,7 +69,6 @@ class ClientBatchesViewRaw extends Component {
           >
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
-
               <Table
                 buttons={this.renderButtons()}
                 currentPage={this.state.paginationPage}

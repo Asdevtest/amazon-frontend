@@ -127,6 +127,9 @@ export const texts = {
     inventoryView: {
       appbarTitle: 'Inventory',
       productsList: 'Products list',
+      setBarCodeBtn: 'Set barcode',
+      exchangeBtn: 'Exchange',
+      setBarcodeChipLabel: 'Set barcode',
     },
     freelancerDashboardView: {
       appBarTitle: 'Dashboard',
@@ -281,6 +284,12 @@ export const texts = {
       bussinesUnit: 'N/A',
       editBtn: 'Edit User',
       deleteBtn: 'Delete',
+    },
+    setBarcodeModalContent: {
+      title: 'Установить штрихкод',
+      saveBtn: 'Сохранить',
+      close: 'Закрыть',
+      inputLabel: 'Штрихкод товара:',
     },
   },
   ru: {
@@ -567,6 +576,7 @@ export const texts = {
       status: 'Статус:',
       track: 'Трек номер США:',
     },
+<<<<<<< HEAD
     clientOrdersView: {
       mainTitle: 'Мои заказы',
       appBarTitle: 'Страница заказов',
@@ -637,6 +647,19 @@ export const texts = {
     },
     clientOrderOrderContent: {
       title: 'На оформлении',
+    },
+    inventoryView: {
+      appbarTitle: 'Inventory',
+      productsList: 'Products list',
+      setBarCodeBtn: 'Set barcode',
+      exchangeBtn: 'Exchange',
+      setBarcodeChipLabel: 'Set barcode',
+    },
+    setBarcodeModalContent: {
+      title: 'Установить штрихкод',
+      saveBtn: 'Сохранить',
+      close: 'Закрыть',
+      inputLabel: 'Штрихкод товара:',
     },
   },
 }
