@@ -667,7 +667,7 @@ export const texts = {
       status: 'Статус:',
       track: 'Трек номер США:',
     },
-<<<<<<< HEAD
+
     clientOrdersView: {
       mainTitle: 'Мои заказы',
       appBarTitle: 'Страница заказов',

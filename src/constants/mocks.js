@@ -1,4 +1,3 @@
-
 export const inventorySection = {
   title: 'Инвентарь',
   items: [
@@ -23,6 +22,7 @@ export const exchangeSection = {
     {value: 1, title: 'Начислено ресерчерам', color: '#4dbd74'},
     {value: 17, title: 'Споров по товарам', color: '#f86c6b'},
   ],
+}
 
 export const clientDashboardData = {
   productsInInventory: 7,
@@ -33,7 +33,7 @@ export const clientDashboardData = {
   canceledOrders: 24,
   soldItemsOnExchange: 53,
   accuredToReserchers: 1,
-  disputsForProducts: 17
+  disputsForProducts: 17,
 }
 
 export const clientUsername = 'Client'
@@ -1700,7 +1700,6 @@ export const USER_HEAD_CELL = [
   {id: 'image', label: 'Аккаунт менеджер'},
 ]
 
-<<<<<<< HEAD
 export const CLIENT_ORDERS_DATA = [
   {
     csCode: 'Вкладыш для холодильника',
