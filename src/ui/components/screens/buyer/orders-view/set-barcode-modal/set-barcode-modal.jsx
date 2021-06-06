@@ -4,7 +4,7 @@ import {Box, Container, Divider, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
-import {Button} from '@components/button'
+import {Button} from '@components/buttons/button'
 import {Input} from '@components/input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'

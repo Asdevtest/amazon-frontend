@@ -5,7 +5,7 @@ import {Container, Divider, Typography} from '@material-ui/core'
 import {PRODUCT_EMPTY_SUPPLIERS} from '@constants/mocks'
 import {texts} from '@constants/texts'
 
-import {Button} from '@components/button'
+import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'

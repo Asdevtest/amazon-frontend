@@ -5,6 +5,8 @@ import {withStyles} from '@material-ui/styles'
 
 import {texts} from '@constants/texts'
 
+import {ErrorButton} from '@components/buttons/error-button'
+
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {styles} from './table-body-row.style'
@@ -28,9 +30,7 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
         <Button className={classNames.editBtn} variant="contained" onClick={() => handlers.onEdit()}>
           {textConsts.editBtn}
         </Button>
-        <Button danger variant="contained">
-          {textConsts.deleteBtn}
-        </Button>
+        <ErrorButton variant="contained">{textConsts.deleteBtn}</ErrorButton>
       </TableCell>
     </TableRow>
   )

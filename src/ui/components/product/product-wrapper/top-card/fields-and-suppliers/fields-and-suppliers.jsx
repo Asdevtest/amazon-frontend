@@ -31,8 +31,8 @@ export const FieldsAndSuppliers = ({
   return (
     <Grid item xs={12}>
       <Box className={classNames.productFieldBox}>
-        <Field disabled title={textConsts.fieldAsin} value={product.asin} onChange={onChangeField('asin')} />
-        <Field title={textConsts.fieldLinkAmazon} value={product.linkAmazon} onChange={onChangeField('linkAmazon')} />
+        <Field disabled label={textConsts.fieldAsin} value={product.asin} onChange={onChangeField('asin')} />
+        <Field label={textConsts.fieldLinkAmazon} value={product.linkAmazon} onChange={onChangeField('linkAmazon')} />
         <Box className={classNames.productCheckboxBox} mb={2.5}>
           <Typography className={(classNames.label, classNames.typoCheckbox)}>{textConsts.checkboxFba}</Typography>
 

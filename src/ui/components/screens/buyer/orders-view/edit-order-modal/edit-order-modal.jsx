@@ -4,7 +4,8 @@ import {Box, Divider, Paper, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
-import {Button} from '@components/button'
+import {Button} from '@components/buttons/button'
+import {ErrorButton} from '@components/buttons/error-button'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -78,9 +79,7 @@ export const EditOrderModal = ({
         <Button className={classNames.saveBtn} onClick={() => setModal(false)}>
           {textConsts.saveBtn}
         </Button>
-        <Button danger onClick={() => setModal(false)}>
-          {textConsts.cancelBtn}
-        </Button>
+        <ErrorButton onClick={() => setModal(false)}>{textConsts.cancelBtn}</ErrorButton>
       </Box>
     </Box>
   )

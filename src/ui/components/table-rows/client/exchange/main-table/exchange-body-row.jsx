@@ -4,6 +4,7 @@ import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
 
+import {SuccessButton} from '@components/buttons/success-button'
 import {StarRating} from '@components/star-rating'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -50,9 +51,7 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
         </TableCell>
       ))}
       <TableCell>
-        <Button color="primary" onClick={() => handlers.privateLabel(itemIndex)}>
-          {textConsts.labelBtn}
-        </Button>
+        <SuccessButton onClick={() => handlers.privateLabel(itemIndex)}>{textConsts.launchBtn}</SuccessButton>
       </TableCell>
       <TableCell>
         <Button disableElevation color="primary" variant="contained">

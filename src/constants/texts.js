@@ -19,6 +19,8 @@ export const texts = {
       avgBSR: 'Average BSR',
       avgReviews: 'Average Reviews',
       avgRevenue: 'Average Revenue',
+      launchBtn: 'Запустить Private Label',
+      addBtnPrefix: 'Добавить за',
     },
     authView: {
       title: 'Sign in',
@@ -54,6 +56,17 @@ export const texts = {
       inventoryTitle: 'Inventory',
       ordersTitle: 'Orders',
       exchangeTitle: 'Exchange',
+      withdrawFunds: 'Вывод средств',
+      fillAccount: 'Пополнить счёт',
+      itemsInInventorySectionItemTitle: 'Товаров в инвентаре',
+      fullCostOfWarehouseSectionItemTitle: 'Общая стоимость склада',
+      repurchaseItemsSectionItemTitle: 'Товаров с повторной закупкой',
+      notPaidOrdersSectionItemTitle: 'Неоплаченные заказы',
+      paidOrdersSectionItemTitle: 'Оплаченные заказы',
+      canceledOrdersSectionItemTitle: 'Отмененные заказы',
+      soldItemsOnExchangeSectionItemTitle: 'Продано товаров на бирже',
+      accuredToReserchersSectionItemTitle: 'Начислено ресерчерам',
+      disputsForProductsSectionItemTitle: 'Споров по товарам',
     },
     tableToolbar: {
       filter: 'Filter',
@@ -63,10 +76,9 @@ export const texts = {
     clientExchangeView: {
       appbarTitle: 'Exchange',
       mainTitle: 'Active offers on exchange',
-      modalOrderProductTitle: 'Order product',
     },
     exchangeBodyRow: {
-      labelBtn: 'Private Label',
+      launchBtn: 'Запустить',
       priceBtn: 'Add $9.99',
     },
     clientExchangePrivateLabelView: {
@@ -77,6 +89,8 @@ export const texts = {
       appbarTitle: 'Exchange - Requests',
       mainTitle: 'My requests on exchange',
       newRequest: 'New request',
+      myRequests: 'Мои заявки',
+      placeOrderBtn: 'Разместить заявку',
 
       modalNewRequestTitle: 'New request',
       modalEditRequestTitle: 'Edit request',
@@ -291,11 +305,35 @@ export const texts = {
       close: 'Закрыть',
       inputLabel: 'Штрихкод товара:',
     },
+    dashboardInfoCard: {
+      viewMoreBtn: 'View more',
+    },
+    clientExchnageModalContent: {
+      title: 'Order product',
+      orderNowBtn: 'Заказать сразу',
+      cancelBtn: 'Отменить',
+    },
   },
   ru: {
     clientDashboardView: {
+      appbarTitle: 'Dashboard',
+      balance: 'My balance',
+      withdraw: 'Withdraw money',
+      replenish: 'Add money',
+      inventoryTitle: 'Inventory',
+      ordersTitle: 'Orders',
+      exchangeTitle: 'Exchange',
       withdrawFunds: 'Вывод средств',
       fillAccount: 'Пополнить счёт',
+      itemsInInventorySectionItemTitle: 'Товаров в инвентаре',
+      fullCostOfWarehouseSectionItemTitle: 'Общая стоимость склада',
+      repurchaseItemsSectionItemTitle: 'Товаров с повторной закупкой',
+      notPaidOrdersSectionItemTitle: 'Неоплаченные заказы',
+      paidOrdersSectionItemTitle: 'Оплаченные заказы',
+      canceledOrdersSectionItemTitle: 'Отмененные заказы',
+      soldItemsOnExchangeSectionItemTitle: 'Продано товаров на бирже',
+      accuredToReserchersSectionItemTitle: 'Начислено ресерчерам',
+      disputsForProductsSectionItemTitle: 'Споров по товарам',
     },
     productView: {
       appBarTitle: 'Product',
@@ -330,6 +368,42 @@ export const texts = {
       batchGoods: 'Байер - Партии товаров',
       myProfile: 'Байер - Пользователи - Мой профиль',
       myUsers: 'Байер - Пользователи - Мои пользователи ',
+    },
+    clientExchangeRequestsView: {
+      appbarTitle: 'Exchange - Requests',
+      mainTitle: 'My requests on exchange',
+      newRequest: 'New request',
+      myRequests: 'Мои заявки',
+      placeOrderBtn: 'Разместить заявку',
+
+      modalNewRequestTitle: 'New request',
+      modalEditRequestTitle: 'Edit request',
+      modalCloseRequestTitle: 'Close request',
+
+      modalBtnSendRequest: 'Send request',
+      modalBtnSaveRequest: 'Save request',
+      modalBtnCloseRequest: 'Send',
+
+      formStrategyLabel: 'Strategy',
+      formMonthlySalesLabel: 'Monthly sales',
+      formBudgetLabel: 'Budget',
+      formAmazonPriceLabel: 'Amazon price',
+      formAvgBSRLabel: 'Average BSR',
+      formAvgReviewsLabel: 'Average Reviews',
+      formAvgRevenueLabel: 'Average Revenue',
+      formNotesLabel: 'Notes',
+      formCheckboxForbidLabel:
+        'Запрещать добавлять товары которые когда либо были проданы на площадке по данной стратегии',
+      formCheckboxNoPayLabel: 'Не оплачиваю повторно купленные товары',
+      formDeadlineLabel: 'Target date',
+      formCheckboxNoCheckLabel: 'Сотрудники платформы не будут участвовать в проверке качества найденого товара',
+
+      formCloseReasonLabel: 'Describe the reason for closing request',
+
+      selectOptionFlipping: 'Flipping',
+      selectOptionDropshipping: 'Dropshipping',
+      selectOptionOnlineArbitrage: 'OnlineArbitrage',
+      selectOptionPrivateLabel: 'PrivateLabel',
     },
     clientComponent: {
       mainPage: 'Клиент - Главная страница',
@@ -394,6 +468,10 @@ export const texts = {
       supervisorMyGoods: 'Супервизор - Мои товары',
       settings: 'Супервизор - Настройки',
       productVar1: 'Супервизор - Продукт вариант 1',
+    },
+    exchangeBodyRow: {
+      launchBtn: 'Запустить',
+      priceBtn: 'Add $9.99',
     },
     contentCardComponent: {
       time: 'Время осталось',
@@ -660,6 +738,14 @@ export const texts = {
       saveBtn: 'Сохранить',
       close: 'Закрыть',
       inputLabel: 'Штрихкод товара:',
+    },
+    dashboardInfoCard: {
+      viewMoreBtn: 'View more',
+    },
+    clientExchnageModalContent: {
+      title: 'Order product',
+      orderNowBtn: 'Заказать сразу',
+      cancelBtn: 'Отменить',
     },
   },
 }

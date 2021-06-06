@@ -17,6 +17,7 @@ export const Table = ({
   handlerPageChange,
   buttons,
   rowsHandlers,
+  ...restProps
 }) => {
   const classNames = useClassNames()
   return (
@@ -27,7 +28,7 @@ export const Table = ({
           <TableHead className={classNames.tableHead}>{renderHeadRow}</TableHead>
           <TableBody className={classNames.tableBody}>
             {data.slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage).map((el, index) => (
-              <BodyRow key={index} item={el} itemIndex={index} handlers={rowsHandlers} />
+              <BodyRow key={index} item={el} itemIndex={index} handlers={rowsHandlers} {...restProps} />
             ))}
           </TableBody>
         </MuiTable>

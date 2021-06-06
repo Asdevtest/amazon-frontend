@@ -8,6 +8,7 @@ import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
+import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {RequestForm} from '@components/forms/request-form'
 import {Main} from '@components/main'
@@ -54,6 +55,7 @@ export class ClientExchangeRequestsViewRaw extends Component {
     modalEditRequest: false,
     modalCloseRequest: false,
     selectedIndex: null,
+    selectedRequests: [],
   }
 
   render() {
@@ -66,11 +68,13 @@ export class ClientExchangeRequestsViewRaw extends Component {
       modalNewRequest,
       modalEditRequest,
       modalCloseRequest,
+      selectedRequests,
     } = this.state
     const {classes: classNames} = this.props
     const rowsHandlers = {
       edit: () => this.onClickOpenModal('modalEditRequest'),
       close: () => this.onClickOpenModal('modalCloseRequest'),
+      onSelectRequest: this.onSelectRequest,
     }
 
     return (
@@ -90,23 +94,31 @@ export class ClientExchangeRequestsViewRaw extends Component {
             username={clientUsername}
           >
             <MainContent>
-              <div className={classNames.mb5}>
+              <div className={classNames.titleWrapper}>
                 <Typography paragraph variant="h6">
                   {textConsts.mainTitle}
                 </Typography>
               </div>
-              <Table
-                buttons={this.renderButtons}
-                currentPage={paginationPage}
-                data={requestsList}
-                handlerPageChange={this.onChangePagination}
-                handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(requestsList.length / rowsPerPage)}
-                BodyRow={ExchangeRequestsBodyRow}
-                renderHeadRow={this.renderHeadRow}
-                rowsPerPage={rowsPerPage}
-                rowsHandlers={rowsHandlers}
-              />
+              <div className={classNames.placeRequestBtnWrapper}>
+                <SuccessButton onClick={() => this.onClickOpenModal('modalNewRequest')}>
+                  {textConsts.placeOrderBtn}
+                </SuccessButton>
+              </div>
+              <div className={classNames.tableWrapper}>
+                <Table
+                  buttons={this.renderButtons}
+                  currentPage={paginationPage}
+                  data={requestsList}
+                  handlerPageChange={this.onChangePagination}
+                  handlerRowsPerPage={this.onChangeRowsPerPage}
+                  pageCount={Math.ceil(requestsList.length / rowsPerPage)}
+                  BodyRow={ExchangeRequestsBodyRow}
+                  renderHeadRow={this.renderHeadRow}
+                  rowsPerPage={rowsPerPage}
+                  rowsHandlers={rowsHandlers}
+                  selectedRequests={selectedRequests}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>
@@ -154,16 +166,23 @@ export class ClientExchangeRequestsViewRaw extends Component {
 
   renderButtons = (
     <>
-      <Button
-        disableElevation
-        color="primary"
-        variant="contained"
-        onClick={() => this.onClickOpenModal('modalNewRequest')}
-      >
-        {textConsts.newRequest}
+      <Button disableElevation variant="contained">
+        {textConsts.myRequests}
       </Button>
     </>
   )
+
+  onSelectRequest = (item, index) => {
+    const {selectedRequests} = this.state
+    const newSelectedRequests = [...selectedRequests]
+    const findRequestIndex = selectedRequests.indexOf(index)
+    if (findRequestIndex !== -1) {
+      newSelectedRequests.splice(findRequestIndex, 1)
+    } else {
+      newSelectedRequests.push(index)
+    }
+    this.setState({selectedRequests: newSelectedRequests})
+  }
 
   onChangeCategory = index => {
     this.setState({activeCategory: index})
@@ -171,6 +190,11 @@ export class ClientExchangeRequestsViewRaw extends Component {
 
   onChangeSubCategory = index => {
     this.setState({activeSubCategory: index})
+  }
+
+  onClickPlaceRequestBtn = () => {
+    const {drawerOpen} = this.state
+    this.setState({drawerOpen: !drawerOpen})
   }
 
   onTriggerDrawer = () => {

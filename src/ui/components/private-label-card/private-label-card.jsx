@@ -3,6 +3,8 @@ import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
 
+import {SuccessButton} from '@components/buttons/success-button'
+
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './private-label-card.style'
@@ -44,11 +46,11 @@ export const PrivateLabelCard = ({item}) => {
         <InfoRow label={textConsts.avgRevenue} value={item.avgRevenue} />
 
         <div className={classNames.buttonsWrapper}>
-          <Button disableElevation color="primary" className={classNames.privateLabelButton} variant="contained">
-            {'Private Label'}
-          </Button>
+          <SuccessButton disableElevation variant="contained">
+            {textConsts.launchBtn}
+          </SuccessButton>
           <Button disableElevation color="primary" className={classNames.priceButton} variant="contained">
-            {'$ ' + item.price}
+            {`${textConsts.addBtnPrefix} $${item.price}`}
           </Button>
         </div>
       </div>

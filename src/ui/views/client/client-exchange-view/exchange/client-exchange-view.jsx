@@ -1,15 +1,6 @@
 import {Component} from 'react'
 
-import {
-  Button,
-  TableCell,
-  TableContainer,
-  Table as MuiTable,
-  TableRow,
-  Typography,
-  TableHead,
-  TableBody,
-} from '@material-ui/core'
+import {Button, TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {clientExchangeViewTable, clientUsername} from '@constants/mocks'
@@ -20,9 +11,10 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {ClientExchnageModalContent} from '@components/modal-contents/client-exchange-modal-content'
 import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
-import {ExchangeBodyRow, ExchangeModalBodyRow} from '@components/table-rows/client/exchange'
+import {ExchangeBodyRow} from '@components/table-rows/client/exchange'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getRequiredListByKeys} from '@utils/get-required-list-by-keys'
@@ -86,7 +78,7 @@ export class ClientExchangeViewRaw extends Component {
             username={clientUsername}
           >
             <MainContent>
-              <div className={classes.mb5}>
+              <div className={classes.titleWrapepr}>
                 <Typography paragraph variant="h6">
                   {textConsts.mainTitle}
                 </Typography>
@@ -99,7 +91,7 @@ export class ClientExchangeViewRaw extends Component {
                 handlerRowsPerPage={this.onChangeRowsPerPage}
                 pageCount={Math.ceil(mainTableProductList.length / rowsPerPage)}
                 BodyRow={ExchangeBodyRow}
-                renderHeadRow={this.renderHeadRow}
+                renderHeadRow={this.renderTableHeadRow()}
                 rowsPerPage={rowsPerPage}
                 rowsHandlers={rowsHandlers}
               />
@@ -107,28 +99,33 @@ export class ClientExchangeViewRaw extends Component {
           </Appbar>
         </Main>
         <Modal openModal={modalPrivateLabel} setOpenModal={this.onCloseModal}>
-          <Typography variant="h5">{textConsts.modalOrderProductTitle}</Typography>
-          <TableContainer className={classes.modalTableWrapper}>
-            <MuiTable>
-              <TableHead>{this.renderHeadRow}</TableHead>
-              <TableBody>
-                <ExchangeModalBodyRow
-                  qty={modalQty}
-                  managerIndex={modalManagerIndex}
-                  item={modalTableProductList[selectedIndex]}
-                  handlers={rowsHandlers}
-                />
-              </TableBody>
-            </MuiTable>
-          </TableContainer>
+          <ClientExchnageModalContent
+            modalHeadRow={this.renderModalHeadRow()}
+            qty={modalQty}
+            managerIndex={modalManagerIndex}
+            item={modalTableProductList[selectedIndex]}
+            handlers={rowsHandlers}
+            onClickOrderNowBtn={this.onClickOrderNowBtn}
+            onClickCancelBtn={this.onClickCancelBtn}
+          />
         </Modal>
       </>
     )
   }
 
-  renderHeadRow = (
+  renderTableHeadRow = () => (
     <TableRow>
       {headCells.map((item, index) => (
+        <TableCell key={index}>{item.label}</TableCell>
+      ))}
+      <TableCell />
+      <TableCell />
+    </TableRow>
+  )
+
+  renderModalHeadRow = () => (
+    <TableRow>
+      {modalHeadCells.map((item, index) => (
         <TableCell key={index}>{item.label}</TableCell>
       ))}
       <TableCell />
@@ -191,6 +188,18 @@ export class ClientExchangeViewRaw extends Component {
       selectedIndex: index,
       modalQty: modalTableProductList[index].qty,
       modalPrivateLabel: true,
+    })
+  }
+
+  onClickOrderNowBtn = () => {
+    this.setState({
+      modalPrivateLabel: false,
+    })
+  }
+
+  onClickCancelBtn = () => {
+    this.setState({
+      modalPrivateLabel: false,
     })
   }
 

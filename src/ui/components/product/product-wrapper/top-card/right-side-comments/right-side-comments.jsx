@@ -4,6 +4,7 @@ import {Box, Grid, Typography, Button} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
+import {ErrorButton} from '@components/buttons/error-button'
 import {ColoredChip} from '@components/colored-chip'
 import {Field} from '@components/field'
 
@@ -72,12 +73,12 @@ export const RightSideComments = ({onChangeField, product, chipList, activeChip,
           <Button className={classNames.buttonNormal} color="primary" variant="contained">
             {textConsts.buttonAccept}
           </Button>
-          <Button danger className={classNames.buttonNormal} color="primary" variant="contained">
+          <ErrorButton className={classNames.buttonNormal} variant="contained">
             {textConsts.buttonCancel}
-          </Button>
-          <Button danger disabled className={classNames.buttonDelete} color="primary" variant="contained">
+          </ErrorButton>
+          <ErrorButton disabled className={classNames.buttonDelete} variant="contained">
             {textConsts.buttonDelete}
-          </Button>
+          </ErrorButton>
         </div>
       </Box>
     </Grid>

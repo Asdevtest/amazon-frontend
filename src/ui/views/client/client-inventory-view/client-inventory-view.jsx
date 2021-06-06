@@ -13,7 +13,7 @@ import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
-import {InfoCard} from '@components/info-card'
+import {DashboardInfoCard} from '@components/dashboard-info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -71,7 +71,7 @@ export class ClientInventoryViewRaw extends Component {
               <Grid container justify="center" spacing={1}>
                 {INVENTORY_CARD_LIST.map((el, index) => (
                   <Grid key={index} item>
-                    <InfoCard color="primary" viewMore="Показать" value={el.count} title={el.label} />
+                    <DashboardInfoCard color="primary" viewMore="Показать" value={el.count} title={el.label} />
                   </Grid>
                 ))}
               </Grid>

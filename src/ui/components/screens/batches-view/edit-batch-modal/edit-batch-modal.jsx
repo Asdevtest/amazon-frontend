@@ -4,7 +4,8 @@ import {Box, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
-import {Button} from '@components/button'
+import {Button} from '@components/buttons/button'
+import {ErrorButton} from '@components/buttons/error-button'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -60,9 +61,9 @@ export const EditBatchModal = ({batch, setModal, warehouseList, deliveryList, ty
 
       <Box mt={2} className={classNames.btnBox}>
         <Button className={classNames.saveBtn}>{textConsts.saveBtn}</Button>
-        <Button danger onClick={() => setModal(false)}>
+        <ErrorButton variant="contained" onClick={() => setModal(false)}>
           {textConsts.cancelBtn}
-        </Button>
+        </ErrorButton>
       </Box>
     </Box>
   )

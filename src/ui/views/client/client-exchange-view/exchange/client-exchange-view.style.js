@@ -8,11 +8,7 @@ export const styles = createStyles(theme => ({
     lineHeight: '84px',
     marginBottom: '24px',
   },
-  modalTableWrapper: {
-    margin: '0 -24px',
-    width: 'auto',
-  },
-  mb5: {
+  titleWrapepr: {
     marginBottom: theme.spacing(5),
   },
 }))

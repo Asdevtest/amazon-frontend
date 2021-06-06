@@ -8,7 +8,16 @@ export const styles = createStyles(theme => ({
   field: {
     marginTop: theme.spacing(2.5),
   },
-  mb5: {
+  titleWrapper: {
     marginBottom: theme.spacing(5),
+  },
+  placeRequestBtnWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  tableWrapper: {
+    marginTop: '15px',
   },
 }))

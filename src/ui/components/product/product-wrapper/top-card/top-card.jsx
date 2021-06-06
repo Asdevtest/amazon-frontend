@@ -5,7 +5,7 @@ import {Box, Grid, Paper} from '@material-ui/core'
 import {texts} from '@constants/texts'
 
 import {Alert} from '@components/alert'
-import {Button} from '@components/button'
+import {Button} from '@components/buttons/button'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 

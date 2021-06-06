@@ -2,7 +2,7 @@ import {createStyles} from '@material-ui/styles'
 
 export const styles = theme =>
   createStyles({
-    listItemRoot: {
+    root: {
       height: '50px',
       fontSize: '13px',
       lineHeight: '15px',
@@ -11,21 +11,23 @@ export const styles = theme =>
       borderLeft: `5px solid transparent`,
       paddingRight: '16px',
 
-      '&$listItemSelected': {
+      '&$selected': {
         borderLeft: `5px solid ${theme.palette.primary.main}`,
         backgroundColor: 'transparent',
       },
-      '&$listItemSelected:hover': {
+      '&$selected:hover': {
         borderLeft: `5px solid ${theme.palette.primary.main}`,
       },
       '&:hover': {},
     },
-    listItemSelected: {
+    selected: {
       color: theme.palette.primary.main,
+    },
+    notSelected: {
+      color: 'rgba(189, 194, 209, 1)',
     },
     iconWrapper: {
       minWidth: '0',
       margin: '16px 16px 16px 11px',
-      color: 'rgba(189, 194, 209, 1)',
     },
   })

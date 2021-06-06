@@ -9,30 +9,16 @@ import categoryImgSportsAndOutdoors from '@views/buyer/users-views/user-profile-
 import categoryImgToolsAndHomeImprovement from '@views/buyer/users-views/user-profile-view/assets/categories/toolsAndHomeImprovement.jpg'
 import categoryImgToysAndGames from '@views/buyer/users-views/user-profile-view/assets/categories/toysAndGames.jpg'
 
-export const inventorySection = {
-  title: 'Инвентарь',
-  items: [
-    {value: 7, title: 'Товаров в инвентаре', color: '#20a8d8'},
-    {value: 5, title: 'Общая стоимость склада', color: '#63c2de'},
-    {value: 0, title: 'Товаров с повторной закупкой', color: '#4dbd74'},
-  ],
-}
-
-export const ordersSection = {
-  title: 'Заказы',
-  items: [
-    {value: 2, title: 'Неоплаченные заказы', color: '#ffc107'},
-    {value: 0, title: 'Оплаченные заказы', color: '#f86c6b'},
-    {value: 24, title: 'Отмененные заказы', color: '#20a8d8'},
-  ],
-}
-export const exchangeSection = {
-  title: 'Товары',
-  items: [
-    {value: 53, title: 'Продано товаров на бирже', color: '#63c2de'},
-    {value: 1, title: 'Начислено ресерчерам', color: '#4dbd74'},
-    {value: 17, title: 'Споров по товарам', color: '#f86c6b'},
-  ],
+export const clientDashboardData = {
+  productsInInventory: 7,
+  fullCostOfWarehouse: 5,
+  repurchaseItems: 0,
+  notPaidOrders: 2,
+  paidOrders: 0,
+  canceledOrders: 24,
+  soldItemsOnExchange: 53,
+  accuredToReserchers: 1,
+  disputsForProducts: 17,
 }
 
 export const clientUsername = 'Client'
