@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {Typography, Box, Button} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
-import {BUYER_SUB_USERS_INITIAL_DATA, BUYER_SUB_USERS_TABLE_CELLS} from '@constants/mocks'
+import {CLIENT_SUB_USERS_INITIAL_DATA, CLIENT_SUB_USERS_TABLE_CELLS} from '@constants/mocks'
 import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
@@ -20,14 +20,14 @@ import {TableHeadRow} from '@components/table-rows/sub-users-view/table-head-row
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/buyerAvatar.jpg'
+import avatar from '../../assets/clientAvatar.jpg'
 import {styles} from './sub-users-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').buyerSubUsersView
+const textConsts = getLocalizedTexts(texts, 'en').clientSubUsersView
 
-class SubUsersViewRaw extends Component {
+class ClientSubUsersViewRaw extends Component {
   state = {
-    activeCategory: 5,
+    activeCategory: 6,
     activeSubCategory: 1,
     drawerOpen: false,
     selected: null,
@@ -47,7 +47,7 @@ class SubUsersViewRaw extends Component {
           activeCategory={activeCategory}
           setItem={this.onChangeCategory}
           activeSubCategory={activeSubCategory}
-          categoriesList={categoriesList.buyer}
+          categoriesList={categoriesList.client}
           setSubItem={this.onChangeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={this.onChangeDrawerOpen}
@@ -67,10 +67,10 @@ class SubUsersViewRaw extends Component {
               <Table
                 buttons={this.renderButtons}
                 currentPage={this.state.paginationPage}
-                data={BUYER_SUB_USERS_INITIAL_DATA}
+                data={CLIENT_SUB_USERS_INITIAL_DATA}
                 handlerPageChange={this.onChangePagination}
                 handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(BUYER_SUB_USERS_INITIAL_DATA.length / this.state.rowsPerPage)}
+                pageCount={Math.ceil(CLIENT_SUB_USERS_INITIAL_DATA.length / this.state.rowsPerPage)}
                 BodyRow={TableBodyRow}
                 renderHeadRow={this.renderHeadRow}
                 rowsPerPage={this.state.rowsPerPage}
@@ -103,7 +103,7 @@ class SubUsersViewRaw extends Component {
     )
   }
 
-  renderHeadRow = (<TableHeadRow headCells={BUYER_SUB_USERS_TABLE_CELLS} />)
+  renderHeadRow = (<TableHeadRow headCells={CLIENT_SUB_USERS_TABLE_CELLS} />)
 
   renderButtons = (
     <Box className={this.props.classes.buttonBox}>
@@ -146,6 +146,6 @@ class SubUsersViewRaw extends Component {
   }
 }
 
-const SubUsersView = withStyles(styles)(SubUsersViewRaw)
+const ClientSubUsersView = withStyles(styles)(ClientSubUsersViewRaw)
 
-export {SubUsersView}
+export {ClientSubUsersView}

@@ -15,7 +15,7 @@ import {
 
 import {texts} from '@constants/texts'
 
-import {ModalTableBodyRow} from '@components/table-rows/buyer/user-profile-view/modal-table-body-row'
+import {ModalTableBodyRow} from '@components/table-rows/user-profile-view/modal-table-body-row'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 

@@ -29,6 +29,13 @@ const AccountManagerCheckboxesData = [
   'Управление заказами',
 ]
 
+const permissionList = [
+  {value: 'Team member', text: 'Team member'},
+  {value: 'Researcher', text: 'Researcher'},
+  {value: 'Account manager', text: 'Account manager'},
+  {value: 'Warehouse manager', text: 'Warehouse manager'},
+]
+
 const WarehouseManagerCheckboxesData = ['Добавлять новый склад  к получению', 'Менять статус отправок']
 
 const textConsts = getLocalizedTexts(texts, 'en').subUsersModalPermission
@@ -57,44 +64,46 @@ export const PermissionContentModal = props => {
       ))}
     </Box>
   )
-  // eslint-disable-next-line react/jsx-indent
-  ;<Container disableGutters>
-    <Typography variant="h3">{textConsts.title}</Typography>
-    <Field
-      title={textConsts.permissionTitle}
-      inputComponent={
-        <NativeSelect
-          variant="filled"
-          inputProps={{
-            name: 'select-method',
-            id: 'select-method',
-          }}
-          className={classNames.select}
-          input={<Input />}
-        >
-          <option value={'Team member'}>{textConsts.valueTeamNum}</option>
-          <option value={'Researcher'}>{textConsts.valueResearcher}</option>
-          <option value={'Account manager'}>{textConsts.valueAcManager}</option>
-          <option value={'Warehouse manager'}>{textConsts.valueWarehouse}</option>
-        </NativeSelect>
-      }
-    />
-    <Box className={classNames.boxResearcher}>
-      <Field title={textConsts.researcherTitle} inputComponent={ResearcherCheckboxes} />
-      <Box className={classNames.boxWrapper}>
-        <Field title={textConsts.acManagerTitle} inputComponent={AccountManagerCheckboxes} />
-        <Field title={textConsts.warehouseManagerTitle} inputComponent={WarehouseManagerCheckboxes} />
+  return (
+    <Container disableGutters>
+      <Typography variant="h3">{textConsts.title}</Typography>
+      <Field
+        title={textConsts.permissionTitle}
+        inputComponent={
+          <NativeSelect
+            variant="filled"
+            inputProps={{
+              name: 'select-method',
+              id: 'select-method',
+            }}
+            className={classNames.select}
+            input={<Input />}
+          >
+            {permissionList.map((item, index) => (
+              <option key={index} value={item.value}>
+                {item.text}
+              </option>
+            ))}
+          </NativeSelect>
+        }
+      />
+      <Box className={classNames.boxResearcher}>
+        <Field title={textConsts.researcherTitle} inputComponent={ResearcherCheckboxes} />
+        <Box className={classNames.boxWrapper}>
+          <Field title={textConsts.acManagerTitle} inputComponent={AccountManagerCheckboxes} />
+          <Field title={textConsts.warehouseManagerTitle} inputComponent={WarehouseManagerCheckboxes} />
+        </Box>
       </Box>
-    </Box>
-    <Box className={classNames.buttonBox}>
-      <Button
-        disableElevation
-        variant="contained"
-        className={classNames.saveBtn}
-        onClick={() => props.setModalPermission(false)}
-      >
-        {textConsts.saveBtn}
-      </Button>
-    </Box>
-  </Container>
+      <Box className={classNames.buttonBox}>
+        <Button
+          disableElevation
+          variant="contained"
+          className={classNames.saveBtn}
+          onClick={() => props.setModalPermission(false)}
+        >
+          {textConsts.saveBtn}
+        </Button>
+      </Box>
+    </Container>
+  )
 }

@@ -11,7 +11,12 @@ import SettingsIcon from '@material-ui/icons/Settings'
 
 export const categoriesList = {
   client: [
-    {icon: InfoOutlinedIcon, title: 'Главная страница', route: '/client/dashboard', subtitles: null},
+    {
+      icon: InfoOutlinedIcon,
+      title: 'Главная страница',
+      route: '/client/dashboard',
+      subtitles: null,
+    },
     {
       icon: GavelIcon,
       title: 'Биржа товаров',
@@ -29,10 +34,10 @@ export const categoriesList = {
     {
       icon: PeopleIcon,
       title: 'Пользователи',
-      route: '/client/user',
+      route: '/client/users/user-profile',
       subtitles: [
-        {subtitle: 'Мой профиль', subRoute: '/client/user'},
-        {subtitle: 'Мои пользователи', subRoute: '/client/user/subusers'},
+        {subtitle: 'Мой профиль', subRoute: '/client/users/user-profile'},
+        {subtitle: 'Мои пользователи', subRoute: '/client/users/sub-users'},
       ],
     },
     {icon: SettingsIcon, title: 'Настройки', route: '/client/settings', subtitles: null},
@@ -42,7 +47,12 @@ export const categoriesList = {
       route: '/client/messages',
       subtitles: null,
     },
-    {icon: MonetizationOnOutlinedIcon, title: 'Финансы', route: '/client/finances', subtitles: null},
+    {
+      icon: MonetizationOnOutlinedIcon,
+      title: 'Финансы',
+      route: '/client/finances',
+      subtitles: null,
+    },
   ],
   freelancer: [
     {icon: InfoOutlinedIcon, title: 'Главная страница', subtitles: null},

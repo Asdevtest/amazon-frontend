@@ -1,13 +1,28 @@
-import categoryImgBaby from '@views/buyer/users-views/user-profile-view/assets/categories/baby.jpg'
-import categoryImgBeautyAndPersonalCare from '@views/buyer/users-views/user-profile-view/assets/categories/beautyAndPersonalCare.jpg'
-import categoryImgClothingShoesAndJewelry from '@views/buyer/users-views/user-profile-view/assets/categories/clothingShoesAndJewelry.jpg'
-import categoryImgGardenAndOutdoor from '@views/buyer/users-views/user-profile-view/assets/categories/gardenAndOutdoor.jpg'
-import categoryImgHealthHouseholdAndBabyCare from '@views/buyer/users-views/user-profile-view/assets/categories/healthHouseholdAndBabyCare.jpg'
-import categoryImgHomeAndKitchen from '@views/buyer/users-views/user-profile-view/assets/categories/homeAndKitchen.jpg'
-import categoryImgKitchenAndDining from '@views/buyer/users-views/user-profile-view/assets/categories/kitchenAndDining.jpg'
-import categoryImgSportsAndOutdoors from '@views/buyer/users-views/user-profile-view/assets/categories/sportsAndOutdoors.jpg'
-import categoryImgToolsAndHomeImprovement from '@views/buyer/users-views/user-profile-view/assets/categories/toolsAndHomeImprovement.jpg'
-import categoryImgToysAndGames from '@views/buyer/users-views/user-profile-view/assets/categories/toysAndGames.jpg'
+
+export const inventorySection = {
+  title: 'Инвентарь',
+  items: [
+    {value: 7, title: 'Товаров в инвентаре', color: '#20a8d8'},
+    {value: 5, title: 'Общая стоимость склада', color: '#63c2de'},
+    {value: 0, title: 'Товаров с повторной закупкой', color: '#4dbd74'},
+  ],
+}
+
+export const ordersSection = {
+  title: 'Заказы',
+  items: [
+    {value: 2, title: 'Неоплаченные заказы', color: '#ffc107'},
+    {value: 0, title: 'Оплаченные заказы', color: '#f86c6b'},
+    {value: 24, title: 'Отмененные заказы', color: '#20a8d8'},
+  ],
+}
+export const exchangeSection = {
+  title: 'Товары',
+  items: [
+    {value: 53, title: 'Продано товаров на бирже', color: '#63c2de'},
+    {value: 1, title: 'Начислено ресерчерам', color: '#4dbd74'},
+    {value: 17, title: 'Споров по товарам', color: '#f86c6b'},
+  ],
 
 export const clientDashboardData = {
   productsInInventory: 7,
@@ -18,7 +33,7 @@ export const clientDashboardData = {
   canceledOrders: 24,
   soldItemsOnExchange: 53,
   accuredToReserchers: 1,
-  disputsForProducts: 17,
+  disputsForProducts: 17
 }
 
 export const clientUsername = 'Client'
@@ -740,7 +755,26 @@ export const BUYER_USER_HEADER_LIST = {
   createAc: {value: '11 инвесторов', text: 'Аккаунт создан'},
 }
 
-export const BUYER_MANAGERS_LIST = [
+export const CLIENT_USER_HEADER_LIST = {
+  countInvestors: {value: '255', text: 'Количество инвесторов'},
+  foundGoods: {value: '875', text: 'Товаров нашел'},
+  volumeTrans: {value: '$ 7555', text: 'Объем сделок'},
+  earned: {value: '$ 1255', text: 'Заработано'},
+  addInSave: {value: '12 инвесторов', text: 'Добавили в избранное'},
+  inBlocked: {value: '12 инвесторов', text: 'Заблокирован(-а)'},
+  youBlocked: {value: '14 инвесторов', text: 'Заблокировал(-а)'},
+  createAc: {value: '11 инвесторов', text: 'Аккаунт создан'},
+}
+
+export const BUYER_USER_MANAGERS_LIST = [
+  {value: 'Дмитрий', text: 'Дмитрий'},
+  {value: 'Георгий', text: 'Георгий'},
+  {value: 'subuser0', text: 'subuser0'},
+  {value: 'subuser1', text: 'subuser1'},
+  {value: 'subuser2', text: 'subuser2'},
+]
+
+export const CLIENT_USER_MANAGERS_LIST = [
   {value: 'Дмитрий', text: 'Дмитрий'},
   {value: 'Георгий', text: 'Георгий'},
   {value: 'subuser0', text: 'subuser0'},
@@ -1347,13 +1381,26 @@ export const BUYER_PRODUCTS_HEAD_CELLS = [
   {id: 'fba', align: 'right', disablePadding: false, label: 'FBA'},
 ]
 
-export const SUB_USERS_INITIAL_DATA = [
+export const BUYER_SUB_USERS_INITIAL_DATA = [
   {date: '12/09/2019', email: 'email@example.com'},
   {date: '29/11/2017', email: 'email@example.com'},
   {date: '03/02/2020', email: 'email@example.com'},
 ]
 
-export const SUB_USERS_TABLE_CELLS = [
+export const CLIENT_SUB_USERS_INITIAL_DATA = [
+  {date: '12/09/2019', email: 'email@example.com'},
+  {date: '29/11/2017', email: 'email@example.com'},
+  {date: '03/02/2020', email: 'email@example.com'},
+]
+
+export const BUYER_SUB_USERS_TABLE_CELLS = [
+  {id: 'created', label: 'Created'},
+  {id: 'email', label: 'Email'},
+  {id: 'bu', label: 'Bussines unit'},
+  {id: 'admin', label: 'Admin'},
+]
+
+export const CLIENT_SUB_USERS_TABLE_CELLS = [
   {id: 'created', label: 'Created'},
   {id: 'email', label: 'Email'},
   {id: 'bu', label: 'Bussines unit'},
@@ -1362,7 +1409,7 @@ export const SUB_USERS_TABLE_CELLS = [
 
 export const BUYER_USER_INITIAL_LIST = [
   {
-    categoryImg: categoryImgHomeAndKitchen,
+    categoryImg: '/assets/img/categories/homeAndKitchen.jpg',
     category: 'Home & Kitchen',
     price: 9.99,
     deliveryPrice: 34.99,
@@ -1375,7 +1422,7 @@ export const BUYER_USER_INITIAL_LIST = [
     qty: 450,
   },
   {
-    categoryImg: categoryImgSportsAndOutdoors,
+    categoryImg: '/assets/img/categories/sportsAndOutdoors.jpg',
     category: 'Sports & Outdoors',
     price: 9.99,
     deliveryPrice: 34.99,
@@ -1388,7 +1435,7 @@ export const BUYER_USER_INITIAL_LIST = [
     qty: 450,
   },
   {
-    categoryImg: categoryImgToysAndGames,
+    categoryImg: '/assets/img/categories/toysAndGames.jpg',
     category: 'Toys & Games',
     price: 9.99,
     deliveryPrice: 34.99,
@@ -1401,7 +1448,7 @@ export const BUYER_USER_INITIAL_LIST = [
     qty: 450,
   },
   {
-    categoryImg: categoryImgHealthHouseholdAndBabyCare,
+    categoryImg: '/assets/img/categories/healthHouseholdAndBabyCare.jpg',
     category: 'Health, Household & Baby Care',
     price: 9.99,
     deliveryPrice: 34.99,
@@ -1414,7 +1461,7 @@ export const BUYER_USER_INITIAL_LIST = [
     qty: 450,
   },
   {
-    categoryImg: categoryImgBeautyAndPersonalCare,
+    categoryImg: '/assets/img/categories/beautyAndPersonalCare.jpg',
     category: 'Beauty & Personal Care',
     price: 9.99,
     deliveryPrice: 34.99,
@@ -1427,7 +1474,7 @@ export const BUYER_USER_INITIAL_LIST = [
     qty: 450,
   },
   {
-    categoryImg: categoryImgKitchenAndDining,
+    categoryImg: '/assets/img/categories/kitchenAndDining.jpg',
     category: 'Kitchen & Dining',
     price: 9.99,
     deliveryPrice: 34.99,
@@ -1440,7 +1487,7 @@ export const BUYER_USER_INITIAL_LIST = [
     qty: 450,
   },
   {
-    categoryImg: categoryImgClothingShoesAndJewelry,
+    categoryImg: '/assets/img/categories/clothingShoesAndJewelry.jpg',
     category: 'Clothing, Shoes & Jewelry',
     price: 9.99,
     deliveryPrice: 34.99,
@@ -1453,7 +1500,7 @@ export const BUYER_USER_INITIAL_LIST = [
     qty: 450,
   },
   {
-    categoryImg: categoryImgBaby,
+    categoryImg: '/assets/img/categories/baby.jpg',
     category: 'Baby',
     price: 9.99,
     deliveryPrice: 34.99,
@@ -1466,7 +1513,7 @@ export const BUYER_USER_INITIAL_LIST = [
     qty: 450,
   },
   {
-    categoryImg: categoryImgGardenAndOutdoor,
+    categoryImg: '/assets/img/categories/gardenAndOutdoor.jpg',
     category: 'Garden & Outdoor',
     price: 9.99,
     deliveryPrice: 34.99,
@@ -1479,7 +1526,140 @@ export const BUYER_USER_INITIAL_LIST = [
     qty: 450,
   },
   {
-    categoryImg: categoryImgToolsAndHomeImprovement,
+    categoryImg: '/assets/img/categories/toolsAndHomeImprovement.jpg',
+    category: 'Tools & Home Improvement',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450,
+  },
+]
+
+export const CLIENT_USER_INITIAL_LIST = [
+  {
+    categoryImg: '/assets/img/categories/homeAndKitchen.jpg',
+    category: 'Home & Kitchen',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450,
+  },
+  {
+    categoryImg: '/assets/img/categories/sportsAndOutdoors.jpg',
+    category: 'Sports & Outdoors',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450,
+  },
+  {
+    categoryImg: '/assets/img/categories/toysAndGames.jpg',
+    category: 'Toys & Games',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450,
+  },
+  {
+    categoryImg: '/assets/img/categories/healthHouseholdAndBabyCare.jpg',
+    category: 'Health, Household & Baby Care',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450,
+  },
+  {
+    categoryImg: '/assets/img/categories/beautyAndPersonalCare.jpg',
+    category: 'Beauty & Personal Care',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450,
+  },
+  {
+    categoryImg: '/assets/img/categories/kitchenAndDining.jpg',
+    category: 'Kitchen & Dining',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450,
+  },
+  {
+    categoryImg: '/assets/img/categories/clothingShoesAndJewelry.jpg',
+    category: 'Clothing, Shoes & Jewelry',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450,
+  },
+  {
+    categoryImg: '/assets/img/categories/baby.jpg',
+    category: 'Baby',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450,
+  },
+  {
+    categoryImg: '/assets/img/categories/gardenAndOutdoor.jpg',
+    category: 'Garden & Outdoor',
+    price: 9.99,
+    deliveryPrice: 34.99,
+    avgPrice: 9.99,
+    recConsignmentQty: 500,
+    recConsignmentWeight: 450,
+    avgBSR: 1900,
+    avgReviews: 255,
+    avgRevenue: 1000,
+    qty: 450,
+  },
+  {
+    categoryImg: '/assets/img/categories/toolsAndHomeImprovement.jpg',
     category: 'Tools & Home Improvement',
     price: 9.99,
     deliveryPrice: 34.99,
@@ -1499,7 +1679,13 @@ export const BUYER_USER_INITIAL_USER = {
   status: 'Принимаю заказы на ресерч',
 }
 
-export const BUYER_USER_HEAD_CELL = [
+export const CLIENT_USER_INITIAL_USER = {
+  img: 'https://fl-club.com/wp-content/uploads/2016/10/Igrovoy-noutbuk-2016-za-40000-rubley-kakoy-luchshe-720x380.jpg',
+  username: 'Username',
+  status: 'Принимаю заказы на ресерч',
+}
+
+export const USER_HEAD_CELL = [
   {id: 'image', label: 'Image'},
   {id: 'image', label: 'Category'},
   {id: 'image', label: 'Цена'},

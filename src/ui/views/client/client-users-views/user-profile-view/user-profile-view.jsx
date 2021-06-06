@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 
 import {
-  BUYER_USER_HEADER_LIST,
-  BUYER_USER_MANAGERS_LIST,
-  BUYER_USER_INITIAL_LIST,
-  BUYER_USER_INITIAL_USER,
+  CLIENT_USER_HEADER_LIST,
+  CLIENT_USER_MANAGERS_LIST,
+  CLIENT_USER_INITIAL_LIST,
+  CLIENT_USER_INITIAL_USER,
 } from '@constants/mocks'
 import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
@@ -22,20 +22,20 @@ import {Reviews} from '@components/screens/users-views/user-profile-view/reviews
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/buyerAvatar.jpg'
+import avatar from '../../assets/clientAvatar.jpg'
 
-const textConsts = getLocalizedTexts(texts, 'en').buyerUserView
+const textConsts = getLocalizedTexts(texts, 'en').clientUserView
 
-export class UserProfileView extends Component {
+export class ClientUserProfileView extends Component {
   state = {
-    activeCategory: 5,
+    activeCategory: 6,
     activeSubCategory: 0,
     drawerOpen: false,
 
     rowsPerPage: 5,
     paginationPage: 1,
-    productList: BUYER_USER_INITIAL_LIST,
-    user: BUYER_USER_INITIAL_USER,
+    productList: CLIENT_USER_INITIAL_LIST,
+    user: CLIENT_USER_INITIAL_USER,
     tabExchange: 0,
     tabHistory: 0,
     tabReview: 0,
@@ -52,7 +52,7 @@ export class UserProfileView extends Component {
           activeCategory={activeCategory}
           setItem={this.onChangeCategory}
           activeSubCategory={activeSubCategory}
-          categoriesList={categoriesList.buyer}
+          categoriesList={categoriesList.client}
           setSubItem={this.onChangeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={this.onChangeDrawerOpen}
@@ -69,17 +69,17 @@ export class UserProfileView extends Component {
             setDrawerOpen={this.onChangeDrawerOpen}
           >
             <MainContent>
-              <Header user={BUYER_USER_INITIAL_USER} timer={textConsts.timer} headerInfo={BUYER_USER_HEADER_LIST} />
+              <Header user={CLIENT_USER_INITIAL_USER} timer={textConsts.timer} headerInfo={CLIENT_USER_HEADER_LIST} />
 
               <ActiveOrders
                 tabExchange={this.state.tabExchange}
                 setTabExchange={this.onChangeTabExchange}
-                productList={BUYER_USER_INITIAL_LIST}
+                productList={CLIENT_USER_INITIAL_LIST}
                 handlerClickButtonPrivateLabel={this.onClickButtonPrivateLabel}
               />
 
               <PurchaseHistory
-                user={BUYER_USER_INITIAL_USER}
+                user={CLIENT_USER_INITIAL_USER}
                 tabHistory={this.state.tabHistory}
                 setTabHistory={this.onChangeTabHistory}
               />
@@ -93,7 +93,7 @@ export class UserProfileView extends Component {
           <ContentModal
             setOpenModal={this.onChangeTabModal0}
             selected={this.state.selected}
-            managersList={BUYER_USER_MANAGERS_LIST}
+            managersList={CLIENT_USER_MANAGERS_LIST}
           />
         </Modal>
       </React.Fragment>
@@ -117,7 +117,7 @@ export class UserProfileView extends Component {
   }
 
   onClickButtonPrivateLabel = index => {
-    this.setState({selected: BUYER_USER_INITIAL_LIST[index], modal0: true})
+    this.setState({selected: CLIENT_USER_INITIAL_LIST[index], modal0: true})
   }
 
   onChangeDrawerOpen = (e, value) => {
