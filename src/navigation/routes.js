@@ -16,6 +16,8 @@ import {ClientInventoryView} from '@views/client/client-inventory-view'
 import {ClientOrderView} from '@views/client/client-orders-views/order'
 import {ClientOrdersView} from '@views/client/client-orders-views/orders'
 import {ClientProductView} from '@views/client/client-product-view'
+import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
+import {ClientUserProfileView} from '@views/client/client-users-views/user-profile-view'
 import {DocumentationView} from '@views/documentation'
 import {DashboardView} from '@views/freelancer/dashboard-view'
 import {ProductsView} from '@views/freelancer/products-view'
@@ -147,6 +149,17 @@ export const routes = [
   {
     routePath: '/client/orders/order',
     component: ClientOrderView,
+    exact: false,
+  },
+  {
+    routePath: '/client/users/user-profile',
+    component: ClientUserProfileView,
+    exact: false,
+  },
+
+  {
+    routePath: '/client/users/sub-users',
+    component: ClientSubUsersView,
     exact: false,
   },
 ]
