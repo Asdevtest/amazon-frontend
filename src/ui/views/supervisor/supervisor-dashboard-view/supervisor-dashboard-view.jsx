@@ -61,6 +61,7 @@ export class SupervisorDashboardViewRaw extends Component {
                         title={item.title}
                         color={item.color}
                         route="/supervisor/products"
+                        onClickViewMore
                       />
                     </Grid>
                   ))}

@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {Component} from 'react'
 
-import {Box, Typography, Paper} from '@material-ui/core'
+import {Box, Typography, Paper, Checkbox} from '@material-ui/core'
+import {withStyles} from '@material-ui/styles'
 
 import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
@@ -16,52 +17,70 @@ import {Navbar} from '@components/navbar'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/freelancerAvatar.jpg'
-import {useClassNames} from './settings-view.style'
+import {styles} from './settings-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').freelancerSettingsView
 
-export const SettingsView = () => {
-  const classNames = useClassNames()
-  const [activeCategory, setCategory] = useState(2)
-  const [activeSubCategory, setSubCategory] = useState(null)
-  const [drawerOpen, setDrawerOpen] = useState(false)
+class FreelancerSettingsViewRaw extends Component {
+  state = {
+    activeCategory: 2,
+    activeSubCategory: 0,
+    drawerOpen: false,
+  }
 
-  return (
-    <React.Fragment>
-      <Navbar
-        activeItem={activeCategory}
-        setItem={setCategory}
-        activeSubItem={activeSubCategory}
-        categoriesList={categoriesList.freelancer}
-        setSubItem={setSubCategory}
-        drawerOpen={drawerOpen}
-        setDrawerOpen={setDrawerOpen}
-        user={textConsts.appUser}
-      />
-      <Main>
-        <Appbar
-          title={textConsts.appBarTitle}
-          notificationCount={2}
-          avatarSrc={avatar}
-          username={textConsts.appBarUsername}
-          setDrawerOpen={setDrawerOpen}
-        >
-          <MainContent>
-            <Paper className={classNames.card}>
-              <Typography variant="h3">{textConsts.mainTitle}</Typography>
-              <Field title={textConsts.fieldName} placeholder={'researcher'} />
-              <Field title={textConsts.fieldEmail} placeholder={'researcher@test.com'} />
-              <Field title={textConsts.fieldRate} />
-              <Field title={textConsts.fieldRole} placeholder={'Researcher'} />
-              <Field title={textConsts.fieldFba} />
-              <Box className={classNames.buttonsBox}>
-                <Button className={classNames.button}>{textConsts.saveBtn}</Button>
-                <SuccessButton>{textConsts.cancelBtn}</SuccessButton>
-              </Box>
-            </Paper>
-          </MainContent>
-        </Appbar>
-      </Main>
-    </React.Fragment>
-  )
+  render() {
+    const {activeCategory, activeSubCategory, drawerOpen} = this.state
+
+    return (
+      <React.Fragment>
+        <Navbar
+          activeCategory={activeCategory}
+          setItem={this.onChangeCategory}
+          activeSubCategory={activeSubCategory}
+          categoriesList={categoriesList.freelancer}
+          setSubItem={this.onChangeSubCategory}
+          drawerOpen={drawerOpen}
+          setDrawerOpen={this.onChangeDrawerOpen}
+          user={textConsts.appUser}
+        />
+        <Main>
+          <Appbar
+            title={textConsts.appBarTitle}
+            notificationCount={2}
+            avatarSrc={avatar}
+            username={textConsts.appBarUsername}
+            setDrawerOpen={this.onChangeDrawerOpen}
+          >
+            <MainContent>
+              <Paper className={this.props.classes.card}>
+                <Typography variant="h3">{textConsts.mainTitle}</Typography>
+                <Field label={textConsts.fieldName} placeholder={'researcher'} />
+                <Field label={textConsts.fieldEmail} placeholder={'researcher@test.com'} />
+                <Field label={textConsts.fieldRate} />
+                <Field label={textConsts.fieldRole} placeholder={'Researcher'} />
+                <Field label={textConsts.fieldFba} inputComponent={<Checkbox />} />
+                <Box className={this.props.classes.buttonsBox}>
+                  <Button className={this.props.classes.button}>{textConsts.saveBtn}</Button>
+                  <SuccessButton>{textConsts.cancelBtn}</SuccessButton>
+                </Box>
+              </Paper>
+            </MainContent>
+          </Appbar>
+        </Main>
+      </React.Fragment>
+    )
+  }
+  onChangeDrawerOpen = (e, value) => {
+    this.setState({drawerOpen: value})
+  }
+
+  onChangeCategory = (e, value) => {
+    this.setState({activeCategory: value})
+  }
+
+  onChangeSubCategory = (e, value) => {
+    this.setState({activeSubCategory: value})
+  }
 }
+
+export const FreelancerSettingsView = withStyles(styles)(FreelancerSettingsViewRaw)

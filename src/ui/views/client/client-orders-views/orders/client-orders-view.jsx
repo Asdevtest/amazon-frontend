@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Typography, Container, Button} from '@material-ui/core'
+import {Typography, Container} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {CLIENT_ORDERS_DATA, CLIENT_ORDERS_HEAD_CELL} from '@constants/mocks'
@@ -8,6 +8,7 @@ import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -61,7 +62,7 @@ class ClientOrdersViewRaw extends Component {
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
 
               <Table
-                buttons={this.buttonsContent}
+                buttons={this.renderButtons}
                 currentPage={paginationPage}
                 data={CLIENT_ORDERS_DATA}
                 handlerPageChange={this.onChangePagination}

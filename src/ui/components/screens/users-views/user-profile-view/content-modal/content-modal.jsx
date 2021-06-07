@@ -10,11 +10,11 @@ import {
   TableCell,
   TableHead,
   TableContainer,
-  Button,
 } from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
+import {Button} from '@components/buttons/button'
 import {ModalTableBodyRow} from '@components/table-rows/user-profile-view/modal-table-body-row'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -64,6 +64,7 @@ export const ContentModal = props => {
         >
           {textConsts.buyNowBtn}
         </Button>
+
         <Button
           disableElevation
           variant="contained"

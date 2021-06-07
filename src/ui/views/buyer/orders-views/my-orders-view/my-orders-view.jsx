@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Typography, Container, Button} from '@material-ui/core'
+import {Typography, Container} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -16,6 +16,7 @@ import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'

@@ -1,1 +1,1 @@
-export {DashboardView} from './dashboard-view'
+export {FreelancerDashboardView} from './dashboard-view'

@@ -1,9 +1,10 @@
 import React from 'react'
 
-import {Box, Container, Divider, Typography, Button} from '@material-ui/core'
+import {Box, Container, Divider, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
+import {Button} from '@components/buttons/button'
 import {Input} from '@components/input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'

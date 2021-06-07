@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {createStyles} from '@material-ui/core'
 
-export const useClassNames = makeStyles(() => ({
+export const styles = createStyles(() => ({
   card: {
     padding: '16px 20px',
     marginBottom: '42px',

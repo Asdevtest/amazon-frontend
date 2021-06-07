@@ -1,1 +1,1 @@
-export {SettingsView} from './settings-view'
+export {FreelancerSettingsView} from './settings-view'

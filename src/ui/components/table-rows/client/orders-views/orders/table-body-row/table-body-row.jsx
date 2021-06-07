@@ -1,10 +1,12 @@
 import React from 'react'
 
-import {Box, Chip, TableCell, TableRow, Tooltip, Typography, Button, Checkbox} from '@material-ui/core'
+import {Box, Chip, TableCell, TableRow, Tooltip, Typography, Checkbox} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
+
+import {Button} from '@components/buttons/button'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 

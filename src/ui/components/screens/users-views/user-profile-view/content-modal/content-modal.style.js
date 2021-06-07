@@ -83,32 +83,32 @@ export const useClassNames = makeStyles(() => ({
     '& tbody': {
       borderBottom: '1px solid rgba(224, 224, 224, 1)',
     },
-    tableCell: {
-      align: 'center',
-    },
-    divider: {
-      margin: '0px -24px',
-    },
-    tableWrapper: {
-      margin: '0px -24px',
-      width: 'auto',
-    },
-    imgCell: {
-      padding: '16px 24px',
-    },
-    buttonsWrapper: {
-      textAlign: 'right',
-      marginTop: '16px',
-    },
-    buyNowBtn: {
-      backgroundColor: 'rgba(0, 123, 255, 1)',
-      color: '#fff',
-      marginRight: '8px',
-    },
-    cancelBtn: {
-      backgroundColor: '#d5d5d5',
-      color: 'rgba(61, 81, 112, 1)',
-      textTransform: 'none',
-    },
+  },
+  tableCell: {
+    align: 'center',
+  },
+  divider: {
+    margin: '0px -24px',
+  },
+  tableWrapper: {
+    margin: '0px -24px',
+    width: 'auto',
+  },
+  imgCell: {
+    padding: '16px 24px',
+  },
+  buttonsWrapper: {
+    textAlign: 'right',
+    marginTop: '16px',
+  },
+  buyNowBtn: {
+    backgroundColor: 'rgba(0, 123, 255, 1)',
+    color: '#fff',
+    marginRight: '8px',
+  },
+  cancelBtn: {
+    backgroundColor: '#d5d5d5',
+    color: 'rgba(61, 81, 112, 1)',
+    textTransform: 'none',
   },
 }))

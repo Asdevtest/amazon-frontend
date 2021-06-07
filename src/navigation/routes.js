@@ -19,9 +19,9 @@ import {ClientProductView} from '@views/client/client-product-view'
 import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
 import {ClientUserProfileView} from '@views/client/client-users-views/user-profile-view'
 import {DocumentationView} from '@views/documentation'
-import {DashboardView} from '@views/freelancer/dashboard-view'
-import {ProductsView} from '@views/freelancer/products-view'
-import {SettingsView} from '@views/freelancer/settings-view'
+import {FreelancerDashboardView} from '@views/freelancer/dashboard-view'
+import {FreelancerProductsView} from '@views/freelancer/products-view'
+import {FreelancerSettingsView} from '@views/freelancer/settings-view'
 import {RegistrationView} from '@views/registration'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
 import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
@@ -92,17 +92,17 @@ export const routes = [
   },
   {
     routePath: '/freelancer/settings',
-    component: SettingsView,
+    component: FreelancerSettingsView,
     exact: false,
   },
   {
     routePath: '/freelancer/products',
-    component: ProductsView,
+    component: FreelancerProductsView,
     exact: false,
   },
   {
     routePath: '/freelancer/dashboard',
-    component: DashboardView,
+    component: FreelancerDashboardView,
     exact: false,
   },
   {

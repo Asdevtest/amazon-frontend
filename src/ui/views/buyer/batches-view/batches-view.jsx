@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Box, Button, Typography} from '@material-ui/core'
+import {Box, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {BATCHES_BOXES_EXAMPLES, BATCHES_HEAD_CELLS, BUYER_WAREHOUSE_LIST, BUYER_DELIVERY_LIST} from '@constants/mocks'
@@ -8,6 +8,7 @@ import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -108,7 +109,7 @@ class BatchesViewRaw extends Component {
   renderButtons = () => (
     <Box p={2} mr={0} className={this.props.classes.buttonsWrapper}>
       <Button
-        disabled={this.selected === null}
+        disabled={this.state.selected === null}
         color="secondary"
         onClick={() => this.setState({modalEditBoxes: !this.state.modalEditBoxes})}
       >

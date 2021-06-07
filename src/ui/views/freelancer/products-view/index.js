@@ -1,1 +1,1 @@
-export {ProductsView} from './products-view'
+export {FreelancerProductsView} from './products-view'
