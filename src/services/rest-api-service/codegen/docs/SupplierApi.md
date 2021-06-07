@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## apiV1SuppliersGet
 
-> [InlineResponse20013] apiV1SuppliersGet(opts)
+> [Object] apiV1SuppliersGet(opts)
 
 # Получить список поставщиков.
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20013]**](InlineResponse20013.md)
+**[Object]**
 
 ### Authorization
 
@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersGuidGet
 
-> InlineResponse20013 apiV1SuppliersGuidGet(guid, opts)
+> InlineResponse2006 apiV1SuppliersGuidGet(guid, opts)
 
 # Получить одного поставщика.
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20013**](InlineResponse20013.md)
+[**InlineResponse2006**](InlineResponse2006.md)
 
 ### Authorization
 

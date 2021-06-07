@@ -4,29 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
-**lsupplier** | **String** | Ссылка на поставщика. | [optional] 
-**bsr** | **Number** |  | [optional] 
-**status** | **Number** |  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком | [optional] [default to StatusEnum.0]
-**amazon** | **Number** |  | [optional] 
-**supplier** | **Number** | Код поставщика | [optional] 
-**fbafee** | **Number** | ФБА комиссия | [optional] 
-**reffee** | **Number** | REF) комиссия | [optional] 
-**delivery** | **Number** | Стоимость доставки. | [optional] 
-**icomment** | **String** | Комментарии к товару. | [optional] 
-**fba** | **Boolean** | Признак fba | [optional] 
-**profit** | **Number** | Прибыль | [optional] 
-**margin** | **Number** | Маржа | [optional] 
-
-
-
-## Enum: StatusEnum
-
-
-* `0` (value: `0`)
-
-* `10` (value: `10`)
-
-
+**lengthCm** | **Number** | Поле в которое наследуем данные размеров коробок | [optional] 
+**widthCm** | **Number** | Поле в которое наследуем данные размеров коробок | [optional] 
+**heightCm** | **Number** | Поле в которое наследуем данные размеров коробок | [optional] 
+**weighGrossKg** | **Number** | Общий вес кг коробки | [optional] 
+**volumeWeightKg** | **Number** | Объемный вес (подсчет) | [optional] 
+**weightFinalAccountingKg** | **Number** | Наибольший вес (подсчет) | [optional] 
+**lengthCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
+**widthCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
+**heightCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
+**weighGrossKgSupplier** | **Number** | Общий вес кг коробки который назвал поставщик. | [optional] 
+**volumeWeightKgSupplier** | **Number** | id склада - склады куда отправляют  | [optional] 
+**weightFinalAccountingKgSupplier** | **Number** | Наибольший вес (подсчет) (что большее объемный или обычный вес) у поставщика. | [optional] 
+**shipmentPlanId** | **String** | Ид шипмент плана ( не обязательное поле) | [optional] 
+**warehouse** | **Number** | id склада - склады куда отправляют  | [optional] 
+**deliveryMethod** | **Number** | Метод доставки - 1: Air , 2: Sea | [optional] 
 
 

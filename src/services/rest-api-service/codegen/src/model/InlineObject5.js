@@ -92,6 +92,12 @@ class InlineObject5 {
             if (data.hasOwnProperty('inStock')) {
                 obj['inStock'] = ApiClient.convertToType(data['inStock'], 'Boolean');
             }
+            if (data.hasOwnProperty('scheduledDispatchDate')) {
+                obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'Date');
+            }
+            if (data.hasOwnProperty('factDispatchDate')) {
+                obj['factDispatchDate'] = ApiClient.convertToType(data['factDispatchDate'], 'Date');
+            }
         }
         return obj;
     }
@@ -188,6 +194,18 @@ InlineObject5.prototype['deliveryMethod'] = undefined;
  * @member {Boolean} inStock
  */
 InlineObject5.prototype['inStock'] = undefined;
+
+/**
+ * Запланированная дата отправки.
+ * @member {Date} scheduledDispatchDate
+ */
+InlineObject5.prototype['scheduledDispatchDate'] = undefined;
+
+/**
+ * Запланированная дата доставки.
+ * @member {Date} factDispatchDate
+ */
+InlineObject5.prototype['factDispatchDate'] = undefined;
 
 
 

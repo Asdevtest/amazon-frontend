@@ -326,6 +326,31 @@ export const texts = {
       orderNowBtn: 'Заказать сразу',
       cancelBtn: 'Отменить',
     },
+    supervisorProductsView: {
+      appBarTitle: 'Products',
+      appBarUsername: 'Supervisor',
+      appUser: 'supervisor',
+      mainTitle: 'Товары',
+    },
+    supervisorReadyToCheckView: {
+      appBarTitle: 'Ready to check',
+      appBarUsername: 'Supervisor',
+      appUser: 'supervisor',
+      mainTitle: 'Товары на проверку',
+    },
+    supervisorSettingsView: {
+      appBarTitle: 'Settings',
+      appBarUsername: 'Supervisor',
+      appUser: 'supervisor',
+      mainTitle: 'Settings page',
+      fieldName: 'Name',
+      fieldEmail: 'Email',
+      fieldRate: 'Rate',
+      fieldRole: 'Role',
+      fieldFba: 'FBA',
+      saveBtn: 'Сохранить',
+      cancelBtn: 'Отменить',
+    },
   },
   ru: {
     clientDashboardView: {
@@ -667,7 +692,6 @@ export const texts = {
       status: 'Статус:',
       track: 'Трек номер США:',
     },
-
     clientOrdersView: {
       mainTitle: 'Мои заказы',
       appBarTitle: 'Страница заказов',
@@ -759,6 +783,31 @@ export const texts = {
       title: 'Order product',
       orderNowBtn: 'Заказать сразу',
       cancelBtn: 'Отменить',
+    },
+    supervisorProductsView: {
+      appBarTitle: 'Products',
+      appBarUsername: 'Supervisor',
+      appUser: 'supervisor',
+      mainTitle: 'Products',
+    },
+    supervisorSettingsView: {
+      appBarTitle: 'Settings',
+      appBarUsername: 'Supervisor',
+      appUser: 'supervisor',
+      mainTitle: 'Settings page',
+      fieldName: 'Name',
+      fieldEmail: 'Email',
+      fieldRate: 'Rate',
+      fieldRole: 'Role',
+      fieldFba: 'FBA',
+      saveBtn: 'Save',
+      cancelBtn: 'Cancel',
+    },
+    supervisorReadyToCheckView: {
+      appBarTitle: 'Ready to check',
+      appBarUsername: 'Supervisor',
+      appUser: 'supervisor',
+      mainTitle: 'Товары на проверку',
     },
   },
 }

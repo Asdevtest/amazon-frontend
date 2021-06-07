@@ -22,13 +22,17 @@ class InlineResponse2007 {
     /**
      * Constructs a new <code>InlineResponse2007</code>.
      * @alias module:model/InlineResponse2007
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxId {String} GUID коробки для которой создана задача
-     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
+     * @param _id {String} GUID пользователя в БД.
+     * @param name {String} Имя пользователя.
+     * @param email {String} email
+     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.candidate = 50    
+     * @param fba {Boolean} Флаг fba.
+     * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
+     * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
-    constructor(taskId, boxId, status) { 
+    constructor(_id, name, email, role, fba, active, rate) { 
         
-        InlineResponse2007.initialize(this, taskId, boxId, status);
+        InlineResponse2007.initialize(this, _id, name, email, role, fba, active, rate);
     }
 
     /**
@@ -36,10 +40,14 @@ class InlineResponse2007 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, boxId, status) { 
-        obj['taskId'] = taskId;
-        obj['boxId'] = boxId;
-        obj['status'] = status;
+    static initialize(obj, _id, name, email, role, fba, active, rate) { 
+        obj['_id'] = _id;
+        obj['name'] = name;
+        obj['email'] = email;
+        obj['role'] = role;
+        obj['fba'] = fba;
+        obj['active'] = active;
+        obj['rate'] = rate;
     }
 
     /**
@@ -53,17 +61,26 @@ class InlineResponse2007 {
         if (data) {
             obj = obj || new InlineResponse2007();
 
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('boxId')) {
-                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            }
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            }
+            if (data.hasOwnProperty('active')) {
+                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
+            }
+            if (data.hasOwnProperty('rate')) {
+                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
             }
         }
         return obj;
@@ -73,28 +90,46 @@ class InlineResponse2007 {
 }
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * GUID пользователя в БД.
+ * @member {String} _id
  */
-InlineResponse2007.prototype['taskId'] = undefined;
+InlineResponse2007.prototype['_id'] = undefined;
 
 /**
- * GUID коробки для которой создана задача
- * @member {String} boxId
+ * Имя пользователя.
+ * @member {String} name
  */
-InlineResponse2007.prototype['boxId'] = undefined;
+InlineResponse2007.prototype['name'] = undefined;
 
 /**
- * GUID сотрудника склада, который выполняет задачу.
- * @member {String} storekeeperId
+ * email
+ * @member {String} email
  */
-InlineResponse2007.prototype['storekeeperId'] = undefined;
+InlineResponse2007.prototype['email'] = undefined;
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
- * @member {Number} status
+ * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.candidate = 50    
+ * @member {Number} role
  */
-InlineResponse2007.prototype['status'] = undefined;
+InlineResponse2007.prototype['role'] = undefined;
+
+/**
+ * Флаг fba.
+ * @member {Boolean} fba
+ */
+InlineResponse2007.prototype['fba'] = undefined;
+
+/**
+ * Если истина - пользователь активен. Если нет - заблокирован админом.
+ * @member {Boolean} active
+ */
+InlineResponse2007.prototype['active'] = undefined;
+
+/**
+ * Ставка, по который оплачивается сотрудник.
+ * @member {Number} rate
+ */
+InlineResponse2007.prototype['rate'] = undefined;
 
 
 

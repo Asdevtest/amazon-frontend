@@ -22,10 +22,11 @@ class InlineObject16 {
     /**
      * Constructs a new <code>InlineObject16</code>.
      * @alias module:model/InlineObject16
+     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      */
-    constructor() { 
+    constructor(status) { 
         
-        InlineObject16.initialize(this);
+        InlineObject16.initialize(this, status);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject16 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, status) { 
+        obj['status'] = status;
     }
 
     /**
@@ -47,50 +49,8 @@ class InlineObject16 {
         if (data) {
             obj = obj || new InlineObject16();
 
-            if (data.hasOwnProperty('lengthCm')) {
-                obj['lengthCm'] = ApiClient.convertToType(data['lengthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCm')) {
-                obj['widthCm'] = ApiClient.convertToType(data['widthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCm')) {
-                obj['heightCm'] = ApiClient.convertToType(data['heightCm'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKg')) {
-                obj['weighGrossKg'] = ApiClient.convertToType(data['weighGrossKg'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKg')) {
-                obj['volumeWeightKg'] = ApiClient.convertToType(data['volumeWeightKg'], 'Number');
-            }
-            if (data.hasOwnProperty('weightFinalAccountingKg')) {
-                obj['weightFinalAccountingKg'] = ApiClient.convertToType(data['weightFinalAccountingKg'], 'Number');
-            }
-            if (data.hasOwnProperty('lengthCmSupplier')) {
-                obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCmSupplier')) {
-                obj['widthCmSupplier'] = ApiClient.convertToType(data['widthCmSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmSupplier')) {
-                obj['heightCmSupplier'] = ApiClient.convertToType(data['heightCmSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgSupplier')) {
-                obj['weighGrossKgSupplier'] = ApiClient.convertToType(data['weighGrossKgSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKgSupplier')) {
-                obj['volumeWeightKgSupplier'] = ApiClient.convertToType(data['volumeWeightKgSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('weightFinalAccountingKgSupplier')) {
-                obj['weightFinalAccountingKgSupplier'] = ApiClient.convertToType(data['weightFinalAccountingKgSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('shipmentPlanId')) {
-                obj['shipmentPlanId'] = ApiClient.convertToType(data['shipmentPlanId'], 'String');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
         }
         return obj;
@@ -100,94 +60,10 @@ class InlineObject16 {
 }
 
 /**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} lengthCm
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
+ * @member {Number} status
  */
-InlineObject16.prototype['lengthCm'] = undefined;
-
-/**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} widthCm
- */
-InlineObject16.prototype['widthCm'] = undefined;
-
-/**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} heightCm
- */
-InlineObject16.prototype['heightCm'] = undefined;
-
-/**
- * Общий вес кг коробки
- * @member {Number} weighGrossKg
- */
-InlineObject16.prototype['weighGrossKg'] = undefined;
-
-/**
- * Объемный вес (подсчет)
- * @member {Number} volumeWeightKg
- */
-InlineObject16.prototype['volumeWeightKg'] = undefined;
-
-/**
- * Наибольший вес (подсчет)
- * @member {Number} weightFinalAccountingKg
- */
-InlineObject16.prototype['weightFinalAccountingKg'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} lengthCmSupplier
- */
-InlineObject16.prototype['lengthCmSupplier'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} widthCmSupplier
- */
-InlineObject16.prototype['widthCmSupplier'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} heightCmSupplier
- */
-InlineObject16.prototype['heightCmSupplier'] = undefined;
-
-/**
- * Общий вес кг коробки который назвал поставщик.
- * @member {Number} weighGrossKgSupplier
- */
-InlineObject16.prototype['weighGrossKgSupplier'] = undefined;
-
-/**
- * id склада - склады куда отправляют 
- * @member {Number} volumeWeightKgSupplier
- */
-InlineObject16.prototype['volumeWeightKgSupplier'] = undefined;
-
-/**
- * Наибольший вес (подсчет) (что большее объемный или обычный вес) у поставщика.
- * @member {Number} weightFinalAccountingKgSupplier
- */
-InlineObject16.prototype['weightFinalAccountingKgSupplier'] = undefined;
-
-/**
- * Ид шипмент плана ( не обязательное поле)
- * @member {String} shipmentPlanId
- */
-InlineObject16.prototype['shipmentPlanId'] = undefined;
-
-/**
- * id склада - склады куда отправляют 
- * @member {Number} warehouse
- */
-InlineObject16.prototype['warehouse'] = undefined;
-
-/**
- * Метод доставки - 1: Air , 2: Sea
- * @member {Number} deliveryMethod
- */
-InlineObject16.prototype['deliveryMethod'] = undefined;
+InlineObject16.prototype['status'] = undefined;
 
 
 

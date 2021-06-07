@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## apiV1UsersInfoGet
 
-> ApiV1AdminsGetNotPaidProductsCreatedby apiV1UsersInfoGet(opts)
+> InlineResponse2007 apiV1UsersInfoGet(opts)
 
 Получить информацию от текущем пользователе.
 
@@ -50,7 +50,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV1AdminsGetNotPaidProductsCreatedby**](ApiV1AdminsGetNotPaidProductsCreatedby.md)
+[**InlineResponse2007**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersPost
 
-> ApiV1AdminsGetNotPaidProductsCreatedby apiV1UsersPost(InlineObject20, opts)
+> InlineResponse2007 apiV1UsersPost(InlineObject20, opts)
 
 Создание нового пользователя. Регистрация.
 
@@ -98,7 +98,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV1AdminsGetNotPaidProductsCreatedby**](ApiV1AdminsGetNotPaidProductsCreatedby.md)
+[**InlineResponse2007**](InlineResponse2007.md)
 
 ### Authorization
 

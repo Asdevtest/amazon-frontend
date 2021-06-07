@@ -65,11 +65,27 @@ class InlineObject17 {
 }
 
 /**
+ * См. описание статусов например в readMe.md
+ * @member {module:model/InlineObject17.StatusEnum} status
+ */
+InlineObject17.prototype['status'] = undefined;
+
+/**
+ * Комментарий к статусу проверки.
+ * @member {String} checkednotes
+ */
+InlineObject17.prototype['checkednotes'] = undefined;
+
+
+
+
+
+/**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
  * @readonly
  */
- InlineObject17['StatusEnum'] = {
+InlineObject17['StatusEnum'] = {
 
     /**
      * value: 20
@@ -101,21 +117,6 @@ class InlineObject17 {
      */
     "90": 90
 };
-
-/**
- * См. описание статусов например в readMe.md
- * @member {module:model/InlineObject17.StatusEnum} status
- */
-InlineObject17.prototype['status'] = undefined;
-
-/**
- * Комментарий к статусу проверки.
- * @member {String} checkednotes
- */
-InlineObject17.prototype['checkednotes'] = undefined;
-
-
-
 
 
 

@@ -1,7 +1,5 @@
-/* eslint-disable no-caller */
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable} from 'mobx'
 
-import {getLoggerServiceModel} from '@services/logger-service'
 import {ApiClient} from '@services/rest-api-service/codegen/src'
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
@@ -12,76 +10,49 @@ import {UserSignInDataContract, UserInfoContract} from './user-model.contracts'
 const persistProperties = ['accessToken', 'userInfo']
 
 class UserModelStatic {
-  accessToken = undefined
+  accessToken = '-=test_token=-:60aabf69b2f06d5a147ba009'
   userInfo = undefined
 
-  logger = undefined
+  constructor() {
+    makeAutoObservable(this, undefined, {autoBind: true})
+    makePersistableModel(this, {properties: persistProperties})
+    restApiService.setAccessToken(this.accessToken)
+  }
 
   isAuthenticated() {
     return !!this.accessToken
   }
 
-  constructor() {
-    makeAutoObservable(this)
-    makePersistableModel(this, {
-      properties: persistProperties,
-    })
-    this.logger = getLoggerServiceModel(this)
-  }
-
-  signOut = () => {
-    runInAction(() => {
-      this.accessToken = undefined
-      this.userInfo = undefined
-    })
+  signOut() {
+    this.accessToken = undefined
+    this.userInfo = undefined
     restApiService.removeAccessToken()
   }
 
-  signIn = async (email, password) => {
-    try {
-      const response = await restApiService.userApi.apiV1UsersSignInPost({
-        email,
-        password,
-      })
-      this.logger.logResponse('signIn', response)
-      const userSignInData = ApiClient.convertToType(response, UserSignInDataContract)
-      const accessToken = userSignInData.token
-      runInAction(() => {
-        this.accessToken = accessToken
-      })
-      restApiService.setAccessToken(accessToken)
-    } catch (error) {
-      this.logger.logCoughtError('signIn', error)
-      throw error
-    }
+  async signIn(email, password) {
+    const response = await restApiService.userApi.apiV1UsersSignInPost({
+      email,
+      password,
+    })
+    const userSignInData = ApiClient.convertToType(response, UserSignInDataContract)
+    const accessToken = userSignInData.token
+    this.accessToken = accessToken
+    restApiService.setAccessToken(accessToken)
   }
 
-  signUp = async (name, email, password) => {
-    try {
-      const response = await restApiService.userApi.apiV1UsersPost({
-        name,
-        email,
-        password,
-      })
-      this.logger.logResponse('signUp', response)
-      runInAction(() => {
-        this.userInfo = ApiClient.convertToType(response, UserInfoContract)
-      })
-    } catch (error) {
-      this.logger.logCoughtError('signUp', error)
-      throw error
-    }
+  async signUp(name, email, password) {
+    const response = await restApiService.userApi.apiV1UsersPost({
+      name,
+      email,
+      password,
+    })
+    this.userInfo = ApiClient.convertToType(response, UserInfoContract)
   }
 
-  getUserInfo = async () => {
-    try {
-      const response = restApiService.userApi.apiV1UsersInfoGet()
-      this.logger.logResponse('getUserInfo', response)
-      this.userInfo = ApiClient.convertToType(response, UserInfoContract)
-    } catch (error) {
-      this.logger.logCoughtError('getUserInfo', error)
-      throw error
-    }
+  async getUserInfo() {
+    const response = restApiService.userApi.apiV1UsersInfoGet()
+    this.userInfo = response
+    return response
   }
 }
 

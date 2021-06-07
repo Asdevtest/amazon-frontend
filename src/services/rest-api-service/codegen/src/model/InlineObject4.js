@@ -36,7 +36,7 @@ class InlineObject4 {
      * @param weightFinalAccountingKgSupplier {Number} Наибольший вес (подсчет) (что большее объемный или обычный вес) у поставщика.
      * @param warehouse {Number} id склада - склады куда отправляют 
      * @param deliveryMethod {Number} Метод доставки - 1: Air , 2: Sea
-     * @param orderIds {Array.<Object>} Массив GUID ордеров из которых формируется данная коробка.
+     * @param orderIds {Object} Массив GUID ордеров из которых формируется данная коробка.
      */
     constructor(lengthCm, widthCm, heightCm, weighGrossKg, volumeWeightKg, weightFinalAccountingKg, lengthCmSupplier, widthCmSupplier, heightCmSupplier, weighGrossKgSupplier, volumeWeightKgSupplier, weightFinalAccountingKgSupplier, warehouse, deliveryMethod, orderIds) { 
         
@@ -120,7 +120,13 @@ class InlineObject4 {
                 obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
             }
             if (data.hasOwnProperty('orderIds')) {
-                obj['orderIds'] = ApiClient.convertToType(data['orderIds'], [Object]);
+                obj['orderIds'] = ApiClient.convertToType(data['orderIds'], Object);
+            }
+            if (data.hasOwnProperty('scheduledDispatchDate')) {
+                obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'Date');
+            }
+            if (data.hasOwnProperty('factDispatchDate')) {
+                obj['factDispatchDate'] = ApiClient.convertToType(data['factDispatchDate'], 'Date');
             }
         }
         return obj;
@@ -215,9 +221,21 @@ InlineObject4.prototype['deliveryMethod'] = undefined;
 
 /**
  * Массив GUID ордеров из которых формируется данная коробка.
- * @member {Array.<Object>} orderIds
+ * @member {Object} orderIds
  */
 InlineObject4.prototype['orderIds'] = undefined;
+
+/**
+ * Запланированная дата отправки.
+ * @member {Date} scheduledDispatchDate
+ */
+InlineObject4.prototype['scheduledDispatchDate'] = undefined;
+
+/**
+ * Запланированная дата доставки.
+ * @member {Date} factDispatchDate
+ */
+InlineObject4.prototype['factDispatchDate'] = undefined;
 
 
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import {Typography, Container, Button} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
 import {
   MY_ORDER_TABLE_HEADERS,
@@ -28,11 +29,14 @@ import {TableHeadRow} from '@components/table-rows/buyer/orders-views/table-head
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/buyerAvatar.jpg'
+import {MyOrdersViewModel} from './my-orders-view.model'
 import {styles} from './my-orders-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').myOrdersView
 
+@observer
 class MyOrdersViewRaw extends Component {
+  viewModel = new MyOrdersViewModel({history: this.props.history})
   state = {
     activeCategory: 2,
     activeSubCategory: 0,
@@ -43,6 +47,11 @@ class MyOrdersViewRaw extends Component {
     paginationPage: 1,
     selectedOrder: 0,
   }
+
+  componentDidMount() {
+    this.viewModel.getOrdersMy()
+  }
+
   render() {
     const {activeCategory, activeSubCategory, drawerOpen} = this.state
 
@@ -74,7 +83,7 @@ class MyOrdersViewRaw extends Component {
               <Table
                 buttons={this.renderButtons}
                 currentPage={this.state.paginationPage}
-                data={MY_ORDERS_DATA}
+                data={this.viewModel.ordersMy}
                 handlerPageChange={this.onChangePagination}
                 handlerRowsPerPage={this.onChangeRowsPerPage}
                 pageCount={Math.ceil(MY_ORDERS_DATA.length / this.state.rowsPerPage)}

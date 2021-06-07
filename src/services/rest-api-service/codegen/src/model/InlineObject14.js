@@ -22,20 +22,10 @@ class InlineObject14 {
     /**
      * Constructs a new <code>InlineObject14</code>.
      * @alias module:model/InlineObject14
-     * @param id {String} ASIN продукта
-     * @param lamazon {String} Ссылка на этот продукт на амазоне.
-     * @param lsupplier {String} Ссылка на поставщика.
-     * @param bsr {Number} 
-     * @param amazon {Number} 
-     * @param supplier {Number} Код поставщика
-     * @param fbafee {Number} ФБА комиссия
-     * @param delivery {Number} Стоимость доставки.
-     * @param icomment {String} Комментарии к товару.
-     * @param images {Array.<String>} 
      */
-    constructor(id, lamazon, lsupplier, bsr, amazon, supplier, fbafee, delivery, icomment, images) { 
+    constructor() { 
         
-        InlineObject14.initialize(this, id, lamazon, lsupplier, bsr, amazon, supplier, fbafee, delivery, icomment, images);
+        InlineObject14.initialize(this);
     }
 
     /**
@@ -43,17 +33,7 @@ class InlineObject14 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, lamazon, lsupplier, bsr, amazon, supplier, fbafee, delivery, icomment, images) { 
-        obj['id'] = id;
-        obj['lamazon'] = lamazon;
-        obj['lsupplier'] = lsupplier;
-        obj['bsr'] = bsr;
-        obj['amazon'] = amazon;
-        obj['supplier'] = supplier;
-        obj['fbafee'] = fbafee;
-        obj['delivery'] = delivery;
-        obj['icomment'] = icomment;
-        obj['images'] = images;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,9 +47,6 @@ class InlineObject14 {
         if (data) {
             obj = obj || new InlineObject14();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
-            }
             if (data.hasOwnProperty('lamazon')) {
                 obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
             }
@@ -91,14 +68,23 @@ class InlineObject14 {
             if (data.hasOwnProperty('fbafee')) {
                 obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
             }
+            if (data.hasOwnProperty('reffee')) {
+                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            }
             if (data.hasOwnProperty('delivery')) {
                 obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
             }
             if (data.hasOwnProperty('icomment')) {
                 obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            }
+            if (data.hasOwnProperty('profit')) {
+                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+            }
+            if (data.hasOwnProperty('margin')) {
+                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
             }
         }
         return obj;
@@ -126,12 +112,6 @@ class InlineObject14 {
      */
     "10": 10
 };
-
-/**
- * ASIN продукта
- * @member {String} id
- */
-InlineObject14.prototype['id'] = undefined;
 
 /**
  * Ссылка на этот продукт на амазоне.
@@ -175,6 +155,12 @@ InlineObject14.prototype['supplier'] = undefined;
 InlineObject14.prototype['fbafee'] = undefined;
 
 /**
+ * REF) комиссия
+ * @member {Number} reffee
+ */
+InlineObject14.prototype['reffee'] = undefined;
+
+/**
  * Стоимость доставки.
  * @member {Number} delivery
  */
@@ -187,9 +173,22 @@ InlineObject14.prototype['delivery'] = undefined;
 InlineObject14.prototype['icomment'] = undefined;
 
 /**
- * @member {Array.<String>} images
+ * Признак fba
+ * @member {Boolean} fba
  */
-InlineObject14.prototype['images'] = undefined;
+InlineObject14.prototype['fba'] = undefined;
+
+/**
+ * Прибыль
+ * @member {Number} profit
+ */
+InlineObject14.prototype['profit'] = undefined;
+
+/**
+ * Маржа
+ * @member {Number} margin
+ */
+InlineObject14.prototype['margin'] = undefined;
 
 
 

@@ -132,7 +132,7 @@ Class | Method | HTTP request | Description
 *Amazonapi.AdministratorApi* | [**apiV1AdminsGetWaitingProductsGet**](docs/AdministratorApi.md#apiV1AdminsGetWaitingProductsGet) | **GET** /api/v1/admins/get_waiting_products | # Получить список товаров, которые ожидают проверку. 
 *Amazonapi.AdministratorApi* | [**apiV1AdminsMakePaymentPost**](docs/AdministratorApi.md#apiV1AdminsMakePaymentPost) | **POST** /api/v1/admins/make_payment | # Оплатить выбранные продукты.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsPatchProductsGuidPatch**](docs/AdministratorApi.md#apiV1AdminsPatchProductsGuidPatch) | **PATCH** /api/v1/admins/patch_products/{guid} | # Внести изменения в продукт.
-*Amazonapi.AdministratorApi* | [**apiV1AdminsPickupItemGuidPost**](docs/AdministratorApi.md#apiV1AdminsPickupItemGuidPost) | **POST** /api/v1/admins/pickup_item/{guid} | # Взять продукт на проверку.
+*Amazonapi.AdministratorApi* | [**apiV1AdminsPickupProductGuidPost**](docs/AdministratorApi.md#apiV1AdminsPickupProductGuidPost) | **POST** /api/v1/admins/pickup_product/{guid} | # Взять продукт на проверку.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsUsersGet**](docs/AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsUsersGuidDelete**](docs/AdministratorApi.md#apiV1AdminsUsersGuidDelete) | **DELETE** /api/v1/admins/users/{guid} | Изменить пользователя.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsUsersGuidPatch**](docs/AdministratorApi.md#apiV1AdminsUsersGuidPatch) | **PATCH** /api/v1/admins/users/{guid} | Изменить пользователя.
@@ -166,8 +166,6 @@ Class | Method | HTTP request | Description
 *Amazonapi.ClientApi* | [**apiV1ClientsProductsVacGet**](docs/ClientApi.md#apiV1ClientsProductsVacGet) | **GET** /api/v1/clients/products/vac | # Получить список вакантных товаров.
 *Amazonapi.ClientApi* | [**apiV1ClientsTasksGet**](docs/ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя.
 *Amazonapi.ClientApi* | [**apiV1ClientsTasksPost**](docs/ClientApi.md#apiV1ClientsTasksPost) | **POST** /api/v1/clients/tasks | # Создать задачу.
-*Amazonapi.ClientApi* | [**apiV1ClientsUsersGet**](docs/ClientApi.md#apiV1ClientsUsersGet) | **GET** /api/v1/clients/users | # Получить список пользователей.
-*Amazonapi.ClientApi* | [**apiV1ClientsUsersGuidPatch**](docs/ClientApi.md#apiV1ClientsUsersGuidPatch) | **PATCH** /api/v1/clients/users/{guid} | # Изменить пользователя.
 *Amazonapi.ProductForTestOnlyApi* | [**apiV1ProductsIdDelete**](docs/ProductForTestOnlyApi.md#apiV1ProductsIdDelete) | **DELETE** /api/v1/products/{id} | Удалить продукт.
 *Amazonapi.ProductForTestOnlyApi* | [**apiV1ProductsIdGet**](docs/ProductForTestOnlyApi.md#apiV1ProductsIdGet) | **GET** /api/v1/products/{id} | Получить продукт по GUID.
 *Amazonapi.ProductForTestOnlyApi* | [**apiV1ProductsIdPatch**](docs/ProductForTestOnlyApi.md#apiV1ProductsIdPatch) | **PATCH** /api/v1/products/{id} | Изменить продукт.
@@ -186,6 +184,7 @@ Class | Method | HTTP request | Description
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersBoxesMyGet**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesMyGet) | **GET** /api/v1/storekeepers/boxes/my | # Получить коробки закрепленные за данным сборщиком..
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersBoxesPickupGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesPickupGuidPost) | **POST** /api/v1/storekeepers/boxes/pickup/{guid} | # Закрепить коробку за сборщиками.
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersBoxesVacGet**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesVacGet) | **GET** /api/v1/storekeepers/boxes/vac | # Получить коробки не закрепленные за сборщиками.
+*Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersTasksGuidPatch) | **PATCH** /api/v1/storekeepers/tasks/{guid} | # Изменить задачу.
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksMyGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksMyGet) | **GET** /api/v1/storekeepers/tasks/my | # Получить задачи закрепленные за данным сборщиком..
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksPickupGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksPickupGuidPost) | **POST** /api/v1/storekeepers/tasks/pickup/{guid} | # Закрепить задачу за сборщиком.
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksVacGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksVacGet) | **GET** /api/v1/storekeepers/tasks/vac | # Получить задачи не закрепленные за сотрудниками склада.
@@ -207,10 +206,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
- - [Amazonapi.ApiV1AdminsGetNotPaidProductsCreatedby](docs/ApiV1AdminsGetNotPaidProductsCreatedby.md)
- - [Amazonapi.ApiV1BuyersOrdersVacItemList](docs/ApiV1BuyersOrdersVacItemList.md)
- - [Amazonapi.ApiV1BuyersPaymentsMyCreatedBy](docs/ApiV1BuyersPaymentsMyCreatedBy.md)
- - [Amazonapi.ApiV1ClientsBatchesId](docs/ApiV1ClientsBatchesId.md)
  - [Amazonapi.InlineObject](docs/InlineObject.md)
  - [Amazonapi.InlineObject1](docs/InlineObject1.md)
  - [Amazonapi.InlineObject10](docs/InlineObject10.md)
@@ -235,18 +230,13 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineObject9](docs/InlineObject9.md)
  - [Amazonapi.InlineResponse200](docs/InlineResponse200.md)
  - [Amazonapi.InlineResponse2001](docs/InlineResponse2001.md)
- - [Amazonapi.InlineResponse20010](docs/InlineResponse20010.md)
- - [Amazonapi.InlineResponse20011](docs/InlineResponse20011.md)
- - [Amazonapi.InlineResponse20012](docs/InlineResponse20012.md)
- - [Amazonapi.InlineResponse20013](docs/InlineResponse20013.md)
  - [Amazonapi.InlineResponse2002](docs/InlineResponse2002.md)
  - [Amazonapi.InlineResponse2003](docs/InlineResponse2003.md)
+ - [Amazonapi.InlineResponse2003Createdby](docs/InlineResponse2003Createdby.md)
  - [Amazonapi.InlineResponse2004](docs/InlineResponse2004.md)
  - [Amazonapi.InlineResponse2005](docs/InlineResponse2005.md)
  - [Amazonapi.InlineResponse2006](docs/InlineResponse2006.md)
  - [Amazonapi.InlineResponse2007](docs/InlineResponse2007.md)
- - [Amazonapi.InlineResponse2008](docs/InlineResponse2008.md)
- - [Amazonapi.InlineResponse2009](docs/InlineResponse2009.md)
  - [Amazonapi.InlineResponse201](docs/InlineResponse201.md)
  - [Amazonapi.InlineResponse2011](docs/InlineResponse2011.md)
  - [Amazonapi.InlineResponse400](docs/InlineResponse400.md)

@@ -7,6 +7,7 @@ import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -55,7 +56,7 @@ export const SettingsView = () => {
               <Field title={textConsts.fieldFba} />
               <Box className={classNames.buttonsBox}>
                 <Button className={classNames.button}>{textConsts.saveBtn}</Button>
-                <Button success>{textConsts.cancelBtn}</Button>
+                <SuccessButton>{textConsts.cancelBtn}</SuccessButton>
               </Box>
             </Paper>
           </MainContent>

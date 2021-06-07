@@ -4,12 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Код текущего состояния заказа. | [optional] 
-**amount** | **Number** | Кол-во продукта по этой позиции. | 
-**deliveryMethod** | **Number** | Код метода доставки. | 
-**warehouse** | **Number** | Номер склада. | 
-**clientComment** | **String** | Комментарии клиента. | 
-**barCode** | **String** | Ссылка на баркод. | 
-**product** | **String** | GUID заказанного продукта | 
+**id** | **String** | id продукта(asin) | 
+**images** | **[Object]** | массив с именами файлов | 
+**title** | **String** | Заголовок продукта | 
+**about** | **String** | О продукте. | 
+**description** | **String** | Описание | 
+**price** | **String** | Цена. | 
+**availability** | **String** | Доступность. | 
+**detail** | **String** | Детали. | 
+**asin** | **String** | ASIN | 
+**bsr** | **String** | BSR | 
+**weight** | **String** | Вес. | 
 
 

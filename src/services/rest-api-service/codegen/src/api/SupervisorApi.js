@@ -14,8 +14,6 @@
 
 import ApiClient from "../ApiClient";
 import InlineObject17 from '../model/InlineObject17';
-import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
@@ -46,7 +44,7 @@ export default class SupervisorApi {
      * ## Получить оплаты созданные данным супервайзером.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1SupervisorsPaymentsCreatedByThisSuperGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -65,7 +63,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2004];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/supervisors/payments/created_by_this_super', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -78,7 +76,7 @@ export default class SupervisorApi {
      * ## Получить оплаты созданные данным супервайзером.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1SupervisorsPaymentsCreatedByThisSuperGet(opts) {
       return this.apiV1SupervisorsPaymentsCreatedByThisSuperGetWithHttpInfo(opts)
@@ -93,7 +91,7 @@ export default class SupervisorApi {
      * ## Получить все оплаты, которые были начислены супервайзеру.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1SupervisorsPaymentsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -112,7 +110,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2004];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/supervisors/payments/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -125,7 +123,7 @@ export default class SupervisorApi {
      * ## Получить все оплаты, которые были начислены супервайзеру.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1SupervisorsPaymentsMyGet(opts) {
       return this.apiV1SupervisorsPaymentsMyGetWithHttpInfo(opts)
@@ -200,7 +198,7 @@ export default class SupervisorApi {
      * ## Получить список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1SupervisorsProductsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -219,7 +217,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -232,7 +230,7 @@ export default class SupervisorApi {
      * ## Получить список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1SupervisorsProductsMyGet(opts) {
       return this.apiV1SupervisorsProductsMyGetWithHttpInfo(opts)
@@ -301,7 +299,7 @@ export default class SupervisorApi {
      * ## Получить список вакантных товаров.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1SupervisorsProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -320,7 +318,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -333,7 +331,7 @@ export default class SupervisorApi {
      * ## Получить список вакантных товаров.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1SupervisorsProductsVacGet(opts) {
       return this.apiV1SupervisorsProductsVacGetWithHttpInfo(opts)

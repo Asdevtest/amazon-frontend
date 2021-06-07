@@ -13,10 +13,6 @@
 
 
 import ApiClient from './ApiClient';
-import ApiV1AdminsGetNotPaidProductsCreatedby from './model/ApiV1AdminsGetNotPaidProductsCreatedby';
-import ApiV1BuyersOrdersVacItemList from './model/ApiV1BuyersOrdersVacItemList';
-import ApiV1BuyersPaymentsMyCreatedBy from './model/ApiV1BuyersPaymentsMyCreatedBy';
-import ApiV1ClientsBatchesId from './model/ApiV1ClientsBatchesId';
 import InlineObject from './model/InlineObject';
 import InlineObject1 from './model/InlineObject1';
 import InlineObject10 from './model/InlineObject10';
@@ -41,18 +37,13 @@ import InlineObject8 from './model/InlineObject8';
 import InlineObject9 from './model/InlineObject9';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
-import InlineResponse20010 from './model/InlineResponse20010';
-import InlineResponse20011 from './model/InlineResponse20011';
-import InlineResponse20012 from './model/InlineResponse20012';
-import InlineResponse20013 from './model/InlineResponse20013';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2003 from './model/InlineResponse2003';
+import InlineResponse2003Createdby from './model/InlineResponse2003Createdby';
 import InlineResponse2004 from './model/InlineResponse2004';
 import InlineResponse2005 from './model/InlineResponse2005';
 import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse2007 from './model/InlineResponse2007';
-import InlineResponse2008 from './model/InlineResponse2008';
-import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
 import InlineResponse400 from './model/InlineResponse400';
@@ -108,30 +99,6 @@ export {
      * @property {module:ApiClient}
      */
     ApiClient,
-
-    /**
-     * The ApiV1AdminsGetNotPaidProductsCreatedby model constructor.
-     * @property {module:model/ApiV1AdminsGetNotPaidProductsCreatedby}
-     */
-    ApiV1AdminsGetNotPaidProductsCreatedby,
-
-    /**
-     * The ApiV1BuyersOrdersVacItemList model constructor.
-     * @property {module:model/ApiV1BuyersOrdersVacItemList}
-     */
-    ApiV1BuyersOrdersVacItemList,
-
-    /**
-     * The ApiV1BuyersPaymentsMyCreatedBy model constructor.
-     * @property {module:model/ApiV1BuyersPaymentsMyCreatedBy}
-     */
-    ApiV1BuyersPaymentsMyCreatedBy,
-
-    /**
-     * The ApiV1ClientsBatchesId model constructor.
-     * @property {module:model/ApiV1ClientsBatchesId}
-     */
-    ApiV1ClientsBatchesId,
 
     /**
      * The InlineObject model constructor.
@@ -278,30 +245,6 @@ export {
     InlineResponse2001,
 
     /**
-     * The InlineResponse20010 model constructor.
-     * @property {module:model/InlineResponse20010}
-     */
-    InlineResponse20010,
-
-    /**
-     * The InlineResponse20011 model constructor.
-     * @property {module:model/InlineResponse20011}
-     */
-    InlineResponse20011,
-
-    /**
-     * The InlineResponse20012 model constructor.
-     * @property {module:model/InlineResponse20012}
-     */
-    InlineResponse20012,
-
-    /**
-     * The InlineResponse20013 model constructor.
-     * @property {module:model/InlineResponse20013}
-     */
-    InlineResponse20013,
-
-    /**
      * The InlineResponse2002 model constructor.
      * @property {module:model/InlineResponse2002}
      */
@@ -312,6 +255,12 @@ export {
      * @property {module:model/InlineResponse2003}
      */
     InlineResponse2003,
+
+    /**
+     * The InlineResponse2003Createdby model constructor.
+     * @property {module:model/InlineResponse2003Createdby}
+     */
+    InlineResponse2003Createdby,
 
     /**
      * The InlineResponse2004 model constructor.
@@ -336,18 +285,6 @@ export {
      * @property {module:model/InlineResponse2007}
      */
     InlineResponse2007,
-
-    /**
-     * The InlineResponse2008 model constructor.
-     * @property {module:model/InlineResponse2008}
-     */
-    InlineResponse2008,
-
-    /**
-     * The InlineResponse2009 model constructor.
-     * @property {module:model/InlineResponse2009}
-     */
-    InlineResponse2009,
 
     /**
      * The InlineResponse201 model constructor.

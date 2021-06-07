@@ -1,6 +1,6 @@
 import {AuthView} from '@views/auth'
 import {BatchesView} from '@views/buyer/batches-view'
-import {MyProducts} from '@views/buyer/my-products-view'
+import {MyProductsView} from '@views/buyer/my-products-view'
 import {FreeOrdersView} from '@views/buyer/orders-views/free-orders-view'
 import {MyOrdersView} from '@views/buyer/orders-views/my-orders-view'
 import {BuyerProductView} from '@views/buyer/product-view/'
@@ -24,6 +24,10 @@ import {ProductsView} from '@views/freelancer/products-view'
 import {SettingsView} from '@views/freelancer/settings-view'
 import {RegistrationView} from '@views/registration'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
+import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
+import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view'
+import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-view'
+import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view/supervisor-settings-view'
 
 export const routes = [
   {
@@ -77,7 +81,7 @@ export const routes = [
   },
   {
     routePath: '/buyer/my-products',
-    component: MyProducts,
+    component: MyProductsView,
     exact: false,
   },
 
@@ -160,6 +164,31 @@ export const routes = [
   {
     routePath: '/client/users/sub-users',
     component: ClientSubUsersView,
+    exact: false,
+  },
+  {
+    routePath: '/supervisor/dashboard',
+    component: SupervisorDashboardView,
+    exact: false,
+  },
+  {
+    routePath: '/supervisor/products',
+    component: SupervisorProductsView,
+    exact: false,
+  },
+  {
+    routePath: '/supervisor/settings',
+    component: SupervisorSettingsView,
+    exact: false,
+  },
+  {
+    routePath: '/supervisor/product',
+    component: SupervisorProductView,
+    exact: false,
+  },
+  {
+    routePath: '/supervisor/ready-to-check',
+    component: SupervisorReadyToCheckView,
     exact: false,
   },
 ]

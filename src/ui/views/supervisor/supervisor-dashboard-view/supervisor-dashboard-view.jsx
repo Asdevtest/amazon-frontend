@@ -8,14 +8,14 @@ import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
-import {DashboardCard} from '@components/freelancer/dashboard-card'
+import {DashboardInfoCard} from '@components/dashboard-info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from './freelancerAvatar.jpg'
+import avatar from './assets/freelancerAvatar.jpg'
 import {styles} from './supervisor-dashboard-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').freelancerDashboardView
@@ -23,7 +23,7 @@ const textConsts = getLocalizedTexts(texts, 'en').freelancerDashboardView
 export class SupervisorDashboardViewRaw extends Component {
   state = {
     activeCategory: 0,
-    activeSubCategory: null,
+    activeSubCategory: 0,
     drawerOpen: true,
   }
 
@@ -33,10 +33,10 @@ export class SupervisorDashboardViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          activeItem={activeCategory}
+          activeCategory={activeCategory}
           setItem={this.onChangeCategory}
           activeSubItem={activeSubCategory}
-          categoriesList={categoriesList.freelancer}
+          categoriesList={categoriesList.supervisor}
           setSubItem={this.onChangeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={this.onChangeDrawerOpen}
@@ -56,11 +56,11 @@ export class SupervisorDashboardViewRaw extends Component {
                 <Grid container justify="center" spacing={3}>
                   {SUPERVISOR_DASHBOARD_LIST.map((item, index) => (
                     <Grid key={index} item xs={6} lg={4}>
-                      <DashboardCard
+                      <DashboardInfoCard
                         value={item.value}
                         title={item.title}
                         color={item.color}
-                        route="/freelancer/products"
+                        route="/supervisor/products"
                       />
                     </Grid>
                   ))}

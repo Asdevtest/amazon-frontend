@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 
 import {Container, Typography, Button} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
 import {
-  FREE_ORDERS_DATA,
   FREE_ORDERS_TABLE_HEADERS,
   ORDERS_MODAL_HEAD_CELLS,
   BUYER_WAREHOUSE_LIST,
@@ -28,11 +28,14 @@ import {TableHeadRow} from '@components/table-rows/buyer/orders-views/table-head
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/buyerAvatar.jpg'
+import {FreeOrdersViewModel} from './free-orders-view.model'
 import {styles} from './free-orders-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').freeOrdersView
 
+@observer
 class FreeOrdersViewRaw extends Component {
+  viewModel = new FreeOrdersViewModel({history: this.props.history})
   state = {
     activeCategory: 2,
     activeSubCategory: 1,
@@ -44,8 +47,13 @@ class FreeOrdersViewRaw extends Component {
     selectedOrder: 0,
   }
 
+  componentDidMount() {
+    this.viewModel.getOrdersVacant()
+  }
+
   render() {
-    const {activeCategory, activeSubCategory, drawerOpen} = this.state
+    const {activeCategory, activeSubCategory, drawerOpen, selectedOrder} = this.state
+    const {ordersVacant} = this.viewModel
 
     return (
       <React.Fragment>
@@ -75,10 +83,10 @@ class FreeOrdersViewRaw extends Component {
               <Table
                 buttons={this.state.renderButtons}
                 currentPage={this.state.paginationPage}
-                data={FREE_ORDERS_DATA}
+                data={ordersVacant}
                 handlerPageChange={this.onChangePagination}
                 handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(FREE_ORDERS_DATA.length / this.state.rowsPerPage)}
+                pageCount={Math.ceil(ordersVacant.length / this.state.rowsPerPage)}
                 BodyRow={TableBodyRow}
                 renderHeadRow={this.renderHeadRow}
                 rowsPerPage={this.state.rowsPerPage}
@@ -93,15 +101,17 @@ class FreeOrdersViewRaw extends Component {
         </Main>
 
         <Modal openModal={this.state.modalOrder} setOpenModal={this.onChangeModalOrder}>
-          <EditOrderModal
-            order={FREE_ORDERS_DATA[this.state.selectedOrder]}
-            setModal={this.onChangeModalOrder}
-            setModalBarcode={this.onChangeModalBarcode}
-            modalHeadCells={ORDERS_MODAL_HEAD_CELLS}
-            warehouseList={BUYER_WAREHOUSE_LIST}
-            deliveryList={BUYER_DELIVERY_LIST}
-            statusList={BUYER_STATUS_LIST}
-          />
+          {ordersVacant[selectedOrder] ? (
+            <EditOrderModal
+              order={ordersVacant[selectedOrder]}
+              setModal={this.onChangeModalOrder}
+              setModalBarcode={this.onChangeModalBarcode}
+              modalHeadCells={ORDERS_MODAL_HEAD_CELLS}
+              warehouseList={BUYER_WAREHOUSE_LIST}
+              deliveryList={BUYER_DELIVERY_LIST}
+              statusList={BUYER_STATUS_LIST}
+            />
+          ) : undefined}
         </Modal>
         <Modal openModal={this.state.modalBarcode} setOpenModal={this.onChangeModalBarcode}>
           <SetBarcodeModal setModalBarcode={this.onChangeModalBarcode} />

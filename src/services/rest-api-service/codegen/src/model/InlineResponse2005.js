@@ -22,16 +22,21 @@ class InlineResponse2005 {
     /**
      * Constructs a new <code>InlineResponse2005</code>.
      * @alias module:model/InlineResponse2005
-     * @param amount {Number} Кол-во продукта по этой позиции.
-     * @param deliveryMethod {Number} Код метода доставки.
-     * @param warehouse {Number} Номер склада.
-     * @param clientComment {String} Комментарии клиента.
-     * @param barCode {String} Ссылка на баркод.
-     * @param product {String} GUID заказанного продукта
+     * @param id {String} id продукта(asin)
+     * @param images {Array.<Object>} массив с именами файлов
+     * @param title {String} Заголовок продукта
+     * @param about {String} О продукте.
+     * @param description {String} Описание
+     * @param price {String} Цена.
+     * @param availability {String} Доступность.
+     * @param detail {String} Детали.
+     * @param asin {String} ASIN
+     * @param bsr {String} BSR
+     * @param weight {String} Вес.
      */
-    constructor(amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
+    constructor(id, images, title, about, description, price, availability, detail, asin, bsr, weight) { 
         
-        InlineResponse2005.initialize(this, amount, deliveryMethod, warehouse, clientComment, barCode, product);
+        InlineResponse2005.initialize(this, id, images, title, about, description, price, availability, detail, asin, bsr, weight);
     }
 
     /**
@@ -39,13 +44,18 @@ class InlineResponse2005 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
-        obj['amount'] = amount;
-        obj['deliveryMethod'] = deliveryMethod;
-        obj['warehouse'] = warehouse;
-        obj['clientComment'] = clientComment;
-        obj['barCode'] = barCode;
-        obj['product'] = product;
+    static initialize(obj, id, images, title, about, description, price, availability, detail, asin, bsr, weight) { 
+        obj['id'] = id;
+        obj['images'] = images;
+        obj['title'] = title;
+        obj['about'] = about;
+        obj['description'] = description;
+        obj['price'] = price;
+        obj['availability'] = availability;
+        obj['detail'] = detail;
+        obj['asin'] = asin;
+        obj['bsr'] = bsr;
+        obj['weight'] = weight;
     }
 
     /**
@@ -59,26 +69,38 @@ class InlineResponse2005 {
         if (data) {
             obj = obj || new InlineResponse2005();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], [Object]);
             }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            if (data.hasOwnProperty('about')) {
+                obj['about'] = ApiClient.convertToType(data['about'], 'String');
             }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'String');
             }
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiClient.convertToType(data['product'], 'String');
+            if (data.hasOwnProperty('availability')) {
+                obj['availability'] = ApiClient.convertToType(data['availability'], 'String');
+            }
+            if (data.hasOwnProperty('detail')) {
+                obj['detail'] = ApiClient.convertToType(data['detail'], 'String');
+            }
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
+            if (data.hasOwnProperty('bsr')) {
+                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'String');
+            }
+            if (data.hasOwnProperty('weight')) {
+                obj['weight'] = ApiClient.convertToType(data['weight'], 'String');
             }
         }
         return obj;
@@ -88,46 +110,70 @@ class InlineResponse2005 {
 }
 
 /**
- * Код текущего состояния заказа.
- * @member {Number} status
+ * id продукта(asin)
+ * @member {String} id
  */
-InlineResponse2005.prototype['status'] = undefined;
+InlineResponse2005.prototype['id'] = undefined;
 
 /**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
+ * массив с именами файлов
+ * @member {Array.<Object>} images
  */
-InlineResponse2005.prototype['amount'] = undefined;
+InlineResponse2005.prototype['images'] = undefined;
 
 /**
- * Код метода доставки.
- * @member {Number} deliveryMethod
+ * Заголовок продукта
+ * @member {String} title
  */
-InlineResponse2005.prototype['deliveryMethod'] = undefined;
+InlineResponse2005.prototype['title'] = undefined;
 
 /**
- * Номер склада.
- * @member {Number} warehouse
+ * О продукте.
+ * @member {String} about
  */
-InlineResponse2005.prototype['warehouse'] = undefined;
+InlineResponse2005.prototype['about'] = undefined;
 
 /**
- * Комментарии клиента.
- * @member {String} clientComment
+ * Описание
+ * @member {String} description
  */
-InlineResponse2005.prototype['clientComment'] = undefined;
+InlineResponse2005.prototype['description'] = undefined;
 
 /**
- * Ссылка на баркод.
- * @member {String} barCode
+ * Цена.
+ * @member {String} price
  */
-InlineResponse2005.prototype['barCode'] = undefined;
+InlineResponse2005.prototype['price'] = undefined;
 
 /**
- * GUID заказанного продукта
- * @member {String} product
+ * Доступность.
+ * @member {String} availability
  */
-InlineResponse2005.prototype['product'] = undefined;
+InlineResponse2005.prototype['availability'] = undefined;
+
+/**
+ * Детали.
+ * @member {String} detail
+ */
+InlineResponse2005.prototype['detail'] = undefined;
+
+/**
+ * ASIN
+ * @member {String} asin
+ */
+InlineResponse2005.prototype['asin'] = undefined;
+
+/**
+ * BSR
+ * @member {String} bsr
+ */
+InlineResponse2005.prototype['bsr'] = undefined;
+
+/**
+ * Вес.
+ * @member {String} weight
+ */
+InlineResponse2005.prototype['weight'] = undefined;
 
 
 

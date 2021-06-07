@@ -1,99 +1,44 @@
-import {getLoggerServiceModel} from '@services/logger-service'
-import {ApiClient} from '@services/rest-api-service/codegen/src'
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
-import {StorekeeperBatch, StorekeeperBox, StorekeeperTask} from './storekeeper-model.contracts'
-
 class StorekeeperModelStatic {
-  logger = undefined
-
-  constructor() {
-    this.logger = getLoggerServiceModel(this)
-  }
-
   getBoxesVacant = async () => {
-    try {
-      const response = await restApiService.strokeepersApi.apiV1StorekeepersBoxesVacGet()
-      this.logger.logResponse('getBoxesVacant', response)
-      return ApiClient.convertToType(response, StorekeeperBox)
-    } catch (error) {
-      this.logger.logCoughtError('getBoxesVacant', error)
-      throw error
-    }
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersBoxesVacGet()
+    return response
   }
 
   pickupBox = async id => {
-    try {
-      const response = await restApiService.strokeepersApi.apiV1StorekeepersBoxesPickupGuidPost(id)
-      this.logger.logResponse('pickupBox', response)
-    } catch (error) {
-      this.logger.logCoughtError('pickupBox', error)
-      throw error
-    }
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersBoxesPickupGuidPost(id)
+    return response
   }
 
   getBoxesMy = async id => {
-    try {
-      const response = await restApiService.strokeepersApi.apiV1StorekeepersBoxesMyGet(id)
-      this.logger.logResponse('getBoxesMy', response)
-      return ApiClient.convertToType(response, StorekeeperBox)
-    } catch (error) {
-      this.logger.logCoughtError('getBoxesMy', error)
-      throw error
-    }
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersBoxesMyGet(id)
+    return response
   }
 
   updateBox = async (id, data) => {
-    try {
-      const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksGuidPatch(id, data)
-      this.logger.logResponse('updateBox', response)
-    } catch (error) {
-      this.logger.logCoughtError('updateBox', error)
-      throw error
-    }
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksGuidPatch(id, data)
+    return response
   }
 
   getTasksVacant = async () => {
-    try {
-      const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksVacGet()
-      this.logger.logResponse('getTasksVacant', response)
-      return ApiClient.convertToType(response, StorekeeperTask)
-    } catch (error) {
-      this.logger.logCoughtError('getTasksVacant', error)
-      throw error
-    }
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksVacGet()
+    return response
   }
 
   pickupTask = async id => {
-    try {
-      const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksPickupGuidPost(id)
-      this.logger.logResponse('pickupTask', response)
-    } catch (error) {
-      this.logger.logCoughtError('pickupTask', error)
-      throw error
-    }
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksPickupGuidPost(id)
+    return response
   }
 
   getTasksMy = async () => {
-    try {
-      const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksMyGet()
-      this.logger.logResponse('getTasksMy', response)
-      return ApiClient.convertToType(response, StorekeeperTask)
-    } catch (error) {
-      this.logger.logCoughtError('getTasksMy', error)
-      throw error
-    }
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksMyGet()
+    return response
   }
 
   getBatches = async () => {
-    try {
-      const response = await restApiService.strokeepersApi.apiV1StorekeepersBatchesGet()
-      this.logger.logResponse('getBatches', response)
-      return ApiClient.convertToType(response, StorekeeperBatch)
-    } catch (error) {
-      this.logger.logCoughtError('getBatches', error)
-      throw error
-    }
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersBatchesGet()
+    return response
   }
 }
 

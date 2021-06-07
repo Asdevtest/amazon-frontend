@@ -13,12 +13,11 @@
 
 
 import ApiClient from "../ApiClient";
+import InlineObject13 from '../model/InlineObject13';
 import InlineObject14 from '../model/InlineObject14';
-import InlineObject15 from '../model/InlineObject15';
-import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse20010 from '../model/InlineResponse20010';
+import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2004 from '../model/InlineResponse2004';
-import InlineResponse2009 from '../model/InlineResponse2009';
+import InlineResponse2005 from '../model/InlineResponse2005';
 import InlineResponse201 from '../model/InlineResponse201';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
@@ -51,7 +50,7 @@ export default class ReseacherApi {
      * @param {String} id id для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2009} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2004} and HTTP response
      */
     apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts) {
       opts = opts || {};
@@ -75,7 +74,7 @@ export default class ReseacherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2009;
+      let returnType = InlineResponse2004;
       return this.apiClient.callApi(
         '/api/v1/researchers/check_products/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -89,7 +88,7 @@ export default class ReseacherApi {
      * @param {String} id id для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2009}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2004}
      */
     apiV1ResearchersCheckProductsIdGet(id, opts) {
       return this.apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts)
@@ -105,7 +104,7 @@ export default class ReseacherApi {
      * @param {String} id id(asin) для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20010} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2005} and HTTP response
      */
     apiV1ResearchersParseAmazonIdGetWithHttpInfo(id, opts) {
       opts = opts || {};
@@ -129,7 +128,7 @@ export default class ReseacherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = InlineResponse20010;
+      let returnType = InlineResponse2005;
       return this.apiClient.callApi(
         '/api/v1/researchers/parse_amazon/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -143,7 +142,7 @@ export default class ReseacherApi {
      * @param {String} id id(asin) для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20010}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2005}
      */
     apiV1ResearchersParseAmazonIdGet(id, opts) {
       return this.apiV1ResearchersParseAmazonIdGetWithHttpInfo(id, opts)
@@ -160,7 +159,7 @@ export default class ReseacherApi {
      * @param {String} opts.id ASIN продукта
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20010} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2005} and HTTP response
      */
     apiV1ResearchersParseSellercentralGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -181,7 +180,7 @@ export default class ReseacherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = InlineResponse20010;
+      let returnType = InlineResponse2005;
       return this.apiClient.callApi(
         '/api/v1/researchers/parse_sellercentral', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -196,7 +195,7 @@ export default class ReseacherApi {
      * @param {String} opts.id ASIN продукта
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20010}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2005}
      */
     apiV1ResearchersParseSellercentralGet(opts) {
       return this.apiV1ResearchersParseSellercentralGetWithHttpInfo(opts)
@@ -211,7 +210,7 @@ export default class ReseacherApi {
      * Получить информацию об платежах для этого менеджера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1ResearchersPaymentsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -230,7 +229,7 @@ export default class ReseacherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2004];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/researchers/payments/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -243,7 +242,7 @@ export default class ReseacherApi {
      * Получить информацию об платежах для этого менеджера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1ResearchersPaymentsMyGet(opts) {
       return this.apiV1ResearchersPaymentsMyGetWithHttpInfo(opts)
@@ -258,7 +257,7 @@ export default class ReseacherApi {
      * Получить список товаров созданных данным пользователем.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1ResearchersProductsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -277,7 +276,7 @@ export default class ReseacherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/researchers/products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -290,7 +289,7 @@ export default class ReseacherApi {
      * Получить список товаров созданных данным пользователем.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1ResearchersProductsGet(opts) {
       return this.apiV1ResearchersProductsGetWithHttpInfo(opts)
@@ -360,7 +359,7 @@ export default class ReseacherApi {
      * @param {String} guid GUID запрашиваемого ресурса.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2003} and HTTP response
      */
     apiV1ResearchersProductsGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -384,7 +383,7 @@ export default class ReseacherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = InlineResponse200;
+      let returnType = InlineResponse2003;
       return this.apiClient.callApi(
         '/api/v1/researchers/products/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -398,7 +397,7 @@ export default class ReseacherApi {
      * @param {String} guid GUID запрашиваемого ресурса.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2003}
      */
     apiV1ResearchersProductsGuidGet(guid, opts) {
       return this.apiV1ResearchersProductsGuidGetWithHttpInfo(guid, opts)
@@ -414,12 +413,12 @@ export default class ReseacherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject15} opts.InlineObject15 
+     * @param {module:model/InlineObject14} opts.InlineObject14 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
     apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject15'];
+      let postBody = opts['InlineObject14'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1ResearchersProductsGuidPatch");
@@ -453,7 +452,7 @@ export default class ReseacherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject15} opts.InlineObject15 
+     * @param {module:model/InlineObject14} opts.InlineObject14 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
     apiV1ResearchersProductsGuidPatch(guid, opts) {
@@ -467,17 +466,17 @@ export default class ReseacherApi {
     /**
      * # Добавить новый продукт.
      * ## Добавить новый продукт.   
-     * @param {module:model/InlineObject14} InlineObject14 
+     * @param {module:model/InlineObject13} InlineObject13 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
      */
-    apiV1ResearchersProductsPostWithHttpInfo(InlineObject14, opts) {
+    apiV1ResearchersProductsPostWithHttpInfo(InlineObject13, opts) {
       opts = opts || {};
-      let postBody = InlineObject14;
-      // verify the required parameter 'InlineObject14' is set
-      if (InlineObject14 === undefined || InlineObject14 === null) {
-        throw new Error("Missing the required parameter 'InlineObject14' when calling apiV1ResearchersProductsPost");
+      let postBody = InlineObject13;
+      // verify the required parameter 'InlineObject13' is set
+      if (InlineObject13 === undefined || InlineObject13 === null) {
+        throw new Error("Missing the required parameter 'InlineObject13' when calling apiV1ResearchersProductsPost");
       }
 
       let pathParams = {
@@ -504,13 +503,13 @@ export default class ReseacherApi {
     /**
      * # Добавить новый продукт.
      * ## Добавить новый продукт.   
-     * @param {module:model/InlineObject14} InlineObject14 
+     * @param {module:model/InlineObject13} InlineObject13 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
      */
-    apiV1ResearchersProductsPost(InlineObject14, opts) {
-      return this.apiV1ResearchersProductsPostWithHttpInfo(InlineObject14, opts)
+    apiV1ResearchersProductsPost(InlineObject13, opts) {
+      return this.apiV1ResearchersProductsPostWithHttpInfo(InlineObject13, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

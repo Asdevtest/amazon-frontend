@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## apiV1ResearchersCheckProductsIdGet
 
-> InlineResponse2009 apiV1ResearchersCheckProductsIdGet(id, opts)
+> InlineResponse2004 apiV1ResearchersCheckProductsIdGet(id, opts)
 
 Проверить продукт по ID существует ли он в базе.
 
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2009**](InlineResponse2009.md)
+[**InlineResponse2004**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersParseAmazonIdGet
 
-> InlineResponse20010 apiV1ResearchersParseAmazonIdGet(id, opts)
+> InlineResponse2005 apiV1ResearchersParseAmazonIdGet(id, opts)
 
 Получить данные о продукте с сайта Амазон по id(asin)
 
@@ -112,7 +112,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20010**](InlineResponse20010.md)
+[**InlineResponse2005**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -126,7 +126,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersParseSellercentralGet
 
-> InlineResponse20010 apiV1ResearchersParseSellercentralGet(opts)
+> InlineResponse2005 apiV1ResearchersParseSellercentralGet(opts)
 
 Получить данные о продукте с SellerCentral
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20010**](InlineResponse20010.md)
+[**InlineResponse2005**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -182,7 +182,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersPaymentsMyGet
 
-> [InlineResponse2004] apiV1ResearchersPaymentsMyGet(opts)
+> [Object] apiV1ResearchersPaymentsMyGet(opts)
 
 Получить информацию об платежах для этого менеджера.
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+**[Object]**
 
 ### Authorization
 
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsGet
 
-> [InlineResponse200] apiV1ResearchersProductsGet(opts)
+> [Object] apiV1ResearchersProductsGet(opts)
 
 Получить список товаров созданных данным пользователем.
 
@@ -272,7 +272,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**[Object]**
 
 ### Authorization
 
@@ -340,7 +340,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsGuidGet
 
-> InlineResponse200 apiV1ResearchersProductsGuidGet(guid, opts)
+> InlineResponse2003 apiV1ResearchersProductsGuidGet(guid, opts)
 
 Получить товар по GUID.
 
@@ -380,7 +380,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**InlineResponse2003**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -415,7 +415,7 @@ let apiInstance = new Amazonapi.ReseacherApi();
 let guid = "guid_example"; // String | GUID продукта БД
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject15': new Amazonapi.InlineObject15() // InlineObject15 | 
+  'InlineObject14': new Amazonapi.InlineObject14() // InlineObject14 | 
 };
 apiInstance.apiV1ResearchersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -432,7 +432,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта БД | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject15** | [**InlineObject15**](InlineObject15.md)|  | [optional] 
+ **InlineObject14** | [**InlineObject14**](InlineObject14.md)|  | [optional] 
 
 ### Return type
 
@@ -450,7 +450,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsPost
 
-> InlineResponse201 apiV1ResearchersProductsPost(InlineObject14, opts)
+> InlineResponse201 apiV1ResearchersProductsPost(InlineObject13, opts)
 
 # Добавить новый продукт.
 
@@ -468,11 +468,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.ReseacherApi();
-let InlineObject14 = new Amazonapi.InlineObject14(); // InlineObject14 | 
+let InlineObject13 = new Amazonapi.InlineObject13(); // InlineObject13 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1ResearchersProductsPost(InlineObject14, opts).then((data) => {
+apiInstance.apiV1ResearchersProductsPost(InlineObject13, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -485,7 +485,7 @@ apiInstance.apiV1ResearchersProductsPost(InlineObject14, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject14** | [**InlineObject14**](InlineObject14.md)|  | 
+ **InlineObject13** | [**InlineObject13**](InlineObject13.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type

@@ -4,25 +4,25 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | ASIN продукта | 
+**id** | **String** | ASIN продукта | [optional] 
 **material** | **String** |  | [optional] 
-**lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
-**lsupplier** | **String** | Ссылка на поставщика. | 
-**fba** | **Boolean** | Признак fba | 
+**lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
+**lsupplier** | **String** | Ссылка на поставщика. | [optional] 
+**fba** | **Boolean** | Признак fba | [optional] 
 **express** | **Boolean** | Признак экспресс доставки. | [optional] 
 **minpurchase** | **Number** | Минимальный заказ | [optional] 
-**bsr** | **Number** |  | 
-**amazon** | **Number** |  | 
+**bsr** | **Number** |  | [optional] 
+**amazon** | **Number** |  | [optional] 
 **height** | **Number** | Высота | [optional] 
 **width** | **Number** | Ширина | [optional] 
 **length** | **Number** | Длинна | [optional] 
 **weight** | **Number** | Вес | [optional] 
-**supplier** | **Number** | Код поставщика | 
+**supplier** | **Number** | Код поставщика | [optional] 
 **fbalink** | **String** | ФБА ссылка | [optional] 
 **fbafee** | **Number** | ФБА комиссия | [optional] 
 **fbaamount** | **Number** | ФБА кол-во | [optional] 
 **delivery** | **Number** | Стоимость доставки. | [optional] 
-**icomment** | **String** | Комментарии к товару. | 
+**icomment** | **String** | Комментарии к товару. | [optional] 
 **status** | **Number** | Код текущего статуса | [optional] 
 **checkednotes** | **String** |  | [optional] 
 **researcherFine** | **Number** | Размер штрафа менеджеру. | [optional] 

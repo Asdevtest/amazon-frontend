@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 
-import {BUYER_INITIAL_PRODUCT, BUYER_INITIAL_SUPPLIERS, BUYER_EMPTY_SUPPLIER} from '@constants/mocks'
+import {observer} from 'mobx-react'
+
+import {BUYER_INITIAL_SUPPLIERS, BUYER_EMPTY_SUPPLIER} from '@constants/mocks'
 import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
@@ -9,27 +11,15 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
-import categoryImgBeautyAndPersonalCare from '@components/product/assets/beautyAndPersonalCare.jpg'
-import categoryImgHealthHouseholdAndBabyCare from '@components/product/assets/healthHouseholdAndBabyCare.jpg'
-import categoryImgHomeAndKitchen from '@components/product/assets/homeAndKitchen.jpg'
-import categoryImgSportsAndOutdoors from '@components/product/assets/sportsAndOutdoors.jpg'
-import categoryImgToysAndGames from '@components/product/assets/toysAndGames.jpg'
 import {ModalContent} from '@components/product/modal-content'
 import {ProductWrapper} from '@components/product/product-wrapper'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/buyerAvatar.jpg'
+import {ProductViewModel} from './product-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
-
-const IMAGES = [
-  categoryImgHomeAndKitchen,
-  categoryImgSportsAndOutdoors,
-  categoryImgToysAndGames,
-  categoryImgHealthHouseholdAndBabyCare,
-  categoryImgBeautyAndPersonalCare,
-]
 
 const CHIP_LIST = [
   {key: 0, label: 'Поиск поставщика', color: 'rgb(0, 123, 255)', colorHover: '#1269ec'},
@@ -38,12 +28,13 @@ const CHIP_LIST = [
   {key: 3, label: 'Цена выше МЗЦ', color: 'rgb(210, 35, 35)', colorHover: '#c51a1c'},
 ]
 
+@observer
 export class BuyerProductView extends Component {
+  viewModel = new ProductViewModel({history: this.props.history})
   state = {
     activeCategory: 2,
     activeSubCategory: 1,
     drawerOpen: false,
-    product: {...BUYER_INITIAL_PRODUCT, images: IMAGES},
     suppliers: BUYER_INITIAL_SUPPLIERS,
     selectedSupplier: 0,
     modalAddSupplier: false,
@@ -51,8 +42,13 @@ export class BuyerProductView extends Component {
     activeChip: null,
   }
 
+  componentDidMount() {
+    this.viewModel.getProductData('60bd36d60171ec208c828a4d')
+  }
+
   render() {
     const {activeCategory, activeSubCategory, drawerOpen} = this.state
+    const {product} = this.viewModel
 
     return (
       <React.Fragment>
@@ -76,17 +72,19 @@ export class BuyerProductView extends Component {
             setDrawerOpen={this.onChangeDrawerOpen}
           >
             <MainContent>
-              <ProductWrapper
-                chipList={CHIP_LIST}
-                activeChip={this.state.activeChip}
-                setActiveChip={this.onChangeActiveChip}
-                product={this.state.product}
-                setProduct={this.onChangeProduct}
-                suppliers={this.state.suppliers}
-                selected={this.state.selectedSupplier}
-                handleSupplierButtons={this.onSupplierButtons}
-                onClickSupplier={this.onChangeSelectedSupplier}
-              />
+              {product ? (
+                <ProductWrapper
+                  chipList={CHIP_LIST}
+                  activeChip={this.state.activeChip}
+                  setActiveChip={this.onChangeActiveChip}
+                  product={this.viewModel.product}
+                  suppliers={this.state.suppliers}
+                  selected={this.state.selectedSupplier}
+                  handleSupplierButtons={this.onSupplierButtons}
+                  onClickSupplier={this.onChangeSelectedSupplier}
+                  onChangeField={this.viewModel.onChangeFieldProduct}
+                />
+              ) : undefined}
             </MainContent>
           </Appbar>
         </Main>

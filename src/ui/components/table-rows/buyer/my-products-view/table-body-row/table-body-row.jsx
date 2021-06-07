@@ -40,16 +40,16 @@ const TableBodyRowRaw = ({item, itemIndex, ...restProps}) => {
           </div>
         </div>
       </TableCell>
-      <TableCell className={classNames.priceTableCell}>{'$' + item.price.toFixed(2)}</TableCell>
+      <TableCell className={classNames.priceTableCell}>{item.price ? '$' + item.price.toFixed(2) : ''}</TableCell>
       <TableCell className={classNames.feesTableCell}>
         <div>
           <Typography className={classNames.typoCell}>
             {'Fees '}
-            <span className={classNames.typoSpan}>{'$' + item.fees}</span>
+            <span className={classNames.typoSpan}>{item.fees ? '$' + item.fees : ''}</span>
           </Typography>
           <Typography className={classNames.typoCell}>
             {'Net '}
-            <span className={classNames.typoSpan}>{'$' + (item.fees + 1)}</span>
+            <span className={classNames.typoSpan}>{item.fees ? '$' + (item.fees + 1) : ''}</span>
           </Typography>
           <Button
             disableElevation
@@ -60,10 +60,10 @@ const TableBodyRowRaw = ({item, itemIndex, ...restProps}) => {
           </Button>
         </div>
       </TableCell>
-      <TableCell className={classNames.rankTableCell}>{'#' + item.rank}</TableCell>
+      <TableCell className={classNames.rankTableCell}>{item.rank ? '#' + item.rank : ''}</TableCell>
       <TableCell className={classNames.ratingTableCell}>
         <div className={classNames.ratingTableCellContainer}>
-          <Typography className={classNames.ratingTypo}>{item.rating.toFixed(1)}</Typography>
+          <Typography className={classNames.ratingTypo}>{item.rating ? item.rating.toFixed(1) : ''}</Typography>
           <div className={classNames.rankCount}>
             {[1, 2, 3, 4, 5].map(el => (
               <StarIcon
@@ -80,10 +80,12 @@ const TableBodyRowRaw = ({item, itemIndex, ...restProps}) => {
       <TableCell className={classNames.salesCell}>{item.sales}</TableCell>
       <TableCell className={classNames.salersTotal}>{item.salersTotal}</TableCell>
       <TableCell className={classNames.salersTotal}>{item.type}</TableCell>
-      <TableCell className={classNames.revenueCell}>{'$' + item.revenue.toFixed(2)}</TableCell>
-      <TableCell className={classNames.amazonCell}>{'$' + item.amazonPrice.toFixed(2)}</TableCell>
-      <TableCell className={classNames.bsrCell}>{'$' + item.bsr.toFixed(2)}</TableCell>
-      <TableCell className={classNames.bsrCell}>{'$' + item.fba.toFixed(2)}</TableCell>
+      <TableCell className={classNames.revenueCell}>{item.revenue ? '$' + item.revenue.toFixed(2) : ''}</TableCell>
+      <TableCell className={classNames.amazonCell}>
+        {item.amazonPrice ? '$' + item.amazonPrice.toFixed(2) : ''}
+      </TableCell>
+      <TableCell className={classNames.bsrCell}>{item.bsr ? '$' + item.bsr.toFixed(2) : ''}</TableCell>
+      <TableCell className={classNames.bsrCell}>{item.fba ? '$' + item.fba.toFixed(2) : ''}</TableCell>
       <TableCell className={classNames.deleteBtnCell}>
         <IconButton onClick={() => alert('Item deleting...')}>
           <DeleteIcon className={classNames.deleteBtn} />

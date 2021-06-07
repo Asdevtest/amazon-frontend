@@ -18,6 +18,8 @@ Name | Type | Description | Notes
 **weightFinalAccountingKgSupplier** | **Number** | Наибольший вес (подсчет) (что большее объемный или обычный вес) у поставщика. | 
 **warehouse** | **Number** | id склада - склады куда отправляют  | 
 **deliveryMethod** | **Number** | Метод доставки - 1: Air , 2: Sea | 
-**orderIds** | **[Object]** | Массив GUID ордеров из которых формируется данная коробка. | 
+**orderIds** | **Object** | Массив GUID ордеров из которых формируется данная коробка. | 
+**scheduledDispatchDate** | **Date** | Запланированная дата отправки. | [optional] 
+**factDispatchDate** | **Date** | Запланированная дата доставки. | [optional] 
 
 

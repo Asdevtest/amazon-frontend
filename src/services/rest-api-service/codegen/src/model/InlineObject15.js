@@ -47,44 +47,50 @@ class InlineObject15 {
         if (data) {
             obj = obj || new InlineObject15();
 
-            if (data.hasOwnProperty('lamazon')) {
-                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
+            if (data.hasOwnProperty('lengthCm')) {
+                obj['lengthCm'] = ApiClient.convertToType(data['lengthCm'], 'Number');
             }
-            if (data.hasOwnProperty('lsupplier')) {
-                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
+            if (data.hasOwnProperty('widthCm')) {
+                obj['widthCm'] = ApiClient.convertToType(data['widthCm'], 'Number');
             }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
+            if (data.hasOwnProperty('heightCm')) {
+                obj['heightCm'] = ApiClient.convertToType(data['heightCm'], 'Number');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('weighGrossKg')) {
+                obj['weighGrossKg'] = ApiClient.convertToType(data['weighGrossKg'], 'Number');
             }
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            if (data.hasOwnProperty('volumeWeightKg')) {
+                obj['volumeWeightKg'] = ApiClient.convertToType(data['volumeWeightKg'], 'Number');
             }
-            if (data.hasOwnProperty('supplier')) {
-                obj['supplier'] = ApiClient.convertToType(data['supplier'], 'Number');
+            if (data.hasOwnProperty('weightFinalAccountingKg')) {
+                obj['weightFinalAccountingKg'] = ApiClient.convertToType(data['weightFinalAccountingKg'], 'Number');
             }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+            if (data.hasOwnProperty('lengthCmSupplier')) {
+                obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
             }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            if (data.hasOwnProperty('widthCmSupplier')) {
+                obj['widthCmSupplier'] = ApiClient.convertToType(data['widthCmSupplier'], 'Number');
             }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+            if (data.hasOwnProperty('heightCmSupplier')) {
+                obj['heightCmSupplier'] = ApiClient.convertToType(data['heightCmSupplier'], 'Number');
             }
-            if (data.hasOwnProperty('icomment')) {
-                obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
+            if (data.hasOwnProperty('weighGrossKgSupplier')) {
+                obj['weighGrossKgSupplier'] = ApiClient.convertToType(data['weighGrossKgSupplier'], 'Number');
             }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            if (data.hasOwnProperty('volumeWeightKgSupplier')) {
+                obj['volumeWeightKgSupplier'] = ApiClient.convertToType(data['volumeWeightKgSupplier'], 'Number');
             }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+            if (data.hasOwnProperty('weightFinalAccountingKgSupplier')) {
+                obj['weightFinalAccountingKgSupplier'] = ApiClient.convertToType(data['weightFinalAccountingKgSupplier'], 'Number');
             }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
+            if (data.hasOwnProperty('shipmentPlanId')) {
+                obj['shipmentPlanId'] = ApiClient.convertToType(data['shipmentPlanId'], 'String');
+            }
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
             }
         }
         return obj;
@@ -94,101 +100,95 @@ class InlineObject15 {
 }
 
 /**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
+ * Поле в которое наследуем данные размеров коробок
+ * @member {Number} lengthCm
  */
- InlineObject15['StatusEnum'] = {
-
-    /**
-     * value: 0
-     * @const
-     */
-    "0": 0,
-
-    /**
-     * value: 10
-     * @const
-     */
-    "10": 10
-};
+InlineObject15.prototype['lengthCm'] = undefined;
 
 /**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lamazon
+ * Поле в которое наследуем данные размеров коробок
+ * @member {Number} widthCm
  */
-InlineObject15.prototype['lamazon'] = undefined;
+InlineObject15.prototype['widthCm'] = undefined;
 
 /**
- * Ссылка на поставщика.
- * @member {String} lsupplier
+ * Поле в которое наследуем данные размеров коробок
+ * @member {Number} heightCm
  */
-InlineObject15.prototype['lsupplier'] = undefined;
+InlineObject15.prototype['heightCm'] = undefined;
 
 /**
- * @member {Number} bsr
+ * Общий вес кг коробки
+ * @member {Number} weighGrossKg
  */
-InlineObject15.prototype['bsr'] = undefined;
+InlineObject15.prototype['weighGrossKg'] = undefined;
 
 /**
- *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
- * @member {module:model/InlineObject15.StatusEnum} status
- * @default StatusEnum.0
+ * Объемный вес (подсчет)
+ * @member {Number} volumeWeightKg
  */
-InlineObject15.prototype['status'] = InlineObject15.StatusEnum[0];
+InlineObject15.prototype['volumeWeightKg'] = undefined;
 
 /**
- * @member {Number} amazon
+ * Наибольший вес (подсчет)
+ * @member {Number} weightFinalAccountingKg
  */
-InlineObject15.prototype['amazon'] = undefined;
+InlineObject15.prototype['weightFinalAccountingKg'] = undefined;
 
 /**
- * Код поставщика
- * @member {Number} supplier
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} lengthCmSupplier
  */
-InlineObject15.prototype['supplier'] = undefined;
+InlineObject15.prototype['lengthCmSupplier'] = undefined;
 
 /**
- * ФБА комиссия
- * @member {Number} fbafee
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} widthCmSupplier
  */
-InlineObject15.prototype['fbafee'] = undefined;
+InlineObject15.prototype['widthCmSupplier'] = undefined;
 
 /**
- * REF) комиссия
- * @member {Number} reffee
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} heightCmSupplier
  */
-InlineObject15.prototype['reffee'] = undefined;
+InlineObject15.prototype['heightCmSupplier'] = undefined;
 
 /**
- * Стоимость доставки.
- * @member {Number} delivery
+ * Общий вес кг коробки который назвал поставщик.
+ * @member {Number} weighGrossKgSupplier
  */
-InlineObject15.prototype['delivery'] = undefined;
+InlineObject15.prototype['weighGrossKgSupplier'] = undefined;
 
 /**
- * Комментарии к товару.
- * @member {String} icomment
+ * id склада - склады куда отправляют 
+ * @member {Number} volumeWeightKgSupplier
  */
-InlineObject15.prototype['icomment'] = undefined;
+InlineObject15.prototype['volumeWeightKgSupplier'] = undefined;
 
 /**
- * Признак fba
- * @member {Boolean} fba
+ * Наибольший вес (подсчет) (что большее объемный или обычный вес) у поставщика.
+ * @member {Number} weightFinalAccountingKgSupplier
  */
-InlineObject15.prototype['fba'] = undefined;
+InlineObject15.prototype['weightFinalAccountingKgSupplier'] = undefined;
 
 /**
- * Прибыль
- * @member {Number} profit
+ * Ид шипмент плана ( не обязательное поле)
+ * @member {String} shipmentPlanId
  */
-InlineObject15.prototype['profit'] = undefined;
+InlineObject15.prototype['shipmentPlanId'] = undefined;
 
 /**
- * Маржа
- * @member {Number} margin
+ * id склада - склады куда отправляют 
+ * @member {Number} warehouse
  */
-InlineObject15.prototype['margin'] = undefined;
+InlineObject15.prototype['warehouse'] = undefined;
+
+/**
+ * Метод доставки - 1: Air , 2: Sea
+ * @member {Number} deliveryMethod
+ */
+InlineObject15.prototype['deliveryMethod'] = undefined;
+
 
 
 

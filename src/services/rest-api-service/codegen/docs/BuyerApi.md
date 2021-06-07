@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersBoxesMyGet
 
-> [InlineResponse2003] apiV1BuyersBoxesMyGet(opts)
+> [Object] apiV1BuyersBoxesMyGet(opts)
 
 # Посмотреть мои коробки.
 
@@ -117,7 +117,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2003]**](InlineResponse2003.md)
+**[Object]**
 
 ### Authorization
 
@@ -239,7 +239,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersGuidGet
 
-> InlineResponse2002 apiV1BuyersOrdersGuidGet(guid, opts)
+> InlineResponse200 apiV1BuyersOrdersGuidGet(guid, opts)
 
 # Получить конкретный заказ по его GUID.
 
@@ -279,7 +279,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2002**](InlineResponse2002.md)
+[**InlineResponse200**](InlineResponse200.md)
 
 ### Authorization
 
@@ -349,7 +349,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersMyGet
 
-> [InlineResponse2002] apiV1BuyersOrdersMyGet(opts)
+> [Object] apiV1BuyersOrdersMyGet(opts)
 
 # Получить список заказов текущего байера.
 
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+**[Object]**
 
 ### Authorization
 
@@ -455,7 +455,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersVacGet
 
-> [InlineResponse2002] apiV1BuyersOrdersVacGet(opts)
+> [Object] apiV1BuyersOrdersVacGet(opts)
 
 # Получить список свободных заказов.
 
@@ -493,7 +493,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+**[Object]**
 
 ### Authorization
 
@@ -507,7 +507,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersPaymentsMyGet
 
-> [InlineResponse2004] apiV1BuyersPaymentsMyGet(opts)
+> [Object] apiV1BuyersPaymentsMyGet(opts)
 
 Получить информацию об платежах для этого байера.
 
@@ -545,7 +545,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+**[Object]**
 
 ### Authorization
 
@@ -615,7 +615,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsMyGet
 
-> [InlineResponse200] apiV1BuyersProductsMyGet(opts)
+> [Object] apiV1BuyersProductsMyGet(opts)
 
 # Получить список товаров взятых на проверку супервайзером.
 
@@ -653,7 +653,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**[Object]**
 
 ### Authorization
 
@@ -721,7 +721,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsVacGet
 
-> [InlineResponse200] apiV1BuyersProductsVacGet(opts)
+> [Object] apiV1BuyersProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -759,7 +759,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**[Object]**
 
 ### Authorization
 

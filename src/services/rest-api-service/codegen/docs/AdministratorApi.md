@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**apiV1AdminsGetWaitingProductsGet**](AdministratorApi.md#apiV1AdminsGetWaitingProductsGet) | **GET** /api/v1/admins/get_waiting_products | # Получить список товаров, которые ожидают проверку. 
 [**apiV1AdminsMakePaymentPost**](AdministratorApi.md#apiV1AdminsMakePaymentPost) | **POST** /api/v1/admins/make_payment | # Оплатить выбранные продукты.
 [**apiV1AdminsPatchProductsGuidPatch**](AdministratorApi.md#apiV1AdminsPatchProductsGuidPatch) | **PATCH** /api/v1/admins/patch_products/{guid} | # Внести изменения в продукт.
-[**apiV1AdminsPickupItemGuidPost**](AdministratorApi.md#apiV1AdminsPickupItemGuidPost) | **POST** /api/v1/admins/pickup_item/{guid} | # Взять продукт на проверку.
+[**apiV1AdminsPickupProductGuidPost**](AdministratorApi.md#apiV1AdminsPickupProductGuidPost) | **POST** /api/v1/admins/pickup_product/{guid} | # Взять продукт на проверку.
 [**apiV1AdminsUsersGet**](AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
 [**apiV1AdminsUsersGuidDelete**](AdministratorApi.md#apiV1AdminsUsersGuidDelete) | **DELETE** /api/v1/admins/users/{guid} | Изменить пользователя.
 [**apiV1AdminsUsersGuidPatch**](AdministratorApi.md#apiV1AdminsUsersGuidPatch) | **PATCH** /api/v1/admins/users/{guid} | Изменить пользователя.
@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 ## apiV1AdminsGetCheckingProductsGet
 
-> [InlineResponse200] apiV1AdminsGetCheckingProductsGet(opts)
+> [Object] apiV1AdminsGetCheckingProductsGet(opts)
 
 # Получить список товаров, которые находятся на проверке. 
 
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**[Object]**
 
 ### Authorization
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsGetNotPaidProductsGet
 
-> [InlineResponse200] apiV1AdminsGetNotPaidProductsGet(opts)
+> [Object] apiV1AdminsGetNotPaidProductsGet(opts)
 
 # Получить список не оплаченных товаров.
 
@@ -109,7 +109,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**[Object]**
 
 ### Authorization
 
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsGetVacProductsGet
 
-> [InlineResponse200] apiV1AdminsGetVacProductsGet(opts)
+> [Object] apiV1AdminsGetVacProductsGet(opts)
 
 # Получить список товаров, которые ожидают проверку. 
 
@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**[Object]**
 
 ### Authorization
 
@@ -175,7 +175,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsGetWaitingProductsGet
 
-> [InlineResponse200] apiV1AdminsGetWaitingProductsGet(opts)
+> [Object] apiV1AdminsGetWaitingProductsGet(opts)
 
 # Получить список товаров, которые ожидают проверку. 
 
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**[Object]**
 
 ### Authorization
 
@@ -335,9 +335,9 @@ Name | Type | Description  | Notes
 - **Accept**: text/html
 
 
-## apiV1AdminsPickupItemGuidPost
+## apiV1AdminsPickupProductGuidPost
 
-> Null apiV1AdminsPickupItemGuidPost(guid, opts)
+> Null apiV1AdminsPickupProductGuidPost(guid, opts)
 
 # Взять продукт на проверку.
 
@@ -359,7 +359,7 @@ let guid = "guid_example"; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1AdminsPickupItemGuidPost(guid, opts).then((data) => {
+apiInstance.apiV1AdminsPickupProductGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -391,7 +391,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsUsersGet
 
-> [InlineResponse2001] apiV1AdminsUsersGet(opts)
+> [Object] apiV1AdminsUsersGet(opts)
 
 Получить всех пользователей.
 
@@ -429,7 +429,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2001]**](InlineResponse2001.md)
+**[Object]**
 
 ### Authorization
 

@@ -4,17 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | ASIN продукта | 
-**lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
-**lsupplier** | **String** | Ссылка на поставщика. | 
-**bsr** | **Number** |  | 
+**lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
+**lsupplier** | **String** | Ссылка на поставщика. | [optional] 
+**bsr** | **Number** |  | [optional] 
 **status** | **Number** |  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком | [optional] [default to StatusEnum.0]
-**amazon** | **Number** |  | 
-**supplier** | **Number** | Код поставщика | 
-**fbafee** | **Number** | ФБА комиссия | 
-**delivery** | **Number** | Стоимость доставки. | 
-**icomment** | **String** | Комментарии к товару. | 
-**images** | **[String]** |  | 
+**amazon** | **Number** |  | [optional] 
+**supplier** | **Number** | Код поставщика | [optional] 
+**fbafee** | **Number** | ФБА комиссия | [optional] 
+**reffee** | **Number** | REF) комиссия | [optional] 
+**delivery** | **Number** | Стоимость доставки. | [optional] 
+**icomment** | **String** | Комментарии к товару. | [optional] 
+**fba** | **Boolean** | Признак fba | [optional] 
+**profit** | **Number** | Прибыль | [optional] 
+**margin** | **Number** | Маржа | [optional] 
 
 
 

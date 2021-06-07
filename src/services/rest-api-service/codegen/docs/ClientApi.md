@@ -20,14 +20,12 @@ Method | HTTP request | Description
 [**apiV1ClientsProductsVacGet**](ClientApi.md#apiV1ClientsProductsVacGet) | **GET** /api/v1/clients/products/vac | # Получить список вакантных товаров.
 [**apiV1ClientsTasksGet**](ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя.
 [**apiV1ClientsTasksPost**](ClientApi.md#apiV1ClientsTasksPost) | **POST** /api/v1/clients/tasks | # Создать задачу.
-[**apiV1ClientsUsersGet**](ClientApi.md#apiV1ClientsUsersGet) | **GET** /api/v1/clients/users | # Получить список пользователей.
-[**apiV1ClientsUsersGuidPatch**](ClientApi.md#apiV1ClientsUsersGuidPatch) | **PATCH** /api/v1/clients/users/{guid} | # Изменить пользователя.
 
 
 
 ## apiV1ClientsBatchesGet
 
-> [InlineResponse2008] apiV1ClientsBatchesGet(opts)
+> [Object] apiV1ClientsBatchesGet(opts)
 
 # Получить партии.
 
@@ -65,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+**[Object]**
 
 ### Authorization
 
@@ -79,7 +77,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsBoxesGet
 
-> [InlineResponse2006] apiV1ClientsBoxesGet(opts)
+> [Object] apiV1ClientsBoxesGet(opts)
 
 # Показать все коробки.
 
@@ -117,7 +115,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+**[Object]**
 
 ### Authorization
 
@@ -131,7 +129,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsBoxesGuidGet
 
-> InlineResponse2006 apiV1ClientsBoxesGuidGet(guid, opts)
+> InlineResponse2002 apiV1ClientsBoxesGuidGet(guid, opts)
 
 # Показать коробку по GUID.
 
@@ -171,7 +169,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2006**](InlineResponse2006.md)
+[**InlineResponse2002**](InlineResponse2002.md)
 
 ### Authorization
 
@@ -239,7 +237,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsOrdersGet
 
-> [InlineResponse2002] apiV1ClientsOrdersGet(opts)
+> [Object] apiV1ClientsOrdersGet(opts)
 
 # Получить заказы текущего клиента.
 
@@ -277,7 +275,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+**[Object]**
 
 ### Authorization
 
@@ -345,7 +343,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsOrdersGuidGet
 
-> InlineResponse2005 apiV1ClientsOrdersGuidGet(guid, opts)
+> InlineResponse2001 apiV1ClientsOrdersGuidGet(guid, opts)
 
 # Получить заказ по его GUID.
 
@@ -385,7 +383,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2005**](InlineResponse2005.md)
+[**InlineResponse2001**](InlineResponse2001.md)
 
 ### Authorization
 
@@ -565,7 +563,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyGet
 
-> [InlineResponse200] apiV1ClientsProductsMyGet(opts)
+> [Object] apiV1ClientsProductsMyGet(opts)
 
 # Получить список товаров данного клиента.
 
@@ -603,7 +601,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**[Object]**
 
 ### Authorization
 
@@ -617,11 +615,11 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsPaidGet
 
-> [InlineResponse200] apiV1ClientsProductsPaidGet(opts)
+> [Object] apiV1ClientsProductsPaidGet(opts)
 
 # Получить список товаров оплаченных данного клиента.
 
-## Получить список товаров оплаченных данного клиента.   
+## Получить список товаров оплаченных данного клиента.   ## Думаю это УСТАРЕВШИЙ метод. Он опирается на dirchecked.   
 
 ### Example
 
@@ -655,7 +653,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**[Object]**
 
 ### Authorization
 
@@ -669,7 +667,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsPickupGuidPost
 
-> [InlineResponse200] apiV1ClientsProductsPickupGuidPost(guid, opts)
+> [Object] apiV1ClientsProductsPickupGuidPost(guid, opts)
 
 # Взять товар в работу.
 
@@ -709,7 +707,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**[Object]**
 
 ### Authorization
 
@@ -723,7 +721,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsVacGet
 
-> [InlineResponse200] apiV1ClientsProductsVacGet(opts)
+> [Object] apiV1ClientsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -761,7 +759,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**[Object]**
 
 ### Authorization
 
@@ -775,7 +773,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsTasksGet
 
-> [InlineResponse2007] apiV1ClientsTasksGet(opts)
+> [Object] apiV1ClientsTasksGet(opts)
 
 # Показать все задачи данного пользователя.
 
@@ -813,7 +811,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+**[Object]**
 
 ### Authorization
 
@@ -827,7 +825,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsTasksPost
 
-> apiV1ClientsTasksPost(InlineObject11, opts)
+> apiV1ClientsTasksPost(InlineObject10, opts)
 
 # Создать задачу.
 
@@ -845,11 +843,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.ClientApi();
-let InlineObject11 = new Amazonapi.InlineObject11(); // InlineObject11 | 
+let InlineObject10 = new Amazonapi.InlineObject10(); // InlineObject10 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1ClientsTasksPost(InlineObject11, opts).then(() => {
+apiInstance.apiV1ClientsTasksPost(InlineObject10, opts).then(() => {
   console.log('API called successfully.');
 }, (error) => {
   console.error(error);
@@ -862,120 +860,12 @@ apiInstance.apiV1ClientsTasksPost(InlineObject11, opts).then(() => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject11** | [**InlineObject11**](InlineObject11.md)|  | 
+ **InlineObject10** | [**InlineObject10**](InlineObject10.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
 
 null (empty response body)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: text/html
-
-
-## apiV1ClientsUsersGet
-
-> [ApiV1AdminsGetNotPaidProductsCreatedby] apiV1ClientsUsersGet(opts)
-
-# Получить список пользователей.
-
-## Получить список пользователей.  
-
-### Example
-
-```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new Amazonapi.ClientApi();
-let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
-};
-apiInstance.apiV1ClientsUsersGet(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
-
-### Return type
-
-[**[ApiV1AdminsGetNotPaidProductsCreatedby]**](ApiV1AdminsGetNotPaidProductsCreatedby.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/html
-
-
-## apiV1ClientsUsersGuidPatch
-
-> Null apiV1ClientsUsersGuidPatch(guid, opts)
-
-# Изменить пользователя.
-
-## Изменить пользователя.  
-
-### Example
-
-```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new Amazonapi.ClientApi();
-let guid = "guid_example"; // String | GUID пользователя.
-let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject10': new Amazonapi.InlineObject10() // InlineObject10 | 
-};
-apiInstance.apiV1ClientsUsersGuidPatch(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID пользователя. | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject10** | [**InlineObject10**](InlineObject10.md)|  | [optional] 
-
-### Return type
-
-[**Null**](Null.md)
 
 ### Authorization
 

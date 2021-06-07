@@ -48,7 +48,7 @@ class InlineObject7 {
             obj = obj || new InlineObject7();
 
             if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+                obj['guids'] = ApiClient.convertToType(data['guids'], Array);
             }
         }
         return obj;
@@ -59,7 +59,7 @@ class InlineObject7 {
 
 /**
  * массив GUIDов оплаченных товаров
- * @member {Array.<String>} guids
+ * @member {Array} guids
  */
 InlineObject7.prototype['guids'] = undefined;
 

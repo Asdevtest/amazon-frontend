@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## apiV1SupervisorsPaymentsCreatedByThisSuperGet
 
-> [InlineResponse2004] apiV1SupervisorsPaymentsCreatedByThisSuperGet(opts)
+> [Object] apiV1SupervisorsPaymentsCreatedByThisSuperGet(opts)
 
 # Получить оплаты созданные данным супервайзером.
 
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+**[Object]**
 
 ### Authorization
 
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsPaymentsMyGet
 
-> [InlineResponse2004] apiV1SupervisorsPaymentsMyGet(opts)
+> [Object] apiV1SupervisorsPaymentsMyGet(opts)
 
 # Получить все оплаты, которые были начислены супервайзеру.
 
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+**[Object]**
 
 ### Authorization
 
@@ -175,7 +175,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsMyGet
 
-> [InlineResponse200] apiV1SupervisorsProductsMyGet(opts)
+> [Object] apiV1SupervisorsProductsMyGet(opts)
 
 # Получить список товаров взятых на проверку супервайзером.
 
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**[Object]**
 
 ### Authorization
 
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsVacGet
 
-> [InlineResponse200] apiV1SupervisorsProductsVacGet(opts)
+> [Object] apiV1SupervisorsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -319,7 +319,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**[Object]**
 
 ### Authorization
 
