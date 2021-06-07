@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Typography, Box, Button} from '@material-ui/core'
+import {Typography, Box} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {CLIENT_SUB_USERS_INITIAL_DATA, CLIENT_SUB_USERS_TABLE_CELLS} from '@constants/mocks'
@@ -8,6 +8,7 @@ import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'

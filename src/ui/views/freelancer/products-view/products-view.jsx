@@ -1,12 +1,14 @@
-import React, {useState} from 'react'
+import React, {Component} from 'react'
 
-import {Box, Typography, Button, Paper} from '@material-ui/core'
+import {Box, Typography, Paper} from '@material-ui/core'
+import {withStyles} from '@material-ui/styles'
 
 import {FREELANCER_HEAD_CELLS, FREELANCER_PRODUCT_LIST} from '@constants/mocks'
 import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {Main} from '@components/main'
@@ -19,87 +21,93 @@ import {TableHeadRow} from '@components/table-rows/freelancer/table-head-row'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/freelancerAvatar.jpg'
-import {useClassNames} from './products-view.style'
+import {styles} from './products-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').freelancerProductsView
 
-export const ProductsView = () => {
-  const classNames = useClassNames()
-  const [activeCategory, setCategory] = useState(1)
-  const [activeSubCategory, setSubCategory] = useState(null)
-  const [drawerOpen, setDrawerOpen] = useState(false)
+class FreelancerProductsViewRaw extends Component {
+  state = {
+    activeCategory: 1,
+    activeSubCategory: 0,
+    drawerOpen: false,
 
-  const [rowsPerPage, setRowsPerPage] = useState(5)
-  const [paginationPage, setPaginationPge] = useState(1)
-
-  const renderHeadRow = <TableHeadRow headCells={FREELANCER_HEAD_CELLS} />
-
-  const renderButtons = (
-    <React.Fragment>
-      <Button disableElevation color="primary" variant="contained">
-        Button1
-      </Button>
-      <Button>Button2</Button>
-      <Button>Button3</Button>
-    </React.Fragment>
-  )
-
-  const onChangePagination = (e, value) => {
-    setPaginationPge(value)
+    rowsPerPage: 5,
+    paginationPage: 1,
   }
 
-  const onChangeRowsPerPage = e => {
-    setRowsPerPage(Number(e.target.value))
-    setPaginationPge(1)
+  render() {
+    const {activeCategory, activeSubCategory, drawerOpen, rowsPerPage, paginationPage} = this.state
+
+    return (
+      <React.Fragment>
+        <Navbar
+          activeCategory={activeCategory}
+          setItem={this.onChangeCategory}
+          activeSubCategory={activeSubCategory}
+          categoriesList={categoriesList.freelancer}
+          setSubItem={this.onChangeSubCategory}
+          drawerOpen={drawerOpen}
+          setDrawerOpen={this.onChangeDrawerOpen}
+          user={textConsts.appUser}
+        />
+        <Main>
+          <Appbar
+            title={textConsts.appBarTitle}
+            notificationCount={2}
+            avatarSrc={avatar}
+            username={textConsts.appBarUsername}
+            setDrawerOpen={this.onChangeDrawerOpen}
+          >
+            <MainContent>
+              <Paper className={this.props.classes.card}>
+                <Typography variant="h3">{textConsts.cardMainTitle}</Typography>
+                <Field label={textConsts.linkAmazon} />
+                <Field label={textConsts.codeOfGood} />
+                <Box className={this.props.classes.boxBtn}>
+                  <Button className={this.props.classes.button}>{textConsts.buttonChek}</Button>
+                  <SuccessButton>{textConsts.buttonAdd}</SuccessButton>
+                </Box>
+              </Paper>
+
+              <Typography variant="h4">{textConsts.mainTitle}</Typography>
+
+              <Table
+                currentPage={paginationPage}
+                data={FREELANCER_PRODUCT_LIST}
+                handlerPageChange={this.onChangePagination}
+                handlerRowsPerPage={this.onChangeRowsPerPage}
+                pageCount={Math.ceil(FREELANCER_PRODUCT_LIST.length / rowsPerPage)}
+                BodyRow={TableBodyRow}
+                renderHeadRow={this.renderHeadRow}
+                rowsPerPage={rowsPerPage}
+              />
+            </MainContent>
+          </Appbar>
+        </Main>
+      </React.Fragment>
+    )
+  }
+  renderHeadRow = (<TableHeadRow headCells={FREELANCER_HEAD_CELLS} />)
+
+  onChangeDrawerOpen = (e, value) => {
+    this.setState({drawerOpen: value})
   }
 
-  return (
-    <React.Fragment>
-      <Navbar
-        activeItem={activeCategory}
-        setItem={setCategory}
-        activeSubItem={activeSubCategory}
-        categoriesList={categoriesList.freelancer}
-        setSubItem={setSubCategory}
-        drawerOpen={drawerOpen}
-        setDrawerOpen={setDrawerOpen}
-        user={textConsts.appUser}
-      />
-      <Main>
-        <Appbar
-          title={textConsts.appBarTitle}
-          notificationCount={2}
-          avatarSrc={avatar}
-          username={textConsts.appBarUsername}
-          setDrawerOpen={setDrawerOpen}
-        >
-          <MainContent>
-            <Paper className={classNames.card}>
-              <Typography variant="h3">{textConsts.cardMainTitle}</Typography>
-              <Field title={textConsts.linkAmazon} />
-              <Field title={textConsts.codeOfGood} />
-              <Box className={classNames.boxBtn}>
-                <Button className={classNames.button}>{textConsts.buttonChek}</Button>
-                <SuccessButton>{textConsts.buttonAdd}</SuccessButton>
-              </Box>
-            </Paper>
+  onChangeCategory = (e, value) => {
+    this.setState({activeCategory: value})
+  }
 
-            <Typography variant="h4">{textConsts.mainTitle}</Typography>
+  onChangeSubCategory = (e, value) => {
+    this.setState({activeSubCategory: value})
+  }
 
-            <Table
-              buttons={renderButtons}
-              currentPage={paginationPage}
-              data={FREELANCER_PRODUCT_LIST}
-              handlerPageChange={onChangePagination}
-              handlerRowsPerPage={onChangeRowsPerPage}
-              pageCount={Math.ceil(FREELANCER_PRODUCT_LIST.length / rowsPerPage)}
-              BodyRow={TableBodyRow}
-              renderHeadRow={renderHeadRow}
-              rowsPerPage={rowsPerPage}
-            />
-          </MainContent>
-        </Appbar>
-      </Main>
-    </React.Fragment>
-  )
+  onChangePagination = (e, value) => {
+    this.setState({paginationPge: value})
+  }
+
+  onChangeRowsPerPage = e => {
+    this.setState({rowsPerPage: Number(e.target.value), paginationPge: 1})
+  }
 }
+
+export const FreelancerProductsView = withStyles(styles)(FreelancerProductsViewRaw)

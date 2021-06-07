@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, {Component} from 'react'
 
-import {PRODUCT_INITIAL_PRODUCT, PRODUCT_INITIAL_SUPPLIERS, PRODUCT_EMPTY_SUPPLIERS} from '@constants/mocks'
+import {PRODUCT_INITIAL_SUPPLIERS, PRODUCT_EMPTY_SUPPLIERS} from '@constants/mocks'
 import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
@@ -9,11 +9,6 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
-import categoryImgBeautyAndPersonalCare from '@components/product/assets/beautyAndPersonalCare.jpg'
-import categoryImgHealthHouseholdAndBabyCare from '@components/product/assets/healthHouseholdAndBabyCare.jpg'
-import categoryImgHomeAndKitchen from '@components/product/assets/homeAndKitchen.jpg'
-import categoryImgSportsAndOutdoors from '@components/product/assets/sportsAndOutdoors.jpg'
-import categoryImgToysAndGames from '@components/product/assets/toysAndGames.jpg'
 import {ModalContent} from '@components/product/modal-content'
 import {ProductWrapper} from '@components/product/product-wrapper'
 
@@ -23,89 +18,135 @@ import avatar from './assets/clientAvatar.jpg'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productView
 
-const PRODUCT_IMAGES = [
-  categoryImgHomeAndKitchen,
-  categoryImgSportsAndOutdoors,
-  categoryImgToysAndGames,
-  categoryImgHealthHouseholdAndBabyCare,
-  categoryImgBeautyAndPersonalCare,
+const CHIP_LIST = [
+  {key: 0, label: 'Поиск поставщика', color: 'rgb(0, 123, 255)', colorHover: '#1269ec'},
+  {key: 1, label: 'Поставщик найден', color: 'rgb(15, 169, 20)', colorHover: '#009a07'},
+  {key: 2, label: 'Поставщик не найден', color: '#ff9800', colorHover: '#f57c00'},
+  {key: 3, label: 'Цена выше МЗЦ', color: 'rgb(210, 35, 35)', colorHover: '#c51a1c'},
 ]
 
-export const ClientProductView = () => {
-  const [activeCategory, setCategory] = useState(null)
-  const [activeSubCategory, setSubCategory] = useState(0)
-  const [product, setProduct] = useState({...PRODUCT_INITIAL_PRODUCT, images: PRODUCT_IMAGES})
-  const [suppliers, setSuppliers] = useState(PRODUCT_INITIAL_SUPPLIERS)
-  const [selectedSupplier, setSelectedSupplier] = useState(0)
-  const [modalAddSupplier, setModalAddSupplier] = useState(false)
-  const [modalEditSupplier, setModalEditSupplier] = useState(false)
+export class ClientProductView extends Component {
+  state = {
+    activeCategory: null,
+    activeSubCategory: 0,
+    drawerOpen: false,
 
-  const [drawerOpen, setDrawerOpen] = useState(false)
-
-  const handleSupplierButtons = action => {
-    if (action === 'add') {
-      setModalAddSupplier(true)
-    } else if (action === 'edit') {
-      setModalEditSupplier(true)
-    } else {
-      setSuppliers(suppliers.filter((supplier, index) => selectedSupplier !== index))
-    }
+    suppliers: PRODUCT_INITIAL_SUPPLIERS,
+    selectedSupplier: 0,
+    modalAddSupplier: false,
+    modalEditSupplier: false,
+    activeChip: null,
   }
 
-  return (
-    <React.Fragment>
-      <Navbar
-        activeItem={activeCategory}
-        activeSubItem={activeSubCategory}
-        categoriesList={categoriesList.client}
-        drawerOpen={drawerOpen}
-        setDrawerOpen={setDrawerOpen}
-        setItem={setCategory}
-        setSubItem={setSubCategory}
-        user={textConsts.appUser}
-      />
-      <Main>
-        <Appbar
-          avatarSrc={avatar}
-          notificationCount={2}
-          setDrawerOpen={setDrawerOpen}
-          title={textConsts.appBarTitle}
-          username={textConsts.appBarUsername}
-        >
-          <MainContent>
-            <ProductWrapper
-              handleSupplierButtons={handleSupplierButtons}
-              product={product}
-              selected={selectedSupplier}
-              setProduct={setProduct}
-              suppliers={suppliers}
-              onClickSupplier={setSelectedSupplier}
-            />
-          </MainContent>
-        </Appbar>
-      </Main>
-      <Modal openModal={modalAddSupplier} setOpenModal={setModalAddSupplier}>
-        <ModalContent
-          modeAddOrEdit={'add'}
-          selected={selectedSupplier}
-          setOpenModal={setModalAddSupplier}
-          setSuppliers={setSuppliers}
-          supplier={PRODUCT_EMPTY_SUPPLIERS}
-          suppliers={suppliers}
-          title={textConsts.addVendor}
+  render() {
+    const {activeCategory, activeSubCategory, drawerOpen} = this.state
+
+    return (
+      <React.Fragment>
+        <Navbar
+          activeCategory={activeCategory}
+          setItem={this.onChangeCategory}
+          activeSubCategory={activeSubCategory}
+          categoriesList={categoriesList.client}
+          setSubItem={this.onChangeSubCategory}
+          drawerOpen={drawerOpen}
+          setDrawerOpen={this.onChangeDrawerOpen}
+          user={textConsts.appUser}
         />
-      </Modal>
-      <Modal openModal={modalEditSupplier} setOpenModal={setModalEditSupplier}>
-        <ModalContent
-          modeAddOrEdit={'edit'}
-          selected={selectedSupplier}
-          setOpenModal={setModalEditSupplier}
-          setSuppliers={setSuppliers}
-          supplier={suppliers[selectedSupplier]}
-          suppliers={suppliers}
-          title={textConsts.editVendor}
-        />
-      </Modal>
-    </React.Fragment>
-  )
+        <Main>
+          <Appbar
+            avatarSrc={avatar}
+            notificationCount={2}
+            setDrawerOpen={this.onChangeDrawerOpen}
+            title={textConsts.appBarTitle}
+            username={textConsts.appBarUsername}
+          >
+            <MainContent>
+              <ProductWrapper
+                chipList={CHIP_LIST}
+                activeChip={this.state.activeChip}
+                setActiveChip={this.onChangeActiveChip}
+                product={this.viewModel.product}
+                suppliers={this.state.suppliers}
+                selected={this.state.selectedSupplier}
+                handleSupplierButtons={this.onSupplierButtons}
+                onClickSupplier={this.onChangeSelectedSupplier}
+                onChangeField={this.viewModel.onChangeFieldProduct}
+              />
+            </MainContent>
+          </Appbar>
+        </Main>
+        <Modal openModal={this.state.modalAddSupplier} setOpenModal={this.onChangeModalAddSupplier}>
+          <ModalContent
+            modeAddOrEdit={'add'}
+            supplier={PRODUCT_EMPTY_SUPPLIERS}
+            title={textConsts.addVendor}
+            setOpenModal={this.onChangeModalAddSupplier}
+            suppliers={this.state.suppliers}
+            setSuppliers={this.onChangeSuppliers}
+            selected={this.state.selectedSupplier}
+          />
+        </Modal>
+        <Modal openModal={this.state.modalEditSupplier} setOpenModal={this.onChangeModalEditSupplier}>
+          <ModalContent
+            modeAddOrEdit={'edit'}
+            setOpenModal={this.onChangeModalEditSupplier}
+            supplier={this.state.suppliers[this.state.selectedSupplier]}
+            suppliers={this.state.suppliers}
+            setSuppliers={this.onChangeSuppliers}
+            selected={this.state.selectedSupplier}
+            title={textConsts.editVendor}
+          />
+        </Modal>
+      </React.Fragment>
+    )
+  }
+
+  onChangeSelectedSupplier = (e, value) => {
+    this.setState({selectedSupplier: value})
+  }
+
+  onChangeSuppliers = (e, value) => {
+    this.setState({suppliers: value})
+  }
+
+  onChangeProduct = (e, value) => {
+    this.setState({product: value})
+  }
+
+  onChangeActiveChip = (e, value) => {
+    this.setState({activeChip: value})
+  }
+
+  onChangeModalAddSupplier = (e, value) => {
+    this.setState({modalAddSupplier: value})
+  }
+
+  onChangeModalEditSupplier = (e, value) => {
+    this.setState({modalEditSupplier: value})
+  }
+
+  onChangeDrawerOpen = (e, value) => {
+    this.setState({drawerOpen: value})
+  }
+
+  onChangeCategory = (e, value) => {
+    this.setState({activeCategory: value})
+  }
+
+  onChangeSubCategory = (e, value) => {
+    this.setState({activeSubCategory: value})
+  }
+
+  onSupplierButtons = action => {
+    if (action === 'add') {
+      this.setState({modalAddSupplier: true})
+    } else if (action === 'edit') {
+      this.setState({modalEditSupplier: true})
+    } else {
+      this.setState({
+        suppliers: this.state.suppliers.filter((supplier, index) => this.state.selectedSupplier !== index),
+      })
+    }
+  }
 }

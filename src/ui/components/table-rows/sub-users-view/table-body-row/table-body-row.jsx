@@ -1,10 +1,11 @@
 import React from 'react'
 
-import {TableCell, TableRow, Typography, Button} from '@material-ui/core'
+import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {texts} from '@constants/texts'
 
+import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'

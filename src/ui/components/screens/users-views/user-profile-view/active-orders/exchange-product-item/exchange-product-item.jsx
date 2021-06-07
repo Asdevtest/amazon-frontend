@@ -1,8 +1,11 @@
 import React from 'react'
 
-import {Typography, TableRow, TableCell, Button} from '@material-ui/core'
+import {Typography, TableRow, TableCell} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
+
+import {Button} from '@components/buttons/button'
+import {SuccessButton} from '@components/buttons/success-button'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -50,9 +53,9 @@ export const ExchangeProductItem = ({product, handlerPrivateLabel, index}) => {
         <Typography className={(classNames.text, classNames.standartPrice)}>{textConsts.standartPrice}</Typography>
       </TableCell>
       <TableCell>
-        <Button success onClick={() => handlerPrivateLabel(index)}>
+        <SuccessButton success onClick={() => handlerPrivateLabel(index)}>
           {textConsts.startBtn}
-        </Button>
+        </SuccessButton>
       </TableCell>
       <TableCell>
         <Button onClick={() => alert(textConsts.addBtnAlert)}>{textConsts.addBtn + product.price}</Button>

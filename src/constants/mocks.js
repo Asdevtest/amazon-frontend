@@ -1597,7 +1597,7 @@ export const CLIENT_INVENTORY_MY_PRODUCTS_HEAD_CELLS = [
 ]
 
 export const SUPERVISOR_INITIAL_PRODUCT = {
-  images: {},
+  images: [],
   csCode:
     'Leaf Style Door Stopper Set - Silicone Rubber Stoppers Colorful Door Stop Wedge Cute Finger Guard Door Stoppers with Silicone Holders Window / Door Stopper for Home and Office',
   asin: 'B07RKM1PSD',

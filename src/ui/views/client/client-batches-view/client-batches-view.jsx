@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Box, Button, Typography} from '@material-ui/core'
+import {Box, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {BATCHES_BOXES_EXAMPLES, BATCHES_HEAD_CELLS, BUYER_WAREHOUSE_LIST, BUYER_DELIVERY_LIST} from '@constants/mocks'
@@ -8,6 +8,7 @@ import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -33,7 +34,7 @@ const batchesData = [
 
 class ClientBatchesViewRaw extends Component {
   state = {
-    activeCategory: 4,
+    activeCategory: 5,
     activeSubCategory: null,
     drawerOpen: false,
     selected: null,
@@ -91,7 +92,7 @@ class ClientBatchesViewRaw extends Component {
 
         <Modal openModal={this.state.modalEditBoxes} setOpenModal={this.onChangeModalEditBoxes}>
           <EditBatchModal
-            batch={[[BATCHES_BOXES_EXAMPLES]]}
+            batch={batchesData[this.state.selected]}
             setModal={this.onChangeModalEditBoxes}
             warehouseList={BUYER_WAREHOUSE_LIST}
             deliveryList={BUYER_DELIVERY_LIST}
@@ -107,7 +108,7 @@ class ClientBatchesViewRaw extends Component {
   renderButtons = () => (
     <Box p={2} mr={0} className={this.props.classes.buttonsWrapper}>
       <Button
-        disabled={this.selected === null}
+        disabled={this.state.selected === null}
         color="secondary"
         onClick={() => this.setState({modalEditBoxes: !this.state.modalEditBoxes})}
       >

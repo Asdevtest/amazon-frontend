@@ -55,14 +55,34 @@ export const categoriesList = {
     },
   ],
   freelancer: [
-    {icon: InfoOutlinedIcon, title: 'Главная страница', subtitles: null},
-    {icon: AssignmentIcon, title: 'Мои заказы', subtitles: null},
-    {icon: SettingsIcon, title: 'Настройки', subtitles: null},
+    {
+      icon: InfoOutlinedIcon,
+      title: 'Главная страница',
+      subtitles: null,
+      route: '/freelancer/dashboard',
+    },
+    {icon: AssignmentIcon, title: 'Мои заказы', subtitles: null, route: '/freelancer/products'},
+    {icon: SettingsIcon, title: 'Настройки', subtitles: null, route: '/freelancer/settings'},
   ],
   supervisor: [
-    {icon: InfoOutlinedIcon, title: 'Главная страница', subtitles: null, route: '/supervisor/dashboard'},
-    {icon: AssignmentIcon, title: 'Готовые к проверке', subtitles: null, route: '/supervisor/ready-to-check'},
-    {icon: InboxOutlinedIcon, title: 'Мои товары', subtitles: null, route: '/supervisor/products'},
+    {
+      icon: InfoOutlinedIcon,
+      title: 'Главная страница',
+      subtitles: null,
+      route: '/supervisor/dashboard',
+    },
+    {
+      icon: AssignmentIcon,
+      title: 'Готовые к проверке',
+      subtitles: null,
+      route: '/supervisor/ready-to-check',
+    },
+    {
+      icon: InboxOutlinedIcon,
+      title: 'Мои товары',
+      subtitles: null,
+      route: '/supervisor/products',
+    },
     {icon: SettingsIcon, title: 'Настройки', subtitles: null, route: '/supervisor/settings'},
   ],
   buyer: [

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Box, Typography, Paper} from '@material-ui/core'
+import {Box, Typography, Paper, Checkbox} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {categoriesList} from '@constants/navbar'
@@ -53,11 +53,11 @@ export class SupervisorSettingsViewRaw extends Component {
             <MainContent>
               <Paper className={classNames.card}>
                 <Typography variant="h3">{textConsts.mainTitle}</Typography>
-                <Field title={textConsts.fieldName} placeholder={'researcher'} />
-                <Field title={textConsts.fieldEmail} placeholder={'researcher@test.com'} />
-                <Field title={textConsts.fieldRate} />
-                <Field title={textConsts.fieldRole} placeholder={'Researcher'} />
-                <Field title={textConsts.fieldFba} />
+                <Field label={textConsts.fieldName} placeholder={'researcher'} />
+                <Field label={textConsts.fieldEmail} placeholder={'researcher@test.com'} />
+                <Field label={textConsts.fieldRate} />
+                <Field label={textConsts.fieldRole} placeholder={'Researcher'} />
+                <Field label={textConsts.fieldFba} inputComponent={<Checkbox />} />
                 <Box className={classNames.buttonsBox}>
                   <Button className={classNames.button}>{textConsts.saveBtn}</Button>
                   <SuccessButton success>{textConsts.cancelBtn}</SuccessButton>

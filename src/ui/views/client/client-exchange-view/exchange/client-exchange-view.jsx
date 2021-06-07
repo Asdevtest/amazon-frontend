@@ -1,6 +1,6 @@
 import {Component} from 'react'
 
-import {Button, TableCell, TableRow, Typography} from '@material-ui/core'
+import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {clientExchangeViewTable, clientUsername} from '@constants/mocks'
@@ -84,7 +84,6 @@ export class ClientExchangeViewRaw extends Component {
                 </Typography>
               </div>
               <Table
-                buttons={this.renderButtons}
                 currentPage={paginationPage}
                 data={mainTableProductList}
                 handlerPageChange={this.onChangePagination}
@@ -131,23 +130,6 @@ export class ClientExchangeViewRaw extends Component {
       <TableCell />
       <TableCell />
     </TableRow>
-  )
-
-  renderButtons = (
-    <>
-      <Button
-        disableElevation
-        color="primary"
-        variant="contained"
-        onClick={() => {
-          this.setState({modalPrivateLabel: true})
-        }}
-      >
-        Button1
-      </Button>
-      <Button>Button2</Button>
-      <Button>Button3</Button>
-    </>
   )
 
   renderModalHeadRows = (

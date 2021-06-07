@@ -81,11 +81,11 @@ export class SupervisorProductView extends Component {
                 activeChip={this.state.activeChip}
                 setActiveChip={this.onChangeActiveChip}
                 product={this.state.product}
-                setProduct={this.onChangeProduct}
                 suppliers={this.state.suppliers}
                 selected={this.state.selectedSupplier}
                 handleSupplierButtons={this.onSupplierButtons}
                 onClickSupplier={this.onChangeSelectedSupplier}
+                onChangeField={this.onChangeProduct}
               />
             </MainContent>
           </Appbar>
