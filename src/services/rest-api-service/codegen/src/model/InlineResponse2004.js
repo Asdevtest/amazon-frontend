@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BuyersPaymentsMyCreatedBy from './ApiV1BuyersPaymentsMyCreatedBy';
 
 /**
  * The InlineResponse2004 model module.
@@ -48,23 +47,8 @@ class InlineResponse2004 {
         if (data) {
             obj = obj || new InlineResponse2004();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('createdDate')) {
-                obj['createdDate'] = ApiClient.convertToType(data['createdDate'], 'Date');
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1BuyersPaymentsMyCreatedBy.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('recipient')) {
-                obj['recipient'] = ApiV1BuyersPaymentsMyCreatedBy.constructFromObject(data['recipient']);
-            }
-            if (data.hasOwnProperty('sum')) {
-                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
         }
         return obj;
@@ -74,38 +58,10 @@ class InlineResponse2004 {
 }
 
 /**
- * GUID платежа
- * @member {String} _id
+ * Флаг, показывает есть ли такой id в базе или нет
+ * @member {Boolean} isExist
  */
-InlineResponse2004.prototype['_id'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} createdDate
- */
-InlineResponse2004.prototype['createdDate'] = undefined;
-
-/**
- * @member {module:model/ApiV1BuyersPaymentsMyCreatedBy} createdBy
- */
-InlineResponse2004.prototype['createdBy'] = undefined;
-
-/**
- * GUID продукта.
- * @member {String} productId
- */
-InlineResponse2004.prototype['productId'] = undefined;
-
-/**
- * @member {module:model/ApiV1BuyersPaymentsMyCreatedBy} recipient
- */
-InlineResponse2004.prototype['recipient'] = undefined;
-
-/**
- * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
- * @member {Number} sum
- */
-InlineResponse2004.prototype['sum'] = undefined;
+InlineResponse2004.prototype['isExist'] = undefined;
 
 
 

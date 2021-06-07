@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsIdGet
 
-> InlineResponse200 apiV1ProductsIdGet(id, opts)
+> InlineResponse2003 apiV1ProductsIdGet(id, opts)
 
 Получить продукт по GUID.
 
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**InlineResponse2003**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -142,7 +142,7 @@ let apiInstance = new Amazonapi.ProductForTestOnlyApi();
 let id = 60806dbd5346527a0f90f41e; // String | GUID продукта, который будет изменен
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject13': new Amazonapi.InlineObject13() // InlineObject13 | 
+  'InlineObject12': new Amazonapi.InlineObject12() // InlineObject12 | 
 };
 apiInstance.apiV1ProductsIdPatch(id, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| GUID продукта, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject13** | [**InlineObject13**](InlineObject13.md)|  | [optional] 
+ **InlineObject12** | [**InlineObject12**](InlineObject12.md)|  | [optional] 
 
 ### Return type
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsPost
 
-> InlineResponse201 apiV1ProductsPost(InlineObject12, opts)
+> InlineResponse201 apiV1ProductsPost(InlineObject11, opts)
 
 Добавить новый продукт.
 
@@ -195,11 +195,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.ProductForTestOnlyApi();
-let InlineObject12 = new Amazonapi.InlineObject12(); // InlineObject12 | 
+let InlineObject11 = new Amazonapi.InlineObject11(); // InlineObject11 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1ProductsPost(InlineObject12, opts).then((data) => {
+apiInstance.apiV1ProductsPost(InlineObject11, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -212,7 +212,7 @@ apiInstance.apiV1ProductsPost(InlineObject12, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject12** | [**InlineObject12**](InlineObject12.md)|  | 
+ **InlineObject11** | [**InlineObject11**](InlineObject11.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type

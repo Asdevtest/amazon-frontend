@@ -17,9 +17,6 @@ import InlineObject3 from '../model/InlineObject3';
 import InlineObject4 from '../model/InlineObject4';
 import InlineObject5 from '../model/InlineObject5';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse2002 from '../model/InlineResponse2002';
-import InlineResponse2003 from '../model/InlineResponse2003';
-import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse201 from '../model/InlineResponse201';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
@@ -107,7 +104,7 @@ export default class BuyerApi {
      * ## Посмотреть мои коробки.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1BuyersBoxesMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -126,7 +123,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2003];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/buyers/boxes/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -139,7 +136,7 @@ export default class BuyerApi {
      * ## Посмотреть мои коробки.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1BuyersBoxesMyGet(opts) {
       return this.apiV1BuyersBoxesMyGetWithHttpInfo(opts)
@@ -262,7 +259,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
      */
     apiV1BuyersOrdersGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -286,7 +283,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2002;
+      let returnType = InlineResponse200;
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -300,7 +297,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
      */
     apiV1BuyersOrdersGuidGet(guid, opts) {
       return this.apiV1BuyersOrdersGuidGetWithHttpInfo(guid, opts)
@@ -371,7 +368,7 @@ export default class BuyerApi {
      * ## Получить список заказов текущего байера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1BuyersOrdersMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -390,7 +387,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2002];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -403,7 +400,7 @@ export default class BuyerApi {
      * ## Получить список заказов текущего байера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1BuyersOrdersMyGet(opts) {
       return this.apiV1BuyersOrdersMyGetWithHttpInfo(opts)
@@ -472,7 +469,7 @@ export default class BuyerApi {
      * ## Получить список свободных заказов.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1BuyersOrdersVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -491,7 +488,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2002];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -504,7 +501,7 @@ export default class BuyerApi {
      * ## Получить список свободных заказов.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1BuyersOrdersVacGet(opts) {
       return this.apiV1BuyersOrdersVacGetWithHttpInfo(opts)
@@ -519,7 +516,7 @@ export default class BuyerApi {
      * Получить информацию об платежах для этого байера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1BuyersPaymentsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -538,7 +535,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2004];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/buyers/payments/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -551,7 +548,7 @@ export default class BuyerApi {
      * Получить информацию об платежах для этого байера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1BuyersPaymentsMyGet(opts) {
       return this.apiV1BuyersPaymentsMyGetWithHttpInfo(opts)
@@ -626,7 +623,7 @@ export default class BuyerApi {
      * ## Получить список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1BuyersProductsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -645,7 +642,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/buyers/products/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -658,7 +655,7 @@ export default class BuyerApi {
      * ## Получить список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1BuyersProductsMyGet(opts) {
       return this.apiV1BuyersProductsMyGetWithHttpInfo(opts)
@@ -727,7 +724,7 @@ export default class BuyerApi {
      * ## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1BuyersProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -746,7 +743,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/buyers/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -759,7 +756,7 @@ export default class BuyerApi {
      * ## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1BuyersProductsVacGet(opts) {
       return this.apiV1BuyersProductsVacGetWithHttpInfo(opts)

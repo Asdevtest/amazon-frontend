@@ -7,6 +7,7 @@ import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
+import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -79,7 +80,7 @@ export const ProductsView = () => {
               <Field title={textConsts.codeOfGood} />
               <Box className={classNames.boxBtn}>
                 <Button className={classNames.button}>{textConsts.buttonChek}</Button>
-                <Button success>{textConsts.buttonAdd}</Button>
+                <SuccessButton>{textConsts.buttonAdd}</SuccessButton>
               </Box>
             </Paper>
 

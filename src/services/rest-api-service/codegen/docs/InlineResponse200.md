@@ -4,44 +4,39 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID продукта в базе данных | 
-**id** | **String** | ASIN продукта | 
-**material** | **String** |  | [optional] 
-**lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
-**lsupplier** | **String** | Ссылка на поставщика. | 
-**fba** | **Boolean** | Признак fba | 
-**express** | **Boolean** | Признак экспресс доставки. | [optional] 
-**minpurchase** | **Number** | Минимальный заказ | [optional] 
-**bsr** | **Number** |  | 
-**amazon** | **Number** |  | 
-**height** | **Number** | Высота | [optional] 
-**width** | **Number** | Ширина | [optional] 
-**length** | **Number** | Длинна | [optional] 
-**weight** | **Number** | Вес | [optional] 
-**supplier** | **Number** | Код поставщика | 
-**fbalink** | **String** | ФБА ссылка | [optional] 
-**fbafee** | **Number** | ФБА комиссия | [optional] 
-**fbaamount** | **Number** | ФБА кол-во | [optional] 
-**delivery** | **Number** | Стоимость доставки. | [optional] 
-**icomment** | **String** | Комментарии к товару. | 
-**status** | **Number** | Код текущего статуса | [optional] 
-**checkednotes** | **String** |  | [optional] 
-**researcherFine** | **Number** | Размер штрафа менеджеру. | [optional] 
-**researcherFineComment** | **String** | Комментарии к штрафу. | [optional] 
-**supervisorFine** | **Number** | Размер штрафа на супервайзера. | [optional] 
-**supervisorFineComment** | **String** | Комментарии к штрафу | [optional] 
-**dirdecision** | **Number** | Код решения директора. | [optional] 
-**amazonDescription** | **String** | Описание с сайта амазон. | [optional] 
-**amazonDetail** | **String** | Данные из поля детали с сайта амазон. | [optional] 
-**amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
-**profit** | **Number** | Прибыль | [optional] 
-**margin** | **Number** | Маржа | [optional] 
-**currentSupplier** | **String** | GUID поставщика | [optional] 
-**createdby** | [**ApiV1AdminsGetNotPaidProductsCreatedby**](ApiV1AdminsGetNotPaidProductsCreatedby.md) |  | [optional] 
-**createdat** | **Date** | Дата создания | [optional] 
-**checkedat** | **Date** | Дата проверки | [optional] 
-**buyer** | [**ApiV1AdminsGetNotPaidProductsCreatedby**](ApiV1AdminsGetNotPaidProductsCreatedby.md) |  | [optional] 
-**buyerscomment** | **String** | Комментарии к товару от байера. | [optional] 
-**barCode** | **String** | Баркод | [optional] 
+**_id** | **String** | GUID данной записи в БД. | [optional] 
+**buyerId** | **String** | GUID пользователя(байера) | [optional] 
+**clientComment** | **String** | Комментарии клиента. | 
+**buyerComment** | **String** | комментарии байера. | [optional] 
+**warehouse** | **Number** | Номер склада. | 
+**deliveryMethod** | **Number** | Вид доставки. | 
+**productList** | **[Object]** | Список товаров. | [optional] 
+**fba** | **Boolean** | Признак FBA это заказ или нет. | [optional] 
+**status** | **Number** | tmp | [optional] [default to StatusEnum.1]
+**deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | 
+**product** | **String** | GUID продукта | 
+
+
+
+## Enum: StatusEnum
+
+
+* `0` (value: `0`)
+
+* `1` (value: `1`)
+
+* `10` (value: `10`)
+
+* `15` (value: `15`)
+
+* `20` (value: `20`)
+
+* `25` (value: `25`)
+
+* `30` (value: `30`)
+
+* `35` (value: `35`)
+
+
 
 

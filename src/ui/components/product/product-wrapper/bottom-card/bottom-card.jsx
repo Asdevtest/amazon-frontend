@@ -2,6 +2,7 @@ import React from 'react'
 
 import {Box, Container, Grid, Typography, Paper} from '@material-ui/core'
 import MuiCheckbox from '@material-ui/core/Checkbox'
+import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
 import {texts} from '@constants/texts'
@@ -14,7 +15,7 @@ import {useClassNames} from './bottom-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
-export const BottomCard = ({product, setProduct, onChangeField}) => {
+export const BottomCard = observer(({product, onChangeField}) => {
   const classNames = useClassNames()
 
   return (
@@ -22,15 +23,15 @@ export const BottomCard = ({product, setProduct, onChangeField}) => {
       <Grid container spacing={2}>
         <Grid item sm={7} xs={12}>
           <Paper className={classNames.cardPadding}>
-            <Field title={textConsts.bsr} value={product.bsr} onChange={onChangeField('bsr')} />
-            <Field title={textConsts.buyBoxPrice} value={product.buyBoxPrice} onChange={onChangeField('buyBoxPrice')} />
-            <Field title={textConsts.fieldWidth} value={product.width} onChange={onChangeField('width')} />
-            <Field title={textConsts.fieldHeight} value={product.height} onChange={onChangeField('height')} />
-            <Field title={textConsts.fieldLength} value={product.length} onChange={onChangeField('length')} />
-            <Field disabled title={textConsts.minPrice} value={product.minPrice} onChange={onChangeField('minPrice')} />
+            <Field label={textConsts.bsr} value={product.bsr} onChange={onChangeField('bsr')} />
+            <Field label={textConsts.buyBoxPrice} value={product.buyBoxPrice} onChange={onChangeField('buyBoxPrice')} />
+            <Field label={textConsts.fieldWidth} value={product.width} onChange={onChangeField('width')} />
+            <Field label={textConsts.fieldHeight} value={product.height} onChange={onChangeField('height')} />
+            <Field label={textConsts.fieldLength} value={product.length} onChange={onChangeField('length')} />
+            <Field disabled label={textConsts.minPrice} value={product.minPrice} onChange={onChangeField('minPrice')} />
             <Field
               disabled
-              title={textConsts.fieldSupplier}
+              label={textConsts.fieldSupplier}
               value={product.supplier}
               onChange={onChangeField('supplier')}
             />
@@ -40,36 +41,36 @@ export const BottomCard = ({product, setProduct, onChangeField}) => {
               </Typography>
 
               <MuiCheckbox
-                checked={product.express}
+                value={product.express}
                 className={classNames.checkbox}
                 color="primary"
                 onClick={() => {
-                  setProduct({...product, express: !product.express})
+                  onChangeField('express', !product.express)
                 }}
               />
             </Container>
             <Field
               disabled
-              title={textConsts.maxDeliveryPrice}
+              label={textConsts.maxDeliveryPrice}
               value={product.maxDeliveryPrice}
               onChange={onChangeField('maxDeliveryPrice')}
             />
             <Field
               disabled
-              title={textConsts.refferalFee}
+              label={textConsts.refferalFee}
               value={product.refferalFee}
               onChange={onChangeField('refferalFee')}
             />
-            <Field title={textConsts.fbaFee} value={product.fbaFee} onChange={onChangeField('fbaFee')} />
-            <Field disabled title={textConsts.totalFba} value={product.totalFba} onChange={onChangeField('totalFba')} />
+            <Field label={textConsts.fbaFee} value={product.fbaFee} onChange={onChangeField('fbaFee')} />
+            <Field disabled label={textConsts.totalFba} value={product.totalFba} onChange={onChangeField('totalFba')} />
             <Field
-              title={textConsts.recConsignmentQty}
+              label={textConsts.recConsignmentQty}
               value={product.recConsignmentQty}
               onChange={onChangeField('recConsignmentQty')}
             />
-            <Field disabled title={textConsts.revenue} value={product.revenue} onChange={onChangeField('revenue')} />
-            <Field disabled title={textConsts.fieldMargin} value={product.margin} onChange={onChangeField('margin')} />
-            <Field disabled title={textConsts.fieldStatus} value={product.status} onChange={onChangeField('status')} />
+            <Field disabled label={textConsts.revenue} value={product.revenue} onChange={onChangeField('revenue')} />
+            <Field disabled label={textConsts.fieldMargin} value={product.margin} onChange={onChangeField('margin')} />
+            <Field disabled label={textConsts.fieldStatus} value={product.status} onChange={onChangeField('status')} />
           </Paper>
         </Grid>
         <Grid item sm={5} xs={12}>
@@ -84,14 +85,14 @@ export const BottomCard = ({product, setProduct, onChangeField}) => {
           </Paper>
           <Paper className={classNames.cardPadding}>
             <Typography className={classNames.title}>{textConsts.descriptionOFGoods}</Typography>
-            <Field disabled title={textConsts.csCode} value={product.csCode} onChange={onChangeField('csCode')} />
+            <Field disabled label={textConsts.csCode} value={product.csCode} onChange={onChangeField('csCode')} />
             <Field
               disabled
               multiline
               className={classNames.heightFieldAuto}
               rows={4}
               rowsMax={6}
-              title={textConsts.summary}
+              label={textConsts.summary}
               value={product.summary}
               onChange={onChangeField('summary')}
             />
@@ -101,7 +102,7 @@ export const BottomCard = ({product, setProduct, onChangeField}) => {
               className={classNames.heightFieldAuto}
               rows={4}
               rowsMax={6}
-              title={textConsts.description}
+              label={textConsts.description}
               value={product.description}
               onChange={onChangeField('description')}
             />
@@ -110,4 +111,4 @@ export const BottomCard = ({product, setProduct, onChangeField}) => {
       </Grid>
     </React.Fragment>
   )
-}
+})

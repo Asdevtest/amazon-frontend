@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
+import {observer} from 'mobx-react'
 
-import {BUYER_PRODUCTS_DATA, BUYER_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
+import {BUYER_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
 import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
@@ -17,16 +18,23 @@ import {TableHeadRow} from '@components/table-rows/buyer/products-view/table-hea
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/buyerAvatar.jpg'
+import {ProductsViewModel} from './products-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerProductsView
 
+@observer
 export class BuyerProductsView extends Component {
+  viewModel = new ProductsViewModel({history: this.props.history})
   state = {
     activeCategory: 0,
     activeSubCategory: 0,
     drawerOpen: false,
     rowsPerPage: 5,
     paginationPage: 1,
+  }
+
+  componentDidMount() {
+    this.viewModel.getProducsVacant()
   }
 
   render() {
@@ -57,10 +65,10 @@ export class BuyerProductsView extends Component {
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
               <Table
                 currentPage={this.state.paginationPage}
-                data={BUYER_PRODUCTS_DATA}
+                data={this.viewModel.productsVacant}
                 handlerPageChange={this.onChangePagination}
                 handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(BUYER_PRODUCTS_DATA.length / this.state.rowsPerPage)}
+                pageCount={Math.ceil(this.viewModel.productsVacant.length / this.state.rowsPerPage)}
                 BodyRow={TableBodyRow}
                 renderHeadRow={this.renderHeadRow}
                 rowsPerPage={this.state.rowsPerPage}

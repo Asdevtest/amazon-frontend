@@ -13,19 +13,13 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiV1AdminsGetNotPaidProductsCreatedby from '../model/ApiV1AdminsGetNotPaidProductsCreatedby';
 import InlineObject10 from '../model/InlineObject10';
-import InlineObject11 from '../model/InlineObject11';
 import InlineObject6 from '../model/InlineObject6';
 import InlineObject7 from '../model/InlineObject7';
 import InlineObject8 from '../model/InlineObject8';
 import InlineObject9 from '../model/InlineObject9';
-import InlineResponse200 from '../model/InlineResponse200';
+import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse2002 from '../model/InlineResponse2002';
-import InlineResponse2005 from '../model/InlineResponse2005';
-import InlineResponse2006 from '../model/InlineResponse2006';
-import InlineResponse2007 from '../model/InlineResponse2007';
-import InlineResponse2008 from '../model/InlineResponse2008';
 import InlineResponse201 from '../model/InlineResponse201';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
@@ -57,7 +51,7 @@ export default class ClientApi {
      * ## Получить партии.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1ClientsBatchesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -76,7 +70,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2008];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/clients/batches', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -89,7 +83,7 @@ export default class ClientApi {
      * ## Получить партии.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1ClientsBatchesGet(opts) {
       return this.apiV1ClientsBatchesGetWithHttpInfo(opts)
@@ -104,7 +98,7 @@ export default class ClientApi {
      * ## Показать все коробки.   Клиент ничего не может сам делать с коробками. Только видеть их параметры.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1ClientsBoxesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -123,7 +117,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2006];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/clients/boxes', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -136,7 +130,7 @@ export default class ClientApi {
      * ## Показать все коробки.   Клиент ничего не может сам делать с коробками. Только видеть их параметры.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1ClientsBoxesGet(opts) {
       return this.apiV1ClientsBoxesGetWithHttpInfo(opts)
@@ -152,7 +146,7 @@ export default class ClientApi {
      * @param {String} guid GUID коробки.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2006} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
      */
     apiV1ClientsBoxesGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -176,7 +170,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2006;
+      let returnType = InlineResponse2002;
       return this.apiClient.callApi(
         '/api/v1/clients/boxes/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -190,7 +184,7 @@ export default class ClientApi {
      * @param {String} guid GUID коробки.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2006}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
      */
     apiV1ClientsBoxesGuidGet(guid, opts) {
       return this.apiV1ClientsBoxesGuidGetWithHttpInfo(guid, opts)
@@ -254,7 +248,7 @@ export default class ClientApi {
      * ## Получить заказы текущего клиента.   ## описание поля status:       formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      returnOrder: 35 Если Заказ пришёл не кондиционный - \"возврат заказа\"    
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1ClientsOrdersGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -273,7 +267,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2002];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/clients/orders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -286,7 +280,7 @@ export default class ClientApi {
      * ## Получить заказы текущего клиента.   ## описание поля status:       formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      returnOrder: 35 Если Заказ пришёл не кондиционный - \"возврат заказа\"    
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1ClientsOrdersGet(opts) {
       return this.apiV1ClientsOrdersGetWithHttpInfo(opts)
@@ -356,7 +350,7 @@ export default class ClientApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2005} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
      */
     apiV1ClientsOrdersGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -380,7 +374,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2005;
+      let returnType = InlineResponse2001;
       return this.apiClient.callApi(
         '/api/v1/clients/orders/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -394,7 +388,7 @@ export default class ClientApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2005}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
      */
     apiV1ClientsOrdersGuidGet(guid, opts) {
       return this.apiV1ClientsOrdersGuidGetWithHttpInfo(guid, opts)
@@ -578,7 +572,7 @@ export default class ClientApi {
      * ## Получить список товаров данного клиента.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1ClientsProductsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -597,7 +591,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/clients/products/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -610,7 +604,7 @@ export default class ClientApi {
      * ## Получить список товаров данного клиента.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1ClientsProductsMyGet(opts) {
       return this.apiV1ClientsProductsMyGetWithHttpInfo(opts)
@@ -622,10 +616,10 @@ export default class ClientApi {
 
     /**
      * # Получить список товаров оплаченных данного клиента.
-     * ## Получить список товаров оплаченных данного клиента.   
+     * ## Получить список товаров оплаченных данного клиента.   ## Думаю это УСТАРЕВШИЙ метод. Он опирается на dirchecked.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1ClientsProductsPaidGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -644,7 +638,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/clients/products/paid', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -654,10 +648,10 @@ export default class ClientApi {
 
     /**
      * # Получить список товаров оплаченных данного клиента.
-     * ## Получить список товаров оплаченных данного клиента.   
+     * ## Получить список товаров оплаченных данного клиента.   ## Думаю это УСТАРЕВШИЙ метод. Он опирается на dirchecked.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1ClientsProductsPaidGet(opts) {
       return this.apiV1ClientsProductsPaidGetWithHttpInfo(opts)
@@ -673,7 +667,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1ClientsProductsPickupGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -697,7 +691,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/clients/products/pickup/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -711,7 +705,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1ClientsProductsPickupGuidPost(guid, opts) {
       return this.apiV1ClientsProductsPickupGuidPostWithHttpInfo(guid, opts)
@@ -726,7 +720,7 @@ export default class ClientApi {
      * ## Получить список  вакантных товаров.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1ClientsProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -745,7 +739,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/clients/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -758,7 +752,7 @@ export default class ClientApi {
      * ## Получить список  вакантных товаров.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1ClientsProductsVacGet(opts) {
       return this.apiV1ClientsProductsVacGetWithHttpInfo(opts)
@@ -773,7 +767,7 @@ export default class ClientApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2007>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1ClientsTasksGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -792,7 +786,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2007];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/clients/tasks', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -805,7 +799,7 @@ export default class ClientApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2007>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1ClientsTasksGet(opts) {
       return this.apiV1ClientsTasksGetWithHttpInfo(opts)
@@ -818,17 +812,17 @@ export default class ClientApi {
     /**
      * # Создать задачу.
      * ## Создать задачу.   
-     * @param {module:model/InlineObject11} InlineObject11 
+     * @param {module:model/InlineObject10} InlineObject10 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    apiV1ClientsTasksPostWithHttpInfo(InlineObject11, opts) {
+    apiV1ClientsTasksPostWithHttpInfo(InlineObject10, opts) {
       opts = opts || {};
-      let postBody = InlineObject11;
-      // verify the required parameter 'InlineObject11' is set
-      if (InlineObject11 === undefined || InlineObject11 === null) {
-        throw new Error("Missing the required parameter 'InlineObject11' when calling apiV1ClientsTasksPost");
+      let postBody = InlineObject10;
+      // verify the required parameter 'InlineObject10' is set
+      if (InlineObject10 === undefined || InlineObject10 === null) {
+        throw new Error("Missing the required parameter 'InlineObject10' when calling apiV1ClientsTasksPost");
       }
 
       let pathParams = {
@@ -855,116 +849,13 @@ export default class ClientApi {
     /**
      * # Создать задачу.
      * ## Создать задачу.   
-     * @param {module:model/InlineObject11} InlineObject11 
+     * @param {module:model/InlineObject10} InlineObject10 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    apiV1ClientsTasksPost(InlineObject11, opts) {
-      return this.apiV1ClientsTasksPostWithHttpInfo(InlineObject11, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Получить список пользователей.
-     * ## Получить список пользователей.  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsGetNotPaidProductsCreatedby>} and HTTP response
-     */
-    apiV1ClientsUsersGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [ApiV1AdminsGetNotPaidProductsCreatedby];
-      return this.apiClient.callApi(
-        '/api/v1/clients/users', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Получить список пользователей.
-     * ## Получить список пользователей.  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsGetNotPaidProductsCreatedby>}
-     */
-    apiV1ClientsUsersGet(opts) {
-      return this.apiV1ClientsUsersGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Изменить пользователя.
-     * ## Изменить пользователя.  
-     * @param {String} guid GUID пользователя.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject10} opts.InlineObject10 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
-     */
-    apiV1ClientsUsersGuidPatchWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = opts['InlineObject10'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1ClientsUsersGuidPatch");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
-      let returnType = Null;
-      return this.apiClient.callApi(
-        '/api/v1/clients/users/{guid}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Изменить пользователя.
-     * ## Изменить пользователя.  
-     * @param {String} guid GUID пользователя.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject10} opts.InlineObject10 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
-     */
-    apiV1ClientsUsersGuidPatch(guid, opts) {
-      return this.apiV1ClientsUsersGuidPatchWithHttpInfo(guid, opts)
+    apiV1ClientsTasksPost(InlineObject10, opts) {
+      return this.apiV1ClientsTasksPostWithHttpInfo(InlineObject10, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -22,10 +22,12 @@ class InlineObject10 {
     /**
      * Constructs a new <code>InlineObject10</code>.
      * @alias module:model/InlineObject10
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param boxId {String} GUID коробки для которой создана задача
      */
-    constructor() { 
+    constructor(taskId, boxId) { 
         
-        InlineObject10.initialize(this);
+        InlineObject10.initialize(this, taskId, boxId);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject10 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, taskId, boxId) { 
+        obj['taskId'] = taskId;
+        obj['boxId'] = boxId;
     }
 
     /**
@@ -47,20 +51,11 @@ class InlineObject10 {
         if (data) {
             obj = obj || new InlineObject10();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
             }
-            if (data.hasOwnProperty('rate')) {
-                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
-            }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
-            }
-            if (data.hasOwnProperty('active')) {
-                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            if (data.hasOwnProperty('boxId')) {
+                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
             }
         }
         return obj;
@@ -70,34 +65,16 @@ class InlineObject10 {
 }
 
 /**
- * Имя. Если нужно скорректировать.
- * @member {String} name
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
  */
-InlineObject10.prototype['name'] = undefined;
+InlineObject10.prototype['taskId'] = undefined;
 
 /**
- * Стоимость сотрудника.
- * @member {Number} rate
+ * GUID коробки для которой создана задача
+ * @member {String} boxId
  */
-InlineObject10.prototype['rate'] = undefined;
-
-/**
- * Код роли сотрудника.
- * @member {Number} role
- */
-InlineObject10.prototype['role'] = undefined;
-
-/**
- * Флаг активный пользователь или нет.
- * @member {Boolean} active
- */
-InlineObject10.prototype['active'] = undefined;
-
-/**
- * Флаг fba пользователь или нет.
- * @member {Boolean} fba
- */
-InlineObject10.prototype['fba'] = undefined;
+InlineObject10.prototype['boxId'] = undefined;
 
 
 

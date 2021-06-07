@@ -19,5 +19,7 @@ Name | Type | Description | Notes
 **warehouse** | **Number** | id склада - склады куда отправляют  | [optional] 
 **deliveryMethod** | **Number** | Метод доставки - 1: Air , 2: Sea | [optional] 
 **inStock** | **Boolean** | Поступил ли товар для этой коробки на склад. | [optional] 
+**scheduledDispatchDate** | **Date** | Запланированная дата отправки. | [optional] 
+**factDispatchDate** | **Date** | Запланированная дата доставки. | [optional] 
 
 

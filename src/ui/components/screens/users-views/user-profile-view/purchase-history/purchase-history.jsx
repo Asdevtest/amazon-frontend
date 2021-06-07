@@ -15,7 +15,7 @@ export const PurchaseHistory = ({user, tabHistory, setTabHistory}) => {
   const classNames = useClassNames()
   return (
     <React.Fragment>
-      <Typography variant="3h" className={classNames.mainTitle}>
+      <Typography variant="h3" className={classNames.mainTitle}>
         {textConsts.mainTitle + user.username}
       </Typography>
       <Paper>

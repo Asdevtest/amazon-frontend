@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
+import {observer} from 'mobx-react'
 
-import {BUYER_MY_PRODUCTS_DATA, BUYER_MY_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
+import {BUYER_MY_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
 import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
 
@@ -17,10 +18,13 @@ import {TableHeadRow} from '@components/table-rows/buyer/my-products-view/table-
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/buyerAvatar.jpg'
+import {MyProductsViewModel} from './my-products-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'ru').myProductsView
 
-export class MyProducts extends Component {
+@observer
+export class MyProductsView extends Component {
+  viewModel = new MyProductsViewModel({history: this.props.history})
   state = {
     activeCategory: 1,
     activeSubCategory: 0,
@@ -29,8 +33,13 @@ export class MyProducts extends Component {
     paginationPage: 1,
   }
 
+  componentDidMount() {
+    this.viewModel.getProducsMy()
+  }
+
   render() {
     const {activeCategory, activeSubCategory, drawerOpen} = this.state
+    const {productsMy} = this.viewModel
 
     return (
       <React.Fragment>
@@ -59,10 +68,10 @@ export class MyProducts extends Component {
 
               <Table
                 currentPage={this.state.paginationPage}
-                data={BUYER_MY_PRODUCTS_DATA}
+                data={productsMy}
                 handlerPageChange={this.onChangePagination}
                 handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(BUYER_MY_PRODUCTS_DATA.length / this.state.rowsPerPage)}
+                pageCount={Math.ceil(productsMy.length / this.state.rowsPerPage)}
                 BodyRow={TableBodyRow}
                 renderHeadRow={this.renderHeadRow}
                 rowsPerPage={this.state.rowsPerPage}

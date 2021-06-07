@@ -1,211 +1,94 @@
-import {getLoggerServiceModel} from '@services/logger-service'
-import {ApiClient} from '@services/rest-api-service/codegen/src'
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
-import {
-  ClientBatches,
-  ClientBox,
-  ClientCreateOrderResponse,
-  ClientOrder,
-  ClientProduct,
-  ClientUser,
-} from './client-model.contracts'
-
 class ClientModelStatic {
-  logger = undefined
-
-  constructor() {
-    this.logger = getLoggerServiceModel(this)
-  }
-
   getProductsVacant = async () => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsProductsVacGet()
-      this.logger.logResponse('getProductsVacant', response)
-      return ApiClient.convertToType(response, ClientProduct)
-    } catch (error) {
-      this.logger.logCoughtError('getProductsVacant', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsProductsVacGet()
+    return response
   }
 
   pickupProduct = async id => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsProductsPickupGuidPost(id)
-      this.logger.logResponse('pickupProduct', response)
-    } catch (error) {
-      this.logger.logCoughtError('pickupProduct', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsProductsPickupGuidPost(id)
+    return response
   }
 
   updateProduct = async (id, data) => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsProductsGuidPatch(id, data)
-      this.logger.logResponse('updateProduct', response)
-    } catch (error) {
-      this.logger.logCoughtError('updateProduct', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidPatch(id, data)
+    return response
   }
 
   getProductsMy = async () => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsProductsMyGet()
-      this.logger.logResponse('getProductsMy', response)
-      return ApiClient.convertToType(response, ClientProduct)
-    } catch (error) {
-      this.logger.logCoughtError('getProductsMy', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsProductsMyGet()
+    return response
   }
 
   makePayments = async productIds => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsMakePaymentsPost({InlineObject7: productIds})
-      this.logger.logResponse('makePayments', response)
-    } catch (error) {
-      this.logger.logCoughtError('makePayments', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsMakePaymentsPost({InlineObject7: productIds})
+    return response
   }
 
   getProductsPaid = async () => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsMakePaymentsPost()
-      this.logger.logResponse('getProductsPaid', response)
-      return ApiClient.convertToType(response, ClientProduct)
-    } catch (error) {
-      this.logger.logCoughtError('getProductsPaid', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsMakePaymentsPost()
+    return response
   }
 
   createOrder = async data => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsOrdersPost(data)
-      this.logger.logResponse('createOreder', response)
-      return ApiClient.convertToType(response, ClientCreateOrderResponse)
-    } catch (error) {
-      this.logger.logCoughtError('createOreder', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsOrdersPost(data)
+    return response
   }
 
   getOrders = async () => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsOrdersGet()
-      this.logger.logResponse('getOrders', response)
-      return ApiClient.convertToType(response, ClientOrder)
-    } catch (error) {
-      this.logger.logCoughtError('getOrders', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGet()
+    return response
   }
 
   updateOrder = async id => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsOrdersGuidPatch(id)
-      this.logger.logResponse('updateOrder', response)
-    } catch (error) {
-      this.logger.logCoughtError('updateOrder', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidPatch(id)
+    return response
   }
 
   getOrder = async id => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsOrdersGuidGet(id)
-      this.logger.logResponse('getOrder', response)
-      return ApiClient.convertToType(response, ClientOrder)
-    } catch (error) {
-      this.logger.logCoughtError('getOrder', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidGet(id)
+    return response
   }
 
   removeOrder = async id => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsOrdersGuidDelete(id)
-      this.logger.logResponse('removeOrder', response)
-    } catch (error) {
-      this.logger.logCoughtError('removeOrder', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidDelete(id)
+    return response
   }
 
   getUsers = async () => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsUsersGet()
-      this.logger.logResponse('getUsers', response)
-      return ApiClient.convertToType(response, ClientUser)
-    } catch (error) {
-      this.logger.logCoughtError('getUsers', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsUsersGet()
+    return response
   }
 
   updateUser = async (id, data) => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsUsersGuidPatch(id, {InlineObject10: data})
-      this.logger.logResponse('updateUser', response)
-    } catch (error) {
-      this.logger.logCoughtError('updateUser', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsUsersGuidPatch(id, {InlineObject10: data})
+    return response
   }
 
   getBoxes = async () => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsBoxesGuidGet()
-      this.logger.logResponse('getBoxes', response)
-      return ApiClient.convertToType(response, ClientBox)
-    } catch (error) {
-      this.logger.logCoughtError('getBoxes', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsBoxesGuidGet()
+    return response
   }
 
   getBox = async id => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsBoxesGuidGet(id)
-      this.logger.logResponse('getBox', response)
-      return ApiClient.convertToType(response, ClientBox)
-    } catch (error) {
-      this.logger.logCoughtError('getBox', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsBoxesGuidGet(id)
+    return response
   }
 
   createTask = async data => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsTasksPost(data)
-      this.logger.logResponse('createTask', response)
-    } catch (error) {
-      this.logger.logCoughtError('createTask', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsTasksPost(data)
+    return response
   }
 
   getTasks = async () => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsTasksGet()
-      this.logger.logResponse('getTasks', response)
-    } catch (error) {
-      this.logger.logCoughtError('getTasks', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsTasksGet()
+    return response
   }
 
   getBatches = async () => {
-    try {
-      const response = await restApiService.clientApi.apiV1ClientsBatchesGet()
-      this.logger.logResponse('getBatches', response)
-      return ApiClient.convertToType(response, ClientBatches)
-    } catch (error) {
-      this.logger.logCoughtError('getBatches', error)
-      throw error
-    }
+    const response = await restApiService.clientApi.apiV1ClientsBatchesGet()
+    return response
   }
 }
 

@@ -22,7 +22,7 @@ class InlineObject {
     /**
      * Constructs a new <code>InlineObject</code>.
      * @alias module:model/InlineObject
-     * @param dirdecision {module:model/InlineObject.DirdecisionEnum} Решение директора:        newitem = 0,    approved = 1,    rejected = 2   
+     * @param dirdecision {module:model/InlineObject.DirdecisionEnum} Решение директора:        newProduct = 0,    approved = 1,    rejected = 2   
      */
     constructor(dirdecision) { 
         
@@ -72,7 +72,7 @@ class InlineObject {
 }
 
 /**
- * Решение директора:        newitem = 0,    approved = 1,    rejected = 2   
+ * Решение директора:        newProduct = 0,    approved = 1,    rejected = 2   
  * @member {module:model/InlineObject.DirdecisionEnum} dirdecision
  */
 InlineObject.prototype['dirdecision'] = undefined;

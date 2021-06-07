@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 
+import {observer} from 'mobx-react'
+
 import {
   BUYER_USER_HEADER_LIST,
   BUYER_USER_MANAGERS_LIST,
@@ -23,10 +25,13 @@ import {Reviews} from '@components/screens/users-views/user-profile-view/reviews
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/buyerAvatar.jpg'
+import {UserProfileViewModel} from './user-profile-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerUserView
 
+@observer
 export class UserProfileView extends Component {
+  viewModel = new UserProfileViewModel({history: this.props.history})
   state = {
     activeCategory: 5,
     activeSubCategory: 0,
@@ -41,6 +46,10 @@ export class UserProfileView extends Component {
     tabReview: 0,
     selected: null,
     modal0: false,
+  }
+
+  componentDidMount() {
+    this.viewModel.getUserDataMy()
   }
 
   render() {
@@ -69,7 +78,7 @@ export class UserProfileView extends Component {
             setDrawerOpen={this.onChangeDrawerOpen}
           >
             <MainContent>
-              <Header user={BUYER_USER_INITIAL_USER} timer={textConsts.timer} headerInfo={BUYER_USER_HEADER_LIST} />
+              <Header user={this.viewModel.userDataMy} timer={textConsts.timer} headerInfo={BUYER_USER_HEADER_LIST} />
 
               <ActiveOrders
                 tabExchange={this.state.tabExchange}

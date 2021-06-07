@@ -60,10 +60,10 @@ export const categoriesList = {
     {icon: SettingsIcon, title: 'Настройки', subtitles: null},
   ],
   supervisor: [
-    {icon: InfoOutlinedIcon, title: 'Главная страница', subtitles: null},
-    {icon: AssignmentIcon, title: 'Готовые к проверке', subtitles: null},
-    {icon: InboxOutlinedIcon, title: 'Мои товары', subtitles: null},
-    {icon: SettingsIcon, title: 'Настройки', subtitles: null},
+    {icon: InfoOutlinedIcon, title: 'Главная страница', subtitles: null, route: '/supervisor/dashboard'},
+    {icon: AssignmentIcon, title: 'Готовые к проверке', subtitles: null, route: '/supervisor/ready-to-check'},
+    {icon: InboxOutlinedIcon, title: 'Мои товары', subtitles: null, route: '/supervisor/products'},
+    {icon: SettingsIcon, title: 'Настройки', subtitles: null, route: '/supervisor/settings'},
   ],
   buyer: [
     {icon: InboxOutlinedIcon, title: 'Товары', route: '/buyer/products', subtitles: null},

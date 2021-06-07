@@ -1,10 +1,10 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {action, makeAutoObservable} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {UserModel} from '@models/user-model'
 
-import {getLoggerServiceModel} from '@services/logger-service'
+import {LoggerForMethodDecorator} from '@services/logger-service'
 
 import {getObjectKeys} from '@utils/object'
 
@@ -27,44 +27,34 @@ export class RegistrationViewModel {
     confirmPassword: null,
   }
 
-  logger = undefined
-
   constructor({history}) {
     this.history = history
-    makeAutoObservable(this)
-    this.logger = getLoggerServiceModel(this)
+    makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   get hasFormErrors() {
     return getObjectKeys(this.formValidationErrors).every(error => this.formValidationErrors[error])
   }
 
-  setField = fieldName => value => {
-    runInAction(() => {
+  setField = fieldName =>
+    action(value => {
       this.formValidationErrors[fieldName] = null
       this[fieldName] = value
     })
-  }
 
-  onSubmitForm = async () => {
+  @LoggerForMethodDecorator()
+  async onSubmitForm() {
     try {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
-        this.error = undefined
-      })
+      this.requestStatus = loadingStatuses.isLoading
+      this.error = undefined
       await UserModel.signUp(this.email, this.email, this.password) // TODO: change first parametr to name
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.success
-      })
+      this.requestStatus = loadingStatuses.success
       setTimeout(() => {
         this.history.push('/auth')
       }, delayRedirectToAuthTime)
     } catch (error) {
-      this.logger.logCoughtError('onSubmitForm', error)
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
-        this.error = error
-      })
+      this.requestStatus = loadingStatuses.failed
+      this.error = error
     }
   }
 }

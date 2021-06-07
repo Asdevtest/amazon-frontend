@@ -13,9 +13,9 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiV1AdminsGetNotPaidProductsCreatedby from '../model/ApiV1AdminsGetNotPaidProductsCreatedby';
 import InlineObject20 from '../model/InlineObject20';
 import InlineObject21 from '../model/InlineObject21';
+import InlineResponse2007 from '../model/InlineResponse2007';
 import InlineResponse2011 from '../model/InlineResponse2011';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse403 from '../model/InlineResponse403';
@@ -47,7 +47,7 @@ export default class UserApi {
      * ## Получить информацию от текущем пользователе.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsGetNotPaidProductsCreatedby} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2007} and HTTP response
      */
     apiV1UsersInfoGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -66,7 +66,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = ApiV1AdminsGetNotPaidProductsCreatedby;
+      let returnType = InlineResponse2007;
       return this.apiClient.callApi(
         '/api/v1/users/info', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -79,7 +79,7 @@ export default class UserApi {
      * ## Получить информацию от текущем пользователе.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsGetNotPaidProductsCreatedby}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2007}
      */
     apiV1UsersInfoGet(opts) {
       return this.apiV1UsersInfoGetWithHttpInfo(opts)
@@ -95,7 +95,7 @@ export default class UserApi {
      * @param {module:model/InlineObject20} InlineObject20 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsGetNotPaidProductsCreatedby} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2007} and HTTP response
      */
     apiV1UsersPostWithHttpInfo(InlineObject20, opts) {
       opts = opts || {};
@@ -118,7 +118,7 @@ export default class UserApi {
       let authNames = [];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = ApiV1AdminsGetNotPaidProductsCreatedby;
+      let returnType = InlineResponse2007;
       return this.apiClient.callApi(
         '/api/v1/users/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -132,7 +132,7 @@ export default class UserApi {
      * @param {module:model/InlineObject20} InlineObject20 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsGetNotPaidProductsCreatedby}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2007}
      */
     apiV1UsersPost(InlineObject20, opts) {
       return this.apiV1UsersPostWithHttpInfo(InlineObject20, opts)

@@ -22,18 +22,10 @@ class InlineObject12 {
     /**
      * Constructs a new <code>InlineObject12</code>.
      * @alias module:model/InlineObject12
-     * @param id {String} ASIN продукта
-     * @param lamazon {String} Ссылка на этот продукт на амазоне.
-     * @param lsupplier {String} Ссылка на поставщика.
-     * @param fba {Boolean} Признак fba
-     * @param bsr {Number} 
-     * @param amazon {Number} 
-     * @param supplier {Number} Код поставщика
-     * @param icomment {String} Комментарии к товару.
      */
-    constructor(id, lamazon, lsupplier, fba, bsr, amazon, supplier, icomment) { 
+    constructor() { 
         
-        InlineObject12.initialize(this, id, lamazon, lsupplier, fba, bsr, amazon, supplier, icomment);
+        InlineObject12.initialize(this);
     }
 
     /**
@@ -41,15 +33,7 @@ class InlineObject12 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, lamazon, lsupplier, fba, bsr, amazon, supplier, icomment) { 
-        obj['id'] = id;
-        obj['lamazon'] = lamazon;
-        obj['lsupplier'] = lsupplier;
-        obj['fba'] = fba;
-        obj['bsr'] = bsr;
-        obj['amazon'] = amazon;
-        obj['supplier'] = supplier;
-        obj['icomment'] = icomment;
+    static initialize(obj) { 
     }
 
     /**
