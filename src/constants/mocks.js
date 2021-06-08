@@ -24,18 +24,6 @@ export const exchangeSection = {
   ],
 }
 
-export const clientDashboardData = {
-  productsInInventory: 7,
-  fullCostOfWarehouse: 5,
-  repurchaseItems: 0,
-  notPaidOrders: 2,
-  paidOrders: 0,
-  canceledOrders: 24,
-  soldItemsOnExchange: 53,
-  accuredToReserchers: 1,
-  disputsForProducts: 17,
-}
-
 export const clientUsername = 'Client'
 export const clientBalance = '$4 012'
 

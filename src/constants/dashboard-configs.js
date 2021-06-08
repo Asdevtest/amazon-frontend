@@ -4,9 +4,21 @@ export const ResearcherDashboardCardDataKey = {
   FINES: 'FINES',
 }
 export const getResearcherDashboardCardConfig = textConsts => [
-  {dataKey: ResearcherDashboardCardDataKey.PRODUCTS, title: textConsts.myProductsCardTitle, color: '#63c2de'},
-  {dataKey: ResearcherDashboardCardDataKey.CUR_BALANCE, title: textConsts.curBalanceCardTitle, color: '#4dbd74'},
-  {dataKey: ResearcherDashboardCardDataKey.FINES, title: textConsts.finesCardTitle, color: '#f86c6b'},
+  {
+    dataKey: ResearcherDashboardCardDataKey.PRODUCTS,
+    title: textConsts.myProductsCardTitle,
+    color: '#63c2de',
+  },
+  {
+    dataKey: ResearcherDashboardCardDataKey.CUR_BALANCE,
+    title: textConsts.curBalanceCardTitle,
+    color: '#4dbd74',
+  },
+  {
+    dataKey: ResearcherDashboardCardDataKey.FINES,
+    title: textConsts.finesCardTitle,
+    color: '#f86c6b',
+  },
 ]
 
 export const SupervisorDashboardCardDataKey = {
@@ -16,8 +28,102 @@ export const SupervisorDashboardCardDataKey = {
   FINES: 'FINES',
 }
 export const getSupervisorDashboardCardConfig = textConsts => [
-  {dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS, title: textConsts.newProductsCardTitle, color: '#63c2de'},
-  {dataKey: SupervisorDashboardCardDataKey.ME_CHECKING, title: textConsts.meCheckingCardTitle, color: '#FFC107'},
-  {dataKey: SupervisorDashboardCardDataKey.ACCURED, title: textConsts.accuredCardTitle, color: '#4dbd74'},
-  {dataKey: SupervisorDashboardCardDataKey.FINES, title: textConsts.finesCardTitle, color: '#f86c6b'},
+  {
+    dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS,
+    title: textConsts.newProductsCardTitle,
+    color: '#63c2de',
+  },
+  {
+    dataKey: SupervisorDashboardCardDataKey.ME_CHECKING,
+    title: textConsts.meCheckingCardTitle,
+    color: '#FFC107',
+  },
+  {
+    dataKey: SupervisorDashboardCardDataKey.ACCURED,
+    title: textConsts.accuredCardTitle,
+    color: '#4dbd74',
+  },
+  {
+    dataKey: SupervisorDashboardCardDataKey.FINES,
+    title: textConsts.finesCardTitle,
+    color: '#f86c6b',
+  },
+]
+
+export const ClientDashboardCardDataKey = {
+  IN_INVENTORY: 'IN_INVENTORY',
+  FULL_COST: 'FULL_COST',
+  REPURCHASE_ITEMS: 'REPURCHASE_ITEMS',
+  NOT_PAID_ORDERS: 'NOT_PAID_ORDERS',
+  PAID_ORDERS: 'PAID_ORDERS',
+  CANCELED_ORDERS: 'CANCELED_ORDERS',
+  SOLD_ITEMS_ON_EXCHANGE: 'SOLD_ITEMS_ON_EXCHANGE',
+  ACCURED_TO_RESERCHERS: 'ACCURED_TO_RESERCHERS',
+  DISPUTS_FOR_PRODUCTS: 'DISPUTS_FOR_PRODUCTS',
+}
+export const getClientDashboardCardConfig = textConsts => [
+  {
+    key: 'inventory',
+    title: textConsts.inventoryTitle,
+    items: [
+      {
+        dataKey: ClientDashboardCardDataKey.IN_INVENTORY,
+        title: textConsts.itemsInInventorySectionItemTitle,
+        color: '#20a8d8',
+      },
+      {
+        dataKey: ClientDashboardCardDataKey.FULL_COST,
+        title: textConsts.fullCostOfWarehouseSectionItemTitle,
+        color: '#63c2de',
+      },
+      {
+        dataKey: ClientDashboardCardDataKey.REPURCHASE_ITEMS,
+        title: textConsts.repurchaseItemsSectionItemTitle,
+        color: '#4dbd74',
+      },
+    ],
+  },
+
+  {
+    key: 'order',
+    title: textConsts.ordersTitle,
+    items: [
+      {
+        dataKey: ClientDashboardCardDataKey.NOT_PAID_ORDERS,
+        title: textConsts.notPaidOrdersSectionItemTitle,
+        color: '#ffc107',
+      },
+      {
+        dataKey: ClientDashboardCardDataKey.PAID_ORDERS,
+        title: textConsts.paidOrdersSectionItemTitle,
+        color: '#f86c6b',
+      },
+      {
+        dataKey: ClientDashboardCardDataKey.CANCELED_ORDERS,
+        title: textConsts.canceledOrdersSectionItemTitle,
+        color: '#20a8d8',
+      },
+    ],
+  },
+  {
+    key: 'exchange',
+    title: textConsts.exchangeTitle,
+    items: [
+      {
+        dataKey: ClientDashboardCardDataKey.SOLD_ITEMS_ON_EXCHANGE,
+        title: textConsts.soldItemsOnExchangeSectionItemTitle,
+        color: '#63c2de',
+      },
+      {
+        dataKey: ClientDashboardCardDataKey.ACCURED_TO_RESERCHERS,
+        title: textConsts.accuredToReserchersSectionItemTitle,
+        color: '#4dbd74',
+      },
+      {
+        dataKey: ClientDashboardCardDataKey.DISPUTS_FOR_PRODUCTS,
+        title: textConsts.disputsForProductsSectionItemTitle,
+        color: '#f86c6b',
+      },
+    ],
+  },
 ]

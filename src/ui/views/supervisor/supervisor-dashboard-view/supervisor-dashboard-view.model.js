@@ -35,7 +35,7 @@ export class SupervisorDashboardViewModel {
 
   async getProducsVacant() {
     try {
-      const result = await SupervisorModel.getProducsVacant()
+      const result = await SupervisorModel.getProductsVacant()
       runInAction(() => {
         this.productsVacant = result
       })
@@ -47,7 +47,7 @@ export class SupervisorDashboardViewModel {
 
   async getProducsMy() {
     try {
-      const result = await SupervisorModel.getProducsMy()
+      const result = await SupervisorModel.getProductsMy()
       runInAction(() => {
         this.producatsMy = result
       })
