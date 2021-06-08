@@ -4,7 +4,7 @@ import {Typography, Container} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {CLIENT_ORDERS_DATA, CLIENT_ORDERS_HEAD_CELL} from '@constants/mocks'
+import {CLIENT_ORDERS_HEAD_CELL} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {userRole} from '@constants/user-roles'
 
@@ -32,16 +32,24 @@ const navbarActiveCategory = 3
 @observer
 class ClientOrdersViewRaw extends Component {
   viewModel = new ClientOrdersViewModel({history: this.props.history})
-  state = {
-    activeSubCategory: 2,
-    drawerOpen: false,
-    modalBarcode: false,
-    rowsPerPage: 5,
-    paginationPage: 1,
+
+  componentDidMount() {
+    this.viewModel.getOrders()
   }
 
   render() {
-    const {activeSubCategory, drawerOpen, modalBarcode, rowsPerPage, paginationPage} = this.state
+    const {
+      activeSubCategory,
+      ordersData,
+      drawerOpen,
+      modalBarcode,
+      rowsPerPage,
+      paginationPage,
+      onChangeModalBarcode,
+      onChangeDrawerOpen,
+      onChangePagination,
+      onChangeRowsPerPage,
+    } = this.viewModel
 
     return (
       <React.Fragment>
@@ -50,7 +58,7 @@ class ClientOrdersViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onChangeDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
@@ -59,7 +67,7 @@ class ClientOrdersViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onChangeDrawerOpen}
           >
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
@@ -67,23 +75,23 @@ class ClientOrdersViewRaw extends Component {
               <Table
                 buttons={this.renderButtons}
                 currentPage={paginationPage}
-                data={CLIENT_ORDERS_DATA}
-                handlerPageChange={this.onChangePagination}
-                handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(CLIENT_ORDERS_DATA.length / rowsPerPage)}
+                data={ordersData}
+                handlerPageChange={onChangePagination}
+                handlerRowsPerPage={onChangeRowsPerPage}
+                pageCount={Math.ceil(ordersData.length / rowsPerPage)}
                 BodyRow={TableBodyRow}
                 renderHeadRow={this.renderHeadRow}
                 rowsPerPage={rowsPerPage}
                 rowsHandlers={{
-                  onBarcode: this.onChangeModalBarcode,
+                  onBarcode: onChangeModalBarcode,
                 }}
               />
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={modalBarcode} setOpenModal={this.onChangeModalBarcode}>
-          <SetBarcodeModal setModalBarcode={this.onChangeModalBarcode} />
+        <Modal openModal={modalBarcode} setOpenModal={onChangeModalBarcode}>
+          <SetBarcodeModal setModalBarcode={onChangeModalBarcode} />
         </Modal>
       </React.Fragment>
     )
@@ -96,22 +104,6 @@ class ClientOrdersViewRaw extends Component {
   )
 
   renderHeadRow = (<TableHeadRow headCells={CLIENT_ORDERS_HEAD_CELL} />)
-
-  onChangeModalBarcode = () => {
-    this.setState({modalBarcode: !this.state.modalBarcode})
-  }
-
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
-  }
-
-  onChangePagination = (e, value) => {
-    this.setState({paginationPge: value})
-  }
-
-  onChangeRowsPerPage = e => {
-    this.setState({rowsPerPage: Number(e.target.value), paginationPge: 1})
-  }
 }
 
 const ClientOrdersView = withStyles(styles)(ClientOrdersViewRaw)
