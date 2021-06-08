@@ -924,11 +924,11 @@ export const BUYER_SUB_USERS_INITIAL_DATA = [
   {date: '03/02/2020', email: 'email@example.com'},
 ]
 
-export const CLIENT_SUB_USERS_INITIAL_DATA = [
-  {date: '12/09/2019', email: 'email@example.com'},
-  {date: '29/11/2017', email: 'email@example.com'},
-  {date: '03/02/2020', email: 'email@example.com'},
-]
+// export const CLIENT_SUB_USERS_INITIAL_DATA = [
+//   { date: '12/09/2019', email: 'email@example.com' },
+//   { date: '29/11/2017', email: 'email@example.com' },
+//   { date: '03/02/2020', email: 'email@example.com' }
+// ];
 
 export const BUYER_SUB_USERS_TABLE_CELLS = [
   {id: 'created', label: 'Created'},

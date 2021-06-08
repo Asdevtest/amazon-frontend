@@ -4,7 +4,7 @@ import {Typography, Box} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {CLIENT_SUB_USERS_INITIAL_DATA, CLIENT_SUB_USERS_TABLE_CELLS} from '@constants/mocks'
+import {CLIENT_SUB_USERS_TABLE_CELLS} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {userRole} from '@constants/user-roles'
 
@@ -33,19 +33,28 @@ const navbarActiveCategory = 6
 @observer
 class ClientSubUsersViewRaw extends Component {
   viewModel = new ClientSubUsersViewModel({history: this.props.history})
-  state = {
-    activeSubCategory: 1,
-    drawerOpen: false,
-    selected: null,
-    modalAddSubUser: false,
-    modalEditSubUser: false,
-    modalPermission: false,
-    rowsPerPage: 5,
-    paginationPage: 1,
+
+  componentDidMount() {
+    this.viewModel.getProductsMy()
   }
 
   render() {
-    const {activeSubCategory, drawerOpen} = this.state
+    const {
+      activeSubCategory,
+      drawerOpen,
+      subUsersData,
+      modalAddSubUser,
+      modalEditSubUser,
+      modalPermission,
+      rowsPerPage,
+      paginationPage,
+      onChangeModalEditSubUser,
+      onChangeModalPermission,
+      onChangeModalAddSubUser,
+      onChangeDrawerOpen,
+      onChangePagination,
+      onChangeRowsPerPage,
+    } = this.viewModel
 
     return (
       <React.Fragment>
@@ -54,7 +63,7 @@ class ClientSubUsersViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onChangeDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
@@ -63,44 +72,44 @@ class ClientSubUsersViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onChangeDrawerOpen}
           >
             <MainContent>
               <Typography>{textConsts.mainTitle}</Typography>
 
               <Table
                 buttons={this.renderButtons}
-                currentPage={this.state.paginationPage}
-                data={CLIENT_SUB_USERS_INITIAL_DATA}
-                handlerPageChange={this.onChangePagination}
-                handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(CLIENT_SUB_USERS_INITIAL_DATA.length / this.state.rowsPerPage)}
+                currentPage={paginationPage}
+                data={subUsersData}
+                handlerPageChange={onChangePagination}
+                handlerRowsPerPage={onChangeRowsPerPage}
+                pageCount={Math.ceil(subUsersData.length / rowsPerPage)}
                 BodyRow={TableBodyRow}
                 renderHeadRow={this.renderHeadRow}
-                rowsPerPage={this.state.rowsPerPage}
-                rowsHandlers={{onEdit: this.onChangeModalEditSubUser}}
+                rowsPerPage={rowsPerPage}
+                rowsHandlers={{onEdit: onChangeModalEditSubUser}}
               />
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={this.state.modalPermission} setOpenModal={this.onChangeModalPermission}>
-          <PermissionContentModal setModalPermission={this.onChangeModalPermission} />
+        <Modal openModal={modalPermission} setOpenModal={onChangeModalPermission}>
+          <PermissionContentModal setModalPermission={onChangeModalPermission} />
         </Modal>
-        <Modal openModal={this.state.modalAddSubUser} setOpenModal={this.onChangeModalAddSubUser}>
+        <Modal openModal={modalAddSubUser} setOpenModal={onChangeModalAddSubUser}>
           <ContentModal
             title={textConsts.modalAddTitle}
             buttonLabel={textConsts.modalAddBtn}
-            setModalSubUser={this.onChangeModalAddSubUser}
-            setModalPermission={this.onChangeModalPermission}
+            setModalSubUser={onChangeModalAddSubUser}
+            setModalPermission={onChangeModalPermission}
           />
         </Modal>
-        <Modal openModal={this.state.modalEditSubUser} setOpenModal={this.onChangeModalEditSubUser}>
+        <Modal openModal={modalEditSubUser} setOpenModal={onChangeModalEditSubUser}>
           <ContentModal
             title={textConsts.modalEditTitle}
             buttonLabel={textConsts.modalEditBtn}
-            setModalSubUser={this.onChangeModalEditSubUser}
-            setModalPermission={this.onChangeModalPermission}
+            setModalSubUser={onChangeModalEditSubUser}
+            setModalPermission={onChangeModalPermission}
           />
         </Modal>
       </React.Fragment>
@@ -111,35 +120,11 @@ class ClientSubUsersViewRaw extends Component {
 
   renderButtons = (
     <Box className={this.props.classes.buttonBox}>
-      <Button color="secondary" onClick={() => this.onChangeModalAddSubUser()}>
+      <Button color="secondary" onClick={() => this.viewModel.onChangeModalAddSubUser()}>
         {textConsts.addUserBtn}
       </Button>
     </Box>
   )
-
-  onChangeModalEditSubUser = () => {
-    this.setState({modalEditSubUser: !this.state.modalEditSubUser})
-  }
-
-  onChangeModalPermission = () => {
-    this.setState({modalPermission: !this.state.modalPermission})
-  }
-
-  onChangeModalAddSubUser = () => {
-    this.setState({modalAddSubUser: !this.state.modalAddSubUser})
-  }
-
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
-  }
-
-  onChangePagination = (e, value) => {
-    this.setState({paginationPge: value})
-  }
-
-  onChangeRowsPerPage = e => {
-    this.setState({rowsPerPage: Number(e.target.value), paginationPge: 1})
-  }
 }
 
 const ClientSubUsersView = withStyles(styles)(ClientSubUsersViewRaw)
