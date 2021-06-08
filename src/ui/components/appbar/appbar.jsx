@@ -5,12 +5,13 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import MenuIcon from '@material-ui/icons/Menu'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import clsx from 'clsx'
+import {observer} from 'mobx-react'
 
 import {Badge} from '@components/badge'
 
 import {useClassNames} from './appbar.style'
 
-export const Appbar = ({avatarSrc, children, handlerTriggerDrawer, title, username}) => {
+export const Appbar = observer(({avatarSrc, children, handlerTriggerDrawer, title, username}) => {
   const classNames = useClassNames()
 
   const renderNavbarButton = (
@@ -54,4 +55,4 @@ export const Appbar = ({avatarSrc, children, handlerTriggerDrawer, title, userna
       {renderFooter}
     </>
   )
-}
+})

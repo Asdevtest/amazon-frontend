@@ -5,6 +5,7 @@ import MuiCheckbox from '@material-ui/core/Checkbox'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
+import {ProductStatus} from '@constants/product-status'
 import {texts} from '@constants/texts'
 
 import {Field} from '@components/field'
@@ -17,7 +18,6 @@ const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 export const BottomCard = observer(({product, onChangeField}) => {
   const classNames = useClassNames()
-
   return (
     <React.Fragment>
       <Grid container spacing={2}>
@@ -61,7 +61,7 @@ export const BottomCard = observer(({product, onChangeField}) => {
               value={product.refferalFee}
               onChange={onChangeField('refferalFee')}
             />
-            <Field label={textConsts.fbaFee} value={product.fbaFee} onChange={onChangeField('fbaFee')} />
+            <Field label={textConsts.fbaFee} value={product.fbafee} onChange={onChangeField('fbafee')} />
             <Field disabled label={textConsts.totalFba} value={product.totalFba} onChange={onChangeField('totalFba')} />
             <Field
               label={textConsts.recConsignmentQty}
@@ -70,7 +70,12 @@ export const BottomCard = observer(({product, onChangeField}) => {
             />
             <Field disabled label={textConsts.revenue} value={product.revenue} onChange={onChangeField('revenue')} />
             <Field disabled label={textConsts.fieldMargin} value={product.margin} onChange={onChangeField('margin')} />
-            <Field disabled label={textConsts.fieldStatus} value={product.status} onChange={onChangeField('status')} />
+            <Field
+              disabled
+              label={textConsts.fieldStatus}
+              value={ProductStatus[product.status]}
+              onChange={onChangeField('status')}
+            />
           </Paper>
         </Grid>
         <Grid item sm={5} xs={12}>

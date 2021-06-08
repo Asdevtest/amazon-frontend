@@ -7,8 +7,8 @@ import {texts} from '@constants/texts'
 import {Anchor} from '@components/anchor'
 import {Buyer} from '@components/documentation/buyer'
 import {Client} from '@components/documentation/client'
-import {Freelancer} from '@components/documentation/freelancer'
 import {Offset} from '@components/documentation/offset/offset'
+import {Researcher} from '@components/documentation/researcher'
 import {Supervisor} from '@components/documentation/supervisor/supervisor'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -39,9 +39,9 @@ export const DocumentationView = () => {
   const clientFinanceRef = useRef(null)
   const clientProductRef = useRef(null)
 
-  const freelancerMainRef = useRef(null)
-  const freelancerOrdersRef = useRef(null)
-  const freelancerSettingsRef = useRef(null)
+  const researcherMainRef = useRef(null)
+  const researcherOrdersRef = useRef(null)
+  const researcherSettingsRef = useRef(null)
 
   const supervisorMainRef = useRef(null)
   const supervisorReadyToCheckRef = useRef(null)
@@ -74,9 +74,9 @@ export const DocumentationView = () => {
     clientMessagesRef,
     clientFinanceRef,
     clientProductRef,
-    freelancerMainRef,
-    freelancerOrdersRef,
-    freelancerSettingsRef,
+    researcherMainRef,
+    researcherOrdersRef,
+    researcherSettingsRef,
     supervisorMainRef,
     supervisorReadyToCheckRef,
     supervisorProductsRef,
@@ -127,7 +127,7 @@ export const DocumentationView = () => {
 
             <Client refs={refs} />
 
-            <Freelancer refs={refs} />
+            <Researcher refs={refs} />
 
             <Supervisor refs={refs} />
 

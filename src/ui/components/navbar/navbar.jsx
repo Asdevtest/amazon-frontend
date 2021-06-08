@@ -2,12 +2,15 @@ import React from 'react'
 
 import {Divider, Drawer, Hidden, List} from '@material-ui/core'
 import clsx from 'clsx'
+import {observer} from 'mobx-react'
+
+import {navbarConfig} from '@constants/navbar'
 
 import {NavbarCategory} from './navbar-category'
 import {NavbarCollapse} from './navbar-collapse'
 import {useClassNames} from './navbar.style'
 
-export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawerOpen, handlerTriggerDrawer}) => {
+export const Navbar = observer(({activeCategory, activeSubCategory, curUserRole, drawerOpen, handlerTriggerDrawer}) => {
   const classNames = useClassNames()
 
   const drawerContent = (
@@ -17,7 +20,7 @@ export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawe
       </div>
       <Divider />
       <List className={classNames.categoriesWrapper}>
-        {categoriesList.map((category, index) => (
+        {navbarConfig[curUserRole].map((category, index) => (
           <React.Fragment key={index}>
             <NavbarCategory
               button
@@ -64,4 +67,4 @@ export const Navbar = ({activeCategory, activeSubCategory, categoriesList, drawe
       </Hidden>
     </>
   )
-}
+})

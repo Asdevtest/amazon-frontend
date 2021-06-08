@@ -4,7 +4,7 @@ import {Box, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
-import FreelancerMainPage from '@components/documentation/freelancer/assets/freelancer/FreelancerMainPage.jpg'
+import ResearcherMainPage from '@components/documentation/researcher/assets/researcher/ResearcherMainPage.jpg'
 import {Section, SectionMain} from '@components/section-documentation'
 
 import BuyerBatches from './assets/buyer/BuyerBatches.jpg'
@@ -35,7 +35,7 @@ export const Buyer = ({refs}) => {
         <Typography>{`Переход на другие страницы осуществляется путем нажатие кнопки "View more".`}</Typography>
 
         <Box mt={2.5} textAlign='center'>
-          <img alt='' src={FreelancerMainPageRedirect} className={classes.img} />
+          <img alt='' src={ResearcherMainPageRedirect} className={classes.img} />
         </Box> */}
       </Section>
 
@@ -107,7 +107,7 @@ export const Buyer = ({refs}) => {
       <Section>
         <SectionMain
           ref={refs.buyerUsersMyProfileRef}
-          img={FreelancerMainPage}
+          img={ResearcherMainPage}
           link={'https://stoic-northcutt-f04ad5.netlify.app/buyer/user'}
           title={texts.ru.buyerComponent.myProfile}
         />
@@ -116,7 +116,7 @@ export const Buyer = ({refs}) => {
       <Section>
         <SectionMain
           ref={refs.buyerUsersMySubUsersRef}
-          img={FreelancerMainPage}
+          img={ResearcherMainPage}
           link={'https://stoic-northcutt-f04ad5.netlify.app/buyer/subusers'}
           title={texts.ru.buyerComponent.myUsers}
         />

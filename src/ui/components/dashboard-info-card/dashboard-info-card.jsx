@@ -1,4 +1,5 @@
 import {Paper, Typography} from '@material-ui/core'
+import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
 
@@ -8,12 +9,12 @@ import {useClassNames} from './dashboard-info-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').dashboardInfoCard
 
-export const DashboardInfoCard = ({color, title, value, onClickViewMore}) => {
+export const DashboardInfoCard = observer(({color, title, value, onClickViewMore}) => {
   const classNames = useClassNames()
   return (
     <Paper className={classNames.root}>
       <div className={classNames.circle} style={{borderColor: color}}>
-        <Typography className={classNames.circleTitle}>{value}</Typography>
+        <Typography className={classNames.circleTitle}>{value || 0}</Typography>
       </div>
       <div className={classNames.titleWrapper}>
         <Typography className={classNames.title}>{title}</Typography>
@@ -27,4 +28,4 @@ export const DashboardInfoCard = ({color, title, value, onClickViewMore}) => {
       ) : undefined}
     </Paper>
   )
-}
+})

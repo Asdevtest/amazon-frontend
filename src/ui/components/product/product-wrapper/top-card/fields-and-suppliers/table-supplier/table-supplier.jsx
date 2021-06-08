@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core'
+import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
 
@@ -11,7 +12,7 @@ import {useClassNames} from './table-supplier.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
-export const TableSupplier = ({suppliers, selected, onClickSupplier}) => {
+export const TableSupplier = observer(({suppliers, selected, onClickSupplier}) => {
   const classNames = useClassNames()
 
   return (
@@ -56,4 +57,4 @@ export const TableSupplier = ({suppliers, selected, onClickSupplier}) => {
       </Table>
     </TableContainer>
   )
-}
+})

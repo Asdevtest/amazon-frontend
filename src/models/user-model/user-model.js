@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {ApiClient} from '@services/rest-api-service/codegen/src'
 import {restApiService} from '@services/rest-api-service/rest-api-service'
@@ -50,8 +50,10 @@ class UserModelStatic {
   }
 
   async getUserInfo() {
-    const response = restApiService.userApi.apiV1UsersInfoGet()
-    this.userInfo = response
+    const response = await restApiService.userApi.apiV1UsersInfoGet()
+    runInAction(() => {
+      this.userInfo = response
+    })
     return response
   }
 }

@@ -2,9 +2,10 @@ import React, {Component} from 'react'
 
 import {Box, Typography, Paper, Checkbox} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
-import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
+import {userRole, userRoleCodeMap} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -17,29 +18,32 @@ import {Navbar} from '@components/navbar'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from './assets/clientAvatar.jpg'
+import {SupervisorSettingsViewModel} from './supervisor-settings-view.model'
 import {styles} from './supervisor-settings-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').supervisorSettingsView
 
+const navbarActiveCategory = 3
+
+@observer
 export class SupervisorSettingsViewRaw extends Component {
-  state = {
-    activeCategory: 3,
-    activeSubCategory: 0,
-    drawerOpen: false,
+  viewModel = new SupervisorSettingsViewModel({history: this.props.history})
+
+  componentDidMount() {
+    this.viewModel.getUserInfo()
   }
+
   render() {
-    const {activeCategory, activeSubCategory, drawerOpen} = this.state
+    const {drawerOpen, formFields, onChangeFormFields, onTriggerDrawerOpen, onClickSaveUserInfo, onClickCancelEditing} =
+      this.viewModel
     const {classes: classNames} = this.props
     return (
       <React.Fragment>
         <Navbar
-          activeCategory={activeCategory}
-          setItem={this.onChangeCategory}
-          activeSubItem={activeSubCategory}
-          categoriesList={categoriesList.supervisor}
-          setSubItem={this.onChangeSubCategory}
+          curUserRole={userRole.SUPERVISOR}
+          activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
@@ -48,34 +52,49 @@ export class SupervisorSettingsViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.setDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
-              <Paper className={classNames.card}>
-                <Typography variant="h3">{textConsts.mainTitle}</Typography>
-                <Field label={textConsts.fieldName} placeholder={'researcher'} />
-                <Field label={textConsts.fieldEmail} placeholder={'researcher@test.com'} />
-                <Field label={textConsts.fieldRate} />
-                <Field label={textConsts.fieldRole} placeholder={'Researcher'} />
-                <Field label={textConsts.fieldFba} inputComponent={<Checkbox />} />
-                <Box className={classNames.buttonsBox}>
-                  <Button className={classNames.button}>{textConsts.saveBtn}</Button>
-                  <SuccessButton success>{textConsts.cancelBtn}</SuccessButton>
-                </Box>
-              </Paper>
+              {formFields ? (
+                <Paper className={classNames.card}>
+                  <Typography variant="h3">{textConsts.mainTitle}</Typography>
+                  <Field
+                    label={textConsts.fieldName}
+                    placeholder={'supervisor'}
+                    value={formFields.name}
+                    onChange={onChangeFormFields('name')}
+                  />
+                  <Field
+                    label={textConsts.fieldEmail}
+                    placeholder={'supervisor@test.com'}
+                    value={formFields.email}
+                    onChange={onChangeFormFields('email')}
+                  />
+                  <Field label={textConsts.fieldRate} value={formFields.rate} onChange={onChangeFormFields('rate')} />
+                  <Field
+                    disabled
+                    label={textConsts.fieldRole}
+                    placeholder={'Supervisor'}
+                    value={userRoleCodeMap[formFields.role]}
+                    onChange={onChangeFormFields('role')}
+                  />
+                  <Field
+                    label={textConsts.fieldFba}
+                    inputComponent={<Checkbox value={formFields.fba} onChange={onChangeFormFields('fba')} />}
+                  />
+                  <Box className={classNames.buttonsBox}>
+                    <Button className={classNames.button} onClick={onClickSaveUserInfo}>
+                      {textConsts.saveBtn}
+                    </Button>
+                    <SuccessButton onClick={onClickCancelEditing}>{textConsts.cancelBtn}</SuccessButton>
+                  </Box>
+                </Paper>
+              ) : undefined}
             </MainContent>
           </Appbar>
         </Main>
       </React.Fragment>
     )
-  }
-
-  onChangeCategory = categoryIndex => {
-    this.setState({activeCategory: categoryIndex})
-  }
-
-  onChangeSubCategory = subCategory => {
-    this.setState({setSubCategory: subCategory})
   }
 
   onChangeDrawerOpen = value => {

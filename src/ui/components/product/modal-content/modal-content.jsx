@@ -1,6 +1,7 @@
 import {React, useState} from 'react'
 
 import {Container, Divider, Typography} from '@material-ui/core'
+import {observer} from 'mobx-react'
 
 import {PRODUCT_EMPTY_SUPPLIERS} from '@constants/mocks'
 import {texts} from '@constants/texts'
@@ -15,7 +16,7 @@ import {useClassNames} from './modal-content.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').modalContent
 
-export const ModalContent = ({title, setOpenModal, suppliers, setSuppliers, selected, modeAddOrEdit}) => {
+export const ModalContent = observer(({title, setOpenModal, suppliers, setSuppliers, selected, modeAddOrEdit}) => {
   const classNames = useClassNames()
   const [tmpSupplier, setTmpSupplier] = useState(
     modeAddOrEdit === 'add' ? PRODUCT_EMPTY_SUPPLIERS : suppliers[selected],
@@ -96,4 +97,4 @@ export const ModalContent = ({title, setOpenModal, suppliers, setSuppliers, sele
       </div>
     </Container>
   )
-}
+})

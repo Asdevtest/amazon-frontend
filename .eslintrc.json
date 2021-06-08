@@ -35,13 +35,13 @@
     "react/sort-comp": ["error", {
       "order": [
         "constructor",
-        "/^(?!(render|constructor|state|on.+$))^.+$/",
+        "/^(?!(render|constructor|state|on|set|get.+$))^.+$/",
         "state",
         "static-methods",
         "lifecycle",
         "render",
         "/^render.+$/",
-        "/^(on|set).+$/",
+        "/^(on|set|get).+$/",
         "everything-else"
       ],
       "groups": {

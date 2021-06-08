@@ -30,7 +30,7 @@ export const CATEGORIES_LIST = {
     {icon: MonetizationOnOutlinedIcon, title: 'Финансы', subtitles: null},
     {icon: InfoOutlinedIcon, title: 'Продукт', subtitles: null},
   ],
-  freelancer: [
+  researcher: [
     {icon: InfoOutlinedIcon, title: 'Главная страница', subtitles: null},
     {icon: AssignmentIcon, title: 'Мои заказы', subtitles: null},
     {icon: SettingsIcon, title: 'Настройки', subtitles: null},

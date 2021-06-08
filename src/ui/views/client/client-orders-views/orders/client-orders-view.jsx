@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 
 import {Typography, Container} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
 import {CLIENT_ORDERS_DATA, CLIENT_ORDERS_HEAD_CELL} from '@constants/mocks'
-import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
+import {userRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -21,13 +22,17 @@ import {TableHeadRow} from '@components/table-rows/client/orders-views/orders/ta
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/clientAvatar.jpg'
+import {ClientOrdersViewModel} from './client-orders-view.model'
 import {styles} from './client-orders-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersView
 
+const navbarActiveCategory = 3
+
+@observer
 class ClientOrdersViewRaw extends Component {
+  viewModel = new ClientOrdersViewModel({history: this.props.history})
   state = {
-    activeCategory: 3,
     activeSubCategory: 2,
     drawerOpen: false,
     modalBarcode: false,
@@ -36,16 +41,14 @@ class ClientOrdersViewRaw extends Component {
   }
 
   render() {
-    const {activeCategory, activeSubCategory, drawerOpen, modalBarcode, rowsPerPage, paginationPage} = this.state
+    const {activeSubCategory, drawerOpen, modalBarcode, rowsPerPage, paginationPage} = this.state
 
     return (
       <React.Fragment>
         <Navbar
-          activeCategory={activeCategory}
-          setItem={this.onChangeCategory}
+          curUserRole={userRole.CLIENT}
+          activeCategory={navbarActiveCategory}
           activeSubCategory={activeSubCategory}
-          categoriesList={categoriesList.client}
-          setSubItem={this.onChangeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={this.onChangeDrawerOpen}
           user={textConsts.appUser}
@@ -100,14 +103,6 @@ class ClientOrdersViewRaw extends Component {
 
   onChangeDrawerOpen = (e, value) => {
     this.setState({drawerOpen: value})
-  }
-
-  onChangeCategory = (e, value) => {
-    this.setState({activeCategory: value})
-  }
-
-  onChangeSubCategory = (e, value) => {
-    this.setState({activeSubCategory: value})
   }
 
   onChangePagination = (e, value) => {

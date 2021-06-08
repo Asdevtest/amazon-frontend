@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
-import {SUPERVISOR_PRODUCTS_DATA, SUPERVISOR_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
-import {categoriesList} from '@constants/navbar'
+import {SUPERVISOR_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
 import {texts} from '@constants/texts'
+import {userRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -18,36 +19,42 @@ import {TableHeadRow} from '@components/table-rows/supervisor/products-view/tabl
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from './assets/clientAvatar.jpg'
+import {SupervisorProductsViewModel} from './supervisor-products-view.model'
 import {styles} from './supervisor-products-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').supervisorProductsView
 
+const navbarActiveCategory = 2
+
+@observer
 class SupervisorProductsViewRaw extends Component {
-  state = {
-    activeCategory: 2,
-    activeSubCategory: 0,
-    drawerOpen: false,
-    rowsPerPage: 5,
-    paginationPage: 1,
-    selectedProducts: [],
-  }
+  viewModel = new SupervisorProductsViewModel({history: this.props.history})
 
   render() {
-    const {activeCategory, activeSubCategory, drawerOpen, selectedProducts} = this.state
+    const {
+      drawerOpen,
+      selectedProducts,
+      productsMy,
+      curPage,
+      rowsPerPage,
+      onChangeDrawerOpen,
+      onSelectProduct,
+      onChangePage,
+      onChangeRowsPerPage,
+      onClickTableRow,
+    } = this.viewModel
     const {classes: classNames} = this.props
-    const tableHandlers = {
-      onSelectProduct: this.onSelectProduct,
+    const tableRowHandlers = {
+      onSelectProduct,
+      onClickTableRow,
     }
     return (
       <React.Fragment>
         <Navbar
-          activeCategory={activeCategory}
-          setItem={this.onChangeCategory}
-          activeSubCategory={activeSubCategory}
-          categoriesList={categoriesList.supervisor}
-          setSubItem={this.onChangeSubCategory}
+          curUserRole={userRole.SUPERVISOR}
+          activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onChangeDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
@@ -57,21 +64,21 @@ class SupervisorProductsViewRaw extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onChangeDrawerOpen}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
                 <Table
-                  currentPage={this.state.paginationPage}
-                  data={SUPERVISOR_PRODUCTS_DATA}
-                  handlerPageChange={this.onChangePagination}
-                  handlerRowsPerPage={this.onChangeRowsPerPage}
-                  pageCount={Math.ceil(SUPERVISOR_PRODUCTS_DATA.length / this.state.rowsPerPage)}
+                  currentPage={curPage}
+                  data={productsMy}
+                  handlerPageChange={onChangePage}
+                  handlerRowsPerPage={onChangeRowsPerPage}
+                  pageCount={Math.ceil(productsMy.length / rowsPerPage)}
                   BodyRow={TableBodyRow}
                   renderHeadRow={this.renderHeadRow}
-                  rowsPerPage={this.state.rowsPerPage}
-                  handlers={tableHandlers}
+                  rowsPerPage={rowsPerPage}
+                  rowsHandlers={tableRowHandlers}
                   selectedProducts={selectedProducts}
                 />
               </div>
@@ -83,38 +90,6 @@ class SupervisorProductsViewRaw extends Component {
   }
 
   renderHeadRow = (<TableHeadRow headCells={SUPERVISOR_PRODUCTS_HEAD_CELLS} />)
-
-  onSelectProduct = (item, index) => {
-    const {selectedProducts} = this.state
-    const newSelectedProducts = [...selectedProducts]
-    const findRequestIndex = selectedProducts.indexOf(index)
-    if (findRequestIndex !== -1) {
-      newSelectedProducts.splice(findRequestIndex, 1)
-    } else {
-      newSelectedProducts.push(index)
-    }
-    this.setState({selectedProducts: newSelectedProducts})
-  }
-
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
-  }
-
-  onChangeCategory = (e, value) => {
-    this.setState({activeCategory: value})
-  }
-
-  onChangeSubCategory = (e, value) => {
-    this.setState({activeSubCategory: value})
-  }
-
-  onChangePagination = (e, value) => {
-    this.setState({paginationPge: value})
-  }
-
-  onChangeRowsPerPage = e => {
-    this.setState({rowsPerPage: Number(e.target.value), paginationPge: 1})
-  }
 }
 
 export const SupervisorProductsView = withStyles(styles)(SupervisorProductsViewRaw)
