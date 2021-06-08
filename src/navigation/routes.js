@@ -18,6 +18,7 @@ import {ClientOrdersView} from '@views/client/client-orders-views/orders'
 import {ClientProductView} from '@views/client/client-product-view'
 import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
 import {ClientUserProfileView} from '@views/client/client-users-views/user-profile-view'
+import {ClientWarehouseView} from '@views/client/client-warehouse-view'
 import {DocumentationView} from '@views/documentation'
 import {RegistrationView} from '@views/registration'
 import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
@@ -138,6 +139,11 @@ export const routes = [
   {
     routePath: '/client/batches',
     component: ClientBatchesView,
+    exact: false,
+  },
+  {
+    routePath: '/client/warehouse',
+    component: ClientWarehouseView,
     exact: false,
   },
   {

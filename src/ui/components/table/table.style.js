@@ -1,6 +1,6 @@
 import {makeStyles} from '@material-ui/core'
 
-export const useClassNames = makeStyles({
+export const useClassNames = makeStyles(theme => ({
   table: {
     whiteSpace: 'nowrap',
     '& td': {
@@ -26,8 +26,15 @@ export const useClassNames = makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  buttonsWrapper: {},
+  buttonsWrapper: {
+    '& button': {
+      marginRight: theme.spacing(2),
+    },
+    '& button:last-child': {
+      marginRight: 0,
+    },
+  },
   pagination: {
     flexShrink: 0,
   },
-})
+}))
