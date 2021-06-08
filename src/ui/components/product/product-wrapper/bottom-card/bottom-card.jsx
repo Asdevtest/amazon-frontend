@@ -81,11 +81,12 @@ export const BottomCard = observer(({product, onChangeField}) => {
         <Grid item sm={5} xs={12}>
           <Paper className={classNames.rightCardWrapper}>
             <Carousel animation="slide" /* autoPlay={true}*/ timeout={500}>
-              {product.images.map((el, index) => (
-                <Box key={index} textAlign="center">
-                  <img alt="" className={classNames.carouselBox} src={el} />
-                </Box>
-              ))}
+              {product.images &&
+                product.images.map((el, index) => (
+                  <Box key={index} textAlign="center">
+                    <img alt="" className={classNames.carouselBox} src={el} />
+                  </Box>
+                ))}
             </Carousel>
           </Paper>
           <Paper className={classNames.cardPadding}>

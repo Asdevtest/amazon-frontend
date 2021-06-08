@@ -29,22 +29,33 @@ const CHIP_LIST = [
 ]
 
 const navbarActiveCategory = null
+const suppliers = PRODUCT_INITIAL_SUPPLIERS
 
 @observer
 export class ClientProductView extends Component {
   viewModel = new ClientProductViewModel({history: this.props.history})
-  state = {
-    drawerOpen: false,
 
-    suppliers: PRODUCT_INITIAL_SUPPLIERS,
-    selectedSupplier: 0,
-    modalAddSupplier: false,
-    modalEditSupplier: false,
-    activeChip: null,
+  componentDidMount() {
+    this.viewModel.getProductData('60bd36d60171ec208c828a4d')
   }
 
   render() {
-    const {drawerOpen} = this.state
+    const {
+      drawerOpen,
+      selectedSupplier,
+      modalAddSupplier,
+      modalEditSupplier,
+      activeChip,
+      product,
+      onChangeFieldProduct,
+      onChangeSelectedSupplier,
+      onChangeSuppliers,
+      onChangeActiveChip,
+      onChangeModalAddSupplier,
+      onChangeModalEditSupplier,
+      onChangeDrawerOpen,
+      onSupplierButtons,
+    } = this.viewModel
 
     return (
       <React.Fragment>
@@ -52,95 +63,55 @@ export class ClientProductView extends Component {
           curUserRole={userRole.CLIENT}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onChangeDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
           <Appbar
             avatarSrc={avatar}
             notificationCount={2}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onChangeDrawerOpen}
             title={textConsts.appBarTitle}
             username={textConsts.appBarUsername}
           >
             <MainContent>
               <ProductWrapper
                 chipList={CHIP_LIST}
-                activeChip={this.state.activeChip}
-                setActiveChip={this.onChangeActiveChip}
-                product={this.viewModel.product}
-                suppliers={this.state.suppliers}
-                selected={this.state.selectedSupplier}
-                handleSupplierButtons={this.onSupplierButtons}
-                onClickSupplier={this.onChangeSelectedSupplier}
-                onChangeField={this.viewModel.onChangeFieldProduct}
+                activeChip={activeChip}
+                setActiveChip={onChangeActiveChip}
+                product={product}
+                suppliers={suppliers}
+                selected={selectedSupplier}
+                handleSupplierButtons={onSupplierButtons}
+                onClickSupplier={onChangeSelectedSupplier}
+                onChangeField={onChangeFieldProduct}
               />
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={this.state.modalAddSupplier} setOpenModal={this.onChangeModalAddSupplier}>
+        <Modal openModal={modalAddSupplier} setOpenModal={onChangeModalAddSupplier}>
           <ModalContent
             modeAddOrEdit={'add'}
             supplier={PRODUCT_EMPTY_SUPPLIERS}
             title={textConsts.addVendor}
-            setOpenModal={this.onChangeModalAddSupplier}
-            suppliers={this.state.suppliers}
-            setSuppliers={this.onChangeSuppliers}
-            selected={this.state.selectedSupplier}
+            setOpenModal={onChangeModalAddSupplier}
+            suppliers={suppliers}
+            setSuppliers={onChangeSuppliers}
+            selected={selectedSupplier}
           />
         </Modal>
-        <Modal openModal={this.state.modalEditSupplier} setOpenModal={this.onChangeModalEditSupplier}>
+        <Modal openModal={modalEditSupplier} setOpenModal={onChangeModalEditSupplier}>
           <ModalContent
             modeAddOrEdit={'edit'}
-            setOpenModal={this.onChangeModalEditSupplier}
-            supplier={this.state.suppliers[this.state.selectedSupplier]}
-            suppliers={this.state.suppliers}
-            setSuppliers={this.onChangeSuppliers}
-            selected={this.state.selectedSupplier}
+            setOpenModal={onChangeModalEditSupplier}
+            supplier={suppliers[selectedSupplier]}
+            suppliers={suppliers}
+            setSuppliers={onChangeSuppliers}
+            selected={selectedSupplier}
             title={textConsts.editVendor}
           />
         </Modal>
       </React.Fragment>
     )
-  }
-
-  onChangeSelectedSupplier = (e, value) => {
-    this.setState({selectedSupplier: value})
-  }
-
-  onChangeSuppliers = (e, value) => {
-    this.setState({suppliers: value})
-  }
-
-  onChangeProduct = (e, value) => {
-    this.setState({product: value})
-  }
-
-  onChangeActiveChip = (e, value) => {
-    this.setState({activeChip: value})
-  }
-
-  onChangeModalAddSupplier = (e, value) => {
-    this.setState({modalAddSupplier: value})
-  }
-
-  onChangeModalEditSupplier = (e, value) => {
-    this.setState({modalEditSupplier: value})
-  }
-
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
-  }
-
-  onSupplierButtons = action => {
-    if (action === 'add') {
-      this.setState({modalAddSupplier: true})
-    } else if (action === 'edit') {
-      this.setState({modalEditSupplier: true})
-    } else {
-      this.setState({
-        suppliers: this.state.suppliers.filter((supplier, index) => this.state.selectedSupplier !== index),
-      })
-    }
   }
 }
