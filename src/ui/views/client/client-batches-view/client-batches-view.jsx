@@ -4,7 +4,7 @@ import {Box, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {BATCHES_BOXES_EXAMPLES, BATCHES_HEAD_CELLS, BUYER_WAREHOUSE_LIST, BUYER_DELIVERY_LIST} from '@constants/mocks'
+import {BATCHES_HEAD_CELLS, BUYER_WAREHOUSE_LIST, BUYER_DELIVERY_LIST} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {userRole} from '@constants/user-roles'
 
@@ -27,28 +27,31 @@ import {styles} from './client-batches-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientBatchesView
 
-const batchesData = [
-  [BATCHES_BOXES_EXAMPLES[0], BATCHES_BOXES_EXAMPLES[2]],
-  [BATCHES_BOXES_EXAMPLES[1]],
-  [BATCHES_BOXES_EXAMPLES[2], BATCHES_BOXES_EXAMPLES[1]],
-  [BATCHES_BOXES_EXAMPLES[0]],
-]
-
 const navbarActiveCategory = 5
 
 @observer
 class ClientBatchesViewRaw extends Component {
   viewModel = new ClientBatchesViewModel({history: this.props.history})
-  state = {
-    drawerOpen: false,
-    selected: null,
-    modalEditBoxes: false,
-    rowsPerPage: 5,
-    paginationPage: 1,
+
+  componentDidMount() {
+    this.viewModel.getBatchesData()
   }
 
   render() {
-    const {drawerOpen} = this.state
+    const {
+      drawerOpen,
+      batches,
+      selectedRow,
+      modalEditBoxes,
+      rowsPerPage,
+      paginationPage,
+      onChangeDrawerOpen,
+      onChangeRowsPerPage,
+      onChangePagination,
+      onBatchesonDoubleClick,
+      onBatchesonClick,
+      onChangeModalEditBoxes,
+    } = this.viewModel
 
     return (
       <React.Fragment>
@@ -56,7 +59,7 @@ class ClientBatchesViewRaw extends Component {
           curUserRole={userRole.CLIENT}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onChangeDrawerOpen}
           user={textConsts.appUser}
         />
 
@@ -67,34 +70,37 @@ class ClientBatchesViewRaw extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onChangeDrawerOpen}
           >
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
-              <Table
-                buttons={this.renderButtons()}
-                currentPage={this.state.paginationPage}
-                data={batchesData}
-                handlerPageChange={this.onChangePagination}
-                handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(batchesData.length / this.state.rowsPerPage)}
-                BodyRow={TableBodyRow}
-                renderHeadRow={this.renderHeadRow()}
-                rowsPerPage={this.state.rowsPerPage}
-                rowsHandlers={{
-                  selected: this.state.selected,
-                  onDoubleClick: this.onBatchesonDoubleClick,
-                  onSelected: this.onBatchesonClick,
-                }}
-              />
+
+              {batches !== undefined && (
+                <Table
+                  buttons={this.renderButtons()}
+                  currentPage={paginationPage}
+                  data={batches}
+                  handlerPageChange={onChangePagination}
+                  handlerRowsPerPage={onChangeRowsPerPage}
+                  pageCount={Math.ceil(batches.length / rowsPerPage)}
+                  BodyRow={TableBodyRow}
+                  renderHeadRow={this.renderHeadRow()}
+                  rowsPerPage={rowsPerPage}
+                  rowsHandlers={{
+                    selected: selectedRow,
+                    onDoubleClick: onBatchesonDoubleClick,
+                    onSelected: onBatchesonClick,
+                  }}
+                />
+              )}
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={this.state.modalEditBoxes} setOpenModal={this.onChangeModalEditBoxes}>
+        <Modal openModal={modalEditBoxes} setOpenModal={onChangeModalEditBoxes}>
           <EditBatchModal
-            batch={batchesData[this.state.selected]}
-            setModal={this.onChangeModalEditBoxes}
+            batch={batches[selectedRow]}
+            setModal={onChangeModalEditBoxes}
             warehouseList={BUYER_WAREHOUSE_LIST}
             deliveryList={BUYER_DELIVERY_LIST}
             type={'client'}
@@ -109,37 +115,14 @@ class ClientBatchesViewRaw extends Component {
   renderButtons = () => (
     <Box p={2} mr={0} className={this.props.classes.buttonsWrapper}>
       <Button
-        disabled={this.state.selected === null}
+        disabled={this.viewModel.selectedRow === null}
         color="secondary"
-        onClick={() => this.setState({modalEditBoxes: !this.state.modalEditBoxes})}
+        onClick={() => this.viewModel.onChangeModalEditBoxes()}
       >
         {textConsts.editBatch}
       </Button>
     </Box>
   )
-
-  onChangeModalEditBoxes = () => {
-    this.setState({modalEditBoxes: !this.state.modalEditBoxes})
-  }
-
-  onBatchesonClick = index => {
-    this.setState({selected: index})
-  }
-
-  onBatchesonDoubleClick = index => {
-    this.setState({selected: index, modalEditBoxes: !this.state.modalEditBoxes})
-  }
-
-  onChangePagination = (e, value) => {
-    this.setState({paginationPge: value})
-  }
-
-  onChangeRowsPerPage = e => {
-    this.setState({rowsPerPage: Number(e.target.value), paginationPge: 1})
-  }
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
-  }
 }
 
 const ClientBatchesView = withStyles(styles)(ClientBatchesViewRaw)
