@@ -1091,12 +1091,6 @@ export const BUYER_SUB_USERS_INITIAL_DATA = [
   {date: '03/02/2020', email: 'email@example.com'},
 ]
 
-// export const CLIENT_SUB_USERS_INITIAL_DATA = [
-//   { date: '12/09/2019', email: 'email@example.com' },
-//   { date: '29/11/2017', email: 'email@example.com' },
-//   { date: '03/02/2020', email: 'email@example.com' }
-// ];
-
 export const BUYER_SUB_USERS_TABLE_CELLS = [
   {id: 'created', label: 'Created'},
   {id: 'email', label: 'Email'},
@@ -1402,60 +1396,6 @@ export const USER_HEAD_CELL = [
   {id: 'image', label: 'avg Revenue'},
   {id: 'image', label: 'Стоимость запуска'},
   {id: 'image', label: 'Аккаунт менеджер'},
-]
-
-export const CLIENT_ORDERS_DATA = [
-  {
-    csCode: 'Вкладыш для холодильника',
-    img: 'https://images-na.ssl-images-amazon.com/images/I/61PgqkN76dL._AC_SX679_.jpg',
-    orderId: 'ID590101',
-    asin: 'B0878YDFMK',
-    qty: 100,
-    material: 'metal',
-    destination: 'ONT 8 AMAZON',
-    product: 'Product',
-    boxId: ['boxId'],
-    boxQty: 1,
-    price: 2000,
-    weight: 105,
-    grossWeight: 125,
-    trackId: '91023891273812738111',
-    chip: '27381111',
-  },
-  {
-    csCode: 'Xолодильника',
-    img: 'https://images-na.ssl-images-amazon.com/images/I/51ZEDgERzPL._AC_SX679_.jpg',
-    orderId: 'ID590102',
-    asin: 'C1878YDFMK',
-    qty: 100,
-    material: 'plastic',
-    destination: 'Не назначен',
-    product: 'Product',
-    boxId: ['509991', '509992', '509993', '509994'],
-    boxQty: 4,
-    price: 5000,
-    weight: 50,
-    grossWeight: null,
-    trackId: '91023891273812738111',
-    chip: null,
-  },
-  {
-    csCode: 'Упаковка батареек АА 48 шт.',
-    img: 'https://images-na.ssl-images-amazon.com/images/I/71IdKRlm8%2BL._AC_SX569_.jpg',
-    orderId: 'ID590322',
-    asin: 'B00MNV8E0C',
-    qty: 75,
-    material: 'Alkaline',
-    destination: 'Не назначен',
-    product: 'Product',
-    boxId: null,
-    boxQty: 4,
-    price: 2500,
-    weight: 25,
-    grossWeight: null,
-    trackId: '91023891273812738142',
-    chip: null,
-  },
 ]
 
 export const CLIENT_ORDERS_HEAD_CELL = [
