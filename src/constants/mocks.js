@@ -560,6 +560,7 @@ export const RESEARCHER_HEAD_CELLS = [
   {title: 'BSR'},
 ]
 
+//  это еще используется в баере
 export const BATCHES_BOXES_EXAMPLES = [
   [
     {
