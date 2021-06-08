@@ -4,9 +4,9 @@ import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {SUPERVISOR_PRODUCTS_DATA, SUPERVISOR_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
-import {categoriesList} from '@constants/navbar'
+import {SUPERVISOR_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
 import {texts} from '@constants/texts'
+import {userRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -24,38 +24,41 @@ import {styles} from './supervisor-ready-to-check-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').supervisorReadyToCheckView
 
+const navbarActiveCategory = 1
+
 @observer
 class SupervisorReadyToCheckViewRaw extends Component {
   viewModel = new SupervisorReadyToCheckViewModel({history: this.props.history})
-  state = {
-    activeCategory: 1,
-    activeSubCategory: 0,
-    drawerOpen: false,
-    rowsPerPage: 5,
-    paginationPage: 1,
-    selectedProducts: [],
-  }
 
   componentDidMount() {
-    this.viewModel.getProducsVacant()
+    this.viewModel.loadData()
   }
 
   render() {
-    const {activeCategory, activeSubCategory, drawerOpen, selectedProducts} = this.state
+    const {
+      drawerOpen,
+      selectedProducts,
+      productsReadyToCheck,
+      rowsPerPage,
+      curPage,
+      onClickTableRow,
+      onSelectProduct,
+      onTriggerDrawerOpen,
+      onChangePage,
+      onChangeRowsPerPage,
+    } = this.viewModel
     const {classes: classNames} = this.props
-    const tableHandlers = {
-      onSelectProduct: this.onSelectProduct,
+    const tableRowHandlers = {
+      onSelectProduct,
+      onClickTableRow,
     }
     return (
       <React.Fragment>
         <Navbar
-          activeCategory={activeCategory}
-          setItem={this.onChangeCategory}
-          activeSubCategory={activeSubCategory}
-          categoriesList={categoriesList.supervisor}
-          setSubItem={this.onChangeSubCategory}
+          curUserRole={userRole.SUPERVISOR}
+          activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
@@ -65,21 +68,21 @@ class SupervisorReadyToCheckViewRaw extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
                 <Table
-                  currentPage={this.state.paginationPage}
-                  data={SUPERVISOR_PRODUCTS_DATA}
-                  handlerPageChange={this.onChangePagination}
-                  handlerRowsPerPage={this.onChangeRowsPerPage}
-                  pageCount={Math.ceil(SUPERVISOR_PRODUCTS_DATA.length / this.state.rowsPerPage)}
+                  currentPage={curPage}
+                  data={productsReadyToCheck}
+                  handlerPageChange={onChangePage}
+                  handlerRowsPerPage={onChangeRowsPerPage}
+                  pageCount={Math.ceil(productsReadyToCheck.length / rowsPerPage)}
                   BodyRow={TableBodyRow}
                   renderHeadRow={this.renderHeadRow}
-                  rowsPerPage={this.state.rowsPerPage}
-                  handlers={tableHandlers}
+                  rowsPerPage={rowsPerPage}
+                  rowsHandlers={tableRowHandlers}
                   selectedProducts={selectedProducts}
                 />
               </div>
@@ -91,39 +94,6 @@ class SupervisorReadyToCheckViewRaw extends Component {
   }
 
   renderHeadRow = (<TableHeadRow headCells={SUPERVISOR_PRODUCTS_HEAD_CELLS} />)
-
-  onSelectProduct = (item, index) => {
-    const {selectedProducts} = this.state
-    const newSelectedProducts = [...selectedProducts]
-    const findRequestIndex = selectedProducts.indexOf(index)
-    if (findRequestIndex !== -1) {
-      newSelectedProducts.splice(findRequestIndex, 1)
-    } else {
-      newSelectedProducts.push(index)
-    }
-    console.log(newSelectedProducts)
-    this.setState({selectedProducts: newSelectedProducts})
-  }
-
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
-  }
-
-  onChangeCategory = (e, value) => {
-    this.setState({activeCategory: value})
-  }
-
-  onChangeSubCategory = (e, value) => {
-    this.setState({activeSubCategory: value})
-  }
-
-  onChangePagination = (e, value) => {
-    this.setState({paginationPge: value})
-  }
-
-  onChangeRowsPerPage = e => {
-    this.setState({rowsPerPage: Number(e.target.value), paginationPge: 1})
-  }
 }
 
 export const SupervisorReadyToCheckView = withStyles(styles)(SupervisorReadyToCheckViewRaw)

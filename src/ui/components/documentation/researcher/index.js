@@ -1,0 +1,1 @@
+export {Researcher} from './researcher'

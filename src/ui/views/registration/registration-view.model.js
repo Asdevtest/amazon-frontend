@@ -4,8 +4,6 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {UserModel} from '@models/user-model'
 
-import {LoggerForMethodDecorator} from '@services/logger-service'
-
 import {getObjectKeys} from '@utils/object'
 
 const delayRedirectToAuthTime = 1000
@@ -42,7 +40,6 @@ export class RegistrationViewModel {
       this[fieldName] = value
     })
 
-  @LoggerForMethodDecorator()
   async onSubmitForm() {
     try {
       this.requestStatus = loadingStatuses.isLoading

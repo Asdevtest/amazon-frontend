@@ -9,8 +9,10 @@ import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutline
 import PeopleIcon from '@material-ui/icons/People'
 import SettingsIcon from '@material-ui/icons/Settings'
 
-export const categoriesList = {
-  client: [
+import {userRole} from './user-roles'
+
+export const navbarConfig = {
+  [userRole.CLIENT]: [
     {
       icon: InfoOutlinedIcon,
       title: 'Главная страница',
@@ -54,17 +56,17 @@ export const categoriesList = {
       subtitles: null,
     },
   ],
-  freelancer: [
+  [userRole.RESEARCHER]: [
     {
       icon: InfoOutlinedIcon,
       title: 'Главная страница',
       subtitles: null,
-      route: '/freelancer/dashboard',
+      route: '/researcher/dashboard',
     },
-    {icon: AssignmentIcon, title: 'Мои заказы', subtitles: null, route: '/freelancer/products'},
-    {icon: SettingsIcon, title: 'Настройки', subtitles: null, route: '/freelancer/settings'},
+    {icon: AssignmentIcon, title: 'Мои заказы', subtitles: null, route: '/researcher/products'},
+    {icon: SettingsIcon, title: 'Настройки', subtitles: null, route: '/researcher/settings'},
   ],
-  supervisor: [
+  [userRole.SUPERVISOR]: [
     {
       icon: InfoOutlinedIcon,
       title: 'Главная страница',
@@ -85,7 +87,7 @@ export const categoriesList = {
     },
     {icon: SettingsIcon, title: 'Настройки', subtitles: null, route: '/supervisor/settings'},
   ],
-  buyer: [
+  [userRole.BUYER]: [
     {icon: InboxOutlinedIcon, title: 'Товары', route: '/buyer/products', subtitles: null},
     {icon: InboxOutlinedIcon, title: 'Мои товары', route: '/buyer/my-products', subtitles: null},
     {

@@ -1,17 +1,17 @@
 import {AuthView} from '@views/auth'
-import {BatchesView} from '@views/buyer/batches-view'
-import {MyProductsView} from '@views/buyer/my-products-view'
-import {FreeOrdersView} from '@views/buyer/orders-views/free-orders-view'
-import {MyOrdersView} from '@views/buyer/orders-views/my-orders-view'
-import {BuyerProductView} from '@views/buyer/product-view/'
-import {BuyerProductsView} from '@views/buyer/products-view/'
-import {SubUsersView} from '@views/buyer/users-views/sub-users-view'
-import {UserProfileView} from '@views/buyer/users-views/user-profile-view'
+import {BuyerBatchesView} from '@views/buyer/buyer-batches-view'
+import {BuyerMyProductsView} from '@views/buyer/buyer-my-products-view'
+import {BuyerFreeOrdersView} from '@views/buyer/buyer-orders-views/buyer-free-orders-view'
+import {BuyerMyOrdersView} from '@views/buyer/buyer-orders-views/buyer-my-orders-view'
+import {BuyerProductView} from '@views/buyer/buyer-product-view/'
+import {BuyerProductsView} from '@views/buyer/buyer-products-view/'
+import {BuyerSubUsersView} from '@views/buyer/buyer-users-views/buyer-sub-users-view'
+import {BuyerUserProfileView} from '@views/buyer/buyer-users-views/buyer-user-profile-view'
 import {ClientBatchesView} from '@views/client/client-batches-view'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
-import {ClientExchangeView} from '@views/client/client-exchange-view/exchange'
-import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-view/private-label'
-import {ClientExchangeRequestsView} from '@views/client/client-exchange-view/requests'
+import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
+import {ClientExchangeRequestsView} from '@views/client/client-exchange-views/client-exchange-requests-view'
+import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
 import {ClientInventoryView} from '@views/client/client-inventory-view'
 import {ClientOrderView} from '@views/client/client-orders-views/order'
 import {ClientOrdersView} from '@views/client/client-orders-views/orders'
@@ -19,10 +19,10 @@ import {ClientProductView} from '@views/client/client-product-view'
 import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
 import {ClientUserProfileView} from '@views/client/client-users-views/user-profile-view'
 import {DocumentationView} from '@views/documentation'
-import {FreelancerDashboardView} from '@views/freelancer/dashboard-view'
-import {FreelancerProductsView} from '@views/freelancer/products-view'
-import {FreelancerSettingsView} from '@views/freelancer/settings-view'
 import {RegistrationView} from '@views/registration'
+import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
+import {ResearcherProductsView} from '@views/researcher/researcher-products-view'
+import {ResearcherSettingsView} from '@views/researcher/researcher-settings-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
 import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
 import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view'
@@ -47,13 +47,13 @@ export const routes = [
   },
   {
     routePath: '/buyer/users/user-profile',
-    component: UserProfileView,
+    component: BuyerUserProfileView,
     exact: false,
   },
 
   {
     routePath: '/buyer/users/sub-users',
-    component: SubUsersView,
+    component: BuyerSubUsersView,
     exact: false,
   },
 
@@ -71,38 +71,38 @@ export const routes = [
 
   {
     routePath: '/buyer/orders/my-orders',
-    component: MyOrdersView,
+    component: BuyerMyOrdersView,
     exact: false,
   },
   {
     routePath: '/buyer/orders/free-orders',
-    component: FreeOrdersView,
+    component: BuyerFreeOrdersView,
     exact: false,
   },
   {
     routePath: '/buyer/my-products',
-    component: MyProductsView,
+    component: BuyerMyProductsView,
     exact: false,
   },
 
   {
     routePath: '/buyer/batches',
-    component: BatchesView,
+    component: BuyerBatchesView,
     exact: false,
   },
   {
-    routePath: '/freelancer/settings',
-    component: FreelancerSettingsView,
+    routePath: '/researcher/settings',
+    component: ResearcherSettingsView,
     exact: false,
   },
   {
-    routePath: '/freelancer/products',
-    component: FreelancerProductsView,
+    routePath: '/researcher/products',
+    component: ResearcherProductsView,
     exact: false,
   },
   {
-    routePath: '/freelancer/dashboard',
-    component: FreelancerDashboardView,
+    routePath: '/researcher/dashboard',
+    component: ResearcherDashboardView,
     exact: false,
   },
   {

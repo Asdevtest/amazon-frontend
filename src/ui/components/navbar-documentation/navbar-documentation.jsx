@@ -47,10 +47,10 @@ export const NavbarDocumentation = ({
       8: {mainRoute: refs.clientFinanceRef},
       9: {mainRoute: refs.clientProductRef},
     },
-    freelancer: {
-      0: {mainRoute: refs.freelancerMainRef},
-      1: {mainRoute: refs.freelancerOrdersRef},
-      2: {mainRoute: refs.freelancerSettingsRef},
+    researcher: {
+      0: {mainRoute: refs.researcherMainRef},
+      1: {mainRoute: refs.researcherOrdersRef},
+      2: {mainRoute: refs.researcherSettingsRef},
     },
     supervisor: {
       0: {mainRoute: refs.supervisorMainRef},

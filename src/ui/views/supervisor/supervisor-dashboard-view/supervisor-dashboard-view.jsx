@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 
 import {Grid, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
-import {SUPERVISOR_DASHBOARD_LIST} from '@constants/mocks'
-import {categoriesList} from '@constants/navbar'
+import {getSupervisorDashboardCardConfig, SupervisorDashboardCardDataKey} from '@constants/dashboard-configs'
 import {texts} from '@constants/texts'
+import {userRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
@@ -15,31 +16,33 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from './assets/freelancerAvatar.jpg'
+import avatar from './assets/researcherAvatar.jpg'
+import {SupervisorDashboardViewModel} from './supervisor-dashboard-view.model'
 import {styles} from './supervisor-dashboard-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').freelancerDashboardView
+const textConsts = getLocalizedTexts(texts, 'en').researcherDashboardView
+const dashboardCardConfig = getSupervisorDashboardCardConfig(textConsts)
 
+const navbarActiveCategory = 0
+
+@observer
 export class SupervisorDashboardViewRaw extends Component {
-  state = {
-    activeCategory: 0,
-    activeSubCategory: 0,
-    drawerOpen: true,
+  viewModel = new SupervisorDashboardViewModel({history: this.props.history})
+
+  componentDidMount() {
+    this.viewModel.loadData()
   }
 
   render() {
-    const {activeCategory, activeSubCategory, drawerOpen} = this.state
+    const {drawerOpen, onTriggerDrawerOpen} = this.viewModel
     const {classes: classNames} = this.props
     return (
       <React.Fragment>
         <Navbar
-          activeCategory={activeCategory}
-          setItem={this.onChangeCategory}
-          activeSubItem={activeSubCategory}
-          categoriesList={categoriesList.supervisor}
-          setSubItem={this.onChangeSubCategory}
+          curUserRole={userRole.SUPERVISOR}
+          activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
@@ -48,23 +51,13 @@ export class SupervisorDashboardViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.amountWithLabelCardsWrapper}>
                 <Grid container justify="center" spacing={3}>
-                  {SUPERVISOR_DASHBOARD_LIST.map((item, index) => (
-                    <Grid key={index} item xs={6} lg={4}>
-                      <DashboardInfoCard
-                        value={item.value}
-                        title={item.title}
-                        color={item.color}
-                        route="/supervisor/products"
-                        onClickViewMore
-                      />
-                    </Grid>
-                  ))}
+                  {this.renderDashboardCards()}
                 </Grid>
               </div>
             </MainContent>
@@ -74,16 +67,33 @@ export class SupervisorDashboardViewRaw extends Component {
     )
   }
 
-  onChangeCategory = category => {
-    this.setState({activeCategory: category})
-  }
+  renderDashboardCards = () =>
+    dashboardCardConfig.map((item, index) => (
+      <Grid key={index} item xs={6} lg={4}>
+        <DashboardInfoCard
+          value={this.getCardValueByDataKey(item.dataKey)}
+          title={item.title}
+          color={item.color}
+          route="/supervisor/products"
+          onClickViewMore={this.onClickInfoCardViewMode}
+        />
+      </Grid>
+    ))
 
-  onChangeSubCategory = subCategory => {
-    this.setState({activeSubCategory: subCategory})
-  }
+  onClickInfoCardViewMode = () => {}
 
-  onChangeDrawerOpen = drawerOpenStatus => {
-    this.setState({drawerOpen: drawerOpenStatus})
+  getCardValueByDataKey = dataKey => {
+    const {productsVacant, producatsMy, paymentsMy} = this.viewModel
+    switch (dataKey) {
+      case SupervisorDashboardCardDataKey.NEW_PRODUCTS:
+        return productsVacant.length
+      case SupervisorDashboardCardDataKey.ME_CHECKING:
+        return producatsMy.length
+      case SupervisorDashboardCardDataKey.ACCURED:
+        return paymentsMy.length
+      case SupervisorDashboardCardDataKey.FINES:
+        return 0
+    }
   }
 }
 

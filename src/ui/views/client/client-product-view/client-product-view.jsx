@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 
+import {observer} from 'mobx-react'
+
 import {PRODUCT_INITIAL_SUPPLIERS, PRODUCT_EMPTY_SUPPLIERS} from '@constants/mocks'
-import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
+import {userRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -15,6 +17,7 @@ import {ProductWrapper} from '@components/product/product-wrapper'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from './assets/clientAvatar.jpg'
+import {ClientProductViewModel} from './client-product-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productView
 
@@ -25,10 +28,12 @@ const CHIP_LIST = [
   {key: 3, label: 'Цена выше МЗЦ', color: 'rgb(210, 35, 35)', colorHover: '#c51a1c'},
 ]
 
+const navbarActiveCategory = null
+
+@observer
 export class ClientProductView extends Component {
+  viewModel = new ClientProductViewModel({history: this.props.history})
   state = {
-    activeCategory: null,
-    activeSubCategory: 0,
     drawerOpen: false,
 
     suppliers: PRODUCT_INITIAL_SUPPLIERS,
@@ -39,16 +44,13 @@ export class ClientProductView extends Component {
   }
 
   render() {
-    const {activeCategory, activeSubCategory, drawerOpen} = this.state
+    const {drawerOpen} = this.state
 
     return (
       <React.Fragment>
         <Navbar
-          activeCategory={activeCategory}
-          setItem={this.onChangeCategory}
-          activeSubCategory={activeSubCategory}
-          categoriesList={categoriesList.client}
-          setSubItem={this.onChangeSubCategory}
+          curUserRole={userRole.CLIENT}
+          activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={this.onChangeDrawerOpen}
           user={textConsts.appUser}
@@ -128,14 +130,6 @@ export class ClientProductView extends Component {
 
   onChangeDrawerOpen = (e, value) => {
     this.setState({drawerOpen: value})
-  }
-
-  onChangeCategory = (e, value) => {
-    this.setState({activeCategory: value})
-  }
-
-  onChangeSubCategory = (e, value) => {
-    this.setState({activeSubCategory: value})
   }
 
   onSupplierButtons = action => {

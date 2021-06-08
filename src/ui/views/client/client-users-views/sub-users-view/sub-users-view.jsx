@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 
 import {Typography, Box} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
 import {CLIENT_SUB_USERS_INITIAL_DATA, CLIENT_SUB_USERS_TABLE_CELLS} from '@constants/mocks'
-import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
+import {userRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -22,13 +23,17 @@ import {TableHeadRow} from '@components/table-rows/sub-users-view/table-head-row
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/clientAvatar.jpg'
+import {ClientSubUsersViewModel} from './sub-users-view.model'
 import {styles} from './sub-users-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientSubUsersView
 
+const navbarActiveCategory = 6
+
+@observer
 class ClientSubUsersViewRaw extends Component {
+  viewModel = new ClientSubUsersViewModel({history: this.props.history})
   state = {
-    activeCategory: 6,
     activeSubCategory: 1,
     drawerOpen: false,
     selected: null,
@@ -40,16 +45,14 @@ class ClientSubUsersViewRaw extends Component {
   }
 
   render() {
-    const {activeCategory, activeSubCategory, drawerOpen} = this.state
+    const {activeSubCategory, drawerOpen} = this.state
 
     return (
       <React.Fragment>
         <Navbar
-          activeCategory={activeCategory}
-          setItem={this.onChangeCategory}
+          curUserRole={userRole.CLIENT}
+          activeCategory={navbarActiveCategory}
           activeSubCategory={activeSubCategory}
-          categoriesList={categoriesList.client}
-          setSubItem={this.onChangeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={this.onChangeDrawerOpen}
           user={textConsts.appUser}
@@ -128,14 +131,6 @@ class ClientSubUsersViewRaw extends Component {
 
   onChangeDrawerOpen = (e, value) => {
     this.setState({drawerOpen: value})
-  }
-
-  onChangeCategory = (e, value) => {
-    this.setState({activeCategory: value})
-  }
-
-  onChangeSubCategory = (e, value) => {
-    this.setState({activeSubCategory: value})
   }
 
   onChangePagination = (e, value) => {

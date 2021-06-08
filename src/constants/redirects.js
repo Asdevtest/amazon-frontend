@@ -8,8 +8,8 @@ export const redirectConfigs = [
     to: '/supervisor/dashboard',
   },
   {
-    from: '/freelancer',
-    to: '/freelancer/dashboard',
+    from: '/researcher',
+    to: '/researcher/dashboard',
   },
   {
     from: '/buyer',

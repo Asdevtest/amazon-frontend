@@ -4,8 +4,6 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {UserModel} from '@models/user-model'
 
-import {LoggerForMethodDecorator} from '@services/logger-service'
-
 import {getObjectKeys} from '@utils/object'
 
 export class AuthViewModel {
@@ -37,7 +35,6 @@ export class AuthViewModel {
       this[fieldName] = value
     })
 
-  @LoggerForMethodDecorator()
   async onSubmitForm() {
     try {
       this.requestStatus = loadingStatuses.isLoading

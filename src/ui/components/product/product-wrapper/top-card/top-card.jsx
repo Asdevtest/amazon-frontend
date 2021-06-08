@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {Box, Grid, Paper} from '@material-ui/core'
+import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
 
@@ -15,51 +16,41 @@ import {useClassNames} from './top-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
-export const TopCard = ({
-  onChangeField,
-  product,
-  setProduct,
-  onClick,
-  suppliers,
-  selected,
-  onClickSupplier,
-  chipList,
-  activeChip,
-  setActiveChip,
-}) => {
-  const classNames = useClassNames()
+export const TopCard = observer(
+  ({onChangeField, product, onClick, suppliers, selected, onClickSupplier, chipList, activeChip, setActiveChip}) => {
+    const classNames = useClassNames()
 
-  return (
-    <React.Fragment>
-      <Paper className={classNames.mainCardWrapper}>
-        <Grid container spacing={2}>
-          <Grid container item sm={7} xs={12}>
-            <Grid item xs={12}>
-              <Box className={classNames.parseButtonsWrapper}>
-                <Button className={classNames.buttonParseAmazon}>{textConsts.buttonParseAmazon}</Button>
-                <Button>{textConsts.buttonParseSellcentrall}</Button>
-              </Box>
-              <Alert className={classNames.alert} elevation={0} title={textConsts.alertSuccess} type={'success'} />
+    return (
+      <React.Fragment>
+        <Paper className={classNames.mainCardWrapper}>
+          <Grid container spacing={2}>
+            <Grid container item sm={7} xs={12}>
+              <Grid item xs={12}>
+                <Box className={classNames.parseButtonsWrapper}>
+                  <Button className={classNames.buttonParseAmazon}>{textConsts.buttonParseAmazon}</Button>
+                  <Button>{textConsts.buttonParseSellcentrall}</Button>
+                </Box>
+                <Alert className={classNames.alert} elevation={0} title={textConsts.alertSuccess} type={'success'} />
+              </Grid>
+              <FieldsAndSuppliers
+                product={product}
+                selected={selected}
+                suppliers={suppliers}
+                onChangeField={onChangeField}
+                onClick={onClick}
+                onClickSupplier={onClickSupplier}
+              />
             </Grid>
-            <FieldsAndSuppliers
+            <RightSideComments
+              chipList={chipList}
+              activeChip={activeChip}
+              setActiveChip={setActiveChip}
               product={product}
-              selected={selected}
-              setProduct={setProduct}
-              suppliers={suppliers}
               onChangeField={onChangeField}
-              onClick={onClick}
-              onClickSupplier={onClickSupplier}
             />
           </Grid>
-          <RightSideComments
-            chipList={chipList}
-            activeChip={activeChip}
-            setActiveChip={setActiveChip}
-            product={product}
-            onChangeField={onChangeField}
-          />
-        </Grid>
-      </Paper>
-    </React.Fragment>
-  )
-}
+        </Paper>
+      </React.Fragment>
+    )
+  },
+)

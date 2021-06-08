@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {Box, Grid, Typography, Button} from '@material-ui/core'
+import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
 
@@ -14,7 +15,7 @@ import {useClassNames} from './right-side-comments.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
-export const RightSideComments = ({onChangeField, product, chipList, activeChip, setActiveChip}) => {
+export const RightSideComments = observer(({onChangeField, product, chipList, activeChip, setActiveChip}) => {
   const classNames = useClassNames()
 
   return (
@@ -83,4 +84,4 @@ export const RightSideComments = ({onChangeField, product, chipList, activeChip,
       </Box>
     </Grid>
   )
-}
+})

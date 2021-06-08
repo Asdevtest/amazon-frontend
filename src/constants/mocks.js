@@ -454,7 +454,7 @@ export const userPopperItems = {
     {label: 'Профиль', color: '#5a6169', route: '/buyer/user'},
     {label: 'Выйти', color: '#d22323', route: '/auth'},
   ],
-  freelancer: [
+  researcher: [
     {label: 'Ваш счёт $4 352', color: '#5a6169', route: null},
     {label: 'Пополнить баланс', color: '#5a6169', route: null},
     {label: 'Сообщения', color: '#5a6169', route: null},
@@ -478,7 +478,7 @@ export const userRoutes = {
     4: 'auth',
   },
   buyer: {},
-  freelancer: {},
+  researcher: {},
 }
 
 export const INVENTORY_CARD_LIST = [
@@ -550,13 +550,7 @@ export const PRODUCT_EMPTY_SUPPLIERS = {
   comment: '',
 }
 
-export const FREELANCER_DASHBOARD_LIST = [
-  {value: 11, title: 'Мои товары', color: '#63c2de'},
-  {value: 525, title: 'Текущий баланс', color: '#4dbd74'},
-  {value: 42, title: 'Штрафы', color: '#f86c6b'},
-]
-
-export const FREELANCER_HEAD_CELLS = [
+export const RESEARCHER_HEAD_CELLS = [
   {title: 'ASIN'},
   {title: 'Status'},
   {title: 'Created'},
@@ -564,52 +558,6 @@ export const FREELANCER_HEAD_CELLS = [
   {title: 'Amazon price'},
   {title: 'Price'},
   {title: 'BSR'},
-]
-
-export const FREELANCER_PRODUCT_LIST = [
-  {
-    asin: '1qyt465',
-    status: 'Not checked',
-    created: '13/09/2020',
-    manager: 'Anton',
-    amazonPrice: 41.99,
-    price: 450.0,
-    bsr: 800.0,
-  },
-  {
-    asin: '6edh695',
-    status: 'Not checked',
-    created: '23/09/2020',
-    manager: 'Jack',
-    amazonPrice: 4.99,
-    price: 45.0,
-    bsr: 315.0,
-  },
-  {
-    asin: '2ndw464',
-    status: 'Checked',
-    created: '1/09/2020',
-    manager: 'Jim',
-    amazonPrice: 142.99,
-    price: 150.0,
-    bsr: 750.0,
-  },
-  {
-    asin: '4rdo025',
-    status: 'Not checked',
-    created: '11/09/2020',
-    manager: 'Ni9ck',
-    amazonPrice: 52.99,
-    price: 138.0,
-    bsr: 224.0,
-  },
-]
-
-export const SUPERVISOR_DASHBOARD_LIST = [
-  {value: 11, title: 'Новых товаров в базе', color: '#63c2de'},
-  {value: 4, title: 'У меня на проверке', color: '#FFC107'},
-  {value: 525, title: 'Начислено', color: '#4dbd74'},
-  {value: 0, title: 'Штрафы', color: '#f86c6b'},
 ]
 
 export const BATCHES_BOXES_EXAMPLES = [
@@ -1596,38 +1544,6 @@ export const CLIENT_INVENTORY_MY_PRODUCTS_HEAD_CELLS = [
   {id: 'Exchange', align: 'right', disablePadding: false, label: 'Exchange'},
 ]
 
-export const SUPERVISOR_INITIAL_PRODUCT = {
-  images: [],
-  csCode:
-    'Leaf Style Door Stopper Set - Silicone Rubber Stoppers Colorful Door Stop Wedge Cute Finger Guard Door Stoppers with Silicone Holders Window / Door Stopper for Home and Office',
-  asin: 'B07RKM1PSD',
-  linkAmazon: 'https://www.amazon.com/dp/B07RKM1PSD',
-  fba: true,
-  bsr: 23.309,
-  buyBoxPrice: 5.99,
-  width: 5.2756,
-  height: 7.0472,
-  length: 1.7717,
-  weight: 2.5,
-  minPrice: 0.541,
-  supplier: 5,
-  express: true,
-  maxDeliveryPrice: 0.6512,
-  refferalFee: 0.8894,
-  fbaFee: 5.02,
-  totalFba: 5.02,
-  recConsignmentQty: 10,
-  revenue: 10.412,
-  margin: 12,
-  status: 'status',
-  summary: 'some summary',
-  description:
-    'Product information Size:Leaf Technical Details Manufacturer HYQO Brand HYQO Item Weight 4.7 ounces Package Dimensions 7.05 x 5.28 x 1.77 inches Color Green, Yellow, Blue, Brown Material Type Silicone Size Leaf Manufacturer Part Number Leaf Additional Information ASIN B08CH6J8NF Customer Reviews 4.1 out of 5 stars 69 ratings 4.1 out of 5 stars Best Sellers Rank #23,309 in Office Products (See Top 100 in Office Products) #173 in Door Stops Date First Available July 7, 2020 Warranty & Support Product Warranty: For warranty information about this product, please click here Feedback Would you like to tell us about a lower price?',
-  commentManager: "Manager's comment",
-  commentSupervisor: "Supervisor's comment",
-  commentBuyer: "Buyer's comment",
-}
-
 export const SUPERVISOR_INITIAL_SUPPLIERS = [
   {
     name: 'Jakki Chan',
@@ -1658,123 +1574,6 @@ export const SUPERVISOR_EMPTY_SUPPLIER = {
   minQty: 0,
   comment: '',
 }
-
-export const SUPERVISOR_PRODUCTS_DATA = [
-  {
-    asin: '6gdh465',
-    csCode: 'Циркуль стальной металический',
-    price: 21.98,
-    avgPrice: 22.98,
-    fees: 16,
-    rank: 24,
-    rating: 5,
-    sales: 1.56,
-    salersTotal: 2,
-    type: 'FAB',
-    revenue: 21.98,
-    amazonPrice: 21.98,
-    bsr: 21.98,
-    fba: 21.98,
-    img: 'https://i.picsum.photos/id/533/128/128.jpg?hmac=BkWp6S8z7gMLifbg5sohzJSI80LduTZWIVvJ8u4l0I8',
-    exchangePrice: null,
-    exchangePriceFlag: null,
-  },
-  {
-    asin: '6gdh466',
-    csCode: 'Цветы искуственные декоративные розовые',
-    price: 30.5,
-    avgPrice: 30.5,
-    fees: 3.7,
-    rank: 67,
-    rating: 4.3,
-    sales: 1.56,
-    salersTotal: 2,
-    type: 'FAB',
-    revenue: 17.98,
-    amazonPrice: 17.98,
-    bsr: 17.98,
-    fba: 17.98,
-    img: 'https://i.picsum.photos/id/360/128/128.jpg?hmac=sCdhPPkDyfXnSWJpzyRTuPiLVBdZ2E8q1JpculA5vR4',
-    exchangePrice: null,
-    exchangePriceFlag: null,
-  },
-  {
-    asin: '6gdh467',
-    csCode: 'Древесина брус 18х18 орешник красный',
-    price: 452.49,
-    avgPrice: 529.49,
-    fees: 25,
-    rank: 51,
-    rating: 4.9,
-    sales: 1.56,
-    salersTotal: 2,
-    type: 'FAB',
-    revenue: 7.98,
-    amazonPrice: 7.98,
-    bsr: 7.98,
-    fba: 7.98,
-    img: 'https://i.picsum.photos/id/139/128/128.jpg?hmac=qI9eV3bt9QxcWJnwZe9HKWkgUDdXyraThmoIer_sty0',
-    exchangePrice: null,
-    exchangePriceFlag: null,
-  },
-  {
-    asin: '6gdh468',
-    csCode: 'Бамбук декоративный',
-    price: 262.32,
-    avgPrice: 102.32,
-    fees: 16,
-    rank: 24,
-    rating: 5,
-    sales: 1.56,
-    salersTotal: 2,
-    type: 'FAB',
-    revenue: 3.98,
-    amazonPrice: 3.98,
-    bsr: 3.98,
-    fba: 3.98,
-    img: 'https://i.picsum.photos/id/844/128/128.jpg?hmac=KvSq3pUqDPHmNMCKMOlha5Nwb4gs9MtiIZmtHEiDyaA',
-    exchangePrice: null,
-    exchangePriceFlag: null,
-  },
-  {
-    asin: '6gdh469',
-    csCode: 'Кактус Цереус комнатный семена',
-    price: 305.24,
-    avgPrice: 305.24,
-    fees: 3.7,
-    rank: 67,
-    rating: 4.3,
-    sales: 1.56,
-    salersTotal: 2,
-    type: 'FAB',
-    revenue: 14.98,
-    amazonPrice: 14.98,
-    bsr: 14.98,
-    fba: 14.98,
-    img: 'https://i.picsum.photos/id/789/128/128.jpg?hmac=pyc9bet-foHf2cUf74nuHurYNBGB1vGE8rY-6Ofc3Oo',
-    exchangePrice: null,
-    exchangePriceFlag: null,
-  },
-  {
-    asin: '6gdh411',
-    csCode: 'Рога оленя искуственные',
-    price: 2629.19,
-    avgPrice: 2729.19,
-    fees: 16,
-    rank: 24,
-    rating: 5,
-    sales: 1.56,
-    salersTotal: 2,
-    type: 'FAB',
-    revenue: 21.98,
-    amazonPrice: 21.98,
-    bsr: 21.98,
-    fba: 21.98,
-    img: 'https://i.picsum.photos/id/891/128/128.jpg?hmac=L_K1ls-Hmiy8fqWGLi0JiWiZEyTEL9_L0z-fADNZjXI',
-    exchangePrice: null,
-    exchangePriceFlag: null,
-  },
-]
 
 export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
   {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},

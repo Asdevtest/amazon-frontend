@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 
 import {Box, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
 import {BATCHES_BOXES_EXAMPLES, BATCHES_HEAD_CELLS, BUYER_WAREHOUSE_LIST, BUYER_DELIVERY_LIST} from '@constants/mocks'
-import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
+import {userRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -21,6 +22,7 @@ import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/clientAvatar.jpg'
+import {ClientBatchesViewModel} from './client-batches-view.model'
 import {styles} from './client-batches-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientBatchesView
@@ -32,10 +34,12 @@ const batchesData = [
   [BATCHES_BOXES_EXAMPLES[0]],
 ]
 
+const navbarActiveCategory = 5
+
+@observer
 class ClientBatchesViewRaw extends Component {
+  viewModel = new ClientBatchesViewModel({history: this.props.history})
   state = {
-    activeCategory: 5,
-    activeSubCategory: null,
     drawerOpen: false,
     selected: null,
     modalEditBoxes: false,
@@ -44,16 +48,13 @@ class ClientBatchesViewRaw extends Component {
   }
 
   render() {
-    const {activeCategory, activeSubCategory, drawerOpen} = this.state
+    const {drawerOpen} = this.state
 
     return (
       <React.Fragment>
         <Navbar
-          activeCategory={activeCategory}
-          setItem={this.onChangeCategory}
-          activeSubCategory={activeSubCategory}
-          categoriesList={categoriesList.client}
-          setSubItem={this.onChangeSubCategory}
+          curUserRole={userRole.CLIENT}
+          activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={this.onChangeDrawerOpen}
           user={textConsts.appUser}
@@ -138,14 +139,6 @@ class ClientBatchesViewRaw extends Component {
   }
   onChangeDrawerOpen = (e, value) => {
     this.setState({drawerOpen: value})
-  }
-
-  onChangeCategory = (e, value) => {
-    this.setState({activeCategory: value})
-  }
-
-  onChangeSubCategory = (e, value) => {
-    this.setState({activeSubCategory: value})
   }
 }
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import {Grid, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
 import {
   clientUsername,
@@ -9,8 +10,8 @@ import {
   CLIENT_INVENTORY_PRODUCTS_DATA,
   CLIENT_INVENTORY_MY_PRODUCTS_HEAD_CELLS,
 } from '@constants/mocks'
-import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
+import {userRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
@@ -27,14 +28,17 @@ import {copyToClipBoard} from '@utils/clipboard'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/clientAvatar.jpg'
+import {ClientInventoryViewModel} from './client-inventory-view.model'
 import {styles} from './client-inventory-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').inventoryView
 
+const navbarActiveCategory = 2
+
+@observer
 export class ClientInventoryViewRaw extends Component {
+  viewModel = new ClientInventoryViewModel({history: this.props.history})
   state = {
-    activeCategory: 2,
-    activeSubCategory: null,
     drawerOpen: false,
     rowsPerPage: 5,
     paginationPage: 1,
@@ -43,7 +47,7 @@ export class ClientInventoryViewRaw extends Component {
   }
 
   render() {
-    const {activeCategory, activeSubCategory, drawerOpen, curProduct, showSetBarcodeModal} = this.state
+    const {drawerOpen, curProduct, showSetBarcodeModal} = this.state
     const {classes: classNames} = this.props
     const tableRowHandlers = {
       onClickBarcode: this.onClickBarcode,
@@ -54,9 +58,8 @@ export class ClientInventoryViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          activeCategory={activeCategory}
-          activeSubCategory={activeSubCategory}
-          categoriesList={categoriesList.client}
+          curUserRole={userRole.CLIENT}
+          activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           handlerTriggerDrawer={this.onTriggerDrawer}
         />

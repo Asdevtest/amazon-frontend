@@ -2,10 +2,11 @@ import {Component} from 'react'
 
 import {Button, Grid, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
 import {clientBalance, clientUsername, clientDashboardData} from '@constants/mocks'
-import {categoriesList} from '@constants/navbar'
 import {texts} from '@constants/texts'
+import {userRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
@@ -15,6 +16,7 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
+import {ClientDashboardViewModel} from './client-dashboard-view.model'
 import {styles} from './client-dashboard-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientDashboardView
@@ -85,24 +87,25 @@ const dashboardSections = [
   },
 ]
 
+const navbarActiveCategory = 0
+
+@observer
 export class ClientDashboardViewRaw extends Component {
+  viewModel = new ClientDashboardViewModel({history: this.props.history})
   state = {
-    activeCategory: 0,
-    activeSubCategory: null,
     drawerOpen: false,
     dashboardData: clientDashboardData,
   }
 
   render() {
-    const {activeCategory, activeSubCategory, drawerOpen} = this.state
+    const {drawerOpen} = this.state
     const {classes} = this.props
 
     return (
       <>
         <Navbar
-          activeCategory={activeCategory}
-          activeSubCategory={activeSubCategory}
-          categoriesList={categoriesList.client}
+          curUserRole={userRole.CLIENT}
+          activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           handlerTriggerDrawer={this.onTriggerDrawer}
         />
