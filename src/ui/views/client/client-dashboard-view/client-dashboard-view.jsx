@@ -1,10 +1,11 @@
-import {Component} from 'react'
+import React, {Component} from 'react'
 
 import {Button, Grid, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {clientBalance, clientUsername, clientDashboardData} from '@constants/mocks'
+import {getClientDashboardCardConfig, ClientDashboardCardDataKey} from '@constants/dashboard-configs'
+import {clientBalance, clientUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {userRole} from '@constants/user-roles'
 
@@ -21,72 +22,7 @@ import {styles} from './client-dashboard-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientDashboardView
 
-const dashboardSections = [
-  {
-    key: 'inventory',
-    title: textConsts.inventoryTitle,
-    items: [
-      {
-        key: 'productsInInventory',
-        title: textConsts.itemsInInventorySectionItemTitle,
-        color: '#20a8d8',
-      },
-      {
-        key: 'fullCostOfWarehouse',
-        title: textConsts.fullCostOfWarehouseSectionItemTitle,
-        color: '#63c2de',
-      },
-      {
-        key: 'repurchaseItems',
-        title: textConsts.repurchaseItemsSectionItemTitle,
-        color: '#4dbd74',
-      },
-    ],
-  },
-  {
-    key: 'order',
-    title: textConsts.ordersTitle,
-    items: [
-      {
-        key: 'notPaidOrders',
-        title: textConsts.notPaidOrdersSectionItemTitle,
-        color: '#ffc107',
-      },
-      {
-        key: 'paidOrders',
-        title: textConsts.paidOrdersSectionItemTitle,
-        color: '#f86c6b',
-      },
-      {
-        key: 'canceledOrders',
-        title: textConsts.canceledOrdersSectionItemTitle,
-        color: '#20a8d8',
-      },
-    ],
-  },
-  {
-    key: 'exchange',
-    title: textConsts.exchangeTitle,
-    items: [
-      {
-        key: 'soldItemsOnExchange',
-        title: textConsts.soldItemsOnExchangeSectionItemTitle,
-        color: '#63c2de',
-      },
-      {
-        key: 'accuredToReserchers',
-        title: textConsts.accuredToReserchersSectionItemTitle,
-        color: '#4dbd74',
-      },
-      {
-        key: 'disputsForProducts',
-        title: textConsts.disputsForProductsSectionItemTitle,
-        color: '#f86c6b',
-      },
-    ],
-  },
-]
-
+const dashboardCardConfig = getClientDashboardCardConfig(textConsts)
 const navbarActiveCategory = 0
 
 @observer
@@ -94,25 +30,28 @@ export class ClientDashboardViewRaw extends Component {
   viewModel = new ClientDashboardViewModel({history: this.props.history})
   state = {
     drawerOpen: false,
-    dashboardData: clientDashboardData,
+  }
+
+  componentDidMount() {
+    this.viewModel.loadData()
   }
 
   render() {
-    const {drawerOpen} = this.state
+    const {drawerOpen, onTriggerDrawer} = this.viewModel
     const {classes} = this.props
 
     return (
-      <>
+      <React.Fragment>
         <Navbar
           curUserRole={userRole.CLIENT}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={this.onTriggerDrawer}
+          handlerTriggerDrawer={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc=""
-            handlerTriggerDrawer={this.onTriggerDrawer}
+            handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
           >
@@ -129,11 +68,11 @@ export class ClientDashboardViewRaw extends Component {
                   {textConsts.replenish}
                 </Button>
               </div>
-              {this.renderInfoCarsSections(dashboardSections)}
+              {this.renderInfoCarsSections(dashboardCardConfig)}
             </MainContent>
           </Appbar>
         </Main>
-      </>
+      </React.Fragment>
     )
   }
 
@@ -149,31 +88,39 @@ export class ClientDashboardViewRaw extends Component {
       </div>
     ))
 
-  renderInfoCard = (infoCardData, section) => {
-    const {dashboardData} = this.state
-    return (
-      <Grid key={`dashboardSection_${section.key}_infoCard_${infoCardData.key}`} item lg={4} sm={6} xs={12}>
-        <DashboardInfoCard
-          color={infoCardData.color}
-          title={infoCardData.title}
-          value={dashboardData[infoCardData.key]}
-          onClickViewMore={this.onClickViewMore}
-        />
-      </Grid>
-    )
-  }
+  renderInfoCard = (infoCardData, section) => (
+    <Grid key={`dashboardSection_${section.dataKey}_infoCard_${infoCardData.dataKey}`} item lg={4} sm={6} xs={12}>
+      <DashboardInfoCard
+        color={infoCardData.color}
+        title={infoCardData.title}
+        value={this.getCardValueByDataKey(infoCardData.dataKey)}
+        onClickViewMore={this.onClickViewMore}
+      />
+    </Grid>
+  )
 
-  onChangeCategory = index => {
-    this.setState({activeCategory: index})
-  }
-
-  onChangeSubCategory = index => {
-    this.setState({activeSubCategory: index})
-  }
-
-  onTriggerDrawer = () => {
-    const {drawerOpen} = this.state
-    this.setState({drawerOpen: !drawerOpen})
+  getCardValueByDataKey = dataKey => {
+    const {productsMy} = this.viewModel
+    switch (dataKey) {
+      case ClientDashboardCardDataKey.IN_INVENTORY:
+        return productsMy.length
+      case ClientDashboardCardDataKey.FULL_COST:
+        return 1
+      case ClientDashboardCardDataKey.REPURCHASE_ITEMS:
+        return 2
+      case ClientDashboardCardDataKey.NOT_PAID_ORDERS:
+        return 3
+      case ClientDashboardCardDataKey.PAID_ORDERS:
+        return 4
+      case ClientDashboardCardDataKey.CANCELED_ORDERS:
+        return 5
+      case ClientDashboardCardDataKey.SOLD_ITEMS_ON_EXCHANGE:
+        return 6
+      case ClientDashboardCardDataKey.ACCURED_TO_RESERCHERS:
+        return 7
+      case ClientDashboardCardDataKey.DISPUTS_FOR_PRODUCTS:
+        return 8
+    }
   }
 
   onClickViewMore = () => {
