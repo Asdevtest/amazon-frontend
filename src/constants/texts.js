@@ -203,6 +203,8 @@ export const texts = {
       setBarCodeBtn: 'Set barcode',
       exchangeBtn: 'Exchange',
       setBarcodeChipLabel: 'Set barcode',
+      orderBtn: 'Заказать',
+      resetBtn: 'Сбросить',
     },
     researcherDashboardView: {
       appBarTitle: 'Dashboard',
