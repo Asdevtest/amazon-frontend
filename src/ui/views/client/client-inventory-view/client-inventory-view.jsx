@@ -6,14 +6,14 @@ import {observer} from 'mobx-react'
 
 import {
   clientUsername,
-  INVENTORY_CARD_LIST,
-  CLIENT_INVENTORY_PRODUCTS_DATA,
+  INVENTORY_CARD_LIST, // CLIENT_INVENTORY_PRODUCTS_DATA,
   CLIENT_INVENTORY_MY_PRODUCTS_HEAD_CELLS,
 } from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {userRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -24,7 +24,6 @@ import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/client/inventory/products-view/table-body-row'
 import {TableHeadRow} from '@components/table-rows/client/inventory/products-view/table-head-row'
 
-import {copyToClipBoard} from '@utils/clipboard'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/clientAvatar.jpg'
@@ -38,22 +37,36 @@ const navbarActiveCategory = 2
 @observer
 export class ClientInventoryViewRaw extends Component {
   viewModel = new ClientInventoryViewModel({history: this.props.history})
-  state = {
-    drawerOpen: false,
-    rowsPerPage: 5,
-    paginationPage: 1,
-    showSetBarcodeModal: false,
-    curProduct: undefined,
+
+  componentDidMount() {
+    this.viewModel.getProductsMy()
   }
 
   render() {
-    const {drawerOpen, curProduct, showSetBarcodeModal} = this.state
+    const {
+      productsData,
+      drawerOpen,
+      curProduct,
+      showSetBarcodeModal,
+      rowsPerPage,
+      paginationPage,
+      onClickBarcode,
+      onClickExchange,
+      onDoubleClickBarcode,
+      onDeleteBarcode,
+      onSaveBarcode,
+      onChangePagination,
+      onChangeRowsPerPage,
+      onTriggerDrawer,
+      onTriggerShowBarcodeModal,
+    } = this.viewModel
+
     const {classes: classNames} = this.props
     const tableRowHandlers = {
-      onClickBarcode: this.onClickBarcode,
-      onClickExchange: this.onClickExchange,
-      onDoubleClickBarcode: this.onDoubleClickBarcode,
-      onDeleteBarcode: this.onDeleteBarcode,
+      onClickBarcode,
+      onClickExchange,
+      onDoubleClickBarcode,
+      onDeleteBarcode,
     }
     return (
       <React.Fragment>
@@ -61,12 +74,12 @@ export class ClientInventoryViewRaw extends Component {
           curUserRole={userRole.CLIENT}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={this.onTriggerDrawer}
+          handlerTriggerDrawer={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc={avatar}
-            handlerTriggerDrawer={this.onTriggerDrawer}
+            handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
           >
@@ -82,24 +95,25 @@ export class ClientInventoryViewRaw extends Component {
                 {textConsts.productsList}
               </Typography>
               <Table
-                currentPage={this.state.paginationPage}
-                data={CLIENT_INVENTORY_PRODUCTS_DATA}
-                handlerPageChange={this.onChangePagination}
-                handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(CLIENT_INVENTORY_PRODUCTS_DATA.length / this.state.rowsPerPage)}
+                buttons={this.renderButtons()}
+                currentPage={paginationPage}
+                data={productsData}
+                handlerPageChange={onChangePagination}
+                handlerRowsPerPage={onChangeRowsPerPage}
+                pageCount={Math.ceil(productsData.length / rowsPerPage)}
                 BodyRow={TableBodyRow}
                 renderHeadRow={this.renderHeadRow}
-                rowsPerPage={this.state.rowsPerPage}
+                rowsPerPage={rowsPerPage}
                 rowsHandlers={tableRowHandlers}
               />
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={showSetBarcodeModal} setOpenModal={this.onTriggerShowBarcodeModal}>
+        <Modal openModal={showSetBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
           <SetBarcodeModalContent
             barcodeValue={(curProduct && curProduct.barcode) || ''}
-            onClose={this.onTriggerShowBarcodeModal}
-            onSaveBarcode={this.onSaveBarcode}
+            onClose={onTriggerShowBarcodeModal}
+            onSaveBarcode={onSaveBarcode}
           />
         </Modal>
       </React.Fragment>
@@ -107,47 +121,16 @@ export class ClientInventoryViewRaw extends Component {
   }
 
   renderHeadRow = (<TableHeadRow headCells={CLIENT_INVENTORY_MY_PRODUCTS_HEAD_CELLS} />)
-
-  onClickBarcode = item => {
-    if (item.barcode) {
-      copyToClipBoard(item.barcode)
-    } else {
-      this.setCurProduct(item)
-      this.onTriggerShowBarcodeModal()
-    }
-  }
-
-  onClickExchange = () => {}
-
-  onDoubleClickBarcode = item => {
-    this.setCurProduct(item)
-    this.onTriggerShowBarcodeModal()
-  }
-
-  onDeleteBarcode = () => {}
-
-  onSaveBarcode = () => {}
-
-  onChangePagination = (e, value) => {
-    this.setState({paginationPge: value})
-  }
-
-  onChangeRowsPerPage = e => {
-    this.setState({rowsPerPage: Number(e.target.value), paginationPge: 1})
-  }
-
-  onTriggerDrawer = () => {
-    const {drawerOpen} = this.state
-    this.setState({drawerOpen: !drawerOpen})
-  }
-
-  onTriggerShowBarcodeModal = () => {
-    this.setState({showSetBarcodeModal: !this.state.showSetBarcodeModal})
-  }
-
-  setCurProduct = item => {
-    this.setState({curProduct: item})
-  }
+  renderButtons = () => (
+    <React.Fragment>
+      <Button
+        variant="contained" /*  открыть модалку, а ее во front-main нет onClick={() => this.viewModel.onClickMerge()}*/
+      >
+        {textConsts.orderBtn}
+      </Button>
+      <Button color="disabled">{textConsts.resetBtn}</Button>
+    </React.Fragment>
+  )
 }
 
 export const ClientInventoryView = withStyles(styles)(ClientInventoryViewRaw)
