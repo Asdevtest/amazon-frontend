@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {SUPERVISOR_EMPTY_SUPPLIER} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {userRole} from '@constants/user-roles'
 
@@ -11,7 +10,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
-import {ModalContent} from '@components/product/modal-content'
+import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {ProductWrapper} from '@components/product/product-wrapper'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -39,18 +38,18 @@ export class SupervisorProductView extends Component {
       drawerOpen,
       activeChip,
       product,
-      suppliers,
+      actionStatus,
       selectedSupplier,
-      showAddSupplierModal,
-      showEditSupplierModal,
-      onTriggerEditSupplierModal,
-      onChangeSuppliers,
-      onTriggerAddSupplierModal,
+      showAddOrEditSupplierModal,
       onChangeProductFields,
+      onTriggerAddOrEditSupplierModal,
       onClickSupplierButtons,
+      onClickSaveSupplierBtn,
       onChangeSelectedSupplier,
       onChangeDrawerOpen,
       onChangeActiveChip,
+      onClickParseAmazonBtn,
+      onClickParseSellCenteralBtn,
     } = this.viewModel
     return (
       <React.Fragment>
@@ -73,41 +72,29 @@ export class SupervisorProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  curUserRole={userRole.SUPERVISOR}
                   chipList={CHIP_LIST}
                   activeChip={activeChip}
                   setActiveChip={onChangeActiveChip}
                   product={product}
-                  suppliers={suppliers}
-                  selected={selectedSupplier}
+                  selectedSupplier={selectedSupplier}
                   handleSupplierButtons={onClickSupplierButtons}
+                  actionStatus={actionStatus}
                   onClickSupplier={onChangeSelectedSupplier}
                   onChangeField={onChangeProductFields}
+                  onClickParseAmazonBtn={onClickParseAmazonBtn}
+                  onClickParseSellCenteralBtn={onClickParseSellCenteralBtn}
                 />
               ) : undefined}
             </MainContent>
           </Appbar>
         </Main>
-
-        <Modal openModal={showAddSupplierModal} setOpenModal={onTriggerAddSupplierModal}>
-          <ModalContent
-            modeAddOrEdit={'add'}
+        <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
+          <AddOrEditSupplierModalContent
             title={textConsts.modalAddTitle}
-            setOpenModal={onTriggerAddSupplierModal}
-            supplier={SUPERVISOR_EMPTY_SUPPLIER}
-            suppliers={suppliers}
-            setSuppliers={onChangeSuppliers}
-            selected={selectedSupplier}
-          />
-        </Modal>
-        <Modal openModal={showEditSupplierModal} setOpenModal={onTriggerEditSupplierModal}>
-          <ModalContent
-            modeAddOrEdit={'edit'}
-            title={textConsts.modalEditTitle}
-            setOpenModal={onTriggerEditSupplierModal}
-            supplier={suppliers[selectedSupplier]}
-            suppliers={suppliers}
-            setSuppliers={onChangeSuppliers}
-            selected={selectedSupplier}
+            supplier={selectedSupplier}
+            onClickSaveBtn={onClickSaveSupplierBtn}
+            onTriggerShowModal={onTriggerAddOrEditSupplierModal}
           />
         </Modal>
       </React.Fragment>

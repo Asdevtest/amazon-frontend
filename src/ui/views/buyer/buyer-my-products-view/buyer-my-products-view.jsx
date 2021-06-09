@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
+import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {BUYER_MY_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
@@ -19,27 +20,24 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/buyerAvatar.jpg'
 import {BuyerMyProductsViewModel} from './buyer-my-products-view.model'
+import {styles} from './buyer-my-products-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').myProductsView
 
 const navbarActiveCategory = 1
 
 @observer
-export class BuyerMyProductsView extends Component {
+export class BuyerMyProductsViewRaw extends Component {
   viewModel = new BuyerMyProductsViewModel({history: this.props.history})
-  state = {
-    drawerOpen: false,
-    rowsPerPage: 5,
-    paginationPage: 1,
-  }
 
   componentDidMount() {
     this.viewModel.getProducsMy()
   }
 
   render() {
-    const {drawerOpen} = this.state
-    const {productsMy} = this.viewModel
+    const {productsMy, drawerOpen, curPage, rowsPerPage, onChangePage, onChangeRowsPerPage, onTriggerDrawerOpen} =
+      this.viewModel
+    const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
@@ -47,7 +45,7 @@ export class BuyerMyProductsView extends Component {
           curUserRole={userRole.BUYER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
 
@@ -58,21 +56,22 @@ export class BuyerMyProductsView extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
-              <Typography variant="h3">{textConsts.mainTitle}</Typography>
-
-              <Table
-                currentPage={this.state.paginationPage}
-                data={productsMy}
-                handlerPageChange={this.onChangePagination}
-                handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(productsMy.length / this.state.rowsPerPage)}
-                BodyRow={TableBodyRow}
-                renderHeadRow={this.renderHeadRow}
-                rowsPerPage={this.state.rowsPerPage}
-              />
+              <Typography variant="h6">{textConsts.mainTitle}</Typography>
+              <div className={classNames.tableWrapper}>
+                <Table
+                  currentPage={curPage}
+                  data={productsMy}
+                  handlerPageChange={onChangePage}
+                  handlerRowsPerPage={onChangeRowsPerPage}
+                  pageCount={Math.ceil(productsMy.length / rowsPerPage)}
+                  BodyRow={TableBodyRow}
+                  renderHeadRow={this.renderHeadRow}
+                  rowsPerPage={rowsPerPage}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>
@@ -81,16 +80,6 @@ export class BuyerMyProductsView extends Component {
   }
 
   renderHeadRow = (<TableHeadRow headCells={BUYER_MY_PRODUCTS_HEAD_CELLS} />)
-
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
-  }
-
-  onChangePagination = (e, value) => {
-    this.setState({paginationPge: value})
-  }
-
-  onChangeRowsPerPage = e => {
-    this.setState({rowsPerPage: Number(e.target.value), paginationPge: 1})
-  }
 }
+
+export const BuyerMyProductsView = withStyles(styles)(BuyerMyProductsViewRaw)

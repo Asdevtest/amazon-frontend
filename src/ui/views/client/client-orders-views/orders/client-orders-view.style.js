@@ -14,4 +14,7 @@ export const styles = createStyles(() => ({
     marginRight: '0px',
     borderTop: '1px solid rgb(224,224,224)',
   },
+  tableWrapper: {
+    marginTop: '24px',
+  },
 }))

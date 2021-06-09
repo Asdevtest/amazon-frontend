@@ -78,7 +78,7 @@ export class ClientInventoryViewRaw extends Component {
                   </Grid>
                 ))}
               </Grid>
-              <Typography variant="h5" className={classNames.someClass}>
+              <Typography variant="h6" className={classNames.someClass}>
                 {textConsts.productsList}
               </Typography>
               <Table

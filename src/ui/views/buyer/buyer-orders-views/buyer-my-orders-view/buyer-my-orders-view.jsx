@@ -4,13 +4,12 @@ import {Typography, Container} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
+import {DELIVERY_OPTIONS} from '@constants/delivery-options'
 import {
   MY_ORDER_TABLE_HEADERS,
-  MY_ORDERS_DATA,
   ORDERS_MODAL_HEAD_CELLS,
   BUYER_WAREHOUSE_LIST,
   BUYER_STATUS_LIST,
-  BUYER_DELIVERY_LIST,
 } from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {userRole} from '@constants/user-roles'
@@ -41,21 +40,28 @@ const navbarActiveSubCategory = 0
 @observer
 class BuyerMyOrdersViewRaw extends Component {
   viewModel = new BuyerMyOrdersViewModel({history: this.props.history})
-  state = {
-    drawerOpen: false,
-    modalBarcode: false,
-    modalOrder: false,
-    rowsPerPage: 5,
-    paginationPage: 1,
-    selectedOrder: 0,
-  }
 
   componentDidMount() {
     this.viewModel.getOrdersMy()
   }
 
   render() {
-    const {drawerOpen} = this.state
+    const {
+      drawerOpen,
+      ordersMy,
+      curPage,
+      rowsPerPage,
+      selectedOrder,
+      showBarcodeModal,
+      showOrderModal,
+      onTriggerDrawerOpen,
+      onChangePage,
+      onChangeRowsPerPage,
+      onTriggerShowBarcodeModal,
+      onTriggerShowOrderModal,
+      onChangeSelectedOrder,
+    } = this.viewModel
+    const {classes: className} = this.props
 
     return (
       <React.Fragment>
@@ -64,7 +70,7 @@ class BuyerMyOrdersViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
 
@@ -75,80 +81,60 @@ class BuyerMyOrdersViewRaw extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
-              <Typography variant="h3">{textConsts.mainTitle}</Typography>
-
-              <Table
-                buttons={this.renderButtons}
-                currentPage={this.state.paginationPage}
-                data={this.viewModel.ordersMy}
-                handlerPageChange={this.onChangePagination}
-                handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(MY_ORDERS_DATA.length / this.state.rowsPerPage)}
-                BodyRow={TableBodyRow}
-                renderHeadRow={this.renderHeadRow}
-                rowsPerPage={this.state.rowsPerPage}
-                rowsHandlers={{
-                  onOrder: this.onChangeModalOrder,
-                  onBarcode: this.onChangeModalBarcode,
-                  onSelector: this.onChangeSelectedOrder,
-                }}
-              />
+              <Typography variant="h6">{textConsts.mainTitle}</Typography>
+              <div className={className.tableWrapper}>
+                <Table
+                  buttons={this.renderButtons}
+                  currentPage={curPage}
+                  data={ordersMy}
+                  handlerPageChange={onChangePage}
+                  handlerRowsPerPage={onChangeRowsPerPage}
+                  pageCount={Math.ceil(ordersMy.length / rowsPerPage)}
+                  BodyRow={TableBodyRow}
+                  renderHeadRow={this.renderHeadRow}
+                  rowsPerPage={rowsPerPage}
+                  rowsHandlers={{
+                    onOrder: onTriggerShowOrderModal,
+                    onBarcode: onTriggerShowBarcodeModal,
+                    onSelector: onChangeSelectedOrder,
+                  }}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={this.state.modalOrder} setOpenModal={this.onChangeModalOrder}>
+        <Modal openModal={showOrderModal} setOpenModal={onTriggerShowOrderModal}>
           <EditOrderModal
-            order={MY_ORDERS_DATA[this.state.selectedOrder]}
-            setModal={this.onChangeModalOrder}
-            setModalBarcode={this.onChangeModalBarcode}
+            order={ordersMy[selectedOrder]}
+            setModal={onTriggerShowOrderModal}
+            setModalBarcode={onTriggerShowBarcodeModal}
             modalHeadCells={ORDERS_MODAL_HEAD_CELLS}
             warehouseList={BUYER_WAREHOUSE_LIST}
-            deliveryList={BUYER_DELIVERY_LIST}
+            deliveryList={DELIVERY_OPTIONS}
             statusList={BUYER_STATUS_LIST}
           />
         </Modal>
-        <Modal openModal={this.state.modalBarcode} setOpenModal={this.onChangeModalBarcode}>
-          <SetBarcodeModal setModalBarcode={this.onChangeModalBarcode} />
+        <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
+          <SetBarcodeModal setModalBarcode={onTriggerShowBarcodeModal} />
         </Modal>
       </React.Fragment>
     )
   }
 
-  renderButtons = (
-    <Container className={this.props.classes.buttonWrapper}>
-      <Button color="secondary">{textConsts.ordersBtn}</Button>
-    </Container>
-  )
+  renderButtons = () => {
+    const {classes: classNames} = this.props
+    return (
+      <Container className={classNames.buttonWrapper}>
+        <Button color="secondary">{textConsts.ordersBtn}</Button>
+      </Container>
+    )
+  }
 
   renderHeadRow = (<TableHeadRow headCells={MY_ORDER_TABLE_HEADERS} />)
-
-  onChangeSelectedOrder = value => {
-    this.setState({selectedOrder: value})
-  }
-
-  onChangeModalBarcode = () => {
-    this.setState({modalBarcode: !this.state.modalBarcode})
-  }
-
-  onChangeModalOrder = () => {
-    this.setState({modalOrder: !this.state.modalOrder})
-  }
-
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
-  }
-
-  onChangePagination = (e, value) => {
-    this.setState({paginationPge: value})
-  }
-
-  onChangeRowsPerPage = e => {
-    this.setState({rowsPerPage: Number(e.target.value), paginationPge: 1})
-  }
 }
 
 export const BuyerMyOrdersView = withStyles(styles)(BuyerMyOrdersViewRaw)

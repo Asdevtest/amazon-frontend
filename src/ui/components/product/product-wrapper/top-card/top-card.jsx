@@ -1,11 +1,12 @@
 import React from 'react'
 
 import {Box, Grid, Paper} from '@material-ui/core'
+import {Alert} from '@material-ui/lab'
 import {observer} from 'mobx-react'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
 
-import {Alert} from '@components/alert'
 import {Button} from '@components/buttons/button'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -17,9 +18,21 @@ import {useClassNames} from './top-card.style'
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 export const TopCard = observer(
-  ({onChangeField, product, onClick, suppliers, selected, onClickSupplier, chipList, activeChip, setActiveChip}) => {
+  ({
+    curUserRole,
+    onChangeField,
+    actionStatus,
+    product,
+    onClick,
+    selectedSupplier,
+    onClickSupplier,
+    chipList,
+    activeChip,
+    setActiveChip,
+    onClickParseAmazonBtn,
+    onClickParseSellCenteralBtn,
+  }) => {
     const classNames = useClassNames()
-
     return (
       <React.Fragment>
         <Paper className={classNames.mainCardWrapper}>
@@ -27,21 +40,30 @@ export const TopCard = observer(
             <Grid container item sm={7} xs={12}>
               <Grid item xs={12}>
                 <Box className={classNames.parseButtonsWrapper}>
-                  <Button className={classNames.buttonParseAmazon}>{textConsts.buttonParseAmazon}</Button>
-                  <Button>{textConsts.buttonParseSellcentrall}</Button>
+                  <Button className={classNames.buttonParseAmazon} onClick={() => onClickParseAmazonBtn(product)}>
+                    {textConsts.buttonParseAmazon}
+                  </Button>
+                  <Button onClick={() => onClickParseSellCenteralBtn(product)}>
+                    {textConsts.buttonParseSellcentrall}
+                  </Button>
                 </Box>
-                <Alert className={classNames.alert} elevation={0} title={textConsts.alertSuccess} type={'success'} />
+                {actionStatus === loadingStatuses.success ? (
+                  <Alert className={classNames.alert} elevation={0} severity="success">
+                    {textConsts.alertSuccess}
+                  </Alert>
+                ) : undefined}
               </Grid>
               <FieldsAndSuppliers
+                curUserRole={curUserRole}
                 product={product}
-                selected={selected}
-                suppliers={suppliers}
+                selectedSupplier={selectedSupplier}
                 onChangeField={onChangeField}
                 onClick={onClick}
                 onClickSupplier={onClickSupplier}
               />
             </Grid>
             <RightSideComments
+              curUserRole={curUserRole}
               chipList={chipList}
               activeChip={activeChip}
               setActiveChip={setActiveChip}

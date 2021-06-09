@@ -4,7 +4,8 @@ import {Box, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {BATCHES_BOXES_EXAMPLES, BATCHES_HEAD_CELLS, BUYER_WAREHOUSE_LIST, BUYER_DELIVERY_LIST} from '@constants/mocks'
+import {DELIVERY_OPTIONS} from '@constants/delivery-options'
+import {BATCHES_BOXES_EXAMPLES, BATCHES_HEAD_CELLS, BUYER_WAREHOUSE_LIST} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {userRole} from '@constants/user-roles'
 
@@ -19,6 +20,7 @@ import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/batches-view/table-body-row'
 import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
+import {isNotUndefined, isUndefined} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/buyerAvatar.jpg'
@@ -39,17 +41,25 @@ const navbarActiveCategory = 4
 @observer
 class BuyerBatchesViewRaw extends Component {
   viewModel = new BuyerBatchesViewModel({history: this.props.history})
-  state = {
-    drawerOpen: false,
-    selected: null,
-    modalEditBoxes: false,
-    rowsPerPage: 5,
-    paginationPage: 1,
-  }
 
   render() {
-    const {drawerOpen} = this.state
-
+    const {
+      drawerOpen,
+      curPage,
+      rowsPerPage,
+      selectedBatchIndex,
+      showEditBoxesModal,
+      onChangePage,
+      onChangeRowsPerPage,
+      onClickTableRow,
+      onTriggerEditBoxesModal,
+      onDoubleClickTableRow,
+    } = this.viewModel
+    const {classes: className} = this.props
+    const rowsHandlers = {
+      onClickTableRow,
+      onDoubleClickTableRow,
+    }
     return (
       <React.Fragment>
         <Navbar
@@ -70,35 +80,33 @@ class BuyerBatchesViewRaw extends Component {
             setDrawerOpen={this.onChangeDrawerOpen}
           >
             <MainContent>
-              <Typography variant="h3">{textConsts.mainTitle}</Typography>
-
-              <Table
-                buttons={this.renderButtons()}
-                currentPage={this.state.paginationPage}
-                data={batchesData}
-                handlerPageChange={this.onChangePagination}
-                handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(batchesData.length / this.state.rowsPerPage)}
-                BodyRow={TableBodyRow}
-                renderHeadRow={this.renderHeadRow()}
-                rowsPerPage={this.state.rowsPerPage}
-                rowsHandlers={{
-                  selected: this.state.selected,
-                  onDoubleClick: this.onBatchesonDoubleClick,
-                  onSelected: this.onBatchesonClick,
-                }}
-              />
+              <Typography variant="h6">{textConsts.mainTitle}</Typography>
+              <div className={className.tableWrapper}>
+                <Table
+                  buttons={this.renderButtons()}
+                  currentPage={curPage}
+                  data={batchesData}
+                  handlerPageChange={onChangePage}
+                  handlerRowsPerPage={onChangeRowsPerPage}
+                  pageCount={Math.ceil(batchesData.length / rowsPerPage)}
+                  BodyRow={TableBodyRow}
+                  renderHeadRow={this.renderHeadRow()}
+                  rowsPerPage={rowsPerPage}
+                  selectedBatchIndex={selectedBatchIndex}
+                  rowsHandlers={rowsHandlers}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={this.state.modalEditBoxes} setOpenModal={this.onChangeModalEditBoxes}>
+        <Modal openModal={showEditBoxesModal} setOpenModal={onTriggerEditBoxesModal}>
           <EditBatchModal
-            batch={batchesData[this.state.selected]}
-            setModal={this.onChangeModalEditBoxes}
+            batch={isNotUndefined(selectedBatchIndex) ? batchesData[selectedBatchIndex] : undefined}
+            setModal={onTriggerEditBoxesModal}
             warehouseList={BUYER_WAREHOUSE_LIST}
-            deliveryList={BUYER_DELIVERY_LIST}
-            type={'buyer'}
+            deliveryList={DELIVERY_OPTIONS}
+            curUserRole={userRole.BUYER}
           />
         </Modal>
       </React.Fragment>
@@ -107,39 +115,16 @@ class BuyerBatchesViewRaw extends Component {
 
   renderHeadRow = () => <TableHeadRow headCells={BATCHES_HEAD_CELLS} />
 
-  renderButtons = () => (
-    <Box p={2} mr={0} className={this.props.classes.buttonsWrapper}>
-      <Button
-        disabled={this.state.selected === null}
-        color="secondary"
-        onClick={() => this.setState({modalEditBoxes: !this.state.modalEditBoxes})}
-      >
-        {textConsts.editBatch}
-      </Button>
-    </Box>
-  )
-
-  onChangeModalEditBoxes = () => {
-    this.setState({modalEditBoxes: !this.state.modalEditBoxes})
-  }
-
-  onBatchesonClick = index => {
-    this.setState({selected: index})
-  }
-
-  onBatchesonDoubleClick = index => {
-    this.setState({selected: index, modalEditBoxes: !this.state.modalEditBoxes})
-  }
-
-  onChangePagination = (e, value) => {
-    this.setState({paginationPge: value})
-  }
-
-  onChangeRowsPerPage = e => {
-    this.setState({rowsPerPage: Number(e.target.value), paginationPge: 1})
-  }
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
+  renderButtons = () => {
+    const {selectedBatchIndex, onTriggerEditBoxesModal} = this.viewModel
+    const {classes: classNames} = this.props
+    return (
+      <Box p={2} mr={0} className={classNames.buttonsWrapper}>
+        <Button disabled={isUndefined(selectedBatchIndex)} color="secondary" onClick={onTriggerEditBoxesModal}>
+          {textConsts.editBatch}
+        </Button>
+      </Box>
+    )
   }
 }
 

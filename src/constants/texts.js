@@ -222,10 +222,6 @@ export const texts = {
       appUser: 'researcher',
       mainTitle: 'Мои товары',
       cardMainTitle: 'Проверка товара на наличии в базе',
-      linkAmazon: 'Введите ссылку на амазоне',
-      codeOfGood: 'Код товара',
-      buttonCheck: 'Проверить',
-      buttonAdd: 'Добавить',
     },
     researcherSettingsView: {
       appBarTitle: 'Settings',
@@ -415,6 +411,13 @@ export const texts = {
       fieldFba: 'FBA',
       saveBtn: 'Сохранить',
       cancelBtn: 'Отменить',
+    },
+    researcherAddProductForm: {
+      buttonCheck: 'Проверить',
+      buttonAdd: 'Добавить',
+      linkAmazon: 'Введите ссылку на амазоне',
+      codeOfGood: 'Код товара',
+      successActionAlert: 'Operation complete',
     },
   },
   ru: {
@@ -885,6 +888,13 @@ export const texts = {
       appBarUsername: 'Supervisor',
       appUser: 'supervisor',
       mainTitle: 'Товары на проверку',
+    },
+    researcherAddProductForm: {
+      buttonCheck: 'Проверить',
+      buttonAdd: 'Добавить',
+      linkAmazon: 'Введите ссылку на амазоне',
+      codeOfGood: 'Код товара',
+      successActionAlert: 'Operation complete',
     },
   },
 }

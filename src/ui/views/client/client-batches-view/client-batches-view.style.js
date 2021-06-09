@@ -12,4 +12,7 @@ export const styles = createStyles(() => ({
     textAlign: 'right',
     borderTop: '1px solid rgba(217, 222, 229, 1)',
   },
+  tableWrapper: {
+    marginTop: '24px',
+  },
 }))

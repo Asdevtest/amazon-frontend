@@ -9,6 +9,12 @@ export class BuyerFreeOrdersViewModel {
   requestStatus = undefined
 
   ordersVacant = []
+  drawerOpen = false
+  showBarcodeModal = false
+  showOrderModal = false
+  rowsPerPage = 5
+  curPage = 1
+  selectedOrder = undefined
 
   constructor({history}) {
     this.history = history
@@ -26,5 +32,30 @@ export class BuyerFreeOrdersViewModel {
       this.requestStatus = loadingStatuses.failed
       console.log(error)
     }
+  }
+
+  onChangeSelectedOrder(value) {
+    this.selectedOrder = value
+  }
+
+  onTriggerShowBarcodeModal() {
+    this.showBarcodeModal = !this.showBarcodeModal
+  }
+
+  onTriggerShowOrderModal() {
+    this.showOrderModal = !this.showOrderModal
+  }
+
+  onTriggerDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
+  }
+
+  onChangePage(e, value) {
+    this.paginationPge = value
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = Number(e.target.value)
+    this.curPage = 1
   }
 }

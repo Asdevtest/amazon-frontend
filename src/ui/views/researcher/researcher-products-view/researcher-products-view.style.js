@@ -5,10 +5,10 @@ export const styles = createStyles(() => ({
     padding: '16px 20px',
     marginBottom: '42px',
   },
-  button: {
-    marginRight: '24px',
+  formWrapper: {
+    marginTop: '32px',
   },
-  boxBtn: {
-    display: 'flex',
+  tableWrapper: {
+    marginTop: '32px',
   },
 }))

@@ -6,8 +6,8 @@ import {ProductStatus} from '@constants/product-status'
 
 import {formatDate} from '@utils/date-time'
 
-export const TableBodyRow = ({item}) => (
-  <TableRow>
+export const TableBodyRow = ({item, handlers}) => (
+  <TableRow onClick={() => handlers.onClickTableRow(item)}>
     <TableCell>{item.id}</TableCell>
     <TableCell>{ProductStatus[item.status]}</TableCell>
     <TableCell>{formatDate(item.createdat)}</TableCell>

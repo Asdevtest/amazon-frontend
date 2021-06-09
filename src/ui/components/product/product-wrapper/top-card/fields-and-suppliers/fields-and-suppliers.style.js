@@ -16,12 +16,13 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 400,
     lineHeight: '22px',
   },
-  iconButton: {
+  iconBtn: {
     height: '40px',
     width: '40px',
     color: 'white',
     backgroundColor: 'rgba(0, 123, 255, 1)',
     borderRadius: '4px',
+    marginRight: '16px',
     '&:hover': {
       backgroundColor: 'rgba(0, 123, 255, 1)',
     },
@@ -85,7 +86,7 @@ export const useClassNames = makeStyles(() => ({
   supplierIcon: {
     marginRight: '16px',
   },
-  supplierIconBackground: {
+  iconBtnRemove: {
     backgroundColor: 'rgba(224, 32, 32, 1)',
   },
   tableCellPadding: {

@@ -1,8 +1,9 @@
-import {action, makeAutoObservable} from 'mobx'
+import {action, makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {ProductForTestOnly} from '@models/product-for-test-only-model'
+import {SupplierModel} from '@models/supplier-model'
 
 export class ClientProductViewModel {
   history = undefined
@@ -12,9 +13,8 @@ export class ClientProductViewModel {
   product = {}
 
   drawerOpen = false
-  selectedSupplier = 0
-  modalAddSupplier = false
-  modalEditSupplier = false
+  selectedSupplier = undefined
+  showAddOrEditSupplierModal = false
   activeChip = null
 
   constructor({history}) {
@@ -27,12 +27,12 @@ export class ClientProductViewModel {
       this.product[fieldsName] = e.target.value
     })
 
-  onChangeSelectedSupplier(e, value) {
-    this.selectedSupplier = value
-  }
-
-  onChangeSuppliers(e, value) {
-    this.suppliers = value
+  onChangeSelectedSupplier(supplier) {
+    if (this.selectedSupplier && this.selectedSupplier.id === supplier.id) {
+      this.selectedSupplier = undefined
+    } else {
+      this.selectedSupplier = supplier
+    }
   }
 
   onChangeProduct(e, value) {
@@ -55,13 +55,23 @@ export class ClientProductViewModel {
     this.drawerOpen = value
   }
 
-  onSupplierButtons(actionName) {
-    if (actionName === 'add') {
-      this.modalAddSupplier = true
-    } else if (actionName === 'edit') {
-      this.modalEditSupplier = true
+  async onClickSupplierButtons(actionType) {
+    if (actionType === 'add') {
+      runInAction(() => {
+        this.selectedSupplier = undefined
+      })
+      this.onTriggerAddOrEditSupplierModal()
+    } else if (actionType === 'edit') {
+      this.onTriggerAddOrEditSupplierModal()
     } else {
-      this.suppliers = this.suppliers.filter((supplier, index) => this.selectedSupplier !== index)
+      try {
+        await SupplierModel.removeSupplier(this.selectedSupplier.id)
+        runInAction(() => {
+          this.selectedSupplier = undefined
+        })
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
@@ -76,5 +86,21 @@ export class ClientProductViewModel {
       this.requestStatus = loadingStatuses.failed
       console.log(error)
     }
+  }
+
+  async onClickSaveSupplierBtn(supplier) {
+    try {
+      if (supplier.id) {
+        await SupplierModel.updateSupplier(supplier)
+      } else {
+        await SupplierModel.createSupplier(supplier)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onTriggerAddOrEditSupplierModal() {
+    this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
   }
 }

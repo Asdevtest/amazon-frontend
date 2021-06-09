@@ -4,12 +4,12 @@ import {Container, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
+import {DELIVERY_OPTIONS} from '@constants/delivery-options'
 import {
   FREE_ORDERS_TABLE_HEADERS,
   ORDERS_MODAL_HEAD_CELLS,
   BUYER_WAREHOUSE_LIST,
   BUYER_STATUS_LIST,
-  BUYER_DELIVERY_LIST,
 } from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {userRole} from '@constants/user-roles'
@@ -40,22 +40,28 @@ const navbarActiveSubCategory = 1
 @observer
 class BuyerFreeOrdersViewRaw extends Component {
   viewModel = new BuyerFreeOrdersViewModel({history: this.props.history})
-  state = {
-    drawerOpen: false,
-    modalBarcode: false,
-    modalOrder: false,
-    rowsPerPage: 5,
-    paginationPage: 1,
-    selectedOrder: 0,
-  }
 
   componentDidMount() {
     this.viewModel.getOrdersVacant()
   }
 
   render() {
-    const {drawerOpen, selectedOrder} = this.state
-    const {ordersVacant} = this.viewModel
+    const {
+      ordersVacant,
+      drawerOpen,
+      selectedOrder,
+      curPage,
+      rowsPerPage,
+      showBarcodeModal,
+      showOrderModal,
+      onChangeSelectedOrder,
+      onTriggerShowBarcodeModal,
+      onTriggerShowOrderModal,
+      onTriggerDrawerOpen,
+      onChangePage,
+      onChangeRowsPerPage,
+    } = this.viewModel
+    const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
@@ -64,7 +70,7 @@ class BuyerFreeOrdersViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
 
@@ -75,82 +81,62 @@ class BuyerFreeOrdersViewRaw extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
-              <Typography variant="h3">{textConsts.mainTitle}</Typography>
-
-              <Table
-                buttons={this.state.renderButtons}
-                currentPage={this.state.paginationPage}
-                data={ordersVacant}
-                handlerPageChange={this.onChangePagination}
-                handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(ordersVacant.length / this.state.rowsPerPage)}
-                BodyRow={TableBodyRow}
-                renderHeadRow={this.renderHeadRow}
-                rowsPerPage={this.state.rowsPerPage}
-                rowsHandlers={{
-                  onOrder: this.onChangeModalOrder,
-                  onBarcode: this.onChangeModalBarcode,
-                  onSelector: this.onChangeSelectedOrder,
-                }}
-              />
+              <Typography variant="h6">{textConsts.mainTitle}</Typography>
+              <div className={classNames.tableWrapper}>
+                <Table
+                  buttons={this.renderButtons()}
+                  currentPage={curPage}
+                  data={ordersVacant}
+                  handlerPageChange={onChangePage}
+                  handlerRowsPerPage={onChangeRowsPerPage}
+                  pageCount={Math.ceil(ordersVacant.length / rowsPerPage)}
+                  BodyRow={TableBodyRow}
+                  renderHeadRow={this.renderHeadRow}
+                  rowsPerPage={rowsPerPage}
+                  rowsHandlers={{
+                    onOrder: onTriggerShowOrderModal,
+                    onBarcode: onTriggerShowBarcodeModal,
+                    onSelector: onChangeSelectedOrder,
+                  }}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={this.state.modalOrder} setOpenModal={this.onChangeModalOrder}>
+        <Modal openModal={showOrderModal} setOpenModal={onTriggerShowOrderModal}>
           {ordersVacant[selectedOrder] ? (
             <EditOrderModal
               order={ordersVacant[selectedOrder]}
-              setModal={this.onChangeModalOrder}
-              setModalBarcode={this.onChangeModalBarcode}
+              setModal={onTriggerShowOrderModal}
+              setModalBarcode={onTriggerShowBarcodeModal}
               modalHeadCells={ORDERS_MODAL_HEAD_CELLS}
               warehouseList={BUYER_WAREHOUSE_LIST}
-              deliveryList={BUYER_DELIVERY_LIST}
+              deliveryList={DELIVERY_OPTIONS}
               statusList={BUYER_STATUS_LIST}
             />
           ) : undefined}
         </Modal>
-        <Modal openModal={this.state.modalBarcode} setOpenModal={this.onChangeModalBarcode}>
-          <SetBarcodeModal setModalBarcode={this.onChangeModalBarcode} />
+        <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
+          <SetBarcodeModal setModalBarcode={onTriggerShowBarcodeModal} />
         </Modal>
       </React.Fragment>
     )
   }
 
-  renderButtons = (
-    <Container className={this.props.classes.buttonWrapper}>
-      <Button color="secondary">{textConsts.ordersBtn}</Button>
-    </Container>
-  )
+  renderButtons = () => {
+    const {classes: classNames} = this.props
+    return (
+      <Container className={classNames.buttonWrapper}>
+        <Button color="secondary">{textConsts.ordersBtn}</Button>
+      </Container>
+    )
+  }
 
   renderHeadRow = (<TableHeadRow headCells={FREE_ORDERS_TABLE_HEADERS} />)
-
-  onChangeSelectedOrder = value => {
-    this.setState({selectedOrder: value})
-  }
-
-  onChangeModalBarcode = () => {
-    this.setState({modalBarcode: !this.state.modalBarcode})
-  }
-
-  onChangeModalOrder = () => {
-    this.setState({modalOrder: !this.state.modalOrder})
-  }
-
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
-  }
-
-  onChangePagination = (e, value) => {
-    this.setState({paginationPge: value})
-  }
-
-  onChangeRowsPerPage = e => {
-    this.setState({rowsPerPage: Number(e.target.value), paginationPge: 1})
-  }
 }
 
 export const BuyerFreeOrdersView = withStyles(styles)(BuyerFreeOrdersViewRaw)

@@ -34,18 +34,22 @@ const navbarActiveSubCategory = 1
 @observer
 class BuyerSubUsersViewRaw extends Component {
   viewModel = new BuyerSubUsersViewModel({history: this.props.history})
-  state = {
-    drawerOpen: false,
-    selected: null,
-    modalAddSubUser: false,
-    modalEditSubUser: false,
-    modalPermission: false,
-    rowsPerPage: 5,
-    paginationPage: 1,
-  }
 
   render() {
-    const {drawerOpen} = this.state
+    const {
+      drawerOpen,
+      curPage,
+      rowsPerPage,
+      showAddSubUserModal,
+      showEditSubUserModal,
+      showPermissionsModal,
+      onTriggerShowPermissionsModal,
+      onTriggerAddSubUserModal,
+      onTriggerShowEditSubUserModal,
+      onChangePage,
+      onChangeRowsPerPage,
+      onTriggerDrawerOpen,
+    } = this.viewModel
 
     return (
       <React.Fragment>
@@ -54,7 +58,7 @@ class BuyerSubUsersViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
@@ -63,44 +67,44 @@ class BuyerSubUsersViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
               <Typography>{textConsts.mainTitle}</Typography>
 
               <Table
                 buttons={this.renderButtons}
-                currentPage={this.state.paginationPage}
+                currentPage={curPage}
                 data={BUYER_SUB_USERS_INITIAL_DATA}
-                handlerPageChange={this.onChangePagination}
-                handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(BUYER_SUB_USERS_INITIAL_DATA.length / this.state.rowsPerPage)}
+                handlerPageChange={onChangePage}
+                handlerRowsPerPage={onChangeRowsPerPage}
+                pageCount={Math.ceil(BUYER_SUB_USERS_INITIAL_DATA.length / rowsPerPage)}
                 BodyRow={TableBodyRow}
                 renderHeadRow={this.renderHeadRow}
-                rowsPerPage={this.state.rowsPerPage}
-                rowsHandlers={{onEdit: this.onChangeModalEditSubUser}}
+                rowsPerPage={rowsPerPage}
+                rowsHandlers={{onEdit: onTriggerShowEditSubUserModal}}
               />
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={this.state.modalPermission} setOpenModal={this.onChangeModalPermission}>
-          <PermissionContentModal setModalPermission={this.onChangeModalPermission} />
+        <Modal openModal={showPermissionsModal} setOpenModal={onTriggerShowPermissionsModal}>
+          <PermissionContentModal setModalPermission={onTriggerShowPermissionsModal} />
         </Modal>
-        <Modal openModal={this.state.modalAddSubUser} setOpenModal={this.onChangeModalAddSubUser}>
+        <Modal openModal={showAddSubUserModal} setOpenModal={onTriggerAddSubUserModal}>
           <ContentModal
             title={textConsts.modalAddTitle}
             buttonLabel={textConsts.modalAddBtn}
-            setModalSubUser={this.onChangeModalAddSubUser}
-            setModalPermission={this.onChangeModalPermission}
+            setModalSubUser={onTriggerAddSubUserModal}
+            setModalPermission={onTriggerShowPermissionsModal}
           />
         </Modal>
-        <Modal openModal={this.state.modalEditSubUser} setOpenModal={this.onChangeModalEditSubUser}>
+        <Modal openModal={showEditSubUserModal} setOpenModal={onTriggerShowEditSubUserModal}>
           <ContentModal
             title={textConsts.modalEditTitle}
             buttonLabel={textConsts.modalEditBtn}
-            setModalSubUser={this.onChangeModalEditSubUser}
-            setModalPermission={this.onChangeModalPermission}
+            setModalSubUser={onTriggerShowEditSubUserModal}
+            setModalPermission={onTriggerShowPermissionsModal}
           />
         </Modal>
       </React.Fragment>
@@ -109,36 +113,15 @@ class BuyerSubUsersViewRaw extends Component {
 
   renderHeadRow = (<TableHeadRow headCells={BUYER_SUB_USERS_TABLE_CELLS} />)
 
-  renderButtons = (
-    <Box className={this.props.classes.buttonBox}>
-      <Button color="secondary" onClick={() => this.onChangeModalAddSubUser()}>
-        {textConsts.addUserBtn}
-      </Button>
-    </Box>
-  )
-
-  onChangeModalEditSubUser = () => {
-    this.setState({modalEditSubUser: !this.state.modalEditSubUser})
-  }
-
-  onChangeModalPermission = () => {
-    this.setState({modalPermission: !this.state.modalPermission})
-  }
-
-  onChangeModalAddSubUser = () => {
-    this.setState({modalAddSubUser: !this.state.modalAddSubUser})
-  }
-
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
-  }
-
-  onChangePagination = (e, value) => {
-    this.setState({paginationPge: value})
-  }
-
-  onChangeRowsPerPage = e => {
-    this.setState({rowsPerPage: Number(e.target.value), paginationPge: 1})
+  renderButtons = () => {
+    const {classes: classNames} = this.viewModel
+    return (
+      <Box className={classNames.buttonBox}>
+        <Button color="secondary" onClick={() => this.onChangeModalAddSubUser()}>
+          {textConsts.addUserBtn}
+        </Button>
+      </Box>
+    )
   }
 }
 

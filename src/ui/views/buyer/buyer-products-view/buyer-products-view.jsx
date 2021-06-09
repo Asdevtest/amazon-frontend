@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
+import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {BUYER_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
@@ -18,6 +19,7 @@ import {TableHeadRow} from '@components/table-rows/buyer/products-view/table-hea
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/buyerAvatar.jpg'
+import {styles} from './buyer-my-products-view.style'
 import {BuyerProductsViewModel} from './buyer-products-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerProductsView
@@ -25,7 +27,7 @@ const textConsts = getLocalizedTexts(texts, 'en').buyerProductsView
 const navbarActiveCategory = 0
 
 @observer
-export class BuyerProductsView extends Component {
+export class BuyerProductsViewRaw extends Component {
   viewModel = new BuyerProductsViewModel({history: this.props.history})
 
   componentDidMount() {
@@ -35,6 +37,7 @@ export class BuyerProductsView extends Component {
   render() {
     const {drawerOpen, curPage, productsVacant, rowsPerPage, onChangeDrawerOpen, onChangeCurPage, onChangeRowsPerPage} =
       this.viewModel
+    const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
@@ -55,17 +58,19 @@ export class BuyerProductsView extends Component {
             setDrawerOpen={onChangeDrawerOpen}
           >
             <MainContent>
-              <Typography variant="h3">{textConsts.mainTitle}</Typography>
-              <Table
-                currentPage={curPage}
-                data={productsVacant}
-                handlerPageChange={onChangeCurPage}
-                handlerRowsPerPage={onChangeRowsPerPage}
-                pageCount={Math.ceil(productsVacant.length / rowsPerPage)}
-                BodyRow={TableBodyRow}
-                renderHeadRow={this.renderHeadRow}
-                rowsPerPage={rowsPerPage}
-              />
+              <Typography variant="h6">{textConsts.mainTitle}</Typography>
+              <div className={classNames.tableWrapper}>
+                <Table
+                  currentPage={curPage}
+                  data={productsVacant}
+                  handlerPageChange={onChangeCurPage}
+                  handlerRowsPerPage={onChangeRowsPerPage}
+                  pageCount={Math.ceil(productsVacant.length / rowsPerPage)}
+                  BodyRow={TableBodyRow}
+                  renderHeadRow={this.renderHeadRow}
+                  rowsPerPage={rowsPerPage}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>
@@ -75,3 +80,5 @@ export class BuyerProductsView extends Component {
 
   renderHeadRow = (<TableHeadRow headCells={BUYER_PRODUCTS_HEAD_CELLS} />)
 }
+
+export const BuyerProductsView = withStyles(styles)(BuyerProductsViewRaw)
