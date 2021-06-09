@@ -227,7 +227,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/suppliers/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,

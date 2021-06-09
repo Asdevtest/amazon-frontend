@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Box, Typography, Paper} from '@material-ui/core'
+import {Typography, Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -9,9 +9,7 @@ import {texts} from '@constants/texts'
 import {userRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button'
-import {Field} from '@components/field'
+import {ResearcherAddProductForm} from '@components/forms/reasearcher-add-product-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -44,14 +42,20 @@ class ResearcherProductsViewRaw extends Component {
       curPage,
       formFields,
       products,
+      error,
+      actionStatus,
       onClickCheckBtn,
       onClickAddBtn,
       onChangeTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
       onChangeFormFields,
+      onClickTableRow,
     } = this.viewModel
-
+    const {classes: classNames} = this.props
+    const rowsHandlers = {
+      onClickTableRow,
+    }
     return (
       <React.Fragment>
         <Navbar
@@ -70,38 +74,33 @@ class ResearcherProductsViewRaw extends Component {
             setDrawerOpen={onChangeTriggerDrawerOpen}
           >
             <MainContent>
-              <Paper className={this.props.classes.card}>
-                <Typography variant="h3">{textConsts.cardMainTitle}</Typography>
-                <Field
-                  label={textConsts.linkAmazon}
-                  value={formFields.amazonLink}
-                  onChange={onChangeFormFields('amazonLink')}
-                />
-                <Field
-                  label={textConsts.codeOfGood}
-                  calue={formFields.productCode}
-                  onChange={onChangeFormFields('productCode')}
-                />
-                <Box className={this.props.classes.boxBtn}>
-                  <Button className={this.props.classes.button} onClick={onClickCheckBtn}>
-                    {textConsts.buttonCheck}
-                  </Button>
-                  <SuccessButton onClick={onClickAddBtn}>{textConsts.buttonAdd}</SuccessButton>
-                </Box>
+              <Paper className={classNames.card}>
+                <Typography variant="h6">{textConsts.cardMainTitle}</Typography>
+                <div className={classNames.formWrapper}>
+                  <ResearcherAddProductForm
+                    formFields={formFields}
+                    errorMsg={error}
+                    actionStatus={actionStatus}
+                    onChangeFormFields={onChangeFormFields}
+                    onClickCheckBtn={onClickCheckBtn}
+                    onClickAddBtn={onClickAddBtn}
+                  />
+                </div>
               </Paper>
-
-              <Typography variant="h4">{textConsts.mainTitle}</Typography>
-
-              <Table
-                currentPage={curPage}
-                data={products}
-                handlerPageChange={onChangeCurPage}
-                handlerRowsPerPage={onChangeRowsPerPage}
-                pageCount={Math.ceil(products.length / rowsPerPage)}
-                BodyRow={TableBodyRow}
-                renderHeadRow={this.renderHeadRow}
-                rowsPerPage={rowsPerPage}
-              />
+              <Typography variant="h6">{textConsts.mainTitle}</Typography>
+              <div className={classNames.tableWrapper}>
+                <Table
+                  currentPage={curPage}
+                  data={products}
+                  handlerPageChange={onChangeCurPage}
+                  handlerRowsPerPage={onChangeRowsPerPage}
+                  pageCount={Math.ceil(products.length / rowsPerPage)}
+                  BodyRow={TableBodyRow}
+                  renderHeadRow={this.renderHeadRow}
+                  rowsPerPage={rowsPerPage}
+                  rowsHandlers={rowsHandlers}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

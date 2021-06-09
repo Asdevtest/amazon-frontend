@@ -254,7 +254,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/admins/make_payment', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -313,7 +313,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/admins/patch_products/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -368,7 +368,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/admins/pickup_product/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -469,7 +469,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/admins/users/{guid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -524,7 +524,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/admins/users/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,

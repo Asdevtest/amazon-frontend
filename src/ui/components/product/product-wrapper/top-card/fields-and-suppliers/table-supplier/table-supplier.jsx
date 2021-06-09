@@ -12,7 +12,7 @@ import {useClassNames} from './table-supplier.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
-export const TableSupplier = observer(({suppliers, selected, onClickSupplier}) => {
+export const TableSupplier = observer(({suppliers, selectedSupplier, onClickSupplier}) => {
   const classNames = useClassNames()
 
   return (
@@ -33,9 +33,13 @@ export const TableSupplier = observer(({suppliers, selected, onClickSupplier}) =
           </TableRow>
         </TableHead>
         <TableBody>
-          {suppliers.length !== 0 ? (
+          {suppliers && suppliers.length ? (
             suppliers.map((supplier, index) => (
-              <TableRow key={index} selected={index === selected} onClick={() => onClickSupplier(index)}>
+              <TableRow
+                key={`supplier_${supplier.id}_${index}`}
+                selected={selectedSupplier && supplier.id === selectedSupplier.id}
+                onClick={() => onClickSupplier(supplier, index)}
+              >
                 <TableCell className={(classNames.alignCenter, classNames.tableCellPadding)}>{supplier.name}</TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.link}</TableCell>
                 <TableCell className={classNames.alignRight}>{'$' + supplier.price.toFixed(2)}</TableCell>

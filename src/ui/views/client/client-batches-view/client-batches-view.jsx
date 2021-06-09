@@ -4,7 +4,8 @@ import {Box, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {BATCHES_HEAD_CELLS, BUYER_WAREHOUSE_LIST, BUYER_DELIVERY_LIST} from '@constants/mocks'
+import {DELIVERY_OPTIONS} from '@constants/delivery-options'
+import {BATCHES_HEAD_CELLS, BUYER_WAREHOUSE_LIST} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {userRole} from '@constants/user-roles'
 
@@ -52,7 +53,7 @@ class ClientBatchesViewRaw extends Component {
       onBatchesonClick,
       onChangeModalEditBoxes,
     } = this.viewModel
-
+    const {classes: className} = this.props
     return (
       <React.Fragment>
         <Navbar
@@ -73,25 +74,27 @@ class ClientBatchesViewRaw extends Component {
             setDrawerOpen={onChangeDrawerOpen}
           >
             <MainContent>
-              <Typography variant="h3">{textConsts.mainTitle}</Typography>
+              <Typography variant="h6">{textConsts.mainTitle}</Typography>
 
               {batches !== undefined && (
-                <Table
-                  buttons={this.renderButtons()}
-                  currentPage={paginationPage}
-                  data={batches}
-                  handlerPageChange={onChangePagination}
-                  handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(batches.length / rowsPerPage)}
-                  BodyRow={TableBodyRow}
-                  renderHeadRow={this.renderHeadRow()}
-                  rowsPerPage={rowsPerPage}
-                  rowsHandlers={{
-                    selected: selectedRow,
-                    onDoubleClick: onBatchesonDoubleClick,
-                    onSelected: onBatchesonClick,
-                  }}
-                />
+                <div className={className.tableWrapper}>
+                  <Table
+                    buttons={this.renderButtons()}
+                    currentPage={paginationPage}
+                    data={batches}
+                    handlerPageChange={onChangePagination}
+                    handlerRowsPerPage={onChangeRowsPerPage}
+                    pageCount={Math.ceil(batches.length / rowsPerPage)}
+                    BodyRow={TableBodyRow}
+                    renderHeadRow={this.renderHeadRow()}
+                    rowsPerPage={rowsPerPage}
+                    rowsHandlers={{
+                      selected: selectedRow,
+                      onDoubleClick: onBatchesonDoubleClick,
+                      onSelected: onBatchesonClick,
+                    }}
+                  />
+                </div>
               )}
             </MainContent>
           </Appbar>
@@ -102,8 +105,8 @@ class ClientBatchesViewRaw extends Component {
             batch={batches[selectedRow]}
             setModal={onChangeModalEditBoxes}
             warehouseList={BUYER_WAREHOUSE_LIST}
-            deliveryList={BUYER_DELIVERY_LIST}
-            type={'client'}
+            deliveryList={DELIVERY_OPTIONS}
+            curUserRole={userRole.CLIENT}
           />
         </Modal>
       </React.Fragment>

@@ -9,6 +9,9 @@ export class BuyerMyProductsViewModel {
   requestStatus = undefined
 
   productsMy = []
+  drawerOpen = false
+  rowsPerPage = 5
+  curPage = 1
 
   constructor({history}) {
     this.history = history
@@ -26,5 +29,18 @@ export class BuyerMyProductsViewModel {
       this.requestStatus = loadingStatuses.failed
       console.log(error)
     }
+  }
+
+  onTriggerDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
+  }
+
+  onChangePage(e, value) {
+    this.curPage = value
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = Number(e.target.value)
+    this.curPage = 1
   }
 }

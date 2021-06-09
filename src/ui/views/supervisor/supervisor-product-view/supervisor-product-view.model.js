@@ -1,18 +1,20 @@
-import {action, makeAutoObservable} from 'mobx'
+import {action, makeAutoObservable, runInAction} from 'mobx'
 
-import {SUPERVISOR_INITIAL_SUPPLIERS} from '@constants/mocks'
+import {loadingStatuses} from '@constants/loading-statuses'
+
+import {ResearcherModel} from '@models/researcher-model'
+import {SupplierModel} from '@models/supplier-model'
 
 export class SupervisorProductViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
+  actionStatus = undefined
 
   product = undefined
   drawerOpen = false
-  suppliers = SUPERVISOR_INITIAL_SUPPLIERS
-  selectedSupplier = 0
-  showAddSupplierModal = false
-  showEditSupplierModal = false
+  selectedSupplier = undefined
+  showAddOrEditSupplierModal = false
   activeChip = null
 
   constructor({history, location}) {
@@ -23,12 +25,12 @@ export class SupervisorProductViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  onChangeSelectedSupplier(e, value) {
-    this.selectedSupplier = value
-  }
-
-  onChangeSuppliers(e, value) {
-    this.suppliers = value
+  onChangeSelectedSupplier(supplier) {
+    if (this.selectedSupplier && this.selectedSupplier.id === supplier.id) {
+      this.selectedSupplier = undefined
+    } else {
+      this.selectedSupplier = supplier
+    }
   }
 
   onChangeProductFields = fieldName =>
@@ -44,13 +46,23 @@ export class SupervisorProductViewModel {
     this.drawerOpen = value
   }
 
-  onClickSupplierButtons(actionType) {
+  async onClickSupplierButtons(actionType) {
     if (actionType === 'add') {
-      this.onTriggerAddSupplierModal()
+      runInAction(() => {
+        this.selectedSupplier = undefined
+      })
+      this.onTriggerAddOrEditSupplierModal()
     } else if (actionType === 'edit') {
-      this.onTriggerEditSupplierModal()
+      this.onTriggerAddOrEditSupplierModal()
     } else {
-      this.suppliers = this.suppliers.filter((supplier, index) => this.state.selectedSupplier !== index)
+      try {
+        await SupplierModel.removeSupplier(this.selectedSupplier.id)
+        runInAction(() => {
+          this.selectedSupplier = undefined
+        })
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
@@ -60,5 +72,49 @@ export class SupervisorProductViewModel {
 
   onTriggerEditSupplierModal() {
     this.showEditSupplierModal = !this.showEditSupplierModal
+  }
+
+  async onClickParseAmazonBtn(product) {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+      const parseResult = await ResearcherModel.parseAmazon(product.id)
+      console.log(parseResult)
+      this.setActionStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log(error)
+      this.setActionStatus(loadingStatuses.failed)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  async onClickParseSellCenteralBtn(product) {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+      const parseResult = await ResearcherModel.parseParseSellerCentral(product.id)
+      console.log(parseResult)
+      this.setActionStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log(error)
+      this.setActionStatus(loadingStatuses.failed)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  onClickSaveSupplierBtn() {}
+
+  onTriggerAddOrEditSupplierModal() {
+    this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
+  setActionStatus(actionStatus) {
+    this.actionStatus = actionStatus
   }
 }

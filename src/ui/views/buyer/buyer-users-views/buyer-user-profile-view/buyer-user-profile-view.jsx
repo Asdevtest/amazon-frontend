@@ -35,26 +35,25 @@ const navbarActiveSubCategory = 0
 @observer
 export class BuyerUserProfileView extends Component {
   viewModel = new BuyerUserProfileViewModel({history: this.props.history})
-  state = {
-    drawerOpen: false,
-
-    rowsPerPage: 5,
-    paginationPage: 1,
-    productList: BUYER_USER_INITIAL_LIST,
-    user: BUYER_USER_INITIAL_USER,
-    tabExchange: 0,
-    tabHistory: 0,
-    tabReview: 0,
-    selected: null,
-    modal0: false,
-  }
 
   componentDidMount() {
     this.viewModel.getUserDataMy()
   }
 
   render() {
-    const {drawerOpen} = this.state
+    const {
+      drawerOpen,
+      tabExchange,
+      tabHistory,
+      tabReview,
+      showModela0,
+      onChangeTabReview,
+      onTriggerShowModal0,
+      onChangeTabHistory,
+      onTrgiggerDrawerOpen,
+      onChangeTabExchange,
+      onClickButtonPrivateLabel,
+    } = this.viewModel
 
     return (
       <React.Fragment>
@@ -63,7 +62,7 @@ export class BuyerUserProfileView extends Component {
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onTrgiggerDrawerOpen}
           user={textConsts.appUser}
         />
 
@@ -74,61 +73,37 @@ export class BuyerUserProfileView extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onTrgiggerDrawerOpen}
           >
             <MainContent>
               <Header user={this.viewModel.userDataMy} timer={textConsts.timer} headerInfo={BUYER_USER_HEADER_LIST} />
 
               <ActiveOrders
-                tabExchange={this.state.tabExchange}
-                setTabExchange={this.onChangeTabExchange}
+                tabExchange={tabExchange}
+                setTabExchange={onChangeTabExchange}
                 productList={BUYER_USER_INITIAL_LIST}
-                handlerClickButtonPrivateLabel={this.onClickButtonPrivateLabel}
+                handlerClickButtonPrivateLabel={onClickButtonPrivateLabel}
               />
 
               <PurchaseHistory
                 user={BUYER_USER_INITIAL_USER}
-                tabHistory={this.state.tabHistory}
-                setTabHistory={this.onChangeTabHistory}
+                tabHistory={tabHistory}
+                setTabHistory={onChangeTabHistory}
               />
 
-              <Reviews tabReview={this.state.tabReview} setTabReview={this.onChangeTabReview} />
+              <Reviews tabReview={tabReview} setTabReview={onChangeTabReview} />
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={this.state.modal0} setOpenModal={this.onChangeTabModal0}>
+        <Modal openModal={showModela0} setOpenModal={onTriggerShowModal0}>
           <ContentModal
             setOpenModal={this.onChangeTabModal0}
-            selected={this.state.selected}
+            selected={showModela0}
             managersList={BUYER_USER_MANAGERS_LIST}
           />
         </Modal>
       </React.Fragment>
     )
-  }
-
-  onChangeTabModal0 = (e, value) => {
-    this.setState({modal0: value})
-  }
-
-  onChangeTabReview = (e, value) => {
-    this.setState({tabReview: value})
-  }
-
-  onChangeTabHistory = (e, value) => {
-    this.setState({tabHistory: value})
-  }
-
-  onChangeTabExchange = (e, value) => {
-    this.setState({tabExchange: value})
-  }
-
-  onClickButtonPrivateLabel = index => {
-    this.setState({selected: BUYER_USER_INITIAL_LIST[index], modal0: true})
-  }
-
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
   }
 }

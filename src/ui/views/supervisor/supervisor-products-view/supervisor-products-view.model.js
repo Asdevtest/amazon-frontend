@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
@@ -23,11 +23,11 @@ export class SupervisorProductsViewModel {
 
   async loadData() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
-      this.getProducsReadyToCheck()
-      this.requestStatus = loadingStatuses.success
+      this.setRequestStatus(loadingStatuses.isLoading)
+      this.getProducsMy()
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -40,7 +40,9 @@ export class SupervisorProductsViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
     }
   }
 
@@ -56,7 +58,9 @@ export class SupervisorProductsViewModel {
     this.selectedProducts = newSelectedProducts
   }
 
-  onClickTableRow() {}
+  onClickTableRow(item) {
+    this.history.push('/supervisor/product', {product: toJS(item)})
+  }
 
   onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
@@ -69,5 +73,11 @@ export class SupervisorProductsViewModel {
   onChangeRowsPerPage = e => {
     this.rowsPerPage = Number(e.target.value)
     this.curPage = 1
+  }
+
+  onClickCalculateFees() {}
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

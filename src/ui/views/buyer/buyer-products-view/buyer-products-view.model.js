@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
@@ -20,14 +20,19 @@ export class BuyerProductsViewModel {
 
   async getProducsVacant() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
       const result = await BuyerModel.getProductsVacant()
-      this.productsVacant = result
-      this.requestStatus = loadingStatuses.success
+      runInAction(() => {
+        this.productsVacant = result
+      })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
     }
   }
 
@@ -42,5 +47,9 @@ export class BuyerProductsViewModel {
   onChangeRowsPerPage(e) {
     this.rowsPerPage = Number(e.target.value)
     this.curPage = 1
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

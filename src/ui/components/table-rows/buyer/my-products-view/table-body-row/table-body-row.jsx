@@ -15,7 +15,7 @@ import {styles} from './table-body-row.style'
 
 const TableBodyRowRaw = ({item, itemIndex, ...restProps}) => {
   const classNames = restProps.classes
-
+  console.log({...item})
   return (
     <TableRow key={item.asin} hover role="checkbox">
       <TableCell className={classNames.indexCell}>
@@ -33,7 +33,7 @@ const TableBodyRowRaw = ({item, itemIndex, ...restProps}) => {
             <Typography className={classNames.csCodeTypo}>{item.csCode}</Typography>
             <Typography className={classNames.typoCell}>
               {'ASIN '}
-              <span className={classNames.typoSpan}>{item.asin}</span>
+              <span className={classNames.typoSpan}>{item.id}</span>
               {' | updated today'}
             </Typography>
             <Chip className={classNames.chip} label={'Beauty & Personal Care'} />

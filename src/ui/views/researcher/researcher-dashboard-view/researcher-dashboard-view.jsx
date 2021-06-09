@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 import {Grid, Typography} from '@material-ui/core'
+import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {getResearcherDashboardCardConfig, ResearcherDashboardCardDataKey} from '@constants/dashboard-configs'
@@ -17,13 +18,14 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/researcherAvatar.jpg'
 import {ResearcherDashboardViewModel} from './researcher-dashboard-view.model'
+import {styles} from './researcher-dashboard-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').researcherDashboardView
 const dashboardCardConfig = getResearcherDashboardCardConfig(textConsts)
 const navbarActiveCategory = 0
 
 @observer
-export class ResearcherDashboardView extends Component {
+export class ResearcherDashboardViewRaw extends Component {
   viewModel = new ResearcherDashboardViewModel({history: this.props.history})
   componentDidMount() {
     this.viewModel.loadData()
@@ -31,6 +33,7 @@ export class ResearcherDashboardView extends Component {
 
   render() {
     const {drawerOpen, onChangeTriggerDrawerOpen} = this.viewModel
+    const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
@@ -50,8 +53,8 @@ export class ResearcherDashboardView extends Component {
             setDrawerOpen={onChangeTriggerDrawerOpen}
           >
             <MainContent>
-              <Typography variant="h4">{textConsts.mainTitle}</Typography>
-              <Grid container justify="center" spacing={3}>
+              <Typography variant="h6">{textConsts.mainTitle}</Typography>
+              <Grid container className={classNames.dashboardCardWrapper} justify="center" spacing={3}>
                 {this.renderDashboardCards()}
               </Grid>
             </MainContent>
@@ -84,3 +87,5 @@ export class ResearcherDashboardView extends Component {
     }
   }
 }
+
+export const ResearcherDashboardView = withStyles(styles)(ResearcherDashboardViewRaw)

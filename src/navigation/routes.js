@@ -22,6 +22,7 @@ import {ClientWarehouseView} from '@views/client/client-warehouse-view'
 import {DocumentationView} from '@views/documentation'
 import {RegistrationView} from '@views/registration'
 import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
+import {ResearcherProductView} from '@views/researcher/researcher-product-view/researcher-product-view'
 import {ResearcherProductsView} from '@views/researcher/researcher-products-view'
 import {ResearcherSettingsView} from '@views/researcher/researcher-settings-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
@@ -104,6 +105,11 @@ export const routes = [
   {
     routePath: '/researcher/dashboard',
     component: ResearcherDashboardView,
+    exact: false,
+  },
+  {
+    routePath: '/researcher/product',
+    component: ResearcherProductView,
     exact: false,
   },
   {

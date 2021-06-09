@@ -16,7 +16,7 @@ export const Reviews = ({tabReview, setTabReview}) => {
 
   return (
     <React.Fragment>
-      <Typography variant="h3" className={classNames.mainTitle}>
+      <Typography variant="h6" className={classNames.mainTitle}>
         {textConsts.mainTitle}
       </Typography>
       <Paper>

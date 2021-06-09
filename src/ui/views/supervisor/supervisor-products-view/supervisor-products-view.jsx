@@ -30,6 +30,10 @@ const navbarActiveCategory = 2
 class SupervisorProductsViewRaw extends Component {
   viewModel = new SupervisorProductsViewModel({history: this.props.history})
 
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
   render() {
     const {
       drawerOpen,
@@ -42,11 +46,13 @@ class SupervisorProductsViewRaw extends Component {
       onChangePage,
       onChangeRowsPerPage,
       onClickTableRow,
+      onClickCalculateFees,
     } = this.viewModel
     const {classes: classNames} = this.props
     const tableRowHandlers = {
       onSelectProduct,
       onClickTableRow,
+      onClickCalculateFees,
     }
     return (
       <React.Fragment>

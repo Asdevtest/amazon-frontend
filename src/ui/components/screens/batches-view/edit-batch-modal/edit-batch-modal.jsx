@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import {Box, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
+import {userRole} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
@@ -16,7 +17,7 @@ import {useClassNames} from './edit-batch-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').batchesModalEditBatch
 
-export const EditBatchModal = ({batch, setModal, warehouseList, deliveryList, type}) => {
+export const EditBatchModal = ({batch, setModal, warehouseList, deliveryList, curUserRole}) => {
   const classNames = useClassNames()
 
   const [warehouse, setWarehouse] = useState(batch[0][0].destination)
@@ -27,11 +28,11 @@ export const EditBatchModal = ({batch, setModal, warehouseList, deliveryList, ty
   )
   const [deliveryCheckbox, setDeliveryCheckbox] = useState(!!batch[0][0].deliveryMethod)
 
-  const renderSwitchForm = param => {
-    switch (param) {
-      case 'client':
+  const renderSwitchForm = () => {
+    switch (curUserRole) {
+      case userRole.CLIENT:
         return <ClientForm batch={batch} />
-      case 'buyer':
+      case userRole.BUYER:
         return (
           <BuyerForm
             warehouseCheckbox={warehouseCheckbox}
@@ -55,7 +56,7 @@ export const EditBatchModal = ({batch, setModal, warehouseList, deliveryList, ty
     <Box className={classNames.listsBox}>
       <Typography className={classNames.modalTitle}>{textConsts.mainTitle}</Typography>
 
-      {renderSwitchForm(type)}
+      {renderSwitchForm()}
 
       <BoxList selectedBoxes={batch} warehouse={warehouse} delivery={delivery} />
 

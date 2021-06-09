@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {PRODUCT_INITIAL_SUPPLIERS, PRODUCT_EMPTY_SUPPLIERS} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {userRole} from '@constants/user-roles'
 
@@ -11,7 +10,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
-import {ModalContent} from '@components/product/modal-content'
+import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {ProductWrapper} from '@components/product/product-wrapper'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -29,7 +28,6 @@ const CHIP_LIST = [
 ]
 
 const navbarActiveCategory = null
-const suppliers = PRODUCT_INITIAL_SUPPLIERS
 
 @observer
 export class ClientProductView extends Component {
@@ -43,16 +41,14 @@ export class ClientProductView extends Component {
     const {
       drawerOpen,
       selectedSupplier,
-      modalAddSupplier,
-      modalEditSupplier,
+      showAddOrEditSupplierModal,
       activeChip,
       product,
       onChangeFieldProduct,
       onChangeSelectedSupplier,
-      onChangeSuppliers,
+      onTriggerAddOrEditSupplierModal,
       onChangeActiveChip,
-      onChangeModalAddSupplier,
-      onChangeModalEditSupplier,
+      onClickSaveSupplierBtn,
       onChangeDrawerOpen,
       onSupplierButtons,
     } = this.viewModel
@@ -80,8 +76,7 @@ export class ClientProductView extends Component {
                 activeChip={activeChip}
                 setActiveChip={onChangeActiveChip}
                 product={product}
-                suppliers={suppliers}
-                selected={selectedSupplier}
+                selectedSupplier={selectedSupplier}
                 handleSupplierButtons={onSupplierButtons}
                 onClickSupplier={onChangeSelectedSupplier}
                 onChangeField={onChangeFieldProduct}
@@ -89,26 +84,12 @@ export class ClientProductView extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={modalAddSupplier} setOpenModal={onChangeModalAddSupplier}>
-          <ModalContent
-            modeAddOrEdit={'add'}
-            supplier={PRODUCT_EMPTY_SUPPLIERS}
-            title={textConsts.addVendor}
-            setOpenModal={onChangeModalAddSupplier}
-            suppliers={suppliers}
-            setSuppliers={onChangeSuppliers}
-            selected={selectedSupplier}
-          />
-        </Modal>
-        <Modal openModal={modalEditSupplier} setOpenModal={onChangeModalEditSupplier}>
-          <ModalContent
-            modeAddOrEdit={'edit'}
-            setOpenModal={onChangeModalEditSupplier}
-            supplier={suppliers[selectedSupplier]}
-            suppliers={suppliers}
-            setSuppliers={onChangeSuppliers}
-            selected={selectedSupplier}
-            title={textConsts.editVendor}
+        <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
+          <AddOrEditSupplierModalContent
+            title={textConsts.modalAddTitle}
+            supplier={selectedSupplier}
+            onClickSaveBtn={onClickSaveSupplierBtn}
+            onTriggerShowModal={onTriggerAddOrEditSupplierModal}
           />
         </Modal>
       </React.Fragment>

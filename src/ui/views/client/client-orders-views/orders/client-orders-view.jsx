@@ -50,6 +50,7 @@ class ClientOrdersViewRaw extends Component {
       onChangePagination,
       onChangeRowsPerPage,
     } = this.viewModel
+    const {classes: className} = this.props
 
     return (
       <React.Fragment>
@@ -70,22 +71,23 @@ class ClientOrdersViewRaw extends Component {
             setDrawerOpen={onChangeDrawerOpen}
           >
             <MainContent>
-              <Typography variant="h3">{textConsts.mainTitle}</Typography>
-
-              <Table
-                buttons={this.renderButtons}
-                currentPage={paginationPage}
-                data={ordersData}
-                handlerPageChange={onChangePagination}
-                handlerRowsPerPage={onChangeRowsPerPage}
-                pageCount={Math.ceil(ordersData.length / rowsPerPage)}
-                BodyRow={TableBodyRow}
-                renderHeadRow={this.renderHeadRow}
-                rowsPerPage={rowsPerPage}
-                rowsHandlers={{
-                  onBarcode: onChangeModalBarcode,
-                }}
-              />
+              <Typography variant="h6">{textConsts.mainTitle}</Typography>
+              <div className={className.tableWrapper}>
+                <Table
+                  buttons={this.renderButtons}
+                  currentPage={paginationPage}
+                  data={ordersData}
+                  handlerPageChange={onChangePagination}
+                  handlerRowsPerPage={onChangeRowsPerPage}
+                  pageCount={Math.ceil(ordersData.length / rowsPerPage)}
+                  BodyRow={TableBodyRow}
+                  renderHeadRow={this.renderHeadRow}
+                  rowsPerPage={rowsPerPage}
+                  rowsHandlers={{
+                    onBarcode: onChangeModalBarcode,
+                  }}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>
@@ -106,6 +108,4 @@ class ClientOrdersViewRaw extends Component {
   renderHeadRow = (<TableHeadRow headCells={CLIENT_ORDERS_HEAD_CELL} />)
 }
 
-const ClientOrdersView = withStyles(styles)(ClientOrdersViewRaw)
-
-export {ClientOrdersView}
+export const ClientOrdersView = withStyles(styles)(ClientOrdersViewRaw)

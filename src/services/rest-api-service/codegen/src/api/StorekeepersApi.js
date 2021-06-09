@@ -220,7 +220,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/storekeepers/boxes/pickup/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -326,7 +326,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -428,7 +428,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks/pickup/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,

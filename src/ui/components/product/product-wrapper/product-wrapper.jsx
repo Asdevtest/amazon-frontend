@@ -7,29 +7,35 @@ import {TopCard} from './top-card'
 
 export const ProductWrapper = observer(
   ({
+    curUserRole,
     product,
     handleSupplierButtons,
-    suppliers,
-    selected,
+    selectedSupplier,
     onClickSupplier,
     chipList,
     activeChip = null,
     setActiveChip = null,
     onChangeField,
+    actionStatus,
+    onClickParseAmazonBtn,
+    onClickParseSellCenteralBtn,
   }) => (
     <>
       <TopCard
+        curUserRole={curUserRole}
         chipList={chipList}
         activeChip={activeChip}
         setActiveChip={setActiveChip}
         product={product}
-        selected={selected}
-        suppliers={suppliers}
+        selectedSupplier={selectedSupplier}
+        actionStatus={actionStatus}
         onChangeField={onChangeField}
         onClick={handleSupplierButtons}
         onClickSupplier={onClickSupplier}
+        onClickParseAmazonBtn={onClickParseAmazonBtn}
+        onClickParseSellCenteralBtn={onClickParseSellCenteralBtn}
       />
-      <BottomCard product={product} onChangeField={onChangeField} />
+      <BottomCard curUserRole={curUserRole} product={product} onChangeField={onChangeField} />
     </>
   ),
 )

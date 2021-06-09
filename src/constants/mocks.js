@@ -675,35 +675,6 @@ export const PRODUCT_INITIAL_PRODUCT = {
   commentSupervisor: "Supervisor's comment",
   commentBuyer: "Buyer's comment",
 }
-export const PRODUCT_INITIAL_SUPPLIERS = [
-  {
-    name: 'Jakki Chan',
-    link: 'alibaba.com',
-    price: 10.49,
-    deliveryPrice: 4.99,
-    qty: 400,
-    minQty: 100,
-    comment: 'Делает скидку если слать поцелуи',
-  },
-  {
-    name: 'Jakki No Chan',
-    link: 'not-alibaba.com',
-    price: 7.88,
-    deliveryPrice: 2.88,
-    qty: 888,
-    minQty: 10,
-    comment: 'Не делает скидку если слать поцелуи',
-  },
-]
-export const PRODUCT_EMPTY_SUPPLIERS = {
-  name: '',
-  link: '',
-  price: 0,
-  deliveryPrice: 0,
-  qty: 0,
-  minQty: 0,
-  comment: '',
-}
 
 export const RESEARCHER_HEAD_CELLS = [
   {title: 'ASIN'},
@@ -719,6 +690,7 @@ export const RESEARCHER_HEAD_CELLS = [
 export const BATCHES_BOXES_EXAMPLES = [
   [
     {
+      id: '1',
       status: 'test1',
       created: '12/12/2018',
       updated: '12/12/2018',
@@ -742,6 +714,7 @@ export const BATCHES_BOXES_EXAMPLES = [
       chip: '27381111',
     },
     {
+      id: '2',
       status: 'test1',
       created: '12/12/2018',
       updated: '12/12/2018',
@@ -766,6 +739,7 @@ export const BATCHES_BOXES_EXAMPLES = [
   ],
   [
     {
+      id: '3',
       status: 'test4',
       created: '24/11/2020',
       updated: '25/11/2020',
@@ -791,6 +765,7 @@ export const BATCHES_BOXES_EXAMPLES = [
   ],
   [
     {
+      id: '4',
       status: 'test2',
       created: '16/02/2020',
       updated: '16/02/2020',
@@ -814,6 +789,7 @@ export const BATCHES_BOXES_EXAMPLES = [
       chip: '63514941',
     },
     {
+      id: '5',
       status: 'test2',
       created: '16/02/2020',
       updated: '16/02/2020',
@@ -904,11 +880,6 @@ export const BUYER_STATUS_LIST = [
   {value: 'ReturnOrder', text: 'ReturnOrder'},
 ]
 
-export const BUYER_DELIVERY_LIST = [
-  {value: 'Sea', text: 'Sea'},
-  {value: 'Air', text: 'Air'},
-]
-
 export const BUYER_MY_PRODUCTS_HEAD_CELLS = [
   {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},
   {id: 'price', align: 'right', disablePadding: false, label: 'Price'},
@@ -950,84 +921,6 @@ export const ORDERS_MODAL_HEAD_CELLS = [
   'Tracking Number China',
 ]
 
-export const MY_ORDERS_DATA = [
-  {
-    status: 'At process',
-    created: '24/11/2020',
-    updated: '25/11/2020',
-    deliveryMethod: 'Sea',
-    clientComment: "client's comment test2",
-    buyerComment: "buyer's comment test02",
-    avgDeliveryPrice: 20,
-
-    csCode: 'Вкладыш для холодильника',
-    img: 'https://images-na.ssl-images-amazon.com/images/I/61PgqkN76dL._AC_SX679_.jpg',
-    orderId: 'ID590101',
-    asin: 'B0878YDFMK',
-    qty: 100,
-    material: 'metal',
-    destination: 'ONT 8 AMAZON',
-    product: 'Product',
-    boxId: ['boxId'],
-    boxQty: 1,
-    price: 2000,
-    weight: 105,
-    grossWeight: 125,
-    trackId: '91023891273812738111',
-    barcode: '27381111',
-  },
-  {
-    status: 'At process',
-    created: '16/02/2020',
-    updated: '16/02/2020',
-    deliveryMethod: 'Air',
-    clientComment: "client's comment test2",
-    buyerComment: "buyer's comment test4",
-    avgDeliveryPrice: 20,
-
-    csCode: 'Xолодильника',
-    img: 'https://images-na.ssl-images-amazon.com/images/I/51ZEDgERzPL._AC_SX679_.jpg',
-    orderId: 'ID590102',
-    asin: 'C1878YDFMK',
-    qty: 100,
-    material: 'plastic',
-    destination: 'Не назначен',
-    product: 'Product',
-    boxId: ['509991', '509992', '509993', '509994'],
-    boxQty: 4,
-    price: 5000,
-    weight: 50,
-    grossWeight: null,
-    trackId: '91023891273812738111',
-    barcode: null,
-  },
-  {
-    status: 'Paid',
-    created: '12/12/2018',
-    updated: '12/12/2018',
-    deliveryMethod: 'Sea',
-    clientComment: "client's comment test1",
-    buyerComment: "buyer's comment test0+1",
-    avgDeliveryPrice: 20,
-
-    csCode: 'Упаковка батареек АА 48 шт.',
-    img: 'https://images-na.ssl-images-amazon.com/images/I/71IdKRlm8%2BL._AC_SX569_.jpg',
-    orderId: 'ID590322',
-    asin: 'B00MNV8E0C',
-    qty: 75,
-    material: 'Alkaline',
-    destination: 'Не назначен',
-    product: 'Product',
-    boxId: null,
-    boxQty: 4,
-    price: 2500,
-    weight: 25,
-    grossWeight: null,
-    trackId: '91023891273812738142',
-    barcode: null,
-  },
-]
-
 export const MY_ORDER_TABLE_HEADERS = [
   'Статус',
   'Товар',
@@ -1038,27 +931,6 @@ export const MY_ORDER_TABLE_HEADERS = [
   'Способ доставки',
   'Комментарий клиента',
   'Комментарий байера',
-]
-
-export const BUYER_INITIAL_SUPPLIERS = [
-  {
-    name: 'Jakki Chan',
-    link: 'alibaba.com',
-    price: 10.49,
-    deliveryPrice: 4.99,
-    qty: 400,
-    minQty: 100,
-    comment: 'Делает скидку если слать поцелуи',
-  },
-  {
-    name: 'Jakki No Chan',
-    link: 'not-alibaba.com',
-    price: 7.88,
-    deliveryPrice: 2.88,
-    qty: 888,
-    minQty: 10,
-    comment: 'Не делает скидку если слать поцелуи',
-  },
 ]
 export const BUYER_EMPTY_SUPPLIER = {
   name: '',
@@ -1639,37 +1511,6 @@ export const CLIENT_INVENTORY_MY_PRODUCTS_HEAD_CELLS = [
   {id: 'Штрих код', align: 'right', disablePadding: false, label: 'Barcode'},
   {id: 'Exchange', align: 'right', disablePadding: false, label: 'Exchange'},
 ]
-
-export const SUPERVISOR_INITIAL_SUPPLIERS = [
-  {
-    name: 'Jakki Chan',
-    link: 'alibaba.com',
-    price: 10.49,
-    deliveryPrice: 4.99,
-    qty: 400,
-    minQty: 100,
-    comment: 'Делает скидку если слать поцелуи',
-  },
-  {
-    name: 'Jakki No Chan',
-    link: 'not-alibaba.com',
-    price: 7.88,
-    deliveryPrice: 2.88,
-    qty: 888,
-    minQty: 10,
-    comment: 'Не делает скидку если слать поцелуи',
-  },
-]
-
-export const SUPERVISOR_EMPTY_SUPPLIER = {
-  name: '',
-  link: '',
-  price: 0,
-  deliveryPrice: 0,
-  qty: 0,
-  minQty: 0,
-  comment: '',
-}
 
 export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
   {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},

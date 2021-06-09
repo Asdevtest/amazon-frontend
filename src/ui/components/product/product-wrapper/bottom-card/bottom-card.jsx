@@ -91,7 +91,7 @@ export const BottomCard = observer(({product, onChangeField}) => {
           </Paper>
           <Paper className={classNames.cardPadding}>
             <Typography className={classNames.title}>{textConsts.descriptionOFGoods}</Typography>
-            <Field disabled label={textConsts.csCode} value={product.csCode} onChange={onChangeField('csCode')} />
+            <Field disabled label={textConsts.csCode} value={product.amazonTitle} />
             <Field
               disabled
               multiline
@@ -99,8 +99,7 @@ export const BottomCard = observer(({product, onChangeField}) => {
               rows={4}
               rowsMax={6}
               label={textConsts.summary}
-              value={product.summary}
-              onChange={onChangeField('summary')}
+              value={product.amazonDescription}
             />
             <Field
               disabled
@@ -109,8 +108,7 @@ export const BottomCard = observer(({product, onChangeField}) => {
               rows={4}
               rowsMax={6}
               label={textConsts.description}
-              value={product.description}
-              onChange={onChangeField('description')}
+              value={product.amazonDetail}
             />
           </Paper>
         </Grid>

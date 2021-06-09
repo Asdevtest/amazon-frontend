@@ -71,7 +71,7 @@ export default class ProductForTestOnlyApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/products/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -180,7 +180,7 @@ export default class ProductForTestOnlyApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/products/{id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,

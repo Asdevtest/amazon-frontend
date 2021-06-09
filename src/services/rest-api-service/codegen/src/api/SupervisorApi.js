@@ -168,7 +168,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -270,7 +270,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/pickup/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
