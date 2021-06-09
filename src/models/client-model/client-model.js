@@ -22,7 +22,9 @@ class ClientModelStatic {
   }
 
   makePayments = async productIds => {
-    const response = await restApiService.clientApi.apiV1ClientsMakePaymentsPost({InlineObject7: productIds})
+    const response = await restApiService.clientApi.apiV1ClientsMakePaymentsPost({
+      InlineObject7: productIds,
+    })
     return response
   }
 
@@ -62,12 +64,14 @@ class ClientModelStatic {
   }
 
   updateUser = async (id, data) => {
-    const response = await restApiService.clientApi.apiV1ClientsUsersGuidPatch(id, {InlineObject10: data})
+    const response = await restApiService.clientApi.apiV1ClientsUsersGuidPatch(id, {
+      InlineObject10: data,
+    })
     return response
   }
 
   getBoxes = async () => {
-    const response = await restApiService.clientApi.apiV1ClientsBoxesGuidGet()
+    const response = await restApiService.clientApi.apiV1ClientsBoxesGet()
     return response
   }
 
