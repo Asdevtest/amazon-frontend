@@ -12,7 +12,7 @@ export class BuyerProductViewModel {
   product = undefined
   drawerOpen = false
   selectedSupplier = undefined
-  showModalAddOrEditSupplier = false
+  showAddOrEditSupplierModal = false
   activeChip = undefined
 
   constructor({history}) {
@@ -46,6 +46,8 @@ export class BuyerProductViewModel {
     }
   }
 
+  onClickSaveSupplierBtn() {}
+
   onChangeProduct(e, value) {
     this.product = value
   }
@@ -55,7 +57,7 @@ export class BuyerProductViewModel {
   }
 
   onTriggerAddOrEditSupplierModal() {
-    this.showModalAddOrEditSupplier = !this.showModalAddOrEditSupplier
+    this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
   }
 
   onTriggerDrawerOpen() {
