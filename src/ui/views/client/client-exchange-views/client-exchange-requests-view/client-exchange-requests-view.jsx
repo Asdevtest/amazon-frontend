@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import React, {Component} from 'react'
 
 import {Button, TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
@@ -52,16 +52,6 @@ const navbarActiveSubCategory = 2
 @observer
 export class ClientExchangeRequestsViewRaw extends Component {
   viewModel = new ClientExchangeRequestsViewModel({history: this.props.history})
-  state = {
-    drawerOpen: false,
-    paginationPage: 1,
-    rowsPerPage: 5,
-    modalNewRequest: false,
-    modalEditRequest: false,
-    modalCloseRequest: false,
-    selectedIndex: null,
-    selectedRequests: [],
-  }
 
   render() {
     const {
@@ -72,27 +62,33 @@ export class ClientExchangeRequestsViewRaw extends Component {
       modalEditRequest,
       modalCloseRequest,
       selectedRequests,
-    } = this.state
+      onTriggerDrawer,
+      onChangePagination,
+      onChangeRowsPerPage,
+      onClickCloseModal,
+      onClickOpenModal,
+    } = this.viewModel
+
     const {classes: classNames} = this.props
     const rowsHandlers = {
-      edit: () => this.onClickOpenModal('modalEditRequest'),
-      close: () => this.onClickOpenModal('modalCloseRequest'),
+      edit: () => onClickOpenModal('modalEditRequest'),
+      close: () => onClickOpenModal('modalCloseRequest'),
       onSelectRequest: this.onSelectRequest,
     }
 
     return (
-      <>
+      <React.Fragment>
         <Navbar
           curUserRole={userRole.CLIENT}
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={this.onTriggerDrawer}
+          handlerTriggerDrawer={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc=""
-            handlerTriggerDrawer={this.onTriggerDrawer}
+            handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
           >
@@ -103,7 +99,7 @@ export class ClientExchangeRequestsViewRaw extends Component {
                 </Typography>
               </div>
               <div className={classNames.placeRequestBtnWrapper}>
-                <SuccessButton onClick={() => this.onClickOpenModal('modalNewRequest')}>
+                <SuccessButton onClick={() => onClickOpenModal('modalNewRequest')}>
                   {textConsts.placeOrderBtn}
                 </SuccessButton>
               </div>
@@ -112,8 +108,8 @@ export class ClientExchangeRequestsViewRaw extends Component {
                   buttons={this.renderButtons}
                   currentPage={paginationPage}
                   data={requestsList}
-                  handlerPageChange={this.onChangePagination}
-                  handlerRowsPerPage={this.onChangeRowsPerPage}
+                  handlerPageChange={onChangePagination}
+                  handlerRowsPerPage={onChangeRowsPerPage}
                   pageCount={Math.ceil(requestsList.length / rowsPerPage)}
                   BodyRow={ExchangeRequestsBodyRow}
                   renderHeadRow={this.renderHeadRow}
@@ -125,15 +121,15 @@ export class ClientExchangeRequestsViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={modalNewRequest} setOpenModal={() => this.onClickCloseModal('modalNewRequest')}>
+        <Modal openModal={modalNewRequest} setOpenModal={() => onClickCloseModal('modalNewRequest')}>
           <Typography variant="h5">{textConsts.modalNewRequestTitle}</Typography>
           <RequestForm formFields={formFields} btnLabel={textConsts.modalBtnSendRequest} />
         </Modal>
-        <Modal openModal={modalEditRequest} setOpenModal={() => this.onClickCloseModal('modalEditRequest')}>
+        <Modal openModal={modalEditRequest} setOpenModal={() => onClickCloseModal('modalEditRequest')}>
           <Typography variant="h5">{textConsts.modalEditRequestTitle}</Typography>
           <RequestForm formFields={formFields} btnLabel={textConsts.modalBtnSaveRequest} />
         </Modal>
-        <Modal openModal={modalCloseRequest} setOpenModal={() => this.onClickCloseModal('modalCloseRequest')}>
+        <Modal openModal={modalCloseRequest} setOpenModal={() => onClickCloseModal('modalCloseRequest')}>
           <Typography variant="h5">{textConsts.modalCloseRequestTitle}</Typography>
           <Field
             multiline
@@ -147,12 +143,12 @@ export class ClientExchangeRequestsViewRaw extends Component {
             disableElevation
             color="primary"
             variant="contained"
-            onClick={() => this.onClickCloseModal('modalCloseRequest')}
+            onClick={() => onClickCloseModal('modalCloseRequest')}
           >
             {textConsts.modalBtnCloseRequest}
           </Button>
         </Modal>
-      </>
+      </React.Fragment>
     )
   }
 
@@ -168,57 +164,12 @@ export class ClientExchangeRequestsViewRaw extends Component {
   )
 
   renderButtons = (
-    <>
+    <React.Fragment>
       <Button disableElevation variant="contained">
         {textConsts.myRequests}
       </Button>
-    </>
+    </React.Fragment>
   )
-
-  onSelectRequest = (item, index) => {
-    const {selectedRequests} = this.state
-    const newSelectedRequests = [...selectedRequests]
-    const findRequestIndex = selectedRequests.indexOf(index)
-    if (findRequestIndex !== -1) {
-      newSelectedRequests.splice(findRequestIndex, 1)
-    } else {
-      newSelectedRequests.push(index)
-    }
-    this.setState({selectedRequests: newSelectedRequests})
-  }
-
-  onChangeCategory = index => {
-    this.setState({activeCategory: index})
-  }
-
-  onChangeSubCategory = index => {
-    this.setState({activeSubCategory: index})
-  }
-
-  onClickPlaceRequestBtn = () => {
-    const {drawerOpen} = this.state
-    this.setState({drawerOpen: !drawerOpen})
-  }
-
-  onTriggerDrawer = () => {
-    const {drawerOpen} = this.state
-    this.setState({drawerOpen: !drawerOpen})
-  }
-
-  onChangePagination = (e, value) => {
-    this.setState({paginationPage: value})
-  }
-
-  onChangeRowsPerPage = e => {
-    this.setState({rowsPerPage: Number(e.target.value), paginationPage: 1})
-  }
-
-  onClickCloseModal = modalState => {
-    this.setState({[modalState]: false})
-  }
-  onClickOpenModal = modalState => {
-    this.setState({[modalState]: true})
-  }
 }
 
 export const ClientExchangeRequestsView = withStyles(styles)(ClientExchangeRequestsViewRaw)

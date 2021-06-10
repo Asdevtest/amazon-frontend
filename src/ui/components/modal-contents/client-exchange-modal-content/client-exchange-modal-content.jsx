@@ -32,7 +32,7 @@ const ClientExchnageModalContentRaw = ({
       </MuiTable>
     </TableContainer>
     <div className={classNames.btnsWrapper}>
-      <Button color="primary" variant="contained" onClick={onClickOrderNowBtn}>
+      <Button color="primary" variant="contained" onClick={() => onClickOrderNowBtn(/* место для id*/)}>
         {textConsts.orderNowBtn}
       </Button>
       <Button disableElevation className={classNames.cancelBtn} variant="contained" onClick={onClickCancelBtn}>

@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
@@ -32,27 +32,24 @@ const navbarActiveSubCategory = 1
 @observer
 export class ClientExchangePrivateLabelViewRaw extends Component {
   viewModel = new ClientExchangePrivateLabelViewModel({history: this.props.history})
-  state = {
-    drawerOpen: false,
-  }
 
   render() {
-    const {drawerOpen} = this.state
+    const {drawerOpen, onTriggerDrawer} = this.viewModel
     const {classes: classNames} = this.props
 
     return (
-      <>
+      <React.Fragment>
         <Navbar
           curUserRole={userRole.CLIENT}
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={this.onTriggerDrawer}
+          handlerTriggerDrawer={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc=""
-            handlerTriggerDrawer={this.onTriggerDrawer}
+            handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
           >
@@ -72,21 +69,8 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-      </>
+      </React.Fragment>
     )
-  }
-
-  onChangeCategory = index => {
-    this.setState({activeCategory: index})
-  }
-
-  onChangeSubCategory = index => {
-    this.setState({activeSubCategory: index})
-  }
-
-  onTriggerDrawer = () => {
-    const {drawerOpen} = this.state
-    this.setState({drawerOpen: !drawerOpen})
   }
 }
 
