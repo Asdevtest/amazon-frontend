@@ -53,11 +53,6 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
       <TableCell>
         <SuccessButton onClick={() => handlers.privateLabel(itemIndex)}>{textConsts.launchBtn}</SuccessButton>
       </TableCell>
-      <TableCell>
-        <Button disableElevation color="primary" variant="contained">
-          {textConsts.priceBtn}
-        </Button>
-      </TableCell>
     </TableRow>
   )
 }

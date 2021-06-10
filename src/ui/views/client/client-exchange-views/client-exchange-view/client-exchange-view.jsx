@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import React, {Component} from 'react'
 
 import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
@@ -18,17 +18,13 @@ import {Table} from '@components/table'
 import {ExchangeBodyRow} from '@components/table-rows/client/exchange'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {getRequiredListByKeys} from '@utils/get-required-list-by-keys'
 
 import {ClientExchangeViewModel} from './client-exchange-view.model'
 import {styles} from './client-exchange-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientExchangeView
 
-const {headCells, modalHeadCells, mainTableKeys, modalTableKeys, productList} = clientExchangeViewTable
-
-const mainTableProductList = getRequiredListByKeys(productList, mainTableKeys)
-const modalTableProductList = getRequiredListByKeys(productList, modalTableKeys)
+const {headCells, modalHeadCells} = clientExchangeViewTable
 
 const navbarActiveCategory = 1
 const navbarActiveSubCategory = 0
@@ -36,40 +32,51 @@ const navbarActiveSubCategory = 0
 @observer
 export class ClientExchangeViewRaw extends Component {
   viewModel = new ClientExchangeViewModel({history: this.props.history})
-  state = {
-    drawerOpen: false,
-    paginationPage: 1,
-    rowsPerPage: 5,
-    modalPrivateLabel: false,
-    selectedIndex: null,
-    modalQty: 0,
-    modalManagerIndex: 0,
-  }
 
   render() {
-    const {drawerOpen, paginationPage, rowsPerPage, modalPrivateLabel, selectedIndex, modalQty, modalManagerIndex} =
-      this.state
+    const {
+      productList,
+      modalProductList,
+      drawerOpen,
+      paginationPage,
+      rowsPerPage,
+      modalPrivateLabel,
+      selectedIndex,
+      modalQty,
+      modalManagerIndex,
+      onTriggerDrawer,
+      onChangePagination,
+      onChangeRowsPerPage,
+      onCloseModal,
+      onClickPrivateLabel,
+      onClickOrderNowBtn,
+      onClickCancelBtn,
+      onClickUsername,
+      onChangeModalQty,
+      onChangeManager,
+    } = this.viewModel
+
     const {classes} = this.props
     const rowsHandlers = {
-      privateLabel: this.onClickPrivateLabel,
-      username: this.onClickUsername,
-      qty: this.onChangeModalQty,
-      manager: this.onChangeManager,
+      privateLabel: onClickPrivateLabel,
+      username: onClickUsername,
+      qty: onChangeModalQty,
+      manager: onChangeManager,
     }
 
     return (
-      <>
+      <React.Fragment>
         <Navbar
           curUserRole={userRole.CLIENT}
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={this.onTriggerDrawer}
+          handlerTriggerDrawer={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc=""
-            handlerTriggerDrawer={this.onTriggerDrawer}
+            handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
           >
@@ -81,10 +88,10 @@ export class ClientExchangeViewRaw extends Component {
               </div>
               <Table
                 currentPage={paginationPage}
-                data={mainTableProductList}
-                handlerPageChange={this.onChangePagination}
-                handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(mainTableProductList.length / rowsPerPage)}
+                data={productList}
+                handlerPageChange={onChangePagination}
+                handlerRowsPerPage={onChangeRowsPerPage}
+                pageCount={Math.ceil(productList.length / rowsPerPage)}
                 BodyRow={ExchangeBodyRow}
                 renderHeadRow={this.renderTableHeadRow()}
                 rowsPerPage={rowsPerPage}
@@ -93,18 +100,18 @@ export class ClientExchangeViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={modalPrivateLabel} setOpenModal={this.onCloseModal}>
+        <Modal openModal={modalPrivateLabel} setOpenModal={onCloseModal}>
           <ClientExchnageModalContent
             modalHeadRow={this.renderModalHeadRow()}
             qty={modalQty}
             managerIndex={modalManagerIndex}
-            item={modalTableProductList[selectedIndex]}
+            item={modalProductList[selectedIndex]}
             handlers={rowsHandlers}
-            onClickOrderNowBtn={this.onClickOrderNowBtn}
-            onClickCancelBtn={this.onClickCancelBtn}
+            onClickOrderNowBtn={onClickOrderNowBtn}
+            onClickCancelBtn={onClickCancelBtn}
           />
         </Modal>
-      </>
+      </React.Fragment>
     )
   }
 
@@ -135,63 +142,6 @@ export class ClientExchangeViewRaw extends Component {
       ))}
     </TableRow>
   )
-
-  onChangeCategory = index => {
-    this.setState({activeCategory: index})
-  }
-
-  onChangeSubCategory = index => {
-    this.setState({activeSubCategory: index})
-  }
-
-  onTriggerDrawer = () => {
-    const {drawerOpen} = this.state
-    this.setState({drawerOpen: !drawerOpen})
-  }
-
-  onChangePagination = (e, value) => {
-    this.setState({paginationPage: value})
-  }
-
-  onChangeRowsPerPage = e => {
-    this.setState({rowsPerPage: Number(e.target.value), paginationPage: 1})
-  }
-
-  onCloseModal = () => {
-    this.setState({modalPrivateLabel: false})
-  }
-
-  onClickPrivateLabel = index => {
-    this.setState({
-      selectedIndex: index,
-      modalQty: modalTableProductList[index].qty,
-      modalPrivateLabel: true,
-    })
-  }
-
-  onClickOrderNowBtn = () => {
-    this.setState({
-      modalPrivateLabel: false,
-    })
-  }
-
-  onClickCancelBtn = () => {
-    this.setState({
-      modalPrivateLabel: false,
-    })
-  }
-
-  onClickUsername = () => {
-    this.props.history.push('/user/subusers')
-  }
-
-  onChangeModalQty = e => {
-    this.setState({modalQty: Number(e.target.value)})
-  }
-
-  onChangeManager = e => {
-    this.setState({modalManagerIndex: Number(e.target.value)})
-  }
 }
 
 const ClientExchangeView = withStyles(styles)(ClientExchangeViewRaw)
