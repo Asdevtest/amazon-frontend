@@ -87,6 +87,25 @@ export const texts = {
       modalRedistributionSuccessTitle: 'Success!',
       modalRedistributionSuccessMessage: 'Box redistribution was successful',
     },
+    buyerWarehouseView: {
+      appbarTitle: 'Warehouse',
+      mainTitle: 'Boxes in warehouse',
+      sendProductBtn: 'Send own product',
+      sendBatchBtn: 'Send batch',
+      mergeBtn: 'Merge',
+      redistributeBtn: 'Redistribute',
+      editBtn: 'Edit',
+      closeBtn: 'Close',
+
+      modalSendOwnProductTitle: 'Send own product',
+      modalEditBoxTitle: 'Box editing',
+      modalRedistributionTitle: 'Box redistributing',
+      modalRedistributionAddNewBoxTitle: 'Attention!',
+      modalRedistributionAddNewBoxMessage:
+        'Увеличение количества коробок будет требовать дополнительной оплаты в зависимости от тарифов склада на котором находиться товар',
+      modalRedistributionSuccessTitle: 'Success!',
+      modalRedistributionSuccessMessage: 'Box redistribution was successful',
+    },
     clientBoxRedistribution: {
       redistributionTitle: 'Redistribution',
       newBoxesTitle: 'New boxes',

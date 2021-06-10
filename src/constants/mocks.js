@@ -25,6 +25,8 @@ export const exchangeSection = {
 }
 
 export const clientUsername = 'Client'
+export const buyerUsername = 'Buyer'
+
 export const clientBalance = '$4 012'
 
 export const clientExchangeViewTable = {
@@ -428,6 +430,25 @@ export const clientExchangeRequestsViewTable = {
 }
 
 export const clientWarehouseViewTable = {
+  headCells: [
+    {id: 'img', label: '#'},
+    {id: 'img', label: ''},
+    {id: 'img', label: 'Product'},
+    {id: 'img', label: 'Order'},
+    {id: 'img', label: 'Barcode'},
+    {id: 'img', label: 'ASIN'},
+    {id: 'img', label: 'Qty'},
+    {id: 'img', label: 'Material'},
+    {id: 'img', label: 'Warehouse'},
+    {id: 'img', label: 'Boxes'},
+    {id: 'img', label: 'Price'},
+    {id: 'img', label: 'Weight'},
+    {id: 'img', label: 'Gross Weight'},
+    {id: 'img', label: 'Track ID'},
+  ],
+}
+
+export const buyerWarehouseViewTable = {
   headCells: [
     {id: 'img', label: '#'},
     {id: 'img', label: ''},

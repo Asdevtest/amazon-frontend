@@ -43,11 +43,14 @@ export class BuyerProductView extends Component {
       drawerOpen,
       activeChip,
       selectedSupplier,
+      showAddOrEditSupplierModal,
       onTriggerDrawerOpen,
       onChangeActiveChip,
       onClickSupplierBtns,
       onChangeSelectedSupplier,
       onChangeFieldProduct,
+      onTriggerAddOrEditSupplierModal,
+      onClickSaveSupplierBtn,
     } = this.viewModel
 
     return (
@@ -84,12 +87,12 @@ export class BuyerProductView extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={this.state.showAddOrEditSupplierModal} setOpenModal={this.onTriggerAddOrEditSupplierModal}>
+        <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
           <AddOrEditSupplierModalContent
             title={textConsts.modalAddTitle}
-            supplier={this.state.selectedSupplier}
-            onClickSaveBtn={this.onClickSaveSupplierBtn}
-            onTriggerShowModal={this.onTriggerAddOrEditSupplierModal}
+            supplier={selectedSupplier}
+            onClickSaveBtn={onClickSaveSupplierBtn}
+            onTriggerShowModal={onTriggerAddOrEditSupplierModal}
           />
         </Modal>
       </React.Fragment>

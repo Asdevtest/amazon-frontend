@@ -4,7 +4,7 @@ import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typogr
 
 import {texts} from '@constants/texts'
 
-import {HistoryTableRow} from '@components/table-rows/warehouse-history/history-table-row'
+import {HistoryTableRow} from '@components/table-rows/warehouse/warehouse-history/history-table-row'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 

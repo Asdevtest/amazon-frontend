@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {Button, TableCell, TableRow, Typography, Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
-import {clientUsername, clientWarehouseViewTable, HISTORY_DATA} from '@constants/mocks'
+import {buyerUsername, buyerWarehouseViewTable, HISTORY_DATA} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {userRole} from '@constants/user-roles'
 
@@ -21,19 +21,19 @@ import {RedistributeBox} from '@components/table-rows/warehouse/reditstribute-bo
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/clientAvatar.jpg'
-import {ClientWarehouseViewModel} from './client-warehouse-view.model'
-import {styles} from './client-warehouse-view.style'
+import avatar from '../assets/buyerAvatar.jpg'
+import {BuyerWarehouseViewModel} from './buyer-warehouse-view.model'
+import {styles} from './buyer-warehouse-view.style'
 
-const {headCells} = clientWarehouseViewTable
+const {headCells} = buyerWarehouseViewTable
 
-const textConsts = getLocalizedTexts(texts, 'en').clientWarehouseView
+const textConsts = getLocalizedTexts(texts, 'en').buyerWarehouseView
 
-const activeCategory = 4
+const activeCategory = 3
 const activeSubCategory = null
 
-export class ClientWarehouseViewRaw extends Component {
-  viewModel = new ClientWarehouseViewModel({history: this.props.history})
+export class BuyerWarehouseViewRaw extends Component {
+  viewModel = new BuyerWarehouseViewModel({history: this.props.history})
 
   componentDidMount() {
     this.viewModel.getBoxes()
@@ -74,7 +74,7 @@ export class ClientWarehouseViewRaw extends Component {
         <Navbar
           activeCategory={activeCategory}
           activeSubCategory={activeSubCategory}
-          curUserRole={userRole.CLIENT}
+          curUserRole={userRole.BUYER}
           drawerOpen={drawerOpen}
           handlerTriggerDrawer={onTriggerDrawer}
         />
@@ -83,7 +83,7 @@ export class ClientWarehouseViewRaw extends Component {
             avatarSrc={avatar}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
-            username={clientUsername}
+            username={buyerUsername}
           >
             <MainContent>
               <Typography paragraph variant="h5">
@@ -229,4 +229,4 @@ export class ClientWarehouseViewRaw extends Component {
   )
 }
 
-export const ClientWarehouseView = withStyles(styles)(ClientWarehouseViewRaw)
+export const BuyerWarehouseView = withStyles(styles)(BuyerWarehouseViewRaw)

@@ -7,6 +7,7 @@ import {BuyerProductView} from '@views/buyer/buyer-product-view/'
 import {BuyerProductsView} from '@views/buyer/buyer-products-view/'
 import {BuyerSubUsersView} from '@views/buyer/buyer-users-views/buyer-sub-users-view'
 import {BuyerUserProfileView} from '@views/buyer/buyer-users-views/buyer-user-profile-view'
+import {BuyerWarehouseView} from '@views/buyer/buyer-warehouse-view'
 import {ClientBatchesView} from '@views/client/client-batches-view'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
@@ -201,6 +202,11 @@ export const routes = [
   {
     routePath: '/supervisor/ready-to-check',
     component: SupervisorReadyToCheckView,
+    exact: false,
+  },
+  {
+    routePath: '/buyer/warehouse',
+    component: BuyerWarehouseView,
     exact: false,
   },
 ]
