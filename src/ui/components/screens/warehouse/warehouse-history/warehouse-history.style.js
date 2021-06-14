@@ -19,6 +19,7 @@ export const useClassNames = makeStyles({
   },
   mainTitle: {
     marginTop: '30px',
+    marginBottom: '24px',
     backgroundColor: 'rgba(245, 246, 248, 1)',
   },
 })

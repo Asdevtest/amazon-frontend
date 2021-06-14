@@ -31,6 +31,8 @@ import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/s
 import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view'
 import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-view'
 import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view/supervisor-settings-view'
+import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
+import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-vacant-tasks-view'
 
 export const routes = [
   {
@@ -207,6 +209,17 @@ export const routes = [
   {
     routePath: '/buyer/warehouse',
     component: BuyerWarehouseView,
+    exact: false,
+  },
+
+  {
+    routePath: '/warehouse/dashboard',
+    component: WarehouseDashboardView,
+    exact: false,
+  },
+  {
+    routePath: '/warehouse/vacant-tasks',
+    component: WarehouseVacantTasksView,
     exact: false,
   },
 ]

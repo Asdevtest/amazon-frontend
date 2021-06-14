@@ -111,4 +111,24 @@ export const navbarConfig = {
       ],
     },
   ],
+  [userRole.WAREHOUSE]: [
+    {
+      icon: InfoOutlinedIcon,
+      title: 'Главная страница',
+      subtitles: null,
+      route: '/warehouse/dashboard',
+    },
+    {
+      icon: AssignmentIcon,
+      title: 'Вакантные задачи',
+      subtitles: null,
+      route: '/warehouse/vacant-tasks',
+    },
+    {
+      icon: AssignmentIcon,
+      title: 'Выполненые задачи',
+      subtitles: null,
+      route: '/warehouse/completed-tasks',
+    },
+  ],
 }
