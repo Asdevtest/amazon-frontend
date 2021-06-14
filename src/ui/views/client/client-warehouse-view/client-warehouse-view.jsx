@@ -14,10 +14,10 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
-import {WarehouseHistory} from '@components/screens/warehouse-history/'
+import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
+import {WarehouseHistory} from '@components/screens/warehouse/warehouse-history'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
-import {RedistributeBox} from '@components/table-rows/warehouse/reditstribute-box-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -112,7 +112,7 @@ export class ClientWarehouseViewRaw extends Component {
                 rowsDatas={rowsDatas}
               />
               <Paper>
-                <WarehouseHistory historyData={HISTORY_DATA} />
+                <WarehouseHistory historyData={HISTORY_DATA} title={textConsts.warehouseHistoryTitle} />
               </Paper>
             </MainContent>
           </Appbar>

@@ -12,13 +12,13 @@ import {useClassNames} from './warehouse-history.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseHistory
 
-export const WarehouseHistory = ({historyData}) => {
+export const WarehouseHistory = ({historyData, title}) => {
   const classNames = useClassNames()
 
   return (
     <React.Fragment>
       <Typography paragraph variant="h5" className={classNames.mainTitle}>
-        {textConsts.mainTitle}
+        {title}
       </Typography>
       <TableContainer>
         <Table className={classNames.table}>

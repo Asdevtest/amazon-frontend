@@ -127,3 +127,32 @@ export const getClientDashboardCardConfig = textConsts => [
     ],
   },
 ]
+
+export const WarehouseDashboardCardDataKey = {
+  VACANT_TASKS: 'VACANT_TASKS',
+  COMPLETED_TASKS: 'COMPLETED_TASKS',
+  MY_STATS: 'MY_STATS',
+  MY_PAYMENTS: 'MY_PAYMENTS',
+}
+export const getWarehouseDashboardCardConfig = textConsts => [
+  {
+    dataKey: WarehouseDashboardCardDataKey.VACANT_TASKS,
+    title: textConsts.vacantTasksCardTitle,
+    color: '#63c2de',
+  },
+  {
+    dataKey: WarehouseDashboardCardDataKey.COMPLETED_TASKS,
+    title: textConsts.comletedTasksCardTitle,
+    color: '#4dbd74',
+  },
+  {
+    dataKey: WarehouseDashboardCardDataKey.MY_STATS,
+    title: textConsts.myStatsCardTitle,
+    color: '#f86c6b',
+  },
+  {
+    dataKey: WarehouseDashboardCardDataKey.MY_PAYMENTS,
+    title: textConsts.myPaymentsCardTitle,
+    color: '#20a8d8',
+  },
+]
