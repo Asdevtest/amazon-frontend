@@ -16,7 +16,7 @@ import {useClassNames} from './before-after-block.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseBeforeAfterBlock
 
-export const BeforeAfterBlock = ({incomingBoxes, desiredBoxes, onSetBarcode, onEditBox}) => {
+export const BeforeAfterBlock = ({incomingBoxes, desiredBoxes, onSetBarcode, onEditBox, isEdit = true}) => {
   const classNames = useClassNames()
 
   const Box = ({box, isNewBox = false, isCurrentBox = false}) => (
@@ -33,13 +33,14 @@ export const BeforeAfterBlock = ({incomingBoxes, desiredBoxes, onSetBarcode, onE
       {isCurrentBox && (
         <Paper>
           <Typography>{textConsts.material}</Typography>
-          <Input className={classNames.inputText} value={box.product.material} />
+          <Input className={classNames.inputText} value={box.product.material} disabled={!isEdit} />
         </Paper>
       )}
 
       <Paper className={classNames.chipWrapper}>
         <Typography className={classNames.subTitle}>{textConsts.shippingLabel}</Typography>
         <Chip
+          disabled={!isEdit}
           className={clsx(
             {
               root: classNames.orderChip,
@@ -96,9 +97,11 @@ export const BeforeAfterBlock = ({incomingBoxes, desiredBoxes, onSetBarcode, onE
                 ))}
             </Carousel>
           </Paper>
-          <Button className={classNames.editBtn} onClick={onEditBox}>
-            {textConsts.editBtn}
-          </Button>
+          {isEdit && (
+            <Button className={classNames.editBtn} onClick={onEditBox}>
+              {textConsts.editBtn}
+            </Button>
+          )}
         </Paper>
       )}
     </Paper>
