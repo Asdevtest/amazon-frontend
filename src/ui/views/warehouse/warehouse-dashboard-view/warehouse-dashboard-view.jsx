@@ -27,6 +27,10 @@ const navbarActiveCategory = 0
 export class WarehouseDashboardViewRaw extends Component {
   viewModel = new WarehouseDashboardViewModel({history: this.props.history})
 
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
   render() {
     const {drawerOpen, onChangeTriggerDrawerOpen} = this.viewModel
     const {classes: classNames} = this.props
@@ -73,9 +77,19 @@ export class WarehouseDashboardViewRaw extends Component {
     ))
 
   getCardValueByDataKey = dataKey => {
+    const {tasksVacant, tasksMy, boxesVacant, boxesMy, batches} = this.viewModel
     switch (dataKey) {
       case WarehouseDashboardCardDataKey.VACANT_TASKS:
-        return 0
+        return tasksVacant.length
+      case WarehouseDashboardCardDataKey.TASKS_MY:
+        return tasksMy.length
+      case WarehouseDashboardCardDataKey.BOXES_VACANT:
+        return boxesVacant.length
+      case WarehouseDashboardCardDataKey.BOXES_MY:
+        return boxesMy.length
+      case WarehouseDashboardCardDataKey.BATCHES:
+        return batches.length
+
       case WarehouseDashboardCardDataKey.COMPLETED_TASKS:
         return 0
       case WarehouseDashboardCardDataKey.MY_STATS:

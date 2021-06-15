@@ -16,8 +16,20 @@ import {useClassNames} from './before-after-block.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseBeforeAfterBlock
 
-export const BeforeAfterBlock = ({incomingBoxes, desiredBoxes, onSetBarcode, onEditBox, isEdit = true}) => {
+export const BeforeAfterBlock = ({
+  incomingBoxes,
+  desiredBoxes,
+  onSetBarcode,
+  onEditBox,
+  onPickupBox,
+  isEdit = true,
+}) => {
   const classNames = useClassNames()
+
+  const onClickEditBox = box => {
+    onEditBox(box)
+    onPickupBox(box.boxId)
+  }
 
   const Box = ({box, isNewBox = false, isCurrentBox = false}) => (
     <Paper className={(classNames.box, classNames.mainPaper)}>
@@ -98,7 +110,7 @@ export const BeforeAfterBlock = ({incomingBoxes, desiredBoxes, onSetBarcode, onE
             </Carousel>
           </Paper>
           {isEdit && (
-            <Button className={classNames.editBtn} onClick={onEditBox}>
+            <Button className={classNames.editBtn} onClick={() => onClickEditBox(box)}>
               {textConsts.editBtn}
             </Button>
           )}

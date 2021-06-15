@@ -4,7 +4,7 @@ import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {VACANT_TASKS_DATA, WAREHOUSE_TASKS_HEAD_CELLS} from '@constants/mocks'
+import {WAREHOUSE_TASKS_HEAD_CELLS} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -32,8 +32,14 @@ const navbarActiveCategory = 1
 export class WarehouseVacantTasksViewRaw extends Component {
   viewModel = new WarehouseVacantViewModel({history: this.props.history})
 
+  componentDidMount() {
+    this.viewModel.getTasksVacant()
+  }
+
   render() {
     const {
+      currentBox,
+      tasksVacant,
       drawerOpen,
       curPage,
       showEditTaskModal,
@@ -48,6 +54,8 @@ export class WarehouseVacantTasksViewRaw extends Component {
       onSelectTaskIndex,
       onTriggerShowBarcodeModal,
       onTriggerShowEditBoxModal,
+      updateBox,
+      pickupBox,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -74,10 +82,10 @@ export class WarehouseVacantTasksViewRaw extends Component {
               <div className={classNames.tableWrapper}>
                 <Table
                   currentPage={curPage}
-                  data={VACANT_TASKS_DATA}
+                  data={tasksVacant}
                   handlerPageChange={onChangeCurPage}
                   handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(VACANT_TASKS_DATA.length / rowsPerPage)}
+                  pageCount={Math.ceil(tasksVacant.length / rowsPerPage)}
                   BodyRow={TableBodyRow}
                   renderHeadRow={this.renderHeadRow}
                   rowsPerPage={rowsPerPage}
@@ -94,17 +102,18 @@ export class WarehouseVacantTasksViewRaw extends Component {
         <Modal openModal={showEditTaskModal} setOpenModal={onTriggerEditTaskModal}>
           <Typography variant="h5">{textConsts.taskModalTitle}</Typography>
           <EditTaskModal
-            task={VACANT_TASKS_DATA[selectedTaskIndex]}
+            task={tasksVacant[selectedTaskIndex]}
             onClickOpenCloseModal={onTriggerEditTaskModal}
             onSetBarcode={onTriggerShowBarcodeModal}
             onEditBox={onTriggerShowEditBoxModal}
+            onPickupBox={pickupBox}
           />
         </Modal>
         <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
           <SetBarcodeModal setModalBarcode={onTriggerShowBarcodeModal} />
         </Modal>
         <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
-          <EditBoxModal setEditModal={onTriggerShowEditBoxModal} />
+          <EditBoxModal setEditModal={onTriggerShowEditBoxModal} updateBoxSubmit={updateBox} box={currentBox} />
         </Modal>
       </React.Fragment>
     )

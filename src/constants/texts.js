@@ -976,6 +976,11 @@ export const texts = {
       appUser: 'warehouse',
       mainTitle: 'Dashboard',
       vacantTasksCardTitle: 'Кол-во вакантных задач',
+      tasksMyCardTitle: 'Мои задачи',
+      vacantBoxesCardTitle: 'Свободные коробки',
+      boxesMyCardTitle: 'Мои коробки',
+      batchesCardTitle: 'Партии',
+
       comletedTasksCardTitle: 'Кол-во выполненных задач',
       myStatsCardTitle: 'Моя статистика',
       myPaymentsCardTitle: 'Мои платежи',
@@ -1006,6 +1011,12 @@ export const texts = {
       addPhotos: 'Добавьте фотографии:',
       saveBtn: 'Сохранить',
       closeBtn: 'Закрыть',
+
+      lengthConfigText: 'Длина:',
+      widthConfigText: 'Ширина:',
+      heightConfigText: 'Высота:',
+      volumeWeightConfigText: 'Вес:',
+      weightFinalConfigText: 'Финальный вес:',
     },
     warehouseBeforeAfterBlock: {
       boxNum: 'Коробка номер:',

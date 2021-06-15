@@ -33,7 +33,7 @@ export const BrowseTaskModal = ({task, onClickOpenCloseModal}) => {
         return (
           <Typography>
             {textConsts.mergeBoxes}
-            <Typography className={classNames.descriptionSpan}>{parseBoxesIdInStr(task.desiredBoxes)}</Typography>
+            <Typography className={classNames.descriptionSpan}>{parseBoxesIdInStr(task.incomingBoxes)}</Typography>
             {textConsts.mergeBox}
             <Typography className={classNames.descriptionSpan}>{parseBoxesIdInStr(task.desiredBoxes)}</Typography>
           </Typography>
