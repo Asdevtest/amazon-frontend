@@ -1,11 +1,11 @@
-export const userRole = {
+export const UserRole = {
   BUYER: 'BUYER',
   CLIENT: 'CLIENT',
   RESEARCHER: 'RESEARCHER',
   SUPERVISOR: 'SUPERVISOR',
 }
 
-export const userRoleCodeMap = {
+export const UserRoleCodeMap = {
   0: 'ROOT',
   10: 'CLIENT',
   20: 'SUPERVISOR',

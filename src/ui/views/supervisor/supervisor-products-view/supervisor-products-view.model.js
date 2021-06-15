@@ -24,7 +24,7 @@ export class SupervisorProductsViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.getProducsMy()
+      this.getProductsMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -32,9 +32,9 @@ export class SupervisorProductsViewModel {
     }
   }
 
-  async getProducsMy() {
+  async getProductsMy() {
     try {
-      const result = await SupervisorModel.getProducsMy()
+      const result = await SupervisorModel.getProductsMy()
       runInAction(() => {
         this.productsMy = result
       })

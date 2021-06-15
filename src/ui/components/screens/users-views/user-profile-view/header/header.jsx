@@ -15,7 +15,7 @@ import {Tested} from './tested'
 
 const textConsts = getLocalizedTexts(texts, 'ru').buerUserHeader
 
-export const Header = observer(({user, timer, headerInfo}) => {
+export const Header = observer(({user, timer, headerInfoData}) => {
   const classNames = useClassNames()
   return (
     <Paper className={classNames.paper}>
@@ -46,7 +46,7 @@ export const Header = observer(({user, timer, headerInfo}) => {
         <Tested />
       </Box>
 
-      <Info headerInfo={headerInfo} />
+      <Info headerInfoData={headerInfoData} />
     </Paper>
   )
 })

@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
@@ -21,28 +21,35 @@ export class ResearcherDashboardViewModel {
 
   async loadData() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
-      this.getProducs()
-      this.getPaymentsMy()
-      this.requestStatus = loadingStatuses.success
+      this.setRequestStatus(loadingStatuses.isLoading)
+      await this.getProducts()
+      await this.getPaymentsMy()
+      await this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
 
-  async getProducs() {
+  async getProducts() {
     const result = await ResearcherModel.getProducts()
-    this.products = result
+    runInAction(() => {
+      this.products = result
+    })
   }
 
   async getPaymentsMy() {
     const result = await ResearcherModel.getPaymentsMy()
-    console.log(result)
-    this.paymentsMy = result
+    runInAction(() => {
+      this.paymentsMy = result
+    })
   }
 
-  onChangeTriggerDrawerOpen() {
+  onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

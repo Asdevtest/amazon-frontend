@@ -9,7 +9,7 @@ import {
   BUYER_USER_INITIAL_USER,
 } from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -58,7 +58,7 @@ export class BuyerUserProfileView extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.BUYER}
+          curUserRole={UserRole.BUYER}
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}

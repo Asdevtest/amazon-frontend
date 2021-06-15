@@ -4,9 +4,9 @@ import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {SUPERVISOR_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
+import {SUPERVISOR_PRODUCTS_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -41,7 +41,7 @@ class SupervisorProductsViewRaw extends Component {
       productsMy,
       curPage,
       rowsPerPage,
-      onChangeDrawerOpen,
+      onTriggerDrawerOpen,
       onSelectProduct,
       onChangePage,
       onChangeRowsPerPage,
@@ -57,10 +57,10 @@ class SupervisorProductsViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.SUPERVISOR}
+          curUserRole={UserRole.SUPERVISOR}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
@@ -70,7 +70,7 @@ class SupervisorProductsViewRaw extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
-            setDrawerOpen={onChangeDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>

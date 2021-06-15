@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {BUYER_SUB_USERS_INITIAL_DATA, BUYER_SUB_USERS_TABLE_CELLS} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -54,7 +54,7 @@ class BuyerSubUsersViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.BUYER}
+          curUserRole={UserRole.BUYER}
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
@@ -73,7 +73,7 @@ class BuyerSubUsersViewRaw extends Component {
               <Typography>{textConsts.mainTitle}</Typography>
 
               <Table
-                buttons={this.renderButtons}
+                renderButtons={this.renderButtons}
                 currentPage={curPage}
                 data={BUYER_SUB_USERS_INITIAL_DATA}
                 handlerPageChange={onChangePage}

@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
@@ -18,17 +18,26 @@ export class BuyerMyProductsViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  async getProducsMy() {
+  async getProductsMy() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
       const result = await BuyerModel.getProductsMy()
-      this.productsMy = result
-      this.requestStatus = loadingStatuses.success
+      runInAction(() => {
+        this.productsMy = result
+      })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
     }
+  }
+
+  onClickTableRow(item) {
+    this.history.push('/buyer/product', {product: toJS(item)})
   }
 
   onTriggerDrawerOpen() {
@@ -42,5 +51,9 @@ export class BuyerMyProductsViewModel {
   onChangeRowsPerPage(e) {
     this.rowsPerPage = Number(e.target.value)
     this.curPage = 1
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

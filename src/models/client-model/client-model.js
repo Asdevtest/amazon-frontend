@@ -29,7 +29,7 @@ class ClientModelStatic {
   }
 
   getProductsPaid = async () => {
-    const response = await restApiService.clientApi.apiV1ClientsMakePaymentsPost()
+    const response = await restApiService.clientApi.apiV1ClientsProductsPaidGet()
     return response
   }
 

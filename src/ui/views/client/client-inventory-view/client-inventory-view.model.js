@@ -1,5 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {loadingStatuses} from '@constants/loading-statuses'
+
 import {ClientModel} from '@models/client-model'
 
 import {copyToClipBoard} from '@utils/clipboard'
@@ -9,11 +11,10 @@ export class ClientInventoryViewModel {
   requestStatus = undefined
   error = undefined
 
-  productsData = []
-
+  productsPaid = []
   drawerOpen = false
   rowsPerPage = 5
-  paginationPage = 1
+  curPage = 1
   showSetBarcodeModal = false
   curProduct = undefined
 
@@ -22,7 +23,32 @@ export class ClientInventoryViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  onClickBarcode(item) {
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      this.getProductsPaid()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getProductsPaid() {
+    try {
+      const result = await ClientModel.getProductsPaid()
+      runInAction(() => {
+        this.productsPaid = result
+      })
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  onClickBarcode = item => {
     if (item.barcode) {
       copyToClipBoard(item.barcode)
     } else {
@@ -31,24 +57,24 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onClickExchange = () => {}
+  onClickExchange() {}
 
-  onDoubleClickBarcode(item) {
+  onDoubleClickBarcode = item => {
     this.setCurProduct(item)
     this.onTriggerShowBarcodeModal()
   }
 
-  onDeleteBarcode = () => {}
+  onDeleteBarcode() {}
 
-  onSaveBarcode = () => {}
+  onSaveBarcode() {}
 
-  onChangePagination(e, value) {
-    this.paginationPge = value
+  onChangeCurPage(e, value) {
+    this.curPage = value
   }
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = Number(e.target.value)
-    this.paginationPge = 1
+    this.curPage = 1
   }
 
   onTriggerDrawer() {
@@ -63,15 +89,7 @@ export class ClientInventoryViewModel {
     this.curProduct = item
   }
 
-  async getProductsMy() {
-    try {
-      const result = await ClientModel.getProductsMy()
-      runInAction(() => {
-        this.productsData = result
-      })
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

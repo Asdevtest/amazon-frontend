@@ -9,31 +9,29 @@ export const ProductWrapper = observer(
   ({
     curUserRole,
     product,
+    suppliers,
     handleSupplierButtons,
     selectedSupplier,
     onClickSupplier,
-    chipList,
-    activeChip = null,
-    setActiveChip = null,
+    onClickSetProductStatusBtn,
     onChangeField,
     actionStatus,
-    onClickParseAmazonBtn,
-    onClickParseSellCenteralBtn,
+    handleProductActionButtons,
+    onClickParseProductData,
   }) => (
     <>
       <TopCard
         curUserRole={curUserRole}
-        chipList={chipList}
-        activeChip={activeChip}
-        setActiveChip={setActiveChip}
         product={product}
+        suppliers={suppliers}
         selectedSupplier={selectedSupplier}
         actionStatus={actionStatus}
+        handleProductActionButtons={handleProductActionButtons}
         onChangeField={onChangeField}
-        onClick={handleSupplierButtons}
+        onClickSetProductStatusBtn={onClickSetProductStatusBtn}
+        onClickSupplierBtns={handleSupplierButtons}
         onClickSupplier={onClickSupplier}
-        onClickParseAmazonBtn={onClickParseAmazonBtn}
-        onClickParseSellCenteralBtn={onClickParseSellCenteralBtn}
+        onClickParseProductData={onClickParseProductData}
       />
       <BottomCard curUserRole={curUserRole} product={product} onChangeField={onChangeField} />
     </>

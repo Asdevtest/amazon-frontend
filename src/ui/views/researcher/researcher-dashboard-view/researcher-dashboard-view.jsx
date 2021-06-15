@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {getResearcherDashboardCardConfig, ResearcherDashboardCardDataKey} from '@constants/dashboard-configs'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
@@ -27,21 +27,22 @@ const navbarActiveCategory = 0
 @observer
 export class ResearcherDashboardViewRaw extends Component {
   viewModel = new ResearcherDashboardViewModel({history: this.props.history})
+
   componentDidMount() {
     this.viewModel.loadData()
   }
 
   render() {
-    const {drawerOpen, onChangeTriggerDrawerOpen} = this.viewModel
+    const {drawerOpen, onTriggerDrawerOpen} = this.viewModel
     const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.RESEARCHER}
+          curUserRole={UserRole.RESEARCHER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={onChangeTriggerDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
@@ -50,7 +51,7 @@ export class ResearcherDashboardViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
-            setDrawerOpen={onChangeTriggerDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>

@@ -5,7 +5,7 @@ import {withStyles} from '@material-ui/styles'
 
 import {buyerUsername, buyerWarehouseViewTable, HISTORY_DATA} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {EditBoxForm} from '@components/forms/edit-box-form'
@@ -74,7 +74,7 @@ export class BuyerWarehouseViewRaw extends Component {
         <Navbar
           activeCategory={activeCategory}
           activeSubCategory={activeSubCategory}
-          curUserRole={userRole.BUYER}
+          curUserRole={UserRole.BUYER}
           drawerOpen={drawerOpen}
           handlerTriggerDrawer={onTriggerDrawer}
         />

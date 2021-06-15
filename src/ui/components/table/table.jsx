@@ -17,7 +17,7 @@ export const Table = observer(
     currentPage,
     pageCount,
     handlerPageChange,
-    buttons,
+    renderButtons,
     rowsHandlers,
     ...restProps
   }) => {
@@ -37,7 +37,7 @@ export const Table = observer(
         </TableContainer>
 
         <Toolbar className={classNames.footer}>
-          <div className={classNames.buttonsWrapper}>{buttons}</div>
+          <div className={classNames.buttonsWrapper}>{renderButtons && renderButtons()}</div>
           <Pagination
             className={classNames.pagination}
             count={pageCount}

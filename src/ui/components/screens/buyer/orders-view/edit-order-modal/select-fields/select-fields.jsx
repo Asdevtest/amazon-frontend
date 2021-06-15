@@ -22,7 +22,7 @@ export const SelectFields = ({
   order,
   comment,
   setComment,
-  warehouseList,
+  warehouses,
   deliveryList,
   statusList,
 }) => {
@@ -47,11 +47,14 @@ export const SelectFields = ({
             onChange={e => setWarehouse(e.target.value)}
           >
             <option value={'None'}>{textConsts.valueNone}</option>
-            {warehouseList.map((warehouseItem, warehouseIndex) => (
-              <option key={warehouseIndex} value={warehouseItem.value}>
-                {warehouseItem.text}
-              </option>
-            ))}
+            {Object.keys(warehouses).map((warehouseCode, warehouseIndex) => {
+              const warehouseKey = warehouses[warehouseCode]
+              return (
+                <option key={warehouseIndex} value={warehouseKey}>
+                  {warehouseKey}
+                </option>
+              )
+            })}
           </NativeSelect>
         </Box>
         <Box mt={3}>

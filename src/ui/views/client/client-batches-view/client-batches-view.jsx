@@ -5,9 +5,10 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {DELIVERY_OPTIONS} from '@constants/delivery-options'
-import {BATCHES_HEAD_CELLS, BUYER_WAREHOUSE_LIST} from '@constants/mocks'
+import {BATCHES_HEAD_CELLS} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
+import {warehouses} from '@constants/warehouses'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -57,7 +58,7 @@ class ClientBatchesViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.CLIENT}
+          curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeDrawerOpen}
@@ -79,7 +80,7 @@ class ClientBatchesViewRaw extends Component {
               {batches !== undefined && (
                 <div className={className.tableWrapper}>
                   <Table
-                    buttons={this.renderButtons()}
+                    renderButtons={this.renderButtons}
                     currentPage={paginationPage}
                     data={batches}
                     handlerPageChange={onChangePagination}
@@ -104,9 +105,9 @@ class ClientBatchesViewRaw extends Component {
           <EditBatchModal
             batch={batches[selectedRow]}
             setModal={onChangeModalEditBoxes}
-            warehouseList={BUYER_WAREHOUSE_LIST}
+            warehouses={warehouses}
             deliveryList={DELIVERY_OPTIONS}
-            curUserRole={userRole.CLIENT}
+            curUserRole={UserRole.CLIENT}
           />
         </Modal>
       </React.Fragment>

@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {BUYER_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -31,21 +31,33 @@ export class BuyerProductsViewRaw extends Component {
   viewModel = new BuyerProductsViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getProducsVacant()
+    this.viewModel.getProductsVacant()
   }
 
   render() {
-    const {drawerOpen, curPage, productsVacant, rowsPerPage, onChangeDrawerOpen, onChangeCurPage, onChangeRowsPerPage} =
-      this.viewModel
+    const {
+      drawerOpen,
+      curPage,
+      productsVacant,
+      rowsPerPage,
+      onClickTableRow,
+      onDoubleClickTableRow,
+      onTriggerDrawerOpen,
+      onChangeCurPage,
+      onChangeRowsPerPage,
+    } = this.viewModel
     const {classes: classNames} = this.props
-
+    const tableRowHandlers = {
+      onClickTableRow,
+      onDoubleClickTableRow,
+    }
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.BUYER}
+          curUserRole={UserRole.BUYER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
@@ -55,7 +67,7 @@ export class BuyerProductsViewRaw extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
-            setDrawerOpen={onChangeDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
@@ -69,6 +81,7 @@ export class BuyerProductsViewRaw extends Component {
                   BodyRow={TableBodyRow}
                   renderHeadRow={this.renderHeadRow}
                   rowsPerPage={rowsPerPage}
+                  rowsHandlers={tableRowHandlers}
                 />
               </div>
             </MainContent>

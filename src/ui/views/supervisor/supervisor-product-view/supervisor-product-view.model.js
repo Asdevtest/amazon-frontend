@@ -1,9 +1,15 @@
 import {action, makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {ProductStatusByKey} from '@constants/product-status'
 
-import {ResearcherModel} from '@models/researcher-model'
+import {SupervisorModel} from '@models/supervisor-model'
 import {SupplierModel} from '@models/supplier-model'
+
+import {isUndefined} from '@utils/checks'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+
+const fieldsOfProductAllowedToUpdate = ['status', 'checkednotes']
 
 export class SupervisorProductViewModel {
   history = undefined
@@ -11,26 +17,20 @@ export class SupervisorProductViewModel {
   error = undefined
   actionStatus = undefined
 
+  productBase = undefined
   product = undefined
+  suppliers = []
   drawerOpen = false
   selectedSupplier = undefined
-  showAddOrEditSupplierModal = false
-  activeChip = null
 
   constructor({history, location}) {
     this.history = history
     if (location.state) {
       this.product = location.state.product
+      this.productBase = location.state.product
+      this.loadSupliersForProduct()
     }
     makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier.id === supplier.id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
-    }
   }
 
   onChangeProductFields = fieldName =>
@@ -38,12 +38,78 @@ export class SupervisorProductViewModel {
       this.product[fieldName] = e.target.value
     })
 
-  onChangeActiveChip(e, value) {
-    this.activeChip = value
+  async onClickSetProductStatusBtn(statusKey) {
+    runInAction(async () => {
+      this.product.status = ProductStatusByKey[statusKey]
+      await this.onSaveProductData()
+    })
   }
 
-  onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+  async handleProductActionButtons(actionType) {
+    switch (actionType) {
+      case 'accept':
+        this.onSaveProductData()
+      case 'cancel':
+        this.onResetInitialProductData()
+      case 'delete':
+        this.onDeleteProduct()
+    }
+  }
+
+  async onSaveProductData() {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+      const updateProductData = getObjectFilteredByKeyArrayWhiteList(
+        this.product,
+        fieldsOfProductAllowedToUpdate,
+        false,
+        (key, value) => {
+          if (key === 'checkednotes' && isUndefined(value)) {
+            return ''
+          } else {
+            return value
+          }
+        },
+      )
+      await SupervisorModel.updateProduct(this.product._id, updateProductData)
+      this.setActionStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log(error)
+      this.setActionStatus(loadingStatuses.failed)
+      if (error.body && error.body.message) {
+        console.log(error.body.message)
+        this.error = error.body.message
+      }
+    }
+  }
+
+  onResetInitialProductData() {
+    this.setActionStatus(loadingStatuses.isLoading)
+    this.product = this.productBase
+    this.setActionStatus(loadingStatuses.success)
+  }
+
+  async onDeleteProduct() {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+      await SupervisorModel.removeProduct(this.product.id)
+      this.setActionStatus(loadingStatuses.success)
+      this.history.goBack()
+    } catch (error) {
+      console.log(error)
+      this.setActionStatus(loadingStatuses.failed)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  onChangeSelectedSupplier(supplier) {
+    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
+      this.selectedSupplier = undefined
+    } else {
+      this.selectedSupplier = supplier
+    }
   }
 
   async onClickSupplierButtons(actionType) {
@@ -56,58 +122,62 @@ export class SupervisorProductViewModel {
       this.onTriggerAddOrEditSupplierModal()
     } else {
       try {
-        await SupplierModel.removeSupplier(this.selectedSupplier.id)
+        this.setActionStatus(loadingStatuses.isLoading)
+        await SupplierModel.removeSupplier(this.selectedSupplier._id)
+        this.setActionStatus(loadingStatuses.success)
+        const findSupplierIndex = this.suppliers.findIndex(
+          supplierItem => supplierItem._id === this.selectedSupplier._id,
+        )
+        const findProductSupplierIndex = this.product.supplier.findIndex(
+          supplierItem => supplierItem._id === this.selectedSupplier._id,
+        )
         runInAction(() => {
+          this.suppliers.splice(findSupplierIndex, 1)
+          this.product.supplier.splice(findProductSupplierIndex, 1)
           this.selectedSupplier = undefined
+          this.onSaveProductData()
         })
       } catch (error) {
         console.log(error)
+        this.setActionStatus(loadingStatuses.failed)
+        if (error.body && error.body.message) {
+          this.error = error.body.message
+        }
       }
     }
   }
 
-  onTriggerAddSupplierModal() {
-    this.showAddSupplierModal = !this.showAddSupplierModal
-  }
-
-  onTriggerEditSupplierModal() {
-    this.showEditSupplierModal = !this.showEditSupplierModal
-  }
-
-  async onClickParseAmazonBtn(product) {
+  async loadSupliersForProduct() {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
-      const parseResult = await ResearcherModel.parseAmazon(product.id)
-      console.log(parseResult)
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.isLoading)
+      runInAction(async () => {
+        this.suppliers = []
+        for (let index = 0; index < this.product.supplier.length; index++) {
+          const getSupplierResult = await SupplierModel.getSupplier(this.product.supplier[index])
+          runInAction(() => {
+            this.suppliers.push(getSupplierResult)
+          })
+        }
+      })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
         this.error = error.body.message
       }
     }
   }
-
-  async onClickParseSellCenteralBtn(product) {
-    try {
-      this.setActionStatus(loadingStatuses.isLoading)
-      const parseResult = await ResearcherModel.parseParseSellerCentral(product.id)
-      console.log(parseResult)
-      this.setActionStatus(loadingStatuses.success)
-    } catch (error) {
-      console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
-    }
-  }
-
-  onClickSaveSupplierBtn() {}
 
   onTriggerAddOrEditSupplierModal() {
+    if (this.showAddOrEditSupplierModal) {
+      this.selectedSupplier = undefined
+    }
     this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+  }
+
+  onTriggerDrawerOpen(e, value) {
+    this.drawerOpen = value
   }
 
   setRequestStatus(requestStatus) {

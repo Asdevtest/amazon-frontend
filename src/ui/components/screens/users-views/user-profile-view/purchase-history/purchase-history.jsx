@@ -16,7 +16,7 @@ export const PurchaseHistory = ({user, tabHistory, setTabHistory}) => {
   return (
     <React.Fragment>
       <Typography variant="h6" className={classNames.mainTitle}>
-        {textConsts.mainTitle + user.username}
+        {textConsts.mainTitle + ((user && user.username) || '')}
       </Typography>
       <Paper>
         <Tabs

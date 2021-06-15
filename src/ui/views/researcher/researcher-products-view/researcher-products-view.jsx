@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {RESEARCHER_HEAD_CELLS} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {ResearcherAddProductForm} from '@components/forms/reasearcher-add-product-form'
@@ -46,7 +46,7 @@ class ResearcherProductsViewRaw extends Component {
       actionStatus,
       onClickCheckBtn,
       onClickAddBtn,
-      onChangeTriggerDrawerOpen,
+      onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
       onChangeFormFields,
@@ -59,10 +59,10 @@ class ResearcherProductsViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.RESEARCHER}
+          curUserRole={UserRole.RESEARCHER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={onChangeTriggerDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
@@ -71,7 +71,7 @@ class ResearcherProductsViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
-            setDrawerOpen={onChangeTriggerDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
               <Paper className={classNames.card}>

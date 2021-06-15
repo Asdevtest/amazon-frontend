@@ -7,6 +7,7 @@ import {BuyerModel} from '@models/buyer-model'
 export class BuyerProductsViewModel {
   history = undefined
   requestStatus = undefined
+  actionStatus = undefined
 
   productsVacant = []
   drawerOpen = false
@@ -18,7 +19,7 @@ export class BuyerProductsViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  async getProducsVacant() {
+  async getProductsVacant() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
@@ -36,7 +37,23 @@ export class BuyerProductsViewModel {
     }
   }
 
-  onChangeDrawerOpen() {
+  onClickTableRow() {}
+
+  async onDoubleClickTableRow(product) {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+      await BuyerModel.pickupProduct(product._id)
+      this.setActionStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setActionStatus(loadingStatuses.failed)
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
   }
 
@@ -51,5 +68,9 @@ export class BuyerProductsViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  setActionStatus(actionStatus) {
+    this.actionStatus = actionStatus
   }
 }

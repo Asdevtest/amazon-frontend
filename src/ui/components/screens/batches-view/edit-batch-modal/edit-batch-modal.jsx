@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {Box, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
@@ -17,7 +17,7 @@ import {useClassNames} from './edit-batch-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').batchesModalEditBatch
 
-export const EditBatchModal = ({batch, setModal, warehouseList, deliveryList, curUserRole}) => {
+export const EditBatchModal = ({batch, setModal, warehouses, deliveryList, curUserRole}) => {
   const classNames = useClassNames()
 
   const [warehouse, setWarehouse] = useState(batch[0][0].destination)
@@ -30,9 +30,9 @@ export const EditBatchModal = ({batch, setModal, warehouseList, deliveryList, cu
 
   const renderSwitchForm = () => {
     switch (curUserRole) {
-      case userRole.CLIENT:
+      case UserRole.CLIENT:
         return <ClientForm batch={batch} />
-      case userRole.BUYER:
+      case UserRole.BUYER:
         return (
           <BuyerForm
             warehouseCheckbox={warehouseCheckbox}
@@ -45,7 +45,7 @@ export const EditBatchModal = ({batch, setModal, warehouseList, deliveryList, cu
             setStatus={setStatus}
             delivery={delivery}
             status={status}
-            warehouseList={warehouseList}
+            warehouses={warehouses}
             deliveryList={deliveryList}
           />
         )

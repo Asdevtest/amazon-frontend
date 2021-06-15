@@ -14,7 +14,7 @@ export class BuyerMyOrdersViewModel {
   showOrderModal = false
   rowsPerPage = 5
   curPage = 1
-  selectedOrder = 0
+  selectedOrder = undefined
 
   constructor({history}) {
     this.history = history

@@ -128,6 +128,42 @@ export const getClientDashboardCardConfig = textConsts => [
   },
 ]
 
+export const ClientInventoryDashboardCardDataKey = {
+  PRODUCTS_IN_INVENTORY: 'PRODUCTS_IN_INVENTORY',
+  PRODUCTS_BOUGHT_ON_EXCHANGE: 'PRODUCTS_BOUGHT_ON_EXCHANGE',
+  PRODUCTS_ADDED: 'PRODUCTS_ADDED',
+  ORDERS_CHECKOUT: 'ORDERS_CHECKOUT',
+  BOUGHT_FOR_LAST_30_DAYS: 'BOUGHT_FOR_LAST_30_DAYS',
+}
+
+export const getClientInventoryDashboardCardConfig = textConsts => [
+  {
+    dataKey: ClientInventoryDashboardCardDataKey.PRODUCTS_IN_INVENTORY,
+    title: textConsts.productsInInventoryDashboardCard,
+    color: '#63c2de',
+  },
+  {
+    dataKey: ClientInventoryDashboardCardDataKey.PRODUCTS_BOUGHT_ON_EXCHANGE,
+    title: textConsts.productsBoughtOnExchangeDashboardCard,
+    color: '#FFC107',
+  },
+  {
+    dataKey: ClientInventoryDashboardCardDataKey.PRODUCTS_ADDED,
+    title: textConsts.productsAddedDashboardCard,
+    color: '#4dbd74',
+  },
+  {
+    dataKey: ClientInventoryDashboardCardDataKey.ORDERS_CHECKOUT,
+    title: textConsts.ordersChackoutDashboardCard,
+    color: '#f86c6b',
+  },
+  {
+    dataKey: ClientInventoryDashboardCardDataKey.BOUGHT_FOR_LAST_30_DAYS,
+    title: textConsts.productsBoughtLast30DaysDashboardCard,
+    color: '#f86c6b',
+  },
+]
+
 export const WarehouseDashboardCardDataKey = {
   VACANT_TASKS: 'VACANT_TASKS',
   COMPLETED_TASKS: 'COMPLETED_TASKS',
@@ -154,5 +190,5 @@ export const getWarehouseDashboardCardConfig = textConsts => [
     dataKey: WarehouseDashboardCardDataKey.MY_PAYMENTS,
     title: textConsts.myPaymentsCardTitle,
     color: '#20a8d8',
-  },
+  }
 ]

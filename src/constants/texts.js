@@ -234,6 +234,11 @@ export const texts = {
       setBarcodeChipLabel: 'Set barcode',
       orderBtn: 'Заказать',
       resetBtn: 'Сбросить',
+      productsInInventoryDashboardCard: 'Товаров в инвентаре',
+      productsBoughtOnExchangeDashboardCard: 'Товаров купленных на бирже',
+      productsAddedDashboardCard: 'Товаров добавлено',
+      ordersChackoutDashboardCard: 'Заказов оформлено',
+      productsBoughtLast30DaysDashboardCard: 'Куплено за 30 дней',
     },
     researcherDashboardView: {
       appBarTitle: 'Dashboard',
@@ -451,6 +456,13 @@ export const texts = {
       codeOfGood: 'Код товара',
       successActionAlert: 'Operation complete',
     },
+    productStatusButtonsConfigs: {
+      searchForSupplier: 'Поиск поставщика',
+      rejectedBySupervisor: 'Не подходит',
+      supplierWasFound: 'Поставщик найден',
+      supplierWasNotFound: 'Поставщик не найден',
+      supplierPriceNotAccepted: 'Цена поставщика не приемлима',
+    },
   },
   ru: {
     clientDashboardView: {
@@ -626,13 +638,14 @@ export const texts = {
     contentCardComponent: {
       time: 'Время осталось',
     },
-    modalContent: {
+    addOrEditSupplierModalContent: {
       name: 'Название',
       link: 'Ссылка',
       price: 'Цена за шт.',
       deliveryPrice: 'Доставка на 1 ед.',
       qty: 'Кол-во закупки',
-      minQty: 'Минимальная партия',
+      minLot: 'Минимальная партия',
+      lotCost: 'Цена партии',
       csCode: 'Цена партии',
       comment: 'Комментарий',
       saveBtn: 'Сохранить',
@@ -652,12 +665,13 @@ export const texts = {
       tableSheep: 'Доставка',
       tableCount: 'Количество',
       tableMinBatch: 'Минимальная партия',
+      tableBatchCost: 'Цена партии',
       tableCost: 'Стоимость',
       tableComment: 'Комментарий',
       tableCellNoVendors: 'Нет поставщиков',
 
       typographyComments: 'Комментарии',
-      fieldManager: 'Менеджер',
+      fieldResearcher: 'Ресерчер',
       fieldSoperviser: 'Cупервайзер',
       fieldBuyer: 'Байер',
       buttonAccept: 'Принять',
@@ -761,6 +775,15 @@ export const texts = {
     },
     buyerUserHeaderInfo: {
       mainTitle: 'Информация',
+      investorsCount: 'Количество инвесторов',
+      goodsFound: 'Товаров нашел',
+      transactionsVolume: 'Объем сделок',
+      earnedAmount: 'Заработано',
+      addInSave: 'Добавили в избранное',
+      inBlocked: 'Заблокирован(-а)',
+      youBlocked: 'Заблокировал(-а)',
+      accountCreateAt: 'Аккаунт создан',
+      investors: ' инвесторов',
     },
     buerUserHeaderTested: {
       mainTitle: 'Прошел проверку по стратегиям',
@@ -1040,6 +1063,13 @@ export const texts = {
       viewBtn: 'Посмотреть',
       resolved: 'Решено',
       notResolved: 'Не решено',
+    },
+    productStatusButtonsConfigs: {
+      searchForSupplier: 'Поиск поставщика',
+      rejectedBySupervisor: 'Не подходит',
+      supplierWasFound: 'Поставщик найден',
+      supplierWasNotFound: 'Поставщик не найден',
+      supplierPriceNotAccepted: 'Прайс поставщика не подходит',
     },
   },
 }
