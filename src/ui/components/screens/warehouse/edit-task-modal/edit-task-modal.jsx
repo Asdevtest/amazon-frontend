@@ -12,7 +12,7 @@ import {Input} from '@components/input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import {BeforeAfterBlock} from './before-after-block'
+import {BeforeAfterBlock} from '../before-after-block'
 import {BoxOrder} from './box-order'
 import {useClassNames} from './edit-task-modal.style'
 

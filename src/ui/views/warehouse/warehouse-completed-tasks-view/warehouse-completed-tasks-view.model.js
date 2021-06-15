@@ -1,6 +1,6 @@
 import {makeAutoObservable} from 'mobx'
 
-export class WarehouseVacantViewModel {
+export class WarehouseCompletedViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
@@ -8,10 +8,8 @@ export class WarehouseVacantViewModel {
   drawerOpen = false
   rowsPerPage = 5
   curPage = 1
-  showEditTaskModal = false
+  showBrowseTaskModal = false
   selectedTaskIndex = null
-  showBarcodeModal = false
-  showEditBoxModal = false
 
   constructor({history}) {
     this.history = history
@@ -31,19 +29,11 @@ export class WarehouseVacantViewModel {
     this.curPage = 1
   }
 
-  onTriggerEditTaskModal() {
-    this.showEditTaskModal = !this.showEditTaskModal
+  onTriggerBrowseTaskModal() {
+    this.showBrowseTaskModal = !this.showBrowseTaskModal
   }
 
   onSelectTaskIndex(index) {
     this.selectedTaskIndex = index
-  }
-
-  onTriggerShowBarcodeModal() {
-    this.showBarcodeModal = !this.showBarcodeModal
-  }
-
-  onTriggerShowEditBoxModal() {
-    this.showEditBoxModal = !this.showEditBoxModal
   }
 }
