@@ -1,9 +1,16 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
+
+import {VACANT_TASKS_DATA} from '@constants/mocks'
+
+import {StorekeeperModel} from '@models/storekeeper-model'
 
 export class WarehouseVacantViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
+
+  tasksVacant = [...VACANT_TASKS_DATA]
+  currentBox = undefined
 
   drawerOpen = false
   rowsPerPage = 5
@@ -32,6 +39,10 @@ export class WarehouseVacantViewModel {
   }
 
   onTriggerEditTaskModal() {
+    if (this.showEditTaskModal === false) {
+      this.pickupTask(this.tasksVacant[this.selectedTaskIndex].taskId)
+    }
+
     this.showEditTaskModal = !this.showEditTaskModal
   }
 
@@ -43,7 +54,46 @@ export class WarehouseVacantViewModel {
     this.showBarcodeModal = !this.showBarcodeModal
   }
 
-  onTriggerShowEditBoxModal() {
+  onTriggerShowEditBoxModal(box) {
+    this.currentBox = box
     this.showEditBoxModal = !this.showEditBoxModal
+  }
+
+  async getTasksVacant() {
+    try {
+      const result = await StorekeeperModel.getTasksVacant()
+      runInAction(() => {
+        this.tasksVacant = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async updateBox() {
+    try {
+      await StorekeeperModel.updateBox()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async pickupBox(boxId) {
+    try {
+      await StorekeeperModel.pickupBox(boxId)
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+  async pickupTask(taskId) {
+    try {
+      await StorekeeperModel.pickupTask(taskId)
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 }

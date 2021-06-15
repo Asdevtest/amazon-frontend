@@ -39,7 +39,7 @@ const statusOptions = [
   {value: 35, label: 'Return order'},
 ]
 
-export const EditTaskModal = ({task, onClickOpenCloseModal, onSetBarcode, onEditBox}) => {
+export const EditTaskModal = ({task, onClickOpenCloseModal, onSetBarcode, onEditBox, onPickupBox}) => {
   const classNames = useClassNames()
 
   return (
@@ -96,6 +96,7 @@ export const EditTaskModal = ({task, onClickOpenCloseModal, onSetBarcode, onEdit
           desiredBoxes={task.desiredBoxes}
           onSetBarcode={onSetBarcode}
           onEditBox={onEditBox}
+          onPickupBox={onPickupBox}
         />
 
         <Divider className={classNames.divider} />
