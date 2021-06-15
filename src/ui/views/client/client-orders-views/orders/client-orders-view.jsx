@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {CLIENT_ORDERS_HEAD_CELL} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -40,14 +40,14 @@ class ClientOrdersViewRaw extends Component {
   render() {
     const {
       activeSubCategory,
-      ordersData,
+      orders,
       drawerOpen,
       modalBarcode,
       rowsPerPage,
-      paginationPage,
+      curPage,
       onChangeModalBarcode,
       onChangeDrawerOpen,
-      onChangePagination,
+      onChangeCurPage,
       onChangeRowsPerPage,
     } = this.viewModel
     const {classes: className} = this.props
@@ -55,7 +55,7 @@ class ClientOrdersViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.CLIENT}
+          curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
@@ -74,12 +74,12 @@ class ClientOrdersViewRaw extends Component {
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={className.tableWrapper}>
                 <Table
-                  buttons={this.renderButtons}
-                  currentPage={paginationPage}
-                  data={ordersData}
-                  handlerPageChange={onChangePagination}
+                  renderButtons={this.renderButtons}
+                  currentPage={curPage}
+                  data={orders}
+                  handlerPageChange={onChangeCurPage}
                   handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(ordersData.length / rowsPerPage)}
+                  pageCount={Math.ceil(orders.length / rowsPerPage)}
                   BodyRow={TableBodyRow}
                   renderHeadRow={this.renderHeadRow}
                   rowsPerPage={rowsPerPage}
@@ -99,7 +99,7 @@ class ClientOrdersViewRaw extends Component {
     )
   }
 
-  renderButtons = (
+  renderButtons = () => (
     <Container className={this.props.classes.buttonWrapper}>
       <Button color="secondary">{textConsts.ordersBtn}</Button>
     </Container>

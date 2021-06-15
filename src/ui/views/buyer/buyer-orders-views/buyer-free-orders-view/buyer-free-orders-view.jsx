@@ -5,14 +5,11 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {DELIVERY_OPTIONS} from '@constants/delivery-options'
-import {
-  FREE_ORDERS_TABLE_HEADERS,
-  ORDERS_MODAL_HEAD_CELLS,
-  BUYER_WAREHOUSE_LIST,
-  BUYER_STATUS_LIST,
-} from '@constants/mocks'
+import {FREE_ORDERS_TABLE_HEADERS, BUYER_STATUS_LIST} from '@constants/mocks'
+import {BUYER_FREE_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
+import {warehouses} from '@constants/warehouses'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -66,7 +63,7 @@ class BuyerFreeOrdersViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.BUYER}
+          curUserRole={UserRole.BUYER}
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
@@ -87,7 +84,7 @@ class BuyerFreeOrdersViewRaw extends Component {
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
                 <Table
-                  buttons={this.renderButtons()}
+                  renderButtons={this.renderButtons}
                   currentPage={curPage}
                   data={ordersVacant}
                   handlerPageChange={onChangePage}
@@ -113,8 +110,8 @@ class BuyerFreeOrdersViewRaw extends Component {
               order={ordersVacant[selectedOrder]}
               setModal={onTriggerShowOrderModal}
               setModalBarcode={onTriggerShowBarcodeModal}
-              modalHeadCells={ORDERS_MODAL_HEAD_CELLS}
-              warehouseList={BUYER_WAREHOUSE_LIST}
+              modalHeadCells={BUYER_FREE_ORDERS_MODAL_HEAD_CELLS}
+              warehouses={warehouses}
               deliveryList={DELIVERY_OPTIONS}
               statusList={BUYER_STATUS_LIST}
             />

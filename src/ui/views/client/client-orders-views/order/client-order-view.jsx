@@ -5,7 +5,7 @@ import {observer} from 'mobx-react'
 
 import {CLIENT_ORDER_INITIAL_PRODUCT, DELIVERY_TYPES} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -36,7 +36,7 @@ export class ClientOrderView extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.CLIENT}
+          curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}

@@ -3,85 +3,90 @@ import React from 'react'
 import {Box, Grid, Typography, Button} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {productStatusButtonsConfigs} from '@constants/product-status-buttons-configs'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
 
 import {ErrorButton} from '@components/buttons/error-button'
-import {ColoredChip} from '@components/colored-chip'
 import {Field} from '@components/field'
 
+import {checkIsBuyer, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
+import {ProductStatusButtons} from './product-status-buttons/product-status-buttons'
 import {useClassNames} from './right-side-comments.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 export const RightSideComments = observer(
-  ({curUserRole, onChangeField, product, chipList, activeChip, setActiveChip}) => {
+  ({curUserRole, onChangeField, product, onClickSetProductStatusBtn, handleProductActionButtons}) => {
     const classNames = useClassNames()
-
+    const productStatusButtonsConfig = productStatusButtonsConfigs[curUserRole]
     return (
       <Grid item sm={5} xs={12}>
         <Box className={classNames.rightBoxComments}>
           <Typography className={classNames.title}>{textConsts.typographyComments}</Typography>
           <Field
-            disabled
             multiline
+            disabled={!checkIsResearcher(curUserRole)}
             className={classNames.heightFieldAuto}
             rows={4}
             rowsMax={6}
-            title={textConsts.fieldManager}
-            value={product.commentManager}
-            onChange={onChangeField('commentManager')}
+            label={textConsts.fieldResearcher}
+            value={product.icomment}
+            onChange={onChangeField('icomment')}
           />
-          {chipList && curUserRole === userRole.SUPERVISOR && (
-            <Box marginBottom={2}>
-              <Grid container spacing={1}>
-                {chipList.map(chip => (
-                  <Grid key={chip.key} item>
-                    <ColoredChip
-                      label={chip.label}
-                      color={chip.color}
-                      colorHover={chip.colorHover}
-                      selected={activeChip === chip.key}
-                      onClick={() => setActiveChip(chip.key)}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            </Box>
-          )}
-
-          <Field
-            multiline
-            className={classNames.heightFieldAuto}
-            rows={4}
-            rowsMax={6}
-            title={textConsts.fieldSoperviser}
-            value={product.commentSupervisor}
-            onChange={onChangeField('commentSupervisor')}
+          <ProductStatusButtons
+            productStatus={product.status}
+            buttonsConfig={productStatusButtonsConfig}
+            onClickButton={onClickSetProductStatusBtn}
           />
           <Field
-            disabled
             multiline
+            disabled={!checkIsSupervisor(curUserRole)}
             className={classNames.heightFieldAuto}
             rows={4}
             rowsMax={6}
-            title={textConsts.fieldBuyer}
-            value={product.commentBuyer}
-            onChange={onChangeField('commentBuyer')}
+            label={textConsts.fieldSoperviser}
+            value={product.checkednotes}
+            onChange={onChangeField('checkednotes')}
+          />
+          <Field
+            multiline
+            disabled={!checkIsBuyer(curUserRole)}
+            className={classNames.heightFieldAuto}
+            rows={4}
+            rowsMax={6}
+            label={textConsts.fieldBuyer}
+            value={product.buyerscomment}
+            onChange={onChangeField('buyerscomment')}
           />
 
           <div className={classNames.buttonsWrapper}>
-            <Button className={classNames.buttonNormal} color="primary" variant="contained">
+            <Button
+              className={classNames.buttonNormal}
+              color="primary"
+              variant="contained"
+              onClick={() => handleProductActionButtons('accept')}
+            >
               {textConsts.buttonAccept}
             </Button>
-            <ErrorButton className={classNames.buttonNormal} variant="contained">
+            <ErrorButton
+              className={classNames.buttonNormal}
+              variant="contained"
+              onClick={() => handleProductActionButtons('cancel')}
+            >
               {textConsts.buttonCancel}
             </ErrorButton>
-            <ErrorButton disabled className={classNames.buttonDelete} variant="contained">
-              {textConsts.buttonDelete}
-            </ErrorButton>
+            {checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) ? (
+              <ErrorButton
+                disabled
+                className={classNames.buttonDelete}
+                variant="contained"
+                onClick={() => handleProductActionButtons('delete')}
+              >
+                {textConsts.buttonDelete}
+              </ErrorButton>
+            ) : undefined}
           </div>
         </Box>
       </Grid>

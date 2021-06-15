@@ -1,50 +1,70 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {ClientModel} from '@models/client-model'
+import { loadingStatuses } from '@constants/loading-statuses'
 
 export class ClientWarehouseViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
-  boxes = []
-
   drawerOpen = false
-  paginationPage = 1
+  curPage = 1
   rowsPerPage = 5
+  boxes = []
   selectedBoxes = ['2096c_box']
-  modalSendOwnProduct = false
-  modalEditBox = false
-  modalRedistributeBox = false
-  modalRedistributeBoxAddNewBox = null
-  modalRedistributeBoxSuccess = false
+  showSendOwnProductModal = false
+  showEditBoxModal = false
+  showRedistributeBoxModal = false
+  modalRedistributeBoxAddNewBox = undefined
+  showRedistributeBoxSuccessModal = false
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  onModalRedistributeBoxAddNewBox(value) {
-    this.modalRedistributeBoxAddNewBox = value
+  loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      this.getBoxes()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  getBoxes() {
+    try {
+      const result = ClientModel.gegetBoxestBox()
+      runInAction(() => {
+        this.boxes = result
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onTriggerDrawer() {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangePagination = (e, value) => {
-    this.paginationPage = value
+  onChangeCurPage(e, value) {
+    this.curPage = value
   }
 
-  onChangeRowsPerPage = e => {
+  onChangeRowsPerPage(e) {
     this.rowsPerPage = Number(e.target.value)
-    this.paginationPage = 1
+    this.curPage = 1
   }
 
-  onTriggerCheckbox = boxId => {
-    const updatedselectedBoxes = this.selectedBoxes.includes(boxId)
-      ? this.selectedBoxes.filter(id => id !== boxId)
-      : this.selectedBoxes.concat(boxId)
+  onTriggerCheckbox(boxId) {
+    const {selectedBoxes} = this.state
+
+    const updatedselectedBoxes = selectedBoxes.includes(boxId)
+      ? selectedBoxes.filter(id => id !== boxId)
+      : selectedBoxes.concat(boxId)
     this.selectedBoxes = updatedselectedBoxes
   }
 
@@ -57,24 +77,15 @@ export class ClientWarehouseViewModel {
     alert('Box merging')
   }
 
-  onClickCloseModal(modalState) {
-    this[modalState] = false
+  onTriggerModal(modalKey) {
+    this[modalKey] = !this.modalKey
   }
 
-  onClickOpenModal(modalState) {
-    this[modalState] = true
+  onRedistributeBoxAddNewBox(value) {
+    this.modalRedistributeBoxAddNewBox = value
   }
 
-  async getBoxes() {
-    try {
-      const result = await ClientModel.getBoxes()
-      console.log(result)
-      runInAction(() => {
-        this.boxes = result
-      })
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

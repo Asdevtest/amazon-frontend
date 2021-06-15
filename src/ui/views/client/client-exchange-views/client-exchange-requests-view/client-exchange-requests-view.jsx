@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {clientExchangeRequestsViewTable, clientUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {SuccessButton} from '@components/buttons/success-button'
@@ -79,7 +79,7 @@ export class ClientExchangeRequestsViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.CLIENT}
+          curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
@@ -105,7 +105,7 @@ export class ClientExchangeRequestsViewRaw extends Component {
               </div>
               <div className={classNames.tableWrapper}>
                 <Table
-                  buttons={this.renderButtons}
+                  renderButtons={this.renderButtons}
                   currentPage={paginationPage}
                   data={requestsList}
                   handlerPageChange={onChangePagination}
@@ -152,7 +152,7 @@ export class ClientExchangeRequestsViewRaw extends Component {
     )
   }
 
-  renderHeadRow = (
+  renderHeadRow = () => (
     <TableRow>
       <TableCell>#</TableCell>
       {headCells.map((item, index) => (

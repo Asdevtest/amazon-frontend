@@ -15,7 +15,7 @@ const ExchangeModalBodyRowRaw = ({item, qty, managerIndex, handlers, ...restProp
 
   const ManagersCell = managers => (
     <>
-      <NativeSelect input={<Input />} value={managerIndex} onChange={e => handlers.manager(e)}>
+      <NativeSelect input={<Input />} value={managerIndex} onChange={e => handlers.onChangeManager(e)}>
         {managers.map((manager, index) => (
           <option key={index} value={index}>
             {manager}
@@ -24,7 +24,9 @@ const ExchangeModalBodyRowRaw = ({item, qty, managerIndex, handlers, ...restProp
       </NativeSelect>
     </>
   )
-  const QtyCell = () => <Input className={classNames.input} type="number" value={qty} onChange={e => handlers.qty(e)} />
+  const QtyCell = () => (
+    <Input className={classNames.input} type="number" value={qty} onChange={e => handlers.onChangeModalQty(e)} />
+  )
 
   const PrivateLabelPriceCell = price => <span className={classNames.privateLabelPrice}>{`$${price}`}</span>
 

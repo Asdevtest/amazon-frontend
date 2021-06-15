@@ -2,14 +2,9 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {
-  CLIENT_USER_HEADER_LIST,
-  CLIENT_USER_MANAGERS_LIST,
-  CLIENT_USER_INITIAL_LIST,
-  CLIENT_USER_INITIAL_USER,
-} from '@constants/mocks'
+import {CLIENT_USER_MANAGERS_LIST, CLIENT_USER_INITIAL_LIST} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -30,39 +25,40 @@ import {ClientProfileViewModel} from './user-profile-view.model'
 const textConsts = getLocalizedTexts(texts, 'en').clientUserView
 
 const navbarActiveCategory = 6
+const navBarActiveSubCategory = 0
 
 @observer
 export class ClientUserProfileView extends Component {
   viewModel = new ClientProfileViewModel({history: this.props.history})
-  state = {
-    activeSubCategory: 0,
-    drawerOpen: false,
-
-    rowsPerPage: 5,
-    paginationPage: 1,
-    productList: CLIENT_USER_INITIAL_LIST,
-    user: CLIENT_USER_INITIAL_USER,
-    tabExchange: 0,
-    tabHistory: 0,
-    tabReview: 0,
-    selected: null,
-    modal0: false,
-  }
 
   render() {
-    const {activeSubCategory, drawerOpen} = this.state
+    const {
+      drawerOpen,
+      tabExchange,
+      tabHistory,
+      tabReview,
+      showTabModal,
+      selectedUser,
+      user,
+      headerInfoData,
+      onTriggerDrawerOpen,
+      onClickButtonPrivateLabel,
+      onChangeTabExchange,
+      onChangeTabHistory,
+      onChangeTabReview,
+      onTriggerShowTabModal,
+    } = this.viewModel
 
     return (
       <>
         <Navbar
-          curUserRole={userRole.CLIENT}
+          curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
-          activeSubCategory={activeSubCategory}
+          activeSubCategory={navBarActiveSubCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
-
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
@@ -70,61 +66,30 @@ export class ClientUserProfileView extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
-              <Header user={CLIENT_USER_INITIAL_USER} timer={textConsts.timer} headerInfo={CLIENT_USER_HEADER_LIST} />
+              <Header user={user} timer={textConsts.timer} headerInfoData={headerInfoData} />
 
               <ActiveOrders
-                tabExchange={this.state.tabExchange}
-                setTabExchange={this.onChangeTabExchange}
+                tabExchange={tabExchange}
+                setTabExchange={onChangeTabExchange}
                 productList={CLIENT_USER_INITIAL_LIST}
-                handlerClickButtonPrivateLabel={this.onClickButtonPrivateLabel}
+                handlerClickButtonPrivateLabel={onClickButtonPrivateLabel}
               />
-
-              <PurchaseHistory
-                user={CLIENT_USER_INITIAL_USER}
-                tabHistory={this.state.tabHistory}
-                setTabHistory={this.onChangeTabHistory}
-              />
-
-              <Reviews tabReview={this.state.tabReview} setTabReview={this.onChangeTabReview} />
+              <PurchaseHistory user={user} tabHistory={tabHistory} setTabHistory={onChangeTabHistory} />
+              <Reviews tabReview={tabReview} setTabReview={onChangeTabReview} />
             </MainContent>
           </Appbar>
         </Main>
-
-        <Modal openModal={this.state.modal0} setOpenModal={this.onChangeTabModal0}>
+        <Modal openModal={showTabModal} setOpenModal={onTriggerShowTabModal}>
           <ContentModal
-            setOpenModal={this.onChangeTabModal0}
-            selected={this.state.selected}
+            setOpenModal={onTriggerShowTabModal}
+            selected={selectedUser}
             managersList={CLIENT_USER_MANAGERS_LIST}
           />
         </Modal>
       </>
     )
-  }
-
-  onChangeTabModal0 = (e, value) => {
-    this.setState({modal0: value})
-  }
-
-  onChangeTabReview = (e, value) => {
-    this.setState({tabReview: value})
-  }
-
-  onChangeTabHistory = (e, value) => {
-    this.setState({tabHistory: value})
-  }
-
-  onChangeTabExchange = (e, value) => {
-    this.setState({tabExchange: value})
-  }
-
-  onClickButtonPrivateLabel = index => {
-    this.setState({selected: CLIENT_USER_INITIAL_LIST[index], modal0: true})
-  }
-
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
   }
 }

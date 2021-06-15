@@ -23,8 +23,8 @@ export class SupervisorDashboardViewModel {
   async loadData() {
     try {
       this.requestStatus = loadingStatuses.isLoading
-      this.getProducsVacant()
-      this.getProducsMy()
+      this.getProductsVacant()
+      this.getProductsMy()
       this.getPaymentsMy()
       this.requestStatus = loadingStatuses.success
     } catch (error) {
@@ -33,7 +33,7 @@ export class SupervisorDashboardViewModel {
     }
   }
 
-  async getProducsVacant() {
+  async getProductsVacant() {
     try {
       const result = await SupervisorModel.getProductsVacant()
       runInAction(() => {
@@ -45,7 +45,7 @@ export class SupervisorDashboardViewModel {
     }
   }
 
-  async getProducsMy() {
+  async getProductsMy() {
     try {
       const result = await SupervisorModel.getProductsMy()
       runInAction(() => {

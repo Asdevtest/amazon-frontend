@@ -66,6 +66,7 @@ export class ResearcherProductsViewModel {
         delivery: 0,
         icomment: '',
         images: [],
+        reffee: 15,
       }
       await ResearcherModel.createProduct(productFullData)
       this.setActionStatus(loadingStatuses.success)
@@ -76,7 +77,9 @@ export class ResearcherProductsViewModel {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -84,16 +87,19 @@ export class ResearcherProductsViewModel {
   async getPropducts() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const productsResult = await ResearcherModel.getProducts()
+      const result = await ResearcherModel.getProductsVacant()
+      console.log(result)
       this.setRequestStatus(loadingStatuses.success)
       runInAction(() => {
-        this.products = productsResult
+        this.products = result
       })
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -107,7 +113,9 @@ export class ResearcherProductsViewModel {
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -131,7 +139,7 @@ export class ResearcherProductsViewModel {
     this.curPage = value
   }
 
-  onChangeTriggerDrawerOpen() {
+  onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
   }
 

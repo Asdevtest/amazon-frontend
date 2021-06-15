@@ -5,29 +5,56 @@ import MuiCheckbox from '@material-ui/core/Checkbox'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
-import {ProductStatus} from '@constants/product-status'
+import {ProductStatusByCode} from '@constants/product-status'
 import {texts} from '@constants/texts'
 
 import {Field} from '@components/field'
 
+import {checkIsResearcher} from '@utils/checks'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './bottom-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
-export const BottomCard = observer(({product, onChangeField}) => {
+export const BottomCard = observer(({curUserRole, product, onChangeField}) => {
   const classNames = useClassNames()
   return (
     <React.Fragment>
       <Grid container spacing={2}>
         <Grid item sm={7} xs={12}>
           <Paper className={classNames.cardPadding}>
-            <Field label={textConsts.bsr} value={product.bsr} onChange={onChangeField('bsr')} />
-            <Field label={textConsts.buyBoxPrice} value={product.buyBoxPrice} onChange={onChangeField('buyBoxPrice')} />
-            <Field label={textConsts.fieldWidth} value={product.width} onChange={onChangeField('width')} />
-            <Field label={textConsts.fieldHeight} value={product.height} onChange={onChangeField('height')} />
-            <Field label={textConsts.fieldLength} value={product.length} onChange={onChangeField('length')} />
+            <Field
+              disabled={!checkIsResearcher(curUserRole)}
+              label={textConsts.bsr}
+              value={product.bsr}
+              onChange={onChangeField('bsr')}
+            />
+            <Field
+              disabled={!checkIsResearcher(curUserRole)}
+              label={textConsts.buyBoxPrice}
+              value={product.amazon}
+              onChange={onChangeField('amazon')}
+            />
+            <Field
+              disabled={!checkIsResearcher(curUserRole)}
+              label={textConsts.fieldWidth}
+              value={product.width}
+              onChange={onChangeField('width')}
+            />
+            <Field
+              disabled={!checkIsResearcher(curUserRole)}
+              label={textConsts.fieldHeight}
+              value={product.height}
+              onChange={onChangeField('height')}
+            />
+            <Field
+              disabled={!checkIsResearcher(curUserRole)}
+              label={textConsts.fieldLength}
+              value={product.length}
+              onChange={onChangeField('length')}
+            />
             <Field disabled label={textConsts.minPrice} value={product.minPrice} onChange={onChangeField('minPrice')} />
             <Field
               disabled
@@ -44,6 +71,7 @@ export const BottomCard = observer(({product, onChangeField}) => {
                 value={product.express}
                 className={classNames.checkbox}
                 color="primary"
+                disabled={!checkIsResearcher(curUserRole)}
                 onClick={() => {
                   onChangeField('express', !product.express)
                 }}
@@ -61,37 +89,49 @@ export const BottomCard = observer(({product, onChangeField}) => {
               value={product.refferalFee}
               onChange={onChangeField('refferalFee')}
             />
-            <Field label={textConsts.fbaFee} value={product.fbafee} onChange={onChangeField('fbafee')} />
-            <Field disabled label={textConsts.totalFba} value={product.totalFba} onChange={onChangeField('totalFba')} />
             <Field
+              disabled={!checkIsResearcher(curUserRole)}
+              label={textConsts.fbaFee}
+              value={product.fbafee}
+              onChange={onChangeField('fbafee')}
+            />
+            <Field
+              disabled
+              label={textConsts.totalFba}
+              value={product.fbaamount}
+              onChange={onChangeField('fbaamount')}
+            />
+            <Field
+              disabled={!checkIsResearcher(curUserRole)}
               label={textConsts.recConsignmentQty}
               value={product.recConsignmentQty}
               onChange={onChangeField('recConsignmentQty')}
             />
-            <Field disabled label={textConsts.revenue} value={product.revenue} onChange={onChangeField('revenue')} />
+            <Field disabled label={textConsts.revenue} value={product.profit} onChange={onChangeField('profit')} />
             <Field disabled label={textConsts.fieldMargin} value={product.margin} onChange={onChangeField('margin')} />
             <Field
               disabled
               label={textConsts.fieldStatus}
-              value={ProductStatus[product.status]}
+              value={ProductStatusByCode[product.status]}
               onChange={onChangeField('status')}
             />
           </Paper>
         </Grid>
         <Grid item sm={5} xs={12}>
-          <Paper className={classNames.rightCardWrapper}>
-            <Carousel animation="slide" /* autoPlay={true}*/ timeout={500}>
-              {product.images &&
-                product.images.map((el, index) => (
+          {product.images && product.images.length ? (
+            <Paper className={classNames.rightCardWrapper}>
+              <Carousel animation="slide" /* autoPlay={true}*/ timeout={500}>
+                {product.images.map((imageHash, index) => (
                   <Box key={index} textAlign="center">
-                    <img alt="" className={classNames.carouselBox} src={el} />
+                    <img alt="" className={classNames.carouselBox} src={getAmazonImageUrl(imageHash)} />
                   </Box>
                 ))}
-            </Carousel>
-          </Paper>
+              </Carousel>
+            </Paper>
+          ) : undefined}
           <Paper className={classNames.cardPadding}>
             <Typography className={classNames.title}>{textConsts.descriptionOFGoods}</Typography>
-            <Field disabled label={textConsts.csCode} value={product.amazonTitle} />
+            <Field disabled label={textConsts.csCode} value={product.amazonTitle || ''} />
             <Field
               disabled
               multiline
@@ -99,7 +139,7 @@ export const BottomCard = observer(({product, onChangeField}) => {
               rows={4}
               rowsMax={6}
               label={textConsts.summary}
-              value={product.amazonDescription}
+              value={product.amazonDescription || ''}
             />
             <Field
               disabled
@@ -108,7 +148,7 @@ export const BottomCard = observer(({product, onChangeField}) => {
               rows={4}
               rowsMax={6}
               label={textConsts.description}
-              value={product.amazonDetail}
+              value={product.amazonDetail || ''}
             />
           </Paper>
         </Grid>

@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 import {getClientDashboardCardConfig, ClientDashboardCardDataKey} from '@constants/dashboard-configs'
 import {clientBalance, clientUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
@@ -28,9 +28,6 @@ const navbarActiveCategory = 0
 @observer
 export class ClientDashboardViewRaw extends Component {
   viewModel = new ClientDashboardViewModel({history: this.props.history})
-  state = {
-    drawerOpen: false,
-  }
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -43,7 +40,7 @@ export class ClientDashboardViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.CLIENT}
+          curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           handlerTriggerDrawer={onTriggerDrawer}

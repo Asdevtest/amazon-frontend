@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -20,35 +20,23 @@ import {BuyerProductViewModel} from './buyer-product-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
 
-const CHIP_LIST = [
-  {key: 0, label: 'Поиск поставщика', color: 'rgb(0, 123, 255)', colorHover: '#1269ec'},
-  {key: 1, label: 'Поставщик найден', color: 'rgb(15, 169, 20)', colorHover: '#009a07'},
-  {key: 2, label: 'Поставщик не найден', color: '#ff9800', colorHover: '#f57c00'},
-  {key: 3, label: 'Цена выше МЗЦ', color: 'rgb(210, 35, 35)', colorHover: '#c51a1c'},
-]
-
-const navbarActiveCategory = 2
-
 @observer
 export class BuyerProductView extends Component {
-  viewModel = new BuyerProductViewModel({history: this.props.history})
-
-  componentDidMount() {
-    this.viewModel.getProductData('60bd36d60171ec208c828a4d')
-  }
+  viewModel = new BuyerProductViewModel({history: this.props.history, location: this.props.location})
 
   render() {
     const {
       product,
       drawerOpen,
-      activeChip,
+      suppliers,
       selectedSupplier,
       showAddOrEditSupplierModal,
       onTriggerDrawerOpen,
-      onChangeActiveChip,
-      onClickSupplierBtns,
+      onClickSupplierButtons,
       onChangeSelectedSupplier,
-      onChangeFieldProduct,
+      onChangeProductFields,
+      handleProductActionButtons,
+      onClickSetProductStatusBtn,
       onTriggerAddOrEditSupplierModal,
       onClickSaveSupplierBtn,
     } = this.viewModel
@@ -56,8 +44,7 @@ export class BuyerProductView extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.BUYER}
-          activeCategory={navbarActiveCategory}
+          curUserRole={UserRole.BUYER}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
@@ -74,14 +61,15 @@ export class BuyerProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
-                  chipList={CHIP_LIST}
-                  activeChip={activeChip}
-                  setActiveChip={onChangeActiveChip}
+                  curUserRole={UserRole.BUYER}
                   product={product}
+                  suppliers={suppliers}
                   selectedSupplier={selectedSupplier}
-                  handleSupplierButtons={onClickSupplierBtns}
+                  handleSupplierButtons={onClickSupplierButtons}
+                  handleProductActionButtons={handleProductActionButtons}
                   onClickSupplier={onChangeSelectedSupplier}
-                  onChangeField={onChangeFieldProduct}
+                  onClickSetProductStatusBtn={onClickSetProductStatusBtn}
+                  onChangeField={onChangeProductFields}
                 />
               ) : undefined}
             </MainContent>

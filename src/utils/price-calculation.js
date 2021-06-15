@@ -1,1 +1,3 @@
-export const priceCalculation = (price, deliveryPrice, qty) => ((price + deliveryPrice) * qty).toFixed(2)
+import {toFixed} from './text'
+
+export const priceCalculation = (price, deliveryPrice, qty) => toFixed((price + deliveryPrice) * qty, 2)

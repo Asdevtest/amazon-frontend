@@ -1,17 +1,17 @@
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
 class SupervisorModelStatic {
-  getProducsVacant = async () => {
+  getProductsVacant = async () => {
     const response = await restApiService.supervisorApi.apiV1SupervisorsProductsVacGet()
     return response
   }
 
-  getProducsMy = async () => {
+  getProductsMy = async () => {
     const response = await restApiService.supervisorApi.apiV1SupervisorsProductsMyGet()
     return response
   }
 
-  updateProductStatus = async (id, data) => {
+  updateProduct = async (id, data) => {
     const response = await restApiService.supervisorApi.apiV1SupervisorsProductsGuidPatch(id, data)
     return response
   }

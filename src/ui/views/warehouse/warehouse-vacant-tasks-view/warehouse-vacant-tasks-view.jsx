@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {VACANT_TASKS_DATA, WAREHOUSE_TASKS_HEAD_CELLS} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -55,7 +55,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.WAREHOUSE}
+          curUserRole={UserRole.WAREHOUSE}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}

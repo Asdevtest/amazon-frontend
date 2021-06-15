@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {BUYER_MY_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -31,24 +31,33 @@ export class BuyerMyProductsViewRaw extends Component {
   viewModel = new BuyerMyProductsViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getProducsMy()
+    this.viewModel.getProductsMy()
   }
 
   render() {
-    const {productsMy, drawerOpen, curPage, rowsPerPage, onChangePage, onChangeRowsPerPage, onTriggerDrawerOpen} =
-      this.viewModel
+    const {
+      productsMy,
+      drawerOpen,
+      curPage,
+      rowsPerPage,
+      onChangePage,
+      onChangeRowsPerPage,
+      onTriggerDrawerOpen,
+      onClickTableRow,
+    } = this.viewModel
     const {classes: classNames} = this.props
-
+    const tableRowHandlers = {
+      onClickTableRow,
+    }
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.BUYER}
+          curUserRole={UserRole.BUYER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
-
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
@@ -70,6 +79,7 @@ export class BuyerMyProductsViewRaw extends Component {
                   BodyRow={TableBodyRow}
                   renderHeadRow={this.renderHeadRow}
                   rowsPerPage={rowsPerPage}
+                  rowsHandlers={tableRowHandlers}
                 />
               </div>
             </MainContent>

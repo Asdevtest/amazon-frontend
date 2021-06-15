@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {getWarehouseDashboardCardConfig, WarehouseDashboardCardDataKey} from '@constants/dashboard-configs'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
@@ -34,7 +34,7 @@ export class WarehouseDashboardViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.WAREHOUSE}
+          curUserRole={UserRole.WAREHOUSE}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}

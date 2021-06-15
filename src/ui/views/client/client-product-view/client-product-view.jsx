@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -56,7 +56,7 @@ export class ClientProductView extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.CLIENT}
+          curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeDrawerOpen}
@@ -72,6 +72,7 @@ export class ClientProductView extends Component {
           >
             <MainContent>
               <ProductWrapper
+                curUserRole={UserRole.CLIENT}
                 chipList={CHIP_LIST}
                 activeChip={activeChip}
                 setActiveChip={onChangeActiveChip}

@@ -4,9 +4,10 @@ import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {clientExchangeViewTable, clientUsername} from '@constants/mocks'
+import {clientUsername} from '@constants/mocks'
+import {CLIENT_EXCHANGE_HEAD_CELLS, CLIENT_EXCHANGE_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -24,8 +25,6 @@ import {styles} from './client-exchange-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientExchangeView
 
-const {headCells, modalHeadCells} = clientExchangeViewTable
-
 const navbarActiveCategory = 1
 const navbarActiveSubCategory = 0
 
@@ -33,41 +32,46 @@ const navbarActiveSubCategory = 0
 export class ClientExchangeViewRaw extends Component {
   viewModel = new ClientExchangeViewModel({history: this.props.history})
 
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
   render() {
     const {
-      productList,
-      modalProductList,
       drawerOpen,
-      paginationPage,
+      curPage,
       rowsPerPage,
-      modalPrivateLabel,
+      productsVacant,
+      showPrivateLabelModal,
       selectedIndex,
       modalQty,
       modalManagerIndex,
       onTriggerDrawer,
-      onChangePagination,
+      onChangeCurPage,
       onChangeRowsPerPage,
-      onCloseModal,
-      onClickPrivateLabel,
       onClickOrderNowBtn,
       onClickCancelBtn,
+      onTriggerPrivateLabelModal,
+      onClickLaunchPrivateLabelBtn,
+      onClickBuyProductBtn,
       onClickUsername,
       onChangeModalQty,
       onChangeManager,
     } = this.viewModel
-
-    const {classes} = this.props
-    const rowsHandlers = {
-      privateLabel: onClickPrivateLabel,
-      username: onClickUsername,
-      qty: onChangeModalQty,
-      manager: onChangeManager,
+    const {classes: classNames} = this.props
+    const tableRowsHandlers = {
+      onClickLaunchPrivateLabelBtn,
+      onClickBuyProductBtn,
+      onClickUsername,
     }
-
+    const modalRowHanglers = {
+      onChangeModalQty,
+      onChangeManager,
+    }
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.CLIENT}
+          curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
@@ -81,32 +85,32 @@ export class ClientExchangeViewRaw extends Component {
             username={clientUsername}
           >
             <MainContent>
-              <div className={classes.titleWrapepr}>
+              <div className={classNames.titleWrapepr}>
                 <Typography paragraph variant="h6">
                   {textConsts.mainTitle}
                 </Typography>
               </div>
               <Table
-                currentPage={paginationPage}
-                data={productList}
-                handlerPageChange={onChangePagination}
+                currentPage={curPage}
+                data={productsVacant}
+                handlerPageChange={onChangeCurPage}
                 handlerRowsPerPage={onChangeRowsPerPage}
-                pageCount={Math.ceil(productList.length / rowsPerPage)}
+                pageCount={Math.ceil(productsVacant.length / rowsPerPage)}
                 BodyRow={ExchangeBodyRow}
                 renderHeadRow={this.renderTableHeadRow()}
                 rowsPerPage={rowsPerPage}
-                rowsHandlers={rowsHandlers}
+                rowsHandlers={tableRowsHandlers}
               />
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={modalPrivateLabel} setOpenModal={onCloseModal}>
+        <Modal openModal={showPrivateLabelModal} setOpenModal={onTriggerPrivateLabelModal}>
           <ClientExchnageModalContent
             modalHeadRow={this.renderModalHeadRow()}
             qty={modalQty}
             managerIndex={modalManagerIndex}
-            item={modalProductList[selectedIndex]}
-            handlers={rowsHandlers}
+            item={productsVacant[selectedIndex]}
+            handlers={modalRowHanglers}
             onClickOrderNowBtn={onClickOrderNowBtn}
             onClickCancelBtn={onClickCancelBtn}
           />
@@ -117,7 +121,7 @@ export class ClientExchangeViewRaw extends Component {
 
   renderTableHeadRow = () => (
     <TableRow>
-      {headCells.map((item, index) => (
+      {CLIENT_EXCHANGE_HEAD_CELLS.map((item, index) => (
         <TableCell key={index}>{item.label}</TableCell>
       ))}
       <TableCell />
@@ -127,23 +131,13 @@ export class ClientExchangeViewRaw extends Component {
 
   renderModalHeadRow = () => (
     <TableRow>
-      {modalHeadCells.map((item, index) => (
+      {CLIENT_EXCHANGE_MODAL_HEAD_CELLS.map((item, index) => (
         <TableCell key={index}>{item.label}</TableCell>
       ))}
       <TableCell />
       <TableCell />
-    </TableRow>
-  )
-
-  renderModalHeadRows = (
-    <TableRow>
-      {modalHeadCells.map((item, index) => (
-        <TableCell key={index}>{item.label}</TableCell>
-      ))}
     </TableRow>
   )
 }
 
-const ClientExchangeView = withStyles(styles)(ClientExchangeViewRaw)
-
-export {ClientExchangeView}
+export const ClientExchangeView = withStyles(styles)(ClientExchangeViewRaw)

@@ -4,9 +4,9 @@ import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {SUPERVISOR_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
+import {SUPERVISOR_PRODUCTS_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -41,7 +41,6 @@ class SupervisorReadyToCheckViewRaw extends Component {
       productsReadyToCheck,
       rowsPerPage,
       curPage,
-      onClickTableRow,
       onSelectProduct,
       onTriggerDrawerOpen,
       onChangePage,
@@ -52,14 +51,13 @@ class SupervisorReadyToCheckViewRaw extends Component {
     const {classes: classNames} = this.props
     const tableRowHandlers = {
       onSelectProduct,
-      onClickTableRow,
       onClickCalculateFees,
       onDoubleClickTableRow,
     }
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.SUPERVISOR}
+          curUserRole={UserRole.SUPERVISOR}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}

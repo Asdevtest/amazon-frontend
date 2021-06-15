@@ -5,7 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
-import {userRoleCodeMap, userRole} from '@constants/user-roles'
+import {UserRoleCodeMap, UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -40,7 +40,7 @@ class ResearcherSettingsViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.RESEARCHER}
+          curUserRole={UserRole.RESEARCHER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
@@ -75,7 +75,7 @@ class ResearcherSettingsViewRaw extends Component {
                     disabled
                     label={textConsts.fieldRole}
                     placeholder={'Researcher'}
-                    value={userRoleCodeMap[formFields.role]}
+                    value={UserRoleCodeMap[formFields.role]}
                     onChange={onChangeFormFields('role')}
                   />
                   <Field

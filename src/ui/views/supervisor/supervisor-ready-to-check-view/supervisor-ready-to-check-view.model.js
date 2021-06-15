@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
@@ -24,7 +24,7 @@ export class SupervisorReadyToCheckViewModel {
   async loadData() {
     try {
       this.requestStatus = loadingStatuses.isLoading
-      this.getProducsReadyToCheck()
+      this.getProductsReadyToCheck()
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       this.requestStatus = loadingStatuses.failed
@@ -32,10 +32,11 @@ export class SupervisorReadyToCheckViewModel {
     }
   }
 
-  async getProducsReadyToCheck() {
+  async getProductsReadyToCheck() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const result = await SupervisorModel.getProducsVacant()
+      const result = await SupervisorModel.getProductsVacant()
+      console.log(result)
       this.setRequestStatus(loadingStatuses.success)
       runInAction(() => {
         this.productsReadyToCheck = result
@@ -61,10 +62,6 @@ export class SupervisorReadyToCheckViewModel {
     this.selectedProducts = newSelectedProducts
   }
 
-  onClickTableRow(item) {
-    this.history.push('/supervisor/product', {product: toJS(item)})
-  }
-
   onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
   }
@@ -83,7 +80,6 @@ export class SupervisorReadyToCheckViewModel {
   async onDoubleClickTableRow(item) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
-      // eslint-disable-next-line no-underscore-dangle
       await SupervisorModel.pickupProduct(item._id)
       this.setActionStatus(loadingStatuses.success)
       this.loadData()

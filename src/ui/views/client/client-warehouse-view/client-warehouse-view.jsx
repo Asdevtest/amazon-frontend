@@ -3,9 +3,10 @@ import React, {Component} from 'react'
 import {Button, TableCell, TableRow, Typography, Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
-import {clientUsername, clientWarehouseViewTable, HISTORY_DATA} from '@constants/mocks'
+import {clientUsername, HISTORY_DATA} from '@constants/mocks'
+import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {EditBoxForm} from '@components/forms/edit-box-form'
@@ -21,11 +22,8 @@ import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/clientAvatar.jpg'
 import {ClientWarehouseViewModel} from './client-warehouse-view.model'
 import {styles} from './client-warehouse-view.style'
-
-const {headCells} = clientWarehouseViewTable
 
 const textConsts = getLocalizedTexts(texts, 'en').clientWarehouseView
 
@@ -36,9 +34,9 @@ export class ClientWarehouseViewRaw extends Component {
   viewModel = new ClientWarehouseViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getBoxes()
+    this.viewModel.loadData()
   }
-
+  
   render() {
     const {
       drawerOpen,
@@ -46,21 +44,19 @@ export class ClientWarehouseViewRaw extends Component {
       rowsPerPage,
       boxes,
       selectedBoxes,
-      modalSendOwnProduct,
-      modalEditBox,
-      modalRedistributeBox,
+      showSendOwnProductModal,
+      showEditBoxModal,
+      showRedistributeBoxModal,
+      showRedistributeBoxAddNewBoxModal,
+      showRedistributeBoxSuccessModal,
       modalRedistributeBoxAddNewBox,
-      modalRedistributeBoxSuccess,
-      onTriggerDrawer,
-      onChangePagination,
+      onChangeCurPage,
       onChangeRowsPerPage,
+      onRedistributeBoxAddNewBox,
+      onTriggerModal,
       onTriggerCheckbox,
-      onRedistribute,
-      onClickCloseModal,
-      onClickOpenModal,
-      onModalRedistributeBoxAddNewBox,
+      onTriggerDrawer
     } = this.viewModel
-
     const {classes: classNames} = this.props
     const rowsHandlers = {
       checkbox: id => onTriggerCheckbox(id),
@@ -74,13 +70,13 @@ export class ClientWarehouseViewRaw extends Component {
         <Navbar
           activeCategory={activeCategory}
           activeSubCategory={activeSubCategory}
-          curUserRole={userRole.CLIENT}
+          curUserRole={UserRole.CLIENT}
           drawerOpen={drawerOpen}
           handlerTriggerDrawer={onTriggerDrawer}
         />
         <Main>
           <Appbar
-            avatarSrc={avatar}
+            avatarSrc={''}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
@@ -94,15 +90,15 @@ export class ClientWarehouseViewRaw extends Component {
                 className={classNames.sendOwnProductBtn}
                 color="primary"
                 variant="contained"
-                onClick={() => onClickOpenModal('modalSendOwnProduct')}
+                onClick={() => onTriggerModal('showSendOwnProductModal')}
               >
                 {textConsts.sendProductBtn}
               </Button>
               <Table
-                buttons={this.renderButtons()}
+                renderButtons={this.renderButtons}
                 currentPage={paginationPage}
                 data={boxes}
-                handlerPageChange={onChangePagination}
+                handlerPageChange={onChangeCurPage}
                 handlerRowsPerPage={onChangeRowsPerPage}
                 pageCount={Math.ceil(boxes.length / rowsPerPage)}
                 BodyRow={WarehouseBodyRow}
@@ -117,33 +113,33 @@ export class ClientWarehouseViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={modalSendOwnProduct} setOpenModal={() => onClickCloseModal('modalSendOwnProduct')}>
+        <Modal openModal={showSendOwnProductModal} setOpenModal={() => onTriggerModal('modalSendOwnProduct')}>
           <Typography variant="h5">{textConsts.modalSendOwnProductTitle}</Typography>
           <SendOwnProductForm />
         </Modal>
-        <Modal openModal={modalEditBox} setOpenModal={() => onClickCloseModal('modalEditBox')}>
+        <Modal openModal={showEditBoxModal} setOpenModal={() => onTriggerModal('modalEditBox')}>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
           <EditBoxForm formFields={boxes.filter(box => selectedBoxes.includes(box.boxId))[0]} />
         </Modal>
-        <Modal openModal={modalRedistributeBox} setOpenModal={() => onClickCloseModal('modalRedistributeBox')}>
+        <Modal openModal={showRedistributeBoxModal} setOpenModal={() => onTriggerModal('modalRedistributeBox')}>
           <div className={classNames.redistributionWrapper}>
             <Typography paragraph variant="h5">
               {textConsts.modalRedistributionTitle}
             </Typography>
             <RedistributeBox
-              addNewBoxModal={modalRedistributeBoxAddNewBox}
-              setAddNewBoxModal={value => onModalRedistributeBoxAddNewBox(value)}
+              addNewBoxModal={showRedistributeBoxAddNewBoxModal}
+              setAddNewBoxModal={onRedistributeBoxAddNewBox}
               selectedBox={boxes.filter(box => selectedBoxes.includes(box.boxId))[0]}
               notSelectedBoxes={boxes.filter(box => !selectedBoxes.includes(box.boxId))}
-              onRedistribute={onRedistribute}
-              onClickCloseModal={onClickCloseModal}
-              onClickOpenModal={onClickOpenModal}
+              onRedistribute={onRedistributeBoxAddNewBox}
+              onClickCloseModal={onTriggerModal}
+              onClickOpenModal={onTriggerModal}
             />
           </div>
         </Modal>
         <Modal
           openModal={!!modalRedistributeBoxAddNewBox}
-          setOpenModal={() => onClickCloseModal('modalRedistributeBoxAddNewBox')}
+          setOpenModal={() => onTriggerModal('modalRedistributeBoxAddNewBox')}
         >
           <div className={classNames.modalMessageWrapper}>
             <Typography paragraph variant="h5">
@@ -155,15 +151,15 @@ export class ClientWarehouseViewRaw extends Component {
             <Button
               className={classNames.modalMessageBtn}
               color="primary"
-              onClick={() => onClickCloseModal('modalRedistributeBoxAddNewBox')}
+              onClick={() => onTriggerModal('modalRedistributeBoxAddNewBox')}
             >
               {textConsts.closeBtn}
             </Button>
           </div>
         </Modal>
         <Modal
-          openModal={modalRedistributeBoxSuccess}
-          setOpenModal={() => onClickCloseModal('modalRedistributeBoxSuccess')}
+          openModal={showRedistributeBoxSuccessModal}
+          setOpenModal={() => onTriggerModal('showRedistributeBoxSuccessModal')}
         >
           <div className={classNames.modalMessageWrapper}>
             <Typography paragraph variant="h5">
@@ -175,7 +171,7 @@ export class ClientWarehouseViewRaw extends Component {
             <Button
               className={classNames.modalMessageBtn}
               color="primary"
-              onClick={() => onClickCloseModal('modalRedistributeBoxSuccess')}
+              onClick={() => onTriggerModal('modalRedistributeBoxSuccess')}
             >
               {textConsts.closeBtn}
             </Button>
@@ -187,46 +183,49 @@ export class ClientWarehouseViewRaw extends Component {
 
   renderHeadRow = (
     <TableRow>
-      {headCells.map((item, index) => (
+      {CLIENT_WAREHOUSE_HEAD_CELLS.map((item, index) => (
         <TableCell key={index}>{item.label}</TableCell>
       ))}
     </TableRow>
   )
 
-  renderButtons = () => (
-    <React.Fragment>
-      <Button disableElevation color="primary" variant="contained">
-        {textConsts.sendBatchBtn}
-      </Button>
-      <Button
-        disableElevation
-        disabled={this.viewModel.selectedBoxes.length <= 1}
-        color="primary"
-        variant="contained"
-        onClick={() => this.viewModel.onClickMerge()}
-      >
-        {textConsts.mergeBtn}
-      </Button>
-      <Button
-        disableElevation
-        disabled={this.viewModel.selectedBoxes.length !== 1}
-        color="primary"
-        variant="contained"
-        onClick={() => this.viewModel.onClickOpenModal('modalRedistributeBox')}
-      >
-        {textConsts.redistributeBtn}
-      </Button>
-      <Button
-        disableElevation
-        disabled={this.viewModel.selectedBoxes.length !== 1}
-        color="primary"
-        variant="contained"
-        onClick={() => this.viewModel.onClickOpenModal('modalEditBox')}
-      >
-        {textConsts.editBtn}
-      </Button>
-    </React.Fragment>
-  )
+  renderButtons = () => {
+    const {selectedBoxes, onClickMerge, onTriggerModal} = this.viewModel
+    return (
+      <>
+        <Button disableElevation color="primary" variant="contained">
+          {textConsts.sendBatchBtn}
+        </Button>
+        <Button
+          disableElevation
+          disabled={selectedBoxes.length <= 1}
+          color="primary"
+          variant="contained"
+          onClick={() => onClickMerge()}
+        >
+          {textConsts.mergeBtn}
+        </Button>
+        <Button
+          disableElevation
+          disabled={selectedBoxes.length !== 1}
+          color="primary"
+          variant="contained"
+          onClick={() => onTriggerModal('modalRedistributeBox')}
+        >
+          {textConsts.redistributeBtn}
+        </Button>
+        <Button
+          disableElevation
+          disabled={selectedBoxes.length !== 1}
+          color="primary"
+          variant="contained"
+          onClick={() => onTriggerModal('modalEditBox')}
+        >
+          {textConsts.editBtn}
+        </Button>
+      </>
+    )
+  }
 }
 
 export const ClientWarehouseView = withStyles(styles)(ClientWarehouseViewRaw)

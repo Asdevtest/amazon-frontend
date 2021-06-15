@@ -7,6 +7,7 @@ import {texts} from '@constants/texts'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {priceCalculation} from '@utils/price-calculation'
+import {toFixedWithDollarSign, withDollarSign} from '@utils/text'
 
 import {useClassNames} from './table-supplier.style'
 
@@ -28,6 +29,7 @@ export const TableSupplier = observer(({suppliers, selectedSupplier, onClickSupp
             <TableCell className={classNames.alignRight}>{textConsts.tableSheep}</TableCell>
             <TableCell className={classNames.alignCenter}>{textConsts.tableCount}</TableCell>
             <TableCell className={classNames.alignCenter}>{textConsts.tableMinBatch}</TableCell>
+            <TableCell className={classNames.alignCenter}>{textConsts.tableBatchCost}</TableCell>
             <TableCell className={classNames.alignRight}>{textConsts.tableCost}</TableCell>
             <TableCell className={classNames.alignCenter}>{textConsts.tableComment}</TableCell>
           </TableRow>
@@ -37,25 +39,28 @@ export const TableSupplier = observer(({suppliers, selectedSupplier, onClickSupp
             suppliers.map((supplier, index) => (
               <TableRow
                 key={`supplier_${supplier.id}_${index}`}
-                selected={selectedSupplier && supplier.id === selectedSupplier.id}
+                selected={selectedSupplier && supplier._id === selectedSupplier._id}
                 onClick={() => onClickSupplier(supplier, index)}
               >
                 <TableCell className={(classNames.alignCenter, classNames.tableCellPadding)}>{supplier.name}</TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.link}</TableCell>
-                <TableCell className={classNames.alignRight}>{'$' + supplier.price.toFixed(2)}</TableCell>
-                <TableCell className={classNames.alignRight}>{'$' + supplier.deliveryPrice.toFixed(2)}</TableCell>
-                <TableCell className={classNames.alignCenter}>{supplier.qty}</TableCell>
-                <TableCell className={classNames.alignCenter}>{supplier.minQty}</TableCell>
+                <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.price)}</TableCell>
+                <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.delivery)}</TableCell>
+                <TableCell className={classNames.alignCenter}>{supplier.amount}</TableCell>
+                <TableCell className={classNames.alignCenter}>{supplier.minlot}</TableCell>
+                <TableCell className={classNames.alignCenter}>{supplier.lotcost}</TableCell>
                 <TableCell className={classNames.alignCenter}>
-                  {'$' + priceCalculation(supplier.price, supplier.deliveryPrice, supplier.qty)}
+                  {withDollarSign(priceCalculation(supplier.price, supplier.delivery, supplier.amount))}
                 </TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.comment}</TableCell>
               </TableRow>
             ))
           ) : (
-            <TableCell className={(classNames.alignCenter, classNames.tableCellPadding)} colSpan={8}>
-              {textConsts.tableCellNoVendors}
-            </TableCell>
+            <TableRow>
+              <TableCell className={(classNames.alignCenter, classNames.tableCellPadding)} colSpan={8}>
+                {textConsts.tableCellNoVendors}
+              </TableCell>
+            </TableRow>
           )}
         </TableBody>
       </Table>

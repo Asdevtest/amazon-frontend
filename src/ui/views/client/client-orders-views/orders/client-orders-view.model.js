@@ -7,13 +7,13 @@ export class ClientOrdersViewModel {
   requestStatus = undefined
   error = undefined
 
-  ordersData = []
+  orders = []
 
   activeSubCategory = 2
   drawerOpen = false
   modalBarcode = false
   rowsPerPage = 5
-  paginationPage = 1
+  curPage = 1
 
   constructor({history}) {
     this.history = history
@@ -28,8 +28,8 @@ export class ClientOrdersViewModel {
     this.drawerOpen = value
   }
 
-  onChangePagination(e, value) {
-    this.paginationPge = value
+  onChangeCurPage(e, value) {
+    this.curPage = value
   }
 
   onChangeRowsPerPage(e) {
@@ -41,7 +41,7 @@ export class ClientOrdersViewModel {
     try {
       const result = await ClientModel.getOrders()
       runInAction(() => {
-        this.subUsersData = result
+        this.orders = result
       })
     } catch (error) {
       console.log(error)

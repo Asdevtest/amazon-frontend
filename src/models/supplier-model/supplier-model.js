@@ -7,7 +7,7 @@ class SupplierModelStatic {
   }
 
   createSupplier = async data => {
-    const response = await restApiService.supplierApi.apiV1SuppliersPost({InlineObject19: data})
+    const response = await restApiService.supplierApi.apiV1SuppliersPost({InlineObject18: data})
     return response
   }
 
@@ -17,7 +17,7 @@ class SupplierModelStatic {
   }
 
   updateSupplier = async (id, data) => {
-    const response = await restApiService.supplierApi.apiV1SuppliersGuidPatch(id, {InlineObject20: data})
+    const response = await restApiService.supplierApi.apiV1SuppliersGuidPatch(id, {InlineObject19: data})
     return response
   }
 

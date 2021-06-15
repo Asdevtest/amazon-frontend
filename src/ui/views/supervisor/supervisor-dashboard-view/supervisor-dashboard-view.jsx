@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {getSupervisorDashboardCardConfig, SupervisorDashboardCardDataKey} from '@constants/dashboard-configs'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
@@ -39,7 +39,7 @@ export class SupervisorDashboardViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.SUPERVISOR}
+          curUserRole={UserRole.SUPERVISOR}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}

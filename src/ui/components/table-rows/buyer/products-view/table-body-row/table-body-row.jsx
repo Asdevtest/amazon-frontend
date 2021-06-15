@@ -10,14 +10,27 @@ import StarIcon from '@material-ui/icons/Star'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
+import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-double-click'
+
 import calculateSrc from '../assets/calculate.svg'
 import {useClassNames} from './table-body-row.style'
 
-export const TableBodyRow = observer(({item, itemIndex}) => {
+export const TableBodyRow = observer(({item, itemIndex, handlers}) => {
+  const [handleClick, handleDoubleClick] = useClickPreventionOnDoubleClick(
+    () => {
+      if (handlers.onClickTableRow) {
+        handlers.onClickTableRow(item, itemIndex)
+      }
+    },
+    () => {
+      if (handlers.onDoubleClickTableRow) {
+        handlers.onDoubleClickTableRow(item, itemIndex)
+      }
+    },
+  )
   const classNames = useClassNames()
-  console.log('item.price ', item)
   return (
-    <TableRow key={item.asin} hover role="checkbox">
+    <TableRow key={item.asin} hover role="checkbox" onClick={handleClick} onDoubleClick={handleDoubleClick}>
       <TableCell className={classNames.indexCell}>
         <Typography>{itemIndex + 1}</Typography>
       </TableCell>
@@ -33,7 +46,7 @@ export const TableBodyRow = observer(({item, itemIndex}) => {
             <Typography className={classNames.csCodeTypo}>{item.csCode}</Typography>
             <Typography className={classNames.typoCell}>
               {'ASIN '}
-              <span className={classNames.typoSpan}>{item.asin}</span>
+              <span className={classNames.typoSpan}>{item.id}</span>
               {' | updated today'}
             </Typography>
             <Chip className={classNames.chip} label={'Beauty & Personal Care'} />

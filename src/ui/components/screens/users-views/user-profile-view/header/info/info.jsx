@@ -5,12 +5,13 @@ import {Box, Divider, Paper, Typography} from '@material-ui/core'
 import {texts} from '@constants/texts'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixedWithDollarSign, withText} from '@utils/text'
 
 import {useClassNames} from './info.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').buyerUserHeaderInfo
 
-export const Info = ({headerInfo}) => {
+export const Info = ({headerInfoData}) => {
   const classNames = useClassNames()
 
   const InfoRow = ({label, value}) => (
@@ -26,22 +27,22 @@ export const Info = ({headerInfo}) => {
 
       <Divider orientation={'horizontal'} className={classNames.divider} />
 
-      <InfoRow label={headerInfo.countInvestors.text} value={headerInfo.countInvestors.value} />
-      <InfoRow label={headerInfo.foundGoods.text} value={headerInfo.foundGoods.value} />
-      <InfoRow label={headerInfo.volumeTrans.text} value={headerInfo.volumeTrans.value} />
-      <InfoRow label={headerInfo.earned.text} value={headerInfo.earned.value} />
+      <InfoRow label={textConsts.investorsCount} value={headerInfoData.investorsCount} />
+      <InfoRow label={textConsts.goodsFound} value={headerInfoData.goodsFound} />
+      <InfoRow label={textConsts.transactionsVolume} value={toFixedWithDollarSign(headerInfoData.transactionsVolume)} />
+      <InfoRow label={textConsts.earnedAmount} value={toFixedWithDollarSign(headerInfoData.earnedAmount)} />
 
       <Divider orientation={'horizontal'} className={classNames.divider} />
-      <InfoRow label={headerInfo.addInSave.text} value={headerInfo.addInSave.value} />
+      <InfoRow label={textConsts.addInSave} value={withText(headerInfoData.addInSave, textConsts.investors)} />
 
       <Divider orientation={'horizontal'} className={classNames.divider} />
-      <InfoRow label={headerInfo.inBlocked.text} value={headerInfo.inBlocked.value} />
+      <InfoRow label={textConsts.inBlocked} value={withText(headerInfoData.inBlocked, textConsts.investors)} />
 
       <Divider orientation={'horizontal'} className={classNames.divider} />
-      <InfoRow label={headerInfo.youBlocked.text} value={headerInfo.youBlocked.value} />
+      <InfoRow label={textConsts.youBlocked} value={withText(headerInfoData.youBlocked, textConsts.investors)} />
 
       <Divider orientation={'horizontal'} className={classNames.divider} />
-      <InfoRow label={headerInfo.createAc.text} value={headerInfo.createAc.value} />
+      <InfoRow label={textConsts.accountCreateAt} value={headerInfoData.accountCreateAt} />
     </Paper>
   )
 }

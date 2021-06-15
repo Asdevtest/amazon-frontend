@@ -13,7 +13,7 @@ import {priceCalculation} from '@utils/price-calculation'
 
 import {useClassNames} from './add-or-edit-supplier-modal-content.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').modalContent
+const textConsts = getLocalizedTexts(texts, 'ru').addOrEditSupplierModalContent
 
 export const AddOrEditSupplierModalContent = observer(({title, onTriggerShowModal, supplier, onClickSaveBtn}) => {
   const classNames = useClassNames()
@@ -40,17 +40,14 @@ export const AddOrEditSupplierModalContent = observer(({title, onTriggerShowModa
       <Field label={textConsts.name} value={tmpSupplier.name} onChange={onChangeField('name')} />
       <Field label={textConsts.link} value={tmpSupplier.link} onChange={onChangeField('link')} />
       <Field label={textConsts.price} value={tmpSupplier.price} onChange={onChangeField('price')} />
-      <Field
-        label={textConsts.deliveryPrice}
-        value={tmpSupplier.deliveryPrice}
-        onChange={onChangeField('deliveryPrice')}
-      />
+      <Field label={textConsts.deliveryPrice} value={tmpSupplier.delivery} onChange={onChangeField('delivery')} />
       <Field label={textConsts.qty} value={tmpSupplier.amount} onChange={onChangeField('amount')} />
-      <Field label={textConsts.minQty} value={tmpSupplier.minQty} onChange={onChangeField('minlot')} />
+      <Field label={textConsts.minLot} value={tmpSupplier.minlot} onChange={onChangeField('minlot')} />
+      <Field label={textConsts.lotCost} value={tmpSupplier.lotcost} onChange={onChangeField('lotcost')} />
       <Field
         disabled
         label={textConsts.csCode}
-        value={priceCalculation(tmpSupplier.price, tmpSupplier.delivery, tmpSupplier.qty)}
+        value={priceCalculation(tmpSupplier.price, tmpSupplier.delivery, tmpSupplier.minlot)}
       />
       <Field
         multiline
@@ -70,7 +67,7 @@ export const AddOrEditSupplierModalContent = observer(({title, onTriggerShowModa
           className={classNames.saveBtn}
           variant="contained"
           onClick={() => {
-            onClickSaveBtn(tmpSupplier)
+            onClickSaveBtn({...tmpSupplier, _id: supplier && supplier._id})
           }}
         >
           {textConsts.saveBtn}

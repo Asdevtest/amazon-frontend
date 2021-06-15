@@ -9,6 +9,7 @@ import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
 
 import {styles} from './table-body-row.style'
 
@@ -31,7 +32,7 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
             <Typography className={classNames.orderTitle}>{item.csCode}</Typography>
             <Typography className={classNames.orderText}>
               <span className={classNames.orderTextSpan}>{textConsts.asinTypo}</span>
-              {item.asin}
+              {item.product}
             </Typography>
           </div>
         </div>
@@ -55,13 +56,13 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
       </TableCell>
 
       <TableCell>
-        <Typography>{item.qty}</Typography>
+        <Typography>{item.amount}</Typography>
       </TableCell>
       <TableCell>
-        <Typography>{item.destination}</Typography>
+        <Typography>{item.warehouse}</Typography>
       </TableCell>
       <TableCell>
-        {item.boxId === null ? (
+        {!item.boxId ? (
           <Button size="small">{textConsts.distributeBtn}</Button>
         ) : (
           <Box display="flex" alignItems="center">
@@ -77,21 +78,16 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
         )}
       </TableCell>
       <TableCell>
-        <Typography>{item.price + '$'}</Typography>
+        <Typography>{toFixedWithDollarSign(item.deliveryCostToTheWarehouse)}</Typography>
       </TableCell>
       <TableCell>
-        <Typography>{item.weight + ' kg'}</Typography>
+        <Typography>{toFixedWithKg(item.weight)}</Typography>
       </TableCell>
       <TableCell>
         {item.grossWeight ? (
-          <Typography>{item.grossWeight + ' kg'}</Typography>
+          <Typography>{toFixedWithKg(item.grossWeight)}</Typography>
         ) : (
-          <Tooltip
-            interactive
-            placement="top"
-            title={textConsts.titleToolTip}
-            className={{tooltipPlacementTop: classNames.tooltip}}
-          >
+          <Tooltip interactive placement="top" title={textConsts.titleToolTip} className={classNames.tooltip}>
             <Typography>?</Typography>
           </Tooltip>
         )}

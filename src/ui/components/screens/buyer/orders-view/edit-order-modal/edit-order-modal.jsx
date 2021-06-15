@@ -20,7 +20,7 @@ export const EditOrderModal = ({
   setModal,
   setModalBarcode,
   modalHeadCells,
-  warehouseList,
+  warehouses,
   deliveryList,
   statusList,
 }) => {
@@ -51,7 +51,7 @@ export const EditOrderModal = ({
           order={order}
           comment={comment}
           setComment={setComment}
-          warehouseList={warehouseList}
+          warehouses={warehouses}
           deliveryList={deliveryList}
           statusList={statusList}
         />

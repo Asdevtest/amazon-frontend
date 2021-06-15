@@ -9,6 +9,8 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import StarIcon from '@material-ui/icons/Star'
 import clsx from 'clsx'
 
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-double-click'
 
 import calculateSrc from './calculate.svg'
@@ -47,7 +49,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
             <img
               alt="placeholder"
               className={classNames.img}
-              src={item.images && item.images.length && item.images[0]}
+              src={item.images && item.images.length && getAmazonImageUrl(item.images[0])}
             />
           </div>
           <div>
@@ -61,16 +63,16 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
           </div>
         </div>
       </TableCell>
-      <TableCell className={classNames.priceTableCell}>{item.price ? '$' + item.price.toFixed(2) : ''}</TableCell>
+      <TableCell className={classNames.priceTableCell}>{toFixedWithDollarSign(item.price)}</TableCell>
       <TableCell className={classNames.feesTableCell}>
         <div>
           <Typography className={classNames.typoCell}>
             {'Fees '}
-            <span className={classNames.typoSpan}>{item.fbafee ? '$' + item.fbafee : ''}</span>
+            <span className={classNames.typoSpan}>{toFixedWithDollarSign(item.fbafee)}</span>
           </Typography>
           <Typography className={classNames.typoCell}>
             {'Net '}
-            <span className={classNames.typoSpan}>{item.fees ? '$' + (item.fees + 1) : ''}</span>
+            <span className={classNames.typoSpan}>{toFixedWithDollarSign(item.fees)}</span>
           </Typography>
           <Button
             disableElevation
@@ -88,7 +90,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
       <TableCell className={classNames.rankTableCell}>{item.rank ? '#' + item.rank : ''}</TableCell>
       <TableCell className={classNames.ratingTableCell}>
         <div className={classNames.ratingTableCellContainer}>
-          <Typography className={classNames.ratingTypo}>{item.rating ? item.rating.toFixed(1) : ''}</Typography>
+          <Typography className={classNames.ratingTypo}>{toFixed(item.rating)}</Typography>
           <div className={classNames.rankCount}>
             {[1, 2, 3, 4, 5].map(el => (
               <StarIcon
@@ -105,12 +107,10 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
       <TableCell className={classNames.salesCell}>{item.sales}</TableCell>
       <TableCell className={classNames.salersTotal}>{item.salersTotal}</TableCell>
       <TableCell className={classNames.salersTotal}>{item.type}</TableCell>
-      <TableCell className={classNames.revenueCell}>{item.revenue ? '$' + item.revenue.toFixed(2) : ''}</TableCell>
-      <TableCell className={classNames.amazonCell}>
-        {item.amazonPrice ? '$' + item.amazonPrice.toFixed(2) : ''}
-      </TableCell>
-      <TableCell className={classNames.bsrCell}>{item.bsr ? '$' + item.bsr.toFixed(2) : ''}</TableCell>
-      <TableCell className={classNames.bsrCell}>{item.fba ? '$' + item.fba.toFixed(2) : ''}</TableCell>
+      <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.revenue)}</TableCell>
+      <TableCell className={classNames.amazonCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
+      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.bsr)}</TableCell>
+      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.fba)}</TableCell>
       <TableCell className={classNames.deleteBtnCell}>
         <IconButton onClick={() => alert('Item deleting...')}>
           <DeleteIcon className={classNames.deleteBtn} />

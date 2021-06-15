@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {CLIENT_SUB_USERS_TABLE_CELLS} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {userRole} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -59,7 +59,7 @@ class ClientSubUsersViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={userRole.CLIENT}
+          curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
@@ -78,7 +78,7 @@ class ClientSubUsersViewRaw extends Component {
               <Typography>{textConsts.mainTitle}</Typography>
 
               <Table
-                buttons={this.renderButtons}
+                renderButtons={this.renderButtons}
                 currentPage={paginationPage}
                 data={subUsersData}
                 handlerPageChange={onChangePagination}
@@ -118,7 +118,7 @@ class ClientSubUsersViewRaw extends Component {
 
   renderHeadRow = (<TableHeadRow headCells={CLIENT_SUB_USERS_TABLE_CELLS} />)
 
-  renderButtons = (
+  renderButtons = () => (
     <Box className={this.props.classes.buttonBox}>
       <Button color="secondary" onClick={() => this.viewModel.onChangeModalAddSubUser()}>
         {textConsts.addUserBtn}
@@ -127,6 +127,4 @@ class ClientSubUsersViewRaw extends Component {
   )
 }
 
-const ClientSubUsersView = withStyles(styles)(ClientSubUsersViewRaw)
-
-export {ClientSubUsersView}
+export const ClientSubUsersView = withStyles(styles)(ClientSubUsersViewRaw)
