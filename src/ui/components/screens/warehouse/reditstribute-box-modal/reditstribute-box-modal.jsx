@@ -18,8 +18,7 @@ export const RedistributeBox = ({
   selectedBox,
   notSelectedBoxes,
   onRedistribute,
-  onClickCloseModal,
-  onClickOpenModal,
+  onTriggerModal,
 }) => {
   const classNames = useClassNames()
   const [currentBox, setCurrentBox] = useState(selectedBox)
@@ -124,8 +123,8 @@ export const RedistributeBox = ({
           disabled={totalProductsAmount !== 0}
           onClick={() => {
             onClickRedistributeBtn()
-            onClickCloseModal('modalRedistributeBox')
-            onClickOpenModal('modalRedistributeBoxSuccess')
+            onTriggerModal('showRedistributeBoxModal')
+            onTriggerModal('showRedistributeBoxSuccessModal')
             setAddNewBoxModal(null)
           }}
         >
@@ -143,7 +142,7 @@ export const RedistributeBox = ({
         <Button
           variant="text"
           onClick={() => {
-            onClickCloseModal('modalRedistributeBox')
+            onTriggerModal('showRedistributeBoxModal')
             setAddNewBoxModal(null)
           }}
         >

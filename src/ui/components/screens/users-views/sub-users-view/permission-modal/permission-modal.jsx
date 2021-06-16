@@ -97,6 +97,7 @@ export const PermissionContentModal = props => {
       <Box className={classNames.buttonBox}>
         <Button
           disableElevation
+          color="primary"
           variant="contained"
           className={classNames.saveBtn}
           onClick={() => props.setModalPermission(false)}

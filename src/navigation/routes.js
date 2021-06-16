@@ -1,3 +1,14 @@
+import {AdminDashboardView} from '@views/admin/admin-dashboard-view'
+import {AdminExchangeWaitingView} from '@views/admin/admin-exchange-views/admin-exchange-waiting-view'
+import {AdminFinancesReplenishmentsView} from '@views/admin/admin-finances-views/admin-finances-replenishments-view'
+import {AdminInventoryView} from '@views/admin/admin-inventory-view'
+import {AdminOrdersAllView} from '@views/admin/admin-orders-views/admin-orders-all-view'
+import {AdminSettingsView} from '@views/admin/admin-settings-view'
+import {AdminUserBalanceView} from '@views/admin/admin-users-view/admin-user-balance-view'
+import {AdminUsersView} from '@views/admin/admin-users-view/admin-users-view'
+import {AdminWarehouseBatchesView} from '@views/admin/admin-warehouse-views/admin-warehouse-batches-view'
+import {AdminWarehouseBoxesView} from '@views/admin/admin-warehouse-views/admin-warehouse-boxes-view'
+import {AdminWarehouseOrdersView} from '@views/admin/admin-warehouse-views/admin-warehouse-orders-view'
 import {AuthView} from '@views/auth'
 import {BuyerBatchesView} from '@views/buyer/buyer-batches-view'
 import {BuyerMyProductsView} from '@views/buyer/buyer-my-products-view'
@@ -212,7 +223,6 @@ export const routes = [
     component: BuyerWarehouseView,
     exact: false,
   },
-
   {
     routePath: '/warehouse/dashboard',
     component: WarehouseDashboardView,
@@ -226,6 +236,61 @@ export const routes = [
   {
     routePath: '/warehouse/completed-tasks',
     component: WarehouseCompletedTasksView,
+    exact: false,
+  },
+  {
+    routePath: '/admin/dashboard',
+    component: AdminDashboardView,
+    exact: false,
+  },
+  {
+    routePath: '/admin/exchange/waiting',
+    component: AdminExchangeWaitingView,
+    exact: false,
+  },
+  {
+    routePath: '/admin/inventory',
+    component: AdminInventoryView,
+    exact: false,
+  },
+  {
+    routePath: '/admin/orders/all',
+    component: AdminOrdersAllView,
+    exact: false,
+  },
+  {
+    routePath: '/admin/warehouse/orders',
+    component: AdminWarehouseOrdersView,
+    exact: false,
+  },
+  {
+    routePath: '/admin/warehouse/boxes',
+    component: AdminWarehouseBoxesView,
+    exact: false,
+  },
+  {
+    routePath: '/admin/warehouse/batches',
+    component: AdminWarehouseBatchesView,
+    exact: false,
+  },
+  {
+    routePath: '/admin/finances/replenishments',
+    component: AdminFinancesReplenishmentsView,
+    exact: false,
+  },
+  {
+    routePath: '/admin/users',
+    component: AdminUsersView,
+    exact: false,
+  },
+  {
+    routePath: '/admin/user/user_id/balance',
+    component: AdminUserBalanceView,
+    exact: false,
+  },
+  {
+    routePath: '/admin/settings',
+    component: AdminSettingsView,
     exact: false,
   },
 ]

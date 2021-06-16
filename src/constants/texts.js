@@ -68,6 +68,7 @@ export const texts = {
       accuredToReserchersSectionItemTitle: 'Начислено ресерчерам',
       disputsForProductsSectionItemTitle: 'Споров по товарам',
     },
+
     clientWarehouseView: {
       appbarTitle: 'Warehouse',
       mainTitle: 'Boxes in warehouse',
@@ -98,6 +99,25 @@ export const texts = {
       editBtn: 'Edit',
       closeBtn: 'Close',
       warehouseHistoryTitle: 'Изменения на складе',
+
+      modalSendOwnProductTitle: 'Send own product',
+      modalEditBoxTitle: 'Box editing',
+      modalRedistributionTitle: 'Box redistributing',
+      modalRedistributionAddNewBoxTitle: 'Attention!',
+      modalRedistributionAddNewBoxMessage:
+        'Увеличение количества коробок будет требовать дополнительной оплаты в зависимости от тарифов склада на котором находиться товар',
+      modalRedistributionSuccessTitle: 'Success!',
+      modalRedistributionSuccessMessage: 'Box redistribution was successful',
+    },
+    adminWarehouseView: {
+      appbarTitle: 'Warehouse',
+      mainTitle: 'Boxes in warehouse',
+      sendProductBtn: 'Send own product',
+      sendBatchBtn: 'Send batch',
+      mergeBtn: 'Merge',
+      redistributeBtn: 'Redistribute',
+      editBtn: 'Edit',
+      closeBtn: 'Close',
 
       modalSendOwnProductTitle: 'Send own product',
       modalEditBoxTitle: 'Box editing',
@@ -148,12 +168,89 @@ export const texts = {
       saveChangesBtn: 'Save',
       cancelChangesBtn: 'Cancel',
     },
+
     warehouseEditBoxForm: {
       amountLabel: 'Qty',
       materialLabel: 'Material',
       shippingLabel: 'shippingLabel:',
       setShippingLabel: 'Set shipping label',
       deleteAlert: 'delete',
+    },
+
+    adminDashboardView: {
+      appbarTitle: 'Dashboard',
+      dashboardTitle: 'Dashboard',
+      prodcutsWaitingToCheckBySupervisorsTitle: 'Ожидают проверку',
+      productsBeingCheckedBySupervisorsTitle: 'Взяты на проверку супервайзерами',
+      productsCheckedBySupervisorsTitle: 'Подтверждены супервайзерами',
+      productsRejectedBySupervisorsTitle: 'Отклонены супервайзерами',
+      accruedToManagersTitle: 'Начислено менеджерам',
+      accruedToSupervisorsTitle: 'Начислено супервайзерам',
+      supervisorsFinesTitle: 'Штрафы супервайзеров',
+      managersFinesTitle: 'Штрафы менеджеров',
+    },
+
+    adminProductsWaitingView: {
+      appbarTitle: 'Waiting',
+      mainTitle: 'Products waiting supervisors check',
+    },
+    adminInventoryView: {
+      appbarTitle: 'Inventory',
+      mainTitle: 'Inventory',
+    },
+    adminOrdersAllView: {
+      appbarTitle: 'Orders - All',
+      mainTitle: 'Заказы всех клиентов',
+    },
+    adminWarehouseOrdersView: {
+      appbarTitle: 'Warehouse - Orders',
+      mainTitle: 'Все поступившие на склад заказы',
+    },
+    adminFinancesReplenishmentsView: {
+      appbarTitle: 'Replenish balance',
+      mainTitle: 'Replenish balance',
+    },
+    adminUsersView: {
+      appbarTitle: 'Users',
+      mainTitle: 'Users',
+      modalEditTitle: 'Edit user',
+      modalEditBtn: 'Save',
+    },
+    adminUserBalanceView: {
+      balance: 'Balance',
+      withdraw: 'Withdraw',
+      replenish: 'Deposit',
+
+      appbarTitle: 'User balance',
+      mainTitle: 'Users',
+      modalEditTitle: 'Edit user',
+      modalEditBtn: 'Save',
+    },
+    adminSettingsView: {
+      appbarTitle: 'Settings',
+      mainTitle: 'Settings',
+    },
+    adminBalanceModal: {
+      titleReplenish: 'Replenish balance',
+      titleWithdraw: 'Withdraw balance',
+      balanceLabel: 'Balance change value',
+      selectLabel: 'Select',
+      commentLabel: 'Comment',
+      msgSubject: 'Balance of user ',
+      msgPosPredicate: ' will be replenish by ',
+      msgNegPredicate: ' will be debited by ',
+      executeBtn: 'Execute',
+      confirmBtn: 'Confirm',
+      declineBtn: 'Decline',
+      confirmMsgAreYouSureYouWantTo: 'Are you sure you want to ',
+      confirmMsgIncrease: 'increase',
+      confirmMsgDecrease: 'decrease',
+      confirmMsgTheBalanceOfTheUser: ' the balance of the user ',
+      confirmMsgBy: ' by ',
+      widthdrawOptionFine: 'Штраф',
+      widthdrawOptionWithdraw: 'Вывод средств',
+      replenishOptionReplenish: 'Пополнение',
+      replenishOptionServicePayment: 'Оплата услуг',
     },
 
     tableToolbar: {
@@ -221,10 +318,10 @@ export const texts = {
       mainLastUpdate: '24.03.2021',
       authTitle: 'Аутентификация',
       authLink: 'https://stoic-northcutt-f04ad5.netlify.app/auth',
-      authDescription: `При нажатии на "Create account" перенесет на страницу Регистрации`,
+      authDescription: 'При нажатии на "Create account" перенесет на страницу Регистрации',
       registerTitle: 'Регистрация',
       registerLink: 'https://stoic-northcutt-f04ad5.netlify.app/register',
-      registerDescription: `При нажатии на "Already have account" перенесет на страницу Аутентификации`,
+      registerDescription: 'При нажатии на "Already have account" перенесет на страницу Аутентификации',
     },
     inventoryView: {
       appbarTitle: 'Inventory',
@@ -285,13 +382,13 @@ export const texts = {
       checkBoxes: 'Убедитесь, что выбраны нужные коробки!',
       boxNum: 'Коробка № 60056652a2d48204954d640d',
       typoWarehouse: 'warehouse:',
-      typoStatus: `status: Formed`,
+      typoStatus: 'status: Formed',
       typoDeliveryMethod: 'deliveryMethod:',
-      typoShippingLabel: `shippingLabel:`,
-      typoGabarits: ` L x W x H: 0 x 0 x 0 CM`,
-      typoWeight: `Weight: _KG`,
-      typoVolumeWeight: `volumeWeight: _KG`,
-      typoWeightFinal: `weightFinal: _KG`,
+      typoShippingLabel: 'shippingLabel:',
+      typoGabarits: ' L x W x H: 0 x 0 x 0 CM',
+      typoWeight: 'Weight: _KG',
+      typoVolumeWeight: 'volumeWeight: _KG',
+      typoWeightFinal: 'weightFinal: _KG',
       count: 'Кол-во:',
     },
     batchesModalEditFillList: {
@@ -362,6 +459,9 @@ export const texts = {
       rePassword: 'Re-type password',
       fieldSecurity: 'Security/Sharing options',
       manageBtn: 'Manage Premission',
+      fieldBalance: 'Balance',
+      balanceReplenishBtn: 'Replenish',
+      balanceWithdrawBtn: 'Withdraw',
     },
     subUsersModalPermission: {
       title: 'Subuser permissions',
@@ -409,6 +509,11 @@ export const texts = {
       bussinesUnit: 'N/A',
       editBtn: 'Edit User',
       deleteBtn: 'Delete',
+    },
+    adminSubUsersBodyRow: {
+      bussinesUnit: 'N/A',
+      editBtn: 'Edit User',
+      balanceBtn: 'Balance',
     },
     setBarcodeModalContent: {
       title: 'Установить штрихкод',
@@ -523,10 +628,12 @@ export const texts = {
       myOrders: 'Байер - Заказы - Мои заказы',
       freeOrders: 'Байер - Заказы - Свободные заказы',
       myStore: 'Байер - Мой склад',
-      clickSend: `При нажатии на кнопку "Отправить свой товар" появляется модальное окно с формой.`,
-      clickSetBarcode: `При нажатии на кнопку "Set barcode" в поле таблицы "Штрихкод" появляется модальное окно с формой.`,
-      clickReallocate: `При нажатии на кнопку "Перераспределить" появляется модальное окно, в котором можно распределить коробки.`,
-      haveHistory: `Имеется история действий, которые можно отменять.`,
+      clickSend: 'При нажатии на кнопку "Отправить свой товар" появляется модальное окно с формой.',
+      clickSetBarcode:
+        'При нажатии на кнопку "Set barcode" в поле таблицы "Штрихкод" появляется модальное окно с формой.',
+      clickReallocate:
+        'При нажатии на кнопку "Перераспределить" появляется модальное окно, в котором можно распределить коробки.',
+      haveHistory: 'Имеется история действий, которые можно отменять.',
       batchGoods: 'Байер - Партии товаров',
       myProfile: 'Байер - Пользователи - Мой профиль',
       myUsers: 'Байер - Пользователи - Мои пользователи ',
@@ -573,49 +680,54 @@ export const texts = {
       inventory: 'Инвентарь',
       myOrders: 'Мои заказы',
       marketOfGoods: 'Биржа товаров',
-      viewMore: `Переход на другие страницы осуществляется путем нажатие кнопки "View more".`,
+      viewMore: 'Переход на другие страницы осуществляется путем нажатие кнопки "View more".',
 
       marketForks: 'Клиент - Биржа товаров - Биржа вилок',
       clickName: 'При нажатии на имя ресерчера открывается его профиль.',
       privateLabel: 'Клиент - Биржа товаров - Private Label',
       marketGoodsMyOrders: 'Клиент - Биржа товаров - Мои заявки',
 
-      clickMakeOrder: `При нажатии на кнопку "Разместить заявку" появляется модальное окно с формой.`,
-      clickEdit: `При нажатии на кнопки редактировать появляется модальное окно с формой.`,
+      clickMakeOrder: 'При нажатии на кнопку "Разместить заявку" появляется модальное окно с формой.',
+      clickEdit: 'При нажатии на кнопки редактировать появляется модальное окно с формой.',
 
       clientInventory: 'Клиент - Инвентарь',
-      clickAddMyGood: `При нажатии на кнопку "Добавить свой товар" появляется модальное окно с формой.`,
-      clickExchange: `При нажатии на кнопку "Выставить" в поле таблицы "Exchange" появляется поле для ввода цены, за которую продукт будет выставлен на бирже.`,
-      clickMakeOrderModal: `При нажатии на кнопку "Заказать"появляется модальное окно с выбранными товарами.`,
+      clickAddMyGood: 'При нажатии на кнопку "Добавить свой товар" появляется модальное окно с формой.',
+      clickExchange:
+        'При нажатии на кнопку "Выставить" в поле таблицы "Exchange" появляется поле для ввода цены, за которую продукт будет выставлен на бирже.',
+      clickMakeOrderModal: 'При нажатии на кнопку "Заказать"появляется модальное окно с выбранными товарами.',
 
       clientMyOrders: 'Клиент - Мои заказы',
-      clickReallocate: `При нажатии на кнопку "Распределять" в поле таблицы "Коробка" перенаправляется на страницу "Мой склад".`,
-      clickSetBarcode: `При нажатии на кнопку "Set barcode" в поле таблицы "Штрихкод" появляется модальное окно с формой.`,
+      clickReallocate:
+        'При нажатии на кнопку "Распределять" в поле таблицы "Коробка" перенаправляется на страницу "Мой склад".',
+      clickSetBarcode:
+        'При нажатии на кнопку "Set barcode" в поле таблицы "Штрихкод" появляется модальное окно с формой.',
 
       clientMyStore: 'Клиент - Мои склад',
-      clickSendMyGood: `При нажатии на кнопку "Отправить свой товар" появляется модальное окно с формой.`,
+      clickSendMyGood: 'При нажатии на кнопку "Отправить свой товар" появляется модальное окно с формой.',
 
-      clickPereReallocateModal: `При нажатии на кнопку "Перераспределить" появляется модальное окно, в котором можно распределить коробки.`,
-      haveHistory: `Имеется история действий, которые можно отменять.`,
+      clickPereReallocateModal:
+        'При нажатии на кнопку "Перераспределить" появляется модальное окно, в котором можно распределить коробки.',
+      haveHistory: 'Имеется история действий, которые можно отменять.',
       clientUsersMyProfile: 'Клиент - Пользователи - Мой профиль',
-      clickExeModal: `При нажатии на кнопку "Запустить" появляется модальное окно с формой для запуска Private Label.`,
+      clickExeModal: 'При нажатии на кнопку "Запустить" появляется модальное окно с формой для запуска Private Label.',
 
       clientUsersMyUsers: 'Клиент - Пользователи - Мои пользователи',
-      clickAddUser: `При нажатии на кнопку "Add User" появляется модальное окно с формой, при нажатии кнопки "Manage Premission" откроется еще одно модальное окно.`,
-      clickEditModal: `При нажатии на кнопки редактировать появляется модальное окно с формой.`,
+      clickAddUser:
+        'При нажатии на кнопку "Add User" появляется модальное окно с формой, при нажатии кнопки "Manage Premission" откроется еще одно модальное окно.',
+      clickEditModal: 'При нажатии на кнопки редактировать появляется модальное окно с формой.',
       clientSettings: 'Клиент - Настройки',
       clientMessages: 'Клиент - Сообщения',
 
       clientFinances: 'Клиент - Финансы',
       clientProduct: 'Клиент - Продукт',
-      clickAddButton: `При нажатии на кнопку добавления появляется модальное окно с формой.`,
-      clickEditButton: `При нажатии на кнопку редактирования появляется модальное окно с формой.`,
-      clickDeleteButton: `При нажатии на кнопки удаления, поставщик исчезает из списка.`,
+      clickAddButton: 'При нажатии на кнопку добавления появляется модальное окно с формой.',
+      clickEditButton: 'При нажатии на кнопку редактирования появляется модальное окно с формой.',
+      clickDeleteButton: 'При нажатии на кнопки удаления, поставщик исчезает из списка.',
     },
     researcherComponent: {
       mainPage: 'Ресерчер - Главная страница',
-      moveToMyOrders: `Возможно перейти на страницу "Мои заказы"`,
-      viewMore: `Переход на другие страницы осуществляется путем нажатие кнопки "View more".`,
+      moveToMyOrders: 'Возможно перейти на страницу "Мои заказы"',
+      viewMore: 'Переход на другие страницы осуществляется путем нажатие кнопки "View more".',
       myOrders: 'Ресерчер - Мои заказы',
       settings: 'Ресерчер - Настройки',
     },
@@ -625,7 +737,7 @@ export const texts = {
       prepareToSend: 'Готовые к проверке',
       myGoods: 'Мои Товары',
 
-      viewMore: `Переход на другие страницы осуществляется путем нажатие кнопки "View more".`,
+      viewMore: 'Переход на другие страницы осуществляется путем нажатие кнопки "View more".',
       supervisorPrepares: 'Супервизор - Готовые к проверке',
       supervisorMyGoods: 'Супервизор - Мои товары',
       settings: 'Супервизор - Настройки',
@@ -707,6 +819,13 @@ export const texts = {
       appUser: 'buyer',
     },
     clientBatchesView: {
+      editBatch: 'Редактировать партию',
+      mainTitle: 'Мои отправления',
+      appBarTitle: 'Batches',
+      appBarUsername: 'Client',
+      appUser: 'client',
+    },
+    adminBatchesView: {
       editBatch: 'Редактировать партию',
       mainTitle: 'Мои отправления',
       appBarTitle: 'Batches',
@@ -834,6 +953,13 @@ export const texts = {
       appUser: 'client',
       ordersBtn: 'Мои заказы',
     },
+    adminOrdersView: {
+      mainTitle: 'Мои заказы',
+      appBarTitle: 'Страница заказов',
+      appBarUsername: 'Admin',
+      appUser: 'admin',
+      ordersBtn: 'Мои заказы',
+    },
     clientOrdersTableRow: {
       asinTypo: 'ASIN ',
       setBarcodeLabel: 'Set barcode',
@@ -956,6 +1082,15 @@ export const texts = {
       theme: 'Тема',
       description: 'Описание',
       action: 'Действие',
+    },
+    userBalanceHistory: {
+      mainTitle: 'Изменения на складе',
+      date: 'Дата',
+      amount: 'Количество',
+      type: 'Тип',
+      comment: 'Комментарий',
+      reason: 'Причина',
+      username: 'Имя пользователя',
     },
     warehouseHistoryBodyRow: {
       order: 'Заказ ',

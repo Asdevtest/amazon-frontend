@@ -14,9 +14,5 @@ export const useClassNames = makeStyles(() => ({
   select: {
     width: '100%',
   },
-  saveBtn: {
-    color: 'white',
-    backgroundColor: 'rgb(0, 123, 255)',
-    textTransform: 'none',
-  },
+  saveBtn: {},
 }))

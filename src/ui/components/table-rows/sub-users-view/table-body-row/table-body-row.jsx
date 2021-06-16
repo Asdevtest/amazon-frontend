@@ -28,7 +28,7 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
         <Typography>{textConsts.bussinesUnit}</Typography>
       </TableCell>
       <TableCell>
-        <Button className={classNames.editBtn} variant="contained" onClick={() => handlers.onEdit()}>
+        <Button className={classNames.editBtn} variant="contained" onClick={() => handlers.onEdit(item)}>
           {textConsts.editBtn}
         </Button>
         <ErrorButton variant="contained">{textConsts.deleteBtn}</ErrorButton>
