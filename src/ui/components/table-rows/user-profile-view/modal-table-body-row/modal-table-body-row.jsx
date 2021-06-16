@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {Input} from '@components/input'
 
 import {priceCalculation} from '@utils/price-calculation'
+import {toFixedWithDollarSign} from '@utils/text'
 
 import {styles} from './modal-table-body-row.style'
 
@@ -22,7 +23,7 @@ const ModalTableBodyRowRaw = ({product, managersList, ...restProps}) => {
         <Typography>{product.category}</Typography>
       </TableCell>
       <TableCell className={classNames.priceCell}>
-        <Typography>{(product.price + product.deliveryPrice).toFixed(2)}</Typography>
+        <Typography>{toFixedWithDollarSign(product.price + product.deliveryPrice)}</Typography>
       </TableCell>
       <TableCell>
         <Input
@@ -34,7 +35,7 @@ const ModalTableBodyRowRaw = ({product, managersList, ...restProps}) => {
         />
       </TableCell>
       <TableCell className={classNames.avgPriceCell}>
-        <Typography>{product.avgPrice.toFixed(2)}</Typography>
+        <Typography>{toFixedWithDollarSign(product.avgPrice)}</Typography>
       </TableCell>
       <TableCell>
         <Typography>{product.recConsignmentQty}</Typography>

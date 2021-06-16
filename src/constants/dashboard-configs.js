@@ -211,5 +211,59 @@ export const getWarehouseDashboardCardConfig = textConsts => [
     dataKey: WarehouseDashboardCardDataKey.MY_PAYMENTS,
     title: textConsts.myPaymentsCardTitle,
     color: '#20a8d8',
-  }
+  },
+]
+
+export const AdminDashboardCardDataKey = {
+  EXCHANGE_WAITING_TO_CHECK: 'EXCHANGE_WAITING_TO_CHECK',
+  EXCHANGE_BEING_CHECKED: 'EXCHANGE_BEING_CHECKED',
+  EXCHANGE_CHECKED: 'EXCHANGE_CHECKED',
+  EXCHANGE_REJECTED: 'EXCHANGE_REJECTED',
+  FINANCES_ACCRUED_TO_RESEARCHERS: 'FINANCES_ACCRUED_TO_RESEARCHERS',
+  FINANCES_ACCRUED_TO_SUPERVISORS: 'FINANCES_ACCRUED_TO_SUPERVISORS',
+  FINANCES_SUPERVISORS_FINES: 'FINANCES_SUPERVISORS_FINES',
+  FINANCES_RESEARCHERS_FINES: 'FINANCES_RESEARCHERS_FINES',
+}
+
+export const getAdminDashboardCardConfig = textConsts => [
+  {
+    dataKey: AdminDashboardCardDataKey.EXCHANGE_WAITING_TO_CHECK,
+    title: textConsts.prodcutsWaitingToCheckBySupervisorsTitle,
+    color: '#20a8d8',
+  },
+  {
+    dataKey: AdminDashboardCardDataKey.EXCHANGE_BEING_CHECKED,
+    title: textConsts.productsBeingCheckedBySupervisorsTitle,
+    color: '#63c2de',
+  },
+  {
+    dataKey: AdminDashboardCardDataKey.EXCHANGE_CHECKED,
+    title: textConsts.productsCheckedBySupervisorsTitle,
+    color: '#4dbd74',
+  },
+  {
+    dataKey: AdminDashboardCardDataKey.EXCHANGE_REJECTED,
+    title: textConsts.productsRejectedBySupervisorsTitle,
+    color: '#ffc107',
+  },
+  {
+    dataKey: AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_RESEARCHERS,
+    title: textConsts.accruedToManagersTitle,
+    color: '#4dbd74',
+  },
+  {
+    dataKey: AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_SUPERVISORS,
+    title: textConsts.accruedToSupervisorsTitle,
+    color: '#20a8d8',
+  },
+  {
+    dataKey: AdminDashboardCardDataKey.FINANCES_ACCFINANCES_SUPERVISORS_FINESRUED_TO_RESEARCHERS,
+    title: textConsts.supervisorsFinesTitle,
+    color: '#f86c6b',
+  },
+  {
+    dataKey: AdminDashboardCardDataKey.FINANCES_RESEARCHERS_FINES,
+    title: textConsts.managersFinesTitle,
+    color: '#f86c6b',
+  },
 ]

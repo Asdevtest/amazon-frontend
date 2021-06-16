@@ -131,4 +131,65 @@ export const navbarConfig = {
       route: '/warehouse/completed-tasks',
     },
   ],
+  [UserRole.ADMIN]: [
+    {
+      icon: InfoOutlinedIcon,
+      title: 'Главная страница',
+      subtitles: null,
+      route: '/admin/dashboard',
+    },
+    {
+      icon: GavelIcon,
+      title: 'Биржа товаров',
+      route: '/admin/exchange/waiting',
+      subtitles: [
+        {subtitle: 'Новые', subRoute: '/admin/exchange/waiting'},
+        {subtitle: 'На проверке', subRoute: '/admin/exchange/checking'},
+        {subtitle: 'В поиске поставщика', subRoute: '/admin/exchange/new-requests-to-find-supplier'},
+        {subtitle: 'В работе у байера', subRoute: '/admin/exchange/find-supplier-by-buyer'},
+        {subtitle: 'Поставщик найден', subRoute: '/admin/exchange/supplier-was-found'},
+        {subtitle: 'Поставщик не найден', subRoute: '/admin/exchange/supplier-was-not-found'},
+        {subtitle: 'Цена выше МЗЦ', subRoute: '/admin/exchange/price-higher'},
+        {subtitle: 'Подтвержденные', subRoute: '/admin/exchange/accepted'},
+        {subtitle: 'Отклоненные', subRoute: '/admin/exchange/rejected'},
+      ],
+    },
+    {icon: InboxOutlinedIcon, title: 'Инвентарь', route: '/admin/inventory', subtitles: null},
+    {
+      icon: AssignmentIcon,
+      title: 'Заказы',
+      route: '/admin/orders/all',
+      subtitles: [
+        {subtitle: 'Все', subRoute: '/admin/orders/all'},
+        {subtitle: 'Оплаченные', subRoute: '/admin/orders/payed'},
+        {subtitle: 'Не оплаченные', subRoute: '/admin/orders/not-payed'},
+      ],
+    },
+    {
+      icon: ArchiveOutlinedIcon,
+      title: 'Склад',
+      route: '/admin/warehouse/orders',
+      subtitles: [
+        {subtitle: 'Заказы', subRoute: '/admin/warehouse/orders'},
+        {subtitle: 'Коробки', subRoute: '/admin/warehouse/boxes'},
+        {subtitle: 'Партии', subRoute: '/admin/warehouse/batches'},
+      ],
+    },
+    {
+      icon: MonetizationOnOutlinedIcon,
+      title: 'Финансы',
+      route: '/admin/finances/replenishments',
+      subtitles: [
+        {subtitle: 'Пополнения', subRoute: '/admin/finances/replenishments'},
+        {subtitle: 'Начисления', subRoute: '/admin/finances/accruals'},
+        {subtitle: 'Списания', subRoute: '/admin/finances/write-offs'},
+      ],
+    },
+    {
+      icon: PeopleIcon,
+      title: 'Пользователи',
+      route: '/admin/users',
+    },
+    {icon: SettingsIcon, title: 'Настройки', subtitles: null, route: '/admin/settings'},
+  ],
 }

@@ -50,7 +50,7 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
           )}
           size="small"
           label={item.chip ? item.chip : textConsts.setBarcodeLabel}
-          onClick={item.chip ? () => navigator.clipboard.writeText(item.chip) : () => handlers.onBarcode()}
+          onClick={item.chip ? () => navigator.clipboard.writeText(item.chip) : () => handlers.onClickBarcode()}
           onDelete={item.chip ? () => alert(textConsts.barcodeDeleteAlert) : undefined}
         />
       </TableCell>

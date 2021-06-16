@@ -24,7 +24,7 @@ export const NavbarCollapse = ({activeCategory, activeSubCategory, category, ind
           >
             <ListItemText
               disableTypography
-              className={clsx({[classNames.selected]: subIndex === activeSubCategory})}
+              className={clsx(classNames.listItemText, {[classNames.selected]: subIndex === activeSubCategory})}
               primary={subCategory.subtitle}
             />
           </NavbarSubCategory>

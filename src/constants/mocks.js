@@ -24,6 +24,7 @@ export const exchangeSection = {
   ],
 }
 
+export const adminUsername = 'Admin'
 export const clientUsername = 'Client'
 export const buyerUsername = 'Buyer'
 
@@ -567,6 +568,12 @@ export const BUYER_SUB_USERS_INITIAL_DATA = [
   {date: '03/02/2020', email: 'email@example.com'},
 ]
 
+export const ADMIN_SUB_USERS_INITIAL_DATA = [
+  {date: '12/09/2019', email: 'email@example.com'},
+  {date: '29/11/2017', email: 'email@example.com'},
+  {date: '03/02/2020', email: 'email@example.com'},
+]
+
 export const BUYER_SUB_USERS_TABLE_CELLS = [
   {id: 'created', label: 'Created'},
   {id: 'email', label: 'Email'},
@@ -872,18 +879,6 @@ export const USER_HEAD_CELL = [
   {id: 'image', label: 'avg Revenue'},
   {id: 'image', label: 'Стоимость запуска'},
   {id: 'image', label: 'Аккаунт менеджер'},
-]
-
-export const CLIENT_ORDERS_HEAD_CELL = [
-  'Заказы',
-  'Штрих-код',
-  'Кол-во',
-  'Куда',
-  'Коробка',
-  'Сумма',
-  'Вес',
-  'Вес финальный',
-  'Трек номер',
 ]
 
 export const CLIENT_ORDER_INITIAL_PRODUCT = {
@@ -1784,5 +1779,121 @@ export const COMPLETED_TASKS_DATA = [
         lastModifiedBy: '60817661a451519a1f5b1492',
       },
     ],
+  },
+]
+export const ADMIN_PRODUCTS_DATA = [
+  {
+    _id: 'GUID_продукта',
+    id: 'ASIN_продукта0',
+
+    img: 'https://i.picsum.photos/id/250/128/128.jpg?hmac=GQZBEmT1uFN-7PhpZK6KMi9ZXcGUrBzaWBPOuGjaymc',
+    amazonTitle: 'Винтажная фотокамера Zeiß',
+    price: 305,
+    avgPrice: 305,
+    fbafee: 0.23,
+    rank: 67,
+    rating: 4.3,
+    sales: 1.56,
+    salersTotal: 2,
+    type: 'FAB',
+    revenue: 111.98,
+    amazonPrice: 111.98,
+
+    material: 'чугун',
+    lamazon: 'link amaz',
+    fba: false,
+    express: false,
+    minpurchase: 23,
+    bsr: 2,
+    amazon: 2341234,
+    height: 55,
+    width: 44,
+    length: 33,
+    weight: 22,
+
+    researcher: {
+      name: 'Ivan',
+    },
+    supervisor: {
+      name: 'Zhora',
+    },
+
+    lsupplier: 'link supplier',
+    supplier: [
+      {
+        id: 'B007',
+        name: 'Bond',
+        link: 'www.bond.uk',
+        price: 1000000,
+        delivery: 2,
+        amount: 300,
+        minlot: 30,
+        lotcost: 300,
+        comment: 'Крутой_поставщик_с_правом_на_обстрел',
+        _id: 'string',
+      },
+    ],
+
+    reffee: 0.15,
+    fbalink: 'link fba',
+
+    fbaamount: 23,
+    delivery: 3000,
+    icomment: 'Просто_коммент',
+    status: 0,
+    checkednotes: 'комент_к_проверке',
+    researcherFine: 200,
+    researcherFineComment: 'Все_хорошо,но_все_нужно_переделать',
+    supervisorFine: 100,
+    supervisorFineComment: 'Фсе_полхо',
+    dirdecision: 1,
+    amazonDescription: 'описание',
+    amazonDetail: 'Данные_из_поля_детали_с_сайта_амазон',
+
+    profit: 0,
+    margin: 0,
+    currentSupplier: 'GUID поставщика',
+    createdBy: {
+      _id: '607dceac3551e3fa7e7fbb69',
+      name: 'Petia',
+      email: 'petia@gmail.com',
+      role: 5,
+      fba: false,
+      active: true,
+      rate: 1500,
+    },
+    createdate: '2021-06-13 02:27:27',
+    checkdate: '2021-06-14 02:27:27',
+    buyer: {
+      _id: '607dceac3551e3fa7e7fbb69',
+      name: 'Petia',
+      email: 'petia@gmail.com',
+      role: 5,
+      fba: false,
+      active: true,
+      rate: 1500,
+    },
+    buyerscomment: 'Просто_коммент_от_байера',
+    barCode: 'Баркод',
+    byboxprice: 54.2,
+  },
+]
+
+export const ADMIN_BALANCE_HISTORY_DATA = [
+  {
+    date: 'Дата',
+    amount: '142',
+    type: 'replenish',
+    comment: 'Комментарий',
+    reason: 'Причина',
+    username: 'Имя пользователя',
+  },
+  {
+    date: 'Дата2',
+    amount: '512',
+    type: 'withdraw',
+    comment: 'Комментарий',
+    reason: 'Причина',
+    username: 'Имя пользователя',
   },
 ]

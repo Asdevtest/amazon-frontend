@@ -1,0 +1,138 @@
+import React, {useState} from 'react'
+
+import {Container, Button, Typography, NativeSelect} from '@material-ui/core'
+
+import {texts} from '@constants/texts'
+
+import {Field} from '@components/field'
+import {Input} from '@components/input'
+import {Modal} from '@components/modal'
+
+import {getLocalizedTexts} from '@utils/get-localized-texts'
+
+import {useClassNames} from './admin-balance-modal.style'
+
+const textConsts = getLocalizedTexts(texts, 'en').adminBalanceModal
+
+const withdrawSelectOptions = [
+  {value: textConsts.widthdrawOptionFine, label: textConsts.widthdrawOptionFine},
+  {value: textConsts.widthdrawOptionWithdraw, label: textConsts.widthdrawOptionWithdraw},
+]
+
+const replenishSelectOptions = [
+  {value: textConsts.replenishOptionReplenish, label: textConsts.replenishOptionReplenish},
+  {value: textConsts.replenishOptionServicePayment, label: textConsts.replenishOptionServicePayment},
+]
+
+export const AdminBalanceModal = ({user, isWithdraw}) => {
+  const classNames = useClassNames()
+  const [balanceValue, setBalanceValue] = useState(0)
+  const [selectReason, setSelectReason] = useState(undefined)
+  const [showConfirmModal, setConfirmModal] = useState(false)
+  const onTriggerConfirmModal = () => setConfirmModal(prevState => !prevState)
+
+  const renderPositiveMessage = (
+    <div className={classNames.positiveMsg}>
+      {textConsts.msgSubject + user.email + textConsts.msgPosPredicate + balanceValue}
+    </div>
+  )
+
+  const renderNegativeMessage = (
+    <div className={classNames.negativeMsg}>
+      {textConsts.msgSubject + user.email + textConsts.msgNegPredicate + balanceValue}
+    </div>
+  )
+
+  const confirmMsg = () => {
+    const decreaseOrIncrease = isWithdraw ? textConsts.confirmMsgDecrease : textConsts.confirmMsgIncrease
+    return (
+      textConsts.confirmMsgAreYouSureYouWantTo +
+      decreaseOrIncrease +
+      textConsts.confirmMsgTheBalanceOfTheUser +
+      user.email +
+      textConsts.confirmMsgBy +
+      balanceValue +
+      '?'
+    )
+  }
+
+  const renderOptions = options => (
+    <>
+      {options.map((option, index) => (
+        <option key={index} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </>
+  )
+
+  return (
+    <>
+      <Container disableGutters className={classNames.modalContainer}>
+        <Typography paragraph variant="h3">
+          {isWithdraw ? textConsts.titleWithdraw : textConsts.titleReplenish}
+        </Typography>
+
+        <Field
+          label={textConsts.balanceLabel}
+          value={balanceValue}
+          type="number"
+          min="0"
+          onChange={e => setBalanceValue(parseFloat(e.target.value))}
+        />
+        <Field
+          containerClasses={classNames.field}
+          label={textConsts.selectLabel}
+          inputComponent={
+            <NativeSelect
+              variant="filled"
+              value={selectReason}
+              input={<Input fullWidth />}
+              onChange={e => setSelectReason(e.target.value)}
+            >
+              {isWithdraw ? renderOptions(withdrawSelectOptions) : renderOptions(replenishSelectOptions)}
+            </NativeSelect>
+          }
+        />
+
+        {isWithdraw ? renderNegativeMessage : renderPositiveMessage}
+
+        <div className={classNames.buttonWrapper}>
+          <Button disableElevation color="primary" variant="contained" onClick={onTriggerConfirmModal}>
+            {textConsts.executeBtn}
+          </Button>
+        </div>
+      </Container>
+
+      <Modal openModal={showConfirmModal} setOpenModal={onTriggerConfirmModal}>
+        <div className={classNames.confirmModal}>
+          <Typography paragraph>{confirmMsg()}</Typography>
+          <div className={classNames.buttonWrapper}>
+            <Button
+              disableElevation
+              color="primary"
+              variant="contained"
+              onClick={() => {
+                alert('Confirm')
+                onTriggerConfirmModal()
+              }}
+            >
+              {textConsts.confirmBtn}
+            </Button>
+            <Button
+              disableElevation
+              color="secondary"
+              variant="contained"
+              onClick={() => {
+                alert('Decline')
+                onTriggerConfirmModal()
+              }}
+            >
+              {textConsts.declineBtn}
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    </>
+  )
+}
