@@ -4,7 +4,6 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {ClientModel} from '@models/client-model'
 
-
 export class ClientExchangeViewModel {
   history = undefined
   requestStatus = undefined

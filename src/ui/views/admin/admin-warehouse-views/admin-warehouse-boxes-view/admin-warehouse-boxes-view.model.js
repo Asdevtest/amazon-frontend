@@ -63,7 +63,7 @@ export class AdminWarehouseBoxesViewModel {
 
   async getBoxes() {
     try {
-      const result = await AdministratorModel.getBoxes()
+      const result = await AdministratorModel.getBoxes() // такого метода пока нет
       console.log(result)
       runInAction(() => {
         this.boxes = result

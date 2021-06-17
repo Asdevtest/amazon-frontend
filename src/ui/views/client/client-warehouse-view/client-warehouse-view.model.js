@@ -1,7 +1,8 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {loadingStatuses} from '@constants/loading-statuses'
+
 import {ClientModel} from '@models/client-model'
-import { loadingStatuses } from '@constants/loading-statuses'
 
 export class ClientWarehouseViewModel {
   history = undefined

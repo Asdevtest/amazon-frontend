@@ -1,6 +1,7 @@
 import {makeAutoObservable} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {BATCHES_BOXES_EXAMPLES} from '@constants/mocks'
 
 import {AdministratorModel} from '@models/administrator-model'
 
@@ -8,6 +9,13 @@ export class AdminWarehouseBatchesViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
+
+  batchesData = [
+    [BATCHES_BOXES_EXAMPLES[0], BATCHES_BOXES_EXAMPLES[2]],
+    [BATCHES_BOXES_EXAMPLES[1]],
+    [BATCHES_BOXES_EXAMPLES[2], BATCHES_BOXES_EXAMPLES[1]],
+    [BATCHES_BOXES_EXAMPLES[0]],
+  ]
 
   drawerOpen = false
   selectedBatchIndex = undefined
@@ -58,7 +66,7 @@ export class AdminWarehouseBatchesViewModel {
     try {
       this.requestStatus = loadingStatuses.isLoading
       this.error = undefined
-      const result = await AdministratorModel.getBatches()
+      const result = await AdministratorModel.getBatches() // сейчас этого запроса не существует
       this.product = result
       this.requestStatus = loadingStatuses.success
     } catch (error) {
