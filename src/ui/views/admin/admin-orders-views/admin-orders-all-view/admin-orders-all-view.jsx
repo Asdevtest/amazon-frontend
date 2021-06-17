@@ -4,6 +4,7 @@ import {Typography, Container} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
+import {ADMIN_ORDERS_HEAD_CELL} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -23,7 +24,6 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 import avatar from '../../assets/adminAvatar.jpg'
 import {AdminOrdersAllViewModel} from './admin-orders-all-view.model'
 import {styles} from './admin-orders-all-view.style'
-import { ADMIN_ORDERS_HEAD_CELL } from '@constants/table-head-cells'
 
 const textConsts = getLocalizedTexts(texts, 'ru').adminOrdersView
 
@@ -84,7 +84,7 @@ class AdminOrdersAllViewRaw extends Component {
                   renderHeadRow={this.renderHeadRow}
                   rowsPerPage={rowsPerPage}
                   rowsHandlers={{
-                    onClickBarcode: onTriggerBarcodeModal
+                    onClickBarcode: onTriggerBarcodeModal,
                   }}
                 />
               </div>

@@ -36,7 +36,7 @@ export class ClientWarehouseViewRaw extends Component {
   componentDidMount() {
     this.viewModel.loadData()
   }
-  
+
   render() {
     const {
       drawerOpen,
@@ -55,7 +55,7 @@ export class ClientWarehouseViewRaw extends Component {
       onRedistributeBoxAddNewBox,
       onTriggerModal,
       onTriggerCheckbox,
-      onTriggerDrawer
+      onTriggerDrawer,
     } = this.viewModel
     const {classes: classNames} = this.props
     const rowsHandlers = {

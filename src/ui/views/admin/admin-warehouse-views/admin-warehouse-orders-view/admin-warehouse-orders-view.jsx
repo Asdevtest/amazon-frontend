@@ -4,7 +4,7 @@ import {Typography, Container} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import { ADMIN_ORDERS_HEAD_CELL } from '@constants/table-head-cells'
+import {ADMIN_ORDERS_HEAD_CELL} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 

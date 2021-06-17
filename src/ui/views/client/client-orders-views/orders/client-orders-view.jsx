@@ -4,6 +4,7 @@ import {Typography, Container} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
+import {CLIENT_ORDERS_HEAD_CELL} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -23,7 +24,6 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 import avatar from '../../assets/clientAvatar.jpg'
 import {ClientOrdersViewModel} from './client-orders-view.model'
 import {styles} from './client-orders-view.style'
-import { CLIENT_ORDERS_HEAD_CELL } from '@constants/table-head-cells'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersView
 

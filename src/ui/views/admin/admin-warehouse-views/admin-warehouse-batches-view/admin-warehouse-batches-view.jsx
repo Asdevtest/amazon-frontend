@@ -5,7 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {DELIVERY_OPTIONS} from '@constants/delivery-options'
-import {BATCHES_BOXES_EXAMPLES, BATCHES_HEAD_CELLS} from '@constants/mocks'
+import {BATCHES_HEAD_CELLS} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 import {warehouses} from '@constants/warehouses'
@@ -33,12 +33,6 @@ const textConsts = getLocalizedTexts(texts, 'ru').adminBatchesView
 const navbarActiveCategory = 4
 const navbarActiveSubCategory = 2
 
-const batchesData = [
-  [BATCHES_BOXES_EXAMPLES[0], BATCHES_BOXES_EXAMPLES[2]],
-  [BATCHES_BOXES_EXAMPLES[1]],
-  [BATCHES_BOXES_EXAMPLES[2], BATCHES_BOXES_EXAMPLES[1]],
-  [BATCHES_BOXES_EXAMPLES[0]],
-]
 @observer
 class AdminWarehouseBatchesViewRaw extends Component {
   viewModel = new AdminWarehouseBatchesViewModel({history: this.props.history})
@@ -49,6 +43,7 @@ class AdminWarehouseBatchesViewRaw extends Component {
 
   render() {
     const {
+      batchesData,
       drawerOpen,
       curPage,
       rowsPerPage,
