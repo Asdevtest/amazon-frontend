@@ -180,6 +180,8 @@ export const texts = {
     adminDashboardView: {
       appbarTitle: 'Dashboard',
       dashboardTitle: 'Dashboard',
+      productsTitle: 'Товары',
+      accrualsAndFinesTitle: 'Начисления и штрафы',
       prodcutsWaitingToCheckBySupervisorsTitle: 'Ожидают проверку',
       productsBeingCheckedBySupervisorsTitle: 'Взяты на проверку супервайзерами',
       productsCheckedBySupervisorsTitle: 'Подтверждены супервайзерами',
