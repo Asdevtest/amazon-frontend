@@ -88,15 +88,14 @@ export const BUYER_MY_ORDERS_HEAD_CELLS = [
 ]
 
 export const BUYER_MY_ORDERS_MODAL_HEAD_CELLS = [
-  'Статус',
+  '',
   'Товар',
-  'Штрихкод',
-  'Создан',
-  'Изменён',
-  'Склад',
   'Способ доставки',
-  'Комментарий клиента',
-  'Комментарий байера',
+  'Создан',
+  'Проверен',
+  'Поставщик',
+  'Штрихкод',
+  'Материал',
 ]
 
 export const BUYER_FREE_ORDERS_MODAL_HEAD_CELLS = [

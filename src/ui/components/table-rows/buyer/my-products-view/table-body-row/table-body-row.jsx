@@ -10,6 +10,7 @@ import StarIcon from '@material-ui/icons/Star'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
+import {formatDateDistanceFromNow} from '@utils/date-time'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-double-click'
 
@@ -48,22 +49,23 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
             <Typography className={classNames.typoCell}>
               {'ASIN '}
               <span className={classNames.typoSpan}>{item.id}</span>
-              {' | updated today'}
+              {` | ${formatDateDistanceFromNow(item.createdat)}`}
             </Typography>
             <Chip className={classNames.chip} label={'Beauty & Personal Care'} />
           </div>
         </div>
       </TableCell>
-      <TableCell className={classNames.priceTableCell}>{toFixedWithDollarSign(item.price)}</TableCell>
+      <TableCell className={classNames.priceTableCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
       <TableCell className={classNames.feesTableCell}>
         <div>
           <Typography className={classNames.typoCell}>
             {'Fees '}
-            <span className={classNames.typoSpan}>{toFixedWithDollarSign(item.fees)}</span>
+            <span className={classNames.typoSpan}>{toFixedWithDollarSign(item.fbafee)}</span>
           </Typography>
           <Typography className={classNames.typoCell}>
             {'Net '}
-            <span className={classNames.typoSpan}>{toFixedWithDollarSign(item.fees)}</span>
+            {/* что за поле */}
+            <span className={classNames.typoSpan}>{toFixedWithDollarSign(item.reffee)}</span>
           </Typography>
           <Button
             disableElevation
@@ -99,7 +101,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
       <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.revenue)}</TableCell>
       <TableCell className={classNames.amazonCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
       <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.bsr)}</TableCell>
-      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.fba)}</TableCell>
+      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.fbaamount)}</TableCell>
       <TableCell className={classNames.deleteBtnCell}>
         <IconButton onClick={() => alert('Item deleting...')}>
           <DeleteIcon className={classNames.deleteBtn} />

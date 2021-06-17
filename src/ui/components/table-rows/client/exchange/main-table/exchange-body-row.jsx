@@ -18,21 +18,24 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, classes: classNames}) =>
     <TableCell>
       <img alt="" className={classNames.imgCell} src={item.image} />
     </TableCell>
-    <TableCell>{item.category}</TableCell>
-    <TableCell>{toFixedWithDollarSign(item.price)}</TableCell>
-    <TableCell>{item.amount}</TableCell>
-    <TableCell>{item.avgPrice}</TableCell>
-    <TableCell>{item.recommendedBatch}</TableCell>
+    <TableCell>{item.material}</TableCell>
+    <TableCell>{toFixedWithDollarSign(item.amazon)}</TableCell>
+    <TableCell>{toFixedWithDollarSign(item.delivery)}</TableCell>
+    <TableCell>{toFixedWithDollarSign(item.amazon)}</TableCell>
+    <TableCell>{item.fbaamount}</TableCell>
     <TableCell>{item.weight}</TableCell>
-    <TableCell>{item.avgBsr}</TableCell>
+    <TableCell>{item.bsr}</TableCell>
+    {/* что за поле */}
     <TableCell>{item.avgReviews}</TableCell>
-    <TableCell>{item.avgRevenue}</TableCell>
+    <TableCell>{toFixedWithDollarSign(item.profit)}</TableCell>
     <TableCell>
       <Button color="primary" onClick={() => handlers.onClickUsername()}>
-        {item.researcher.username}
+        {item.createdby.name}
       </Button>
-      <StarRating rating={item.researcher.rating} />
+      {/* что за поле */}
+      <StarRating rating={item.createdby.fba} />
     </TableCell>
+    {/* что за поле */}
     <TableCell>{item.startPrice}</TableCell>
     <TableCell>
       <SuccessButton onClick={() => handlers.onClickLaunchPrivateLabelBtn(item, itemIndex)}>
@@ -46,7 +49,7 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, classes: classNames}) =>
         variant="contained"
         onClick={() => handlers.onClickBuyProductBtn(item, itemIndex)}
       >
-        {textConsts.priceBtn}
+        {`${textConsts.priceBtn} ${toFixedWithDollarSign(item.amazon)}`}
       </Button>
     </TableCell>
   </TableRow>

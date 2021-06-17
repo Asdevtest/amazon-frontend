@@ -24,7 +24,7 @@ export const BuyerForm = ({
   delivery,
   status,
   warehouseList,
-  deliveryList,
+  deliveryOptions,
 }) => {
   const classNames = useClassNames()
 
@@ -72,9 +72,9 @@ export const BuyerForm = ({
             input={<Input />}
             onChange={e => setDelivery(e.target.value)}
           >
-            {deliveryList.map((deliveryItem, deliveryIndex) => (
-              <option key={deliveryIndex} value={deliveryItem.value}>
-                {deliveryItem.text}
+            {deliveryOptions.map((deliveryOption, deliveryIndex) => (
+              <option key={`deliveryOption_${deliveryOption.key}_${deliveryIndex}`} value={deliveryOption.key}>
+                {deliveryOption.label}
               </option>
             ))}
           </NativeSelect>

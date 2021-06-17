@@ -16,7 +16,7 @@ export class WarehouseVacantViewModel {
   rowsPerPage = 5
   curPage = 1
   showEditTaskModal = false
-  selectedTaskIndex = null
+  selectedTask = undefined
   showBarcodeModal = false
   showEditBoxModal = false
 
@@ -24,6 +24,8 @@ export class WarehouseVacantViewModel {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
   }
+
+  onClickSaveBarcode() {}
 
   onChangeTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen

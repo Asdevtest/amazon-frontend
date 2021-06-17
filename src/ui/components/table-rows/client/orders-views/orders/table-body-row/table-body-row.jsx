@@ -5,6 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
+import {warehouses} from '@constants/warehouses'
 
 import {Button} from '@components/buttons/button'
 
@@ -18,21 +19,21 @@ const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersTableRow
 const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
   const classNames = restProps.classes
   return (
-    <TableRow>
+    <TableRow onClick={() => handlers.onClickTableRow(item)}>
       <TableCell className={classNames.count}>
-        <Typography>{item.orderId}</Typography>
+        <Typography>{item._id}</Typography>
       </TableCell>
       <TableCell padding="checkbox">
         <Checkbox />
       </TableCell>
       <TableCell>
         <div className={classNames.order}>
-          <img alt="" src={item.img} className={classNames.orderImg} />
+          <img alt="" src={item.product.images && item.product.images[0]} className={classNames.orderImg} />
           <div>
-            <Typography className={classNames.orderTitle}>{item.csCode}</Typography>
+            <Typography className={classNames.orderTitle}>{item.product._id}</Typography>
             <Typography className={classNames.orderText}>
-              <span className={classNames.orderTextSpan}>{textConsts.asinTypo}</span>
-              {item.product}
+              <span className={classNames.orderTextSpan}>{textConsts.id}</span>
+              {item.product.id}
             </Typography>
           </div>
         </div>
@@ -49,9 +50,17 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
             {[classNames.select]: item.chip},
           )}
           size="small"
-          label={item.chip ? item.chip : textConsts.setBarcodeLabel}
-          onClick={item.chip ? () => navigator.clipboard.writeText(item.chip) : () => handlers.onClickBarcode()}
-          onDelete={item.chip ? () => alert(textConsts.barcodeDeleteAlert) : undefined}
+          color={item.barCode ? 'primary' : 'default'}
+          label={item.barCode ? item.barCode : textConsts.setBarcodeLabel}
+          onClick={e => {
+            e.stopPropagation()
+            if (item.barCode) {
+              navigator.clipboard.writeText(item.barCode)
+            } else {
+              handlers.onClickEditBarcode(item)
+            }
+          }}
+          onDelete={item.barCode ? () => handlers.onClickDeleteBarcode(item) : undefined}
         />
       </TableCell>
 
@@ -59,7 +68,7 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
         <Typography>{item.amount}</Typography>
       </TableCell>
       <TableCell>
-        <Typography>{item.warehouse}</Typography>
+        <Typography>{warehouses[item.warehouse]}</Typography>
       </TableCell>
       <TableCell>
         {!item.boxId ? (
@@ -78,7 +87,7 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
         )}
       </TableCell>
       <TableCell>
-        <Typography>{toFixedWithDollarSign(item.deliveryCostToTheWarehouse)}</Typography>
+        <Typography>{toFixedWithDollarSign(item.product.delivery + item.product.amazon * item.amount)}</Typography>
       </TableCell>
       <TableCell>
         <Typography>{toFixedWithKg(item.weight)}</Typography>

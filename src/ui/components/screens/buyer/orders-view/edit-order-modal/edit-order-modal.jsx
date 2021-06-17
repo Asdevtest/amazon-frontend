@@ -17,69 +17,69 @@ const textConsts = getLocalizedTexts(texts, 'ru').ordersViewsModalEditOrder
 
 export const EditOrderModal = ({
   order,
-  setModal,
-  setModalBarcode,
+  onTriggerModal,
+  onTriggerBarcodeModal,
   modalHeadCells,
   warehouses,
-  deliveryList,
-  statusList,
+  deliveryTypeByCode,
+  orderStatusByCode,
+  onClickSaveOrder,
 }) => {
   const classNames = useClassNames()
-  const [warehouse, setWarehouse] = useState('None')
-  const [delivery, setDelivery] = useState('Sea')
-  const [status, setStatus] = useState('Formed')
-  const [comment, setComment] = useState(order.buyerComment)
-  const [trackId, setTrackId] = useState(order.trackId)
-  const [material, setMaterial] = useState(order.material)
-  const [qty, setQty] = useState(1)
-  const [batchPrice, setBatchPrice] = useState(1)
+  const [orderFields, setOrderFields] = useState({
+    warehouse: (order && order.warehouse) || undefined,
+    deliveryMethod: (order && order.deliveryMethod) || undefined,
+    status: (order && order.status) || undefined,
+    clientComment: (order && order.clientComment) || '',
+    buyerscomment: (order && order.product.buyerscomment) || '',
+    trackId: '',
+    material: (order && order.product && order.product.material) || '',
+    amount: 0,
+    batchPrice: 0,
+  })
+
+  const setOrderField = filedName => e => {
+    const newOrderFieldsState = {...orderFields}
+    newOrderFieldsState[filedName] = e.target.value
+    setOrderFields(newOrderFieldsState)
+  }
+
+  if (!order) {
+    return <div />
+  }
 
   return (
     <Box className={classNames.modalWrapper}>
       <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
 
       <Paper elevation={0} className={classNames.paper}>
-        <Typography className={classNames.modalText}>{textConsts.orderNum}</Typography>
+        <Typography className={classNames.modalText}>{`${textConsts.orderNum} ${order._id}`}</Typography>
 
         <SelectFields
-          setWarehouse={setWarehouse}
-          warehouse={warehouse}
-          delivery={delivery}
-          setDelivery={setDelivery}
-          status={status}
-          setStatus={setStatus}
-          order={order}
-          comment={comment}
-          setComment={setComment}
           warehouses={warehouses}
-          deliveryList={deliveryList}
-          statusList={statusList}
+          deliveryTypeByCode={deliveryTypeByCode}
+          orderStatusByCode={orderStatusByCode}
+          setOrderField={setOrderField}
+          orderFields={orderFields}
         />
 
         <Divider className={classNames.divider} />
-        <Typography className={classNames.modalText}>{textConsts.productNum}</Typography>
+        <Typography className={classNames.modalText}>{`${textConsts.productNum} ${order.product._id}`}</Typography>
 
         <ProductTable
           modalHeadCells={modalHeadCells}
           order={order}
-          qty={qty}
-          setQty={setQty}
-          barcode={null}
-          setModalBarcode={setModalBarcode}
-          batchPrice={batchPrice}
-          setBatchPrice={setBatchPrice}
-          material={material}
-          setMaterial={setMaterial}
-          trackId={trackId}
-          setTrackId={setTrackId}
+          orderFields={orderFields}
+          setOrderField={setOrderField}
+          onTriggerBarcodeModal={onTriggerBarcodeModal}
         />
       </Paper>
 
       <Box mt={2} className={classNames.buttonsBox}>
-        <Button className={classNames.saveBtn} onClick={() => setModal(false)}>
+        <Button className={classNames.saveBtn} onClick={() => onClickSaveOrder(order, orderFields)}>
           {textConsts.saveBtn}
         </Button>
-        <ErrorButton onClick={() => setModal(false)}>{textConsts.cancelBtn}</ErrorButton>
+        <ErrorButton onClick={onTriggerModal}>{textConsts.cancelBtn}</ErrorButton>
       </Box>
     </Box>
   )

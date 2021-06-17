@@ -10,7 +10,7 @@ import {texts} from '@constants/texts'
 
 import {Field} from '@components/field'
 
-import {checkIsResearcher} from '@utils/checks'
+import {checkIsBuyer, checkIsResearcher} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -28,39 +28,44 @@ export const BottomCard = observer(({curUserRole, product, onChangeField}) => {
             <Field
               disabled={!checkIsResearcher(curUserRole)}
               label={textConsts.bsr}
-              value={product.bsr}
+              value={product.bsr || ''}
               onChange={onChangeField('bsr')}
             />
             <Field
               disabled={!checkIsResearcher(curUserRole)}
               label={textConsts.buyBoxPrice}
-              value={product.amazon}
+              value={product.amazon || ''}
               onChange={onChangeField('amazon')}
             />
             <Field
               disabled={!checkIsResearcher(curUserRole)}
               label={textConsts.fieldWidth}
-              value={product.width}
+              value={product.width || ''}
               onChange={onChangeField('width')}
             />
             <Field
               disabled={!checkIsResearcher(curUserRole)}
               label={textConsts.fieldHeight}
-              value={product.height}
+              value={product.height || ''}
               onChange={onChangeField('height')}
             />
             <Field
               disabled={!checkIsResearcher(curUserRole)}
               label={textConsts.fieldLength}
-              value={product.length}
+              value={product.length || ''}
               onChange={onChangeField('length')}
             />
-            <Field disabled label={textConsts.minPrice} value={product.minPrice} onChange={onChangeField('minPrice')} />
             <Field
-              disabled
+              disabled={!(checkIsBuyer(curUserRole) || checkIsResearcher(curUserRole))}
+              label={textConsts.minPrice}
+              value={product.minpurchase}
+              onChange={onChangeField('minpurchase')}
+            />
+            <Field
+              disabled={!(checkIsBuyer(curUserRole) || checkIsResearcher(curUserRole))}
               label={textConsts.fieldSupplier}
-              value={product.supplier}
-              onChange={onChangeField('supplier')}
+              value={product.lsupplier || ''}
+              onChange={onChangeField('lsupplier')}
             />
             <Container disableGutters className={classNames.checkboxContainer} maxWidth={false}>
               <Typography className={(classNames.label, classNames.typoMarginRight)}>
@@ -78,37 +83,48 @@ export const BottomCard = observer(({curUserRole, product, onChangeField}) => {
               />
             </Container>
             <Field
-              disabled
+              disabled={!(checkIsBuyer(curUserRole) || checkIsResearcher(curUserRole))}
               label={textConsts.maxDeliveryPrice}
-              value={product.maxDeliveryPrice}
-              onChange={onChangeField('maxDeliveryPrice')}
+              value={product.delivery || ''}
+              onChange={onChangeField('delivery')}
             />
             <Field
               disabled
               label={textConsts.refferalFee}
-              value={product.refferalFee}
-              onChange={onChangeField('refferalFee')}
+              value={product.reffee || ''}
+              onChange={onChangeField('reffee')}
             />
             <Field
               disabled={!checkIsResearcher(curUserRole)}
               label={textConsts.fbaFee}
-              value={product.fbafee}
+              value={product.fbafee || ''}
               onChange={onChangeField('fbafee')}
             />
             <Field
-              disabled
+              disabled={!(checkIsBuyer(curUserRole) || checkIsResearcher(curUserRole))}
               label={textConsts.totalFba}
-              value={product.fbaamount}
+              value={product.fbaamount || ''}
               onChange={onChangeField('fbaamount')}
+            />
+            {/* Что за поле тут должно быть */}
+            <Field
+              disabled={!(checkIsBuyer(curUserRole) || checkIsResearcher(curUserRole))}
+              label={textConsts.recConsignmentQty}
+              value={product.recConsignmentQty || ''}
+              onChange={onChangeField('recConsignmentQty')}
             />
             <Field
               disabled={!checkIsResearcher(curUserRole)}
-              label={textConsts.recConsignmentQty}
-              value={product.recConsignmentQty}
-              onChange={onChangeField('recConsignmentQty')}
+              label={textConsts.revenue}
+              value={product.profit || ''}
+              onChange={onChangeField('profit')}
             />
-            <Field disabled label={textConsts.revenue} value={product.profit} onChange={onChangeField('profit')} />
-            <Field disabled label={textConsts.fieldMargin} value={product.margin} onChange={onChangeField('margin')} />
+            <Field
+              disabled={!checkIsResearcher(curUserRole)}
+              label={textConsts.fieldMargin}
+              value={product.margin || ''}
+              onChange={onChangeField('margin')}
+            />
             <Field
               disabled
               label={textConsts.fieldStatus}

@@ -23,6 +23,13 @@ const fieldsOfProductAllowedToUpdate = [
   'fba',
   'profit',
   'margin',
+  'images',
+  // 'width',
+  // 'height',
+  // 'length',
+  // 'amazonTitle',
+  // 'amazonDetail',
+  // 'amazonDescription'
 ]
 
 export class ResearcherProductViewModel {
@@ -42,9 +49,13 @@ export class ResearcherProductViewModel {
     this.history = history
     if (location.state) {
       console.log(location.state.product)
-      this.productBase = location.state.product
-      this.product = location.state.product
-      this.loadSupliersForProduct()
+      const product = {
+        ...location.state.product,
+        supplier: location.state.product.supplier.map(supplierItem => supplierItem._id),
+      }
+      this.productBase = product
+      this.product = product
+      this.suppliers = location.state.product.supplier
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -79,28 +90,30 @@ export class ResearcherProductViewModel {
     } else if (actionType === 'edit') {
       this.onTriggerAddOrEditSupplierModal()
     } else {
-      try {
-        this.setActionStatus(loadingStatuses.isLoading)
-        await SupplierModel.removeSupplier(this.selectedSupplier._id)
-        this.setActionStatus(loadingStatuses.success)
-        const findSupplierIndex = this.suppliers.findIndex(
-          supplierItem => supplierItem._id === this.selectedSupplier._id,
-        )
-        const findProductSupplierIndex = this.product.supplier.findIndex(
-          supplierItem => supplierItem._id === this.selectedSupplier._id,
-        )
-        runInAction(() => {
-          this.suppliers.splice(findSupplierIndex, 1)
-          this.product.supplier.splice(findProductSupplierIndex, 1)
-          this.selectedSupplier = undefined
-          this.onSaveProductData()
-        })
-      } catch (error) {
-        console.log(error)
-        this.setActionStatus(loadingStatuses.failed)
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
+      this.onRemoveSupplier()
+    }
+  }
+
+  async onRemoveSupplier() {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+      await SupplierModel.removeSupplier(this.selectedSupplier._id)
+      this.setActionStatus(loadingStatuses.success)
+      const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === this.selectedSupplier._id)
+      const findProductSupplierIndex = this.product.supplier.findIndex(
+        supplierItem => supplierItem._id === this.selectedSupplier._id,
+      )
+      runInAction(() => {
+        this.suppliers.splice(findSupplierIndex, 1)
+        this.product.supplier.splice(findProductSupplierIndex, 1)
+        this.selectedSupplier = undefined
+        this.onSaveProductData()
+      })
+    } catch (error) {
+      console.log(error)
+      this.setActionStatus(loadingStatuses.failed)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
       }
     }
   }
@@ -126,7 +139,9 @@ export class ResearcherProductViewModel {
         const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
         const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === supplier._id)
-        this.suppliers[findSupplierIndex] = supplier
+        runInAction(() => {
+          this.suppliers[findSupplierIndex] = supplier
+        })
       } else {
         const createSupplierResult = await SupplierModel.createSupplier(supplier)
         runInAction(() => {
@@ -182,11 +197,11 @@ export class ResearcherProductViewModel {
         (key, value) => {
           switch (key) {
             case 'status':
-              return value < 10 && this.suppliers.length ? 10 : value
+              return value < 10 && this.lsupplier ? 10 : value
             case 'bsr':
-              return value ? parseInt(value) : 0
+              return (value && parseInt(value)) || 0
             case 'amazon':
-              return value ? parseFloat(value) : 0
+              return (value && parseFloat(value)) || 0
             default:
               return value
           }
@@ -219,28 +234,6 @@ export class ResearcherProductViewModel {
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
-    }
-  }
-
-  async loadSupliersForProduct() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      runInAction(async () => {
-        this.suppliers = []
-        for (let index = 0; index < this.product.supplier.length; index++) {
-          const getSupplierResult = await SupplierModel.getSupplier(this.product.supplier[index])
-          runInAction(() => {
-            this.suppliers.push(getSupplierResult)
-          })
-        }
-      })
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
         this.error = error.body.message
       }

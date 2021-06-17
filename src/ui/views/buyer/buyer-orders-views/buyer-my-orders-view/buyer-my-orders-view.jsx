@@ -4,8 +4,8 @@ import {Typography, Container} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {DELIVERY_OPTIONS} from '@constants/delivery-options'
-import {BUYER_STATUS_LIST} from '@constants/mocks'
+import {DeliveryTypeByCode} from '@constants/delivery-options'
+import {OrderStatusByCode} from '@constants/order-status'
 import {BUYER_MY_ORDERS_HEAD_CELLS, BUYER_MY_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -16,9 +16,9 @@ import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
-import {SetBarcodeModal} from '@components/screens/set-barcode-modal'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/buyer/orders-views/table-body-row'
 import {TableHeadRow} from '@components/table-rows/buyer/orders-views/table-head-row'
@@ -39,7 +39,7 @@ class BuyerMyOrdersViewRaw extends Component {
   viewModel = new BuyerMyOrdersViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getOrdersMy()
+    this.viewModel.loadData()
   }
 
   render() {
@@ -56,10 +56,20 @@ class BuyerMyOrdersViewRaw extends Component {
       onChangeRowsPerPage,
       onTriggerShowBarcodeModal,
       onTriggerShowOrderModal,
-      onChangeSelectedOrder,
+      onClickOrder,
+      onSelectedOrder,
+      onClickEditBarcode,
+      onClickDeleteBarcode,
+      onClickSaveBarcode,
+      onClickSaveOrder,
     } = this.viewModel
     const {classes: className} = this.props
-
+    const rowHandlers = {
+      onClickOrder,
+      onClickEditBarcode,
+      onClickDeleteBarcode,
+      onSelectedOrder,
+    }
     return (
       <React.Fragment>
         <Navbar
@@ -93,11 +103,7 @@ class BuyerMyOrdersViewRaw extends Component {
                   BodyRow={TableBodyRow}
                   renderHeadRow={this.renderHeadRow}
                   rowsPerPage={rowsPerPage}
-                  rowsHandlers={{
-                    onOrder: onTriggerShowOrderModal,
-                    onBarcode: onTriggerShowBarcodeModal,
-                    onSelector: onChangeSelectedOrder,
-                  }}
+                  rowsHandlers={rowHandlers}
                 />
               </div>
             </MainContent>
@@ -107,16 +113,21 @@ class BuyerMyOrdersViewRaw extends Component {
         <Modal openModal={showOrderModal} setOpenModal={onTriggerShowOrderModal}>
           <EditOrderModal
             order={selectedOrder}
-            setModal={onTriggerShowOrderModal}
-            setModalBarcode={onTriggerShowBarcodeModal}
             modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS}
             warehouses={warehouses}
-            deliveryList={DELIVERY_OPTIONS}
-            statusList={BUYER_STATUS_LIST}
+            deliveryTypeByCode={DeliveryTypeByCode}
+            orderStatusByCode={OrderStatusByCode}
+            onTriggerModal={onTriggerShowOrderModal}
+            onTriggerBarcodeModal={onTriggerShowBarcodeModal}
+            onClickSaveOrder={onClickSaveOrder}
           />
         </Modal>
         <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
-          <SetBarcodeModal setModalBarcode={onTriggerShowBarcodeModal} />
+          <SetBarcodeModal
+            order={selectedOrder}
+            onClickSaveBarcode={onClickSaveBarcode}
+            onCloseModal={onTriggerShowBarcodeModal}
+          />
         </Modal>
       </React.Fragment>
     )

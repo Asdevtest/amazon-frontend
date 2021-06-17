@@ -17,7 +17,7 @@ import {useClassNames} from './edit-batch-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').batchesModalEditBatch
 
-export const EditBatchModal = ({batch, setModal, warehouses, deliveryList, curUserRole}) => {
+export const EditBatchModal = ({batch, setModal, warehouses, deliveryOptions, curUserRole}) => {
   const classNames = useClassNames()
 
   const [warehouse, setWarehouse] = useState(batch[0][0].destination)
@@ -46,7 +46,7 @@ export const EditBatchModal = ({batch, setModal, warehouses, deliveryList, curUs
             delivery={delivery}
             status={status}
             warehouses={warehouses}
-            deliveryList={deliveryList}
+            deliveryOptions={deliveryOptions}
           />
         )
     }

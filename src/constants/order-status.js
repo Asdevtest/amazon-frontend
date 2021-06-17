@@ -1,0 +1,78 @@
+import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {objectFlip} from '@utils/object'
+
+import {texts} from './texts'
+
+export const BUYER_ORDER_STATUS_LIST = [
+  {value: 'Formed', text: 'Formed'},
+  {value: 'New', text: 'New'},
+  {value: 'ReadyToProcess', text: 'ReadyToProcess'},
+  {value: 'Paid', text: 'Paid'},
+  {value: 'TrackNumberIssued', text: 'TrackNumberIssued'},
+  {value: 'InStock', text: 'InStock'},
+  {value: 'ReturnOrder', text: 'ReturnOrder'},
+]
+
+export const OrderStatus = {
+  FORMED: 'FORMED',
+  NEW: 'NEW',
+  READY_TO_PROCESS: 'READY_TO_PROCESS',
+  AT_PROCESS: 'AT_PROCESS',
+  PAID: 'PAID',
+  TRACK_NUMBER_ISSUED: 'TRACK_NUMBER_ISSUED',
+  IN_STOCK: 'IN_STOCK',
+  RETURN_ORDER: 'RETURN_ORDER',
+}
+
+export const OrderStatusByCode = {
+  0: OrderStatus.FORMED, // Корзина - статус "Формируется"
+  1: OrderStatus.NEW, // Клиент создал заказ - статус "Новый"
+  10: OrderStatus.READY_TO_PROCESS, // Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус "доступен для обработки"
+  15: OrderStatus.AT_PROCESS, // Закупщик взял заказ в обработку - статус "в обработке"
+  20: OrderStatus.PAID, // закупщик оплатил заказ - статус "оплачен"
+  25: OrderStatus.TRACK_NUMBER_ISSUED, // выдан и принят трек номер - статус "выдан трек номер"
+  30: OrderStatus.IN_STOCK, // Товар пришёл на склад - "Пришёл на склад"
+  35: OrderStatus.RETURN_ORDER, // Если Заказ пришёл не кондиционный - "возврат заказа"
+}
+
+export const OrderStatusByKey = objectFlip(OrderStatusByCode, parseInt)
+
+const textConfig = getLocalizedTexts(texts, 'en').orderStatus
+
+export const ORDER_STATUS_OPTIONS = [
+  {
+    key: OrderStatus.FORMED,
+    label: textConfig.formed,
+  },
+  {
+    key: OrderStatus.NEW,
+    label: textConfig.new,
+  },
+  {
+    key: OrderStatus.READY_TO_PROCESS,
+    label: textConfig.readyToProcess,
+  },
+  {
+    key: OrderStatus.AT_PROCESS,
+    label: textConfig.atProcess,
+  },
+  {
+    key: OrderStatus.PAID,
+    label: textConfig.paid,
+  },
+  {
+    key: OrderStatus.TRACK_NUMBER_ISSUED,
+    label: textConfig.trackNumberIssued,
+  },
+  {
+    key: OrderStatus.IN_STOCK,
+    label: textConfig.inStock,
+  },
+  {
+    key: OrderStatus.RETURN_ORDER,
+    label: textConfig.returnOrder,
+  },
+]
+
+export const getOrderStatusOptionByCode = statusCode =>
+  ORDER_STATUS_OPTIONS.find(statusOption => statusOption.key === OrderStatusByCode[statusCode])

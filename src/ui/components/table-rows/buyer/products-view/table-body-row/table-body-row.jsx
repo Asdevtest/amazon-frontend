@@ -10,6 +10,8 @@ import StarIcon from '@material-ui/icons/Star'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
+import {formatDateDistanceFromNow} from '@utils/date-time'
+import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-double-click'
 
 import calculateSrc from '../assets/calculate.svg'
@@ -47,7 +49,7 @@ export const TableBodyRow = observer(({item, itemIndex, handlers}) => {
             <Typography className={classNames.typoCell}>
               {'ASIN '}
               <span className={classNames.typoSpan}>{item.id}</span>
-              {' | updated today'}
+              {` | ${formatDateDistanceFromNow(item.createdat)}`}
             </Typography>
             <Chip className={classNames.chip} label={'Beauty & Personal Care'} />
           </div>
@@ -58,11 +60,12 @@ export const TableBodyRow = observer(({item, itemIndex, handlers}) => {
         <div>
           <Typography className={classNames.typoCell}>
             {'Fees '}
-            <span className={classNames.typoSpan}>{item.fees ? '$' + item.fees : ''}</span>
+            <span className={classNames.typoSpan}>{toFixedWithDollarSign(item.fbafee)}</span>
           </Typography>
           <Typography className={classNames.typoCell}>
             {'Net '}
-            <span className={classNames.typoSpan}>{item.fees ? '$' + (item.fees + 1) : ''}</span>
+            {/* какое поле тут? */}
+            <span className={classNames.typoSpan}>{toFixedWithDollarSign(item.reffee)}</span>
           </Typography>
           <Button
             disableElevation
@@ -73,10 +76,12 @@ export const TableBodyRow = observer(({item, itemIndex, handlers}) => {
           </Button>
         </div>
       </TableCell>
+      {/* нет этого поля */}
       <TableCell className={classNames.rankTableCell}>{item.rank ? '#' + item.rank : ''}</TableCell>
       <TableCell className={classNames.ratingTableCell}>
         <div className={classNames.ratingTableCellContainer}>
-          <Typography className={classNames.ratingTypo}>{item.rating ? item.rating.toFixed(1) : ''}</Typography>
+          {/* нет этого поля */}
+          <Typography className={classNames.ratingTypo}>{toFixed(item.rating, 1)}</Typography>
           <div className={classNames.rankCount}>
             {[1, 2, 3, 4, 5].map(el => (
               <StarIcon
@@ -88,17 +93,19 @@ export const TableBodyRow = observer(({item, itemIndex, handlers}) => {
             ))}
           </div>
         </div>
+        {/* нет этого поля */}
         <Typography className={classNames.rankTypoReviews}>23.45 reviews</Typography>
       </TableCell>
+      {/* нет этого поля */}
       <TableCell className={classNames.salesCell}>{item.sales}</TableCell>
+      {/* нет этого поля */}
       <TableCell className={classNames.salersTotal}>{item.salersTotal}</TableCell>
+      {/* нет этого поля */}
       <TableCell className={classNames.salersTotal}>{item.type}</TableCell>
-      <TableCell className={classNames.revenueCell}>{item.revenue ? '$' + item.revenue.toFixed(2) : ''}</TableCell>
-      <TableCell className={classNames.amazonCell}>
-        {item.amazonPrice ? '$' + item.amazonPrice.toFixed(2) : ''}
-      </TableCell>
-      <TableCell className={classNames.bsrCell}>{item.bsr ? '$' + item.bsr.toFixed(2) : ''}</TableCell>
-      <TableCell className={classNames.bsrCell}>{item.fba ? '$' + item.fba.toFixed(2) : ''}</TableCell>
+      <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.profit)}</TableCell>
+      <TableCell className={classNames.amazonCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
+      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.bsr)}</TableCell>
+      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.fbaamount)}</TableCell>
       <TableCell className={classNames.deleteBtnCell}>
         <IconButton onClick={() => alert('Item deleting...')}>
           <DeleteIcon className={classNames.deleteBtn} />

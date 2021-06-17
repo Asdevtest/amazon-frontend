@@ -2,6 +2,8 @@ import React from 'react'
 
 import {Box, Grid, InputLabel, NativeSelect, Typography} from '@material-ui/core'
 
+import {getDeliveryOptionByCode} from '@constants/delivery-options'
+import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {texts} from '@constants/texts'
 
 import {Input} from '@components/input'
@@ -12,22 +14,8 @@ import {useClassNames} from './select-fields.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').ordersViewsModalSelectFields
 
-export const SelectFields = ({
-  setWarehouse,
-  warehouse,
-  delivery,
-  setDelivery,
-  status,
-  setStatus,
-  order,
-  comment,
-  setComment,
-  warehouses,
-  deliveryList,
-  statusList,
-}) => {
+export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTypeByCode, orderStatusByCode}) => {
   const classNames = useClassNames()
-
   return (
     <Grid container justify="space-around">
       <Grid item>
@@ -41,16 +29,16 @@ export const SelectFields = ({
               name: 'warehouse-select',
               id: 'warehouse-select',
             }}
-            value={warehouse}
+            value={orderFields.warehouse}
             className={classNames.nativeSelect}
             input={<Input />}
-            onChange={e => setWarehouse(e.target.value)}
+            onChange={setOrderField('warehouse')}
           >
             <option value={'None'}>{textConsts.valueNone}</option>
             {Object.keys(warehouses).map((warehouseCode, warehouseIndex) => {
               const warehouseKey = warehouses[warehouseCode]
               return (
-                <option key={warehouseIndex} value={warehouseKey}>
+                <option key={warehouseIndex} value={warehouseCode}>
                   {warehouseKey}
                 </option>
               )
@@ -67,14 +55,14 @@ export const SelectFields = ({
               name: 'delivery-select',
               id: 'delivery-select',
             }}
-            value={delivery}
+            value={orderFields.deliveryMethod}
             className={classNames.nativeSelect}
             input={<Input />}
-            onChange={e => setDelivery(e.target.value)}
+            onChange={setOrderField('deliveryMethod')}
           >
-            {deliveryList.map((deliveryItem, deliveryIndex) => (
-              <option key={deliveryIndex} value={deliveryItem.value}>
-                {deliveryItem.text}
+            {Object.keys(deliveryTypeByCode).map((deliveryCode, deliveryIndex) => (
+              <option key={deliveryIndex} value={deliveryCode}>
+                {getDeliveryOptionByCode(deliveryCode).label}
               </option>
             ))}
           </NativeSelect>
@@ -89,14 +77,14 @@ export const SelectFields = ({
               name: 'status-select',
               id: 'status-select',
             }}
-            value={status}
+            value={orderFields.status}
             className={classNames.nativeSelect}
             input={<Input />}
-            onChange={e => setStatus(e.target.value)}
+            onChange={setOrderField('status')}
           >
-            {statusList.map((statusItem, statusIndex) => (
-              <option key={statusIndex} value={statusItem.value}>
-                {statusItem.text}
+            {Object.keys(orderStatusByCode).map((statusCode, statusIndex) => (
+              <option key={statusIndex} value={statusCode}>
+                {getOrderStatusOptionByCode(statusCode).label}
               </option>
             ))}
           </NativeSelect>
@@ -105,11 +93,11 @@ export const SelectFields = ({
       <Grid item>
         <Box my={3}>
           <Typography className={classNames.modalText}>{textConsts.typoClientComment}</Typography>
-          <Input disabled value={order.clientComment} />
+          <Input disabled value={orderFields.clientComment} onChange={setOrderField('clientComment')} />
         </Box>
         <Box my={3}>
           <Typography className={classNames.modalText}>{textConsts.typoBuyerComment}</Typography>
-          <Input value={comment} onChange={e => setComment(e.target.value)} />
+          <Input disabled value={orderFields.buyerscomment} onChange={setOrderField('buyerscomment')} />
         </Box>
         <Box my={3}>
           <Typography className={classNames.modalText}>{textConsts.typoShipPrice}</Typography>

@@ -26,7 +26,7 @@ export const useClassNames = makeStyles(theme => ({
   productImg: {
     height: '72px',
     width: '72px',
-    marginRight: '8px',
+    margin: '8px 8px 0 8px',
     backgroundColor: '#ecb',
   },
   parameterTableCell: {
@@ -77,10 +77,10 @@ export const useClassNames = makeStyles(theme => ({
     color: '#89919C',
   },
   divider: {
-    margin: '16px -32px',
+    margin: '16px 0',
   },
   lastDivider: {
-    margin: '16px -32px -16px',
+    margin: '16px 0',
   },
   collapsedWrapper: {
     textAlign: 'center',

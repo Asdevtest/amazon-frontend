@@ -11,6 +11,9 @@ export class ClientDashboardViewModel {
 
   drawerOpen = false
   productsMy = []
+  boxesMy = []
+  orders = []
+  productsPaid = []
 
   constructor({history}) {
     this.history = history
@@ -32,7 +35,10 @@ export class ClientDashboardViewModel {
   async loadData() {
     try {
       this.requestStatus = loadingStatuses.isLoading
-      this.getProductsMy()
+      await this.getProductsMy()
+      await this.getBoxesMy()
+      await this.getOrders()
+      await this.getProductsPaid()
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       this.requestStatus = loadingStatuses.failed
@@ -45,6 +51,42 @@ export class ClientDashboardViewModel {
       const result = await ClientModel.getProductsMy()
       runInAction(() => {
         this.productsMy = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async getBoxesMy() {
+    try {
+      const result = await ClientModel.getBoxes()
+      runInAction(() => {
+        this.boxesMy = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async getOrders() {
+    try {
+      const result = await ClientModel.getOrders()
+      runInAction(() => {
+        this.orders = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async getProductsPaid() {
+    try {
+      const result = await ClientModel.getProductsPaid()
+      runInAction(() => {
+        this.productsPaid = result
       })
     } catch (error) {
       console.log(error)

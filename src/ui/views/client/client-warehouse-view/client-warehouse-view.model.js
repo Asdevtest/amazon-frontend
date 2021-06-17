@@ -33,17 +33,23 @@ export class ClientWarehouseViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
     }
   }
 
   getBoxes() {
     try {
-      const result = ClientModel.gegetBoxestBox()
+      const result = ClientModel.getBoxes()
       runInAction(() => {
         this.boxes = result
       })
     } catch (error) {
       console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
     }
   }
 

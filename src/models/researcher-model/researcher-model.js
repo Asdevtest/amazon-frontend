@@ -6,7 +6,7 @@ class ResearcherModelStatic {
     return response
   }
 
-  getProducts = async () => {
+  getProductsVacant = async () => {
     const response = await restApiService.researcherApi.apiV1ResearchersProductsGet()
     return response
   }

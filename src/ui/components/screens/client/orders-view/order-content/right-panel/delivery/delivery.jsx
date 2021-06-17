@@ -13,7 +13,7 @@ import {useClassNames} from './delivery.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrderDelivery
 
-export const Delivery = ({deliveryType, setDeliveryType, deliveryTypes}) => {
+export const Delivery = ({deliveryType, setDeliveryType, deliveryOptions}) => {
   const classNames = useClassNames()
 
   return (
@@ -37,13 +37,13 @@ export const Delivery = ({deliveryType, setDeliveryType, deliveryTypes}) => {
             className={classNames.radioGroup}
             onChange={e => setDeliveryType(e.target.value)}
           >
-            {deliveryTypes.map((item, index) => (
+            {deliveryOptions.map((deliveryOption, index) => (
               <FormControlLabel
-                key={index}
+                key={`delivery_${deliveryOption.key}_${index}`}
                 className={clsx(classNames.text, classNames.radio)}
-                value={item.value}
+                value={deliveryOption.key}
                 control={<Radio />}
-                label={item.label}
+                label={deliveryOption.label}
               />
             ))}
           </RadioGroup>

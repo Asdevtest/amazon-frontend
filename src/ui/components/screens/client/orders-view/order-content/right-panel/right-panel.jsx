@@ -7,13 +7,13 @@ import {Delivery} from './delivery'
 import {Info} from './info'
 import {useClassNames} from './right-panel.style'
 
-export const RightPanel = ({order, deliveryType, setDeliveryType, deliveryTypes}) => {
+export const RightPanel = ({order, deliveryType, setDeliveryType, deliveryOptions}) => {
   const classNames = useClassNames()
 
   return (
     <Grid item xs={12} md={8} className={classNames.orderContainer}>
       <div className={classNames.deliveryInfoWrapper}>
-        <Delivery deliveryType={deliveryType} setDeliveryType={setDeliveryType} deliveryTypes={deliveryTypes} />
+        <Delivery deliveryType={deliveryType} setDeliveryType={setDeliveryType} deliveryOptions={deliveryOptions} />
 
         <Divider flexItem orientation={'vertical'} className={classNames.verticalDivider} />
 

@@ -11,12 +11,12 @@ export class ClientInventoryViewModel {
   requestStatus = undefined
   error = undefined
 
-  productsPaid = []
+  productsMy = []
   drawerOpen = false
   rowsPerPage = 5
   curPage = 1
   showSetBarcodeModal = false
-  curProduct = undefined
+  selectedProduct = undefined
 
   constructor({history}) {
     this.history = history
@@ -36,9 +36,9 @@ export class ClientInventoryViewModel {
 
   async getProductsPaid() {
     try {
-      const result = await ClientModel.getProductsPaid()
+      const result = await ClientModel.getProductsMy()
       runInAction(() => {
-        this.productsPaid = result
+        this.productsMy = result
       })
     } catch (error) {
       console.log(error)
@@ -48,11 +48,13 @@ export class ClientInventoryViewModel {
     }
   }
 
+  onClickSaveBarcode = () => {}
+
   onClickBarcode = item => {
-    if (item.barcode) {
-      copyToClipBoard(item.barcode)
+    if (item.barCode) {
+      copyToClipBoard(item.barcCde)
     } else {
-      this.setCurProduct(item)
+      this.setSelectedProduct(item)
       this.onTriggerShowBarcodeModal()
     }
   }
@@ -60,13 +62,11 @@ export class ClientInventoryViewModel {
   onClickExchange() {}
 
   onDoubleClickBarcode = item => {
-    this.setCurProduct(item)
+    this.setSelectedProduct(item)
     this.onTriggerShowBarcodeModal()
   }
 
   onDeleteBarcode() {}
-
-  onSaveBarcode() {}
 
   onChangeCurPage(e, value) {
     this.curPage = value
@@ -85,8 +85,8 @@ export class ClientInventoryViewModel {
     this.showSetBarcodeModal = !this.showSetBarcodeModal
   }
 
-  setCurProduct(item) {
-    this.curProduct = item
+  setSelectedProduct(item) {
+    this.selectedProduct = item
   }
 
   setRequestStatus(requestStatus) {

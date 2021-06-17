@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {Box, Grid, Typography, Button} from '@material-ui/core'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {productStatusButtonsConfigs} from '@constants/product-status-buttons-configs'
@@ -20,7 +21,8 @@ const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 export const RightSideComments = observer(
   ({curUserRole, onChangeField, product, onClickSetProductStatusBtn, handleProductActionButtons}) => {
     const classNames = useClassNames()
-    const productStatusButtonsConfig = productStatusButtonsConfigs[curUserRole]
+    const productStatusButtonsConfig =
+      productStatusButtonsConfigs[curUserRole] && productStatusButtonsConfigs[curUserRole](product.status)
     return (
       <Grid item sm={5} xs={12}>
         <Box className={classNames.rightBoxComments}>
@@ -60,34 +62,36 @@ export const RightSideComments = observer(
             value={product.buyerscomment}
             onChange={onChangeField('buyerscomment')}
           />
-
-          <div className={classNames.buttonsWrapper}>
-            <Button
-              className={classNames.buttonNormal}
-              color="primary"
-              variant="contained"
-              onClick={() => handleProductActionButtons('accept')}
-            >
-              {textConsts.buttonAccept}
-            </Button>
-            <ErrorButton
-              className={classNames.buttonNormal}
-              variant="contained"
-              onClick={() => handleProductActionButtons('cancel')}
-            >
-              {textConsts.buttonCancel}
-            </ErrorButton>
-            {checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) ? (
-              <ErrorButton
-                disabled
-                className={classNames.buttonDelete}
+          {checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || checkIsBuyer(curUserRole) ? (
+            <div className={classNames.buttonsWrapper}>
+              <Button
+                className={classNames.buttonNormal}
+                color="primary"
                 variant="contained"
-                onClick={() => handleProductActionButtons('delete')}
+                onClick={() => handleProductActionButtons('accept')}
               >
-                {textConsts.buttonDelete}
+                {textConsts.buttonAccept}
+              </Button>
+              <ErrorButton
+                className={clsx(classNames.buttonNormal, {
+                  [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
+                })}
+                variant="contained"
+                onClick={() => handleProductActionButtons('cancel')}
+              >
+                {textConsts.buttonCancel}
               </ErrorButton>
-            ) : undefined}
-          </div>
+              {checkIsResearcher(curUserRole) ? (
+                <ErrorButton
+                  className={classNames.buttonDelete}
+                  variant="contained"
+                  onClick={() => handleProductActionButtons('delete')}
+                >
+                  {textConsts.buttonDelete}
+                </ErrorButton>
+              ) : undefined}
+            </div>
+          ) : undefined}
         </Box>
       </Grid>
     )

@@ -13,8 +13,8 @@ import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {Navbar} from '@components/navbar'
-import {SetBarcodeModal} from '@components/screens/client/orders-view/set-barcode-modal'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/client/orders-views/orders/table-body-row'
 import {TableHeadRow} from '@components/table-rows/client/orders-views/orders/table-head-row'
@@ -34,7 +34,7 @@ class ClientOrdersViewRaw extends Component {
   viewModel = new ClientOrdersViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getOrders()
+    this.viewModel.loadData()
   }
 
   render() {
@@ -45,13 +45,22 @@ class ClientOrdersViewRaw extends Component {
       modalBarcode,
       rowsPerPage,
       curPage,
-      onChangeModalBarcode,
-      onChangeDrawerOpen,
+      selectedOrder,
+      onTriggerShowBarcodeModal,
+      onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
+      onClickEditBarcode,
+      onClickDeleteBarcode,
+      onClickSaveBarcode,
+      onClickTableRow,
     } = this.viewModel
     const {classes: className} = this.props
-
+    const rowHandlers = {
+      onClickEditBarcode,
+      onClickDeleteBarcode,
+      onClickTableRow,
+    }
     return (
       <React.Fragment>
         <Navbar
@@ -59,7 +68,7 @@ class ClientOrdersViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
@@ -68,7 +77,7 @@ class ClientOrdersViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
-            setDrawerOpen={onChangeDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
@@ -83,17 +92,19 @@ class ClientOrdersViewRaw extends Component {
                   BodyRow={TableBodyRow}
                   renderHeadRow={this.renderHeadRow}
                   rowsPerPage={rowsPerPage}
-                  rowsHandlers={{
-                    onBarcode: onChangeModalBarcode,
-                  }}
+                  rowsHandlers={rowHandlers}
                 />
               </div>
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={modalBarcode} setOpenModal={onChangeModalBarcode}>
-          <SetBarcodeModal setModalBarcode={onChangeModalBarcode} />
+        <Modal openModal={modalBarcode} setOpenModal={onTriggerShowBarcodeModal}>
+          <SetBarcodeModal
+            order={selectedOrder}
+            onClickSaveBarcode={onClickSaveBarcode}
+            onCloseModal={onTriggerShowBarcodeModal}
+          />
         </Modal>
       </React.Fragment>
     )

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import {Button, TableCell, TableRow, Typography, Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
 import {buyerUsername, buyerWarehouseViewTable, HISTORY_DATA} from '@constants/mocks'
 import {texts} from '@constants/texts'
@@ -32,32 +33,32 @@ const textConsts = getLocalizedTexts(texts, 'en').buyerWarehouseView
 const activeCategory = 3
 const activeSubCategory = null
 
+@observer
 export class BuyerWarehouseViewRaw extends Component {
   viewModel = new BuyerWarehouseViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getBoxes()
+    this.viewModel.getBoxesMy()
   }
 
   render() {
     const {
       drawerOpen,
-      paginationPage,
+      curPage,
       rowsPerPage,
-      boxes,
+      boxesMy,
       selectedBoxes,
-      modalSendOwnProduct,
-      modalEditBox,
-      modalRedistributeBox,
-      modalRedistributeBoxAddNewBox,
-      modalRedistributeBoxSuccess,
+      showSendOwnProductModal,
+      showEditBoxModal,
+      showRedistributeBoxModal,
+      showRedistributeBoxAddNewBoxModal,
+      showRedistributeBoxSuccessModal,
       onTriggerDrawer,
-      onChangePagination,
+      onChangeCurPage,
       onChangeRowsPerPage,
       onTriggerCheckbox,
       onRedistribute,
-      onClickCloseModal,
-      onClickOpenModal,
+      onTriggerOpenModal,
       onModalRedistributeBoxAddNewBox,
     } = this.viewModel
 
@@ -94,17 +95,17 @@ export class BuyerWarehouseViewRaw extends Component {
                 className={classNames.sendOwnProductBtn}
                 color="primary"
                 variant="contained"
-                onClick={() => onClickOpenModal('modalSendOwnProduct')}
+                onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
               >
                 {textConsts.sendProductBtn}
               </Button>
               <Table
                 buttons={this.renderButtons()}
-                currentPage={paginationPage}
-                data={boxes}
-                handlerPageChange={onChangePagination}
+                currentPage={curPage}
+                data={boxesMy}
+                handlerPageChange={onChangeCurPage}
                 handlerRowsPerPage={onChangeRowsPerPage}
-                pageCount={Math.ceil(boxes.length / rowsPerPage)}
+                pageCount={Math.ceil(boxesMy.length / rowsPerPage)}
                 BodyRow={WarehouseBodyRow}
                 renderHeadRow={this.renderHeadRow}
                 rowsPerPage={rowsPerPage}
@@ -117,33 +118,33 @@ export class BuyerWarehouseViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={modalSendOwnProduct} setOpenModal={() => onClickCloseModal('modalSendOwnProduct')}>
+        <Modal openModal={showSendOwnProductModal} setOpenModal={() => onTriggerOpenModal('showSendOwnProductModal')}>
           <Typography variant="h5">{textConsts.modalSendOwnProductTitle}</Typography>
           <SendOwnProductForm />
         </Modal>
-        <Modal openModal={modalEditBox} setOpenModal={() => onClickCloseModal('modalEditBox')}>
+        <Modal openModal={showEditBoxModal} setOpenModal={() => onTriggerOpenModal('modalEditBox')}>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
-          <EditBoxForm formFields={boxes.filter(box => selectedBoxes.includes(box.boxId))[0]} />
+          <EditBoxForm formFields={boxesMy.filter(box => selectedBoxes.includes(box.boxId))[0]} />
         </Modal>
-        <Modal openModal={modalRedistributeBox} setOpenModal={() => onClickCloseModal('modalRedistributeBox')}>
+        <Modal openModal={showRedistributeBoxModal} setOpenModal={() => onTriggerOpenModal('showRedistributeBoxModal')}>
           <div className={classNames.redistributionWrapper}>
             <Typography paragraph variant="h5">
               {textConsts.modalRedistributionTitle}
             </Typography>
             <RedistributeBox
-              addNewBoxModal={modalRedistributeBoxAddNewBox}
+              addNewBoxModal={showRedistributeBoxAddNewBoxModal}
               setAddNewBoxModal={value => onModalRedistributeBoxAddNewBox(value)}
-              selectedBox={boxes.filter(box => selectedBoxes.includes(box.boxId))[0]}
-              notSelectedBoxes={boxes.filter(box => !selectedBoxes.includes(box.boxId))}
+              selectedBox={boxesMy.filter(box => selectedBoxes.includes(box.boxId))[0]}
+              notSelectedBoxes={boxesMy.filter(box => !selectedBoxes.includes(box.boxId))}
               onRedistribute={onRedistribute}
-              onClickCloseModal={onClickCloseModal}
-              onClickOpenModal={onClickOpenModal}
+              onClickCloseModal={onTriggerOpenModal}
+              onClickOpenModal={onTriggerOpenModal}
             />
           </div>
         </Modal>
         <Modal
-          openModal={!!modalRedistributeBoxAddNewBox}
-          setOpenModal={() => onClickCloseModal('modalRedistributeBoxAddNewBox')}
+          openModal={showRedistributeBoxAddNewBoxModal}
+          setOpenModal={() => onTriggerOpenModal('showRedistributeBoxAddNewBoxModal')}
         >
           <div className={classNames.modalMessageWrapper}>
             <Typography paragraph variant="h5">
@@ -155,15 +156,15 @@ export class BuyerWarehouseViewRaw extends Component {
             <Button
               className={classNames.modalMessageBtn}
               color="primary"
-              onClick={() => onClickCloseModal('modalRedistributeBoxAddNewBox')}
+              onClick={() => onTriggerOpenModal('showRedistributeBoxAddNewBoxModal')}
             >
               {textConsts.closeBtn}
             </Button>
           </div>
         </Modal>
         <Modal
-          openModal={modalRedistributeBoxSuccess}
-          setOpenModal={() => onClickCloseModal('modalRedistributeBoxSuccess')}
+          openModal={showRedistributeBoxSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showRedistributeBoxSuccessModal')}
         >
           <div className={classNames.modalMessageWrapper}>
             <Typography paragraph variant="h5">
@@ -175,7 +176,7 @@ export class BuyerWarehouseViewRaw extends Component {
             <Button
               className={classNames.modalMessageBtn}
               color="primary"
-              onClick={() => onClickCloseModal('modalRedistributeBoxSuccess')}
+              onClick={() => onTriggerOpenModal('showRedistributeBoxSuccessModal')}
             >
               {textConsts.closeBtn}
             </Button>

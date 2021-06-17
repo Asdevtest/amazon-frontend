@@ -26,9 +26,14 @@ export class SupervisorProductViewModel {
   constructor({history, location}) {
     this.history = history
     if (location.state) {
-      this.product = location.state.product
-      this.productBase = location.state.product
-      this.loadSupliersForProduct()
+      console.log(location.state.product)
+      const product = {
+        ...location.state.product,
+        supplier: location.state.product.supplier.map(supplierItem => supplierItem._id),
+      }
+      this.productBase = product
+      this.product = product
+      this.suppliers = location.state.product.supplier
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -38,21 +43,18 @@ export class SupervisorProductViewModel {
       this.product[fieldName] = e.target.value
     })
 
-  async onClickSetProductStatusBtn(statusKey) {
-    runInAction(async () => {
-      this.product.status = ProductStatusByKey[statusKey]
-      await this.onSaveProductData()
-    })
+  onClickSetProductStatusBtn(statusKey) {
+    this.product.status = ProductStatusByKey[statusKey]
   }
 
   async handleProductActionButtons(actionType) {
     switch (actionType) {
       case 'accept':
         this.onSaveProductData()
+        break
       case 'cancel':
         this.onResetInitialProductData()
-      case 'delete':
-        this.onDeleteProduct()
+        break
     }
   }
 
@@ -89,21 +91,6 @@ export class SupervisorProductViewModel {
     this.setActionStatus(loadingStatuses.success)
   }
 
-  async onDeleteProduct() {
-    try {
-      this.setActionStatus(loadingStatuses.isLoading)
-      await SupervisorModel.removeProduct(this.product.id)
-      this.setActionStatus(loadingStatuses.success)
-      this.history.goBack()
-    } catch (error) {
-      console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
-    }
-  }
-
   onChangeSelectedSupplier(supplier) {
     if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
       this.selectedSupplier = undefined
@@ -121,28 +108,30 @@ export class SupervisorProductViewModel {
     } else if (actionType === 'edit') {
       this.onTriggerAddOrEditSupplierModal()
     } else {
-      try {
-        this.setActionStatus(loadingStatuses.isLoading)
-        await SupplierModel.removeSupplier(this.selectedSupplier._id)
-        this.setActionStatus(loadingStatuses.success)
-        const findSupplierIndex = this.suppliers.findIndex(
-          supplierItem => supplierItem._id === this.selectedSupplier._id,
-        )
-        const findProductSupplierIndex = this.product.supplier.findIndex(
-          supplierItem => supplierItem._id === this.selectedSupplier._id,
-        )
-        runInAction(() => {
-          this.suppliers.splice(findSupplierIndex, 1)
-          this.product.supplier.splice(findProductSupplierIndex, 1)
-          this.selectedSupplier = undefined
-          this.onSaveProductData()
-        })
-      } catch (error) {
-        console.log(error)
-        this.setActionStatus(loadingStatuses.failed)
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
+      this.onRemoveSupplier()
+    }
+  }
+
+  async onRemoveSupplier() {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+      await SupplierModel.removeSupplier(this.selectedSupplier._id)
+      this.setActionStatus(loadingStatuses.success)
+      const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === this.selectedSupplier._id)
+      const findProductSupplierIndex = this.product.supplier.findIndex(
+        supplierItem => supplierItem._id === this.selectedSupplier._id,
+      )
+      runInAction(() => {
+        this.suppliers.splice(findSupplierIndex, 1)
+        this.product.supplier.splice(findProductSupplierIndex, 1)
+        this.selectedSupplier = undefined
+        this.onSaveProductData()
+      })
+    } catch (error) {
+      console.log(error)
+      this.setActionStatus(loadingStatuses.failed)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
       }
     }
   }

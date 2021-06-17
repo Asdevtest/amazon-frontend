@@ -15,8 +15,8 @@ import {DashboardInfoCard} from '@components/dashboard-info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {Navbar} from '@components/navbar'
-import {SetBarcodeModalContent} from '@components/set-barcode-modal-content'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/client/inventory/products-view/table-body-row'
 import {TableHeadRow} from '@components/table-rows/client/inventory/products-view/table-head-row'
@@ -43,10 +43,10 @@ export class ClientInventoryViewRaw extends Component {
   render() {
     const {
       drawerOpen,
-      curProduct,
+      selectedProduct,
       showSetBarcodeModal,
       curPage,
-      productsPaid,
+      productsMy,
       rowsPerPage,
       onClickBarcode,
       onClickExchange,
@@ -56,7 +56,7 @@ export class ClientInventoryViewRaw extends Component {
       onChangeCurPage,
       onChangeRowsPerPage,
       onTriggerShowBarcodeModal,
-      onSaveBarcode,
+      onClickSaveBarcode,
     } = this.viewModel
     const {classes: classNames} = this.props
     const tableRowHandlers = {
@@ -90,10 +90,10 @@ export class ClientInventoryViewRaw extends Component {
               <Table
                 buttons={this.renderButtons()}
                 currentPage={curPage}
-                data={productsPaid}
+                data={productsMy}
                 handlerPageChange={onChangeCurPage}
                 handlerRowsPerPage={onChangeRowsPerPage}
-                pageCount={Math.ceil(productsPaid.length / rowsPerPage)}
+                pageCount={Math.ceil(productsMy.length / rowsPerPage)}
                 BodyRow={TableBodyRow}
                 renderHeadRow={this.renderHeadRow}
                 rowsPerPage={rowsPerPage}
@@ -103,10 +103,10 @@ export class ClientInventoryViewRaw extends Component {
           </Appbar>
         </Main>
         <Modal openModal={showSetBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
-          <SetBarcodeModalContent
-            barcodeValue={(curProduct && curProduct.barcode) || ''}
-            onClose={onTriggerShowBarcodeModal}
-            onSaveBarcode={onSaveBarcode}
+          <SetBarcodeModal
+            product={selectedProduct}
+            onClickSaveBarcode={onClickSaveBarcode}
+            onCloseModal={onTriggerShowBarcodeModal}
           />
         </Modal>
       </React.Fragment>

@@ -4,7 +4,6 @@ import {Avatar, Divider, Paper, Typography, Hidden, IconButton} from '@material-
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import MenuIcon from '@material-ui/icons/Menu'
 import NotificationsIcon from '@material-ui/icons/Notifications'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {Badge} from '@components/badge'
@@ -22,11 +21,6 @@ export const Appbar = observer(({avatarSrc, children, handlerTriggerDrawer, titl
     </Hidden>
   )
 
-  const renderFooter = (
-    <Paper className={clsx(classNames.appbar, classNames.footer)}>
-      <Typography>{'Footer'}</Typography>
-    </Paper>
-  )
   return (
     <>
       <Paper className={classNames.appbar}>
@@ -51,8 +45,6 @@ export const Appbar = observer(({avatarSrc, children, handlerTriggerDrawer, titl
       </Paper>
 
       {children}
-
-      {renderFooter}
     </>
   )
 })

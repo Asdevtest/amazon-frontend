@@ -4,7 +4,7 @@ import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {clientExchangePrivateLabelView, clientUsername} from '@constants/mocks'
+import {clientUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -15,16 +15,11 @@ import {Navbar} from '@components/navbar'
 import {PrivateLabelCard} from '@components/private-label-card'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {getRequiredListByKeys} from '@utils/get-required-list-by-keys'
 
 import {ClientExchangePrivateLabelViewModel} from './client-exchange-private-label-view.model'
 import {styles} from './client-exchange-private-label-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientExchangePrivateLabelView
-
-const {listKeys, productList} = clientExchangePrivateLabelView
-
-const filteredProductList = getRequiredListByKeys(productList, listKeys)
 
 const navbarActiveCategory = 1
 const navbarActiveSubCategory = 1
@@ -32,6 +27,10 @@ const navbarActiveSubCategory = 1
 @observer
 export class ClientExchangePrivateLabelViewRaw extends Component {
   viewModel = new ClientExchangePrivateLabelViewModel({history: this.props.history})
+
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
 
   render() {
     const {drawerOpen, onTriggerDrawer} = this.viewModel
@@ -58,19 +57,27 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
                 <Typography paragraph variant="h6">
                   {textConsts.mainTitle}
                 </Typography>
-                <div className={classNames.cardsWrapper}>
-                  {filteredProductList.map((item, index) => (
-                    <div key={index} className={classNames.cardWrapper}>
-                      <PrivateLabelCard item={item} />
-                    </div>
-                  ))}
-                </div>
+                <div className={classNames.cardsWrapper}>{this.renderProductsVacant()}</div>
               </div>
             </MainContent>
           </Appbar>
         </Main>
       </React.Fragment>
     )
+  }
+
+  renderProductsVacant = () => {
+    const {classes: classNames} = this.props
+    const {productsVacant, onLaunchPrivateLabel, onClickBuyProductBtn} = this.viewModel
+    return productsVacant.map((item, index) => (
+      <div key={`product_${item._id}_${index}`} className={classNames.cardWrapper}>
+        <PrivateLabelCard
+          item={item}
+          onClickLaunchPrivateLabelBtn={onLaunchPrivateLabel}
+          onClickBuyProductBtn={onClickBuyProductBtn}
+        />
+      </div>
+    ))
   }
 }
 

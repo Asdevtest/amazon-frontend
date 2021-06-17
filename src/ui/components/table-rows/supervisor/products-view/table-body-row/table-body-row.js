@@ -9,6 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import StarIcon from '@material-ui/icons/Star'
 import clsx from 'clsx'
 
+import {formatDateDistanceFromNow} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-double-click'
@@ -57,22 +58,23 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
             <Typography className={classNames.typoCell}>
               {'ASIN '}
               <span className={classNames.typoSpan}>{item.id}</span>
-              {' | updated today'}
+              {` | ${formatDateDistanceFromNow(item.createdat)}`}
             </Typography>
             <Chip className={classNames.chip} label={'Beauty & Personal Care'} />
           </div>
         </div>
       </TableCell>
-      <TableCell className={classNames.priceTableCell}>{toFixedWithDollarSign(item.price)}</TableCell>
+      <TableCell className={classNames.priceTableCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
       <TableCell className={classNames.feesTableCell}>
         <div>
           <Typography className={classNames.typoCell}>
             {'Fees '}
             <span className={classNames.typoSpan}>{toFixedWithDollarSign(item.fbafee)}</span>
           </Typography>
+          {/* Какое поле тут? */}
           <Typography className={classNames.typoCell}>
             {'Net '}
-            <span className={classNames.typoSpan}>{toFixedWithDollarSign(item.fees)}</span>
+            <span className={classNames.typoSpan}>{toFixedWithDollarSign(item.reffee)}</span>
           </Typography>
           <Button
             disableElevation
@@ -87,7 +89,9 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
           </Button>
         </div>
       </TableCell>
+      {/* нет этого поля */}
       <TableCell className={classNames.rankTableCell}>{item.rank ? '#' + item.rank : ''}</TableCell>
+      {/* нет этого поля */}
       <TableCell className={classNames.ratingTableCell}>
         <div className={classNames.ratingTableCellContainer}>
           <Typography className={classNames.ratingTypo}>{toFixed(item.rating)}</Typography>
@@ -102,15 +106,17 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
             ))}
           </div>
         </div>
+        {/* нет этого поля */}
         <Typography className={classNames.rankTypoReviews}>23.45 reviews</Typography>
       </TableCell>
       <TableCell className={classNames.salesCell}>{item.sales}</TableCell>
       <TableCell className={classNames.salersTotal}>{item.salersTotal}</TableCell>
       <TableCell className={classNames.salersTotal}>{item.type}</TableCell>
-      <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.revenue)}</TableCell>
+      <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.profit)}</TableCell>
+      {/* поле дублируется */}
       <TableCell className={classNames.amazonCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
       <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.bsr)}</TableCell>
-      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.fba)}</TableCell>
+      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.fbaamount)}</TableCell>
       <TableCell className={classNames.deleteBtnCell}>
         <IconButton onClick={() => alert('Item deleting...')}>
           <DeleteIcon className={classNames.deleteBtn} />

@@ -22,6 +22,7 @@ const fieldsOfProductAllowedToUpdate = [
   'margin',
   'buyerscomment',
   'additionalProp1',
+  'supplier',
 ]
 
 export class BuyerProductViewModel {
@@ -39,11 +40,13 @@ export class BuyerProductViewModel {
   constructor({history, location}) {
     this.history = history
     if (location.state) {
-      console.log(location.state.product)
-      this.product = location.state.product
-      this.product.supplier = []
-      this.productBase = location.state.product
-      this.loadSupliersForProduct()
+      const product = {
+        ...location.state.product,
+        supplier: location.state.product.supplier.map(supplierItem => supplierItem._id),
+      }
+      this.productBase = product
+      this.product = product
+      this.suppliers = location.state.product.supplier
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -53,11 +56,8 @@ export class BuyerProductViewModel {
       this.product[fieldsName] = e.target.value
     })
 
-  async onClickSetProductStatusBtn(statusKey) {
-    runInAction(async () => {
-      this.product.status = ProductStatusByKey[statusKey]
-      await this.onSaveProductData()
-    })
+  onClickSetProductStatusBtn(statusKey) {
+    this.product.status = ProductStatusByKey[statusKey]
   }
 
   onChangeSelectedSupplier(supplier) {
@@ -81,28 +81,30 @@ export class BuyerProductViewModel {
     } else if (actionType === 'edit') {
       this.onTriggerAddOrEditSupplierModal()
     } else {
-      try {
-        this.setActionStatus(loadingStatuses.isLoading)
-        await SupplierModel.removeSupplier(this.selectedSupplier._id)
-        this.setActionStatus(loadingStatuses.success)
-        const findSupplierIndex = this.suppliers.findIndex(
-          supplierItem => supplierItem._id === this.selectedSupplier._id,
-        )
-        const findProductSupplierIndex = this.product.supplier.findIndex(
-          supplierItem => supplierItem._id === this.selectedSupplier._id,
-        )
-        runInAction(() => {
-          this.suppliers.splice(findSupplierIndex, 1)
-          this.product.supplier.splice(findProductSupplierIndex, 1)
-          this.selectedSupplier = undefined
-          this.onSaveProductData()
-        })
-      } catch (error) {
-        console.log(error)
-        this.setActionStatus(loadingStatuses.failed)
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
+      this.onRemoveSuppliier()
+    }
+  }
+
+  async onRemoveSuppliier() {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+      await SupplierModel.removeSupplier(this.selectedSupplier._id)
+      this.setActionStatus(loadingStatuses.success)
+      const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === this.selectedSupplier._id)
+      const findProductSupplierIndex = this.product.supplier.findIndex(
+        supplierItem => supplierItem._id === this.selectedSupplier._id,
+      )
+      runInAction(() => {
+        this.suppliers.splice(findSupplierIndex, 1)
+        this.product.supplier.splice(findProductSupplierIndex, 1)
+        this.selectedSupplier = undefined
+        this.onSaveProductData()
+      })
+    } catch (error) {
+      console.log(error)
+      this.setActionStatus(loadingStatuses.failed)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
       }
     }
   }
@@ -140,28 +142,6 @@ export class BuyerProductViewModel {
       this.setActionStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
         console.log(error.body.message)
-        this.error = error.body.message
-      }
-    }
-  }
-
-  async loadSupliersForProduct() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      runInAction(async () => {
-        this.suppliers = []
-        for (let index = 0; index < this.product.supplier.length; index++) {
-          const getSupplierResult = await SupplierModel.getSupplier(this.product.supplier[index])
-          runInAction(() => {
-            this.suppliers.push(getSupplierResult)
-          })
-        }
-      })
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
         this.error = error.body.message
       }
     }
