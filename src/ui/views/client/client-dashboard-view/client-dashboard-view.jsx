@@ -65,7 +65,7 @@ export class ClientDashboardViewRaw extends Component {
                   {textConsts.replenish}
                 </Button>
               </div>
-              {this.renderInfoCarsSections(dashboardCardConfig)}
+              {this.renderInfoCardsSections(dashboardCardConfig)}
             </MainContent>
           </Appbar>
         </Main>
@@ -73,7 +73,7 @@ export class ClientDashboardViewRaw extends Component {
     )
   }
 
-  renderInfoCarsSections = sections =>
+  renderInfoCardsSections = sections =>
     sections.map(section => (
       <div key={`dashboardSection_${section.key}`} className={this.props.classes.mb5}>
         <Typography paragraph variant="h5">

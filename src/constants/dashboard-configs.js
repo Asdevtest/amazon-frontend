@@ -227,43 +227,56 @@ export const AdminDashboardCardDataKey = {
 
 export const getAdminDashboardCardConfig = textConsts => [
   {
-    dataKey: AdminDashboardCardDataKey.EXCHANGE_WAITING_TO_CHECK,
-    title: textConsts.prodcutsWaitingToCheckBySupervisorsTitle,
-    color: '#20a8d8',
+    key: 'inventory',
+    title: textConsts.productsTitle,
+    items: [
+      {
+        dataKey: AdminDashboardCardDataKey.EXCHANGE_WAITING_TO_CHECK,
+        title: textConsts.prodcutsWaitingToCheckBySupervisorsTitle,
+        color: '#20a8d8',
+      },
+      {
+        dataKey: AdminDashboardCardDataKey.EXCHANGE_BEING_CHECKED,
+        title: textConsts.productsBeingCheckedBySupervisorsTitle,
+        color: '#63c2de',
+      },
+      {
+        dataKey: AdminDashboardCardDataKey.EXCHANGE_CHECKED,
+        title: textConsts.productsCheckedBySupervisorsTitle,
+        color: '#4dbd74',
+      },
+      {
+        dataKey: AdminDashboardCardDataKey.EXCHANGE_REJECTED,
+        title: textConsts.productsRejectedBySupervisorsTitle,
+        color: '#ffc107',
+      },
+    ],
   },
+
   {
-    dataKey: AdminDashboardCardDataKey.EXCHANGE_BEING_CHECKED,
-    title: textConsts.productsBeingCheckedBySupervisorsTitle,
-    color: '#63c2de',
-  },
-  {
-    dataKey: AdminDashboardCardDataKey.EXCHANGE_CHECKED,
-    title: textConsts.productsCheckedBySupervisorsTitle,
-    color: '#4dbd74',
-  },
-  {
-    dataKey: AdminDashboardCardDataKey.EXCHANGE_REJECTED,
-    title: textConsts.productsRejectedBySupervisorsTitle,
-    color: '#ffc107',
-  },
-  {
-    dataKey: AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_RESEARCHERS,
-    title: textConsts.accruedToManagersTitle,
-    color: '#4dbd74',
-  },
-  {
-    dataKey: AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_SUPERVISORS,
-    title: textConsts.accruedToSupervisorsTitle,
-    color: '#20a8d8',
-  },
-  {
-    dataKey: AdminDashboardCardDataKey.FINANCES_ACCFINANCES_SUPERVISORS_FINESRUED_TO_RESEARCHERS,
-    title: textConsts.supervisorsFinesTitle,
-    color: '#f86c6b',
-  },
-  {
-    dataKey: AdminDashboardCardDataKey.FINANCES_RESEARCHERS_FINES,
-    title: textConsts.managersFinesTitle,
-    color: '#f86c6b',
+    key: 'suppliers-seek-statuses',
+    title: textConsts.accrualsAndFinesTitle,
+    items: [
+      {
+        dataKey: AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_RESEARCHERS,
+        title: textConsts.accruedToManagersTitle,
+        color: '#4dbd74',
+      },
+      {
+        dataKey: AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_SUPERVISORS,
+        title: textConsts.accruedToSupervisorsTitle,
+        color: '#20a8d8',
+      },
+      {
+        dataKey: AdminDashboardCardDataKey.FINANCES_SUPERVISORS_FINES,
+        title: textConsts.supervisorsFinesTitle,
+        color: '#f86c6b',
+      },
+      {
+        dataKey: AdminDashboardCardDataKey.FINANCES_RESEARCHERS_FINES,
+        title: textConsts.managersFinesTitle,
+        color: '#f86c6b',
+      },
+    ],
   },
 ]
