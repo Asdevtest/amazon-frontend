@@ -27,10 +27,10 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
         <Typography>{textConsts.bussinesUnit}</Typography>
       </TableCell>
       <TableCell>
-        <Button className={classNames.editBtn} variant="contained" onClick={() => handlers.onEdit(item)}>
+        <Button className={classNames.editBtn} variant="contained" onClick={() => handlers.onClickEditUser(item)}>
           {textConsts.editBtn}
         </Button>
-        <Button variant="contained" onClick={() => handlers.onClickBalance()}>
+        <Button variant="contained" onClick={handlers.onClickBalance}>
           {textConsts.balanceBtn}
         </Button>
       </TableCell>

@@ -21,4 +21,14 @@ export const useClassNames = makeStyles(() => ({
   modalContainer: {
     minWidth: '460px',
   },
+  checkboxWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: '-12px',
+    marginTop: '-12px',
+    marginBottom: '8px',
+  },
+  checkboxLabel: {
+    fontWeight: 600,
+  },
 }))

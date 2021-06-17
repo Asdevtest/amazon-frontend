@@ -2,8 +2,9 @@ import {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
-import {adminUsername, ADMIN_SUB_USERS_INITIAL_DATA} from '@constants/mocks'
+import {adminUsername} from '@constants/mocks'
 import {ADMIN_SUB_USERS_TABLE_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -21,41 +22,58 @@ import {TableHeadRow} from '@components/table-rows/sub-users-view/table-head-row
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
+import avatar from '../../assets/adminAvatar.jpg'
+import {AdminUsersViewModel} from './admin-users-view.model'
 import {styles} from './admin-users-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').adminUsersView
+const navbarActiveCategory = 6
+@observer
+class AdminUsersViewRaw extends Component {
+  viewModel = new AdminUsersViewModel({history: this.props.history})
 
-export class AdminUsersViewRaw extends Component {
-  state = {
-    drawerOpen: false,
-    curPage: 1,
-    rowsPerPage: 5,
-    selectedUser: null,
-    showEditUserModal: false,
-    showPermissionModal: false,
+  componentDidMount() {
+    this.viewModel.getUsers()
   }
 
   render() {
-    const {drawerOpen, curPage, rowsPerPage, selectedUser, showEditUserModal, showPermissionModal} = this.state
-    const activeCategory = 6
+    const {
+      users,
+      drawerOpen,
+      curPage,
+      rowsPerPage,      
+      editUserFormFields,
+      showEditUserModal,
+      showPermissionModal,
+      submitEditUserForm,
+      onClickEditUser,
+      onClickBalance,
+      onTriggerDrawer,
+      onChangeCurPage,
+      onChangeRowsPerPage,
+      onChangeFormField,
+      onTriggerEditUserModal,
+      onTriggerPermissionModal,
+    } = this.viewModel
+
     const {classes: classNames} = this.props
     const rowsHandlers = {
-      onEdit: user => this.onClickEditUser(user),
-      onClickBalance: () => this.onClickBalanceBtn(),
+      onClickEditUser,
+      onClickBalance,
     }
 
     return (
       <>
         <Navbar
-          activeCategory={activeCategory}
+          activeCategory={navbarActiveCategory}
           curUserRole={UserRole.ADMIN}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={this.onTriggerDrawer}
+          handlerTriggerDrawer={onTriggerDrawer}
         />
         <Main>
           <Appbar
-            avatarSrc=""
-            handlerTriggerDrawer={this.onTriggerDrawer}
+            avatarSrc={avatar}
+            handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={adminUsername}
           >
@@ -66,54 +84,37 @@ export class AdminUsersViewRaw extends Component {
               <Table
                 buttons={this.renderButtons}
                 currentPage={curPage}
-                data={ADMIN_SUB_USERS_INITIAL_DATA}
-                handlerPageChange={this.onChangeCurPage}
-                handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(ADMIN_SUB_USERS_INITIAL_DATA.length / rowsPerPage)}
+                data={users}
+                handlerPageChange={onChangeCurPage}
+                handlerRowsPerPage={onChangeRowsPerPage}
+                pageCount={Math.ceil(users.length / rowsPerPage)}
                 BodyRow={TableBodyRow}
                 renderHeadRow={this.renderHeadRow}
                 rowsPerPage={rowsPerPage}
                 rowsHandlers={rowsHandlers}
-              />
+              />              
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={showEditUserModal} setOpenModal={() => this.onTriggerModal('showEditUserModal')}>
+        <Modal openModal={showEditUserModal} setOpenModal={onTriggerEditUserModal}>
           <AdminContentModal
-            selectedUser={selectedUser}
+            editUserFormFields={editUserFormFields}
             title={textConsts.modalEditTitle}
             buttonLabel={textConsts.modalEditBtn}
-            closeModal={() => this.onTriggerModal('showEditUserModal')}
-            openPermissionModal={() => this.onTriggerModal('showPermissionModal')}
+            onChangeFormField={onChangeFormField}
+            onTriggerEditUserModal={onTriggerEditUserModal}
+            onTriggerPermissionModal={onTriggerPermissionModal}
+            onSubmit={submitEditUserForm}
           />
         </Modal>
-        <Modal openModal={showPermissionModal} setOpenModal={() => this.onTriggerModal('showPermissionModal')}>
-          <PermissionContentModal setModalPermission={() => this.onTriggerModal('showPermissionModal')} />
+        <Modal openModal={showPermissionModal} setOpenModal={onTriggerPermissionModal}>
+          <PermissionContentModal setModalPermission={onTriggerPermissionModal} />
         </Modal>
       </>
     )
   }
 
   renderHeadRow = (<TableHeadRow headCells={ADMIN_SUB_USERS_TABLE_CELLS} />)
-
-  onTriggerDrawer = () => {
-    const {drawerOpen} = this.state
-    this.setState({drawerOpen: !drawerOpen})
-  }
-  onChangeCurPage = value => {
-    this.setState({curPage: value})
-  }
-  onTriggerModal = modalState => {
-    this.setState({[modalState]: !this.state[modalState]})
-  }
-  onClickEditUser = user => {
-    this.onTriggerModal('showEditUserModal')
-    this.setState({selectedUser: user})
-  }
-  onClickBalanceBtn = () => {
-    const {history} = this.props
-    history.push('/admin/user/user_id/balance')
-  }
 }
 
 export const AdminUsersView = withStyles(styles)(AdminUsersViewRaw)

@@ -454,14 +454,23 @@ export const texts = {
       mainTitle: 'Товары',
     },
     subUsersModalContent: {
+      name: 'Name',
       email: 'Email',
       password: 'Password',
       rePassword: 'Re-type password',
+      role: 'Role',
+      fba: 'FBA',
+      active: 'User status',
+      rate: 'Rate',
+
       fieldSecurity: 'Security/Sharing options',
       manageBtn: 'Manage Premission',
       fieldBalance: 'Balance',
       balanceReplenishBtn: 'Replenish',
       balanceWithdrawBtn: 'Withdraw',
+
+      activeOption: 'Active',
+      bannedOption: 'Banned',
     },
     subUsersModalPermission: {
       title: 'Subuser permissions',
