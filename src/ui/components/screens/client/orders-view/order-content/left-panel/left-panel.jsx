@@ -15,13 +15,13 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
   const classNames = useClassNames()
 
   return (
-    <Grid item xs={12} md={4} className={(classNames.orderContainer, classNames.orderBorderRightMdUp)}>
+    <Grid item xs={12} className={(classNames.orderContainer, classNames.orderBorderRightMdUp)}>
       <div className={classNames.product}>
         <img alt="" className={classNames.productImg} src={order.product.img} />
         <div>
           <Typography className={(classNames.containerTitle, classNames.csCodeTypo)}>{order.product.csCode}</Typography>
           <Typography className={classNames.text}>
-            <span className={classNames.asinTypo}>{textConsts.id}</span> {order.product.asin}
+            <span className={classNames.asinTypo}>{textConsts.id}</span> {order.product.id}
           </Typography>
         </div>
       </div>

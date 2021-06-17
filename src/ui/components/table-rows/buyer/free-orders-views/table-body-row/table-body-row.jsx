@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Box, Chip, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Box, TableCell, TableRow, Typography} from '@material-ui/core'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
@@ -20,46 +20,22 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
       }
     },
     () => {
-      if (handlers.onDoubleOrder) {
+      if (handlers.onDoubleClickOrder) {
         handlers.onDoubleClickOrder(item, itemIndex)
       }
     },
   )
-
   return (
     <TableRow onClick={handleClick} onDoubleClick={handleDoubleClick}>
       <TableCell className={classNames.statusCell}>{getOrderStatusOptionByCode(item.status).label}</TableCell>
       <TableCell className={classNames.orderCell}>
         <div className={classNames.order}>
-          <img alt="" src={item.product.images && item.product.images[0]} className={classNames.orderImg} />
+          <img alt="" src={item.images && item.images[0]} className={classNames.orderImg} />
           <Box className={classNames.qtyBox}>
-            <Typography className={classNames.text}>{item.product.id}</Typography>
+            <Typography className={classNames.text}>{item.product.id + ' '}</Typography>
             <Typography className={(classNames.text, classNames.qtyTypo)}>{item.amount}</Typography>
           </Box>
         </div>
-      </TableCell>
-      <TableCell className={classNames.chipCell}>
-        {/* не приходит barCode */}
-        <Chip
-          classes={{
-            root: classNames.orderChip,
-            clickable: classNames.orderChipHover,
-            deletable: classNames.orderChipHover,
-            deleteIcon: classNames.orderChipIcon,
-          }}
-          style={{backgroundColor: item.barCode && 'rgb(61, 81, 112)'}}
-          size="small"
-          label={item.barCode ? item.barCode : 'Set barcode'}
-          onClick={e => {
-            e.stopPropagation()
-            if (item.barCode) {
-              navigator.clipboard.writeText(item.barCode)
-            } else {
-              handlers.onClickEditBarcode(item)
-            }
-          }}
-          onDelete={item.barCode ? () => handlers.onClickDeleteBarcode() : undefined}
-        />
       </TableCell>
       <TableCell className={classNames.cellPadding}>
         {/* по идее должно быть у заказа */}

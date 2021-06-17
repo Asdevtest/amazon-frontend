@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
@@ -82,7 +82,7 @@ export class SupervisorReadyToCheckViewModel {
       this.setActionStatus(loadingStatuses.isLoading)
       await SupervisorModel.pickupProduct(item._id)
       this.setActionStatus(loadingStatuses.success)
-      this.loadData()
+      this.history.push('/supervisor/product', {product: toJS(item)})
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)

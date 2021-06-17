@@ -106,7 +106,7 @@ class BuyerBatchesViewRaw extends Component {
             batch={isNotUndefined(selectedBatchIndex) ? batchesData[selectedBatchIndex] : undefined}
             setModal={onTriggerEditBoxesModal}
             warehouses={warehouses}
-            deliveryList={DELIVERY_OPTIONS}
+            deliveryOptions={DELIVERY_OPTIONS}
             curUserRole={UserRole.BUYER}
           />
         </Modal>

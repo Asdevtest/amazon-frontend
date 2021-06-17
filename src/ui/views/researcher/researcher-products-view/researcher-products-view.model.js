@@ -28,6 +28,17 @@ export class ResearcherProductsViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      this.getPropductsVacant()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
   async onClickCheckBtn() {
     if (!this.formFields.productCode) {
       this.error = 'Product code field is required for this action'
@@ -61,7 +72,7 @@ export class ResearcherProductsViewModel {
         lsupplier: '',
         bsr: 0,
         amazon: 0,
-        supplier: 0,
+        supplier: [],
         fbafee: 0,
         delivery: 0,
         icomment: '',
@@ -73,6 +84,7 @@ export class ResearcherProductsViewModel {
       runInAction(() => {
         this.formFields = formFieldsDefault
       })
+      this.loadData()
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -84,18 +96,14 @@ export class ResearcherProductsViewModel {
     }
   }
 
-  async getPropducts() {
+  async getPropductsVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       const result = await ResearcherModel.getProductsVacant()
-      console.log(result)
-      this.setRequestStatus(loadingStatuses.success)
       runInAction(() => {
         this.products = result
       })
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message

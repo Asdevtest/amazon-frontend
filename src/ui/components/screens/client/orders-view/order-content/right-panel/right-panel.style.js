@@ -12,7 +12,7 @@ export const useClassNames = makeStyles(() => ({
     margin: '-16px 32px',
   },
   horizontalDivider: {
-    margin: '16px -32px',
+    margin: '16px 0',
   },
   deliveryInfoWrapper: {
     display: 'flex',

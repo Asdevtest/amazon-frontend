@@ -117,6 +117,9 @@ export const useClassNames = makeStyles(() => ({
     flexGrow: 1,
     marginRight: '16px',
   },
+  buttonNormalNoMargin: {
+    marginRight: 0,
+  },
   buttonDelete: {
     flexGrow: 1,
   },

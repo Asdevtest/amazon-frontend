@@ -12,8 +12,8 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {Navbar} from '@components/navbar'
-import {SetBarcodeModal} from '@components/screens/set-barcode-modal'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 import {EditBoxModal} from '@components/screens/warehouse/edit-task-modal/edit-box-modal'
 import {Table} from '@components/table'
@@ -44,7 +44,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
       curPage,
       showEditTaskModal,
       rowsPerPage,
-      selectedTaskIndex,
+      selectedTask,
       showBarcodeModal,
       showEditBoxModal,
       onChangeTriggerDrawerOpen,
@@ -56,6 +56,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
       onTriggerShowEditBoxModal,
       updateBox,
       pickupBox,
+      onClickSaveBarcode,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -102,7 +103,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
         <Modal openModal={showEditTaskModal} setOpenModal={onTriggerEditTaskModal}>
           <Typography variant="h5">{textConsts.taskModalTitle}</Typography>
           <EditTaskModal
-            task={tasksVacant[selectedTaskIndex]}
+            task={selectedTask}
             onClickOpenCloseModal={onTriggerEditTaskModal}
             onSetBarcode={onTriggerShowBarcodeModal}
             onEditBox={onTriggerShowEditBoxModal}
@@ -110,7 +111,11 @@ export class WarehouseVacantTasksViewRaw extends Component {
           />
         </Modal>
         <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
-          <SetBarcodeModal setModalBarcode={onTriggerShowBarcodeModal} />
+          <SetBarcodeModal
+            task={selectedTask}
+            onClickSaveBarcode={onClickSaveBarcode}
+            onCloseModal={onTriggerShowBarcodeModal}
+          />
         </Modal>
         <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
           <EditBoxModal setEditModal={onTriggerShowEditBoxModal} updateBoxSubmit={updateBox} box={currentBox} />

@@ -13,7 +13,7 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
-import {ClientExchnageModalContent} from '@components/modal-contents/client-exchange-modal-content'
+import {ClientExchnageCreateOrderModalContent} from '@components/modal-contents/client-exchange-create-order-modal-content'
 import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
 import {ExchangeBodyRow} from '@components/table-rows/client/exchange'
@@ -43,9 +43,7 @@ export class ClientExchangeViewRaw extends Component {
       rowsPerPage,
       productsVacant,
       showPrivateLabelModal,
-      selectedIndex,
-      modalQty,
-      modalManagerIndex,
+      selectedProduct,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -55,18 +53,12 @@ export class ClientExchangeViewRaw extends Component {
       onClickLaunchPrivateLabelBtn,
       onClickBuyProductBtn,
       onClickUsername,
-      onChangeModalQty,
-      onChangeManager,
     } = this.viewModel
     const {classes: classNames} = this.props
     const tableRowsHandlers = {
       onClickLaunchPrivateLabelBtn,
       onClickBuyProductBtn,
       onClickUsername,
-    }
-    const modalRowHanglers = {
-      onChangeModalQty,
-      onChangeManager,
     }
     return (
       <React.Fragment>
@@ -105,12 +97,9 @@ export class ClientExchangeViewRaw extends Component {
           </Appbar>
         </Main>
         <Modal openModal={showPrivateLabelModal} setOpenModal={onTriggerPrivateLabelModal}>
-          <ClientExchnageModalContent
+          <ClientExchnageCreateOrderModalContent
             modalHeadRow={this.renderModalHeadRow()}
-            qty={modalQty}
-            managerIndex={modalManagerIndex}
-            item={productsVacant[selectedIndex]}
-            handlers={modalRowHanglers}
+            product={selectedProduct}
             onClickOrderNowBtn={onClickOrderNowBtn}
             onClickCancelBtn={onClickCancelBtn}
           />

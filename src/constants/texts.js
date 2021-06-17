@@ -264,7 +264,7 @@ export const texts = {
     },
     exchangeBodyRow: {
       launchBtn: 'Запустить',
-      priceBtn: 'Add $9.99',
+      priceBtn: 'Add',
     },
     clientExchangePrivateLabelView: {
       appbarTitle: 'Exchange - PrivateLabel',
@@ -438,7 +438,7 @@ export const texts = {
     },
     ordersViewsModalProductTable: {
       alert: 'Barcode deleting',
-      formulaCell: 'Формула',
+      traclId: 'TrackId',
     },
     buyerProductView: {
       appBarTitle: 'Product',
@@ -567,6 +567,23 @@ export const texts = {
       supplierWasFound: 'Поставщик найден',
       supplierWasNotFound: 'Поставщик не найден',
       supplierPriceNotAccepted: 'Цена поставщика не приемлима',
+    },
+    deliveryType: {
+      road: 'Road',
+      sea: 'Sea',
+      train: 'Train',
+      multiple: 'Multiple',
+      air: 'Air',
+    },
+    orderStatus: {
+      formed: 'Formed',
+      new: 'New',
+      readyToProcess: 'Ready to process',
+      atProcess: 'At process',
+      paid: 'Paid',
+      trackNumberIssued: 'Track number issued',
+      inStock: 'In stock',
+      returnOrder: 'Return order',
     },
   },
   ru: {
@@ -796,7 +813,7 @@ export const texts = {
       fieldHeight: 'Высота, дюймы*',
       fieldLength: 'Длина, дюймы*',
       minPrice: 'Мин. закуп. цена',
-      fieldSupplier: 'Поставщик, $',
+      fieldSupplier: 'Поставщик (ссылка)',
       typoExpress: 'Express',
       maxDeliveryPrice: 'Max. Доставка за ед., $',
       refferalFee: 'Refferal fee , $',
@@ -840,8 +857,8 @@ export const texts = {
     },
     ordersViewsModalEditOrder: {
       title: 'Редактирование заказа',
-      orderNum: 'Заказ ID0001',
-      productNum: 'Продукт  ID1002',
+      orderNum: 'Заказ',
+      productNum: 'Продукт',
       saveBtn: 'Сохранить',
       cancelBtn: 'Отмена',
     },
@@ -968,7 +985,7 @@ export const texts = {
       titleToolTip: 'Финальный вес будет расчитан когда склад получит товар',
     },
     clientOrderView: {
-      mainTitle: 'Заказ #ID 3452',
+      mainTitle: 'Заказ ',
       appBarTitle: 'Страница заказов',
       appBarUsername: 'Client',
       appUser: 'client',
@@ -1020,9 +1037,6 @@ export const texts = {
       street: 'Улица*',
       house: 'Дом*',
       deliveryMethod: 'Способ доставки',
-    },
-    clientOrderOrderContent: {
-      title: 'На оформлении',
     },
     inventoryView: {
       appbarTitle: 'Inventory',

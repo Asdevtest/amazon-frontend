@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {CLIENT_ORDER_INITIAL_PRODUCT, DELIVERY_TYPES} from '@constants/mocks'
+import {DELIVERY_OPTIONS} from '@constants/delivery-options'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -20,48 +20,36 @@ import {ClientOrderViewModel} from './client-order-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrderView
 
-const navbarActiveCategory = 0
-
 @observer
 export class ClientOrderView extends Component {
-  viewModel = new ClientOrderViewModel({history: this.props.history})
-  state = {
-    activeSubCategory: 2,
-    drawerOpen: false,
-  }
+  viewModel = new ClientOrderViewModel({history: this.props.history, location: this.props.location})
 
   render() {
-    const {activeSubCategory, drawerOpen} = this.state
+    const {drawerOpen, order, onTriggerDrawerOpen} = this.viewModel
 
     return (
       <React.Fragment>
         <Navbar
           curUserRole={UserRole.CLIENT}
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
-
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
-              <OrderContent productData={CLIENT_ORDER_INITIAL_PRODUCT} deliveryTypes={DELIVERY_TYPES} />
+              <OrderContent order={order} deliveryOptions={DELIVERY_OPTIONS} />
             </MainContent>
           </Appbar>
         </Main>
       </React.Fragment>
     )
-  }
-  onChangeDrawerOpen = (e, value) => {
-    this.setState({drawerOpen: value})
   }
 }

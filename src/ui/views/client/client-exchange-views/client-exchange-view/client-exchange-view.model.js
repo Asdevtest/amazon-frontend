@@ -14,9 +14,7 @@ export class ClientExchangeViewModel {
   curPage = 1
   rowsPerPage = 5
   showPrivateLabelModal = false
-  selectedProductIndex = undefined
-  modalQty = undefined
-  modalManagerIndex = undefined
+  selectedProduct = undefined
 
   constructor({history}) {
     this.history = history
@@ -38,22 +36,40 @@ export class ClientExchangeViewModel {
     try {
       const result = await ClientModel.getProductsVacant()
       runInAction(() => {
-        this.productsMy = result
+        this.productsVacant = result
       })
     } catch (error) {
       console.log(error)
+      this.productsVacant = []
       if (error.body && error.body.message) {
         this.error = error.body.message
       }
     }
   }
 
-  async onClickLaunchPrivateLabelBtn(product) {
+  onClickLaunchPrivateLabelBtn(product) {
+    this.selectedProduct = product
+    this.onTriggerPrivateLabelModal()
+  }
+
+  async onLaunchPrivateLabel(product, orderData) {
     try {
       const pickUpProductResult = await ClientModel.pickupProduct(product._id)
       console.log('pickUpProductResult ', pickUpProductResult)
       const makePaymentsResult = await ClientModel.makePayments([product._id])
       console.log('makePaymentsResult ', makePaymentsResult)
+      const createorderData = {
+        status: 0,
+        amount: orderData.amount,
+        deliveryMethod: orderData.deliveryMethod,
+        warehouse: orderData.warehouse,
+        clientComment: orderData.clientComment,
+        barCode: '',
+        product: product._id,
+      }
+      const createOrderResult = await ClientModel.createOrder(createorderData)
+      console.log('createOrderResult ', createOrderResult)
+      this.loadData()
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
@@ -88,16 +104,13 @@ export class ClientExchangeViewModel {
 
   onClickCancelBtn = () => {
     this.onTriggerPrivateLabelModal()
+    this.selectedProduct = undefined
   }
 
-  onClickOrderNowBtn = () => {
+  onClickOrderNowBtn = (product, orderData) => {
     this.onTriggerPrivateLabelModal()
-  }
-
-  onClickPrivateLabelBtn(index) {
-    this.selectedProductIndex = index
-    this.onTriggerQtyModal()
-    // this.modalQty = modalTableProductList[index].qty
+    this.onLaunchPrivateLabel(product, orderData)
+    this.selectedProduct = undefined
   }
 
   onChangeCurPage(e, value) {
@@ -110,7 +123,7 @@ export class ClientExchangeViewModel {
   }
 
   onTriggerPrivateLabelModal() {
-    this.showPrivateLabelModal = false
+    this.showPrivateLabelModal = !this.showPrivateLabelModal
   }
 
   onTriggerDrawer() {

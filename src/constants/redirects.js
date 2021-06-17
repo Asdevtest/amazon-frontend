@@ -15,4 +15,8 @@ export const redirectConfigs = [
     from: '/buyer',
     to: '/buyer/products',
   },
+  {
+    from: '/warehouse',
+    to: '/warehouse/dashboard',
+  },
 ]

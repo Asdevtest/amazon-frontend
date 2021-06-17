@@ -7,17 +7,17 @@ export class BuyerWarehouseViewModel {
   requestStatus = undefined
   error = undefined
 
-  boxes = []
+  boxesMy = []
 
   drawerOpen = false
-  paginationPage = 1
+  curPage = 1
   rowsPerPage = 5
   selectedBoxes = ['2096c_box']
-  modalSendOwnProduct = false
-  modalEditBox = false
-  modalRedistributeBox = false
-  modalRedistributeBoxAddNewBox = null
-  modalRedistributeBoxSuccess = false
+  showSendOwnProductModal = false
+  showEditBoxModal = false
+  showRedistributeBoxModal = false
+  showRedistributeBoxAddNewBoxModal = false
+  showRedistributeBoxSuccessModal = false
 
   constructor({history}) {
     this.history = history
@@ -32,8 +32,8 @@ export class BuyerWarehouseViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangePagination = (e, value) => {
-    this.paginationPage = value
+  onChangeCurPage = (e, value) => {
+    this.curPage = value
   }
 
   onChangeRowsPerPage = e => {
@@ -57,20 +57,16 @@ export class BuyerWarehouseViewModel {
     alert('Box merging')
   }
 
-  onClickCloseModal(modalState) {
-    this[modalState] = false
+  onTriggerOpenModal(modalState) {
+    this[modalState] = !this[modalState]
   }
 
-  onClickOpenModal(modalState) {
-    this[modalState] = true
-  }
-
-  async getBoxes() {
+  async getBoxesMy() {
     try {
-      const result = await BuyerModel.getBoxes()
+      const result = await BuyerModel.getBoxesMy()
       console.log(result)
       runInAction(() => {
-        this.boxes = result
+        this.boxesMy = result
       })
     } catch (error) {
       console.log(error)

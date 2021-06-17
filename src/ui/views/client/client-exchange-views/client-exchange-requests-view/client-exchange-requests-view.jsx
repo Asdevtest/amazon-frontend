@@ -112,7 +112,7 @@ export class ClientExchangeRequestsViewRaw extends Component {
                   handlerRowsPerPage={onChangeRowsPerPage}
                   pageCount={Math.ceil(requestsList.length / rowsPerPage)}
                   BodyRow={ExchangeRequestsBodyRow}
-                  renderHeadRow={this.renderHeadRow}
+                  renderHeadRow={this.renderHeadRow()}
                   rowsPerPage={rowsPerPage}
                   rowsHandlers={rowsHandlers}
                   selectedRequests={selectedRequests}
@@ -163,7 +163,7 @@ export class ClientExchangeRequestsViewRaw extends Component {
     </TableRow>
   )
 
-  renderButtons = (
+  renderButtons = () => (
     <React.Fragment>
       <Button disableElevation variant="contained">
         {textConsts.myRequests}

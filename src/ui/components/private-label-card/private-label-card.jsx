@@ -6,12 +6,13 @@ import {texts} from '@constants/texts'
 import {SuccessButton} from '@components/buttons/success-button'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixedWithDollarSign, withAmount, withKg} from '@utils/text'
 
 import {useClassNames} from './private-label-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').privateLabelCard
 
-export const PrivateLabelCard = ({item}) => {
+export const PrivateLabelCard = ({item, onClickLaunchPrivateLabelBtn, onClickBuyProductBtn}) => {
   const classNames = useClassNames()
 
   const InfoRow = ({label, value}) => (
@@ -23,34 +24,43 @@ export const PrivateLabelCard = ({item}) => {
 
   return (
     <Paper className={classNames.root}>
-      <img alt="item" className={classNames.img} src={item.categoryImg} />
+      <img alt="item image" className={classNames.img} src={item.images && item.images[0]} />
       <div className={classNames.wrapper}>
+        {/* что за поле, мб material? */}
         <Typography className={classNames.title}>{item.category}</Typography>
 
-        <InfoRow label={textConsts.price} value={'$ ' + item.price + ' + $ ' + item.price * 13} />
+        <InfoRow label={textConsts.price} value={toFixedWithDollarSign(item.amazon)} />
         <div className={classNames.textWrapper}>
           <Typography className={clsx(classNames.text, classNames.label)}>{'Кол-во'}</Typography>
           <InputBase classes={{root: classNames.inputWrapper, input: classNames.input}} defaultValue={100} />
         </div>
 
         <Divider className={classNames.divider} />
-
-        <InfoRow label={textConsts.avgPrice} value={'$ ' + item.avgPrice} />
-        <InfoRow label={textConsts.recConsignmentQty} value={item.recConsignmentQty + ' шт.'} />
-        <InfoRow label={textConsts.recConsignmentWeight} value={item.recConsignmentWeight + ' кг.'} />
+        {/* что за поле */}
+        <InfoRow label={textConsts.avgPrice} value={toFixedWithDollarSign(item.avgPrice)} />
+        {/* что за поле */}
+        <InfoRow label={textConsts.recConsignmentQty} value={withAmount(item.fbaamount)} />
+        <InfoRow label={textConsts.recConsignmentWeight} value={withKg(item.weight)} />
 
         <Divider className={classNames.divider} />
 
-        <InfoRow label={textConsts.avgBSR} value={item.avgBSR} />
+        <InfoRow label={textConsts.avgBSR} value={item.bsr} />
+        {/* что за поле */}
         <InfoRow label={textConsts.avgReviews} value={item.avgReviews} />
-        <InfoRow label={textConsts.avgRevenue} value={item.avgRevenue} />
+        <InfoRow label={textConsts.avgRevenue} value={toFixedWithDollarSign(item.profit)} />
 
         <div className={classNames.buttonsWrapper}>
-          <SuccessButton disableElevation variant="contained">
+          <SuccessButton disableElevation variant="contained" onClick={() => onClickLaunchPrivateLabelBtn(item)}>
             {textConsts.launchBtn}
           </SuccessButton>
-          <Button disableElevation color="primary" className={classNames.priceButton} variant="contained">
-            {`${textConsts.addBtnPrefix} $${item.price}`}
+          <Button
+            disableElevation
+            color="primary"
+            className={classNames.priceButton}
+            variant="contained"
+            onClick={onClickBuyProductBtn}
+          >
+            {`${textConsts.addBtnPrefix} ${toFixedWithDollarSign(item.amazon)}`}
           </Button>
         </div>
       </div>

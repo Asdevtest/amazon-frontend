@@ -32,7 +32,7 @@ class ResearcherProductsViewRaw extends Component {
   viewModel = new ResearcherProductsViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getPropducts()
+    this.viewModel.loadData()
   }
 
   render() {
