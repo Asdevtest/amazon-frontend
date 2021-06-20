@@ -2,6 +2,7 @@ import {Component} from 'react'
 
 import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
 import {adminUsername, ADMIN_PRODUCTS_DATA} from '@constants/mocks'
 import {ADMIN_PRODUCTS_HEAD_CELLS} from '@constants/table-head-cells'
@@ -17,22 +18,24 @@ import {ProductsBodyRow} from '@components/table-rows/admin/products-body-row'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
+import {AdminExchangeViewModel} from './admin-exchange-waiting-view.model'
 import {styles} from './admin-exchange-waiting-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').adminProductsWaitingView
+const activeCategory = 1
+const activeSubCategory = 0
 
+
+@observer
 class AdminExchangeWaitingViewRaw extends Component {
-  state = {
-    drawerOpen: false,
-    curPage: 1,
-    rowsPerPage: 5,
-    selectedProducts: [],
+  viewModel = new AdminExchangeViewModel({history: this.props.history})
+
+  componentDidMount() {
+    this.viewModel.loadData()
   }
 
   render() {
-    const {drawerOpen} = this.state
-    const activeCategory = 1
-    const activeSubCategory = 0
+    const {drawerOpen, curPage, rowsPerPage, onChangeCurPage, onChangeRowsPerPage} = this.viewModel
     const {classes: classNames} = this.props
     const rowsHandlers = {}
 
@@ -57,14 +60,14 @@ class AdminExchangeWaitingViewRaw extends Component {
                 {textConsts.mainTitle}
               </Typography>
               <Table
-                currentPage={this.state.curPage}
+                currentPage={curPage}
                 data={ADMIN_PRODUCTS_DATA}
-                handlerPageChange={this.onChangeCurPage}
-                handlerRowsPerPage={this.onChangeRowsPerPage}
-                pageCount={Math.ceil(ADMIN_PRODUCTS_DATA.length / this.state.rowsPerPage)}
+                handlerPageChange={onChangeCurPage}
+                handlerRowsPerPage={onChangeRowsPerPage}
+                pageCount={Math.ceil(ADMIN_PRODUCTS_DATA.length / rowsPerPage)}
                 BodyRow={ProductsBodyRow}
                 renderHeadRow={this.renderHeadRow}
-                rowsPerPage={this.state.rowsPerPage}
+                rowsPerPage={rowsPerPage}
                 rowsHandlers={rowsHandlers}
               />
             </MainContent>
@@ -83,18 +86,6 @@ class AdminExchangeWaitingViewRaw extends Component {
       ))}
     </TableRow>
   )
-
-  onChangeCurPage = value => {
-    this.setState({curPage: value})
-  }
-  onChangeRowsPerPage = e => {
-    this.rowsPerPage = Number(e.target.value)
-    this.paginationPage = 1
-  }
-  onTriggerDrawer = () => {
-    const {drawerOpen} = this.state
-    this.setState({drawerOpen: !drawerOpen})
-  }
 }
 
 export const AdminExchangeWaitingView = withStyles(styles)(AdminExchangeWaitingViewRaw)
