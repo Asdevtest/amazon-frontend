@@ -1,5 +1,6 @@
 import {Component} from 'react'
 
+import { observer } from 'mobx-react'
 import {Button, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
@@ -17,80 +18,79 @@ import {AdminBalanceModal} from '@components/screens/users-views/sub-users-view/
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
+import avatar from '../../assets/adminAvatar.jpg'
+import {AdminUserBalanceViewModel} from './admin-user-balance-view.model'
 import {styles} from './admin-user-balance-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').adminUserBalanceView
+const navbarActiveCategory = 6
+const user = {
+    id: '60aabd92b2f06d5a147ba007',
+    name: "researcher1",
+    email: 'researcher1@gmail.com',
+  }
+@observer
+class AdminUserBalanceViewRaw extends Component {
+  viewModel = new AdminUserBalanceViewModel({history: this.props.history})
 
-export class AdminUserBalanceViewRaw extends Component {
-  state = {
-    drawerOpen: false,
-    selectedUser: {date: '12/09/2019', email: 'email@example.com'},
-    showBalanceReplenishModal: false,
-    showBalanceWithdrawModal: false,
+  componentDidMount() {
+    this.viewModel.getBalanceHistory()
   }
 
   render() {
-    const {drawerOpen, selectedUser, showBalanceReplenishModal, showBalanceWithdrawModal} = this.state
-    const activeCategory = 6
+    const {
+      drawerOpen,      
+      showReplenishModal,
+      showWithdrawModal,
+      makePayment,
+      onTriggerReplenishModal,
+      onTriggerWithdrawModal,
+      onTriggerDrawer,
+    } = this.viewModel
     const {classes: classNames} = this.props
 
     return (
       <>
         <Navbar
-          activeCategory={activeCategory}
+          activeCategory={navbarActiveCategory}
           curUserRole={UserRole.ADMIN}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={this.onTriggerDrawer}
+          handlerTriggerDrawer={onTriggerDrawer}
         />
         <Main>
           <Appbar
-            avatarSrc=""
-            handlerTriggerDrawer={this.onTriggerDrawer}
+            avatarSrc={avatar}
+            handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={adminUsername}
           >
             <MainContent>
-              <Typography variant="h5">{`${textConsts.balance} of ${selectedUser.email}`}</Typography>
+              <Typography variant="h5">{`${textConsts.balance} of ${user.email}`}</Typography>
               <Typography className={classNames.balanceTitle}>{clientBalance}</Typography>
               <Button
                 disableElevation
                 className={classNames.mr2}
                 color="primary"
                 variant="contained"
-                onClick={() => this.onTriggerModal('showBalanceReplenishModal')}
+                onClick={onTriggerReplenishModal}
               >
                 {textConsts.replenish}
               </Button>
-              <Button disableElevation color="primary" onClick={() => this.onTriggerModal('showBalanceWithdrawModal')}>
+              <Button disableElevation color="primary" onClick={onTriggerWithdrawModal}>
                 {textConsts.withdraw}
               </Button>
               <UserBalanceHistory historyData={ADMIN_BALANCE_HISTORY_DATA} />
             </MainContent>
           </Appbar>
         </Main>
-        <Modal
-          openModal={showBalanceReplenishModal}
-          setOpenModal={() => this.onTriggerModal('showBalanceReplenishModal')}
-        >
-          <AdminBalanceModal user={selectedUser} />
+        <Modal openModal={showReplenishModal} setOpenModal={onTriggerReplenishModal}>
+          <AdminBalanceModal user={user} onTriggerParentModal={onTriggerReplenishModal} onSubmit={makePayment}/>
         </Modal>
-        <Modal
-          openModal={showBalanceWithdrawModal}
-          setOpenModal={() => this.onTriggerModal('showBalanceWithdrawModal')}
-        >
-          <AdminBalanceModal isWithdraw user={selectedUser} closeModalBalance={this.onTriggerModal} />
+        <Modal openModal={showWithdrawModal} setOpenModal={onTriggerWithdrawModal}>
+          <AdminBalanceModal isWithdraw user={user} onTriggerParentModal={onTriggerWithdrawModal} onSubmit={makePayment}/>
         </Modal>
       </>
     )
-  }
-
-  onTriggerDrawer = () => {
-    const {drawerOpen} = this.state
-    this.setState({drawerOpen: !drawerOpen})
-  }
-
-  onTriggerModal = modalState => {
-    this.setState({[modalState]: !this.state[modalState]})
   }
 }
 
