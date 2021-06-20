@@ -24,36 +24,44 @@ const replenishSelectOptions = [
   {value: textConsts.replenishOptionServicePayment, label: textConsts.replenishOptionServicePayment},
 ]
 
-export const AdminBalanceModal = ({user, isWithdraw}) => {
+export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSubmit}) => {
   const classNames = useClassNames()
   const [balanceValue, setBalanceValue] = useState(0)
-  const [selectReason, setSelectReason] = useState(undefined)
+  const [reasonValue, setReasonValue] = useState(
+    isWithdraw ? textConsts.widthdrawOptionFine : textConsts.replenishOptionReplenish,
+  )
   const [showConfirmModal, setConfirmModal] = useState(false)
   const onTriggerConfirmModal = () => setConfirmModal(prevState => !prevState)
+  const onConfirm = () => {
+    const data = {
+      recipient: user.id,
+      sum: isWithdraw ? Number(-balanceValue) : Number(balanceValue),
+      comment: reasonValue,
+    }
+    onSubmit(data)
+    onTriggerConfirmModal()
+    onTriggerParentModal()
+  }
+  const onDecline = () => {
+    onTriggerConfirmModal()
+    onTriggerParentModal()
+  }
 
   const renderPositiveMessage = (
     <div className={classNames.positiveMsg}>
-      {textConsts.msgSubject + user.email + textConsts.msgPosPredicate + balanceValue}
+      {`${textConsts.msgSubject} ${user.name} ${textConsts.msgPosPredicate} ${balanceValue}`}
     </div>
   )
 
   const renderNegativeMessage = (
     <div className={classNames.negativeMsg}>
-      {textConsts.msgSubject + user.email + textConsts.msgNegPredicate + balanceValue}
+      {`${textConsts.msgSubject} ${user.name} ${textConsts.msgNegPredicate} ${balanceValue}`}
     </div>
   )
 
   const confirmMsg = () => {
     const decreaseOrIncrease = isWithdraw ? textConsts.confirmMsgDecrease : textConsts.confirmMsgIncrease
-    return (
-      textConsts.confirmMsgAreYouSureYouWantTo +
-      decreaseOrIncrease +
-      textConsts.confirmMsgTheBalanceOfTheUser +
-      user.email +
-      textConsts.confirmMsgBy +
-      balanceValue +
-      '?'
-    )
+    return `${textConsts.confirmMsgAreYouSureYouWantTo} ${decreaseOrIncrease} ${textConsts.confirmMsgTheBalanceOfTheUser} ${user.name} ${textConsts.confirmMsgBy} ${balanceValue}?`
   }
 
   const renderOptions = options => (
@@ -82,13 +90,13 @@ export const AdminBalanceModal = ({user, isWithdraw}) => {
         />
         <Field
           containerClasses={classNames.field}
-          label={textConsts.selectLabel}
+          label={textConsts.reasonLabel}
           inputComponent={
             <NativeSelect
               variant="filled"
-              value={selectReason}
+              value={reasonValue}
               input={<Input fullWidth />}
-              onChange={e => setSelectReason(e.target.value)}
+              onChange={e => setReasonValue(e.target.value)}
             >
               {isWithdraw ? renderOptions(withdrawSelectOptions) : renderOptions(replenishSelectOptions)}
             </NativeSelect>
@@ -108,26 +116,10 @@ export const AdminBalanceModal = ({user, isWithdraw}) => {
         <div className={classNames.confirmModal}>
           <Typography paragraph>{confirmMsg()}</Typography>
           <div className={classNames.buttonWrapper}>
-            <Button
-              disableElevation
-              color="primary"
-              variant="contained"
-              onClick={() => {
-                alert('Confirm')
-                onTriggerConfirmModal()
-              }}
-            >
+            <Button disableElevation color="primary" variant="contained" onClick={onConfirm}>
               {textConsts.confirmBtn}
             </Button>
-            <Button
-              disableElevation
-              color="secondary"
-              variant="contained"
-              onClick={() => {
-                alert('Decline')
-                onTriggerConfirmModal()
-              }}
-            >
+            <Button disableElevation color="secondary" variant="contained" onClick={onDecline}>
               {textConsts.declineBtn}
             </Button>
           </div>
