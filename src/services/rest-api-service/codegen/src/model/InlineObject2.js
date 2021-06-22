@@ -22,10 +22,13 @@ class InlineObject2 {
     /**
      * Constructs a new <code>InlineObject2</code>.
      * @alias module:model/InlineObject2
+     * @param recipient {String} GUID пользователя.
+     * @param sum {Number} Начисленная сумма выплаты. Может быть отрицательной.
+     * @param comment {String} комментарий
      */
-    constructor() { 
+    constructor(recipient, sum, comment) { 
         
-        InlineObject2.initialize(this);
+        InlineObject2.initialize(this, recipient, sum, comment);
     }
 
     /**
@@ -33,7 +36,10 @@ class InlineObject2 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, recipient, sum, comment) { 
+        obj['recipient'] = recipient;
+        obj['sum'] = sum;
+        obj['comment'] = comment;
     }
 
     /**
@@ -47,23 +53,17 @@ class InlineObject2 {
         if (data) {
             obj = obj || new InlineObject2();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            if (data.hasOwnProperty('recipient')) {
+                obj['recipient'] = ApiClient.convertToType(data['recipient'], 'String');
             }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            if (data.hasOwnProperty('sum')) {
+                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
             }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('active')) {
-                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
-            }
-            if (data.hasOwnProperty('rate')) {
-                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -73,40 +73,28 @@ class InlineObject2 {
 }
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * GUID продукта.
+ * @member {String} productId
  */
-InlineObject2.prototype['name'] = undefined;
+InlineObject2.prototype['productId'] = undefined;
 
 /**
- * email
- * @member {String} email
+ * GUID пользователя.
+ * @member {String} recipient
  */
-InlineObject2.prototype['email'] = undefined;
+InlineObject2.prototype['recipient'] = undefined;
 
 /**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
- * @member {Number} role
+ * Начисленная сумма выплаты. Может быть отрицательной.
+ * @member {Number} sum
  */
-InlineObject2.prototype['role'] = undefined;
+InlineObject2.prototype['sum'] = undefined;
 
 /**
- * Флаг fba.
- * @member {Boolean} fba
+ * комментарий
+ * @member {String} comment
  */
-InlineObject2.prototype['fba'] = undefined;
-
-/**
- * Если истина - пользователь активен. Если нет - заблокирован админом.
- * @member {Boolean} active
- */
-InlineObject2.prototype['active'] = undefined;
-
-/**
- * Ставка, по который оплачивается сотрудник.
- * @member {Number} rate
- */
-InlineObject2.prototype['rate'] = undefined;
+InlineObject2.prototype['comment'] = undefined;
 
 
 

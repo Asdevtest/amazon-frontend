@@ -47,8 +47,8 @@ class InlineResponse2011 {
         if (data) {
             obj = obj || new InlineResponse2011();
 
-            if (data.hasOwnProperty('token')) {
-                obj['token'] = ApiClient.convertToType(data['token'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -58,9 +58,10 @@ class InlineResponse2011 {
 }
 
 /**
- * @member {String} token
+ * guid созданного объекта
+ * @member {String} guid
  */
-InlineResponse2011.prototype['token'] = undefined;
+InlineResponse2011.prototype['guid'] = undefined;
 
 
 

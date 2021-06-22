@@ -26,7 +26,6 @@ export const useClassNames = makeStyles(theme => ({
   },
   subTitle: {
     color: theme.palette.text.secondary,
-    marginLeft: theme.spacing(2),
   },
   field: {
     flexBasis: '100%',
@@ -44,5 +43,16 @@ export const useClassNames = makeStyles(theme => ({
   },
   submit: {
     marginRight: theme.spacing(2),
+  },
+  cancelBtn: {
+    marginLeft: theme.spacing(2),
+  },
+  numberInputFieldsWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  numberInputField: {
+    margin: '0 5px',
   },
 }))

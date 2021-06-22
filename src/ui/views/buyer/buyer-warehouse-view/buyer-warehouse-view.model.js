@@ -1,6 +1,8 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {BuyerModel} from '@models/buyer-model'
+import {loadingStatuses} from '@constants/loading-statuses'
+
+import {BoxesModel} from '@models/boxes-model'
 
 export class BuyerWarehouseViewModel {
   history = undefined
@@ -61,10 +63,20 @@ export class BuyerWarehouseViewModel {
     this[modalState] = !this[modalState]
   }
 
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      await this.getBoxesMy()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
   async getBoxesMy() {
     try {
-      const result = await BuyerModel.getBoxesMy()
-      console.log(result)
+      const result = await BoxesModel.getBoxes()
       runInAction(() => {
         this.boxesMy = result
       })
@@ -72,5 +84,9 @@ export class BuyerWarehouseViewModel {
       console.log(error)
       this.error = error
     }
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

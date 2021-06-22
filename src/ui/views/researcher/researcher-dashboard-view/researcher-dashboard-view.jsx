@@ -80,7 +80,7 @@ export class ResearcherDashboardViewRaw extends Component {
   getCardValueByDataKey = dataKey => {
     switch (dataKey) {
       case ResearcherDashboardCardDataKey.PRODUCTS:
-        return this.viewModel.products.length
+        return this.viewModel.productsVacant.length
       case ResearcherDashboardCardDataKey.CUR_BALANCE:
         return 0
       case ResearcherDashboardCardDataKey.FINES:

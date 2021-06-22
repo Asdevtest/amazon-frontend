@@ -48,7 +48,7 @@ class InlineObject1 {
             obj = obj || new InlineObject1();
 
             if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], Array);
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
             }
         }
         return obj;
@@ -59,7 +59,7 @@ class InlineObject1 {
 
 /**
  * Массив GUID которые нужно оплатить.
- * @member {Array} guids
+ * @member {Array.<String>} guids
  */
 InlineObject1.prototype['guids'] = undefined;
 

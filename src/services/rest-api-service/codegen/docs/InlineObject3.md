@@ -4,34 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**buyerComment** | **String** | комментарии байера. | [optional] 
-**warehouse** | **Number** | Номер склада. | [optional] 
-**deliveryMethod** | **Number** | Вид доставки. | [optional] 
-**fba** | **Boolean** | Признак FBA это заказ или нет. | [optional] 
-**status** | **Number** | tmp | [optional] [default to StatusEnum.1]
-**deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
-
-
-
-## Enum: StatusEnum
-
-
-* `0` (value: `0`)
-
-* `1` (value: `1`)
-
-* `10` (value: `10`)
-
-* `15` (value: `15`)
-
-* `20` (value: `20`)
-
-* `25` (value: `25`)
-
-* `30` (value: `30`)
-
-* `35` (value: `35`)
-
-
+**name** | **String** | Имя пользователя. | [optional] 
+**email** | **String** | email | [optional] 
+**role** | **Number** | Код роли присвоенный пользователю.    roles.root &#x3D; 0    roles.client &#x3D; 10    roles.super &#x3D; 20    roles.researcher &#x3D; 30    roles.buyer &#x3D; 40    roles.storekeeper &#x3D; 45    roles.candidate &#x3D; 50     | [optional] 
+**fba** | **Boolean** | Флаг fba. | [optional] 
+**active** | **Boolean** | Если истина - пользователь активен. Если нет - заблокирован админом. | [optional] 
+**rate** | **Number** | Ставка, по который оплачивается сотрудник. | [optional] 
 
 

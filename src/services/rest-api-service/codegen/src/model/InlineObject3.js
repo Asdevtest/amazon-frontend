@@ -47,23 +47,23 @@ class InlineObject3 {
         if (data) {
             obj = obj || new InlineObject3();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
             if (data.hasOwnProperty('fba')) {
                 obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('active')) {
+                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
             }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
+            if (data.hasOwnProperty('rate')) {
+                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
             }
         }
         return obj;
@@ -73,97 +73,41 @@ class InlineObject3 {
 }
 
 /**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
+ * Имя пользователя.
+ * @member {String} name
  */
- InlineObject3['StatusEnum'] = {
-
-    /**
-     * value: 0
-     * @const
-     */
-    "0": 0,
-
-    /**
-     * value: 1
-     * @const
-     */
-    "1": 1,
-
-    /**
-     * value: 10
-     * @const
-     */
-    "10": 10,
-
-    /**
-     * value: 15
-     * @const
-     */
-    "15": 15,
-
-    /**
-     * value: 20
-     * @const
-     */
-    "20": 20,
-
-    /**
-     * value: 25
-     * @const
-     */
-    "25": 25,
-
-    /**
-     * value: 30
-     * @const
-     */
-    "30": 30,
-
-    /**
-     * value: 35
-     * @const
-     */
-    "35": 35
-};
+InlineObject3.prototype['name'] = undefined;
 
 /**
- * комментарии байера.
- * @member {String} buyerComment
+ * email
+ * @member {String} email
  */
-InlineObject3.prototype['buyerComment'] = undefined;
+InlineObject3.prototype['email'] = undefined;
 
 /**
- * Номер склада.
- * @member {Number} warehouse
+ * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
+ * @member {Number} role
  */
-InlineObject3.prototype['warehouse'] = undefined;
+InlineObject3.prototype['role'] = undefined;
 
 /**
- * Вид доставки.
- * @member {Number} deliveryMethod
- */
-InlineObject3.prototype['deliveryMethod'] = undefined;
-
-/**
- * Признак FBA это заказ или нет.
+ * Флаг fba.
  * @member {Boolean} fba
  */
 InlineObject3.prototype['fba'] = undefined;
 
 /**
- * tmp
- * @member {module:model/InlineObject3.StatusEnum} status
- * @default StatusEnum.1
+ * Если истина - пользователь активен. Если нет - заблокирован админом.
+ * @member {Boolean} active
  */
-InlineObject3.prototype['status'] = InlineObject3.StatusEnum[1];
+InlineObject3.prototype['active'] = undefined;
 
 /**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
+ * Ставка, по который оплачивается сотрудник.
+ * @member {Number} rate
  */
-InlineObject3.prototype['deliveryCostToTheWarehouse'] = undefined;
+InlineObject3.prototype['rate'] = undefined;
+
 
 
 

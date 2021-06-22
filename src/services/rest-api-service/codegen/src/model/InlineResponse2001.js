@@ -22,16 +22,17 @@ class InlineResponse2001 {
     /**
      * Constructs a new <code>InlineResponse2001</code>.
      * @alias module:model/InlineResponse2001
-     * @param amount {Number} Кол-во продукта по этой позиции.
-     * @param deliveryMethod {Number} Код метода доставки.
-     * @param warehouse {Number} Номер склада.
-     * @param clientComment {String} Комментарии клиента.
-     * @param barCode {String} Ссылка на баркод.
-     * @param product {String} GUID заказанного продукта
+     * @param _id {String} GUID пользователя в БД.
+     * @param name {String} Имя пользователя.
+     * @param email {String} email
+     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
+     * @param fba {Boolean} Флаг fba.
+     * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
+     * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
-    constructor(amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
+    constructor(_id, name, email, role, fba, active, rate) { 
         
-        InlineResponse2001.initialize(this, amount, deliveryMethod, warehouse, clientComment, barCode, product);
+        InlineResponse2001.initialize(this, _id, name, email, role, fba, active, rate);
     }
 
     /**
@@ -39,13 +40,14 @@ class InlineResponse2001 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
-        obj['amount'] = amount;
-        obj['deliveryMethod'] = deliveryMethod;
-        obj['warehouse'] = warehouse;
-        obj['clientComment'] = clientComment;
-        obj['barCode'] = barCode;
-        obj['product'] = product;
+    static initialize(obj, _id, name, email, role, fba, active, rate) { 
+        obj['_id'] = _id;
+        obj['name'] = name;
+        obj['email'] = email;
+        obj['role'] = role;
+        obj['fba'] = fba;
+        obj['active'] = active;
+        obj['rate'] = rate;
     }
 
     /**
@@ -59,26 +61,26 @@ class InlineResponse2001 {
         if (data) {
             obj = obj || new InlineResponse2001();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
             }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            if (data.hasOwnProperty('active')) {
+                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
             }
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiClient.convertToType(data['product'], 'String');
+            if (data.hasOwnProperty('rate')) {
+                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
             }
         }
         return obj;
@@ -88,46 +90,46 @@ class InlineResponse2001 {
 }
 
 /**
- * Код текущего состояния заказа.
- * @member {Number} status
+ * GUID пользователя в БД.
+ * @member {String} _id
  */
-InlineResponse2001.prototype['status'] = undefined;
+InlineResponse2001.prototype['_id'] = undefined;
 
 /**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
+ * Имя пользователя.
+ * @member {String} name
  */
-InlineResponse2001.prototype['amount'] = undefined;
+InlineResponse2001.prototype['name'] = undefined;
 
 /**
- * Код метода доставки.
- * @member {Number} deliveryMethod
+ * email
+ * @member {String} email
  */
-InlineResponse2001.prototype['deliveryMethod'] = undefined;
+InlineResponse2001.prototype['email'] = undefined;
 
 /**
- * Номер склада.
- * @member {Number} warehouse
+ * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
+ * @member {Number} role
  */
-InlineResponse2001.prototype['warehouse'] = undefined;
+InlineResponse2001.prototype['role'] = undefined;
 
 /**
- * Комментарии клиента.
- * @member {String} clientComment
+ * Флаг fba.
+ * @member {Boolean} fba
  */
-InlineResponse2001.prototype['clientComment'] = undefined;
+InlineResponse2001.prototype['fba'] = undefined;
 
 /**
- * Ссылка на баркод.
- * @member {String} barCode
+ * Если истина - пользователь активен. Если нет - заблокирован админом.
+ * @member {Boolean} active
  */
-InlineResponse2001.prototype['barCode'] = undefined;
+InlineResponse2001.prototype['active'] = undefined;
 
 /**
- * GUID заказанного продукта
- * @member {String} product
+ * Ставка, по который оплачивается сотрудник.
+ * @member {Number} rate
  */
-InlineResponse2001.prototype['product'] = undefined;
+InlineResponse2001.prototype['rate'] = undefined;
 
 
 

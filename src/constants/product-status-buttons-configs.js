@@ -49,8 +49,8 @@ export const productStatusButtonsConfigs = {
         {
           statusKey: ProductStatus.BUYER_FOUND_SUPPLIER,
           label: textConfigs.supplierWasFound,
-          color: 'rgb(0, 123, 255)',
-          colorHover: '#1269ec',
+          color: 'rgb(15, 169, 20)',
+          colorHover: '#009a07',
         },
         {
           statusKey: ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
@@ -61,8 +61,8 @@ export const productStatusButtonsConfigs = {
         {
           statusKey: ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
           label: textConfigs.supplierPriceNotAccepted,
-          color: 'rgb(15, 169, 20)',
-          colorHover: '#009a07',
+          color: 'rgb(0, 123, 255)',
+          colorHover: '#1269ec',
         },
       ]
     }

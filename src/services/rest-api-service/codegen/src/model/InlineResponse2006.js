@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1ClientsBatchesId from './ApiV1ClientsBatchesId';
 
 /**
  * The InlineResponse2006 model module.
@@ -22,10 +23,12 @@ class InlineResponse2006 {
     /**
      * Constructs a new <code>InlineResponse2006</code>.
      * @alias module:model/InlineResponse2006
+     * @param _id {module:model/ApiV1ClientsBatchesId} 
+     * @param boxes {Array.<String>} 
      */
-    constructor() { 
+    constructor(_id, boxes) { 
         
-        InlineResponse2006.initialize(this);
+        InlineResponse2006.initialize(this, _id, boxes);
     }
 
     /**
@@ -33,7 +36,9 @@ class InlineResponse2006 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id, boxes) { 
+        obj['_id'] = _id;
+        obj['boxes'] = boxes;
     }
 
     /**
@@ -47,35 +52,11 @@ class InlineResponse2006 {
         if (data) {
             obj = obj || new InlineResponse2006();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
-            }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
-            }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
             if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+                obj['_id'] = ApiV1ClientsBatchesId.constructFromObject(data['_id']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
             }
         }
         return obj;
@@ -85,64 +66,14 @@ class InlineResponse2006 {
 }
 
 /**
- * id поставщика.
- * @member {String} id
- */
-InlineResponse2006.prototype['id'] = undefined;
-
-/**
- * Название поставщика.
- * @member {String} name
- */
-InlineResponse2006.prototype['name'] = undefined;
-
-/**
- * Ссылка на поставщика.
- * @member {String} link
- */
-InlineResponse2006.prototype['link'] = undefined;
-
-/**
- * Цена
- * @member {Number} price
- */
-InlineResponse2006.prototype['price'] = undefined;
-
-/**
- * Тип доставки
- * @member {Number} delivery
- */
-InlineResponse2006.prototype['delivery'] = undefined;
-
-/**
- * кол-во
- * @member {Number} amount
- */
-InlineResponse2006.prototype['amount'] = undefined;
-
-/**
- * Минимальный лот.
- * @member {Number} minlot
- */
-InlineResponse2006.prototype['minlot'] = undefined;
-
-/**
- * Стоимость лота.
- * @member {Number} lotcost
- */
-InlineResponse2006.prototype['lotcost'] = undefined;
-
-/**
- * Комментарий
- * @member {String} comment
- */
-InlineResponse2006.prototype['comment'] = undefined;
-
-/**
- * GUID поставщика в БД
- * @member {String} _id
+ * @member {module:model/ApiV1ClientsBatchesId} _id
  */
 InlineResponse2006.prototype['_id'] = undefined;
+
+/**
+ * @member {Array.<String>} boxes
+ */
+InlineResponse2006.prototype['boxes'] = undefined;
 
 
 

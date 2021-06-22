@@ -22,7 +22,7 @@ export const RightPanel = ({order, deliveryType, setDeliveryType, deliveryOption
 
       <Divider orientation={'horizontal'} className={classNames.horizontalDivider} />
 
-      <Comments />
+      <Comments order={order} />
     </Grid>
   )
 }

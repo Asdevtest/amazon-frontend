@@ -22,10 +22,17 @@ class InlineResponse20011 {
     /**
      * Constructs a new <code>InlineResponse20011</code>.
      * @alias module:model/InlineResponse20011
+     * @param _id {String} GUID пользователя в БД.
+     * @param name {String} Имя пользователя.
+     * @param email {String} email
+     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.candidate = 50    
+     * @param fba {Boolean} Флаг fba.
+     * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
+     * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
-    constructor() { 
+    constructor(_id, name, email, role, fba, active, rate) { 
         
-        InlineResponse20011.initialize(this);
+        InlineResponse20011.initialize(this, _id, name, email, role, fba, active, rate);
     }
 
     /**
@@ -33,7 +40,14 @@ class InlineResponse20011 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id, name, email, role, fba, active, rate) { 
+        obj['_id'] = _id;
+        obj['name'] = name;
+        obj['email'] = email;
+        obj['role'] = role;
+        obj['fba'] = fba;
+        obj['active'] = active;
+        obj['rate'] = rate;
     }
 
     /**
@@ -50,89 +64,23 @@ class InlineResponse20011 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('lengthCm')) {
-                obj['lengthCm'] = ApiClient.convertToType(data['lengthCm'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('widthCm')) {
-                obj['widthCm'] = ApiClient.convertToType(data['widthCm'], 'Number');
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
-            if (data.hasOwnProperty('heightCm')) {
-                obj['heightCm'] = ApiClient.convertToType(data['heightCm'], 'Number');
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
-            if (data.hasOwnProperty('weighGrossKg')) {
-                obj['weighGrossKg'] = ApiClient.convertToType(data['weighGrossKg'], 'Number');
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
             }
-            if (data.hasOwnProperty('volumeWeightKg')) {
-                obj['volumeWeightKg'] = ApiClient.convertToType(data['volumeWeightKg'], 'Number');
+            if (data.hasOwnProperty('active')) {
+                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
             }
-            if (data.hasOwnProperty('weightFinalAccountingKg')) {
-                obj['weightFinalAccountingKg'] = ApiClient.convertToType(data['weightFinalAccountingKg'], 'Number');
-            }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
-            }
-            if (data.hasOwnProperty('shipmentPlanId')) {
-                obj['shipmentPlanId'] = ApiClient.convertToType(data['shipmentPlanId'], 'String');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('isActual')) {
-                obj['isActual'] = ApiClient.convertToType(data['isActual'], 'Boolean');
-            }
-            if (data.hasOwnProperty('lengthCmSupplier')) {
-                obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCmSupplier')) {
-                obj['widthCmSupplier'] = ApiClient.convertToType(data['widthCmSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmSupplier')) {
-                obj['heightCmSupplier'] = ApiClient.convertToType(data['heightCmSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgSupplier')) {
-                obj['weighGrossKgSupplier'] = ApiClient.convertToType(data['weighGrossKgSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKgSupplier')) {
-                obj['volumeWeightKgSupplier'] = ApiClient.convertToType(data['volumeWeightKgSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('weightFinalAccountingKgSupplier')) {
-                obj['weightFinalAccountingKgSupplier'] = ApiClient.convertToType(data['weightFinalAccountingKgSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
-                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
-                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiClient.convertToType(data['createdBy'], 'String');
-            }
-            if (data.hasOwnProperty('buyerId')) {
-                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
-            }
-            if (data.hasOwnProperty('lastModifiedBy')) {
-                obj['lastModifiedBy'] = ApiClient.convertToType(data['lastModifiedBy'], 'String');
-            }
-            if (data.hasOwnProperty('ordersId')) {
-                obj['ordersId'] = ApiClient.convertToType(data['ordersId'], [Object]);
+            if (data.hasOwnProperty('rate')) {
+                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
             }
         }
         return obj;
@@ -142,178 +90,46 @@ class InlineResponse20011 {
 }
 
 /**
- * GUID элемента
+ * GUID пользователя в БД.
  * @member {String} _id
  */
 InlineResponse20011.prototype['_id'] = undefined;
 
 /**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} lengthCm
+ * Имя пользователя.
+ * @member {String} name
  */
-InlineResponse20011.prototype['lengthCm'] = undefined;
+InlineResponse20011.prototype['name'] = undefined;
 
 /**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} widthCm
+ * email
+ * @member {String} email
  */
-InlineResponse20011.prototype['widthCm'] = undefined;
+InlineResponse20011.prototype['email'] = undefined;
 
 /**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} heightCm
+ * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.candidate = 50    
+ * @member {Number} role
  */
-InlineResponse20011.prototype['heightCm'] = undefined;
+InlineResponse20011.prototype['role'] = undefined;
 
 /**
- * Общий вес кг коробки
- * @member {Number} weighGrossKg
+ * Флаг fba.
+ * @member {Boolean} fba
  */
-InlineResponse20011.prototype['weighGrossKg'] = undefined;
+InlineResponse20011.prototype['fba'] = undefined;
 
 /**
- * Объемный вес (подсчет)
- * @member {Number} volumeWeightKg
+ * Если истина - пользователь активен. Если нет - заблокирован админом.
+ * @member {Boolean} active
  */
-InlineResponse20011.prototype['volumeWeightKg'] = undefined;
+InlineResponse20011.prototype['active'] = undefined;
 
 /**
- * Наибольший вес (подсчет)
- * @member {Number} weightFinalAccountingKg
+ * Ставка, по который оплачивается сотрудник.
+ * @member {Number} rate
  */
-InlineResponse20011.prototype['weightFinalAccountingKg'] = undefined;
-
-/**
- * Ссылка на наклейку для коробки
- * @member {String} shippingLabel
- */
-InlineResponse20011.prototype['shippingLabel'] = undefined;
-
-/**
- * Ид шипмент плана ( не обязательное поле)
- * @member {String} shipmentPlanId
- */
-InlineResponse20011.prototype['shipmentPlanId'] = undefined;
-
-/**
- * id склада - склады куда отправляют 
- * @member {Number} warehouse
- */
-InlineResponse20011.prototype['warehouse'] = undefined;
-
-/**
- * Метод доставки - 1: Air , 2: Sea
- * @member {Number} deliveryMethod
- */
-InlineResponse20011.prototype['deliveryMethod'] = undefined;
-
-/**
- * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
- * @member {Boolean} isActual
- */
-InlineResponse20011.prototype['isActual'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} lengthCmSupplier
- */
-InlineResponse20011.prototype['lengthCmSupplier'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} widthCmSupplier
- */
-InlineResponse20011.prototype['widthCmSupplier'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} heightCmSupplier
- */
-InlineResponse20011.prototype['heightCmSupplier'] = undefined;
-
-/**
- * Общий вес кг коробки который назвал поставщик.
- * @member {Number} weighGrossKgSupplier
- */
-InlineResponse20011.prototype['weighGrossKgSupplier'] = undefined;
-
-/**
- * id склада - склады куда отправляют 
- * @member {Number} volumeWeightKgSupplier
- */
-InlineResponse20011.prototype['volumeWeightKgSupplier'] = undefined;
-
-/**
- * Наибольший вес (подсчет) (что большее объемный или обычный вес) у поставщика.
- * @member {Number} weightFinalAccountingKgSupplier
- */
-InlineResponse20011.prototype['weightFinalAccountingKgSupplier'] = undefined;
-
-/**
- * Текущий статус коробки.
- * @member {Number} status
- */
-InlineResponse20011.prototype['status'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} lengthCmWarehouse
- */
-InlineResponse20011.prototype['lengthCmWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} widthCmWarehouse
- */
-InlineResponse20011.prototype['widthCmWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} heightCmWarehouse
- */
-InlineResponse20011.prototype['heightCmWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} weighGrossKgWarehouse
- */
-InlineResponse20011.prototype['weighGrossKgWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} volumeWeightKgWarehouse
- */
-InlineResponse20011.prototype['volumeWeightKgWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} weightFinalAccountingKgWarehouse
- */
-InlineResponse20011.prototype['weightFinalAccountingKgWarehouse'] = undefined;
-
-/**
- * Клиент создавший заказ и коробку.
- * @member {String} createdBy
- */
-InlineResponse20011.prototype['createdBy'] = undefined;
-
-/**
- * Байер взявший коробку в работу.
- * @member {String} buyerId
- */
-InlineResponse20011.prototype['buyerId'] = undefined;
-
-/**
- * GUID любого, кто последний редактировал коробку.
- * @member {String} lastModifiedBy
- */
-InlineResponse20011.prototype['lastModifiedBy'] = undefined;
-
-/**
- * Массив GUID ордеров из которых формируется данная коробка.
- * @member {Array.<Object>} ordersId
- */
-InlineResponse20011.prototype['ordersId'] = undefined;
+InlineResponse20011.prototype['rate'] = undefined;
 
 
 

@@ -32,7 +32,7 @@ class BuyerModelStatic {
   }
 
   updateOrder = async (id, data) => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidPatch(id, {InlineObject3: data})
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidPatch(id, {InlineObject11: data})
     return response
   }
 
@@ -43,26 +43,6 @@ class BuyerModelStatic {
 
   getOrdersMy = async () => {
     const response = await restApiService.buyerApi.apiV1BuyersOrdersMyGet()
-    return response
-  }
-
-  createBox = async data => {
-    const response = await restApiService.buyerApi.apiV1BuyersBoxesPost(data)
-    return response
-  }
-
-  getBoxesMy = async () => {
-    const response = await restApiService.buyerApi.apiV1BuyersBoxesMyGet()
-    return response
-  }
-
-  updateBox = async (id, data) => {
-    const response = await restApiService.buyerApi.apiV1BuyersBoxesGuidPatch(id, {InlineObject5: data})
-    return response
-  }
-
-  sendBoxToStoreKeeper = async boxId => {
-    const response = await restApiService.buyerApi.apiV1BuyersBoxesSendToStorekeeperGuidPost(boxId)
     return response
   }
 

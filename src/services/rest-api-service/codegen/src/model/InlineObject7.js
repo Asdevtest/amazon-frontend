@@ -47,8 +47,11 @@ class InlineObject7 {
         if (data) {
             obj = obj || new InlineObject7();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], Array);
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            }
+            if (data.hasOwnProperty('itemsBoxSet')) {
+                obj['itemsBoxSet'] = ApiClient.convertToType(data['itemsBoxSet'], [[Object]]);
             }
         }
         return obj;
@@ -58,10 +61,16 @@ class InlineObject7 {
 }
 
 /**
- * массив GUIDов оплаченных товаров
- * @member {Array} guids
+ * GUID коробки, которую делим
+ * @member {String} guid
  */
-InlineObject7.prototype['guids'] = undefined;
+InlineObject7.prototype['guid'] = undefined;
+
+/**
+ * Массив боксайтемов каждый элемент массива - содержание айтемов новой коробки
+ * @member {Array.<Array.<Object>>} itemsBoxSet
+ */
+InlineObject7.prototype['itemsBoxSet'] = undefined;
 
 
 

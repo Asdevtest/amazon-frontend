@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID коробки. | [optional] 
+**_id** | **String** | GUID коробки в БД | [optional] 
 **lengthCm** | **Number** | Поле в которое наследуем данные размеров коробок | [optional] 
 **widthCm** | **Number** | Поле в которое наследуем данные размеров коробок | [optional] 
 **heightCm** | **Number** | Поле в которое наследуем данные размеров коробок | [optional] 
@@ -33,9 +33,9 @@ Name | Type | Description | Notes
 **createdBy** | **String** | Клиент создавший заказ и коробку. | [optional] 
 **buyerId** | **String** | Байер взявший коробку в работу. | [optional] 
 **lastModifiedBy** | **String** | GUID любого, кто последний редактировал коробку. | [optional] 
-**ordersId** | **Object** | Массив GUID ордеров из которых формируется данная коробка. | [optional] 
-**isActual** | **Boolean** | Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам. | [optional] 
 **scheduledDispatchDate** | **Date** | Запланированная дата отправки. | [optional] 
 **factDispatchDate** | **Date** | Запланированная дата доставки. | [optional] 
+**items** | [**[ApiV1BoxesItems]**](ApiV1BoxesItems.md) |  | [optional] 
+**isDraft** | **Boolean** | true - если создаем черновик заказа. | [optional] 
 
 

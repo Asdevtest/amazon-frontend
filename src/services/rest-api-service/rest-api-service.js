@@ -1,6 +1,6 @@
 import {BACKEND_API_URL} from '@constants/env'
 
-import {ApiClient} from './codegen/src'
+import {ApiClient, BoxesApi} from './codegen/src'
 import AdministratorApi from './codegen/src/api/AdministratorApi'
 import BuyerApi from './codegen/src/api/BuyerApi'
 import ClientApi from './codegen/src/api/ClientApi'
@@ -31,6 +31,7 @@ class RestApiService {
     this.supervisorApi = new SupervisorApi(this.apiClient)
     this.supplierApi = new SupplierApi(this.apiClient)
     this.userApi = new UserApi(this.apiClient)
+    this.boxesApi = new BoxesApi(this.apiClient)
   }
 
   setAccessToken = accessToken => {

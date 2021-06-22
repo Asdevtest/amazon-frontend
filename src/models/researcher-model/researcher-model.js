@@ -17,7 +17,7 @@ class ResearcherModelStatic {
   }
 
   updateProduct = async (id, data) => {
-    const response = await restApiService.researcherApi.apiV1ResearchersProductsGuidPatch(id, {InlineObject14: data})
+    const response = await restApiService.researcherApi.apiV1ResearchersProductsGuidPatch(id, {InlineObject15: data})
     return response
   }
 

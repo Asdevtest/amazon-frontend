@@ -13,6 +13,7 @@ import {warehouses} from '@constants/warehouses'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {CreateOrEditBoxForm} from '@components/forms/create-or-edit-box-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -51,6 +52,7 @@ class BuyerMyOrdersViewRaw extends Component {
       selectedOrder,
       showBarcodeModal,
       showOrderModal,
+      showCreateOrEditBoxModal,
       onTriggerDrawerOpen,
       onChangePage,
       onChangeRowsPerPage,
@@ -62,6 +64,8 @@ class BuyerMyOrdersViewRaw extends Component {
       onClickDeleteBarcode,
       onClickSaveBarcode,
       onClickSaveOrder,
+      onTriggerShowCreateOrEditBoxModal,
+      onSubmitCreateBox,
     } = this.viewModel
     const {classes: className} = this.props
     const rowHandlers = {
@@ -109,7 +113,10 @@ class BuyerMyOrdersViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-
+        <Modal openModal={showCreateOrEditBoxModal} setOpenModal={onTriggerShowCreateOrEditBoxModal}>
+          <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
+          <CreateOrEditBoxForm order={selectedOrder} onSubmit={onSubmitCreateBox} />
+        </Modal>
         <Modal openModal={showOrderModal} setOpenModal={onTriggerShowOrderModal}>
           <EditOrderModal
             order={selectedOrder}

@@ -22,12 +22,12 @@ class InlineObject22 {
     /**
      * Constructs a new <code>InlineObject22</code>.
      * @alias module:model/InlineObject22
-     * @param email {String} 
-     * @param password {String} 
+     * @param status {module:model/InlineObject22.StatusEnum} См. описание статусов например в readMe.md
+     * @param checkednotes {String} Комментарий к статусу проверки.
      */
-    constructor(email, password) { 
+    constructor(status, checkednotes) { 
         
-        InlineObject22.initialize(this, email, password);
+        InlineObject22.initialize(this, status, checkednotes);
     }
 
     /**
@@ -35,9 +35,9 @@ class InlineObject22 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email, password) { 
-        obj['email'] = email;
-        obj['password'] = password;
+    static initialize(obj, status, checkednotes) { 
+        obj['status'] = status;
+        obj['checkednotes'] = checkednotes;
     }
 
     /**
@@ -51,11 +51,11 @@ class InlineObject22 {
         if (data) {
             obj = obj || new InlineObject22();
 
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('password')) {
-                obj['password'] = ApiClient.convertToType(data['password'], 'String');
+            if (data.hasOwnProperty('checkednotes')) {
+                obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
             }
         }
         return obj;
@@ -65,17 +65,58 @@ class InlineObject22 {
 }
 
 /**
- * @member {String} email
+ * См. описание статусов например в readMe.md
+ * @member {module:model/InlineObject22.StatusEnum} status
  */
-InlineObject22.prototype['email'] = undefined;
+InlineObject22.prototype['status'] = undefined;
 
 /**
- * @member {String} password
+ * Комментарий к статусу проверки.
+ * @member {String} checkednotes
  */
-InlineObject22.prototype['password'] = undefined;
+InlineObject22.prototype['checkednotes'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>status</code> property.
+ * @enum {Number}
+ * @readonly
+ */
+InlineObject22['StatusEnum'] = {
+
+    /**
+     * value: 20
+     * @const
+     */
+    "20": 20,
+
+    /**
+     * value: 30
+     * @const
+     */
+    "30": 30,
+
+    /**
+     * value: 70
+     * @const
+     */
+    "70": 70,
+
+    /**
+     * value: 80
+     * @const
+     */
+    "80": 80,
+
+    /**
+     * value: 90
+     * @const
+     */
+    "90": 90
+};
 
 
 

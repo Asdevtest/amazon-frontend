@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {Typography} from '@material-ui/core'
+import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
 
@@ -12,7 +13,7 @@ import {useClassNames} from './comments.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrderComments
 
-export const Comments = () => {
+export const Comments = observer(({order}) => {
   const classNames = useClassNames()
 
   return (
@@ -21,13 +22,20 @@ export const Comments = () => {
       <div className={classNames.commentsWrapper}>
         <div className={classNames.commentsSubWrapper}>
           <Typography className={classNames.label}>{textConsts.buyerLabel}</Typography>
-          <Input multiline rows={4} rowsMax={6} value={textConsts.buyerComment} className={classNames.input} />
+          <Input
+            disabled
+            multiline
+            rows={4}
+            rowsMax={6}
+            value={order.product.buyerComment}
+            className={classNames.input}
+          />
         </div>
         <div className={classNames.commentsLastSubWrapper}>
           <Typography className={classNames.label}>{textConsts.clientLabel}</Typography>
-          <Input multiline rows={4} rowsMax={6} value={textConsts.clientComment} className={classNames.input} />
+          <Input disabled multiline rows={4} rowsMax={6} value={order.clientComment} className={classNames.input} />
         </div>
       </div>
     </React.Fragment>
   )
-}
+})

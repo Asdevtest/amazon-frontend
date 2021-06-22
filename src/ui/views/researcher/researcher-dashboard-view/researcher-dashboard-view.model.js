@@ -11,7 +11,7 @@ export class ResearcherDashboardViewModel {
 
   drawerOpen = false
 
-  products = []
+  productsVacant = []
   paymentsMy = []
 
   constructor({history}) {
@@ -22,7 +22,7 @@ export class ResearcherDashboardViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getProducts()
+      await this.getProductsVacant()
       await this.getPaymentsMy()
       await this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -31,10 +31,10 @@ export class ResearcherDashboardViewModel {
     }
   }
 
-  async getProducts() {
-    const result = await ResearcherModel.getProducts()
+  async getProductsVacant() {
+    const result = await ResearcherModel.getProductsVacant()
     runInAction(() => {
-      this.products = result
+      this.productsVacant = result
     })
   }
 

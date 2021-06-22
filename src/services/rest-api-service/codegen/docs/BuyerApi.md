@@ -4,242 +4,23 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV1BuyersBoxesGuidPatch**](BuyerApi.md#apiV1BuyersBoxesGuidPatch) | **PATCH** /api/v1/buyers/boxes/{guid} | # Изменить коробку с товаром.
-[**apiV1BuyersBoxesMyGet**](BuyerApi.md#apiV1BuyersBoxesMyGet) | **GET** /api/v1/buyers/boxes/my | # Посмотреть мои коробки.
-[**apiV1BuyersBoxesPost**](BuyerApi.md#apiV1BuyersBoxesPost) | **POST** /api/v1/buyers/boxes | # Создать коробку с товаром.
-[**apiV1BuyersBoxesSendToStorekeeperGuidPost**](BuyerApi.md#apiV1BuyersBoxesSendToStorekeeperGuidPost) | **POST** /api/v1/buyers/boxes/send_to_storekeeper/{guid} | # Отправить коробку на обработку на склад.
 [**apiV1BuyersOrdersGuidGet**](BuyerApi.md#apiV1BuyersOrdersGuidGet) | **GET** /api/v1/buyers/orders/{guid} | # Получить конкретный заказ по его GUID.
 [**apiV1BuyersOrdersGuidPatch**](BuyerApi.md#apiV1BuyersOrdersGuidPatch) | **PATCH** /api/v1/buyers/orders/{guid} | # Редактировать заказ.
 [**apiV1BuyersOrdersMyGet**](BuyerApi.md#apiV1BuyersOrdersMyGet) | **GET** /api/v1/buyers/orders/my | # Получить список заказов текущего байера.
 [**apiV1BuyersOrdersPickupGuidPost**](BuyerApi.md#apiV1BuyersOrdersPickupGuidPost) | **POST** /api/v1/buyers/orders/pickup/{guid} | # Закрепить заказ за байером. Взять его в работу.
 [**apiV1BuyersOrdersVacGet**](BuyerApi.md#apiV1BuyersOrdersVacGet) | **GET** /api/v1/buyers/orders/vac | # Получить список свободных заказов.
+[**apiV1BuyersPaymentsMyBalanceGet**](BuyerApi.md#apiV1BuyersPaymentsMyBalanceGet) | **GET** /api/v1/buyers/payments/my-balance | Получить баланс для байера.
 [**apiV1BuyersPaymentsMyGet**](BuyerApi.md#apiV1BuyersPaymentsMyGet) | **GET** /api/v1/buyers/payments/my | Получить информацию об платежах для этого байера.
 [**apiV1BuyersProductsGuidPatch**](BuyerApi.md#apiV1BuyersProductsGuidPatch) | **PATCH** /api/v1/buyers/products/{guid} | # Внести изменения в продукт.
-[**apiV1BuyersProductsMyGet**](BuyerApi.md#apiV1BuyersProductsMyGet) | **GET** /api/v1/buyers/products/my | # Получить список товаров взятых на проверку супервайзером.
+[**apiV1BuyersProductsMyGet**](BuyerApi.md#apiV1BuyersProductsMyGet) | **GET** /api/v1/buyers/products/my | # Получить список товаров взятых в работу байером.
 [**apiV1BuyersProductsPickupGuidPost**](BuyerApi.md#apiV1BuyersProductsPickupGuidPost) | **POST** /api/v1/buyers/products/pickup/{guid} | # Закрепить продукт за байером. Взять его в работу.
 [**apiV1BuyersProductsVacGet**](BuyerApi.md#apiV1BuyersProductsVacGet) | **GET** /api/v1/buyers/products/vac | # Получить список вакантных товаров.
 
 
 
-## apiV1BuyersBoxesGuidPatch
-
-> InlineResponse201 apiV1BuyersBoxesGuidPatch(guid, opts)
-
-# Изменить коробку с товаром.
-
-## Изменить коробку с товаром.  ## Выборка идет по GUID коробки и байера, кто ее создавал. Нельзя отредактировать чужую коробку.  
-
-### Example
-
-```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new Amazonapi.BuyerApi();
-let guid = "guid_example"; // String | GUID коробки, которую мы хотим изменить
-let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject5': new Amazonapi.InlineObject5() // InlineObject5 | 
-};
-apiInstance.apiV1BuyersBoxesGuidPatch(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID коробки, которую мы хотим изменить | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject5** | [**InlineObject5**](InlineObject5.md)|  | [optional] 
-
-### Return type
-
-[**InlineResponse201**](InlineResponse201.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: text/html
-
-
-## apiV1BuyersBoxesMyGet
-
-> [Object] apiV1BuyersBoxesMyGet(opts)
-
-# Посмотреть мои коробки.
-
-## Посмотреть мои коробки.   
-
-### Example
-
-```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new Amazonapi.BuyerApi();
-let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
-};
-apiInstance.apiV1BuyersBoxesMyGet(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
-
-### Return type
-
-**[Object]**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/html
-
-
-## apiV1BuyersBoxesPost
-
-> InlineResponse201 apiV1BuyersBoxesPost(InlineObject4, opts)
-
-# Создать коробку с товаром.
-
-## Создать коробку с товаром.  
-
-### Example
-
-```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new Amazonapi.BuyerApi();
-let InlineObject4 = new Amazonapi.InlineObject4(); // InlineObject4 | 
-let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
-};
-apiInstance.apiV1BuyersBoxesPost(InlineObject4, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **InlineObject4** | [**InlineObject4**](InlineObject4.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
-
-### Return type
-
-[**InlineResponse201**](InlineResponse201.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: text/html
-
-
-## apiV1BuyersBoxesSendToStorekeeperGuidPost
-
-> Null apiV1BuyersBoxesSendToStorekeeperGuidPost(guid, opts)
-
-# Отправить коробку на обработку на склад.
-
-## Отправить коробку на обработку на склад.  ## Установит статус коробки в 20.   
-
-### Example
-
-```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new Amazonapi.BuyerApi();
-let guid = "guid_example"; // String | GUID коробки, которую мы хотим изменить
-let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
-};
-apiInstance.apiV1BuyersBoxesSendToStorekeeperGuidPost(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID коробки, которую мы хотим изменить | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
-
-### Return type
-
-[**Null**](Null.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/html
-
-
 ## apiV1BuyersOrdersGuidGet
 
-> InlineResponse200 apiV1BuyersOrdersGuidGet(guid, opts)
+> InlineResponse2003 apiV1BuyersOrdersGuidGet(guid, opts)
 
 # Получить конкретный заказ по его GUID.
 
@@ -279,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**InlineResponse2003**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -314,7 +95,7 @@ let apiInstance = new Amazonapi.BuyerApi();
 let guid = "guid_example"; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject3': new Amazonapi.InlineObject3() // InlineObject3 | 
+  'InlineObject11': new Amazonapi.InlineObject11() // InlineObject11 | 
 };
 apiInstance.apiV1BuyersOrdersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -331,7 +112,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject3** | [**InlineObject3**](InlineObject3.md)|  | [optional] 
+ **InlineObject11** | [**InlineObject11**](InlineObject11.md)|  | [optional] 
 
 ### Return type
 
@@ -349,7 +130,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersMyGet
 
-> [Object] apiV1BuyersOrdersMyGet(opts)
+> [InlineResponse2003] apiV1BuyersOrdersMyGet(opts)
 
 # Получить список заказов текущего байера.
 
@@ -387,7 +168,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -455,7 +236,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersVacGet
 
-> [Object] apiV1BuyersOrdersVacGet(opts)
+> [InlineResponse2003] apiV1BuyersOrdersVacGet(opts)
 
 # Получить список свободных заказов.
 
@@ -493,7 +274,59 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse2003]**](InlineResponse2003.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html
+
+
+## apiV1BuyersPaymentsMyBalanceGet
+
+> Number apiV1BuyersPaymentsMyBalanceGet(opts)
+
+Получить баланс для байера.
+
+Получить баланс для байера.
+
+### Example
+
+```javascript
+import Amazonapi from 'amazonapi';
+let defaultClient = Amazonapi.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new Amazonapi.BuyerApi();
+let opts = {
+  'Accept_Encoding': gzip, deflate // String | 
+};
+apiInstance.apiV1BuyersPaymentsMyBalanceGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+
+### Return type
+
+**Number**
 
 ### Authorization
 
@@ -507,7 +340,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersPaymentsMyGet
 
-> [Object] apiV1BuyersPaymentsMyGet(opts)
+> [InlineResponse2004] apiV1BuyersPaymentsMyGet(opts)
 
 Получить информацию об платежах для этого байера.
 
@@ -545,7 +378,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -615,11 +448,11 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsMyGet
 
-> [Object] apiV1BuyersProductsMyGet(opts)
+> [InlineResponse200] apiV1BuyersProductsMyGet(opts)
 
-# Получить список товаров взятых на проверку супервайзером.
+# Получить список товаров взятых в работу байером.
 
-## Получить список товаров взятых на проверку супервайзером.   
+## Получить список товаров взятых в работу байером.   
 
 ### Example
 
@@ -653,7 +486,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse200]**](InlineResponse200.md)
 
 ### Authorization
 
@@ -721,7 +554,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsVacGet
 
-> [Object] apiV1BuyersProductsVacGet(opts)
+> [InlineResponse200] apiV1BuyersProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -759,7 +592,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse200]**](InlineResponse200.md)
 
 ### Authorization
 

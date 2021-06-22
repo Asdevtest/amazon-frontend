@@ -93,11 +93,26 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
       <Grid item>
         <Box my={3}>
           <Typography className={classNames.modalText}>{textConsts.typoClientComment}</Typography>
-          <Input disabled value={orderFields.clientComment} onChange={setOrderField('clientComment')} />
+          <Input
+            disabled
+            multiline
+            rows={4}
+            rowsMax={6}
+            className={classNames.commentInput}
+            value={orderFields.clientComment}
+            onChange={setOrderField('clientComment')}
+          />
         </Box>
         <Box my={3}>
           <Typography className={classNames.modalText}>{textConsts.typoBuyerComment}</Typography>
-          <Input disabled value={orderFields.buyerscomment} onChange={setOrderField('buyerscomment')} />
+          <Input
+            multiline
+            rows={4}
+            rowsMax={6}
+            className={classNames.commentInput}
+            value={orderFields.buyerscomment}
+            onChange={setOrderField('buyerscomment')}
+          />
         </Box>
         <Box my={3}>
           <Typography className={classNames.modalText}>{textConsts.typoShipPrice}</Typography>

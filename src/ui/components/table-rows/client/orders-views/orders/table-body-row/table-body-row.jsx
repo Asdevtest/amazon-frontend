@@ -9,6 +9,7 @@ import {warehouses} from '@constants/warehouses'
 
 import {Button} from '@components/buttons/button'
 
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
 
@@ -16,19 +17,23 @@ import {styles} from './table-body-row.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersTableRow
 
-const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
+const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
   const classNames = restProps.classes
   return (
     <TableRow onClick={() => handlers.onClickTableRow(item)}>
       <TableCell className={classNames.count}>
-        <Typography>{item._id}</Typography>
+        <Typography>{itemIndex + 1}</Typography>
       </TableCell>
       <TableCell padding="checkbox">
         <Checkbox />
       </TableCell>
       <TableCell>
         <div className={classNames.order}>
-          <img alt="" src={item.product.images && item.product.images[0]} className={classNames.orderImg} />
+          <img
+            alt=""
+            src={item.product.images && item.product.images[0] && getAmazonImageUrl(item.product.images[0])}
+            className={classNames.orderImg}
+          />
           <div>
             <Typography className={classNames.orderTitle}>{item.product._id}</Typography>
             <Typography className={classNames.orderText}>

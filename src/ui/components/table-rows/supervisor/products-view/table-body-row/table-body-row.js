@@ -6,15 +6,14 @@ import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
-import StarIcon from '@material-ui/icons/Star'
-import clsx from 'clsx'
 
-import {formatDateDistanceFromNow} from '@utils/date-time'
+import {ProductStatus, ProductStatusByCode} from '@constants/product-status'
+
+import {formatDate, formatDateDistanceFromNow} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {toFixedWithDollarSign} from '@utils/text'
 import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-double-click'
 
-import calculateSrc from './calculate.svg'
 import {useClassNames} from './table-body-row.style'
 
 export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
@@ -34,7 +33,11 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
   return (
     <TableRow key={item.asin} hover role="checkbox" onClick={handleClick} onDoubleClick={handleDoubleClick}>
       <TableCell className={classNames.indexCell}>
-        <Typography>{itemIndex + 1}</Typography>
+        <Typography
+          color={ProductStatusByCode[item.status] === ProductStatus.BUYER_FOUND_SUPPLIER ? 'primary' : 'textPrimary'}
+        >
+          {itemIndex + 1}
+        </Typography>
       </TableCell>
       <TableCell padding="checkbox">
         <Checkbox
@@ -64,59 +67,27 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
           </div>
         </div>
       </TableCell>
+      <TableCell className={classNames.priceTableCell}>{ProductStatusByCode[item.status]}</TableCell>
+      <TableCell className={classNames.priceTableCell}>{formatDate(item.createdat)}</TableCell>
+      <TableCell className={classNames.priceTableCell}>
+        {(item.updatedat && formatDate(item.updatedat)) || ''}
+      </TableCell>
       <TableCell className={classNames.priceTableCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
-      <TableCell className={classNames.feesTableCell}>
-        <div>
-          <Typography className={classNames.typoCell}>
-            {'Fees '}
-            <span className={classNames.typoSpan}>{toFixedWithDollarSign(item.fbafee)}</span>
-          </Typography>
-          {/* Какое поле тут? */}
-          <Typography className={classNames.typoCell}>
-            {'Net '}
-            <span className={classNames.typoSpan}>{toFixedWithDollarSign(item.reffee)}</span>
-          </Typography>
-          <Button
-            disableElevation
-            className={classNames.cellBtn}
-            startIcon={<img alt="calculate icon" src={calculateSrc} />}
-            onClick={e => {
-              e.stopPropagation()
-              handlers.onClickCalculateFees(item, itemIndex)
-            }}
-          >
-            Calculate fees
-          </Button>
-        </div>
+      <TableCell>
+        <Button
+          color="primary"
+          onClick={e => {
+            e.preventDefault()
+            e.stopPropagation()
+            handlers.onClickResearcherName(item)
+          }}
+        >
+          {item.createdby.name}
+        </Button>
       </TableCell>
-      {/* нет этого поля */}
-      <TableCell className={classNames.rankTableCell}>{item.rank ? '#' + item.rank : ''}</TableCell>
-      {/* нет этого поля */}
-      <TableCell className={classNames.ratingTableCell}>
-        <div className={classNames.ratingTableCellContainer}>
-          <Typography className={classNames.ratingTypo}>{toFixed(item.rating)}</Typography>
-          <div className={classNames.rankCount}>
-            {[1, 2, 3, 4, 5].map(el => (
-              <StarIcon
-                key={el}
-                className={clsx(classNames.startIcon, {
-                  [classNames.selectedStarIcon]: Math.floor(item.rating) >= el === true,
-                })}
-              />
-            ))}
-          </div>
-        </div>
-        {/* нет этого поля */}
-        <Typography className={classNames.rankTypoReviews}>23.45 reviews</Typography>
-      </TableCell>
-      <TableCell className={classNames.salesCell}>{item.sales}</TableCell>
-      <TableCell className={classNames.salersTotal}>{item.salersTotal}</TableCell>
-      <TableCell className={classNames.salersTotal}>{item.type}</TableCell>
-      <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.profit)}</TableCell>
-      {/* поле дублируется */}
-      <TableCell className={classNames.amazonCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
       <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.bsr)}</TableCell>
-      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.fbaamount)}</TableCell>
+      <TableCell className={classNames.salersTotal}>{item.type}</TableCell>
+      <TableCell className={classNames.rankTableCell}>{toFixedWithDollarSign(item.fbafee)}</TableCell>
       <TableCell className={classNames.deleteBtnCell}>
         <IconButton onClick={() => alert('Item deleting...')}>
           <DeleteIcon className={classNames.deleteBtn} />

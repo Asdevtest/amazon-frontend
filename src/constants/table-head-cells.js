@@ -1,16 +1,13 @@
 export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
   {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},
-  {id: 'price', align: 'right', disablePadding: false, label: 'Price'},
-  {id: 'fees', align: 'left', disablePadding: false, label: 'Fees & Net'},
-  {id: 'rank', align: 'right', disablePadding: false, label: 'Rank'},
-  {id: 'rating', align: 'center', disablePadding: false, label: 'Rating'},
-  {id: 'sales', align: 'right', disablePadding: false, label: 'Sales'},
-  {id: 'salersTotal', align: 'center', disablePadding: false, label: 'Salers total'},
-  {id: 'type', align: 'right', disablePadding: false, label: 'Type'},
-  {id: 'revenue', align: 'right', disablePadding: false, label: 'Revenue'},
-  {id: 'amazonPrice', align: 'right', disablePadding: false, label: 'Amazon $'},
+  {id: 'status', align: 'center', disablePadding: true, label: 'Status'},
+  {id: 'createDate', align: 'center', disablePadding: true, label: 'Create date'},
+  {id: 'updateDate', align: 'center', disablePadding: true, label: 'Update date'},
+  {id: 'price', align: 'right', disablePadding: false, label: 'Amazon $'},
+  {id: 'researcher', align: 'left', disablePadding: false, label: 'Researcher'},
   {id: 'bsr', align: 'right', disablePadding: false, label: 'BSR'},
-  {id: 'fba', align: 'right', disablePadding: false, label: 'FBA'},
+  {id: 'type', align: 'right', disablePadding: false, label: 'Type'},
+  {id: 'fbaFee', align: 'center', disablePadding: false, label: 'Fba fee'},
 ]
 
 export const CLIENT_ORDERS_HEAD_CELL = [
@@ -26,36 +23,28 @@ export const CLIENT_ORDERS_HEAD_CELL = [
 ]
 export const CLIENT_EXCHANGE_MODAL_HEAD_CELLS = [
   {id: 'img', label: 'Image'},
-  {id: 'img', label: 'Category'},
-  {id: 'img', label: 'Price'},
-  {id: 'img', label: 'Qty'},
-  {id: 'img', label: 'avg Price'},
+  {id: 'id', label: 'Id'},
+  {id: 'category', label: 'Category'},
+  {id: 'price', label: 'Price'},
+  {id: 'deliveryPrice', label: 'Delivery price'},
+  {id: 'amount', label: 'Amount'},
 
-  {id: 'img', label: 'Рекомендуемая партия'},
-  {id: 'img', label: 'Вес'},
+  {id: 'fullPrice', label: 'Full price'},
+  {id: 'barcode', label: 'Barcode'},
 
-  {id: 'img', label: 'avg BSR'},
-  {id: 'img', label: 'avg Reviews'},
-  {id: 'img', label: 'avg Revenue'},
-  {id: 'img', label: 'Стоимость запуска'},
-  {id: 'img', label: 'Manager'},
+  {id: 'deliveryMethod', label: 'Delivery method'},
+  {id: 'warehouse', label: 'Warehouse'},
+  {id: 'clientComment', label: 'Client comment'},
 ]
 
 export const CLIENT_EXCHANGE_HEAD_CELLS = [
   {id: 'img', label: 'Image'},
-  {id: 'img', label: 'Category'},
-  {id: 'img', label: 'Цена'},
-  {id: 'img', label: 'Кол-во'},
-  {id: 'img', label: 'Средняя цена'},
-
-  {id: 'img', label: 'Рекомендуемая партия'},
-  {id: 'img', label: 'Вес'},
-
-  {id: 'img', label: 'avg BSR'},
-  {id: 'img', label: 'avg Reviews'},
-  {id: 'img', label: 'avg Revenue'},
-  {id: 'img', label: 'Researcher'},
-  {id: 'img', label: 'Стоимость запуска'},
+  {id: 'category', label: 'Category'},
+  {id: 'priceAmazon', label: 'Цена'},
+  {id: 'weight', label: 'Вес'},
+  {id: 'bsr', label: 'BSR'},
+  {id: 'reasearcher', label: 'Ресерчер'},
+  {id: 'fullPrice', label: 'Стоимость'},
 ]
 
 export const CLIENT_WAREHOUSE_HEAD_CELLS = [
@@ -147,3 +136,5 @@ export const ADMIN_SUB_USERS_TABLE_CELLS = [
   {id: 'bu', label: 'Bussines unit'},
   {id: 'admin', label: 'Admin'},
 ]
+
+export const BUYER_PRODUCTS_HEAD_CELLS = []

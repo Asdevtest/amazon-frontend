@@ -4,6 +4,8 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {ResearcherModel} from '@models/researcher-model'
 
+import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
+
 const formFieldsDefault = {
   amazonLink: '',
   productCode: '',
@@ -104,11 +106,6 @@ export class ResearcherProductsViewModel {
       })
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -135,7 +132,10 @@ export class ResearcherProductsViewModel {
     action(e => {
       this.error = undefined
       this.actionStatus = undefined
-      this.formFields[fieldName] = e.target.value
+      if (fieldName === 'amazonLink') {
+        this.formFields[fieldName] = e.target.value
+        this.formFields.productCode = getAmazonCodeFromLink(e.target.value)
+      }
     })
 
   onChangeRowsPerPage(e) {

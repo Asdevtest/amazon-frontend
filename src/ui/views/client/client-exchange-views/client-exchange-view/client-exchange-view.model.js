@@ -64,7 +64,7 @@ export class ClientExchangeViewModel {
         deliveryMethod: orderData.deliveryMethod,
         warehouse: orderData.warehouse,
         clientComment: orderData.clientComment,
-        barCode: '',
+        barCode: orderData.barCode,
         product: product._id,
       }
       const createOrderResult = await ClientModel.createOrder(createorderData)
@@ -80,8 +80,11 @@ export class ClientExchangeViewModel {
 
   async onClickBuyProductBtn(product) {
     try {
+      const pickUpProductResult = await ClientModel.pickupProduct(product._id)
+      console.log('pickUpProductResult ', pickUpProductResult)
       const makePaymentsResult = await ClientModel.makePayments([product._id])
       console.log('makePaymentsResult ', makePaymentsResult)
+      this.loadData()
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {

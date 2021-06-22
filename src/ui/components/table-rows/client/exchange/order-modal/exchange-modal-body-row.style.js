@@ -12,7 +12,10 @@ export const styles = createStyles({
     textAlign: 'right',
     flexDirection: 'row-reverse',
   },
-  input: {
-    width: '60px',
+  clientCommentInput: {
+    fontSize: '13px',
+    height: 'auto',
+    width: '100%',
+    marginTop: '2px',
   },
 })

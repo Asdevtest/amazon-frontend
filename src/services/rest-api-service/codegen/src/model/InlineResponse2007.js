@@ -22,17 +22,10 @@ class InlineResponse2007 {
     /**
      * Constructs a new <code>InlineResponse2007</code>.
      * @alias module:model/InlineResponse2007
-     * @param _id {String} GUID пользователя в БД.
-     * @param name {String} Имя пользователя.
-     * @param email {String} email
-     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.candidate = 50    
-     * @param fba {Boolean} Флаг fba.
-     * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
-     * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
-    constructor(_id, name, email, role, fba, active, rate) { 
+    constructor() { 
         
-        InlineResponse2007.initialize(this, _id, name, email, role, fba, active, rate);
+        InlineResponse2007.initialize(this);
     }
 
     /**
@@ -40,14 +33,7 @@ class InlineResponse2007 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, name, email, role, fba, active, rate) { 
-        obj['_id'] = _id;
-        obj['name'] = name;
-        obj['email'] = email;
-        obj['role'] = role;
-        obj['fba'] = fba;
-        obj['active'] = active;
-        obj['rate'] = rate;
+    static initialize(obj) { 
     }
 
     /**
@@ -61,26 +47,8 @@ class InlineResponse2007 {
         if (data) {
             obj = obj || new InlineResponse2007();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
-            }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('active')) {
-                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
-            }
-            if (data.hasOwnProperty('rate')) {
-                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
         }
         return obj;
@@ -90,46 +58,10 @@ class InlineResponse2007 {
 }
 
 /**
- * GUID пользователя в БД.
- * @member {String} _id
+ * Флаг, показывает есть ли такой id в базе или нет
+ * @member {Boolean} isExist
  */
-InlineResponse2007.prototype['_id'] = undefined;
-
-/**
- * Имя пользователя.
- * @member {String} name
- */
-InlineResponse2007.prototype['name'] = undefined;
-
-/**
- * email
- * @member {String} email
- */
-InlineResponse2007.prototype['email'] = undefined;
-
-/**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.candidate = 50    
- * @member {Number} role
- */
-InlineResponse2007.prototype['role'] = undefined;
-
-/**
- * Флаг fba.
- * @member {Boolean} fba
- */
-InlineResponse2007.prototype['fba'] = undefined;
-
-/**
- * Если истина - пользователь активен. Если нет - заблокирован админом.
- * @member {Boolean} active
- */
-InlineResponse2007.prototype['active'] = undefined;
-
-/**
- * Ставка, по который оплачивается сотрудник.
- * @member {Number} rate
- */
-InlineResponse2007.prototype['rate'] = undefined;
+InlineResponse2007.prototype['isExist'] = undefined;
 
 
 

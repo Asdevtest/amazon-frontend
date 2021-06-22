@@ -22,12 +22,10 @@ class InlineObject10 {
     /**
      * Constructs a new <code>InlineObject10</code>.
      * @alias module:model/InlineObject10
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxId {String} GUID коробки для которой создана задача
      */
-    constructor(taskId, boxId) { 
+    constructor() { 
         
-        InlineObject10.initialize(this, taskId, boxId);
+        InlineObject10.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject10 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, boxId) { 
-        obj['taskId'] = taskId;
-        obj['boxId'] = boxId;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,50 @@ class InlineObject10 {
         if (data) {
             obj = obj || new InlineObject10();
 
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('lengthCm')) {
+                obj['lengthCm'] = ApiClient.convertToType(data['lengthCm'], 'Number');
             }
-            if (data.hasOwnProperty('boxId')) {
-                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
+            if (data.hasOwnProperty('widthCm')) {
+                obj['widthCm'] = ApiClient.convertToType(data['widthCm'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCm')) {
+                obj['heightCm'] = ApiClient.convertToType(data['heightCm'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKg')) {
+                obj['weighGrossKg'] = ApiClient.convertToType(data['weighGrossKg'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightKg')) {
+                obj['volumeWeightKg'] = ApiClient.convertToType(data['volumeWeightKg'], 'Number');
+            }
+            if (data.hasOwnProperty('weightFinalAccountingKg')) {
+                obj['weightFinalAccountingKg'] = ApiClient.convertToType(data['weightFinalAccountingKg'], 'Number');
+            }
+            if (data.hasOwnProperty('lengthCmSupplier')) {
+                obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('widthCmSupplier')) {
+                obj['widthCmSupplier'] = ApiClient.convertToType(data['widthCmSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmSupplier')) {
+                obj['heightCmSupplier'] = ApiClient.convertToType(data['heightCmSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgSupplier')) {
+                obj['weighGrossKgSupplier'] = ApiClient.convertToType(data['weighGrossKgSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightKgSupplier')) {
+                obj['volumeWeightKgSupplier'] = ApiClient.convertToType(data['volumeWeightKgSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('weightFinalAccountingKgSupplier')) {
+                obj['weightFinalAccountingKgSupplier'] = ApiClient.convertToType(data['weightFinalAccountingKgSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('shipmentPlanId')) {
+                obj['shipmentPlanId'] = ApiClient.convertToType(data['shipmentPlanId'], 'String');
+            }
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
             }
         }
         return obj;
@@ -65,16 +100,94 @@ class InlineObject10 {
 }
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * Поле в которое наследуем данные размеров коробок
+ * @member {Number} lengthCm
  */
-InlineObject10.prototype['taskId'] = undefined;
+InlineObject10.prototype['lengthCm'] = undefined;
 
 /**
- * GUID коробки для которой создана задача
- * @member {String} boxId
+ * Поле в которое наследуем данные размеров коробок
+ * @member {Number} widthCm
  */
-InlineObject10.prototype['boxId'] = undefined;
+InlineObject10.prototype['widthCm'] = undefined;
+
+/**
+ * Поле в которое наследуем данные размеров коробок
+ * @member {Number} heightCm
+ */
+InlineObject10.prototype['heightCm'] = undefined;
+
+/**
+ * Общий вес кг коробки
+ * @member {Number} weighGrossKg
+ */
+InlineObject10.prototype['weighGrossKg'] = undefined;
+
+/**
+ * Объемный вес (подсчет)
+ * @member {Number} volumeWeightKg
+ */
+InlineObject10.prototype['volumeWeightKg'] = undefined;
+
+/**
+ * Наибольший вес (подсчет)
+ * @member {Number} weightFinalAccountingKg
+ */
+InlineObject10.prototype['weightFinalAccountingKg'] = undefined;
+
+/**
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} lengthCmSupplier
+ */
+InlineObject10.prototype['lengthCmSupplier'] = undefined;
+
+/**
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} widthCmSupplier
+ */
+InlineObject10.prototype['widthCmSupplier'] = undefined;
+
+/**
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} heightCmSupplier
+ */
+InlineObject10.prototype['heightCmSupplier'] = undefined;
+
+/**
+ * Общий вес кг коробки который назвал поставщик.
+ * @member {Number} weighGrossKgSupplier
+ */
+InlineObject10.prototype['weighGrossKgSupplier'] = undefined;
+
+/**
+ * id склада - склады куда отправляют 
+ * @member {Number} volumeWeightKgSupplier
+ */
+InlineObject10.prototype['volumeWeightKgSupplier'] = undefined;
+
+/**
+ * Наибольший вес (подсчет) (что большее объемный или обычный вес) у поставщика.
+ * @member {Number} weightFinalAccountingKgSupplier
+ */
+InlineObject10.prototype['weightFinalAccountingKgSupplier'] = undefined;
+
+/**
+ * Ид шипмент плана ( не обязательное поле)
+ * @member {String} shipmentPlanId
+ */
+InlineObject10.prototype['shipmentPlanId'] = undefined;
+
+/**
+ * id склада - склады куда отправляют 
+ * @member {Number} warehouse
+ */
+InlineObject10.prototype['warehouse'] = undefined;
+
+/**
+ * Метод доставки - 1: Air , 2: Sea
+ * @member {Number} deliveryMethod
+ */
+InlineObject10.prototype['deliveryMethod'] = undefined;
 
 
 
