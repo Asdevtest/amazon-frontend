@@ -22,16 +22,10 @@ class InlineObject8 {
     /**
      * Constructs a new <code>InlineObject8</code>.
      * @alias module:model/InlineObject8
-     * @param amount {Number} Кол-во продукта по этой позиции.
-     * @param deliveryMethod {Number} Код метода доставки.
-     * @param warehouse {Number} Номер склада.
-     * @param clientComment {String} Комментарии клиента.
-     * @param barCode {String} Ссылка на баркод.
-     * @param product {String} GUID заказанного продукта
      */
-    constructor(amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
+    constructor() { 
         
-        InlineObject8.initialize(this, amount, deliveryMethod, warehouse, clientComment, barCode, product);
+        InlineObject8.initialize(this);
     }
 
     /**
@@ -39,13 +33,7 @@ class InlineObject8 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
-        obj['amount'] = amount;
-        obj['deliveryMethod'] = deliveryMethod;
-        obj['warehouse'] = warehouse;
-        obj['clientComment'] = clientComment;
-        obj['barCode'] = barCode;
-        obj['product'] = product;
+    static initialize(obj) { 
     }
 
     /**
@@ -59,26 +47,8 @@ class InlineObject8 {
         if (data) {
             obj = obj || new InlineObject8();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiClient.convertToType(data['product'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -88,46 +58,10 @@ class InlineObject8 {
 }
 
 /**
- * Код текущего состояния заказа.
- * @member {Number} status
+ * GUID коробки разделение которой отменяем.
+ * @member {String} guid
  */
-InlineObject8.prototype['status'] = undefined;
-
-/**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
- */
-InlineObject8.prototype['amount'] = undefined;
-
-/**
- * Код метода доставки.
- * @member {Number} deliveryMethod
- */
-InlineObject8.prototype['deliveryMethod'] = undefined;
-
-/**
- * Номер склада.
- * @member {Number} warehouse
- */
-InlineObject8.prototype['warehouse'] = undefined;
-
-/**
- * Комментарии клиента.
- * @member {String} clientComment
- */
-InlineObject8.prototype['clientComment'] = undefined;
-
-/**
- * Ссылка на баркод.
- * @member {String} barCode
- */
-InlineObject8.prototype['barCode'] = undefined;
-
-/**
- * GUID заказанного продукта
- * @member {String} product
- */
-InlineObject8.prototype['product'] = undefined;
+InlineObject8.prototype['guid'] = undefined;
 
 
 

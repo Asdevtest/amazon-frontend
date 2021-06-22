@@ -1,10 +1,13 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 
+import {BoxesModel} from '@models/boxes-model'
 import {BuyerModel} from '@models/buyer-model'
 
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const updateOrderKeys = ['status', 'deliveryMethod', 'warehouse', 'barCode']
 
@@ -22,6 +25,7 @@ export class BuyerMyOrdersViewModel {
   curPage = 1
   selectedOrder = undefined
   barcode = ''
+  showCreateOrEditBoxModal = false
 
   constructor({history}) {
     this.history = history
@@ -44,7 +48,7 @@ export class BuyerMyOrdersViewModel {
 
   onClickOrder(order) {
     this.selectedOrder = order
-    this.onTriggerShowOrderModal()
+    this.onTriggerShowCreateOrEditBoxModal()
   }
 
   onClickEditBarcode(order) {
@@ -68,10 +72,10 @@ export class BuyerMyOrdersViewModel {
     this.onSaveOrder(order, updateOrderData)
   }
 
-  async onClickSaveOrder(order, orderField) {
+  async onClickSaveOrder(order, orderFields) {
     console.log(order)
-    console.log(orderField)
-    this.onSaveOrder(order, orderField)
+    console.log(orderFields)
+    this.onSaveOrder(order, orderFields)
     this.onTriggerShowOrderModal()
   }
 
@@ -83,15 +87,46 @@ export class BuyerMyOrdersViewModel {
     try {
       const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(updateOrderData, updateOrderKeys, true)
       await BuyerModel.updateOrder(order._id, updateOrderDataFiltered)
-      runInAction(() => {
-        this.selectedOrder = undefined
-      })
+      if (
+        order.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] &&
+        [OrderStatusByKey[OrderStatus.PAID], OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]].includes(
+          updateOrderData.status,
+        )
+      ) {
+        this.onTriggerShowCreateOrEditBoxModal()
+      } else {
+        runInAction(() => {
+          this.selectedOrder = undefined
+        })
+      }
       this.loadData()
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
         this.error = error.body.message
       }
+    }
+  }
+
+  async onSubmitCreateBox(formFields) {
+    this.onTriggerShowCreateOrEditBoxModal()
+    try {
+      const createBoxData = {
+        ...getObjectFilteredByKeyArrayBlackList(formFields, ['items']),
+        items: [
+          {
+            product: this.selectedOrder.product._id,
+            amount: formFields.items[0].amount,
+            order: this.selectedOrder._id,
+          },
+        ],
+      }
+      runInAction(() => {
+        this.selectedOrder = undefined
+      })
+      await BoxesModel.createBox(createBoxData)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -117,6 +152,10 @@ export class BuyerMyOrdersViewModel {
 
   onTriggerShowOrderModal() {
     this.showOrderModal = !this.showOrderModal
+  }
+
+  onTriggerShowCreateOrEditBoxModal() {
+    this.showCreateOrEditBoxModal = !this.showCreateOrEditBoxModal
   }
 
   onTriggerDrawerOpen() {

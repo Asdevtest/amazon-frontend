@@ -4,27 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | ASIN продукта | 
-**lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
-**lsupplier** | **String** | Ссылка на поставщика. | 
-**bsr** | **Number** |  | 
-**status** | **Number** |  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком | [optional] [default to StatusEnum.0]
-**amazon** | **Number** |  | 
-**supplier** | **Number** | Код поставщика | 
-**fbafee** | **Number** | ФБА комиссия | 
-**delivery** | **Number** | Стоимость доставки. | 
-**icomment** | **String** | Комментарии к товару. | 
-**images** | **Array** |  | 
-
-
-
-## Enum: StatusEnum
-
-
-* `0` (value: `0`)
-
-* `10` (value: `10`)
-
-
+**guids** | **[String]** | массив GUIDов оплаченных товаров | [optional] 
 
 

@@ -47,23 +47,8 @@ class InlineObject9 {
         if (data) {
             obj = obj || new InlineObject9();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -73,40 +58,10 @@ class InlineObject9 {
 }
 
 /**
- * Код текущего состояния заказа.
- * @member {Number} status
+ * GUID для которой подтверждаем действие.
+ * @member {String} guid
  */
-InlineObject9.prototype['status'] = undefined;
-
-/**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
- */
-InlineObject9.prototype['amount'] = undefined;
-
-/**
- * Код метода доставки.
- * @member {Number} deliveryMethod
- */
-InlineObject9.prototype['deliveryMethod'] = undefined;
-
-/**
- * Номер склада.
- * @member {Number} warehouse
- */
-InlineObject9.prototype['warehouse'] = undefined;
-
-/**
- * Комментарии клиента.
- * @member {String} clientComment
- */
-InlineObject9.prototype['clientComment'] = undefined;
-
-/**
- * Ссылка на баркод.
- * @member {String} barCode
- */
-InlineObject9.prototype['barCode'] = undefined;
+InlineObject9.prototype['guid'] = undefined;
 
 
 

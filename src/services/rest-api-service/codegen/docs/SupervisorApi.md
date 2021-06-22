@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1SupervisorsPaymentsCreatedByThisSuperGet**](SupervisorApi.md#apiV1SupervisorsPaymentsCreatedByThisSuperGet) | **GET** /api/v1/supervisors/payments/created_by_this_super | # Получить оплаты созданные данным супервайзером.
+[**apiV1SupervisorsPaymentsMyBalanceGet**](SupervisorApi.md#apiV1SupervisorsPaymentsMyBalanceGet) | **GET** /api/v1/supervisors/payments/my-balance | Получить баланс для супервайзера.
 [**apiV1SupervisorsPaymentsMyGet**](SupervisorApi.md#apiV1SupervisorsPaymentsMyGet) | **GET** /api/v1/supervisors/payments/my | # Получить все оплаты, которые были начислены супервайзеру.
 [**apiV1SupervisorsProductsGuidPatch**](SupervisorApi.md#apiV1SupervisorsProductsGuidPatch) | **PATCH** /api/v1/supervisors/products/{guid} | # Изменить статус и дать комментарий доя продукта.
 [**apiV1SupervisorsProductsMyGet**](SupervisorApi.md#apiV1SupervisorsProductsMyGet) | **GET** /api/v1/supervisors/products/my | # Получить список товаров взятых на проверку супервайзером.
@@ -15,7 +16,7 @@ Method | HTTP request | Description
 
 ## apiV1SupervisorsPaymentsCreatedByThisSuperGet
 
-> [Object] apiV1SupervisorsPaymentsCreatedByThisSuperGet(opts)
+> [InlineResponse2004] apiV1SupervisorsPaymentsCreatedByThisSuperGet(opts)
 
 # Получить оплаты созданные данным супервайзером.
 
@@ -53,7 +54,59 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse2004]**](InlineResponse2004.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html
+
+
+## apiV1SupervisorsPaymentsMyBalanceGet
+
+> Number apiV1SupervisorsPaymentsMyBalanceGet(opts)
+
+Получить баланс для супервайзера.
+
+Получить баланс для супервайзера.
+
+### Example
+
+```javascript
+import Amazonapi from 'amazonapi';
+let defaultClient = Amazonapi.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new Amazonapi.SupervisorApi();
+let opts = {
+  'Accept_Encoding': gzip, deflate // String | 
+};
+apiInstance.apiV1SupervisorsPaymentsMyBalanceGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+
+### Return type
+
+**Number**
 
 ### Authorization
 
@@ -67,7 +120,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsPaymentsMyGet
 
-> [Object] apiV1SupervisorsPaymentsMyGet(opts)
+> [InlineResponse2004] apiV1SupervisorsPaymentsMyGet(opts)
 
 # Получить все оплаты, которые были начислены супервайзеру.
 
@@ -105,7 +158,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -119,7 +172,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsGuidPatch
 
-> Null apiV1SupervisorsProductsGuidPatch(guid, InlineObject17, opts)
+> Null apiV1SupervisorsProductsGuidPatch(guid, InlineObject22, opts)
 
 # Изменить статус и дать комментарий доя продукта.
 
@@ -138,11 +191,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new Amazonapi.SupervisorApi();
 let guid = "guid_example"; // String | GUID продукта, который планируем изменить
-let InlineObject17 = new Amazonapi.InlineObject17(); // InlineObject17 | 
+let InlineObject22 = new Amazonapi.InlineObject22(); // InlineObject22 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1SupervisorsProductsGuidPatch(guid, InlineObject17, opts).then((data) => {
+apiInstance.apiV1SupervisorsProductsGuidPatch(guid, InlineObject22, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -156,7 +209,7 @@ apiInstance.apiV1SupervisorsProductsGuidPatch(guid, InlineObject17, opts).then((
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта, который планируем изменить | 
- **InlineObject17** | [**InlineObject17**](InlineObject17.md)|  | 
+ **InlineObject22** | [**InlineObject22**](InlineObject22.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
@@ -175,7 +228,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsMyGet
 
-> [Object] apiV1SupervisorsProductsMyGet(opts)
+> [InlineResponse200] apiV1SupervisorsProductsMyGet(opts)
 
 # Получить список товаров взятых на проверку супервайзером.
 
@@ -213,7 +266,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse200]**](InlineResponse200.md)
 
 ### Authorization
 
@@ -281,7 +334,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsVacGet
 
-> [Object] apiV1SupervisorsProductsVacGet(opts)
+> [InlineResponse200] apiV1SupervisorsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -319,7 +372,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse200]**](InlineResponse200.md)
 
 ### Authorization
 

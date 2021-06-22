@@ -13,8 +13,8 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
-import {TableBodyRow} from '@components/table-rows/supervisor/products-view/table-body-row'
-import {TableHeadRow} from '@components/table-rows/supervisor/products-view/table-head-row'
+import {TableBodyRow} from '@components/table-rows/supervisor/ready-to-check-view/table-body-row'
+import {TableHeadRow} from '@components/table-rows/supervisor/ready-to-check-view/table-head-row'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 

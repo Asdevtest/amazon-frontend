@@ -47,56 +47,8 @@ class InlineObject5 {
         if (data) {
             obj = obj || new InlineObject5();
 
-            if (data.hasOwnProperty('lengthCm')) {
-                obj['lengthCm'] = ApiClient.convertToType(data['lengthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCm')) {
-                obj['widthCm'] = ApiClient.convertToType(data['widthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCm')) {
-                obj['heightCm'] = ApiClient.convertToType(data['heightCm'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKg')) {
-                obj['weighGrossKg'] = ApiClient.convertToType(data['weighGrossKg'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKg')) {
-                obj['volumeWeightKg'] = ApiClient.convertToType(data['volumeWeightKg'], 'Number');
-            }
-            if (data.hasOwnProperty('weightFinalAccountingKg')) {
-                obj['weightFinalAccountingKg'] = ApiClient.convertToType(data['weightFinalAccountingKg'], 'Number');
-            }
-            if (data.hasOwnProperty('lengthCmSupplier')) {
-                obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCmSupplier')) {
-                obj['widthCmSupplier'] = ApiClient.convertToType(data['widthCmSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmSupplier')) {
-                obj['heightCmSupplier'] = ApiClient.convertToType(data['heightCmSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgSupplier')) {
-                obj['weighGrossKgSupplier'] = ApiClient.convertToType(data['weighGrossKgSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKgSupplier')) {
-                obj['volumeWeightKgSupplier'] = ApiClient.convertToType(data['volumeWeightKgSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('weightFinalAccountingKgSupplier')) {
-                obj['weightFinalAccountingKgSupplier'] = ApiClient.convertToType(data['weightFinalAccountingKgSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('inStock')) {
-                obj['inStock'] = ApiClient.convertToType(data['inStock'], 'Boolean');
-            }
-            if (data.hasOwnProperty('scheduledDispatchDate')) {
-                obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'Date');
-            }
-            if (data.hasOwnProperty('factDispatchDate')) {
-                obj['factDispatchDate'] = ApiClient.convertToType(data['factDispatchDate'], 'Date');
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
             }
         }
         return obj;
@@ -106,106 +58,9 @@ class InlineObject5 {
 }
 
 /**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} lengthCm
+ * @member {Array.<String>} guids
  */
-InlineObject5.prototype['lengthCm'] = undefined;
-
-/**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} widthCm
- */
-InlineObject5.prototype['widthCm'] = undefined;
-
-/**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} heightCm
- */
-InlineObject5.prototype['heightCm'] = undefined;
-
-/**
- * Общий вес кг коробки
- * @member {Number} weighGrossKg
- */
-InlineObject5.prototype['weighGrossKg'] = undefined;
-
-/**
- * Объемный вес (подсчет)
- * @member {Number} volumeWeightKg
- */
-InlineObject5.prototype['volumeWeightKg'] = undefined;
-
-/**
- * Наибольший вес (подсчет)
- * @member {Number} weightFinalAccountingKg
- */
-InlineObject5.prototype['weightFinalAccountingKg'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} lengthCmSupplier
- */
-InlineObject5.prototype['lengthCmSupplier'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} widthCmSupplier
- */
-InlineObject5.prototype['widthCmSupplier'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} heightCmSupplier
- */
-InlineObject5.prototype['heightCmSupplier'] = undefined;
-
-/**
- * Общий вес кг коробки который назвал поставщик.
- * @member {Number} weighGrossKgSupplier
- */
-InlineObject5.prototype['weighGrossKgSupplier'] = undefined;
-
-/**
- * id склада - склады куда отправляют 
- * @member {Number} volumeWeightKgSupplier
- */
-InlineObject5.prototype['volumeWeightKgSupplier'] = undefined;
-
-/**
- * Наибольший вес (подсчет) (что большее объемный или обычный вес) у поставщика.
- * @member {Number} weightFinalAccountingKgSupplier
- */
-InlineObject5.prototype['weightFinalAccountingKgSupplier'] = undefined;
-
-/**
- * id склада - склады куда отправляют 
- * @member {Number} warehouse
- */
-InlineObject5.prototype['warehouse'] = undefined;
-
-/**
- * Метод доставки - 1: Air , 2: Sea
- * @member {Number} deliveryMethod
- */
-InlineObject5.prototype['deliveryMethod'] = undefined;
-
-/**
- * Поступил ли товар для этой коробки на склад.
- * @member {Boolean} inStock
- */
-InlineObject5.prototype['inStock'] = undefined;
-
-/**
- * Запланированная дата отправки.
- * @member {Date} scheduledDispatchDate
- */
-InlineObject5.prototype['scheduledDispatchDate'] = undefined;
-
-/**
- * Запланированная дата доставки.
- * @member {Date} factDispatchDate
- */
-InlineObject5.prototype['factDispatchDate'] = undefined;
+InlineObject5.prototype['guids'] = undefined;
 
 
 

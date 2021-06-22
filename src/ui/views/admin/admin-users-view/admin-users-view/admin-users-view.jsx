@@ -41,7 +41,7 @@ class AdminUsersViewRaw extends Component {
       users,
       drawerOpen,
       curPage,
-      rowsPerPage,      
+      rowsPerPage,
       editUserFormFields,
       showEditUserModal,
       showPermissionModal,
@@ -92,7 +92,7 @@ class AdminUsersViewRaw extends Component {
                 renderHeadRow={this.renderHeadRow}
                 rowsPerPage={rowsPerPage}
                 rowsHandlers={rowsHandlers}
-              />              
+              />
             </MainContent>
           </Appbar>
         </Main>

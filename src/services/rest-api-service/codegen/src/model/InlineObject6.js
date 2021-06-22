@@ -47,20 +47,8 @@ class InlineObject6 {
         if (data) {
             obj = obj || new InlineObject6();
 
-            if (data.hasOwnProperty('dirdecision')) {
-                obj['dirdecision'] = ApiClient.convertToType(data['dirdecision'], 'Number');
-            }
-            if (data.hasOwnProperty('researcherFine')) {
-                obj['researcherFine'] = ApiClient.convertToType(data['researcherFine'], 'Number');
-            }
-            if (data.hasOwnProperty('researcherFineComment')) {
-                obj['researcherFineComment'] = ApiClient.convertToType(data['researcherFineComment'], 'String');
-            }
-            if (data.hasOwnProperty('supervisorFine')) {
-                obj['supervisorFine'] = ApiClient.convertToType(data['supervisorFine'], 'Number');
-            }
-            if (data.hasOwnProperty('supervisorFineComment')) {
-                obj['supervisorFineComment'] = ApiClient.convertToType(data['supervisorFineComment'], 'String');
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], 'String');
             }
         }
         return obj;
@@ -70,34 +58,10 @@ class InlineObject6 {
 }
 
 /**
- * Решение по товару.
- * @member {Number} dirdecision
+ * GUID коробки, объединение которой нужно отменить
+ * @member {String} guids
  */
-InlineObject6.prototype['dirdecision'] = undefined;
-
-/**
- * Штраф на менеджера.
- * @member {Number} researcherFine
- */
-InlineObject6.prototype['researcherFine'] = undefined;
-
-/**
- * Комментарии к штрафу на менеджера.
- * @member {String} researcherFineComment
- */
-InlineObject6.prototype['researcherFineComment'] = undefined;
-
-/**
- * Штраф на супервайзера.
- * @member {Number} supervisorFine
- */
-InlineObject6.prototype['supervisorFine'] = undefined;
-
-/**
- * Комментарий к штрафу на супервайзера.
- * @member {String} supervisorFineComment
- */
-InlineObject6.prototype['supervisorFineComment'] = undefined;
+InlineObject6.prototype['guids'] = undefined;
 
 
 

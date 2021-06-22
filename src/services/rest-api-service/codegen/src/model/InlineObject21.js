@@ -22,12 +22,11 @@ class InlineObject21 {
     /**
      * Constructs a new <code>InlineObject21</code>.
      * @alias module:model/InlineObject21
-     * @param email {String} 
-     * @param password {String} 
+     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      */
-    constructor(email, password) { 
+    constructor(status) { 
         
-        InlineObject21.initialize(this, email, password);
+        InlineObject21.initialize(this, status);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject21 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email, password) { 
-        obj['email'] = email;
-        obj['password'] = password;
+    static initialize(obj, status) { 
+        obj['status'] = status;
     }
 
     /**
@@ -51,11 +49,8 @@ class InlineObject21 {
         if (data) {
             obj = obj || new InlineObject21();
 
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
-            }
-            if (data.hasOwnProperty('password')) {
-                obj['password'] = ApiClient.convertToType(data['password'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
         }
         return obj;
@@ -65,14 +60,10 @@ class InlineObject21 {
 }
 
 /**
- * @member {String} email
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
+ * @member {Number} status
  */
-InlineObject21.prototype['email'] = undefined;
-
-/**
- * @member {String} password
- */
-InlineObject21.prototype['password'] = undefined;
+InlineObject21.prototype['status'] = undefined;
 
 
 

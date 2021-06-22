@@ -4,6 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**isExist** | **Boolean** | Флаг, показывает есть ли такой id в базе или нет | [optional] 
+**_id** | **String** | GUID платежа | [optional] 
+**createdDate** | **Date** | Дата создания. | [optional] 
+**createdBy** | [**ApiV1BuyersPaymentsMyCreatedBy**](ApiV1BuyersPaymentsMyCreatedBy.md) |  | [optional] 
+**productId** | **String** | GUID продукта. | [optional] 
+**recipient** | [**ApiV1BuyersPaymentsMyCreatedBy**](ApiV1BuyersPaymentsMyCreatedBy.md) |  | [optional] 
+**sum** | **Number** | Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления. | [optional] 
+**comment** | **String** | комментарий | [optional] 
 
 

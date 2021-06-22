@@ -1,26 +1,6 @@
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
 class StorekeeperModelStatic {
-  getBoxesVacant = async () => {
-    const response = await restApiService.strokeepersApi.apiV1StorekeepersBoxesVacGet()
-    return response
-  }
-
-  pickupBox = async id => {
-    const response = await restApiService.strokeepersApi.apiV1StorekeepersBoxesPickupGuidPost(id)
-    return response
-  }
-
-  getBoxesMy = async id => {
-    const response = await restApiService.strokeepersApi.apiV1StorekeepersBoxesMyGet(id)
-    return response
-  }
-
-  updateBox = async (id, data) => {
-    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksGuidPatch(id, data)
-    return response
-  }
-
   getTasksVacant = async () => {
     const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksVacGet()
     return response

@@ -4,16 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | id продукта(asin) | 
-**images** | **[Object]** | массив с именами файлов | 
-**title** | **String** | Заголовок продукта | 
-**about** | **String** | О продукте. | 
-**description** | **String** | Описание | 
-**price** | **String** | Цена. | 
-**availability** | **String** | Доступность. | 
-**detail** | **String** | Детали. | 
-**asin** | **String** | ASIN | 
-**bsr** | **String** | BSR | 
-**weight** | **String** | Вес. | 
+**taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
+**boxId** | **String** | GUID коробки для которой создана задача | 
+**storekeeperId** | **String** | GUID сотрудника склада, который выполняет задачу. | [optional] 
+**status** | **Number** | Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено. | 
 
 

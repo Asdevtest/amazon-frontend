@@ -41,6 +41,9 @@ export const RightSideComments = observer(
             productStatus={product.status}
             buttonsConfig={productStatusButtonsConfig}
             onClickButton={onClickSetProductStatusBtn}
+            onClickSaveWithoutStatusChange={
+              checkIsSupervisor(curUserRole) ? handleProductActionButtons('accept') : undefined
+            }
           />
           <Field
             multiline

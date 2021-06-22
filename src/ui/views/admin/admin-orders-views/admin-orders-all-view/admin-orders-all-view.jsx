@@ -13,8 +13,8 @@ import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
-import {Navbar} from '@components/navbar'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
+import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/client/orders-views/orders/table-body-row'
 import {TableHeadRow} from '@components/table-rows/client/orders-views/orders/table-head-row'
@@ -93,7 +93,7 @@ class AdminOrdersAllViewRaw extends Component {
         </Main>
 
         <Modal openModal={modalBarcode} setOpenModal={onTriggerBarcodeModal}>
-          <SetBarcodeModal setModalBarcode={onTriggerBarcodeModal} />
+          <SetBarcodeModal onCloseModal={onTriggerBarcodeModal} />
         </Modal>
       </React.Fragment>
     )

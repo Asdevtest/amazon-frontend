@@ -5,6 +5,8 @@ import {withStyles} from '@material-ui/styles'
 
 import {texts} from '@constants/texts'
 
+import {Modal} from '@components/modal/modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {ExchangeModalBodyRow} from '@components/table-rows/client/exchange'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -20,12 +22,13 @@ const ClientExchnageCreateOrderModalContentRaw = ({
   onClickOrderNowBtn,
   onClickCancelBtn,
 }) => {
+  const [showBarcodeModal, setShowBarcodeModal] = useState(false)
   const [orderFields, setOderFields] = useState({
     amount: 1,
-    manager: undefined,
-    deliveryMethod: 2,
-    warehouse: 42,
+    deliveryMethod: 0,
+    warehouse: 0,
     clientComment: '',
+    barCode: '',
   })
 
   if (!product) {
@@ -38,6 +41,17 @@ const ClientExchnageCreateOrderModalContentRaw = ({
     setOderFields(newOrderFields)
   }
 
+  const onTriggerBarcodeModal = () => {
+    setShowBarcodeModal(!showBarcodeModal)
+  }
+
+  const onClickSaveBarcode = barCode => {
+    const newOrderFields = {...orderFields}
+    newOrderFields.barCode = barCode
+    setOderFields(newOrderFields)
+    onTriggerBarcodeModal()
+  }
+
   return (
     <>
       <Typography variant="h5">{textConsts.title}</Typography>
@@ -45,7 +59,12 @@ const ClientExchnageCreateOrderModalContentRaw = ({
         <MuiTable>
           <TableHead>{modalHeadRow}</TableHead>
           <TableBody>
-            <ExchangeModalBodyRow orderFields={orderFields} setOderField={setOderField} product={product} />
+            <ExchangeModalBodyRow
+              orderFields={orderFields}
+              setOderField={setOderField}
+              product={product}
+              onClickEditBarcode={onTriggerBarcodeModal}
+            />
           </TableBody>
         </MuiTable>
       </TableContainer>
@@ -57,6 +76,13 @@ const ClientExchnageCreateOrderModalContentRaw = ({
           {textConsts.cancelBtn}
         </Button>
       </div>
+      <Modal openModal={showBarcodeModal} setOpenModal={onTriggerBarcodeModal}>
+        <SetBarcodeModal
+          order={orderFields}
+          onClickSaveBarcode={onClickSaveBarcode}
+          onCloseModal={onTriggerBarcodeModal}
+        />
+      </Modal>
     </>
   )
 }

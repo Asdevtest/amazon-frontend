@@ -4,7 +4,7 @@ import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {BUYER_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
+import {BUYER_PRODUCTS_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 

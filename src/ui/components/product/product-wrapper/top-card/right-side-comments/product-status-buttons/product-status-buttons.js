@@ -3,10 +3,18 @@ import React from 'react'
 import {Box, Grid} from '@material-ui/core'
 
 import {ProductStatusByCode} from '@constants/product-status'
+import {texts} from '@constants/texts'
 
 import {ColoredChip} from '@components/colored-chip'
 
-export const ProductStatusButtons = ({buttonsConfig, productStatus, onClickButton}) => {
+import {getLocalizedTexts} from '@utils/get-localized-texts'
+
+const textConfig = getLocalizedTexts(texts, 'en').productStatusButtons
+
+const saveWithoutStatusBtnColor = '#adadad'
+const saveWithoutStatusBtnColorHover = '#8c8a8a'
+
+export const ProductStatusButtons = ({buttonsConfig, productStatus, onClickButton, onClickSaveWithoutStatusChange}) => {
   if (!buttonsConfig) {
     return <div />
   }
@@ -24,6 +32,16 @@ export const ProductStatusButtons = ({buttonsConfig, productStatus, onClickButto
             />
           </Grid>
         ))}
+        {onClickSaveWithoutStatusChange ? (
+          <Grid item>
+            <ColoredChip
+              label={textConfig.saveWithoutStatusBtn}
+              color={saveWithoutStatusBtnColor}
+              colorHover={saveWithoutStatusBtnColorHover}
+              onClick={onClickSaveWithoutStatusChange}
+            />
+          </Grid>
+        ) : undefined}
       </Grid>
     </Box>
   )

@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesItems from './ApiV1BoxesItems';
 
 /**
  * The InlineObject4 model module.
@@ -22,25 +23,12 @@ class InlineObject4 {
     /**
      * Constructs a new <code>InlineObject4</code>.
      * @alias module:model/InlineObject4
-     * @param lengthCm {Number} Поле в которое наследуем данные размеров коробок
-     * @param widthCm {Number} Поле в которое наследуем данные размеров коробок
-     * @param heightCm {Number} Поле в которое наследуем данные размеров коробок
-     * @param weighGrossKg {Number} Общий вес кг коробки
-     * @param volumeWeightKg {Number} Объемный вес (подсчет)
-     * @param weightFinalAccountingKg {Number} Наибольший вес (подсчет)
-     * @param lengthCmSupplier {Number} Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
-     * @param widthCmSupplier {Number} Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
-     * @param heightCmSupplier {Number} Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
-     * @param weighGrossKgSupplier {Number} Общий вес кг коробки который назвал поставщик.
-     * @param volumeWeightKgSupplier {Number} id склада - склады куда отправляют 
-     * @param weightFinalAccountingKgSupplier {Number} Наибольший вес (подсчет) (что большее объемный или обычный вес) у поставщика.
-     * @param warehouse {Number} id склада - склады куда отправляют 
-     * @param deliveryMethod {Number} Метод доставки - 1: Air , 2: Sea
-     * @param orderIds {Object} Массив GUID ордеров из которых формируется данная коробка.
+     * @param items {Array.<module:model/ApiV1BoxesItems>} 
+     * @param clientId {String} GUID клиента
      */
-    constructor(lengthCm, widthCm, heightCm, weighGrossKg, volumeWeightKg, weightFinalAccountingKg, lengthCmSupplier, widthCmSupplier, heightCmSupplier, weighGrossKgSupplier, volumeWeightKgSupplier, weightFinalAccountingKgSupplier, warehouse, deliveryMethod, orderIds) { 
+    constructor(items, clientId) { 
         
-        InlineObject4.initialize(this, lengthCm, widthCm, heightCm, weighGrossKg, volumeWeightKg, weightFinalAccountingKg, lengthCmSupplier, widthCmSupplier, heightCmSupplier, weighGrossKgSupplier, volumeWeightKgSupplier, weightFinalAccountingKgSupplier, warehouse, deliveryMethod, orderIds);
+        InlineObject4.initialize(this, items, clientId);
     }
 
     /**
@@ -48,22 +36,9 @@ class InlineObject4 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, lengthCm, widthCm, heightCm, weighGrossKg, volumeWeightKg, weightFinalAccountingKg, lengthCmSupplier, widthCmSupplier, heightCmSupplier, weighGrossKgSupplier, volumeWeightKgSupplier, weightFinalAccountingKgSupplier, warehouse, deliveryMethod, orderIds) { 
-        obj['lengthCm'] = lengthCm;
-        obj['widthCm'] = widthCm;
-        obj['heightCm'] = heightCm;
-        obj['weighGrossKg'] = weighGrossKg;
-        obj['volumeWeightKg'] = volumeWeightKg;
-        obj['weightFinalAccountingKg'] = weightFinalAccountingKg;
-        obj['lengthCmSupplier'] = lengthCmSupplier;
-        obj['widthCmSupplier'] = widthCmSupplier;
-        obj['heightCmSupplier'] = heightCmSupplier;
-        obj['weighGrossKgSupplier'] = weighGrossKgSupplier;
-        obj['volumeWeightKgSupplier'] = volumeWeightKgSupplier;
-        obj['weightFinalAccountingKgSupplier'] = weightFinalAccountingKgSupplier;
-        obj['warehouse'] = warehouse;
-        obj['deliveryMethod'] = deliveryMethod;
-        obj['orderIds'] = orderIds;
+    static initialize(obj, items, clientId) { 
+        obj['items'] = items;
+        obj['clientId'] = clientId;
     }
 
     /**
@@ -119,14 +94,20 @@ class InlineObject4 {
             if (data.hasOwnProperty('deliveryMethod')) {
                 obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
             }
-            if (data.hasOwnProperty('orderIds')) {
-                obj['orderIds'] = ApiClient.convertToType(data['orderIds'], Object);
-            }
             if (data.hasOwnProperty('scheduledDispatchDate')) {
                 obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'Date');
             }
             if (data.hasOwnProperty('factDispatchDate')) {
                 obj['factDispatchDate'] = ApiClient.convertToType(data['factDispatchDate'], 'Date');
+            }
+            if (data.hasOwnProperty('isDraft')) {
+                obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
+            }
+            if (data.hasOwnProperty('items')) {
+                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems]);
+            }
+            if (data.hasOwnProperty('clientId')) {
+                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
             }
         }
         return obj;
@@ -220,12 +201,6 @@ InlineObject4.prototype['warehouse'] = undefined;
 InlineObject4.prototype['deliveryMethod'] = undefined;
 
 /**
- * Массив GUID ордеров из которых формируется данная коробка.
- * @member {Object} orderIds
- */
-InlineObject4.prototype['orderIds'] = undefined;
-
-/**
  * Запланированная дата отправки.
  * @member {Date} scheduledDispatchDate
  */
@@ -236,6 +211,23 @@ InlineObject4.prototype['scheduledDispatchDate'] = undefined;
  * @member {Date} factDispatchDate
  */
 InlineObject4.prototype['factDispatchDate'] = undefined;
+
+/**
+ * true - если создаем черновик заказа.
+ * @member {Boolean} isDraft
+ */
+InlineObject4.prototype['isDraft'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1BoxesItems>} items
+ */
+InlineObject4.prototype['items'] = undefined;
+
+/**
+ * GUID клиента
+ * @member {String} clientId
+ */
+InlineObject4.prototype['clientId'] = undefined;
 
 
 

@@ -47,12 +47,14 @@ class SupervisorProductsViewRaw extends Component {
       onChangeRowsPerPage,
       onClickTableRow,
       onClickCalculateFees,
+      onClickResearcherName,
     } = this.viewModel
     const {classes: classNames} = this.props
     const tableRowHandlers = {
       onSelectProduct,
       onClickTableRow,
       onClickCalculateFees,
+      onClickResearcherName,
     }
     return (
       <React.Fragment>

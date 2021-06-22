@@ -4,6 +4,7 @@ import {Divider, Grid, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './left-panel.style'
@@ -17,7 +18,11 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
   return (
     <Grid item xs={12} className={(classNames.orderContainer, classNames.orderBorderRightMdUp)}>
       <div className={classNames.product}>
-        <img alt="" className={classNames.productImg} src={order.product.img} />
+        <img
+          alt=""
+          className={classNames.productImg}
+          src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
+        />
         <div>
           <Typography className={(classNames.containerTitle, classNames.csCodeTypo)}>{order.product.csCode}</Typography>
           <Typography className={classNames.text}>

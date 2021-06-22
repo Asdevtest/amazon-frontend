@@ -160,9 +160,7 @@ export const RESEARCHER_HEAD_CELLS = [
   {title: 'ASIN'},
   {title: 'Status'},
   {title: 'Created'},
-  {title: 'Manager'},
   {title: 'Amazon price'},
-  {title: 'Price'},
   {title: 'BSR'},
 ]
 
@@ -366,21 +364,6 @@ export const BUYER_EMPTY_SUPPLIER = {
   minQty: 0,
   comment: '',
 }
-
-export const BUYER_PRODUCTS_HEAD_CELLS = [
-  {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},
-  {id: 'price', align: 'right', disablePadding: false, label: 'Price'},
-  {id: 'fees', align: 'left', disablePadding: false, label: 'Fees & Net'},
-  {id: 'rank', align: 'right', disablePadding: false, label: 'Rank'},
-  {id: 'rating', align: 'center', disablePadding: false, label: 'Rating'},
-  {id: 'sales', align: 'right', disablePadding: false, label: 'Sales'},
-  {id: 'salersTotal', align: 'center', disablePadding: false, label: 'Salers total'},
-  {id: 'type', align: 'right', disablePadding: false, label: 'Type'},
-  {id: 'revenue', align: 'right', disablePadding: false, label: 'Revenue'},
-  {id: 'amazonPrice', align: 'right', disablePadding: false, label: 'Amazon $'},
-  {id: 'bsr', align: 'right', disablePadding: false, label: 'BSR'},
-  {id: 'fba', align: 'right', disablePadding: false, label: 'FBA'},
-]
 
 export const BUYER_SUB_USERS_INITIAL_DATA = [
   {date: '12/09/2019', email: 'email@example.com'},
@@ -706,18 +689,12 @@ export const DELIVERY_TYPES = [
 export const CLIENT_INVENTORY_MY_PRODUCTS_HEAD_CELLS = [
   {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},
   {id: 'price', align: 'right', disablePadding: false, label: 'Price'},
-  {id: 'fees', align: 'left', disablePadding: false, label: 'Fees & Net'},
-  {id: 'rank', align: 'right', disablePadding: false, label: 'Rank'},
-  {id: 'rating', align: 'center', disablePadding: false, label: 'Rating'},
-  {id: 'sales', align: 'right', disablePadding: false, label: 'Sales'},
-  {id: 'salersTotal', align: 'center', disablePadding: false, label: 'Salers total'},
-  {id: 'type', align: 'right', disablePadding: false, label: 'Type'},
-  {id: 'revenue', align: 'right', disablePadding: false, label: 'Revenue'},
-  {id: 'amazonPrice', align: 'right', disablePadding: false, label: 'Amazon $'},
-  {id: 'bsr', align: 'right', disablePadding: false, label: 'BSR'},
-  {id: 'fba', align: 'right', disablePadding: false, label: 'FBA'},
-  {id: 'Штрих код', align: 'right', disablePadding: false, label: 'Barcode'},
-  {id: 'Exchange', align: 'right', disablePadding: false, label: 'Exchange'},
+  {id: 'createDate', align: 'left', disablePadding: false, label: 'Create date'},
+  {id: 'checkDate', align: 'right', disablePadding: false, label: 'Check date'},
+  {id: 'profit', align: 'center', disablePadding: false, label: 'Profit'},
+  {id: 'margin', align: 'right', disablePadding: false, label: 'Margin'},
+  {id: 'bsr', align: 'center', disablePadding: false, label: 'BSR'},
+  {id: 'fbaAmount', align: 'right', disablePadding: false, label: 'Fba amount'},
 ]
 
 export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [

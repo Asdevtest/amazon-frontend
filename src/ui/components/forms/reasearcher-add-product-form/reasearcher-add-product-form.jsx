@@ -25,6 +25,7 @@ export const ResearcherAddProductFormRaw = observer(
           onChange={onChangeFormFields('amazonLink')}
         />
         <Field
+          disabled
           label={textConsts.codeOfGood}
           value={formFields.productCode}
           onChange={onChangeFormFields('productCode')}

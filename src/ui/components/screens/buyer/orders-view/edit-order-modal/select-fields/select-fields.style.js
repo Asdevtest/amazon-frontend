@@ -13,4 +13,10 @@ export const useClassNames = makeStyles(() => ({
   numInput: {
     width: '80px',
   },
+  commentInput: {
+    fontSize: '13px',
+    height: 'auto',
+    width: '100%',
+    marginTop: '2px',
+  },
 }))

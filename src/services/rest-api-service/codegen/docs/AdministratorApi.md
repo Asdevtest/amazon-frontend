@@ -8,7 +8,8 @@ Method | HTTP request | Description
 [**apiV1AdminsGetNotPaidProductsGet**](AdministratorApi.md#apiV1AdminsGetNotPaidProductsGet) | **GET** /api/v1/admins/get_not_paid_products | # Получить список не оплаченных товаров.
 [**apiV1AdminsGetVacProductsGet**](AdministratorApi.md#apiV1AdminsGetVacProductsGet) | **GET** /api/v1/admins/get_vac_products | # Получить список товаров, которые ожидают проверку. 
 [**apiV1AdminsGetWaitingProductsGet**](AdministratorApi.md#apiV1AdminsGetWaitingProductsGet) | **GET** /api/v1/admins/get_waiting_products | # Получить список товаров, которые ожидают проверку. 
-[**apiV1AdminsMakePaymentPost**](AdministratorApi.md#apiV1AdminsMakePaymentPost) | **POST** /api/v1/admins/make_payment | # Оплатить выбранные продукты.
+[**apiV1AdminsMakePaymentPost**](AdministratorApi.md#apiV1AdminsMakePaymentPost) | **POST** /api/v1/admins/make_payment | # Создать оплату или штраф для пользователя.
+[**apiV1AdminsMakeProductsPaidPost**](AdministratorApi.md#apiV1AdminsMakeProductsPaidPost) | **POST** /api/v1/admins/make_products_paid | # Оплатить выбранные продукты.
 [**apiV1AdminsPatchProductsGuidPatch**](AdministratorApi.md#apiV1AdminsPatchProductsGuidPatch) | **PATCH** /api/v1/admins/patch_products/{guid} | # Внести изменения в продукт.
 [**apiV1AdminsPickupProductGuidPost**](AdministratorApi.md#apiV1AdminsPickupProductGuidPost) | **POST** /api/v1/admins/pickup_product/{guid} | # Взять продукт на проверку.
 [**apiV1AdminsUsersGet**](AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
@@ -19,7 +20,7 @@ Method | HTTP request | Description
 
 ## apiV1AdminsGetCheckingProductsGet
 
-> [Object] apiV1AdminsGetCheckingProductsGet(opts)
+> [InlineResponse200] apiV1AdminsGetCheckingProductsGet(opts)
 
 # Получить список товаров, которые находятся на проверке. 
 
@@ -57,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse200]**](InlineResponse200.md)
 
 ### Authorization
 
@@ -71,7 +72,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsGetNotPaidProductsGet
 
-> [Object] apiV1AdminsGetNotPaidProductsGet(opts)
+> [InlineResponse200] apiV1AdminsGetNotPaidProductsGet(opts)
 
 # Получить список не оплаченных товаров.
 
@@ -109,7 +110,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse200]**](InlineResponse200.md)
 
 ### Authorization
 
@@ -123,7 +124,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsGetVacProductsGet
 
-> [Object] apiV1AdminsGetVacProductsGet(opts)
+> [InlineResponse200] apiV1AdminsGetVacProductsGet(opts)
 
 # Получить список товаров, которые ожидают проверку. 
 
@@ -161,7 +162,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse200]**](InlineResponse200.md)
 
 ### Authorization
 
@@ -175,7 +176,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsGetWaitingProductsGet
 
-> [Object] apiV1AdminsGetWaitingProductsGet(opts)
+> [InlineResponse200] apiV1AdminsGetWaitingProductsGet(opts)
 
 # Получить список товаров, которые ожидают проверку. 
 
@@ -213,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse200]**](InlineResponse200.md)
 
 ### Authorization
 
@@ -227,7 +228,61 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsMakePaymentPost
 
-> Null apiV1AdminsMakePaymentPost(opts)
+> Null apiV1AdminsMakePaymentPost(InlineObject2, opts)
+
+# Создать оплату или штраф для пользователя.
+
+## Создать оплату или штраф для пользователя.   
+
+### Example
+
+```javascript
+import Amazonapi from 'amazonapi';
+let defaultClient = Amazonapi.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new Amazonapi.AdministratorApi();
+let InlineObject2 = new Amazonapi.InlineObject2(); // InlineObject2 | 
+let opts = {
+  'Accept_Encoding': gzip, deflate // String | 
+};
+apiInstance.apiV1AdminsMakePaymentPost(InlineObject2, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **InlineObject2** | [**InlineObject2**](InlineObject2.md)|  | 
+ **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+
+### Return type
+
+[**Null**](Null.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: text/html
+
+
+## apiV1AdminsMakeProductsPaidPost
+
+> Null apiV1AdminsMakeProductsPaidPost(opts)
 
 # Оплатить выбранные продукты.
 
@@ -249,7 +304,7 @@ let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
   'InlineObject1': new Amazonapi.InlineObject1() // InlineObject1 | 
 };
-apiInstance.apiV1AdminsMakePaymentPost(opts).then((data) => {
+apiInstance.apiV1AdminsMakeProductsPaidPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -391,7 +446,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsUsersGet
 
-> [Object] apiV1AdminsUsersGet(opts)
+> [InlineResponse2001] apiV1AdminsUsersGet(opts)
 
 Получить всех пользователей.
 
@@ -429,7 +484,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse2001]**](InlineResponse2001.md)
 
 ### Authorization
 
@@ -518,7 +573,7 @@ let apiInstance = new Amazonapi.AdministratorApi();
 let guid = "guid_example"; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject2': new Amazonapi.InlineObject2() // InlineObject2 | 
+  'InlineObject3': new Amazonapi.InlineObject3() // InlineObject3 | 
 };
 apiInstance.apiV1AdminsUsersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -535,7 +590,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject2** | [**InlineObject2**](InlineObject2.md)|  | [optional] 
+ **InlineObject3** | [**InlineObject3**](InlineObject3.md)|  | [optional] 
 
 ### Return type
 

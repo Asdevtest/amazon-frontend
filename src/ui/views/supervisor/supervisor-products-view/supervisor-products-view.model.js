@@ -1,8 +1,11 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
 
 import {SupervisorModel} from '@models/supervisor-model'
+
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 
 export class SupervisorProductsViewModel {
   history = undefined
@@ -36,7 +39,12 @@ export class SupervisorProductsViewModel {
     try {
       const result = await SupervisorModel.getProductsMy()
       runInAction(() => {
-        this.productsMy = result
+        // Если статус продукта BUYER_FOUND_SUPPLIER то поднимаем его вверх списка, если нет то сортируем по дате
+        this.productsMy = result.sort((a, b) =>
+          ProductStatusByCode[b.status] === ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER]
+            ? 1
+            : sortObjectsArrayByFiledDate('createdat')(a, b),
+        )
       })
     } catch (error) {
       console.log(error)
@@ -61,6 +69,8 @@ export class SupervisorProductsViewModel {
   onClickTableRow(item) {
     this.history.push('/supervisor/product', {product: toJS(item)})
   }
+
+  onClickResearcherName() {}
 
   onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen

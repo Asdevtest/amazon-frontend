@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1ClientsBatchesId from './ApiV1ClientsBatchesId';
 
 /**
  * The InlineResponse2008 model module.
@@ -23,12 +22,21 @@ class InlineResponse2008 {
     /**
      * Constructs a new <code>InlineResponse2008</code>.
      * @alias module:model/InlineResponse2008
-     * @param _id {module:model/ApiV1ClientsBatchesId} 
-     * @param boxes {Array.<String>} 
+     * @param id {String} id продукта(asin)
+     * @param images {Array.<String>} массив с именами файлов
+     * @param title {String} Заголовок продукта
+     * @param about {String} О продукте.
+     * @param description {String} Описание
+     * @param price {String} Цена.
+     * @param availability {String} Доступность.
+     * @param detail {String} Детали.
+     * @param asin {String} ASIN
+     * @param bsr {String} BSR
+     * @param weight {String} Вес.
      */
-    constructor(_id, boxes) { 
+    constructor(id, images, title, about, description, price, availability, detail, asin, bsr, weight) { 
         
-        InlineResponse2008.initialize(this, _id, boxes);
+        InlineResponse2008.initialize(this, id, images, title, about, description, price, availability, detail, asin, bsr, weight);
     }
 
     /**
@@ -36,9 +44,18 @@ class InlineResponse2008 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, boxes) { 
-        obj['_id'] = _id;
-        obj['boxes'] = boxes;
+    static initialize(obj, id, images, title, about, description, price, availability, detail, asin, bsr, weight) { 
+        obj['id'] = id;
+        obj['images'] = images;
+        obj['title'] = title;
+        obj['about'] = about;
+        obj['description'] = description;
+        obj['price'] = price;
+        obj['availability'] = availability;
+        obj['detail'] = detail;
+        obj['asin'] = asin;
+        obj['bsr'] = bsr;
+        obj['weight'] = weight;
     }
 
     /**
@@ -52,11 +69,38 @@ class InlineResponse2008 {
         if (data) {
             obj = obj || new InlineResponse2008();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiV1ClientsBatchesId.constructFromObject(data['_id']);
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('about')) {
+                obj['about'] = ApiClient.convertToType(data['about'], 'String');
+            }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'String');
+            }
+            if (data.hasOwnProperty('availability')) {
+                obj['availability'] = ApiClient.convertToType(data['availability'], 'String');
+            }
+            if (data.hasOwnProperty('detail')) {
+                obj['detail'] = ApiClient.convertToType(data['detail'], 'String');
+            }
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
+            if (data.hasOwnProperty('bsr')) {
+                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'String');
+            }
+            if (data.hasOwnProperty('weight')) {
+                obj['weight'] = ApiClient.convertToType(data['weight'], 'String');
             }
         }
         return obj;
@@ -66,14 +110,70 @@ class InlineResponse2008 {
 }
 
 /**
- * @member {module:model/ApiV1ClientsBatchesId} _id
+ * id продукта(asin)
+ * @member {String} id
  */
-InlineResponse2008.prototype['_id'] = undefined;
+InlineResponse2008.prototype['id'] = undefined;
 
 /**
- * @member {Array.<String>} boxes
+ * массив с именами файлов
+ * @member {Array.<String>} images
  */
-InlineResponse2008.prototype['boxes'] = undefined;
+InlineResponse2008.prototype['images'] = undefined;
+
+/**
+ * Заголовок продукта
+ * @member {String} title
+ */
+InlineResponse2008.prototype['title'] = undefined;
+
+/**
+ * О продукте.
+ * @member {String} about
+ */
+InlineResponse2008.prototype['about'] = undefined;
+
+/**
+ * Описание
+ * @member {String} description
+ */
+InlineResponse2008.prototype['description'] = undefined;
+
+/**
+ * Цена.
+ * @member {String} price
+ */
+InlineResponse2008.prototype['price'] = undefined;
+
+/**
+ * Доступность.
+ * @member {String} availability
+ */
+InlineResponse2008.prototype['availability'] = undefined;
+
+/**
+ * Детали.
+ * @member {String} detail
+ */
+InlineResponse2008.prototype['detail'] = undefined;
+
+/**
+ * ASIN
+ * @member {String} asin
+ */
+InlineResponse2008.prototype['asin'] = undefined;
+
+/**
+ * BSR
+ * @member {String} bsr
+ */
+InlineResponse2008.prototype['bsr'] = undefined;
+
+/**
+ * Вес.
+ * @member {String} weight
+ */
+InlineResponse2008.prototype['weight'] = undefined;
 
 
 

@@ -12,7 +12,7 @@ import {texts} from '@constants/texts'
 
 import {Field} from '@components/field'
 
-import {checkIsClient} from '@utils/checks'
+import {checkIsClient, checkIsSupervisor} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './fields-and-suppliers.style'
@@ -27,7 +27,12 @@ export const FieldsAndSuppliers = observer(
       <Grid item xs={12}>
         <Box className={classNames.productFieldBox}>
           <Field disabled label={textConsts.fieldAsin} value={product.id} onChange={onChangeField('asin')} />
-          <Field label={textConsts.fieldLinkAmazon} value={product.lamazon} onChange={onChangeField('lamazon')} />
+          <Field
+            disabled
+            label={textConsts.fieldLinkAmazon}
+            value={product.lamazon}
+            onChange={onChangeField('lamazon')}
+          />
           <Box className={classNames.productCheckboxBox} mb={2.5}>
             <Typography className={(classNames.label, classNames.typoCheckbox)}>{textConsts.checkboxFba}</Typography>
 
@@ -37,7 +42,7 @@ export const FieldsAndSuppliers = observer(
               onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
             />
           </Box>
-          {!checkIsClient(curUserRole) ? (
+          {!(checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) ? (
             <Container disableGutters className={classNames.supplierContainer}>
               <IconButton className={classNames.iconBtn} onClick={() => onClickSupplierBtns('add')}>
                 <AddIcon />

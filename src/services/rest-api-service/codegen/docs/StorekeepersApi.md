@@ -5,10 +5,6 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1StorekeepersBatchesGet**](StorekeepersApi.md#apiV1StorekeepersBatchesGet) | **GET** /api/v1/storekeepers/batches | # Получить партии....
-[**apiV1StorekeepersBoxesGuidPatch**](StorekeepersApi.md#apiV1StorekeepersBoxesGuidPatch) | **PATCH** /api/v1/storekeepers/boxes/{guid} | # Изменить коробку с товаром.
-[**apiV1StorekeepersBoxesMyGet**](StorekeepersApi.md#apiV1StorekeepersBoxesMyGet) | **GET** /api/v1/storekeepers/boxes/my | # Получить коробки закрепленные за данным сборщиком..
-[**apiV1StorekeepersBoxesPickupGuidPost**](StorekeepersApi.md#apiV1StorekeepersBoxesPickupGuidPost) | **POST** /api/v1/storekeepers/boxes/pickup/{guid} | # Закрепить коробку за сборщиками.
-[**apiV1StorekeepersBoxesVacGet**](StorekeepersApi.md#apiV1StorekeepersBoxesVacGet) | **GET** /api/v1/storekeepers/boxes/vac | # Получить коробки не закрепленные за сборщиками.
 [**apiV1StorekeepersTasksGuidPatch**](StorekeepersApi.md#apiV1StorekeepersTasksGuidPatch) | **PATCH** /api/v1/storekeepers/tasks/{guid} | # Изменить задачу.
 [**apiV1StorekeepersTasksMyGet**](StorekeepersApi.md#apiV1StorekeepersTasksMyGet) | **GET** /api/v1/storekeepers/tasks/my | # Получить задачи закрепленные за данным сборщиком..
 [**apiV1StorekeepersTasksPickupGuidPost**](StorekeepersApi.md#apiV1StorekeepersTasksPickupGuidPost) | **POST** /api/v1/storekeepers/tasks/pickup/{guid} | # Закрепить задачу за сборщиком.
@@ -18,7 +14,7 @@ Method | HTTP request | Description
 
 ## apiV1StorekeepersBatchesGet
 
-> [Object] apiV1StorekeepersBatchesGet(opts)
+> [InlineResponse2006] apiV1StorekeepersBatchesGet(opts)
 
 # Получить партии....
 
@@ -56,221 +52,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/html
-
-
-## apiV1StorekeepersBoxesGuidPatch
-
-> InlineResponse201 apiV1StorekeepersBoxesGuidPatch(guid, opts)
-
-# Изменить коробку с товаром.
-
-## Изменить коробку с товаром.  ## Выборка идет по GUID коробки и кладовщика/сборщика, кто ее подобрал. Нельзя отредактировать чужую коробку.  
-
-### Example
-
-```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new Amazonapi.StorekeepersApi();
-let guid = "guid_example"; // String | GUID коробки, которую мы хотим изменить
-let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject15': new Amazonapi.InlineObject15() // InlineObject15 | 
-};
-apiInstance.apiV1StorekeepersBoxesGuidPatch(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID коробки, которую мы хотим изменить | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject15** | [**InlineObject15**](InlineObject15.md)|  | [optional] 
-
-### Return type
-
-[**InlineResponse201**](InlineResponse201.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: text/html
-
-
-## apiV1StorekeepersBoxesMyGet
-
-> [Object] apiV1StorekeepersBoxesMyGet(opts)
-
-# Получить коробки закрепленные за данным сборщиком..
-
-## Получить коробки закрепленные за данным сборщиком.  
-
-### Example
-
-```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new Amazonapi.StorekeepersApi();
-let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
-};
-apiInstance.apiV1StorekeepersBoxesMyGet(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
-
-### Return type
-
-**[Object]**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/html
-
-
-## apiV1StorekeepersBoxesPickupGuidPost
-
-> Null apiV1StorekeepersBoxesPickupGuidPost(guid, opts)
-
-# Закрепить коробку за сборщиками.
-
-## Закрепить коробку за сборщиками.   
-
-### Example
-
-```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new Amazonapi.StorekeepersApi();
-let guid = "guid_example"; // String | GUID коробки, которую мы хотим изменить
-let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
-};
-apiInstance.apiV1StorekeepersBoxesPickupGuidPost(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID коробки, которую мы хотим изменить | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
-
-### Return type
-
-[**Null**](Null.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/html
-
-
-## apiV1StorekeepersBoxesVacGet
-
-> [Object] apiV1StorekeepersBoxesVacGet(opts)
-
-# Получить коробки не закрепленные за сборщиками.
-
-## Получить коробки не закрепленные за сборщиками.   
-
-### Example
-
-```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new Amazonapi.StorekeepersApi();
-let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
-};
-apiInstance.apiV1StorekeepersBoxesVacGet(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
-
-### Return type
-
-**[Object]**
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -284,7 +66,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksGuidPatch
 
-> Null apiV1StorekeepersTasksGuidPatch(guid, InlineObject16, opts)
+> Null apiV1StorekeepersTasksGuidPatch(guid, InlineObject21, opts)
 
 # Изменить задачу.
 
@@ -303,11 +85,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new Amazonapi.StorekeepersApi();
 let guid = "guid_example"; // String | GUID задачи, которую мы хотим изменить
-let InlineObject16 = new Amazonapi.InlineObject16(); // InlineObject16 | 
+let InlineObject21 = new Amazonapi.InlineObject21(); // InlineObject21 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1StorekeepersTasksGuidPatch(guid, InlineObject16, opts).then((data) => {
+apiInstance.apiV1StorekeepersTasksGuidPatch(guid, InlineObject21, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -321,7 +103,7 @@ apiInstance.apiV1StorekeepersTasksGuidPatch(guid, InlineObject16, opts).then((da
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID задачи, которую мы хотим изменить | 
- **InlineObject16** | [**InlineObject16**](InlineObject16.md)|  | 
+ **InlineObject21** | [**InlineObject21**](InlineObject21.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
@@ -340,7 +122,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksMyGet
 
-> [Object] apiV1StorekeepersTasksMyGet(opts)
+> [InlineResponse20010] apiV1StorekeepersTasksMyGet(opts)
 
 # Получить задачи закрепленные за данным сборщиком..
 
@@ -378,7 +160,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse20010]**](InlineResponse20010.md)
 
 ### Authorization
 
@@ -446,7 +228,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksVacGet
 
-> [Object] apiV1StorekeepersTasksVacGet(opts)
+> [InlineResponse20010] apiV1StorekeepersTasksVacGet(opts)
 
 # Получить задачи не закрепленные за сотрудниками склада.
 
@@ -484,7 +266,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Object]**
+[**[InlineResponse20010]**](InlineResponse20010.md)
 
 ### Authorization
 

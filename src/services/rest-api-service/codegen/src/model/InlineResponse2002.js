@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesItems from './ApiV1BoxesItems';
 
 /**
  * The InlineResponse2002 model module.
@@ -134,17 +135,17 @@ class InlineResponse2002 {
             if (data.hasOwnProperty('lastModifiedBy')) {
                 obj['lastModifiedBy'] = ApiClient.convertToType(data['lastModifiedBy'], 'String');
             }
-            if (data.hasOwnProperty('ordersId')) {
-                obj['ordersId'] = ApiClient.convertToType(data['ordersId'], Object);
-            }
-            if (data.hasOwnProperty('isActual')) {
-                obj['isActual'] = ApiClient.convertToType(data['isActual'], 'Boolean');
-            }
             if (data.hasOwnProperty('scheduledDispatchDate')) {
                 obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'Date');
             }
             if (data.hasOwnProperty('factDispatchDate')) {
                 obj['factDispatchDate'] = ApiClient.convertToType(data['factDispatchDate'], 'Date');
+            }
+            if (data.hasOwnProperty('items')) {
+                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems]);
+            }
+            if (data.hasOwnProperty('isDraft')) {
+                obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
             }
         }
         return obj;
@@ -154,7 +155,7 @@ class InlineResponse2002 {
 }
 
 /**
- * GUID коробки.
+ * GUID коробки в БД
  * @member {String} _id
  */
 InlineResponse2002.prototype['_id'] = undefined;
@@ -328,18 +329,6 @@ InlineResponse2002.prototype['buyerId'] = undefined;
 InlineResponse2002.prototype['lastModifiedBy'] = undefined;
 
 /**
- * Массив GUID ордеров из которых формируется данная коробка.
- * @member {Object} ordersId
- */
-InlineResponse2002.prototype['ordersId'] = undefined;
-
-/**
- * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
- * @member {Boolean} isActual
- */
-InlineResponse2002.prototype['isActual'] = undefined;
-
-/**
  * Запланированная дата отправки.
  * @member {Date} scheduledDispatchDate
  */
@@ -350,6 +339,17 @@ InlineResponse2002.prototype['scheduledDispatchDate'] = undefined;
  * @member {Date} factDispatchDate
  */
 InlineResponse2002.prototype['factDispatchDate'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1BoxesItems>} items
+ */
+InlineResponse2002.prototype['items'] = undefined;
+
+/**
+ * true - если создаем черновик заказа.
+ * @member {Boolean} isDraft
+ */
+InlineResponse2002.prototype['isDraft'] = undefined;
 
 
 

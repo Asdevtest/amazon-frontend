@@ -24,7 +24,7 @@ class AdministratorModelStatic {
   }
 
   pickupProductForCheck = async id => {
-    const response = await restApiService.administratorApi.apiV1AdminsPickupItemGuidPost(id)
+    const response = await restApiService.administratorApi.apiV1AdminsPickupProductGuidPost(id)
     return response
   }
 
@@ -34,7 +34,7 @@ class AdministratorModelStatic {
   }
 
   makePayment = async ids => {
-    const response = await restApiService.administratorApi.apiV1AdminsMakePaymentPost({InlineObject1: ids})
+    const response = await restApiService.administratorApi.apiV1AdminsMakePaymentPost(ids)
     return response
   }
 
@@ -44,7 +44,7 @@ class AdministratorModelStatic {
   }
 
   updateUser = async (id, data) => {
-    const response = await restApiService.administratorApi.apiV1AdminsUsersGuidPatch(id, {InlineObject2: data})
+    const response = await restApiService.administratorApi.apiV1AdminsUsersGuidPatch(id, {InlineObject3: data})
     return response
   }
 

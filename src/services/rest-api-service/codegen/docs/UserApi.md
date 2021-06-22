@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## apiV1UsersInfoGet
 
-> InlineResponse2007 apiV1UsersInfoGet(opts)
+> InlineResponse20011 apiV1UsersInfoGet(opts)
 
 Получить информацию от текущем пользователе.
 
@@ -50,7 +50,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2007**](InlineResponse2007.md)
+[**InlineResponse20011**](InlineResponse20011.md)
 
 ### Authorization
 
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersPost
 
-> InlineResponse2007 apiV1UsersPost(InlineObject20, opts)
+> InlineResponse20011 apiV1UsersPost(InlineObject25, opts)
 
 Создание нового пользователя. Регистрация.
 
@@ -76,11 +76,11 @@ Name | Type | Description  | Notes
 import Amazonapi from 'amazonapi';
 
 let apiInstance = new Amazonapi.UserApi();
-let InlineObject20 = new Amazonapi.InlineObject20(); // InlineObject20 | 
+let InlineObject25 = new Amazonapi.InlineObject25(); // InlineObject25 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1UsersPost(InlineObject20, opts).then((data) => {
+apiInstance.apiV1UsersPost(InlineObject25, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -93,12 +93,12 @@ apiInstance.apiV1UsersPost(InlineObject20, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject20** | [**InlineObject20**](InlineObject20.md)|  | 
+ **InlineObject25** | [**InlineObject25**](InlineObject25.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
 
-[**InlineResponse2007**](InlineResponse2007.md)
+[**InlineResponse20011**](InlineResponse20011.md)
 
 ### Authorization
 
@@ -112,7 +112,7 @@ No authorization required
 
 ## apiV1UsersSignInPost
 
-> InlineResponse2011 apiV1UsersSignInPost(InlineObject21, opts)
+> InlineResponse2012 apiV1UsersSignInPost(InlineObject26, opts)
 
 # Получение токена авторизации.
 
@@ -124,11 +124,11 @@ No authorization required
 import Amazonapi from 'amazonapi';
 
 let apiInstance = new Amazonapi.UserApi();
-let InlineObject21 = new Amazonapi.InlineObject21(); // InlineObject21 | 
+let InlineObject26 = new Amazonapi.InlineObject26(); // InlineObject26 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1UsersSignInPost(InlineObject21, opts).then((data) => {
+apiInstance.apiV1UsersSignInPost(InlineObject26, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -141,12 +141,12 @@ apiInstance.apiV1UsersSignInPost(InlineObject21, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject21** | [**InlineObject21**](InlineObject21.md)|  | 
+ **InlineObject26** | [**InlineObject26**](InlineObject26.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
 
-[**InlineResponse2011**](InlineResponse2011.md)
+[**InlineResponse2012**](InlineResponse2012.md)
 
 ### Authorization
 

@@ -13,10 +13,10 @@
 
 
 import ApiClient from "../ApiClient";
-import InlineObject20 from '../model/InlineObject20';
-import InlineObject21 from '../model/InlineObject21';
-import InlineResponse2007 from '../model/InlineResponse2007';
-import InlineResponse2011 from '../model/InlineResponse2011';
+import InlineObject25 from '../model/InlineObject25';
+import InlineObject26 from '../model/InlineObject26';
+import InlineResponse20011 from '../model/InlineResponse20011';
+import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse403 from '../model/InlineResponse403';
 import InlineResponse404 from '../model/InlineResponse404';
@@ -47,7 +47,7 @@ export default class UserApi {
      * ## Получить информацию от текущем пользователе.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2007} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20011} and HTTP response
      */
     apiV1UsersInfoGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -66,7 +66,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2007;
+      let returnType = InlineResponse20011;
       return this.apiClient.callApi(
         '/api/v1/users/info', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -79,7 +79,7 @@ export default class UserApi {
      * ## Получить информацию от текущем пользователе.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2007}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20011}
      */
     apiV1UsersInfoGet(opts) {
       return this.apiV1UsersInfoGetWithHttpInfo(opts)
@@ -92,17 +92,17 @@ export default class UserApi {
     /**
      * Создание нового пользователя. Регистрация.
      * ## Создание нового пользователя. Регистрация.   
-     * @param {module:model/InlineObject20} InlineObject20 
+     * @param {module:model/InlineObject25} InlineObject25 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2007} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20011} and HTTP response
      */
-    apiV1UsersPostWithHttpInfo(InlineObject20, opts) {
+    apiV1UsersPostWithHttpInfo(InlineObject25, opts) {
       opts = opts || {};
-      let postBody = InlineObject20;
-      // verify the required parameter 'InlineObject20' is set
-      if (InlineObject20 === undefined || InlineObject20 === null) {
-        throw new Error("Missing the required parameter 'InlineObject20' when calling apiV1UsersPost");
+      let postBody = InlineObject25;
+      // verify the required parameter 'InlineObject25' is set
+      if (InlineObject25 === undefined || InlineObject25 === null) {
+        throw new Error("Missing the required parameter 'InlineObject25' when calling apiV1UsersPost");
       }
 
       let pathParams = {
@@ -118,7 +118,7 @@ export default class UserApi {
       let authNames = [];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2007;
+      let returnType = InlineResponse20011;
       return this.apiClient.callApi(
         '/api/v1/users/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -129,13 +129,13 @@ export default class UserApi {
     /**
      * Создание нового пользователя. Регистрация.
      * ## Создание нового пользователя. Регистрация.   
-     * @param {module:model/InlineObject20} InlineObject20 
+     * @param {module:model/InlineObject25} InlineObject25 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2007}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20011}
      */
-    apiV1UsersPost(InlineObject20, opts) {
-      return this.apiV1UsersPostWithHttpInfo(InlineObject20, opts)
+    apiV1UsersPost(InlineObject25, opts) {
+      return this.apiV1UsersPostWithHttpInfo(InlineObject25, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -145,17 +145,17 @@ export default class UserApi {
     /**
      * # Получение токена авторизации.
      * ## Получение токена авторизации.   ## Время жизни токена 96 часов   
-     * @param {module:model/InlineObject21} InlineObject21 
+     * @param {module:model/InlineObject26} InlineObject26 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2012} and HTTP response
      */
-    apiV1UsersSignInPostWithHttpInfo(InlineObject21, opts) {
+    apiV1UsersSignInPostWithHttpInfo(InlineObject26, opts) {
       opts = opts || {};
-      let postBody = InlineObject21;
-      // verify the required parameter 'InlineObject21' is set
-      if (InlineObject21 === undefined || InlineObject21 === null) {
-        throw new Error("Missing the required parameter 'InlineObject21' when calling apiV1UsersSignInPost");
+      let postBody = InlineObject26;
+      // verify the required parameter 'InlineObject26' is set
+      if (InlineObject26 === undefined || InlineObject26 === null) {
+        throw new Error("Missing the required parameter 'InlineObject26' when calling apiV1UsersSignInPost");
       }
 
       let pathParams = {
@@ -171,7 +171,7 @@ export default class UserApi {
       let authNames = [];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2011;
+      let returnType = InlineResponse2012;
       return this.apiClient.callApi(
         '/api/v1/users/sign_in', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -182,13 +182,13 @@ export default class UserApi {
     /**
      * # Получение токена авторизации.
      * ## Получение токена авторизации.   ## Время жизни токена 96 часов   
-     * @param {module:model/InlineObject21} InlineObject21 
+     * @param {module:model/InlineObject26} InlineObject26 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2012}
      */
-    apiV1UsersSignInPost(InlineObject21, opts) {
-      return this.apiV1UsersSignInPostWithHttpInfo(InlineObject21, opts)
+    apiV1UsersSignInPost(InlineObject26, opts) {
+      return this.apiV1UsersSignInPostWithHttpInfo(InlineObject26, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

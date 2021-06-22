@@ -7,6 +7,7 @@ import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {warehouses} from '@constants/warehouses'
 
 import {formatDate} from '@utils/date-time'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-double-click'
 
 import {useClassNames} from './table-body-row.style'
@@ -30,7 +31,11 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.statusCell}>{getOrderStatusOptionByCode(item.status).label}</TableCell>
       <TableCell className={classNames.orderCell}>
         <div className={classNames.order}>
-          <img alt="" src={item.images && item.images[0]} className={classNames.orderImg} />
+          <img
+            alt=""
+            src={item.product.images && item.product.images[0] && getAmazonImageUrl(item.product.images[0])}
+            className={classNames.orderImg}
+          />
           <Box className={classNames.qtyBox}>
             <Typography className={classNames.text}>{item.product.id + ' '}</Typography>
             <Typography className={(classNames.text, classNames.qtyTypo)}>{item.amount}</Typography>

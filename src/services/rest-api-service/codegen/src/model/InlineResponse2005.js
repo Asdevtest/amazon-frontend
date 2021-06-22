@@ -22,21 +22,13 @@ class InlineResponse2005 {
     /**
      * Constructs a new <code>InlineResponse2005</code>.
      * @alias module:model/InlineResponse2005
-     * @param id {String} id продукта(asin)
-     * @param images {Array.<Object>} массив с именами файлов
-     * @param title {String} Заголовок продукта
-     * @param about {String} О продукте.
-     * @param description {String} Описание
-     * @param price {String} Цена.
-     * @param availability {String} Доступность.
-     * @param detail {String} Детали.
-     * @param asin {String} ASIN
-     * @param bsr {String} BSR
-     * @param weight {String} Вес.
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param boxId {String} GUID коробки для которой создана задача
+     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      */
-    constructor(id, images, title, about, description, price, availability, detail, asin, bsr, weight) { 
+    constructor(taskId, boxId, status) { 
         
-        InlineResponse2005.initialize(this, id, images, title, about, description, price, availability, detail, asin, bsr, weight);
+        InlineResponse2005.initialize(this, taskId, boxId, status);
     }
 
     /**
@@ -44,18 +36,10 @@ class InlineResponse2005 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, images, title, about, description, price, availability, detail, asin, bsr, weight) { 
-        obj['id'] = id;
-        obj['images'] = images;
-        obj['title'] = title;
-        obj['about'] = about;
-        obj['description'] = description;
-        obj['price'] = price;
-        obj['availability'] = availability;
-        obj['detail'] = detail;
-        obj['asin'] = asin;
-        obj['bsr'] = bsr;
-        obj['weight'] = weight;
+    static initialize(obj, taskId, boxId, status) { 
+        obj['taskId'] = taskId;
+        obj['boxId'] = boxId;
+        obj['status'] = status;
     }
 
     /**
@@ -69,38 +53,17 @@ class InlineResponse2005 {
         if (data) {
             obj = obj || new InlineResponse2005();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], [Object]);
+            if (data.hasOwnProperty('boxId')) {
+                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
-            if (data.hasOwnProperty('about')) {
-                obj['about'] = ApiClient.convertToType(data['about'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'String');
-            }
-            if (data.hasOwnProperty('availability')) {
-                obj['availability'] = ApiClient.convertToType(data['availability'], 'String');
-            }
-            if (data.hasOwnProperty('detail')) {
-                obj['detail'] = ApiClient.convertToType(data['detail'], 'String');
-            }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
-            }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'String');
-            }
-            if (data.hasOwnProperty('weight')) {
-                obj['weight'] = ApiClient.convertToType(data['weight'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
         }
         return obj;
@@ -110,70 +73,28 @@ class InlineResponse2005 {
 }
 
 /**
- * id продукта(asin)
- * @member {String} id
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
  */
-InlineResponse2005.prototype['id'] = undefined;
+InlineResponse2005.prototype['taskId'] = undefined;
 
 /**
- * массив с именами файлов
- * @member {Array.<Object>} images
+ * GUID коробки для которой создана задача
+ * @member {String} boxId
  */
-InlineResponse2005.prototype['images'] = undefined;
+InlineResponse2005.prototype['boxId'] = undefined;
 
 /**
- * Заголовок продукта
- * @member {String} title
+ * GUID сотрудника склада, который выполняет задачу.
+ * @member {String} storekeeperId
  */
-InlineResponse2005.prototype['title'] = undefined;
+InlineResponse2005.prototype['storekeeperId'] = undefined;
 
 /**
- * О продукте.
- * @member {String} about
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
+ * @member {Number} status
  */
-InlineResponse2005.prototype['about'] = undefined;
-
-/**
- * Описание
- * @member {String} description
- */
-InlineResponse2005.prototype['description'] = undefined;
-
-/**
- * Цена.
- * @member {String} price
- */
-InlineResponse2005.prototype['price'] = undefined;
-
-/**
- * Доступность.
- * @member {String} availability
- */
-InlineResponse2005.prototype['availability'] = undefined;
-
-/**
- * Детали.
- * @member {String} detail
- */
-InlineResponse2005.prototype['detail'] = undefined;
-
-/**
- * ASIN
- * @member {String} asin
- */
-InlineResponse2005.prototype['asin'] = undefined;
-
-/**
- * BSR
- * @member {String} bsr
- */
-InlineResponse2005.prototype['bsr'] = undefined;
-
-/**
- * Вес.
- * @member {String} weight
- */
-InlineResponse2005.prototype['weight'] = undefined;
+InlineResponse2005.prototype['status'] = undefined;
 
 
 

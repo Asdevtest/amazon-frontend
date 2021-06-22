@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guids** | **Array** | Массив GUID которые нужно оплатить. | [optional] 
+**guids** | **[String]** | Массив GUID которые нужно оплатить. | [optional] 
 
 

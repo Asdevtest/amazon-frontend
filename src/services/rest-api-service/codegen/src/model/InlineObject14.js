@@ -22,10 +22,16 @@ class InlineObject14 {
     /**
      * Constructs a new <code>InlineObject14</code>.
      * @alias module:model/InlineObject14
+     * @param amount {Number} Кол-во продукта по этой позиции.
+     * @param deliveryMethod {Number} Код метода доставки.
+     * @param warehouse {Number} Номер склада.
+     * @param clientComment {String} Комментарии клиента.
+     * @param barCode {String} Ссылка на баркод.
+     * @param product {String} GUID заказанного продукта
      */
-    constructor() { 
+    constructor(amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
         
-        InlineObject14.initialize(this);
+        InlineObject14.initialize(this, amount, deliveryMethod, warehouse, clientComment, barCode, product);
     }
 
     /**
@@ -33,7 +39,13 @@ class InlineObject14 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
+        obj['amount'] = amount;
+        obj['deliveryMethod'] = deliveryMethod;
+        obj['warehouse'] = warehouse;
+        obj['clientComment'] = clientComment;
+        obj['barCode'] = barCode;
+        obj['product'] = product;
     }
 
     /**
@@ -47,44 +59,26 @@ class InlineObject14 {
         if (data) {
             obj = obj || new InlineObject14();
 
-            if (data.hasOwnProperty('lamazon')) {
-                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
-            }
-            if (data.hasOwnProperty('lsupplier')) {
-                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
-            }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
-            }
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('supplier')) {
-                obj['supplier'] = ApiClient.convertToType(data['supplier'], 'Number');
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
             }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
             }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
-            if (data.hasOwnProperty('icomment')) {
-                obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = ApiClient.convertToType(data['product'], 'String');
             }
         }
         return obj;
@@ -94,101 +88,47 @@ class InlineObject14 {
 }
 
 /**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
+ * Код текущего состояния заказа.
+ * @member {Number} status
  */
- InlineObject14['StatusEnum'] = {
-
-    /**
-     * value: 0
-     * @const
-     */
-    "0": 0,
-
-    /**
-     * value: 10
-     * @const
-     */
-    "10": 10
-};
+InlineObject14.prototype['status'] = undefined;
 
 /**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lamazon
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
  */
-InlineObject14.prototype['lamazon'] = undefined;
+InlineObject14.prototype['amount'] = undefined;
 
 /**
- * Ссылка на поставщика.
- * @member {String} lsupplier
+ * Код метода доставки.
+ * @member {Number} deliveryMethod
  */
-InlineObject14.prototype['lsupplier'] = undefined;
+InlineObject14.prototype['deliveryMethod'] = undefined;
 
 /**
- * @member {Number} bsr
+ * Номер склада.
+ * @member {Number} warehouse
  */
-InlineObject14.prototype['bsr'] = undefined;
+InlineObject14.prototype['warehouse'] = undefined;
 
 /**
- *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
- * @member {module:model/InlineObject14.StatusEnum} status
- * @default StatusEnum.0
+ * Комментарии клиента.
+ * @member {String} clientComment
  */
-InlineObject14.prototype['status'] = InlineObject14.StatusEnum[0];
+InlineObject14.prototype['clientComment'] = undefined;
 
 /**
- * @member {Number} amazon
+ * Ссылка на баркод.
+ * @member {String} barCode
  */
-InlineObject14.prototype['amazon'] = undefined;
+InlineObject14.prototype['barCode'] = undefined;
 
 /**
- * Код поставщика
- * @member {Number} supplier
+ * GUID заказанного продукта
+ * @member {String} product
  */
-InlineObject14.prototype['supplier'] = undefined;
+InlineObject14.prototype['product'] = undefined;
 
-/**
- * ФБА комиссия
- * @member {Number} fbafee
- */
-InlineObject14.prototype['fbafee'] = undefined;
-
-/**
- * REF) комиссия
- * @member {Number} reffee
- */
-InlineObject14.prototype['reffee'] = undefined;
-
-/**
- * Стоимость доставки.
- * @member {Number} delivery
- */
-InlineObject14.prototype['delivery'] = undefined;
-
-/**
- * Комментарии к товару.
- * @member {String} icomment
- */
-InlineObject14.prototype['icomment'] = undefined;
-
-/**
- * Признак fba
- * @member {Boolean} fba
- */
-InlineObject14.prototype['fba'] = undefined;
-
-/**
- * Прибыль
- * @member {Number} profit
- */
-InlineObject14.prototype['profit'] = undefined;
-
-/**
- * Маржа
- * @member {Number} margin
- */
-InlineObject14.prototype['margin'] = undefined;
 
 
 

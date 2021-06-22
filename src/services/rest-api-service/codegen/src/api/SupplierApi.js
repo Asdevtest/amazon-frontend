@@ -13,13 +13,14 @@
 
 
 import ApiClient from "../ApiClient";
-import InlineObject18 from '../model/InlineObject18';
-import InlineObject19 from '../model/InlineObject19';
-import InlineResponse2006 from '../model/InlineResponse2006';
-import InlineResponse201 from '../model/InlineResponse201';
+import ApiV1AdminsGetNotPaidProductsSupplier from '../model/ApiV1AdminsGetNotPaidProductsSupplier';
+import InlineObject23 from '../model/InlineObject23';
+import InlineObject24 from '../model/InlineObject24';
+import InlineResponse2011 from '../model/InlineResponse2011';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse500 from '../model/InlineResponse500';
+import Null from '../model/Null';
 
 /**
 * Supplier service.
@@ -46,7 +47,7 @@ export default class SupplierApi {
      * ## Получить список поставщиков.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsGetNotPaidProductsSupplier>} and HTTP response
      */
     apiV1SuppliersGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -65,7 +66,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [Object];
+      let returnType = [ApiV1AdminsGetNotPaidProductsSupplier];
       return this.apiClient.callApi(
         '/api/v1/suppliers/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -78,7 +79,7 @@ export default class SupplierApi {
      * ## Получить список поставщиков.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsGetNotPaidProductsSupplier>}
      */
     apiV1SuppliersGet(opts) {
       return this.apiV1SuppliersGetWithHttpInfo(opts)
@@ -94,7 +95,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
      */
     apiV1SuppliersGuidDeleteWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -118,7 +119,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = InlineResponse201;
+      let returnType = InlineResponse2011;
       return this.apiClient.callApi(
         '/api/v1/suppliers/{guid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -132,7 +133,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
      */
     apiV1SuppliersGuidDelete(guid, opts) {
       return this.apiV1SuppliersGuidDeleteWithHttpInfo(guid, opts)
@@ -148,7 +149,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2006} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsGetNotPaidProductsSupplier} and HTTP response
      */
     apiV1SuppliersGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -172,7 +173,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2006;
+      let returnType = ApiV1AdminsGetNotPaidProductsSupplier;
       return this.apiClient.callApi(
         '/api/v1/suppliers/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -186,7 +187,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2006}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsGetNotPaidProductsSupplier}
      */
     apiV1SuppliersGuidGet(guid, opts) {
       return this.apiV1SuppliersGuidGetWithHttpInfo(guid, opts)
@@ -202,12 +203,12 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject19} opts.InlineObject19 
+     * @param {module:model/InlineObject24} opts.InlineObject24 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
      */
     apiV1SuppliersGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject19'];
+      let postBody = opts['InlineObject24'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1SuppliersGuidPatch");
@@ -227,7 +228,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = null;
+      let returnType = Null;
       return this.apiClient.callApi(
         '/api/v1/suppliers/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -241,7 +242,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject19} opts.InlineObject19 
+     * @param {module:model/InlineObject24} opts.InlineObject24 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
      */
     apiV1SuppliersGuidPatch(guid, opts) {
@@ -257,12 +258,12 @@ export default class SupplierApi {
      * ## Добавить нового поставщика.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject18} opts.InlineObject18 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
+     * @param {module:model/InlineObject23} opts.InlineObject23 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
      */
     apiV1SuppliersPostWithHttpInfo(opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject18'];
+      let postBody = opts['InlineObject23'];
 
       let pathParams = {
       };
@@ -277,7 +278,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = InlineResponse201;
+      let returnType = InlineResponse2011;
       return this.apiClient.callApi(
         '/api/v1/suppliers/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -290,8 +291,8 @@ export default class SupplierApi {
      * ## Добавить нового поставщика.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject18} opts.InlineObject18 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
+     * @param {module:model/InlineObject23} opts.InlineObject23 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
      */
     apiV1SuppliersPost(opts) {
       return this.apiV1SuppliersPostWithHttpInfo(opts)

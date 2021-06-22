@@ -1,15 +1,27 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {ClientModel} from '@models/client-model'
 
 import {copyToClipBoard} from '@utils/clipboard'
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+
+const fieldsOfProductAllowedToUpdate = [
+  'dirdecision',
+  'researcherFine',
+  'researcherFineComment',
+  'supervisorFine',
+  'supervisorFineComment',
+  'barCode',
+]
 
 export class ClientInventoryViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
+  actionStatus = undefined
 
   productsMy = []
   drawerOpen = false
@@ -36,9 +48,9 @@ export class ClientInventoryViewModel {
 
   async getProductsPaid() {
     try {
-      const result = await ClientModel.getProductsMy()
+      const result = await ClientModel.getProductsPaid()
       runInAction(() => {
-        this.productsMy = result
+        this.productsMy = result.sort(sortObjectsArrayByFiledDate('checkedat'))
       })
     } catch (error) {
       console.log(error)
@@ -48,7 +60,31 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onClickSaveBarcode = () => {}
+  async onClickSaveBarcode(barCode) {
+    await this.onSaveProductData(this.selectedProduct._id, {barCode})
+    this.onTriggerShowBarcodeModal()
+    this.selectedProduct = undefined
+  }
+
+  async onSaveProductData(productId, updateProductData) {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+      const updateProductDataFiltered = getObjectFilteredByKeyArrayWhiteList(
+        toJS(updateProductData),
+        fieldsOfProductAllowedToUpdate,
+        true,
+      )
+      console.log('updateProductData ', updateProductDataFiltered)
+      await ClientModel.updateProduct(productId, updateProductDataFiltered)
+      this.setActionStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log(error)
+      this.setActionStatus(loadingStatuses.failed)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
 
   onClickBarcode = item => {
     if (item.barCode) {
@@ -91,5 +127,9 @@ export class ClientInventoryViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  setActionStatus(actionStatus) {
+    this.actionStatus = actionStatus
   }
 }

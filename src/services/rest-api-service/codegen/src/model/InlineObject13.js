@@ -22,20 +22,10 @@ class InlineObject13 {
     /**
      * Constructs a new <code>InlineObject13</code>.
      * @alias module:model/InlineObject13
-     * @param id {String} ASIN продукта
-     * @param lamazon {String} Ссылка на этот продукт на амазоне.
-     * @param lsupplier {String} Ссылка на поставщика.
-     * @param bsr {Number} 
-     * @param amazon {Number} 
-     * @param supplier {Number} Код поставщика
-     * @param fbafee {Number} ФБА комиссия
-     * @param delivery {Number} Стоимость доставки.
-     * @param icomment {String} Комментарии к товару.
-     * @param images {Array} 
      */
-    constructor(id, lamazon, lsupplier, bsr, amazon, supplier, fbafee, delivery, icomment, images) { 
+    constructor() { 
         
-        InlineObject13.initialize(this, id, lamazon, lsupplier, bsr, amazon, supplier, fbafee, delivery, icomment, images);
+        InlineObject13.initialize(this);
     }
 
     /**
@@ -43,17 +33,7 @@ class InlineObject13 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, lamazon, lsupplier, bsr, amazon, supplier, fbafee, delivery, icomment, images) { 
-        obj['id'] = id;
-        obj['lamazon'] = lamazon;
-        obj['lsupplier'] = lsupplier;
-        obj['bsr'] = bsr;
-        obj['amazon'] = amazon;
-        obj['supplier'] = supplier;
-        obj['fbafee'] = fbafee;
-        obj['delivery'] = delivery;
-        obj['icomment'] = icomment;
-        obj['images'] = images;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,38 +47,8 @@ class InlineObject13 {
         if (data) {
             obj = obj || new InlineObject13();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
-            }
-            if (data.hasOwnProperty('lamazon')) {
-                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
-            }
-            if (data.hasOwnProperty('lsupplier')) {
-                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
-            }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
-            }
-            if (data.hasOwnProperty('supplier')) {
-                obj['supplier'] = ApiClient.convertToType(data['supplier'], 'Number');
-            }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('icomment')) {
-                obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], Array);
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
             }
         }
         return obj;
@@ -108,88 +58,10 @@ class InlineObject13 {
 }
 
 /**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
+ * массив GUIDов оплаченных товаров
+ * @member {Array.<String>} guids
  */
- InlineObject13['StatusEnum'] = {
-
-    /**
-     * value: 0
-     * @const
-     */
-    "0": 0,
-
-    /**
-     * value: 10
-     * @const
-     */
-    "10": 10
-};
-
-/**
- * ASIN продукта
- * @member {String} id
- */
-InlineObject13.prototype['id'] = undefined;
-
-/**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lamazon
- */
-InlineObject13.prototype['lamazon'] = undefined;
-
-/**
- * Ссылка на поставщика.
- * @member {String} lsupplier
- */
-InlineObject13.prototype['lsupplier'] = undefined;
-
-/**
- * @member {Number} bsr
- */
-InlineObject13.prototype['bsr'] = undefined;
-
-/**
- *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
- * @member {module:model/InlineObject13.StatusEnum} status
- * @default StatusEnum.0
- */
-InlineObject13.prototype['status'] = InlineObject13.StatusEnum[0];
-
-/**
- * @member {Number} amazon
- */
-InlineObject13.prototype['amazon'] = undefined;
-
-/**
- * Код поставщика
- * @member {Number} supplier
- */
-InlineObject13.prototype['supplier'] = undefined;
-
-/**
- * ФБА комиссия
- * @member {Number} fbafee
- */
-InlineObject13.prototype['fbafee'] = undefined;
-
-/**
- * Стоимость доставки.
- * @member {Number} delivery
- */
-InlineObject13.prototype['delivery'] = undefined;
-
-/**
- * Комментарии к товару.
- * @member {String} icomment
- */
-InlineObject13.prototype['icomment'] = undefined;
-
-/**
- * @member {Array} images
- */
-InlineObject13.prototype['images'] = undefined;
+InlineObject13.prototype['guids'] = undefined;
 
 
 
