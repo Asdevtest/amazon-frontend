@@ -14,4 +14,7 @@ export const styles = createStyles(theme => ({
   mr2: {
     marginRight: theme.spacing(2),
   },
+  editBtn: {
+    marginRight: '8px',
+  },
 }))

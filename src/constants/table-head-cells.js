@@ -99,25 +99,6 @@ export const BUYER_FREE_ORDERS_MODAL_HEAD_CELLS = [
   'Комментарий байера',
 ]
 
-export const ADMIN_PRODUCTS_HEAD_CELLS = [
-  {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},
-  {id: 'price', align: 'right', disablePadding: false, label: 'Price'},
-  {id: 'fees', align: 'left', disablePadding: false, label: 'Fees & Net'},
-  {id: 'supplier', align: 'left', disablePadding: false, label: 'Supplier'},
-  {id: 'supervisor', align: 'left', disablePadding: false, label: 'Supervisor'},
-  {id: 'researcher', align: 'left', disablePadding: false, label: 'Researcher'},
-  {id: 'buyer', align: 'left', disablePadding: false, label: 'Buyer'},
-  {id: 'rank', align: 'right', disablePadding: false, label: 'Rank'},
-  {id: 'rating', align: 'center', disablePadding: false, label: 'Rating'},
-  {id: 'sales', align: 'right', disablePadding: false, label: 'Sales'},
-  {id: 'salersTotal', align: 'center', disablePadding: false, label: 'Salers total'},
-  {id: 'type', align: 'right', disablePadding: false, label: 'Type'},
-  {id: 'revenue', align: 'right', disablePadding: false, label: 'Revenue'},
-  {id: 'amazonPrice', align: 'right', disablePadding: false, label: 'Amazon $'},
-  {id: 'bsr', align: 'right', disablePadding: false, label: 'BSR'},
-  {id: 'fba', align: 'right', disablePadding: false, label: 'FBA'},
-  {id: 'Штрих код', align: 'right', disablePadding: false, label: 'Barcode'},
-]
 export const ADMIN_ORDERS_HEAD_CELL = [
   'Заказы',
   'Штрих-код',
@@ -130,11 +111,17 @@ export const ADMIN_ORDERS_HEAD_CELL = [
   'Трек номер',
 ]
 
-export const ADMIN_SUB_USERS_TABLE_CELLS = [
-  {id: 'created', label: 'Created'},
-  {id: 'email', label: 'Email'},
-  {id: 'bu', label: 'Bussines unit'},
-  {id: 'admin', label: 'Admin'},
+export const BUYER_PRODUCTS_HEAD_CELLS = [
+  {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},
+  {id: 'price', align: 'right', disablePadding: false, label: 'Price'},
+  {id: 'fees', align: 'left', disablePadding: false, label: 'Fees & Net'},
+  {id: 'rank', align: 'right', disablePadding: false, label: 'Rank'},
+  {id: 'rating', align: 'center', disablePadding: false, label: 'Rating'},
+  {id: 'sales', align: 'right', disablePadding: false, label: 'Sales'},
+  {id: 'salersTotal', align: 'center', disablePadding: false, label: 'Salers total'},
+  {id: 'type', align: 'right', disablePadding: false, label: 'Type'},
+  {id: 'revenue', align: 'right', disablePadding: false, label: 'Revenue'},
+  {id: 'amazonPrice', align: 'right', disablePadding: false, label: 'Amazon $'},
+  {id: 'bsr', align: 'right', disablePadding: false, label: 'BSR'},
+  {id: 'fba', align: 'right', disablePadding: false, label: 'FBA'},
 ]
-
-export const BUYER_PRODUCTS_HEAD_CELLS = []

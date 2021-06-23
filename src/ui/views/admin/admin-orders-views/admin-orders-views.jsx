@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 
-import {Typography, Container} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {ADMIN_ORDERS_HEAD_CELL} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -15,52 +15,53 @@ import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {Navbar} from '@components/navbar'
-import {Table} from '@components/table'
-import {TableBodyRow} from '@components/table-rows/client/orders-views/orders/table-body-row'
-import {TableHeadRow} from '@components/table-rows/client/orders-views/orders/table-head-row'
+import {adminOrdersViewColumns} from '@components/table-columns/admin/orders-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/adminAvatar.jpg'
-import {AdminOrdersAllViewModel} from './admin-orders-all-view.model'
-import {styles} from './admin-orders-all-view.style'
+import avatar from '../assets/adminAvatar.jpg'
+import {AdminOrdersAllViewModel} from './admin-orders-views.model'
+import {styles} from './admin-orders-views.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').adminOrdersView
 
 const navbarActiveCategory = 3
-const navbarActiveSubCategory = 0
 
 @observer
-class AdminOrdersAllViewRaw extends Component {
+class AdminOrdersViewsRaw extends Component {
   viewModel = new AdminOrdersAllViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getOrders()
+    this.viewModel.loadData()
   }
 
   render() {
     const {
-      ordersData,
+      getCurrentData,
       drawerOpen,
       modalBarcode,
       rowsPerPage,
       curPage,
+      activeSubCategory,
       onTriggerBarcodeModal,
       onChangeDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
+      onSelectionModel,
+      onChangeSubCategory,
     } = this.viewModel
-    const {classes: className} = this.props
+    const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
         <Navbar
           curUserRole={UserRole.ADMIN}
           activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
+          activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeDrawerOpen}
           user={textConsts.appUser}
+          onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
           <Appbar
@@ -72,21 +73,29 @@ class AdminOrdersAllViewRaw extends Component {
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
-              <div className={className.tableWrapper}>
-                <Table
-                  buttons={this.renderButtons}
-                  currentPage={curPage}
-                  data={ordersData}
-                  handlerPageChange={onChangeCurPage}
-                  handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(ordersData.length / rowsPerPage)}
-                  BodyRow={TableBodyRow}
-                  renderHeadRow={this.renderHeadRow}
-                  rowsPerPage={rowsPerPage}
-                  rowsHandlers={{
-                    onClickBarcode: onTriggerBarcodeModal,
+              <div className={classNames.tableWrapper}>
+                <DataGrid
+                  autoHeight
+                  pagination
+                  checkboxSelection
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 20]}
+                  rows={getCurrentData()}
+                  components={{
+                    Toolbar: GridToolbar,
                   }}
+                  filterModel={{
+                    items: [{columnField: 'warehouse', operatorValue: '', value: ''}],
+                  }}
+                  columns={adminOrdersViewColumns()}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection.selectionModel[0])
+                  }}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
                 />
+                <div className={classNames.buttonsWrapper}>{this.renderButtons}</div>
               </div>
             </MainContent>
           </Appbar>
@@ -100,12 +109,10 @@ class AdminOrdersAllViewRaw extends Component {
   }
 
   renderButtons = (
-    <Container className={this.props.classes.buttonWrapper}>
+    <div className={this.props.classes.buttonWrapper}>
       <Button color="secondary">{textConsts.ordersBtn}</Button>
-    </Container>
+    </div>
   )
-
-  renderHeadRow = (<TableHeadRow headCells={ADMIN_ORDERS_HEAD_CELL} />)
 }
 
-export const AdminOrdersAllView = withStyles(styles)(AdminOrdersAllViewRaw)
+export const AdminOrdersViews = withStyles(styles)(AdminOrdersViewsRaw)

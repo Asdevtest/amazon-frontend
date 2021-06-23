@@ -42,7 +42,9 @@ export const ProductsBodyRow = ({item, itemIndex, handlers}) => {
           </div>
         </div>
       </TableCell>
+
       <TableCell className={classNames.priceTableCell}>{toFixedWithDollarSign(item.price)}</TableCell>
+
       <TableCell className={classNames.feesTableCell}>
         <div>
           <Typography className={classNames.typoCell}>
@@ -62,18 +64,28 @@ export const ProductsBodyRow = ({item, itemIndex, handlers}) => {
           </Button>
         </div>
       </TableCell>
+
       <TableCell className={classNames.supplierCell}>{item.supplier[0].name}</TableCell>
+
       <TableCell className={classNames.supervisorCell}>{item.supervisor.name}</TableCell>
+
       <TableCell className={classNames.researcherCell}>{item.researcher.name}</TableCell>
+
       <TableCell className={classNames.buyerCell}>{item.buyer.name}</TableCell>
+
       <TableCell className={classNames.rankTableCell}>{'#' + item.rank}</TableCell>
+
       <TableCell className={classNames.ratingTableCell}>
         <StarRating rating={item.rating} />
         <Typography className={classNames.rankTypoReviews}>23.45 reviews</Typography>
       </TableCell>
+
       <TableCell className={classNames.salesCell}>{item.sales}</TableCell>
+
       <TableCell className={classNames.salersTotal}>{item.salersTotal}</TableCell>
+
       <TableCell className={classNames.salersTotal}>{item.type}</TableCell>
+
       <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.revenue)}</TableCell>
       <TableCell className={classNames.amazonCell}>{toFixedWithDollarSign(item.amazonPrice)}</TableCell>
       <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.bsr)}</TableCell>
