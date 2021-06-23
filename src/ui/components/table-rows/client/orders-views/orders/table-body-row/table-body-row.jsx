@@ -24,9 +24,11 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
       <TableCell className={classNames.count}>
         <Typography>{itemIndex + 1}</Typography>
       </TableCell>
+
       <TableCell padding="checkbox">
         <Checkbox />
       </TableCell>
+
       <TableCell>
         <div className={classNames.order}>
           <img
@@ -43,6 +45,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
           </div>
         </div>
       </TableCell>
+
       <TableCell>
         <Chip
           className={clsx(
@@ -72,9 +75,11 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
       <TableCell>
         <Typography>{item.amount}</Typography>
       </TableCell>
+
       <TableCell>
         <Typography>{warehouses[item.warehouse]}</Typography>
       </TableCell>
+
       <TableCell>
         {!item.boxId ? (
           <Button size="small">{textConsts.distributeBtn}</Button>
@@ -91,12 +96,15 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
           </Box>
         )}
       </TableCell>
+
       <TableCell>
         <Typography>{toFixedWithDollarSign(item.product.delivery + item.product.amazon * item.amount)}</Typography>
       </TableCell>
+
       <TableCell>
         <Typography>{toFixedWithKg(item.weight)}</Typography>
       </TableCell>
+
       <TableCell>
         {item.grossWeight ? (
           <Typography>{toFixedWithKg(item.grossWeight)}</Typography>
@@ -106,6 +114,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
           </Tooltip>
         )}
       </TableCell>
+
       <TableCell>
         <Typography>{item.trackId}</Typography>
       </TableCell>

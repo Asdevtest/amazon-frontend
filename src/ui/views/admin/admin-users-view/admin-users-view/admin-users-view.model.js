@@ -1,7 +1,7 @@
-/* eslint-disable no-unused-vars */
 import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {ADMIN_USERS_INITIAL_DATA} from '@constants/mocks'
 
 import {AdministratorModel} from '@models/administrator-model'
 
@@ -12,13 +12,13 @@ export class AdminUsersViewModel {
   requestStatus = undefined
   error = undefined
 
-  users = []
+  users = [...ADMIN_USERS_INITIAL_DATA]
+  editUserFormFields = undefined
+  selectionModel = undefined
 
   drawerOpen = false
-  curPage = 1
+  curPage = 0
   rowsPerPage = 5
-  selectedUser = undefined
-  editUserFormFields = undefined
   showEditUserModal = false
   showPermissionModal = false
 
@@ -27,9 +27,15 @@ export class AdminUsersViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  onClickEditUser(user) {
-    this.selectedUser = user
-    this.editUserFormFields = {...user}
+  getCurrentData() {
+    return toJS(this.users)
+  }
+
+  onSelectionModel(model) {
+    this.selectionModel = model
+  }
+
+  onClickEditUser() {
     this.showEditUserModal = !this.showEditUserModal
   }
 
@@ -50,12 +56,11 @@ export class AdminUsersViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = Number(e.target.textContent)
+    this.curPage = e.page
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = Number(e.target.value)
-    this.curPage = 1
+    this.rowsPerPage = e.pageSize
   }
 
   setRequestStatus(requestStatus) {
@@ -72,9 +77,13 @@ export class AdminUsersViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
       const result = await AdministratorModel.getUsers()
+
+      const usersData = result.map(user => ({...getObjectFilteredByKeyArrayBlackList(user, ['_id']), id: user._id}))
+
       runInAction(() => {
-        this.users = result
+        this.users = usersData
       })
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -88,7 +97,7 @@ export class AdminUsersViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
       const data = getObjectFilteredByKeyArrayBlackList(this.editUserFormFields, ['_id'])
-      await AdministratorModel.updateUser(this.selectedUser._id, data)
+      await AdministratorModel.updateUser(this.selectionModel, data)
       const result = await AdministratorModel.getUsers()
       runInAction(() => {
         this.users = result

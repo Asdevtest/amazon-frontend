@@ -1,8 +1,8 @@
 import {Component} from 'react'
 
-import { observer } from 'mobx-react'
 import {Button, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
 import {adminUsername, ADMIN_BALANCE_HISTORY_DATA, clientBalance} from '@constants/mocks'
 import {texts} from '@constants/texts'
@@ -25,10 +25,10 @@ import {styles} from './admin-user-balance-view.style'
 const textConsts = getLocalizedTexts(texts, 'en').adminUserBalanceView
 const navbarActiveCategory = 6
 const user = {
-    id: '60aabd92b2f06d5a147ba007',
-    name: "researcher1",
-    email: 'researcher1@gmail.com',
-  }
+  id: '60aabd92b2f06d5a147ba007',
+  name: 'researcher1',
+  email: 'researcher1@gmail.com',
+}
 @observer
 class AdminUserBalanceViewRaw extends Component {
   viewModel = new AdminUserBalanceViewModel({history: this.props.history})
@@ -39,7 +39,7 @@ class AdminUserBalanceViewRaw extends Component {
 
   render() {
     const {
-      drawerOpen,      
+      drawerOpen,
       showReplenishModal,
       showWithdrawModal,
       makePayment,
@@ -84,10 +84,15 @@ class AdminUserBalanceViewRaw extends Component {
           </Appbar>
         </Main>
         <Modal openModal={showReplenishModal} setOpenModal={onTriggerReplenishModal}>
-          <AdminBalanceModal user={user} onTriggerParentModal={onTriggerReplenishModal} onSubmit={makePayment}/>
+          <AdminBalanceModal user={user} onTriggerParentModal={onTriggerReplenishModal} onSubmit={makePayment} />
         </Modal>
         <Modal openModal={showWithdrawModal} setOpenModal={onTriggerWithdrawModal}>
-          <AdminBalanceModal isWithdraw user={user} onTriggerParentModal={onTriggerWithdrawModal} onSubmit={makePayment}/>
+          <AdminBalanceModal
+            isWithdraw
+            user={user}
+            onTriggerParentModal={onTriggerWithdrawModal}
+            onSubmit={makePayment}
+          />
         </Modal>
       </>
     )

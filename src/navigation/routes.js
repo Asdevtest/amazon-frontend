@@ -1,8 +1,8 @@
 import {AdminDashboardView} from '@views/admin/admin-dashboard-view'
-import {AdminExchangeWaitingView} from '@views/admin/admin-exchange-views/admin-exchange-waiting-view'
+import {AdminExchangeViews} from '@views/admin/admin-exchange-views'
 import {AdminFinancesReplenishmentsView} from '@views/admin/admin-finances-views/admin-finances-replenishments-view'
 import {AdminInventoryView} from '@views/admin/admin-inventory-view'
-import {AdminOrdersAllView} from '@views/admin/admin-orders-views/admin-orders-all-view'
+import {AdminOrdersViews} from '@views/admin/admin-orders-views'
 import {AdminSettingsView} from '@views/admin/admin-settings-view'
 import {AdminUserBalanceView} from '@views/admin/admin-users-view/admin-user-balance-view'
 import {AdminUsersView} from '@views/admin/admin-users-view/admin-users-view'
@@ -244,8 +244,8 @@ export const routes = [
     exact: false,
   },
   {
-    routePath: '/admin/exchange/waiting',
-    component: AdminExchangeWaitingView,
+    routePath: '/admin/exchange',
+    component: AdminExchangeViews,
     exact: false,
   },
   {
@@ -254,8 +254,8 @@ export const routes = [
     exact: false,
   },
   {
-    routePath: '/admin/orders/all',
-    component: AdminOrdersAllView,
+    routePath: '/admin/orders',
+    component: AdminOrdersViews,
     exact: false,
   },
   {

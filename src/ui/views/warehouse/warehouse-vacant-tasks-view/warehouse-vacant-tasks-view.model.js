@@ -42,6 +42,7 @@ export class WarehouseVacantViewModel {
 
   onTriggerEditTaskModal() {
     if (this.showEditTaskModal === false) {
+      this.selectedTask = this.tasksVacant[this.selectedTaskIndex]
       this.pickupTask(this.tasksVacant[this.selectedTaskIndex].taskId)
     }
 

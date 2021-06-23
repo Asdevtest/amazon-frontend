@@ -7,8 +7,12 @@ import {Link} from 'react-router-dom'
 import {NavbarSubCategory} from '../navbar-sub-category'
 import {useClassNames} from './navbar-collapse.style'
 
-export const NavbarCollapse = ({activeCategory, activeSubCategory, category, index}) => {
+export const NavbarCollapse = ({activeCategory, activeSubCategory, category, index, onChangeSubCategory}) => {
   const classNames = useClassNames()
+
+  const onClickCategory = subIndex => {
+    onChangeSubCategory && onChangeSubCategory(subIndex)
+  }
 
   return (
     <Collapse in={index === activeCategory}>
@@ -21,6 +25,7 @@ export const NavbarCollapse = ({activeCategory, activeSubCategory, category, ind
             component={Link}
             selected={subIndex === activeSubCategory}
             to={subCategory.subRoute}
+            onClick={() => onClickCategory(subIndex)}
           >
             <ListItemText
               disableTypography
