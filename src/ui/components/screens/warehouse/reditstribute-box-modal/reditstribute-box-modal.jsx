@@ -18,40 +18,40 @@ export const RedistributeBox = ({
   selectedBox,
   notSelectedBoxes,
   onRedistribute,
-  onTriggerModal,
+  onTriggerOpenModal,
 }) => {
   const classNames = useClassNames()
   const [currentBox, setCurrentBox] = useState(selectedBox)
-  const emptyOrders = currentBox.ordersId.map(order => ({...order, amount: 0}))
-  const getEmptyBox = () => ({...currentBox, boxId: 'newBoxId_' + Date.now(), ordersId: emptyOrders})
+
+  const emptyOrders = currentBox.items.map(order => ({...order, amount: 0}))
+
+  const getEmptyBox = () => ({...currentBox, boxId: 'newBoxId_' + Date.now(), items: emptyOrders})
 
   const emptyBox = getEmptyBox()
   const [newBoxes, setNewBoxes] = useState([emptyBox])
-  const totalProductsAmount = currentBox.ordersId.reduce((acc, order) => acc + order.amount, 0)
+  const totalProductsAmount = currentBox.items.reduce((acc, order) => acc + order.amount, 0)
 
   const onChangeInput = (e, boxId, orderId) => {
     const targetBox = newBoxes.filter(box => box.boxId === boxId)[0]
-    const targetOrder = targetBox.ordersId.filter(order => order.orderId === orderId)[0]
+    const targetOrder = targetBox.items.filter(order => order.orderId === orderId)[0]
     const updatedTargetOrder = {...targetOrder, amount: Number(e.target.value)}
-    const updatedTargetOrders = targetBox.ordersId.map(order =>
-      order.orderId === orderId ? updatedTargetOrder : order,
-    )
-    const updatedTargetBox = {...targetBox, ordersId: updatedTargetOrders}
+    const updatedTargetOrders = targetBox.items.map(order => (order.orderId === orderId ? updatedTargetOrder : order))
+    const updatedTargetBox = {...targetBox, items: updatedTargetOrders}
     const updatedNewBoxes = newBoxes.map(box => (box.boxId === boxId ? updatedTargetBox : box))
 
-    const currentOrder = selectedBox.ordersId.filter(order => order.orderId === orderId)[0]
+    const currentOrder = selectedBox.items.filter(order => order.orderId === orderId)[0]
     const newBoxesProductAmount = updatedNewBoxes
-      .map(box => box.ordersId.filter(order => order.orderId === orderId)[0].amount)
+      .map(box => box.items.filter(order => order.orderId === orderId)[0].amount)
       .reduce((acc, amount) => acc + amount, 0)
     const checkAmount = currentOrder.amount - newBoxesProductAmount
     if (checkAmount < 0) {
       return
     }
     const updatedCurrentOrder = {...currentOrder, amount: checkAmount}
-    const updatedCurrentOrders = currentBox.ordersId.map(order =>
+    const updatedCurrentOrders = currentBox.items.map(order =>
       order.orderId === orderId ? updatedCurrentOrder : order,
     )
-    const updatedCurrentBox = {...currentBox, ordersId: updatedCurrentOrders}
+    const updatedCurrentBox = {...currentBox, items: updatedCurrentOrders}
 
     setNewBoxes(updatedNewBoxes)
     setCurrentBox(updatedCurrentBox)
@@ -59,11 +59,11 @@ export const RedistributeBox = ({
 
   const onClickRedistributeBtn = () => {
     const newBoxesWithoutEmptyBox = newBoxes.filter(
-      box => box.ordersId.reduce((acc, order) => acc + order.amount, 0) !== 0,
+      box => box.items.reduce((acc, order) => acc + order.amount, 0) !== 0,
     )
     const newBoxesWithoutEmptyOrders = newBoxesWithoutEmptyBox.map(box => ({
       ...box,
-      ordersId: box.ordersId.filter(order => order.amount !== 0),
+      items: box.items.filter(order => order.amount !== 0),
     }))
     const updatedBoxes = newBoxesWithoutEmptyOrders.concat(notSelectedBoxes)
     onRedistribute(updatedBoxes)
@@ -72,7 +72,7 @@ export const RedistributeBox = ({
   const Box = ({box, readOnly = false}) => (
     <div className={classNames.box}>
       <Typography className={classNames.boxTitle}>{box.boxId}</Typography>
-      {box.ordersId.map((order, orderIndex) => (
+      {box.items.map((order, orderIndex) => (
         <div key={orderIndex} className={classNames.order}>
           <img className={classNames.img} src={order.product.img} />
           <Typography className={classNames.title}>{orderIndex + 1 + '. ' + order.product.amazonTitle}</Typography>
@@ -110,7 +110,7 @@ export const RedistributeBox = ({
   )
 
   return (
-    <>
+    <React.Fragment>
       <div className={classNames.boxesWrapper}>
         <CurrentBox />
         <Divider flexItem className={classNames.divider} orientation="vertical" />
@@ -123,8 +123,8 @@ export const RedistributeBox = ({
           disabled={totalProductsAmount !== 0}
           onClick={() => {
             onClickRedistributeBtn()
-            onTriggerModal('showRedistributeBoxModal')
-            onTriggerModal('showRedistributeBoxSuccessModal')
+            onTriggerOpenModal('showRedistributeBoxModal')
+            onTriggerOpenModal('showRedistributeBoxSuccessModal')
             setAddNewBoxModal(null)
           }}
         >
@@ -142,13 +142,13 @@ export const RedistributeBox = ({
         <Button
           variant="text"
           onClick={() => {
-            onTriggerModal('showRedistributeBoxModal')
+            onTriggerOpenModal('showRedistributeBoxModal')
             setAddNewBoxModal(null)
           }}
         >
           {textConsts.cancelBtn}
         </Button>
       </div>
-    </>
+    </React.Fragment>
   )
 }
