@@ -4,7 +4,7 @@ import {texts} from '@constants/texts'
 
 import {Input} from '@components/input'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+// import { getAmazonImageUrl } from '@utils/get-amazon-image-url';
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './box-order.style'
@@ -16,13 +16,13 @@ export const BoxOrder = ({order}) => {
   return (
     <div className={classNames.order}>
       <div className={classNames.imgWithTitles}>
-        <img
+        {/* <img  в этом ответе пока нет этых полей
           className={classNames.img}
           src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
-        />
+        /> */}
         <div>
-          <Typography>{order.product.amazonTitle}</Typography>
-          <Typography color="textSecondary">{order.product.id}</Typography>
+          {/* <Typography>{order.product.amazonTitle}</Typography> */}
+          <Typography color="textSecondary">{order.product}</Typography>
         </div>
       </div>
 
@@ -33,7 +33,7 @@ export const BoxOrder = ({order}) => {
         </div>
         <div>
           <Typography>{textConsts.materialLabel}</Typography>
-          <Input className={classNames.inputText} value={order.product.material} />
+          {/* <Input className={classNames.inputText} value={order.product.material} /> */}
         </div>
       </div>
 

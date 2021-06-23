@@ -100,7 +100,7 @@ export class BuyerWarehouseViewRaw extends Component {
                 {textConsts.sendProductBtn}
               </Button>
               <Table
-                buttons={this.renderButtons()}
+                renderButtons={this.renderButtons}
                 currentPage={curPage}
                 data={boxesMy}
                 handlerPageChange={onChangeCurPage}
@@ -122,10 +122,12 @@ export class BuyerWarehouseViewRaw extends Component {
           <Typography variant="h5">{textConsts.modalSendOwnProductTitle}</Typography>
           <SendOwnProductForm />
         </Modal>
-        <Modal openModal={showEditBoxModal} setOpenModal={() => onTriggerOpenModal('modalEditBox')}>
+
+        <Modal openModal={showEditBoxModal} setOpenModal={() => onTriggerOpenModal('showEditBoxModal')}>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
-          <CreateOrEditBoxForm formFields={boxesMy.filter(box => selectedBoxes.includes(box.boxId))[0]} />
+          <CreateOrEditBoxForm formFields={boxesMy.filter(box => selectedBoxes.includes(box._Id))[0]} />
         </Modal>
+
         <Modal openModal={showRedistributeBoxModal} setOpenModal={() => onTriggerOpenModal('showRedistributeBoxModal')}>
           <div className={classNames.redistributionWrapper}>
             <Typography paragraph variant="h5">
@@ -134,14 +136,14 @@ export class BuyerWarehouseViewRaw extends Component {
             <RedistributeBox
               addNewBoxModal={showRedistributeBoxAddNewBoxModal}
               setAddNewBoxModal={value => onModalRedistributeBoxAddNewBox(value)}
-              selectedBox={boxesMy.filter(box => selectedBoxes.includes(box.boxId))[0]}
-              notSelectedBoxes={boxesMy.filter(box => !selectedBoxes.includes(box.boxId))}
+              selectedBox={boxesMy.filter(box => selectedBoxes.includes(box._id))[0]}
+              notSelectedBoxes={boxesMy.filter(box => !selectedBoxes.includes(box._id))}
               onRedistribute={onRedistribute}
-              onClickCloseModal={onTriggerOpenModal}
-              onClickOpenModal={onTriggerOpenModal}
+              onTriggerOpenModal={onTriggerOpenModal}
             />
           </div>
         </Modal>
+
         <Modal
           openModal={showRedistributeBoxAddNewBoxModal}
           setOpenModal={() => onTriggerOpenModal('showRedistributeBoxAddNewBoxModal')}
@@ -199,30 +201,33 @@ export class BuyerWarehouseViewRaw extends Component {
       <Button disableElevation color="primary" variant="contained">
         {textConsts.sendBatchBtn}
       </Button>
+
       <Button
         disableElevation
-        disabled={this.viewModel.selectedBoxes.length <= 1}
+        disabled={this.viewModel.selectedBoxes.length <= 2}
         color="primary"
         variant="contained"
         onClick={() => this.viewModel.onClickMerge()}
       >
         {textConsts.mergeBtn}
       </Button>
+
       <Button
         disableElevation
-        disabled={this.viewModel.selectedBoxes.length !== 1}
+        disabled={this.viewModel.selectedBoxes.length === 1}
         color="primary"
         variant="contained"
-        onClick={() => this.viewModel.onClickOpenModal('modalRedistributeBox')}
+        onClick={() => this.viewModel.onTriggerOpenModal('showRedistributeBoxModal')}
       >
         {textConsts.redistributeBtn}
       </Button>
+
       <Button
         disableElevation
-        disabled={this.viewModel.selectedBoxes.length !== 1}
+        disabled={this.viewModel.selectedBoxes.length <= 1}
         color="primary"
         variant="contained"
-        onClick={() => this.viewModel.onClickOpenModal('modalEditBox')}
+        onClick={() => this.viewModel.onTriggerOpenModal('showEditBoxModal')}
       >
         {textConsts.editBtn}
       </Button>

@@ -41,7 +41,7 @@ export class AdminWarehouseOrdersViewModel {
     try {
       const result = await AdministratorModel.getOrders()
       runInAction(() => {
-        this.subUsersData = result
+        this.ordersData = result
       })
     } catch (error) {
       console.log(error)
