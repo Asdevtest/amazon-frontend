@@ -15,6 +15,7 @@ export class BuyerWarehouseViewModel {
   curPage = 1
   rowsPerPage = 5
   selectedBoxes = ['2096c_box']
+
   showSendOwnProductModal = false
   showEditBoxModal = false
   showRedistributeBoxModal = false
@@ -45,7 +46,7 @@ export class BuyerWarehouseViewModel {
 
   onTriggerCheckbox = boxId => {
     const updatedselectedBoxes = this.selectedBoxes.includes(boxId)
-      ? this.selectedBoxes.filter(id => id !== boxId)
+      ? this.selectedBoxes.filter(_id => _id !== boxId)
       : this.selectedBoxes.concat(boxId)
     this.selectedBoxes = updatedselectedBoxes
   }
@@ -77,6 +78,7 @@ export class BuyerWarehouseViewModel {
   async getBoxesMy() {
     try {
       const result = await BoxesModel.getBoxes()
+
       runInAction(() => {
         this.boxesMy = result
       })
