@@ -6,6 +6,7 @@ import {texts} from '@constants/texts'
 
 import {Input} from '@components/input'
 
+import {filterEmptyBoxes, filterEmptyOrders} from '@utils/filters'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './reditstribute-box-modal.style'
@@ -58,13 +59,10 @@ export const RedistributeBox = ({
   }
 
   const onClickRedistributeBtn = () => {
-    const newBoxesWithoutEmptyBox = newBoxes.filter(
-      box => box.items.reduce((acc, order) => acc + order.amount, 0) !== 0,
-    )
-    const newBoxesWithoutEmptyOrders = newBoxesWithoutEmptyBox.map(box => ({
-      ...box,
-      items: box.items.filter(order => order.amount !== 0),
-    }))
+    const newBoxesWithoutEmptyBox = filterEmptyBoxes(newBoxes)
+
+    const newBoxesWithoutEmptyOrders = filterEmptyOrders(newBoxesWithoutEmptyBox)
+
     const updatedBoxes = newBoxesWithoutEmptyOrders.concat(notSelectedBoxes)
     onRedistribute(updatedBoxes)
   }

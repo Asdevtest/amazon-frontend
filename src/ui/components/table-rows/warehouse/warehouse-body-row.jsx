@@ -12,8 +12,6 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
   const classNames = restProps.classes
   const ordersQty = box.items.length
 
-  console.log(box)
-
   const ProductCell = ({imgSrc, title}) => (
     <TableCell className={classNames.productCell}>
       <img className={classNames.img} src={imgSrc} />

@@ -40,8 +40,7 @@ class AdminWarehouseOrdersViewRaw extends Component {
 
   render() {
     const {
-      boxesMy,
-      // ordersData,
+      ordersData,
       drawerOpen,
       modalBarcode,
       rowsPerPage,
@@ -52,8 +51,6 @@ class AdminWarehouseOrdersViewRaw extends Component {
       onChangeRowsPerPage,
     } = this.viewModel
     const {classes: className} = this.props
-
-    console.log(boxesMy)
 
     return (
       <React.Fragment>
@@ -79,10 +76,10 @@ class AdminWarehouseOrdersViewRaw extends Component {
                 <Table
                   buttons={this.renderButtons}
                   currentPage={curPage}
-                  data={boxesMy}
+                  data={ordersData}
                   handlerPageChange={onChangeCurPage}
                   handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(boxesMy.length / rowsPerPage)}
+                  pageCount={Math.ceil(ordersData.length / rowsPerPage)}
                   BodyRow={TableBodyRow}
                   renderHeadRow={this.renderHeadRow}
                   rowsPerPage={rowsPerPage}
