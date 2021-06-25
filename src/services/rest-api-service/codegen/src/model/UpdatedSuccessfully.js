@@ -55,7 +55,7 @@ class UpdatedSuccessfully {
                 obj['code'] = ApiClient.convertToType(data['code'], 'String');
             }
             if (data.hasOwnProperty('error')) {
-                obj['error'] = ApiClient.convertToType(data['error'], Object);
+                obj['error'] = ApiClient.convertToType(data['error'], 'String');
             }
             if (data.hasOwnProperty('message')) {
                 obj['message'] = ApiClient.convertToType(data['message'], 'String');
@@ -78,7 +78,7 @@ UpdatedSuccessfully.prototype['statusCode'] = undefined;
 UpdatedSuccessfully.prototype['code'] = undefined;
 
 /**
- * @member {Object} error
+ * @member {String} error
  */
 UpdatedSuccessfully.prototype['error'] = undefined;
 

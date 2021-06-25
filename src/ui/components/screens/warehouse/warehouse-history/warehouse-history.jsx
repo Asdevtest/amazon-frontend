@@ -12,7 +12,13 @@ import {useClassNames} from './warehouse-history.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseHistory
 
-export const WarehouseHistory = ({historyData, title}) => {
+export const WarehouseHistory = ({
+  historyData,
+  title,
+  onApproveMergeAndSplitBoxes,
+  onCancelMergeBoxes,
+  onCancelSplitBoxes,
+}) => {
   const classNames = useClassNames()
 
   return (
@@ -32,7 +38,13 @@ export const WarehouseHistory = ({historyData, title}) => {
           </TableHead>
           <TableBody>
             {historyData.map((item, index) => (
-              <HistoryTableRow key={index} item={item} />
+              <HistoryTableRow
+                key={index}
+                item={item}
+                onApproveMergeAndSplitBoxes={onApproveMergeAndSplitBoxes}
+                onCancelMergeBoxes={onCancelMergeBoxes}
+                onCancelSplitBoxes={onCancelSplitBoxes}
+              />
             ))}
           </TableBody>
         </Table>

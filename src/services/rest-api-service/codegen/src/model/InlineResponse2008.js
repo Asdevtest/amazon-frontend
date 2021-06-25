@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse2008 {
     /**
      * Constructs a new <code>InlineResponse2008</code>.
+     * Схема парсинга данных с амазона.
      * @alias module:model/InlineResponse2008
      * @param id {String} id продукта(asin)
      * @param images {Array.<String>} массив с именами файлов

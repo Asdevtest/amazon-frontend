@@ -30,6 +30,9 @@ const fieldsOfProductAllowedToUpdate = [
   'amazonTitle',
   'amazonDetail',
   'amazonDescription',
+  'category',
+  'weight',
+  'minpurchase',
 ]
 
 export class ResearcherProductViewModel {
@@ -76,7 +79,7 @@ export class ResearcherProductViewModel {
       } else {
         this.product[fieldName] = e.target.value
       }
-      if (['express', 'weight', 'fbafee', 'amazon', 'delivery', 'fbaamount'].includes(fieldName)) {
+      if (['express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba'].includes(fieldName)) {
         this.updateAutoCalculatedFields()
       }
     })
@@ -84,15 +87,15 @@ export class ResearcherProductViewModel {
   updateAutoCalculatedFields() {
     // взято из fba app
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
+    console.log('this.product.totalFba ', this.product.totalFba)
     this.product.maxDelivery = this.product.express
       ? (parseInt(this.product.weight) || 0) * 7
       : (parseInt(this.product.weight) || 0) * 5
-    this.product.fbaamount = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
     // что-то не то
     this.product.minpurchase =
       (parseFloat(this.product.amazon) || 0) -
-      (parseFloat(this.product.fbaamount) || 0) -
-      0.4 * ((parseFloat(this.product.amazon) || 0) - (parseFloat(this.product.fbaamount) || 0)) -
+      (parseFloat(this.product.totalFba) || 0) -
+      0.4 * ((parseFloat(this.product.amazon) || 0) - (parseFloat(this.product.totalFba) || 0)) -
       (parseFloat(this.product.maxDelivery) || 0)
     if (this.product.currentSupplier) {
       this.product.reffee = (parseFloat(this.product.amazon) || 0) * 0.15
@@ -118,8 +121,8 @@ export class ResearcherProductViewModel {
             (parseFloat(this.product.currentSupplier.delivery) || 0))) *
         100
     } else {
-      this.product.profit = 'n/a'
-      this.product.margin = 'n/a'
+      this.product.profit = 0
+      this.product.margin = 0
     }
   }
 
@@ -224,8 +227,9 @@ export class ResearcherProductViewModel {
       runInAction(() => {
         this.product = {
           ...this.product,
-          ...parseFieldsAdapter(parseResult),
+          ...parseFieldsAdapter(parseResult, productDataParser),
         }
+        this.updateAutoCalculatedFields()
       })
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {

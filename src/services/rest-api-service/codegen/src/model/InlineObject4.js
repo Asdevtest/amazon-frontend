@@ -23,7 +23,7 @@ class InlineObject4 {
     /**
      * Constructs a new <code>InlineObject4</code>.
      * @alias module:model/InlineObject4
-     * @param items {Array.<module:model/ApiV1BoxesItems>} 
+     * @param items {Array.<module:model/ApiV1BoxesItems>} Массив коробок.
      * @param clientId {String} GUID клиента
      */
     constructor(items, clientId) { 
@@ -219,6 +219,7 @@ InlineObject4.prototype['factDispatchDate'] = undefined;
 InlineObject4.prototype['isDraft'] = undefined;
 
 /**
+ * Массив коробок.
  * @member {Array.<module:model/ApiV1BoxesItems>} items
  */
 InlineObject4.prototype['items'] = undefined;

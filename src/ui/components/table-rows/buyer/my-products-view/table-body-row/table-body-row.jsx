@@ -6,12 +6,11 @@ import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
-import StarIcon from '@material-ui/icons/Star'
 import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 
 import {formatDateDistanceFromNow} from '@utils/date-time'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {toFixedWithDollarSign} from '@utils/text'
 import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-double-click'
 
 import calculateSrc from './assets/calculate.svg'
@@ -42,16 +41,20 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
       <TableCell className={classNames.asinCell}>
         <div className={classNames.asinCellContainer}>
           <div>
-            <img alt="placeholder" className={classNames.img} src={item.img} />
+            <img
+              alt="placeholder"
+              className={classNames.img}
+              src={item.images && item.images[0] && getAmazonImageUrl(item.images[0])}
+            />
           </div>
           <div>
-            <Typography className={classNames.csCodeTypo}>{item.csCode}</Typography>
+            <Typography className={classNames.csCodeTypo}>{item._id}</Typography>
             <Typography className={classNames.typoCell}>
               {'ASIN '}
               <span className={classNames.typoSpan}>{item.id}</span>
               {` | ${formatDateDistanceFromNow(item.createdat)}`}
             </Typography>
-            <Chip className={classNames.chip} label={'Beauty & Personal Care'} />
+            <Chip className={classNames.chip} label={item.category} />
           </div>
         </div>
       </TableCell>
@@ -76,29 +79,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
           </Button>
         </div>
       </TableCell>
-      <TableCell className={classNames.rankTableCell}>{item.rank ? '#' + item.rank : ''}</TableCell>
-      <TableCell className={classNames.ratingTableCell}>
-        <div className={classNames.ratingTableCellContainer}>
-          <Typography className={classNames.ratingTypo}>{toFixed(item.rating, 1)}</Typography>
-          <div className={classNames.rankCount}>
-            {Array(5)
-              .fill(true)
-              .map((el, index) => (
-                <StarIcon
-                  key={`star_${index}`}
-                  className={clsx(classNames.startIcon, {
-                    [classNames.selectedStarIcon]: Math.floor(item.rating) >= index === true,
-                  })}
-                />
-              ))}
-          </div>
-        </div>
-        <Typography className={classNames.rankTypoReviews}>23.45 reviews</Typography>
-      </TableCell>
-      <TableCell className={classNames.salesCell}>{item.sales}</TableCell>
-      <TableCell className={classNames.salersTotal}>{item.salersTotal}</TableCell>
-      <TableCell className={classNames.salersTotal}>{item.type}</TableCell>
-      <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.revenue)}</TableCell>
+      <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.profit)}</TableCell>
       <TableCell className={classNames.amazonCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
       <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.bsr)}</TableCell>
       <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.fbaamount)}</TableCell>

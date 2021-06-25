@@ -70,14 +70,6 @@ export const useClassNames = makeStyles(() => ({
     padding: 0,
     color: 'rgba(0, 123, 255, 1)',
   },
-  rightCardWrapper: {
-    padding: '16px',
-    marginBottom: '16px',
-  },
-  carouselBox: {
-    height: '240px',
-    width: '340px',
-  },
   heightFieldAuto: {
     height: 'auto',
     width: '100%',

@@ -35,7 +35,7 @@ Name | Type | Description | Notes
 **lastModifiedBy** | **String** | GUID любого, кто последний редактировал коробку. | [optional] 
 **scheduledDispatchDate** | **Date** | Запланированная дата отправки. | [optional] 
 **factDispatchDate** | **Date** | Запланированная дата доставки. | [optional] 
-**items** | [**[ApiV1BoxesItems]**](ApiV1BoxesItems.md) |  | [optional] 
+**items** | [**[ApiV1BoxesItems]**](ApiV1BoxesItems.md) | Массив коробок. | [optional] 
 **isDraft** | **Boolean** | true - если создаем черновик заказа. | [optional] 
 
 

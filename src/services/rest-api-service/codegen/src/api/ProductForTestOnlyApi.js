@@ -20,7 +20,6 @@ import InlineResponse2011 from '../model/InlineResponse2011';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse500 from '../model/InlineResponse500';
-import Null from '../model/Null';
 
 /**
 * ProductForTestOnly service.
@@ -48,7 +47,7 @@ export default class ProductForTestOnlyApi {
      * @param {String} id GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductsIdDeleteWithHttpInfo(id, opts) {
       opts = opts || {};
@@ -72,7 +71,7 @@ export default class ProductForTestOnlyApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/products/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -86,7 +85,7 @@ export default class ProductForTestOnlyApi {
      * @param {String} id GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductsIdDelete(id, opts) {
       return this.apiV1ProductsIdDeleteWithHttpInfo(id, opts)
@@ -157,7 +156,7 @@ export default class ProductForTestOnlyApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject18} opts.InlineObject18 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductsIdPatchWithHttpInfo(id, opts) {
       opts = opts || {};
@@ -181,7 +180,7 @@ export default class ProductForTestOnlyApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/products/{id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -196,7 +195,7 @@ export default class ProductForTestOnlyApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject18} opts.InlineObject18 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductsIdPatch(id, opts) {
       return this.apiV1ProductsIdPatchWithHttpInfo(id, opts)

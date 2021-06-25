@@ -11,11 +11,11 @@ Name | Type | Description | Notes
 **bsr** | **Number** |  | 
 **status** | **Number** |  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком | [optional] [default to StatusEnum.0]
 **amazon** | **Number** |  | 
-**supplier** | **[String]** |  | 
+**supplier** | **[String]** | Массив поставщиков. | 
 **fbafee** | **Number** | ФБА комиссия | 
 **delivery** | **Number** | Стоимость доставки. | 
 **icomment** | **String** | Комментарии к товару. | 
-**images** | **[String]** |  | 
+**images** | **[String]** | Массив изображений. | 
 **byboxprice** | **Number** | Цена | [optional] 
 
 

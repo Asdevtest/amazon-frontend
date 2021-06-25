@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import {TableCell, TableRow, Typography} from '@material-ui/core'
 
@@ -13,79 +13,89 @@ import {useClassNames} from './history-table-row.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseHistoryBodyRow
 
-export const HistoryTableRow = props => {
+export const HistoryTableRow = ({item, onApproveMergeAndSplitBoxes, onCancelMergeBoxes, onCancelSplitBoxes}) => {
   const classNames = useClassNames()
 
-  const [status, setStatus] = useState(props.item.status)
-
-  const TaskMergeDescription = () => (
+  const taskMergeDescription = () => (
     <React.Fragment>
       <Typography>
         {textConsts.order}
-        <span className={classNames.defaultOrderSpan}>{props.item.orders[0]}</span>
+        <span className={classNames.defaultOrderSpan}>{item.orders[0]}</span>
         {textConsts.andOrder}
-        <span className={classNames.defaultOrderSpan}>{props.item.orders[1]}</span>
+        <span className={classNames.defaultOrderSpan}>{item.orders[1]}</span>
         {textConsts.merge}
       </Typography>
-      {!status && <span className={classNames.description}>{textConsts.cancelAction}</span>}
+      {!item.status && <span className={classNames.description}>{textConsts.cancelAction}</span>}
     </React.Fragment>
   )
-  const TaskDivideDescription = () => (
+  const taskDivideDescription = () => (
     <React.Fragment>
       <Typography>
         {textConsts.order}
-        <span className={classNames.defaultOrderSpan}>{props.item.orders[0]}</span>
+        <span className={classNames.defaultOrderSpan}>{item.orders[0]}</span>
         {textConsts.andOrder}
-        <span className={classNames.defaultOrderSpan}>{props.item.orders[1]}</span>
+        <span className={classNames.defaultOrderSpan}>{item.orders[1]}</span>
         {textConsts.unMerge}
       </Typography>
-      {!status && <span className={classNames.description}>{textConsts.cancelAction}</span>}
+      {!item.status && <span className={classNames.description}>{textConsts.cancelAction}</span>}
     </React.Fragment>
   )
-  const ChangeStatusPayedDescription = () => (
+  const changeStatusPayedDescription = () => (
     <Typography>
       {textConsts.order}
-      <span className={classNames.defaultOrderSpan}>{props.item.orders[0]}</span>
+      <span className={classNames.defaultOrderSpan}>{item.orders[0]}</span>
       {textConsts.changeStatus}
       <span className={classNames.changeOrderSpan}>{textConsts.paid}</span>
     </Typography>
   )
 
+  const renderApproveBtn = <Button onClick={() => onApproveMergeAndSplitBoxes(item.id)}>{textConsts.acceptBtn}</Button>
+
   const renderHistoryItem = () => {
-    switch (props.item.type) {
+    switch (item.type) {
       case 'task/merge':
-        return {
-          theme: textConsts.tasks,
-          description: <TaskMergeDescription status={status} item={props.item} />,
-        }
+        return (
+          <React.Fragment>
+            <TableCell>{textConsts.tasks}</TableCell>
+            <TableCell>{taskMergeDescription()}</TableCell>
+            <TableCell>
+              {item.status ? (
+                <ErrorButton onClick={() => onCancelMergeBoxes(item.id)}>{textConsts.cancelBtn}</ErrorButton>
+              ) : (
+                renderApproveBtn
+              )}
+            </TableCell>
+          </React.Fragment>
+        )
+
       case 'task/divide':
-        return {
-          theme: textConsts.tasks,
-          description: <TaskDivideDescription status={status} item={props.item} />,
-        }
+        return (
+          <React.Fragment>
+            <TableCell>{textConsts.tasks}</TableCell>
+            <TableCell>{taskDivideDescription()}</TableCell>
+            <TableCell>
+              {item.status ? (
+                <ErrorButton onClick={() => onCancelSplitBoxes(item.id)}>{textConsts.cancelBtn}</ErrorButton>
+              ) : (
+                renderApproveBtn
+              )}
+            </TableCell>
+          </React.Fragment>
+        )
       case 'change/status/Оплачен':
-        return {
-          theme: textConsts.orderChangeStatus,
-          description: <ChangeStatusPayedDescription status={status} item={props.item} />,
-        }
+        return (
+          <React.Fragment>
+            <TableCell>{textConsts.orderChangeStatus}</TableCell>
+            <TableCell>{changeStatusPayedDescription()}</TableCell>
+          </React.Fragment>
+        )
     }
   }
 
-  const item = renderHistoryItem()
-
   return (
     <TableRow>
-      <TableCell className={classNames.centerTextCell}>{props.item.date}</TableCell>
-      <TableCell>{item.theme}</TableCell>
-      <TableCell>{item.description}</TableCell>
-      <TableCell>
-        {status !== null &&
-          (status ? (
-            <ErrorButton onClick={() => setStatus(false)}>{textConsts.cancelBtn}</ErrorButton>
-          ) : (
-            <Button onClick={() => setStatus(null)}>{textConsts.acceptBtn}</Button>
-          ))}
-      </TableCell>
+      <TableCell className={classNames.centerTextCell}>{item.date}</TableCell>
+      {renderHistoryItem()}
     </TableRow>
   )
 }

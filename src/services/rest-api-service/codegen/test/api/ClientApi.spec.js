@@ -48,20 +48,10 @@
   }
 
   describe('ClientApi', function() {
-    describe('apiV1ClientsBoxesGet', function() {
-      it('should call apiV1ClientsBoxesGet successfully', function(done) {
-        //uncomment below and update the code to test apiV1ClientsBoxesGet
-        //instance.apiV1ClientsBoxesGet(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1ClientsBoxesGuidGet', function() {
-      it('should call apiV1ClientsBoxesGuidGet successfully', function(done) {
-        //uncomment below and update the code to test apiV1ClientsBoxesGuidGet
-        //instance.apiV1ClientsBoxesGuidGet(function(error) {
+    describe('apiV1ClientsBatchesGet', function() {
+      it('should call apiV1ClientsBatchesGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1ClientsBatchesGet
+        //instance.apiV1ClientsBatchesGet(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -192,26 +182,6 @@
       it('should call apiV1ClientsTasksPost successfully', function(done) {
         //uncomment below and update the code to test apiV1ClientsTasksPost
         //instance.apiV1ClientsTasksPost(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1ClientsUsersGet', function() {
-      it('should call apiV1ClientsUsersGet successfully', function(done) {
-        //uncomment below and update the code to test apiV1ClientsUsersGet
-        //instance.apiV1ClientsUsersGet(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1ClientsUsersGuidPatch', function() {
-      it('should call apiV1ClientsUsersGuidPatch successfully', function(done) {
-        //uncomment below and update the code to test apiV1ClientsUsersGuidPatch
-        //instance.apiV1ClientsUsersGuidPatch(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

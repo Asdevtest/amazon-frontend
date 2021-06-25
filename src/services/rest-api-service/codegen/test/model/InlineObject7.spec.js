@@ -54,8 +54,14 @@
       //expect(instance).to.be.a(Amazonapi.InlineObject7);
     });
 
-    it('should have the property guids (base name: "guids")', function() {
-      // uncomment below and update the code to test the property guids
+    it('should have the property guid (base name: "guid")', function() {
+      // uncomment below and update the code to test the property guid
+      //var instance = new Amazonapi.InlineObject7();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property itemsBoxSet (base name: "itemsBoxSet")', function() {
+      // uncomment below and update the code to test the property itemsBoxSet
       //var instance = new Amazonapi.InlineObject7();
       //expect(instance).to.be();
     });

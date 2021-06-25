@@ -23,6 +23,7 @@ import ApiV1AdminsGetNotPaidProductsSupplier from './ApiV1AdminsGetNotPaidProduc
 class InlineResponse200 {
     /**
      * Constructs a new <code>InlineResponse200</code>.
+     * Схема товара.
      * @alias module:model/InlineResponse200
      * @param _id {String} GUID продукта в базе данных
      * @param id {String} ASIN продукта
@@ -31,7 +32,7 @@ class InlineResponse200 {
      * @param bsr {Number} 
      * @param fba {Boolean} Признак fba
      * @param amazon {Number} 
-     * @param supplier {Array.<module:model/ApiV1AdminsGetNotPaidProductsSupplier>} 
+     * @param supplier {Array.<module:model/ApiV1AdminsGetNotPaidProductsSupplier>} Массив Поставщиков.
      * @param reffee {Number} комиссия которую берет амазон за любой заказ - 15%
      * @param icomment {String} Комментарии к товару.
      */
@@ -293,6 +294,7 @@ InlineResponse200.prototype['length'] = undefined;
 InlineResponse200.prototype['weight'] = undefined;
 
 /**
+ * Массив Поставщиков.
  * @member {Array.<module:model/ApiV1AdminsGetNotPaidProductsSupplier>} supplier
  */
 InlineResponse200.prototype['supplier'] = undefined;
@@ -340,6 +342,7 @@ InlineResponse200.prototype['status'] = undefined;
 InlineResponse200.prototype['icomment'] = undefined;
 
 /**
+ * Массив картинок.
  * @member {Array.<String>} images
  */
 InlineResponse200.prototype['images'] = undefined;

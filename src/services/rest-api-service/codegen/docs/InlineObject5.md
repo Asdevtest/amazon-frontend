@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guids** | **[String]** |  | [optional] 
+**guids** | **[String]** | Массив коробок. | [optional] 
 
 

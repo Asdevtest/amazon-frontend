@@ -64,6 +64,7 @@ import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
 import InlineResponse2012 from './model/InlineResponse2012';
+import InlineResponse2013 from './model/InlineResponse2013';
 import InlineResponse400 from './model/InlineResponse400';
 import InlineResponse403 from './model/InlineResponse403';
 import InlineResponse404 from './model/InlineResponse404';
@@ -75,7 +76,7 @@ import PasteSuccessfully from './model/PasteSuccessfully';
 import PayloadTooLarge from './model/PayloadTooLarge';
 import UnauthorizedError from './model/UnauthorizedError';
 import UpdatedSuccessfully from './model/UpdatedSuccessfully';
-import UserDtoSchema from './model/UserDtoSchema';
+import UserSchema from './model/UserSchema';
 import AdministratorApi from './api/AdministratorApi';
 import BoxesApi from './api/BoxesApi';
 import BuyerApi from './api/BuyerApi';
@@ -433,6 +434,12 @@ export {
     InlineResponse2012,
 
     /**
+     * The InlineResponse2013 model constructor.
+     * @property {module:model/InlineResponse2013}
+     */
+    InlineResponse2013,
+
+    /**
      * The InlineResponse400 model constructor.
      * @property {module:model/InlineResponse400}
      */
@@ -499,10 +506,10 @@ export {
     UpdatedSuccessfully,
 
     /**
-     * The UserDtoSchema model constructor.
-     * @property {module:model/UserDtoSchema}
+     * The UserSchema model constructor.
+     * @property {module:model/UserSchema}
      */
-    UserDtoSchema,
+    UserSchema,
 
     /**
     * The AdministratorApi service constructor.

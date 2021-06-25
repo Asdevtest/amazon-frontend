@@ -3,6 +3,8 @@ import React from 'react'
 import {Box, Container, Grid, IconButton, Typography} from '@material-ui/core'
 import MuiCheckbox from '@material-ui/core/Checkbox'
 import AddIcon from '@material-ui/icons/Add'
+import AcceptIcon from '@material-ui/icons/Check'
+import AcceptRevokeIcon from '@material-ui/icons/Clear'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import clsx from 'clsx'
@@ -23,6 +25,8 @@ const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 export const FieldsAndSuppliers = observer(
   ({suppliers, curUserRole, onChangeField, product, onClickSupplierBtns, selectedSupplier, onClickSupplier}) => {
     const classNames = useClassNames()
+    const isSupplierAcceptRevokeActive =
+      selectedSupplier && product.currentSupplier && product.currentSupplier._id === selectedSupplier._id
     return (
       <Grid item xs={12}>
         <Box className={classNames.productFieldBox}>
@@ -58,11 +62,26 @@ export const FieldsAndSuppliers = observer(
                   >
                     <DeleteIcon />
                   </IconButton>
+                  <IconButton
+                    className={clsx(classNames.iconBtn, classNames.iconBtnAccept, {
+                      [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
+                    })}
+                    onClick={() =>
+                      isSupplierAcceptRevokeActive ? onClickSupplierBtns('acceptRevoke') : onClickSupplierBtns('accept')
+                    }
+                  >
+                    {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
+                  </IconButton>
                 </>
               ) : undefined}
             </Container>
           ) : undefined}
-          <TableSupplier selectedSupplier={selectedSupplier} suppliers={suppliers} onClickSupplier={onClickSupplier} />
+          <TableSupplier
+            product={product}
+            selectedSupplier={selectedSupplier}
+            suppliers={suppliers}
+            onClickSupplier={onClickSupplier}
+          />
         </Box>
       </Grid>
     )

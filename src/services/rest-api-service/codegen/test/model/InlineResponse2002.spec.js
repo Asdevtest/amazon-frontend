@@ -60,20 +60,50 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property buyerId (base name: "buyerId")', function() {
-      // uncomment below and update the code to test the property buyerId
+    it('should have the property lengthCm (base name: "lengthCm")', function() {
+      // uncomment below and update the code to test the property lengthCm
       //var instance = new Amazonapi.InlineResponse2002();
       //expect(instance).to.be();
     });
 
-    it('should have the property clientComment (base name: "clientComment")', function() {
-      // uncomment below and update the code to test the property clientComment
+    it('should have the property widthCm (base name: "widthCm")', function() {
+      // uncomment below and update the code to test the property widthCm
       //var instance = new Amazonapi.InlineResponse2002();
       //expect(instance).to.be();
     });
 
-    it('should have the property buyerComment (base name: "buyerComment")', function() {
-      // uncomment below and update the code to test the property buyerComment
+    it('should have the property heightCm (base name: "heightCm")', function() {
+      // uncomment below and update the code to test the property heightCm
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property weighGrossKg (base name: "weighGrossKg")', function() {
+      // uncomment below and update the code to test the property weighGrossKg
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property volumeWeightKg (base name: "volumeWeightKg")', function() {
+      // uncomment below and update the code to test the property volumeWeightKg
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property weightFinalAccountingKg (base name: "weightFinalAccountingKg")', function() {
+      // uncomment below and update the code to test the property weightFinalAccountingKg
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shippingLabel (base name: "shippingLabel")', function() {
+      // uncomment below and update the code to test the property shippingLabel
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shipmentPlanId (base name: "shipmentPlanId")', function() {
+      // uncomment below and update the code to test the property shipmentPlanId
       //var instance = new Amazonapi.InlineResponse2002();
       //expect(instance).to.be();
     });
@@ -84,20 +114,56 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property clientComment (base name: "clientComment")', function() {
+      // uncomment below and update the code to test the property clientComment
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
     it('should have the property deliveryMethod (base name: "deliveryMethod")', function() {
       // uncomment below and update the code to test the property deliveryMethod
       //var instance = new Amazonapi.InlineResponse2002();
       //expect(instance).to.be();
     });
 
-    it('should have the property itemList (base name: "itemList")', function() {
-      // uncomment below and update the code to test the property itemList
+    it('should have the property lengthCmSupplier (base name: "lengthCmSupplier")', function() {
+      // uncomment below and update the code to test the property lengthCmSupplier
       //var instance = new Amazonapi.InlineResponse2002();
       //expect(instance).to.be();
     });
 
-    it('should have the property fba (base name: "fba")', function() {
-      // uncomment below and update the code to test the property fba
+    it('should have the property widthCmSupplier (base name: "widthCmSupplier")', function() {
+      // uncomment below and update the code to test the property widthCmSupplier
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property heightCmSupplier (base name: "heightCmSupplier")', function() {
+      // uncomment below and update the code to test the property heightCmSupplier
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property weighGrossKgSupplier (base name: "weighGrossKgSupplier")', function() {
+      // uncomment below and update the code to test the property weighGrossKgSupplier
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property volumeWeightKgSupplier (base name: "volumeWeightKgSupplier")', function() {
+      // uncomment below and update the code to test the property volumeWeightKgSupplier
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property weightFinalAccountingKgSupplier (base name: "weightFinalAccountingKgSupplier")', function() {
+      // uncomment below and update the code to test the property weightFinalAccountingKgSupplier
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property buyerComment (base name: "buyerComment")', function() {
+      // uncomment below and update the code to test the property buyerComment
       //var instance = new Amazonapi.InlineResponse2002();
       //expect(instance).to.be();
     });
@@ -108,14 +174,80 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property deliveryCostToTheWarehouse (base name: "deliveryCostToTheWarehouse")', function() {
-      // uncomment below and update the code to test the property deliveryCostToTheWarehouse
+    it('should have the property lengthCmWarehouse (base name: "lengthCmWarehouse")', function() {
+      // uncomment below and update the code to test the property lengthCmWarehouse
       //var instance = new Amazonapi.InlineResponse2002();
       //expect(instance).to.be();
     });
 
-    it('should have the property product (base name: "product")', function() {
-      // uncomment below and update the code to test the property product
+    it('should have the property widthCmWarehouse (base name: "widthCmWarehouse")', function() {
+      // uncomment below and update the code to test the property widthCmWarehouse
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property heightCmWarehouse (base name: "heightCmWarehouse")', function() {
+      // uncomment below and update the code to test the property heightCmWarehouse
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property weighGrossKgWarehouse (base name: "weighGrossKgWarehouse")', function() {
+      // uncomment below and update the code to test the property weighGrossKgWarehouse
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property volumeWeightKgWarehouse (base name: "volumeWeightKgWarehouse")', function() {
+      // uncomment below and update the code to test the property volumeWeightKgWarehouse
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property weightFinalAccountingKgWarehouse (base name: "weightFinalAccountingKgWarehouse")', function() {
+      // uncomment below and update the code to test the property weightFinalAccountingKgWarehouse
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property createdBy (base name: "createdBy")', function() {
+      // uncomment below and update the code to test the property createdBy
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property buyerId (base name: "buyerId")', function() {
+      // uncomment below and update the code to test the property buyerId
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property lastModifiedBy (base name: "lastModifiedBy")', function() {
+      // uncomment below and update the code to test the property lastModifiedBy
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property scheduledDispatchDate (base name: "scheduledDispatchDate")', function() {
+      // uncomment below and update the code to test the property scheduledDispatchDate
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property factDispatchDate (base name: "factDispatchDate")', function() {
+      // uncomment below and update the code to test the property factDispatchDate
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property items (base name: "items")', function() {
+      // uncomment below and update the code to test the property items
+      //var instance = new Amazonapi.InlineResponse2002();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property isDraft (base name: "isDraft")', function() {
+      // uncomment below and update the code to test the property isDraft
       //var instance = new Amazonapi.InlineResponse2002();
       //expect(instance).to.be();
     });

@@ -48,7 +48,7 @@ export class BuyerMyOrdersViewModel {
 
   onClickOrder(order) {
     this.selectedOrder = order
-    this.onTriggerShowCreateOrEditBoxModal()
+    this.onTriggerShowOrderModal()
   }
 
   onClickEditBarcode(order) {
@@ -72,11 +72,11 @@ export class BuyerMyOrdersViewModel {
     this.onSaveOrder(order, updateOrderData)
   }
 
-  async onClickSaveOrder(order, orderFields) {
+  async onSubmitSaveOrder(order, orderFields) {
+    console.log('onSubmitSaveOrder')
     console.log(order)
     console.log(orderFields)
-    this.onSaveOrder(order, orderFields)
-    this.onTriggerShowOrderModal()
+    // this.onSaveOrder(order, orderFields)
   }
 
   onChangeBarcode(e) {
@@ -87,18 +87,6 @@ export class BuyerMyOrdersViewModel {
     try {
       const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(updateOrderData, updateOrderKeys, true)
       await BuyerModel.updateOrder(order._id, updateOrderDataFiltered)
-      if (
-        order.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] &&
-        [OrderStatusByKey[OrderStatus.PAID], OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]].includes(
-          updateOrderData.status,
-        )
-      ) {
-        this.onTriggerShowCreateOrEditBoxModal()
-      } else {
-        runInAction(() => {
-          this.selectedOrder = undefined
-        })
-      }
       this.loadData()
     } catch (error) {
       console.log(error)
@@ -109,25 +97,26 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onSubmitCreateBox(formFields) {
-    this.onTriggerShowCreateOrEditBoxModal()
-    try {
-      const createBoxData = {
-        ...getObjectFilteredByKeyArrayBlackList(formFields, ['items']),
-        items: [
-          {
-            product: this.selectedOrder.product._id,
-            amount: formFields.items[0].amount,
-            order: this.selectedOrder._id,
-          },
-        ],
-      }
-      runInAction(() => {
-        this.selectedOrder = undefined
-      })
-      await BoxesModel.createBox(createBoxData)
-    } catch (error) {
-      console.log(error)
-    }
+    console.log('onSubmitCreateBox')
+    this.onTriggerShowOrderModal()
+    // try {
+    //   const createBoxData = {
+    //     ...getObjectFilteredByKeyArrayBlackList(formFields, ['items']),
+    //     items: [
+    //       {
+    //         product: this.selectedOrder.product._id,
+    //         amount: formFields.items[0].amount,
+    //         order: this.selectedOrder._id,
+    //       },
+    //     ],
+    //   }
+    //   runInAction(() => {
+    //     this.selectedOrder = undefined
+    //   })
+    //   await BoxesModel.createBox(createBoxData)
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
 
   async getOrdersMy() {

@@ -4,6 +4,8 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BuyerModel} from '@models/buyer-model'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+
 export class BuyerMyProductsViewModel {
   history = undefined
   requestStatus = undefined
@@ -24,7 +26,7 @@ export class BuyerMyProductsViewModel {
       this.error = undefined
       const result = await BuyerModel.getProductsMy()
       runInAction(() => {
-        this.productsMy = result
+        this.productsMy = result.sort(sortObjectsArrayByFiledDate('checkedat'))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

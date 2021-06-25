@@ -2,7 +2,7 @@ import React from 'react'
 
 import {Box, Grid} from '@material-ui/core'
 
-import {ProductStatusByCode} from '@constants/product-status'
+import {ProductStatus, ProductStatusByCode} from '@constants/product-status'
 import {texts} from '@constants/texts'
 
 import {ColoredChip} from '@components/colored-chip'
@@ -18,6 +18,13 @@ export const ProductStatusButtons = ({buttonsConfig, productStatus, onClickButto
   if (!buttonsConfig) {
     return <div />
   }
+  const isSaveWithoutStatusChipSelected = [
+    ProductStatus.NEW_PRODUCT,
+    ProductStatus.RESEARCHER_FOUND_SUPPLIER,
+    ProductStatus.BUYER_FOUND_SUPPLIER,
+    ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
+    ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
+  ].includes(ProductStatusByCode[productStatus])
   return (
     <Box marginBottom={2}>
       <Grid container spacing={1}>
@@ -38,6 +45,7 @@ export const ProductStatusButtons = ({buttonsConfig, productStatus, onClickButto
               label={textConfig.saveWithoutStatusBtn}
               color={saveWithoutStatusBtnColor}
               colorHover={saveWithoutStatusBtnColorHover}
+              selected={isSaveWithoutStatusChipSelected}
               onClick={onClickSaveWithoutStatusChange}
             />
           </Grid>

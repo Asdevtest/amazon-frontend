@@ -129,6 +129,7 @@ class InlineObject11 {
     "35": 35
 };
 
+
 /**
  * комментарии байера.
  * @member {String} buyerComment
@@ -158,14 +159,13 @@ InlineObject11.prototype['fba'] = undefined;
  * @member {module:model/InlineObject11.StatusEnum} status
  * @default StatusEnum.1
  */
-InlineObject11.prototype['status'] = InlineObject11.StatusEnum["1"];
+InlineObject11.prototype['status'] = InlineObject11.StatusEnum[1];
 
 /**
  * Стоимость доставки до склада.
  * @member {Number} deliveryCostToTheWarehouse
  */
 InlineObject11.prototype['deliveryCostToTheWarehouse'] = undefined;
-
 
 
 

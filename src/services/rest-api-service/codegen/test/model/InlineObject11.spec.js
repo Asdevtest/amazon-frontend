@@ -54,14 +54,38 @@
       //expect(instance).to.be.a(Amazonapi.InlineObject11);
     });
 
-    it('should have the property taskId (base name: "taskId")', function() {
-      // uncomment below and update the code to test the property taskId
+    it('should have the property buyerComment (base name: "buyerComment")', function() {
+      // uncomment below and update the code to test the property buyerComment
       //var instance = new Amazonapi.InlineObject11();
       //expect(instance).to.be();
     });
 
-    it('should have the property boxId (base name: "boxId")', function() {
-      // uncomment below and update the code to test the property boxId
+    it('should have the property warehouse (base name: "warehouse")', function() {
+      // uncomment below and update the code to test the property warehouse
+      //var instance = new Amazonapi.InlineObject11();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property deliveryMethod (base name: "deliveryMethod")', function() {
+      // uncomment below and update the code to test the property deliveryMethod
+      //var instance = new Amazonapi.InlineObject11();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fba (base name: "fba")', function() {
+      // uncomment below and update the code to test the property fba
+      //var instance = new Amazonapi.InlineObject11();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property status (base name: "status")', function() {
+      // uncomment below and update the code to test the property status
+      //var instance = new Amazonapi.InlineObject11();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property deliveryCostToTheWarehouse (base name: "deliveryCostToTheWarehouse")', function() {
+      // uncomment below and update the code to test the property deliveryCostToTheWarehouse
       //var instance = new Amazonapi.InlineObject11();
       //expect(instance).to.be();
     });

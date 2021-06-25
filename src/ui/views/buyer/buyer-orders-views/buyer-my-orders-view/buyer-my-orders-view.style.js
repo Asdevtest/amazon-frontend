@@ -10,4 +10,7 @@ export const styles = createStyles(() => ({
   tableWrapper: {
     marginTop: '32px',
   },
+  dialogContextClassName: {
+    width: '1200px',
+  },
 }))

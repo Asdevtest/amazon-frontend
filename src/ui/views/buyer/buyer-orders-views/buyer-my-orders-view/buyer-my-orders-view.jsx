@@ -63,11 +63,11 @@ class BuyerMyOrdersViewRaw extends Component {
       onClickEditBarcode,
       onClickDeleteBarcode,
       onClickSaveBarcode,
-      onClickSaveOrder,
+      onSubmitSaveOrder,
       onTriggerShowCreateOrEditBoxModal,
       onSubmitCreateBox,
     } = this.viewModel
-    const {classes: className} = this.props
+    const {classes: classNames} = this.props
     const rowHandlers = {
       onClickOrder,
       onClickEditBarcode,
@@ -96,7 +96,7 @@ class BuyerMyOrdersViewRaw extends Component {
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
-              <div className={className.tableWrapper}>
+              <div className={classNames.tableWrapper}>
                 <Table
                   renderButtons={this.renderButtons}
                   currentPage={curPage}
@@ -115,9 +115,17 @@ class BuyerMyOrdersViewRaw extends Component {
         </Main>
         <Modal openModal={showCreateOrEditBoxModal} setOpenModal={onTriggerShowCreateOrEditBoxModal}>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
-          <CreateOrEditBoxForm order={selectedOrder} onSubmit={onSubmitCreateBox} />
+          <CreateOrEditBoxForm
+            order={selectedOrder}
+            onSubmit={onSubmitCreateBox}
+            onCloseModal={onTriggerShowCreateOrEditBoxModal}
+          />
         </Modal>
-        <Modal openModal={showOrderModal} setOpenModal={onTriggerShowOrderModal}>
+        <Modal
+          openModal={showOrderModal}
+          setOpenModal={onTriggerShowOrderModal}
+          dialogContextClassName={classNames.dialogContextClassName}
+        >
           <EditOrderModal
             order={selectedOrder}
             modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS}
@@ -126,7 +134,8 @@ class BuyerMyOrdersViewRaw extends Component {
             orderStatusByCode={OrderStatusByCode}
             onTriggerModal={onTriggerShowOrderModal}
             onTriggerBarcodeModal={onTriggerShowBarcodeModal}
-            onClickSaveOrder={onClickSaveOrder}
+            onSubmitSaveOrder={onSubmitSaveOrder}
+            onSubmitCreateBox={onSubmitCreateBox}
           />
         </Modal>
         <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>

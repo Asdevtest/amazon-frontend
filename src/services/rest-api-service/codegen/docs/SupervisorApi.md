@@ -172,7 +172,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsGuidPatch
 
-> Null apiV1SupervisorsProductsGuidPatch(guid, InlineObject22, opts)
+> String apiV1SupervisorsProductsGuidPatch(guid, InlineObject22, opts)
 
 # Изменить статус и дать комментарий доя продукта.
 
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -280,7 +280,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsPickupGuidPost
 
-> Null apiV1SupervisorsProductsPickupGuidPost(guid, opts)
+> String apiV1SupervisorsProductsPickupGuidPost(guid, opts)
 
 # Закрепить продукт за супервайзером. Взять его в работу.
 
@@ -320,7 +320,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 

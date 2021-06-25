@@ -54,8 +54,8 @@
       //expect(instance).to.be.a(Amazonapi.InlineResponse2011);
     });
 
-    it('should have the property token (base name: "token")', function() {
-      // uncomment below and update the code to test the property token
+    it('should have the property guid (base name: "guid")', function() {
+      // uncomment below and update the code to test the property guid
       //var instance = new Amazonapi.InlineResponse2011();
       //expect(instance).to.be();
     });

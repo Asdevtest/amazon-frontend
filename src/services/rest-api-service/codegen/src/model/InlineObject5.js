@@ -58,6 +58,7 @@ class InlineObject5 {
 }
 
 /**
+ * Массив коробок.
  * @member {Array.<String>} guids
  */
 InlineObject5.prototype['guids'] = undefined;
