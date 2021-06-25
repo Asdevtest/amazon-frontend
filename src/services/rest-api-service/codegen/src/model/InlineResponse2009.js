@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse2009 {
     /**
      * Constructs a new <code>InlineResponse2009</code>.
+     * Схема парсинга.
      * @alias module:model/InlineResponse2009
      */
     constructor() { 

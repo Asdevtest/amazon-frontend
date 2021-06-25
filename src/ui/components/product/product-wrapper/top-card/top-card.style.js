@@ -102,9 +102,9 @@ export const useClassNames = makeStyles(() => ({
   },
   rightBoxComments: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     height: '100%',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
   },
   heightFieldAuto: {
     height: 'auto',
@@ -118,5 +118,13 @@ export const useClassNames = makeStyles(() => ({
   },
   buttonDelete: {
     flexGrow: 1,
+  },
+  rightCardWrapper: {
+    padding: '16px',
+    marginBottom: '16px',
+    height: '380px',
+  },
+  carouselBox: {
+    width: '340px',
   },
 }))

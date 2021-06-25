@@ -54,38 +54,26 @@
       //expect(instance).to.be.a(Amazonapi.InlineObject2);
     });
 
-    it('should have the property name (base name: "name")', function() {
-      // uncomment below and update the code to test the property name
+    it('should have the property productId (base name: "productId")', function() {
+      // uncomment below and update the code to test the property productId
       //var instance = new Amazonapi.InlineObject2();
       //expect(instance).to.be();
     });
 
-    it('should have the property email (base name: "email")', function() {
-      // uncomment below and update the code to test the property email
+    it('should have the property recipient (base name: "recipient")', function() {
+      // uncomment below and update the code to test the property recipient
       //var instance = new Amazonapi.InlineObject2();
       //expect(instance).to.be();
     });
 
-    it('should have the property role (base name: "role")', function() {
-      // uncomment below and update the code to test the property role
+    it('should have the property sum (base name: "sum")', function() {
+      // uncomment below and update the code to test the property sum
       //var instance = new Amazonapi.InlineObject2();
       //expect(instance).to.be();
     });
 
-    it('should have the property fba (base name: "fba")', function() {
-      // uncomment below and update the code to test the property fba
-      //var instance = new Amazonapi.InlineObject2();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property active (base name: "active")', function() {
-      // uncomment below and update the code to test the property active
-      //var instance = new Amazonapi.InlineObject2();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property rate (base name: "rate")', function() {
-      // uncomment below and update the code to test the property rate
+    it('should have the property comment (base name: "comment")', function() {
+      // uncomment below and update the code to test the property comment
       //var instance = new Amazonapi.InlineObject2();
       //expect(instance).to.be();
     });

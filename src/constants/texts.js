@@ -984,7 +984,7 @@ export const texts = {
     productWrapperComponent: {
       buttonParseAmazon: ' Parse Amazon ',
       buttonParseSellcentrall: 'Parse Sellcentrall',
-      alertSuccess: 'Данные успешно получены.',
+      alertSuccess: 'Запрос обработан',
 
       fieldAsin: 'ID*',
       fieldLinkAmazon: 'Ссылка на товар Amazon',
@@ -1030,6 +1030,7 @@ export const texts = {
       csCode: 'Заголовок товара на Amazon',
       summary: 'Краткое описание на Amazon',
       description: 'Подробно',
+      category: 'Категория',
     },
     buyerBatchesView: {
       editBatch: 'Редактировать партию',

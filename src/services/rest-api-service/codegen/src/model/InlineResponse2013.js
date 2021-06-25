@@ -14,19 +14,19 @@
 import ApiClient from '../ApiClient';
 
 /**
- * The InlineResponse2012 model module.
- * @module model/InlineResponse2012
+ * The InlineResponse2013 model module.
+ * @module model/InlineResponse2013
  * @version v0.0.1
  */
-class InlineResponse2012 {
+class InlineResponse2013 {
     /**
-     * Constructs a new <code>InlineResponse2012</code>.
-     * Успешный ответ
-     * @alias module:model/InlineResponse2012
+     * Constructs a new <code>InlineResponse2013</code>.
+     * Пользователь после авторизации.
+     * @alias module:model/InlineResponse2013
      */
     constructor() { 
         
-        InlineResponse2012.initialize(this);
+        InlineResponse2013.initialize(this);
     }
 
     /**
@@ -38,18 +38,18 @@ class InlineResponse2012 {
     }
 
     /**
-     * Constructs a <code>InlineResponse2012</code> from a plain JavaScript object, optionally creating a new instance.
+     * Constructs a <code>InlineResponse2013</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @param {module:model/InlineResponse2012} obj Optional instance to populate.
-     * @return {module:model/InlineResponse2012} The populated <code>InlineResponse2012</code> instance.
+     * @param {module:model/InlineResponse2013} obj Optional instance to populate.
+     * @return {module:model/InlineResponse2013} The populated <code>InlineResponse2013</code> instance.
      */
     static constructFromObject(data, obj) {
         if (data) {
-            obj = obj || new InlineResponse2012();
+            obj = obj || new InlineResponse2013();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('token')) {
+                obj['token'] = ApiClient.convertToType(data['token'], 'String');
             }
         }
         return obj;
@@ -59,15 +59,15 @@ class InlineResponse2012 {
 }
 
 /**
- * guid созданного объекта
- * @member {String} guid
+ * Токен для авторизации.
+ * @member {String} token
  */
-InlineResponse2012.prototype['guid'] = undefined;
+InlineResponse2013.prototype['token'] = undefined;
 
 
 
 
 
 
-export default InlineResponse2012;
+export default InlineResponse2013;
 

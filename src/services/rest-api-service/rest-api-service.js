@@ -5,7 +5,7 @@ import AdministratorApi from './codegen/src/api/AdministratorApi'
 import BuyerApi from './codegen/src/api/BuyerApi'
 import ClientApi from './codegen/src/api/ClientApi'
 import ProductForTestOnlyApi from './codegen/src/api/ProductForTestOnlyApi'
-import ReseacherApi from './codegen/src/api/ReseacherApi'
+import ResearcherApi from './codegen/src/api/ResearcherApi'
 import StorekeepersApi from './codegen/src/api/StorekeepersApi'
 import SupervisorApi from './codegen/src/api/SupervisorApi'
 import SupplierApi from './codegen/src/api/SupplierApi'
@@ -26,7 +26,7 @@ class RestApiService {
     this.buyerApi = new BuyerApi(this.apiClient)
     this.clientApi = new ClientApi(this.apiClient)
     this.productForTestOnlyApi = new ProductForTestOnlyApi(this.apiClient)
-    this.researcherApi = new ReseacherApi(this.apiClient)
+    this.researcherApi = new ResearcherApi(this.apiClient)
     this.strokeepersApi = new StorekeepersApi(this.apiClient)
     this.supervisorApi = new SupervisorApi(this.apiClient)
     this.supplierApi = new SupplierApi(this.apiClient)

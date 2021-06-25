@@ -16,7 +16,7 @@ import ApiClient from "../ApiClient";
 import InlineObject25 from '../model/InlineObject25';
 import InlineObject26 from '../model/InlineObject26';
 import InlineResponse20011 from '../model/InlineResponse20011';
-import InlineResponse2012 from '../model/InlineResponse2012';
+import InlineResponse2013 from '../model/InlineResponse2013';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse403 from '../model/InlineResponse403';
 import InlineResponse404 from '../model/InlineResponse404';
@@ -148,7 +148,7 @@ export default class UserApi {
      * @param {module:model/InlineObject26} InlineObject26 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2012} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2013} and HTTP response
      */
     apiV1UsersSignInPostWithHttpInfo(InlineObject26, opts) {
       opts = opts || {};
@@ -171,7 +171,7 @@ export default class UserApi {
       let authNames = [];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2012;
+      let returnType = InlineResponse2013;
       return this.apiClient.callApi(
         '/api/v1/users/sign_in', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -185,7 +185,7 @@ export default class UserApi {
      * @param {module:model/InlineObject26} InlineObject26 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2012}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2013}
      */
     apiV1UsersSignInPost(InlineObject26, opts) {
       return this.apiV1UsersSignInPostWithHttpInfo(InlineObject26, opts)

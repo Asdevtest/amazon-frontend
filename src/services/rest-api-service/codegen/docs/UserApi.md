@@ -112,7 +112,7 @@ No authorization required
 
 ## apiV1UsersSignInPost
 
-> InlineResponse2012 apiV1UsersSignInPost(InlineObject26, opts)
+> InlineResponse2013 apiV1UsersSignInPost(InlineObject26, opts)
 
 # Получение токена авторизации.
 
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2012**](InlineResponse2012.md)
+[**InlineResponse2013**](InlineResponse2013.md)
 
 ### Authorization
 

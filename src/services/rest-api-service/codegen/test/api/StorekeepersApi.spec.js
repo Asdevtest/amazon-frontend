@@ -58,46 +58,6 @@
         done();
       });
     });
-    describe('apiV1StorekeepersBoxesGuidPatch', function() {
-      it('should call apiV1StorekeepersBoxesGuidPatch successfully', function(done) {
-        //uncomment below and update the code to test apiV1StorekeepersBoxesGuidPatch
-        //instance.apiV1StorekeepersBoxesGuidPatch(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1StorekeepersBoxesMyGet', function() {
-      it('should call apiV1StorekeepersBoxesMyGet successfully', function(done) {
-        //uncomment below and update the code to test apiV1StorekeepersBoxesMyGet
-        //instance.apiV1StorekeepersBoxesMyGet(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1StorekeepersBoxesPickupGuidPost', function() {
-      it('should call apiV1StorekeepersBoxesPickupGuidPost successfully', function(done) {
-        //uncomment below and update the code to test apiV1StorekeepersBoxesPickupGuidPost
-        //instance.apiV1StorekeepersBoxesPickupGuidPost(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1StorekeepersBoxesVacGet', function() {
-      it('should call apiV1StorekeepersBoxesVacGet successfully', function(done) {
-        //uncomment below and update the code to test apiV1StorekeepersBoxesVacGet
-        //instance.apiV1StorekeepersBoxesVacGet(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
     describe('apiV1StorekeepersTasksGuidPatch', function() {
       it('should call apiV1StorekeepersTasksGuidPatch successfully', function(done) {
         //uncomment below and update the code to test apiV1StorekeepersTasksGuidPatch

@@ -2,10 +2,12 @@ import {React, useState} from 'react'
 
 import {Box, Divider, Paper, Typography} from '@material-ui/core'
 
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
+import {CreateOrEditBoxForm} from '@components/forms/create-or-edit-box-form'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -15,6 +17,11 @@ import {SelectFields} from './select-fields'
 
 const textConsts = getLocalizedTexts(texts, 'ru').ordersViewsModalEditOrder
 
+const orderStatusesThatTriggersEditBoxBlock = [
+  OrderStatusByKey[OrderStatus.PAID],
+  OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+]
+
 export const EditOrderModal = ({
   order,
   onTriggerModal,
@@ -23,9 +30,11 @@ export const EditOrderModal = ({
   warehouses,
   deliveryTypeByCode,
   orderStatusByCode,
-  onClickSaveOrder,
+  onSubmitSaveOrder,
+  onSubmitCreateBox,
 }) => {
   const classNames = useClassNames()
+  const [showCreateOrEditBoxBlock, setShowCreateOrEditBoxBlock] = useState(false)
   const [orderFields, setOrderFields] = useState({
     warehouse: (order && order.warehouse) || undefined,
     deliveryMethod: (order && order.deliveryMethod) || undefined,
@@ -42,6 +51,10 @@ export const EditOrderModal = ({
     const newOrderFieldsState = {...orderFields}
     newOrderFieldsState[filedName] = e.target.value
     setOrderFields(newOrderFieldsState)
+  }
+
+  const onTriggerShowCreateOrEditBoxBlock = () => {
+    setShowCreateOrEditBoxBlock(!showCreateOrEditBoxBlock)
   }
 
   if (!order) {
@@ -74,13 +87,38 @@ export const EditOrderModal = ({
           onTriggerBarcodeModal={onTriggerBarcodeModal}
         />
       </Paper>
-
-      <Box mt={2} className={classNames.buttonsBox}>
-        <Button className={classNames.saveBtn} onClick={() => onClickSaveOrder(order, orderFields)}>
-          {textConsts.saveBtn}
-        </Button>
-        <ErrorButton onClick={onTriggerModal}>{textConsts.cancelBtn}</ErrorButton>
-      </Box>
+      {!showCreateOrEditBoxBlock ? (
+        <Box mt={2} className={classNames.buttonsBox}>
+          <Button
+            className={classNames.saveBtn}
+            onClick={() => {
+              onSubmitSaveOrder(order, orderFields)
+              if (
+                orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) &&
+                ((order && !orderStatusesThatTriggersEditBoxBlock.includes(parseInt(order.status))) || !order)
+              ) {
+                onTriggerShowCreateOrEditBoxBlock()
+              } else {
+                onTriggerModal()
+              }
+            }}
+          >
+            {textConsts.saveBtn}
+          </Button>
+          <ErrorButton onClick={onTriggerModal}>{textConsts.cancelBtn}</ErrorButton>
+        </Box>
+      ) : undefined}
+      {showCreateOrEditBoxBlock ? (
+        <>
+          <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
+          <CreateOrEditBoxForm
+            order={order}
+            onSubmit={boxFileds => {
+              onSubmitCreateBox(boxFileds)
+            }}
+          />
+        </>
+      ) : undefined}
     </Box>
   )
 }

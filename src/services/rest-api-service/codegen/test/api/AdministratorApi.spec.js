@@ -98,6 +98,16 @@
         done();
       });
     });
+    describe('apiV1AdminsMakeProductsPaidPost', function() {
+      it('should call apiV1AdminsMakeProductsPaidPost successfully', function(done) {
+        //uncomment below and update the code to test apiV1AdminsMakeProductsPaidPost
+        //instance.apiV1AdminsMakeProductsPaidPost(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('apiV1AdminsPatchProductsGuidPatch', function() {
       it('should call apiV1AdminsPatchProductsGuidPatch successfully', function(done) {
         //uncomment below and update the code to test apiV1AdminsPatchProductsGuidPatch
@@ -108,10 +118,10 @@
         done();
       });
     });
-    describe('apiV1AdminsPickupItemGuidPost', function() {
-      it('should call apiV1AdminsPickupItemGuidPost successfully', function(done) {
-        //uncomment below and update the code to test apiV1AdminsPickupItemGuidPost
-        //instance.apiV1AdminsPickupItemGuidPost(function(error) {
+    describe('apiV1AdminsPickupProductGuidPost', function() {
+      it('should call apiV1AdminsPickupProductGuidPost successfully', function(done) {
+        //uncomment below and update the code to test apiV1AdminsPickupProductGuidPost
+        //instance.apiV1AdminsPickupProductGuidPost(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

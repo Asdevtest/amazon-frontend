@@ -148,6 +148,7 @@ class InlineObject20 {
 }
 
 
+
 /**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
@@ -167,6 +168,7 @@ class InlineObject20 {
      */
     "10": 10
 };
+
 
 
 /**
@@ -248,6 +250,7 @@ InlineObject20.prototype['length'] = undefined;
 InlineObject20.prototype['weight'] = undefined;
 
 /**
+ * Массив поставщиков.
  * @member {Array.<String>} supplier
  */
 InlineObject20.prototype['supplier'] = undefined;
@@ -286,7 +289,7 @@ InlineObject20.prototype['fbalink'] = undefined;
  * @member {module:model/InlineObject20.StatusEnum} status
  * @default StatusEnum.0
  */
-InlineObject20.prototype['status'] = InlineObject20.StatusEnum["0"];
+InlineObject20.prototype['status'] = InlineObject20.StatusEnum[0];
 
 /**
  * Комментарии к товару.
@@ -295,6 +298,7 @@ InlineObject20.prototype['status'] = InlineObject20.StatusEnum["0"];
 InlineObject20.prototype['icomment'] = undefined;
 
 /**
+ * Массив изображений.
  * @member {Array.<String>} images
  */
 InlineObject20.prototype['images'] = undefined;
@@ -341,10 +345,6 @@ InlineObject20.prototype['margin'] = undefined;
  * @member {Number} byboxprice
  */
 InlineObject20.prototype['byboxprice'] = undefined;
-
-
-
-
 
 
 

@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new Amazonapi.InlineResponse2012();
+    instance = new Amazonapi.InlineResponse2013();
   });
 
   var getProperty = function(object, getter, property) {
@@ -47,16 +47,16 @@
       object[property] = value;
   }
 
-  describe('InlineResponse2012', function() {
-    it('should create an instance of InlineResponse2012', function() {
-      // uncomment below and update the code to test InlineResponse2012
-      //var instane = new Amazonapi.InlineResponse2012();
-      //expect(instance).to.be.a(Amazonapi.InlineResponse2012);
+  describe('InlineResponse2013', function() {
+    it('should create an instance of InlineResponse2013', function() {
+      // uncomment below and update the code to test InlineResponse2013
+      //var instane = new Amazonapi.InlineResponse2013();
+      //expect(instance).to.be.a(Amazonapi.InlineResponse2013);
     });
 
-    it('should have the property guid (base name: "guid")', function() {
-      // uncomment below and update the code to test the property guid
-      //var instance = new Amazonapi.InlineResponse2012();
+    it('should have the property token (base name: "token")', function() {
+      // uncomment below and update the code to test the property token
+      //var instance = new Amazonapi.InlineResponse2013();
       //expect(instance).to.be();
     });
 

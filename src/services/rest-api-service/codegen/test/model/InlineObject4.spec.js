@@ -138,8 +138,32 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property orderIds (base name: "orderIds")', function() {
-      // uncomment below and update the code to test the property orderIds
+    it('should have the property scheduledDispatchDate (base name: "scheduledDispatchDate")', function() {
+      // uncomment below and update the code to test the property scheduledDispatchDate
+      //var instance = new Amazonapi.InlineObject4();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property factDispatchDate (base name: "factDispatchDate")', function() {
+      // uncomment below and update the code to test the property factDispatchDate
+      //var instance = new Amazonapi.InlineObject4();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property isDraft (base name: "isDraft")', function() {
+      // uncomment below and update the code to test the property isDraft
+      //var instance = new Amazonapi.InlineObject4();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property items (base name: "items")', function() {
+      // uncomment below and update the code to test the property items
+      //var instance = new Amazonapi.InlineObject4();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property clientId (base name: "clientId")', function() {
+      // uncomment below and update the code to test the property clientId
       //var instance = new Amazonapi.InlineObject4();
       //expect(instance).to.be();
     });

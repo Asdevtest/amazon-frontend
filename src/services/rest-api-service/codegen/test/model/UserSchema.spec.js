@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new Amazonapi.UserDtoSchema();
+    instance = new Amazonapi.UserSchema();
   });
 
   var getProperty = function(object, getter, property) {
@@ -47,52 +47,52 @@
       object[property] = value;
   }
 
-  describe('UserDtoSchema', function() {
-    it('should create an instance of UserDtoSchema', function() {
-      // uncomment below and update the code to test UserDtoSchema
-      //var instane = new Amazonapi.UserDtoSchema();
-      //expect(instance).to.be.a(Amazonapi.UserDtoSchema);
+  describe('UserSchema', function() {
+    it('should create an instance of UserSchema', function() {
+      // uncomment below and update the code to test UserSchema
+      //var instane = new Amazonapi.UserSchema();
+      //expect(instance).to.be.a(Amazonapi.UserSchema);
     });
 
     it('should have the property _id (base name: "_id")', function() {
       // uncomment below and update the code to test the property _id
-      //var instance = new Amazonapi.UserDtoSchema();
+      //var instance = new Amazonapi.UserSchema();
       //expect(instance).to.be();
     });
 
     it('should have the property name (base name: "name")', function() {
       // uncomment below and update the code to test the property name
-      //var instance = new Amazonapi.UserDtoSchema();
+      //var instance = new Amazonapi.UserSchema();
       //expect(instance).to.be();
     });
 
     it('should have the property email (base name: "email")', function() {
       // uncomment below and update the code to test the property email
-      //var instance = new Amazonapi.UserDtoSchema();
+      //var instance = new Amazonapi.UserSchema();
       //expect(instance).to.be();
     });
 
     it('should have the property role (base name: "role")', function() {
       // uncomment below and update the code to test the property role
-      //var instance = new Amazonapi.UserDtoSchema();
+      //var instance = new Amazonapi.UserSchema();
       //expect(instance).to.be();
     });
 
     it('should have the property fba (base name: "fba")', function() {
       // uncomment below and update the code to test the property fba
-      //var instance = new Amazonapi.UserDtoSchema();
+      //var instance = new Amazonapi.UserSchema();
       //expect(instance).to.be();
     });
 
     it('should have the property active (base name: "active")', function() {
       // uncomment below and update the code to test the property active
-      //var instance = new Amazonapi.UserDtoSchema();
+      //var instance = new Amazonapi.UserSchema();
       //expect(instance).to.be();
     });
 
     it('should have the property rate (base name: "rate")', function() {
       // uncomment below and update the code to test the property rate
-      //var instance = new Amazonapi.UserDtoSchema();
+      //var instance = new Amazonapi.UserSchema();
       //expect(instance).to.be();
     });
 

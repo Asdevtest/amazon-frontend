@@ -1,10 +1,11 @@
-import {getFloatWithoutDollarSign} from './text'
+import {parseFieldsAdapterConfig} from '@constants/product-data-parser'
 
-export const parseFieldsAdapter = parsedResult => ({
-  bsr: parsedResult.bsr,
-  amazonTitle: parsedResult.title,
-  amazonDetail: parsedResult.detail,
-  amazonDescription: parsedResult.description,
-  images: parsedResult.images,
-  amazon: getFloatWithoutDollarSign(parsedResult.price),
-})
+export const parseFieldsAdapter = (parsedResult, siteParserKey) =>
+  Object.keys(parseFieldsAdapterConfig[siteParserKey]).reduce((acc, cur) => {
+    const fieldKeyConfig = parseFieldsAdapterConfig[siteParserKey][cur]
+    const isFieldKeyConfigString = typeof fieldKeyConfig === 'string'
+    acc[cur] = isFieldKeyConfigString
+      ? parsedResult[fieldKeyConfig]
+      : fieldKeyConfig.transformFunc(parsedResult[fieldKeyConfig.fieldKey])
+    return acc
+  }, {})

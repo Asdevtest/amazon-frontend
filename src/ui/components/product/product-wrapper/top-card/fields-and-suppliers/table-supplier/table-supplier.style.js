@@ -119,4 +119,10 @@ export const useClassNames = makeStyles(() => ({
   buttonDelete: {
     flexGrow: 1,
   },
+  tableRowAcceptedSupplier: {
+    backgroundColor: '#baffba',
+  },
+  tableRowSelectedSupplier: {
+    backgroundColor: 'rgba(245, 0, 87, 0.08)',
+  },
 }))

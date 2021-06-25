@@ -47,9 +47,16 @@ export const useClassNames = makeStyles(theme => ({
   cancelBtn: {
     marginLeft: theme.spacing(2),
   },
-  numberInputFieldsWrapper: {
+  numberInputFieldsBlocksWrapper: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: '100%',
+  },
+  numberInputFieldsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
   },
   numberInputField: {

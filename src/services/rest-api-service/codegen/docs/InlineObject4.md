@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **scheduledDispatchDate** | **Date** | Запланированная дата отправки. | [optional] 
 **factDispatchDate** | **Date** | Запланированная дата доставки. | [optional] 
 **isDraft** | **Boolean** | true - если создаем черновик заказа. | [optional] 
-**items** | [**[ApiV1BoxesItems]**](ApiV1BoxesItems.md) |  | 
+**items** | [**[ApiV1BoxesItems]**](ApiV1BoxesItems.md) | Массив коробок. | 
 **clientId** | **String** | GUID клиента | 
 
 

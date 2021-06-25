@@ -54,20 +54,104 @@
       //expect(instance).to.be.a(Amazonapi.InlineObject20);
     });
 
-    it('should have the property name (base name: "name")', function() {
-      // uncomment below and update the code to test the property name
+    it('should have the property sku (base name: "sku")', function() {
+      // uncomment below and update the code to test the property sku
       //var instance = new Amazonapi.InlineObject20();
       //expect(instance).to.be();
     });
 
-    it('should have the property link (base name: "link")', function() {
-      // uncomment below and update the code to test the property link
+    it('should have the property material (base name: "material")', function() {
+      // uncomment below and update the code to test the property material
       //var instance = new Amazonapi.InlineObject20();
       //expect(instance).to.be();
     });
 
-    it('should have the property price (base name: "price")', function() {
-      // uncomment below and update the code to test the property price
+    it('should have the property currentSupplier (base name: "currentSupplier")', function() {
+      // uncomment below and update the code to test the property currentSupplier
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property category (base name: "category")', function() {
+      // uncomment below and update the code to test the property category
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property lamazon (base name: "lamazon")', function() {
+      // uncomment below and update the code to test the property lamazon
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property lsupplier (base name: "lsupplier")', function() {
+      // uncomment below and update the code to test the property lsupplier
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property bsr (base name: "bsr")', function() {
+      // uncomment below and update the code to test the property bsr
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fba (base name: "fba")', function() {
+      // uncomment below and update the code to test the property fba
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property express (base name: "express")', function() {
+      // uncomment below and update the code to test the property express
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property amazon (base name: "amazon")', function() {
+      // uncomment below and update the code to test the property amazon
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property height (base name: "height")', function() {
+      // uncomment below and update the code to test the property height
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property width (base name: "width")', function() {
+      // uncomment below and update the code to test the property width
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property length (base name: "length")', function() {
+      // uncomment below and update the code to test the property length
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property weight (base name: "weight")', function() {
+      // uncomment below and update the code to test the property weight
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property supplier (base name: "supplier")', function() {
+      // uncomment below and update the code to test the property supplier
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property reffee (base name: "reffee")', function() {
+      // uncomment below and update the code to test the property reffee
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fbafee (base name: "fbafee")', function() {
+      // uncomment below and update the code to test the property fbafee
       //var instance = new Amazonapi.InlineObject20();
       //expect(instance).to.be();
     });
@@ -78,26 +162,80 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property amount (base name: "amount")', function() {
-      // uncomment below and update the code to test the property amount
+    it('should have the property fbaamount (base name: "fbaamount")', function() {
+      // uncomment below and update the code to test the property fbaamount
       //var instance = new Amazonapi.InlineObject20();
       //expect(instance).to.be();
     });
 
-    it('should have the property minlot (base name: "minlot")', function() {
-      // uncomment below and update the code to test the property minlot
+    it('should have the property fbalink (base name: "fbalink")', function() {
+      // uncomment below and update the code to test the property fbalink
       //var instance = new Amazonapi.InlineObject20();
       //expect(instance).to.be();
     });
 
-    it('should have the property lotcost (base name: "lotcost")', function() {
-      // uncomment below and update the code to test the property lotcost
+    it('should have the property status (base name: "status")', function() {
+      // uncomment below and update the code to test the property status
       //var instance = new Amazonapi.InlineObject20();
       //expect(instance).to.be();
     });
 
-    it('should have the property comment (base name: "comment")', function() {
-      // uncomment below and update the code to test the property comment
+    it('should have the property icomment (base name: "icomment")', function() {
+      // uncomment below and update the code to test the property icomment
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property images (base name: "images")', function() {
+      // uncomment below and update the code to test the property images
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property amazonDescription (base name: "amazonDescription")', function() {
+      // uncomment below and update the code to test the property amazonDescription
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property amazonDetail (base name: "amazonDetail")', function() {
+      // uncomment below and update the code to test the property amazonDetail
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property amazonTitle (base name: "amazonTitle")', function() {
+      // uncomment below and update the code to test the property amazonTitle
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property barCode (base name: "barCode")', function() {
+      // uncomment below and update the code to test the property barCode
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property minpurchase (base name: "minpurchase")', function() {
+      // uncomment below and update the code to test the property minpurchase
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property profit (base name: "profit")', function() {
+      // uncomment below and update the code to test the property profit
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property margin (base name: "margin")', function() {
+      // uncomment below and update the code to test the property margin
+      //var instance = new Amazonapi.InlineObject20();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property byboxprice (base name: "byboxprice")', function() {
+      // uncomment below and update the code to test the property byboxprice
       //var instance = new Amazonapi.InlineObject20();
       //expect(instance).to.be();
     });

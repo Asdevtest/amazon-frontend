@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse2007 {
     /**
      * Constructs a new <code>InlineResponse2007</code>.
+     * Успешный ответ.
      * @alias module:model/InlineResponse2007
      */
     constructor() { 

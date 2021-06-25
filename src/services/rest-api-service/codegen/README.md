@@ -263,6 +263,7 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineResponse201](docs/InlineResponse201.md)
  - [Amazonapi.InlineResponse2011](docs/InlineResponse2011.md)
  - [Amazonapi.InlineResponse2012](docs/InlineResponse2012.md)
+ - [Amazonapi.InlineResponse2013](docs/InlineResponse2013.md)
  - [Amazonapi.InlineResponse400](docs/InlineResponse400.md)
  - [Amazonapi.InlineResponse403](docs/InlineResponse403.md)
  - [Amazonapi.InlineResponse404](docs/InlineResponse404.md)
@@ -274,7 +275,7 @@ Class | Method | HTTP request | Description
  - [Amazonapi.PayloadTooLarge](docs/PayloadTooLarge.md)
  - [Amazonapi.UnauthorizedError](docs/UnauthorizedError.md)
  - [Amazonapi.UpdatedSuccessfully](docs/UpdatedSuccessfully.md)
- - [Amazonapi.UserDtoSchema](docs/UserDtoSchema.md)
+ - [Amazonapi.UserSchema](docs/UserSchema.md)
 
 
 ## Documentation for Authorization

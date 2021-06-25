@@ -341,6 +341,7 @@ InlineResponse2002.prototype['scheduledDispatchDate'] = undefined;
 InlineResponse2002.prototype['factDispatchDate'] = undefined;
 
 /**
+ * Массив коробок.
  * @member {Array.<module:model/ApiV1BoxesItems>} items
  */
 InlineResponse2002.prototype['items'] = undefined;

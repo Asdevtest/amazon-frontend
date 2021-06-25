@@ -60,20 +60,38 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property taskId (base name: "taskId")', function() {
-      // uncomment below and update the code to test the property taskId
+    it('should have the property name (base name: "name")', function() {
+      // uncomment below and update the code to test the property name
       //var instance = new Amazonapi.InlineResponse20011();
       //expect(instance).to.be();
     });
 
-    it('should have the property boxId (base name: "boxId")', function() {
-      // uncomment below and update the code to test the property boxId
+    it('should have the property email (base name: "email")', function() {
+      // uncomment below and update the code to test the property email
       //var instance = new Amazonapi.InlineResponse20011();
       //expect(instance).to.be();
     });
 
-    it('should have the property status (base name: "status")', function() {
-      // uncomment below and update the code to test the property status
+    it('should have the property role (base name: "role")', function() {
+      // uncomment below and update the code to test the property role
+      //var instance = new Amazonapi.InlineResponse20011();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fba (base name: "fba")', function() {
+      // uncomment below and update the code to test the property fba
+      //var instance = new Amazonapi.InlineResponse20011();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property active (base name: "active")', function() {
+      // uncomment below and update the code to test the property active
+      //var instance = new Amazonapi.InlineResponse20011();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property rate (base name: "rate")', function() {
+      // uncomment below and update the code to test the property rate
       //var instance = new Amazonapi.InlineResponse20011();
       //expect(instance).to.be();
     });

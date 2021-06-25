@@ -22,6 +22,7 @@ import InlineResponse200 from './InlineResponse200';
 class InlineResponse2003 {
     /**
      * Constructs a new <code>InlineResponse2003</code>.
+     * Заказ.
      * @alias module:model/InlineResponse2003
      * @param clientComment {String} Комментарии клиента.
      * @param warehouse {Number} Номер склада.
@@ -153,6 +154,8 @@ class InlineResponse2003 {
     "35": 35
 };
 
+
+
 /**
  * GUID данной записи в БД.
  * @member {String} _id
@@ -200,7 +203,7 @@ InlineResponse2003.prototype['fba'] = undefined;
  * @member {module:model/InlineResponse2003.StatusEnum} status
  * @default StatusEnum.1
  */
-InlineResponse2003.prototype['status'] = InlineResponse2003.StatusEnum["1"];
+InlineResponse2003.prototype['status'] = InlineResponse2003.StatusEnum[1];
 
 /**
  * Стоимость доставки до склада.
@@ -212,7 +215,6 @@ InlineResponse2003.prototype['deliveryCostToTheWarehouse'] = undefined;
  * @member {module:model/InlineResponse200} product
  */
 InlineResponse2003.prototype['product'] = undefined;
-
 
 
 export default InlineResponse2003;

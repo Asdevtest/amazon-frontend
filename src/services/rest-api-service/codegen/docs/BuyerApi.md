@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersGuidPatch
 
-> Null apiV1BuyersOrdersGuidPatch(guid, opts)
+> String apiV1BuyersOrdersGuidPatch(guid, opts)
 
 # Редактировать заказ.
 
@@ -116,7 +116,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -182,7 +182,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersPickupGuidPost
 
-> Null apiV1BuyersOrdersPickupGuidPost(guid, opts)
+> String apiV1BuyersOrdersPickupGuidPost(guid, opts)
 
 # Закрепить заказ за байером. Взять его в работу.
 
@@ -222,7 +222,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -392,7 +392,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsGuidPatch
 
-> Null apiV1BuyersProductsGuidPatch(guid, request_body, opts)
+> String apiV1BuyersProductsGuidPatch(guid, opts)
 
 # Внести изменения в продукт.
 
@@ -411,11 +411,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new Amazonapi.BuyerApi();
 let guid = "guid_example"; // String | GUID продукта, который планируем изменить
-let request_body = {key: null}; // {String: Object} | 
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': gzip, deflate, // String | 
+  'request_body': {key: null} // {String: Object} | 
 };
-apiInstance.apiV1BuyersProductsGuidPatch(guid, request_body, opts).then((data) => {
+apiInstance.apiV1BuyersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -429,12 +429,12 @@ apiInstance.apiV1BuyersProductsGuidPatch(guid, request_body, opts).then((data) =
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта, который планируем изменить | 
- **request_body** | [**{String: Object}**](Object.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **request_body** | [**{String: Object}**](Object.md)|  | [optional] 
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -500,7 +500,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsPickupGuidPost
 
-> Null apiV1BuyersProductsPickupGuidPost(guid, opts)
+> String apiV1BuyersProductsPickupGuidPost(guid, opts)
 
 # Закрепить продукт за байером. Взять его в работу.
 
@@ -540,7 +540,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 

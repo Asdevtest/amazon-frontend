@@ -89,6 +89,12 @@ export const useClassNames = makeStyles(() => ({
   iconBtnRemove: {
     backgroundColor: 'rgba(224, 32, 32, 1)',
   },
+  iconBtnAccept: {
+    backgroundColor: 'rgba(30, 220, 30, 1)',
+  },
+  iconBtnAcceptRevoke: {
+    backgroundColor: 'rgba(224, 32, 32, 1)',
+  },
   tableCellPadding: {
     padding: '16px 24px',
   },

@@ -4,6 +4,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {ResearcherModel} from '@models/researcher-model'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
 
 const formFieldsDefault = {
@@ -101,8 +102,9 @@ export class ResearcherProductsViewModel {
   async getPropductsVacant() {
     try {
       const result = await ResearcherModel.getProductsVacant()
+      console.log('result ', result)
       runInAction(() => {
-        this.products = result
+        this.products = result.sort(sortObjectsArrayByFiledDate('createdat'))
       })
     } catch (error) {
       console.log(error)
