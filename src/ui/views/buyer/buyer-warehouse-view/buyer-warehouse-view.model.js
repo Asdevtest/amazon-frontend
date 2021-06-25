@@ -14,7 +14,7 @@ export class BuyerWarehouseViewModel {
   drawerOpen = false
   curPage = 1
   rowsPerPage = 5
-  selectedBoxes = ['2096c_box']
+  selectedBoxes = []
 
   showSendOwnProductModal = false
   showEditBoxModal = false
@@ -51,13 +51,18 @@ export class BuyerWarehouseViewModel {
     this.selectedBoxes = updatedselectedBoxes
   }
 
-  onRedistribute(updatedBoxes) {
-    this.boxes = updatedBoxes
+  onRedistribute(id, updatedBoxes) {
+    const boxes = updatedBoxes.map(el => el.items)
+    this.splitBoxes(id, boxes)
     this.selectedBoxes = []
   }
 
+  onEditBoxSubmit(id, data) {
+    this.updateBox(id, data)
+  }
+
   onClickMerge() {
-    alert('Box merging')
+    this.mergeBoxes(this.selectedBoxes)
   }
 
   onTriggerOpenModal(modalState) {
@@ -72,6 +77,52 @@ export class BuyerWarehouseViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async mergeBoxes(boxes) {
+    try {
+      const result = await BoxesModel.mergeBoxes(boxes)
+
+      console.log(result, 'RESULT')
+
+      await this.getBoxesMy()
+
+      this.selectedBoxes = []
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async splitBoxes(id, data) {
+    try {
+      await BoxesModel.splitBoxes(id, data)
+
+      await this.getBoxesMy()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async updateBox(id, data) {
+    try {
+      await BoxesModel.updateBox(id, data)
+
+      await this.getBoxesMy()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async cancelMergeBoxes() {
+    try {
+      await BoxesModel.cancelMergeBoxes()
+    } catch (error) {
+      console.log(error)
+      this.error = error
     }
   }
 
@@ -90,5 +141,51 @@ export class BuyerWarehouseViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  //  для тестов
+  async removeBox(id) {
+    try {
+      await BoxesModel.removeBox(id)
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  //  для тестов
+  async createBox() {
+    try {
+      await BoxesModel.createBox({
+        lengthCm: 10,
+        widthCm: 10,
+        heightCm: 10,
+        weighGrossKg: 15.5,
+        volumeWeightKg: 25.5,
+        weightFinalAccountingKg: 25.5,
+        lengthCmSupplier: 25,
+        widthCmSupplier: 35,
+        heightCmSupplier: 45,
+        weighGrossKgSupplier: 45,
+        volumeWeightKgSupplier: 15,
+        weightFinalAccountingKgSupplier: 25,
+        warehouse: 25,
+        deliveryMethod: 25,
+        scheduledDispatchDate: '2021-06-24',
+        factDispatchDate: '2021-06-24',
+        isDraft: false,
+        items: [
+          {
+            product: '607dceac3551e3fa7e7fbb69',
+            amount: '39',
+            order: '607dceac3551e3fa7e7fbb69',
+          },
+        ],
+        clientId: '607dceac3551e3fa7e7fbb69',
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 }

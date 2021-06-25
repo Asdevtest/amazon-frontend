@@ -60,6 +60,11 @@ export class BuyerWarehouseViewRaw extends Component {
       onRedistribute,
       onTriggerOpenModal,
       onModalRedistributeBoxAddNewBox,
+      onEditBoxSubmit,
+
+      // createBox
+      // removeBox
+      //  выше методы для тестов
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -69,6 +74,12 @@ export class BuyerWarehouseViewRaw extends Component {
     const rowsDatas = {
       selectedBoxes,
     }
+
+    // createBox();
+    // removeBox('60d478815382b25eea73e069');
+    //  выше методы для тестов
+
+    // console.log(boxesMy, 'BOXES DATA');
 
     return (
       <React.Fragment>
@@ -125,7 +136,11 @@ export class BuyerWarehouseViewRaw extends Component {
 
         <Modal openModal={showEditBoxModal} setOpenModal={() => onTriggerOpenModal('showEditBoxModal')}>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
-          <CreateOrEditBoxForm formFields={boxesMy.filter(box => selectedBoxes.includes(box._Id))[0]} />
+          <CreateOrEditBoxForm
+            box={boxesMy.find(box => box._id === selectedBoxes[0])}
+            onSubmit={onEditBoxSubmit}
+            onTriggerOpenModal={onTriggerOpenModal}
+          />
         </Modal>
 
         <Modal openModal={showRedistributeBoxModal} setOpenModal={() => onTriggerOpenModal('showRedistributeBoxModal')}>
@@ -136,8 +151,7 @@ export class BuyerWarehouseViewRaw extends Component {
             <RedistributeBox
               addNewBoxModal={showRedistributeBoxAddNewBoxModal}
               setAddNewBoxModal={value => onModalRedistributeBoxAddNewBox(value)}
-              selectedBox={boxesMy.filter(box => selectedBoxes.includes(box._id))[0]}
-              notSelectedBoxes={boxesMy.filter(box => !selectedBoxes.includes(box._id))}
+              selectedBox={boxesMy.find(box => box._id === selectedBoxes[0])}
               onRedistribute={onRedistribute}
               onTriggerOpenModal={onTriggerOpenModal}
             />
@@ -164,6 +178,7 @@ export class BuyerWarehouseViewRaw extends Component {
             </Button>
           </div>
         </Modal>
+
         <Modal
           openModal={showRedistributeBoxSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showRedistributeBoxSuccessModal')}
@@ -204,7 +219,7 @@ export class BuyerWarehouseViewRaw extends Component {
 
       <Button
         disableElevation
-        disabled={this.viewModel.selectedBoxes.length <= 2}
+        disabled={this.viewModel.selectedBoxes.length <= 1}
         color="primary"
         variant="contained"
         onClick={() => this.viewModel.onClickMerge()}
@@ -214,7 +229,7 @@ export class BuyerWarehouseViewRaw extends Component {
 
       <Button
         disableElevation
-        disabled={this.viewModel.selectedBoxes.length === 1}
+        disabled={this.viewModel.selectedBoxes.length !== 1}
         color="primary"
         variant="contained"
         onClick={() => this.viewModel.onTriggerOpenModal('showRedistributeBoxModal')}
@@ -224,7 +239,7 @@ export class BuyerWarehouseViewRaw extends Component {
 
       <Button
         disableElevation
-        disabled={this.viewModel.selectedBoxes.length <= 1}
+        disabled={this.viewModel.selectedBoxes.length !== 1}
         color="primary"
         variant="contained"
         onClick={() => this.viewModel.onTriggerOpenModal('showEditBoxModal')}
