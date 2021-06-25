@@ -17,29 +17,54 @@ import {useClassNames} from './create-or-edit-box-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
 
-export const CreateOrEditBoxForm = ({order, box, onSubmit}) => {
+export const CreateOrEditBoxForm = ({box, onSubmit, onTriggerOpenModal}) => {
   const classNames = useClassNames()
 
-  const [formFields, setFormFields] = useState({
-    lengthCmSupplier: (box && box.lengthCmSupplier) || '',
-    widthCmSupplier: (box && box.widthCmSupplier) || '',
-    heightCmSupplier: (box && box.heightCmSupplier) || '',
-    weighGrossKgSupplier: (box && box.weighGrossKgSupplier) || '',
-    volumeWeightKgSupplier: (box && box.volumeWeightKgSupplier) || '',
-    weightFinalAccountingKgSupplier: (box && box.weightFinalAccountingKgSupplier) || '',
-    warehouse: (box && box.warehouse) || '',
-    deliveryMethod: (box && box.deliveryMethod) || '',
-    // scheduledDispatchDate: "2021-06-22",
-    // factDispatchDate: "2021-06-22",
-    items: (box && box.items) || [
-      {
-        product: order && order.product,
-        amount: (order && order.amount) || 10,
-        order: order && order,
-      },
-    ],
-    clientId: '607dceac3551e3fa7e7fbb69',
-  })
+  // console.log(selectedBoxes, 'SELECTED BOXES');
+
+  console.log(box, 'BOX FOR EDITING')
+
+  const [formFields, setFormFields] = useState(
+    {
+      lengthCmSupplier: (box && box.lengthCmSupplier) || '',
+      widthCmSupplier: (box && box.widthCmSupplier) || '',
+      heightCmSupplier: (box && box.heightCmSupplier) || '',
+      weighGrossKgSupplier: (box && box.weighGrossKgSupplier) || '',
+      volumeWeightKgSupplier: (box && box.volumeWeightKgSupplier) || '',
+      weightFinalAccountingKgSupplier: (box && box.weightFinalAccountingKgSupplier) || '',
+      warehouse: (box && box.warehouse) || '',
+      deliveryMethod: (box && box.deliveryMethod) || '',
+      shipmentPlanId: (box && box.shipmentPlanId) || '',
+      // scheduledDispatchDate: "2021-06-22",
+      // factDispatchDate: "2021-06-22",
+      // items: (box && box.items) || [
+      //   {
+      //     product: order && order.product,
+      //     amount: (order && order.amount) || 10,
+      //     order: order && order
+      //   }
+      // ],
+      // clientId: '607dceac3551e3fa7e7fbb69'
+    },
+    // {
+    //   "lengthCm": 10,
+    //   "widthCm": 10,
+    //   "heightCm": 10,
+    //   "weighGrossKg": 15.5,
+    //   "volumeWeightKg": 25.5,
+    //   "weightFinalAccountingKg": 25.5,
+
+    //   "lengthCmSupplier": 25,
+    //   "widthCmSupplier": 35,
+    //   "heightCmSupplier": 45,
+    //   "weighGrossKgSupplier": 45,
+    //   "volumeWeightKgSupplier": 15,
+    //   "weightFinalAccountingKgSupplier": 25,
+    //   "shipmentPlanId": "12WEER234",
+    //   "warehouse": 25,
+    //   "deliveryMethod": 25
+    // }
+  )
 
   const setFormField = fieldName => e => {
     const newFormFields = {...formFields, [fieldName]: e.target.value}
@@ -154,10 +179,24 @@ export const CreateOrEditBoxForm = ({order, box, onSubmit}) => {
       </div>
 
       <div className={classNames.buttonsWrapper}>
-        <SuccessButton disableElevation color="primary" variant="contained" onClick={() => onSubmit(formFields)}>
+        <SuccessButton
+          disableElevation
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            onSubmit(box._id, formFields)
+            onTriggerOpenModal('showEditBoxModal')
+          }}
+        >
           {textConsts.saveChangesBtn}
         </SuccessButton>
-        <Button disableElevation color="primary" className={classNames.cancelBtn} variant="contained">
+        <Button
+          disableElevation
+          color="primary"
+          className={classNames.cancelBtn}
+          variant="contained"
+          onClick={() => onTriggerOpenModal('showEditBoxModal')}
+        >
           {textConsts.cancelChangesBtn}
         </Button>
       </div>

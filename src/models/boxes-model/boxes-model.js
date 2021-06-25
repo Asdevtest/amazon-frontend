@@ -11,23 +11,31 @@ class BoxesModelStatic {
     return response
   }
 
-  mergeBoxes = async data => {
-    const response = await restApiService.boxesApi.apiV1BoxesMergePost({InlineObject5: data})
+  mergeBoxes = async ids => {
+    const response = await restApiService.boxesApi.apiV1BoxesMergePost({
+      InlineObject5: {guids: ids},
+    })
     return response
   }
 
   cancelMergeBoxes = async data => {
-    const response = await restApiService.boxesApi.apiV1BoxesCancelMergePost({InlineObject6: data})
+    const response = await restApiService.boxesApi.apiV1BoxesCancelMergePost({
+      InlineObject6: data,
+    })
     return response
   }
 
-  splitBoxes = async data => {
-    const response = await restApiService.boxesApi.apiV1BoxesSplitPost({InlineObject7: data})
+  splitBoxes = async (id, data) => {
+    const response = await restApiService.boxesApi.apiV1BoxesSplitPost({
+      InlineObject7: {guid: id, itemsBoxSet: data},
+    })
     return response
   }
 
   cancelSplitBoxes = async data => {
-    const response = await restApiService.boxesApi.apiV1BoxesCancelSplitPost({InlineObject8: data})
+    const response = await restApiService.boxesApi.apiV1BoxesCancelSplitPost({
+      InlineObject8: data,
+    })
     return response
   }
 
@@ -57,7 +65,9 @@ class BoxesModelStatic {
   }
 
   updateBox = async (id, data) => {
-    const response = await restApiService.boxesApi.apiV1BoxesStorekeepersGuidPatch(id, {InlineObject10: data})
+    const response = await restApiService.boxesApi.apiV1BoxesStorekeepersGuidPatch(id, {
+      InlineObject10: data,
+    })
     return response
   }
 }
