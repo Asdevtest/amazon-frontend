@@ -117,22 +117,46 @@ export class BuyerWarehouseViewModel {
     }
   }
 
-  async cancelMergeBoxes() {
+  async getBoxesMy() {
     try {
-      await BoxesModel.cancelMergeBoxes()
+      const result = await BoxesModel.getBoxes()
+
+      runInAction(() => {
+        this.boxesMy = result
+      })
     } catch (error) {
       console.log(error)
       this.error = error
     }
   }
 
-  async getBoxesMy() {
+  async approveBoxesOperation(id) {
     try {
-      const result = await BoxesModel.getBoxes()
-      console.log(result)
-      runInAction(() => {
-        this.boxesMy = []
-      })
+      await BoxesModel.approveBoxesOperation(id)
+
+      await this.getBoxesMy()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async cancelMergeBoxes(id) {
+    try {
+      await BoxesModel.cancelMergeBoxes(id)
+
+      await this.getBoxesMy()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async cancelSplitBoxes(id) {
+    try {
+      await BoxesModel.cancelSplitBoxes(id)
+
+      await this.getBoxesMy()
     } catch (error) {
       console.log(error)
       this.error = error

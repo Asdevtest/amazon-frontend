@@ -61,6 +61,9 @@ export class BuyerWarehouseViewRaw extends Component {
       onTriggerOpenModal,
       onModalRedistributeBoxAddNewBox,
       onEditBoxSubmit,
+      approveBoxesOperation,
+      cancelMergeBoxes,
+      cancelSplitBoxes,
 
       // createBox
       // removeBox
@@ -76,10 +79,10 @@ export class BuyerWarehouseViewRaw extends Component {
     }
 
     // createBox();
-    // removeBox('60d478815382b25eea73e069');
+    // removeBox('60d491695382b25eea73e076');
     //  выше методы для тестов
 
-    // console.log(boxesMy, 'BOXES DATA');
+    console.log(boxesMy, 'BOXES DATA')
 
     return (
       <React.Fragment>
@@ -124,7 +127,13 @@ export class BuyerWarehouseViewRaw extends Component {
                 rowsDatas={rowsDatas}
               />
               <Paper>
-                <WarehouseHistory historyData={HISTORY_DATA} title={textConsts.warehouseHistoryTitle} />
+                <WarehouseHistory
+                  historyData={HISTORY_DATA}
+                  title={textConsts.warehouseHistoryTitle}
+                  onApproveMergeAndSplitBoxes={approveBoxesOperation}
+                  onCancelMergeBoxes={cancelMergeBoxes}
+                  onCancelSplitBoxes={cancelSplitBoxes}
+                />
               </Paper>
             </MainContent>
           </Appbar>

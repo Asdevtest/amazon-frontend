@@ -18,9 +18,9 @@ class BoxesModelStatic {
     return response
   }
 
-  cancelMergeBoxes = async data => {
+  cancelMergeBoxes = async ids => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelMergePost({
-      InlineObject6: data,
+      InlineObject6: {guids: ids},
     })
     return response
   }
@@ -32,9 +32,9 @@ class BoxesModelStatic {
     return response
   }
 
-  cancelSplitBoxes = async data => {
+  cancelSplitBoxes = async id => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelSplitPost({
-      InlineObject8: data,
+      InlineObject8: {guids: id},
     })
     return response
   }
@@ -44,8 +44,10 @@ class BoxesModelStatic {
     return response
   }
 
-  approveBoxesOperation = async data => {
-    const response = await restApiService.boxesApi.apiV1BoxesApprovePost({InlineObject9: data})
+  approveBoxesOperation = async id => {
+    const response = await restApiService.boxesApi.apiV1BoxesApprovePost({
+      InlineObject9: {guid: id},
+    })
     return response
   }
 
