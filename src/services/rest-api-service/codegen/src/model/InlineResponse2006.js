@@ -24,7 +24,7 @@ class InlineResponse2006 {
      * Constructs a new <code>InlineResponse2006</code>.
      * @alias module:model/InlineResponse2006
      * @param _id {module:model/ApiV1ClientsBatchesId} 
-     * @param boxes {Array.<String>} 
+     * @param boxes {Array.<String>} Массив коробок.
      */
     constructor(_id, boxes) { 
         
@@ -71,6 +71,7 @@ class InlineResponse2006 {
 InlineResponse2006.prototype['_id'] = undefined;
 
 /**
+ * Массив коробок.
  * @member {Array.<String>} boxes
  */
 InlineResponse2006.prototype['boxes'] = undefined;

@@ -72,6 +72,18 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property currentSupplier (base name: "currentSupplier")', function() {
+      // uncomment below and update the code to test the property currentSupplier
+      //var instance = new Amazonapi.InlineResponse200();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property category (base name: "category")', function() {
+      // uncomment below and update the code to test the property category
+      //var instance = new Amazonapi.InlineResponse200();
+      //expect(instance).to.be();
+    });
+
     it('should have the property lamazon (base name: "lamazon")', function() {
       // uncomment below and update the code to test the property lamazon
       //var instance = new Amazonapi.InlineResponse200();
@@ -84,6 +96,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property bsr (base name: "bsr")', function() {
+      // uncomment below and update the code to test the property bsr
+      //var instance = new Amazonapi.InlineResponse200();
+      //expect(instance).to.be();
+    });
+
     it('should have the property fba (base name: "fba")', function() {
       // uncomment below and update the code to test the property fba
       //var instance = new Amazonapi.InlineResponse200();
@@ -92,18 +110,6 @@
 
     it('should have the property express (base name: "express")', function() {
       // uncomment below and update the code to test the property express
-      //var instance = new Amazonapi.InlineResponse200();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property minpurchase (base name: "minpurchase")', function() {
-      // uncomment below and update the code to test the property minpurchase
-      //var instance = new Amazonapi.InlineResponse200();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property bsr (base name: "bsr")', function() {
-      // uncomment below and update the code to test the property bsr
       //var instance = new Amazonapi.InlineResponse200();
       //expect(instance).to.be();
     });
@@ -144,8 +150,8 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property fbalink (base name: "fbalink")', function() {
-      // uncomment below and update the code to test the property fbalink
+    it('should have the property reffee (base name: "reffee")', function() {
+      // uncomment below and update the code to test the property reffee
       //var instance = new Amazonapi.InlineResponse200();
       //expect(instance).to.be();
     });
@@ -156,14 +162,26 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property delivery (base name: "delivery")', function() {
+      // uncomment below and update the code to test the property delivery
+      //var instance = new Amazonapi.InlineResponse200();
+      //expect(instance).to.be();
+    });
+
     it('should have the property fbaamount (base name: "fbaamount")', function() {
       // uncomment below and update the code to test the property fbaamount
       //var instance = new Amazonapi.InlineResponse200();
       //expect(instance).to.be();
     });
 
-    it('should have the property delivery (base name: "delivery")', function() {
-      // uncomment below and update the code to test the property delivery
+    it('should have the property fbalink (base name: "fbalink")', function() {
+      // uncomment below and update the code to test the property fbalink
+      //var instance = new Amazonapi.InlineResponse200();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property status (base name: "status")', function() {
+      // uncomment below and update the code to test the property status
       //var instance = new Amazonapi.InlineResponse200();
       //expect(instance).to.be();
     });
@@ -174,8 +192,8 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property status (base name: "status")', function() {
-      // uncomment below and update the code to test the property status
+    it('should have the property images (base name: "images")', function() {
+      // uncomment below and update the code to test the property images
       //var instance = new Amazonapi.InlineResponse200();
       //expect(instance).to.be();
     });
@@ -234,6 +252,18 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property barCode (base name: "barCode")', function() {
+      // uncomment below and update the code to test the property barCode
+      //var instance = new Amazonapi.InlineResponse200();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property minpurchase (base name: "minpurchase")', function() {
+      // uncomment below and update the code to test the property minpurchase
+      //var instance = new Amazonapi.InlineResponse200();
+      //expect(instance).to.be();
+    });
+
     it('should have the property profit (base name: "profit")', function() {
       // uncomment below and update the code to test the property profit
       //var instance = new Amazonapi.InlineResponse200();
@@ -246,8 +276,8 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property currentSupplier (base name: "currentSupplier")', function() {
-      // uncomment below and update the code to test the property currentSupplier
+    it('should have the property byboxprice (base name: "byboxprice")', function() {
+      // uncomment below and update the code to test the property byboxprice
       //var instance = new Amazonapi.InlineResponse200();
       //expect(instance).to.be();
     });
@@ -278,12 +308,6 @@
 
     it('should have the property buyerscomment (base name: "buyerscomment")', function() {
       // uncomment below and update the code to test the property buyerscomment
-      //var instance = new Amazonapi.InlineResponse200();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property barCode (base name: "barCode")', function() {
-      // uncomment below and update the code to test the property barCode
       //var instance = new Amazonapi.InlineResponse200();
       //expect(instance).to.be();
     });

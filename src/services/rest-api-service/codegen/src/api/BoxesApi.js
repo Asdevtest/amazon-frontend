@@ -26,7 +26,6 @@ import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
 import InlineResponse500 from '../model/InlineResponse500';
-import Null from '../model/Null';
 
 /**
 * Boxes service.
@@ -54,7 +53,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject9} opts.InlineObject9 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesApprovePostWithHttpInfo(opts) {
       opts = opts || {};
@@ -73,7 +72,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/approve', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -87,7 +86,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject9} opts.InlineObject9 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesApprovePost(opts) {
       return this.apiV1BoxesApprovePostWithHttpInfo(opts)
@@ -103,7 +102,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject6} opts.InlineObject6 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesCancelMergePostWithHttpInfo(opts) {
       opts = opts || {};
@@ -122,7 +121,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/cancel-merge', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -136,7 +135,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject6} opts.InlineObject6 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesCancelMergePost(opts) {
       return this.apiV1BoxesCancelMergePostWithHttpInfo(opts)
@@ -152,7 +151,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject8} opts.InlineObject8 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesCancelSplitPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -171,7 +170,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/cancel-split', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -185,7 +184,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject8} opts.InlineObject8 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesCancelSplitPost(opts) {
       return this.apiV1BoxesCancelSplitPostWithHttpInfo(opts)
@@ -389,7 +388,7 @@ export default class BoxesApi {
      * @param {String} guid GUID для которой подтверждаем действие.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesGuidDeleteWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -413,7 +412,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/{guid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -427,7 +426,7 @@ export default class BoxesApi {
      * @param {String} guid GUID для которой подтверждаем действие.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesGuidDelete(guid, opts) {
       return this.apiV1BoxesGuidDeleteWithHttpInfo(guid, opts)
@@ -443,7 +442,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject5} opts.InlineObject5 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesMergePostWithHttpInfo(opts) {
       opts = opts || {};
@@ -462,7 +461,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/merge', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -476,7 +475,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject5} opts.InlineObject5 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesMergePost(opts) {
       return this.apiV1BoxesMergePostWithHttpInfo(opts)
@@ -545,7 +544,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject7} opts.InlineObject7 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesSplitPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -564,7 +563,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/split', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -578,7 +577,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject7} opts.InlineObject7 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesSplitPost(opts) {
       return this.apiV1BoxesSplitPostWithHttpInfo(opts)
@@ -595,7 +594,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject10} opts.InlineObject10 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesStorekeepersGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -619,7 +618,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/storekeepers/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -634,7 +633,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject10} opts.InlineObject10 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesStorekeepersGuidPatch(guid, opts) {
       return this.apiV1BoxesStorekeepersGuidPatchWithHttpInfo(guid, opts)

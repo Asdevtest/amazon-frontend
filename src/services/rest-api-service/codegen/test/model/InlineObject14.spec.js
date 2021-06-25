@@ -54,68 +54,44 @@
       //expect(instance).to.be.a(Amazonapi.InlineObject14);
     });
 
-    it('should have the property id (base name: "id")', function() {
-      // uncomment below and update the code to test the property id
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property lamazon (base name: "lamazon")', function() {
-      // uncomment below and update the code to test the property lamazon
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property lsupplier (base name: "lsupplier")', function() {
-      // uncomment below and update the code to test the property lsupplier
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property bsr (base name: "bsr")', function() {
-      // uncomment below and update the code to test the property bsr
-      //var instance = new Amazonapi.InlineObject14();
-      //expect(instance).to.be();
-    });
-
     it('should have the property status (base name: "status")', function() {
       // uncomment below and update the code to test the property status
       //var instance = new Amazonapi.InlineObject14();
       //expect(instance).to.be();
     });
 
-    it('should have the property amazon (base name: "amazon")', function() {
-      // uncomment below and update the code to test the property amazon
+    it('should have the property amount (base name: "amount")', function() {
+      // uncomment below and update the code to test the property amount
       //var instance = new Amazonapi.InlineObject14();
       //expect(instance).to.be();
     });
 
-    it('should have the property supplier (base name: "supplier")', function() {
-      // uncomment below and update the code to test the property supplier
+    it('should have the property deliveryMethod (base name: "deliveryMethod")', function() {
+      // uncomment below and update the code to test the property deliveryMethod
       //var instance = new Amazonapi.InlineObject14();
       //expect(instance).to.be();
     });
 
-    it('should have the property fbafee (base name: "fbafee")', function() {
-      // uncomment below and update the code to test the property fbafee
+    it('should have the property warehouse (base name: "warehouse")', function() {
+      // uncomment below and update the code to test the property warehouse
       //var instance = new Amazonapi.InlineObject14();
       //expect(instance).to.be();
     });
 
-    it('should have the property delivery (base name: "delivery")', function() {
-      // uncomment below and update the code to test the property delivery
+    it('should have the property clientComment (base name: "clientComment")', function() {
+      // uncomment below and update the code to test the property clientComment
       //var instance = new Amazonapi.InlineObject14();
       //expect(instance).to.be();
     });
 
-    it('should have the property icomment (base name: "icomment")', function() {
-      // uncomment below and update the code to test the property icomment
+    it('should have the property barCode (base name: "barCode")', function() {
+      // uncomment below and update the code to test the property barCode
       //var instance = new Amazonapi.InlineObject14();
       //expect(instance).to.be();
     });
 
-    it('should have the property images (base name: "images")', function() {
-      // uncomment below and update the code to test the property images
+    it('should have the property product (base name: "product")', function() {
+      // uncomment below and update the code to test the property product
       //var instance = new Amazonapi.InlineObject14();
       //expect(instance).to.be();
     });

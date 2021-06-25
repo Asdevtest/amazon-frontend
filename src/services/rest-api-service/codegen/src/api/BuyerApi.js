@@ -21,7 +21,6 @@ import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
 import InlineResponse500 from '../model/InlineResponse500';
-import Null from '../model/Null';
 
 /**
 * Buyer service.
@@ -104,7 +103,7 @@ export default class BuyerApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject11} opts.InlineObject11 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersOrdersGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -128,7 +127,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -143,7 +142,7 @@ export default class BuyerApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject11} opts.InlineObject11 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersOrdersGuidPatch(guid, opts) {
       return this.apiV1BuyersOrdersGuidPatchWithHttpInfo(guid, opts)
@@ -206,7 +205,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersOrdersPickupGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -230,7 +229,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/pickup/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -244,7 +243,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersOrdersPickupGuidPost(guid, opts) {
       return this.apiV1BuyersOrdersPickupGuidPostWithHttpInfo(guid, opts)
@@ -399,21 +398,17 @@ export default class BuyerApi {
      * # Внести изменения в продукт.
      * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 30, 40, 50, 60.   
      * @param {String} guid GUID продукта, который планируем изменить
-     * @param {Object.<String, {String: Object}>} request_body 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @param {Object.<String, {String: Object}>} opts.request_body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1BuyersProductsGuidPatchWithHttpInfo(guid, request_body, opts) {
+    apiV1BuyersProductsGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = request_body;
+      let postBody = opts['request_body'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1BuyersProductsGuidPatch");
-      }
-      // verify the required parameter 'request_body' is set
-      if (request_body === undefined || request_body === null) {
-        throw new Error("Missing the required parameter 'request_body' when calling apiV1BuyersProductsGuidPatch");
       }
 
       let pathParams = {
@@ -430,7 +425,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/buyers/products/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -442,13 +437,13 @@ export default class BuyerApi {
      * # Внести изменения в продукт.
      * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 30, 40, 50, 60.   
      * @param {String} guid GUID продукта, который планируем изменить
-     * @param {Object.<String, {String: Object}>} request_body 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @param {Object.<String, {String: Object}>} opts.request_body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1BuyersProductsGuidPatch(guid, request_body, opts) {
-      return this.apiV1BuyersProductsGuidPatchWithHttpInfo(guid, request_body, opts)
+    apiV1BuyersProductsGuidPatch(guid, opts) {
+      return this.apiV1BuyersProductsGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -508,7 +503,7 @@ export default class BuyerApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersProductsPickupGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -532,7 +527,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/buyers/products/pickup/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -546,7 +541,7 @@ export default class BuyerApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersProductsPickupGuidPost(guid, opts) {
       return this.apiV1BuyersProductsPickupGuidPostWithHttpInfo(guid, opts)

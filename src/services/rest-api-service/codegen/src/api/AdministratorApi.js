@@ -23,7 +23,6 @@ import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
 import InlineResponse500 from '../model/InlineResponse500';
-import Null from '../model/Null';
 
 /**
 * Administrator service.
@@ -239,7 +238,7 @@ export default class AdministratorApi {
      * @param {module:model/InlineObject2} InlineObject2 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1AdminsMakePaymentPostWithHttpInfo(InlineObject2, opts) {
       opts = opts || {};
@@ -262,7 +261,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/admins/make_payment', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -276,7 +275,7 @@ export default class AdministratorApi {
      * @param {module:model/InlineObject2} InlineObject2 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1AdminsMakePaymentPost(InlineObject2, opts) {
       return this.apiV1AdminsMakePaymentPostWithHttpInfo(InlineObject2, opts)
@@ -292,7 +291,7 @@ export default class AdministratorApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject1} opts.InlineObject1 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1AdminsMakeProductsPaidPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -311,7 +310,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/admins/make_products_paid', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -325,7 +324,7 @@ export default class AdministratorApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject1} opts.InlineObject1 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1AdminsMakeProductsPaidPost(opts) {
       return this.apiV1AdminsMakeProductsPaidPostWithHttpInfo(opts)
@@ -342,7 +341,7 @@ export default class AdministratorApi {
      * @param {module:model/InlineObject} InlineObject 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1AdminsPatchProductsGuidPatchWithHttpInfo(guid, InlineObject, opts) {
       opts = opts || {};
@@ -370,7 +369,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/admins/patch_products/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -385,7 +384,7 @@ export default class AdministratorApi {
      * @param {module:model/InlineObject} InlineObject 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1AdminsPatchProductsGuidPatch(guid, InlineObject, opts) {
       return this.apiV1AdminsPatchProductsGuidPatchWithHttpInfo(guid, InlineObject, opts)
@@ -401,7 +400,7 @@ export default class AdministratorApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1AdminsPickupProductGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -425,7 +424,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/admins/pickup_product/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -439,7 +438,7 @@ export default class AdministratorApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1AdminsPickupProductGuidPost(guid, opts) {
       return this.apiV1AdminsPickupProductGuidPostWithHttpInfo(guid, opts)
@@ -502,7 +501,7 @@ export default class AdministratorApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1AdminsUsersGuidDeleteWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -526,7 +525,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/admins/users/{guid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -540,7 +539,7 @@ export default class AdministratorApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1AdminsUsersGuidDelete(guid, opts) {
       return this.apiV1AdminsUsersGuidDeleteWithHttpInfo(guid, opts)
@@ -557,7 +556,7 @@ export default class AdministratorApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject3} opts.InlineObject3 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1AdminsUsersGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -581,7 +580,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/admins/users/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -596,7 +595,7 @@ export default class AdministratorApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject3} opts.InlineObject3 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1AdminsUsersGuidPatch(guid, opts) {
       return this.apiV1AdminsUsersGuidPatchWithHttpInfo(guid, opts)

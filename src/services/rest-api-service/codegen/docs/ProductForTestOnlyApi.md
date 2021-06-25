@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## apiV1ProductsIdDelete
 
-> Null apiV1ProductsIdDelete(id, opts)
+> String apiV1ProductsIdDelete(id, opts)
 
 Удалить продукт.
 
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -121,7 +121,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsIdPatch
 
-> Null apiV1ProductsIdPatch(id, opts)
+> String apiV1ProductsIdPatch(id, opts)
 
 Изменить продукт.
 
@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 

@@ -17,7 +17,7 @@ import {useClassNames} from './create-or-edit-box-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
 
-export const CreateOrEditBoxForm = ({box, onSubmit, onTriggerOpenModal}) => {
+export const CreateOrEditBoxForm = ({box, onSubmit, onCloseModal, onTriggerOpenModal}) => {
   const classNames = useClassNames()
 
   // console.log(selectedBoxes, 'SELECTED BOXES');
@@ -114,55 +114,61 @@ export const CreateOrEditBoxForm = ({box, onSubmit, onTriggerOpenModal}) => {
             </NativeSelect>
           }
         />
-        <div className={classNames.numberInputFieldsWrapper}>
-          <Field
-            type="number"
-            min="0"
-            containerClasses={classNames.numberInputField}
-            label={textConsts.lengthCmSupplier}
-            value={formFields.lengthCmSupplier}
-            onChange={setFormField('lengthCmSupplier')}
-          />
-          <Field
-            type="number"
-            min="0"
-            containerClasses={classNames.numberInputField}
-            label={textConsts.widthCmSupplier}
-            value={formFields.widthCmSupplier}
-            onChange={setFormField('widthCmSupplier')}
-          />
-          <Field
-            type="number"
-            min="0"
-            containerClasses={classNames.numberInputField}
-            label={textConsts.heightCmSupplier}
-            value={formFields.heightCmSupplier}
-            onChange={setFormField('heightCmSupplier')}
-          />
-          <Field
-            type="number"
-            min="0"
-            containerClasses={classNames.numberInputField}
-            label={textConsts.weighGrossKgSupplier}
-            value={formFields.weighGrossKgSupplier}
-            onChange={setFormField('weighGrossKgSupplier')}
-          />
-          <Field
-            type="number"
-            min="0"
-            containerClasses={classNames.numberInputField}
-            label={textConsts.volumeWeightKgSupplier}
-            value={formFields.volumeWeightKgSupplier}
-            onChange={setFormField('volumeWeightKgSupplier')}
-          />
-          <Field
-            type="number"
-            min="0"
-            containerClasses={classNames.numberInputField}
-            label={textConsts.weightFinalAccountingKgSupplier}
-            value={formFields.weightFinalAccountingKgSupplier}
-            onChange={setFormField('weightFinalAccountingKgSupplier')}
-          />
+        <div className={classNames.numberInputFieldsBlocksWrapper}>
+          <div className={classNames.numberInputFieldsWrapper}>
+            <Field
+              type="number"
+              min="0"
+              containerClasses={classNames.numberInputField}
+              label={textConsts.lengthCmSupplier}
+              value={formFields.lengthCmSupplier}
+              onChange={setFormField('lengthCmSupplier')}
+            />
+            <Field
+              type="number"
+              min="0"
+              containerClasses={classNames.numberInputField}
+              label={textConsts.widthCmSupplier}
+              value={formFields.widthCmSupplier}
+              onChange={setFormField('widthCmSupplier')}
+            />
+          </div>
+          <div className={classNames.numberInputFieldsWrapper}>
+            <Field
+              type="number"
+              min="0"
+              containerClasses={classNames.numberInputField}
+              label={textConsts.heightCmSupplier}
+              value={formFields.heightCmSupplier}
+              onChange={setFormField('heightCmSupplier')}
+            />
+            <Field
+              type="number"
+              min="0"
+              containerClasses={classNames.numberInputField}
+              label={textConsts.weighGrossKgSupplier}
+              value={formFields.weighGrossKgSupplier}
+              onChange={setFormField('weighGrossKgSupplier')}
+            />
+          </div>
+          <div className={classNames.numberInputFieldsWrapper}>
+            <Field
+              type="number"
+              min="0"
+              containerClasses={classNames.numberInputField}
+              label={textConsts.volumeWeightKgSupplier}
+              value={formFields.volumeWeightKgSupplier}
+              onChange={setFormField('volumeWeightKgSupplier')}
+            />
+            <Field
+              type="number"
+              min="0"
+              containerClasses={classNames.numberInputField}
+              label={textConsts.weightFinalAccountingKgSupplier}
+              value={formFields.weightFinalAccountingKgSupplier}
+              onChange={setFormField('weightFinalAccountingKgSupplier')}
+            />
+          </div>
         </div>
 
         <Divider className={classNames.divider} />
@@ -190,15 +196,17 @@ export const CreateOrEditBoxForm = ({box, onSubmit, onTriggerOpenModal}) => {
         >
           {textConsts.saveChangesBtn}
         </SuccessButton>
-        <Button
-          disableElevation
-          color="primary"
-          className={classNames.cancelBtn}
-          variant="contained"
-          onClick={() => onTriggerOpenModal('showEditBoxModal')}
-        >
-          {textConsts.cancelChangesBtn}
-        </Button>
+        {onCloseModal || onTriggerOpenModal ? (
+          <Button
+            disableElevation
+            color="primary"
+            className={classNames.cancelBtn}
+            variant="contained"
+            onClick={onCloseModal || onTriggerOpenModal}
+          >
+            {textConsts.cancelChangesBtn}
+          </Button>
+        ) : undefined}
       </div>
     </div>
   )

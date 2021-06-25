@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **width** | **Number** | Ширина | [optional] 
 **length** | **Number** | Длинна | [optional] 
 **weight** | **Number** | Вес | [optional] 
-**supplier** | **[String]** |  | [optional] 
+**supplier** | **[String]** | Массив поставщиков. | [optional] 
 **reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
 **fbalink** | **String** | ФБА ссылка | [optional] 
 **fbafee** | **Number** | ФБА комиссия | [optional] 

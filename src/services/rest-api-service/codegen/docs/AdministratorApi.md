@@ -228,7 +228,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsMakePaymentPost
 
-> Null apiV1AdminsMakePaymentPost(InlineObject2, opts)
+> String apiV1AdminsMakePaymentPost(InlineObject2, opts)
 
 # Создать оплату или штраф для пользователя.
 
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -282,7 +282,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsMakeProductsPaidPost
 
-> Null apiV1AdminsMakeProductsPaidPost(opts)
+> String apiV1AdminsMakeProductsPaidPost(opts)
 
 # Оплатить выбранные продукты.
 
@@ -322,7 +322,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -336,7 +336,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsPatchProductsGuidPatch
 
-> Null apiV1AdminsPatchProductsGuidPatch(guid, InlineObject, opts)
+> String apiV1AdminsPatchProductsGuidPatch(guid, InlineObject, opts)
 
 # Внести изменения в продукт.
 
@@ -378,7 +378,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -392,7 +392,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsPickupProductGuidPost
 
-> Null apiV1AdminsPickupProductGuidPost(guid, opts)
+> String apiV1AdminsPickupProductGuidPost(guid, opts)
 
 # Взять продукт на проверку.
 
@@ -432,7 +432,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -498,7 +498,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsUsersGuidDelete
 
-> Null apiV1AdminsUsersGuidDelete(guid, opts)
+> String apiV1AdminsUsersGuidDelete(guid, opts)
 
 Изменить пользователя.
 
@@ -538,7 +538,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -552,7 +552,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsUsersGuidPatch
 
-> Null apiV1AdminsUsersGuidPatch(guid, opts)
+> String apiV1AdminsUsersGuidPatch(guid, opts)
 
 Изменить пользователя.
 
@@ -594,7 +594,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 

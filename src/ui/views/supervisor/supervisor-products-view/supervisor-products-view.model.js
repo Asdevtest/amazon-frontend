@@ -38,13 +38,20 @@ export class SupervisorProductsViewModel {
   async getProductsMy() {
     try {
       const result = await SupervisorModel.getProductsMy()
+      console.log(result)
+      const productsBuyerFoundSupplier = result.filter(
+        product => ProductStatusByCode[product.status] === ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
+      )
+      const productsBuyerNotFoundSupplier = result.filter(
+        product => ProductStatusByCode[product.status] !== ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
+      )
+      ;('createdat')
       runInAction(() => {
         // Если статус продукта BUYER_FOUND_SUPPLIER то поднимаем его вверх списка, если нет то сортируем по дате
-        this.productsMy = result.sort((a, b) =>
-          ProductStatusByCode[b.status] === ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER]
-            ? 1
-            : sortObjectsArrayByFiledDate('createdat')(a, b),
-        )
+        this.productsMy = [
+          ...productsBuyerFoundSupplier.sort(sortObjectsArrayByFiledDate('createdat')),
+          ...productsBuyerNotFoundSupplier.sort(sortObjectsArrayByFiledDate('createdat')),
+        ]
       })
     } catch (error) {
       console.log(error)

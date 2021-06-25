@@ -129,9 +129,9 @@ export class BuyerWarehouseViewModel {
   async getBoxesMy() {
     try {
       const result = await BoxesModel.getBoxes()
-
+      console.log(result)
       runInAction(() => {
-        this.boxesMy = result
+        this.boxesMy = []
       })
     } catch (error) {
       console.log(error)

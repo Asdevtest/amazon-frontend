@@ -54,32 +54,8 @@
       //expect(instance).to.be.a(Amazonapi.InlineObject6);
     });
 
-    it('should have the property dirdecision (base name: "dirdecision")', function() {
-      // uncomment below and update the code to test the property dirdecision
-      //var instance = new Amazonapi.InlineObject6();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property researcherFine (base name: "researcherFine")', function() {
-      // uncomment below and update the code to test the property researcherFine
-      //var instance = new Amazonapi.InlineObject6();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property researcherFineComment (base name: "researcherFineComment")', function() {
-      // uncomment below and update the code to test the property researcherFineComment
-      //var instance = new Amazonapi.InlineObject6();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property supervisorFine (base name: "supervisorFine")', function() {
-      // uncomment below and update the code to test the property supervisorFine
-      //var instance = new Amazonapi.InlineObject6();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property supervisorFineComment (base name: "supervisorFineComment")', function() {
-      // uncomment below and update the code to test the property supervisorFineComment
+    it('should have the property guids (base name: "guids")', function() {
+      // uncomment below and update the code to test the property guids
       //var instance = new Amazonapi.InlineObject6();
       //expect(instance).to.be();
     });

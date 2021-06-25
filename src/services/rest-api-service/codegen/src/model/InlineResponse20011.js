@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20011 {
     /**
      * Constructs a new <code>InlineResponse20011</code>.
+     * Пользователь системы
      * @alias module:model/InlineResponse20011
      * @param _id {String} GUID пользователя в БД.
      * @param name {String} Имя пользователя.

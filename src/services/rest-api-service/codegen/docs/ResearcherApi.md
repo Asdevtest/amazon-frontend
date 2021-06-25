@@ -339,7 +339,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsGuidDelete
 
-> Null apiV1ResearchersProductsGuidDelete(guid, opts)
+> String apiV1ResearchersProductsGuidDelete(guid, opts)
 
 Удалить продукт.
 
@@ -379,7 +379,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -447,7 +447,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsGuidPatch
 
-> Null apiV1ResearchersProductsGuidPatch(guid, opts)
+> String apiV1ResearchersProductsGuidPatch(guid, opts)
 
 #  Изменить продукт.
 
@@ -489,7 +489,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -503,7 +503,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsPost
 
-> InlineResponse2011 apiV1ResearchersProductsPost(InlineObject19, opts)
+> InlineResponse2012 apiV1ResearchersProductsPost(InlineObject19, opts)
 
 # Добавить новый продукт.
 
@@ -543,7 +543,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2011**](InlineResponse2011.md)
+[**InlineResponse2012**](InlineResponse2012.md)
 
 ### Authorization
 

@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **width** | **Number** | Ширина | [optional] 
 **length** | **Number** | Длинна | [optional] 
 **weight** | **Number** | Вес | [optional] 
-**supplier** | [**[ApiV1AdminsGetNotPaidProductsSupplier]**](ApiV1AdminsGetNotPaidProductsSupplier.md) |  | 
+**supplier** | [**[ApiV1AdminsGetNotPaidProductsSupplier]**](ApiV1AdminsGetNotPaidProductsSupplier.md) | Массив Поставщиков. | 
 **reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | 
 **fbafee** | **Number** | ФБА комиссия | [optional] 
 **delivery** | **Number** | Стоимость доставки. | [optional] 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **fbalink** | **String** | ФБА ссылка | [optional] 
 **status** | **Number** | Код текущего статуса | [optional] 
 **icomment** | **String** | Комментарии к товару. | 
-**images** | **[String]** |  | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
 **checkednotes** | **String** |  | [optional] 
 **researcherFine** | **Number** | Размер штрафа менеджеру. | [optional] 
 **researcherFineComment** | **String** | Комментарии к штрафу. | [optional] 

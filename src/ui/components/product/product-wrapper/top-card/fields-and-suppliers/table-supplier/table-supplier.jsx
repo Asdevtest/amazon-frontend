@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
@@ -13,7 +14,7 @@ import {useClassNames} from './table-supplier.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
-export const TableSupplier = observer(({suppliers, selectedSupplier, onClickSupplier}) => {
+export const TableSupplier = observer(({product, suppliers, selectedSupplier, onClickSupplier}) => {
   const classNames = useClassNames()
 
   return (
@@ -39,7 +40,11 @@ export const TableSupplier = observer(({suppliers, selectedSupplier, onClickSupp
             suppliers.map((supplier, index) => (
               <TableRow
                 key={`supplier_${supplier.id}_${index}`}
-                selected={selectedSupplier && supplier._id === selectedSupplier._id}
+                className={clsx({
+                  [classNames.tableRowSelectedSupplier]: selectedSupplier && supplier._id === selectedSupplier._id,
+                  [classNames.tableRowAcceptedSupplier]:
+                    product.currentSupplier && product.currentSupplier._id === supplier._id,
+                })}
                 onClick={() => onClickSupplier(supplier, index)}
               >
                 <TableCell className={(classNames.alignCenter, classNames.tableCellPadding)}>{supplier.name}</TableCell>

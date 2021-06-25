@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsMakePaymentsPost
 
-> Null apiV1ClientsMakePaymentsPost(opts)
+> String apiV1ClientsMakePaymentsPost(opts)
 
 # Оплатить товары.
 
@@ -115,7 +115,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -181,7 +181,7 @@ null (empty response body)
 
 ## apiV1ClientsOrdersGuidDelete
 
-> Null apiV1ClientsOrdersGuidDelete(guid, opts)
+> String apiV1ClientsOrdersGuidDelete(guid, opts)
 
 # Получить заказ по его GUID.
 
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -289,7 +289,7 @@ null (empty response body)
 
 ## apiV1ClientsOrdersGuidPatch
 
-> Null apiV1ClientsOrdersGuidPatch(guid, InlineObject15, opts)
+> String apiV1ClientsOrdersGuidPatch(guid, opts)
 
 # Внести изменения в заказ.
 
@@ -308,11 +308,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new Amazonapi.ClientApi();
 let guid = 60806dbd5346527a0f90f41e; // String | GUID заказа, который будет изменен
-let InlineObject15 = new Amazonapi.InlineObject15(); // InlineObject15 | 
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': gzip, deflate, // String | 
+  'InlineObject15': new Amazonapi.InlineObject15() // InlineObject15 | 
 };
-apiInstance.apiV1ClientsOrdersGuidPatch(guid, InlineObject15, opts).then((data) => {
+apiInstance.apiV1ClientsOrdersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -326,12 +326,12 @@ apiInstance.apiV1ClientsOrdersGuidPatch(guid, InlineObject15, opts).then((data) 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID заказа, который будет изменен | 
- **InlineObject15** | [**InlineObject15**](InlineObject15.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **InlineObject15** | [**InlineObject15**](InlineObject15.md)|  | [optional] 
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -399,7 +399,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGuidPatch
 
-> Null apiV1ClientsProductsGuidPatch(guid, opts)
+> String apiV1ClientsProductsGuidPatch(guid, opts)
 
 # Внести изменения в товар.
 
@@ -441,7 +441,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 

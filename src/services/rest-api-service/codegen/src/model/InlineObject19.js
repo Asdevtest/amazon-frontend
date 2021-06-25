@@ -27,11 +27,11 @@ class InlineObject19 {
      * @param lsupplier {String} Ссылка на поставщика.
      * @param bsr {Number} 
      * @param amazon {Number} 
-     * @param supplier {Array.<String>} 
+     * @param supplier {Array.<String>} Массив поставщиков.
      * @param fbafee {Number} ФБА комиссия
      * @param delivery {Number} Стоимость доставки.
      * @param icomment {String} Комментарии к товару.
-     * @param images {Array.<String>} 
+     * @param images {Array.<String>} Массив изображений.
      */
     constructor(id, lamazon, lsupplier, bsr, amazon, supplier, fbafee, delivery, icomment, images) { 
         
@@ -114,7 +114,6 @@ class InlineObject19 {
 }
 
 
-
 /**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
@@ -134,6 +133,7 @@ class InlineObject19 {
      */
     "10": 10
 };
+
 
 /**
  * ASIN продукта
@@ -169,7 +169,7 @@ InlineObject19.prototype['bsr'] = undefined;
  * @member {module:model/InlineObject19.StatusEnum} status
  * @default StatusEnum.0
  */
-InlineObject19.prototype['status'] = InlineObject19.StatusEnum["0"];
+InlineObject19.prototype['status'] = InlineObject19.StatusEnum[0];
 
 /**
  * @member {Number} amazon
@@ -177,6 +177,7 @@ InlineObject19.prototype['status'] = InlineObject19.StatusEnum["0"];
 InlineObject19.prototype['amazon'] = undefined;
 
 /**
+ * Массив поставщиков.
  * @member {Array.<String>} supplier
  */
 InlineObject19.prototype['supplier'] = undefined;
@@ -200,6 +201,7 @@ InlineObject19.prototype['delivery'] = undefined;
 InlineObject19.prototype['icomment'] = undefined;
 
 /**
+ * Массив изображений.
  * @member {Array.<String>} images
  */
 InlineObject19.prototype['images'] = undefined;

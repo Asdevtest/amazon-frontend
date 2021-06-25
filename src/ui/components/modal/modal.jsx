@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {Dialog, DialogContent} from '@material-ui/core'
+import clsx from 'clsx'
 
 import {useClassNames} from './modal.style'
 
@@ -15,7 +16,9 @@ export const Modal = props => {
         props.setOpenModal(false)
       }}
     >
-      <DialogContent className={classNames.dialogPadding}>{props.children}</DialogContent>
+      <DialogContent className={clsx(classNames.dialogPadding, props.dialogContextClassName)}>
+        {props.children}
+      </DialogContent>
     </Dialog>
   )
 }

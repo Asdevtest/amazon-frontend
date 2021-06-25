@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksGuidPatch
 
-> Null apiV1StorekeepersTasksGuidPatch(guid, InlineObject21, opts)
+> String apiV1StorekeepersTasksGuidPatch(guid, InlineObject21, opts)
 
 # Изменить задачу.
 
@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksPickupGuidPost
 
-> Null apiV1StorekeepersTasksPickupGuidPost(guid, opts)
+> String apiV1StorekeepersTasksPickupGuidPost(guid, opts)
 
 # Закрепить задачу за сборщиком.
 
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **statusCode** | **Number** |  | [optional] 
 **code** | **String** |  | [optional] 
-**error** | **Object** |  | [optional] 
+**error** | **String** |  | [optional] 
 **message** | **String** |  | [optional] 
 
 

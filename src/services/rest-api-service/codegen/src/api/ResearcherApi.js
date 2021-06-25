@@ -20,12 +20,11 @@ import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2007 from '../model/InlineResponse2007';
 import InlineResponse2008 from '../model/InlineResponse2008';
 import InlineResponse2009 from '../model/InlineResponse2009';
-import InlineResponse2011 from '../model/InlineResponse2011';
+import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
 import InlineResponse500 from '../model/InlineResponse500';
-import Null from '../model/Null';
 
 /**
 * Researcher service.
@@ -355,7 +354,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ResearchersProductsGuidDeleteWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -379,7 +378,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/researchers/products/{guid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -393,7 +392,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ResearchersProductsGuidDelete(guid, opts) {
       return this.apiV1ResearchersProductsGuidDeleteWithHttpInfo(guid, opts)
@@ -464,7 +463,7 @@ export default class ResearcherApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject20} opts.InlineObject20 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -488,7 +487,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/researchers/products/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -503,7 +502,7 @@ export default class ResearcherApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @param {module:model/InlineObject20} opts.InlineObject20 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ResearchersProductsGuidPatch(guid, opts) {
       return this.apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts)
@@ -519,7 +518,7 @@ export default class ResearcherApi {
      * @param {module:model/InlineObject19} InlineObject19 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2012} and HTTP response
      */
     apiV1ResearchersProductsPostWithHttpInfo(InlineObject19, opts) {
       opts = opts || {};
@@ -542,7 +541,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2011;
+      let returnType = InlineResponse2012;
       return this.apiClient.callApi(
         '/api/v1/researchers/products', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -556,7 +555,7 @@ export default class ResearcherApi {
      * @param {module:model/InlineObject19} InlineObject19 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2012}
      */
     apiV1ResearchersProductsPost(InlineObject19, opts) {
       return this.apiV1ResearchersProductsPostWithHttpInfo(InlineObject19, opts)

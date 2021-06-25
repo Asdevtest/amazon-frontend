@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 ## apiV1BoxesApprovePost
 
-> Null apiV1BoxesApprovePost(opts)
+> String apiV1BoxesApprovePost(opts)
 
 # Подтвердить операцию объединения/разъединения коробок.
 
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesCancelMergePost
 
-> Null apiV1BoxesCancelMergePost(opts)
+> String apiV1BoxesCancelMergePost(opts)
 
 # Отменить объединение коробок.
 
@@ -115,7 +115,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesCancelSplitPost
 
-> Null apiV1BoxesCancelSplitPost(opts)
+> String apiV1BoxesCancelSplitPost(opts)
 
 # Отменить разделение коробок.
 
@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -391,7 +391,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesGuidDelete
 
-> Null apiV1BoxesGuidDelete(guid, opts)
+> String apiV1BoxesGuidDelete(guid, opts)
 
 # Удалить коробку.
 
@@ -431,7 +431,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -445,7 +445,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesMergePost
 
-> Null apiV1BoxesMergePost(opts)
+> String apiV1BoxesMergePost(opts)
 
 # Объединить две и более коробок.
 
@@ -485,7 +485,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -553,7 +553,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesSplitPost
 
-> Null apiV1BoxesSplitPost(opts)
+> String apiV1BoxesSplitPost(opts)
 
 # Разделить коробку.
 
@@ -593,7 +593,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -607,7 +607,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesStorekeepersGuidPatch
 
-> Null apiV1BoxesStorekeepersGuidPatch(guid, opts)
+> String apiV1BoxesStorekeepersGuidPatch(guid, opts)
 
 # Изменить коробку сотрудником склада.
 
@@ -649,7 +649,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 

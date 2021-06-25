@@ -20,7 +20,6 @@ import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
 import InlineResponse500 from '../model/InlineResponse500';
-import Null from '../model/Null';
 
 /**
 * Supervisor service.
@@ -190,7 +189,7 @@ export default class SupervisorApi {
      * @param {module:model/InlineObject22} InlineObject22 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, InlineObject22, opts) {
       opts = opts || {};
@@ -218,7 +217,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -233,7 +232,7 @@ export default class SupervisorApi {
      * @param {module:model/InlineObject22} InlineObject22 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsGuidPatch(guid, InlineObject22, opts) {
       return this.apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, InlineObject22, opts)
@@ -296,7 +295,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Null} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsPickupGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -320,7 +319,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Null;
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/pickup/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -334,7 +333,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Null}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsPickupGuidPost(guid, opts) {
       return this.apiV1SupervisorsProductsPickupGuidPostWithHttpInfo(guid, opts)

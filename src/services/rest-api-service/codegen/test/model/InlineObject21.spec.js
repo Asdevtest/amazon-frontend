@@ -54,20 +54,8 @@
       //expect(instance).to.be.a(Amazonapi.InlineObject21);
     });
 
-    it('should have the property name (base name: "name")', function() {
-      // uncomment below and update the code to test the property name
-      //var instance = new Amazonapi.InlineObject21();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property email (base name: "email")', function() {
-      // uncomment below and update the code to test the property email
-      //var instance = new Amazonapi.InlineObject21();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property password (base name: "password")', function() {
-      // uncomment below and update the code to test the property password
+    it('should have the property status (base name: "status")', function() {
+      // uncomment below and update the code to test the property status
       //var instance = new Amazonapi.InlineObject21();
       //expect(instance).to.be();
     });

@@ -1,9 +1,9 @@
-# Amazonapi.InlineResponse2012
+# Amazonapi.InlineResponse2013
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | guid созданного объекта | [optional] 
+**token** | **String** | Токен для авторизации. | [optional] 
 
 

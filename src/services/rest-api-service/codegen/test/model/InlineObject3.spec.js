@@ -54,20 +54,20 @@
       //expect(instance).to.be.a(Amazonapi.InlineObject3);
     });
 
-    it('should have the property buyerComment (base name: "buyerComment")', function() {
-      // uncomment below and update the code to test the property buyerComment
+    it('should have the property name (base name: "name")', function() {
+      // uncomment below and update the code to test the property name
       //var instance = new Amazonapi.InlineObject3();
       //expect(instance).to.be();
     });
 
-    it('should have the property warehouse (base name: "warehouse")', function() {
-      // uncomment below and update the code to test the property warehouse
+    it('should have the property email (base name: "email")', function() {
+      // uncomment below and update the code to test the property email
       //var instance = new Amazonapi.InlineObject3();
       //expect(instance).to.be();
     });
 
-    it('should have the property deliveryMethod (base name: "deliveryMethod")', function() {
-      // uncomment below and update the code to test the property deliveryMethod
+    it('should have the property role (base name: "role")', function() {
+      // uncomment below and update the code to test the property role
       //var instance = new Amazonapi.InlineObject3();
       //expect(instance).to.be();
     });
@@ -78,14 +78,14 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property status (base name: "status")', function() {
-      // uncomment below and update the code to test the property status
+    it('should have the property active (base name: "active")', function() {
+      // uncomment below and update the code to test the property active
       //var instance = new Amazonapi.InlineObject3();
       //expect(instance).to.be();
     });
 
-    it('should have the property deliveryCostToTheWarehouse (base name: "deliveryCostToTheWarehouse")', function() {
-      // uncomment below and update the code to test the property deliveryCostToTheWarehouse
+    it('should have the property rate (base name: "rate")', function() {
+      // uncomment below and update the code to test the property rate
       //var instance = new Amazonapi.InlineObject3();
       //expect(instance).to.be();
     });

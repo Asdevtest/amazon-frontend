@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersGuidDelete
 
-> InlineResponse2011 apiV1SuppliersGuidDelete(guid, opts)
+> String apiV1SuppliersGuidDelete(guid, opts)
 
 # Удалить поставщика.
 
@@ -106,7 +106,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2011**](InlineResponse2011.md)
+**String**
 
 ### Authorization
 
@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersGuidPatch
 
-> Null apiV1SuppliersGuidPatch(guid, opts)
+> String apiV1SuppliersGuidPatch(guid, opts)
 
 # Изменить поставщика.
 
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Null**](Null.md)
+**String**
 
 ### Authorization
 
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersPost
 
-> InlineResponse2011 apiV1SuppliersPost(opts)
+> InlineResponse2011 apiV1SuppliersPost(InlineObject23, opts)
 
 # Добавить нового поставщика.
 
@@ -248,11 +248,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.SupplierApi();
+let InlineObject23 = new Amazonapi.InlineObject23(); // InlineObject23 | 
 let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject23': new Amazonapi.InlineObject23() // InlineObject23 | 
+  'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1SuppliersPost(opts).then((data) => {
+apiInstance.apiV1SuppliersPost(InlineObject23, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -265,8 +265,8 @@ apiInstance.apiV1SuppliersPost(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **InlineObject23** | [**InlineObject23**](InlineObject23.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject23** | [**InlineObject23**](InlineObject23.md)|  | [optional] 
 
 ### Return type
 

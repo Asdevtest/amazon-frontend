@@ -6,7 +6,10 @@ export const replaceDollarSign = str => (str ? str.replace('$', '') : str)
 
 export const toFixed = (int, x) => (int && typeof int === 'number' ? int.toFixed(x) : int)
 
-export const getFloat = str => (str ? parseFloat(str) : str)
+export const getFloat = str => (str ? parseFloat(str) || 0 : str)
+export const getFloatOrZero = str => (str ? parseFloat(str) || 0 : 0)
+export const getInt = str => (str ? parseFloat(str) || 0 : str)
+export const getIntOrZero = str => (str ? parseInt(str) || 0 : 0)
 
 export const getFloatWithoutDollarSign = str => (str ? getFloat(replaceDollarSign(str)) : str)
 

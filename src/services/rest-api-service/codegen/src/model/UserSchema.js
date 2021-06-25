@@ -14,25 +14,26 @@
 import ApiClient from '../ApiClient';
 
 /**
- * The InlineResponse2003Createdby model module.
- * @module model/InlineResponse2003Createdby
+ * The UserSchema model module.
+ * @module model/UserSchema
  * @version v0.0.1
  */
-class InlineResponse2003Createdby {
+class UserSchema {
     /**
-     * Constructs a new <code>InlineResponse2003Createdby</code>.
-     * @alias module:model/InlineResponse2003Createdby
+     * Constructs a new <code>UserSchema</code>.
+     * Пользователь системы
+     * @alias module:model/UserSchema
      * @param _id {String} GUID пользователя в БД.
      * @param name {String} Имя пользователя.
      * @param email {String} email
-     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.director = 1    roles.super = 2    roles.researcher = 3    roles.buyer = 4    roles.candidate = 5    
+     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.candidate = 50    
      * @param fba {Boolean} Флаг fba.
      * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
      * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
     constructor(_id, name, email, role, fba, active, rate) { 
         
-        InlineResponse2003Createdby.initialize(this, _id, name, email, role, fba, active, rate);
+        UserSchema.initialize(this, _id, name, email, role, fba, active, rate);
     }
 
     /**
@@ -51,15 +52,15 @@ class InlineResponse2003Createdby {
     }
 
     /**
-     * Constructs a <code>InlineResponse2003Createdby</code> from a plain JavaScript object, optionally creating a new instance.
+     * Constructs a <code>UserSchema</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @param {module:model/InlineResponse2003Createdby} obj Optional instance to populate.
-     * @return {module:model/InlineResponse2003Createdby} The populated <code>InlineResponse2003Createdby</code> instance.
+     * @param {module:model/UserSchema} obj Optional instance to populate.
+     * @return {module:model/UserSchema} The populated <code>UserSchema</code> instance.
      */
     static constructFromObject(data, obj) {
         if (data) {
-            obj = obj || new InlineResponse2003Createdby();
+            obj = obj || new UserSchema();
 
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
@@ -93,48 +94,48 @@ class InlineResponse2003Createdby {
  * GUID пользователя в БД.
  * @member {String} _id
  */
-InlineResponse2003Createdby.prototype['_id'] = undefined;
+UserSchema.prototype['_id'] = undefined;
 
 /**
  * Имя пользователя.
  * @member {String} name
  */
-InlineResponse2003Createdby.prototype['name'] = undefined;
+UserSchema.prototype['name'] = undefined;
 
 /**
  * email
  * @member {String} email
  */
-InlineResponse2003Createdby.prototype['email'] = undefined;
+UserSchema.prototype['email'] = undefined;
 
 /**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.director = 1    roles.super = 2    roles.researcher = 3    roles.buyer = 4    roles.candidate = 5    
+ * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.candidate = 50    
  * @member {Number} role
  */
-InlineResponse2003Createdby.prototype['role'] = undefined;
+UserSchema.prototype['role'] = undefined;
 
 /**
  * Флаг fba.
  * @member {Boolean} fba
  */
-InlineResponse2003Createdby.prototype['fba'] = undefined;
+UserSchema.prototype['fba'] = undefined;
 
 /**
  * Если истина - пользователь активен. Если нет - заблокирован админом.
  * @member {Boolean} active
  */
-InlineResponse2003Createdby.prototype['active'] = undefined;
+UserSchema.prototype['active'] = undefined;
 
 /**
  * Ставка, по который оплачивается сотрудник.
  * @member {Number} rate
  */
-InlineResponse2003Createdby.prototype['rate'] = undefined;
+UserSchema.prototype['rate'] = undefined;
 
 
 
 
 
 
-export default InlineResponse2003Createdby;
+export default UserSchema;
 

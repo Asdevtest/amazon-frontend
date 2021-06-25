@@ -48,46 +48,6 @@
   }
 
   describe('BuyerApi', function() {
-    describe('apiV1BuyersBoxesGuidPatch', function() {
-      it('should call apiV1BuyersBoxesGuidPatch successfully', function(done) {
-        //uncomment below and update the code to test apiV1BuyersBoxesGuidPatch
-        //instance.apiV1BuyersBoxesGuidPatch(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1BuyersBoxesMyGet', function() {
-      it('should call apiV1BuyersBoxesMyGet successfully', function(done) {
-        //uncomment below and update the code to test apiV1BuyersBoxesMyGet
-        //instance.apiV1BuyersBoxesMyGet(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1BuyersBoxesPost', function() {
-      it('should call apiV1BuyersBoxesPost successfully', function(done) {
-        //uncomment below and update the code to test apiV1BuyersBoxesPost
-        //instance.apiV1BuyersBoxesPost(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1BuyersBoxesSendToStorekeeperGuidPost', function() {
-      it('should call apiV1BuyersBoxesSendToStorekeeperGuidPost successfully', function(done) {
-        //uncomment below and update the code to test apiV1BuyersBoxesSendToStorekeeperGuidPost
-        //instance.apiV1BuyersBoxesSendToStorekeeperGuidPost(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
     describe('apiV1BuyersOrdersGuidGet', function() {
       it('should call apiV1BuyersOrdersGuidGet successfully', function(done) {
         //uncomment below and update the code to test apiV1BuyersOrdersGuidGet
@@ -132,6 +92,16 @@
       it('should call apiV1BuyersOrdersVacGet successfully', function(done) {
         //uncomment below and update the code to test apiV1BuyersOrdersVacGet
         //instance.apiV1BuyersOrdersVacGet(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1BuyersPaymentsMyBalanceGet', function() {
+      it('should call apiV1BuyersPaymentsMyBalanceGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1BuyersPaymentsMyBalanceGet
+        //instance.apiV1BuyersPaymentsMyBalanceGet(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

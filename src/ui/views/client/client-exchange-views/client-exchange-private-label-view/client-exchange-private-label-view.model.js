@@ -4,6 +4,8 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {ClientModel} from '@models/client-model'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+
 export class ClientExchangePrivateLabelViewModel {
   history = undefined
   requestStatus = undefined
@@ -36,7 +38,7 @@ export class ClientExchangePrivateLabelViewModel {
     try {
       const result = await ClientModel.getProductsVacant()
       runInAction(() => {
-        this.productsVacant = result
+        this.productsVacant = result.sort(sortObjectsArrayByFiledDate('checkedat'))
       })
     } catch (error) {
       this.productsVacant = []

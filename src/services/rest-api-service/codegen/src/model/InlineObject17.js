@@ -240,6 +240,7 @@ InlineObject17.prototype['length'] = undefined;
 InlineObject17.prototype['weight'] = undefined;
 
 /**
+ * Массив поставщиков.
  * @member {Array.<String>} supplier
  */
 InlineObject17.prototype['supplier'] = undefined;

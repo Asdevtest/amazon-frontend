@@ -1,17 +1,15 @@
 import React from 'react'
 
-import {Box, Container, Grid, Typography, Paper} from '@material-ui/core'
+import {Container, Grid, Typography, Paper} from '@material-ui/core'
 import MuiCheckbox from '@material-ui/core/Checkbox'
 import {observer} from 'mobx-react'
-import Carousel from 'react-material-ui-carousel'
 
 import {ProductStatusByCode} from '@constants/product-status'
 import {texts} from '@constants/texts'
 
 import {Field} from '@components/field'
 
-import {checkIsResearcher, checkIsSupervisor} from '@utils/checks'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {checkIsBuyer, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './bottom-card.style'
@@ -25,6 +23,12 @@ export const BottomCard = observer(({curUserRole, product, onChangeField}) => {
       <Grid container spacing={2}>
         <Grid item sm={7} xs={12}>
           <Paper className={classNames.cardPadding}>
+            <Field
+              disabled
+              label={textConsts.category}
+              value={product.category || ''}
+              onChange={onChangeField('category')}
+            />
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
               label={textConsts.bsr}
@@ -105,7 +109,9 @@ export const BottomCard = observer(({curUserRole, product, onChangeField}) => {
               onChange={onChangeField('totalFba')}
             />
             <Field
-              disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              disabled={
+                !(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || checkIsBuyer(curUserRole))
+              }
               label={textConsts.recommendedBatch}
               value={product.fbaamount || ''}
               onChange={onChangeField('fbaamount')}
@@ -131,17 +137,6 @@ export const BottomCard = observer(({curUserRole, product, onChangeField}) => {
           </Paper>
         </Grid>
         <Grid item sm={5} xs={12}>
-          {product.images && product.images.length ? (
-            <Paper className={classNames.rightCardWrapper}>
-              <Carousel animation="slide" /* autoPlay={true}*/ timeout={500}>
-                {product.images.map((imageHash, index) => (
-                  <Box key={index} textAlign="center">
-                    <img alt="" className={classNames.carouselBox} src={getAmazonImageUrl(imageHash)} />
-                  </Box>
-                ))}
-              </Carousel>
-            </Paper>
-          ) : undefined}
           <Paper className={classNames.cardPadding}>
             <Typography className={classNames.title}>{textConsts.descriptionOFGoods}</Typography>
             <Field disabled label={textConsts.csCode} value={product.amazonTitle || ''} />

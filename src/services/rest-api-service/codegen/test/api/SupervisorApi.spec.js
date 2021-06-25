@@ -58,6 +58,16 @@
         done();
       });
     });
+    describe('apiV1SupervisorsPaymentsMyBalanceGet', function() {
+      it('should call apiV1SupervisorsPaymentsMyBalanceGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1SupervisorsPaymentsMyBalanceGet
+        //instance.apiV1SupervisorsPaymentsMyBalanceGet(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('apiV1SupervisorsPaymentsMyGet', function() {
       it('should call apiV1SupervisorsPaymentsMyGet successfully', function(done) {
         //uncomment below and update the code to test apiV1SupervisorsPaymentsMyGet
