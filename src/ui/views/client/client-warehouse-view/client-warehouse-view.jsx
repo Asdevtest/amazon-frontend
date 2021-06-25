@@ -87,7 +87,7 @@ export class ClientWarehouseViewRaw extends Component {
         <Navbar
           activeCategory={activeCategory}
           activeSubCategory={activeSubCategory}
-          curUserRole={UserRole.BUYER}
+          curUserRole={UserRole.CLIENT}
           drawerOpen={drawerOpen}
           handlerTriggerDrawer={onTriggerDrawer}
         />
