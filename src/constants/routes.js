@@ -46,7 +46,9 @@ import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-completed-
 import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
 import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-vacant-tasks-view'
 
-export const routes = [
+import {UserRole} from './user-roles'
+
+export const publicRoutesConfigs = [
   {
     routePath: '/auth',
     component: AuthView,
@@ -62,235 +64,272 @@ export const routes = [
     component: DocumentationView,
     exact: false,
   },
-  {
-    routePath: '/buyer/users/user-profile',
-    component: BuyerUserProfileView,
-    exact: false,
-  },
+]
 
-  {
-    routePath: '/buyer/users/sub-users',
-    component: BuyerSubUsersView,
-    exact: false,
-  },
-
+export const privateRoutesConfigs = [
   {
     routePath: '/buyer/products',
     component: BuyerProductsView,
     exact: false,
+    permission: [UserRole.BUYER],
   },
-
+  {
+    routePath: '/buyer/users/user-profile',
+    component: BuyerUserProfileView,
+    exact: false,
+    permission: [UserRole.BUYER],
+  },
+  {
+    routePath: '/buyer/users/sub-users',
+    component: BuyerSubUsersView,
+    exact: false,
+    permission: [UserRole.BUYER],
+  },
   {
     routePath: '/buyer/product',
     component: BuyerProductView,
     exact: false,
+    permission: [UserRole.BUYER],
   },
-
   {
     routePath: '/buyer/orders/my-orders',
     component: BuyerMyOrdersView,
     exact: false,
+    permission: [UserRole.BUYER],
   },
   {
     routePath: '/buyer/orders/free-orders',
     component: BuyerFreeOrdersView,
     exact: false,
+    permission: [UserRole.BUYER],
   },
   {
     routePath: '/buyer/my-products',
     component: BuyerMyProductsView,
     exact: false,
+    permission: [UserRole.BUYER],
   },
-
   {
     routePath: '/buyer/batches',
     component: BuyerBatchesView,
     exact: false,
+    permission: [UserRole.BUYER],
+  },
+  {
+    routePath: '/buyer/warehouse',
+    component: BuyerWarehouseView,
+    exact: false,
+    permission: [UserRole.BUYER],
   },
   {
     routePath: '/researcher/settings',
     component: ResearcherSettingsView,
     exact: false,
-  },
-  {
-    routePath: '/researcher/products',
-    component: ResearcherProductsView,
-    exact: false,
+    permission: [UserRole.RESEARCHER],
   },
   {
     routePath: '/researcher/dashboard',
     component: ResearcherDashboardView,
     exact: false,
+    permission: [UserRole.RESEARCHER],
+  },
+  {
+    routePath: '/researcher/products',
+    component: ResearcherProductsView,
+    exact: false,
+    permission: [UserRole.RESEARCHER],
   },
   {
     routePath: '/researcher/product',
     component: ResearcherProductView,
     exact: false,
-  },
-  {
-    routePath: '/client/inventory',
-    component: ClientInventoryView,
-    exact: false,
-  },
-  {
-    routePath: '/client/product',
-    component: ClientProductView,
-    exact: false,
+    permission: [UserRole.RESEARCHER],
   },
   {
     routePath: '/client/dashboard',
     component: ClientDashboardView,
     exact: false,
+    permission: [UserRole.CLIENT],
+  },
+  {
+    routePath: '/client/inventory',
+    component: ClientInventoryView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+  {
+    routePath: '/client/product',
+    component: ClientProductView,
+    exact: false,
+    permission: [UserRole.CLIENT],
   },
   {
     routePath: '/client/exchange',
     component: ClientExchangeView,
     exact: true,
+    permission: [UserRole.CLIENT],
   },
   {
     routePath: '/client/exchange/private-label',
     component: ClientExchangePrivateLabelView,
     exact: true,
+    permission: [UserRole.CLIENT],
   },
   {
     routePath: '/client/exchange/requests',
     component: ClientExchangeRequestsView,
     exact: false,
+    permission: [UserRole.CLIENT],
   },
   {
     routePath: '/client/batches',
     component: ClientBatchesView,
     exact: false,
+    permission: [UserRole.CLIENT],
   },
   {
     routePath: '/client/warehouse',
     component: ClientWarehouseView,
     exact: false,
-  },
-  {
-    routePath: '/supervisor/dashboard',
-    component: SupervisorDashboardView,
-    exact: false,
+    permission: [UserRole.CLIENT],
   },
   {
     routePath: '/client/orders',
     component: ClientOrdersView,
     exact: true,
+    permission: [UserRole.CLIENT],
   },
   {
     routePath: '/client/orders/order',
     component: ClientOrderView,
     exact: false,
+    permission: [UserRole.CLIENT],
   },
   {
     routePath: '/client/users/user-profile',
     component: ClientUserProfileView,
     exact: false,
+    permission: [UserRole.CLIENT],
   },
 
   {
     routePath: '/client/users/sub-users',
     component: ClientSubUsersView,
     exact: false,
+    permission: [UserRole.CLIENT],
   },
   {
     routePath: '/supervisor/dashboard',
     component: SupervisorDashboardView,
     exact: false,
+    permission: [UserRole.SUPERVISOR],
   },
   {
     routePath: '/supervisor/products',
     component: SupervisorProductsView,
     exact: false,
+    permission: [UserRole.SUPERVISOR],
   },
   {
     routePath: '/supervisor/settings',
     component: SupervisorSettingsView,
     exact: false,
+    permission: [UserRole.SUPERVISOR],
   },
   {
     routePath: '/supervisor/product',
     component: SupervisorProductView,
     exact: false,
+    permission: [UserRole.SUPERVISOR],
   },
   {
     routePath: '/supervisor/ready-to-check',
     component: SupervisorReadyToCheckView,
     exact: false,
-  },
-  {
-    routePath: '/buyer/warehouse',
-    component: BuyerWarehouseView,
-    exact: false,
+    permission: [UserRole.SUPERVISOR],
   },
   {
     routePath: '/warehouse/dashboard',
     component: WarehouseDashboardView,
     exact: false,
+    permission: [UserRole.STOREKEEPER],
   },
   {
     routePath: '/warehouse/vacant-tasks',
     component: WarehouseVacantTasksView,
     exact: false,
+    permission: [UserRole.STOREKEEPER],
   },
   {
     routePath: '/warehouse/completed-tasks',
     component: WarehouseCompletedTasksView,
     exact: false,
+    permission: [UserRole.STOREKEEPER],
   },
   {
     routePath: '/admin/dashboard',
     component: AdminDashboardView,
     exact: false,
+    permission: [UserRole.ADMIN],
   },
   {
     routePath: '/admin/exchange',
     component: AdminExchangeViews,
     exact: false,
+    permission: [UserRole.ADMIN],
   },
   {
     routePath: '/admin/inventory',
     component: AdminInventoryView,
     exact: false,
+    permission: [UserRole.ADMIN],
   },
   {
     routePath: '/admin/orders',
     component: AdminOrdersViews,
     exact: false,
+    permission: [UserRole.ADMIN],
   },
   {
     routePath: '/admin/warehouse/orders',
     component: AdminWarehouseOrdersView,
     exact: false,
+    permission: [UserRole.ADMIN],
   },
   {
     routePath: '/admin/warehouse/boxes',
     component: AdminWarehouseBoxesView,
     exact: false,
+    permission: [UserRole.ADMIN],
   },
   {
     routePath: '/admin/warehouse/batches',
     component: AdminWarehouseBatchesView,
     exact: false,
+    permission: [UserRole.ADMIN],
   },
   {
     routePath: '/admin/finances/replenishments',
     component: AdminFinancesReplenishmentsView,
     exact: false,
+    permission: [UserRole.ADMIN],
   },
   {
     routePath: '/admin/users',
     component: AdminUsersView,
     exact: false,
+    permission: [UserRole.ADMIN],
   },
   {
     routePath: '/admin/user/user_id/balance',
     component: AdminUserBalanceView,
     exact: false,
+    permission: [UserRole.ADMIN],
   },
   {
     routePath: '/admin/settings',
     component: AdminSettingsView,
     exact: false,
+    permission: [UserRole.ADMIN],
   },
 ]

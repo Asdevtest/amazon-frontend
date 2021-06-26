@@ -50,7 +50,7 @@ export class AuthViewRaw extends Component {
   ) // TODO: fix error output
 
   onClickRedirect = () => {
-    this.props.history.push('/register')
+    this.props.history.push('/registration')
   }
 
   onChangeFormField = fieldName => event => {

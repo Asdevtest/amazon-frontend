@@ -1,13 +1,14 @@
 export const UserRole = {
   ADMIN: 'ADMIN',
-  BUYER: 'BUYER',
   CLIENT: 'CLIENT',
-  RESEARCHER: 'RESEARCHER',
   SUPERVISOR: 'SUPERVISOR',
+  RESEARCHER: 'RESEARCHER',
+  BUYER: 'BUYER',
+  STOREKEEPER: 'STOREKEEPER',
 }
 
 export const UserRoleCodeMap = {
-  0: 'ROOT',
+  0: 'ADMIN',
   10: 'CLIENT',
   20: 'SUPERVISOR',
   30: 'RESEARCHER',
