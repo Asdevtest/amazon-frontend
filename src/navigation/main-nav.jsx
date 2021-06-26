@@ -1,15 +1,15 @@
-import {Route, BrowserRouter as Router, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Switch} from 'react-router-dom'
 
+import {PrivateRoutes} from './private-routes'
+import {generatePublicRoutes} from './public-routes'
 import {generateRedirects} from './redirects'
-import {routes} from './routes'
 
 export const MainNav = () => (
   <Router>
     <Switch>
       {generateRedirects()}
-      {routes.map((route, index) => (
-        <Route key={index} component={route.component} exact={route.exact} path={route.routePath} />
-      ))}
+      {generatePublicRoutes()}
+      <PrivateRoutes />
     </Switch>
   </Router>
 )
