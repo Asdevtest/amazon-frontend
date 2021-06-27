@@ -10,7 +10,7 @@ import {UserSignInDataContract, UserInfoContract} from './user-model.contracts'
 const persistProperties = ['accessToken', 'userInfo']
 
 class UserModelStatic {
-  accessToken = undefined
+  accessToken = '-=test_token=-:60aabf69b2f06d5a147ba009'
   userInfo = undefined
 
   // [UserRole.ADMIN]: '-=test_token=-:60aac071b2f06d5a147ba00c',

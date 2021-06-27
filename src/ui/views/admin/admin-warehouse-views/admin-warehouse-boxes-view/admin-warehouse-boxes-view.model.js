@@ -1,6 +1,6 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {AdministratorModel} from '@models/administrator-model'
+import {BoxesModel} from '@models/boxes-model'
 
 export class AdminWarehouseBoxesViewModel {
   history = undefined
@@ -63,7 +63,7 @@ export class AdminWarehouseBoxesViewModel {
 
   async getBoxes() {
     try {
-      const result = await AdministratorModel.getBoxes() // такого метода пока нет
+      const result = await BoxesModel.getBoxes() // такого метода пока нет
       console.log(result)
       runInAction(() => {
         this.boxes = result

@@ -19,4 +19,8 @@ export const redirectConfigs = [
     from: '/warehouse',
     to: '/warehouse/dashboard',
   },
+  {
+    from: '/admin',
+    to: '/admin/dashboard',
+  },
 ]

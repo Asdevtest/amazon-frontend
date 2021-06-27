@@ -4,8 +4,8 @@ import {observer} from 'mobx-react'
 import {Redirect, Route} from 'react-router-dom'
 
 import {privateRoutesConfigs} from '@constants/routes'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
+// import {UserRoleCodeMap} from '@constants/user-roles'
 import {UserModel} from '@models/user-model'
 
 export const PrivateRoutes = observer(() => {
@@ -19,15 +19,15 @@ export const PrivateRoutes = observer(() => {
       return <div />
     }
 
-    const allowedRoutes = privateRoutesConfigs.filter(route =>
-      route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]),
-    )
+    // const allowedRoutes = privateRoutesConfigs.filter(route =>
+    //   route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]),
+    // )
     return (
       <>
-        {allowedRoutes.map((route, index) => (
+        {privateRoutesConfigs.map((route, index) => (
           <Route key={index} component={route.component} exact={route.exact} path={route.routePath} />
         ))}
-        <Redirect to={allowedRoutes[0].routePath} />
+        {/* <Redirect to={privateRoutesConfigs[0].routePath} /> */}
       </>
     )
   }
