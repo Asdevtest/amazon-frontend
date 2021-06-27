@@ -13,6 +13,9 @@ class SupervisorModelStatic {
 
   updateProduct = async (id, data) => {
     const response = await restApiService.supervisorApi.apiV1SupervisorsProductsGuidPatch(id, data)
+    if (response && response.error) {
+      throw new Error(response.message)
+    }
     return response
   }
 

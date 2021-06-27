@@ -150,7 +150,7 @@ export class BuyerProductViewModel {
           if (key === 'buyerscomment' && isUndefined(value)) {
             return ''
           } else if (key === 'currentSupplier' && isNotUndefined(value)) {
-            return value._id
+            return value && value._id
           } else {
             return value
           }

@@ -985,6 +985,7 @@ export const texts = {
       buttonParseAmazon: ' Parse Amazon ',
       buttonParseSellcentrall: 'Parse Sellcentrall',
       alertSuccess: 'Запрос обработан',
+      alertFailed: 'Запрос не был обработан',
 
       fieldAsin: 'ID*',
       fieldLinkAmazon: 'Ссылка на товар Amazon',

@@ -66,9 +66,13 @@ export const TopCard = observer(
                     </Button>
                   </Box>
                 ) : undefined}
-                {actionStatus === loadingStatuses.success ? (
-                  <Alert className={classNames.alert} elevation={0} severity="success">
-                    {textConsts.alertSuccess}
+                {actionStatus === loadingStatuses.success || actionStatus === loadingStatuses.failed ? (
+                  <Alert
+                    className={classNames.alert}
+                    elevation={0}
+                    severity={actionStatus === loadingStatuses.success ? 'success' : 'error'}
+                  >
+                    {actionStatus === loadingStatuses.success ? textConsts.alertSuccess : textConsts.alertFailed}
                   </Alert>
                 ) : undefined}
               </Grid>

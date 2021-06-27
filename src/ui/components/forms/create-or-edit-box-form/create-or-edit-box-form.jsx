@@ -17,12 +17,13 @@ import {useClassNames} from './create-or-edit-box-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
 
-export const CreateOrEditBoxForm = ({box, onSubmit, onCloseModal, onTriggerOpenModal}) => {
+export const CreateOrEditBoxForm = ({box, order, onSubmit, onCloseModal, onTriggerOpenModal}) => {
   const classNames = useClassNames()
 
   // console.log(selectedBoxes, 'SELECTED BOXES');
 
-  console.log(box, 'BOX FOR EDITING')
+  console.log('CreateOrEditBoxForm box', box)
+  console.log('CreateOrEditBoxForm order', order)
 
   const [formFields, setFormFields] = useState(
     {
@@ -34,16 +35,16 @@ export const CreateOrEditBoxForm = ({box, onSubmit, onCloseModal, onTriggerOpenM
       weightFinalAccountingKgSupplier: (box && box.weightFinalAccountingKgSupplier) || '',
       warehouse: (box && box.warehouse) || '',
       deliveryMethod: (box && box.deliveryMethod) || '',
-      shipmentPlanId: (box && box.shipmentPlanId) || '',
+      // shipmentPlanId: (box && box.shipmentPlanId) || '',
       // scheduledDispatchDate: "2021-06-22",
       // factDispatchDate: "2021-06-22",
-      // items: (box && box.items) || [
-      //   {
-      //     product: order && order.product,
-      //     amount: (order && order.amount) || 10,
-      //     order: order && order
-      //   }
-      // ],
+      items: (box && box.items) || [
+        {
+          product: order && order.product,
+          amount: (order && order.amount) || 10,
+          order: order && order,
+        },
+      ],
       // clientId: '607dceac3551e3fa7e7fbb69'
     },
     // {
@@ -190,8 +191,10 @@ export const CreateOrEditBoxForm = ({box, onSubmit, onCloseModal, onTriggerOpenM
           color="primary"
           variant="contained"
           onClick={() => {
-            onSubmit(box._id, formFields)
-            onTriggerOpenModal('showEditBoxModal')
+            onSubmit(box && box._id, formFields)
+            if (onTriggerOpenModal) {
+              onTriggerOpenModal('showEditBoxModal')
+            }
           }}
         >
           {textConsts.saveChangesBtn}

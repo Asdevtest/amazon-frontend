@@ -9,6 +9,7 @@ import {texts} from '@constants/texts'
 import {Input} from '@components/input'
 
 import {formatDate} from '@utils/date-time'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './product-table.style'
@@ -34,7 +35,7 @@ export const ProductTable = ({modalHeadCells, order, onTriggerBarcodeModal, orde
             <TableCell>
               <img
                 className={classNames.imgBox}
-                src={order.product.images && order.product.images[0]}
+                src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
                 alt={order.csCode}
               />
             </TableCell>

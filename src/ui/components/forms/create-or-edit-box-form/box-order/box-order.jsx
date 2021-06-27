@@ -4,6 +4,7 @@ import {texts} from '@constants/texts'
 
 import {Input} from '@components/input'
 
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 // import { getAmazonImageUrl } from '@utils/get-amazon-image-url';
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -13,16 +14,22 @@ const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
 
 export const BoxOrder = ({order}) => {
   const classNames = useClassNames()
+  console.log('order ', order)
   return (
     <div className={classNames.order}>
       <div className={classNames.imgWithTitles}>
-        {/* <img  в этом ответе пока нет этых полей
+        <img
           className={classNames.img}
-          src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
-        /> */}
+          src={
+            order.product &&
+            order.product.images &&
+            order.product.images[0] &&
+            getAmazonImageUrl(order.product.images[0])
+          }
+        />
         <div>
-          {/* <Typography>{order.product.amazonTitle}</Typography> */}
-          <Typography color="textSecondary">{order.product}</Typography>
+          <Typography>{order.product && order.product.amazonTitle}</Typography>
+          <Typography color="textSecondary">{order.product && order.product.id}</Typography>
         </div>
       </div>
 
@@ -33,7 +40,7 @@ export const BoxOrder = ({order}) => {
         </div>
         <div>
           <Typography>{textConsts.materialLabel}</Typography>
-          {/* <Input className={classNames.inputText} value={order.product.material} /> */}
+          <Input className={classNames.inputText} value={order.product && order.product.material} />
         </div>
       </div>
 
