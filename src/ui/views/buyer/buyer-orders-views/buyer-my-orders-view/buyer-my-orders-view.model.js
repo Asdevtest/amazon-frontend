@@ -76,7 +76,7 @@ export class BuyerMyOrdersViewModel {
     console.log('onSubmitSaveOrder')
     console.log(order)
     console.log(orderFields)
-    // this.onSaveOrder(order, orderFields)
+    this.onSaveOrder(order, orderFields)
   }
 
   onChangeBarcode(e) {
@@ -96,27 +96,27 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitCreateBox(formFields) {
+  async onSubmitCreateBox(boxId, formFields) {
     console.log('onSubmitCreateBox')
     this.onTriggerShowOrderModal()
-    // try {
-    //   const createBoxData = {
-    //     ...getObjectFilteredByKeyArrayBlackList(formFields, ['items']),
-    //     items: [
-    //       {
-    //         product: this.selectedOrder.product._id,
-    //         amount: formFields.items[0].amount,
-    //         order: this.selectedOrder._id,
-    //       },
-    //     ],
-    //   }
-    //   runInAction(() => {
-    //     this.selectedOrder = undefined
-    //   })
-    //   await BoxesModel.createBox(createBoxData)
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    try {
+      const createBoxData = {
+        ...getObjectFilteredByKeyArrayBlackList(formFields, ['items']),
+        items: [
+          {
+            product: this.selectedOrder.product._id,
+            amount: formFields.items[0].amount,
+            order: this.selectedOrder._id,
+          },
+        ],
+      }
+      runInAction(() => {
+        this.selectedOrder = undefined
+      })
+      await BoxesModel.createBox(createBoxData)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async getOrdersMy() {

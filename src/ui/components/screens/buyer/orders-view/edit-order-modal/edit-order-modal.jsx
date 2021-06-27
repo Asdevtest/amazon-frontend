@@ -113,8 +113,8 @@ export const EditOrderModal = ({
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
           <CreateOrEditBoxForm
             order={order}
-            onSubmit={boxFileds => {
-              onSubmitCreateBox(boxFileds)
+            onSubmit={(boxId, boxFileds) => {
+              onSubmitCreateBox(boxId, boxFileds, order)
             }}
           />
         </>
