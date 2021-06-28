@@ -16,6 +16,7 @@ import {PrivateLabelCard} from '@components/private-label-card'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
+import avatar from '../../assets/clientAvatar.jpg'
 import {ClientExchangePrivateLabelViewModel} from './client-exchange-private-label-view.model'
 import {styles} from './client-exchange-private-label-view.style'
 
@@ -47,7 +48,7 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
         />
         <Main>
           <Appbar
-            avatarSrc=""
+            avatarSrc={avatar}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
@@ -69,6 +70,7 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
   renderProductsVacant = () => {
     const {classes: classNames} = this.props
     const {productsVacant, onLaunchPrivateLabel, onClickBuyProductBtn} = this.viewModel
+
     return productsVacant.map((item, index) => (
       <div key={`product_${item._id}_${index}`} className={classNames.cardWrapper}>
         <PrivateLabelCard

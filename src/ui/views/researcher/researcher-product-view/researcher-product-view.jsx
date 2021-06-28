@@ -15,16 +15,19 @@ import {ProductWrapper} from '@components/product/product-wrapper'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from './assets/clientAvatar.jpg'
+import avatar from './assets/researcherAvatar.jpg'
 import {ResearcherProductViewModel} from './researcher-product-view.model'
 
-const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
+const textConsts = getLocalizedTexts(texts, 'en').researcherProductView
 
 const navbarActiveCategory = 4
 
 @observer
 export class ResearcherProductView extends Component {
-  viewModel = new ResearcherProductViewModel({history: this.props.history, location: this.props.location})
+  viewModel = new ResearcherProductViewModel({
+    history: this.props.history,
+    location: this.props.location,
+  })
 
   render() {
     const {

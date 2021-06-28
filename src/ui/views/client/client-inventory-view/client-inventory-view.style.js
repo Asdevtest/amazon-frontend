@@ -7,4 +7,11 @@ export const styles = createStyles({
   mainTitle: {
     marginTop: '24px',
   },
+  addProductBtnWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    padding: '0 0 10px',
+  },
 })

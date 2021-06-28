@@ -16,11 +16,11 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from './assets/researcherAvatar.jpg'
+import avatar from './assets/clientAvatar.jpg'
 import {SupervisorDashboardViewModel} from './supervisor-dashboard-view.model'
 import {styles} from './supervisor-dashboard-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').researcherDashboardView
+const textConsts = getLocalizedTexts(texts, 'en').supervisorDashboardView
 const dashboardCardConfig = getSupervisorDashboardCardConfig(textConsts)
 
 const navbarActiveCategory = 0

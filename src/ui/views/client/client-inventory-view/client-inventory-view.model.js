@@ -24,11 +24,16 @@ export class ClientInventoryViewModel {
   actionStatus = undefined
 
   productsMy = []
+
+  selectedProducts = []
+
   drawerOpen = false
   rowsPerPage = 5
   curPage = 1
+  showOrderModal = false
   showSetBarcodeModal = false
   selectedProduct = undefined
+  showSendOwnProductModal = false
 
   constructor({history}) {
     this.history = history
@@ -62,19 +67,21 @@ export class ClientInventoryViewModel {
 
   async onClickSaveBarcode(barCode) {
     await this.onSaveProductData(this.selectedProduct._id, {barCode})
-    this.onTriggerShowBarcodeModal()
+    this.onTriggerOpenModal('showSetBarcodeModal')
     this.selectedProduct = undefined
   }
 
   async onSaveProductData(productId, updateProductData) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
+
       const updateProductDataFiltered = getObjectFilteredByKeyArrayWhiteList(
         toJS(updateProductData),
         fieldsOfProductAllowedToUpdate,
         true,
       )
       console.log('updateProductData ', updateProductDataFiltered)
+
       await ClientModel.updateProduct(productId, updateProductDataFiltered)
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
@@ -86,12 +93,33 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onClickBarcode = item => {
+  onTriggerCheckbox(productId) {
+    const updatedselectedProducts = this.selectedProducts.includes(productId)
+      ? this.selectedProducts.filter(_id => _id !== productId)
+      : this.selectedProducts.concat(productId)
+    this.selectedProducts = updatedselectedProducts
+  }
+
+  onClickBarcode(item) {
     if (item.barCode) {
       copyToClipBoard(item.barcCde)
     } else {
       this.setSelectedProduct(item)
-      this.onTriggerShowBarcodeModal()
+      this.onTriggerOpenModal('showSetBarcodeModal')
+    }
+  }
+
+  onSubmitOrderProductModal(ordersDataState) {
+    ordersDataState.forEach(product => this.createOrder(product))
+    this.selectedProducts = []
+  }
+
+  async createOrder(orderObject) {
+    try {
+      await ClientModel.createOrder(orderObject)
+    } catch (error) {
+      console.log(error)
+      this.error = error
     }
   }
 
@@ -99,7 +127,7 @@ export class ClientInventoryViewModel {
 
   onDoubleClickBarcode = item => {
     this.setSelectedProduct(item)
-    this.onTriggerShowBarcodeModal()
+    this.onTriggerOpenModal('showSetBarcodeModal')
   }
 
   onDeleteBarcode() {}
@@ -117,8 +145,8 @@ export class ClientInventoryViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onTriggerShowBarcodeModal() {
-    this.showSetBarcodeModal = !this.showSetBarcodeModal
+  onTriggerOpenModal(modalState) {
+    this[modalState] = !this[modalState]
   }
 
   setSelectedProduct(item) {

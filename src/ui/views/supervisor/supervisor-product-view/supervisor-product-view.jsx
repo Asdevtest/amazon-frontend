@@ -17,13 +17,16 @@ import avatar from './assets/clientAvatar.jpg'
 import {SupervisorProductViewModel} from './supervisor-product-view.model'
 
 const curUserRole = UserRole.SUPERVISOR
-const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
+const textConsts = getLocalizedTexts(texts, 'en').supervisorProductView
 
 const navbarActiveCategory = 4
 
 @observer
 export class SupervisorProductView extends Component {
-  viewModel = new SupervisorProductViewModel({history: this.props.history, location: this.props.location})
+  viewModel = new SupervisorProductViewModel({
+    history: this.props.history,
+    location: this.props.location,
+  })
 
   render() {
     const {

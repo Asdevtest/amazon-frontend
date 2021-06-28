@@ -511,11 +511,25 @@ export const texts = {
       productsAddedDashboardCard: 'Товаров добавлено',
       ordersChackoutDashboardCard: 'Заказов оформлено',
       productsBoughtLast30DaysDashboardCard: 'Куплено за 30 дней',
+      addProductBtn: 'Добавить свой товар',
+      addProductModal: 'Добавить свой товар',
     },
     researcherDashboardView: {
       appBarTitle: 'Dashboard',
       appBarUsername: 'Researcher',
       appUser: 'researcher',
+      mainTitle: 'Dashboard',
+      myProductsCardTitle: 'Мои товары',
+      curBalanceCardTitle: 'Текущий баланс',
+      finesCardTitle: 'Штрафы',
+      newProductsCardTitle: 'Новых товаров в базе',
+      meCheckingCardTitle: 'У меня на проверке',
+      accuredCardTitle: 'Начислено',
+    },
+    supervisorDashboardView: {
+      appBarTitle: 'Dashboard',
+      appBarUsername: 'Supervisor',
+      appUser: 'supervisor',
       mainTitle: 'Dashboard',
       myProductsCardTitle: 'Мои товары',
       curBalanceCardTitle: 'Текущий баланс',
@@ -619,6 +633,20 @@ export const texts = {
       appBarTitle: 'Product',
       appBarUsername: 'Buyer',
       appUser: 'buyer',
+      modalAddTitle: 'Добавить нового поставщика',
+      modalEditTitle: 'Редактировать поставщика',
+    },
+    researcherProductView: {
+      appBarTitle: 'Product',
+      appBarUsername: 'Researcher',
+      appUser: 'researcher',
+      modalAddTitle: 'Добавить нового поставщика',
+      modalEditTitle: 'Редактировать поставщика',
+    },
+    supervisorProductView: {
+      appBarTitle: 'Product',
+      appBarUsername: 'Supervisor',
+      appUser: 'supervisor',
       modalAddTitle: 'Добавить нового поставщика',
       modalEditTitle: 'Редактировать поставщика',
     },
@@ -1155,6 +1183,26 @@ export const texts = {
       buyNowBtn: 'Заказать сразу',
       cancelBtn: 'Отменить',
     },
+
+    clientOrderProductModal: {
+      mainTitle: 'Заказ товара',
+      imgCell: 'Фото',
+
+      id: 'id',
+      price: 'Цена',
+      avgPrice: 'Ср. цена',
+      amount: 'Кол-во',
+      total: 'Итого',
+      barCode: 'Штрихкод',
+      deliveryMethod: 'Способ доставки',
+      warehouse: 'Склад',
+      comment: 'Комментарий клиента',
+
+      addBasketBtn: 'Добавить в корзину',
+      buyNowBtn: 'Заказать сразу',
+      cancelBtn: 'Отменить',
+    },
+
     clientBatchesForm: {
       title: 'Список полей для заполнения',
       typoSetChoosenBoxe: 'Задайте нужные значения всем выбранным коробкам.',
@@ -1265,6 +1313,8 @@ export const texts = {
       setBarCodeBtn: 'Set barcode',
       exchangeBtn: 'Exchange',
       setBarcodeChipLabel: 'Set barcode',
+      addProductBtn: 'Добавить свой товар',
+      addProductModal: 'Добавить свой товар',
     },
 
     setBarcodeModalContent: {

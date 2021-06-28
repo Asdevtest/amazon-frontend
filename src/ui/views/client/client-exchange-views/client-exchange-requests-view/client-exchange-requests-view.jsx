@@ -22,6 +22,7 @@ import {ExchangeRequestsBodyRow} from '@components/table-rows/client/exchange-re
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getRequiredListByKeys} from '@utils/get-required-list-by-keys'
 
+import avatar from '../../assets/clientAvatar.jpg'
 import {ClientExchangeRequestsViewModel} from './client-exchange-requests-view.model'
 import {styles} from './client-exchange-requests-view.style'
 
@@ -87,7 +88,7 @@ export class ClientExchangeRequestsViewRaw extends Component {
         />
         <Main>
           <Appbar
-            avatarSrc=""
+            avatarSrc={avatar}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}

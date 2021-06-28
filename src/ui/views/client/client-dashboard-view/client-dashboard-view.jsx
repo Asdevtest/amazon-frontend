@@ -17,6 +17,7 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
+import avatar from '../assets/clientAvatar.jpg'
 import {ClientDashboardViewModel} from './client-dashboard-view.model'
 import {styles} from './client-dashboard-view.style'
 
@@ -47,7 +48,7 @@ export class ClientDashboardViewRaw extends Component {
         />
         <Main>
           <Appbar
-            avatarSrc=""
+            avatarSrc={avatar}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
