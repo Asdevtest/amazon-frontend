@@ -114,6 +114,7 @@ class InlineObject19 {
 }
 
 
+
 /**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
@@ -211,7 +212,6 @@ InlineObject19.prototype['images'] = undefined;
  * @member {Number} byboxprice
  */
 InlineObject19.prototype['byboxprice'] = undefined;
-
 
 
 

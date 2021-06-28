@@ -170,7 +170,6 @@ class InlineObject20 {
 };
 
 
-
 /**
  * SKU - ставит склад - только для склада
  * @member {String} sku
@@ -345,6 +344,9 @@ InlineObject20.prototype['margin'] = undefined;
  * @member {Number} byboxprice
  */
 InlineObject20.prototype['byboxprice'] = undefined;
+
+
+
 
 
 

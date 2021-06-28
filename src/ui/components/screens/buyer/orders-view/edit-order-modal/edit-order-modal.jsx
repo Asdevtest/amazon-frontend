@@ -36,6 +36,7 @@ export const EditOrderModal = ({
   const classNames = useClassNames()
   const [showCreateOrEditBoxBlock, setShowCreateOrEditBoxBlock] = useState(false)
   const [orderFields, setOrderFields] = useState({
+    ...order,
     warehouse: (order && order.warehouse) || undefined,
     deliveryMethod: (order && order.deliveryMethod) || undefined,
     status: (order && order.status) || undefined,
@@ -92,7 +93,6 @@ export const EditOrderModal = ({
           <Button
             className={classNames.saveBtn}
             onClick={() => {
-              onSubmitSaveOrder(order, orderFields)
               if (
                 orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) &&
                 ((order && !orderStatusesThatTriggersEditBoxBlock.includes(parseInt(order.status))) || !order)
@@ -100,6 +100,7 @@ export const EditOrderModal = ({
                 onTriggerShowCreateOrEditBoxBlock()
               } else {
                 onTriggerModal()
+                onSubmitSaveOrder(order, orderFields)
               }
             }}
           >
@@ -112,9 +113,11 @@ export const EditOrderModal = ({
         <>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
           <CreateOrEditBoxForm
-            order={order}
+            selectFieldsArePreDefined
+            order={orderFields}
             onSubmit={(boxId, boxFileds) => {
-              onSubmitCreateBox(boxId, boxFileds, order)
+              onSubmitCreateBox(boxId, boxFileds)
+              onSubmitSaveOrder(order, orderFields)
             }}
           />
         </>

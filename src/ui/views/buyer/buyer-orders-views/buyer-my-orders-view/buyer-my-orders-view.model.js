@@ -7,6 +7,7 @@ import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {BoxesModel} from '@models/boxes-model'
 import {BuyerModel} from '@models/buyer-model'
 
+import {formatDateForBackend} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const updateOrderKeys = ['status', 'deliveryMethod', 'warehouse', 'barCode']
@@ -97,14 +98,19 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onSubmitCreateBox(boxId, formFields) {
-    console.log('onSubmitCreateBox')
     this.onTriggerShowOrderModal()
     try {
       const createBoxData = {
         ...getObjectFilteredByKeyArrayBlackList(formFields, ['items']),
+        clientId: '60aabf69b2f06d5a147ba009', // Исправить на правельный, когда будет бек готов
         items: [
           {
-            product: this.selectedOrder.product._id,
+            product: {
+              // Исправить на беке, должен быть product id
+              ...this.selectedOrder.product,
+              createdat: formatDateForBackend(this.selectedOrder.product.createdat),
+              checkedat: formatDateForBackend(this.selectedOrder.product.checkedat),
+            },
             amount: formFields.items[0].amount,
             order: this.selectedOrder._id,
           },

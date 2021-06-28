@@ -167,7 +167,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [Object];
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/clients/orders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,

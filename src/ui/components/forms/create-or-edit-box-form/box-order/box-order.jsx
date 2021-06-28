@@ -14,7 +14,6 @@ const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
 
 export const BoxOrder = ({order}) => {
   const classNames = useClassNames()
-  console.log('order ', order)
   return (
     <div className={classNames.order}>
       <div className={classNames.imgWithTitles}>

@@ -155,7 +155,6 @@ class InlineResponse2003 {
 };
 
 
-
 /**
  * GUID данной записи в БД.
  * @member {String} _id
@@ -215,6 +214,10 @@ InlineResponse2003.prototype['deliveryCostToTheWarehouse'] = undefined;
  * @member {module:model/InlineResponse200} product
  */
 InlineResponse2003.prototype['product'] = undefined;
+
+
+
+
 
 
 export default InlineResponse2003;
