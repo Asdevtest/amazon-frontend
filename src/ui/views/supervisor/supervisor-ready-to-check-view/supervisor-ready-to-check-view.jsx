@@ -37,11 +37,9 @@ class SupervisorReadyToCheckViewRaw extends Component {
   render() {
     const {
       drawerOpen,
-      selectedProducts,
       productsReadyToCheck,
       rowsPerPage,
       curPage,
-      onSelectProduct,
       onTriggerDrawerOpen,
       onChangePage,
       onChangeRowsPerPage,
@@ -50,7 +48,6 @@ class SupervisorReadyToCheckViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
     const tableRowHandlers = {
-      onSelectProduct,
       onClickCalculateFees,
       onDoubleClickTableRow,
     }
@@ -85,7 +82,6 @@ class SupervisorReadyToCheckViewRaw extends Component {
                   renderHeadRow={this.renderHeadRow}
                   rowsPerPage={rowsPerPage}
                   rowsHandlers={tableRowHandlers}
-                  selectedProducts={selectedProducts}
                 />
               </div>
             </MainContent>

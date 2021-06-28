@@ -9,6 +9,7 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {SuccessButton} from '@components/buttons/success-button'
 import {CreateOrEditBoxForm} from '@components/forms/create-or-edit-box-form'
 import {SendOwnProductForm} from '@components/forms/send-own-product-form'
 import {Main} from '@components/main'
@@ -104,15 +105,13 @@ export class BuyerWarehouseViewRaw extends Component {
               <Typography paragraph variant="h5">
                 {textConsts.mainTitle}
               </Typography>
-              <Button
-                disableElevation
-                className={classNames.sendOwnProductBtn}
-                color="primary"
-                variant="contained"
-                onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
-              >
-                {textConsts.sendProductBtn}
-              </Button>
+
+              <div className={classNames.addProductBtnWrapper}>
+                <SuccessButton onClick={() => onTriggerOpenModal('showSendOwnProductModal')}>
+                  {textConsts.sendProductBtn}
+                </SuccessButton>
+              </div>
+
               <Table
                 renderButtons={this.renderButtons}
                 currentPage={curPage}

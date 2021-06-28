@@ -12,7 +12,6 @@ export class SupervisorReadyToCheckViewModel {
   drawerOpen = false
   rowsPerPage = 5
   curPage = 1
-  selectedProducts = []
 
   productsReadyToCheck = []
 
@@ -48,18 +47,6 @@ export class SupervisorReadyToCheckViewModel {
         this.error = error.body.message
       }
     }
-  }
-
-  onSelectProduct(item, index) {
-    const selectedProducts = [...this.selectedProducts]
-    const newSelectedProducts = [...selectedProducts]
-    const findRequestIndex = selectedProducts.indexOf(index)
-    if (findRequestIndex !== -1) {
-      newSelectedProducts.splice(findRequestIndex, 1)
-    } else {
-      newSelectedProducts.push(index)
-    }
-    this.selectedProducts = newSelectedProducts
   }
 
   onTriggerDrawerOpen() {

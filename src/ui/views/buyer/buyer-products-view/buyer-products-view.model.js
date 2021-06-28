@@ -12,6 +12,7 @@ export class BuyerProductsViewModel {
   actionStatus = undefined
 
   productsVacant = []
+
   drawerOpen = false
   rowsPerPage = 5
   curPage = 1

@@ -20,6 +20,7 @@ import {ExchangeBodyRow} from '@components/table-rows/client/exchange'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
+import avatar from '../../assets/clientAvatar.jpg'
 import {ClientExchangeViewModel} from './client-exchange-view.model'
 import {styles} from './client-exchange-view.style'
 
@@ -71,7 +72,7 @@ export class ClientExchangeViewRaw extends Component {
         />
         <Main>
           <Appbar
-            avatarSrc=""
+            avatarSrc={avatar}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}

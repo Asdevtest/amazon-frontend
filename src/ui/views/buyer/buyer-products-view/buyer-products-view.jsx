@@ -40,6 +40,7 @@ export class BuyerProductsViewRaw extends Component {
       curPage,
       productsVacant,
       rowsPerPage,
+      onSelectProduct,
       onClickTableRow,
       onDoubleClickTableRow,
       onTriggerDrawerOpen,
@@ -48,6 +49,7 @@ export class BuyerProductsViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
     const tableRowHandlers = {
+      onSelectProduct,
       onClickTableRow,
       onDoubleClickTableRow,
     }

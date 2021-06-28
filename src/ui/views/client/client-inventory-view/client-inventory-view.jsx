@@ -11,12 +11,15 @@ import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {SuccessButton} from '@components/buttons/success-button'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
+import {SendOwnProductForm} from '@components/forms/send-own-product-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {Navbar} from '@components/navbar'
+import {OrderProductModal} from '@components/screens/client/inventory-view/order-product-modal'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/client/inventory/products-view/table-body-row'
 import {TableHeadRow} from '@components/table-rows/client/inventory/products-view/table-head-row'
@@ -42,12 +45,15 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      selectedProducts,
       drawerOpen,
       selectedProduct,
       showSetBarcodeModal,
       curPage,
       productsMy,
       rowsPerPage,
+      showOrderModal,
+      showSendOwnProductModal,
       onClickBarcode,
       onClickExchange,
       onDoubleClickBarcode,
@@ -55,16 +61,25 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
-      onTriggerShowBarcodeModal,
       onClickSaveBarcode,
+      onTriggerOpenModal,
+      onTriggerCheckbox,
+      onSubmitOrderProductModal,
     } = this.viewModel
     const {classes: classNames} = this.props
+
     const tableRowHandlers = {
       onClickBarcode,
       onClickExchange,
       onDoubleClickBarcode,
       onDeleteBarcode,
+      onCheckbox: onTriggerCheckbox,
     }
+
+    const rowsDatas = {
+      selectedProducts,
+    }
+
     return (
       <React.Fragment>
         <Navbar
@@ -87,8 +102,14 @@ export class ClientInventoryViewRaw extends Component {
               <Typography variant="h6" className={classNames.someClass}>
                 {textConsts.productsList}
               </Typography>
+              <div className={classNames.addProductBtnWrapper}>
+                <SuccessButton onClick={() => onTriggerOpenModal('showSendOwnProductModal')}>
+                  {textConsts.addProductBtn}
+                </SuccessButton>
+              </div>
+
               <Table
-                buttons={this.renderButtons()}
+                renderButtons={this.renderButtons}
                 currentPage={curPage}
                 data={productsMy}
                 handlerPageChange={onChangeCurPage}
@@ -98,15 +119,33 @@ export class ClientInventoryViewRaw extends Component {
                 renderHeadRow={this.renderHeadRow}
                 rowsPerPage={rowsPerPage}
                 rowsHandlers={tableRowHandlers}
+                rowsDatas={rowsDatas}
               />
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={showSetBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
+
+        <Modal openModal={showSendOwnProductModal} setOpenModal={() => onTriggerOpenModal('showSendOwnProductModal')}>
+          <Typography variant="h5">{textConsts.addProductModal}</Typography>
+          <SendOwnProductForm />
+        </Modal>
+
+        <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
           <SetBarcodeModal
             product={selectedProduct}
             onClickSaveBarcode={onClickSaveBarcode}
-            onCloseModal={onTriggerShowBarcodeModal}
+            onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
+          />
+        </Modal>
+
+        <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
+          <OrderProductModal
+            selectedProductsData={productsMy.filter(product => selectedProducts.includes(product._id))}
+            onTriggerOpenModal={onTriggerOpenModal}
+            onClickBarcode={onClickBarcode}
+            onDoubleClickBarcode={onDoubleClickBarcode}
+            onDeleteBarcode={onDeleteBarcode}
+            onSubmit={onSubmitOrderProductModal}
           />
         </Modal>
       </React.Fragment>
@@ -121,14 +160,17 @@ export class ClientInventoryViewRaw extends Component {
     ))
 
   renderHeadRow = (<TableHeadRow headCells={CLIENT_INVENTORY_MY_PRODUCTS_HEAD_CELLS} />)
+
   renderButtons = () => (
     <React.Fragment>
       <Button
-        variant="contained" /*  открыть модалку, а ее во front-main нет onClick={() => this.viewModel.onClickMerge()}*/
+        variant="contained"
+        disabled={this.viewModel.selectedProducts.length === 0}
+        onClick={() => this.viewModel.onTriggerOpenModal('showOrderModal')}
       >
         {textConsts.orderBtn}
       </Button>
-      <Button color="disabled">{textConsts.resetBtn}</Button>
+      <Button color="default">{textConsts.resetBtn}</Button>
     </React.Fragment>
   )
 

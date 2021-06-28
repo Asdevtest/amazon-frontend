@@ -19,7 +19,7 @@ import {useClassNames} from './table-body-row.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').inventoryView
 
-export const TableBodyRow = ({item, itemIndex, handlers}) => {
+export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
   const classNames = useClassNames()
   return (
     <TableRow key={item._id} hover role="checkbox">
@@ -27,7 +27,11 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
         <Typography>{itemIndex + 1}</Typography>
       </TableCell>
       <TableCell padding="checkbox">
-        <Checkbox />
+        <Checkbox
+          color="primary"
+          checked={rowsDatas.selectedProducts.includes(item._id)}
+          onChange={() => handlers.onCheckbox(item._id)}
+        />
       </TableCell>
       <TableCell className={classNames.asinCell}>
         <div className={classNames.asinCellContainer}>
