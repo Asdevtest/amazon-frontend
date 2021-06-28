@@ -73,6 +73,7 @@ class InlineObject11 {
 }
 
 
+
 /**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
@@ -166,6 +167,8 @@ InlineObject11.prototype['status'] = InlineObject11.StatusEnum[1];
  * @member {Number} deliveryCostToTheWarehouse
  */
 InlineObject11.prototype['deliveryCostToTheWarehouse'] = undefined;
+
+
 
 
 
