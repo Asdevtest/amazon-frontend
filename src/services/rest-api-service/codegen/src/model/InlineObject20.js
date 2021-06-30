@@ -149,6 +149,7 @@ class InlineObject20 {
 
 
 
+
 /**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
@@ -168,7 +169,6 @@ class InlineObject20 {
      */
     "10": 10
 };
-
 
 /**
  * SKU - ставит склад - только для склада
@@ -344,8 +344,6 @@ InlineObject20.prototype['margin'] = undefined;
  * @member {Number} byboxprice
  */
 InlineObject20.prototype['byboxprice'] = undefined;
-
-
 
 
 

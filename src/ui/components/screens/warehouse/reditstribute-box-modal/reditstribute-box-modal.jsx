@@ -7,6 +7,7 @@ import {texts} from '@constants/texts'
 import {Input} from '@components/input'
 
 import {filterEmptyBoxes, filterEmptyOrders} from '@utils/filters'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './reditstribute-box-modal.style'
@@ -73,7 +74,10 @@ export const RedistributeBox = ({
       <Typography className={classNames.boxTitle}>{box.boxId}</Typography>
       {box.items.map((order, orderIndex) => (
         <div key={orderIndex} className={classNames.order}>
-          <img className={classNames.img} src={order.product.img} />
+          <img
+            className={classNames.img}
+            src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
+          />
           <Typography className={classNames.title}>{orderIndex + 1 + '. ' + order.product.amazonTitle}</Typography>
           <Typography className={classNames.subTitle}>{textConsts.qtyLabel}</Typography>
           <Input

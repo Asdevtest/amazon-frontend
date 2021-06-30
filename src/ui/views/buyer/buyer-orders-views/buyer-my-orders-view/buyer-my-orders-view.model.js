@@ -103,12 +103,7 @@ export class BuyerMyOrdersViewModel {
         clientId: '60aabf69b2f06d5a147ba009', // Исправить на правельный, когда будет бек готов
         items: [
           {
-            product: {
-              // Исправить на беке, должен быть product id
-              ...this.selectedOrder.product,
-              createdat: formatDateForBackend(this.selectedOrder.product.createdat),
-              checkedat: formatDateForBackend(this.selectedOrder.product.checkedat),
-            },
+            product: this.selectedOrder.product._id,
             amount: formFields.items[0].amount,
             order: this.selectedOrder._id,
           },

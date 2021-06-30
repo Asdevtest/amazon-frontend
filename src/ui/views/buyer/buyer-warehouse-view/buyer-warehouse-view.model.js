@@ -4,6 +4,8 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
 
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+
 export class BuyerWarehouseViewModel {
   history = undefined
   requestStatus = undefined
@@ -110,7 +112,18 @@ export class BuyerWarehouseViewModel {
 
   async updateBox(id, data) {
     try {
-      await BoxesModel.updateBox(id, data)
+      console.log('data ', {...data})
+      const updateBoxData = {
+        ...getObjectFilteredByKeyArrayBlackList(data, ['items']),
+        // items: [
+        //   {
+        //     product: data.items[0].product._id,
+        //     amount: data.items[0].product.amount,
+        //     order: data.items[0].order,
+        //   },
+        // ],
+      }
+      await BoxesModel.updateBox(id, updateBoxData)
 
       await this.getBoxesMy()
     } catch (error) {

@@ -575,7 +575,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/buyers/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
