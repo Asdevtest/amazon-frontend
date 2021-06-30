@@ -24,6 +24,10 @@ const textConsts = getLocalizedTexts(texts, 'ru').clientOrderView
 export class ClientOrderView extends Component {
   viewModel = new ClientOrderViewModel({history: this.props.history, location: this.props.location})
 
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
   render() {
     const {drawerOpen, order, onTriggerDrawerOpen} = this.viewModel
 
@@ -42,6 +46,7 @@ export class ClientOrderView extends Component {
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>

@@ -29,6 +29,10 @@ export class ResearcherProductView extends Component {
     location: this.props.location,
   })
 
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
   render() {
     const {
       drawerOpen,
@@ -63,6 +67,7 @@ export class ResearcherProductView extends Component {
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.RESEARCHER}
           >
             <MainContent>
               {product ? (

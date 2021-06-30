@@ -24,6 +24,10 @@ const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
 export class BuyerProductView extends Component {
   viewModel = new BuyerProductViewModel({history: this.props.history, location: this.props.location})
 
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
   render() {
     const {
       product,
@@ -57,6 +61,7 @@ export class BuyerProductView extends Component {
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.BUYER}
           >
             <MainContent>
               {product ? (

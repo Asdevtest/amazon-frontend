@@ -30,7 +30,7 @@ class ResearcherSettingsViewRaw extends Component {
   viewModel = new ResearcherSettingsViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getUserInfo()
+    this.viewModel.loadData()
   }
 
   render() {
@@ -53,6 +53,7 @@ class ResearcherSettingsViewRaw extends Component {
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.RESEARCHER}
           >
             <MainContent>
               {formFields ? (

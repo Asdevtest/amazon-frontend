@@ -27,6 +27,7 @@ export class ClientExchangeViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getProductsVacant()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

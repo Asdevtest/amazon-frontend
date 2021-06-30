@@ -15,8 +15,6 @@ export class ClientOrdersViewModel {
   error = undefined
 
   orders = []
-
-  activeSubCategory = 2
   drawerOpen = false
   modalBarcode = false
   rowsPerPage = 5

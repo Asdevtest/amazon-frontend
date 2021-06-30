@@ -89,6 +89,7 @@ class BuyerFreeOrdersViewRaw extends Component {
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.BUYER}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>

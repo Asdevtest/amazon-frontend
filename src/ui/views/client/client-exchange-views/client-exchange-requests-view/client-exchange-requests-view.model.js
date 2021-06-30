@@ -1,5 +1,7 @@
 import {makeAutoObservable} from 'mobx'
 
+import {loadingStatuses} from '@constants/loading-statuses'
+
 export class ClientExchangeRequestsViewModel {
   history = undefined
   requestStatus = undefined
@@ -17,6 +19,17 @@ export class ClientExchangeRequestsViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
   }
 
   onSelectRequest(index) {
@@ -48,5 +61,8 @@ export class ClientExchangeRequestsViewModel {
   }
   onClickOpenModal(modalState) {
     this[modalState] = true
+  }
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

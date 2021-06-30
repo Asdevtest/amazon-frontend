@@ -94,6 +94,7 @@ export class ClientInventoryViewRaw extends Component {
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
+            curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <Grid container justify="center" spacing={1}>

@@ -54,6 +54,10 @@ const navbarActiveSubCategory = 2
 export class ClientExchangeRequestsViewRaw extends Component {
   viewModel = new ClientExchangeRequestsViewModel({history: this.props.history})
 
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
   render() {
     const {
       drawerOpen,
@@ -92,6 +96,7 @@ export class ClientExchangeRequestsViewRaw extends Component {
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
+            curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <div className={classNames.titleWrapper}>

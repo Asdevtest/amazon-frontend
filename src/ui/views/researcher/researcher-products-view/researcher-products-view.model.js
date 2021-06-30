@@ -34,6 +34,7 @@ export class ResearcherProductsViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
       this.getPropductsVacant()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

@@ -51,7 +51,6 @@ export class ResearcherProductViewModel {
   constructor({history, location}) {
     this.history = history
     if (location.state) {
-      console.log(location.state.product)
       const product = {
         ...location.state.product,
         supplier: location.state.product.supplier.map(supplierItem => supplierItem._id),
@@ -62,6 +61,17 @@ export class ResearcherProductViewModel {
       this.updateAutoCalculatedFields()
     }
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
   }
 
   onChangeSelectedSupplier(supplier) {

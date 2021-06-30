@@ -31,7 +31,7 @@ export class BuyerMyProductsViewRaw extends Component {
   viewModel = new BuyerMyProductsViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getProductsMy()
+    this.viewModel.loadData()
   }
 
   render() {
@@ -66,6 +66,7 @@ export class BuyerMyProductsViewRaw extends Component {
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.BUYER}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>

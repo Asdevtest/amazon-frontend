@@ -10,7 +10,7 @@ export class BuyerProductsViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
-
+  balance = 0
   productsVacant = []
 
   drawerOpen = false
@@ -20,6 +20,30 @@ export class BuyerProductsViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async loadData() {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+      this.getBalance()
+      this.getProductsVacant()
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      this.requestStatus = loadingStatuses.failed
+      console.log(error)
+    }
+  }
+
+  async getBalance() {
+    try {
+      const result = await BuyerModel.getBalance()
+      runInAction(() => {
+        this.balance = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   async getProductsVacant() {

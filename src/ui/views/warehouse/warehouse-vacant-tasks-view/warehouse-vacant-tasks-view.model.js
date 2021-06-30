@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {VACANT_TASKS_DATA} from '@constants/mocks'
 
 import {StorekeeperModel} from '@models/storekeeper-model'
@@ -23,6 +24,17 @@ export class WarehouseVacantViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      await this.getTasksVacant()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
   }
 
   onClickSaveBarcode() {}
@@ -98,5 +110,9 @@ export class WarehouseVacantViewModel {
       console.log(error)
       this.error = error
     }
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

@@ -73,6 +73,7 @@ export class ClientWarehouseViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getBoxesMy()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

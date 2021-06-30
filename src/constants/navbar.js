@@ -111,7 +111,7 @@ export const navbarConfig = {
       ],
     },
   ],
-  [UserRole.WAREHOUSE]: [
+  [UserRole.STOREKEEPER]: [
     {
       icon: InfoOutlinedIcon,
       title: 'Главная страница',

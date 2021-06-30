@@ -9,6 +9,7 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {DashboardBalance} from '@components/dashboard-balance'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -32,13 +33,13 @@ export class WarehouseDashboardViewRaw extends Component {
   }
 
   render() {
-    const {drawerOpen, onChangeTriggerDrawerOpen} = this.viewModel
+    const {balance, drawerOpen, onChangeTriggerDrawerOpen} = this.viewModel
     const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.WAREHOUSE}
+          curUserRole={UserRole.STOREKEEPER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}
@@ -51,8 +52,10 @@ export class WarehouseDashboardViewRaw extends Component {
             avatarSrc=""
             username={textConsts.appBarUsername}
             setDrawerOpen={onChangeTriggerDrawerOpen}
+            curUserRole={UserRole.STOREKEEPER}
           >
             <MainContent>
+              <DashboardBalance balance={balance} />
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <Grid container className={classNames.dashboardCardWrapper} justify="center" spacing={3}>
                 {this.renderDashboardCards()}

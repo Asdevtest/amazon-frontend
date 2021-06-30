@@ -1,5 +1,6 @@
 import {makeAutoObservable} from 'mobx'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {BUYER_USER_INITIAL_LIST, BUYER_USER_INITIAL_USER} from '@constants/mocks'
 
 import {UserModel} from '@models/user-model'
@@ -17,22 +18,43 @@ export class BuyerUserProfileViewModel {
   tabExchange = 0
   tabHistory = 0
   tabReview = 0
-  selectedPrivatLabel = undefined
-  showModela0 = false
+  headerInfoData = {
+    investorsCount: 255,
+    goodsFound: 875,
+    transactionsVolume: 7555,
+    earnedAmount: 1255,
+    addInSave: 12,
+    inBlocked: 12,
+    youBlocked: 14,
+    accountCreateAt: 11,
+  }
+
+  selectedPrivateLabel = undefined
+  showPrivateLabelModal = false
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  async loadData() {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+      this.getUserDataMy()
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      this.requestStatus = loadingStatuses.failed
+      console.log(error)
+    }
+  }
+
   async getUserDataMy() {
-    console.log(UserModel.userInfo)
     const result = await UserModel.getUserInfo()
     this.userDataMy = result
   }
 
-  onTriggerShowModal0(e, value) {
-    this.showModela0 = value
+  onTriggerPrivateLabelModal(e, value) {
+    this.showPrivateLabelModal = value
   }
 
   onChangeTabReview(e, value) {
@@ -48,11 +70,11 @@ export class BuyerUserProfileViewModel {
   }
 
   onClickButtonPrivateLabel(index) {
-    this.selectedPrivatLabel = BUYER_USER_INITIAL_LIST[index]
-    this.showModela0 = !this.showModela0
+    this.selectedPrivateLabel = BUYER_USER_INITIAL_LIST[index]
+    this.showPrivateLabelModal = !this.showPrivateLabelModal
   }
 
-  onTrgiggerDrawerOpen(e, value) {
+  onTriggerDrawerOpen(e, value) {
     this.drawerOpen = value
   }
 }

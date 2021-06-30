@@ -35,6 +35,10 @@ const navbarActiveSubCategory = 1
 class BuyerSubUsersViewRaw extends Component {
   viewModel = new BuyerSubUsersViewModel({history: this.props.history})
 
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
   render() {
     const {
       drawerOpen,
@@ -68,6 +72,7 @@ class BuyerSubUsersViewRaw extends Component {
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.BUYER}
           >
             <MainContent>
               <Typography>{textConsts.mainTitle}</Typography>
@@ -114,7 +119,7 @@ class BuyerSubUsersViewRaw extends Component {
   renderHeadRow = (<TableHeadRow headCells={BUYER_SUB_USERS_TABLE_CELLS} />)
 
   renderButtons = () => {
-    const {classes: classNames} = this.viewModel
+    const {classes: classNames} = this.props
     return (
       <Box className={classNames.buttonBox}>
         <Button color="secondary" onClick={() => this.onChangeModalAddSubUser()}>

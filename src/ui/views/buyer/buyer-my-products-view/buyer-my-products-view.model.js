@@ -20,6 +20,17 @@ export class BuyerMyProductsViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  async loadData() {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+      this.getProductsMy()
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      this.requestStatus = loadingStatuses.failed
+      console.log(error)
+    }
+  }
+
   async getProductsMy() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)

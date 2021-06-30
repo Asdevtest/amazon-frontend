@@ -2,12 +2,7 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {
-  BUYER_USER_HEADER_LIST,
-  BUYER_USER_MANAGERS_LIST,
-  BUYER_USER_INITIAL_LIST,
-  BUYER_USER_INITIAL_USER,
-} from '@constants/mocks'
+import {BUYER_USER_MANAGERS_LIST, BUYER_USER_INITIAL_LIST, BUYER_USER_INITIAL_USER} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -37,20 +32,21 @@ export class BuyerUserProfileView extends Component {
   viewModel = new BuyerUserProfileViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getUserDataMy()
+    this.viewModel.loadData()
   }
 
   render() {
     const {
       drawerOpen,
+      headerInfoData,
       tabExchange,
       tabHistory,
       tabReview,
-      showModela0,
+      showPrivateLabelModal,
       onChangeTabReview,
-      onTriggerShowModal0,
+      onTriggerPrivateLabelModal,
       onChangeTabHistory,
-      onTrgiggerDrawerOpen,
+      onTriggerDrawerOpen,
       onChangeTabExchange,
       onClickButtonPrivateLabel,
     } = this.viewModel
@@ -62,7 +58,7 @@ export class BuyerUserProfileView extends Component {
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={onTrgiggerDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
 
@@ -73,10 +69,11 @@ export class BuyerUserProfileView extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
-            setDrawerOpen={onTrgiggerDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.BUYER}
           >
             <MainContent>
-              <Header user={this.viewModel.userDataMy} timer={textConsts.timer} headerInfo={BUYER_USER_HEADER_LIST} />
+              <Header user={this.viewModel.userDataMy} timer={textConsts.timer} headerInfoData={headerInfoData} />
 
               <ActiveOrders
                 tabExchange={tabExchange}
@@ -96,10 +93,10 @@ export class BuyerUserProfileView extends Component {
           </Appbar>
         </Main>
 
-        <Modal openModal={showModela0} setOpenModal={onTriggerShowModal0}>
+        <Modal openModal={showPrivateLabelModal} setOpenModal={onTriggerPrivateLabelModal}>
           <ContentModal
             setOpenModal={this.onChangeTabModal0}
-            selected={showModela0}
+            selected={showPrivateLabelModal}
             managersList={BUYER_USER_MANAGERS_LIST}
           />
         </Modal>

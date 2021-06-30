@@ -76,6 +76,7 @@ export class ClientExchangeViewRaw extends Component {
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
+            curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <div className={classNames.titleWrapepr}>

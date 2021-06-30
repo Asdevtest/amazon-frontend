@@ -9,6 +9,7 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {DashboardBalance} from '@components/dashboard-balance'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -33,7 +34,7 @@ export class ResearcherDashboardViewRaw extends Component {
   }
 
   render() {
-    const {drawerOpen, onTriggerDrawerOpen} = this.viewModel
+    const {balance, drawerOpen, onTriggerDrawerOpen} = this.viewModel
     const {classes: classNames} = this.props
 
     return (
@@ -52,8 +53,10 @@ export class ResearcherDashboardViewRaw extends Component {
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.RESEARCHER}
           >
             <MainContent>
+              <DashboardBalance balance={balance} />
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <Grid container className={classNames.dashboardCardWrapper} justify="center" spacing={3}>
                 {this.renderDashboardCards()}

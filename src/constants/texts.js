@@ -1,5 +1,8 @@
 export const texts = {
   en: {
+    dashboardBalance: {
+      balance: 'My balance',
+    },
     entryLeftPanel: {
       companyName: 'Amazontop',
       greetingTitle: 'Hello, nice to meet you',

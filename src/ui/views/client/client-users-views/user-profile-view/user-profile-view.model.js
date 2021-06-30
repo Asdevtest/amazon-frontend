@@ -1,5 +1,7 @@
 import {makeAutoObservable} from 'mobx'
 
+import {loadingStatuses} from '@constants/loading-statuses'
+
 import {UserModel} from '@models/user-model'
 
 export class ClientProfileViewModel {
@@ -33,6 +35,17 @@ export class ClientProfileViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
   get user() {
     return UserModel.userInfo
   }
@@ -60,5 +73,9 @@ export class ClientProfileViewModel {
 
   onTriggerDrawerOpen = () => {
     this.drawerOpen = !this.drawerOpen
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

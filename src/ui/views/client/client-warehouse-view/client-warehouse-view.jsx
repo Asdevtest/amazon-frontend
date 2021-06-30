@@ -98,6 +98,7 @@ export class ClientWarehouseViewRaw extends Component {
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
+            curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <Typography paragraph variant="h5">

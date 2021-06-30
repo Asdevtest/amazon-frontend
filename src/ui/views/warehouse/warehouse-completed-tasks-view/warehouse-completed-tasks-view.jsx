@@ -30,6 +30,10 @@ const navbarActiveCategory = 2
 export class WarehouseCompletedTasksViewRaw extends Component {
   viewModel = new WarehouseCompletedViewModel({history: this.props.history})
 
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
   render() {
     const {
       drawerOpen,
@@ -49,7 +53,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.WAREHOUSE}
+          curUserRole={UserRole.STOREKEEPER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}
@@ -62,6 +66,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
             avatarSrc=""
             username={textConsts.appBarUsername}
             setDrawerOpen={onChangeTriggerDrawerOpen}
+            curUserRole={UserRole.STOREKEEPER}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>

@@ -31,6 +31,10 @@ const navBarActiveSubCategory = 0
 export class ClientUserProfileView extends Component {
   viewModel = new ClientProfileViewModel({history: this.props.history})
 
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
   render() {
     const {
       drawerOpen,

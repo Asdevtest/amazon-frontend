@@ -43,6 +43,10 @@ const navbarActiveCategory = 4
 class BuyerBatchesViewRaw extends Component {
   viewModel = new BuyerBatchesViewModel({history: this.props.history})
 
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
   render() {
     const {
       drawerOpen,
@@ -79,6 +83,7 @@ class BuyerBatchesViewRaw extends Component {
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={this.onChangeDrawerOpen}
+            curUserRole={UserRole.BUYER}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>

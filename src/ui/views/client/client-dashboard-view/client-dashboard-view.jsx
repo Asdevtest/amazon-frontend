@@ -5,11 +5,12 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {getClientDashboardCardConfig, ClientDashboardCardDataKey} from '@constants/dashboard-configs'
-import {clientBalance, clientUsername} from '@constants/mocks'
+import {clientUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {DashboardBalance} from '@components/dashboard-balance'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -35,7 +36,7 @@ export class ClientDashboardViewRaw extends Component {
   }
 
   render() {
-    const {drawerOpen, onTriggerDrawer} = this.viewModel
+    const {balance, drawerOpen, onTriggerDrawer} = this.viewModel
     const {classes} = this.props
 
     return (
@@ -52,13 +53,11 @@ export class ClientDashboardViewRaw extends Component {
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}
+            balance={balance}
           >
             <MainContent>
               <div className={classes.mb5}>
-                <Typography paragraph variant="h6">
-                  {textConsts.balance}
-                </Typography>
-                <Typography className={classes.balanceTitle}>{clientBalance}</Typography>
+                <DashboardBalance balance={balance} />
                 <Button disableElevation className={classes.mr2} color="primary" variant="contained">
                   {textConsts.withdraw}
                 </Button>

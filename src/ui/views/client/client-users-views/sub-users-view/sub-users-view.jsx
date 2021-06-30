@@ -35,7 +35,7 @@ class ClientSubUsersViewRaw extends Component {
   viewModel = new ClientSubUsersViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getProductsMy()
+    this.viewModel.loadData()
   }
 
   render() {
@@ -73,6 +73,7 @@ class ClientSubUsersViewRaw extends Component {
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
             setDrawerOpen={onChangeDrawerOpen}
+            curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <Typography>{textConsts.mainTitle}</Typography>

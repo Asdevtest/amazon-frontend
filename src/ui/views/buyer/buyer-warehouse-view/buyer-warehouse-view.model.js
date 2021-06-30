@@ -10,7 +10,6 @@ export class BuyerWarehouseViewModel {
   error = undefined
 
   boxesMy = []
-
   drawerOpen = false
   curPage = 1
   rowsPerPage = 5
@@ -25,6 +24,20 @@ export class BuyerWarehouseViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      await this.getBoxesMy()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
   }
 
   onModalRedistributeBoxAddNewBox(value) {
@@ -67,17 +80,6 @@ export class BuyerWarehouseViewModel {
 
   onTriggerOpenModal(modalState) {
     this[modalState] = !this[modalState]
-  }
-
-  async loadData() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getBoxesMy()
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
-    }
   }
 
   async mergeBoxes(boxes) {

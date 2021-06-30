@@ -11,6 +11,7 @@ export class WarehouseDashboardViewModel {
 
   drawerOpen = false
 
+  balance = 0
   tasksVacant = []
   tasksMy = []
   boxesVacant = []
@@ -29,15 +30,28 @@ export class WarehouseDashboardViewModel {
   async loadData(id) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.getTasksVacant()
-      this.getTasksMy()
-      this.getBoxesVacant()
-      this.getBoxesMy(id)
-      this.getBatches()
+      await this.getBalance()
+      await this.getTasksVacant()
+      await this.getTasksMy()
+      await this.getBoxesVacant()
+      await this.getBoxesMy(id)
+      await this.getBatches()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+    }
+  }
+
+  async getBalance() {
+    try {
+      const result = await StorekeeperModel.getBalance()
+      runInAction(() => {
+        this.balance = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
     }
   }
 

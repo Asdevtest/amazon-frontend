@@ -21,6 +21,11 @@ class BuyerModelStatic {
     return response
   }
 
+  getBalance = async () => {
+    const response = await restApiService.buyerApi.apiV1BuyersPaymentsMyBalanceGet()
+    return response
+  }
+
   getOrdersVacant = async () => {
     const response = await restApiService.buyerApi.apiV1BuyersOrdersVacGet()
     return response

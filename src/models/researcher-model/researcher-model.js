@@ -6,6 +6,11 @@ class ResearcherModelStatic {
     return response
   }
 
+  getBalance = async () => {
+    const response = await restApiService.researcherApi.apiV1ResearchersPaymentsMyBalanceGet()
+    return response
+  }
+
   getProductsVacant = async () => {
     const response = await restApiService.researcherApi.apiV1ResearchersProductsGet()
     return response
