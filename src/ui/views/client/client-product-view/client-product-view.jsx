@@ -34,7 +34,7 @@ export class ClientProductView extends Component {
   viewModel = new ClientProductViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getProductData('60bd36d60171ec208c828a4d')
+    this.viewModel.loadData()
   }
 
   render() {
@@ -69,6 +69,7 @@ export class ClientProductView extends Component {
             setDrawerOpen={onChangeDrawerOpen}
             title={textConsts.appBarTitle}
             username={textConsts.appBarUsername}
+            curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <ProductWrapper

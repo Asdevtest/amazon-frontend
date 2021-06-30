@@ -39,7 +39,6 @@ class ClientOrdersViewRaw extends Component {
 
   render() {
     const {
-      activeSubCategory,
       orders,
       drawerOpen,
       modalBarcode,
@@ -66,7 +65,6 @@ class ClientOrdersViewRaw extends Component {
         <Navbar
           curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
-          activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
@@ -78,6 +76,7 @@ class ClientOrdersViewRaw extends Component {
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>

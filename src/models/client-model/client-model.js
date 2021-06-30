@@ -72,6 +72,11 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1ClientsBatchesGet()
     return response
   }
+
+  getBalance = async () => {
+    const response = await restApiService.clientApi.apiV1ClientsPaymentsMyBalanceGet()
+    return response
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

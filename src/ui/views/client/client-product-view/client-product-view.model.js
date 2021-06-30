@@ -22,6 +22,17 @@ export class ClientProductViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
   onChangeFieldProduct = fieldsName =>
     action(e => {
       this.product[fieldsName] = e.target.value
@@ -102,5 +113,9 @@ export class ClientProductViewModel {
 
   onTriggerAddOrEditSupplierModal() {
     this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

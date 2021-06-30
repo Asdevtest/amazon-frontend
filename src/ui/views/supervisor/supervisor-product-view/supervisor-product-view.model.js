@@ -26,7 +26,6 @@ export class SupervisorProductViewModel {
   constructor({history, location}) {
     this.history = history
     if (location.state) {
-      console.log(location.state.product)
       const product = {
         ...location.state.product,
         supplier: location.state.product.supplier.map(supplierItem => supplierItem._id),
@@ -36,6 +35,17 @@ export class SupervisorProductViewModel {
       this.suppliers = location.state.product.supplier
     }
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async loadData() {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      this.requestStatus = loadingStatuses.failed
+      console.log(error)
+    }
   }
 
   onChangeProductFields = fieldName =>

@@ -9,6 +9,7 @@ export class ClientDashboardViewModel {
   requestStatus = undefined
   error = undefined
 
+  balance = 0
   drawerOpen = false
   productsMy = []
   boxesMy = []
@@ -39,10 +40,23 @@ export class ClientDashboardViewModel {
       await this.getBoxesMy()
       await this.getOrders()
       await this.getProductsPaid()
+      await this.getBalance()
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       this.requestStatus = loadingStatuses.failed
       console.log(error)
+    }
+  }
+
+  async getBalance() {
+    try {
+      const result = await ClientModel.getBalance()
+      runInAction(() => {
+        this.balance = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
     }
   }
 

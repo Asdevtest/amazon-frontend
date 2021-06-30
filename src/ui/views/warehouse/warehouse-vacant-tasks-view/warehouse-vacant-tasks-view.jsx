@@ -33,7 +33,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
   viewModel = new WarehouseVacantViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getTasksVacant()
+    this.viewModel.loadData()
   }
 
   render() {
@@ -64,7 +64,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.WAREHOUSE}
+          curUserRole={UserRole.STOREKEEPER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}
@@ -77,6 +77,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
             avatarSrc=""
             username={textConsts.appBarUsername}
             setDrawerOpen={onChangeTriggerDrawerOpen}
+            curUserRole={UserRole.STOREKEEPER}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>

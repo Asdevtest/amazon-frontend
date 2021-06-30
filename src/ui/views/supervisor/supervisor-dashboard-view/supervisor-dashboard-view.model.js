@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {supervisorBalance} from '@constants/mocks'
 
 import {SupervisorModel} from '@models/supervisor-model'
 
@@ -8,9 +9,8 @@ export class SupervisorDashboardViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
-
   drawerOpen = false
-
+  balance = supervisorBalance
   productsVacant = []
   producatsMy = []
   paymentsMy = []
@@ -23,6 +23,7 @@ export class SupervisorDashboardViewModel {
   async loadData() {
     try {
       this.requestStatus = loadingStatuses.isLoading
+      this.getBalance()
       this.getProductsVacant()
       this.getProductsMy()
       this.getPaymentsMy()
@@ -50,6 +51,18 @@ export class SupervisorDashboardViewModel {
       const result = await SupervisorModel.getProductsMy()
       runInAction(() => {
         this.producatsMy = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async getBalance() {
+    try {
+      const result = await SupervisorModel.getBalance()
+      runInAction(() => {
+        this.balance = result
       })
     } catch (error) {
       console.log(error)

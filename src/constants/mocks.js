@@ -28,7 +28,10 @@ export const adminUsername = 'Admin'
 export const clientUsername = 'Client'
 export const buyerUsername = 'Buyer'
 
-export const clientBalance = '$4 012'
+export const clientBalance = 4_012
+export const supervisorBalance = 12_412
+export const researcherBalance = 1_511
+export const storekeeperBalance = 2_415
 
 export const clientExchangeRequestsViewTable = {
   headCells: [

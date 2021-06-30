@@ -36,7 +36,7 @@ class ClientBatchesViewRaw extends Component {
   viewModel = new ClientBatchesViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getBatchesData()
+    this.viewModel.loadData()
   }
 
   render() {
@@ -73,6 +73,7 @@ class ClientBatchesViewRaw extends Component {
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onChangeDrawerOpen}
+            curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>

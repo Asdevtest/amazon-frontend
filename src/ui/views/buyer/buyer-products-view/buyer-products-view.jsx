@@ -9,6 +9,7 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {DashboardBalance} from '@components/dashboard-balance'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -31,11 +32,12 @@ export class BuyerProductsViewRaw extends Component {
   viewModel = new BuyerProductsViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getProductsVacant()
+    this.viewModel.loadData()
   }
 
   render() {
     const {
+      balance,
       drawerOpen,
       curPage,
       productsVacant,
@@ -70,8 +72,10 @@ export class BuyerProductsViewRaw extends Component {
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.BUYER}
           >
             <MainContent>
+              <DashboardBalance balance={balance} />
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
                 <Table

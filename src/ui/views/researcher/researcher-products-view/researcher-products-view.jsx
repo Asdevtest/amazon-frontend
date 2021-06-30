@@ -72,6 +72,7 @@ class ResearcherProductsViewRaw extends Component {
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.RESEARCHER}
           >
             <MainContent>
               <Paper className={classNames.card}>

@@ -40,6 +40,15 @@ export const useClassNames = makeStyles(theme => ({
     cursor: 'pointer',
     height: '100%',
   },
+  usernameAndBalanceWrapper: {
+    marginRight: '8px',
+    textAlign: 'right',
+  },
+  balance: {
+    fontSize: '14px',
+    fontWeight: 500,
+    lineHeight: 1,
+  },
   notificationWrapper: {
     height: '100%',
     display: 'flex',

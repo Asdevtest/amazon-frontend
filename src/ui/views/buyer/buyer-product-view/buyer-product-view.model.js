@@ -53,6 +53,17 @@ export class BuyerProductViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  async loadData() {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      this.requestStatus = loadingStatuses.failed
+      console.log(error)
+    }
+  }
+
   onChangeProductFields = fieldsName =>
     action(e => {
       this.product[fieldsName] = e.target.value

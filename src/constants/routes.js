@@ -121,12 +121,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
   },
-  {
-    routePath: '/researcher/settings',
-    component: ResearcherSettingsView,
-    exact: false,
-    permission: [UserRole.RESEARCHER],
-  },
+
   {
     routePath: '/researcher/dashboard',
     component: ResearcherDashboardView,
@@ -142,6 +137,12 @@ export const privateRoutesConfigs = [
   {
     routePath: '/researcher/product',
     component: ResearcherProductView,
+    exact: false,
+    permission: [UserRole.RESEARCHER],
+  },
+  {
+    routePath: '/researcher/settings',
+    component: ResearcherSettingsView,
     exact: false,
     permission: [UserRole.RESEARCHER],
   },

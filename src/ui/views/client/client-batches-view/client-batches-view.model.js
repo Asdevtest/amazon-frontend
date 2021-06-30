@@ -22,6 +22,30 @@ export class ClientBatchesViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      await this.getBatchesData()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getBatchesData() {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+      this.error = undefined
+      const result = await ClientModel.getBatches()
+      this.product = result
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      this.requestStatus = loadingStatuses.failed
+      console.log(error)
+    }
+  }
+
   onChangeModalEditBoxes() {
     this.modalEditBoxes = !this.modalEditBoxes
   }
@@ -46,17 +70,7 @@ export class ClientBatchesViewModel {
   onChangeDrawerOpen(e, value) {
     this.drawerOpen = value
   }
-
-  async getBatchesData() {
-    try {
-      this.requestStatus = loadingStatuses.isLoading
-      this.error = undefined
-      const result = await ClientModel.getBatches()
-      this.product = result
-      this.requestStatus = loadingStatuses.success
-    } catch (error) {
-      this.requestStatus = loadingStatuses.failed
-      console.log(error)
-    }
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

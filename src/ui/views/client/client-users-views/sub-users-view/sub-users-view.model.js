@@ -1,5 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {loadingStatuses} from '@constants/loading-statuses'
+
 import {ClientModel} from '@models/client-model'
 
 export class ClientSubUsersViewModel {
@@ -21,6 +23,29 @@ export class ClientSubUsersViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      await this.getUsers()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getUsers() {
+    try {
+      const result = await ClientModel.getUsers()
+      runInAction(() => {
+        this.subUsersData = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   onChangeModalEditSubUser() {
@@ -48,15 +73,7 @@ export class ClientSubUsersViewModel {
     this.paginationPge = 1
   }
 
-  async getProductsMy() {
-    try {
-      const result = await ClientModel.getUsers()
-      runInAction(() => {
-        this.subUsersData = result
-      })
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

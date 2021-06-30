@@ -9,6 +9,7 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {DashboardBalance} from '@components/dashboard-balance'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -16,7 +17,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from './assets/clientAvatar.jpg'
 import {SupervisorDashboardViewModel} from './supervisor-dashboard-view.model'
 import {styles} from './supervisor-dashboard-view.style'
 
@@ -34,7 +34,7 @@ export class SupervisorDashboardViewRaw extends Component {
   }
 
   render() {
-    const {drawerOpen, onTriggerDrawerOpen} = this.viewModel
+    const {balance, drawerOpen, onTriggerDrawerOpen} = this.viewModel
     const {classes: classNames} = this.props
     return (
       <React.Fragment>
@@ -49,11 +49,12 @@ export class SupervisorDashboardViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.SUPERVISOR}
           >
             <MainContent>
+              <DashboardBalance balance={balance} />
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.amountWithLabelCardsWrapper}>
                 <Grid container justify="center" spacing={3}>

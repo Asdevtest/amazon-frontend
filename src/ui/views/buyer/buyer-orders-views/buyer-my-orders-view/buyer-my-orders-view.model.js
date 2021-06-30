@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BuyerModel} from '@models/buyer-model'

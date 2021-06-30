@@ -24,9 +24,7 @@ export class ClientInventoryViewModel {
   actionStatus = undefined
 
   productsMy = []
-
   selectedProducts = []
-
   drawerOpen = false
   rowsPerPage = 5
   curPage = 1

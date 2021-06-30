@@ -13,7 +13,6 @@ import {ProductWrapper} from '@components/product/product-wrapper'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from './assets/clientAvatar.jpg'
 import {SupervisorProductViewModel} from './supervisor-product-view.model'
 
 const curUserRole = UserRole.SUPERVISOR
@@ -27,6 +26,10 @@ export class SupervisorProductView extends Component {
     history: this.props.history,
     location: this.props.location,
   })
+
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
 
   render() {
     const {
@@ -55,10 +58,10 @@ export class SupervisorProductView extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.SUPERVISOR}
           >
             <MainContent>
               {product ? (

@@ -17,7 +17,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from './assets/clientAvatar.jpg'
 import {SupervisorSettingsViewModel} from './supervisor-settings-view.model'
 import {styles} from './supervisor-settings-view.style'
 
@@ -50,9 +49,9 @@ export class SupervisorSettingsViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.SUPERVISOR}
           >
             <MainContent>
               {formFields ? (

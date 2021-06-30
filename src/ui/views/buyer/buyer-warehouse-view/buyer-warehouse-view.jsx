@@ -100,6 +100,7 @@ export class BuyerWarehouseViewRaw extends Component {
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={buyerUsername}
+            curUserRole={UserRole.BUYER}
           >
             <MainContent>
               <Typography paragraph variant="h5">

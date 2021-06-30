@@ -18,7 +18,6 @@ import {TableHeadRow} from '@components/table-rows/supervisor/products-view/tabl
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from './assets/clientAvatar.jpg'
 import {SupervisorProductsViewModel} from './supervisor-products-view.model'
 import {styles} from './supervisor-products-view.style'
 
@@ -69,10 +68,10 @@ class SupervisorProductsViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
+            curUserRole={UserRole.SUPERVISOR}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
