@@ -6,6 +6,9 @@ import clsx from 'clsx'
 
 import {warehouses} from '@constants/warehouses'
 
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {toFixedWithDollarSign, withKg} from '@utils/text'
+
 import {styles} from './warehouse-body-row.style'
 
 const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsDatas, ...restProps}) => {
@@ -18,6 +21,8 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
       {title}
     </TableCell>
   )
+
+  console.log(box)
 
   return box.items.map((order, orderIndex) => (
     <TableRow key={orderIndex} className={clsx({[classNames.boxLastRow]: orderIndex === ordersQty - 1})}>
@@ -33,7 +38,10 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           </TableCell>
         </React.Fragment>
       )}
-      <ProductCell imgSrc={order.product.img} title={order.product.amazonTitle} />
+      <ProductCell
+        imgSrc={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
+        title={order.product.amazonTitle}
+      />
       <TableCell>{'ID: ' + order.order}</TableCell>
 
       {/* TODO Extract Barcode chip to Component */}
@@ -45,14 +53,22 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
       {orderIndex === 0 && (
         <React.Fragment>
           <TableCell rowSpan={ordersQty}>{warehouses[box.warehouse]}</TableCell>
-          <TableCell rowSpan={ordersQty}>{'ID: ' + order.product}</TableCell>
+          <TableCell rowSpan={ordersQty}>{'ID: ' + box._id}</TableCell>
         </React.Fragment>
       )}
       {/* <TableCell className={classNames.cellValueNumber}>  нет таких полей в ответе, ждем добавления
         {'$' + order.product.delivery.toFixed(2)}                     
       </TableCell>
       <TableCell className={classNames.cellValueNumber}>{order.product.weight + ' kg'}</TableCell> */}
-      <TableCell className={classNames.cellValueNumber}>{box.weightGrossKg + ' kg'}</TableCell>
+      <TableCell className={classNames.cellValueNumber}>
+        {toFixedWithDollarSign((parseFloat(order.product.amazon) || 0) * (parseInt(order.amount) || 0))}
+      </TableCell>
+      <TableCell className={classNames.cellValueNumber}>
+        {withKg(
+          Math.max(parseFloat(box.volumeWeightKgSupplier) || 0, parseFloat(box.weightFinalAccountingKgSupplier) || 0),
+        )}
+      </TableCell>
+      <TableCell className={classNames.cellValueNumber}>{withKg(box.weighGrossKgSupplier)}</TableCell>
       <TableCell>{order.track}</TableCell>
     </TableRow>
   ))

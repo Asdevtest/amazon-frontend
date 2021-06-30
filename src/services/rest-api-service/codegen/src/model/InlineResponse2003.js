@@ -98,6 +98,7 @@ class InlineResponse2003 {
 
 
 
+
 /**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
@@ -214,9 +215,6 @@ InlineResponse2003.prototype['deliveryCostToTheWarehouse'] = undefined;
  * @member {module:model/InlineResponse200} product
  */
 InlineResponse2003.prototype['product'] = undefined;
-
-
-
 
 
 

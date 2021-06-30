@@ -16,7 +16,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 export const TableSupplier = observer(({product, suppliers, selectedSupplier, onClickSupplier}) => {
   const classNames = useClassNames()
-
+  console.log('product.currentSupplier ', product.currentSupplier)
   return (
     <TableContainer className={classNames.table}>
       <Table>

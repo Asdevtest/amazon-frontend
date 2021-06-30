@@ -42,17 +42,19 @@ export const TopCard = observer(
           <Grid container spacing={2}>
             <Grid container item sm={7} xs={12}>
               <Grid item xs={12}>
-                {product.images && product.images.length ? (
-                  <div className={classNames.rightCardWrapper}>
-                    <Carousel animation="slide" /* autoPlay={true}*/ timeout={500}>
-                      {product.images.map((imageHash, index) => (
-                        <Box key={index} textAlign="center">
-                          <img alt="" className={classNames.carouselBox} src={getAmazonImageUrl(imageHash)} />
-                        </Box>
-                      ))}
-                    </Carousel>
-                  </div>
-                ) : undefined}
+                <Box>
+                  {product.images && product.images.length ? (
+                    <div className={classNames.carouselWrapper}>
+                      <Carousel animation="slide" /* autoPlay={true}*/ timeout={500}>
+                        {product.images.map((imageHash, index) => (
+                          <Box key={index} textAlign="center" className={classNames.carouselImageWrapper}>
+                            <img alt="" className={classNames.carouselImage} src={getAmazonImageUrl(imageHash)} />
+                          </Box>
+                        ))}
+                      </Carousel>
+                    </div>
+                  ) : undefined}
+                </Box>
                 {checkIsResearcher(curUserRole) ? (
                   <Box className={classNames.parseButtonsWrapper}>
                     <Button

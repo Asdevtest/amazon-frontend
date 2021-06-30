@@ -147,7 +147,7 @@ export class BuyerWarehouseViewRaw extends Component {
           <CreateOrEditBoxForm
             box={boxesMy.find(box => box._id === selectedBoxes[0])}
             onSubmit={onEditBoxSubmit}
-            onTriggerOpenModal={onTriggerOpenModal}
+            onTriggerOpenModal={() => onTriggerOpenModal('showEditBoxModal')}
           />
         </Modal>
 

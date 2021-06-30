@@ -119,12 +119,19 @@ export const useClassNames = makeStyles(() => ({
   buttonDelete: {
     flexGrow: 1,
   },
-  rightCardWrapper: {
+  carouselWrapper: {
     padding: '16px',
     marginBottom: '16px',
-    height: '380px',
+    height: '350px',
   },
-  carouselBox: {
-    width: '340px',
+  carouselImageWrapper: {
+    width: '100%',
+    height: '300px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  carouselImage: {
+    height: '100%',
   },
 }))

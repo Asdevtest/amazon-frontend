@@ -104,7 +104,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
   },
   heightFieldAuto: {
     height: 'auto',

@@ -80,7 +80,7 @@ class InlineResponse200 {
                 obj['material'] = ApiClient.convertToType(data['material'], 'String');
             }
             if (data.hasOwnProperty('currentSupplier')) {
-                obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'String');
+                obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'Object');
             }
             if (data.hasOwnProperty('category')) {
                 obj['category'] = ApiClient.convertToType(data['category'], 'String');
