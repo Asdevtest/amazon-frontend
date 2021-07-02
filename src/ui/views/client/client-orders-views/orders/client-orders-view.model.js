@@ -43,8 +43,9 @@ export class ClientOrdersViewModel {
   async getOrders() {
     try {
       const result = await ClientModel.getOrders()
+
       runInAction(() => {
-        this.orders = result || []
+        this.orders = result
       })
     } catch (error) {
       console.log(error)

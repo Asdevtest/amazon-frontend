@@ -563,7 +563,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = 'String';
+      let returnType = [String];
       return this.apiClient.callApi(
         '/api/v1/boxes/split', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,

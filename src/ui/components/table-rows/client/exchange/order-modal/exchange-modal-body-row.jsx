@@ -17,7 +17,7 @@ import {styles} from './exchange-modal-body-row.style'
 const textConsts = getLocalizedTexts(texts, 'en').exchangeModalBodyRowRaw
 
 const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: classNames, onClickEditBarcode}) => {
-  const fullPriceForDeliveryAndAmount = (parseFloat(product.delivery) || 0) * (parseFloat(orderFields.amount) || 0)
+  const fullPriceForDeliveryAndAmount = (parseFloat(product.amazon) || 0) * (parseFloat(orderFields.amount) || 0)
   return (
     <TableRow>
       <TableCell>
@@ -40,6 +40,7 @@ const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: c
         />
       </TableCell>
       <TableCell className={classNames.alignRight}>{fullPriceForDeliveryAndAmount}</TableCell>
+
       <TableCell className={classNames.alignRight}>
         <Chip
           className={clsx(

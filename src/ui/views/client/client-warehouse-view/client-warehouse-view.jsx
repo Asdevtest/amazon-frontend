@@ -4,7 +4,8 @@ import {Button, TableCell, TableRow, Typography, Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {clientUsername, HISTORY_DATA} from '@constants/mocks'
+import {clientUsername} from '@constants/mocks'
+import {operationTypes} from '@constants/operation-types'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -42,6 +43,7 @@ export class ClientWarehouseViewRaw extends Component {
 
   render() {
     const {
+      tasksMy,
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -63,8 +65,7 @@ export class ClientWarehouseViewRaw extends Component {
       approveBoxesOperation,
       cancelMergeBoxes,
       cancelSplitBoxes,
-
-      // createBox
+      // postTask
       // removeBox
       //  выше методы для тестов
     } = this.viewModel
@@ -77,7 +78,10 @@ export class ClientWarehouseViewRaw extends Component {
       selectedBoxes,
     }
 
-    // createBox();
+    // postTask({ idsData: [ '60ddb841638c0d3917ec772d' ], type: 'merge' });
+    // cancelMergeBoxes('60ddc0c3638c0d3917ec7752');
+    // approveBoxesOperation('60dd8ecb638c0d3917ec76ff');
+
     // removeBox('60d491695382b25eea73e076');
     //  выше методы для тестов
 
@@ -126,7 +130,7 @@ export class ClientWarehouseViewRaw extends Component {
               />
               <Paper>
                 <WarehouseHistory
-                  historyData={HISTORY_DATA}
+                  tasksData={tasksMy}
                   title={textConsts.warehouseHistoryTitle}
                   onApproveMergeAndSplitBoxes={approveBoxesOperation}
                   onCancelMergeBoxes={cancelMergeBoxes}
@@ -229,7 +233,7 @@ export class ClientWarehouseViewRaw extends Component {
         disabled={this.viewModel.selectedBoxes.length <= 1}
         color="primary"
         variant="contained"
-        onClick={() => this.viewModel.onClickMerge()}
+        onClick={() => this.viewModel.onClickMerge(operationTypes.MERGE)}
       >
         {textConsts.mergeBtn}
       </Button>

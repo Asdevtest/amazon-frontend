@@ -4,6 +4,10 @@ export const styles = createStyles({
   productCell: {
     display: 'flex',
     alignItems: 'center',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    maxWidth: '300px',
   },
   img: {
     height: '64px',

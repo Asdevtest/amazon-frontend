@@ -5,6 +5,7 @@ import {texts} from '@constants/texts'
 
 import {SuccessButton} from '@components/buttons/success-button'
 
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, withAmount, withKg} from '@utils/text'
 
@@ -24,9 +25,12 @@ export const PrivateLabelCard = ({item, onClickLaunchPrivateLabelBtn, onClickBuy
 
   return (
     <Paper className={classNames.root}>
-      <img alt="item image" className={classNames.img} src={item.images && item.images[0]} />
+      <img
+        alt="item image"
+        className={classNames.img}
+        src={item.images && item.images[0] && getAmazonImageUrl(item.images[0])}
+      />
       <div className={classNames.wrapper}>
-        {/* что за поле, мб material? */}
         <Typography className={classNames.title}>{item.category}</Typography>
 
         <InfoRow label={textConsts.price} value={toFixedWithDollarSign(item.amazon)} />
@@ -36,16 +40,16 @@ export const PrivateLabelCard = ({item, onClickLaunchPrivateLabelBtn, onClickBuy
         </div>
 
         <Divider className={classNames.divider} />
-        {/* что за поле */}
+
         <InfoRow label={textConsts.avgPrice} value={toFixedWithDollarSign(item.avgPrice)} />
-        {/* что за поле */}
+
         <InfoRow label={textConsts.recConsignmentQty} value={withAmount(item.fbaamount)} />
         <InfoRow label={textConsts.recConsignmentWeight} value={withKg(item.weight)} />
 
         <Divider className={classNames.divider} />
 
         <InfoRow label={textConsts.avgBSR} value={item.bsr} />
-        {/* что за поле */}
+
         <InfoRow label={textConsts.avgReviews} value={item.avgReviews} />
         <InfoRow label={textConsts.avgRevenue} value={toFixedWithDollarSign(item.profit)} />
 

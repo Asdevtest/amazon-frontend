@@ -116,7 +116,12 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
         </Box>
         <Box my={3}>
           <Typography className={classNames.modalText}>{textConsts.typoShipPrice}</Typography>
-          <Input type="number" className={classNames.numInput} />
+          <Input
+            type="number"
+            className={classNames.numInput}
+            value={orderFields.deliveryCostToTheWarehouse}
+            onChange={setOrderField('deliveryCostToTheWarehouse')}
+          />
         </Box>
       </Grid>
     </Grid>

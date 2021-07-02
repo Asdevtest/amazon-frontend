@@ -1382,11 +1382,9 @@ export const texts = {
       username: 'Имя пользователя',
     },
     warehouseHistoryBodyRow: {
-      order: 'Заказ ',
-      andOrder: ' и заказ ',
-      merge: ' объединены.',
+      merge: 'Коробки соединены в коробку: ',
       cancelAction: 'Действие отменено',
-      unMerge: ' разъединены. ',
+      unMerge: 'Коробка разъедененна в коробки: ',
       changeStatus: ' изменил статус на ',
       paid: 'Оплачен',
       tasks: 'Задачи складу',

@@ -14,4 +14,8 @@ export const useClassNames = makeStyles({
   centerTextCell: {
     textAlign: 'center',
   },
+  buttonsWrapper: {
+    display: 'flex',
+    gap: '10px',
+  },
 })

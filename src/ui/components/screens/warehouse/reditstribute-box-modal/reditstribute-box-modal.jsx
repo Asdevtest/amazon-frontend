@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 
 import {Button, Divider, Typography} from '@material-ui/core'
 
+import {operationTypes} from '@constants/operation-types'
 import {texts} from '@constants/texts'
 
 import {Input} from '@components/input'
@@ -24,28 +25,28 @@ export const RedistributeBox = ({
   const classNames = useClassNames()
   const [currentBox, setCurrentBox] = useState(selectedBox)
 
-  const emptyProducts = currentBox.items.map(order => ({...order, amount: 0}))
+  const emptyProducts = currentBox.items.map(product => ({...product, amount: 0}))
 
-  const getEmptyBox = () => ({...currentBox, boxId: 'newBoxId_' + Date.now(), items: emptyProducts})
+  const getEmptyBox = () => ({...currentBox, _id: 'new_id_' + Date.now(), items: emptyProducts})
 
   const emptyBox = getEmptyBox()
   const [newBoxes, setNewBoxes] = useState([emptyBox])
   const totalProductsAmount = currentBox.items.reduce((acc, order) => acc + order.amount, 0)
 
-  const onChangeInput = (e, boxId, orderId) => {
-    const targetBox = newBoxes.filter(box => box.boxId === boxId)[0]
-    const targetProduct = targetBox.items.filter(product => product.orderId === orderId)[0]
+  const onChangeInput = (e, _id, order) => {
+    const targetBox = newBoxes.filter(box => box._id === _id)[0]
+    const targetProduct = targetBox.items.filter(product => product.order === order)[0]
     const updatedTargetProduct = {...targetProduct, amount: Number(e.target.value)}
     const updatedTargetProducts = targetBox.items.map(product =>
-      product.orderId === orderId ? updatedTargetProduct : product,
+      product.order === order ? updatedTargetProduct : product,
     )
     const updatedTargetBox = {...targetBox, items: updatedTargetProducts}
 
-    const updatedNewBoxes = newBoxes.map(box => (box.boxId === boxId ? updatedTargetBox : box))
+    const updatedNewBoxes = newBoxes.map(box => (box._id === _id ? updatedTargetBox : box))
 
-    const currentOrder = selectedBox.items.filter(product => product.orderId === orderId)[0]
+    const currentOrder = selectedBox.items.filter(product => product.order === order)[0]
     const newBoxesProductAmount = updatedNewBoxes
-      .map(box => box.items.filter(product => product.orderId === orderId)[0].amount)
+      .map(box => box.items.filter(product => product.order === order)[0].amount)
       .reduce((acc, amount) => acc + amount, 0)
     const checkAmount = currentOrder.amount - newBoxesProductAmount
     if (checkAmount < 0) {
@@ -53,7 +54,7 @@ export const RedistributeBox = ({
     }
     const updatedCurrentOrder = {...currentOrder, amount: checkAmount}
     const updatedCurrentOrders = currentBox.items.map(product =>
-      product.orderId === orderId ? updatedCurrentOrder : product,
+      product.order === order ? updatedCurrentOrder : product,
     )
     const updatedCurrentBox = {...currentBox, items: updatedCurrentOrders}
 
@@ -66,12 +67,12 @@ export const RedistributeBox = ({
 
     const newBoxesWithoutEmptyOrders = filterEmptyOrders(newBoxesWithoutEmptyBox)
 
-    onRedistribute(selectedBox._id, newBoxesWithoutEmptyOrders)
+    onRedistribute(selectedBox._id, newBoxesWithoutEmptyOrders, operationTypes.SPLIT)
   }
 
   const Box = ({box, readOnly = false}) => (
     <div className={classNames.box}>
-      <Typography className={classNames.boxTitle}>{box.boxId}</Typography>
+      <Typography className={classNames.boxTitle}>{box._id}</Typography>
       {box.items.map((order, orderIndex) => (
         <div key={orderIndex} className={classNames.order}>
           <img
@@ -84,7 +85,7 @@ export const RedistributeBox = ({
             classes={{root: classNames.inputWrapper, input: classNames.input}}
             readOnly={readOnly}
             value={order.amount}
-            onChange={e => onChangeInput(e, box.boxId, order.orderId)}
+            onChange={e => onChangeInput(e, box._id, order.order)}
           />
         </div>
       ))}
