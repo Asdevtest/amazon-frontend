@@ -20,7 +20,7 @@ import InlineResponse200 from './InlineResponse200';
  * @version v0.0.1
  */
 class InlineResponse2003 {
-    /**
+  /**
      * Constructs a new <code>InlineResponse2003</code>.
      * Заказ.
      * @alias module:model/InlineResponse2003
@@ -30,131 +30,140 @@ class InlineResponse2003 {
      * @param deliveryCostToTheWarehouse {Number} Стоимость доставки до склада.
      * @param product {module:model/InlineResponse200} 
      */
-    constructor(clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) { 
-        
-        InlineResponse2003.initialize(this, clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product);
-    }
+  constructor(clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) {
+    InlineResponse2003.initialize(
+      this,
+      clientComment,
+      warehouse,
+      deliveryMethod,
+      deliveryCostToTheWarehouse,
+      product
+    );
+  }
 
-    /**
+  /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) { 
-        obj['clientComment'] = clientComment;
-        obj['warehouse'] = warehouse;
-        obj['deliveryMethod'] = deliveryMethod;
-        obj['deliveryCostToTheWarehouse'] = deliveryCostToTheWarehouse;
-        obj['product'] = product;
-    }
+  static initialize(
+    obj,
+    clientComment,
+    warehouse,
+    deliveryMethod,
+    deliveryCostToTheWarehouse,
+    product
+  ) {
+    obj['clientComment'] = clientComment;
+    obj['warehouse'] = warehouse;
+    obj['deliveryMethod'] = deliveryMethod;
+    obj['deliveryCostToTheWarehouse'] = deliveryCostToTheWarehouse;
+    obj['product'] = product;
+  }
 
-    /**
+  /**
      * Constructs a <code>InlineResponse2003</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/InlineResponse2003} obj Optional instance to populate.
      * @return {module:model/InlineResponse2003} The populated <code>InlineResponse2003</code> instance.
      */
-    static constructFromObject(data, obj) {
-        if (data) {
-            obj = obj || new InlineResponse2003();
+  static constructFromObject(data, obj) {
+    if (data) {
+      obj = obj || new InlineResponse2003();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('buyerId')) {
-                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = InlineResponse200.constructFromObject(data['product']);
-            }
-        }
-        return obj;
+      if (data.hasOwnProperty('_id')) {
+        obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+      }
+      if (data.hasOwnProperty('buyerId')) {
+        obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
+      }
+      if (data.hasOwnProperty('clientComment')) {
+        obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+      }
+      if (data.hasOwnProperty('buyerComment')) {
+        obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+      }
+      if (data.hasOwnProperty('warehouse')) {
+        obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+      }
+      if (data.hasOwnProperty('deliveryMethod')) {
+        obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+      }
+      if (data.hasOwnProperty('fba')) {
+        obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+      }
+      if (data.hasOwnProperty('status')) {
+        obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+      }
+      if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+        obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(
+          data['deliveryCostToTheWarehouse'],
+          'Number'
+        );
+      }
+      if (data.hasOwnProperty('product')) {
+        obj['product'] = InlineResponse200.constructFromObject(data['product']);
+      }
     }
-
-
+    return obj;
+  }
 }
-
-
-
 
 /**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
  * @readonly
  */
- InlineResponse2003['StatusEnum'] = {
-
-    /**
+InlineResponse2003['StatusEnum'] = {
+  /**
      * value: 0
      * @const
      */
-    "0": 0,
+  '0': 0,
 
-    /**
+  /**
      * value: 1
      * @const
      */
-    "1": 1,
+  '1': 1,
 
-    /**
+  /**
      * value: 10
      * @const
      */
-    "10": 10,
+  '10': 10,
 
-    /**
+  /**
      * value: 15
      * @const
      */
-    "15": 15,
+  '15': 15,
 
-    /**
+  /**
      * value: 20
      * @const
      */
-    "20": 20,
+  '20': 20,
 
-    /**
+  /**
      * value: 25
      * @const
      */
-    "25": 25,
+  '25': 25,
 
-    /**
+  /**
      * value: 30
      * @const
      */
-    "30": 30,
+  '30': 30,
 
-    /**
+  /**
      * value: 35
      * @const
      */
-    "35": 35
+  '35': 35
 };
-
 
 /**
  * GUID данной записи в БД.
@@ -216,7 +225,4 @@ InlineResponse2003.prototype['deliveryCostToTheWarehouse'] = undefined;
  */
 InlineResponse2003.prototype['product'] = undefined;
 
-
-
 export default InlineResponse2003;
-

@@ -43,6 +43,9 @@ export const useClassNames = makeStyles(theme => ({
     lineHeight: '21px',
     marginRight: '10px',
     width: '160px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   subTitle: {
     fontSize: '14px',

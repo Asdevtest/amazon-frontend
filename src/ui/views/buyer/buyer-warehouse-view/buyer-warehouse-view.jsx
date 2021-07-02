@@ -4,7 +4,8 @@ import {Button, TableCell, TableRow, Typography, Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {buyerUsername, buyerWarehouseViewTable, HISTORY_DATA} from '@constants/mocks'
+import {buyerUsername, buyerWarehouseViewTable} from '@constants/mocks'
+import {operationTypes} from '@constants/operation-types'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -44,6 +45,7 @@ export class BuyerWarehouseViewRaw extends Component {
 
   render() {
     const {
+      tasksMy,
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -65,8 +67,7 @@ export class BuyerWarehouseViewRaw extends Component {
       approveBoxesOperation,
       cancelMergeBoxes,
       cancelSplitBoxes,
-
-      // createBox
+      // postTask
       // removeBox
       //  выше методы для тестов
     } = this.viewModel
@@ -79,11 +80,16 @@ export class BuyerWarehouseViewRaw extends Component {
       selectedBoxes,
     }
 
-    // createBox();
-    // removeBox('60d491695382b25eea73e076');
+    // cancelMergeBoxes('60dd8ecb638c0d3917ec76ff');
+    // postTask({ idsData: [ '60dcb24d4eef930742409c00' ], type: 'merge' });
+
+    // postTask();
+    // removeBox('60dbfba704f8da4cbf6edbbd');
     //  выше методы для тестов
 
-    console.log(boxesMy, 'BOXES DATA')
+    // console.log('BOXES DATA', boxesMy);
+
+    // console.log('TASKS DATA', tasksMy);
 
     return (
       <React.Fragment>
@@ -128,8 +134,8 @@ export class BuyerWarehouseViewRaw extends Component {
               />
               <Paper>
                 <WarehouseHistory
-                  historyData={HISTORY_DATA}
                   title={textConsts.warehouseHistoryTitle}
+                  tasksData={tasksMy}
                   onApproveMergeAndSplitBoxes={approveBoxesOperation}
                   onCancelMergeBoxes={cancelMergeBoxes}
                   onCancelSplitBoxes={cancelSplitBoxes}
@@ -231,7 +237,7 @@ export class BuyerWarehouseViewRaw extends Component {
         disabled={this.viewModel.selectedBoxes.length <= 1}
         color="primary"
         variant="contained"
-        onClick={() => this.viewModel.onClickMerge()}
+        onClick={() => this.viewModel.onClickMerge(operationTypes.MERGE)}
       >
         {textConsts.mergeBtn}
       </Button>

@@ -19,155 +19,147 @@ import ApiClient from '../ApiClient';
  * @version v0.0.1
  */
 class InlineObject20 {
-    /**
+  /**
      * Constructs a new <code>InlineObject20</code>.
      * @alias module:model/InlineObject20
      */
-    constructor() { 
-        
-        InlineObject20.initialize(this);
-    }
+  constructor() {
+    InlineObject20.initialize(this);
+  }
 
-    /**
+  /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
-    }
+  static initialize(obj) {}
 
-    /**
+  /**
      * Constructs a <code>InlineObject20</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/InlineObject20} obj Optional instance to populate.
      * @return {module:model/InlineObject20} The populated <code>InlineObject20</code> instance.
      */
-    static constructFromObject(data, obj) {
-        if (data) {
-            obj = obj || new InlineObject20();
+  static constructFromObject(data, obj) {
+    if (data) {
+      obj = obj || new InlineObject20();
 
-            if (data.hasOwnProperty('sku')) {
-                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
-            }
-            if (data.hasOwnProperty('material')) {
-                obj['material'] = ApiClient.convertToType(data['material'], 'String');
-            }
-            if (data.hasOwnProperty('currentSupplier')) {
-                obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'String');
-            }
-            if (data.hasOwnProperty('category')) {
-                obj['category'] = ApiClient.convertToType(data['category'], 'String');
-            }
-            if (data.hasOwnProperty('lamazon')) {
-                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
-            }
-            if (data.hasOwnProperty('lsupplier')) {
-                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
-            }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('express')) {
-                obj['express'] = ApiClient.convertToType(data['express'], 'Boolean');
-            }
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
-            }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
-            }
-            if (data.hasOwnProperty('weight')) {
-                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
-            }
-            if (data.hasOwnProperty('supplier')) {
-                obj['supplier'] = ApiClient.convertToType(data['supplier'], ['String']);
-            }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
-            }
-            if (data.hasOwnProperty('fbalink')) {
-                obj['fbalink'] = ApiClient.convertToType(data['fbalink'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('icomment')) {
-                obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('amazonDescription')) {
-                obj['amazonDescription'] = ApiClient.convertToType(data['amazonDescription'], 'String');
-            }
-            if (data.hasOwnProperty('amazonDetail')) {
-                obj['amazonDetail'] = ApiClient.convertToType(data['amazonDetail'], 'String');
-            }
-            if (data.hasOwnProperty('amazonTitle')) {
-                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
-            }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
-            if (data.hasOwnProperty('minpurchase')) {
-                obj['minpurchase'] = ApiClient.convertToType(data['minpurchase'], 'Number');
-            }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('byboxprice')) {
-                obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number');
-            }
-        }
-        return obj;
+      if (data.hasOwnProperty('sku')) {
+        obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
+      }
+      if (data.hasOwnProperty('material')) {
+        obj['material'] = ApiClient.convertToType(data['material'], 'String');
+      }
+      if (data.hasOwnProperty('currentSupplier')) {
+        obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'String');
+      }
+      if (data.hasOwnProperty('category')) {
+        obj['category'] = ApiClient.convertToType(data['category'], 'String');
+      }
+      if (data.hasOwnProperty('lamazon')) {
+        obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
+      }
+      if (data.hasOwnProperty('lsupplier')) {
+        obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
+      }
+      if (data.hasOwnProperty('bsr')) {
+        obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
+      }
+      if (data.hasOwnProperty('fba')) {
+        obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+      }
+      if (data.hasOwnProperty('express')) {
+        obj['express'] = ApiClient.convertToType(data['express'], 'Boolean');
+      }
+      if (data.hasOwnProperty('amazon')) {
+        obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+      }
+      if (data.hasOwnProperty('height')) {
+        obj['height'] = ApiClient.convertToType(data['height'], 'Number');
+      }
+      if (data.hasOwnProperty('width')) {
+        obj['width'] = ApiClient.convertToType(data['width'], 'Number');
+      }
+      if (data.hasOwnProperty('length')) {
+        obj['length'] = ApiClient.convertToType(data['length'], 'Number');
+      }
+      if (data.hasOwnProperty('weight')) {
+        obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
+      }
+      if (data.hasOwnProperty('supplier')) {
+        obj['supplier'] = ApiClient.convertToType(data['supplier'], [ 'String' ]);
+      }
+      if (data.hasOwnProperty('reffee')) {
+        obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+      }
+      if (data.hasOwnProperty('fbafee')) {
+        obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+      }
+      if (data.hasOwnProperty('delivery')) {
+        obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+      }
+      if (data.hasOwnProperty('fbaamount')) {
+        obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
+      }
+      if (data.hasOwnProperty('fbalink')) {
+        obj['fbalink'] = ApiClient.convertToType(data['fbalink'], 'String');
+      }
+      if (data.hasOwnProperty('status')) {
+        obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+      }
+      if (data.hasOwnProperty('icomment')) {
+        obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
+      }
+      if (data.hasOwnProperty('images')) {
+        obj['images'] = ApiClient.convertToType(data['images'], [ 'String' ]);
+      }
+      if (data.hasOwnProperty('amazonDescription')) {
+        obj['amazonDescription'] = ApiClient.convertToType(data['amazonDescription'], 'String');
+      }
+      if (data.hasOwnProperty('amazonDetail')) {
+        obj['amazonDetail'] = ApiClient.convertToType(data['amazonDetail'], 'String');
+      }
+      if (data.hasOwnProperty('amazonTitle')) {
+        obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
+      }
+      if (data.hasOwnProperty('barCode')) {
+        obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+      }
+      if (data.hasOwnProperty('minpurchase')) {
+        obj['minpurchase'] = ApiClient.convertToType(data['minpurchase'], 'Number');
+      }
+      if (data.hasOwnProperty('profit')) {
+        obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+      }
+      if (data.hasOwnProperty('margin')) {
+        obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
+      }
+      if (data.hasOwnProperty('byboxprice')) {
+        obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number');
+      }
     }
-
-
+    return obj;
+  }
 }
-
-
-
 
 /**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
  * @readonly
  */
- InlineObject20['StatusEnum'] = {
-
-    /**
+InlineObject20['StatusEnum'] = {
+  /**
      * value: 0
      * @const
      */
-    "0": 0,
+  '0': 0,
 
-    /**
+  /**
      * value: 10
      * @const
      */
-    "10": 10
+  '10': 10
 };
 
 /**
@@ -345,8 +337,4 @@ InlineObject20.prototype['margin'] = undefined;
  */
 InlineObject20.prototype['byboxprice'] = undefined;
 
-
-
-
 export default InlineObject20;
-

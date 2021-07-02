@@ -1,18 +1,18 @@
 import {Typography} from '@material-ui/core'
+import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
 
 import {Input} from '@components/input'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-// import { getAmazonImageUrl } from '@utils/get-amazon-image-url';
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './box-order.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
 
-export const BoxOrder = ({order}) => {
+export const BoxOrder = observer(({order, setAmountField}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.order}>
@@ -35,15 +35,20 @@ export const BoxOrder = ({order}) => {
       <div className={classNames.fields}>
         <div>
           <Typography>{textConsts.amountLabel}</Typography>
-          <Input className={classNames.inputNumber} type="number" value={order.amount} />
+          <Input
+            className={classNames.inputNumber}
+            type="number"
+            value={order.amount}
+            onChange={e => setAmountField(e)}
+          />
         </div>
         <div>
           <Typography>{textConsts.materialLabel}</Typography>
-          <Input className={classNames.inputText} value={order.product && order.product.material} />
+          <Input disabled className={classNames.inputText} value={order.product && order.product.material} />
         </div>
       </div>
 
       <Typography>{order.barCode}</Typography>
     </div>
   )
-}
+})

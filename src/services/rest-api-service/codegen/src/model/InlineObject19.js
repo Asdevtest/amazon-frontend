@@ -215,5 +215,6 @@ InlineObject19.prototype['byboxprice'] = undefined;
 
 
 
+
 export default InlineObject19;
 

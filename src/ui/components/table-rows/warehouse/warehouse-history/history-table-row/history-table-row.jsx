@@ -7,6 +7,7 @@ import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 
+import {formatDateTime} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './history-table-row.style'
@@ -19,70 +20,69 @@ export const HistoryTableRow = ({item, onApproveMergeAndSplitBoxes, onCancelMerg
   const taskMergeDescription = () => (
     <React.Fragment>
       <Typography>
-        {textConsts.order}
-        <span className={classNames.defaultOrderSpan}>{item.orders[0]}</span>
-        {textConsts.andOrder}
-        <span className={classNames.defaultOrderSpan}>{item.orders[1]}</span>
         {textConsts.merge}
+        {item.boxes[0]._id}
       </Typography>
-      {!item.status && <span className={classNames.description}>{textConsts.cancelAction}</span>}
     </React.Fragment>
   )
   const taskDivideDescription = () => (
     <React.Fragment>
       <Typography>
-        {textConsts.order}
-        <span className={classNames.defaultOrderSpan}>{item.orders[0]}</span>
-        {textConsts.andOrder}
-        <span className={classNames.defaultOrderSpan}>{item.orders[1]}</span>
         {textConsts.unMerge}
+        {item.boxes.map((box, index) => (
+          <span key={index} className={classNames.defaultOrderSpan}>
+            {' '}
+            {box._id}
+          </span>
+        ))}
       </Typography>
-      {!item.status && <span className={classNames.description}>{textConsts.cancelAction}</span>}
     </React.Fragment>
   )
   const changeStatusPayedDescription = () => (
     <Typography>
       {textConsts.order}
-      <span className={classNames.defaultOrderSpan}>{item.orders[0]}</span>
+      <span className={classNames.defaultOrderSpan}>{item.boxes[0]._id}</span>
       {textConsts.changeStatus}
       <span className={classNames.changeOrderSpan}>{textConsts.paid}</span>
     </Typography>
   )
 
-  const renderApproveBtn = <Button onClick={() => onApproveMergeAndSplitBoxes(item.id)}>{textConsts.acceptBtn}</Button>
+  const renderApproveButton = (
+    <Button onClick={() => onApproveMergeAndSplitBoxes(item.boxes[0]._id)}>{textConsts.acceptBtn}</Button>
+  )
 
   const renderHistoryItem = () => {
-    switch (item.type) {
-      case 'task/merge':
+    switch (item.operationType) {
+      case 'merge':
         return (
           <React.Fragment>
             <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskMergeDescription()}</TableCell>
             <TableCell>
-              {item.status ? (
-                <ErrorButton onClick={() => onCancelMergeBoxes(item.id)}>{textConsts.cancelBtn}</ErrorButton>
-              ) : (
-                renderApproveBtn
-              )}
+              <div className={classNames.buttonsWrapper}>
+                {renderApproveButton}
+
+                <ErrorButton onClick={() => onCancelMergeBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
+              </div>
             </TableCell>
           </React.Fragment>
         )
 
-      case 'task/divide':
+      case 'split':
         return (
           <React.Fragment>
             <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskDivideDescription()}</TableCell>
             <TableCell>
-              {item.status ? (
-                <ErrorButton onClick={() => onCancelSplitBoxes(item.id)}>{textConsts.cancelBtn}</ErrorButton>
-              ) : (
-                renderApproveBtn
-              )}
+              <div className={classNames.buttonsWrapper}>
+                {renderApproveButton}
+
+                <ErrorButton onClick={() => onCancelSplitBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
+              </div>
             </TableCell>
           </React.Fragment>
         )
-      case 'change/status/Оплачен':
+      case 'paid':
         return (
           <React.Fragment>
             <TableCell>{textConsts.orderChangeStatus}</TableCell>
@@ -94,7 +94,7 @@ export const HistoryTableRow = ({item, onApproveMergeAndSplitBoxes, onCancelMerg
 
   return (
     <TableRow>
-      <TableCell className={classNames.centerTextCell}>{item.date}</TableCell>
+      <TableCell className={classNames.centerTextCell}>{formatDateTime(item.createDate)}</TableCell>
       {renderHistoryItem()}
     </TableRow>
   )

@@ -1,4 +1,4 @@
-import {React, useState} from 'react'
+import React, {useState} from 'react'
 
 import {Box, Divider, Paper, Typography} from '@material-ui/core'
 
@@ -42,6 +42,7 @@ export const EditOrderModal = ({
     status: (order && order.status) || undefined,
     clientComment: (order && order.clientComment) || '',
     buyerscomment: (order && order.product.buyerscomment) || '',
+    deliveryCostToTheWarehouse: (order && order.deliveryCostToTheWarehouse) || '',
     trackId: '',
     material: (order && order.product && order.product.material) || '',
     amount: 0,
@@ -109,8 +110,9 @@ export const EditOrderModal = ({
           <ErrorButton onClick={onTriggerModal}>{textConsts.cancelBtn}</ErrorButton>
         </Box>
       ) : undefined}
+
       {showCreateOrEditBoxBlock ? (
-        <>
+        <React.Fragment>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
           <CreateOrEditBoxForm
             selectFieldsArePreDefined
@@ -120,7 +122,7 @@ export const EditOrderModal = ({
               onSubmitSaveOrder(order, orderFields)
             }}
           />
-        </>
+        </React.Fragment>
       ) : undefined}
     </Box>
   )

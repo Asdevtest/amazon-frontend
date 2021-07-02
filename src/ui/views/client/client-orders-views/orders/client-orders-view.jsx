@@ -60,6 +60,7 @@ class ClientOrdersViewRaw extends Component {
       onClickDeleteBarcode,
       onClickTableRow,
     }
+
     return (
       <React.Fragment>
         <Navbar

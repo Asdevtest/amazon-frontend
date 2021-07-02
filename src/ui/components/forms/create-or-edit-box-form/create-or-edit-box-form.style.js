@@ -6,9 +6,6 @@ export const useClassNames = makeStyles(theme => ({
     flexDirection: 'column',
   },
   form: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     flexWrap: 'wrap',
     marginTop: theme.spacing(2.5),
     marginBottom: theme.spacing(2.5),

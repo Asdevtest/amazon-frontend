@@ -131,10 +131,12 @@ export class ClientExchangeRequestsViewRaw extends Component {
           <Typography variant="h5">{textConsts.modalNewRequestTitle}</Typography>
           <RequestForm formFields={formFields} btnLabel={textConsts.modalBtnSendRequest} />
         </Modal>
+
         <Modal openModal={modalEditRequest} setOpenModal={() => onClickCloseModal('modalEditRequest')}>
           <Typography variant="h5">{textConsts.modalEditRequestTitle}</Typography>
           <RequestForm formFields={formFields} btnLabel={textConsts.modalBtnSaveRequest} />
         </Modal>
+
         <Modal openModal={modalCloseRequest} setOpenModal={() => onClickCloseModal('modalCloseRequest')}>
           <Typography variant="h5">{textConsts.modalCloseRequestTitle}</Typography>
           <Field

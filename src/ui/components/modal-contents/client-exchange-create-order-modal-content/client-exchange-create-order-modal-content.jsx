@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import React, {useState} from 'react'
 
 import {TableBody, TableContainer, TableHead, Typography, Table as MuiTable, Button} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
@@ -53,7 +53,7 @@ const ClientExchnageCreateOrderModalContentRaw = ({
   }
 
   return (
-    <>
+    <React.Fragment>
       <Typography variant="h5">{textConsts.title}</Typography>
       <TableContainer className={classNames.modalTableWrapper}>
         <MuiTable>
@@ -83,7 +83,7 @@ const ClientExchnageCreateOrderModalContentRaw = ({
           onCloseModal={onTriggerBarcodeModal}
         />
       </Modal>
-    </>
+    </React.Fragment>
   )
 }
 

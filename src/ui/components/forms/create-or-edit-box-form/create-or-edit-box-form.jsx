@@ -23,47 +23,23 @@ export const CreateOrEditBoxForm = observer(
   ({box, order, onSubmit, onCloseModal, onTriggerOpenModal, selectFieldsArePreDefined}) => {
     const classNames = useClassNames()
 
-    const [formFields, setFormFields] = useState(
-      {
-        lengthCmSupplier: (box && box.lengthCmSupplier) || '',
-        widthCmSupplier: (box && box.widthCmSupplier) || '',
-        heightCmSupplier: (box && box.heightCmSupplier) || '',
-        weighGrossKgSupplier: (box && box.weighGrossKgSupplier) || '',
-        volumeWeightKgSupplier: (box && box.volumeWeightKgSupplier) || '',
-        weightFinalAccountingKgSupplier: (box && box.weightFinalAccountingKgSupplier) || '',
-        warehouse: (box && box.warehouse) || (order && order.warehouse) || '',
-        deliveryMethod: (box && box.deliveryMethod) || (order && order.deliveryMethod) || '',
-        // shipmentPlanId: (box && box.shipmentPlanId) || '',
-        // scheduledDispatchDate: "2021-06-22",
-        // factDispatchDate: "2021-06-22",
-        items: (box && box.items) || [
-          {
-            product: order && order.product,
-            amount: (order && order.amount) || 10,
-            order: order && order,
-          },
-        ],
-        // clientId: '607dceac3551e3fa7e7fbb69'
-      },
-      // {
-      //   "lengthCm": 10,
-      //   "widthCm": 10,
-      //   "heightCm": 10,
-      //   "weighGrossKg": 15.5,
-      //   "volumeWeightKg": 25.5,
-      //   "weightFinalAccountingKg": 25.5,
-
-      //   "lengthCmSupplier": 25,
-      //   "widthCmSupplier": 35,
-      //   "heightCmSupplier": 45,
-      //   "weighGrossKgSupplier": 45,
-      //   "volumeWeightKgSupplier": 15,
-      //   "weightFinalAccountingKgSupplier": 25,
-      //   "shipmentPlanId": "12WEER234",
-      //   "warehouse": 25,
-      //   "deliveryMethod": 25
-      // }
-    )
+    const [formFields, setFormFields] = useState({
+      lengthCmSupplier: (box && box.lengthCmSupplier) || '',
+      widthCmSupplier: (box && box.widthCmSupplier) || '',
+      heightCmSupplier: (box && box.heightCmSupplier) || '',
+      weighGrossKgSupplier: (box && box.weighGrossKgSupplier) || '',
+      volumeWeightKgSupplier: (box && box.volumeWeightKgSupplier) || '',
+      weightFinalAccountingKgSupplier: (box && box.weightFinalAccountingKgSupplier) || '',
+      warehouse: (box && box.warehouse) || (order && order.warehouse) || '',
+      deliveryMethod: (box && box.deliveryMethod) || (order && order.deliveryMethod) || '',
+      items: (box && box.items) || [
+        {
+          product: order && order.product,
+          amount: (order && order.amount) || 10,
+          order: order && order,
+        },
+      ],
+    })
 
     const setFormField = fieldName => e => {
       const newFormFields = {...formFields}
@@ -77,6 +53,12 @@ export const CreateOrEditBoxForm = observer(
         parseFloat(newFormFields.volumeWeightKgSupplier) || 0,
         parseFloat(newFormFields.weighGrossKgSupplier) || 0,
       )
+      setFormFields(newFormFields)
+    }
+
+    const setAmountField = e => {
+      const newFormFields = {...formFields}
+      newFormFields.items[0].amount = e.target.value
       setFormFields(newFormFields)
     }
 
@@ -208,7 +190,9 @@ export const CreateOrEditBoxForm = observer(
               </Typography>
             ) : undefined}
             {formFields.items &&
-              formFields.items.map((orderItem, orderIndex) => <BoxOrder key={orderIndex} order={orderItem} />)}
+              formFields.items.map((orderItem, orderIndex) => (
+                <BoxOrder key={orderIndex} order={orderItem} setAmountField={setAmountField} />
+              ))}
           </div>
         </div>
 
