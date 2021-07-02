@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
@@ -9,13 +9,13 @@ export class ClientBatchesViewModel {
   requestStatus = undefined
   error = undefined
 
-  batches = []
-
   drawerOpen = false
-  selectedRow = null
-  modalEditBoxes = false
   rowsPerPage = 5
   paginationPage = 1
+
+  batches = undefined
+  selectedBatchIndex = undefined
+  showEditBoxesModal = false
 
   constructor({history}) {
     this.history = history
@@ -37,8 +37,13 @@ export class ClientBatchesViewModel {
     try {
       this.requestStatus = loadingStatuses.isLoading
       this.error = undefined
+
       const result = await ClientModel.getBatches()
-      this.product = result
+
+      runInAction(() => {
+        this.batches = result
+      })
+
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       this.requestStatus = loadingStatuses.failed
@@ -46,26 +51,34 @@ export class ClientBatchesViewModel {
     }
   }
 
-  onChangeModalEditBoxes() {
-    this.modalEditBoxes = !this.modalEditBoxes
+  onTriggerEditBoxesModal() {
+    this.showEditBoxesModal = !this.showEditBoxesModal
   }
 
-  onBatchesonClick(index) {
-    this.selectedRow = index
+  onClickTableRow(batch, index) {
+    if (this.selectedBatchIndex === index) {
+      this.selectedBatchIndex = undefined
+    } else {
+      this.selectedBatchIndex = index
+    }
   }
 
-  onBatchesonDoubleClick(index) {
-    this.selectedRow = index
-    this.modalEditBoxes = !this.modalEditBoxes
+  onDoubleClickTableRow(batch, index) {
+    if (this.selectedBatchIndex === index) {
+      this.selectedBatchIndex = undefined
+    } else {
+      this.selectedBatchIndex = index
+      this.onTriggerEditBoxesModal()
+    }
   }
 
   onChangePagination(e, value) {
-    this.paginationPge = value
+    this.paginationPage = value
   }
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = Number(e.target.value)
-    this.paginationPge = 1
+    this.paginationPage = 1
   }
   onChangeDrawerOpen(e, value) {
     this.drawerOpen = value

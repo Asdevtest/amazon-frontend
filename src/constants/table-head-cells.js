@@ -64,6 +64,17 @@ export const CLIENT_WAREHOUSE_HEAD_CELLS = [
   {id: 'img', label: 'Track ID'},
 ]
 
+export const BATCHES_HEAD_CELLS = [
+  {title: 'ClientID'},
+  {title: 'Quantity'},
+  {title: 'Status'},
+  {title: 'Created'},
+  {title: 'Updated'},
+  {title: 'Warehouse'},
+  {title: 'Delivery'},
+  {title: 'Track ID'},
+]
+
 export const BUYER_MY_ORDERS_HEAD_CELLS = [
   'Статус',
   'Товар',

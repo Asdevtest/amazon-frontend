@@ -2,12 +2,15 @@ import React from 'react'
 
 import {Box, Divider, Paper, Typography} from '@material-ui/core'
 
+import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {texts} from '@constants/texts'
+import {warehouses} from '@constants/warehouses'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {withKg} from '@utils/text'
 
 import {useClassNames} from './box-list.style'
-import {ProductBox} from './product-box'
+import {OrderBox} from './order-box'
 
 const textConsts = getLocalizedTexts(texts, 'en').batchesModalEditBoxList
 
@@ -21,35 +24,37 @@ export const BoxList = ({selectedBoxes, warehouse, delivery}) => {
 
       {selectedBoxes.map((box, boxIndex) => (
         <Paper key={boxIndex} elevation={0} className={classNames.subPaperWrapper}>
-          <Typography className={classNames.modalText}>{textConsts.boxNum}</Typography>
+          <Typography className={classNames.modalText}>{`${textConsts.boxNum} ${box._id}`}</Typography>
           <Divider className={classNames.divider} />
 
           <Box mt={1}>
             <Typography
               className={(classNames.modalText, classNames.boxDataTypo)}
-            >{`${textConsts.typoWarehouse} ${warehouse}`}</Typography>
+            >{`${textConsts.typoWarehouse} ${warehouses[warehouse]}`}</Typography>
             <Typography className={(classNames.modalText, classNames.boxDataTypo)}>{textConsts.typoStatus}</Typography>
             <Typography
               className={(classNames.modalText, classNames.boxDataTypo)}
-            >{`${textConsts.typoDeliveryMethod} ${delivery}`}</Typography>
+            >{`${textConsts.typoDeliveryMethod} ${DeliveryTypeByCode[delivery]}`}</Typography>
             <Typography className={(classNames.modalText, classNames.boxDataTypo)}>
               {textConsts.typoShippingLabel}
             </Typography>
             <Typography className={(classNames.modalText, classNames.boxDataTypo)}>
-              {textConsts.typoGabarits}
-            </Typography>
-            <Typography className={(classNames.modalText, classNames.boxDataTypo)}>{textConsts.typoWeight}</Typography>
-            <Typography className={(classNames.modalText, classNames.boxDataTypo)}>
-              {textConsts.typoVolumeWeight}
+              {`${textConsts.typoGabarits}: ${box.lengthCmSupplier} х ${box.widthCmSupplier} х ${box.heightCmSupplier} см`}
             </Typography>
             <Typography className={(classNames.modalText, classNames.boxDataTypo)}>
-              {textConsts.typoWeightFinal}
+              {`${textConsts.typoWeight}: ${withKg(box.weighGrossKgSupplier)}`}
+            </Typography>
+            <Typography className={(classNames.modalText, classNames.boxDataTypo)}>
+              {`${textConsts.typoVolumeWeight}: ${withKg(box.volumeWeightKgSupplier)}`}
+            </Typography>
+            <Typography className={(classNames.modalText, classNames.boxDataTypo)}>
+              {`${textConsts.typoWeightFinal}: ${withKg(box.weightFinalAccountingKgSupplier)}`}
             </Typography>
           </Box>
 
           <Box>
-            {box.map((product, productIndex) => (
-              <ProductBox key={productIndex} product={product} />
+            {box.items.map((order, productIndex) => (
+              <OrderBox key={productIndex} order={order} />
             ))}
           </Box>
         </Paper>

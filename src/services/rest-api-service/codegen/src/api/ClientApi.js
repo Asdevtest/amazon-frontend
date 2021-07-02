@@ -115,7 +115,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2006];
+      let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/clients/batches', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,

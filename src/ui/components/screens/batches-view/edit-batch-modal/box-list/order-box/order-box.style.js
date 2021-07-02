@@ -9,7 +9,6 @@ export const useClassNames = makeStyles(() => ({
     marginBottom: '24px',
   },
   modalSubTitle: {
-    //
     color: 'rgba(61, 81, 112, 1)',
     fontSize: '13px',
     fontWeight: 700,
@@ -17,7 +16,6 @@ export const useClassNames = makeStyles(() => ({
     marginBottom: '8px',
   },
   modalText: {
-    //
     color: 'rgba(61, 81, 112, 1)',
     fontSize: '14px',
     fontWeight: 400,
@@ -25,7 +23,6 @@ export const useClassNames = makeStyles(() => ({
   },
 
   footerTitle: {
-    //
     color: 'rgba(189, 194, 209, 1)',
     fontSize: '14px',
     fontWeight: 400,

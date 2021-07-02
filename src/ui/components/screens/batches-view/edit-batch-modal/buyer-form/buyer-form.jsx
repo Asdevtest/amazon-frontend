@@ -23,10 +23,11 @@ export const BuyerForm = ({
   setStatus,
   delivery,
   status,
-  warehouseList,
+  warehouses,
   deliveryOptions,
 }) => {
   const classNames = useClassNames()
+  console.log(warehouses)
 
   return (
     <Paper elevation={0} className={classNames.mainPaperWrapper}>
@@ -48,9 +49,9 @@ export const BuyerForm = ({
             input={<Input />}
             onChange={e => setWarehouse(e.target.value)}
           >
-            {warehouseList.map((warehouseItem, warehouseIndex) => (
-              <option key={warehouseIndex} value={warehouseItem.value}>
-                {warehouseItem.text}
+            {Object.entries(warehouses).map(([warehouseItemValue, warehouseItemLabel], warehouseIndex) => (
+              <option key={warehouseIndex} value={warehouseItemValue}>
+                {warehouseItemLabel}
               </option>
             ))}
           </NativeSelect>

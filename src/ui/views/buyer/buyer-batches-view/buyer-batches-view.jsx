@@ -5,7 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {DELIVERY_OPTIONS} from '@constants/delivery-options'
-import {BATCHES_BOXES_EXAMPLES, BATCHES_HEAD_CELLS} from '@constants/mocks'
+import {BATCHES_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 import {warehouses} from '@constants/warehouses'
@@ -30,13 +30,6 @@ import {styles} from './buyer-batches-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').buyerBatchesView
 
-const batchesData = [
-  [BATCHES_BOXES_EXAMPLES[0], BATCHES_BOXES_EXAMPLES[2]],
-  [BATCHES_BOXES_EXAMPLES[1]],
-  [BATCHES_BOXES_EXAMPLES[2], BATCHES_BOXES_EXAMPLES[1]],
-  [BATCHES_BOXES_EXAMPLES[0]],
-]
-
 const navbarActiveCategory = 4
 
 @observer
@@ -49,6 +42,7 @@ class BuyerBatchesViewRaw extends Component {
 
   render() {
     const {
+      batches,
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -91,10 +85,10 @@ class BuyerBatchesViewRaw extends Component {
                 <Table
                   renderButtons={this.renderButtons}
                   currentPage={curPage}
-                  data={batchesData}
+                  data={batches}
                   handlerPageChange={onChangePage}
                   handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(batchesData.length / rowsPerPage)}
+                  pageCount={Math.ceil(batches.length / rowsPerPage)}
                   BodyRow={TableBodyRow}
                   renderHeadRow={this.renderHeadRow()}
                   rowsPerPage={rowsPerPage}
@@ -108,7 +102,7 @@ class BuyerBatchesViewRaw extends Component {
 
         <Modal openModal={showEditBoxesModal} setOpenModal={onTriggerEditBoxesModal}>
           <EditBatchModal
-            batch={isNotUndefined(selectedBatchIndex) ? batchesData[selectedBatchIndex] : undefined}
+            batch={isNotUndefined(selectedBatchIndex) ? batches[selectedBatchIndex] : undefined}
             setModal={onTriggerEditBoxesModal}
             warehouses={warehouses}
             deliveryOptions={DELIVERY_OPTIONS}

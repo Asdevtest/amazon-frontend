@@ -20,13 +20,13 @@ const textConsts = getLocalizedTexts(texts, 'en').batchesModalEditBatch
 export const EditBatchModal = ({batch, setModal, warehouses, deliveryOptions, curUserRole}) => {
   const classNames = useClassNames()
 
-  const [warehouse, setWarehouse] = useState(batch[0][0].destination)
-  const [delivery, setDelivery] = useState(batch[0][0].deliveryMethod)
-  const [status, setStatus] = useState(batch[0][0].status)
+  const [warehouse, setWarehouse] = useState(batch.batch.warehouse)
+  const [delivery, setDelivery] = useState(batch.batch.deliveryMethod)
+  const [status, setStatus] = useState(batch.boxes[0].status)
   const [warehouseCheckbox, setWarehouseCheckbox] = useState(
-    batch[0][0].destination !== textConsts.batchDestination ? true : false,
+    batch.boxes[0].destination !== textConsts.batchDestination ? true : false,
   )
-  const [deliveryCheckbox, setDeliveryCheckbox] = useState(!!batch[0][0].deliveryMethod)
+  const [deliveryCheckbox, setDeliveryCheckbox] = useState(!!delivery)
 
   const renderSwitchForm = () => {
     switch (curUserRole) {
@@ -58,7 +58,7 @@ export const EditBatchModal = ({batch, setModal, warehouses, deliveryOptions, cu
 
       {renderSwitchForm()}
 
-      <BoxList selectedBoxes={batch} warehouse={warehouse} delivery={delivery} />
+      <BoxList selectedBoxes={batch.boxes} warehouse={warehouse} delivery={delivery} />
 
       <Box mt={2} className={classNames.btnBox}>
         <Button className={classNames.saveBtn}>{textConsts.saveBtn}</Button>

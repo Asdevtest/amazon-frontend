@@ -5,7 +5,6 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {BoxesModel} from '@models/boxes-model'
 import {BuyerModel} from '@models/buyer-model'
 
-import {formatDateForBackend} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const updateOrderKeys = ['status', 'deliveryMethod', 'warehouse', 'barCode']
