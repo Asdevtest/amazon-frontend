@@ -10,7 +10,6 @@ export const styles = createStyles(() => ({
   },
   buttonsWrapper: {
     textAlign: 'right',
-    borderTop: '1px solid rgba(217, 222, 229, 1)',
   },
   tableWrapper: {
     marginTop: '32px',

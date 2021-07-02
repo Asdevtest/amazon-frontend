@@ -5,7 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {DELIVERY_OPTIONS} from '@constants/delivery-options'
-import {BATCHES_HEAD_CELLS} from '@constants/mocks'
+import {BATCHES_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 import {warehouses} from '@constants/warehouses'
@@ -21,6 +21,7 @@ import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/batches-view/table-body-row'
 import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
+import {isNotUndefined} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/clientAvatar.jpg'
@@ -42,19 +43,26 @@ class ClientBatchesViewRaw extends Component {
   render() {
     const {
       drawerOpen,
-      batches,
-      selectedRow,
-      modalEditBoxes,
       rowsPerPage,
       paginationPage,
+
+      batches,
+      selectedBatchIndex,
+      showEditBoxesModal,
+
       onChangeDrawerOpen,
       onChangeRowsPerPage,
       onChangePagination,
-      onBatchesonDoubleClick,
-      onBatchesonClick,
-      onChangeModalEditBoxes,
+
+      onClickTableRow,
+      onDoubleClickTableRow,
+      onTriggerEditBoxesModal,
     } = this.viewModel
     const {classes: className} = this.props
+    const rowsHandlers = {
+      onClickTableRow,
+      onDoubleClickTableRow,
+    }
     return (
       <React.Fragment>
         <Navbar
@@ -89,12 +97,9 @@ class ClientBatchesViewRaw extends Component {
                     pageCount={Math.ceil(batches.length / rowsPerPage)}
                     BodyRow={TableBodyRow}
                     renderHeadRow={this.renderHeadRow()}
+                    selectedBatchIndex={selectedBatchIndex}
                     rowsPerPage={rowsPerPage}
-                    rowsHandlers={{
-                      selected: selectedRow,
-                      onDoubleClick: onBatchesonDoubleClick,
-                      onSelected: onBatchesonClick,
-                    }}
+                    rowsHandlers={rowsHandlers}
                   />
                 </div>
               )}
@@ -102,12 +107,12 @@ class ClientBatchesViewRaw extends Component {
           </Appbar>
         </Main>
 
-        <Modal openModal={modalEditBoxes} setOpenModal={onChangeModalEditBoxes}>
+        <Modal openModal={showEditBoxesModal} setOpenModal={onTriggerEditBoxesModal}>
           <EditBatchModal
-            batch={batches[selectedRow]}
-            setModal={onChangeModalEditBoxes}
+            batch={isNotUndefined(selectedBatchIndex) ? batches[selectedBatchIndex] : undefined}
+            setModal={onTriggerEditBoxesModal}
             warehouses={warehouses}
-            deliveryList={DELIVERY_OPTIONS}
+            deliveryOptions={DELIVERY_OPTIONS}
             curUserRole={UserRole.CLIENT}
           />
         </Modal>
@@ -120,9 +125,9 @@ class ClientBatchesViewRaw extends Component {
   renderButtons = () => (
     <Box p={2} mr={0} className={this.props.classes.buttonsWrapper}>
       <Button
-        disabled={this.viewModel.selectedRow === null}
+        disabled={this.viewModel.selectedBatchIndex === undefined}
         color="secondary"
-        onClick={() => this.viewModel.onChangeModalEditBoxes()}
+        onClick={() => this.viewModel.onTriggerEditBoxesModal()}
       >
         {textConsts.editBatch}
       </Button>

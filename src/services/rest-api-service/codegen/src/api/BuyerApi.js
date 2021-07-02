@@ -33,14 +33,58 @@ export default class BuyerApi {
     * Constructs a new BuyerApi. 
     * @alias module:api/BuyerApi
     * @class
-    * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
+    * @param {module:ApiClient} [apiClient] Optional API buyer implementation to use,
     * default to {@link module:ApiClient#instance} if unspecified.
     */
     constructor(apiClient) {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
+    /**
+     * # Получить партии.
+     * ## Получить партии.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
+     */
+    apiV1BuyersBatchesGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [Object];
+      return this.apiClient.callApi(
+        '/api/v1/buyers/batches', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить партии.
+     * ## Получить партии.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
+     */
+    apiV1BuyersBatchesGet(opts) {
+      return this.apiV1BuyersBatchesGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
     /**
      * # Получить конкретный заказ по его GUID.

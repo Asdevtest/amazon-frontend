@@ -5,7 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {DELIVERY_OPTIONS} from '@constants/delivery-options'
-import {BATCHES_HEAD_CELLS} from '@constants/mocks'
+import {BATCHES_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 import {warehouses} from '@constants/warehouses'
@@ -38,12 +38,12 @@ class AdminWarehouseBatchesViewRaw extends Component {
   viewModel = new AdminWarehouseBatchesViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getBatchesData()
+    this.viewModel.loadData()
   }
 
   render() {
     const {
-      batchesData,
+      batches,
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -87,10 +87,10 @@ class AdminWarehouseBatchesViewRaw extends Component {
               <div className={className.tableWrapper}>
                 <Table
                   currentPage={curPage}
-                  data={batchesData}
+                  data={batches}
                   handlerPageChange={onChangePage}
                   handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(batchesData.length / rowsPerPage)}
+                  pageCount={Math.ceil(batches.length / rowsPerPage)}
                   BodyRow={TableBodyRow}
                   renderHeadRow={this.renderHeadRow()}
                   rowsPerPage={rowsPerPage}
@@ -105,11 +105,11 @@ class AdminWarehouseBatchesViewRaw extends Component {
 
         <Modal openModal={showEditBoxesModal} setOpenModal={onTriggerEditBoxesModal}>
           <EditBatchModal
-            batch={isNotUndefined(selectedBatchIndex) ? batchesData[selectedBatchIndex] : undefined}
+            batch={isNotUndefined(selectedBatchIndex) ? batches[selectedBatchIndex] : undefined}
             setModal={onTriggerEditBoxesModal}
             warehouses={warehouses}
-            deliveryList={DELIVERY_OPTIONS}
-            curUserRole={UserRole.ADMIN}
+            deliveryOptions={DELIVERY_OPTIONS}
+            curUserRole={UserRole.CLIENT}
           />
         </Modal>
       </React.Fragment>

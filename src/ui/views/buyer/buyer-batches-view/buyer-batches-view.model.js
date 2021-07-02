@@ -1,6 +1,9 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {BATCHES} from '@constants/mocks'
+
+import {BuyerModel} from '@models/buyer-model'
 
 export class BuyerBatchesViewModel {
   history = undefined
@@ -8,10 +11,12 @@ export class BuyerBatchesViewModel {
   error = undefined
 
   drawerOpen = false
-  selectedBatchIndex = undefined
-  showEditBoxesModal = false
   rowsPerPage = 5
   curPage = 1
+
+  batches = BATCHES
+  selectedBatchIndex = undefined
+  showEditBoxesModal = false
 
   constructor({history}) {
     this.history = history
@@ -21,7 +26,7 @@ export class BuyerBatchesViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
+      await this.getBatchesData()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -29,6 +34,25 @@ export class BuyerBatchesViewModel {
       if (error.body && error.body.message) {
         this.error = error.body.message
       }
+    }
+  }
+
+  async getBatchesData() {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+      this.error = undefined
+
+      const result = await BuyerModel.getBatches()
+
+      runInAction(() => {
+        this.batches = result
+        console.log(result)
+      })
+
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      this.requestStatus = loadingStatuses.failed
+      console.log(error)
     }
   }
 

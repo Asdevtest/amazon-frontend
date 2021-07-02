@@ -52,6 +52,11 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsUsersGuidDelete(id)
     return response
   }
+
+  getBatches = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsBatchesGet()
+    return response
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

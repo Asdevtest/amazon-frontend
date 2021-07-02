@@ -1,7 +1,7 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {BATCHES_BOXES_EXAMPLES} from '@constants/mocks'
+import {BATCHES} from '@constants/mocks'
 
 import {AdministratorModel} from '@models/administrator-model'
 
@@ -10,22 +10,46 @@ export class AdminWarehouseBatchesViewModel {
   requestStatus = undefined
   error = undefined
 
-  batchesData = [
-    [BATCHES_BOXES_EXAMPLES[0], BATCHES_BOXES_EXAMPLES[2]],
-    [BATCHES_BOXES_EXAMPLES[1]],
-    [BATCHES_BOXES_EXAMPLES[2], BATCHES_BOXES_EXAMPLES[1]],
-    [BATCHES_BOXES_EXAMPLES[0]],
-  ]
-
   drawerOpen = false
-  selectedBatchIndex = undefined
-  showEditBoxesModal = false
   rowsPerPage = 5
   curPage = 1
+
+  batches = BATCHES
+  showEditBoxesModal = false
+  selectedBatchIndex = undefined
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      await this.getBatchesData()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  async getBatchesData() {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+      this.error = undefined
+      const result = await AdministratorModel.getBatches()
+      runInAction(() => {
+        this.batches = result
+      })
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      this.requestStatus = loadingStatuses.failed
+      console.log(error)
+    }
   }
 
   onClickTableRow(batch, index) {
@@ -62,16 +86,7 @@ export class AdminWarehouseBatchesViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  async getBatchesData() {
-    try {
-      this.requestStatus = loadingStatuses.isLoading
-      this.error = undefined
-      const result = await AdministratorModel.getBatches() // сейчас этого запроса не существует
-      this.product = result
-      this.requestStatus = loadingStatuses.success
-    } catch (error) {
-      this.requestStatus = loadingStatuses.failed
-      console.log(error)
-    }
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }
