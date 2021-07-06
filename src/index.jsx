@@ -1,7 +1,11 @@
+/* eslint-disable prefer-const */
 import React from 'react'
 
+// import { validate } from 'class-validator';
 import ReactDOM from 'react-dom'
+import 'reflect-metadata'
 
+// import { BoxesCreateBoxContract } from '@models/boxes-model/boxes-model.contracts';
 import '@services/mobx-persist-configure'
 
 import {reportWebVitals} from '@utils/report-web-vitals'

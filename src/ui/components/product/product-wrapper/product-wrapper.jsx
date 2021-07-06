@@ -12,6 +12,7 @@ export const ProductWrapper = observer(
     suppliers,
     handleSupplierButtons,
     selectedSupplier,
+    formFieldsValidationErrors,
     onClickSupplier,
     onClickSetProductStatusBtn,
     onChangeField,
@@ -19,7 +20,7 @@ export const ProductWrapper = observer(
     handleProductActionButtons,
     onClickParseProductData,
   }) => (
-    <>
+    <React.Fragment>
       <TopCard
         curUserRole={curUserRole}
         product={product}
@@ -33,7 +34,12 @@ export const ProductWrapper = observer(
         onClickSupplier={onClickSupplier}
         onClickParseProductData={onClickParseProductData}
       />
-      <BottomCard curUserRole={curUserRole} product={product} onChangeField={onChangeField} />
-    </>
+      <BottomCard
+        curUserRole={curUserRole}
+        product={product}
+        formFieldsValidationErrors={formFieldsValidationErrors}
+        onChangeField={onChangeField}
+      />
+    </React.Fragment>
   ),
 )

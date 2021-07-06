@@ -56,6 +56,7 @@ class ResearcherProductsViewRaw extends Component {
     const rowsHandlers = {
       onClickTableRow,
     }
+
     return (
       <React.Fragment>
         <Navbar

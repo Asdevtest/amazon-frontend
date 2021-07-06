@@ -73,3 +73,9 @@ export const getMinObjPropertyByField = (array, objProperty) => {
   const numbArr = array.map(item => item[objProperty])
   return Math.min.apply(Math, numbArr)
 }
+
+export const getNewObjectWithDefaultValue = (target, defaultValue) =>
+  getObjectKeys(target).reduce((acc, cur) => {
+    acc[cur] = defaultValue
+    return acc
+  }, {})

@@ -117,8 +117,8 @@ export const EditOrderModal = ({
           <CreateOrEditBoxForm
             selectFieldsArePreDefined
             order={orderFields}
-            onSubmit={(boxId, boxFileds) => {
-              onSubmitCreateBox(boxId, boxFileds)
+            onSubmit={(boxId, boxFields) => {
+              onSubmitCreateBox(boxId, boxFields)
               onSubmitSaveOrder(order, orderFields)
             }}
           />

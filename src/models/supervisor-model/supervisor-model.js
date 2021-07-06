@@ -1,4 +1,8 @@
+import {transformAndValidate} from 'class-transformer-validator'
+
 import {restApiService} from '@services/rest-api-service/rest-api-service'
+
+import {SupervisorUpdateProductContract} from './supervisor-model.contracts'
 
 class SupervisorModelStatic {
   getProductsVacant = async () => {
@@ -12,6 +16,8 @@ class SupervisorModelStatic {
   }
 
   updateProduct = async (id, data) => {
+    await transformAndValidate(SupervisorUpdateProductContract, data)
+
     const response = await restApiService.supervisorApi.apiV1SupervisorsProductsGuidPatch(id, data)
     if (response && response.error) {
       throw new Error(response.message)
