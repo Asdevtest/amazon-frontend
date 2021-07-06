@@ -22,10 +22,19 @@ class InlineObject20 {
     /**
      * Constructs a new <code>InlineObject20</code>.
      * @alias module:model/InlineObject20
+     * @param id {String} ASIN продукта
+     * @param lamazon {String} Ссылка на этот продукт на амазоне.
+     * @param bsr {Number} 
+     * @param amazon {Number} 
+     * @param supplier {Array.<String>} Массив поставщиков.
+     * @param fbafee {Number} ФБА комиссия
+     * @param delivery {Number} Стоимость доставки.
+     * @param icomment {String} Комментарии к товару.
+     * @param images {Array.<String>} Массив изображений.
      */
-    constructor() { 
+    constructor(id, lamazon, bsr, amazon, supplier, fbafee, delivery, icomment, images) { 
         
-        InlineObject20.initialize(this);
+        InlineObject20.initialize(this, id, lamazon, bsr, amazon, supplier, fbafee, delivery, icomment, images);
     }
 
     /**
@@ -33,7 +42,16 @@ class InlineObject20 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, lamazon, bsr, amazon, supplier, fbafee, delivery, icomment, images) { 
+        obj['id'] = id;
+        obj['lamazon'] = lamazon;
+        obj['bsr'] = bsr;
+        obj['amazon'] = amazon;
+        obj['supplier'] = supplier;
+        obj['fbafee'] = fbafee;
+        obj['delivery'] = delivery;
+        obj['icomment'] = icomment;
+        obj['images'] = images;
     }
 
     /**
@@ -47,11 +65,11 @@ class InlineObject20 {
         if (data) {
             obj = obj || new InlineObject20();
 
-            if (data.hasOwnProperty('sku')) {
-                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
-            if (data.hasOwnProperty('material')) {
-                obj['material'] = ApiClient.convertToType(data['material'], 'String');
+            if (data.hasOwnProperty('lamazon')) {
+                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
             }
             if (data.hasOwnProperty('currentSupplier')) {
                 obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'String');
@@ -59,41 +77,17 @@ class InlineObject20 {
             if (data.hasOwnProperty('category')) {
                 obj['category'] = ApiClient.convertToType(data['category'], 'String');
             }
-            if (data.hasOwnProperty('lamazon')) {
-                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
-            }
-            if (data.hasOwnProperty('lsupplier')) {
-                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
-            }
             if (data.hasOwnProperty('bsr')) {
                 obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
             }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('express')) {
-                obj['express'] = ApiClient.convertToType(data['express'], 'Boolean');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
             if (data.hasOwnProperty('amazon')) {
                 obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
             }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
-            }
-            if (data.hasOwnProperty('weight')) {
-                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
-            }
             if (data.hasOwnProperty('supplier')) {
                 obj['supplier'] = ApiClient.convertToType(data['supplier'], ['String']);
-            }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
             }
             if (data.hasOwnProperty('fbafee')) {
                 obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
@@ -101,44 +95,23 @@ class InlineObject20 {
             if (data.hasOwnProperty('delivery')) {
                 obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
             }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
-            }
-            if (data.hasOwnProperty('fbalink')) {
-                obj['fbalink'] = ApiClient.convertToType(data['fbalink'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
             if (data.hasOwnProperty('icomment')) {
                 obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('amazonDescription')) {
-                obj['amazonDescription'] = ApiClient.convertToType(data['amazonDescription'], 'String');
-            }
-            if (data.hasOwnProperty('amazonDetail')) {
-                obj['amazonDetail'] = ApiClient.convertToType(data['amazonDetail'], 'String');
-            }
-            if (data.hasOwnProperty('amazonTitle')) {
-                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
-            }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
-            if (data.hasOwnProperty('minpurchase')) {
-                obj['minpurchase'] = ApiClient.convertToType(data['minpurchase'], 'Number');
-            }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
             if (data.hasOwnProperty('byboxprice')) {
                 obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number');
+            }
+            if (data.hasOwnProperty('researcherRate')) {
+                obj['researcherRate'] = ApiClient.convertToType(data['researcherRate'], 'Number');
+            }
+            if (data.hasOwnProperty('supervisorRate')) {
+                obj['supervisorRate'] = ApiClient.convertToType(data['supervisorRate'], 'Number');
+            }
+            if (data.hasOwnProperty('buyerRate')) {
+                obj['buyerRate'] = ApiClient.convertToType(data['buyerRate'], 'Number');
             }
         }
         return obj;
@@ -146,6 +119,8 @@ class InlineObject20 {
 
 
 }
+
+
 
 
 
@@ -169,17 +144,18 @@ class InlineObject20 {
     "10": 10
 };
 
-/**
- * SKU - ставит склад - только для склада
- * @member {String} sku
- */
-InlineObject20.prototype['sku'] = undefined;
 
 /**
- * add to new functional
- * @member {String} material
+ * ASIN продукта
+ * @member {String} id
  */
-InlineObject20.prototype['material'] = undefined;
+InlineObject20.prototype['id'] = undefined;
+
+/**
+ * Ссылка на этот продукт на амазоне.
+ * @member {String} lamazon
+ */
+InlineObject20.prototype['lamazon'] = undefined;
 
 /**
  * GUID поставщика
@@ -194,33 +170,16 @@ InlineObject20.prototype['currentSupplier'] = undefined;
 InlineObject20.prototype['category'] = undefined;
 
 /**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lamazon
- */
-InlineObject20.prototype['lamazon'] = undefined;
-
-/**
- * Ссылка на поставщика.
- * @member {String} lsupplier
- */
-InlineObject20.prototype['lsupplier'] = undefined;
-
-/**
  * @member {Number} bsr
  */
 InlineObject20.prototype['bsr'] = undefined;
 
 /**
- * Признак fba
- * @member {Boolean} fba
+ *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
+ * @member {module:model/InlineObject20.StatusEnum} status
+ * @default StatusEnum.0
  */
-InlineObject20.prototype['fba'] = undefined;
-
-/**
- *  уточнить 
- * @member {Boolean} express
- */
-InlineObject20.prototype['express'] = undefined;
+InlineObject20.prototype['status'] = InlineObject20.StatusEnum[0];
 
 /**
  * @member {Number} amazon
@@ -228,36 +187,10 @@ InlineObject20.prototype['express'] = undefined;
 InlineObject20.prototype['amazon'] = undefined;
 
 /**
- * @member {Number} height
- */
-InlineObject20.prototype['height'] = undefined;
-
-/**
- * @member {Number} width
- */
-InlineObject20.prototype['width'] = undefined;
-
-/**
- * @member {Number} length
- */
-InlineObject20.prototype['length'] = undefined;
-
-/**
- * @member {Number} weight
- */
-InlineObject20.prototype['weight'] = undefined;
-
-/**
  * Массив поставщиков.
  * @member {Array.<String>} supplier
  */
 InlineObject20.prototype['supplier'] = undefined;
-
-/**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
- */
-InlineObject20.prototype['reffee'] = undefined;
 
 /**
  * ФБА комиссия
@@ -272,24 +205,6 @@ InlineObject20.prototype['fbafee'] = undefined;
 InlineObject20.prototype['delivery'] = undefined;
 
 /**
- *  Общая сумма с фба.
- * @member {Number} fbaamount
- */
-InlineObject20.prototype['fbaamount'] = undefined;
-
-/**
- * @member {String} fbalink
- */
-InlineObject20.prototype['fbalink'] = undefined;
-
-/**
- *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
- * @member {module:model/InlineObject20.StatusEnum} status
- * @default StatusEnum.0
- */
-InlineObject20.prototype['status'] = InlineObject20.StatusEnum[0];
-
-/**
  * Комментарии к товару.
  * @member {String} icomment
  */
@@ -302,50 +217,28 @@ InlineObject20.prototype['icomment'] = undefined;
 InlineObject20.prototype['images'] = undefined;
 
 /**
- * @member {String} amazonDescription
- */
-InlineObject20.prototype['amazonDescription'] = undefined;
-
-/**
- * @member {String} amazonDetail
- */
-InlineObject20.prototype['amazonDetail'] = undefined;
-
-/**
- * @member {String} amazonTitle
- */
-InlineObject20.prototype['amazonTitle'] = undefined;
-
-/**
- * @member {String} barCode
- */
-InlineObject20.prototype['barCode'] = undefined;
-
-/**
- * @member {Number} minpurchase
- */
-InlineObject20.prototype['minpurchase'] = undefined;
-
-/**
- * Прибыль
- * @member {Number} profit
- */
-InlineObject20.prototype['profit'] = undefined;
-
-/**
- * Маржа
- * @member {Number} margin
- */
-InlineObject20.prototype['margin'] = undefined;
-
-/**
  * Цена
  * @member {Number} byboxprice
  */
 InlineObject20.prototype['byboxprice'] = undefined;
 
+/**
+ * Савка ресечера.
+ * @member {Number} researcherRate
+ */
+InlineObject20.prototype['researcherRate'] = undefined;
 
+/**
+ * Савка супервайзера.
+ * @member {Number} supervisorRate
+ */
+InlineObject20.prototype['supervisorRate'] = undefined;
 
+/**
+ * Савка байера.
+ * @member {Number} buyerRate
+ */
+InlineObject20.prototype['buyerRate'] = undefined;
 
 
 

@@ -4,10 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**dirdecision** | **Number** | Решение по товару. | [optional] 
-**researcherFine** | **Number** | Штраф на менеджера. | [optional] 
-**researcherFineComment** | **String** | Комментарии к штрафу на менеджера. | [optional] 
-**supervisorFine** | **Number** | Штраф на супервайзера. | [optional] 
-**supervisorFineComment** | **String** | Комментарий к штрафу на супервайзера. | [optional] 
+**taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
+**boxes** | **[String]** | Массив коробок. | 
+**operationType** | **String** | Тип операции | 
+
+
+
+## Enum: OperationTypeEnum
+
+
+* `merge` (value: `"merge"`)
+
+* `split` (value: `"split"`)
+
+
 
 

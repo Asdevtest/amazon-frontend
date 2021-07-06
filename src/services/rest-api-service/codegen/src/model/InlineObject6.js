@@ -47,8 +47,8 @@ class InlineObject6 {
         if (data) {
             obj = obj || new InlineObject6();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -59,9 +59,9 @@ class InlineObject6 {
 
 /**
  * GUID коробки, объединение которой нужно отменить
- * @member {String} guids
+ * @member {String} guid
  */
-InlineObject6.prototype['guids'] = undefined;
+InlineObject6.prototype['guid'] = undefined;
 
 
 

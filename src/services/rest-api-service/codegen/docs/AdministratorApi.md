@@ -6,10 +6,12 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1AdminsGetCheckingProductsGet**](AdministratorApi.md#apiV1AdminsGetCheckingProductsGet) | **GET** /api/v1/admins/get_checking_products | # Получить список товаров, которые находятся на проверке. 
 [**apiV1AdminsGetNotPaidProductsGet**](AdministratorApi.md#apiV1AdminsGetNotPaidProductsGet) | **GET** /api/v1/admins/get_not_paid_products | # Получить список не оплаченных товаров.
+[**apiV1AdminsGetProductsByStatusStatusGet**](AdministratorApi.md#apiV1AdminsGetProductsByStatusStatusGet) | **GET** /api/v1/admins/get_products_by_status/{status} | # Получить список продуктов с фильтром по статусу.
 [**apiV1AdminsGetVacProductsGet**](AdministratorApi.md#apiV1AdminsGetVacProductsGet) | **GET** /api/v1/admins/get_vac_products | # Получить список товаров, которые ожидают проверку. 
 [**apiV1AdminsGetWaitingProductsGet**](AdministratorApi.md#apiV1AdminsGetWaitingProductsGet) | **GET** /api/v1/admins/get_waiting_products | # Получить список товаров, которые ожидают проверку. 
 [**apiV1AdminsMakePaymentPost**](AdministratorApi.md#apiV1AdminsMakePaymentPost) | **POST** /api/v1/admins/make_payment | # Создать оплату или штраф для пользователя.
 [**apiV1AdminsMakeProductsPaidPost**](AdministratorApi.md#apiV1AdminsMakeProductsPaidPost) | **POST** /api/v1/admins/make_products_paid | # Оплатить выбранные продукты.
+[**apiV1AdminsOrdersStatusGet**](AdministratorApi.md#apiV1AdminsOrdersStatusGet) | **GET** /api/v1/admins/orders/{status} | # Получить список заказов.
 [**apiV1AdminsPatchProductsGuidPatch**](AdministratorApi.md#apiV1AdminsPatchProductsGuidPatch) | **PATCH** /api/v1/admins/patch_products/{guid} | # Внести изменения в продукт.
 [**apiV1AdminsPickupProductGuidPost**](AdministratorApi.md#apiV1AdminsPickupProductGuidPost) | **POST** /api/v1/admins/pickup_product/{guid} | # Взять продукт на проверку.
 [**apiV1AdminsUsersGet**](AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
@@ -106,6 +108,60 @@ apiInstance.apiV1AdminsGetNotPaidProductsGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+
+### Return type
+
+[**[InlineResponse200]**](InlineResponse200.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html
+
+
+## apiV1AdminsGetProductsByStatusStatusGet
+
+> [InlineResponse200] apiV1AdminsGetProductsByStatusStatusGet(status, opts)
+
+# Получить список продуктов с фильтром по статусу.
+
+## Получить список продуктов с фильтром по статусу.   
+
+### Example
+
+```javascript
+import Amazonapi from 'amazonapi';
+let defaultClient = Amazonapi.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new Amazonapi.AdministratorApi();
+let status = 3.4; // Number | Статус товара
+let opts = {
+  'Accept_Encoding': gzip, deflate // String | 
+};
+apiInstance.apiV1AdminsGetProductsByStatusStatusGet(status, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **Number**| Статус товара | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
@@ -334,6 +390,60 @@ Name | Type | Description  | Notes
 - **Accept**: text/html
 
 
+## apiV1AdminsOrdersStatusGet
+
+> [InlineResponse2001] apiV1AdminsOrdersStatusGet(status, opts)
+
+# Получить список заказов.
+
+## Получить список заказов.   
+
+### Example
+
+```javascript
+import Amazonapi from 'amazonapi';
+let defaultClient = Amazonapi.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new Amazonapi.AdministratorApi();
+let status = 3.4; // Number | Статус заказа для фильтра.
+let opts = {
+  'Accept_Encoding': gzip, deflate // String | 
+};
+apiInstance.apiV1AdminsOrdersStatusGet(status, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **Number**| Статус заказа для фильтра. | 
+ **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+
+### Return type
+
+[**[InlineResponse2001]**](InlineResponse2001.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html
+
+
 ## apiV1AdminsPatchProductsGuidPatch
 
 > String apiV1AdminsPatchProductsGuidPatch(guid, InlineObject, opts)
@@ -446,7 +556,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsUsersGet
 
-> [InlineResponse2001] apiV1AdminsUsersGet(opts)
+> [InlineResponse2002] apiV1AdminsUsersGet(opts)
 
 Получить всех пользователей.
 
@@ -484,7 +594,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2001]**](InlineResponse2001.md)
+[**[InlineResponse2002]**](InlineResponse2002.md)
 
 ### Authorization
 

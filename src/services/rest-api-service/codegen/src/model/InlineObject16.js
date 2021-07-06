@@ -22,12 +22,10 @@ class InlineObject16 {
     /**
      * Constructs a new <code>InlineObject16</code>.
      * @alias module:model/InlineObject16
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxId {String} GUID коробки для которой создана задача
      */
-    constructor(taskId, boxId) { 
+    constructor() { 
         
-        InlineObject16.initialize(this, taskId, boxId);
+        InlineObject16.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject16 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, boxId) { 
-        obj['taskId'] = taskId;
-        obj['boxId'] = boxId;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,8 @@ class InlineObject16 {
         if (data) {
             obj = obj || new InlineObject16();
 
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
-            }
-            if (data.hasOwnProperty('boxId')) {
-                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
             }
         }
         return obj;
@@ -65,16 +58,10 @@ class InlineObject16 {
 }
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * массив GUIDов оплаченных товаров
+ * @member {Array.<String>} guids
  */
-InlineObject16.prototype['taskId'] = undefined;
-
-/**
- * GUID коробки для которой создана задача
- * @member {String} boxId
- */
-InlineObject16.prototype['boxId'] = undefined;
+InlineObject16.prototype['guids'] = undefined;
 
 
 

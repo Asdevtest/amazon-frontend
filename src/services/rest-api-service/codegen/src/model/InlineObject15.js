@@ -47,23 +47,23 @@ class InlineObject15 {
         if (data) {
             obj = obj || new InlineObject15();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('currentSupplier')) {
+                obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'String');
             }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('dirdecision')) {
+                obj['dirdecision'] = ApiClient.convertToType(data['dirdecision'], 'Number');
             }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            if (data.hasOwnProperty('researcherFine')) {
+                obj['researcherFine'] = ApiClient.convertToType(data['researcherFine'], 'Number');
             }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            if (data.hasOwnProperty('researcherFineComment')) {
+                obj['researcherFineComment'] = ApiClient.convertToType(data['researcherFineComment'], 'String');
             }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('supervisorFine')) {
+                obj['supervisorFine'] = ApiClient.convertToType(data['supervisorFine'], 'Number');
             }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            if (data.hasOwnProperty('supervisorFineComment')) {
+                obj['supervisorFineComment'] = ApiClient.convertToType(data['supervisorFineComment'], 'String');
             }
         }
         return obj;
@@ -73,40 +73,40 @@ class InlineObject15 {
 }
 
 /**
- * Код текущего состояния заказа.
- * @member {Number} status
+ * GUID поставщика
+ * @member {String} currentSupplier
  */
-InlineObject15.prototype['status'] = undefined;
+InlineObject15.prototype['currentSupplier'] = undefined;
 
 /**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
+ * Решение по товару.
+ * @member {Number} dirdecision
  */
-InlineObject15.prototype['amount'] = undefined;
+InlineObject15.prototype['dirdecision'] = undefined;
 
 /**
- * Код метода доставки.
- * @member {Number} deliveryMethod
+ * Штраф на менеджера.
+ * @member {Number} researcherFine
  */
-InlineObject15.prototype['deliveryMethod'] = undefined;
+InlineObject15.prototype['researcherFine'] = undefined;
 
 /**
- * Номер склада.
- * @member {Number} warehouse
+ * Комментарии к штрафу на менеджера.
+ * @member {String} researcherFineComment
  */
-InlineObject15.prototype['warehouse'] = undefined;
+InlineObject15.prototype['researcherFineComment'] = undefined;
 
 /**
- * Комментарии клиента.
- * @member {String} clientComment
+ * Штраф на супервайзера.
+ * @member {Number} supervisorFine
  */
-InlineObject15.prototype['clientComment'] = undefined;
+InlineObject15.prototype['supervisorFine'] = undefined;
 
 /**
- * Ссылка на баркод.
- * @member {String} barCode
+ * Комментарий к штрафу на супервайзера.
+ * @member {String} supervisorFineComment
  */
-InlineObject15.prototype['barCode'] = undefined;
+InlineObject15.prototype['supervisorFineComment'] = undefined;
 
 
 

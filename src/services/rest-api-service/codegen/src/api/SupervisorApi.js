@@ -13,7 +13,7 @@
 
 
 import ApiClient from "../ApiClient";
-import InlineObject22 from '../model/InlineObject22';
+import InlineObject23 from '../model/InlineObject23';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse400 from '../model/InlineResponse400';
@@ -186,21 +186,21 @@ export default class SupervisorApi {
      * # Изменить статус и дать комментарий доя продукта.
      * ## Изменить статус и дать комментарий для продукта.  ## 20, 70, 80, 90 - эти статусы запускают процесс выплат. После того как поставлен   ## одн из таких статусов - больше нельзя така как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,      researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,       // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/    
      * @param {String} guid GUID продукта, который планируем изменить
-     * @param {module:model/InlineObject22} InlineObject22 
+     * @param {module:model/InlineObject23} InlineObject23 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, InlineObject22, opts) {
+    apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, InlineObject23, opts) {
       opts = opts || {};
-      let postBody = InlineObject22;
+      let postBody = InlineObject23;
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1SupervisorsProductsGuidPatch");
       }
-      // verify the required parameter 'InlineObject22' is set
-      if (InlineObject22 === undefined || InlineObject22 === null) {
-        throw new Error("Missing the required parameter 'InlineObject22' when calling apiV1SupervisorsProductsGuidPatch");
+      // verify the required parameter 'InlineObject23' is set
+      if (InlineObject23 === undefined || InlineObject23 === null) {
+        throw new Error("Missing the required parameter 'InlineObject23' when calling apiV1SupervisorsProductsGuidPatch");
       }
 
       let pathParams = {
@@ -229,13 +229,13 @@ export default class SupervisorApi {
      * # Изменить статус и дать комментарий доя продукта.
      * ## Изменить статус и дать комментарий для продукта.  ## 20, 70, 80, 90 - эти статусы запускают процесс выплат. После того как поставлен   ## одн из таких статусов - больше нельзя така как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,      researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,       // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/    
      * @param {String} guid GUID продукта, который планируем изменить
-     * @param {module:model/InlineObject22} InlineObject22 
+     * @param {module:model/InlineObject23} InlineObject23 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1SupervisorsProductsGuidPatch(guid, InlineObject22, opts) {
-      return this.apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, InlineObject22, opts)
+    apiV1SupervisorsProductsGuidPatch(guid, InlineObject23, opts) {
+      return this.apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, InlineObject23, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

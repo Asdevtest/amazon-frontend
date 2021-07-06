@@ -13,10 +13,10 @@
 
 
 import ApiClient from "../ApiClient";
-import InlineObject17 from '../model/InlineObject17';
-import InlineObject18 from '../model/InlineObject18';
+import InlineObject13 from '../model/InlineObject13';
+import InlineObject14 from '../model/InlineObject14';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse2011 from '../model/InlineResponse2011';
+import InlineResponse2013 from '../model/InlineResponse2013';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse500 from '../model/InlineResponse500';
@@ -155,12 +155,12 @@ export default class ProductForTestOnlyApi {
      * @param {String} id GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject18} opts.InlineObject18 
+     * @param {module:model/InlineObject14} opts.InlineObject14 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductsIdPatchWithHttpInfo(id, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject18'];
+      let postBody = opts['InlineObject14'];
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling apiV1ProductsIdPatch");
@@ -194,7 +194,7 @@ export default class ProductForTestOnlyApi {
      * @param {String} id GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject18} opts.InlineObject18 
+     * @param {module:model/InlineObject14} opts.InlineObject14 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductsIdPatch(id, opts) {
@@ -208,17 +208,17 @@ export default class ProductForTestOnlyApi {
     /**
      * Добавить новый продукт.
      * ## Добавить новый продукт.   
-     * @param {module:model/InlineObject17} InlineObject17 
+     * @param {module:model/InlineObject13} InlineObject13 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2013} and HTTP response
      */
-    apiV1ProductsPostWithHttpInfo(InlineObject17, opts) {
+    apiV1ProductsPostWithHttpInfo(InlineObject13, opts) {
       opts = opts || {};
-      let postBody = InlineObject17;
-      // verify the required parameter 'InlineObject17' is set
-      if (InlineObject17 === undefined || InlineObject17 === null) {
-        throw new Error("Missing the required parameter 'InlineObject17' when calling apiV1ProductsPost");
+      let postBody = InlineObject13;
+      // verify the required parameter 'InlineObject13' is set
+      if (InlineObject13 === undefined || InlineObject13 === null) {
+        throw new Error("Missing the required parameter 'InlineObject13' when calling apiV1ProductsPost");
       }
 
       let pathParams = {
@@ -234,7 +234,7 @@ export default class ProductForTestOnlyApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2011;
+      let returnType = InlineResponse2013;
       return this.apiClient.callApi(
         '/api/v1/products/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -245,13 +245,13 @@ export default class ProductForTestOnlyApi {
     /**
      * Добавить новый продукт.
      * ## Добавить новый продукт.   
-     * @param {module:model/InlineObject17} InlineObject17 
+     * @param {module:model/InlineObject13} InlineObject13 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2013}
      */
-    apiV1ProductsPost(InlineObject17, opts) {
-      return this.apiV1ProductsPostWithHttpInfo(InlineObject17, opts)
+    apiV1ProductsPost(InlineObject13, opts) {
+      return this.apiV1ProductsPostWithHttpInfo(InlineObject13, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

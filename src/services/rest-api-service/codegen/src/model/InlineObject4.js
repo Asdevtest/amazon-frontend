@@ -52,6 +52,9 @@ class InlineObject4 {
         if (data) {
             obj = obj || new InlineObject4();
 
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
             if (data.hasOwnProperty('lengthCm')) {
                 obj['lengthCm'] = ApiClient.convertToType(data['lengthCm'], 'Number');
             }
@@ -109,12 +112,21 @@ class InlineObject4 {
             if (data.hasOwnProperty('clientId')) {
                 obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
             }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
         }
         return obj;
     }
 
 
 }
+
+/**
+ * Сколько таких же коробок в одной коробке
+ * @member {Number} amount
+ */
+InlineObject4.prototype['amount'] = undefined;
 
 /**
  * Поле в которое наследуем данные размеров коробок
@@ -229,6 +241,12 @@ InlineObject4.prototype['items'] = undefined;
  * @member {String} clientId
  */
 InlineObject4.prototype['clientId'] = undefined;
+
+/**
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
+ */
+InlineObject4.prototype['images'] = undefined;
 
 
 

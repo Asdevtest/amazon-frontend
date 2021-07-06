@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## apiV1SuppliersGet
 
-> [ApiV1AdminsGetNotPaidProductsSupplier] apiV1SuppliersGet(opts)
+> [ApiV1AdminsGetProductsByStatusStatusCurrentSupplier] apiV1SuppliersGet(opts)
 
 # Получить список поставщиков.
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1AdminsGetNotPaidProductsSupplier]**](ApiV1AdminsGetNotPaidProductsSupplier.md)
+[**[ApiV1AdminsGetProductsByStatusStatusCurrentSupplier]**](ApiV1AdminsGetProductsByStatusStatusCurrentSupplier.md)
 
 ### Authorization
 
@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersGuidGet
 
-> ApiV1AdminsGetNotPaidProductsSupplier apiV1SuppliersGuidGet(guid, opts)
+> ApiV1AdminsGetProductsByStatusStatusCurrentSupplier apiV1SuppliersGuidGet(guid, opts)
 
 # Получить одного поставщика.
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV1AdminsGetNotPaidProductsSupplier**](ApiV1AdminsGetNotPaidProductsSupplier.md)
+[**ApiV1AdminsGetProductsByStatusStatusCurrentSupplier**](ApiV1AdminsGetProductsByStatusStatusCurrentSupplier.md)
 
 ### Authorization
 
@@ -195,7 +195,7 @@ let apiInstance = new Amazonapi.SupplierApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject24': new Amazonapi.InlineObject24() // InlineObject24 | 
+  'InlineObject25': new Amazonapi.InlineObject25() // InlineObject25 | 
 };
 apiInstance.apiV1SuppliersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject24** | [**InlineObject24**](InlineObject24.md)|  | [optional] 
+ **InlineObject25** | [**InlineObject25**](InlineObject25.md)|  | [optional] 
 
 ### Return type
 
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersPost
 
-> InlineResponse2011 apiV1SuppliersPost(InlineObject23, opts)
+> InlineResponse2013 apiV1SuppliersPost(InlineObject24, opts)
 
 # Добавить нового поставщика.
 
@@ -248,11 +248,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.SupplierApi();
-let InlineObject23 = new Amazonapi.InlineObject23(); // InlineObject23 | 
+let InlineObject24 = new Amazonapi.InlineObject24(); // InlineObject24 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1SuppliersPost(InlineObject23, opts).then((data) => {
+apiInstance.apiV1SuppliersPost(InlineObject24, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -265,12 +265,12 @@ apiInstance.apiV1SuppliersPost(InlineObject23, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject23** | [**InlineObject23**](InlineObject23.md)|  | 
+ **InlineObject24** | [**InlineObject24**](InlineObject24.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
 
-[**InlineResponse2011**](InlineResponse2011.md)
+[**InlineResponse2013**](InlineResponse2013.md)
 
 ### Authorization
 

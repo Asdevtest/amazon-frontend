@@ -22,19 +22,12 @@ class InlineObject23 {
     /**
      * Constructs a new <code>InlineObject23</code>.
      * @alias module:model/InlineObject23
-     * @param id {String} id поставщика.
-     * @param name {String} Название поставщика.
-     * @param link {String} Ссылка на поставщика.
-     * @param price {Number} Цена
-     * @param delivery {Number} Тип доставки
-     * @param amount {Number} кол-во
-     * @param minlot {Number} Минимальный лот.
-     * @param lotcost {Number} Стоимость лота.
-     * @param comment {String} Комментарий
+     * @param status {module:model/InlineObject23.StatusEnum} См. описание статусов например в readMe.md
+     * @param checkednotes {String} Комментарий к статусу проверки.
      */
-    constructor(id, name, link, price, delivery, amount, minlot, lotcost, comment) { 
+    constructor(status, checkednotes) { 
         
-        InlineObject23.initialize(this, id, name, link, price, delivery, amount, minlot, lotcost, comment);
+        InlineObject23.initialize(this, status, checkednotes);
     }
 
     /**
@@ -42,16 +35,9 @@ class InlineObject23 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name, link, price, delivery, amount, minlot, lotcost, comment) { 
-        obj['id'] = id;
-        obj['name'] = name;
-        obj['link'] = link;
-        obj['price'] = price;
-        obj['delivery'] = delivery;
-        obj['amount'] = amount;
-        obj['minlot'] = minlot;
-        obj['lotcost'] = lotcost;
-        obj['comment'] = comment;
+    static initialize(obj, status, checkednotes) { 
+        obj['status'] = status;
+        obj['checkednotes'] = checkednotes;
     }
 
     /**
@@ -65,32 +51,11 @@ class InlineObject23 {
         if (data) {
             obj = obj || new InlineObject23();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
-            }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('checkednotes')) {
+                obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
             }
         }
         return obj;
@@ -100,61 +65,58 @@ class InlineObject23 {
 }
 
 /**
- * id поставщика.
- * @member {String} id
+ * См. описание статусов например в readMe.md
+ * @member {module:model/InlineObject23.StatusEnum} status
  */
-InlineObject23.prototype['id'] = undefined;
+InlineObject23.prototype['status'] = undefined;
 
 /**
- * Название поставщика.
- * @member {String} name
+ * Комментарий к статусу проверки.
+ * @member {String} checkednotes
  */
-InlineObject23.prototype['name'] = undefined;
+InlineObject23.prototype['checkednotes'] = undefined;
+
+
+
+
 
 /**
- * Ссылка на поставщика.
- * @member {String} link
+ * Allowed values for the <code>status</code> property.
+ * @enum {Number}
+ * @readonly
  */
-InlineObject23.prototype['link'] = undefined;
+InlineObject23['StatusEnum'] = {
 
-/**
- * Цена
- * @member {Number} price
- */
-InlineObject23.prototype['price'] = undefined;
+    /**
+     * value: 20
+     * @const
+     */
+    "20": 20,
 
-/**
- * Тип доставки
- * @member {Number} delivery
- */
-InlineObject23.prototype['delivery'] = undefined;
+    /**
+     * value: 30
+     * @const
+     */
+    "30": 30,
 
-/**
- * кол-во
- * @member {Number} amount
- */
-InlineObject23.prototype['amount'] = undefined;
+    /**
+     * value: 70
+     * @const
+     */
+    "70": 70,
 
-/**
- * Минимальный лот.
- * @member {Number} minlot
- */
-InlineObject23.prototype['minlot'] = undefined;
+    /**
+     * value: 80
+     * @const
+     */
+    "80": 80,
 
-/**
- * Стоимость лота.
- * @member {Number} lotcost
- */
-InlineObject23.prototype['lotcost'] = undefined;
-
-/**
- * Комментарий
- * @member {String} comment
- */
-InlineObject23.prototype['comment'] = undefined;
-
-
-
+    /**
+     * value: 90
+     * @const
+     */
+    "90": 90
+};
 
 
 

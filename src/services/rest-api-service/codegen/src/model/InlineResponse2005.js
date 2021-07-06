@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 
 /**
  * The InlineResponse2005 model module.
@@ -22,13 +23,14 @@ class InlineResponse2005 {
     /**
      * Constructs a new <code>InlineResponse2005</code>.
      * @alias module:model/InlineResponse2005
+     * @param _id {String} GUID
      * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxId {String} GUID коробки для которой создана задача
+     * @param boxes {Array.<module:model/ApiV1BatchesBoxes>} Массив коробок.
      * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      */
-    constructor(taskId, boxId, status) { 
+    constructor(_id, taskId, boxes, status) { 
         
-        InlineResponse2005.initialize(this, taskId, boxId, status);
+        InlineResponse2005.initialize(this, _id, taskId, boxes, status);
     }
 
     /**
@@ -36,9 +38,10 @@ class InlineResponse2005 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, boxId, status) { 
+    static initialize(obj, _id, taskId, boxes, status) { 
+        obj['_id'] = _id;
         obj['taskId'] = taskId;
-        obj['boxId'] = boxId;
+        obj['boxes'] = boxes;
         obj['status'] = status;
     }
 
@@ -53,17 +56,26 @@ class InlineResponse2005 {
         if (data) {
             obj = obj || new InlineResponse2005();
 
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
             if (data.hasOwnProperty('taskId')) {
                 obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
             }
-            if (data.hasOwnProperty('boxId')) {
-                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
+            }
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
             }
             if (data.hasOwnProperty('storekeeperId')) {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('createDate')) {
+                obj['createDate'] = ApiClient.convertToType(data['createDate'], 'Date');
             }
         }
         return obj;
@@ -73,16 +85,28 @@ class InlineResponse2005 {
 }
 
 /**
+ * GUID
+ * @member {String} _id
+ */
+InlineResponse2005.prototype['_id'] = undefined;
+
+/**
  * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
  * @member {Number} taskId
  */
 InlineResponse2005.prototype['taskId'] = undefined;
 
 /**
- * GUID коробки для которой создана задача
- * @member {String} boxId
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
  */
-InlineResponse2005.prototype['boxId'] = undefined;
+InlineResponse2005.prototype['boxes'] = undefined;
+
+/**
+ * Тип операции
+ * @member {module:model/InlineResponse2005.OperationTypeEnum} operationType
+ */
+InlineResponse2005.prototype['operationType'] = undefined;
 
 /**
  * GUID сотрудника склада, который выполняет задачу.
@@ -96,8 +120,35 @@ InlineResponse2005.prototype['storekeeperId'] = undefined;
  */
 InlineResponse2005.prototype['status'] = undefined;
 
+/**
+ * Дата создания.
+ * @member {Date} createDate
+ */
+InlineResponse2005.prototype['createDate'] = undefined;
 
 
+
+
+
+/**
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse2005['OperationTypeEnum'] = {
+
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
+
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split"
+};
 
 
 

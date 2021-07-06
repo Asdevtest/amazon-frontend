@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Код текущего состояния заказа. | [optional] 
-**amount** | **Number** | Кол-во продукта по этой позиции. | [optional] 
-**deliveryMethod** | **Number** | Код метода доставки. | [optional] 
-**warehouse** | **Number** | Номер склада. | [optional] 
-**clientComment** | **String** | Комментарии клиента. | [optional] 
-**barCode** | **String** | Ссылка на баркод. | [optional] 
+**currentSupplier** | **String** | GUID поставщика | [optional] 
+**dirdecision** | **Number** | Решение по товару. | [optional] 
+**researcherFine** | **Number** | Штраф на менеджера. | [optional] 
+**researcherFineComment** | **String** | Комментарии к штрафу на менеджера. | [optional] 
+**supervisorFine** | **Number** | Штраф на супервайзера. | [optional] 
+**supervisorFineComment** | **String** | Комментарий к штрафу на супервайзера. | [optional] 
 
 

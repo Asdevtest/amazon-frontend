@@ -65,12 +65,16 @@ class InlineObject11 {
             if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
                 obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
             }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
         }
         return obj;
     }
 
 
 }
+
 
 
 
@@ -168,6 +172,11 @@ InlineObject11.prototype['status'] = InlineObject11.StatusEnum[1];
  */
 InlineObject11.prototype['deliveryCostToTheWarehouse'] = undefined;
 
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject11.prototype['images'] = undefined;
 
 
 

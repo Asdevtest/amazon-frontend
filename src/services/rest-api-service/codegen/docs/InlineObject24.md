@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Название поставщика. | [optional] 
-**link** | **String** | Ссылка на поставщика. | [optional] 
-**price** | **Number** | Цена | [optional] 
-**delivery** | **Number** | Тип доставки | [optional] 
-**amount** | **Number** | кол-во | [optional] 
-**minlot** | **Number** | Минимальный лот. | [optional] 
-**lotcost** | **Number** | Стоимость лота. | [optional] 
-**comment** | **String** | Комментарий | [optional] 
+**name** | **String** | Название поставщика. | 
+**link** | **String** | Ссылка на поставщика. | 
+**price** | **Number** | Цена | 
+**delivery** | **Number** | Тип доставки | 
+**amount** | **Number** | кол-во | 
+**minlot** | **Number** | Минимальный лот. | 
+**lotcost** | **Number** | Стоимость лота. | 
+**comment** | **String** | Комментарий | 
 
 

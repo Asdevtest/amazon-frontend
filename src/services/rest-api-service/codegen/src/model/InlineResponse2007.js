@@ -21,12 +21,23 @@ import ApiClient from '../ApiClient';
 class InlineResponse2007 {
     /**
      * Constructs a new <code>InlineResponse2007</code>.
-     * Успешный ответ.
+     * Схема парсинга данных с амазона.
      * @alias module:model/InlineResponse2007
+     * @param id {String} id продукта(asin)
+     * @param images {Array.<String>} массив с именами файлов
+     * @param title {String} Заголовок продукта
+     * @param about {String} О продукте.
+     * @param description {String} Описание
+     * @param price {String} Цена.
+     * @param availability {String} Доступность.
+     * @param detail {String} Детали.
+     * @param asin {String} ASIN
+     * @param bsr {String} BSR
+     * @param weight {String} Вес.
      */
-    constructor() { 
+    constructor(id, images, title, about, description, price, availability, detail, asin, bsr, weight) { 
         
-        InlineResponse2007.initialize(this);
+        InlineResponse2007.initialize(this, id, images, title, about, description, price, availability, detail, asin, bsr, weight);
     }
 
     /**
@@ -34,7 +45,18 @@ class InlineResponse2007 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, images, title, about, description, price, availability, detail, asin, bsr, weight) { 
+        obj['id'] = id;
+        obj['images'] = images;
+        obj['title'] = title;
+        obj['about'] = about;
+        obj['description'] = description;
+        obj['price'] = price;
+        obj['availability'] = availability;
+        obj['detail'] = detail;
+        obj['asin'] = asin;
+        obj['bsr'] = bsr;
+        obj['weight'] = weight;
     }
 
     /**
@@ -48,8 +70,38 @@ class InlineResponse2007 {
         if (data) {
             obj = obj || new InlineResponse2007();
 
-            if (data.hasOwnProperty('isExist')) {
-                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('about')) {
+                obj['about'] = ApiClient.convertToType(data['about'], 'String');
+            }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'String');
+            }
+            if (data.hasOwnProperty('availability')) {
+                obj['availability'] = ApiClient.convertToType(data['availability'], 'String');
+            }
+            if (data.hasOwnProperty('detail')) {
+                obj['detail'] = ApiClient.convertToType(data['detail'], 'String');
+            }
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
+            if (data.hasOwnProperty('bsr')) {
+                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'String');
+            }
+            if (data.hasOwnProperty('weight')) {
+                obj['weight'] = ApiClient.convertToType(data['weight'], 'String');
             }
         }
         return obj;
@@ -59,10 +111,70 @@ class InlineResponse2007 {
 }
 
 /**
- * Флаг, показывает есть ли такой id в базе или нет
- * @member {Boolean} isExist
+ * id продукта(asin)
+ * @member {String} id
  */
-InlineResponse2007.prototype['isExist'] = undefined;
+InlineResponse2007.prototype['id'] = undefined;
+
+/**
+ * массив с именами файлов
+ * @member {Array.<String>} images
+ */
+InlineResponse2007.prototype['images'] = undefined;
+
+/**
+ * Заголовок продукта
+ * @member {String} title
+ */
+InlineResponse2007.prototype['title'] = undefined;
+
+/**
+ * О продукте.
+ * @member {String} about
+ */
+InlineResponse2007.prototype['about'] = undefined;
+
+/**
+ * Описание
+ * @member {String} description
+ */
+InlineResponse2007.prototype['description'] = undefined;
+
+/**
+ * Цена.
+ * @member {String} price
+ */
+InlineResponse2007.prototype['price'] = undefined;
+
+/**
+ * Доступность.
+ * @member {String} availability
+ */
+InlineResponse2007.prototype['availability'] = undefined;
+
+/**
+ * Детали.
+ * @member {String} detail
+ */
+InlineResponse2007.prototype['detail'] = undefined;
+
+/**
+ * ASIN
+ * @member {String} asin
+ */
+InlineResponse2007.prototype['asin'] = undefined;
+
+/**
+ * BSR
+ * @member {String} bsr
+ */
+InlineResponse2007.prototype['bsr'] = undefined;
+
+/**
+ * Вес.
+ * @member {String} weight
+ */
+InlineResponse2007.prototype['weight'] = undefined;
 
 
 

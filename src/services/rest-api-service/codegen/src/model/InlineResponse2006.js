@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1ClientsBatchesId from './ApiV1ClientsBatchesId';
 
 /**
  * The InlineResponse2006 model module.
@@ -22,13 +21,12 @@ import ApiV1ClientsBatchesId from './ApiV1ClientsBatchesId';
 class InlineResponse2006 {
     /**
      * Constructs a new <code>InlineResponse2006</code>.
+     * Успешный ответ.
      * @alias module:model/InlineResponse2006
-     * @param _id {module:model/ApiV1ClientsBatchesId} 
-     * @param boxes {Array.<String>} Массив коробок.
      */
-    constructor(_id, boxes) { 
+    constructor() { 
         
-        InlineResponse2006.initialize(this, _id, boxes);
+        InlineResponse2006.initialize(this);
     }
 
     /**
@@ -36,9 +34,7 @@ class InlineResponse2006 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, boxes) { 
-        obj['_id'] = _id;
-        obj['boxes'] = boxes;
+    static initialize(obj) { 
     }
 
     /**
@@ -52,11 +48,8 @@ class InlineResponse2006 {
         if (data) {
             obj = obj || new InlineResponse2006();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiV1ClientsBatchesId.constructFromObject(data['_id']);
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
         }
         return obj;
@@ -66,15 +59,10 @@ class InlineResponse2006 {
 }
 
 /**
- * @member {module:model/ApiV1ClientsBatchesId} _id
+ * Флаг, показывает есть ли такой id в базе или нет
+ * @member {Boolean} isExist
  */
-InlineResponse2006.prototype['_id'] = undefined;
-
-/**
- * Массив коробок.
- * @member {Array.<String>} boxes
- */
-InlineResponse2006.prototype['boxes'] = undefined;
+InlineResponse2006.prototype['isExist'] = undefined;
 
 
 

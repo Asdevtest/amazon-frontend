@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## apiV1StorekeepersBatchesGet
 
-> [InlineResponse2006] apiV1StorekeepersBatchesGet(opts)
+> [InlineResponse2003] apiV1StorekeepersBatchesGet(opts)
 
 # Получить партии....
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksGuidPatch
 
-> String apiV1StorekeepersTasksGuidPatch(guid, InlineObject21, opts)
+> String apiV1StorekeepersTasksGuidPatch(guid, InlineObject22, opts)
 
 # Изменить задачу.
 
@@ -85,11 +85,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new Amazonapi.StorekeepersApi();
 let guid = "guid_example"; // String | GUID задачи, которую мы хотим изменить
-let InlineObject21 = new Amazonapi.InlineObject21(); // InlineObject21 | 
+let InlineObject22 = new Amazonapi.InlineObject22(); // InlineObject22 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1StorekeepersTasksGuidPatch(guid, InlineObject21, opts).then((data) => {
+apiInstance.apiV1StorekeepersTasksGuidPatch(guid, InlineObject22, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -103,7 +103,7 @@ apiInstance.apiV1StorekeepersTasksGuidPatch(guid, InlineObject21, opts).then((da
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID задачи, которую мы хотим изменить | 
- **InlineObject21** | [**InlineObject21**](InlineObject21.md)|  | 
+ **InlineObject22** | [**InlineObject22**](InlineObject22.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
@@ -122,7 +122,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksMyGet
 
-> [InlineResponse20010] apiV1StorekeepersTasksMyGet(opts)
+> [InlineResponse2009] apiV1StorekeepersTasksMyGet(opts)
 
 # Получить задачи закрепленные за данным сборщиком..
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20010]**](InlineResponse20010.md)
+[**[InlineResponse2009]**](InlineResponse2009.md)
 
 ### Authorization
 
@@ -228,7 +228,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksVacGet
 
-> [InlineResponse20010] apiV1StorekeepersTasksVacGet(opts)
+> [InlineResponse2009] apiV1StorekeepersTasksVacGet(opts)
 
 # Получить задачи не закрепленные за сотрудниками склада.
 
@@ -266,7 +266,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20010]**](InlineResponse20010.md)
+[**[InlineResponse2009]**](InlineResponse2009.md)
 
 ### Authorization
 

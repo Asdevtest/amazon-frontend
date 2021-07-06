@@ -183,7 +183,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsDraftsGet
 
-> [InlineResponse2002] apiV1BoxesClientsDraftsGet(opts)
+> [ApiV1BatchesBoxes] apiV1BoxesClientsDraftsGet(opts)
 
 # Получить черновики коробок и их строки по текущему клиенту.
 
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
 
 ### Authorization
 
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsGet
 
-> [InlineResponse2002] apiV1BoxesClientsGet(opts)
+> [ApiV1BatchesBoxes] apiV1BoxesClientsGet(opts)
 
 # Получить коробки и их строки по текущему клиенту.
 
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
 
 ### Authorization
 
@@ -287,7 +287,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesDraftsGet
 
-> [InlineResponse2002] apiV1BoxesDraftsGet(opts)
+> [ApiV1BatchesBoxes] apiV1BoxesDraftsGet(opts)
 
 # Получить черновики коробок и их строки.
 
@@ -325,7 +325,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
 
 ### Authorization
 
@@ -339,7 +339,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesGet
 
-> [InlineResponse2002] apiV1BoxesGet(opts)
+> [ApiV1BatchesBoxes] apiV1BoxesGet(opts)
 
 # Получить коробки и их строки.
 
@@ -377,7 +377,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
 
 ### Authorization
 
@@ -445,7 +445,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesMergePost
 
-> String apiV1BoxesMergePost(opts)
+> InlineResponse2011 apiV1BoxesMergePost(opts)
 
 # Объединить две и более коробок.
 
@@ -485,7 +485,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**InlineResponse2011**](InlineResponse2011.md)
 
 ### Authorization
 
@@ -553,7 +553,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesSplitPost
 
-> String apiV1BoxesSplitPost(opts)
+> [String] apiV1BoxesSplitPost(opts)
 
 # Разделить коробку.
 
@@ -593,7 +593,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+**[String]**
 
 ### Authorization
 

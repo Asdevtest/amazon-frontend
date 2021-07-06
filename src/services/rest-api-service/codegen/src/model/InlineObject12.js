@@ -22,10 +22,13 @@ class InlineObject12 {
     /**
      * Constructs a new <code>InlineObject12</code>.
      * @alias module:model/InlineObject12
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param boxes {Array.<String>} Массив коробок.
+     * @param operationType {module:model/InlineObject12.OperationTypeEnum} Тип операции
      */
-    constructor() { 
+    constructor(taskId, boxes, operationType) { 
         
-        InlineObject12.initialize(this);
+        InlineObject12.initialize(this, taskId, boxes, operationType);
     }
 
     /**
@@ -33,7 +36,10 @@ class InlineObject12 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, taskId, boxes, operationType) { 
+        obj['taskId'] = taskId;
+        obj['boxes'] = boxes;
+        obj['operationType'] = operationType;
     }
 
     /**
@@ -47,20 +53,14 @@ class InlineObject12 {
         if (data) {
             obj = obj || new InlineObject12();
 
-            if (data.hasOwnProperty('dirdecision')) {
-                obj['dirdecision'] = ApiClient.convertToType(data['dirdecision'], 'Number');
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
             }
-            if (data.hasOwnProperty('researcherFine')) {
-                obj['researcherFine'] = ApiClient.convertToType(data['researcherFine'], 'Number');
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
             }
-            if (data.hasOwnProperty('researcherFineComment')) {
-                obj['researcherFineComment'] = ApiClient.convertToType(data['researcherFineComment'], 'String');
-            }
-            if (data.hasOwnProperty('supervisorFine')) {
-                obj['supervisorFine'] = ApiClient.convertToType(data['supervisorFine'], 'Number');
-            }
-            if (data.hasOwnProperty('supervisorFineComment')) {
-                obj['supervisorFineComment'] = ApiClient.convertToType(data['supervisorFineComment'], 'String');
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
             }
         }
         return obj;
@@ -70,37 +70,46 @@ class InlineObject12 {
 }
 
 /**
- * Решение по товару.
- * @member {Number} dirdecision
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
  */
-InlineObject12.prototype['dirdecision'] = undefined;
+InlineObject12.prototype['taskId'] = undefined;
 
 /**
- * Штраф на менеджера.
- * @member {Number} researcherFine
+ * Массив коробок.
+ * @member {Array.<String>} boxes
  */
-InlineObject12.prototype['researcherFine'] = undefined;
+InlineObject12.prototype['boxes'] = undefined;
 
 /**
- * Комментарии к штрафу на менеджера.
- * @member {String} researcherFineComment
+ * Тип операции
+ * @member {module:model/InlineObject12.OperationTypeEnum} operationType
  */
-InlineObject12.prototype['researcherFineComment'] = undefined;
+InlineObject12.prototype['operationType'] = undefined;
+
+
+
+
 
 /**
- * Штраф на супервайзера.
- * @member {Number} supervisorFine
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineObject12.prototype['supervisorFine'] = undefined;
+InlineObject12['OperationTypeEnum'] = {
 
-/**
- * Комментарий к штрафу на супервайзера.
- * @member {String} supervisorFineComment
- */
-InlineObject12.prototype['supervisorFineComment'] = undefined;
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
 
-
-
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split"
+};
 
 
 

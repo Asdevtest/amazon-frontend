@@ -22,12 +22,11 @@ class InlineObject22 {
     /**
      * Constructs a new <code>InlineObject22</code>.
      * @alias module:model/InlineObject22
-     * @param status {module:model/InlineObject22.StatusEnum} См. описание статусов например в readMe.md
-     * @param checkednotes {String} Комментарий к статусу проверки.
+     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      */
-    constructor(status, checkednotes) { 
+    constructor(status) { 
         
-        InlineObject22.initialize(this, status, checkednotes);
+        InlineObject22.initialize(this, status);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject22 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, status, checkednotes) { 
+    static initialize(obj, status) { 
         obj['status'] = status;
-        obj['checkednotes'] = checkednotes;
     }
 
     /**
@@ -54,9 +52,6 @@ class InlineObject22 {
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('checkednotes')) {
-                obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
-            }
         }
         return obj;
     }
@@ -65,58 +60,13 @@ class InlineObject22 {
 }
 
 /**
- * См. описание статусов например в readMe.md
- * @member {module:model/InlineObject22.StatusEnum} status
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
+ * @member {Number} status
  */
 InlineObject22.prototype['status'] = undefined;
 
-/**
- * Комментарий к статусу проверки.
- * @member {String} checkednotes
- */
-InlineObject22.prototype['checkednotes'] = undefined;
 
 
-
-
-
-/**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
- */
-InlineObject22['StatusEnum'] = {
-
-    /**
-     * value: 20
-     * @const
-     */
-    "20": 20,
-
-    /**
-     * value: 30
-     * @const
-     */
-    "30": 30,
-
-    /**
-     * value: 70
-     * @const
-     */
-    "70": 70,
-
-    /**
-     * value: 80
-     * @const
-     */
-    "80": 80,
-
-    /**
-     * value: 90
-     * @const
-     */
-    "90": 90
-};
 
 
 

@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetNotPaidProductsCreatedby from './ApiV1AdminsGetNotPaidProductsCreatedby';
-import ApiV1AdminsGetNotPaidProductsSupplier from './ApiV1AdminsGetNotPaidProductsSupplier';
+import ApiV1AdminsGetProductsByStatusStatusCreatedby from './ApiV1AdminsGetProductsByStatusStatusCreatedby';
+import ApiV1AdminsGetProductsByStatusStatusCurrentSupplier from './ApiV1AdminsGetProductsByStatusStatusCurrentSupplier';
 
 /**
  * The InlineResponse200 model module.
@@ -28,17 +28,15 @@ class InlineResponse200 {
      * @param _id {String} GUID продукта в базе данных
      * @param id {String} ASIN продукта
      * @param lamazon {String} Ссылка на этот продукт на амазоне.
-     * @param lsupplier {String} Ссылка на поставщика.
      * @param bsr {Number} 
      * @param fba {Boolean} Признак fba
      * @param amazon {Number} 
-     * @param supplier {Array.<module:model/ApiV1AdminsGetNotPaidProductsSupplier>} Массив Поставщиков.
-     * @param reffee {Number} комиссия которую берет амазон за любой заказ - 15%
+     * @param supplier {Array.<module:model/ApiV1AdminsGetProductsByStatusStatusCurrentSupplier>} 
      * @param icomment {String} Комментарии к товару.
      */
-    constructor(_id, id, lamazon, lsupplier, bsr, fba, amazon, supplier, reffee, icomment) { 
+    constructor(_id, id, lamazon, bsr, fba, amazon, supplier, icomment) { 
         
-        InlineResponse200.initialize(this, _id, id, lamazon, lsupplier, bsr, fba, amazon, supplier, reffee, icomment);
+        InlineResponse200.initialize(this, _id, id, lamazon, bsr, fba, amazon, supplier, icomment);
     }
 
     /**
@@ -46,16 +44,14 @@ class InlineResponse200 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, id, lamazon, lsupplier, bsr, fba, amazon, supplier, reffee, icomment) { 
+    static initialize(obj, _id, id, lamazon, bsr, fba, amazon, supplier, icomment) { 
         obj['_id'] = _id;
         obj['id'] = id;
         obj['lamazon'] = lamazon;
-        obj['lsupplier'] = lsupplier;
         obj['bsr'] = bsr;
         obj['fba'] = fba;
         obj['amazon'] = amazon;
         obj['supplier'] = supplier;
-        obj['reffee'] = reffee;
         obj['icomment'] = icomment;
     }
 
@@ -80,16 +76,13 @@ class InlineResponse200 {
                 obj['material'] = ApiClient.convertToType(data['material'], 'String');
             }
             if (data.hasOwnProperty('currentSupplier')) {
-                obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'String');
+                obj['currentSupplier'] = ApiV1AdminsGetProductsByStatusStatusCurrentSupplier.constructFromObject(data['currentSupplier']);
             }
             if (data.hasOwnProperty('category')) {
                 obj['category'] = ApiClient.convertToType(data['category'], 'String');
             }
             if (data.hasOwnProperty('lamazon')) {
                 obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
-            }
-            if (data.hasOwnProperty('lsupplier')) {
-                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
             }
             if (data.hasOwnProperty('bsr')) {
                 obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
@@ -116,7 +109,7 @@ class InlineResponse200 {
                 obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
             }
             if (data.hasOwnProperty('supplier')) {
-                obj['supplier'] = ApiClient.convertToType(data['supplier'], [ApiV1AdminsGetNotPaidProductsSupplier]);
+                obj['supplier'] = ApiClient.convertToType(data['supplier'], [ApiV1AdminsGetProductsByStatusStatusCurrentSupplier]);
             }
             if (data.hasOwnProperty('reffee')) {
                 obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
@@ -185,19 +178,31 @@ class InlineResponse200 {
                 obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number');
             }
             if (data.hasOwnProperty('createdby')) {
-                obj['createdby'] = ApiV1AdminsGetNotPaidProductsCreatedby.constructFromObject(data['createdby']);
+                obj['createdby'] = ApiV1AdminsGetProductsByStatusStatusCreatedby.constructFromObject(data['createdby']);
             }
             if (data.hasOwnProperty('createdat')) {
                 obj['createdat'] = ApiClient.convertToType(data['createdat'], 'Date');
+            }
+            if (data.hasOwnProperty('updateDate')) {
+                obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
             }
             if (data.hasOwnProperty('checkedat')) {
                 obj['checkedat'] = ApiClient.convertToType(data['checkedat'], 'Date');
             }
             if (data.hasOwnProperty('buyer')) {
-                obj['buyer'] = ApiV1AdminsGetNotPaidProductsCreatedby.constructFromObject(data['buyer']);
+                obj['buyer'] = ApiV1AdminsGetProductsByStatusStatusCreatedby.constructFromObject(data['buyer']);
             }
             if (data.hasOwnProperty('buyerscomment')) {
                 obj['buyerscomment'] = ApiClient.convertToType(data['buyerscomment'], 'String');
+            }
+            if (data.hasOwnProperty('researcherRate')) {
+                obj['researcherRate'] = ApiClient.convertToType(data['researcherRate'], 'Number');
+            }
+            if (data.hasOwnProperty('supervisorRate')) {
+                obj['supervisorRate'] = ApiClient.convertToType(data['supervisorRate'], 'Number');
+            }
+            if (data.hasOwnProperty('buyerRate')) {
+                obj['buyerRate'] = ApiClient.convertToType(data['buyerRate'], 'Number');
             }
         }
         return obj;
@@ -224,8 +229,7 @@ InlineResponse200.prototype['id'] = undefined;
 InlineResponse200.prototype['material'] = undefined;
 
 /**
- * GUID поставщика
- * @member {String} currentSupplier
+ * @member {module:model/ApiV1AdminsGetProductsByStatusStatusCurrentSupplier} currentSupplier
  */
 InlineResponse200.prototype['currentSupplier'] = undefined;
 
@@ -240,12 +244,6 @@ InlineResponse200.prototype['category'] = undefined;
  * @member {String} lamazon
  */
 InlineResponse200.prototype['lamazon'] = undefined;
-
-/**
- * Ссылка на поставщика.
- * @member {String} lsupplier
- */
-InlineResponse200.prototype['lsupplier'] = undefined;
 
 /**
  * @member {Number} bsr
@@ -294,8 +292,7 @@ InlineResponse200.prototype['length'] = undefined;
 InlineResponse200.prototype['weight'] = undefined;
 
 /**
- * Массив Поставщиков.
- * @member {Array.<module:model/ApiV1AdminsGetNotPaidProductsSupplier>} supplier
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusStatusCurrentSupplier>} supplier
  */
 InlineResponse200.prototype['supplier'] = undefined;
 
@@ -431,7 +428,7 @@ InlineResponse200.prototype['margin'] = undefined;
 InlineResponse200.prototype['byboxprice'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetNotPaidProductsCreatedby} createdby
+ * @member {module:model/ApiV1AdminsGetProductsByStatusStatusCreatedby} createdby
  */
 InlineResponse200.prototype['createdby'] = undefined;
 
@@ -442,13 +439,19 @@ InlineResponse200.prototype['createdby'] = undefined;
 InlineResponse200.prototype['createdat'] = undefined;
 
 /**
+ * Дата изменения
+ * @member {Date} updateDate
+ */
+InlineResponse200.prototype['updateDate'] = undefined;
+
+/**
  * Дата проверки
  * @member {Date} checkedat
  */
 InlineResponse200.prototype['checkedat'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetNotPaidProductsCreatedby} buyer
+ * @member {module:model/ApiV1AdminsGetProductsByStatusStatusCreatedby} buyer
  */
 InlineResponse200.prototype['buyer'] = undefined;
 
@@ -457,6 +460,24 @@ InlineResponse200.prototype['buyer'] = undefined;
  * @member {String} buyerscomment
  */
 InlineResponse200.prototype['buyerscomment'] = undefined;
+
+/**
+ * Савка ресечера.
+ * @member {Number} researcherRate
+ */
+InlineResponse200.prototype['researcherRate'] = undefined;
+
+/**
+ * Савка супервайзера.
+ * @member {Number} supervisorRate
+ */
+InlineResponse200.prototype['supervisorRate'] = undefined;
+
+/**
+ * Савка байера.
+ * @member {Number} buyerRate
+ */
+InlineResponse200.prototype['buyerRate'] = undefined;
 
 
 

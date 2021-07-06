@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **fba** | **Boolean** | Признак FBA это заказ или нет. | [optional] 
 **status** | **Number** | tmp | [optional] [default to StatusEnum.1]
 **deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
 
 
 

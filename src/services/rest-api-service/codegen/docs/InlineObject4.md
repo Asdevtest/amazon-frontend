@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**amount** | **Number** | Сколько таких же коробок в одной коробке | [optional] 
 **lengthCm** | **Number** | Поле в которое наследуем данные размеров коробок | [optional] 
 **widthCm** | **Number** | Поле в которое наследуем данные размеров коробок | [optional] 
 **heightCm** | **Number** | Поле в которое наследуем данные размеров коробок | [optional] 
@@ -23,5 +24,6 @@ Name | Type | Description | Notes
 **isDraft** | **Boolean** | true - если создаем черновик заказа. | [optional] 
 **items** | [**[ApiV1BoxesItems]**](ApiV1BoxesItems.md) | Массив коробок. | 
 **clientId** | **String** | GUID клиента | 
+**images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 
 

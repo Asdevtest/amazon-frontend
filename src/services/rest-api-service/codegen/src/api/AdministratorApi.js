@@ -19,6 +19,7 @@ import InlineObject2 from '../model/InlineObject2';
 import InlineObject3 from '../model/InlineObject3';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
+import InlineResponse2002 from '../model/InlineResponse2002';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
@@ -132,6 +133,60 @@ export default class AdministratorApi {
      */
     apiV1AdminsGetNotPaidProductsGet(opts) {
       return this.apiV1AdminsGetNotPaidProductsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить список продуктов с фильтром по статусу.
+     * ## Получить список продуктов с фильтром по статусу.   
+     * @param {Number} status Статус товара
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     */
+    apiV1AdminsGetProductsByStatusStatusGetWithHttpInfo(status, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'status' is set
+      if (status === undefined || status === null) {
+        throw new Error("Missing the required parameter 'status' when calling apiV1AdminsGetProductsByStatusStatusGet");
+      }
+
+      let pathParams = {
+        'status': status
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse200];
+      return this.apiClient.callApi(
+        '/api/v1/admins/get_products_by_status/{status}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить список продуктов с фильтром по статусу.
+     * ## Получить список продуктов с фильтром по статусу.   
+     * @param {Number} status Статус товара
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     */
+    apiV1AdminsGetProductsByStatusStatusGet(status, opts) {
+      return this.apiV1AdminsGetProductsByStatusStatusGetWithHttpInfo(status, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -335,6 +390,60 @@ export default class AdministratorApi {
 
 
     /**
+     * # Получить список заказов.
+     * ## Получить список заказов.   
+     * @param {Number} status Статус заказа для фильтра.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2001>} and HTTP response
+     */
+    apiV1AdminsOrdersStatusGetWithHttpInfo(status, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'status' is set
+      if (status === undefined || status === null) {
+        throw new Error("Missing the required parameter 'status' when calling apiV1AdminsOrdersStatusGet");
+      }
+
+      let pathParams = {
+        'status': status
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2001];
+      return this.apiClient.callApi(
+        '/api/v1/admins/orders/{status}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить список заказов.
+     * ## Получить список заказов.   
+     * @param {Number} status Статус заказа для фильтра.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2001>}
+     */
+    apiV1AdminsOrdersStatusGet(status, opts) {
+      return this.apiV1AdminsOrdersStatusGetWithHttpInfo(status, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Внести изменения в продукт.
      * ## Внести изменения в продукт.   ## УТОЧНИТЬ ПОХОЖЕ УЖЕУСТАРЕЛО. .   
      * @param {String} guid GUID продукта в БД.
@@ -453,7 +562,7 @@ export default class AdministratorApi {
      * ## Получить всех пользователей.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2001>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
      */
     apiV1AdminsUsersGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -472,7 +581,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2001];
+      let returnType = [InlineResponse2002];
       return this.apiClient.callApi(
         '/api/v1/admins/users', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -485,7 +594,7 @@ export default class AdministratorApi {
      * ## Получить всех пользователей.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2001>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
      */
     apiV1AdminsUsersGet(opts) {
       return this.apiV1AdminsUsersGetWithHttpInfo(opts)

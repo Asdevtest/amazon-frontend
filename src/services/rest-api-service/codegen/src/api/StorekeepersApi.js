@@ -13,9 +13,9 @@
 
 
 import ApiClient from "../ApiClient";
-import InlineObject21 from '../model/InlineObject21';
-import InlineResponse20010 from '../model/InlineResponse20010';
-import InlineResponse2006 from '../model/InlineResponse2006';
+import InlineObject22 from '../model/InlineObject22';
+import InlineResponse2003 from '../model/InlineResponse2003';
+import InlineResponse2009 from '../model/InlineResponse2009';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse500 from '../model/InlineResponse500';
@@ -45,7 +45,7 @@ export default class StorekeepersApi {
      * ## Получить партии...  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
      */
     apiV1StorekeepersBatchesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -64,7 +64,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2006];
+      let returnType = [InlineResponse2003];
       return this.apiClient.callApi(
         '/api/v1/storekeepers/batches', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -77,7 +77,7 @@ export default class StorekeepersApi {
      * ## Получить партии...  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
      */
     apiV1StorekeepersBatchesGet(opts) {
       return this.apiV1StorekeepersBatchesGetWithHttpInfo(opts)
@@ -91,21 +91,21 @@ export default class StorekeepersApi {
      * # Изменить задачу.
      * ## Изменить задачу. Здесь только статус.   
      * @param {String} guid GUID задачи, которую мы хотим изменить
-     * @param {module:model/InlineObject21} InlineObject21 
+     * @param {module:model/InlineObject22} InlineObject22 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1StorekeepersTasksGuidPatchWithHttpInfo(guid, InlineObject21, opts) {
+    apiV1StorekeepersTasksGuidPatchWithHttpInfo(guid, InlineObject22, opts) {
       opts = opts || {};
-      let postBody = InlineObject21;
+      let postBody = InlineObject22;
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1StorekeepersTasksGuidPatch");
       }
-      // verify the required parameter 'InlineObject21' is set
-      if (InlineObject21 === undefined || InlineObject21 === null) {
-        throw new Error("Missing the required parameter 'InlineObject21' when calling apiV1StorekeepersTasksGuidPatch");
+      // verify the required parameter 'InlineObject22' is set
+      if (InlineObject22 === undefined || InlineObject22 === null) {
+        throw new Error("Missing the required parameter 'InlineObject22' when calling apiV1StorekeepersTasksGuidPatch");
       }
 
       let pathParams = {
@@ -134,13 +134,13 @@ export default class StorekeepersApi {
      * # Изменить задачу.
      * ## Изменить задачу. Здесь только статус.   
      * @param {String} guid GUID задачи, которую мы хотим изменить
-     * @param {module:model/InlineObject21} InlineObject21 
+     * @param {module:model/InlineObject22} InlineObject22 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1StorekeepersTasksGuidPatch(guid, InlineObject21, opts) {
-      return this.apiV1StorekeepersTasksGuidPatchWithHttpInfo(guid, InlineObject21, opts)
+    apiV1StorekeepersTasksGuidPatch(guid, InlineObject22, opts) {
+      return this.apiV1StorekeepersTasksGuidPatchWithHttpInfo(guid, InlineObject22, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -152,7 +152,7 @@ export default class StorekeepersApi {
      * ## Получить задачи закрепленные за данным сборщиком.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20010>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
      */
     apiV1StorekeepersTasksMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -171,7 +171,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse20010];
+      let returnType = [InlineResponse2009];
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -184,7 +184,7 @@ export default class StorekeepersApi {
      * ## Получить задачи закрепленные за данным сборщиком.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20010>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
      */
     apiV1StorekeepersTasksMyGet(opts) {
       return this.apiV1StorekeepersTasksMyGetWithHttpInfo(opts)
@@ -253,7 +253,7 @@ export default class StorekeepersApi {
      * ## Получить задачи не закрепленные за сотрудниками склада.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20010>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
      */
     apiV1StorekeepersTasksVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -272,7 +272,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse20010];
+      let returnType = [InlineResponse2009];
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -285,7 +285,7 @@ export default class StorekeepersApi {
      * ## Получить задачи не закрепленные за сотрудниками склада.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20010>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
      */
     apiV1StorekeepersTasksVacGet(opts) {
       return this.apiV1StorekeepersTasksVacGetWithHttpInfo(opts)

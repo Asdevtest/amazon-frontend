@@ -47,6 +47,9 @@ class InlineObject10 {
         if (data) {
             obj = obj || new InlineObject10();
 
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
             if (data.hasOwnProperty('lengthCm')) {
                 obj['lengthCm'] = ApiClient.convertToType(data['lengthCm'], 'Number');
             }
@@ -98,6 +101,12 @@ class InlineObject10 {
 
 
 }
+
+/**
+ * Сколько таких же коробок в одной коробке
+ * @member {Number} amount
+ */
+InlineObject10.prototype['amount'] = undefined;
 
 /**
  * Поле в которое наследуем данные размеров коробок

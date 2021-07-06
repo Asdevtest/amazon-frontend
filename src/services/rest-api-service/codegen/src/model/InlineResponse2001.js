@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsOrdersStatusCreatedBy from './ApiV1AdminsOrdersStatusCreatedBy';
+import InlineResponse200 from './InlineResponse200';
 
 /**
  * The InlineResponse2001 model module.
@@ -21,18 +23,17 @@ import ApiClient from '../ApiClient';
 class InlineResponse2001 {
     /**
      * Constructs a new <code>InlineResponse2001</code>.
+     * Заказ.
      * @alias module:model/InlineResponse2001
-     * @param _id {String} GUID пользователя в БД.
-     * @param name {String} Имя пользователя.
-     * @param email {String} email
-     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
-     * @param fba {Boolean} Флаг fba.
-     * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
-     * @param rate {Number} Ставка, по который оплачивается сотрудник.
+     * @param clientComment {String} Комментарии клиента.
+     * @param warehouse {Number} Номер склада.
+     * @param deliveryMethod {Number} Вид доставки.
+     * @param deliveryCostToTheWarehouse {Number} Стоимость доставки до склада.
+     * @param product {module:model/InlineResponse200} 
      */
-    constructor(_id, name, email, role, fba, active, rate) { 
+    constructor(clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) { 
         
-        InlineResponse2001.initialize(this, _id, name, email, role, fba, active, rate);
+        InlineResponse2001.initialize(this, clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product);
     }
 
     /**
@@ -40,14 +41,12 @@ class InlineResponse2001 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, name, email, role, fba, active, rate) { 
-        obj['_id'] = _id;
-        obj['name'] = name;
-        obj['email'] = email;
-        obj['role'] = role;
-        obj['fba'] = fba;
-        obj['active'] = active;
-        obj['rate'] = rate;
+    static initialize(obj, clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) { 
+        obj['clientComment'] = clientComment;
+        obj['warehouse'] = warehouse;
+        obj['deliveryMethod'] = deliveryMethod;
+        obj['deliveryCostToTheWarehouse'] = deliveryCostToTheWarehouse;
+        obj['product'] = product;
     }
 
     /**
@@ -64,23 +63,47 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('buyerId')) {
+                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
             }
             if (data.hasOwnProperty('fba')) {
                 obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
             }
-            if (data.hasOwnProperty('active')) {
-                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('rate')) {
-                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
+            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = InlineResponse200.constructFromObject(data['product']);
+            }
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('createDate')) {
+                obj['createDate'] = ApiClient.convertToType(data['createDate'], 'Date');
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsOrdersStatusCreatedBy.constructFromObject(data['createdBy']);
             }
         }
         return obj;
@@ -89,48 +112,153 @@ class InlineResponse2001 {
 
 }
 
+
+
 /**
- * GUID пользователя в БД.
+ * Allowed values for the <code>status</code> property.
+ * @enum {Number}
+ * @readonly
+ */
+ InlineResponse2001['StatusEnum'] = {
+
+    /**
+     * value: 0
+     * @const
+     */
+    "0": 0,
+
+    /**
+     * value: 1
+     * @const
+     */
+    "1": 1,
+
+    /**
+     * value: 10
+     * @const
+     */
+    "10": 10,
+
+    /**
+     * value: 15
+     * @const
+     */
+    "15": 15,
+
+    /**
+     * value: 20
+     * @const
+     */
+    "20": 20,
+
+    /**
+     * value: 25
+     * @const
+     */
+    "25": 25,
+
+    /**
+     * value: 30
+     * @const
+     */
+    "30": 30,
+
+    /**
+     * value: 35
+     * @const
+     */
+    "35": 35
+};
+
+
+
+/**
+ * GUID данной записи в БД.
  * @member {String} _id
  */
 InlineResponse2001.prototype['_id'] = undefined;
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * GUID пользователя(байера)
+ * @member {String} buyerId
  */
-InlineResponse2001.prototype['name'] = undefined;
+InlineResponse2001.prototype['buyerId'] = undefined;
 
 /**
- * email
- * @member {String} email
+ * Комментарии клиента.
+ * @member {String} clientComment
  */
-InlineResponse2001.prototype['email'] = undefined;
+InlineResponse2001.prototype['clientComment'] = undefined;
 
 /**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
- * @member {Number} role
+ * комментарии байера.
+ * @member {String} buyerComment
  */
-InlineResponse2001.prototype['role'] = undefined;
+InlineResponse2001.prototype['buyerComment'] = undefined;
 
 /**
- * Флаг fba.
+ * Номер склада.
+ * @member {Number} warehouse
+ */
+InlineResponse2001.prototype['warehouse'] = undefined;
+
+/**
+ * Вид доставки.
+ * @member {Number} deliveryMethod
+ */
+InlineResponse2001.prototype['deliveryMethod'] = undefined;
+
+/**
+ * Признак FBA это заказ или нет.
  * @member {Boolean} fba
  */
 InlineResponse2001.prototype['fba'] = undefined;
 
 /**
- * Если истина - пользователь активен. Если нет - заблокирован админом.
- * @member {Boolean} active
+ * tmp
+ * @member {module:model/InlineResponse2001.StatusEnum} status
+ * @default StatusEnum.1
  */
-InlineResponse2001.prototype['active'] = undefined;
+InlineResponse2001.prototype['status'] = InlineResponse2001.StatusEnum[1];
 
 /**
- * Ставка, по который оплачивается сотрудник.
- * @member {Number} rate
+ * Стоимость доставки до склада.
+ * @member {Number} deliveryCostToTheWarehouse
  */
-InlineResponse2001.prototype['rate'] = undefined;
+InlineResponse2001.prototype['deliveryCostToTheWarehouse'] = undefined;
 
+/**
+ * @member {module:model/InlineResponse200} product
+ */
+InlineResponse2001.prototype['product'] = undefined;
+
+/**
+ * ссылка на баркод.
+ * @member {String} barCode
+ */
+InlineResponse2001.prototype['barCode'] = undefined;
+
+/**
+ * кол-во
+ * @member {Number} amount
+ */
+InlineResponse2001.prototype['amount'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse2001.prototype['images'] = undefined;
+
+/**
+ * @member {Date} createDate
+ */
+InlineResponse2001.prototype['createDate'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersStatusCreatedBy} createdBy
+ */
+InlineResponse2001.prototype['createdBy'] = undefined;
 
 
 

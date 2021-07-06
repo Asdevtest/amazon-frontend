@@ -14,9 +14,12 @@
 
 import ApiClient from "../ApiClient";
 import InlineObject11 from '../model/InlineObject11';
+import InlineObject12 from '../model/InlineObject12';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse2003 from '../model/InlineResponse2003';
+import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse2004 from '../model/InlineResponse2004';
+import InlineResponse2005 from '../model/InlineResponse2005';
+import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
@@ -48,7 +51,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2003} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
      */
     apiV1BuyersOrdersGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -72,7 +75,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2003;
+      let returnType = InlineResponse2001;
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -86,7 +89,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2003}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
      */
     apiV1BuyersOrdersGuidGet(guid, opts) {
       return this.apiV1BuyersOrdersGuidGetWithHttpInfo(guid, opts)
@@ -157,7 +160,7 @@ export default class BuyerApi {
      * ## Получить список заказов текущего байера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2001>} and HTTP response
      */
     apiV1BuyersOrdersMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -176,7 +179,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2003];
+      let returnType = [InlineResponse2001];
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -189,7 +192,7 @@ export default class BuyerApi {
      * ## Получить список заказов текущего байера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2001>}
      */
     apiV1BuyersOrdersMyGet(opts) {
       return this.apiV1BuyersOrdersMyGetWithHttpInfo(opts)
@@ -258,7 +261,7 @@ export default class BuyerApi {
      * ## Получить список свободных заказов.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2001>} and HTTP response
      */
     apiV1BuyersOrdersVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -277,7 +280,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2003];
+      let returnType = [InlineResponse2001];
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -290,7 +293,7 @@ export default class BuyerApi {
      * ## Получить список свободных заказов.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2001>}
      */
     apiV1BuyersOrdersVacGet(opts) {
       return this.apiV1BuyersOrdersVacGetWithHttpInfo(opts)
@@ -396,7 +399,7 @@ export default class BuyerApi {
 
     /**
      * # Внести изменения в продукт.
-     * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 30, 40, 50, 60.   
+     * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 30, 35, 40, 50, 60.   
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
@@ -435,7 +438,7 @@ export default class BuyerApi {
 
     /**
      * # Внести изменения в продукт.
-     * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 30, 40, 50, 60.   
+     * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 30, 35, 40, 50, 60.   
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
@@ -592,6 +595,160 @@ export default class BuyerApi {
      */
     apiV1BuyersProductsVacGet(opts) {
       return this.apiV1BuyersProductsVacGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Показать все задачи данного пользователя.
+     * ## Показать все задачи данного пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
+     */
+    apiV1BuyersTasksGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2005];
+      return this.apiClient.callApi(
+        '/api/v1/buyers/tasks', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Показать все задачи данного пользователя.
+     * ## Показать все задачи данного пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
+     */
+    apiV1BuyersTasksGet(opts) {
+      return this.apiV1BuyersTasksGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Удалить задачу.
+     * ## Удалить задачу. !!! Можно удалять только задачи со статусом \"0\".   
+     * @param {String} guid GUID удаляемого объекта.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BuyersTasksGuidDeleteWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BuyersTasksGuidDelete");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/buyers/tasks/{guid}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Удалить задачу.
+     * ## Удалить задачу. !!! Можно удалять только задачи со статусом \"0\".   
+     * @param {String} guid GUID удаляемого объекта.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BuyersTasksGuidDelete(guid, opts) {
+      return this.apiV1BuyersTasksGuidDeleteWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Создать задачу.
+     * ## Создать задачу.   
+     * @param {module:model/InlineObject12} InlineObject12 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2012} and HTTP response
+     */
+    apiV1BuyersTasksPostWithHttpInfo(InlineObject12, opts) {
+      opts = opts || {};
+      let postBody = InlineObject12;
+      // verify the required parameter 'InlineObject12' is set
+      if (InlineObject12 === undefined || InlineObject12 === null) {
+        throw new Error("Missing the required parameter 'InlineObject12' when calling apiV1BuyersTasksPost");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse2012;
+      return this.apiClient.callApi(
+        '/api/v1/buyers/tasks', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Создать задачу.
+     * ## Создать задачу.   
+     * @param {module:model/InlineObject12} InlineObject12 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2012}
+     */
+    apiV1BuyersTasksPost(InlineObject12, opts) {
+      return this.apiV1BuyersTasksPostWithHttpInfo(InlineObject12, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

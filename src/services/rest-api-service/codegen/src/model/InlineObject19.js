@@ -22,20 +22,13 @@ class InlineObject19 {
     /**
      * Constructs a new <code>InlineObject19</code>.
      * @alias module:model/InlineObject19
-     * @param id {String} ASIN продукта
-     * @param lamazon {String} Ссылка на этот продукт на амазоне.
-     * @param lsupplier {String} Ссылка на поставщика.
-     * @param bsr {Number} 
-     * @param amazon {Number} 
-     * @param supplier {Array.<String>} Массив поставщиков.
-     * @param fbafee {Number} ФБА комиссия
-     * @param delivery {Number} Стоимость доставки.
-     * @param icomment {String} Комментарии к товару.
-     * @param images {Array.<String>} Массив изображений.
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param boxes {Array.<String>} Массив коробок.
+     * @param operationType {module:model/InlineObject19.OperationTypeEnum} Тип операции
      */
-    constructor(id, lamazon, lsupplier, bsr, amazon, supplier, fbafee, delivery, icomment, images) { 
+    constructor(taskId, boxes, operationType) { 
         
-        InlineObject19.initialize(this, id, lamazon, lsupplier, bsr, amazon, supplier, fbafee, delivery, icomment, images);
+        InlineObject19.initialize(this, taskId, boxes, operationType);
     }
 
     /**
@@ -43,17 +36,10 @@ class InlineObject19 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, lamazon, lsupplier, bsr, amazon, supplier, fbafee, delivery, icomment, images) { 
-        obj['id'] = id;
-        obj['lamazon'] = lamazon;
-        obj['lsupplier'] = lsupplier;
-        obj['bsr'] = bsr;
-        obj['amazon'] = amazon;
-        obj['supplier'] = supplier;
-        obj['fbafee'] = fbafee;
-        obj['delivery'] = delivery;
-        obj['icomment'] = icomment;
-        obj['images'] = images;
+    static initialize(obj, taskId, boxes, operationType) { 
+        obj['taskId'] = taskId;
+        obj['boxes'] = boxes;
+        obj['operationType'] = operationType;
     }
 
     /**
@@ -67,44 +53,14 @@ class InlineObject19 {
         if (data) {
             obj = obj || new InlineObject19();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
             }
-            if (data.hasOwnProperty('lamazon')) {
-                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
             }
-            if (data.hasOwnProperty('lsupplier')) {
-                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
-            }
-            if (data.hasOwnProperty('category')) {
-                obj['category'] = ApiClient.convertToType(data['category'], 'String');
-            }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
-            }
-            if (data.hasOwnProperty('supplier')) {
-                obj['supplier'] = ApiClient.convertToType(data['supplier'], ['String']);
-            }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('icomment')) {
-                obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('byboxprice')) {
-                obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number');
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
             }
         }
         return obj;
@@ -113,105 +69,47 @@ class InlineObject19 {
 
 }
 
+/**
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
+ */
+InlineObject19.prototype['taskId'] = undefined;
+
+/**
+ * Массив коробок.
+ * @member {Array.<String>} boxes
+ */
+InlineObject19.prototype['boxes'] = undefined;
+
+/**
+ * Тип операции
+ * @member {module:model/InlineObject19.OperationTypeEnum} operationType
+ */
+InlineObject19.prototype['operationType'] = undefined;
+
+
+
 
 
 /**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
  * @readonly
  */
- InlineObject19['StatusEnum'] = {
+InlineObject19['OperationTypeEnum'] = {
 
     /**
-     * value: 0
+     * value: "merge"
      * @const
      */
-    "0": 0,
+    "merge": "merge",
 
     /**
-     * value: 10
+     * value: "split"
      * @const
      */
-    "10": 10
+    "split": "split"
 };
-
-/**
- * ASIN продукта
- * @member {String} id
- */
-InlineObject19.prototype['id'] = undefined;
-
-/**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lamazon
- */
-InlineObject19.prototype['lamazon'] = undefined;
-
-/**
- * Ссылка на поставщика.
- * @member {String} lsupplier
- */
-InlineObject19.prototype['lsupplier'] = undefined;
-
-/**
- * Категория
- * @member {String} category
- */
-InlineObject19.prototype['category'] = undefined;
-
-/**
- * @member {Number} bsr
- */
-InlineObject19.prototype['bsr'] = undefined;
-
-/**
- *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
- * @member {module:model/InlineObject19.StatusEnum} status
- * @default StatusEnum.0
- */
-InlineObject19.prototype['status'] = InlineObject19.StatusEnum[0];
-
-/**
- * @member {Number} amazon
- */
-InlineObject19.prototype['amazon'] = undefined;
-
-/**
- * Массив поставщиков.
- * @member {Array.<String>} supplier
- */
-InlineObject19.prototype['supplier'] = undefined;
-
-/**
- * ФБА комиссия
- * @member {Number} fbafee
- */
-InlineObject19.prototype['fbafee'] = undefined;
-
-/**
- * Стоимость доставки.
- * @member {Number} delivery
- */
-InlineObject19.prototype['delivery'] = undefined;
-
-/**
- * Комментарии к товару.
- * @member {String} icomment
- */
-InlineObject19.prototype['icomment'] = undefined;
-
-/**
- * Массив изображений.
- * @member {Array.<String>} images
- */
-InlineObject19.prototype['images'] = undefined;
-
-/**
- * Цена
- * @member {Number} byboxprice
- */
-InlineObject19.prototype['byboxprice'] = undefined;
-
 
 
 

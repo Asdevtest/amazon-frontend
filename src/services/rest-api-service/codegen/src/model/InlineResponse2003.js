@@ -12,7 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse200 from './InlineResponse200';
+import ApiV1BatchesBatch from './ApiV1BatchesBatch';
+import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 
 /**
  * The InlineResponse2003 model module.
@@ -22,17 +23,13 @@ import InlineResponse200 from './InlineResponse200';
 class InlineResponse2003 {
     /**
      * Constructs a new <code>InlineResponse2003</code>.
-     * Заказ.
      * @alias module:model/InlineResponse2003
-     * @param clientComment {String} Комментарии клиента.
-     * @param warehouse {Number} Номер склада.
-     * @param deliveryMethod {Number} Вид доставки.
-     * @param deliveryCostToTheWarehouse {Number} Стоимость доставки до склада.
-     * @param product {module:model/InlineResponse200} 
+     * @param batch {module:model/ApiV1BatchesBatch} 
+     * @param boxes {Array.<module:model/ApiV1BatchesBoxes>} Массив коробок.
      */
-    constructor(clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) { 
+    constructor(batch, boxes) { 
         
-        InlineResponse2003.initialize(this, clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product);
+        InlineResponse2003.initialize(this, batch, boxes);
     }
 
     /**
@@ -40,12 +37,9 @@ class InlineResponse2003 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) { 
-        obj['clientComment'] = clientComment;
-        obj['warehouse'] = warehouse;
-        obj['deliveryMethod'] = deliveryMethod;
-        obj['deliveryCostToTheWarehouse'] = deliveryCostToTheWarehouse;
-        obj['product'] = product;
+    static initialize(obj, batch, boxes) { 
+        obj['batch'] = batch;
+        obj['boxes'] = boxes;
     }
 
     /**
@@ -59,35 +53,11 @@ class InlineResponse2003 {
         if (data) {
             obj = obj || new InlineResponse2003();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('batch')) {
+                obj['batch'] = ApiV1BatchesBatch.constructFromObject(data['batch']);
             }
-            if (data.hasOwnProperty('buyerId')) {
-                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = InlineResponse200.constructFromObject(data['product']);
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
             }
         }
         return obj;
@@ -96,123 +66,18 @@ class InlineResponse2003 {
 
 }
 
+/**
+ * @member {module:model/ApiV1BatchesBatch} batch
+ */
+InlineResponse2003.prototype['batch'] = undefined;
 
 /**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
  */
- InlineResponse2003['StatusEnum'] = {
-
-    /**
-     * value: 0
-     * @const
-     */
-    "0": 0,
-
-    /**
-     * value: 1
-     * @const
-     */
-    "1": 1,
-
-    /**
-     * value: 10
-     * @const
-     */
-    "10": 10,
-
-    /**
-     * value: 15
-     * @const
-     */
-    "15": 15,
-
-    /**
-     * value: 20
-     * @const
-     */
-    "20": 20,
-
-    /**
-     * value: 25
-     * @const
-     */
-    "25": 25,
-
-    /**
-     * value: 30
-     * @const
-     */
-    "30": 30,
-
-    /**
-     * value: 35
-     * @const
-     */
-    "35": 35
-};
+InlineResponse2003.prototype['boxes'] = undefined;
 
 
-/**
- * GUID данной записи в БД.
- * @member {String} _id
- */
-InlineResponse2003.prototype['_id'] = undefined;
-
-/**
- * GUID пользователя(байера)
- * @member {String} buyerId
- */
-InlineResponse2003.prototype['buyerId'] = undefined;
-
-/**
- * Комментарии клиента.
- * @member {String} clientComment
- */
-InlineResponse2003.prototype['clientComment'] = undefined;
-
-/**
- * комментарии байера.
- * @member {String} buyerComment
- */
-InlineResponse2003.prototype['buyerComment'] = undefined;
-
-/**
- * Номер склада.
- * @member {Number} warehouse
- */
-InlineResponse2003.prototype['warehouse'] = undefined;
-
-/**
- * Вид доставки.
- * @member {Number} deliveryMethod
- */
-InlineResponse2003.prototype['deliveryMethod'] = undefined;
-
-/**
- * Признак FBA это заказ или нет.
- * @member {Boolean} fba
- */
-InlineResponse2003.prototype['fba'] = undefined;
-
-/**
- * tmp
- * @member {module:model/InlineResponse2003.StatusEnum} status
- * @default StatusEnum.1
- */
-InlineResponse2003.prototype['status'] = InlineResponse2003.StatusEnum[1];
-
-/**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
- */
-InlineResponse2003.prototype['deliveryCostToTheWarehouse'] = undefined;
-
-/**
- * @member {module:model/InlineResponse200} product
- */
-InlineResponse2003.prototype['product'] = undefined;
 
 
 

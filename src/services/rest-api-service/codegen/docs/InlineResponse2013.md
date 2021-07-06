@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**token** | **String** | Токен для авторизации. | [optional] 
+**guid** | **String** | guid созданного объекта | [optional] 
 
 

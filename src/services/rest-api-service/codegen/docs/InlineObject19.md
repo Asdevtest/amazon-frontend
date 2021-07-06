@@ -4,28 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | ASIN продукта | 
-**lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
-**lsupplier** | **String** | Ссылка на поставщика. | 
-**category** | **String** | Категория | [optional] 
-**bsr** | **Number** |  | 
-**status** | **Number** |  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком | [optional] [default to StatusEnum.0]
-**amazon** | **Number** |  | 
-**supplier** | **[String]** | Массив поставщиков. | 
-**fbafee** | **Number** | ФБА комиссия | 
-**delivery** | **Number** | Стоимость доставки. | 
-**icomment** | **String** | Комментарии к товару. | 
-**images** | **[String]** | Массив изображений. | 
-**byboxprice** | **Number** | Цена | [optional] 
+**taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
+**boxes** | **[String]** | Массив коробок. | 
+**operationType** | **String** | Тип операции | 
 
 
 
-## Enum: StatusEnum
+## Enum: OperationTypeEnum
 
 
-* `0` (value: `0`)
+* `merge` (value: `"merge"`)
 
-* `10` (value: `10`)
+* `split` (value: `"split"`)
 
 
 

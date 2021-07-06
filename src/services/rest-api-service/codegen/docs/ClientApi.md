@@ -17,13 +17,14 @@ Method | HTTP request | Description
 [**apiV1ClientsProductsPickupGuidPost**](ClientApi.md#apiV1ClientsProductsPickupGuidPost) | **POST** /api/v1/clients/products/pickup/{guid} | # Взять товар в работу.
 [**apiV1ClientsProductsVacGet**](ClientApi.md#apiV1ClientsProductsVacGet) | **GET** /api/v1/clients/products/vac | # Получить список вакантных товаров.
 [**apiV1ClientsTasksGet**](ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя.
+[**apiV1ClientsTasksGuidDelete**](ClientApi.md#apiV1ClientsTasksGuidDelete) | **DELETE** /api/v1/clients/tasks/{guid} | # Удалить задачу.
 [**apiV1ClientsTasksPost**](ClientApi.md#apiV1ClientsTasksPost) | **POST** /api/v1/clients/tasks | # Создать задачу.
 
 
 
 ## apiV1ClientsBatchesGet
 
-> [InlineResponse2006] apiV1ClientsBatchesGet(opts)
+> [InlineResponse2003] apiV1ClientsBatchesGet(opts)
 
 # Получить партии.
 
@@ -61,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -95,7 +96,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new Amazonapi.ClientApi();
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject13': new Amazonapi.InlineObject13() // InlineObject13 | 
+  'InlineObject16': new Amazonapi.InlineObject16() // InlineObject16 | 
 };
 apiInstance.apiV1ClientsMakePaymentsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -111,7 +112,7 @@ apiInstance.apiV1ClientsMakePaymentsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject13** | [**InlineObject13**](InlineObject13.md)|  | [optional] 
+ **InlineObject16** | [**InlineObject16**](InlineObject16.md)|  | [optional] 
 
 ### Return type
 
@@ -129,7 +130,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsOrdersGet
 
-> apiV1ClientsOrdersGet(opts)
+> [InlineResponse2001] apiV1ClientsOrdersGet(opts)
 
 # Получить заказы текущего клиента.
 
@@ -150,8 +151,8 @@ let apiInstance = new Amazonapi.ClientApi();
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1ClientsOrdersGet(opts).then(() => {
-  console.log('API called successfully.');
+apiInstance.apiV1ClientsOrdersGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
 });
@@ -167,7 +168,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+[**[InlineResponse2001]**](InlineResponse2001.md)
 
 ### Authorization
 
@@ -235,7 +236,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsOrdersGuidGet
 
-> apiV1ClientsOrdersGuidGet(guid, opts)
+> InlineResponse2001 apiV1ClientsOrdersGuidGet(guid, opts)
 
 # Получить заказ по его GUID.
 
@@ -257,8 +258,8 @@ let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1ClientsOrdersGuidGet(guid, opts).then(() => {
-  console.log('API called successfully.');
+apiInstance.apiV1ClientsOrdersGuidGet(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
 });
@@ -275,7 +276,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+[**InlineResponse2001**](InlineResponse2001.md)
 
 ### Authorization
 
@@ -310,7 +311,7 @@ let apiInstance = new Amazonapi.ClientApi();
 let guid = 60806dbd5346527a0f90f41e; // String | GUID заказа, который будет изменен
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject15': new Amazonapi.InlineObject15() // InlineObject15 | 
+  'InlineObject18': new Amazonapi.InlineObject18() // InlineObject18 | 
 };
 apiInstance.apiV1ClientsOrdersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -327,7 +328,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID заказа, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject15** | [**InlineObject15**](InlineObject15.md)|  | [optional] 
+ **InlineObject18** | [**InlineObject18**](InlineObject18.md)|  | [optional] 
 
 ### Return type
 
@@ -345,7 +346,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsOrdersPost
 
-> InlineResponse2011 apiV1ClientsOrdersPost(InlineObject14, opts)
+> InlineResponse2013 apiV1ClientsOrdersPost(InlineObject17, opts)
 
 # Создать заказ.
 
@@ -363,11 +364,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.ClientApi();
-let InlineObject14 = new Amazonapi.InlineObject14(); // InlineObject14 | 
+let InlineObject17 = new Amazonapi.InlineObject17(); // InlineObject17 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1ClientsOrdersPost(InlineObject14, opts).then((data) => {
+apiInstance.apiV1ClientsOrdersPost(InlineObject17, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -380,12 +381,12 @@ apiInstance.apiV1ClientsOrdersPost(InlineObject14, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject14** | [**InlineObject14**](InlineObject14.md)|  | 
+ **InlineObject17** | [**InlineObject17**](InlineObject17.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
 
-[**InlineResponse2011**](InlineResponse2011.md)
+[**InlineResponse2013**](InlineResponse2013.md)
 
 ### Authorization
 
@@ -420,7 +421,7 @@ let apiInstance = new Amazonapi.ClientApi();
 let guid = 60806dbd5346527a0f90f41e; // String | GUID заказа, который будет изменен
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject12': new Amazonapi.InlineObject12() // InlineObject12 | 
+  'InlineObject15': new Amazonapi.InlineObject15() // InlineObject15 | 
 };
 apiInstance.apiV1ClientsProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -437,7 +438,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID заказа, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject12** | [**InlineObject12**](InlineObject12.md)|  | [optional] 
+ **InlineObject15** | [**InlineObject15**](InlineObject15.md)|  | [optional] 
 
 ### Return type
 
@@ -559,7 +560,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsPickupGuidPost
 
-> [InlineResponse200] apiV1ClientsProductsPickupGuidPost(guid, opts)
+> String apiV1ClientsProductsPickupGuidPost(guid, opts)
 
 # Взять товар в работу.
 
@@ -599,7 +600,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+**String**
 
 ### Authorization
 
@@ -715,9 +716,63 @@ Name | Type | Description  | Notes
 - **Accept**: text/html
 
 
+## apiV1ClientsTasksGuidDelete
+
+> String apiV1ClientsTasksGuidDelete(guid, opts)
+
+# Удалить задачу.
+
+## Удалить задачу. !!! Можно удалять только задачи со статусом \&quot;0\&quot;.   
+
+### Example
+
+```javascript
+import Amazonapi from 'amazonapi';
+let defaultClient = Amazonapi.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new Amazonapi.ClientApi();
+let guid = "guid_example"; // String | GUID удаляемого объекта.
+let opts = {
+  'Accept_Encoding': gzip, deflate // String | 
+};
+apiInstance.apiV1ClientsTasksGuidDelete(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID удаляемого объекта. | 
+ **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html
+
+
 ## apiV1ClientsTasksPost
 
-> apiV1ClientsTasksPost(InlineObject16, opts)
+> InlineResponse2012 apiV1ClientsTasksPost(InlineObject19, opts)
 
 # Создать задачу.
 
@@ -735,12 +790,12 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.ClientApi();
-let InlineObject16 = new Amazonapi.InlineObject16(); // InlineObject16 | 
+let InlineObject19 = new Amazonapi.InlineObject19(); // InlineObject19 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1ClientsTasksPost(InlineObject16, opts).then(() => {
-  console.log('API called successfully.');
+apiInstance.apiV1ClientsTasksPost(InlineObject19, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
 });
@@ -752,12 +807,12 @@ apiInstance.apiV1ClientsTasksPost(InlineObject16, opts).then(() => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject16** | [**InlineObject16**](InlineObject16.md)|  | 
+ **InlineObject19** | [**InlineObject19**](InlineObject19.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
 
-null (empty response body)
+[**InlineResponse2012**](InlineResponse2012.md)
 
 ### Authorization
 

@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | [**ApiV1ClientsBatchesId**](ApiV1ClientsBatchesId.md) |  | 
-**boxes** | **[String]** | Массив коробок. | 
+**isExist** | **Boolean** | Флаг, показывает есть ли такой id в базе или нет | [optional] 
 
 

@@ -22,12 +22,13 @@ class InlineObject26 {
     /**
      * Constructs a new <code>InlineObject26</code>.
      * @alias module:model/InlineObject26
-     * @param email {String} 
-     * @param password {String} 
+     * @param name {String} Имя пользователя.
+     * @param email {String} email
+     * @param password {String} Пароль
      */
-    constructor(email, password) { 
+    constructor(name, email, password) { 
         
-        InlineObject26.initialize(this, email, password);
+        InlineObject26.initialize(this, name, email, password);
     }
 
     /**
@@ -35,7 +36,8 @@ class InlineObject26 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email, password) { 
+    static initialize(obj, name, email, password) { 
+        obj['name'] = name;
         obj['email'] = email;
         obj['password'] = password;
     }
@@ -51,6 +53,9 @@ class InlineObject26 {
         if (data) {
             obj = obj || new InlineObject26();
 
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
             if (data.hasOwnProperty('email')) {
                 obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
@@ -65,11 +70,19 @@ class InlineObject26 {
 }
 
 /**
+ * Имя пользователя.
+ * @member {String} name
+ */
+InlineObject26.prototype['name'] = undefined;
+
+/**
+ * email
  * @member {String} email
  */
 InlineObject26.prototype['email'] = undefined;
 
 /**
+ * Пароль
  * @member {String} password
  */
 InlineObject26.prototype['password'] = undefined;
