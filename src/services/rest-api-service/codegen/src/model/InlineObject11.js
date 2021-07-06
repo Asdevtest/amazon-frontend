@@ -171,6 +171,5 @@ InlineObject11.prototype['deliveryCostToTheWarehouse'] = undefined;
 
 
 
-
 export default InlineObject11;
 

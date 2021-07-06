@@ -11,7 +11,8 @@
  *
  */
 
-import ApiClient from '../ApiClient';
+
+import ApiClient from "../ApiClient";
 import InlineObject11 from '../model/InlineObject11';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2003 from '../model/InlineResponse2003';
@@ -27,69 +28,21 @@ import InlineResponse500 from '../model/InlineResponse500';
 * @version v0.0.1
 */
 export default class BuyerApi {
-  /**
+
+    /**
     * Constructs a new BuyerApi. 
     * @alias module:api/BuyerApi
     * @class
-    * @param {module:ApiClient} [apiClient] Optional API buyer implementation to use,
+    * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
     * default to {@link module:ApiClient#instance} if unspecified.
     */
-  constructor(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
-  }
+    constructor(apiClient) {
+        this.apiClient = apiClient || ApiClient.instance;
+    }
 
-  /**
-     * # Получить партии.
-     * ## Получить партии.  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
-     */
-  apiV1BuyersBatchesGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ Object ];
-    return this.apiClient.callApi(
-      '/api/v1/buyers/batches',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Получить партии.
-     * ## Получить партии.  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
-     */
-  apiV1BuyersBatchesGet(opts) {
-    return this.apiV1BuyersBatchesGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
-
-  /**
+    /**
      * # Получить конкретный заказ по его GUID.
      * ## Получить конкретный заказ по его GUID.   
      * @param {String} guid GUID заказа.
@@ -97,46 +50,37 @@ export default class BuyerApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2003} and HTTP response
      */
-  apiV1BuyersOrdersGuidGetWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = null;
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1BuyersOrdersGuidGet"
+    apiV1BuyersOrdersGuidGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BuyersOrdersGuidGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse2003;
+      return this.apiClient.callApi(
+        '/api/v1/buyers/orders/{guid}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = InlineResponse2003;
-    return this.apiClient.callApi(
-      '/api/v1/buyers/orders/{guid}',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * # Получить конкретный заказ по его GUID.
      * ## Получить конкретный заказ по его GUID.   
      * @param {String} guid GUID заказа.
@@ -144,13 +88,15 @@ export default class BuyerApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2003}
      */
-  apiV1BuyersOrdersGuidGet(guid, opts) {
-    return this.apiV1BuyersOrdersGuidGetWithHttpInfo(guid, opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1BuyersOrdersGuidGet(guid, opts) {
+      return this.apiV1BuyersOrdersGuidGetWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Редактировать заказ.
      * ## Редактировать заказ.   
      * @param {String} guid GUID заказа, который планируем изменить
@@ -159,46 +105,37 @@ export default class BuyerApi {
      * @param {module:model/InlineObject11} opts.InlineObject11 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-  apiV1BuyersOrdersGuidPatchWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = opts['InlineObject11'];
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1BuyersOrdersGuidPatch"
+    apiV1BuyersOrdersGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['InlineObject11'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BuyersOrdersGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/buyers/orders/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/buyers/orders/{guid}',
-      'PATCH',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * # Редактировать заказ.
      * ## Редактировать заказ.   
      * @param {String} guid GUID заказа, который планируем изменить
@@ -207,64 +144,62 @@ export default class BuyerApi {
      * @param {module:model/InlineObject11} opts.InlineObject11 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-  apiV1BuyersOrdersGuidPatch(guid, opts) {
-    return this.apiV1BuyersOrdersGuidPatchWithHttpInfo(guid, opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1BuyersOrdersGuidPatch(guid, opts) {
+      return this.apiV1BuyersOrdersGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Получить список заказов текущего байера.
      * ## Получить список заказов текущего байера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
      */
-  apiV1BuyersOrdersMyGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
+    apiV1BuyersOrdersMyGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ InlineResponse2003 ];
-    return this.apiClient.callApi(
-      '/api/v1/buyers/orders/my',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2003];
+      return this.apiClient.callApi(
+        '/api/v1/buyers/orders/my', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-  /**
+    /**
      * # Получить список заказов текущего байера.
      * ## Получить список заказов текущего байера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
      */
-  apiV1BuyersOrdersMyGet(opts) {
-    return this.apiV1BuyersOrdersMyGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1BuyersOrdersMyGet(opts) {
+      return this.apiV1BuyersOrdersMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Закрепить заказ за байером. Взять его в работу.
      * ## Закрепить заказ за байером. Взять его в работу.  ##  На основании заказа НУЖНО СФОРМИРОВАТЬ коробки по кол-ву товаров в заказе.   ## Эндпоинт НЕ ВЕРНЕТ сформированные коробки что бы не плодить МАГИЮ или ГЛЮКИ.   ## Запросите закрепление заказа. Если операция пройдет успешно 204 - запросите создание коробки.   ## Следующим этапом сделаем возможность закреплять пачку заказов и пачку коробок готовить одним запросом. Но потом.   ## Текущая база не поддерживает транзакции.   
      * @param {String} guid GUID заказа, который планируем изменить
@@ -272,46 +207,37 @@ export default class BuyerApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-  apiV1BuyersOrdersPickupGuidPostWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = null;
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1BuyersOrdersPickupGuidPost"
+    apiV1BuyersOrdersPickupGuidPostWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BuyersOrdersPickupGuidPost");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/buyers/orders/pickup/{guid}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/buyers/orders/pickup/{guid}',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * # Закрепить заказ за байером. Взять его в работу.
      * ## Закрепить заказ за байером. Взять его в работу.  ##  На основании заказа НУЖНО СФОРМИРОВАТЬ коробки по кол-ву товаров в заказе.   ## Эндпоинт НЕ ВЕРНЕТ сформированные коробки что бы не плодить МАГИЮ или ГЛЮКИ.   ## Запросите закрепление заказа. Если операция пройдет успешно 204 - запросите создание коробки.   ## Следующим этапом сделаем возможность закреплять пачку заказов и пачку коробок готовить одним запросом. Но потом.   ## Текущая база не поддерживает транзакции.   
      * @param {String} guid GUID заказа, который планируем изменить
@@ -319,168 +245,156 @@ export default class BuyerApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-  apiV1BuyersOrdersPickupGuidPost(guid, opts) {
-    return this.apiV1BuyersOrdersPickupGuidPostWithHttpInfo(guid, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
+    apiV1BuyersOrdersPickupGuidPost(guid, opts) {
+      return this.apiV1BuyersOrdersPickupGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Получить список свободных заказов.
      * ## Получить список свободных заказов.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
      */
-  apiV1BuyersOrdersVacGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
+    apiV1BuyersOrdersVacGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ InlineResponse2003 ];
-    return this.apiClient.callApi(
-      '/api/v1/buyers/orders/vac',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2003];
+      return this.apiClient.callApi(
+        '/api/v1/buyers/orders/vac', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-  /**
+    /**
      * # Получить список свободных заказов.
      * ## Получить список свободных заказов.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
      */
-  apiV1BuyersOrdersVacGet(opts) {
-    return this.apiV1BuyersOrdersVacGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1BuyersOrdersVacGet(opts) {
+      return this.apiV1BuyersOrdersVacGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * Получить баланс для байера.
      * Получить баланс для байера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Number} and HTTP response
      */
-  apiV1BuyersPaymentsMyBalanceGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
+    apiV1BuyersPaymentsMyBalanceGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = 'Number';
-    return this.apiClient.callApi(
-      '/api/v1/buyers/payments/my-balance',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = 'Number';
+      return this.apiClient.callApi(
+        '/api/v1/buyers/payments/my-balance', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-  /**
+    /**
      * Получить баланс для байера.
      * Получить баланс для байера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Number}
      */
-  apiV1BuyersPaymentsMyBalanceGet(opts) {
-    return this.apiV1BuyersPaymentsMyBalanceGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1BuyersPaymentsMyBalanceGet(opts) {
+      return this.apiV1BuyersPaymentsMyBalanceGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * Получить информацию об платежах для этого байера.
      * Получить информацию об платежах для этого байера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
-  apiV1BuyersPaymentsMyGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
+    apiV1BuyersPaymentsMyGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ InlineResponse2004 ];
-    return this.apiClient.callApi(
-      '/api/v1/buyers/payments/my',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2004];
+      return this.apiClient.callApi(
+        '/api/v1/buyers/payments/my', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-  /**
+    /**
      * Получить информацию об платежах для этого байера.
      * Получить информацию об платежах для этого байера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */
-  apiV1BuyersPaymentsMyGet(opts) {
-    return this.apiV1BuyersPaymentsMyGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1BuyersPaymentsMyGet(opts) {
+      return this.apiV1BuyersPaymentsMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Внести изменения в продукт.
      * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 30, 40, 50, 60.   
      * @param {String} guid GUID продукта, который планируем изменить
@@ -489,46 +403,37 @@ export default class BuyerApi {
      * @param {Object.<String, {String: Object}>} opts.request_body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-  apiV1BuyersProductsGuidPatchWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = opts['request_body'];
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1BuyersProductsGuidPatch"
+    apiV1BuyersProductsGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['request_body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BuyersProductsGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/buyers/products/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/buyers/products/{guid}',
-      'PATCH',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * # Внести изменения в продукт.
      * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 30, 40, 50, 60.   
      * @param {String} guid GUID продукта, который планируем изменить
@@ -537,66 +442,62 @@ export default class BuyerApi {
      * @param {Object.<String, {String: Object}>} opts.request_body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-  apiV1BuyersProductsGuidPatch(guid, opts) {
-    return this.apiV1BuyersProductsGuidPatchWithHttpInfo(guid, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
+    apiV1BuyersProductsGuidPatch(guid, opts) {
+      return this.apiV1BuyersProductsGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Получить список товаров взятых в работу байером.
      * ## Получить список товаров взятых в работу байером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-  apiV1BuyersProductsMyGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
+    apiV1BuyersProductsMyGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ InlineResponse200 ];
-    return this.apiClient.callApi(
-      '/api/v1/buyers/products/my',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse200];
+      return this.apiClient.callApi(
+        '/api/v1/buyers/products/my', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-  /**
+    /**
      * # Получить список товаров взятых в работу байером.
      * ## Получить список товаров взятых в работу байером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
-  apiV1BuyersProductsMyGet(opts) {
-    return this.apiV1BuyersProductsMyGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1BuyersProductsMyGet(opts) {
+      return this.apiV1BuyersProductsMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Закрепить продукт за байером. Взять его в работу.
      * ## Закрепить продукт за байером. Взять его в работу.  
      * @param {String} guid GUID продукта, который планируем изменить
@@ -604,46 +505,37 @@ export default class BuyerApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-  apiV1BuyersProductsPickupGuidPostWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = null;
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1BuyersProductsPickupGuidPost"
+    apiV1BuyersProductsPickupGuidPostWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BuyersProductsPickupGuidPost");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/buyers/products/pickup/{guid}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/buyers/products/pickup/{guid}',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * # Закрепить продукт за байером. Взять его в работу.
      * ## Закрепить продукт за байером. Взять его в работу.  
      * @param {String} guid GUID продукта, который планируем изменить
@@ -651,176 +543,59 @@ export default class BuyerApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-  apiV1BuyersProductsPickupGuidPost(guid, opts) {
-    return this.apiV1BuyersProductsPickupGuidPostWithHttpInfo(guid, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
+    apiV1BuyersProductsPickupGuidPost(guid, opts) {
+      return this.apiV1BuyersProductsPickupGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Получить список вакантных товаров.
      * ## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-  apiV1BuyersProductsVacGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
+    apiV1BuyersProductsVacGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ InlineResponse200 ];
-    return this.apiClient.callApi(
-      '/api/v1/buyers/products/vac',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse200];
+      return this.apiClient.callApi(
+        '/api/v1/buyers/products/vac', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-  /**
+    /**
      * # Получить список вакантных товаров.
      * ## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
-  apiV1BuyersProductsVacGet(opts) {
-    return this.apiV1BuyersProductsVacGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
-
-  ///////////////////////////////
-
-  /**
-     * # Показать все задачи данного пользователя.
-     * ## Показать все задачи данного пользователя.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
-     */
-  apiV1BuyersTasksGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
-
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ Object ];
-    return this.apiClient.callApi(
-      '/api/v1/buyers/tasks',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Показать все задачи данного пользователя.
-     * ## Показать все задачи данного пользователя.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
-     */
-  apiV1BuyersTasksGet(opts) {
-    return this.apiV1BuyersTasksGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data;
-    });
-  }
-
-  /**
-     * # Создать задачу.
-     * ## Создать задачу.   
-     * @param {module:model/InlineObject16} InlineObject16 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
-     */
-  apiV1BuyersTasksPostWithHttpInfo(InlineObject16, opts) {
-    opts = opts || {};
-    let postBody = InlineObject16;
-    // verify the required parameter 'InlineObject16' is set
-    if (InlineObject16 === undefined || InlineObject16 === null) {
-      throw new Error(
-        "Missing the required parameter 'InlineObject16' when calling apiV1ClientsTasksPost"
-      );
+    apiV1BuyersProductsVacGet(opts) {
+      return this.apiV1BuyersProductsVacGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = null;
-    return this.apiClient.callApi(
-      '/api/v1/buyers/tasks',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Создать задачу.
-     * ## Создать задачу.   
-     * @param {module:model/InlineObject16} InlineObject16 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-  apiV1BuyersTasksPost(InlineObject16, opts) {
-    return this.apiV1BuyersTasksPostWithHttpInfo(InlineObject16, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
 }

@@ -135,7 +135,6 @@ class InlineObject19 {
     "10": 10
 };
 
-
 /**
  * ASIN продукта
  * @member {String} id
