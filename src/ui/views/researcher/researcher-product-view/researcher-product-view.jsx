@@ -41,6 +41,7 @@ export class ResearcherProductView extends Component {
       suppliers,
       selectedSupplier,
       showAddOrEditSupplierModal,
+      formFieldsValidationErrors,
       onTriggerAddOrEditSupplierModal,
       onClickSaveSupplierBtn,
       onChangeProductFields,
@@ -50,6 +51,7 @@ export class ResearcherProductView extends Component {
       onClickParseProductData,
       handleProductActionButtons,
     } = this.viewModel
+
     return (
       <React.Fragment>
         <Navbar
@@ -77,6 +79,7 @@ export class ResearcherProductView extends Component {
                   suppliers={suppliers}
                   actionStatus={actionStatus}
                   selectedSupplier={selectedSupplier}
+                  formFieldsValidationErrors={formFieldsValidationErrors}
                   handleSupplierButtons={onClickSupplierButtons}
                   handleProductActionButtons={handleProductActionButtons}
                   onChangeField={onChangeProductFields}

@@ -6,6 +6,8 @@ import {ResearcherModel} from '@models/researcher-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
+import {getNewObjectWithDefaultValue} from '@utils/object'
+import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
 const formFieldsDefault = {
   amazonLink: '',
@@ -23,6 +25,8 @@ export class ResearcherProductsViewModel {
   curPage = 1
 
   formFields = {...formFieldsDefault}
+
+  formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
   products = []
 
@@ -90,11 +94,17 @@ export class ResearcherProductsViewModel {
       })
       this.loadData()
     } catch (error) {
-      console.log(error)
       this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
+      if (isValidationErrors(error)) {
+        plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
+          runInAction(() => {
+            this.formFieldsValidationErrors[errorProperty] = constraint
+          })
+        })
+      } else {
+        console.warn('error ', error)
         runInAction(() => {
-          this.error = error.body.message
+          this.error = error
         })
       }
     }
@@ -103,7 +113,6 @@ export class ResearcherProductsViewModel {
   async getPropductsVacant() {
     try {
       const result = await ResearcherModel.getProductsVacant()
-      console.log('result ', result)
       runInAction(() => {
         this.products = result.sort(sortObjectsArrayByFiledDate('createdat'))
       })

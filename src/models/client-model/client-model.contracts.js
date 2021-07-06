@@ -1,3 +1,5 @@
+import {IsInt, IsString, IsNotEmpty, IsArray, IsOptional, IsNumber} from 'class-validator'
+
 import {
   ApiV1AdminsGetNotPaidProductsCreatedby,
   InlineResponse200,
@@ -18,3 +20,134 @@ export class ClientUser extends ApiV1AdminsGetNotPaidProductsCreatedby {}
 export class ClientBox extends InlineResponse2006 {}
 
 export class ClientBatches extends InlineResponse2008 {}
+
+export class ClientUpdateProductContract {
+  @IsNotEmpty()
+  @IsString()
+  currentSupplier
+
+  @IsNotEmpty()
+  @IsInt()
+  dirdecision
+
+  @IsNotEmpty()
+  @IsInt()
+  researcherFine
+
+  @IsNotEmpty()
+  @IsString()
+  researcherFineComment
+
+  @IsNotEmpty()
+  @IsInt()
+  supervisorFine
+
+  @IsNotEmpty()
+  @IsString()
+  supervisorFineComment
+}
+
+export class ClientUpdateOrderContract {
+  @IsOptional()
+  @IsString()
+  clientComment
+
+  @IsNotEmpty()
+  @IsInt()
+  warehouse
+
+  @IsNotEmpty()
+  @IsInt()
+  deliveryMethod
+
+  @IsNotEmpty()
+  @IsInt()
+  amount
+
+  @IsNotEmpty()
+  @IsInt()
+  status
+
+  @IsNotEmpty()
+  @IsString()
+  barCode
+
+  @IsOptional()
+  @IsArray()
+  images
+}
+
+// похоже, это не нужно т.к.это заполняется не из полей
+// export class BuyerPostTaskContract {
+//   @IsNotEmpty()
+//   @IsInt()
+//   taskId;
+
+//   @IsNotEmpty()
+//   @IsArray()
+//   boxes;
+
+//   @IsNotEmpty()
+//   @IsString()
+//   operationType;
+// }
+
+export class ClientAddOwnProductContract {
+  @IsNotEmpty()
+  @IsString()
+  amazonTitle
+
+  @IsNotEmpty()
+  @IsString()
+  lamazon
+
+  @IsOptional()
+  @IsArray()
+  images
+
+  @IsOptional()
+  @IsNumber()
+  amazon
+
+  @IsOptional()
+  @IsNumber()
+  height
+
+  @IsOptional()
+  @IsNumber()
+  width
+
+  @IsOptional()
+  @IsNumber()
+  length
+
+  @IsOptional()
+  @IsNumber()
+  weight
+
+  @IsOptional()
+  @IsArray()
+  providers
+
+  @IsOptional()
+  @IsString()
+  buyerscomment
+}
+
+export class ClientAddOrEditSubUserContract {
+  @IsNotEmpty()
+  @IsString()
+  email
+
+  @IsNotEmpty()
+  @IsString()
+  password
+
+  @IsNotEmpty()
+  @IsString()
+  secondPassword
+
+  @IsNotEmpty()
+  @IsArray()
+  options
+}

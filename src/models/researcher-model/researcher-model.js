@@ -1,7 +1,15 @@
+import {transformAndValidate} from 'class-transformer-validator'
+
 import {restApiService} from '@services/rest-api-service/rest-api-service'
+
+import {ResearcherCreateProductContract, ResearcherUpdateProductContract} from './researcher-model.contracts'
 
 class ResearcherModelStatic {
   createProduct = async data => {
+    const validationErrors = await transformAndValidate(ResearcherCreateProductContract, data)
+    if (validationErrors.length) {
+      throw validationErrors
+    }
     const response = await restApiService.researcherApi.apiV1ResearchersProductsPost(data)
     return response
   }
@@ -22,7 +30,11 @@ class ResearcherModelStatic {
   }
 
   updateProduct = async (id, data) => {
-    const response = await restApiService.researcherApi.apiV1ResearchersProductsGuidPatch(id, {InlineObject20: data})
+    await transformAndValidate(ResearcherUpdateProductContract, data)
+
+    const response = await restApiService.researcherApi.apiV1ResearchersProductsGuidPatch(id, {
+      InlineObject20: data,
+    })
     return response
   }
 
@@ -42,7 +54,9 @@ class ResearcherModelStatic {
   }
 
   parseParseSellerCentral = async id => {
-    const response = await restApiService.researcherApi.apiV1ResearchersParseSellercentralGet({id})
+    const response = await restApiService.researcherApi.apiV1ResearchersParseSellercentralGet({
+      id,
+    })
     return response
   }
 

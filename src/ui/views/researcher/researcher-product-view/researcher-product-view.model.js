@@ -6,8 +6,13 @@ import {ProductDataParser} from '@constants/product-data-parser'
 import {ResearcherModel} from '@models/researcher-model'
 import {SupplierModel} from '@models/supplier-model'
 
-import {getObjectFilteredByKeyArrayWhiteList, getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import {
+  getObjectFilteredByKeyArrayWhiteList,
+  getObjectFilteredByKeyArrayBlackList,
+  getNewObjectWithDefaultValue,
+} from '@utils/object'
 import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
+import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
 const fieldsOfProductAllowedToUpdate = [
   'lamazon',
@@ -35,6 +40,28 @@ const fieldsOfProductAllowedToUpdate = [
   'minpurchase',
 ]
 
+const formFieldsDefault = {
+  amazon: 0,
+  bsr: 0,
+  createdat: '',
+  createdby: {},
+  delivery: 0,
+  dirdecision: 0,
+  express: false,
+  fba: false,
+  fbafee: 0,
+  icomment: '',
+  id: '',
+  images: [],
+  lamazon: '',
+  material: '',
+  reffee: 15,
+  status: 0,
+  supplier: [],
+  updateDate: '',
+  _id: '',
+}
+
 export class ResearcherProductViewModel {
   history = undefined
   requestStatus = undefined
@@ -47,6 +74,10 @@ export class ResearcherProductViewModel {
   drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
+
+  formFields = {...formFieldsDefault}
+
+  formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
   constructor({history, location}) {
     this.history = history
@@ -263,9 +294,17 @@ export class ResearcherProductViewModel {
             case 'status':
               return value < 10 && this.lsupplier ? 10 : value
             case 'bsr':
-              return (value && parseInt(value)) || 0
+              return value && parseInt(value)
             case 'amazon':
-              return (value && parseFloat(value)) || 0
+              return value && parseFloat(value)
+            case 'weight':
+              return value && parseFloat(value)
+            case 'length':
+              return value && parseFloat(value)
+            case 'width':
+              return value && parseFloat(value)
+            case 'height':
+              return value && parseFloat(value)
             default:
               return value
           }
@@ -275,14 +314,22 @@ export class ResearcherProductViewModel {
       await ResearcherModel.updateProduct(this.product._id, updateProductData)
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
-      console.log(error)
       this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
+
+      if (isValidationErrors(error)) {
+        plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
+          runInAction(() => {
+            this.formFieldsValidationErrors[errorProperty] = constraint
+          })
+        })
+      } else {
+        console.warn('error ', error)
+        runInAction(() => {
+          this.error = error
+        })
       }
     }
   }
-
   onResetInitialProductData() {
     this.setActionStatus(loadingStatuses.isLoading)
     this.product = this.productBase

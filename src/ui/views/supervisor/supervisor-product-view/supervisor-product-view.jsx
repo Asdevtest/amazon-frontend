@@ -38,6 +38,7 @@ export class SupervisorProductView extends Component {
       suppliers,
       actionStatus,
       selectedSupplier,
+      formFieldsValidationErrors,
       onChangeProductFields,
       onClickSupplierButtons,
       onChangeSelectedSupplier,
@@ -70,6 +71,7 @@ export class SupervisorProductView extends Component {
                   product={product}
                   suppliers={suppliers}
                   selectedSupplier={selectedSupplier}
+                  formFieldsValidationErrors={formFieldsValidationErrors}
                   handleSupplierButtons={onClickSupplierButtons}
                   actionStatus={actionStatus}
                   handleProductActionButtons={handleProductActionButtons}

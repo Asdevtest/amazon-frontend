@@ -14,4 +14,16 @@ export const useClassNames = makeStyles({
   input: {
     width: '100%',
   },
+  errorText: {
+    marginTop: '2px',
+    color: 'red',
+    maxWidth: '100%',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    fontSize: '12px',
+  },
+  errorActive: {
+    border: '1px solid red',
+  },
 })

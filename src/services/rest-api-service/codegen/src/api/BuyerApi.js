@@ -709,4 +709,118 @@ export default class BuyerApi {
       return response_and_data.data;
     });
   }
+
+  ///////////////////////////////
+
+  /**
+     * # Показать все задачи данного пользователя.
+     * ## Показать все задачи данного пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
+     */
+  apiV1BuyersTasksGetWithHttpInfo(opts) {
+    opts = opts || {};
+    let postBody = null;
+
+    let pathParams = {};
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = [ Object ];
+    return this.apiClient.callApi(
+      '/api/v1/buyers/tasks',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
+     * # Показать все задачи данного пользователя.
+     * ## Показать все задачи данного пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
+     */
+  apiV1BuyersTasksGet(opts) {
+    return this.apiV1BuyersTasksGetWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data;
+    });
+  }
+
+  /**
+     * # Создать задачу.
+     * ## Создать задачу.   
+     * @param {module:model/InlineObject16} InlineObject16 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     */
+  apiV1BuyersTasksPostWithHttpInfo(InlineObject16, opts) {
+    opts = opts || {};
+    let postBody = InlineObject16;
+    // verify the required parameter 'InlineObject16' is set
+    if (InlineObject16 === undefined || InlineObject16 === null) {
+      throw new Error(
+        "Missing the required parameter 'InlineObject16' when calling apiV1ClientsTasksPost"
+      );
+    }
+
+    let pathParams = {};
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [ 'application/json' ];
+    let accepts = [ 'text/html' ];
+    let returnType = null;
+    return this.apiClient.callApi(
+      '/api/v1/buyers/tasks',
+      'POST',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
+     * # Создать задачу.
+     * ## Создать задачу.   
+     * @param {module:model/InlineObject16} InlineObject16 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+  apiV1BuyersTasksPost(InlineObject16, opts) {
+    return this.apiV1BuyersTasksPostWithHttpInfo(InlineObject16, opts).then(function(
+      response_and_data
+    ){
+      return response_and_data.data;
+    });
+  }
 }

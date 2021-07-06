@@ -16,7 +16,7 @@ import {useClassNames} from './bottom-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
-export const BottomCard = observer(({curUserRole, product, onChangeField}) => {
+export const BottomCard = observer(({curUserRole, product, onChangeField, formFieldsValidationErrors}) => {
   const classNames = useClassNames()
   return (
     <React.Fragment>
@@ -31,6 +31,8 @@ export const BottomCard = observer(({curUserRole, product, onChangeField}) => {
             />
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              error={formFieldsValidationErrors.bsr}
+              type="number"
               label={textConsts.bsr}
               value={product.bsr || ''}
               onChange={onChangeField('bsr')}
@@ -38,29 +40,39 @@ export const BottomCard = observer(({curUserRole, product, onChangeField}) => {
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
               label={textConsts.amazonPrice}
+              type="number"
+              error={formFieldsValidationErrors.amazon}
               value={product.amazon || ''}
               onChange={onChangeField('amazon')}
             />
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              error={formFieldsValidationErrors.width}
+              type="number"
               label={textConsts.fieldWidth}
               value={product.width || ''}
               onChange={onChangeField('width')}
             />
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              error={formFieldsValidationErrors.height}
+              type="number"
               label={textConsts.fieldHeight}
               value={product.height || ''}
               onChange={onChangeField('height')}
             />
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              error={formFieldsValidationErrors.length}
+              type="number"
               label={textConsts.fieldLength}
               value={product.length || ''}
               onChange={onChangeField('length')}
             />
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              error={formFieldsValidationErrors.weight}
+              type="number"
               label={textConsts.fieldWeight}
               value={product.weight || ''}
               onChange={onChangeField('weight')}
@@ -80,30 +92,40 @@ export const BottomCard = observer(({curUserRole, product, onChangeField}) => {
             </Container>
             <Field
               disabled
+              error={formFieldsValidationErrors.minpurchase}
+              type="number"
               label={textConsts.minpurchase}
               value={product.minpurchase || ''}
               onChange={onChangeField('minpurchase')}
             />
             <Field
               disabled
+              error={formFieldsValidationErrors.maxDelivery}
+              type="number"
               label={textConsts.maxDeliveryPrice}
               value={product.maxDelivery || ''}
               onChange={onChangeField('maxDelivery')}
             />
             <Field
               disabled
+              error={formFieldsValidationErrors.reffee}
+              type="number"
               label={textConsts.refferalFee}
               value={product.reffee || ''}
               onChange={onChangeField('reffee')}
             />
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              error={formFieldsValidationErrors.fbafee}
+              type="number"
               label={textConsts.fbaFee}
               value={product.fbafee || ''}
               onChange={onChangeField('fbafee')}
             />
             <Field
               disabled
+              error={formFieldsValidationErrors.totalFba}
+              type="number"
               label={textConsts.totalFba}
               value={product.totalFba || ''}
               onChange={onChangeField('totalFba')}
@@ -112,24 +134,30 @@ export const BottomCard = observer(({curUserRole, product, onChangeField}) => {
               disabled={
                 !(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || checkIsBuyer(curUserRole))
               }
+              error={formFieldsValidationErrors.fbaamount}
               label={textConsts.recommendedBatch}
               value={product.fbaamount || ''}
               onChange={onChangeField('fbaamount')}
             />
             <Field
               disabled
+              error={formFieldsValidationErrors.profit}
+              type="number"
               label={textConsts.revenue}
               value={product.profit || ''}
               onChange={onChangeField('profit')}
             />
             <Field
               disabled
+              error={formFieldsValidationErrors.margin}
+              type="number"
               label={textConsts.fieldMargin}
               value={product.margin || ''}
               onChange={onChangeField('margin')}
             />
             <Field
               disabled
+              error={formFieldsValidationErrors.status}
               label={textConsts.fieldStatus}
               value={ProductStatusByCode[product.status]}
               onChange={onChangeField('status')}

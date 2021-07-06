@@ -6,10 +6,33 @@ import {ProductStatusByKey} from '@constants/product-status'
 import {SupervisorModel} from '@models/supervisor-model'
 import {SupplierModel} from '@models/supplier-model'
 
-import {isUndefined} from '@utils/checks'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
 const fieldsOfProductAllowedToUpdate = ['status', 'checkednotes']
+
+const formFieldsDefault = {
+  checkednotes: '',
+  amazon: 0,
+  bsr: 0,
+  createdat: '',
+  createdby: {},
+  delivery: 0,
+  dirdecision: 0,
+  express: false,
+  fba: false,
+  fbafee: 0,
+  icomment: '',
+  id: '',
+  images: [],
+  lamazon: '',
+  material: '',
+  reffee: 15,
+  status: 0,
+  supplier: [],
+  updateDate: '',
+  _id: '',
+}
 
 export class SupervisorProductViewModel {
   history = undefined
@@ -22,6 +45,10 @@ export class SupervisorProductViewModel {
   suppliers = []
   drawerOpen = false
   selectedSupplier = undefined
+
+  formFields = {...formFieldsDefault}
+
+  formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
   constructor({history, location}) {
     this.history = history
@@ -76,21 +103,42 @@ export class SupervisorProductViewModel {
         fieldsOfProductAllowedToUpdate,
         false,
         (key, value) => {
-          if (key === 'checkednotes' && isUndefined(value)) {
-            return ''
-          } else {
-            return value
+          switch (key) {
+            case 'checkednotes':
+              return value || ''
+            case 'bsr':
+              return value && parseInt(value)
+            case 'amazon':
+              return value && parseFloat(value)
+            case 'weight':
+              return value && parseFloat(value)
+            case 'length':
+              return value && parseFloat(value)
+            case 'width':
+              return value && parseFloat(value)
+            case 'height':
+              return value && parseFloat(value)
+            default:
+              return value
           }
         },
       )
       await SupervisorModel.updateProduct(this.product._id, updateProductData)
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
-      console.log(error)
       this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        console.log(error.body.message)
-        this.error = error.body.message
+
+      if (isValidationErrors(error)) {
+        plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
+          runInAction(() => {
+            this.formFieldsValidationErrors[errorProperty] = constraint
+          })
+        })
+      } else {
+        console.warn('error ', error)
+        runInAction(() => {
+          this.error = error
+        })
       }
     }
   }

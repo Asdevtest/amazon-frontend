@@ -1,38 +1,29 @@
-import React from 'react';
+import React from 'react'
 
-import { Checkbox, TableCell, TableRow, Typography } from '@material-ui/core';
-import { withStyles } from '@material-ui/styles';
-import clsx from 'clsx';
+import {Checkbox, TableCell, TableRow, Typography} from '@material-ui/core'
+import {withStyles} from '@material-ui/styles'
+import clsx from 'clsx'
 
-import { warehouses } from '@constants/warehouses';
+import {warehouses} from '@constants/warehouses'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url';
-import { toFixedWithDollarSign, withKg } from '@utils/text';
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {toFixedWithDollarSign, withKg} from '@utils/text'
 
-import { styles } from './warehouse-body-row.style';
+import {styles} from './warehouse-body-row.style'
 
-const WarehouseBodyRowRaw = ({
-  item: box,
-  itemIndex: boxIndex,
-  handlers,
-  rowsDatas,
-  ...restProps
-}) => {
-  const classNames = restProps.classes;
-  const ordersQty = box.items.length;
+const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsDatas, ...restProps}) => {
+  const classNames = restProps.classes
+  const ordersQty = box.items.length
 
-  const ProductCell = ({ imgSrc, title }) => (
+  const ProductCell = ({imgSrc, title}) => (
     <TableCell className={classNames.productCell}>
       <img className={classNames.img} src={imgSrc} />
       {title}
     </TableCell>
-  );
+  )
 
   return box.items.map((order, orderIndex) => (
-    <TableRow
-      key={orderIndex}
-      className={clsx({ [classNames.boxLastRow]: orderIndex === ordersQty - 1 })}
-    >
+    <TableRow key={orderIndex} className={clsx({[classNames.boxLastRow]: orderIndex === ordersQty - 1})}>
       {orderIndex === 0 && (
         <React.Fragment>
           <TableCell rowSpan={ordersQty}>{boxIndex + 1}</TableCell>
@@ -50,11 +41,7 @@ const WarehouseBodyRowRaw = ({
         </React.Fragment>
       )}
       <ProductCell
-        imgSrc={
-          order.product.images &&
-          order.product.images[0] &&
-          getAmazonImageUrl(order.product.images[0])
-        }
+        imgSrc={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
         title={order.product.amazonTitle}
       />
       <TableCell>{'ID: ' + order.order}</TableCell>
@@ -76,25 +63,18 @@ const WarehouseBodyRowRaw = ({
       </TableCell> */}
 
       <TableCell className={classNames.cellValueNumber}>
-        {toFixedWithDollarSign(
-          (parseFloat(order.product.amazon) || 0) * (parseInt(order.amount) || 0)
-        )}
+        {toFixedWithDollarSign((parseFloat(order.product.amazon) || 0) * (parseInt(order.amount) || 0))}
       </TableCell>
       <TableCell className={classNames.cellValueNumber}>{order.product.weight + ' kg'}</TableCell>
       <TableCell className={classNames.cellValueNumber}>
         {withKg(
-          Math.max(
-            parseFloat(box.volumeWeightKgSupplier) || 0,
-            parseFloat(box.weightFinalAccountingKgSupplier) || 0
-          )
+          Math.max(parseFloat(box.volumeWeightKgSupplier) || 0, parseFloat(box.weightFinalAccountingKgSupplier) || 0),
         )}
       </TableCell>
-      <TableCell className={classNames.cellValueNumber}>
-        {withKg(box.weighGrossKgSupplier)}
-      </TableCell>
+      <TableCell className={classNames.cellValueNumber}>{withKg(box.weighGrossKgSupplier)}</TableCell>
       <TableCell>{order.track}</TableCell>
     </TableRow>
-  ));
-};
+  ))
+}
 
-export const WarehouseBodyRow = withStyles(styles)(WarehouseBodyRowRaw);
+export const WarehouseBodyRow = withStyles(styles)(WarehouseBodyRowRaw)
