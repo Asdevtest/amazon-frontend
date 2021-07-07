@@ -8,6 +8,7 @@ class BuyerModelStatic {
 
   getProductsMy = async () => {
     const response = await restApiService.buyerApi.apiV1BuyersProductsMyGet()
+
     return response
   }
 

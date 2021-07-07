@@ -44,7 +44,9 @@ class AdministratorModelStatic {
   }
 
   updateUser = async (id, data) => {
-    const response = await restApiService.administratorApi.apiV1AdminsUsersGuidPatch(id, {InlineObject3: data})
+    const response = await restApiService.administratorApi.apiV1AdminsUsersGuidPatch(id, {
+      InlineObject3: data,
+    })
     return response
   }
 
@@ -55,6 +57,16 @@ class AdministratorModelStatic {
 
   getBatches = async () => {
     const response = await restApiService.administratorApi.apiV1AdminsBatchesGet()
+    return response
+  }
+
+  getProductsByStatus = async status => {
+    const response = await restApiService.administratorApi.apiV1AdminsGetProductsByStatusStatusGet(status)
+    return response
+  }
+
+  getOrdersByStatus = async status => {
+    const response = await restApiService.administratorApi.apiV1AdminsOrdersStatusGet(status)
     return response
   }
 }

@@ -49,6 +49,7 @@ export class BuyerMyProductsViewRaw extends Component {
     const tableRowHandlers = {
       onClickTableRow,
     }
+
     return (
       <React.Fragment>
         <Navbar

@@ -1,11 +1,23 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 
-// import { ADMIN_PRODUCTS_DATA } from '@constants/mocks'; для проверки
 import {AdministratorModel} from '@models/administrator-model'
 
 import {copyToClipBoard} from '@utils/clipboard'
+
+const productsStatusBySubCategory = {
+  0: ProductStatusByKey[ProductStatus.NEW_PRODUCT],
+  1: ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT],
+  2: ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
+  3: ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH],
+  4: ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
+  5: ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
+  6: ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
+  7: ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS],
+  8: ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
+}
 
 export class AdminExchangeViewModel {
   history = undefined
@@ -13,10 +25,8 @@ export class AdminExchangeViewModel {
   error = undefined
 
   activeSubCategory = 0
+  currentProductsData = []
 
-  productsWaiting = []
-  productsVacant = []
-  productsChecking = []
   selectionModel = undefined
 
   drawerOpen = false
@@ -30,98 +40,32 @@ export class AdminExchangeViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  async loadData() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      this.getProductsWaiting()
-      this.getProductsVacant()
-      this.getProductsChecking()
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-    }
-  }
-
-  getProductsData() {
-    switch (this.activeSubCategory) {
-      case 0:
-        return this.productsWaiting
-
-      case 1:
-        return this.productsChecking
-
-      case 2:
-        return this.productsVacant
-
-      case 3:
-        return []
-      case 4:
-        return []
-      case 5:
-        return []
-      case 6:
-        return []
-      case 7:
-        return []
-      case 8:
-        return []
-      case 9:
-        return []
-    }
-  }
-
   getCurrentData() {
-    return toJS(this.getProductsData())
+    return toJS(this.currentProductsData)
   }
 
   onChangeSubCategory(value) {
     this.activeSubCategory = value
+    this.getProductsByStatus(value)
   }
 
   onSelectionModel(model) {
     this.selectionModel = model
   }
 
-  async getProductsWaiting() {
+  async getProductsByStatus(activeSubCategory) {
     try {
-      const result = await AdministratorModel.getProductsWaiting()
-      runInAction(() => {
-        this.productsWaiting = result
-      })
-    } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
-    }
-  }
+      this.setRequestStatus(loadingStatuses.isLoading)
+      const result = await AdministratorModel.getProductsByStatus(productsStatusBySubCategory[activeSubCategory])
 
-  async getProductsVacant() {
-    try {
-      const result = await AdministratorModel.getProductsVacant()
       runInAction(() => {
-        this.productsVacant = result
+        this.currentProductsData = result
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
-    }
-  }
-
-  async getProductsChecking() {
-    try {
-      const result = await AdministratorModel.getProductsChecking()
-      runInAction(() => {
-        this.productsChecking = result
-      })
-    } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      this.error = error
     }
   }
 
