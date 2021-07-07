@@ -11,8 +11,7 @@
  *
  */
 
-
-import ApiClient from "../ApiClient";
+import ApiClient from '../ApiClient';
 import InlineObject from '../model/InlineObject';
 import InlineObject1 from '../model/InlineObject1';
 import InlineObject2 from '../model/InlineObject2';
@@ -31,115 +30,122 @@ import InlineResponse500 from '../model/InlineResponse500';
 * @version v0.0.1
 */
 export default class AdministratorApi {
-
-    /**
+  /**
     * Constructs a new AdministratorApi. 
     * @alias module:api/AdministratorApi
     * @class
     * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
     * default to {@link module:ApiClient#instance} if unspecified.
     */
-    constructor(apiClient) {
-        this.apiClient = apiClient || ApiClient.instance;
-    }
+  constructor(apiClient) {
+    this.apiClient = apiClient || ApiClient.instance;
+  }
 
-
-
-    /**
+  /**
      * # Получить список товаров, которые находятся на проверке. 
      * ## Получить список товаров, которые находятся на проверке.   ## У таких товаров dircheckedby != null && paidat = null   ## !!! Тоже из тех времен когда директор что-то проверял.   ## !!! Думаю надо деприкнуть его.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1AdminsGetCheckingProductsGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
+  apiV1AdminsGetCheckingProductsGetWithHttpInfo(opts) {
+    opts = opts || {};
+    let postBody = null;
 
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
+    let pathParams = {};
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
 
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
-      return this.apiClient.callApi(
-        '/api/v1/admins/get_checking_products', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = [ InlineResponse200 ];
+    return this.apiClient.callApi(
+      '/api/v1/admins/get_checking_products',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
 
-    /**
+  /**
      * # Получить список товаров, которые находятся на проверке. 
      * ## Получить список товаров, которые находятся на проверке.   ## У таких товаров dircheckedby != null && paidat = null   ## !!! Тоже из тех времен когда директор что-то проверял.   ## !!! Думаю надо деприкнуть его.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
-    apiV1AdminsGetCheckingProductsGet(opts) {
-      return this.apiV1AdminsGetCheckingProductsGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1AdminsGetCheckingProductsGet(opts) {
+    return this.apiV1AdminsGetCheckingProductsGetWithHttpInfo(opts).then(function(
+      response_and_data
+    ){
+      return response_and_data.data;
+    });
+  }
 
-
-    /**
+  /**
      * # Получить список не оплаченных товаров.
      * ## Получить список не оплаченных товаров.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1AdminsGetNotPaidProductsGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
+  apiV1AdminsGetNotPaidProductsGetWithHttpInfo(opts) {
+    opts = opts || {};
+    let postBody = null;
 
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
+    let pathParams = {};
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
 
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
-      return this.apiClient.callApi(
-        '/api/v1/admins/get_not_paid_products', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = [ InlineResponse200 ];
+    return this.apiClient.callApi(
+      '/api/v1/admins/get_not_paid_products',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
 
-    /**
+  /**
      * # Получить список не оплаченных товаров.
      * ## Получить список не оплаченных товаров.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
-    apiV1AdminsGetNotPaidProductsGet(opts) {
-      return this.apiV1AdminsGetNotPaidProductsGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1AdminsGetNotPaidProductsGet(opts) {
+    return this.apiV1AdminsGetNotPaidProductsGetWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
 
-
-    /**
+  /**
      * # Получить список продуктов с фильтром по статусу.
      * ## Получить список продуктов с фильтром по статусу.   
      * @param {Number} status Статус товара
@@ -147,37 +153,46 @@ export default class AdministratorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1AdminsGetProductsByStatusStatusGetWithHttpInfo(status, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'status' is set
-      if (status === undefined || status === null) {
-        throw new Error("Missing the required parameter 'status' when calling apiV1AdminsGetProductsByStatusStatusGet");
-      }
-
-      let pathParams = {
-        'status': status
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
-      return this.apiClient.callApi(
-        '/api/v1/admins/get_products_by_status/{status}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
+  apiV1AdminsGetProductsByStatusStatusGetWithHttpInfo(status, opts) {
+    opts = opts || {};
+    let postBody = null;
+    // verify the required parameter 'status' is set
+    if (status === undefined || status === null) {
+      throw new Error(
+        "Missing the required parameter 'status' when calling apiV1AdminsGetProductsByStatusStatusGet"
       );
     }
 
-    /**
+    let pathParams = {
+      status: status
+    };
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = [ InlineResponse200 ];
+    return this.apiClient.callApi(
+      '/api/v1/admins/get_products_by_status/{status}',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
      * # Получить список продуктов с фильтром по статусу.
      * ## Получить список продуктов с фильтром по статусу.   
      * @param {Number} status Статус товара
@@ -185,109 +200,117 @@ export default class AdministratorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
-    apiV1AdminsGetProductsByStatusStatusGet(status, opts) {
-      return this.apiV1AdminsGetProductsByStatusStatusGetWithHttpInfo(status, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1AdminsGetProductsByStatusStatusGet(status, opts) {
+    return this.apiV1AdminsGetProductsByStatusStatusGetWithHttpInfo(status, opts).then(function(
+      response_and_data
+    ){
+      return response_and_data.data;
+    });
+  }
 
-
-    /**
+  /**
      * # Получить список товаров, которые ожидают проверку. 
      * ## переименовали в клиент. Возможно, уже не нужен.   ## Сейчас показывает товары со статусом 0, 10, 40, 50, 60 - т.е. требуют проверки супером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1AdminsGetVacProductsGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
+  apiV1AdminsGetVacProductsGetWithHttpInfo(opts) {
+    opts = opts || {};
+    let postBody = null;
 
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
+    let pathParams = {};
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
 
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
-      return this.apiClient.callApi(
-        '/api/v1/admins/get_vac_products', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = [ InlineResponse200 ];
+    return this.apiClient.callApi(
+      '/api/v1/admins/get_vac_products',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
 
-    /**
+  /**
      * # Получить список товаров, которые ожидают проверку. 
      * ## переименовали в клиент. Возможно, уже не нужен.   ## Сейчас показывает товары со статусом 0, 10, 40, 50, 60 - т.е. требуют проверки супером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
-    apiV1AdminsGetVacProductsGet(opts) {
-      return this.apiV1AdminsGetVacProductsGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1AdminsGetVacProductsGet(opts) {
+    return this.apiV1AdminsGetVacProductsGetWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
 
-
-    /**
+  /**
      * # Получить список товаров, которые ожидают проверку. 
      * ## Получить список товаров, которые ожидают проверку.   ## У таких товаров status = 0   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1AdminsGetWaitingProductsGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
+  apiV1AdminsGetWaitingProductsGetWithHttpInfo(opts) {
+    opts = opts || {};
+    let postBody = null;
 
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
+    let pathParams = {};
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
 
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
-      return this.apiClient.callApi(
-        '/api/v1/admins/get_waiting_products', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = [ InlineResponse200 ];
+    return this.apiClient.callApi(
+      '/api/v1/admins/get_waiting_products',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
 
-    /**
+  /**
      * # Получить список товаров, которые ожидают проверку. 
      * ## Получить список товаров, которые ожидают проверку.   ## У таких товаров status = 0   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
-    apiV1AdminsGetWaitingProductsGet(opts) {
-      return this.apiV1AdminsGetWaitingProductsGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1AdminsGetWaitingProductsGet(opts) {
+    return this.apiV1AdminsGetWaitingProductsGetWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
 
-
-    /**
+  /**
      * # Создать оплату или штраф для пользователя.
      * ## Создать оплату или штраф для пользователя.   
      * @param {module:model/InlineObject2} InlineObject2 
@@ -295,36 +318,44 @@ export default class AdministratorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1AdminsMakePaymentPostWithHttpInfo(InlineObject2, opts) {
-      opts = opts || {};
-      let postBody = InlineObject2;
-      // verify the required parameter 'InlineObject2' is set
-      if (InlineObject2 === undefined || InlineObject2 === null) {
-        throw new Error("Missing the required parameter 'InlineObject2' when calling apiV1AdminsMakePaymentPost");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/admins/make_payment', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
+  apiV1AdminsMakePaymentPostWithHttpInfo(InlineObject2, opts) {
+    opts = opts || {};
+    let postBody = InlineObject2;
+    // verify the required parameter 'InlineObject2' is set
+    if (InlineObject2 === undefined || InlineObject2 === null) {
+      throw new Error(
+        "Missing the required parameter 'InlineObject2' when calling apiV1AdminsMakePaymentPost"
       );
     }
 
-    /**
+    let pathParams = {};
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [ 'application/json' ];
+    let accepts = [ 'text/html' ];
+    let returnType = 'String';
+    return this.apiClient.callApi(
+      '/api/v1/admins/make_payment',
+      'POST',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
      * # Создать оплату или штраф для пользователя.
      * ## Создать оплату или штраф для пользователя.   
      * @param {module:model/InlineObject2} InlineObject2 
@@ -332,15 +363,15 @@ export default class AdministratorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1AdminsMakePaymentPost(InlineObject2, opts) {
-      return this.apiV1AdminsMakePaymentPostWithHttpInfo(InlineObject2, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1AdminsMakePaymentPost(InlineObject2, opts) {
+    return this.apiV1AdminsMakePaymentPostWithHttpInfo(InlineObject2, opts).then(function(
+      response_and_data
+    ){
+      return response_and_data.data;
+    });
+  }
 
-
-    /**
+  /**
      * # Оплатить выбранные продукты.
      * ## Оплатить выбранные продукты. У данных продуктов будет выставлена дата оплаты.   ## В дальнейшем все продукты у которых выставлена дата полаты можно не показывать.   ## ВНИМАНИЕ: нет проверки все ли guid корректны. По корректным GUID обновит. Битые заигнорит..   ## ВНИМАНИЕ: ПОХОЖЕ ЭТО УСТАРЕВШИЙ ФУНКЦИОНАЛ  Оплаты идут от супервайзера как отдельная сущность.   
      * @param {Object} opts Optional parameters
@@ -348,32 +379,38 @@ export default class AdministratorApi {
      * @param {module:model/InlineObject1} opts.InlineObject1 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1AdminsMakeProductsPaidPostWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = opts['InlineObject1'];
+  apiV1AdminsMakeProductsPaidPostWithHttpInfo(opts) {
+    opts = opts || {};
+    let postBody = opts['InlineObject1'];
 
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
+    let pathParams = {};
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
 
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/admins/make_products_paid', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [ 'application/json' ];
+    let accepts = [ 'text/html' ];
+    let returnType = 'String';
+    return this.apiClient.callApi(
+      '/api/v1/admins/make_products_paid',
+      'POST',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
 
-    /**
+  /**
      * # Оплатить выбранные продукты.
      * ## Оплатить выбранные продукты. У данных продуктов будет выставлена дата оплаты.   ## В дальнейшем все продукты у которых выставлена дата полаты можно не показывать.   ## ВНИМАНИЕ: нет проверки все ли guid корректны. По корректным GUID обновит. Битые заигнорит..   ## ВНИМАНИЕ: ПОХОЖЕ ЭТО УСТАРЕВШИЙ ФУНКЦИОНАЛ  Оплаты идут от супервайзера как отдельная сущность.   
      * @param {Object} opts Optional parameters
@@ -381,15 +418,13 @@ export default class AdministratorApi {
      * @param {module:model/InlineObject1} opts.InlineObject1 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1AdminsMakeProductsPaidPost(opts) {
-      return this.apiV1AdminsMakeProductsPaidPostWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1AdminsMakeProductsPaidPost(opts) {
+    return this.apiV1AdminsMakeProductsPaidPostWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
 
-
-    /**
+  /**
      * # Получить список заказов.
      * ## Получить список заказов.   
      * @param {Number} status Статус заказа для фильтра.
@@ -397,37 +432,46 @@ export default class AdministratorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2001>} and HTTP response
      */
-    apiV1AdminsOrdersStatusGetWithHttpInfo(status, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'status' is set
-      if (status === undefined || status === null) {
-        throw new Error("Missing the required parameter 'status' when calling apiV1AdminsOrdersStatusGet");
-      }
+  apiV1AdminsOrdersStatusGetWithHttpInfo(status, opts) {
+    opts = opts || {};
+    let postBody = null;
+    // verify the required parameter 'status' is set
+    // if (status === undefined || status === null) {
+    //   throw new Error(
+    //     "Missing the required parameter 'status' when calling apiV1AdminsOrdersStatusGet"
+    //   );
+    // }
 
-      let pathParams = {
-        'status': status
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
+    let pathParams = {
+      status: status
+    };
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
 
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [InlineResponse2001];
-      return this.apiClient.callApi(
-        '/api/v1/admins/orders/{status}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = [ InlineResponse2001 ];
+    return this.apiClient.callApi(
+      '/api/v1/admins/orders/{status}',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
 
-    /**
+  /**
      * # Получить список заказов.
      * ## Получить список заказов.   
      * @param {Number} status Статус заказа для фильтра.
@@ -435,15 +479,15 @@ export default class AdministratorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2001>}
      */
-    apiV1AdminsOrdersStatusGet(status, opts) {
-      return this.apiV1AdminsOrdersStatusGetWithHttpInfo(status, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1AdminsOrdersStatusGet(status, opts) {
+    return this.apiV1AdminsOrdersStatusGetWithHttpInfo(status, opts).then(function(
+      response_and_data
+    ){
+      return response_and_data.data;
+    });
+  }
 
-
-    /**
+  /**
      * # Внести изменения в продукт.
      * ## Внести изменения в продукт.   ## УТОЧНИТЬ ПОХОЖЕ УЖЕУСТАРЕЛО. .   
      * @param {String} guid GUID продукта в БД.
@@ -452,41 +496,52 @@ export default class AdministratorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1AdminsPatchProductsGuidPatchWithHttpInfo(guid, InlineObject, opts) {
-      opts = opts || {};
-      let postBody = InlineObject;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1AdminsPatchProductsGuidPatch");
-      }
-      // verify the required parameter 'InlineObject' is set
-      if (InlineObject === undefined || InlineObject === null) {
-        throw new Error("Missing the required parameter 'InlineObject' when calling apiV1AdminsPatchProductsGuidPatch");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/admins/patch_products/{guid}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
+  apiV1AdminsPatchProductsGuidPatchWithHttpInfo(guid, InlineObject, opts) {
+    opts = opts || {};
+    let postBody = InlineObject;
+    // verify the required parameter 'guid' is set
+    if (guid === undefined || guid === null) {
+      throw new Error(
+        "Missing the required parameter 'guid' when calling apiV1AdminsPatchProductsGuidPatch"
+      );
+    }
+    // verify the required parameter 'InlineObject' is set
+    if (InlineObject === undefined || InlineObject === null) {
+      throw new Error(
+        "Missing the required parameter 'InlineObject' when calling apiV1AdminsPatchProductsGuidPatch"
       );
     }
 
-    /**
+    let pathParams = {
+      guid: guid
+    };
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [ 'application/json' ];
+    let accepts = [ 'text/html' ];
+    let returnType = 'String';
+    return this.apiClient.callApi(
+      '/api/v1/admins/patch_products/{guid}',
+      'PATCH',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
      * # Внести изменения в продукт.
      * ## Внести изменения в продукт.   ## УТОЧНИТЬ ПОХОЖЕ УЖЕУСТАРЕЛО. .   
      * @param {String} guid GUID продукта в БД.
@@ -495,15 +550,17 @@ export default class AdministratorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1AdminsPatchProductsGuidPatch(guid, InlineObject, opts) {
-      return this.apiV1AdminsPatchProductsGuidPatchWithHttpInfo(guid, InlineObject, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1AdminsPatchProductsGuidPatch(guid, InlineObject, opts) {
+    return this.apiV1AdminsPatchProductsGuidPatchWithHttpInfo(
+      guid,
+      InlineObject,
+      opts
+    ).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
 
-
-    /**
+  /**
      * # Взять продукт на проверку.
      * ## Взять продукт на проверку.   ## Берет на проверку от имени директора. Думаю это устаревший эндпоинт.   
      * @param {String} guid GUID продукта в БД.
@@ -511,37 +568,46 @@ export default class AdministratorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1AdminsPickupProductGuidPostWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1AdminsPickupProductGuidPost");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/admins/pickup_product/{guid}', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
+  apiV1AdminsPickupProductGuidPostWithHttpInfo(guid, opts) {
+    opts = opts || {};
+    let postBody = null;
+    // verify the required parameter 'guid' is set
+    if (guid === undefined || guid === null) {
+      throw new Error(
+        "Missing the required parameter 'guid' when calling apiV1AdminsPickupProductGuidPost"
       );
     }
 
-    /**
+    let pathParams = {
+      guid: guid
+    };
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = 'String';
+    return this.apiClient.callApi(
+      '/api/v1/admins/pickup_product/{guid}',
+      'POST',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
      * # Взять продукт на проверку.
      * ## Взять продукт на проверку.   ## Берет на проверку от имени директора. Думаю это устаревший эндпоинт.   
      * @param {String} guid GUID продукта в БД.
@@ -549,62 +615,66 @@ export default class AdministratorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1AdminsPickupProductGuidPost(guid, opts) {
-      return this.apiV1AdminsPickupProductGuidPostWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1AdminsPickupProductGuidPost(guid, opts) {
+    return this.apiV1AdminsPickupProductGuidPostWithHttpInfo(guid, opts).then(function(
+      response_and_data
+    ){
+      return response_and_data.data;
+    });
+  }
 
-
-    /**
+  /**
      * Получить всех пользователей.
      * ## Получить всех пользователей.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
      */
-    apiV1AdminsUsersGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
+  apiV1AdminsUsersGetWithHttpInfo(opts) {
+    opts = opts || {};
+    let postBody = null;
 
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
+    let pathParams = {};
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
 
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [InlineResponse2002];
-      return this.apiClient.callApi(
-        '/api/v1/admins/users', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = [ InlineResponse2002 ];
+    return this.apiClient.callApi(
+      '/api/v1/admins/users',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
 
-    /**
+  /**
      * Получить всех пользователей.
      * ## Получить всех пользователей.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
      */
-    apiV1AdminsUsersGet(opts) {
-      return this.apiV1AdminsUsersGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1AdminsUsersGet(opts) {
+    return this.apiV1AdminsUsersGetWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
 
-
-    /**
+  /**
      * Изменить пользователя.
      * ##  Изменить пользователя.  ##  Эндпоинт предназначен в большой степени для тестов. Удаление пользователя  ##  предполагалось логическим. Для этого в поле active нужно поставить false.   
      * @param {String} guid GUID продукта в БД.
@@ -612,37 +682,46 @@ export default class AdministratorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1AdminsUsersGuidDeleteWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1AdminsUsersGuidDelete");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/admins/users/{guid}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
+  apiV1AdminsUsersGuidDeleteWithHttpInfo(guid, opts) {
+    opts = opts || {};
+    let postBody = null;
+    // verify the required parameter 'guid' is set
+    if (guid === undefined || guid === null) {
+      throw new Error(
+        "Missing the required parameter 'guid' when calling apiV1AdminsUsersGuidDelete"
       );
     }
 
-    /**
+    let pathParams = {
+      guid: guid
+    };
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = 'String';
+    return this.apiClient.callApi(
+      '/api/v1/admins/users/{guid}',
+      'DELETE',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
      * Изменить пользователя.
      * ##  Изменить пользователя.  ##  Эндпоинт предназначен в большой степени для тестов. Удаление пользователя  ##  предполагалось логическим. Для этого в поле active нужно поставить false.   
      * @param {String} guid GUID продукта в БД.
@@ -650,15 +729,13 @@ export default class AdministratorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1AdminsUsersGuidDelete(guid, opts) {
-      return this.apiV1AdminsUsersGuidDeleteWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1AdminsUsersGuidDelete(guid, opts) {
+    return this.apiV1AdminsUsersGuidDeleteWithHttpInfo(guid, opts).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
 
-
-    /**
+  /**
      * Изменить пользователя.
      * ##  Изменить пользователя.  
      * @param {String} guid GUID продукта в БД.
@@ -667,37 +744,46 @@ export default class AdministratorApi {
      * @param {module:model/InlineObject3} opts.InlineObject3 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1AdminsUsersGuidPatchWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = opts['InlineObject3'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1AdminsUsersGuidPatch");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/admins/users/{guid}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
+  apiV1AdminsUsersGuidPatchWithHttpInfo(guid, opts) {
+    opts = opts || {};
+    let postBody = opts['InlineObject3'];
+    // verify the required parameter 'guid' is set
+    if (guid === undefined || guid === null) {
+      throw new Error(
+        "Missing the required parameter 'guid' when calling apiV1AdminsUsersGuidPatch"
       );
     }
 
-    /**
+    let pathParams = {
+      guid: guid
+    };
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [ 'application/json' ];
+    let accepts = [ 'text/html' ];
+    let returnType = 'String';
+    return this.apiClient.callApi(
+      '/api/v1/admins/users/{guid}',
+      'PATCH',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
      * Изменить пользователя.
      * ##  Изменить пользователя.  
      * @param {String} guid GUID продукта в БД.
@@ -706,12 +792,9 @@ export default class AdministratorApi {
      * @param {module:model/InlineObject3} opts.InlineObject3 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1AdminsUsersGuidPatch(guid, opts) {
-      return this.apiV1AdminsUsersGuidPatchWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
+  apiV1AdminsUsersGuidPatch(guid, opts) {
+    return this.apiV1AdminsUsersGuidPatchWithHttpInfo(guid, opts).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
 }

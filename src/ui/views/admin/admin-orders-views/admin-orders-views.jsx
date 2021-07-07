@@ -32,7 +32,7 @@ class AdminOrdersViewsRaw extends Component {
   viewModel = new AdminOrdersAllViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.loadData()
+    this.viewModel.getOrdersByStatus(this.viewModel.activeSubCategory)
   }
 
   render() {

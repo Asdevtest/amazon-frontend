@@ -1,20 +1,24 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {ADMIN_ORDERS} from '@constants/mocks'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 
 import {AdministratorModel} from '@models/administrator-model'
 
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+
+const ordersStatusBySubCategory = {
+  0: undefined,
+  1: OrderStatusByKey[OrderStatus.PAID],
+  2: OrderStatusByKey[OrderStatus.AT_PROCESS],
+}
 
 export class AdminOrdersAllViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
-  allOrdersData = ADMIN_ORDERS
-  paidOrdersData = [ADMIN_ORDERS[2], ADMIN_ORDERS[0], ADMIN_ORDERS[1]]
-  notPaidOrdersData = [ADMIN_ORDERS[0], ADMIN_ORDERS[2], ADMIN_ORDERS[1]]
+  currentOrdersData = []
 
   selectionModel = undefined
 
@@ -29,32 +33,8 @@ export class AdminOrdersAllViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  async loadData() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      this.getAllOrders()
-      this.getPaidOrders()
-      this.getNotPaidOrders()
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-    }
-  }
-
-  getProductsData() {
-    switch (this.activeSubCategory) {
-      case 0:
-        return this.allOrdersData
-      case 1:
-        return this.paidOrdersData
-      case 2:
-        return this.notPaidOrdersData
-    }
-  }
-
   getCurrentData() {
-    return toJS(this.getProductsData())
+    return toJS(this.currentOrdersData)
   }
 
   onSelectionModel(model) {
@@ -80,54 +60,20 @@ export class AdminOrdersAllViewModel {
 
   onChangeSubCategory(value) {
     this.activeSubCategory = value
+    this.getOrdersByStatus(value)
   }
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
   }
 
-  async getAllOrders() {
+  async getOrdersByStatus(activeSubCategory) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const result = await AdministratorModel.getAllOrders()
-      runInAction(() => {
-        this.ordersData = result.map(order => ({
-          ...getObjectFilteredByKeyArrayBlackList(order, ['_id']),
-          id: order._id,
-        }))
-      })
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-      this.error = error
-    }
-  }
+      const result = await AdministratorModel.getOrdersByStatus(ordersStatusBySubCategory[activeSubCategory])
 
-  async getPaidOrders() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      const result = await AdministratorModel.getPaidOrders()
       runInAction(() => {
-        this.ordersData = result.map(order => ({
-          ...getObjectFilteredByKeyArrayBlackList(order, ['_id']),
-          id: order._id,
-        }))
-      })
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  async getNotPaidOrders() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      const result = await AdministratorModel.getNotPaidOrders()
-      runInAction(() => {
-        this.ordersData = result.map(order => ({
+        this.currentOrdersData = result.map(order => ({
           ...getObjectFilteredByKeyArrayBlackList(order, ['_id']),
           id: order._id,
         }))
