@@ -29,7 +29,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, params}) => (
           <span className={classNames.typoSpan}>{params.row.asin}</span>
           {textConsts.asinUpdateToday}
         </Typography>
-        <Chip className={classNames.chip} label={textConsts.careChip} />
+        <Chip className={classNames.chip} label={params.row.category} />
       </div>
     </div>
   </div>

@@ -38,7 +38,7 @@ export const ProductsBodyRow = ({item, itemIndex, handlers}) => {
               <span className={classNames.typoSpan}>{item.asin}</span>
               {' | updated today'}
             </Typography>
-            <Chip className={classNames.chip} label={'Beauty & Personal Care'} />
+            <Chip className={classNames.chip} label={item.category} />
           </div>
         </div>
       </TableCell>
