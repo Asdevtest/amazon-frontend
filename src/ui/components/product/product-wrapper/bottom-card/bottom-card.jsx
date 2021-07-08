@@ -9,7 +9,7 @@ import {texts} from '@constants/texts'
 
 import {Field} from '@components/field'
 
-import {checkIsBuyer, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
+import {checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './bottom-card.style'
@@ -131,10 +131,7 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
               onChange={onChangeField('totalFba')}
             />
             <Field
-              disabled={
-                !(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || checkIsBuyer(curUserRole))
-              }
-              error={formFieldsValidationErrors.fbaamount}
+              disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
               label={textConsts.recommendedBatch}
               value={product.fbaamount || ''}
               onChange={onChangeField('fbaamount')}

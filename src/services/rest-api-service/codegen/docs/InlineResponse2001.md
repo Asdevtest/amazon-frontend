@@ -13,12 +13,15 @@ Name | Type | Description | Notes
 **fba** | **Boolean** | Признак FBA это заказ или нет. | [optional] 
 **status** | **Number** | tmp | [optional] [default to StatusEnum.1]
 **deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | 
-**product** | [**InlineResponse200**](InlineResponse200.md) |  | 
+**isBarCodeAlreadyAttachedByTheSupplier** | **Boolean** | Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика. | [optional] 
+**trackingNumberChina** | **String** | Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ. | [optional] 
+**amountPaymentPerConsignmentAtDollars** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
 **barCode** | **String** | ссылка на баркод. | [optional] 
-**amount** | **Number** | кол-во | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 **createDate** | **Date** |  | [optional] 
-**createdBy** | [**ApiV1AdminsOrdersStatusCreatedBy**](ApiV1AdminsOrdersStatusCreatedBy.md) |  | [optional] 
+**amount** | **Number** | кол-во | [optional] 
+**product** | [**InlineResponse200**](InlineResponse200.md) |  | 
+**createdBy** | [**ApiV1AdminsOrdersCreatedBy**](ApiV1AdminsOrdersCreatedBy.md) |  | [optional] 
 
 
 

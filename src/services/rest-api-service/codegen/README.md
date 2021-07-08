@@ -128,12 +128,13 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *Amazonapi.AdministratorApi* | [**apiV1AdminsGetCheckingProductsGet**](docs/AdministratorApi.md#apiV1AdminsGetCheckingProductsGet) | **GET** /api/v1/admins/get_checking_products | # Получить список товаров, которые находятся на проверке. 
 *Amazonapi.AdministratorApi* | [**apiV1AdminsGetNotPaidProductsGet**](docs/AdministratorApi.md#apiV1AdminsGetNotPaidProductsGet) | **GET** /api/v1/admins/get_not_paid_products | # Получить список не оплаченных товаров.
-*Amazonapi.AdministratorApi* | [**apiV1AdminsGetProductsByStatusStatusGet**](docs/AdministratorApi.md#apiV1AdminsGetProductsByStatusStatusGet) | **GET** /api/v1/admins/get_products_by_status/{status} | # Получить список продуктов с фильтром по статусу.
+*Amazonapi.AdministratorApi* | [**apiV1AdminsGetPaidProductsGet**](docs/AdministratorApi.md#apiV1AdminsGetPaidProductsGet) | **GET** /api/v1/admins/get_paid_products | # Получить список оплаченных товаров.
+*Amazonapi.AdministratorApi* | [**apiV1AdminsGetProductsByStatusGet**](docs/AdministratorApi.md#apiV1AdminsGetProductsByStatusGet) | **GET** /api/v1/admins/get_products_by_status | # Получить список продуктов с фильтром по статусу.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsGetVacProductsGet**](docs/AdministratorApi.md#apiV1AdminsGetVacProductsGet) | **GET** /api/v1/admins/get_vac_products | # Получить список товаров, которые ожидают проверку. 
 *Amazonapi.AdministratorApi* | [**apiV1AdminsGetWaitingProductsGet**](docs/AdministratorApi.md#apiV1AdminsGetWaitingProductsGet) | **GET** /api/v1/admins/get_waiting_products | # Получить список товаров, которые ожидают проверку. 
 *Amazonapi.AdministratorApi* | [**apiV1AdminsMakePaymentPost**](docs/AdministratorApi.md#apiV1AdminsMakePaymentPost) | **POST** /api/v1/admins/make_payment | # Создать оплату или штраф для пользователя.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsMakeProductsPaidPost**](docs/AdministratorApi.md#apiV1AdminsMakeProductsPaidPost) | **POST** /api/v1/admins/make_products_paid | # Оплатить выбранные продукты.
-*Amazonapi.AdministratorApi* | [**apiV1AdminsOrdersStatusGet**](docs/AdministratorApi.md#apiV1AdminsOrdersStatusGet) | **GET** /api/v1/admins/orders/{status} | # Получить список заказов.
+*Amazonapi.AdministratorApi* | [**apiV1AdminsOrdersGet**](docs/AdministratorApi.md#apiV1AdminsOrdersGet) | **GET** /api/v1/admins/orders | # Получить список заказов.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsPatchProductsGuidPatch**](docs/AdministratorApi.md#apiV1AdminsPatchProductsGuidPatch) | **PATCH** /api/v1/admins/patch_products/{guid} | # Внести изменения в продукт.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsPickupProductGuidPost**](docs/AdministratorApi.md#apiV1AdminsPickupProductGuidPost) | **POST** /api/v1/admins/pickup_product/{guid} | # Взять продукт на проверку.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsUsersGet**](docs/AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
@@ -220,9 +221,9 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
- - [Amazonapi.ApiV1AdminsGetProductsByStatusStatusCreatedby](docs/ApiV1AdminsGetProductsByStatusStatusCreatedby.md)
- - [Amazonapi.ApiV1AdminsGetProductsByStatusStatusCurrentSupplier](docs/ApiV1AdminsGetProductsByStatusStatusCurrentSupplier.md)
- - [Amazonapi.ApiV1AdminsOrdersStatusCreatedBy](docs/ApiV1AdminsOrdersStatusCreatedBy.md)
+ - [Amazonapi.ApiV1AdminsGetProductsByStatusCreatedby](docs/ApiV1AdminsGetProductsByStatusCreatedby.md)
+ - [Amazonapi.ApiV1AdminsGetProductsByStatusCurrentSupplier](docs/ApiV1AdminsGetProductsByStatusCurrentSupplier.md)
+ - [Amazonapi.ApiV1AdminsOrdersCreatedBy](docs/ApiV1AdminsOrdersCreatedBy.md)
  - [Amazonapi.ApiV1BatchesBatch](docs/ApiV1BatchesBatch.md)
  - [Amazonapi.ApiV1BatchesBoxes](docs/ApiV1BatchesBoxes.md)
  - [Amazonapi.ApiV1BatchesItems](docs/ApiV1BatchesItems.md)

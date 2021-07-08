@@ -13,7 +13,7 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiV1AdminsOrdersStatusCreatedBy from '../model/ApiV1AdminsOrdersStatusCreatedBy';
+import ApiV1AdminsOrdersCreatedBy from '../model/ApiV1AdminsOrdersCreatedBy';
 import InlineObject26 from '../model/InlineObject26';
 import InlineObject27 from '../model/InlineObject27';
 import InlineResponse2015 from '../model/InlineResponse2015';
@@ -94,7 +94,7 @@ export default class UserApi {
      * ## Получить информацию от текущем пользователе.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsOrdersStatusCreatedBy} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsOrdersCreatedBy} and HTTP response
      */
     apiV1UsersInfoGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -113,7 +113,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = ApiV1AdminsOrdersStatusCreatedBy;
+      let returnType = ApiV1AdminsOrdersCreatedBy;
       return this.apiClient.callApi(
         '/api/v1/users/info', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -126,7 +126,7 @@ export default class UserApi {
      * ## Получить информацию от текущем пользователе.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsOrdersStatusCreatedBy}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsOrdersCreatedBy}
      */
     apiV1UsersInfoGet(opts) {
       return this.apiV1UsersInfoGetWithHttpInfo(opts)
@@ -142,7 +142,7 @@ export default class UserApi {
      * @param {module:model/InlineObject26} InlineObject26 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsOrdersStatusCreatedBy} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsOrdersCreatedBy} and HTTP response
      */
     apiV1UsersPostWithHttpInfo(InlineObject26, opts) {
       opts = opts || {};
@@ -165,7 +165,7 @@ export default class UserApi {
       let authNames = [];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = ApiV1AdminsOrdersStatusCreatedBy;
+      let returnType = ApiV1AdminsOrdersCreatedBy;
       return this.apiClient.callApi(
         '/api/v1/users/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -179,7 +179,7 @@ export default class UserApi {
      * @param {module:model/InlineObject26} InlineObject26 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsOrdersStatusCreatedBy}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsOrdersCreatedBy}
      */
     apiV1UsersPost(InlineObject26, opts) {
       return this.apiV1UsersPostWithHttpInfo(InlineObject26, opts)

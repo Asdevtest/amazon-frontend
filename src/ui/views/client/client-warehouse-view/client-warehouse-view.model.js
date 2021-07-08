@@ -26,6 +26,13 @@ export class ClientWarehouseViewModel {
   showRedistributeBoxAddNewBoxModal = false
   showRedistributeBoxSuccessModal = false
 
+  get isMasterBoxSelected() {
+    return this.selectedBoxes.some(boxId => {
+      const findBox = this.boxesMy.find(box => box._id === boxId)
+      return findBox?.amount && findBox?.amount > 1
+    })
+  }
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -61,6 +68,13 @@ export class ClientWarehouseViewModel {
   }
 
   onTriggerCheckbox = boxId => {
+    const boxById = this.boxesMy.find(box => box._id === boxId)
+    if (
+      (this.isMasterBoxSelected || (this.selectedBoxes.length && boxById.amount && boxById.amount > 1)) &&
+      !this.selectedBoxes.includes(boxId)
+    ) {
+      return
+    }
     const updatedselectedBoxes = this.selectedBoxes.includes(boxId)
       ? this.selectedBoxes.filter(_id => _id !== boxId)
       : this.selectedBoxes.concat(boxId)

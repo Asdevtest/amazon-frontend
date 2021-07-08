@@ -31,7 +31,7 @@ export const Parameters = ({order, collapsed}) => {
         <OrderParameter label={textConsts.minPrice} value={toFixed(order.amountPaymentPerConsignmentAtDollars)} />
         <OrderParameter label={textConsts.qty} value={order.amount} />
         <OrderParameter label={textConsts.minBuyPrice} value={toFixed(order.amountPaymentPerConsignmentAtDollars)} />
-        <OrderParameter label={textConsts.supplier} value={order.product.supplier} />
+        <OrderParameter label={textConsts.supplier} value={order.product.currentSupplier._id} />
         <OrderParameter label={textConsts.maxDeliveryPrice} value={toFixed(order.deliveryCostToTheWarehouse)} />
         <OrderParameter
           label={textConsts.sizes}

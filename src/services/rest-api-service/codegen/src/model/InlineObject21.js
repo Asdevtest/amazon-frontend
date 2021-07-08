@@ -177,6 +177,7 @@ class InlineObject21 {
 };
 
 
+
 /**
  * SKU - ставит склад - только для склада
  * @member {String} sku
@@ -363,9 +364,6 @@ InlineObject21.prototype['supervisorRate'] = undefined;
  * @member {Number} buyerRate
  */
 InlineObject21.prototype['buyerRate'] = undefined;
-
-
-
 
 
 export default InlineObject21;

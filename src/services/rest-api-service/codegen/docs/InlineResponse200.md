@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **_id** | **String** | GUID продукта в базе данных | 
 **id** | **String** | ASIN продукта | 
 **material** | **String** |  | [optional] 
-**currentSupplier** | [**ApiV1AdminsGetProductsByStatusStatusCurrentSupplier**](ApiV1AdminsGetProductsByStatusStatusCurrentSupplier.md) |  | [optional] 
+**currentSupplier** | [**ApiV1AdminsGetProductsByStatusCurrentSupplier**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md) |  | [optional] 
 **category** | **String** | Категория | [optional] 
 **lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
 **bsr** | **Number** |  | 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **width** | **Number** | Ширина | [optional] 
 **length** | **Number** | Длинна | [optional] 
 **weight** | **Number** | Вес | [optional] 
-**supplier** | [**[ApiV1AdminsGetProductsByStatusStatusCurrentSupplier]**](ApiV1AdminsGetProductsByStatusStatusCurrentSupplier.md) |  | 
+**supplier** | [**[ApiV1AdminsGetProductsByStatusCurrentSupplier]**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md) |  | 
 **reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
 **fbafee** | **Number** | ФБА комиссия | [optional] 
 **delivery** | **Number** | Стоимость доставки. | [optional] 
@@ -41,14 +41,15 @@ Name | Type | Description | Notes
 **profit** | **Number** | Прибыль | [optional] 
 **margin** | **Number** | Маржа | [optional] 
 **byboxprice** | **Number** | Цена | [optional] 
-**createdby** | [**ApiV1AdminsGetProductsByStatusStatusCreatedby**](ApiV1AdminsGetProductsByStatusStatusCreatedby.md) |  | [optional] 
+**createdby** | [**ApiV1AdminsGetProductsByStatusCreatedby**](ApiV1AdminsGetProductsByStatusCreatedby.md) |  | [optional] 
 **createdat** | **Date** | Дата создания | [optional] 
 **updateDate** | **Date** | Дата изменения | [optional] 
 **checkedat** | **Date** | Дата проверки | [optional] 
-**buyer** | [**ApiV1AdminsGetProductsByStatusStatusCreatedby**](ApiV1AdminsGetProductsByStatusStatusCreatedby.md) |  | [optional] 
+**buyer** | [**ApiV1AdminsGetProductsByStatusCreatedby**](ApiV1AdminsGetProductsByStatusCreatedby.md) |  | [optional] 
 **buyerscomment** | **String** | Комментарии к товару от байера. | [optional] 
 **researcherRate** | **Number** | Савка ресечера. | [optional] 
 **supervisorRate** | **Number** | Савка супервайзера. | [optional] 
+**paidat** | **Date** | Дата оплаты | [optional] 
 **buyerRate** | **Number** | Савка байера. | [optional] 
 
 

@@ -4,6 +4,8 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {SupervisorModel} from '@models/supervisor-model'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+
 export class SupervisorReadyToCheckViewModel {
   history = undefined
   requestStatus = undefined
@@ -38,7 +40,8 @@ export class SupervisorReadyToCheckViewModel {
       console.log(result)
       this.setRequestStatus(loadingStatuses.success)
       runInAction(() => {
-        this.productsReadyToCheck = result
+        console.log(result.sort(sortObjectsArrayByFiledDate('createdat')))
+        this.productsReadyToCheck = result.sort(sortObjectsArrayByFiledDate('createdat'))
       })
     } catch (error) {
       console.log(error)

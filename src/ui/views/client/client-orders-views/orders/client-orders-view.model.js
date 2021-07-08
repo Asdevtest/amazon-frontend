@@ -16,7 +16,7 @@ export class ClientOrdersViewModel {
 
   orders = []
   drawerOpen = false
-  modalBarcode = false
+  showBarcodeModal = false
   rowsPerPage = 5
   curPage = 1
   selectedOrder = undefined
@@ -59,6 +59,10 @@ export class ClientOrdersViewModel {
     this.history.push('/client/orders/order', {order: toJS(order)})
   }
 
+  onClickCheckbox(order) {
+    this.selectedOrder = order
+  }
+
   onClickEditBarcode(order) {
     this.selectedOrder = order
     this.onTriggerShowBarcodeModal()
@@ -98,7 +102,7 @@ export class ClientOrdersViewModel {
   }
 
   onTriggerShowBarcodeModal() {
-    this.modalBarcode = !this.modalBarcode
+    this.showBarcodeModal = !this.showBarcodeModal
   }
 
   onTriggerDrawerOpen(e, value) {

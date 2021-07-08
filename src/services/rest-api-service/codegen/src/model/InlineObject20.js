@@ -122,8 +122,6 @@ class InlineObject20 {
 
 
 
-
-
 /**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
@@ -143,6 +141,7 @@ class InlineObject20 {
      */
     "10": 10
 };
+
 
 
 /**
@@ -239,6 +238,7 @@ InlineObject20.prototype['supervisorRate'] = undefined;
  * @member {Number} buyerRate
  */
 InlineObject20.prototype['buyerRate'] = undefined;
+
 
 
 

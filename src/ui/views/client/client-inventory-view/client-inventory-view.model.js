@@ -66,7 +66,9 @@ export class ClientInventoryViewModel {
   async onClickSaveBarcode(barCode) {
     await this.onSaveProductData(this.selectedProduct._id, {barCode})
     this.onTriggerOpenModal('showSetBarcodeModal')
-    this.selectedProduct = undefined
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
   }
 
   async onSaveProductData(productId, updateProductData) {
@@ -128,7 +130,9 @@ export class ClientInventoryViewModel {
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
 
-  onDeleteBarcode() {}
+  async onDeleteBarcode(product) {
+    await this.onSaveProductData(product._id, {barCode: ''})
+  }
 
   onChangeCurPage(e, value) {
     this.curPage = value

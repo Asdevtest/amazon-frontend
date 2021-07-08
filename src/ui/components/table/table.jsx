@@ -30,7 +30,13 @@ export const Table = observer(
             <TableHead className={classNames.tableHead}>{renderHeadRow}</TableHead>
             <TableBody className={classNames.tableBody}>
               {data.slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage).map((el, index) => (
-                <BodyRow key={index} item={el} itemIndex={index} handlers={rowsHandlers} {...restProps} />
+                <BodyRow
+                  key={`${el._id ? el._id : 'tableItem'}_${index}`}
+                  item={el}
+                  itemIndex={index}
+                  handlers={rowsHandlers}
+                  {...restProps}
+                />
               ))}
             </TableBody>
           </MuiTable>

@@ -22,10 +22,16 @@ class InlineObject15 {
     /**
      * Constructs a new <code>InlineObject15</code>.
      * @alias module:model/InlineObject15
+     * @param amount {Number} Кол-во продукта по этой позиции.
+     * @param deliveryMethod {Number} Код метода доставки.
+     * @param warehouse {Number} Номер склада.
+     * @param clientComment {String} Комментарии клиента.
+     * @param barCode {String} Ссылка на баркод.
+     * @param product {String} GUID заказанного продукта
      */
-    constructor() { 
+    constructor(amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
         
-        InlineObject15.initialize(this);
+        InlineObject15.initialize(this, amount, deliveryMethod, warehouse, clientComment, barCode, product);
     }
 
     /**
@@ -33,7 +39,13 @@ class InlineObject15 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
+        obj['amount'] = amount;
+        obj['deliveryMethod'] = deliveryMethod;
+        obj['warehouse'] = warehouse;
+        obj['clientComment'] = clientComment;
+        obj['barCode'] = barCode;
+        obj['product'] = product;
     }
 
     /**
@@ -47,23 +59,29 @@ class InlineObject15 {
         if (data) {
             obj = obj || new InlineObject15();
 
-            if (data.hasOwnProperty('currentSupplier')) {
-                obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('dirdecision')) {
-                obj['dirdecision'] = ApiClient.convertToType(data['dirdecision'], 'Number');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('researcherFine')) {
-                obj['researcherFine'] = ApiClient.convertToType(data['researcherFine'], 'Number');
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
             }
-            if (data.hasOwnProperty('researcherFineComment')) {
-                obj['researcherFineComment'] = ApiClient.convertToType(data['researcherFineComment'], 'String');
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
             }
-            if (data.hasOwnProperty('supervisorFine')) {
-                obj['supervisorFine'] = ApiClient.convertToType(data['supervisorFine'], 'Number');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('supervisorFineComment')) {
-                obj['supervisorFineComment'] = ApiClient.convertToType(data['supervisorFineComment'], 'String');
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = ApiClient.convertToType(data['product'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -73,40 +91,52 @@ class InlineObject15 {
 }
 
 /**
- * GUID поставщика
- * @member {String} currentSupplier
+ * Код текущего состояния заказа.
+ * @member {Number} status
  */
-InlineObject15.prototype['currentSupplier'] = undefined;
+InlineObject15.prototype['status'] = undefined;
 
 /**
- * Решение по товару.
- * @member {Number} dirdecision
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
  */
-InlineObject15.prototype['dirdecision'] = undefined;
+InlineObject15.prototype['amount'] = undefined;
 
 /**
- * Штраф на менеджера.
- * @member {Number} researcherFine
+ * Код метода доставки.
+ * @member {Number} deliveryMethod
  */
-InlineObject15.prototype['researcherFine'] = undefined;
+InlineObject15.prototype['deliveryMethod'] = undefined;
 
 /**
- * Комментарии к штрафу на менеджера.
- * @member {String} researcherFineComment
+ * Номер склада.
+ * @member {Number} warehouse
  */
-InlineObject15.prototype['researcherFineComment'] = undefined;
+InlineObject15.prototype['warehouse'] = undefined;
 
 /**
- * Штраф на супервайзера.
- * @member {Number} supervisorFine
+ * Комментарии клиента.
+ * @member {String} clientComment
  */
-InlineObject15.prototype['supervisorFine'] = undefined;
+InlineObject15.prototype['clientComment'] = undefined;
 
 /**
- * Комментарий к штрафу на супервайзера.
- * @member {String} supervisorFineComment
+ * Ссылка на баркод.
+ * @member {String} barCode
  */
-InlineObject15.prototype['supervisorFineComment'] = undefined;
+InlineObject15.prototype['barCode'] = undefined;
+
+/**
+ * GUID заказанного продукта
+ * @member {String} product
+ */
+InlineObject15.prototype['product'] = undefined;
+
+/**
+ * Массив изображений.
+ * @member {Array.<String>} images
+ */
+InlineObject15.prototype['images'] = undefined;
 
 
 

@@ -11,7 +11,8 @@
  *
  */
 
-import ApiClient from '../ApiClient';
+
+import ApiClient from "../ApiClient";
 import InlineObject20 from '../model/InlineObject20';
 import InlineObject21 from '../model/InlineObject21';
 import InlineResponse200 from '../model/InlineResponse200';
@@ -31,18 +32,21 @@ import InlineResponse500 from '../model/InlineResponse500';
 * @version v0.0.1
 */
 export default class ResearcherApi {
-  /**
+
+    /**
     * Constructs a new ResearcherApi. 
     * @alias module:api/ResearcherApi
     * @class
     * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
     * default to {@link module:ApiClient#instance} if unspecified.
     */
-  constructor(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
-  }
+    constructor(apiClient) {
+        this.apiClient = apiClient || ApiClient.instance;
+    }
 
-  /**
+
+
+    /**
      * Проверить продукт по ID существует ли он в базе.
      * Проверить продукт по ID существует ли он в базе.  В базе id продукта (asin) должно быть уникально. База не даст завести дубль. Перед добавление продукта   нужно проверить, нет ли в базе уже продукта с таким ID   
      * @param {String} id id для проверки
@@ -50,46 +54,37 @@ export default class ResearcherApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2006} and HTTP response
      */
-  apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts) {
-    opts = opts || {};
-    let postBody = null;
-    // verify the required parameter 'id' is set
-    if (id === undefined || id === null) {
-      throw new Error(
-        "Missing the required parameter 'id' when calling apiV1ResearchersCheckProductsIdGet"
+    apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling apiV1ResearchersCheckProductsIdGet");
+      }
+
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse2006;
+      return this.apiClient.callApi(
+        '/api/v1/researchers/check_products/{id}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {
-      id: id
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = InlineResponse2006;
-    return this.apiClient.callApi(
-      '/api/v1/researchers/check_products/{id}',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * Проверить продукт по ID существует ли он в базе.
      * Проверить продукт по ID существует ли он в базе.  В базе id продукта (asin) должно быть уникально. База не даст завести дубль. Перед добавление продукта   нужно проверить, нет ли в базе уже продукта с таким ID   
      * @param {String} id id для проверки
@@ -97,15 +92,15 @@ export default class ResearcherApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2006}
      */
-  apiV1ResearchersCheckProductsIdGet(id, opts) {
-    return this.apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
+    apiV1ResearchersCheckProductsIdGet(id, opts) {
+      return this.apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * Получить данные о продукте с сайта Амазон по id(asin)
      * Получить данные о продукте с сайта Амазон по id(asin)  
      * @param {String} id id(asin) для проверки
@@ -113,46 +108,37 @@ export default class ResearcherApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2007} and HTTP response
      */
-  apiV1ResearchersParseAmazonIdGetWithHttpInfo(id, opts) {
-    opts = opts || {};
-    let postBody = null;
-    // verify the required parameter 'id' is set
-    if (id === undefined || id === null) {
-      throw new Error(
-        "Missing the required parameter 'id' when calling apiV1ResearchersParseAmazonIdGet"
+    apiV1ResearchersParseAmazonIdGetWithHttpInfo(id, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling apiV1ResearchersParseAmazonIdGet");
+      }
+
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse2007;
+      return this.apiClient.callApi(
+        '/api/v1/researchers/parse_amazon/{id}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {
-      id: id
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = InlineResponse2007;
-    return this.apiClient.callApi(
-      '/api/v1/researchers/parse_amazon/{id}',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * Получить данные о продукте с сайта Амазон по id(asin)
      * Получить данные о продукте с сайта Амазон по id(asin)  
      * @param {String} id id(asin) для проверки
@@ -160,15 +146,15 @@ export default class ResearcherApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2007}
      */
-  apiV1ResearchersParseAmazonIdGet(id, opts) {
-    return this.apiV1ResearchersParseAmazonIdGetWithHttpInfo(id, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
+    apiV1ResearchersParseAmazonIdGet(id, opts) {
+      return this.apiV1ResearchersParseAmazonIdGetWithHttpInfo(id, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * Получить данные о продукте с SellerCentral
      * Получить данные о продукте с SellerCentral  
      * @param {Object} opts Optional parameters
@@ -177,41 +163,34 @@ export default class ResearcherApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2008} and HTTP response
      */
-  apiV1ResearchersParseSellercentralGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
+    apiV1ResearchersParseSellercentralGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
-    let pathParams = {};
-    let queryParams = {
-      id: opts['id'],
-      price: opts['price']
-    };
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let pathParams = {
+      };
+      let queryParams = {
+        'id': opts['id'],
+        'price': opts['price']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = InlineResponse2008;
-    return this.apiClient.callApi(
-      '/api/v1/researchers/parse_sellercentral',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse2008;
+      return this.apiClient.callApi(
+        '/api/v1/researchers/parse_sellercentral', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-  /**
+    /**
      * Получить данные о продукте с SellerCentral
      * Получить данные о продукте с SellerCentral  
      * @param {Object} opts Optional parameters
@@ -220,170 +199,156 @@ export default class ResearcherApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2008}
      */
-  apiV1ResearchersParseSellercentralGet(opts) {
-    return this.apiV1ResearchersParseSellercentralGetWithHttpInfo(opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
+    apiV1ResearchersParseSellercentralGet(opts) {
+      return this.apiV1ResearchersParseSellercentralGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * Получить баланс для ресечера.
      * Получить баланс для ресечера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Number} and HTTP response
      */
-  apiV1ResearchersPaymentsMyBalanceGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
+    apiV1ResearchersPaymentsMyBalanceGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = 'Number';
-    return this.apiClient.callApi(
-      '/api/v1/researchers/payments/my-balance',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = 'Number';
+      return this.apiClient.callApi(
+        '/api/v1/researchers/payments/my-balance', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-  /**
+    /**
      * Получить баланс для ресечера.
      * Получить баланс для ресечера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Number}
      */
-  apiV1ResearchersPaymentsMyBalanceGet(opts) {
-    return this.apiV1ResearchersPaymentsMyBalanceGetWithHttpInfo(opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
+    apiV1ResearchersPaymentsMyBalanceGet(opts) {
+      return this.apiV1ResearchersPaymentsMyBalanceGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * Получить информацию об платежах для этого менеджера.
      * Получить информацию об платежах для этого менеджера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
-  apiV1ResearchersPaymentsMyGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
+    apiV1ResearchersPaymentsMyGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ InlineResponse2004 ];
-    return this.apiClient.callApi(
-      '/api/v1/researchers/payments/my',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2004];
+      return this.apiClient.callApi(
+        '/api/v1/researchers/payments/my', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-  /**
+    /**
      * Получить информацию об платежах для этого менеджера.
      * Получить информацию об платежах для этого менеджера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */
-  apiV1ResearchersPaymentsMyGet(opts) {
-    return this.apiV1ResearchersPaymentsMyGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1ResearchersPaymentsMyGet(opts) {
+      return this.apiV1ResearchersPaymentsMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * Получить список товаров созданных данным пользователем.
      * Получить список товаров созданных данным пользователем.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-  apiV1ResearchersProductsGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
+    apiV1ResearchersProductsGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ Object ];
-    return this.apiClient.callApi(
-      '/api/v1/researchers/products',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse200];
+      return this.apiClient.callApi(
+        '/api/v1/researchers/products', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-  /**
+    /**
      * Получить список товаров созданных данным пользователем.
      * Получить список товаров созданных данным пользователем.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
-  apiV1ResearchersProductsGet(opts) {
-    return this.apiV1ResearchersProductsGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1ResearchersProductsGet(opts) {
+      return this.apiV1ResearchersProductsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * Удалить продукт.
      * ## Удалить продукт.   
      * @param {String} guid GUID продукта.
@@ -391,46 +356,37 @@ export default class ResearcherApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-  apiV1ResearchersProductsGuidDeleteWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = null;
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1ResearchersProductsGuidDelete"
+    apiV1ResearchersProductsGuidDeleteWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1ResearchersProductsGuidDelete");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/researchers/products/{guid}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/researchers/products/{guid}',
-      'DELETE',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * Удалить продукт.
      * ## Удалить продукт.   
      * @param {String} guid GUID продукта.
@@ -438,15 +394,15 @@ export default class ResearcherApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-  apiV1ResearchersProductsGuidDelete(guid, opts) {
-    return this.apiV1ResearchersProductsGuidDeleteWithHttpInfo(guid, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
+    apiV1ResearchersProductsGuidDelete(guid, opts) {
+      return this.apiV1ResearchersProductsGuidDeleteWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * Получить товар по GUID.
      * Получить товар по GUID.
      * @param {String} guid GUID запрашиваемого ресурса.
@@ -454,46 +410,37 @@ export default class ResearcherApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
      */
-  apiV1ResearchersProductsGuidGetWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = null;
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1ResearchersProductsGuidGet"
+    apiV1ResearchersProductsGuidGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1ResearchersProductsGuidGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse200;
+      return this.apiClient.callApi(
+        '/api/v1/researchers/products/{guid}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = InlineResponse200;
-    return this.apiClient.callApi(
-      '/api/v1/researchers/products/{guid}',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * Получить товар по GUID.
      * Получить товар по GUID.
      * @param {String} guid GUID запрашиваемого ресурса.
@@ -501,15 +448,15 @@ export default class ResearcherApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
      */
-  apiV1ResearchersProductsGuidGet(guid, opts) {
-    return this.apiV1ResearchersProductsGuidGetWithHttpInfo(guid, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
+    apiV1ResearchersProductsGuidGet(guid, opts) {
+      return this.apiV1ResearchersProductsGuidGetWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * #  Изменить продукт.
      * ## Изменить продукт.   ## ASIN нельзя менять после того как создан продукт.   
      * @param {String} guid GUID продукта БД
@@ -518,46 +465,37 @@ export default class ResearcherApi {
      * @param {module:model/InlineObject21} opts.InlineObject21 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-  apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = opts['InlineObject20'];
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1ResearchersProductsGuidPatch"
+    apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['InlineObject21'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1ResearchersProductsGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/researchers/products/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/researchers/products/{guid}',
-      'PATCH',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * #  Изменить продукт.
      * ## Изменить продукт.   ## ASIN нельзя менять после того как создан продукт.   
      * @param {String} guid GUID продукта БД
@@ -566,15 +504,15 @@ export default class ResearcherApi {
      * @param {module:model/InlineObject21} opts.InlineObject21 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-  apiV1ResearchersProductsGuidPatch(guid, opts) {
-    return this.apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
+    apiV1ResearchersProductsGuidPatch(guid, opts) {
+      return this.apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Добавить новый продукт.
      * ## Добавить новый продукт.   
      * @param {module:model/InlineObject20} InlineObject20 
@@ -582,44 +520,36 @@ export default class ResearcherApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
      */
-  apiV1ResearchersProductsPostWithHttpInfo(InlineObject20, opts) {
-    opts = opts || {};
-    let postBody = InlineObject20;
-    // verify the required parameter 'InlineObject20' is set
-    if (InlineObject20 === undefined || InlineObject20 === null) {
-      throw new Error(
-        "Missing the required parameter 'InlineObject20' when calling apiV1ResearchersProductsPost"
+    apiV1ResearchersProductsPostWithHttpInfo(InlineObject20, opts) {
+      opts = opts || {};
+      let postBody = InlineObject20;
+      // verify the required parameter 'InlineObject20' is set
+      if (InlineObject20 === undefined || InlineObject20 === null) {
+        throw new Error("Missing the required parameter 'InlineObject20' when calling apiV1ResearchersProductsPost");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse2014;
+      return this.apiClient.callApi(
+        '/api/v1/researchers/products', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = InlineResponse2014;
-    return this.apiClient.callApi(
-      '/api/v1/researchers/products',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * # Добавить новый продукт.
      * ## Добавить новый продукт.   
      * @param {module:model/InlineObject20} InlineObject20 
@@ -627,11 +557,12 @@ export default class ResearcherApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
      */
-  apiV1ResearchersProductsPost(InlineObject20, opts) {
-    return this.apiV1ResearchersProductsPostWithHttpInfo(InlineObject20, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
+    apiV1ResearchersProductsPost(InlineObject20, opts) {
+      return this.apiV1ResearchersProductsPostWithHttpInfo(InlineObject20, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
 }

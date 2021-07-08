@@ -13,9 +13,9 @@
 
 
 import ApiClient from './ApiClient';
-import ApiV1AdminsGetProductsByStatusStatusCreatedby from './model/ApiV1AdminsGetProductsByStatusStatusCreatedby';
-import ApiV1AdminsGetProductsByStatusStatusCurrentSupplier from './model/ApiV1AdminsGetProductsByStatusStatusCurrentSupplier';
-import ApiV1AdminsOrdersStatusCreatedBy from './model/ApiV1AdminsOrdersStatusCreatedBy';
+import ApiV1AdminsGetProductsByStatusCreatedby from './model/ApiV1AdminsGetProductsByStatusCreatedby';
+import ApiV1AdminsGetProductsByStatusCurrentSupplier from './model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
+import ApiV1AdminsOrdersCreatedBy from './model/ApiV1AdminsOrdersCreatedBy';
 import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
 import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
 import ApiV1BatchesItems from './model/ApiV1BatchesItems';
@@ -133,22 +133,22 @@ export {
     ApiClient,
 
     /**
-     * The ApiV1AdminsGetProductsByStatusStatusCreatedby model constructor.
-     * @property {module:model/ApiV1AdminsGetProductsByStatusStatusCreatedby}
+     * The ApiV1AdminsGetProductsByStatusCreatedby model constructor.
+     * @property {module:model/ApiV1AdminsGetProductsByStatusCreatedby}
      */
-    ApiV1AdminsGetProductsByStatusStatusCreatedby,
+    ApiV1AdminsGetProductsByStatusCreatedby,
 
     /**
-     * The ApiV1AdminsGetProductsByStatusStatusCurrentSupplier model constructor.
-     * @property {module:model/ApiV1AdminsGetProductsByStatusStatusCurrentSupplier}
+     * The ApiV1AdminsGetProductsByStatusCurrentSupplier model constructor.
+     * @property {module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier}
      */
-    ApiV1AdminsGetProductsByStatusStatusCurrentSupplier,
+    ApiV1AdminsGetProductsByStatusCurrentSupplier,
 
     /**
-     * The ApiV1AdminsOrdersStatusCreatedBy model constructor.
-     * @property {module:model/ApiV1AdminsOrdersStatusCreatedBy}
+     * The ApiV1AdminsOrdersCreatedBy model constructor.
+     * @property {module:model/ApiV1AdminsOrdersCreatedBy}
      */
-    ApiV1AdminsOrdersStatusCreatedBy,
+    ApiV1AdminsOrdersCreatedBy,
 
     /**
      * The ApiV1BatchesBatch model constructor.

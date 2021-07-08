@@ -42,6 +42,9 @@ export const useClassNames = makeStyles(() => ({
       color: 'rgba(255,255,255,0.46)',
     },
   },
+  selected: {
+    color: 'rgb(61, 81, 112)',
+  },
   tooltip: {
     fontSize: '13px',
     margin: '0px',

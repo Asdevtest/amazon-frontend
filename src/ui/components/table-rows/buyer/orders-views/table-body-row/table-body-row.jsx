@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {Box, Chip, TableCell, TableRow, Typography} from '@material-ui/core'
+import clsx from 'clsx'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
@@ -44,26 +45,26 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
         </div>
       </TableCell>
       <TableCell className={classNames.chipCell}>
-        {/* не приходит barCode */}
         <Chip
-          classes={{
-            root: classNames.orderChip,
-            clickable: classNames.orderChipHover,
-            deletable: classNames.orderChipHover,
-            deleteIcon: classNames.orderChipIcon,
-          }}
-          style={{backgroundColor: item.barCode && 'rgb(61, 81, 112)'}}
           size="small"
-          label={item.barCode ? item.barCode : 'Set barcode'}
+          className={clsx(
+            {
+              root: classNames.orderChip,
+              clickable: classNames.orderChipHover,
+              deletable: classNames.orderChipHover,
+              deleteIcon: classNames.orderChipIcon,
+            },
+            {
+              [classNames.selected]: !!item.barCode === true,
+            },
+          )}
+          label={item.barCode ? item.barCode : 'Штрихкод не установлен'}
           onClick={e => {
             e.stopPropagation()
             if (item.barCode) {
               navigator.clipboard.writeText(item.barCode)
-            } else {
-              handlers.onClickEditBarcode(item)
             }
           }}
-          onDelete={item.barCode ? () => handlers.onClickDeleteBarcode() : undefined}
         />
       </TableCell>
       <TableCell className={classNames.cellPadding}>

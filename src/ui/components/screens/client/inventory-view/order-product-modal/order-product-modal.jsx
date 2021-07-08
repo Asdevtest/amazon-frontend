@@ -15,23 +15,25 @@ import {
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
+import {Modal} from '@components/modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {OrderModalBodyRow} from '@components/table-rows/client/inventory/order-product-modal/order-modal-body-row'
 
+import {isNotUndefined} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './order-product-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrderProductModal
 
-export const OrderProductModal = ({
-  onTriggerOpenModal,
-  selectedProductsData,
-  onClickBarcode,
-  onDoubleClickBarcode,
-  onDeleteBarcode,
-  onSubmit,
-}) => {
+export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onDoubleClickBarcode, onSubmit}) => {
   const classNames = useClassNames()
+  const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
+  const [tmpOrderIndex, setTmpOrderIndex] = useState(undefined)
+
+  const triggerBarcodeModal = () => {
+    setShowSetBarcodeModal(!showSetBarcodeModal)
+  }
 
   const [orderState, setOrderState] = useState(
     selectedProductsData.map(product => ({
@@ -46,6 +48,12 @@ export const OrderProductModal = ({
     })),
   )
 
+  const setOrderStateFiled = index => fieldsName => value => {
+    const newStateOrderState = {...orderState}
+    newStateOrderState[index][fieldsName] = value
+    setOrderState(newStateOrderState)
+  }
+
   return (
     <Container disableGutters>
       <Typography className={classNames.modalTitle}>{textConsts.mainTitle}</Typography>
@@ -57,7 +65,7 @@ export const OrderProductModal = ({
               <TableCell className={(classNames.tableCell, classNames.imgCell)}>{textConsts.imgCell}</TableCell>
               <TableCell className={classNames.tableCell}>{textConsts.id}</TableCell>
               <TableCell className={classNames.tableCell}>{textConsts.price}</TableCell>
-              <TableCell className={classNames.tableCell}>{textConsts.avgPrice}</TableCell>
+              <TableCell className={classNames.tableCell}>{textConsts.avgDeliveryPrice}</TableCell>
               <TableCell className={classNames.tableCell}>{textConsts.amount}</TableCell>
               <TableCell className={classNames.tableCell}>{textConsts.total}</TableCell>
               <TableCell className={classNames.tableCell}>{textConsts.barCode}</TableCell>
@@ -71,12 +79,17 @@ export const OrderProductModal = ({
               <OrderModalBodyRow
                 key={index}
                 item={product}
-                orderState={orderState}
-                setOrderState={setOrderState}
+                orderState={orderState[index]}
+                setOrderStateFiled={setOrderStateFiled(index)}
                 itemIndex={index}
-                onClickBarcode={onClickBarcode}
+                onClickBarcode={() => {
+                  setTmpOrderIndex(index)
+                  triggerBarcodeModal()
+                }}
                 onDoubleClickBarcode={onDoubleClickBarcode}
-                onDeleteBarcode={onDeleteBarcode}
+                onDeleteBarcode={() => {
+                  setOrderStateFiled(index)('barCode')('')
+                }}
               />
             ))}
           </TableBody>
@@ -113,6 +126,17 @@ export const OrderProductModal = ({
           {textConsts.cancelBtn}
         </Button>
       </div>
+      <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
+        <SetBarcodeModal
+          order={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex]}
+          onClickSaveBarcode={barCode => {
+            setOrderStateFiled(tmpOrderIndex)('barCode')(barCode)
+            triggerBarcodeModal()
+            setTmpOrderIndex(undefined)
+          }}
+          onCloseModal={triggerBarcodeModal}
+        />
+      </Modal>
     </Container>
   )
 }

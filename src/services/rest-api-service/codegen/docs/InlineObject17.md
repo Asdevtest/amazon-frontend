@@ -4,13 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Код текущего состояния заказа. | [optional] 
-**amount** | **Number** | Кол-во продукта по этой позиции. | 
-**deliveryMethod** | **Number** | Код метода доставки. | 
-**warehouse** | **Number** | Номер склада. | 
-**clientComment** | **String** | Комментарии клиента. | 
-**barCode** | **String** | Ссылка на баркод. | 
-**product** | **String** | GUID заказанного продукта | 
-**images** | **[String]** | Массив изображений. | [optional] 
+**taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
+**boxes** | **[String]** | Массив коробок. | 
+**operationType** | **String** | Тип операции | 
+
+
+
+## Enum: OperationTypeEnum
+
+
+* `merge` (value: `"merge"`)
+
+* `split` (value: `"split"`)
+
+* `receive` (value: `"receive"`)
+
+
 
 

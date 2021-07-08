@@ -4,11 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**currentSupplier** | **String** | GUID поставщика | [optional] 
-**dirdecision** | **Number** | Решение по товару. | [optional] 
-**researcherFine** | **Number** | Штраф на менеджера. | [optional] 
-**researcherFineComment** | **String** | Комментарии к штрафу на менеджера. | [optional] 
-**supervisorFine** | **Number** | Штраф на супервайзера. | [optional] 
-**supervisorFineComment** | **String** | Комментарий к штрафу на супервайзера. | [optional] 
+**status** | **Number** | Код текущего состояния заказа. | [optional] 
+**amount** | **Number** | Кол-во продукта по этой позиции. | 
+**deliveryMethod** | **Number** | Код метода доставки. | 
+**warehouse** | **Number** | Номер склада. | 
+**clientComment** | **String** | Комментарии клиента. | 
+**barCode** | **String** | Ссылка на баркод. | 
+**product** | **String** | GUID заказанного продукта | 
+**images** | **[String]** | Массив изображений. | [optional] 
 
 

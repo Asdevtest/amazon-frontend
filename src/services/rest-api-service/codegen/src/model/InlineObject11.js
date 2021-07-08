@@ -68,14 +68,24 @@ class InlineObject11 {
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            }
+            if (data.hasOwnProperty('trackingNumberChina')) {
+                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
+            }
+            if (data.hasOwnProperty('amountPaymentPerConsignmentAtDollars')) {
+                obj['amountPaymentPerConsignmentAtDollars'] = ApiClient.convertToType(data['amountPaymentPerConsignmentAtDollars'], 'Number');
+            }
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
         }
         return obj;
     }
 
 
 }
-
-
 
 
 /**
@@ -177,6 +187,32 @@ InlineObject11.prototype['deliveryCostToTheWarehouse'] = undefined;
  * @member {Array.<String>} images
  */
 InlineObject11.prototype['images'] = undefined;
+
+/**
+ * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
+ */
+InlineObject11.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+
+/**
+ * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
+ * @member {String} trackingNumberChina
+ */
+InlineObject11.prototype['trackingNumberChina'] = undefined;
+
+/**
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} amountPaymentPerConsignmentAtDollars
+ */
+InlineObject11.prototype['amountPaymentPerConsignmentAtDollars'] = undefined;
+
+/**
+ * Баркод.
+ * @member {String} barCode
+ */
+InlineObject11.prototype['barCode'] = undefined;
+
+
 
 
 

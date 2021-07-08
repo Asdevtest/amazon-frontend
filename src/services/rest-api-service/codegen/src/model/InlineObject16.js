@@ -47,8 +47,26 @@ class InlineObject16 {
         if (data) {
             obj = obj || new InlineObject16();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -58,10 +76,46 @@ class InlineObject16 {
 }
 
 /**
- * массив GUIDов оплаченных товаров
- * @member {Array.<String>} guids
+ * Код текущего состояния заказа.
+ * @member {Number} status
  */
-InlineObject16.prototype['guids'] = undefined;
+InlineObject16.prototype['status'] = undefined;
+
+/**
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
+ */
+InlineObject16.prototype['amount'] = undefined;
+
+/**
+ * Код метода доставки.
+ * @member {Number} deliveryMethod
+ */
+InlineObject16.prototype['deliveryMethod'] = undefined;
+
+/**
+ * Номер склада.
+ * @member {Number} warehouse
+ */
+InlineObject16.prototype['warehouse'] = undefined;
+
+/**
+ * Комментарии клиента.
+ * @member {String} clientComment
+ */
+InlineObject16.prototype['clientComment'] = undefined;
+
+/**
+ * Ссылка на баркод.
+ * @member {String} barCode
+ */
+InlineObject16.prototype['barCode'] = undefined;
+
+/**
+ * Массив изображений.
+ * @member {Array.<String>} images
+ */
+InlineObject16.prototype['images'] = undefined;
 
 
 

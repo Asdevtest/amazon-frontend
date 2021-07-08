@@ -169,6 +169,8 @@ export const texts = {
       weightFinalAccountingKgSupplier: 'weightFinalAccountingKgSupplier',
       amountLabel: 'Amount',
       materialLabel: 'Material',
+      amountOfSubBoxes: 'amountOfSubBoxes',
+      amountIfItemsInBox: 'Items in box',
 
       saveChangesBtn: 'Save',
       cancelChangesBtn: 'Cancel',
@@ -1193,7 +1195,7 @@ export const texts = {
 
       id: 'id',
       price: 'Цена',
-      avgPrice: 'Ср. цена',
+      avgDeliveryPrice: 'Ср. стоимость доставки за 1 шт.',
       amount: 'Кол-во',
       total: 'Итого',
       barCode: 'Штрихкод',

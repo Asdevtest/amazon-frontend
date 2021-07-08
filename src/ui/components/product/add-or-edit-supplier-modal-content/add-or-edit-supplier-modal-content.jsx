@@ -47,7 +47,7 @@ export const AddOrEditSupplierModalContent = observer(({title, onTriggerShowModa
       <Field
         disabled
         label={textConsts.csCode}
-        value={priceCalculation(tmpSupplier.price, tmpSupplier.delivery, tmpSupplier.minlot)}
+        value={priceCalculation(tmpSupplier.price, tmpSupplier.delivery, tmpSupplier.amount)}
       />
       <Field
         multiline

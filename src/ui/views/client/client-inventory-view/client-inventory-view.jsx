@@ -143,9 +143,7 @@ export class ClientInventoryViewRaw extends Component {
           <OrderProductModal
             selectedProductsData={productsMy.filter(product => selectedProducts.includes(product._id))}
             onTriggerOpenModal={onTriggerOpenModal}
-            onClickBarcode={onClickBarcode}
             onDoubleClickBarcode={onDoubleClickBarcode}
-            onDeleteBarcode={onDeleteBarcode}
             onSubmit={onSubmitOrderProductModal}
           />
         </Modal>

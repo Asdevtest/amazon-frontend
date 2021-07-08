@@ -8,6 +8,8 @@ import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 import {CreateOrEditBoxForm} from '@components/forms/create-or-edit-box-form'
+import {Modal} from '@components/modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -25,7 +27,6 @@ const orderStatusesThatTriggersEditBoxBlock = [
 export const EditOrderModal = ({
   order,
   onTriggerModal,
-  onTriggerBarcodeModal,
   modalHeadCells,
   warehouses,
   deliveryTypeByCode,
@@ -34,24 +35,37 @@ export const EditOrderModal = ({
   onSubmitCreateBox,
 }) => {
   const classNames = useClassNames()
-  const [showCreateOrEditBoxBlock, setShowCreateOrEditBoxBlock] = useState(false)
+  const [showCreateOrEditBoxBlock, setShowCreateOrEditBoxBlock] = useState(
+    orderStatusesThatTriggersEditBoxBlock.includes(parseInt(order?.status)),
+  )
+  const [showBarcodeModal, setShowBarcodeModal] = useState(false)
+  const onTriggerShowBarcodeModal = () => {
+    setShowBarcodeModal(!showBarcodeModal)
+  }
   const [orderFields, setOrderFields] = useState({
     ...order,
-    warehouse: (order && order.warehouse) || undefined,
-    deliveryMethod: (order && order.deliveryMethod) || undefined,
-    status: (order && order.status) || undefined,
-    clientComment: (order && order.clientComment) || '',
-    buyerscomment: (order && order.product.buyerscomment) || '',
-    deliveryCostToTheWarehouse: (order && order.deliveryCostToTheWarehouse) || '',
+    warehouse: order?.warehouse || undefined,
+    deliveryMethod: order?.deliveryMethod || undefined,
+    status: order?.status || undefined,
+    clientComment: order?.clientComment || '',
+    buyerscomment: order?.product.buyerscomment || '',
+    deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || '',
+    amountPaymentPerConsignmentAtDollars: order?.deliveryCostToTheWarehouse || '',
+    isBarCodeAlreadyAttachedByTheSupplier: order?.isBarCodeAlreadyAttachedByTheSupplier || false,
     trackId: '',
-    material: (order && order.product && order.product.material) || '',
-    amount: 0,
+    material: order?.product?.material || '',
+    amount: order?.amount,
+    trackingNumberChina: order?.trackingNumberChina,
+    barCode: order?.barCode,
     batchPrice: 0,
   })
 
   const setOrderField = filedName => e => {
     const newOrderFieldsState = {...orderFields}
     newOrderFieldsState[filedName] = e.target.value
+    if (filedName === 'status' && orderStatusesThatTriggersEditBoxBlock.includes(parseInt(e.target.value))) {
+      onTriggerShowCreateOrEditBoxBlock()
+    }
     setOrderFields(newOrderFieldsState)
   }
 
@@ -86,7 +100,7 @@ export const EditOrderModal = ({
           order={order}
           orderFields={orderFields}
           setOrderField={setOrderField}
-          onTriggerBarcodeModal={onTriggerBarcodeModal}
+          onTriggerBarcodeModal={onTriggerShowBarcodeModal}
         />
       </Paper>
       {!showCreateOrEditBoxBlock ? (
@@ -94,15 +108,7 @@ export const EditOrderModal = ({
           <Button
             className={classNames.saveBtn}
             onClick={() => {
-              if (
-                orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) &&
-                ((order && !orderStatusesThatTriggersEditBoxBlock.includes(parseInt(order.status))) || !order)
-              ) {
-                onTriggerShowCreateOrEditBoxBlock()
-              } else {
-                onTriggerModal()
-                onSubmitSaveOrder(order, orderFields)
-              }
+              onSubmitSaveOrder(order, orderFields)
             }}
           >
             {textConsts.saveBtn}
@@ -116,6 +122,7 @@ export const EditOrderModal = ({
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
           <CreateOrEditBoxForm
             selectFieldsArePreDefined
+            canBeMasterBox
             order={orderFields}
             onSubmit={(boxId, boxFields) => {
               onSubmitCreateBox(boxId, boxFields)
@@ -124,6 +131,16 @@ export const EditOrderModal = ({
           />
         </React.Fragment>
       ) : undefined}
+      <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
+        <SetBarcodeModal
+          order={orderFields}
+          onClickSaveBarcode={barCode => {
+            setOrderField('barCode')({target: {value: barCode}})
+            onTriggerShowBarcodeModal()
+          }}
+          onCloseModal={onTriggerShowBarcodeModal}
+        />
+      </Modal>
     </Box>
   )
 }

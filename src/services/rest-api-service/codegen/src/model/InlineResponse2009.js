@@ -138,7 +138,13 @@ InlineResponse2009['OperationTypeEnum'] = {
      * value: "split"
      * @const
      */
-    "split": "split"
+    "split": "split",
+
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive"
 };
 
 

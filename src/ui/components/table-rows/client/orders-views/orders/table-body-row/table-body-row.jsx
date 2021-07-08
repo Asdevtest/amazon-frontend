@@ -9,6 +9,7 @@ import {warehouses} from '@constants/warehouses'
 
 import {Button} from '@components/buttons/button'
 
+import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
@@ -17,7 +18,7 @@ import {styles} from './table-body-row.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersTableRow
 
-const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
+const TableBodyRowRaw = ({item, itemIndex, handlers, selectedOrder, ...restProps}) => {
   const classNames = restProps.classes
   return (
     <TableRow onClick={() => handlers.onClickTableRow(item)}>
@@ -26,7 +27,13 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
       </TableCell>
 
       <TableCell padding="checkbox">
-        <Checkbox />
+        <Checkbox
+          value={selectedOrder?._id === item._id}
+          onClick={e => {
+            e.stopPropagation()
+            handlers.onClickCheckbox()
+          }}
+        />
       </TableCell>
 
       <TableCell>
@@ -98,7 +105,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
       </TableCell>
 
       <TableCell>
-        <Typography>{toFixedWithDollarSign(item.product.delivery + item.product.amazon * item.amount)}</Typography>
+        <Typography>{toFixedWithDollarSign(calcProductsPriceWithDelivery(item.product, item))}</Typography>
       </TableCell>
 
       <TableCell>

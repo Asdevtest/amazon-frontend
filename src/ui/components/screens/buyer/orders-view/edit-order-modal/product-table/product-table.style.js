@@ -53,6 +53,16 @@ export const useClassNames = makeStyles(() => ({
     width: '80px',
   },
   selected: {
-    color: 'rgb(61, 81, 112)',
+    color: 'white',
+    backgroundColor: 'rgba(0, 123, 255, 1)',
+    '&:hover, &:focus': {
+      backgroundColor: '#1269ec',
+    },
+  },
+  checkboxWithLabelWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }))

@@ -21,4 +21,14 @@ export const styles = createStyles({
     textAlign: 'right',
     flexDirection: 'row-reverse',
   },
+  centerCell: {
+    textAlign: 'center',
+  },
+  subBoxesTableWrapper: {},
+  checkboxRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
 })

@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersInfoGet
 
-> ApiV1AdminsOrdersStatusCreatedBy apiV1UsersInfoGet(opts)
+> ApiV1AdminsOrdersCreatedBy apiV1UsersInfoGet(opts)
 
 Получить информацию от текущем пользователе.
 
@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV1AdminsOrdersStatusCreatedBy**](ApiV1AdminsOrdersStatusCreatedBy.md)
+[**ApiV1AdminsOrdersCreatedBy**](ApiV1AdminsOrdersCreatedBy.md)
 
 ### Authorization
 
@@ -117,7 +117,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersPost
 
-> ApiV1AdminsOrdersStatusCreatedBy apiV1UsersPost(InlineObject26, opts)
+> ApiV1AdminsOrdersCreatedBy apiV1UsersPost(InlineObject26, opts)
 
 Создание нового пользователя. Регистрация.
 
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV1AdminsOrdersStatusCreatedBy**](ApiV1AdminsOrdersStatusCreatedBy.md)
+[**ApiV1AdminsOrdersCreatedBy**](ApiV1AdminsOrdersCreatedBy.md)
 
 ### Authorization
 

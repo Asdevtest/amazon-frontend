@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## apiV1SuppliersGet
 
-> [ApiV1AdminsGetProductsByStatusStatusCurrentSupplier] apiV1SuppliersGet(opts)
+> [ApiV1AdminsGetProductsByStatusCurrentSupplier] apiV1SuppliersGet(opts)
 
 # Получить список поставщиков.
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1AdminsGetProductsByStatusStatusCurrentSupplier]**](ApiV1AdminsGetProductsByStatusStatusCurrentSupplier.md)
+[**[ApiV1AdminsGetProductsByStatusCurrentSupplier]**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md)
 
 ### Authorization
 
@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersGuidGet
 
-> ApiV1AdminsGetProductsByStatusStatusCurrentSupplier apiV1SuppliersGuidGet(guid, opts)
+> ApiV1AdminsGetProductsByStatusCurrentSupplier apiV1SuppliersGuidGet(guid, opts)
 
 # Получить одного поставщика.
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV1AdminsGetProductsByStatusStatusCurrentSupplier**](ApiV1AdminsGetProductsByStatusStatusCurrentSupplier.md)
+[**ApiV1AdminsGetProductsByStatusCurrentSupplier**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md)
 
 ### Authorization
 

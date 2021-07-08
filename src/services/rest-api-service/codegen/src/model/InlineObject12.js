@@ -108,7 +108,13 @@ InlineObject12['OperationTypeEnum'] = {
      * value: "split"
      * @const
      */
-    "split": "split"
+    "split": "split",
+
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive"
 };
 
 

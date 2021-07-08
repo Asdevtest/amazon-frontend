@@ -7,7 +7,16 @@ import {BuyerModel} from '@models/buyer-model'
 
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
-const updateOrderKeys = ['status', 'deliveryMethod', 'warehouse', 'barCode']
+const updateOrderKeys = [
+  'status',
+  'deliveryMethod',
+  'warehouse',
+  'barCode',
+  'trackingNumberChina',
+  'amountPaymentPerConsignmentAtDollars',
+  'isBarCodeAlreadyAttachedByTheSupplier',
+  'deliveryCostToTheWarehouse',
+]
 
 export class BuyerMyOrdersViewModel {
   history = undefined
@@ -81,7 +90,6 @@ export class BuyerMyOrdersViewModel {
   async onSaveOrder(order, updateOrderData) {
     try {
       const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(updateOrderData, updateOrderKeys, true)
-
       await BuyerModel.updateOrder(order._id, updateOrderDataFiltered)
       this.loadData()
     } catch (error) {
@@ -97,7 +105,7 @@ export class BuyerMyOrdersViewModel {
     try {
       const createBoxData = {
         ...getObjectFilteredByKeyArrayBlackList(formFields, ['items']),
-        clientId: '60aabf69b2f06d5a147ba009', // Исправить на правельный, когда будет бек готов
+        clientId: this.selectedOrder.createdBy._id,
         deliveryMethod: formFields.deliveryMethod,
         items: [
           {
@@ -111,7 +119,12 @@ export class BuyerMyOrdersViewModel {
       runInAction(() => {
         this.selectedOrder = undefined
       })
-      await BoxesModel.createBox(createBoxData)
+      const createBoxResult = await BoxesModel.createBox(createBoxData)
+      await BuyerModel.postTask({
+        taskId: 0,
+        boxes: [createBoxResult.guid],
+        operationType: 'receive',
+      })
     } catch (error) {
       console.log(error)
     }

@@ -31,10 +31,7 @@ class ResearcherModelStatic {
 
   updateProduct = async (id, data) => {
     await transformAndValidate(ResearcherUpdateProductContract, data)
-
-    const response = await restApiService.researcherApi.apiV1ResearchersProductsGuidPatch(id, {
-      InlineObject20: data,
-    })
+    const response = await restApiService.researcherApi.apiV1ResearchersProductsGuidPatch(id, {InlineObject21: data})
     return response
   }
 
