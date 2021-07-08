@@ -63,7 +63,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
               <span className={classNames.typoSpan}>{item.id}</span>
               {` | ${formatDateDistanceFromNow(item.createdat)}`}
             </Typography>
-            <Chip className={classNames.chip} label={'Beauty & Personal Care'} />
+            <Chip className={classNames.chip} label={item.category} />
           </div>
         </div>
       </TableCell>
