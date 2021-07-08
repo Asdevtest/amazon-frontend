@@ -125,6 +125,7 @@ export class SupervisorProductViewModel {
       )
       await SupervisorModel.updateProduct(this.product._id, updateProductData)
       this.setActionStatus(loadingStatuses.success)
+      this.history.push('/supervisor/products')
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
 

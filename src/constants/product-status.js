@@ -7,6 +7,7 @@ export const ProductStatus = {
   NEW_PRODUCT: 'NEW_PRODUCT',
   RESEARCHER_FOUND_SUPPLIER: 'RESEARCHER_FOUND_SUPPLIER',
   REJECTED_BY_SUPERVISOR_AT_FIRST_STEP: 'REJECTED_BY_SUPERVISOR_AT_FIRST_STEP',
+  BUYER_PICKED_PRODUCT: 'BUYER_PICKED_PRODUCT',
   TO_BUYER_FOR_RESEARCH: 'TO_BUYER_FOR_RESEARCH',
   BUYER_FOUND_SUPPLIER: 'BUYER_FOUND_SUPPLIER',
   SUPPLIER_WAS_NOT_FOUND_BY_BUYER: 'SUPPLIER_WAS_NOT_FOUND_BY_BUYER',
@@ -23,6 +24,7 @@ export const ProductStatusByCode = {
   // Статусы, которые поставит супервайзер по итогам проверки
   20: ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP, // Если ставит этот статус - должны заплатить супервайзеру.
   30: ProductStatus.TO_BUYER_FOR_RESEARCH,
+  35: ProductStatus.BUYER_PICKED_PRODUCT, // статус проставляется автоматически после того как баер взял товар в работу
   // Статусы которые поставит байер по результатам своей работы.
   40: ProductStatus.BUYER_FOUND_SUPPLIER,
   50: ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER,

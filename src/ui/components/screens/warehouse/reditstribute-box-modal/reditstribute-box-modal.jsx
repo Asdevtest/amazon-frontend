@@ -25,13 +25,17 @@ export const RedistributeBox = ({
   const classNames = useClassNames()
   const [currentBox, setCurrentBox] = useState(selectedBox)
 
-  const emptyProducts = currentBox.items.map(product => ({...product, amount: 0}))
+  const isMasterBox = selectedBox?.amount && selectedBox?.amount > 1
 
-  const getEmptyBox = () => ({...currentBox, _id: 'new_id_' + Date.now(), items: emptyProducts})
+  const emptyProducts = currentBox.items.map(product => ({...product, amount: isMasterBox ? product.amount : 0}))
+
+  const getEmptyBox = () => ({...currentBox, _id: 'new_id_' + Date.now(), items: emptyProducts, amount: 1})
 
   const emptyBox = getEmptyBox()
   const [newBoxes, setNewBoxes] = useState([emptyBox])
-  const totalProductsAmount = currentBox.items.reduce((acc, order) => acc + order.amount, 0)
+  const totalProductsAmount = isMasterBox
+    ? currentBox.amount - newBoxes.length
+    : currentBox.items.reduce((acc, order) => acc + order.amount, 0)
 
   const onChangeInput = (e, _id, order) => {
     const targetBox = newBoxes.filter(box => box._id === _id)[0]
@@ -70,23 +74,28 @@ export const RedistributeBox = ({
     onRedistribute(selectedBox._id, newBoxesWithoutEmptyOrders, operationTypes.SPLIT)
   }
 
-  const Box = ({box, readOnly = false}) => (
+  const Box = ({box, readOnly = false, boxIsMasterBox, index}) => (
     <div className={classNames.box}>
       <Typography className={classNames.boxTitle}>{box._id}</Typography>
       {box.items.map((order, orderIndex) => (
-        <div key={orderIndex} className={classNames.order}>
-          <img
-            className={classNames.img}
-            src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
-          />
-          <Typography className={classNames.title}>{orderIndex + 1 + '. ' + order.product.amazonTitle}</Typography>
-          <Typography className={classNames.subTitle}>{textConsts.qtyLabel}</Typography>
-          <Input
-            classes={{root: classNames.inputWrapper, input: classNames.input}}
-            readOnly={readOnly}
-            value={order.amount}
-            onChange={e => onChangeInput(e, box._id, order.order)}
-          />
+        <div key={`box_${box._id}_${readOnly ? 1 : 0}_${index}`}>
+          <div key={orderIndex} className={classNames.order}>
+            <img
+              className={classNames.img}
+              src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
+            />
+            <Typography className={classNames.title}>{orderIndex + 1 + '. ' + order.product.amazonTitle}</Typography>
+            <Typography className={classNames.subTitle}>{textConsts.qtyLabel}</Typography>
+            <Input
+              classes={{root: classNames.inputWrapper, input: classNames.input}}
+              readOnly={readOnly}
+              value={isMasterBox ? (boxIsMasterBox ? selectedBox.amount : 1) : order.amount}
+              onChange={e => onChangeInput(e, box._id, order.order)}
+            />
+          </div>
+          {isMasterBox ? (
+            <Typography className={classNames.subTitle}>{`Unites per box ${box.items[0].amount}`}</Typography>
+          ) : undefined}
         </div>
       ))}
     </div>
@@ -96,7 +105,7 @@ export const RedistributeBox = ({
     <div className={classNames.currentBox}>
       <Typography className={classNames.sectionTitle}>{textConsts.redistributionTitle}</Typography>
 
-      <Box readOnly box={currentBox} />
+      <Box readOnly boxIsMasterBox={isMasterBox} box={currentBox} index={0} />
 
       <div className={classNames.currentBoxFooter}>
         <Typography
@@ -111,7 +120,7 @@ export const RedistributeBox = ({
       <Typography className={classNames.sectionTitle}>{textConsts.newBoxesTitle}</Typography>
 
       {newBoxes.map((box, boxIndex) => (
-        <Box key={boxIndex} box={box} />
+        <Box key={boxIndex} index={boxIndex} box={box} readOnly={isMasterBox} />
       ))}
     </div>
   )

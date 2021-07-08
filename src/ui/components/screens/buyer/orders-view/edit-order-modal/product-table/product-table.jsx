@@ -1,23 +1,37 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-import {Chip, Table, TableCell, TableContainer, TableRow, TableHead, TableBody} from '@material-ui/core'
+import {
+  Chip,
+  Table,
+  TableCell,
+  TableContainer,
+  TableRow,
+  TableHead,
+  TableBody,
+  Checkbox,
+  Typography,
+} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {getDeliveryOptionByCode} from '@constants/delivery-options'
-import {texts} from '@constants/texts'
-
+// не убирать, нужно будет позже
+// import {texts} from '@constants/texts'
 import {Input} from '@components/input'
 
-import {formatDate} from '@utils/date-time'
+import {calcExchangePrice, calcPriceForItem, calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixedWithDollarSign} from '@utils/text'
 
+// import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {useClassNames} from './product-table.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').ordersViewsModalProductTable
+// const textConsts = getLocalizedTexts(texts, 'en').ordersViewsModalProductTable
 
 export const ProductTable = ({modalHeadCells, order, onTriggerBarcodeModal, orderFields, setOrderField}) => {
+  const [priceYuansForBatch, setPriceYuansForBatch] = useState('')
+  const [usePriceInDollars, setUsePriceInDollars] = useState(false)
+  const [yuansToDollarRate, setYuansToDollarRate] = useState('')
   const classNames = useClassNames()
+  console.log(orderFields.isBarCodeAlreadyAttachedByTheSupplier)
   return (
     <TableContainer>
       <Table className={classNames.table}>
@@ -40,10 +54,11 @@ export const ProductTable = ({modalHeadCells, order, onTriggerBarcodeModal, orde
               />
             </TableCell>
             <TableCell>{order.product.id}</TableCell>
-            <TableCell>{getDeliveryOptionByCode(order.deliveryMethod).label}</TableCell>
-            <TableCell className={classNames.tableCell}>{formatDate(order.product.createdat)}</TableCell>
-            <TableCell className={classNames.tableCell}>{formatDate(order.product.checkedat)}</TableCell>
-            <TableCell>{order.product.lsupplier}</TableCell>
+            <TableCell>{order.product.currentSupplier.price}</TableCell>
+            <TableCell className={classNames.tableCell}>{order.product.currentSupplier.delivery}</TableCell>
+            <TableCell className={classNames.tableCell}>{orderFields.amount}</TableCell>
+            <TableCell>{toFixedWithDollarSign(calcProductsPriceWithDelivery(order.product, orderFields))}</TableCell>
+            <TableCell>{order.product.currentSupplier.link}</TableCell>
             <TableCell>
               <Chip
                 size="small"
@@ -55,20 +70,96 @@ export const ProductTable = ({modalHeadCells, order, onTriggerBarcodeModal, orde
                     deleteIcon: classNames.orderChipIcon,
                   },
                   {
-                    [classNames.selected]: !!order.barcode === true,
+                    [classNames.selected]: !!orderFields.barCode === true,
                   },
                 )}
-                label={order.barcode ? order.barcode : 'Set barcode'}
-                onClick={order.barcode ? () => navigator.clipboard.writeText(order.barcode) : onTriggerBarcodeModal}
-                onDelete={order.barcode ? () => alert(textConsts.alert) : undefined}
+                label={orderFields.barCode ? orderFields.barCode : 'Set barcode'}
+                onClick={
+                  !orderFields.barCode || (orderFields.barCode && orderFields.isBarCodeAlreadyAttachedByTheSupplier)
+                    ? onTriggerBarcodeModal
+                    : () => navigator.clipboard.writeText(order.barCode)
+                }
+                onDelete={
+                  (orderFields.barCode &&
+                    orderFields.isBarCodeAlreadyAttachedByTheSupplier &&
+                    (() => {
+                      setOrderField('barCode')({target: {value: ''}})
+                      onTriggerBarcodeModal()
+                    })) ||
+                  undefined
+                }
+              />
+              <div className={classNames.checkboxWithLabelWrapper}>
+                <Checkbox
+                  checked={orderFields.isBarCodeAlreadyAttachedByTheSupplier}
+                  onChange={() => {
+                    setOrderField('isBarCodeAlreadyAttachedByTheSupplier')({
+                      target: {value: !orderFields.isBarCodeAlreadyAttachedByTheSupplier},
+                    })
+                  }}
+                />
+                <Typography>Поставщик поклеил баркод при отправке</Typography>
+              </div>
+            </TableCell>
+            <TableCell className={classNames.tableCell}>
+              <Input
+                disabled={usePriceInDollars}
+                value={priceYuansForBatch}
+                className={classNames.input}
+                onChange={e => {
+                  setPriceYuansForBatch(e.target.value)
+                  setOrderField('amountPaymentPerConsignmentAtDollars')({
+                    target: {value: calcExchangePrice(e.target.value, yuansToDollarRate)},
+                  })
+                }}
+              />
+              <div className={classNames.checkboxWithLabelWrapper}>
+                <Checkbox
+                  value={usePriceInDollars}
+                  onChange={() => {
+                    if (!usePriceInDollars) {
+                      setPriceYuansForBatch('')
+                      setYuansToDollarRate('')
+                    }
+                    setUsePriceInDollars(!usePriceInDollars)
+                  }}
+                />
+                <Typography>Использовать цену в долларах</Typography>
+              </div>
+            </TableCell>
+            <TableCell className={classNames.tableCell}>
+              <Input
+                disabled={usePriceInDollars}
+                value={yuansToDollarRate}
+                className={classNames.input}
+                onChange={e => {
+                  setYuansToDollarRate(e.target.value)
+                  setOrderField('amountPaymentPerConsignmentAtDollars')({
+                    target: {value: calcExchangePrice(priceYuansForBatch, e.target.value)},
+                  })
+                }}
+              />
+            </TableCell>
+            <TableCell className={classNames.tableCell}>
+              <Input
+                disabled={!usePriceInDollars}
+                value={orderFields.amountPaymentPerConsignmentAtDollars}
+                className={classNames.input}
+                onChange={setOrderField('amountPaymentPerConsignmentAtDollars')}
               />
             </TableCell>
 
             <TableCell>{orderFields.material}</TableCell>
-            <TableCell className={classNames.tableCell}>{textConsts.traclId}</TableCell>
+            <TableCell className={classNames.tableCell}>
+              {calcPriceForItem(orderFields.amountPaymentPerConsignmentAtDollars, orderFields.amount)}
+            </TableCell>
 
             <TableCell className={classNames.tableCell}>
-              <Input value={orderFields.trackId} className={classNames.input} onChange={setOrderField('trackId')} />
+              <Input
+                value={orderFields.trackingNumberChina}
+                className={classNames.input}
+                onChange={setOrderField('trackingNumberChina')}
+              />
             </TableCell>
           </TableRow>
         </TableBody>

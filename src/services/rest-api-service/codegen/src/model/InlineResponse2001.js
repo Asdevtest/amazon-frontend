@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsOrdersStatusCreatedBy from './ApiV1AdminsOrdersStatusCreatedBy';
+import ApiV1AdminsOrdersCreatedBy from './ApiV1AdminsOrdersCreatedBy';
 import InlineResponse200 from './InlineResponse200';
 
 /**
@@ -87,14 +87,17 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
                 obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = InlineResponse200.constructFromObject(data['product']);
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            }
+            if (data.hasOwnProperty('trackingNumberChina')) {
+                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
+            }
+            if (data.hasOwnProperty('amountPaymentPerConsignmentAtDollars')) {
+                obj['amountPaymentPerConsignmentAtDollars'] = ApiClient.convertToType(data['amountPaymentPerConsignmentAtDollars'], 'Number');
             }
             if (data.hasOwnProperty('barCode')) {
                 obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
@@ -102,8 +105,14 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('createDate')) {
                 obj['createDate'] = ApiClient.convertToType(data['createDate'], 'Date');
             }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = InlineResponse200.constructFromObject(data['product']);
+            }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsOrdersStatusCreatedBy.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1AdminsOrdersCreatedBy.constructFromObject(data['createdBy']);
             }
         }
         return obj;
@@ -171,7 +180,6 @@ class InlineResponse2001 {
 };
 
 
-
 /**
  * GUID данной записи в БД.
  * @member {String} _id
@@ -228,21 +236,28 @@ InlineResponse2001.prototype['status'] = InlineResponse2001.StatusEnum[1];
 InlineResponse2001.prototype['deliveryCostToTheWarehouse'] = undefined;
 
 /**
- * @member {module:model/InlineResponse200} product
+ * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
  */
-InlineResponse2001.prototype['product'] = undefined;
+InlineResponse2001.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+
+/**
+ * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
+ * @member {String} trackingNumberChina
+ */
+InlineResponse2001.prototype['trackingNumberChina'] = undefined;
+
+/**
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} amountPaymentPerConsignmentAtDollars
+ */
+InlineResponse2001.prototype['amountPaymentPerConsignmentAtDollars'] = undefined;
 
 /**
  * ссылка на баркод.
  * @member {String} barCode
  */
 InlineResponse2001.prototype['barCode'] = undefined;
-
-/**
- * кол-во
- * @member {Number} amount
- */
-InlineResponse2001.prototype['amount'] = undefined;
 
 /**
  * Массив картинок.
@@ -256,10 +271,20 @@ InlineResponse2001.prototype['images'] = undefined;
 InlineResponse2001.prototype['createDate'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsOrdersStatusCreatedBy} createdBy
+ * кол-во
+ * @member {Number} amount
+ */
+InlineResponse2001.prototype['amount'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse200} product
+ */
+InlineResponse2001.prototype['product'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersCreatedBy} createdBy
  */
 InlineResponse2001.prototype['createdBy'] = undefined;
-
 
 
 

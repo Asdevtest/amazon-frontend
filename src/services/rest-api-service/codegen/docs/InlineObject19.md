@@ -4,19 +4,40 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
-**boxes** | **[String]** | Массив коробок. | 
-**operationType** | **String** | Тип операции | 
-
-
-
-## Enum: OperationTypeEnum
-
-
-* `merge` (value: `"merge"`)
-
-* `split` (value: `"split"`)
-
-
+**id** | **String** | ASIN продукта | [optional] 
+**material** | **String** |  | [optional] 
+**lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
+**currentSupplier** | **String** | GUID поставщика | [optional] 
+**fba** | **Boolean** | Признак fba | [optional] 
+**express** | **Boolean** | Признак экспресс доставки. | [optional] 
+**minpurchase** | **Number** | Минимальный заказ | [optional] 
+**bsr** | **Number** |  | [optional] 
+**amazon** | **Number** |  | [optional] 
+**height** | **Number** | Высота | [optional] 
+**width** | **Number** | Ширина | [optional] 
+**length** | **Number** | Длинна | [optional] 
+**weight** | **Number** | Вес | [optional] 
+**supplier** | **[String]** | Массив поставщиков. | [optional] 
+**reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
+**fbalink** | **String** | ФБА ссылка | [optional] 
+**fbafee** | **Number** | ФБА комиссия | [optional] 
+**fbaamount** | **Number** | ФБА кол-во | [optional] 
+**delivery** | **Number** | Стоимость доставки. | [optional] 
+**icomment** | **String** | Комментарии к товару. | [optional] 
+**status** | **Number** | Код текущего статуса | [optional] 
+**checkednotes** | **String** |  | [optional] 
+**researcherFine** | **Number** | Размер штрафа менеджеру. | [optional] 
+**researcherFineComment** | **String** | Комментарии к штрафу. | [optional] 
+**supervisorFine** | **Number** | Размер штрафа на супервайзера. | [optional] 
+**supervisorFineComment** | **String** | Комментарии к штрафу | [optional] 
+**dirdecision** | **Number** | Код решения директора. | [optional] 
+**amazonDescription** | **String** | Описание с сайта амазон. | [optional] 
+**amazonDetail** | **String** | Данные из поля детали с сайта амазон. | [optional] 
+**amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
+**profit** | **Number** | Прибыль | [optional] 
+**margin** | **Number** | Маржа | [optional] 
+**researcherRate** | **Number** | Савка ресечера. | [optional] 
+**supervisorRate** | **Number** | Савка супервайзера. | [optional] 
+**buyerRate** | **Number** | Савка байера. | [optional] 
 
 

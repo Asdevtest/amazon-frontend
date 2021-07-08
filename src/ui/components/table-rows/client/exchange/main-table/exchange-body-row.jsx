@@ -5,6 +5,7 @@ import {texts} from '@constants/texts'
 
 import {SuccessButton} from '@components/buttons/success-button'
 
+import {calcProductPrice} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
@@ -31,11 +32,9 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, classes: classNames}) =>
         {item.createdby.name}
       </Button>
     </TableCell>
-    {/* нужно добавить на бек */}
-    <TableCell>{item.fullPriceWithPaymentForEachRole}</TableCell>
     <TableCell>
       <SuccessButton onClick={() => handlers.onClickLaunchPrivateLabelBtn(item, itemIndex)}>
-        {`${textConsts.byForBtn} ${toFixedWithDollarSign(item.amazon)}`}
+        {`${textConsts.byForBtn} ${toFixedWithDollarSign(calcProductPrice(item))}`}
       </SuccessButton>
     </TableCell>
   </TableRow>

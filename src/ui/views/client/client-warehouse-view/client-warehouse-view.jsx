@@ -162,7 +162,7 @@ export class ClientWarehouseViewRaw extends Component {
             <RedistributeBox
               addNewBoxModal={showRedistributeBoxAddNewBoxModal}
               setAddNewBoxModal={value => onModalRedistributeBoxAddNewBox(value)}
-              selectedBox={boxesMy.find(box => box._id === selectedBoxes[0])}
+              selectedBox={selectedBoxes.length && boxesMy.find(box => box._id === selectedBoxes[0])}
               onRedistribute={onRedistribute}
               onTriggerOpenModal={onTriggerOpenModal}
             />
@@ -222,43 +222,45 @@ export class ClientWarehouseViewRaw extends Component {
     </TableRow>
   )
 
-  renderButtons = () => (
-    <React.Fragment>
-      <Button disableElevation color="primary" variant="contained">
-        {textConsts.sendBatchBtn}
-      </Button>
+  renderButtons = () => {
+    const {selectedBoxes, isMasterBoxSelected, onTriggerOpenModal, onClickMerge} = this.viewModel
+    return (
+      <React.Fragment>
+        <Button disableElevation color="primary" variant="contained">
+          {textConsts.sendBatchBtn}
+        </Button>
 
-      <Button
-        disableElevation
-        disabled={this.viewModel.selectedBoxes.length <= 1}
-        color="primary"
-        variant="contained"
-        onClick={() => this.viewModel.onClickMerge(operationTypes.MERGE)}
-      >
-        {textConsts.mergeBtn}
-      </Button>
+        <Button
+          disableElevation
+          disabled={selectedBoxes.length <= 1 || isMasterBoxSelected}
+          color="primary"
+          variant="contained"
+          onClick={() => onClickMerge(operationTypes.MERGE)}
+        >
+          {textConsts.mergeBtn}
+        </Button>
 
-      <Button
-        disableElevation
-        disabled={this.viewModel.selectedBoxes.length !== 1}
-        color="primary"
-        variant="contained"
-        onClick={() => this.viewModel.onTriggerOpenModal('showRedistributeBoxModal')}
-      >
-        {textConsts.redistributeBtn}
-      </Button>
-
-      <Button
-        disableElevation
-        disabled={this.viewModel.selectedBoxes.length !== 1}
-        color="primary"
-        variant="contained"
-        onClick={() => this.viewModel.onTriggerOpenModal('showEditBoxModal')}
-      >
-        {textConsts.editBtn}
-      </Button>
-    </React.Fragment>
-  )
+        <Button
+          disableElevation
+          disabled={selectedBoxes.length !== 1}
+          color="primary"
+          variant="contained"
+          onClick={() => onTriggerOpenModal('showRedistributeBoxModal')}
+        >
+          {textConsts.redistributeBtn}
+        </Button>
+        <Button
+          disableElevation
+          disabled={selectedBoxes.length !== 1 || isMasterBoxSelected}
+          color="primary"
+          variant="contained"
+          onClick={() => onTriggerOpenModal('showEditBoxModal')}
+        >
+          {textConsts.editBtn}
+        </Button>
+      </React.Fragment>
+    )
+  }
 }
 
 export const ClientWarehouseView = withStyles(styles)(ClientWarehouseViewRaw)

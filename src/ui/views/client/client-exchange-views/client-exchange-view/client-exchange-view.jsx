@@ -116,7 +116,6 @@ export class ClientExchangeViewRaw extends Component {
         <TableCell key={index}>{item.label}</TableCell>
       ))}
       <TableCell />
-      <TableCell />
     </TableRow>
   )
 

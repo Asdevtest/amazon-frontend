@@ -11,6 +11,10 @@ Name | Type | Description | Notes
 **status** | **Number** | tmp | [optional] [default to StatusEnum.1]
 **deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
+**isBarCodeAlreadyAttachedByTheSupplier** | **Boolean** | Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика. | [optional] 
+**trackingNumberChina** | **String** | Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ. | [optional] 
+**amountPaymentPerConsignmentAtDollars** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
+**barCode** | **String** | Баркод. | [optional] 
 
 
 

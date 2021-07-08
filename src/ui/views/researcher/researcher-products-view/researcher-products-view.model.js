@@ -1,6 +1,7 @@
 import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 
 import {ResearcherModel} from '@models/researcher-model'
 
@@ -137,7 +138,9 @@ export class ResearcherProductsViewModel {
   }
 
   onClickTableRow(item) {
-    this.history.push('/researcher/product', {product: toJS(item)})
+    if (item.status < ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
+      this.history.push('/researcher/product', {product: toJS(item)})
+    }
   }
 
   onChangeFormFields = fieldName =>

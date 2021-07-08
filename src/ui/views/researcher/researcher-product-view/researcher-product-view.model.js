@@ -313,6 +313,7 @@ export class ResearcherProductViewModel {
       console.log('updateProductData ', updateProductData)
       await ResearcherModel.updateProduct(this.product._id, updateProductData)
       this.setActionStatus(loadingStatuses.success)
+      this.history.goBack()
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
 

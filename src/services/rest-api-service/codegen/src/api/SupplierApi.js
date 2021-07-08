@@ -13,7 +13,7 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiV1AdminsGetProductsByStatusStatusCurrentSupplier from '../model/ApiV1AdminsGetProductsByStatusStatusCurrentSupplier';
+import ApiV1AdminsGetProductsByStatusCurrentSupplier from '../model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
 import InlineObject24 from '../model/InlineObject24';
 import InlineObject25 from '../model/InlineObject25';
 import InlineResponse2013 from '../model/InlineResponse2013';
@@ -46,7 +46,7 @@ export default class SupplierApi {
      * ## Получить список поставщиков.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusStatusCurrentSupplier>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier>} and HTTP response
      */
     apiV1SuppliersGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -65,7 +65,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [ApiV1AdminsGetProductsByStatusStatusCurrentSupplier];
+      let returnType = [ApiV1AdminsGetProductsByStatusCurrentSupplier];
       return this.apiClient.callApi(
         '/api/v1/suppliers/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -78,7 +78,7 @@ export default class SupplierApi {
      * ## Получить список поставщиков.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusStatusCurrentSupplier>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier>}
      */
     apiV1SuppliersGet(opts) {
       return this.apiV1SuppliersGetWithHttpInfo(opts)
@@ -148,7 +148,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsGetProductsByStatusStatusCurrentSupplier} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier} and HTTP response
      */
     apiV1SuppliersGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -172,7 +172,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = ApiV1AdminsGetProductsByStatusStatusCurrentSupplier;
+      let returnType = ApiV1AdminsGetProductsByStatusCurrentSupplier;
       return this.apiClient.callApi(
         '/api/v1/suppliers/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -186,7 +186,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsGetProductsByStatusStatusCurrentSupplier}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier}
      */
     apiV1SuppliersGuidGet(guid, opts) {
       return this.apiV1SuppliersGuidGetWithHttpInfo(guid, opts)

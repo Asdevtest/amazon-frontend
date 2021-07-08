@@ -41,7 +41,7 @@ class ClientOrdersViewRaw extends Component {
     const {
       orders,
       drawerOpen,
-      modalBarcode,
+      showBarcodeModal,
       rowsPerPage,
       curPage,
       selectedOrder,
@@ -53,12 +53,14 @@ class ClientOrdersViewRaw extends Component {
       onClickDeleteBarcode,
       onClickSaveBarcode,
       onClickTableRow,
+      onClickCheckbox,
     } = this.viewModel
     const {classes: className} = this.props
     const rowHandlers = {
       onClickEditBarcode,
       onClickDeleteBarcode,
       onClickTableRow,
+      onClickCheckbox,
     }
 
     return (
@@ -93,13 +95,14 @@ class ClientOrdersViewRaw extends Component {
                   renderHeadRow={this.renderHeadRow}
                   rowsPerPage={rowsPerPage}
                   rowsHandlers={rowHandlers}
+                  selectedOrder={selectedOrder}
                 />
               </div>
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={modalBarcode} setOpenModal={onTriggerShowBarcodeModal}>
+        <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
           <SetBarcodeModal
             order={selectedOrder}
             onClickSaveBarcode={onClickSaveBarcode}

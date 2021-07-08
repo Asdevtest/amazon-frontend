@@ -143,6 +143,7 @@ export class BuyerProductViewModel {
     switch (actionType) {
       case 'accept':
         this.onSaveProductData()
+        this.history.push('/buyer/my-products')
         break
       case 'cancel':
         this.onResetInitialProductData()

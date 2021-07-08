@@ -9,9 +9,9 @@ import {warehouses} from '@constants/warehouses'
 
 import {Input} from '@components/input'
 
+import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {priceCalculation} from '@utils/price-calculation'
 import {trimBarcode} from '@utils/text'
 
 import {useClassNames} from './order-modal-body-row.style'
@@ -21,7 +21,7 @@ const textConsts = getLocalizedTexts(texts, 'en').inventoryView
 export const OrderModalBodyRow = ({
   item,
   itemIndex,
-  setOrderState,
+  setOrderStateFiled,
   onClickBarcode,
   onDoubleClickBarcode,
   onDeleteBarcode,
@@ -30,11 +30,7 @@ export const OrderModalBodyRow = ({
   const classNames = useClassNames()
 
   const onChangeInput = (event, nameInput) => {
-    setOrderState([
-      ...orderState.map((product, index) =>
-        index === itemIndex ? {...product, [nameInput]: event.target.value} : product,
-      ),
-    ])
+    setOrderStateFiled(nameInput)(event.target.value)
   }
 
   const [amount, setAmount] = useState(0)
@@ -62,11 +58,11 @@ export const OrderModalBodyRow = ({
       </TableCell>
 
       <TableCell>
-        <Typography>{item.amazon}</Typography>
+        <Typography>{item.currentSupplier.price}</Typography>
       </TableCell>
 
       <TableCell>
-        <Typography>{item.bsr}</Typography>
+        <Typography>{item.currentSupplier.delivery}</Typography>
       </TableCell>
 
       <TableCell>
@@ -82,7 +78,7 @@ export const OrderModalBodyRow = ({
       </TableCell>
 
       <TableCell>
-        <Typography>{priceCalculation(item.amazon, item.fbaamount, amount)}</Typography>
+        <Typography>{calcProductsPriceWithDelivery(item, orderState)}</Typography>
       </TableCell>
 
       <TableCell>
@@ -95,10 +91,10 @@ export const OrderModalBodyRow = ({
           }}
           className={clsx({[classNames.barcodeChipExists]: item.barCode})}
           size="small"
-          label={item.barCode ? trimBarcode(item.barCode) : textConsts.setBarcodeChipLabel}
+          label={orderState.barCode ? trimBarcode(orderState.barCode) : textConsts.setBarcodeChipLabel}
           onClick={() => onClickBarcode(item, itemIndex)}
           onDoubleClick={() => onDoubleClickBarcode(item, itemIndex)}
-          onDelete={!item.barCode ? undefined : () => onDeleteBarcode(item, itemIndex)}
+          onDelete={!orderState.barCode ? undefined : () => onDeleteBarcode(item, itemIndex)}
         />
       </TableCell>
 

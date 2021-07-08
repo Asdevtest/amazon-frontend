@@ -17,6 +17,8 @@ Name | Type | Description | Notes
 
 * `split` (value: `"split"`)
 
+* `receive` (value: `"receive"`)
+
 
 
 

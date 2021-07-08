@@ -20,23 +20,24 @@ import {useClassNames} from './create-or-edit-box-form.style'
 const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
 
 export const CreateOrEditBoxForm = observer(
-  ({box, order, onSubmit, onCloseModal, onTriggerOpenModal, selectFieldsArePreDefined}) => {
+  ({box, order, onSubmit, onCloseModal, onTriggerOpenModal, selectFieldsArePreDefined, canBeMasterBox}) => {
     const classNames = useClassNames()
 
     const [formFields, setFormFields] = useState({
-      lengthCmSupplier: (box && box.lengthCmSupplier) || '',
-      widthCmSupplier: (box && box.widthCmSupplier) || '',
-      heightCmSupplier: (box && box.heightCmSupplier) || '',
-      weighGrossKgSupplier: (box && box.weighGrossKgSupplier) || '',
-      volumeWeightKgSupplier: (box && box.volumeWeightKgSupplier) || '',
-      weightFinalAccountingKgSupplier: (box && box.weightFinalAccountingKgSupplier) || '',
-      warehouse: (box && box.warehouse) || (order && order.warehouse) || '',
-      deliveryMethod: (box && box.deliveryMethod) || (order && order.deliveryMethod) || '',
-      items: (box && box.items) || [
+      lengthCmSupplier: box?.lengthCmSupplier || '',
+      widthCmSupplier: box?.widthCmSupplier || '',
+      heightCmSupplier: box?.heightCmSupplier || '',
+      weighGrossKgSupplier: box?.weighGrossKgSupplier || '',
+      volumeWeightKgSupplier: box?.volumeWeightKgSupplier || '',
+      weightFinalAccountingKgSupplier: box?.weightFinalAccountingKgSupplier || '',
+      warehouse: order?.warehouse || '',
+      deliveryMethod: order?.deliveryMethod || '',
+      amount: '',
+      items: box?.items || [
         {
-          product: order && order.product,
-          amount: (order && order.amount) || 10,
-          order: order && order,
+          product: order?.product,
+          amount: order?.amount,
+          order,
         },
       ],
     })
@@ -179,6 +180,26 @@ export const CreateOrEditBoxForm = observer(
                 onChange={setFormField('weightFinalAccountingKgSupplier')}
               />
             </div>
+            {canBeMasterBox ? (
+              <div className={classNames.numberInputFieldsWrapper}>
+                <Field
+                  type="number"
+                  min="0"
+                  containerClasses={classNames.numberInputField}
+                  label={textConsts.amountOfSubBoxes}
+                  value={formFields.amount}
+                  onChange={setFormField('amount')}
+                />
+                <Field
+                  type="number"
+                  min="0"
+                  containerClasses={classNames.numberInputField}
+                  label={textConsts.amountIfItemsInBox}
+                  value={formFields.items[0].amount}
+                  onChange={setAmountField}
+                />
+              </div>
+            ) : undefined}
           </div>
 
           <Divider className={classNames.divider} />
@@ -190,9 +211,7 @@ export const CreateOrEditBoxForm = observer(
               </Typography>
             ) : undefined}
             {formFields.items &&
-              formFields.items.map((orderItem, orderIndex) => (
-                <BoxOrder key={orderIndex} order={orderItem} setAmountField={setAmountField} />
-              ))}
+              formFields.items.map((orderItem, orderIndex) => <BoxOrder key={orderIndex} order={orderItem} />)}
           </div>
         </div>
 

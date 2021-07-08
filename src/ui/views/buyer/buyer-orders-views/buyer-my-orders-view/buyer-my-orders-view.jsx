@@ -60,8 +60,6 @@ class BuyerMyOrdersViewRaw extends Component {
       onTriggerShowOrderModal,
       onClickOrder,
       onSelectedOrder,
-      onClickEditBarcode,
-      onClickDeleteBarcode,
       onClickSaveBarcode,
       onSubmitSaveOrder,
       onTriggerShowCreateOrEditBoxModal,
@@ -70,8 +68,6 @@ class BuyerMyOrdersViewRaw extends Component {
     const {classes: classNames} = this.props
     const rowHandlers = {
       onClickOrder,
-      onClickEditBarcode,
-      onClickDeleteBarcode,
       onSelectedOrder,
     }
     return (
