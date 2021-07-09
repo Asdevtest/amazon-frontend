@@ -14,4 +14,14 @@ export const styles = createStyles(theme => ({
   mb5: {
     marginBottom: theme.spacing(5),
   },
+  modalMessageWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  modalMessage: {
+    maxWidth: '400px',
+  },
+  modalMessageBtn: {
+    alignSelf: 'flex-end',
+  },
 }))

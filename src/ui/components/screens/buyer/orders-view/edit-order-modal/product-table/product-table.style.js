@@ -65,4 +65,8 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  suplierLinkCell: {
+    maxWidth: '400px',
+    overflowX: 'scroll',
+  },
 }))

@@ -11,7 +11,7 @@ export class AdminWarehouseBoxesViewModel {
 
   drawerOpen = false
   curPage = 1
-  rowsPerPage = 5
+  rowsPerPage = 15
   selectedBoxes = ['2096c_box']
   modalSendOwnProduct = false
   modalEditBox = false

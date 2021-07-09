@@ -28,7 +28,7 @@ export class BuyerMyOrdersViewModel {
   drawerOpen = false
   showBarcodeModal = false
   showOrderModal = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   curPage = 1
   selectedOrder = undefined
   barcode = ''
@@ -58,33 +58,8 @@ export class BuyerMyOrdersViewModel {
     this.onTriggerShowOrderModal()
   }
 
-  onClickEditBarcode(order) {
-    this.selectedOrder = order
-    this.onTriggerShowBarcodeModal()
-  }
-
-  async onClickSaveBarcode(barCode) {
-    const updateOrderData = {
-      barCode,
-    }
-    await this.onSaveOrder(this.selectedOrder, updateOrderData)
-    this.loadData()
-    this.onTriggerShowBarcodeModal()
-  }
-
-  onClickDeleteBarcode(order) {
-    const updateOrderData = {
-      barCode: '',
-    }
-    this.onSaveOrder(order, updateOrderData)
-  }
-
   async onSubmitSaveOrder(order, orderFields) {
     this.onSaveOrder(order, orderFields)
-  }
-
-  onChangeBarcode(e) {
-    this.barcode = e.target.value
   }
 
   async onSaveOrder(order, updateOrderData) {

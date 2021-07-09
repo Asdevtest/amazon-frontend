@@ -9,8 +9,11 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
+import {SuccessButton} from '@components/buttons/success-button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 import {PrivateLabelCard} from '@components/private-label-card'
 
@@ -34,7 +37,8 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
   }
 
   render() {
-    const {drawerOpen, onTriggerDrawer} = this.viewModel
+    const {drawerOpen, productToPay, showConfirmPayModal, onTriggerDrawer, onTriggerOpenModal, onLaunchPrivateLabel} =
+      this.viewModel
     const {classes: classNames} = this.props
 
     return (
@@ -64,20 +68,45 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+        <Modal openModal={showConfirmPayModal} setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}>
+          <div className={classNames.modalMessageWrapper}>
+            <Typography paragraph variant="h5">
+              {'Вы покупаете товар, уверены?'}
+            </Typography>
+            <Typography paragraph className={classNames.modalMessage}>
+              {'У вас будет списание (сумма).'}
+            </Typography>
+
+            <SuccessButton
+              disableElevation
+              variant="contained"
+              onClick={() => {
+                onLaunchPrivateLabel(productToPay /* сюда еще нужна orderData*/)
+                onTriggerOpenModal('showConfirmPayModal')
+              }}
+            >
+              {'Да'}
+            </SuccessButton>
+            <Button color="primary" onClick={() => onTriggerOpenModal('showConfirmPayModal')}>
+              {'Отмена'}
+            </Button>
+          </div>
+        </Modal>
       </React.Fragment>
     )
   }
 
   renderProductsVacant = () => {
     const {classes: classNames} = this.props
-    const {productsVacant, onLaunchPrivateLabel, onClickBuyProductBtn} = this.viewModel
+    const {productsVacant, onClickBuyProductBtn, setProductToPay, onTriggerOpenModal} = this.viewModel
 
     return productsVacant.map((item, index) => (
       <div key={`product_${item._id}_${index}`} className={classNames.cardWrapper}>
         <PrivateLabelCard
           item={item}
-          onClickLaunchPrivateLabelBtn={onLaunchPrivateLabel}
+          setProductToPay={setProductToPay}
           onClickBuyProductBtn={onClickBuyProductBtn}
+          onTriggerOpenModal={onTriggerOpenModal}
         />
       </div>
     ))

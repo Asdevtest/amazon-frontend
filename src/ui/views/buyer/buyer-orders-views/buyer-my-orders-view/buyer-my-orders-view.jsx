@@ -17,7 +17,6 @@ import {CreateOrEditBoxForm} from '@components/forms/create-or-edit-box-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 import {Table} from '@components/table'
@@ -50,17 +49,14 @@ class BuyerMyOrdersViewRaw extends Component {
       curPage,
       rowsPerPage,
       selectedOrder,
-      showBarcodeModal,
       showOrderModal,
       showCreateOrEditBoxModal,
       onTriggerDrawerOpen,
       onChangePage,
       onChangeRowsPerPage,
-      onTriggerShowBarcodeModal,
       onTriggerShowOrderModal,
       onClickOrder,
       onSelectedOrder,
-      onClickSaveBarcode,
       onSubmitSaveOrder,
       onTriggerShowCreateOrEditBoxModal,
       onSubmitCreateBox,
@@ -130,16 +126,8 @@ class BuyerMyOrdersViewRaw extends Component {
             deliveryTypeByCode={DeliveryTypeByCode}
             orderStatusByCode={OrderStatusByCode}
             onTriggerModal={onTriggerShowOrderModal}
-            onTriggerBarcodeModal={onTriggerShowBarcodeModal}
             onSubmitSaveOrder={onSubmitSaveOrder}
             onSubmitCreateBox={onSubmitCreateBox}
-          />
-        </Modal>
-        <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
-          <SetBarcodeModal
-            order={selectedOrder}
-            onClickSaveBarcode={onClickSaveBarcode}
-            onCloseModal={onTriggerShowBarcodeModal}
           />
         </Modal>
       </React.Fragment>

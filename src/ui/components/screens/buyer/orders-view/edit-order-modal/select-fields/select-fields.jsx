@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-import {Box, Grid, InputLabel, NativeSelect, Typography} from '@material-ui/core'
+import {Box, Grid, InputLabel, NativeSelect, Typography, Checkbox} from '@material-ui/core'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
@@ -8,6 +8,7 @@ import {texts} from '@constants/texts'
 
 import {Input} from '@components/input'
 
+import {calcExchangePrice, calcPriceForItem} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './select-fields.style'
@@ -16,6 +17,13 @@ const textConsts = getLocalizedTexts(texts, 'en').ordersViewsModalSelectFields
 
 export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTypeByCode, orderStatusByCode}) => {
   const classNames = useClassNames()
+
+  const [supplierPaidDelivery, setSupplierPaidDelivery] = useState(false)
+
+  const [priceYuansForBatch, setPriceYuansForBatch] = useState('')
+  const [usePriceInDollars, setUsePriceInDollars] = useState(false)
+  const [yuansToDollarRate, setYuansToDollarRate] = useState('')
+
   return (
     <Grid container justify="space-around">
       <Grid item>
@@ -89,6 +97,63 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
             ))}
           </NativeSelect>
         </Box>
+
+        <div className={classNames.priceOptionsWrapper}>
+          <Box className={classNames.tableCell}>
+            <Typography className={classNames.modalText}>{'Юаней за партию'}</Typography>
+            <Input
+              disabled={usePriceInDollars}
+              value={priceYuansForBatch}
+              className={classNames.input}
+              onChange={e => {
+                setPriceYuansForBatch(e.target.value)
+                setOrderField('amountPaymentPerConsignmentAtDollars')({
+                  target: {value: calcExchangePrice(e.target.value, yuansToDollarRate)},
+                })
+              }}
+            />
+            <div className={classNames.checkboxWithLabelWrapper}>
+              <Checkbox
+                value={usePriceInDollars}
+                onChange={() => {
+                  if (!usePriceInDollars) {
+                    setPriceYuansForBatch('')
+                    setYuansToDollarRate('')
+                  }
+                  setUsePriceInDollars(!usePriceInDollars)
+                }}
+              />
+              <Typography>{textConsts.usePriceInDollars}</Typography>
+            </div>
+          </Box>
+          <Box className={classNames.tableCell}>
+            <Typography className={classNames.modalText}>{'Курс юаня к доллару'}</Typography>
+            <Input
+              disabled={usePriceInDollars}
+              value={yuansToDollarRate || 6.3}
+              className={classNames.input}
+              onChange={e => {
+                setYuansToDollarRate(e.target.value)
+                setOrderField('amountPaymentPerConsignmentAtDollars')({
+                  target: {value: calcExchangePrice(priceYuansForBatch, e.target.value)},
+                })
+              }}
+            />
+          </Box>
+          <Box className={classNames.tableCell}>
+            <Typography className={classNames.modalText}>{'Долларов за партию'}</Typography>
+            <Input
+              disabled={!usePriceInDollars}
+              value={orderFields.amountPaymentPerConsignmentAtDollars}
+              className={classNames.input}
+              onChange={setOrderField('amountPaymentPerConsignmentAtDollars')}
+            />
+          </Box>
+          <Box className={classNames.tableCell}>
+            <Typography className={classNames.modalText}>{'Себестоимость в закупке'}</Typography>
+            {calcPriceForItem(orderFields.amountPaymentPerConsignmentAtDollars, orderFields.amount)}
+          </Box>
+        </div>
       </Grid>
       <Grid item>
         <Box my={3}>
@@ -115,14 +180,49 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
           />
         </Box>
         <Box my={3}>
+          <div className={classNames.checkboxWithLabelWrapper}>
+            <Checkbox
+              checked={supplierPaidDelivery}
+              onChange={() => {
+                setSupplierPaidDelivery(!supplierPaidDelivery)
+              }}
+            />
+            <Typography className={classNames.modalText}>{textConsts.supplierPaidDelivery}</Typography>
+          </div>
+        </Box>
+
+        <Box>
+          <div className={classNames.checkboxWithLabelWrapper}>
+            <Checkbox
+              checked={orderFields.isBarCodeAlreadyAttachedByTheSupplier}
+              onChange={() => {
+                setOrderField('isBarCodeAlreadyAttachedByTheSupplier')({
+                  target: {value: !orderFields.isBarCodeAlreadyAttachedByTheSupplier},
+                })
+              }}
+            />
+            <Typography className={classNames.modalText}>{textConsts.supplierAddBarCode}</Typography>
+          </div>
+        </Box>
+        <Box my={3}>
           <Typography className={classNames.modalText}>{textConsts.typoShipPrice}</Typography>
           <Input
-            type="number"
+            disabled={supplierPaidDelivery}
             className={classNames.numInput}
-            value={orderFields.deliveryCostToTheWarehouse}
+            value={`$ ${orderFields.deliveryCostToTheWarehouse || 0}`}
             onChange={setOrderField('deliveryCostToTheWarehouse')}
           />
         </Box>
+        <Box my={3}>
+          <Typography className={classNames.modalText}>{'Track number'}</Typography>
+          <Input
+            type="text"
+            value={orderFields.trackingNumberChina}
+            className={classNames.numInput}
+            onChange={setOrderField('trackingNumberChina')}
+          />
+        </Box>
+        {/* //////////////////////////////// */}
       </Grid>
     </Grid>
   )

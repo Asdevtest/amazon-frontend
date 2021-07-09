@@ -88,7 +88,7 @@ export const ProductsBodyRow = ({item, itemIndex, handlers}) => {
 
       <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.revenue)}</TableCell>
       <TableCell className={classNames.amazonCell}>{toFixedWithDollarSign(item.amazonPrice)}</TableCell>
-      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.bsr)}</TableCell>
+      <TableCell className={classNames.bsrCell}>{item.bsr}</TableCell>
       <TableCell className={classNames.fbaFeeCell}>{toFixedWithDollarSign(item.fbafee)}</TableCell>
       <TableCell>
         <Chip

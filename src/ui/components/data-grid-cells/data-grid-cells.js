@@ -23,7 +23,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, params}) => (
         <img alt="placeholder" className={classNames.img} src={params.row.img && getAmazonImageUrl(params.row.img)} />
       </div>
       <div>
-        <Typography className={classNames.csCodeTypo}>{params.row.csCode}</Typography>
+        <Typography className={classNames.csCodeTypo}>{params.row.amazonTitle}</Typography>
         <Typography className={classNames.typoCell}>
           {textConsts.asinTypo}
           <span className={classNames.typoSpan}>{params.row.asin}</span>
@@ -134,7 +134,7 @@ export const OrderCell = withStyles(styles)(({classes: classNames, params}) => (
       className={classNames.orderImg}
     />
     <div>
-      <Typography className={classNames.orderTitle}>{params.row.product._id}</Typography>
+      <Typography className={classNames.orderTitle}>{params.row.product.amazonTitle}</Typography>
       <Typography className={classNames.orderText}>
         <span className={classNames.orderTextSpan}>{textConsts.id}</span>
         {params.row.product.id}

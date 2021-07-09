@@ -9,7 +9,7 @@ export class ClientExchangeRequestsViewModel {
 
   drawerOpen = false
   paginationPage = 1
-  rowsPerPage = 5
+  rowsPerPage = 15
   modalNewRequest = false
   modalEditRequest = false
   modalCloseRequest = false

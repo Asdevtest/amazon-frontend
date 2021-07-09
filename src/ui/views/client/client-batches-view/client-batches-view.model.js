@@ -10,7 +10,7 @@ export class ClientBatchesViewModel {
   error = undefined
 
   drawerOpen = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   paginationPage = 1
 
   batches = undefined

@@ -7,7 +7,11 @@ import {BuyerModel} from '@models/buyer-model'
 import {SupplierModel} from '@models/supplier-model'
 
 import {isNotUndefined, isUndefined} from '@utils/checks'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {
+  getNewObjectWithDefaultValue,
+  getObjectFilteredByKeyArrayBlackList,
+  getObjectFilteredByKeyArrayWhiteList,
+} from '@utils/object'
 
 const fieldsOfProductAllowedToUpdate = [
   'lsupplier',
@@ -26,6 +30,29 @@ const fieldsOfProductAllowedToUpdate = [
   'currentSupplier',
 ]
 
+const formFieldsDefault = {
+  checkednotes: '',
+  amazon: 0,
+  bsr: 0,
+  createdat: '',
+  createdby: {},
+  delivery: 0,
+  dirdecision: 0,
+  express: false,
+  fba: false,
+  fbafee: 0,
+  icomment: '',
+  id: '',
+  images: [],
+  lamazon: '',
+  material: '',
+  reffee: 15,
+  status: 0,
+  supplier: [],
+  updateDate: '',
+  _id: '',
+}
+
 export class BuyerProductViewModel {
   history = undefined
   requestStatus = undefined
@@ -37,6 +64,11 @@ export class BuyerProductViewModel {
   drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
+  showNoSuplierErrorModal = false
+
+  formFields = {...formFieldsDefault}
+
+  formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
   constructor({history, location}) {
     this.history = history
@@ -128,7 +160,6 @@ export class BuyerProductViewModel {
         if (this.product.currentSupplier && this.product.currentSupplier._id === this.selectedSupplier._id) {
           this.product.currentSupplier = undefined
         }
-        this.onSaveProductData()
       })
     } catch (error) {
       console.log(error)
@@ -143,7 +174,7 @@ export class BuyerProductViewModel {
     switch (actionType) {
       case 'accept':
         this.onSaveProductData()
-        this.history.push('/buyer/my-products')
+
         break
       case 'cancel':
         this.onResetInitialProductData()
@@ -168,7 +199,14 @@ export class BuyerProductViewModel {
           }
         },
       )
-      await BuyerModel.updateProduct(this.product._id, updateProductData)
+
+      if (updateProductData.currentSupplier) {
+        await BuyerModel.updateProduct(this.product._id, updateProductData)
+        this.history.push('/buyer/my-products')
+      } else {
+        this.onTriggerOpenModal('showNoSuplierErrorModal')
+      }
+
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -194,7 +232,6 @@ export class BuyerProductViewModel {
           this.product.supplier.push(createSupplierResult.guid)
           this.suppliers.push({...supplier, _id: createSupplierResult.guid})
         })
-        this.onSaveProductData()
       }
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
@@ -204,6 +241,10 @@ export class BuyerProductViewModel {
         this.error = error.body.message
       }
     }
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 
   onResetInitialProductData() {

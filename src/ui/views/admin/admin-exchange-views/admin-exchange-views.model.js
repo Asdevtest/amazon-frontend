@@ -30,7 +30,7 @@ export class AdminExchangeViewModel {
   selectionModel = undefined
 
   drawerOpen = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   curPage = 1
   showSetBarcodeModal = false
   selectedProduct = undefined

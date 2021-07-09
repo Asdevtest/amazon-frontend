@@ -34,7 +34,7 @@ export const styles = createStyles(() => ({
     lineHeight: '18px',
     fontWeight: 500,
     whiteSpace: 'nowrap',
-    width: '250px',
+    maxWidth: '300px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
@@ -147,6 +147,10 @@ export const styles = createStyles(() => ({
   },
   orderTitle: {
     fontWeight: 500,
+    whiteSpace: 'nowrap',
+    maxWidth: '300px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   orderText: {
     fontSize: '14px',

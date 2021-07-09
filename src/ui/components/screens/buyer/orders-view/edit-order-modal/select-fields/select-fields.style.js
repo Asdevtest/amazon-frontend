@@ -19,4 +19,10 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     marginTop: '2px',
   },
+  priceOptionsWrapper: {
+    marginTop: '30px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
 }))

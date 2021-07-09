@@ -18,6 +18,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 export const BottomCard = observer(({curUserRole, product, onChangeField, formFieldsValidationErrors}) => {
   const classNames = useClassNames()
+
   return (
     <React.Fragment>
       <Grid container spacing={2}>

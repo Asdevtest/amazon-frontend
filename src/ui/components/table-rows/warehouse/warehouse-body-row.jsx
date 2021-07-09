@@ -94,10 +94,12 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
         <TableCell>{'ID: ' + order.order}</TableCell>
 
         {/* TODO Extract Barcode chip to Component */}
-        <TableCell onClick={handlers?.onTriggerBarcode}>{order.barCode}</TableCell>
+        <TableCell>{order.barCode ? order.barCode : 'N/A'}</TableCell>
 
         <TableCell>{order.product.id}</TableCell>
-        <TableCell className={classNames.cellValueNumber}>{isMasterBox ? box.amount : order.amount}</TableCell>
+        <TableCell className={classNames.cellValueNumber}>
+          {isMasterBox ? `boxes ${box.amount} x units ${order.amount}` : order.amount}
+        </TableCell>
         <TableCell>{order.product.material}</TableCell>
         {orderIndex === 0 && (
           <React.Fragment>
@@ -119,11 +121,11 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           )}
         </TableCell>
         <TableCell className={classNames.cellValueNumber}>{withKg(box.weighGrossKgSupplier)}</TableCell>
-        <TableCell>{order.track}</TableCell>
+        <TableCell>{order.track ? order.track : 'N/A'}</TableCell>
       </TableRow>
       {isMaximizedMasterBox ? (
         <TableRow className={classNames.subBoxesTableWrapper}>
-          <TableCell colSpan="2"></TableCell>
+          <TableCell colSpan="2" />
           <TableCell colSpan="40">
             <Table className={classNames.subBoxesTable}>
               <TableBody>

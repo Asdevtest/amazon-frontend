@@ -18,7 +18,7 @@ export class AdminUsersViewModel {
 
   drawerOpen = false
   curPage = 0
-  rowsPerPage = 5
+  rowsPerPage = 15
   showEditUserModal = false
   showPermissionModal = false
 

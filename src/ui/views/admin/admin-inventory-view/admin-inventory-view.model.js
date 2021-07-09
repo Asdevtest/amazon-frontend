@@ -16,7 +16,7 @@ export class AdminInventoryViewModel {
   selectionModel = undefined
 
   drawerOpen = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   curPage = 0
   selectedProduct = undefined
 

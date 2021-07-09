@@ -81,6 +81,7 @@ export const buyerWarehouseViewTable = {
     {id: 'img', label: 'Price'},
     {id: 'img', label: 'Weight'},
     {id: 'img', label: 'Gross Weight'},
+    {id: 'img', label: 'Weight ??'},
     {id: 'img', label: 'Track ID'},
   ],
 }
@@ -1748,9 +1749,10 @@ export const VACANT_TASKS_DATA = [
 ]
 
 export const WAREHOUSE_TASKS_HEAD_CELLS = [
-  {title: 'Id'},
+  // {title: 'Id'},
   {title: 'Дата'},
   {title: 'Тип задачи'},
+  {title: 'Описание'},
   {title: 'Действия'},
   {title: 'Статус'},
 ]

@@ -17,7 +17,7 @@ export class ClientWarehouseViewModel {
 
   drawerOpen = false
   curPage = 1
-  rowsPerPage = 5
+  rowsPerPage = 15
   selectedBoxes = []
 
   showSendOwnProductModal = false
@@ -99,7 +99,7 @@ export class ClientWarehouseViewModel {
 
     console.log('mergeBoxesResult ', mergeBoxesResult)
 
-    await this.postTask({idsData: [mergeBoxesResult], type}) // TODO: тут нужно исправить на коробки полученные из mergeBoxesResult, сейчас там ничего не приходит, ждем бек
+    await this.postTask({idsData: [mergeBoxesResult.guid], type}) // TODO: тут нужно исправить на коробки полученные из mergeBoxesResult, сейчас там ничего не приходит, ждем бек
     await this.getTasksMy()
 
     this.selectedBoxes = []
@@ -177,17 +177,6 @@ export class ClientWarehouseViewModel {
       runInAction(() => {
         this.boxesMy = result
       })
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  async approveBoxesOperation(id) {
-    try {
-      await BoxesModel.approveBoxesOperation(id)
-
-      await this.getBoxesMy()
     } catch (error) {
       console.log(error)
       this.error = error

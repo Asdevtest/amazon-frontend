@@ -30,7 +30,6 @@ export const CLIENT_EXCHANGE_MODAL_HEAD_CELLS = [
   {id: 'amount', label: 'Amount'},
 
   {id: 'fullPrice', label: 'Full price'},
-  {id: 'barcode', label: 'Barcode'},
 
   {id: 'deliveryMethod', label: 'Delivery method'},
   {id: 'warehouse', label: 'Warehouse'},
@@ -60,6 +59,7 @@ export const CLIENT_WAREHOUSE_HEAD_CELLS = [
   {id: 'img', label: 'Price'},
   {id: 'img', label: 'Weight'},
   {id: 'img', label: 'Gross Weight'},
+  {id: 'img', label: 'Weight ??'},
   {id: 'img', label: 'Track ID'},
 ]
 
@@ -93,14 +93,8 @@ export const BUYER_MY_ORDERS_MODAL_HEAD_CELLS = [
   'Ср. стоимость доставки за 1 шт.',
   'Количество',
   'Итого',
-  'Поставщик',
   'Штрихкод',
-  'Юаней за партию',
-  'Курс юаня к доллару',
-  'Долларов за партию',
-  'Материал',
-  'Себестоимость в закупке',
-  'Track number',
+  'Поставщик',
 ]
 
 export const BUYER_FREE_ORDERS_MODAL_HEAD_CELLS = [

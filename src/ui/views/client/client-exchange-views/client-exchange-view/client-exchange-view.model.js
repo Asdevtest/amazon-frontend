@@ -12,10 +12,14 @@ export class ClientExchangeViewModel {
   error = undefined
 
   productsVacant = []
+  dataToPay = {}
+
   drawerOpen = false
   curPage = 1
-  rowsPerPage = 5
+  rowsPerPage = 15
   showPrivateLabelModal = false
+  showConfirmPayModal = false
+  showSuccessModal = false
   selectedProduct = undefined
 
   constructor({history}) {
@@ -61,6 +65,22 @@ export class ClientExchangeViewModel {
       console.log('pickUpProductResult ', pickUpProductResult)
       const makePaymentsResult = await ClientModel.makePayments([product._id])
       console.log('makePaymentsResult ', makePaymentsResult)
+
+      await this.createOrder(product, orderData)
+
+      this.onTriggerOpenModal('showSuccessModal')
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  async createOrder(product, orderData) {
+    try {
       const createorderData = {
         status: 0,
         amount: orderData.amount,
@@ -94,6 +114,14 @@ export class ClientExchangeViewModel {
         this.error = error.body.message
       }
     }
+  }
+
+  setDataToPay(data) {
+    this.dataToPay = data
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 
   onChangeManager(e) {

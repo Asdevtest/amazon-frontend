@@ -17,7 +17,7 @@ export class ClientOrdersViewModel {
   orders = []
   drawerOpen = false
   showBarcodeModal = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   curPage = 1
   selectedOrder = undefined
 

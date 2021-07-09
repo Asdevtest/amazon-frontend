@@ -18,6 +18,9 @@ export const styles = createStyles({
   },
   orderTitle: {
     fontWeight: 500,
+    maxWidth: '300px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   orderText: {
     fontSize: '14px',

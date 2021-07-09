@@ -17,7 +17,7 @@ export class ClientSubUsersViewModel {
   modalAddSubUser = false
   modalEditSubUser = false
   modalPermission = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   paginationPage = 1
 
   constructor({history}) {

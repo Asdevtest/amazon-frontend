@@ -32,7 +32,7 @@ export const CreateOrEditBoxForm = observer(
       weightFinalAccountingKgSupplier: box?.weightFinalAccountingKgSupplier || '',
       warehouse: order?.warehouse || '',
       deliveryMethod: order?.deliveryMethod || '',
-      amount: '',
+      amount: order?.amount || 69,
       items: box?.items || [
         {
           product: order?.product,

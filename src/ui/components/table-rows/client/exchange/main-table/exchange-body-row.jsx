@@ -33,7 +33,11 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, classes: classNames}) =>
       </Button>
     </TableCell>
     <TableCell>
-      <SuccessButton onClick={() => handlers.onClickLaunchPrivateLabelBtn(item, itemIndex)}>
+      <SuccessButton
+        onClick={() => {
+          handlers.onClickLaunchPrivateLabelBtn(item, itemIndex)
+        }}
+      >
         {`${textConsts.byForBtn} ${toFixedWithDollarSign(calcProductPrice(item))}`}
       </SuccessButton>
     </TableCell>

@@ -8,7 +8,7 @@ export class WarehouseCompletedViewModel {
   error = undefined
 
   drawerOpen = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   curPage = 1
   showBrowseTaskModal = false
   selectedTaskIndex = null

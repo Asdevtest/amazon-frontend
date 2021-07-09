@@ -34,7 +34,7 @@ export const styles = createStyles({
     lineHeight: '18px',
     fontWeight: 500,
     whiteSpace: 'nowrap',
-    width: '250px',
+    maxWidth: '250px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },

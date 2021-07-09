@@ -14,6 +14,9 @@ export class ClientExchangePrivateLabelViewModel {
   productsVacant = []
   drawerOpen = false
 
+  productToPay = {}
+  showConfirmPayModal = false
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -55,13 +58,27 @@ export class ClientExchangePrivateLabelViewModel {
       console.log('pickUpProductResult ', pickUpProductResult)
       const makePaymentsResult = await ClientModel.makePayments([product._id])
       console.log('makePaymentsResult ', makePaymentsResult)
+
+      await this.createOrder(product, orderData)
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  async createOrder(product, orderData) {
+    try {
       const createorderData = {
         status: 0,
         amount: orderData.amount,
         deliveryMethod: orderData.deliveryMethod,
         warehouse: orderData.warehouse,
         clientComment: orderData.clientComment,
-        barCode: '',
+        barCode: orderData.barCode,
         product: product._id,
       }
       const createOrderResult = await ClientModel.createOrder(createorderData)
@@ -85,6 +102,14 @@ export class ClientExchangePrivateLabelViewModel {
         this.error = error.body.message
       }
     }
+  }
+
+  setProductToPay(selectedProduct) {
+    this.productToPay = selectedProduct
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 
   setRequestStatus(requestStatus) {

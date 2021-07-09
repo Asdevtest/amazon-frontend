@@ -62,7 +62,6 @@ export class ClientWarehouseViewRaw extends Component {
       onTriggerOpenModal,
       onModalRedistributeBoxAddNewBox,
       onEditBoxSubmit,
-      approveBoxesOperation,
       cancelMergeBoxes,
       cancelSplitBoxes,
       // postTask
@@ -85,7 +84,7 @@ export class ClientWarehouseViewRaw extends Component {
     // removeBox('60d491695382b25eea73e076');
     //  выше методы для тестов
 
-    // console.log(boxesMy, 'BOXES DATA') для проверки
+    // console.log('tasksMy', tasksMy);
 
     return (
       <React.Fragment>
@@ -132,7 +131,6 @@ export class ClientWarehouseViewRaw extends Component {
                 <WarehouseHistory
                   tasksData={tasksMy}
                   title={textConsts.warehouseHistoryTitle}
-                  onApproveMergeAndSplitBoxes={approveBoxesOperation}
                   onCancelMergeBoxes={cancelMergeBoxes}
                   onCancelSplitBoxes={cancelSplitBoxes}
                 />
