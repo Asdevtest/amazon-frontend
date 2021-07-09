@@ -272,6 +272,12 @@ export const texts = {
     clientExchangeView: {
       appbarTitle: 'Exchange',
       mainTitle: 'Active offers on exchange',
+      confirmTitle: 'Вы покупаете товар, уверены?',
+      confirmMessage: 'У вас будет списание ',
+      confirmBtn: 'Да',
+      cancelBtn: 'Отмена',
+      successTitle: 'Заказ успешно создан!',
+      successBtn: 'Ок!',
     },
     exchangeBodyRow: {
       byForBtn: 'Купить за',
@@ -629,17 +635,19 @@ export const texts = {
       typoClientComment: 'Client comment',
       typoBuyerComment: 'Buyer comment',
       typoShipPrice: 'Стоимость доставки до склада',
+      supplierPaidDelivery: 'Поставщик отправил все за свой счет',
+      supplierAddBarCode: 'Поставщик поклеил баркод при отправке',
+      usePriceInDollars: 'Использовать цену в долларах',
     },
-    ordersViewsModalProductTable: {
-      alert: 'Barcode deleting',
-      traclId: 'TrackId',
-    },
+
     buyerProductView: {
       appBarTitle: 'Product',
       appBarUsername: 'Buyer',
       appUser: 'buyer',
       modalAddTitle: 'Добавить нового поставщика',
       modalEditTitle: 'Редактировать поставщика',
+      showNoSuplierErrorTitle: 'Не выбран поставщик',
+      errorBtn: 'Ок',
     },
     researcherProductView: {
       appBarTitle: 'Product',
@@ -815,9 +823,6 @@ export const texts = {
     },
     productStatusButtons: {
       saveWithoutStatusBtn: 'Сохранить без статуса',
-    },
-    exchangeModalBodyRowRaw: {
-      setBarCodeLabel: 'Set barcode',
     },
   },
   ru: {
@@ -1384,15 +1389,16 @@ export const texts = {
       username: 'Имя пользователя',
     },
     warehouseHistoryBodyRow: {
-      merge: 'Коробки соединены в коробку: ',
+      merge: 'Соединение в коробку: ',
       cancelAction: 'Действие отменено',
-      unMerge: 'Коробка разъедененна в коробки: ',
+      unMerge: 'Разъедененние в коробки: ',
       changeStatus: ' изменил статус на ',
       paid: 'Оплачен',
       tasks: 'Задачи складу',
       orderChangeStatus: 'Заказ изменил статус',
       cancelBtn: 'Отменить',
       acceptBtn: 'Подтвердить',
+      receive: 'Принять коробку:',
     },
     warehouseDashboardView: {
       appBarTitle: 'Dashboard',
@@ -1498,6 +1504,11 @@ export const texts = {
       viewBtn: 'Посмотреть',
       resolved: 'Решено',
       notResolved: 'Не решено',
+
+      merge: 'Соединение в коробку: ',
+      unMerge: 'Разъедененние в коробки: ',
+      changeStatus: ' изменил статус на ',
+      receive: 'Принять коробку:',
     },
     productStatusButtonsConfigs: {
       searchForSupplier: 'Поиск поставщика',

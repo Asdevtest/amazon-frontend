@@ -8,8 +8,6 @@ import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 import {CreateOrEditBoxForm} from '@components/forms/create-or-edit-box-form'
-import {Modal} from '@components/modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -38,10 +36,7 @@ export const EditOrderModal = ({
   const [showCreateOrEditBoxBlock, setShowCreateOrEditBoxBlock] = useState(
     orderStatusesThatTriggersEditBoxBlock.includes(parseInt(order?.status)),
   )
-  const [showBarcodeModal, setShowBarcodeModal] = useState(false)
-  const onTriggerShowBarcodeModal = () => {
-    setShowBarcodeModal(!showBarcodeModal)
-  }
+
   const [orderFields, setOrderFields] = useState({
     ...order,
     warehouse: order?.warehouse || undefined,
@@ -49,12 +44,12 @@ export const EditOrderModal = ({
     status: order?.status || undefined,
     clientComment: order?.clientComment || '',
     buyerscomment: order?.product.buyerscomment || '',
-    deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || '',
-    amountPaymentPerConsignmentAtDollars: order?.deliveryCostToTheWarehouse || '',
+    deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || 0,
+    amountPaymentPerConsignmentAtDollars: order?.deliveryCostToTheWarehouse || 0,
     isBarCodeAlreadyAttachedByTheSupplier: order?.isBarCodeAlreadyAttachedByTheSupplier || false,
     trackId: '',
     material: order?.product?.material || '',
-    amount: order?.amount,
+    amount: order?.amount || 0,
     trackingNumberChina: order?.trackingNumberChina,
     barCode: order?.barCode,
     batchPrice: 0,
@@ -62,7 +57,8 @@ export const EditOrderModal = ({
 
   const setOrderField = filedName => e => {
     const newOrderFieldsState = {...orderFields}
-    newOrderFieldsState[filedName] = e.target.value
+    newOrderFieldsState[filedName] =
+      filedName === 'deliveryCostToTheWarehouse' ? parseInt(e.target.value.match(/\d+/)) : e.target.value
     if (filedName === 'status' && orderStatusesThatTriggersEditBoxBlock.includes(parseInt(e.target.value))) {
       onTriggerShowCreateOrEditBoxBlock()
     }
@@ -100,7 +96,6 @@ export const EditOrderModal = ({
           order={order}
           orderFields={orderFields}
           setOrderField={setOrderField}
-          onTriggerBarcodeModal={onTriggerShowBarcodeModal}
         />
       </Paper>
       {!showCreateOrEditBoxBlock ? (
@@ -131,16 +126,6 @@ export const EditOrderModal = ({
           />
         </React.Fragment>
       ) : undefined}
-      <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
-        <SetBarcodeModal
-          order={orderFields}
-          onClickSaveBarcode={barCode => {
-            setOrderField('barCode')({target: {value: barCode}})
-            onTriggerShowBarcodeModal()
-          }}
-          onCloseModal={onTriggerShowBarcodeModal}
-        />
-      </Modal>
     </Box>
   )
 }

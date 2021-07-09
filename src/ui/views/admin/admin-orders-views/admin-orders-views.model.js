@@ -25,7 +25,7 @@ export class AdminOrdersAllViewModel {
   activeSubCategory = 0
   drawerOpen = false
   modalBarcode = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   curPage = 0
 
   constructor({history}) {

@@ -13,7 +13,7 @@ export class SupervisorProductsViewModel {
   error = undefined
 
   drawerOpen = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   curPage = 1
   selectedProducts = []
 

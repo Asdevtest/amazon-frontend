@@ -12,7 +12,7 @@ export class AdminWarehouseOrdersViewModel {
   activeSubCategory = 2
   drawerOpen = false
   modalBarcode = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   curPage = 1
 
   constructor({history}) {

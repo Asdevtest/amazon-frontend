@@ -1,14 +1,9 @@
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
-
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './box-order.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
 
 export const BoxOrder = observer(({order}) => {
   const classNames = useClassNames()
@@ -27,13 +22,6 @@ export const BoxOrder = observer(({order}) => {
         <div>
           <Typography>{order.product && order.product.amazonTitle}</Typography>
           <Typography color="textSecondary">{order.product && order.product.id}</Typography>
-        </div>
-      </div>
-
-      <div className={classNames.fields}>
-        <div>
-          <Typography>{textConsts.materialLabel}</Typography>
-          <Typography>{order?.product?.material}</Typography>
         </div>
       </div>
 

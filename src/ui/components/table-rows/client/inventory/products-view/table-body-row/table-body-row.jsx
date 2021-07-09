@@ -43,10 +43,10 @@ export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
             />
           </div>
           <div>
-            <Typography className={classNames.csCodeTypo}>{item.id}</Typography>
+            <Typography className={classNames.csCodeTypo}>{item.amazonTitle}</Typography>
             <Typography className={classNames.typoCell}>
               {'ASIN '}
-              <span className={classNames.typoSpan}>{item.asin}</span>
+              <span className={classNames.typoSpan}>{item.id}</span>
               {` | ${formatDateDistanceFromNow(item.createdat)}`}
             </Typography>
             <Chip className={classNames.chip} label={item.category} />
@@ -58,7 +58,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
       <TableCell>{formatDate(item.checkedat)}</TableCell>
       <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.profit)}</TableCell>
       <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.margin)}</TableCell>
-      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.bsr)}</TableCell>
+      <TableCell className={classNames.bsrCell}>{item.bsr}</TableCell>
       <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.fbaamount)}</TableCell>
       <TableCell>
         <Chip

@@ -85,7 +85,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
           {item.createdby.name}
         </Button>
       </TableCell>
-      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.bsr)}</TableCell>
+      <TableCell className={classNames.bsrCell}>{item.bsr}</TableCell>
       <TableCell className={classNames.salersTotal}>{item.type}</TableCell>
       <TableCell className={classNames.rankTableCell}>{toFixedWithDollarSign(item.fbafee)}</TableCell>
       <TableCell className={classNames.deleteBtnCell}>

@@ -136,7 +136,7 @@ export const RedistributeBox = ({
       <div className={classNames.buttonsWrapper}>
         <Button
           variant="text"
-          disabled={totalProductsAmount !== 0}
+          disabled={totalProductsAmount !== 0 && !isMasterBox}
           onClick={() => {
             onClickRedistributeBtn()
             onTriggerOpenModal('showRedistributeBoxModal')

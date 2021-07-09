@@ -4,51 +4,55 @@ import {TableCell, TableRow, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
-import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 
 import {formatDateTime} from '@utils/date-time'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './history-table-row.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseHistoryBodyRow
 
-export const HistoryTableRow = ({item, onApproveMergeAndSplitBoxes, onCancelMergeBoxes, onCancelSplitBoxes}) => {
+export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) => {
   const classNames = useClassNames()
+
+  const renderProductImage = (box, key) => (
+    <div key={key} className={classNames.imagesWrapper}>
+      <Typography className={classNames.imgNum}>{`#${key + 1}`}</Typography>
+      {box.items.map((product, itemIndex) => (
+        <div key={itemIndex} className={classNames.imgWrapper}>
+          <img alt="placeholder" className={classNames.img} src={getAmazonImageUrl(product.product.images[0])} />
+          <Typography className={classNames.imgNum}>{`x${product.amount}`}</Typography>
+        </div>
+      ))}
+    </div>
+  )
 
   const taskMergeDescription = () => (
     <React.Fragment>
-      <Typography>
+      <Typography className={classNames.descriptionWrapper}>
         {textConsts.merge}
-        {item.boxes[0]._id}
+        {item.boxes.map((box, index) => renderProductImage(box, index))}
       </Typography>
     </React.Fragment>
   )
   const taskDivideDescription = () => (
     <React.Fragment>
-      <Typography>
+      <Typography className={classNames.descriptionWrapper}>
         {textConsts.unMerge}
-        {item.boxes.map((box, index) => (
-          <span key={index} className={classNames.defaultOrderSpan}>
-            {' '}
-            {box._id}
-          </span>
-        ))}
+
+        {item.boxes.map((box, index) => renderProductImage(box, index))}
       </Typography>
     </React.Fragment>
   )
-  const changeStatusPayedDescription = () => (
+  const taskReceiveDescription = () => (
     <Typography>
-      {textConsts.order}
-      <span className={classNames.defaultOrderSpan}>{item.boxes[0]._id}</span>
-      {textConsts.changeStatus}
-      <span className={classNames.changeOrderSpan}>{textConsts.paid}</span>
+      <Typography className={classNames.descriptionWrapper}>
+        {textConsts.receive}
+        {item.boxes.map((box, index) => renderProductImage(box, index))}
+      </Typography>
     </Typography>
-  )
-
-  const renderApproveButton = (
-    <Button onClick={() => onApproveMergeAndSplitBoxes(item.boxes[0]._id)}>{textConsts.acceptBtn}</Button>
   )
 
   const renderHistoryItem = () => {
@@ -59,11 +63,7 @@ export const HistoryTableRow = ({item, onApproveMergeAndSplitBoxes, onCancelMerg
             <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskMergeDescription()}</TableCell>
             <TableCell>
-              <div className={classNames.buttonsWrapper}>
-                {renderApproveButton}
-
-                <ErrorButton onClick={() => onCancelMergeBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
-              </div>
+              <ErrorButton onClick={() => onCancelMergeBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
             </TableCell>
           </React.Fragment>
         )
@@ -74,19 +74,15 @@ export const HistoryTableRow = ({item, onApproveMergeAndSplitBoxes, onCancelMerg
             <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskDivideDescription()}</TableCell>
             <TableCell>
-              <div className={classNames.buttonsWrapper}>
-                {renderApproveButton}
-
-                <ErrorButton onClick={() => onCancelSplitBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
-              </div>
+              <ErrorButton onClick={() => onCancelSplitBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
             </TableCell>
           </React.Fragment>
         )
-      case 'paid':
+      case 'receive':
         return (
           <React.Fragment>
-            <TableCell>{textConsts.orderChangeStatus}</TableCell>
-            <TableCell>{changeStatusPayedDescription()}</TableCell>
+            <TableCell>{textConsts.tasks}</TableCell>
+            <TableCell>{taskReceiveDescription()}</TableCell>
           </React.Fragment>
         )
     }

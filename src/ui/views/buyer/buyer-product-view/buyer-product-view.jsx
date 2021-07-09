@@ -1,11 +1,14 @@
 import React, {Component} from 'react'
 
+import {Typography} from '@material-ui/core'
+import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -17,12 +20,16 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/buyerAvatar.jpg'
 import {BuyerProductViewModel} from './buyer-product-view.model'
+import {styles} from './buyer-product-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
 
 @observer
-export class BuyerProductView extends Component {
-  viewModel = new BuyerProductViewModel({history: this.props.history, location: this.props.location})
+class BuyerProductViewRaw extends Component {
+  viewModel = new BuyerProductViewModel({
+    history: this.props.history,
+    location: this.props.location,
+  })
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -35,6 +42,8 @@ export class BuyerProductView extends Component {
       suppliers,
       selectedSupplier,
       showAddOrEditSupplierModal,
+      formFieldsValidationErrors,
+      showNoSuplierErrorModal,
       onTriggerDrawerOpen,
       onClickSupplierButtons,
       onChangeSelectedSupplier,
@@ -43,7 +52,10 @@ export class BuyerProductView extends Component {
       onClickSetProductStatusBtn,
       onTriggerAddOrEditSupplierModal,
       onClickSaveSupplierBtn,
+      onTriggerOpenModal,
     } = this.viewModel
+
+    const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
@@ -70,6 +82,7 @@ export class BuyerProductView extends Component {
                   product={product}
                   suppliers={suppliers}
                   selectedSupplier={selectedSupplier}
+                  formFieldsValidationErrors={formFieldsValidationErrors}
                   handleSupplierButtons={onClickSupplierButtons}
                   handleProductActionButtons={handleProductActionButtons}
                   onClickSupplier={onChangeSelectedSupplier}
@@ -88,7 +101,27 @@ export class BuyerProductView extends Component {
             onTriggerShowModal={onTriggerAddOrEditSupplierModal}
           />
         </Modal>
+
+        <Modal openModal={showNoSuplierErrorModal} setOpenModal={() => onTriggerOpenModal('showNoSuplierErrorModal')}>
+          <div className={classNames.modalMessageWrapper}>
+            <Typography paragraph variant="h5">
+              {textConsts.showNoSuplierErrorTitle}
+            </Typography>
+
+            <Button
+              disableElevation
+              variant="contained"
+              onClick={() => {
+                onTriggerOpenModal('showNoSuplierErrorModal')
+              }}
+            >
+              {textConsts.errorBtn}
+            </Button>
+          </div>
+        </Modal>
       </React.Fragment>
     )
   }
 }
+
+export const BuyerProductView = withStyles(styles)(BuyerProductViewRaw)

@@ -44,6 +44,7 @@ class ResearcherProductsViewRaw extends Component {
       products,
       error,
       actionStatus,
+      chekedCode,
       onClickCheckBtn,
       onClickAddBtn,
       onTriggerDrawerOpen,
@@ -82,6 +83,7 @@ class ResearcherProductsViewRaw extends Component {
                   <ResearcherAddProductForm
                     formFields={formFields}
                     errorMsg={error}
+                    chekedCode={chekedCode}
                     actionStatus={actionStatus}
                     onChangeFormFields={onChangeFormFields}
                     onClickCheckBtn={onClickCheckBtn}

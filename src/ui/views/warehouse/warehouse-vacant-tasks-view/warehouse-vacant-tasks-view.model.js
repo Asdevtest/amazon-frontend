@@ -1,9 +1,11 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {VACANT_TASKS_DATA} from '@constants/mocks'
 
 import {StorekeeperModel} from '@models/storekeeper-model'
+
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 
 export class WarehouseVacantViewModel {
   history = undefined
@@ -14,7 +16,7 @@ export class WarehouseVacantViewModel {
   currentBox = undefined
 
   drawerOpen = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   curPage = 1
   showEditTaskModal = false
   selectedTask = undefined
@@ -78,7 +80,7 @@ export class WarehouseVacantViewModel {
     try {
       const result = await StorekeeperModel.getTasksVacant()
       runInAction(() => {
-        this.tasksVacant = result
+        this.tasksVacant = toJS(result.sort(sortObjectsArrayByFiledDate('createDate')))
       })
     } catch (error) {
       console.log(error)

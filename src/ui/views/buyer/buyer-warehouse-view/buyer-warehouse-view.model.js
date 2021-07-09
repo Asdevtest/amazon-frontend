@@ -18,7 +18,7 @@ export class BuyerWarehouseViewModel {
 
   drawerOpen = false
   curPage = 1
-  rowsPerPage = 5
+  rowsPerPage = 15
   selectedBoxes = []
 
   showSendOwnProductModal = false
@@ -77,6 +77,7 @@ export class BuyerWarehouseViewModel {
     await this.getTasksMy()
     this.selectedBoxes = []
   }
+
   onEditBoxSubmit(id, data) {
     this.updateBox(id, data)
   }
@@ -84,7 +85,9 @@ export class BuyerWarehouseViewModel {
   async onClickMerge(type) {
     const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes)
 
-    await this.postTask({idsData: [mergeBoxesResult], type}) // TODO: тут нужно исправить на коробки полученные из mergeBoxesResult, сейчас там ничего не приходит, ждем бек
+    console.log('mergeBoxesResult', mergeBoxesResult)
+
+    await this.postTask({idsData: [mergeBoxesResult.guid], type}) // TODO: тут нужно исправить на коробки полученные из mergeBoxesResult, сейчас там ничего не приходит, ждем бек
     await this.getTasksMy()
 
     this.selectedBoxes = []
@@ -109,9 +112,10 @@ export class BuyerWarehouseViewModel {
 
   async mergeBoxes(boxes) {
     try {
-      await BoxesModel.mergeBoxes(boxes)
+      const result = await BoxesModel.mergeBoxes(boxes)
 
       await this.getBoxesMy()
+      return result
     } catch (error) {
       console.log(error)
       this.error = error
@@ -120,9 +124,10 @@ export class BuyerWarehouseViewModel {
 
   async splitBoxes(id, data) {
     try {
-      await BoxesModel.splitBoxes(id, data)
+      const result = await BoxesModel.splitBoxes(id, data)
 
       await this.getBoxesMy()
+      return result
     } catch (error) {
       console.log(error)
       this.error = error
@@ -164,17 +169,6 @@ export class BuyerWarehouseViewModel {
     }
   }
 
-  async approveBoxesOperation(id) {
-    try {
-      await BoxesModel.approveBoxesOperation(id)
-
-      await this.getBoxesMy()
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
   async cancelMergeBoxes(id) {
     try {
       await BoxesModel.cancelMergeBoxes(id)
@@ -206,7 +200,7 @@ export class BuyerWarehouseViewModel {
       const result = await BuyerModel.getTasksMy()
 
       runInAction(() => {
-        this.tasksMy = toJS(result.data.sort(sortObjectsArrayByFiledDate('createDate')))
+        this.tasksMy = toJS(result.sort(sortObjectsArrayByFiledDate('createDate')))
       })
     } catch (error) {
       console.log(error)

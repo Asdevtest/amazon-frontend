@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {Box, Button} from '@material-ui/core'
 import {Alert} from '@material-ui/lab'
 import {withStyles} from '@material-ui/styles'
@@ -16,8 +18,17 @@ import {styles} from './reasearcher-add-product-form.style'
 const textConsts = getLocalizedTexts(texts, 'en').researcherAddProductForm
 
 export const ResearcherAddProductFormRaw = observer(
-  ({formFields, onChangeFormFields, onClickCheckBtn, onClickAddBtn, classes: classNames, errorMsg, actionStatus}) => (
-    <>
+  ({
+    formFields,
+    onChangeFormFields,
+    onClickCheckBtn,
+    onClickAddBtn,
+    classes: classNames,
+    errorMsg,
+    chekedCode,
+    actionStatus,
+  }) => (
+    <React.Fragment>
       <div className={classNames.fieldsWrapper}>
         <Field
           label={textConsts.linkAmazon}
@@ -45,9 +56,11 @@ export const ResearcherAddProductFormRaw = observer(
         <Button variant="contained" color="primary" className={classNames.button} onClick={onClickCheckBtn}>
           {textConsts.buttonCheck}
         </Button>
-        <SuccessButton onClick={onClickAddBtn}>{textConsts.buttonAdd}</SuccessButton>
+        <SuccessButton disabled={chekedCode === '' || errorMsg} onClick={onClickAddBtn}>
+          {textConsts.buttonAdd}
+        </SuccessButton>
       </Box>
-    </>
+    </React.Fragment>
   ),
 )
 

@@ -48,7 +48,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
             />
           </div>
           <div>
-            <Typography className={classNames.csCodeTypo}>{item._id}</Typography>
+            <Typography className={classNames.csCodeTypo}>{item.amazonTitle}</Typography>
             <Typography className={classNames.typoCell}>
               {'ASIN '}
               <span className={classNames.typoSpan}>{item.id}</span>
@@ -81,7 +81,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
       </TableCell>
       <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.profit)}</TableCell>
       <TableCell className={classNames.amazonCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
-      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.bsr)}</TableCell>
+      <TableCell className={classNames.bsrCell}>{item.bsr}</TableCell>
       <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.fbaamount)}</TableCell>
       <TableCell className={classNames.deleteBtnCell}>
         <IconButton onClick={() => alert('Item deleting...')}>

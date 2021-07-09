@@ -11,7 +11,7 @@ export class BuyerUserProfileViewModel {
 
   userDataMy = undefined
   drawerOpen = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   curPage = 1
   productList = BUYER_USER_INITIAL_LIST
   user = BUYER_USER_INITIAL_USER

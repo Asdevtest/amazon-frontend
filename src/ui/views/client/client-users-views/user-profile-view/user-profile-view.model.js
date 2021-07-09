@@ -10,7 +10,7 @@ export class ClientProfileViewModel {
   error = undefined
 
   drawerOpen = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   curPage = 1
   productList = []
   tabExchange = 0

@@ -1,23 +1,18 @@
-import {Chip, NativeSelect, TableCell, TableRow} from '@material-ui/core'
+import {NativeSelect, TableCell, TableRow} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 
 import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
-import {texts} from '@constants/texts'
 import {warehouses} from '@constants/warehouses'
 
 import {Input} from '@components/input'
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
 import {styles} from './exchange-modal-body-row.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').exchangeModalBodyRowRaw
-
-const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: classNames, onClickEditBarcode}) => (
+const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: classNames}) => (
   <TableRow>
     <TableCell>
       <img
@@ -35,26 +30,6 @@ const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: c
     </TableCell>
     <TableCell className={classNames.alignRight}>{calcProductsPriceWithDelivery(product, orderFields)}</TableCell>
 
-    <TableCell className={classNames.alignRight}>
-      <Chip
-        className={clsx(
-          {
-            root: classNames.orderChip,
-            clickable: classNames.orderChipHover,
-            deletable: classNames.orderChipHover,
-            deleteIcon: classNames.orderChipIcon,
-          },
-          {[classNames.select]: orderFields.barCode},
-        )}
-        size="small"
-        color={orderFields.barCode ? 'primary' : 'default'}
-        label={orderFields.barCode ? orderFields.barCode : textConsts.setBarCodeLabel}
-        onClick={e => {
-          e.stopPropagation()
-          onClickEditBarcode()
-        }}
-      />
-    </TableCell>
     <TableCell>
       <NativeSelect
         variant="filled"

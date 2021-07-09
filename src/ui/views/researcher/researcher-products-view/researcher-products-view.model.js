@@ -22,7 +22,7 @@ export class ResearcherProductsViewModel {
   actionStatus = undefined
 
   drawerOpen = false
-  rowsPerPage = 5
+  rowsPerPage = 15
   curPage = 1
 
   formFields = {...formFieldsDefault}
@@ -30,6 +30,7 @@ export class ResearcherProductsViewModel {
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
   products = []
+  chekedCode = ''
 
   constructor({history}) {
     this.history = history
@@ -57,8 +58,10 @@ export class ResearcherProductsViewModel {
     if (checkProductExistResult) {
       runInAction(() => {
         this.error = 'This product already exists'
+        return
       })
     }
+    this.chekedCode = this.formFields.productCode
   }
 
   async onClickAddBtn() {
@@ -147,6 +150,7 @@ export class ResearcherProductsViewModel {
     action(e => {
       this.error = undefined
       this.actionStatus = undefined
+      this.chekedCode = ''
       if (fieldName === 'amazonLink') {
         this.formFields[fieldName] = e.target.value
         this.formFields.productCode = getAmazonCodeFromLink(e.target.value)

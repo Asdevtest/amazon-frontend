@@ -44,7 +44,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, selectedOrder, ...restProps
             className={classNames.orderImg}
           />
           <div>
-            <Typography className={classNames.orderTitle}>{item.product._id}</Typography>
+            <Typography className={classNames.orderTitle}>{item.product.amazonTitle}</Typography>
             <Typography className={classNames.orderText}>
               <span className={classNames.orderTextSpan}>{textConsts.id}</span>
               {item.product.id}

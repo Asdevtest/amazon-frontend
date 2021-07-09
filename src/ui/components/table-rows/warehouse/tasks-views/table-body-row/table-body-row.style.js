@@ -41,4 +41,8 @@ export const useClassNames = makeStyles({
     display: 'flex',
     gap: '2px',
   },
+  buttonsWrapper: {
+    display: 'flex',
+    gap: '10px',
+  },
 })

@@ -1,7 +1,6 @@
 import React from 'react'
 
-import {Box, Chip, TableCell, TableRow, Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import {Box, TableCell, TableRow, Typography} from '@material-ui/core'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
@@ -45,27 +44,7 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
         </div>
       </TableCell>
       <TableCell className={classNames.chipCell}>
-        <Chip
-          size="small"
-          className={clsx(
-            {
-              root: classNames.orderChip,
-              clickable: classNames.orderChipHover,
-              deletable: classNames.orderChipHover,
-              deleteIcon: classNames.orderChipIcon,
-            },
-            {
-              [classNames.selected]: !!item.barCode === true,
-            },
-          )}
-          label={item.barCode ? item.barCode : 'Штрихкод не установлен'}
-          onClick={e => {
-            e.stopPropagation()
-            if (item.barCode) {
-              navigator.clipboard.writeText(item.barCode)
-            }
-          }}
-        />
+        <Typography className={classNames.text}>{item.barCode}</Typography>
       </TableCell>
       <TableCell className={classNames.cellPadding}>
         {/* по идее должно быть у заказа */}
