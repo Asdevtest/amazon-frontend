@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {Divider, NativeSelect, Typography} from '@material-ui/core'
+import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
 import {warehouses} from '@constants/warehouses'
@@ -39,95 +40,97 @@ const statusOptions = [
   {value: 35, label: 'Return order'},
 ]
 
-export const EditTaskModal = ({task, onClickOpenCloseModal, onSetBarcode, onEditBox, onPickupBox}) => {
-  const classNames = useClassNames()
+export const EditTaskModal = observer(
+  ({task, onClickOpenCloseModal, onSetBarcode, onEditBox, onClickSolveTask, tmpBarCode}) => {
+    const classNames = useClassNames()
 
-  return (
-    <div className={classNames.root}>
-      <div className={classNames.form}>
-        <Typography paragraph className={classNames.subTitle}>
-          {textConsts.taskTitle}
-        </Typography>
+    if (!task) {
+      return <div />
+    }
 
-        <Field
-          containerClasses={classNames.field}
-          label={textConsts.warehouseLabel}
-          inputComponent={
-            <NativeSelect variant="filled" input={<Input fullWidth />}>
-              {warehouseOptions.map((option, index) => (
-                <option key={index} value={option.value}>
-                  {option.label}
-                </option>
+    return (
+      <div className={classNames.root}>
+        <div className={classNames.form}>
+          <Typography paragraph className={classNames.subTitle}>
+            {textConsts.taskTitle}
+          </Typography>
+
+          <Field
+            containerClasses={classNames.field}
+            label={textConsts.warehouseLabel}
+            inputComponent={
+              <NativeSelect variant="filled" input={<Input fullWidth />}>
+                {warehouseOptions.map((option, index) => (
+                  <option key={index} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </NativeSelect>
+            }
+          />
+
+          <Field
+            containerClasses={classNames.field}
+            label={textConsts.deliveryMethodLabel}
+            inputComponent={
+              <NativeSelect variant="filled" input={<Input fullWidth />}>
+                {deliveryMethodOptions.map((option, index) => (
+                  <option key={index} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </NativeSelect>
+            }
+          />
+
+          <Field
+            containerClasses={classNames.field}
+            label={textConsts.statusLabel}
+            inputComponent={
+              <NativeSelect variant="filled" input={<Input fullWidth />}>
+                {statusOptions.map((option, index) => (
+                  <option key={index} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </NativeSelect>
+            }
+          />
+
+          <BeforeAfterBlock
+            incomingBoxes={task.incomingBoxes}
+            desiredBoxes={task.boxes}
+            tmpBarCode={tmpBarCode}
+            onSetBarcode={onSetBarcode}
+            onEditBox={onEditBox}
+          />
+
+          <Divider className={classNames.divider} />
+
+          <Typography paragraph className={classNames.subTitle}>
+            {textConsts.incomingBoxes}
+          </Typography>
+
+          <Divider className={classNames.divider} />
+
+          <div className={classNames.ordersWrapper}>
+            {task.incomingBoxes &&
+              task.incomingBoxes.map((box, boxIndex) => (
+                <BoxOrder key={boxIndex} box={box} onSetBarcode={onSetBarcode} />
               ))}
-            </NativeSelect>
-          }
-        />
+          </div>
+        </div>
 
-        <Field
-          containerClasses={classNames.field}
-          label={textConsts.deliveryMethodLabel}
-          inputComponent={
-            <NativeSelect variant="filled" input={<Input fullWidth />}>
-              {deliveryMethodOptions.map((option, index) => (
-                <option key={index} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </NativeSelect>
-          }
-        />
+        <div className={classNames.buttonsWrapper}>
+          <SuccessButton disableElevation className={classNames.submit} variant="contained" onClick={onClickSolveTask}>
+            {textConsts.saveChangesBtn}
+          </SuccessButton>
 
-        <Field
-          containerClasses={classNames.field}
-          label={textConsts.statusLabel}
-          inputComponent={
-            <NativeSelect variant="filled" input={<Input fullWidth />}>
-              {statusOptions.map((option, index) => (
-                <option key={index} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </NativeSelect>
-          }
-        />
-
-        <BeforeAfterBlock
-          incomingBoxes={task.incomingBoxes}
-          desiredBoxes={task.desiredBoxes}
-          onSetBarcode={onSetBarcode}
-          onEditBox={onEditBox}
-          onPickupBox={onPickupBox}
-        />
-
-        <Divider className={classNames.divider} />
-
-        <Typography paragraph className={classNames.subTitle}>
-          {textConsts.incomingBoxes}
-        </Typography>
-
-        <Divider className={classNames.divider} />
-
-        <div className={classNames.ordersWrapper}>
-          {task.incomingBoxes.map((box, boxIndex) => (
-            <BoxOrder key={boxIndex} box={box} onSetBarcode={onSetBarcode} />
-          ))}
+          <Button disableElevation color="primary" variant="contained" onClick={onClickOpenCloseModal}>
+            {textConsts.cancelChangesBtn}
+          </Button>
         </div>
       </div>
-
-      <div className={classNames.buttonsWrapper}>
-        <SuccessButton
-          disableElevation
-          className={classNames.submit}
-          variant="contained"
-          onClick={onClickOpenCloseModal}
-        >
-          {textConsts.saveChangesBtn}
-        </SuccessButton>
-
-        <Button disableElevation color="primary" variant="contained" onClick={onClickOpenCloseModal}>
-          {textConsts.cancelChangesBtn}
-        </Button>
-      </div>
-    </div>
-  )
-}
+    )
+  },
+)

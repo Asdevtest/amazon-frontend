@@ -13,9 +13,9 @@ import {useClassNames} from './set-barcode-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').ordersViewsModalSetBarcode
 
-export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, product, order, task}) => {
+export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, product, order, task, barCode: barCodeExternal}) => {
   const [barCode, setBarCode] = useState(
-    (order && order.barCode) || (product && product.barCode) || (task && task.barCode) || '',
+    (order && order.barCode) || (product && product.barCode) || (task && task.barCode) || barCodeExternal || '',
   )
   const classNames = useClassNames()
 

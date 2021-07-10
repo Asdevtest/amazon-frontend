@@ -39,7 +39,7 @@ export class AdminWarehouseOrdersViewModel {
 
   async getOrders() {
     try {
-      const result = await AdministratorModel.getOrders()
+      const result = await AdministratorModel.getOrdersByStatus()
       runInAction(() => {
         this.ordersData = result
       })

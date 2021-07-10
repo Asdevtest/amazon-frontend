@@ -11,7 +11,11 @@ import {UserRole} from '@constants/user-roles'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {Navbar} from '@components/navbar'
+import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
+import {EditBoxModal} from '@components/screens/warehouse/edit-task-modal/edit-box-modal'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/warehouse/tasks-views/table-body-row'
 import {WarehouseTasksBodyRowViewMode} from '@components/table-rows/warehouse/tasks-views/table-body-row/table-body-row'
@@ -19,15 +23,15 @@ import {TableHeadRow} from '@components/table-rows/warehouse/tasks-views/table-h
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import {WarehouseVacantViewModel} from './warehouse-vacant-tasks-view.model'
-import {styles} from './warehouse-vacant-tasks-view.style'
+import {WarehouseVacantViewModel} from './warehouse-my-tasks-view.model'
+import {styles} from './warehouse-my-tasks-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseVacantTasksView
 const navbarActiveCategory = 1
-const navBarActiveSubCategory = 0
+const navBarActiveSubCategory = 1
 
 @observer
-export class WarehouseVacantTasksViewRaw extends Component {
+export class WarehouseMyTasksViewRaw extends Component {
   viewModel = new WarehouseVacantViewModel({history: this.props.history})
 
   componentDidMount() {
@@ -36,14 +40,28 @@ export class WarehouseVacantTasksViewRaw extends Component {
 
   render() {
     const {
-      tasksVacant,
+      currentBox,
+      tasksMy,
       drawerOpen,
       curPage,
+      showEditTaskModal,
       rowsPerPage,
+      selectedTask,
+      showBarcodeModal,
+      showEditBoxModal,
       onChangeTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
-      onClickPickupBtn,
+      onTriggerEditTaskModal,
+      onSelectTask,
+      onTriggerShowBarcodeModal,
+      onTriggerShowEditBoxModal,
+      updateBox,
+      onClickSaveBarcode,
+      onCancelMergeBoxes,
+      onCancelSplitBoxes,
+      onClickSolveTask,
+      tmpBarCode,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -72,22 +90,47 @@ export class WarehouseVacantTasksViewRaw extends Component {
               <div className={classNames.tableWrapper}>
                 <Table
                   currentPage={curPage}
-                  data={tasksVacant}
+                  data={tasksMy}
                   handlerPageChange={onChangeCurPage}
                   handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(tasksVacant.length / rowsPerPage)}
+                  pageCount={Math.ceil(tasksMy.length / rowsPerPage)}
                   BodyRow={TableBodyRow}
                   renderHeadRow={this.renderHeadRow}
                   rowsPerPage={rowsPerPage}
                   rowsHandlers={{
-                    onClickPickupBtn,
+                    onSelectTask,
+                    onTriggerEditTaskModal,
+                    onCancelMergeBoxes,
+                    onCancelSplitBoxes,
                   }}
-                  viewMode={WarehouseTasksBodyRowViewMode.VACANT}
+                  viewMode={WarehouseTasksBodyRowViewMode.MY}
                 />
               </div>
             </MainContent>
           </Appbar>
         </Main>
+        <Modal openModal={showEditTaskModal} setOpenModal={onTriggerEditTaskModal}>
+          <Typography variant="h5">{textConsts.taskModalTitle}</Typography>
+          <EditTaskModal
+            task={selectedTask}
+            tmpBarCode={tmpBarCode}
+            onClickOpenCloseModal={onTriggerEditTaskModal}
+            onSetBarcode={onTriggerShowBarcodeModal}
+            onEditBox={onTriggerShowEditBoxModal}
+            onClickSolveTask={onClickSolveTask}
+          />
+        </Modal>
+        <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
+          <SetBarcodeModal
+            task={selectedTask}
+            barCode={tmpBarCode}
+            onClickSaveBarcode={onClickSaveBarcode}
+            onCloseModal={onTriggerShowBarcodeModal}
+          />
+        </Modal>
+        <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
+          <EditBoxModal setEditModal={onTriggerShowEditBoxModal} updateBoxSubmit={updateBox} box={currentBox} />
+        </Modal>
       </React.Fragment>
     )
   }
@@ -95,4 +138,4 @@ export class WarehouseVacantTasksViewRaw extends Component {
   renderHeadRow = (<TableHeadRow headCells={WAREHOUSE_TASKS_HEAD_CELLS} />)
 }
 
-export const WarehouseVacantTasksView = withStyles(styles)(WarehouseVacantTasksViewRaw)
+export const WarehouseMyTasksView = withStyles(styles)(WarehouseMyTasksViewRaw)

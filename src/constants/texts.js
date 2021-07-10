@@ -415,11 +415,16 @@ export const texts = {
       salesField: 'Sales',
       salesTotalField: 'Sales Total',
       typeField: 'Type',
-      revenueField: 'Revenue',
+      profitField: 'Profit',
+      marginField: 'Margin',
       amazonPriceField: 'Amazon $',
       bsrField: 'BSR',
-      fbaField: 'FBA',
+      fbaField: 'FBA fee',
+      fbaAmountField: 'FBA amount',
       barcodeField: 'Barcode',
+      createDateField: 'Create date',
+      checkDateField: 'Check date',
+      updateDateField: 'Update date',
     },
     exchangeSupplierSearchColumns: {
       asinField: 'ASIN',
@@ -671,7 +676,6 @@ export const texts = {
     },
     dataGridCells: {
       asinTypo: 'ASIN ',
-      asinUpdateToday: ' | updated today',
       careChip: 'Beauty & Personal Care',
       calculateBtn: 'Calculate fees',
       feesTypo: 'Fees ',
@@ -1378,6 +1382,7 @@ export const texts = {
       theme: 'Тема',
       description: 'Описание',
       action: 'Действие',
+      statusTitle: 'Статус',
     },
     userBalanceHistory: {
       mainTitle: 'Изменения на складе',
@@ -1504,11 +1509,12 @@ export const texts = {
       viewBtn: 'Посмотреть',
       resolved: 'Решено',
       notResolved: 'Не решено',
+      pickUp: 'Взять в работу',
 
-      merge: 'Соединение в коробку: ',
-      unMerge: 'Разъедененние в коробки: ',
+      merge: 'Соединение в коробку',
+      unMerge: 'Разъедененние в коробки',
       changeStatus: ' изменил статус на ',
-      receive: 'Принять коробку:',
+      receive: 'Принять коробку',
     },
     productStatusButtonsConfigs: {
       searchForSupplier: 'Поиск поставщика',
@@ -1516,6 +1522,13 @@ export const texts = {
       supplierWasFound: 'Поставщик найден',
       supplierWasNotFound: 'Поставщик не найден',
       supplierPriceNotAccepted: 'Прайс поставщика не подходит',
+    },
+    boxItemCard: {
+      count: 'Количество',
+    },
+    warehouseWarehouseView: {
+      appbarTitle: 'Warehouse',
+      mainTitle: 'Boxes in warehouse',
     },
   },
 }

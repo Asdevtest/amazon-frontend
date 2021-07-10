@@ -16,6 +16,11 @@ class StorekeeperModelStatic {
     return response
   }
 
+  updateTask = async (id, data) => {
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksGuidPatch(id, data)
+    return response
+  }
+
   getBatches = async () => {
     const response = await restApiService.strokeepersApi.apiV1StorekeepersBatchesGet()
     return response

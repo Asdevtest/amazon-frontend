@@ -35,44 +35,27 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
     if (areSubBoxes) {
       return
     }
-    if (!isMasterBox) {
-      if (box.isDraft) {
-        return <Typography>{'isDraft'}</Typography>
-      } else {
-        return (
-          <div className={classNames.checkboxRow}>
-            <Checkbox
-              color="primary"
-              checked={rowsDatas.selectedBoxes.includes(box._id)}
-              onChange={() => handlers.checkbox(box._id)}
-            />
-          </div>
-        )
-      }
+    if (box.isDraft) {
+      return <Typography>{'isDraft'}</Typography>
     } else {
-      if (isMaximizedMasterBox) {
-        return (
-          <div className={classNames.checkboxRow}>
+      return (
+        <div className={classNames.checkboxRow}>
+          {handlers?.checkbox ? (
             <Checkbox
               color="primary"
-              checked={rowsDatas.selectedBoxes.includes(box._id)}
+              checked={rowsDatas?.selectedBoxes.includes(box._id)}
               onChange={() => handlers.checkbox(box._id)}
             />
-            <ArrowDropUpIcon onClick={onTriggerIsMaximizedMasterBox} />
-          </div>
-        )
-      } else {
-        return (
-          <div className={classNames.checkboxRow}>
-            <Checkbox
-              color="primary"
-              checked={rowsDatas.selectedBoxes.includes(box._id)}
-              onChange={() => handlers.checkbox(box._id)}
-            />
-            <ArrowDropDownIcon onClick={onTriggerIsMaximizedMasterBox} />
-          </div>
-        )
-      }
+          ) : undefined}
+          {isMasterBox ? (
+            isMaximizedMasterBox ? (
+              <ArrowDropUpIcon onClick={onTriggerIsMaximizedMasterBox} />
+            ) : (
+              <ArrowDropDownIcon onClick={onTriggerIsMaximizedMasterBox} />
+            )
+          ) : undefined}
+        </div>
+      )
     }
   }
 
@@ -98,7 +81,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
         <TableCell>{order.product.id}</TableCell>
         <TableCell className={classNames.cellValueNumber}>
-          {isMasterBox ? `boxes ${box.amount} x units ${order.amount}` : order.amount}
+          {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
         </TableCell>
         <TableCell>{order.product.material}</TableCell>
         {orderIndex === 0 && (

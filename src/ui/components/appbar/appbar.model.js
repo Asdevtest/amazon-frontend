@@ -32,7 +32,7 @@ export class AppbarModel {
   async getBalance() {
     try {
       this.requestStatus = loadingStatuses.isLoading
-      const result = await userRoleModels[this.userRole].getBalance()
+      const result = await userRoleModels[this.userRole]?.getBalance()
       runInAction(() => {
         this.balance = result
       })

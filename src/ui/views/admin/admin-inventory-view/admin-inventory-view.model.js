@@ -1,7 +1,5 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
-import {ADMIN_PRODUCTS_DATA} from '@constants/mocks'
-
 import {AdministratorModel} from '@models/administrator-model'
 
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
@@ -11,7 +9,7 @@ export class AdminInventoryViewModel {
   requestStatus = undefined
   error = undefined
 
-  products = [...ADMIN_PRODUCTS_DATA]
+  products = []
 
   selectionModel = undefined
 
@@ -47,7 +45,7 @@ export class AdminInventoryViewModel {
 
   async getProducts() {
     try {
-      const result = await AdministratorModel.getProducts()
+      const result = await AdministratorModel.getProductsPaid()
 
       const productsData = result.map(product => ({
         ...getObjectFilteredByKeyArrayBlackList(product, ['_id']),
@@ -62,6 +60,7 @@ export class AdminInventoryViewModel {
       if (error.body && error.body.message) {
         this.error = error.body.message
       }
+      this.products = []
     }
   }
 }

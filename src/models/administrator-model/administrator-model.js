@@ -61,12 +61,17 @@ class AdministratorModelStatic {
   }
 
   getProductsByStatus = async status => {
-    const response = await restApiService.administratorApi.apiV1AdminsGetProductsByStatusStatusGet(status)
+    const response = await restApiService.administratorApi.apiV1AdminsGetProductsByStatusGet(status)
+    return response
+  }
+
+  getProductsPaid = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsGetPaidProductsGet()
     return response
   }
 
   getOrdersByStatus = async status => {
-    const response = await restApiService.administratorApi.apiV1AdminsOrdersStatusGet(status)
+    const response = await restApiService.administratorApi.apiV1AdminsOrdersGet({status})
     return response
   }
 }

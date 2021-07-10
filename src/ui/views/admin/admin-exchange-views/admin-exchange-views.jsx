@@ -3,8 +3,10 @@ import React, {Component} from 'react'
 import {Typography} from '@material-ui/core'
 import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
+import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {adminUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -29,16 +31,18 @@ class AdminExchangeViewsRaw extends Component {
   viewModel = new AdminExchangeViewModel({history: this.props.history})
 
   componentDidMount() {
+    console.log(this.viewModel.activeSubCategory)
     this.viewModel.getProductsByStatus(this.viewModel.activeSubCategory)
   }
 
   render() {
     const {
-      getCurrentData,
+      currentProductsData,
       activeSubCategory,
       drawerOpen,
       curPage,
       rowsPerPage,
+      requestStatus,
       onChangeCurPage,
       onChangeRowsPerPage,
       onSelectionModel,
@@ -68,7 +72,6 @@ class AdminExchangeViewsRaw extends Component {
               <Typography paragraph variant="h5" className={classNames.example}>
                 {textConsts.mainTitle}
               </Typography>
-
               <DataGrid
                 autoHeight
                 pagination
@@ -77,7 +80,7 @@ class AdminExchangeViewsRaw extends Component {
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[5, 10, 20]}
                 rowHeight={100}
-                rows={getCurrentData()}
+                rows={toJS(currentProductsData)}
                 components={{
                   Toolbar: GridToolbar,
                 }}
@@ -85,6 +88,7 @@ class AdminExchangeViewsRaw extends Component {
                   items: [{columnField: 'warehouse', operatorValue: '', value: ''}],
                 }}
                 columns={exchangeProductsColumns({activeSubCategory})}
+                loading={requestStatus === loadingStatuses.isLoading}
                 onSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection.selectionModel[0])
                 }}

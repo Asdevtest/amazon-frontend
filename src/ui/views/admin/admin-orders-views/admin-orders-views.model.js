@@ -83,6 +83,7 @@ export class AdminOrdersAllViewModel {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       this.error = error
+      this.currentOrdersData = []
     }
   }
 }

@@ -44,7 +44,9 @@ import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-
 import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view/supervisor-settings-view'
 import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-completed-tasks-view'
 import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
+import {WarehouseMyTasksView} from '@views/warehouse/warehouse-my-tasks-view'
 import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-vacant-tasks-view'
+import {WarehouseWarehouseView} from '@views/warehouse/warehouse-warehouse-view/warehouse-warehouse-view'
 
 import {UserRole} from './user-roles'
 
@@ -258,6 +260,18 @@ export const privateRoutesConfigs = [
   {
     routePath: '/warehouse/vacant-tasks',
     component: WarehouseVacantTasksView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+  },
+  {
+    routePath: '/warehouse/my-tasks',
+    component: WarehouseMyTasksView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+  },
+  {
+    routePath: '/warehouse/boxes',
+    component: WarehouseWarehouseView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
   },

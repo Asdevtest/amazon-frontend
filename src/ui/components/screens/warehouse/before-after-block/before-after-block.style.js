@@ -1,6 +1,6 @@
 const {makeStyles} = require('@material-ui/core')
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles(() => ({
   boxesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -14,61 +14,20 @@ export const useClassNames = makeStyles(theme => ({
     alignItems: 'flex-end',
     height: '60px',
   },
-  newBoxes: {
-    marginBottom: '20px',
-  },
+  newBoxes: {},
   box: {
     minWidth: '300px',
     marginBottom: '20px',
   },
-  order: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  divider: {
-    margin: '0 30px',
-  },
-  img: {
-    width: '32px',
-    height: '32px',
-    marginRight: '4px',
-  },
-  imgBox: {
-    width: '50px',
-    height: '50px',
-  },
-  sectionTitle: {
-    color: theme.palette.text.secondary,
-    marginBottom: theme.spacing(1),
-  },
-  title: {
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '21px',
-    marginRight: '10px',
-    width: '160px',
-  },
-  subTitle: {
-    fontSize: '14px',
-    color: theme.palette.text.secondary,
-    marginRight: theme.spacing(1),
-  },
-  inputWrapper: {
-    border: '1px solid rgba(143, 152, 165, 1)',
-    borderRadius: '4px',
-    width: '40px',
-    height: '20px',
-  },
-  input: {
-    fontSize: '14px',
-    textAlign: 'center',
+  itemsWrapper: {
+    marginTop: '5px',
   },
   orderChip: {
     backgroundColor: 'rgb(0, 123, 255)',
     color: 'white',
     fontSize: '13px',
-    borderRadius: '4px',
+    borderRadius: '14px',
+    marginLeft: '10px',
   },
   select: {
     backgroundColor: 'rgba(0, 123, 255, 1)',
@@ -83,7 +42,8 @@ export const useClassNames = makeStyles(theme => ({
   },
   chipWrapper: {
     display: 'flex',
-    gap: '20px',
+    marginTop: '10px',
+    padding: '5px',
   },
   categoryTitle: {
     fontSize: '16px',
@@ -97,8 +57,20 @@ export const useClassNames = makeStyles(theme => ({
     justifyContent: 'space-between',
     flexDirection: 'column',
     minWidth: '200px',
+    padding: '5px',
+    marginTop: '10px',
   },
   editBtn: {
     marginTop: '20px',
+  },
+  bottomBlockWrapper: {
+    marginTop: '20px',
+    padding: '10px',
+  },
+  editBtnWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }))

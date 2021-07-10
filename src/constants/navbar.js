@@ -120,15 +120,24 @@ export const navbarConfig = {
     },
     {
       icon: AssignmentIcon,
-      title: 'Вакантные задачи',
-      subtitles: null,
-      route: '/warehouse/vacant-tasks',
+      title: 'Задачи',
+      route: '/warehouse/tasks',
+      subtitles: [
+        {subtitle: 'Вакантные задачи', subRoute: '/warehouse/vacant-tasks'},
+        {subtitle: 'Мои задачи', subRoute: '/warehouse/my-tasks'},
+      ],
     },
     {
       icon: AssignmentIcon,
       title: 'Выполненые задачи',
       subtitles: null,
       route: '/warehouse/completed-tasks',
+    },
+    {
+      icon: AssignmentIcon,
+      title: 'Склад',
+      subtitles: null,
+      route: '/warehouse/boxes',
     },
   ],
   [UserRole.ADMIN]: [
