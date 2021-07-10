@@ -8,6 +8,7 @@ import {texts} from '@constants/texts'
 
 import {StarRating} from '@components/star-rating'
 
+import {formatDateDistanceFromNow, formatDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, trimBarcode, toFixedWithKg} from '@utils/text'
@@ -20,23 +21,29 @@ export const AsinCell = withStyles(styles)(({classes: classNames, params}) => (
   <div className={classNames.asinCell}>
     <div className={classNames.asinCellContainer}>
       <div>
-        <img alt="placeholder" className={classNames.img} src={params.row.img && getAmazonImageUrl(params.row.img)} />
+        <img
+          alt="placeholder"
+          className={classNames.img}
+          src={params.row.images && params.row.images[0] && getAmazonImageUrl(params.row.images[0])}
+        />
       </div>
       <div>
         <Typography className={classNames.csCodeTypo}>{params.row.amazonTitle}</Typography>
         <Typography className={classNames.typoCell}>
           {textConsts.asinTypo}
-          <span className={classNames.typoSpan}>{params.row.asin}</span>
-          {textConsts.asinUpdateToday}
+          <span className={classNames.typoSpan}>{params.row.id}</span>
+          {` | ${formatDateDistanceFromNow(params.row.createdat)}`}
         </Typography>
-        <Chip className={classNames.chip} label={params.row.category} />
+        <Typography className={classNames.csCodeTypo}>{params.row.category}</Typography>
       </div>
     </div>
   </div>
 ))
 
 export const PriceCell = withStyles(styles)(({classes: classNames, params}) => (
-  <div className={classNames.priceTableCell}>{!params.value ? 'N/A' : toFixedWithDollarSign(params.value)}</div>
+  <div className={classNames.priceTableCell}>
+    {!params.row.amazon ? 'N/A' : toFixedWithDollarSign(params.row.amazon)}
+  </div>
 ))
 
 export const FeesValuesWithCalculateBtnCell = withStyles(styles)(({classes: classNames, params}) => (
@@ -48,7 +55,7 @@ export const FeesValuesWithCalculateBtnCell = withStyles(styles)(({classes: clas
       </Typography>
       <Typography className={classNames.typoCell}>
         {textConsts.netTypo}
-        <span className={classNames.typoSpan}>{toFixedWithDollarSign(params.row.fbafee + 1)}</span>
+        <span className={classNames.typoSpan}>{toFixedWithDollarSign(params.row.reffee)}</span>
       </Typography>
       <Button
         disableElevation
@@ -62,7 +69,7 @@ export const FeesValuesWithCalculateBtnCell = withStyles(styles)(({classes: clas
 ))
 
 export const SupplierCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.supplierCell}>{!params.value ? 'N/A' : params.value[0].name}</Typography>
+  <Typography className={classNames.supplierCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
 ))
 
 export const SupervisorCell = withStyles(styles)(({classes: classNames, params}) => (
@@ -123,7 +130,7 @@ export const BarcodeCell = withStyles(styles)(({classes: classNames, params, han
 ))
 
 export const DateCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.supervisorCell}>{!params.value ? 'N/A' : params.value}</Typography>
+  <Typography className={classNames.supervisorCell}>{!params.value ? 'N/A' : formatDateTime(params.value)}</Typography>
 ))
 
 export const OrderCell = withStyles(styles)(({classes: classNames, params}) => (
@@ -180,3 +187,13 @@ export const renderFixedDollarValueCell = ({params}) =>
   !params.value
     ? 'N/A'
     : toFixedWithDollarSign(params.row.deliveryCostToTheWarehouse + params.row.product.amazon * params.row.amount)
+
+export const OrderSum = ({params}) => (
+  <Typography>
+    {toFixedWithDollarSign(
+      ((parseFloat(params.row.product.currentSupplier?.price) || 0) +
+        (parseFloat(params.row.product.currentSupplier?.delivery) || 0)) *
+        (parseInt(params.row.amount) || 0),
+    ) || 'N/A'}
+  </Typography>
+)

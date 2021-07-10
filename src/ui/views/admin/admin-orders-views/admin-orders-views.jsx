@@ -5,6 +5,7 @@ import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -37,6 +38,7 @@ class AdminOrdersViewsRaw extends Component {
 
   render() {
     const {
+      requestStatus,
       getCurrentData,
       drawerOpen,
       modalBarcode,
@@ -89,6 +91,7 @@ class AdminOrdersViewsRaw extends Component {
                     items: [{columnField: 'warehouse', operatorValue: '', value: ''}],
                   }}
                   columns={adminOrdersViewColumns()}
+                  loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection.selectionModel[0])
                   }}

@@ -2,6 +2,8 @@ import React from 'react'
 
 import {TableCell, TableRow, Typography} from '@material-ui/core'
 
+import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
+import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 import {texts} from '@constants/texts'
 
 import {ErrorButton} from '@components/buttons/error-button'
@@ -30,34 +32,27 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
   )
 
   const taskMergeDescription = () => (
-    <React.Fragment>
-      <Typography className={classNames.descriptionWrapper}>
-        {textConsts.merge}
-        {item.boxes.map((box, index) => renderProductImage(box, index))}
-      </Typography>
-    </React.Fragment>
+    <>
+      <Typography className={classNames.descriptionWrapper}>{textConsts.merge}</Typography>
+      {item.boxes.map((box, index) => renderProductImage(box, index))}
+    </>
   )
   const taskDivideDescription = () => (
-    <React.Fragment>
-      <Typography className={classNames.descriptionWrapper}>
-        {textConsts.unMerge}
-
-        {item.boxes.map((box, index) => renderProductImage(box, index))}
-      </Typography>
-    </React.Fragment>
+    <>
+      <Typography className={classNames.descriptionWrapper}>{textConsts.unMerge}</Typography>
+      {item.boxes.map((box, index) => renderProductImage(box, index))}
+    </>
   )
   const taskReceiveDescription = () => (
-    <Typography>
-      <Typography className={classNames.descriptionWrapper}>
-        {textConsts.receive}
-        {item.boxes.map((box, index) => renderProductImage(box, index))}
-      </Typography>
-    </Typography>
+    <>
+      <Typography className={classNames.descriptionWrapper}>{textConsts.receive}</Typography>
+      {item.boxes.map((box, index) => renderProductImage(box, index))}
+    </>
   )
 
   const renderHistoryItem = () => {
-    switch (item.operationType) {
-      case 'merge':
+    switch (mapTaskOperationTypeKeyToEnum[item.operationType]) {
+      case TaskOperationType.MERGE:
         return (
           <React.Fragment>
             <TableCell>{textConsts.tasks}</TableCell>
@@ -67,8 +62,7 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
             </TableCell>
           </React.Fragment>
         )
-
-      case 'split':
+      case TaskOperationType.SPLIT:
         return (
           <React.Fragment>
             <TableCell>{textConsts.tasks}</TableCell>
@@ -78,11 +72,12 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
             </TableCell>
           </React.Fragment>
         )
-      case 'receive':
+      case TaskOperationType.RECEIVE:
         return (
           <React.Fragment>
             <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskReceiveDescription()}</TableCell>
+            <TableCell />
           </React.Fragment>
         )
     }
@@ -92,6 +87,7 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
     <TableRow>
       <TableCell className={classNames.centerTextCell}>{formatDateTime(item.createDate)}</TableCell>
       {renderHistoryItem()}
+      <TableCell>{mapTaskStatusKeyToEnum[item.status || 0]}</TableCell>
     </TableRow>
   )
 }

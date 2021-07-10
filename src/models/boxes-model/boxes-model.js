@@ -18,9 +18,9 @@ class BoxesModelStatic {
     return response
   }
 
-  cancelMergeBoxes = async ids => {
+  cancelMergeBoxes = async id => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelMergePost({
-      InlineObject6: {guid: ids},
+      InlineObject6: {guid: id},
     })
     return response
   }

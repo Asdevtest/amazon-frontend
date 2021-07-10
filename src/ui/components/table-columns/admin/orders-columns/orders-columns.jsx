@@ -7,8 +7,8 @@ import {
   BoxCell,
   GrossWeightCell,
   OrderCell,
+  OrderSum,
   renderFieldValueCell,
-  renderFixedDollarValueCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -53,17 +53,17 @@ export const adminOrdersViewColumns = () => [
     headerName: textConsts.sumField,
     width: 160,
     type: 'number',
-    renderCell: params => renderFixedDollarValueCell({params}),
+    renderCell: params => <OrderSum params={params} />,
   },
   {
-    field: 'weight',
+    field: 'weighGrossKg',
     headerName: textConsts.weightField,
     width: 160,
     type: 'number',
     renderCell: params => renderFieldValueCell({params}),
   },
   {
-    field: 'grossWeight',
+    field: 'volumeWeightKg',
     headerName: textConsts.grossWeightField,
     width: 160,
     renderCell: params => <GrossWeightCell params={params} />,

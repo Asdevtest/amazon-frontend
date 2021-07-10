@@ -25,13 +25,14 @@ export const useClassNames = makeStyles({
   },
 
   imagesWrapper: {
-    display: 'flex',
     flexDirection: 'column',
     border: '1px solid rgba(0, 123, 255, 0.5)',
     borderRadius: '10px',
     gap: '5px',
     padding: '3px',
     textAlign: 'center',
+    display: 'inline-block',
+    marginRight: '5px',
   },
   imgNum: {
     margin: '0',

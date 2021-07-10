@@ -2,25 +2,38 @@ import React from 'react'
 
 import {TableCell, TableRow, Typography} from '@material-ui/core'
 
+import {
+  mapTaskOperationTypeKeyToEnum,
+  mapTaskOperationTypeToLabel,
+  TaskOperationType,
+} from '@constants/task-operation-type'
+import {mapTaskStatusKeyToEnum, TaskStatus} from '@constants/task-status'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 
+import {formatDateTime} from '@utils/date-time'
 // import { formatDateTime } from '@utils/date-time'; еще пригодится - там ппц снова ошибка с датой
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './table-body-row.style'
 
+// ; еще пригодится - там ппц снова ошибка с датой
+
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseTasksBodyRow
 
-export const TableBodyRow = ({item, itemIndex, handlers}) => {
-  const classNames = useClassNames()
-  const status = item.status
+export const WarehouseTasksBodyRowViewMode = {
+  VACANT: 'VACANT',
+  MY: 'MY',
+}
 
-  const onClickResolveBtn = index => {
-    handlers.onSelectTaskIndex(index)
+export const TableBodyRow = ({item, itemIndex, handlers, hideActions, viewMode}) => {
+  const classNames = useClassNames()
+
+  const onClickResolveBtn = () => {
+    handlers.onSelectTask(item, itemIndex)
     handlers.onTriggerEditTaskModal()
   }
 
@@ -29,83 +42,101 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
   //   handlers.onTriggerBrowseTaskModal();
   // }; пока оставить
 
-  const renderProductImage = (box, key) => (
-    <div key={key} className={classNames.imagesWrapper}>
-      <Typography className={classNames.imgNum}>{`#${key + 1}`}</Typography>
-      {box.items.map((product, productIndex) => (
-        <div key={productIndex} className={classNames.imgWrapper}>
-          <img alt="placeholder" className={classNames.img} src={getAmazonImageUrl(product.product.images[0])} />
-          <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
-        </div>
-      ))}
-    </div>
-  )
+  const renderProductImage = (box, key) => {
+    if (viewMode === WarehouseTasksBodyRowViewMode.VACANT) {
+      return
+    }
+    return (
+      <div key={key} className={classNames.imagesWrapper}>
+        <Typography className={classNames.imgNum}>{`#${key + 1}`}</Typography>
+        {box.items.map((product, productIndex) => (
+          <div key={productIndex} className={classNames.imgWrapper}>
+            <img alt="placeholder" className={classNames.img} src={getAmazonImageUrl(product.product.images[0])} />
+            <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
+          </div>
+        ))}
+      </div>
+    )
+  }
 
   const taskMergeDescription = () => (
-    <React.Fragment>
-      <Typography>
-        {textConsts.merge}
-        {item.boxes.map((box, index) => renderProductImage(box, index))}
-      </Typography>
-    </React.Fragment>
+    <>
+      <Typography>{textConsts.merge}</Typography>
+      {item.boxes.map((box, index) => renderProductImage(box, index))}
+    </>
   )
   const taskDivideDescription = () => (
-    <React.Fragment>
-      <Typography className={classNames.descriptionWrapper}>
-        {textConsts.unMerge}
-        {item.boxes.map((box, index) => renderProductImage(box, index))}
-      </Typography>
-    </React.Fragment>
+    <>
+      <Typography className={classNames.descriptionWrapper}>{textConsts.unMerge}</Typography>
+      {item.boxes.map((box, index) => renderProductImage(box, index))}
+    </>
   )
   const taskReceiveDescription = () => (
-    <Typography>
-      <Typography className={classNames.descriptionWrapper}>
-        {textConsts.receive}
-        {item.boxes.map((box, index) => renderProductImage(box, index))}
-      </Typography>
-    </Typography>
+    <>
+      <Typography className={classNames.descriptionWrapper}>{textConsts.receive}</Typography>
+      {item.boxes.map((box, index) => renderProductImage(box, index))}
+    </>
   )
 
-  const renderDescriptionAndActions = () => {
-    switch (item.operationType) {
-      case 'merge':
-        return (
-          <React.Fragment>
-            <TableCell>{taskMergeDescription()}</TableCell>
-            <TableCell>
-              <div className={classNames.buttonsWrapper}>
-                <Button onClick={() => onClickResolveBtn(itemIndex)}>{textConsts.resolveBtn}</Button>
+  const renderDescription = () => {
+    switch (mapTaskOperationTypeKeyToEnum[item.operationType]) {
+      case TaskOperationType.MERGE:
+        return <TableCell>{taskMergeDescription()}</TableCell>
 
-                <ErrorButton /* onClick={() => onCancelMergeBoxes(item.boxes[0]._id)}*/>
-                  {textConsts.cancelBtn}
-                </ErrorButton>
-              </div>
-            </TableCell>
-          </React.Fragment>
+      case TaskOperationType.SPLIT:
+        return <TableCell>{taskDivideDescription()}</TableCell>
+      case TaskOperationType.RECEIVE:
+        return <TableCell>{taskReceiveDescription()}</TableCell>
+    }
+  }
+
+  const renderActions = () => {
+    if (hideActions || mapTaskStatusKeyToEnum[item.status] !== TaskStatus.NEW) {
+      return <TableCell />
+    }
+    if (viewMode === WarehouseTasksBodyRowViewMode.VACANT) {
+      return (
+        <TableCell>
+          <div className={classNames.buttonsWrapper}>
+            <Button onClick={() => handlers.onClickPickupBtn(item)}>{textConsts.pickUp}</Button>
+          </div>
+        </TableCell>
+      )
+    }
+    switch (mapTaskOperationTypeKeyToEnum[item.operationType]) {
+      case TaskOperationType.MERGE:
+        return (
+          <TableCell>
+            <div className={classNames.buttonsWrapper}>
+              <Button onClick={onClickResolveBtn}>{textConsts.resolveBtn}</Button>
+
+              <ErrorButton
+                className={classNames.cancelBtn}
+                onClick={() => handlers.onCancelMergeBoxes(item.boxes[0]._id)}
+              >
+                {textConsts.cancelBtn}
+              </ErrorButton>
+            </div>
+          </TableCell>
         )
 
-      case 'split':
+      case TaskOperationType.SPLIT:
         return (
-          <React.Fragment>
-            <TableCell>{taskDivideDescription()}</TableCell>
-            <TableCell>
-              <div className={classNames.buttonsWrapper}>
-                <Button onClick={() => onClickResolveBtn(itemIndex)}>{textConsts.resolveBtn}</Button>
+          <TableCell>
+            <div className={classNames.buttonsWrapper}>
+              <Button onClick={onClickResolveBtn}>{textConsts.resolveBtn}</Button>
 
-                <ErrorButton /* onClick={() => onCancelSplitBoxes(item.boxes[0]._id)}*/>
-                  {textConsts.cancelBtn}
-                </ErrorButton>
-              </div>
-            </TableCell>
-          </React.Fragment>
+              <ErrorButton
+                className={classNames.cancelBtn}
+                onClick={() => handlers.onCancelSplitBoxes(item.boxes[0]._id)}
+              >
+                {textConsts.cancelBtn}
+              </ErrorButton>
+            </div>
+          </TableCell>
         )
-      case 'receive':
-        return (
-          <React.Fragment>
-            <TableCell>{taskReceiveDescription()}</TableCell>
-            <TableCell>{<Button>{textConsts.resolveBtn}</Button>}</TableCell>
-          </React.Fragment>
-        )
+      case TaskOperationType.RECEIVE:
+        return <TableCell>{<Button>{textConsts.resolveBtn}</Button>}</TableCell>
     }
   }
 
@@ -113,10 +144,11 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
     <TableRow>
       {/* <TableCell>{item._id}</TableCell>   возможно тут это лишнее? место занимает */}
       {/* <TableCell>{formatDateTime(item.createDate)}</TableCell> */}
-      <TableCell>{'Date'}</TableCell>
-      <TableCell>{item.operationType}</TableCell>
-      {renderDescriptionAndActions()}
-      <TableCell>{status ? textConsts.resolved : textConsts.notResolved}</TableCell>
+      <TableCell>{formatDateTime(item.createDate)}</TableCell>
+      <TableCell>{mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]]}</TableCell>
+      {renderDescription()}
+      {renderActions()}
+      <TableCell>{mapTaskStatusKeyToEnum[item.status || 0]}</TableCell>
     </TableRow>
   )
 }

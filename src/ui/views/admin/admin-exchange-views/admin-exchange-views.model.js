@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
@@ -40,10 +40,6 @@ export class AdminExchangeViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  getCurrentData() {
-    return toJS(this.currentProductsData)
-  }
-
   onChangeSubCategory(value) {
     this.activeSubCategory = value
     this.getProductsByStatus(value)
@@ -66,6 +62,7 @@ export class AdminExchangeViewModel {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       this.error = error
+      this.currentProductsData = []
     }
   }
 

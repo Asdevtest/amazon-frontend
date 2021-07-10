@@ -9,11 +9,11 @@ import {HistoryTableRow} from '@components/table-rows/warehouse/warehouse-histor
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import {useClassNames} from './warehouse-history.style'
+import {useClassNames} from './warehouse-tasks.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseHistory
 
-export const WarehouseHistory = observer(({title, tasksData, onCancelMergeBoxes, onCancelSplitBoxes}) => {
+export const WarehouseTasks = observer(({title, tasksData, onCancelMergeBoxes, onCancelSplitBoxes}) => {
   const classNames = useClassNames()
 
   return (
@@ -29,7 +29,6 @@ export const WarehouseHistory = observer(({title, tasksData, onCancelMergeBoxes,
               <TableCell>{textConsts.theme}</TableCell>
               <TableCell>{textConsts.description}</TableCell>
               <TableCell>{textConsts.action}</TableCell>
-              <TableCell>{textConsts.statusTitle}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

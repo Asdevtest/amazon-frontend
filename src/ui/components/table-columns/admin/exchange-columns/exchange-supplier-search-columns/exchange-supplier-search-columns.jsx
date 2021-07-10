@@ -5,14 +5,8 @@ import {texts} from '@constants/texts'
 import {
   AsinCell,
   DateCell,
-  FeesValuesWithCalculateBtnCell,
   PriceCell,
-  RankCell,
-  RatingCell,
-  SalesCell,
-  SalesTotalCell,
   SupervisorCell,
-  TypeCell,
   renderFieldValueCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
@@ -27,82 +21,45 @@ export const exchangeSupplierSearchColumns = () => [
     renderCell: params => <AsinCell params={params} />,
     width: 300,
   },
-
   {
     field: 'price',
     headerName: textConsts.priceField,
     renderCell: params => <PriceCell params={params} />,
     width: 150,
   },
-
-  {
-    field: 'fees-net',
-    headerName: textConsts.feesAndNetField,
-    renderCell: params => <FeesValuesWithCalculateBtnCell params={params} />,
-    width: 150,
-  },
-
   {
     field: 'supervisor',
     headerName: textConsts.supervisorField,
     renderCell: params => <SupervisorCell params={params} />,
     width: 150,
   },
-
   {
-    field: 'dateCheck',
-    headerName: textConsts.supervisorDateCheckField,
+    field: 'createdat',
+    headerName: textConsts.createDateField,
     renderCell: params => <DateCell params={params} />,
-    flex: 1,
+    width: 150,
   },
-
   {
-    field: 'dateFind',
-    headerName: textConsts.supervisorDateFindField,
+    field: 'checkedat',
+    headerName: textConsts.checkDateField,
     renderCell: params => <DateCell params={params} />,
-    flex: 1,
-  },
-
-  {
-    field: 'rank',
-    headerName: textConsts.rankField,
-    renderCell: params => <RankCell params={params} />,
     width: 150,
   },
   {
-    field: 'rating',
-    headerName: textConsts.ratingField,
-    renderCell: params => <RatingCell params={params} />,
-    width: 300,
-  },
-  {
-    field: 'sales',
-    headerName: textConsts.salesField,
-    renderCell: params => <SalesCell params={params} />,
+    field: 'updateDate',
+    headerName: textConsts.updateDateField,
+    renderCell: params => <DateCell params={params} />,
     width: 150,
   },
   {
-    field: 'salersTotal',
-    headerName: textConsts.salesTotalField,
-    renderCell: params => <SalesTotalCell params={params} />,
-    width: 150,
-  },
-  {
-    field: 'type',
-    headerName: textConsts.typeField,
-    renderCell: params => <TypeCell params={params} />,
-    width: 150,
-  },
-
-  {
-    field: 'revenue',
-    headerName: textConsts.revenueField,
+    field: 'profit',
+    headerName: textConsts.profitField,
     renderCell: params => renderFieldValueCell({params}),
     width: 150,
   },
   {
-    field: 'amazonPrice',
-    headerName: textConsts.amazonPriceField,
+    field: 'margin',
+    headerName: textConsts.marginField,
     renderCell: params => renderFieldValueCell({params}),
     width: 150,
   },
@@ -115,6 +72,12 @@ export const exchangeSupplierSearchColumns = () => [
   {
     field: 'fbafee',
     headerName: textConsts.fbaField,
+    renderCell: params => renderFieldValueCell({params}),
+    width: 150,
+  },
+  {
+    field: 'fbaamount',
+    headerName: textConsts.fbaAmountField,
     renderCell: params => renderFieldValueCell({params}),
     width: 150,
   },

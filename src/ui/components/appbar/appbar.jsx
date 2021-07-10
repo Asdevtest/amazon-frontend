@@ -44,7 +44,7 @@ export const Appbar = observer(({avatarSrc, children, handlerTriggerDrawer, titl
           <Divider orientation="vertical" />
 
           <div className={classNames.userInfoWrapper}>
-            <Avatar alt="avatar" className={classNames.avatar} src={avatarSrc} />
+            {avatarSrc ? <Avatar alt="avatar" className={classNames.avatar} src={avatarSrc} /> : undefined}
 
             <div className={classNames.usernameAndBalanceWrapper}>
               <Typography className={classNames.username}>{username}</Typography>
