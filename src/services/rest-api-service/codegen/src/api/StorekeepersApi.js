@@ -15,6 +15,7 @@ import ApiClient from '../ApiClient';
 import InlineObject22 from '../model/InlineObject22';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2009 from '../model/InlineResponse2009';
+import InlineResponse2005 from '../model/InlineResponse2005';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse500 from '../model/InlineResponse500';
@@ -181,7 +182,7 @@ export default class StorekeepersApi {
     let authNames = [ 'AccessTokenBearer' ];
     let contentTypes = [];
     let accepts = [ 'text/html' ];
-    let returnType = [ InlineResponse2009 ];
+    let returnType = [ InlineResponse2005 ];
     return this.apiClient.callApi(
       '/api/v1/storekeepers/tasks/my',
       'GET',

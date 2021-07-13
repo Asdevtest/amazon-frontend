@@ -27,6 +27,7 @@ export const exchangeSection = {
 export const adminUsername = 'Admin'
 export const clientUsername = 'Client'
 export const buyerUsername = 'Buyer'
+export const storekeeperUsername = 'Storekeeper'
 
 export const clientBalance = 4_012
 export const supervisorBalance = 12_412

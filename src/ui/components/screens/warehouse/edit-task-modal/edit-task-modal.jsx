@@ -98,7 +98,7 @@ export const EditTaskModal = observer(
           />
 
           <BeforeAfterBlock
-            incomingBoxes={task.incomingBoxes}
+            incomingBoxes={task.boxesBefore}
             desiredBoxes={task.boxes}
             tmpBarCode={tmpBarCode}
             onSetBarcode={onSetBarcode}

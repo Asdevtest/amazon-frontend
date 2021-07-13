@@ -85,7 +85,7 @@ export class ClientWarehouseViewModel {
     const boxes = updatedBoxes.map(el => el.items.map(item => ({...item, product: item.product._id})))
     const splitBoxesResult = await this.splitBoxes(id, boxes)
 
-    await this.postTask({idsData: splitBoxesResult, type})
+    await this.postTask({idsData: splitBoxesResult, idsBeforeData: [id], type})
     await this.getTasksMy()
     this.selectedBoxes = []
   }
@@ -97,19 +97,18 @@ export class ClientWarehouseViewModel {
   async onClickMerge(type) {
     const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes)
 
-    console.log('mergeBoxesResult ', mergeBoxesResult)
-
-    await this.postTask({idsData: [mergeBoxesResult.guid], type}) // TODO: тут нужно исправить на коробки полученные из mergeBoxesResult, сейчас там ничего не приходит, ждем бек
+    await this.postTask({idsData: [mergeBoxesResult.guid], idsBeforeData: [...this.selectedBoxes], type})
     await this.getTasksMy()
 
     this.selectedBoxes = []
   }
 
-  async postTask({idsData, type}) {
+  async postTask({idsData, idsBeforeData, type}) {
     try {
       await ClientModel.createTask({
         taskId: 0,
         boxes: [...idsData],
+        boxesBefore: [...idsBeforeData],
         operationType: type,
       })
     } catch (error) {
@@ -180,6 +179,12 @@ export class ClientWarehouseViewModel {
     } catch (error) {
       console.log(error)
       this.error = error
+
+      if (error.body.message === 'Коробки не найдены.') {
+        runInAction(() => {
+          this.boxesMy = []
+        })
+      }
     }
   }
 

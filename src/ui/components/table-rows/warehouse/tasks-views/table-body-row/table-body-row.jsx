@@ -55,20 +55,34 @@ export const TableBodyRow = ({item, itemIndex, handlers, hideActions, viewMode})
             <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
           </div>
         ))}
+        <Typography className={classNames.imgNum}>{box.amount > 1 && `Super x${box.amount}`}</Typography>
       </div>
     )
   }
 
+  const renderBlockProductsImages = (
+    <div className={classNames.blockProductsImagesWrapper}>
+      {viewMode !== WarehouseTasksBodyRowViewMode.VACANT && (
+        <>
+          {item.boxesBefore && item.boxesBefore.map((box, index) => renderProductImage(box, index))}
+          <Typography>{'=>'}</Typography>
+        </>
+      )}
+
+      {item.boxes.map((box, index) => renderProductImage(box, index))}
+    </div>
+  )
+
   const taskMergeDescription = () => (
     <>
       <Typography>{textConsts.merge}</Typography>
-      {item.boxes.map((box, index) => renderProductImage(box, index))}
+      {renderBlockProductsImages}
     </>
   )
   const taskDivideDescription = () => (
     <>
       <Typography className={classNames.descriptionWrapper}>{textConsts.unMerge}</Typography>
-      {item.boxes.map((box, index) => renderProductImage(box, index))}
+      {renderBlockProductsImages}
     </>
   )
   const taskReceiveDescription = () => (
@@ -136,7 +150,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, hideActions, viewMode})
           </TableCell>
         )
       case TaskOperationType.RECEIVE:
-        return <TableCell>{<Button>{textConsts.resolveBtn}</Button>}</TableCell>
+        return <TableCell>{<Button onClick={onClickResolveBtn}>{textConsts.resolveBtn}</Button>}</TableCell>
     }
   }
 

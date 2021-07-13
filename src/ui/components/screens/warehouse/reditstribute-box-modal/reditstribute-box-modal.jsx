@@ -71,6 +71,15 @@ export const RedistributeBox = ({
 
     const newBoxesWithoutEmptyOrders = filterEmptyOrders(newBoxesWithoutEmptyBox)
 
+    const beforeBox = selectedBox
+    if (isMasterBox && totalProductsAmount > 1) {
+      beforeBox.items[0].masterBoxAmount = totalProductsAmount
+    }
+
+    if (isMasterBox && totalProductsAmount > 0) {
+      newBoxesWithoutEmptyOrders.push(beforeBox)
+    }
+
     onRedistribute(selectedBox._id, newBoxesWithoutEmptyOrders, operationTypes.SPLIT)
   }
 

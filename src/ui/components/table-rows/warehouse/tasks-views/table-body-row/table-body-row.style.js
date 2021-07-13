@@ -49,4 +49,9 @@ export const useClassNames = makeStyles({
   cancelBtn: {
     marginLeft: '10px',
   },
+  blockProductsImagesWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '3px',
+  },
 })
