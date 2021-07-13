@@ -4,7 +4,7 @@ import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {clientUsername} from '@constants/mocks'
+import {storekeeperUsername} from '@constants/mocks'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -23,7 +23,7 @@ import {styles} from './warehouse-warehouse-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseWarehouseView
 
-const activeCategory = 4
+const activeCategory = 3
 const activeSubCategory = null
 @observer
 export class WarehouseWarehouseViewRaw extends Component {
@@ -42,7 +42,7 @@ export class WarehouseWarehouseViewRaw extends Component {
         <Navbar
           activeCategory={activeCategory}
           activeSubCategory={activeSubCategory}
-          curUserRole={UserRole.CLIENT}
+          curUserRole={UserRole.STOREKEEPER}
           drawerOpen={drawerOpen}
           handlerTriggerDrawer={onTriggerDrawer}
         />
@@ -50,8 +50,8 @@ export class WarehouseWarehouseViewRaw extends Component {
           <Appbar
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
-            username={clientUsername}
-            curUserRole={UserRole.CLIENT}
+            username={storekeeperUsername}
+            curUserRole={UserRole.STOREKEEPER}
           >
             <MainContent>
               <Typography paragraph variant="h5">

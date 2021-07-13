@@ -42,4 +42,9 @@ export const useClassNames = makeStyles({
     display: 'flex',
     gap: '2px',
   },
+  blockProductsImagesWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '3px',
+  },
 })

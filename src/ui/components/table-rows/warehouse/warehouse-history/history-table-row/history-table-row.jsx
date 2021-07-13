@@ -28,26 +28,35 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
           <Typography className={classNames.imgNum}>{`x${product.amount}`}</Typography>
         </div>
       ))}
+      <Typography className={classNames.imgNum}>{box.amount > 1 && `Super x${box.amount}`}</Typography>
+    </div>
+  )
+
+  const renderBlockProductsImages = (
+    <div className={classNames.blockProductsImagesWrapper}>
+      {item.boxesBefore && item.boxesBefore.map((box, index) => renderProductImage(box, index))}
+      {'=>'}
+      {item.boxes.map((box, index) => renderProductImage(box, index))}
     </div>
   )
 
   const taskMergeDescription = () => (
-    <>
+    <React.Fragment>
       <Typography className={classNames.descriptionWrapper}>{textConsts.merge}</Typography>
-      {item.boxes.map((box, index) => renderProductImage(box, index))}
-    </>
+      {renderBlockProductsImages}
+    </React.Fragment>
   )
   const taskDivideDescription = () => (
-    <>
+    <React.Fragment>
       <Typography className={classNames.descriptionWrapper}>{textConsts.unMerge}</Typography>
-      {item.boxes.map((box, index) => renderProductImage(box, index))}
-    </>
+      {renderBlockProductsImages}
+    </React.Fragment>
   )
   const taskReceiveDescription = () => (
-    <>
+    <React.Fragment>
       <Typography className={classNames.descriptionWrapper}>{textConsts.receive}</Typography>
       {item.boxes.map((box, index) => renderProductImage(box, index))}
-    </>
+    </React.Fragment>
   )
 
   const renderHistoryItem = () => {

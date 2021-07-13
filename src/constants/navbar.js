@@ -121,7 +121,7 @@ export const navbarConfig = {
     {
       icon: AssignmentIcon,
       title: 'Задачи',
-      route: '/warehouse/tasks',
+      route: '/warehouse/vacant-tasks',
       subtitles: [
         {subtitle: 'Вакантные задачи', subRoute: '/warehouse/vacant-tasks'},
         {subtitle: 'Мои задачи', subRoute: '/warehouse/my-tasks'},

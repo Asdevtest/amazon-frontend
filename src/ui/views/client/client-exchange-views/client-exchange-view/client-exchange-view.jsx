@@ -133,6 +133,7 @@ export class ClientExchangeViewRaw extends Component {
                 onClick={() => {
                   onLaunchPrivateLabel(dataToPay.product, dataToPay.orderData)
                   onTriggerOpenModal('showConfirmPayModal')
+                  onTriggerOpenModal('showPrivateLabelModal')
                 }}
               >
                 {textConsts.confirmBtn}

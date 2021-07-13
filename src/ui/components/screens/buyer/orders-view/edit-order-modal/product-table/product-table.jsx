@@ -32,12 +32,16 @@ export const ProductTable = ({modalHeadCells, order, orderFields}) => {
               />
             </TableCell>
             <TableCell>{order.product.id}</TableCell>
-            <TableCell>{order.product.currentSupplier.price}</TableCell>
-            <TableCell className={classNames.tableCell}>{order.product.currentSupplier.delivery}</TableCell>
+            <TableCell>{order.product.currentSupplier ? order.product.currentSupplier.price : 'N/A'}</TableCell>
+            <TableCell className={classNames.tableCell}>
+              {order.product.currentSupplier ? order.product.currentSupplier.delivery : 'N/A'}
+            </TableCell>
             <TableCell className={classNames.tableCell}>{orderFields.amount}</TableCell>
             <TableCell>{toFixedWithDollarSign(calcProductsPriceWithDelivery(order.product, orderFields))}</TableCell>
             <TableCell>{order.barCode ? order.barCode : 'N/A'}</TableCell>
-            <TableCell className={classNames.suplierLinkCell}>{order.product.currentSupplier.link}</TableCell>
+            <TableCell className={classNames.suplierLinkCell}>
+              {order.product.currentSupplier ? order.product.currentSupplier.link : 'N/A'}
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>

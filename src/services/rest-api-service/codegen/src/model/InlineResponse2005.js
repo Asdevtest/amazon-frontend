@@ -20,68 +20,70 @@ import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
  * @version v0.0.1
  */
 class InlineResponse2005 {
-    /**
+  /**
      * Constructs a new <code>InlineResponse2005</code>.
      * @alias module:model/InlineResponse2005
      * @param _id {String} GUID
      * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
      * @param boxes {Array.<module:model/ApiV1BatchesBoxes>} Массив коробок.
+     * @param boxesBefore {Array.<module:model/ApiV1BatchesBoxes>} Массив коробок.
      * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      */
-    constructor(_id, taskId, boxes, status) { 
-        
-        InlineResponse2005.initialize(this, _id, taskId, boxes, status);
-    }
+  constructor(_id, taskId, boxes, status) {
+    InlineResponse2005.initialize(this, _id, taskId, boxes, status);
+  }
 
-    /**
+  /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, taskId, boxes, status) { 
-        obj['_id'] = _id;
-        obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
-        obj['status'] = status;
-    }
+  static initialize(obj, _id, taskId, boxes, boxesBefore, status) {
+    obj['_id'] = _id;
+    obj['taskId'] = taskId;
+    obj['boxes'] = boxes;
+    obj['boxesBefore'] = boxesBefore;
+    obj['status'] = status;
+  }
 
-    /**
+  /**
      * Constructs a <code>InlineResponse2005</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/InlineResponse2005} obj Optional instance to populate.
      * @return {module:model/InlineResponse2005} The populated <code>InlineResponse2005</code> instance.
      */
-    static constructFromObject(data, obj) {
-        if (data) {
-            obj = obj || new InlineResponse2005();
+  static constructFromObject(data, obj) {
+    if (data) {
+      obj = obj || new InlineResponse2005();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
-            }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('createDate')) {
-                obj['createDate'] = ApiClient.convertToType(data['createDate'], 'Date');
-            }
-        }
-        return obj;
+      if (data.hasOwnProperty('_id')) {
+        obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+      }
+      if (data.hasOwnProperty('taskId')) {
+        obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+      }
+      if (data.hasOwnProperty('boxes')) {
+        obj['boxes'] = ApiClient.convertToType(data['boxes'], [ ApiV1BatchesBoxes ]);
+      }
+      if (data.hasOwnProperty('boxesBefore')) {
+        obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ ApiV1BatchesBoxes ]);
+      }
+      if (data.hasOwnProperty('operationType')) {
+        obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+      }
+      if (data.hasOwnProperty('storekeeperId')) {
+        obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+      }
+      if (data.hasOwnProperty('status')) {
+        obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+      }
+      if (data.hasOwnProperty('createDate')) {
+        obj['createDate'] = ApiClient.convertToType(data['createDate'], 'Date');
+      }
     }
-
-
+    return obj;
+  }
 }
 
 /**
@@ -101,6 +103,12 @@ InlineResponse2005.prototype['taskId'] = undefined;
  * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
  */
 InlineResponse2005.prototype['boxes'] = undefined;
+
+/**
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
+ */
+InlineResponse2005.prototype['boxesBefore'] = undefined;
 
 /**
  * Тип операции
@@ -126,37 +134,29 @@ InlineResponse2005.prototype['status'] = undefined;
  */
 InlineResponse2005.prototype['createDate'] = undefined;
 
-
-
-
-
 /**
  * Allowed values for the <code>operationType</code> property.
  * @enum {String}
  * @readonly
  */
 InlineResponse2005['OperationTypeEnum'] = {
-
-    /**
+  /**
      * value: "merge"
      * @const
      */
-    "merge": "merge",
+  merge: 'merge',
 
-    /**
+  /**
      * value: "split"
      * @const
      */
-    "split": "split",
+  split: 'split',
 
-    /**
+  /**
      * value: "receive"
      * @const
      */
-    "receive": "receive"
+  receive: 'receive'
 };
 
-
-
 export default InlineResponse2005;
-
