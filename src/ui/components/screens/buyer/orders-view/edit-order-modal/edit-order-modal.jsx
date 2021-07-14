@@ -30,7 +30,7 @@ export const EditOrderModal = ({
   deliveryTypeByCode,
   orderStatusByCode,
   onSubmitSaveOrder,
-  onSubmitCreateBox,
+  onSubmitCreateBoxes,
 }) => {
   const classNames = useClassNames()
   const [showCreateOrEditBoxBlock, setShowCreateOrEditBoxBlock] = useState(
@@ -119,8 +119,8 @@ export const EditOrderModal = ({
             selectFieldsArePreDefined
             canBeMasterBox
             order={orderFields}
-            onSubmit={(boxId, boxFields) => {
-              onSubmitCreateBox(boxId, boxFields)
+            onSubmit={(boxId, formFieldsArr) => {
+              onSubmitCreateBoxes(boxId, formFieldsArr)
               onSubmitSaveOrder(order, orderFields)
             }}
           />

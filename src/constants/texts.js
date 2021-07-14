@@ -174,6 +174,7 @@ export const texts = {
 
       saveChangesBtn: 'Save',
       cancelChangesBtn: 'Cancel',
+      addBoxBtn: 'Добавить еще коробку',
     },
 
     warehouseEditBoxForm: {
@@ -827,6 +828,15 @@ export const texts = {
     },
     productStatusButtons: {
       saveWithoutStatusBtn: 'Сохранить без статуса',
+    },
+    warehouseType: {
+      warehouse0: 'Warehouse 0',
+      ont8: 'ONT 8 AMAZON',
+      lgb8: 'LGB8 Rialto, CA',
+      mem1: 'MEM1 Memphis, TN',
+      mdw2: 'MDW2 Joliet, IL',
+      lax9: 'LAX9 FONTANA, CA',
+      lgb82: 'LGB8 Rialto, CA',
     },
   },
   ru: {

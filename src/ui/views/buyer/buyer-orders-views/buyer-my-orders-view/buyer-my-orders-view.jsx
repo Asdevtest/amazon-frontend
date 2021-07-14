@@ -59,7 +59,7 @@ class BuyerMyOrdersViewRaw extends Component {
       onSelectedOrder,
       onSubmitSaveOrder,
       onTriggerShowCreateOrEditBoxModal,
-      onSubmitCreateBox,
+      onSubmitCreateBoxes,
     } = this.viewModel
     const {classes: classNames} = this.props
     const rowHandlers = {
@@ -110,7 +110,7 @@ class BuyerMyOrdersViewRaw extends Component {
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
           <CreateOrEditBoxForm
             order={selectedOrder}
-            onSubmit={onSubmitCreateBox}
+            onSubmit={onSubmitCreateBoxes}
             onCloseModal={onTriggerShowCreateOrEditBoxModal}
           />
         </Modal>
@@ -127,7 +127,7 @@ class BuyerMyOrdersViewRaw extends Component {
             orderStatusByCode={OrderStatusByCode}
             onTriggerModal={onTriggerShowOrderModal}
             onSubmitSaveOrder={onSubmitSaveOrder}
-            onSubmitCreateBox={onSubmitCreateBox}
+            onSubmitCreateBoxes={onSubmitCreateBoxes}
           />
         </Modal>
       </React.Fragment>
