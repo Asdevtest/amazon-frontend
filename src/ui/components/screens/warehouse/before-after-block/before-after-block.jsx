@@ -135,9 +135,13 @@ export const BeforeAfterBlock = observer(
 
     return (
       <Paper className={classNames.boxesWrapper}>
-        <CurrentBox currentBoxes={incomingBoxes} />
+        {incomingBoxes.length > 0 && (
+          <>
+            <CurrentBox currentBoxes={incomingBoxes} />
 
-        <Divider flexItem className={classNames.divider} orientation="vertical" />
+            <Divider flexItem className={classNames.divider} orientation="vertical" />
+          </>
+        )}
 
         <NewBoxes newBoxes={desiredBoxes} />
       </Paper>

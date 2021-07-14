@@ -79,7 +79,7 @@ export class BuyerWarehouseViewModel {
   }
 
   onEditBoxSubmit(id, data) {
-    this.updateBox(id, data)
+    this.updateBox(id, data[0])
   }
 
   async onClickMerge(type) {

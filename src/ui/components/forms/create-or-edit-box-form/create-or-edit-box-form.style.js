@@ -20,6 +20,7 @@ export const useClassNames = makeStyles(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: '10px',
   },
   subTitle: {
     color: theme.palette.text.secondary,
@@ -58,5 +59,10 @@ export const useClassNames = makeStyles(theme => ({
   },
   numberInputField: {
     margin: '0 5px',
+  },
+  blockOfNewBoxWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
   },
 }))

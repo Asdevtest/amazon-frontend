@@ -75,8 +75,21 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitCreateBox(boxId, formFields) {
+  async onSubmitCreateBoxes(boxId, formFieldsArr) {
     this.onTriggerShowOrderModal()
+
+    for (let i = 0; i < formFieldsArr.length; i++) {
+      const elementOrderBox = formFieldsArr[i]
+
+      await this.onCreateBox(elementOrderBox)
+    }
+
+    runInAction(() => {
+      this.selectedOrder = undefined
+    })
+  }
+
+  async onCreateBox(formFields) {
     try {
       const createBoxData = {
         ...getObjectFilteredByKeyArrayBlackList(formFields, ['items']),
@@ -91,15 +104,14 @@ export class BuyerMyOrdersViewModel {
         ],
       }
 
-      runInAction(() => {
-        this.selectedOrder = undefined
-      })
       const createBoxResult = await BoxesModel.createBox(createBoxData)
+
       await BuyerModel.postTask({
         taskId: 0,
         boxes: [createBoxResult.guid],
         operationType: 'receive',
       })
+      return
     } catch (error) {
       console.log(error)
     }

@@ -21,5 +21,10 @@
     "^[./]"
   ],
   "importOrderSeparation": true,
-  "experimentalBabelParserPluginsList": ["typescript", "jsx", "classProperties", "decorators-legacy"]
+  "experimentalBabelParserPluginsList": [
+    "typescript",
+    "jsx",
+    "classProperties",
+    "decorators-legacy"
+  ]
 }

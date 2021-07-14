@@ -19,11 +19,95 @@ import {useClassNames} from './create-or-edit-box-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
 
+const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField, canBeMasterBox}) => {
+  const classNames = useClassNames()
+  return (
+    <div className={classNames.numberInputFieldsBlocksWrapper}>
+      <div className={classNames.numberInputFieldsWrapper}>
+        <Field
+          type="number"
+          min="0"
+          containerClasses={classNames.numberInputField}
+          label={textConsts.lengthCmSupplier}
+          value={orderBox.lengthCmSupplier}
+          onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
+        />
+        <Field
+          type="number"
+          min="0"
+          containerClasses={classNames.numberInputField}
+          label={textConsts.widthCmSupplier}
+          value={orderBox.widthCmSupplier}
+          onChange={setFormField('widthCmSupplier', orderBoxIndex)}
+        />
+      </div>
+      <div className={classNames.numberInputFieldsWrapper}>
+        <Field
+          type="number"
+          min="0"
+          containerClasses={classNames.numberInputField}
+          label={textConsts.heightCmSupplier}
+          value={orderBox.heightCmSupplier}
+          onChange={setFormField('heightCmSupplier', orderBoxIndex)}
+        />
+        <Field
+          type="number"
+          min="0"
+          containerClasses={classNames.numberInputField}
+          label={textConsts.weighGrossKgSupplier}
+          value={orderBox.weighGrossKgSupplier}
+          onChange={setFormField('weighGrossKgSupplier', orderBoxIndex)}
+        />
+      </div>
+      <div className={classNames.numberInputFieldsWrapper}>
+        <Field
+          disabled
+          type="number"
+          min="0"
+          containerClasses={classNames.numberInputField}
+          label={textConsts.volumeWeightKgSupplier}
+          value={orderBox.volumeWeightKgSupplier}
+          onChange={setFormField('volumeWeightKgSupplier', orderBoxIndex)}
+        />
+        <Field
+          disabled
+          type="number"
+          min="0"
+          containerClasses={classNames.numberInputField}
+          label={textConsts.weightFinalAccountingKgSupplier}
+          value={orderBox.weightFinalAccountingKgSupplier}
+          onChange={setFormField('weightFinalAccountingKgSupplier', orderBoxIndex)}
+        />
+      </div>
+      {canBeMasterBox ? (
+        <div className={classNames.numberInputFieldsWrapper}>
+          <Field
+            type="number"
+            min="0"
+            containerClasses={classNames.numberInputField}
+            label={textConsts.amountOfSubBoxes}
+            value={orderBox.amount}
+            onChange={setFormField('amount', orderBoxIndex)}
+          />
+          <Field
+            type="number"
+            min="0"
+            containerClasses={classNames.numberInputField}
+            label={textConsts.amountIfItemsInBox}
+            value={orderBox.items[0].amount}
+            onChange={setAmountField(orderBoxIndex)}
+          />
+        </div>
+      ) : undefined}
+    </div>
+  )
+}
+
 export const CreateOrEditBoxForm = observer(
   ({box, order, onSubmit, onCloseModal, onTriggerOpenModal, selectFieldsArePreDefined, canBeMasterBox}) => {
     const classNames = useClassNames()
 
-    const [formFields, setFormFields] = useState({
+    const sourceBox = {
       lengthCmSupplier: box?.lengthCmSupplier || '',
       widthCmSupplier: box?.widthCmSupplier || '',
       heightCmSupplier: box?.heightCmSupplier || '',
@@ -32,7 +116,7 @@ export const CreateOrEditBoxForm = observer(
       weightFinalAccountingKgSupplier: box?.weightFinalAccountingKgSupplier || '',
       warehouse: order?.warehouse || '',
       deliveryMethod: order?.deliveryMethod || '',
-      amount: order?.amount || 69,
+      amount: order?.amount || 0,
       items: box?.items || [
         {
           product: order?.product,
@@ -40,10 +124,12 @@ export const CreateOrEditBoxForm = observer(
           order,
         },
       ],
-    })
+    }
 
-    const setFormField = fieldName => e => {
-      const newFormFields = {...formFields}
+    const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
+
+    const setFormField = (fieldName, orderBoxIndex) => e => {
+      const newFormFields = {...formFieldsArr[orderBoxIndex]}
       newFormFields[fieldName] = e.target.value
       newFormFields.volumeWeightKgSupplier =
         ((parseFloat(newFormFields.lengthCmSupplier) || 0) *
@@ -54,13 +140,23 @@ export const CreateOrEditBoxForm = observer(
         parseFloat(newFormFields.volumeWeightKgSupplier) || 0,
         parseFloat(newFormFields.weighGrossKgSupplier) || 0,
       )
-      setFormFields(newFormFields)
+
+      const updatedNewBoxes = formFieldsArr.map((oldBox, index) => (index === orderBoxIndex ? newFormFields : oldBox))
+      setFormFieldsArr(updatedNewBoxes)
     }
 
-    const setAmountField = e => {
-      const newFormFields = {...formFields}
-      newFormFields.items[0].amount = e.target.value
-      setFormFields(newFormFields)
+    const setAmountField = orderBoxIndex => e => {
+      const newStateFormFields = [...formFieldsArr]
+      newStateFormFields[orderBoxIndex] = {
+        ...newStateFormFields[orderBoxIndex],
+        items: [
+          {
+            ...newStateFormFields[orderBoxIndex].items[0],
+            amount: e.target.value,
+          },
+        ],
+      }
+      setFormFieldsArr(newStateFormFields)
     }
 
     return (
@@ -73,7 +169,7 @@ export const CreateOrEditBoxForm = observer(
             <LabelField
               containerClasses={classNames.field}
               label={textConsts.warehouseLabel}
-              value={formFields.warehouse && warehouses[formFields.warehouse]}
+              value={formFieldsArr[0].warehouse && warehouses[formFieldsArr[0].warehouse]}
             />
           ) : (
             <Field
@@ -83,9 +179,9 @@ export const CreateOrEditBoxForm = observer(
                 <NativeSelect
                   disabled={selectFieldsArePreDefined}
                   variant="filled"
-                  value={formFields.warehouse}
+                  value={formFieldsArr[0].warehouse}
                   input={<Input fullWidth />}
-                  onChange={setFormField('warehouse')}
+                  onChange={setFormField('warehouse', 0)}
                 >
                   {Object.keys(warehouses).map((warehouseCode, index) => (
                     <option key={index} value={warehouseCode}>
@@ -100,7 +196,7 @@ export const CreateOrEditBoxForm = observer(
             <LabelField
               containerClasses={classNames.field}
               label={textConsts.deliveryMethodLabel}
-              value={formFields.deliveryMethod && getDeliveryOptionByCode(formFields.deliveryMethod).label}
+              value={formFieldsArr[0].deliveryMethod && getDeliveryOptionByCode(formFieldsArr[0].deliveryMethod).label}
             />
           ) : (
             <Field
@@ -110,9 +206,9 @@ export const CreateOrEditBoxForm = observer(
                 <NativeSelect
                   disabled={selectFieldsArePreDefined}
                   variant="filled"
-                  value={formFields.deliveryMethod}
+                  value={formFieldsArr[0].deliveryMethod}
                   input={<Input fullWidth />}
-                  onChange={setFormField('deliveryMethod')}
+                  onChange={setFormField('deliveryMethod', 0)}
                 >
                   {Object.keys(DeliveryTypeByCode).map((deliveryOptionCode, index) => (
                     <option key={index} value={deliveryOptionCode}>
@@ -123,83 +219,17 @@ export const CreateOrEditBoxForm = observer(
               }
             />
           )}
-          <div className={classNames.numberInputFieldsBlocksWrapper}>
-            <div className={classNames.numberInputFieldsWrapper}>
-              <Field
-                type="number"
-                min="0"
-                containerClasses={classNames.numberInputField}
-                label={textConsts.lengthCmSupplier}
-                value={formFields.lengthCmSupplier}
-                onChange={setFormField('lengthCmSupplier')}
+          <div className={classNames.blockOfNewBoxWrapper}>
+            {formFieldsArr.map((orderBox, orderBoxIndex) => (
+              <BlockOfNewBox
+                key={orderBoxIndex}
+                orderBoxIndex={orderBoxIndex}
+                orderBox={orderBox}
+                setFormField={setFormField}
+                setAmountField={setAmountField}
+                canBeMasterBox={canBeMasterBox}
               />
-              <Field
-                type="number"
-                min="0"
-                containerClasses={classNames.numberInputField}
-                label={textConsts.widthCmSupplier}
-                value={formFields.widthCmSupplier}
-                onChange={setFormField('widthCmSupplier')}
-              />
-            </div>
-            <div className={classNames.numberInputFieldsWrapper}>
-              <Field
-                type="number"
-                min="0"
-                containerClasses={classNames.numberInputField}
-                label={textConsts.heightCmSupplier}
-                value={formFields.heightCmSupplier}
-                onChange={setFormField('heightCmSupplier')}
-              />
-              <Field
-                type="number"
-                min="0"
-                containerClasses={classNames.numberInputField}
-                label={textConsts.weighGrossKgSupplier}
-                value={formFields.weighGrossKgSupplier}
-                onChange={setFormField('weighGrossKgSupplier')}
-              />
-            </div>
-            <div className={classNames.numberInputFieldsWrapper}>
-              <Field
-                disabled
-                type="number"
-                min="0"
-                containerClasses={classNames.numberInputField}
-                label={textConsts.volumeWeightKgSupplier}
-                value={formFields.volumeWeightKgSupplier}
-                onChange={setFormField('volumeWeightKgSupplier')}
-              />
-              <Field
-                disabled
-                type="number"
-                min="0"
-                containerClasses={classNames.numberInputField}
-                label={textConsts.weightFinalAccountingKgSupplier}
-                value={formFields.weightFinalAccountingKgSupplier}
-                onChange={setFormField('weightFinalAccountingKgSupplier')}
-              />
-            </div>
-            {canBeMasterBox ? (
-              <div className={classNames.numberInputFieldsWrapper}>
-                <Field
-                  type="number"
-                  min="0"
-                  containerClasses={classNames.numberInputField}
-                  label={textConsts.amountOfSubBoxes}
-                  value={formFields.amount}
-                  onChange={setFormField('amount')}
-                />
-                <Field
-                  type="number"
-                  min="0"
-                  containerClasses={classNames.numberInputField}
-                  label={textConsts.amountIfItemsInBox}
-                  value={formFields.items[0].amount}
-                  onChange={setAmountField}
-                />
-              </div>
-            ) : undefined}
+            ))}
           </div>
 
           <Divider className={classNames.divider} />
@@ -210,18 +240,32 @@ export const CreateOrEditBoxForm = observer(
                 {`${textConsts.boxTitle} #${box._id}`}
               </Typography>
             ) : undefined}
-            {formFields.items &&
-              formFields.items.map((orderItem, orderIndex) => <BoxOrder key={orderIndex} order={orderItem} />)}
+            {formFieldsArr[0].items &&
+              formFieldsArr[0].items.map((orderItem, orderIndex) => <BoxOrder key={orderIndex} order={orderItem} />)}
           </div>
         </div>
 
         <div className={classNames.buttonsWrapper}>
+          {canBeMasterBox && (
+            <Button
+              disableElevation
+              color="primary"
+              variant="contained"
+              onClick={() => {
+                setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
+              }}
+            >
+              {textConsts.addBoxBtn}
+            </Button>
+          )}
+
           <SuccessButton
             disableElevation
             color="primary"
             variant="contained"
             onClick={() => {
-              onSubmit(box && box._id, formFields)
+              onSubmit(box && box._id, formFieldsArr)
+
               if (onTriggerOpenModal) {
                 onTriggerOpenModal('showEditBoxModal')
               }
