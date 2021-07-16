@@ -22,7 +22,7 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
 
   const [priceYuansForBatch, setPriceYuansForBatch] = useState('')
   const [usePriceInDollars, setUsePriceInDollars] = useState(false)
-  const [yuansToDollarRate, setYuansToDollarRate] = useState('')
+  const [yuansToDollarRate, setYuansToDollarRate] = useState(6.3)
 
   return (
     <Grid container justify="space-around">
@@ -100,7 +100,7 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
 
         <div className={classNames.priceOptionsWrapper}>
           <Box className={classNames.tableCell}>
-            <Typography className={classNames.modalText}>{'Юаней за партию'}</Typography>
+            <Typography className={classNames.modalText}>{textConsts.priceYuansForBatchTypo}</Typography>
             <Input
               disabled={usePriceInDollars}
               value={priceYuansForBatch}
@@ -127,7 +127,7 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
             </div>
           </Box>
           <Box className={classNames.tableCell}>
-            <Typography className={classNames.modalText}>{'Курс юаня к доллару'}</Typography>
+            <Typography className={classNames.modalText}>{textConsts.yuansToDollarRateTypo}</Typography>
             <Input
               disabled={usePriceInDollars}
               value={yuansToDollarRate || 6.3}
@@ -141,7 +141,9 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
             />
           </Box>
           <Box className={classNames.tableCell}>
-            <Typography className={classNames.modalText}>{'Долларов за партию'}</Typography>
+            <Typography className={classNames.modalText}>
+              {textConsts.amountPaymentPerConsignmentAtDollarsTypo}
+            </Typography>
             <Input
               disabled={!usePriceInDollars}
               value={orderFields.amountPaymentPerConsignmentAtDollars}
@@ -150,7 +152,7 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
             />
           </Box>
           <Box className={classNames.tableCell}>
-            <Typography className={classNames.modalText}>{'Себестоимость в закупке'}</Typography>
+            <Typography className={classNames.modalText}>{textConsts.costPriceAmount}</Typography>
             {calcPriceForItem(orderFields.amountPaymentPerConsignmentAtDollars, orderFields.amount)}
           </Box>
         </div>
@@ -214,7 +216,7 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
           />
         </Box>
         <Box my={3}>
-          <Typography className={classNames.modalText}>{'Track number'}</Typography>
+          <Typography className={classNames.modalText}>{textConsts.trackNumberTypo}</Typography>
           <Input
             type="text"
             value={orderFields.trackingNumberChina}
@@ -222,7 +224,6 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
             onChange={setOrderField('trackingNumberChina')}
           />
         </Box>
-        {/* //////////////////////////////// */}
       </Grid>
     </Grid>
   )

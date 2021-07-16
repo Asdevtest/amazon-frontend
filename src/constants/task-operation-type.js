@@ -1,9 +1,9 @@
 import {objectFlip} from '@utils/object'
 
 export const TaskOperationType = {
-  MERGE: 'MERGE',
-  SPLIT: 'SPLIT',
-  RECEIVE: 'RECEIVE',
+  MERGE: 'merge',
+  SPLIT: 'split',
+  RECEIVE: 'receive',
 }
 
 export const mapTaskOperationTypeKeyToEnum = {

@@ -56,7 +56,7 @@ export class ClientExchangeViewModel {
 
   onClickLaunchPrivateLabelBtn(product) {
     this.selectedProduct = product
-    this.onTriggerPrivateLabelModal()
+    // this.onTriggerPrivateLabelModal();
   }
 
   async onLaunchPrivateLabel(product, orderData) {

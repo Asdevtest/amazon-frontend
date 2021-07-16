@@ -13,4 +13,10 @@ export const styles = createStyles(() => ({
   dialogContextClassName: {
     width: '1200px',
   },
+  modalMessageWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '20px',
+  },
 }))

@@ -1,21 +1,38 @@
-import {Type} from 'class-transformer'
-import {IsInt, IsString, IsNotEmpty, IsArray, ValidateNested} from 'class-validator'
-
-class BoxesCreateBoxItemContract {
-  @IsNotEmpty()
-  @IsString()
-  product
-
-  @IsNotEmpty()
-  @IsInt()
-  amount
-
-  @IsNotEmpty()
-  @IsString()
-  order
-}
+// import { Type } from 'class-transformer';
+import {
+  IsInt,
+  IsString,
+  IsNotEmpty,
+  IsArray, // ValidateNested,
+  IsOptional,
+  IsNumber,
+} from 'class-validator'
 
 export class BoxesCreateBoxContract {
+  @IsOptional()
+  @IsNumber()
+  lengthCmSupplier
+
+  @IsOptional()
+  @IsNumber()
+  widthCmSupplier
+
+  @IsOptional()
+  @IsNumber()
+  heightCmSupplier
+
+  @IsOptional()
+  @IsNumber()
+  weighGrossKgSupplier
+
+  @IsOptional()
+  @IsNumber()
+  volumeWeightKgSupplier
+
+  @IsOptional()
+  @IsNumber()
+  weightFinalAccountingKgSupplier
+
   @IsNotEmpty()
   @IsString()
   clientId
@@ -24,28 +41,16 @@ export class BoxesCreateBoxContract {
   @IsInt()
   deliveryMethod
 
-  @ValidateNested()
-  @IsArray()
-  @Type(() => BoxesCreateBoxItemContract)
-  items
+  @IsNotEmpty()
+  @IsInt()
+  warehouse
+
+  @IsArray() items
+
+  @IsOptional()
+  @IsInt()
+  amount
 }
-
-// class BoxesArrayCreateBoxesItemContract {
-//   @ValidateNested()
-//   @IsArray()
-//   @Type(() => BoxesCreateBoxItemContract)
-//   Array; // не ясно, что тут использовать
-// }
-
-// export class BoxesSplitBoxContract {
-// совсем тут запутался, стоит ли тут делать валидацию?
-// клиент меняет только количество товара
-
-//   @ValidateNested()
-//   @IsArray()
-//   @Type(() => BoxesArrayCreateBoxesItemContract)
-//   itemsBoxSet; // это массив массивов с коробками
-// }
 
 export class BoxesUpdateBoxContract {
   @IsNotEmpty()
@@ -56,8 +61,55 @@ export class BoxesUpdateBoxContract {
   @IsInt()
   deliveryMethod
 
-  @ValidateNested()
-  @IsArray()
-  @Type(() => BoxesCreateBoxItemContract)
-  items
+  @IsArray() items
+
+  @IsOptional()
+  @IsNumber()
+  lengthCmWarehouse
+
+  @IsOptional()
+  @IsNumber()
+  widthCmWarehouse
+
+  @IsOptional()
+  @IsNumber()
+  heightCmWarehouse
+
+  @IsOptional()
+  @IsNumber()
+  weighGrossKgWarehouse
+
+  @IsOptional()
+  @IsNumber()
+  volumeWeightKgWarehouse
+
+  @IsOptional()
+  @IsNumber()
+  weightFinalAccountingKgWarehouse
+}
+
+export class BoxesWarehouseUpdateBoxInTaskContract {
+  @IsNotEmpty()
+  @IsNumber()
+  lengthCmWarehouse
+
+  @IsNotEmpty()
+  @IsNumber()
+  widthCmWarehouse
+
+  @IsNotEmpty()
+  @IsNumber()
+  heightCmWarehouse
+
+  @IsNotEmpty()
+  @IsNumber()
+  weighGrossKgWarehouse
+
+  @IsNotEmpty()
+  @IsNumber()
+  volumeWeightKgWarehouse
+
+  @IsNotEmpty()
+  @IsNumber()
+  weightFinalAccountingKgWarehouse
 }

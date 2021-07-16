@@ -3,33 +3,32 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(theme => ({
   root: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
-    padding: '0 10px',
+    flexDirection: 'column',
+    padding: '10px',
     marginTop: '5px',
+    minWidth: '400px',
+    gap: '20px',
   },
-  divider: {
-    margin: '0 30px',
-  },
+
   img: {
-    width: '32px',
-    height: '32px',
+    width: '80px',
+    height: '80px',
     marginRight: '4px',
   },
-  imgBox: {
-    width: '50px',
-    height: '50px',
-  },
-  sectionTitle: {
-    color: theme.palette.text.secondary,
-    marginBottom: theme.spacing(1),
-  },
+
   title: {
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
     marginRight: '10px',
-    width: '160px',
+    maxWidth: '370px',
+    maxHeight: '150px',
+    textOverflow: 'ellipsis',
+    // whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    overflowY: 'scroll',
   },
   subTitle: {
     fontSize: '14px',
@@ -45,5 +44,21 @@ export const useClassNames = makeStyles(theme => ({
   input: {
     fontSize: '14px',
     textAlign: 'center',
+  },
+  countWrapper: {
+    display: 'flex',
+  },
+  chipWrapper: {
+    display: 'flex',
+  },
+  mainWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  attributeWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
   },
 }))

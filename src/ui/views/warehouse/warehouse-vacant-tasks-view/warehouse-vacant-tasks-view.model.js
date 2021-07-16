@@ -37,7 +37,7 @@ export class WarehouseVacantViewModel {
   async onClickPickupBtn(item) {
     try {
       await StorekeeperModel.pickupTask(item._id)
-      this.getTasksVacant()
+      await this.getTasksVacant()
     } catch (error) {
       console.log(error)
       this.error = error
@@ -60,12 +60,19 @@ export class WarehouseVacantViewModel {
   async getTasksVacant() {
     try {
       const result = await StorekeeperModel.getTasksVacant()
+
       runInAction(() => {
         this.tasksVacant = result.sort(sortObjectsArrayByFiledDate('createDate'))
       })
     } catch (error) {
       console.log(error)
       this.error = error
+
+      if (error.body.message === 'По данному запросу ничего не найдено.') {
+        runInAction(() => {
+          this.tasksVacant = []
+        })
+      }
     }
   }
 

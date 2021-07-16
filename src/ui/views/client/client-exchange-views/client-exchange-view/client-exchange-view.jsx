@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {Component} from 'react'
 
 import {TableCell, TableRow, Typography} from '@material-ui/core'
@@ -69,6 +70,7 @@ export class ClientExchangeViewRaw extends Component {
       onClickLaunchPrivateLabelBtn,
       onClickBuyProductBtn,
       onClickUsername,
+      onTriggerOpenModal,
     }
     return (
       <React.Fragment>
@@ -124,14 +126,13 @@ export class ClientExchangeViewRaw extends Component {
             </Typography>
             <Typography paragraph className={classNames.modalMessage}>
               {textConsts.confirmMessage}
-              {`($ ${dataToPay.product && calcProductsPriceWithDelivery(dataToPay.product, dataToPay.orderData)}).`}
+              {`($ Куча денег).`}
             </Typography>
             <div className={classNames.buttonsWrapper}>
               <SuccessButton
                 disableElevation
                 variant="contained"
                 onClick={() => {
-                  onLaunchPrivateLabel(dataToPay.product, dataToPay.orderData)
                   onTriggerOpenModal('showConfirmPayModal')
                   onTriggerOpenModal('showPrivateLabelModal')
                 }}

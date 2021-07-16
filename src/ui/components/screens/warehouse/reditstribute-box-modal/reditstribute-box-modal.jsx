@@ -80,7 +80,7 @@ export const RedistributeBox = ({
       newBoxesWithoutEmptyOrders.push(beforeBox)
     }
 
-    onRedistribute(selectedBox._id, newBoxesWithoutEmptyOrders, operationTypes.SPLIT)
+    onRedistribute(selectedBox._id, newBoxesWithoutEmptyOrders, operationTypes.SPLIT, isMasterBox)
   }
 
   const Box = ({box, readOnly = false, boxIsMasterBox, index}) => (
@@ -148,9 +148,6 @@ export const RedistributeBox = ({
           disabled={totalProductsAmount !== 0 && !isMasterBox}
           onClick={() => {
             onClickRedistributeBtn()
-            onTriggerOpenModal('showRedistributeBoxModal')
-            onTriggerOpenModal('showRedistributeBoxSuccessModal')
-            setAddNewBoxModal(null)
           }}
         >
           {textConsts.toRedistributeBtn}

@@ -51,6 +51,7 @@ class BuyerMyOrdersViewRaw extends Component {
       selectedOrder,
       showOrderModal,
       showCreateOrEditBoxModal,
+      showNoDimensionsErrorModal,
       onTriggerDrawerOpen,
       onChangePage,
       onChangeRowsPerPage,
@@ -60,6 +61,7 @@ class BuyerMyOrdersViewRaw extends Component {
       onSubmitSaveOrder,
       onTriggerShowCreateOrEditBoxModal,
       onSubmitCreateBoxes,
+      onTriggerOpenModal,
     } = this.viewModel
     const {classes: classNames} = this.props
     const rowHandlers = {
@@ -129,6 +131,27 @@ class BuyerMyOrdersViewRaw extends Component {
             onSubmitSaveOrder={onSubmitSaveOrder}
             onSubmitCreateBoxes={onSubmitCreateBoxes}
           />
+        </Modal>
+
+        <Modal
+          openModal={showNoDimensionsErrorModal}
+          setOpenModal={() => onTriggerOpenModal('showNoDimensionsErrorModal')}
+        >
+          <div className={classNames.modalMessageWrapper}>
+            <Typography paragraph variant="h5">
+              {textConsts.dimensionsMessage}
+            </Typography>
+
+            <Button
+              disableElevation
+              variant="contained"
+              onClick={() => {
+                onTriggerOpenModal('showNoDimensionsErrorModal')
+              }}
+            >
+              {textConsts.okBtn}
+            </Button>
+          </div>
         </Modal>
       </React.Fragment>
     )

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
@@ -9,10 +10,11 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
+// import { SetBarcodeModal } from '@components/modals/set-barcode-modal'; опять же пригодится?
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 import {EditBoxModal} from '@components/screens/warehouse/edit-task-modal/edit-box-modal'
@@ -40,15 +42,14 @@ export class WarehouseMyTasksViewRaw extends Component {
 
   render() {
     const {
-      currentBox,
       tasksMy,
       drawerOpen,
       curPage,
       showEditTaskModal,
       rowsPerPage,
       selectedTask,
-      showBarcodeModal,
       showEditBoxModal,
+      showNoDimensionsErrorModal,
       onChangeTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -56,11 +57,11 @@ export class WarehouseMyTasksViewRaw extends Component {
       onSelectTask,
       onTriggerShowBarcodeModal,
       onTriggerShowEditBoxModal,
-      updateBox,
-      onClickSaveBarcode,
       onCancelMergeBoxes,
       onCancelSplitBoxes,
       onClickSolveTask,
+      onSubmitUpdateBoxes,
+      onTriggerOpenModal,
       tmpBarCode,
     } = this.viewModel
 
@@ -114,23 +115,45 @@ export class WarehouseMyTasksViewRaw extends Component {
           <EditTaskModal
             task={selectedTask}
             tmpBarCode={tmpBarCode}
+            showEditBoxModal={showEditBoxModal}
+            onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
             onClickOpenCloseModal={onTriggerEditTaskModal}
             onSetBarcode={onTriggerShowBarcodeModal}
             onEditBox={onTriggerShowEditBoxModal}
             onClickSolveTask={onClickSolveTask}
+            onSubmitUpdateBoxes={onSubmitUpdateBoxes}
           />
         </Modal>
-        <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
+
+        <Modal
+          openModal={showNoDimensionsErrorModal}
+          setOpenModal={() => onTriggerOpenModal('showNoDimensionsErrorModal')}
+        >
+          <div className={classNames.modalMessageWrapper}>
+            <Typography paragraph variant="h5">
+              {textConsts.dimensionsMessage}
+            </Typography>
+
+            <Button
+              disableElevation
+              variant="contained"
+              onClick={() => {
+                onTriggerOpenModal('showNoDimensionsErrorModal')
+              }}
+            >
+              {textConsts.okBtn}
+            </Button>
+          </div>
+        </Modal>
+        {/* Наверно еще пригодится тут? */}
+        {/* <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
           <SetBarcodeModal
             task={selectedTask}
             barCode={tmpBarCode}
             onClickSaveBarcode={onClickSaveBarcode}
             onCloseModal={onTriggerShowBarcodeModal}
           />
-        </Modal>
-        <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
-          <EditBoxModal setEditModal={onTriggerShowEditBoxModal} updateBoxSubmit={updateBox} box={currentBox} />
-        </Modal>
+        </Modal> */}
       </React.Fragment>
     )
   }

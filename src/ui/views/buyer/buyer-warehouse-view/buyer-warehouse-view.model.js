@@ -26,6 +26,7 @@ export class BuyerWarehouseViewModel {
   showRedistributeBoxModal = false
   showRedistributeBoxAddNewBoxModal = false
   showRedistributeBoxSuccessModal = false
+  showRedistributeBoxFailModal = false
 
   constructor({history}) {
     this.history = history
@@ -69,13 +70,21 @@ export class BuyerWarehouseViewModel {
     this.selectedBoxes = updatedselectedBoxes
   }
 
-  async onRedistribute(id, updatedBoxes, type) {
-    const boxes = updatedBoxes.map(el => el.items.map(item => ({...item, product: item.product._id})))
-    const splitBoxesResult = await this.splitBoxes(id, boxes)
+  async onRedistribute(id, updatedBoxes, type, isMasterBox) {
+    if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
+      this.onTriggerOpenModal('showRedistributeBoxFailModal')
+    } else {
+      const boxes = updatedBoxes.map(el => el.items.map(item => ({...item, product: item.product._id})))
+      const splitBoxesResult = await this.splitBoxes(id, boxes)
 
-    await this.postTask({idsData: splitBoxesResult, idsBeforeData: [id], type})
-    await this.getTasksMy()
-    this.selectedBoxes = []
+      await this.postTask({idsData: splitBoxesResult, idsBeforeData: [id], type})
+      await this.getTasksMy()
+
+      this.onTriggerOpenModal('showRedistributeBoxSuccessModal')
+      this.onTriggerOpenModal('showRedistributeBoxModal')
+      this.onModalRedistributeBoxAddNewBox(null)
+      this.selectedBoxes = []
+    }
   }
 
   onEditBoxSubmit(id, data) {

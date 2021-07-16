@@ -36,6 +36,7 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, classes: classNames}) =>
       <SuccessButton
         onClick={() => {
           handlers.onClickLaunchPrivateLabelBtn(item, itemIndex)
+          handlers.onTriggerOpenModal('showConfirmPayModal')
         }}
       >
         {`${textConsts.byForBtn} ${toFixedWithDollarSign(calcProductPrice(item))}`}

@@ -130,7 +130,7 @@ export const CreateOrEditBoxForm = observer(
 
     const setFormField = (fieldName, orderBoxIndex) => e => {
       const newFormFields = {...formFieldsArr[orderBoxIndex]}
-      newFormFields[fieldName] = e.target.value
+      newFormFields[fieldName] = Number(e.target.value)
       newFormFields.volumeWeightKgSupplier =
         ((parseFloat(newFormFields.lengthCmSupplier) || 0) *
           (parseFloat(newFormFields.heightCmSupplier) || 0) *

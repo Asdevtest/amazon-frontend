@@ -17,6 +17,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').addOrEditSupplierModalContent
 
 export const AddOrEditSupplierModalContent = observer(({title, onTriggerShowModal, supplier, onClickSaveBtn}) => {
   const classNames = useClassNames()
+
   const [tmpSupplier, setTmpSupplier] = useState({
     amount: (supplier && supplier.amount) || '',
     comment: (supplier && supplier.comment) || '',
