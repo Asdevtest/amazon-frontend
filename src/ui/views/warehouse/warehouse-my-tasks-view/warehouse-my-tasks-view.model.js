@@ -1,12 +1,15 @@
+import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {BoxesModel} from '@models/boxes-model'
+import {BoxesWarehouseUpdateBoxInTaskContract} from '@models/boxes-model/boxes-model.contracts'
 import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class WarehouseVacantViewModel {
   history = undefined
@@ -20,6 +23,7 @@ export class WarehouseVacantViewModel {
   rowsPerPage = 15
   curPage = 1
   showEditTaskModal = false
+  showNoDimensionsErrorModal = false
   selectedTask = undefined
   showBarcodeModal = false
   showEditBoxModal = false
@@ -79,6 +83,7 @@ export class WarehouseVacantViewModel {
   async getTasksMy() {
     try {
       const result = await StorekeeperModel.getTasksMy()
+
       runInAction(() => {
         this.tasksMy = result.sort(sortObjectsArrayByFiledDate('createDate'))
       })
@@ -88,17 +93,54 @@ export class WarehouseVacantViewModel {
     }
   }
 
-  async updateBox(id, data) {
-    try {
-      await BoxesModel.updateBox(id, data)
-    } catch (error) {
-      console.log(error)
-      this.error = error
+  async onSubmitUpdateBoxes(boxes) {
+    for (let i = 0; i < boxes.length; i++) {
+      const box = boxes[i]
+
+      await this.updateBox(box._id, box)
     }
   }
 
-  async onClickSolveTask() {
+  async updateBox(id, data) {
     try {
+      const updateBoxData = {
+        ...getObjectFilteredByKeyArrayWhiteList(data, [
+          'lengthCmWarehouse',
+          'widthCmWarehouse',
+          'heightCmWarehouse',
+          'weighGrossKgWarehouse',
+          'volumeWeightKgWarehouse',
+          'weightFinalAccountingKgWarehouse',
+        ]),
+      }
+
+      await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, updateBoxData)
+
+      await BoxesModel.updateBox(id, updateBoxData)
+    } catch (error) {
+      this.error = error
+
+      if (error[0].constraints.isNotEmpty) {
+        this.onTriggerOpenModal('showNoDimensionsErrorModal')
+      }
+    }
+  }
+
+  async onClickSolveTask(data) {
+    try {
+      const updateBoxData = {
+        ...getObjectFilteredByKeyArrayWhiteList(data, [
+          'lengthCmWarehouse',
+          'widthCmWarehouse',
+          'heightCmWarehouse',
+          'weighGrossKgWarehouse',
+          'volumeWeightKgWarehouse',
+          'weightFinalAccountingKgWarehouse',
+        ]),
+      }
+
+      await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, updateBoxData)
+
       if (this.tmpBarCode) {
         const boxesIds = this.selectedTask.boxes.map(box => box._id)
         for (let index = 0; index < boxesIds.length; index++) {
@@ -110,6 +152,9 @@ export class WarehouseVacantViewModel {
       await StorekeeperModel.updateTask(this.selectedTask._id, {
         status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],
       })
+
+      await this.getTasksMy()
+
       this.onTriggerEditTaskModal()
     } catch (error) {
       console.log(error)
@@ -135,6 +180,10 @@ export class WarehouseVacantViewModel {
       console.log(error)
       this.error = error
     }
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 
   setRequestStatus(requestStatus) {

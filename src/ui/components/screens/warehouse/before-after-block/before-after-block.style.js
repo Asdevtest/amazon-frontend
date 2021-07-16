@@ -35,7 +35,6 @@ export const useClassNames = makeStyles(() => ({
   },
   mainPaper: {
     display: 'flex',
-    gap: '20px',
     flexDirection: 'column',
     marginBottom: '20px',
     padding: '10px',
@@ -61,16 +60,20 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '10px',
   },
   editBtn: {
-    marginTop: '20px',
+    marginTop: '5px',
   },
   bottomBlockWrapper: {
-    marginTop: '20px',
+    marginTop: '5px',
     padding: '10px',
   },
   editBtnWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+  },
+  superWrapper: {
+    display: 'flex',
+    gap: '5px',
   },
 }))

@@ -128,6 +128,7 @@ export class BuyerProductViewModel {
         break
       case 'edit':
         this.onTriggerAddOrEditSupplierModal()
+        break
       case 'accept':
         this.product.currentSupplier = this.selectedSupplier
         this.selectedSupplier = undefined

@@ -1,8 +1,10 @@
+import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
+import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
 import {BuyerModel} from '@models/buyer-model'
 
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
@@ -33,6 +35,7 @@ export class BuyerMyOrdersViewModel {
   selectedOrder = undefined
   barcode = ''
   showCreateOrEditBoxModal = false
+  showNoDimensionsErrorModal = false
 
   constructor({history}) {
     this.history = history
@@ -104,6 +107,10 @@ export class BuyerMyOrdersViewModel {
         ],
       }
 
+      console.log('createBoxData', createBoxData)
+
+      await transformAndValidate(BoxesCreateBoxContract, createBoxData)
+
       const createBoxResult = await BoxesModel.createBox(createBoxData)
 
       await BuyerModel.postTask({
@@ -114,6 +121,10 @@ export class BuyerMyOrdersViewModel {
       return
     } catch (error) {
       console.log(error)
+
+      if (error[0].constraints.isNotEmpty) {
+        this.onTriggerOpenModal('showNoDimensionsErrorModal')
+      }
     }
   }
 
@@ -127,6 +138,10 @@ export class BuyerMyOrdersViewModel {
       this.ordersMy = []
       console.log(error)
     }
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 
   onSelectedOrder(value) {

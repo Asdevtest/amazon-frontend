@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import InlineResponse200 from './InlineResponse200';
+import InlineResponse2001 from './InlineResponse2001';
 
 /**
  * The ApiV1BatchesItems model module.
@@ -20,54 +21,54 @@ import InlineResponse200 from './InlineResponse200';
  * @version v0.0.1
  */
 class ApiV1BatchesItems {
-    /**
+  /**
      * Constructs a new <code>ApiV1BatchesItems</code>.
      * @alias module:model/ApiV1BatchesItems
      * @param product {module:model/InlineResponse200} 
      * @param amount {Number} Кол-во продукта
-     * @param order {String} GUID заказа в БД
+     * @param order {module:model/InlineResponse2001}
      */
-    constructor(product, amount, order) { 
-        
-        ApiV1BatchesItems.initialize(this, product, amount, order);
-    }
+  constructor(product, amount, order) {
+    ApiV1BatchesItems.initialize(this, product, amount, order);
+  }
 
-    /**
+  /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, product, amount, order) { 
-        obj['product'] = product;
-        obj['amount'] = amount;
-        obj['order'] = order;
-    }
+  static initialize(obj, product, amount, order) {
+    obj['product'] = product;
+    obj['amount'] = amount;
+    obj['order'] = order;
+  }
 
-    /**
+  /**
      * Constructs a <code>ApiV1BatchesItems</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/ApiV1BatchesItems} obj Optional instance to populate.
      * @return {module:model/ApiV1BatchesItems} The populated <code>ApiV1BatchesItems</code> instance.
      */
-    static constructFromObject(data, obj) {
-        if (data) {
-            obj = obj || new ApiV1BatchesItems();
+  static constructFromObject(data, obj) {
+    if (data) {
+      obj = obj || new ApiV1BatchesItems();
 
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = InlineResponse200.constructFromObject(data['product']);
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('order')) {
-                obj['order'] = ApiClient.convertToType(data['order'], 'String');
-            }
-        }
-        return obj;
+      if (data.hasOwnProperty('product')) {
+        obj['product'] = InlineResponse200.constructFromObject(data['product']);
+      }
+      if (data.hasOwnProperty('amount')) {
+        obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+      }
+      //   if (data.hasOwnProperty('order')) {
+      //     obj['order'] = ApiClient.convertToType(data['order'], 'String');
+      //   }
+      if (data.hasOwnProperty('order')) {
+        obj['order'] = InlineResponse2001.constructFromObject(data['order']);
+      }
     }
-
-
+    return obj;
+  }
 }
 
 /**
@@ -82,15 +83,9 @@ ApiV1BatchesItems.prototype['product'] = undefined;
 ApiV1BatchesItems.prototype['amount'] = undefined;
 
 /**
- * GUID заказа в БД
- * @member {String} order
+ * 
+ * @member {module:model/InlineResponse2001} order
  */
 ApiV1BatchesItems.prototype['order'] = undefined;
 
-
-
-
-
-
 export default ApiV1BatchesItems;
-

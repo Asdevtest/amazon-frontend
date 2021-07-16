@@ -74,9 +74,8 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           imgSrc={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
           title={order.product.amazonTitle}
         />
-        <TableCell>{'ID: ' + order.order}</TableCell>
+        <TableCell>{'ID: ' + order.order._id}</TableCell>
 
-        {/* TODO Extract Barcode chip to Component */}
         <TableCell>{order.barCode ? order.barCode : 'N/A'}</TableCell>
 
         <TableCell>{order.product.id}</TableCell>

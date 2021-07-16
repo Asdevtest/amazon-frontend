@@ -1,97 +1,108 @@
 import React from 'react'
 
-import {Divider, Typography, Paper, Checkbox, Chip} from '@material-ui/core'
+import {Divider, Typography, Paper, Checkbox} from '@material-ui/core'
 import {observer} from 'mobx-react'
-import Carousel from 'react-material-ui-carousel'
 
+import {TaskOperationType} from '@constants/task-operation-type'
+// import Carousel from 'react-material-ui-carousel'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
+import {Modal} from '@components/modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
+import {EditBoxModal} from '../edit-task-modal/edit-box-modal'
 import {useClassNames} from './before-after-block.style'
 import {BoxItemCard} from './box-item-card'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseBeforeAfterBlock
 
-export const BeforeAfterBlock = observer(
-  ({incomingBoxes, desiredBoxes, onSetBarcode, onEditBox, isEdit = true, tmpBarCode}) => {
-    const classNames = useClassNames()
-
-    const onClickEditBox = box => {
-      onEditBox(box)
-    }
-
-    const Box = ({box, isNewBox = false, isCurrentBox = false}) => (
-      <Paper className={(classNames.box, classNames.mainPaper)}>
-        <Typography className={classNames.boxTitle}>{`${textConsts.boxNum} ${box._id}`}</Typography>
-        <div className={classNames.itemsWrapper}>
-          {box.items.map((item, index) => (
-            <div key={`boxItem_${box.items[0].product?._id}_${index}`}>
-              <BoxItemCard item={item} index={index} />
-            </div>
-          ))}
+const Box = ({
+  box,
+  isNewBox = false,
+  isCurrentBox = false,
+  onClickEditBox,
+  isEdit,
+  taskType,
+  showEditBoxModal,
+  onTriggerShowEditBoxModal,
+  setNewBoxes,
+  setAmountFieldNewBox,
+}) => {
+  const classNames = useClassNames()
+  return (
+    <Paper className={(classNames.box, classNames.mainPaper)}>
+      <Typography className={classNames.boxTitle}>{`${textConsts.boxNum} ${box._id}`}</Typography>
+      {box.amount > 1 && (
+        <div className={classNames.superWrapper}>
+          <Typography className={classNames.subTitle}>{textConsts.superTypo}</Typography>
+          <Typography>{`x${box.amount}`}</Typography>
         </div>
-        {isCurrentBox && (
-          <Paper>
-            <Typography>{textConsts.material}</Typography>
-            <Input className={classNames.inputText} value={box.items[0].product?.material} disabled={!isEdit} />
-          </Paper>
-        )}
-
-        <Paper className={classNames.chipWrapper}>
-          <Typography className={classNames.subTitle}>{textConsts.shippingLabel}</Typography>
-          <Chip
-            disabled={!isEdit}
-            classes={{
-              root: classNames.orderChip,
-              clickable: classNames.orderChipHover,
-              deletable: classNames.orderChipHover,
-              deleteIcon: classNames.orderChipIcon,
-            }}
-            size="small"
-            label={tmpBarCode ? tmpBarCode : textConsts.setShippingLabel}
-            onClick={onSetBarcode}
-          />
+      )}
+      <div className={classNames.itemsWrapper}>
+        {box.items.map((item, index) => (
+          <div key={`boxItem_${box.items[0].product?._id}_${index}`}>
+            <BoxItemCard item={item} index={index} />
+          </div>
+        ))}
+      </div>
+      {isCurrentBox && (
+        <Paper>
+          <Typography>{textConsts.material}</Typography>
+          <Input className={classNames.inputText} value={box.items[0].product?.material} disabled={!isEdit} />
         </Paper>
+      )}
 
-        <Paper className={classNames.demensionsWrapper}>
-          <Typography className={classNames.categoryTitle}>{textConsts.demensions}</Typography>
-          <Typography>
-            {textConsts.length}
-            {box.lengthCmWarehouse}
-          </Typography>
-          <Typography>
-            {textConsts.width}
-            {box.widthCmWarehouse}
-          </Typography>
-          <Typography>
-            {textConsts.height}
-            {box.heightCmWarehouse}
-          </Typography>
-          <Typography>
-            {textConsts.weight}
-            {box.volumeWeightKgWarehouse}
-          </Typography>
-          <Typography>
-            {textConsts.finalWeight}
-            {box.weightFinalAccountingKgWarehouse}
-          </Typography>
-        </Paper>
+      <Paper className={classNames.demensionsWrapper}>
+        <Typography className={classNames.categoryTitle}>{textConsts.demensions}</Typography>
+        <Typography>
+          {textConsts.length}
+          {box.lengthCmWarehouse}
+        </Typography>
+        <Typography>
+          {textConsts.width}
+          {box.widthCmWarehouse}
+        </Typography>
+        <Typography>
+          {textConsts.height}
+          {box.heightCmWarehouse}
+        </Typography>
 
-        {isNewBox && (
-          <Paper className={classNames.bottomBlockWrapper}>
+        <Typography>
+          {'Групповой вес'}
+          {box.weighGrossKgWarehouse}
+        </Typography>
+        <Typography>
+          {textConsts.weight}
+          {box.volumeWeightKgWarehouse}
+        </Typography>
+        <Typography>
+          {textConsts.finalWeight}
+          {box.weightFinalAccountingKgWarehouse}
+        </Typography>
+      </Paper>
+
+      {isNewBox && (
+        <Paper className={classNames.bottomBlockWrapper}>
+          {taskType === TaskOperationType.RECEIVE && (
             <Field
               oneLine
               containerClasses={classNames.field}
               label={textConsts.codeCheck}
-              inputComponent={<Checkbox />}
+              inputComponent={
+                <Checkbox
+                  disabled
+                  checked={box.order && box.order.isBarCodeAlreadyAttachedByTheSupplier ? true : false}
+                />
+              }
             />
+          )}
 
-            {box.images?.length ? (
+          {/*  раньше здесь предпологалось показывать добавленные фотографии ... нужно ли это?*/}
+          {/* {box.images?.length ? (
               <Paper className={classNames.rightCardWrapper}>
                 <Typography className={classNames.categoryTitle}>{textConsts.photos}</Typography>
 
@@ -104,32 +115,85 @@ export const BeforeAfterBlock = observer(
                     ))}
                 </Carousel>
               </Paper>
-            ) : undefined}
-            <div className={classNames.editBtnWrapper}>
-              {isEdit && (
-                <Button className={classNames.editBtn} onClick={() => onClickEditBox(box)}>
-                  {textConsts.editBtn}
-                </Button>
-              )}
-            </div>
-          </Paper>
-        )}
-      </Paper>
-    )
+            ) : undefined} */}
+
+          <div className={classNames.editBtnWrapper}>
+            {isEdit && (
+              <Button className={classNames.editBtn} onClick={() => onClickEditBox(box)}>
+                {textConsts.editBtn}
+              </Button>
+            )}
+          </div>
+        </Paper>
+      )}
+
+      <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
+        <EditBoxModal
+          setEditModal={onTriggerShowEditBoxModal}
+          box={box}
+          setNewBoxes={setNewBoxes}
+          setAmountFieldNewBox={setAmountFieldNewBox}
+          operationType={taskType}
+        />
+      </Modal>
+    </Paper>
+  )
+}
+
+const NewBoxes = ({
+  newBoxes,
+  onClickEditBox,
+  isEdit,
+  taskType,
+  showEditBoxModal,
+  onTriggerShowEditBoxModal,
+  setNewBoxes,
+  setAmountFieldNewBox,
+}) => {
+  const classNames = useClassNames()
+  return (
+    <div className={classNames.newBoxes}>
+      <Typography className={classNames.sectionTitle}>{textConsts.newBoxes}</Typography>
+      {newBoxes.map((box, boxIndex) => (
+        <Box
+          key={boxIndex}
+          isNewBox
+          box={box}
+          isEdit={isEdit}
+          taskType={taskType}
+          setNewBoxes={setNewBoxes}
+          setAmountFieldNewBox={setAmountFieldNewBox}
+          showEditBoxModal={showEditBoxModal}
+          onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
+          onClickEditBox={onClickEditBox}
+        />
+      ))}
+    </div>
+  )
+}
+
+export const BeforeAfterBlock = observer(
+  ({
+    incomingBoxes,
+    desiredBoxes,
+    onEditBox,
+    taskType,
+    isEdit = true,
+    showEditBoxModal,
+    onTriggerShowEditBoxModal,
+    setNewBoxes,
+    setAmountFieldNewBox,
+  }) => {
+    const classNames = useClassNames()
+
+    const onClickEditBox = box => {
+      onEditBox(box)
+    }
 
     const CurrentBox = ({currentBoxes}) => (
       <div className={classNames.currentBox}>
         <Typography className={classNames.sectionTitle}>{textConsts.incom}</Typography>
         {currentBoxes && currentBoxes.map((box, boxIndex) => <Box key={boxIndex} isCurrentBox box={box} />)}
-      </div>
-    )
-
-    const NewBoxes = ({newBoxes}) => (
-      <div className={classNames.newBoxes}>
-        <Typography className={classNames.sectionTitle}>{textConsts.newBoxes}</Typography>
-        {newBoxes.map((box, boxIndex) => (
-          <Box key={boxIndex} isNewBox box={box} />
-        ))}
       </div>
     )
 
@@ -143,7 +207,16 @@ export const BeforeAfterBlock = observer(
           </>
         )}
 
-        <NewBoxes newBoxes={desiredBoxes} />
+        <NewBoxes
+          isEdit={isEdit}
+          newBoxes={desiredBoxes}
+          taskType={taskType}
+          setNewBoxes={setNewBoxes}
+          setAmountFieldNewBox={setAmountFieldNewBox}
+          showEditBoxModal={showEditBoxModal}
+          onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
+          onClickEditBox={onClickEditBox}
+        />
       </Paper>
     )
   },

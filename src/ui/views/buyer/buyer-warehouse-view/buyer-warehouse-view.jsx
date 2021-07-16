@@ -56,6 +56,7 @@ export class BuyerWarehouseViewRaw extends Component {
       showRedistributeBoxModal,
       showRedistributeBoxAddNewBoxModal,
       showRedistributeBoxSuccessModal,
+      showRedistributeBoxFailModal,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -66,9 +67,6 @@ export class BuyerWarehouseViewRaw extends Component {
       onEditBoxSubmit,
       cancelMergeBoxes,
       cancelSplitBoxes,
-      // postTask
-      // removeBox
-      //  выше методы для тестов
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -78,13 +76,6 @@ export class BuyerWarehouseViewRaw extends Component {
     const rowsDatas = {
       selectedBoxes,
     }
-
-    // cancelMergeBoxes('60dd8ecb638c0d3917ec76ff');
-    // postTask({ idsData: [ '60dcb24d4eef930742409c00' ], type: 'merge' });
-
-    // postTask();
-    // removeBox('60dbfba704f8da4cbf6edbbd');
-    //  выше методы для тестов
 
     return (
       <React.Fragment>
@@ -203,6 +194,27 @@ export class BuyerWarehouseViewRaw extends Component {
               className={classNames.modalMessageBtn}
               color="primary"
               onClick={() => onTriggerOpenModal('showRedistributeBoxSuccessModal')}
+            >
+              {textConsts.closeBtn}
+            </Button>
+          </div>
+        </Modal>
+
+        <Modal
+          openModal={showRedistributeBoxFailModal}
+          setOpenModal={() => onTriggerOpenModal('showRedistributeBoxFailModal')}
+        >
+          <div className={classNames.modalMessageWrapper}>
+            <Typography paragraph variant="h5">
+              {textConsts.modalRedistributionFailTitle}
+            </Typography>
+            <Typography paragraph className={classNames.modalMessage}>
+              {textConsts.modalRedistributionFailMessage}
+            </Typography>
+            <Button
+              className={classNames.modalMessageBtn}
+              color="primary"
+              onClick={() => onTriggerOpenModal('showRedistributeBoxFailModal')}
             >
               {textConsts.closeBtn}
             </Button>

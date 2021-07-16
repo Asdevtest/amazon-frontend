@@ -18,10 +18,23 @@ export const BoxItemCard = ({item}) => {
 
   return (
     <Paper className={classNames.root}>
-      <img className={classNames.img} src={item.product?.images[0] && getAmazonImageUrl(item.product.images[0])} />
+      <div className={classNames.mainWrapper}>
+        <img className={classNames.img} src={item.product?.images[0] && getAmazonImageUrl(item.product.images[0])} />
+
+        <div className={classNames.attributeWrapper}>
+          <div className={classNames.chipWrapper}>
+            <Typography className={classNames.subTitle}>{textConsts.barCode}</Typography>
+            <Typography>{item.barCode ? item.barCode : 'N/A'}</Typography>
+          </div>
+
+          <div className={classNames.countWrapper}>
+            <Typography className={classNames.subTitle}>{textConsts.count}</Typography>
+            <Input readOnly classes={{root: classNames.inputWrapper, input: classNames.input}} value={item.amount} />
+          </div>
+        </div>
+      </div>
+
       <Typography className={classNames.title}>{item.product?.amazonTitle}</Typography>
-      <Typography className={classNames.subTitle}>{textConsts.count}</Typography>
-      <Input readOnly classes={{root: classNames.inputWrapper, input: classNames.input}} value={item.amount} />
     </Paper>
   )
 }

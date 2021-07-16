@@ -54,6 +54,7 @@ export class ClientWarehouseViewRaw extends Component {
       showRedistributeBoxModal,
       showRedistributeBoxAddNewBoxModal,
       showRedistributeBoxSuccessModal,
+      showRedistributeBoxFailModal,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -64,9 +65,6 @@ export class ClientWarehouseViewRaw extends Component {
       onEditBoxSubmit,
       cancelMergeBoxes,
       cancelSplitBoxes,
-      // postTask
-      // removeBox
-      //  выше методы для тестов
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -76,15 +74,6 @@ export class ClientWarehouseViewRaw extends Component {
     const rowsDatas = {
       selectedBoxes,
     }
-
-    // postTask({ idsData: [ '60ddb841638c0d3917ec772d' ], type: 'merge' });
-    // cancelMergeBoxes('60ddc0c3638c0d3917ec7752');
-    // approveBoxesOperation('60dd8ecb638c0d3917ec76ff');
-
-    // removeBox('60d491695382b25eea73e076');
-    //  выше методы для тестов
-
-    // console.log('tasksMy', tasksMy);
 
     return (
       <React.Fragment>
@@ -203,6 +192,27 @@ export class ClientWarehouseViewRaw extends Component {
               className={classNames.modalMessageBtn}
               color="primary"
               onClick={() => onTriggerOpenModal('showRedistributeBoxSuccessModal')}
+            >
+              {textConsts.closeBtn}
+            </Button>
+          </div>
+        </Modal>
+
+        <Modal
+          openModal={showRedistributeBoxFailModal}
+          setOpenModal={() => onTriggerOpenModal('showRedistributeBoxFailModal')}
+        >
+          <div className={classNames.modalMessageWrapper}>
+            <Typography paragraph variant="h5">
+              {textConsts.modalRedistributionFailTitle}
+            </Typography>
+            <Typography paragraph className={classNames.modalMessage}>
+              {textConsts.modalRedistributionFailMessage}
+            </Typography>
+            <Button
+              className={classNames.modalMessageBtn}
+              color="primary"
+              onClick={() => onTriggerOpenModal('showRedistributeBoxFailModal')}
             >
               {textConsts.closeBtn}
             </Button>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
@@ -20,8 +20,66 @@ import {useClassNames} from './edit-task-modal.style'
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseTaskForm
 
 export const EditTaskModal = observer(
-  ({task, onClickOpenCloseModal, onSetBarcode, onEditBox, onClickSolveTask, tmpBarCode}) => {
+  ({
+    task,
+    onClickOpenCloseModal,
+    onSetBarcode,
+    onEditBox,
+    onClickSolveTask,
+    tmpBarCode,
+    showEditBoxModal,
+    onTriggerShowEditBoxModal,
+    onSubmitUpdateBoxes,
+  }) => {
     const classNames = useClassNames()
+
+    const [newBoxes, setNewBoxes] = useState([
+      ...task.boxes.map(
+        box =>
+          (box = {
+            ...box,
+            lengthCmWarehouse: box?.lengthCmWarehouse || '',
+            widthCmWarehouse: box?.widthCmWarehouse || '',
+            heightCmWarehouse: box?.heightCmWarehouse || '',
+            weighGrossKgWarehouse: box?.weighGrossKgWarehouse || '',
+            volumeWeightKgWarehouse: box?.volumeWeightKgWarehouse || '',
+            weightFinalAccountingKgWarehouse: box?.weightFinalAccountingKgWarehouse || '',
+          }),
+      ),
+    ])
+
+    const setNewBoxField = (fieldName, boxId) => e => {
+      const newFormFields = {...newBoxes.find(el => el._id === boxId)}
+      newFormFields[fieldName] = Number(e.target.value)
+      newFormFields.volumeWeightKgWarehouse =
+        ((parseFloat(newFormFields.lengthCmWarehouse) || 0) *
+          (parseFloat(newFormFields.heightCmWarehouse) || 0) *
+          (parseFloat(newFormFields.widthCmWarehouse) || 0)) /
+        5000
+      newFormFields.weightFinalAccountingKgWarehouse = Math.max(
+        parseFloat(newFormFields.volumeWeightKgWarehouse) || 0,
+        parseFloat(newFormFields.weighGrossKgWarehouse) || 0,
+      )
+
+      const updatedNewBoxes = newBoxes.map(oldBox => (oldBox._id === boxId ? newFormFields : oldBox))
+      setNewBoxes(updatedNewBoxes)
+    }
+
+    const setAmountFieldNewBox = boxId => e => {
+      let newFormFields = {...newBoxes.find(el => el._id === boxId)}
+      newFormFields = {
+        ...newFormFields,
+        items: [
+          {
+            ...newFormFields.items[0],
+            amount: e.target.value,
+          },
+        ],
+      }
+
+      const updatedNewBoxes = newBoxes.map(oldBox => (oldBox._id === boxId ? newFormFields : oldBox))
+      setNewBoxes(updatedNewBoxes)
+    }
 
     if (!task) {
       return <div />
@@ -58,15 +116,28 @@ export const EditTaskModal = observer(
 
           <BeforeAfterBlock
             incomingBoxes={task.boxesBefore}
-            desiredBoxes={task.boxes}
+            desiredBoxes={newBoxes}
+            taskType={task.operationType}
             tmpBarCode={tmpBarCode}
+            setNewBoxes={setNewBoxField}
+            setAmountFieldNewBox={setAmountFieldNewBox}
+            showEditBoxModal={showEditBoxModal}
+            onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
             onSetBarcode={onSetBarcode}
             onEditBox={onEditBox}
           />
         </div>
 
         <div className={classNames.buttonsWrapper}>
-          <SuccessButton disableElevation className={classNames.submit} variant="contained" onClick={onClickSolveTask}>
+          <SuccessButton
+            disableElevation
+            className={classNames.submit}
+            variant="contained"
+            onClick={() => {
+              onSubmitUpdateBoxes(newBoxes)
+              onClickSolveTask(newBoxes)
+            }}
+          >
             {textConsts.saveChangesBtn}
           </SuccessButton>
 

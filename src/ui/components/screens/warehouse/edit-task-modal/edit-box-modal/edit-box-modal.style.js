@@ -76,4 +76,25 @@ export const useClassNames = makeStyles(() => ({
   saveBtn: {
     marginRight: '8px',
   },
+  numberInputFieldsBlocksWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: '100%',
+    marginTop: '20px',
+  },
+  numberInputFieldsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  numberInputField: {
+    margin: '0 5px',
+  },
+  blockOfNewBoxWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
 }))

@@ -91,6 +91,8 @@ export const texts = {
         'Увеличение количества коробок будет требовать дополнительной оплаты в зависимости от тарифов склада на котором находиться товар',
       modalRedistributionSuccessTitle: 'Success!',
       modalRedistributionSuccessMessage: 'Box redistribution was successful',
+      modalRedistributionFailTitle: 'Fail',
+      modalRedistributionFailMessage: 'Новые коробки должны отличаться от старых',
     },
     buyerWarehouseView: {
       appbarTitle: 'Warehouse',
@@ -111,6 +113,8 @@ export const texts = {
         'Увеличение количества коробок будет требовать дополнительной оплаты в зависимости от тарифов склада на котором находиться товар',
       modalRedistributionSuccessTitle: 'Success!',
       modalRedistributionSuccessMessage: 'Box redistribution was successful',
+      modalRedistributionFailTitle: 'Fail',
+      modalRedistributionFailMessage: 'Новые коробки должны отличаться от старых',
     },
     adminWarehouseView: {
       appbarTitle: 'Warehouse',
@@ -644,6 +648,12 @@ export const texts = {
       supplierPaidDelivery: 'Поставщик отправил все за свой счет',
       supplierAddBarCode: 'Поставщик поклеил баркод при отправке',
       usePriceInDollars: 'Использовать цену в долларах',
+
+      priceYuansForBatchTypo: 'Юаней за партию',
+      yuansToDollarRateTypo: 'Курс юаня к доллару',
+      amountPaymentPerConsignmentAtDollarsTypo: 'Долларов за партию',
+      costPriceAmount: 'Себестоимость в закупке',
+      trackNumberTypo: 'Track number',
     },
 
     buyerProductView: {
@@ -1138,6 +1148,8 @@ export const texts = {
       appBarUsername: 'Buyer',
       appUser: 'buyer',
       ordersBtn: 'Мои заказы',
+      dimensionsMessage: 'Для создания коробки поля должны быть заполнены!',
+      okBtn: 'Ок',
     },
     buyerUserExchangeItem: {
       standartPrice: '$ 499',
@@ -1437,6 +1449,8 @@ export const texts = {
       appUser: 'warehouse',
       mainTitle: 'Вакантные задачи',
       taskModalTitle: 'Решить задачу',
+      dimensionsMessage: 'Внесите размеры',
+      okBtn: 'Ок',
     },
     warehouseCompletedTasksView: {
       appBarTitle: 'Dashboard',
@@ -1462,6 +1476,16 @@ export const texts = {
       heightConfigText: 'Высота:',
       volumeWeightConfigText: 'Вес:',
       weightFinalConfigText: 'Финальный вес:',
+
+      lengthCmWarehouse: 'lengthCmWarehouse',
+      widthCmWarehouse: 'widthCmWarehouse',
+      heightCmWarehouse: 'heightCmWarehouse',
+      weighGrossKgWarehouse: 'weighGrossKgWarehouse',
+      volumeWeightKgWarehouse: 'volumeWeightKgWarehouse',
+      weightFinalAccountingKgWarehouse: 'weightFinalAccountingKgWarehouse',
+
+      amountOfSubBoxes: 'amountOfSubBoxes',
+      amountIfItemsInBox: 'Items in box',
     },
     warehouseBeforeAfterBlock: {
       boxNum: 'Коробка номер:',
@@ -1481,6 +1505,7 @@ export const texts = {
       editBtn: 'Редактировать коробку',
       incom: 'Поступление',
       newBoxes: 'Новые коробки',
+      superTypo: 'Супер ',
     },
     warehouseTaskForm: {
       taskTitle: 'Данные поступления',
@@ -1535,6 +1560,7 @@ export const texts = {
     },
     boxItemCard: {
       count: 'Количество',
+      barCode: `Баркод:`,
     },
     warehouseWarehouseView: {
       appbarTitle: 'Warehouse',
