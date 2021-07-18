@@ -27,4 +27,7 @@ export const styles = createStyles(theme => ({
     display: 'flex',
     gap: '10px',
   },
+  cancelBtn: {
+    marginLeft: '10px',
+  },
 }))

@@ -134,9 +134,11 @@ export class ResearcherProductsViewModel {
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
-      runInAction(() => {
-        this.error = error
-      })
+      if (error.body && error.body.message) {
+        runInAction(() => {
+          this.error = error.body.message
+        })
+      }
     }
   }
 

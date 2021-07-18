@@ -21,8 +21,9 @@ import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
 import {ExchangeBodyRow} from '@components/table-rows/client/exchange'
 
-import {calcProductsPriceWithDelivery} from '@utils/calculation'
+import {calcProductPrice, calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixedWithDollarSign} from '@utils/text'
 
 import avatar from '../../assets/clientAvatar.jpg'
 import {ClientExchangeViewModel} from './client-exchange-view.model'
@@ -126,7 +127,7 @@ export class ClientExchangeViewRaw extends Component {
             </Typography>
             <Typography paragraph className={classNames.modalMessage}>
               {textConsts.confirmMessage}
-              {`($ Куча денег).`}
+              {selectedProduct && toFixedWithDollarSign(calcProductPrice(selectedProduct))}
             </Typography>
             <div className={classNames.buttonsWrapper}>
               <SuccessButton
@@ -139,7 +140,11 @@ export class ClientExchangeViewRaw extends Component {
               >
                 {textConsts.confirmBtn}
               </SuccessButton>
-              <Button color="primary" onClick={() => onTriggerOpenModal('showConfirmPayModal')}>
+              <Button
+                className={classNames.cancelBtn}
+                color="primary"
+                onClick={() => onTriggerOpenModal('showConfirmPayModal')}
+              >
                 {textConsts.cancelBtn}
               </Button>
             </div>

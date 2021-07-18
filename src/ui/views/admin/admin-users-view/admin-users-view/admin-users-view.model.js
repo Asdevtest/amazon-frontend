@@ -32,6 +32,7 @@ export class AdminUsersViewModel {
   }
 
   onSelectionModel(model) {
+    this.editUserFormFields = this.users.find(el => el.id === model)
     this.selectionModel = model
   }
 
@@ -96,12 +97,9 @@ export class AdminUsersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
-      const data = getObjectFilteredByKeyArrayBlackList(this.editUserFormFields, ['_id'])
+      const data = getObjectFilteredByKeyArrayBlackList(this.editUserFormFields, ['_id', 'id'])
       await AdministratorModel.updateUser(this.selectionModel, data)
-      const result = await AdministratorModel.getUsers()
-      runInAction(() => {
-        this.users = result
-      })
+      this.getUsers()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

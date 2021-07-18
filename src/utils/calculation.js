@@ -1,7 +1,10 @@
 import {toFixedWithDollarSign} from './text'
 
 export const calcProductPrice = product =>
-  (parseInt(product.createdby?.rate) || 0) + (parseInt(product.buyer?.rate) || 0) * 2 // TODO: добавить рейт супервизора
+  ((parseInt(product.createdby?.rate) || 0) +
+    (parseInt(product.buyer?.rate) || 0) +
+    (parseInt(product.checkedby?.rate) || 0)) *
+  2 // TODO: добавить рейт супервизора
 
 export const calcProductsPriceWithDelivery = (product, order) =>
   ((parseFloat(product.currentSupplier && product.currentSupplier.price) || 0) +

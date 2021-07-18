@@ -113,7 +113,6 @@ export class WarehouseVacantViewModel {
           'weightFinalAccountingKgWarehouse',
         ]),
       }
-
       await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, updateBoxData)
 
       await BoxesModel.updateBox(id, updateBoxData)
@@ -126,28 +125,8 @@ export class WarehouseVacantViewModel {
     }
   }
 
-  async onClickSolveTask(data) {
+  async onClickSolveTask() {
     try {
-      const updateBoxData = {
-        ...getObjectFilteredByKeyArrayWhiteList(data, [
-          'lengthCmWarehouse',
-          'widthCmWarehouse',
-          'heightCmWarehouse',
-          'weighGrossKgWarehouse',
-          'volumeWeightKgWarehouse',
-          'weightFinalAccountingKgWarehouse',
-        ]),
-      }
-
-      await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, updateBoxData)
-
-      if (this.tmpBarCode) {
-        const boxesIds = this.selectedTask.boxes.map(box => box._id)
-        for (let index = 0; index < boxesIds.length; index++) {
-          const boxId = boxesIds[index]
-          await BoxesModel.updateBox(boxId, {barCode: this.tmpBarCode})
-        }
-      }
       await BoxesModel.approveBoxesOperation(this.selectedTask.boxes[0]._id)
       await StorekeeperModel.updateTask(this.selectedTask._id, {
         status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],

@@ -55,7 +55,6 @@ class AdminUsersViewRaw extends Component {
   render() {
     const {
       getCurrentData,
-      selectionModel,
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -69,6 +68,7 @@ class AdminUsersViewRaw extends Component {
       onTriggerEditUserModal,
       onTriggerPermissionModal,
       onSelectionModel,
+      editUserFormFields,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -117,7 +117,7 @@ class AdminUsersViewRaw extends Component {
         </Main>
         <Modal openModal={showEditUserModal} setOpenModal={onTriggerEditUserModal}>
           <AdminContentModal
-            editUserFormFields={getCurrentData().find(el => el.id === selectionModel)}
+            editUserFormFields={editUserFormFields}
             title={textConsts.modalEditTitle}
             buttonLabel={textConsts.modalEditBtn}
             onChangeFormField={onChangeFormField}

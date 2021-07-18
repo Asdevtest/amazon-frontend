@@ -27,7 +27,7 @@ export const PrivateRoutes = observer(() => {
         {privateRoutesConfigs.map((route, index) => (
           <Route key={index} component={route.component} exact={route.exact} path={route.routePath} />
         ))}
-        {/* <Redirect to={privateRoutesConfigs[0].routePath} /> */}
+        {/* <Redirect to={allowedRoutes[0].routePath} /> */}
       </>
     )
   }
