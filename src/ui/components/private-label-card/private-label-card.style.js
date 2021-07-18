@@ -11,7 +11,14 @@ export const useClassNames = makeStyles(theme => ({
       width: '320px',
     },
   },
+  imgWrapper: {
+    height: 'auto',
+    width: '50%',
+    alignSelf: 'center',
+  },
   img: {
+    height: '100%',
+    width: '100%',
     borderRadius: '8px 8px 0px 0px',
   },
   wrapper: {

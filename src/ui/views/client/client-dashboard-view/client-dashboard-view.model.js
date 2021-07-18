@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 
 export class ClientDashboardViewModel {
@@ -74,7 +75,7 @@ export class ClientDashboardViewModel {
 
   async getBoxesMy() {
     try {
-      const result = await ClientModel.getBoxes()
+      const result = await BoxesModel.getBoxes()
       runInAction(() => {
         this.boxesMy = result
       })

@@ -276,7 +276,6 @@ export class BuyerProductViewModel {
   updateAutoCalculatedFields() {
     // взято из fba app
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
-    console.log('this.product.totalFba ', this.product.totalFba)
     this.product.maxDelivery = this.product.express
       ? (parseInt(this.product.weight) || 0) * 7
       : (parseInt(this.product.weight) || 0) * 5

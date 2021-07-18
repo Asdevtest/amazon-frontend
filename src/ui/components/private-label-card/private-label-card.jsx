@@ -25,11 +25,13 @@ export const PrivateLabelCard = ({item, onClickBuyProductBtn, setProductToPay, o
 
   return (
     <Paper className={classNames.root}>
-      <img
-        alt="item image"
-        className={classNames.img}
-        src={item.images && item.images[0] && getAmazonImageUrl(item.images[0])}
-      />
+      <div className={classNames.imgWrapper}>
+        <img
+          alt="item image"
+          className={classNames.img}
+          src={item.images && item.images[0] && getAmazonImageUrl(item.images[0])}
+        />
+      </div>
       <div className={classNames.wrapper}>
         <Typography className={classNames.title}>{item.category}</Typography>
 

@@ -96,14 +96,14 @@ export const EditTaskModal = observer(
             disabled
             containerClasses={classNames.field}
             label={textConsts.warehouseLabel}
-            value={getWarehousesOptionByCode(task.boxes[0].warehouse).label}
+            value={task.boxes[0].warehouse && getWarehousesOptionByCode(task.boxes[0].warehouse).label}
           />
 
           <Field
             disabled
             containerClasses={classNames.field}
             label={textConsts.deliveryMethodLabel}
-            value={getDeliveryOptionByCode(task.boxes[0].deliveryMethod).label}
+            value={task.boxes[0].deliveryMethod && getDeliveryOptionByCode(task.boxes[0].deliveryMethod).label}
           />
 
           {/* тут статус ордера? сейчас , да*/}

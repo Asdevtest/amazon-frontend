@@ -5,20 +5,20 @@ import {restApiService} from '@services/rest-api-service/rest-api-service'
 
 import {makePersistableModel} from '@utils/make-persistable-model'
 
-import {UserSignInDataContract, UserInfoContract} from './user-model.contracts'
+import {UserInfoContract} from './user-model.contracts'
 
 const persistProperties = ['accessToken', 'userInfo']
 
 class UserModelStatic {
-  accessToken = '-=test_token=-:60aabf69b2f06d5a147ba009'
+  accessToken = '-=test_token=-:60f44898df1b21433de554b6'
   userInfo = undefined
 
-  // [UserRole.ADMIN]: '-=test_token=-:60aac071b2f06d5a147ba00c',
-  // [UserRole.CLIENT]: '-=test_token=-:609001a82ba62f2d093d6344',      401
-  // [UserRole.SUPERVISOR]: '-=test_token=-:609001a82ba62f2d093d6343',  401
-  // [UserRole.RESEARCHER]: '-=test_token=-:60aabd92b2f06d5a147ba007',
-  // [UserRole.BUYER]: '-=test_token=-:60aabf69b2f06d5a147ba009',
-  // [UserRole.STOREKEEPER]: '-=test_token=-:60aabeeab2f06d5a147ba008',
+  // [UserRole.STOREKEEPER]: "Bearer -=test_token=-:60f448b7df1b21433de554b7",
+  // [UserRole.RESEARCHER]: "Bearer -=test_token=-:60f4487cdf1b21433de554b5",
+  // [UserRole.BUYER]: "Bearer -=test_token=-:60f44898df1b21433de554b6",
+  // [UserRole.SUPERVISOR]: "Bearer -=test_token=-:60f448c9df1b21433de554b8",
+  // [UserRole.CLIENT]: "Bearer -=test_token=-:60f448ebdf1b21433de554b9",
+  // [UserRole.ADMIN]: "Bearer -=test_token=-:60f448fadf1b21433de554ba"
 
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -41,9 +41,10 @@ class UserModelStatic {
       email,
       password,
     })
-    const userSignInData = ApiClient.convertToType(response, UserSignInDataContract)
-    const accessToken = userSignInData.token
-    this.accessToken = accessToken
+    const accessToken = response.token
+    runInAction(() => {
+      this.accessToken = accessToken
+    })
     restApiService.setAccessToken(accessToken)
   }
 
