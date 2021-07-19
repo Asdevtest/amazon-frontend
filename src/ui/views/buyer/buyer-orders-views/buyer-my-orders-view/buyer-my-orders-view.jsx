@@ -17,6 +17,7 @@ import {CreateOrEditBoxForm} from '@components/forms/create-or-edit-box-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {ErrorInfoModal} from '@components/modals/error-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 import {Table} from '@components/table'
@@ -133,26 +134,15 @@ class BuyerMyOrdersViewRaw extends Component {
           />
         </Modal>
 
-        <Modal
+        <ErrorInfoModal
           openModal={showNoDimensionsErrorModal}
           setOpenModal={() => onTriggerOpenModal('showNoDimensionsErrorModal')}
-        >
-          <div className={classNames.modalMessageWrapper}>
-            <Typography paragraph variant="h5">
-              {textConsts.dimensionsMessage}
-            </Typography>
-
-            <Button
-              disableElevation
-              variant="contained"
-              onClick={() => {
-                onTriggerOpenModal('showNoDimensionsErrorModal')
-              }}
-            >
-              {textConsts.okBtn}
-            </Button>
-          </div>
-        </Modal>
+          title={textConsts.dimensionsMessage}
+          btnText={textConsts.okBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showNoDimensionsErrorModal')
+          }}
+        />
       </React.Fragment>
     )
   }

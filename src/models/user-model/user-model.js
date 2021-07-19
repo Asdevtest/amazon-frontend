@@ -10,7 +10,7 @@ import {UserInfoContract} from './user-model.contracts'
 const persistProperties = ['accessToken', 'userInfo']
 
 class UserModelStatic {
-  accessToken = '-=test_token=-:60f44898df1b21433de554b6'
+  accessToken = '-=test_token=-:60f5569e7c89b06e3da60451'
   userInfo = undefined
 
   // [UserRole.STOREKEEPER]: "Bearer -=test_token=-:60f448b7df1b21433de554b7",

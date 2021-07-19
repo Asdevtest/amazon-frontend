@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/styles'
 export const useClassNames = makeStyles({
   root: {
     marginBottom: '20px',
+    width: '100%',
   },
   rootOneLine: {
     display: 'flex',

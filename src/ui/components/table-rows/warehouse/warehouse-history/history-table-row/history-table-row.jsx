@@ -3,7 +3,7 @@ import React from 'react'
 import {TableCell, TableRow, Typography} from '@material-ui/core'
 
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
-import {mapTaskStatusKeyToEnum} from '@constants/task-status'
+import {mapTaskStatusEmumToKey, mapTaskStatusKeyToEnum, TaskStatus} from '@constants/task-status'
 import {texts} from '@constants/texts'
 
 import {ErrorButton} from '@components/buttons/error-button'
@@ -67,7 +67,9 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
             <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskMergeDescription()}</TableCell>
             <TableCell>
-              <ErrorButton onClick={() => onCancelMergeBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
+              {item.status !== mapTaskStatusEmumToKey(TaskStatus.SOLVED) && (
+                <ErrorButton onClick={() => onCancelMergeBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
+              )}
             </TableCell>
           </React.Fragment>
         )
@@ -77,7 +79,9 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
             <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskDivideDescription()}</TableCell>
             <TableCell>
-              <ErrorButton onClick={() => onCancelSplitBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
+              {item.status !== mapTaskStatusEmumToKey(TaskStatus.SOLVED) && (
+                <ErrorButton onClick={() => onCancelSplitBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
+              )}
             </TableCell>
           </React.Fragment>
         )
