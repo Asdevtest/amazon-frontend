@@ -11,12 +11,12 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ClientExchnageCreateOrderModalContent} from '@components/modal-contents/client-exchange-create-order-modal-content'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
 import {ExchangeBodyRow} from '@components/table-rows/client/exchange'
@@ -120,54 +120,32 @@ export class ClientExchangeViewRaw extends Component {
             onTriggerOpenConfirmModal={() => onTriggerOpenModal('showConfirmPayModal')}
           />
         </Modal>
-        <Modal openModal={showConfirmPayModal} setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}>
-          <div className={classNames.modalMessageWrapper}>
-            <Typography paragraph variant="h5">
-              {textConsts.confirmTitle}
-            </Typography>
-            <Typography paragraph className={classNames.modalMessage}>
-              {textConsts.confirmMessage}
-              {selectedProduct && toFixedWithDollarSign(calcProductPrice(selectedProduct))}
-            </Typography>
-            <div className={classNames.buttonsWrapper}>
-              <SuccessButton
-                disableElevation
-                variant="contained"
-                onClick={() => {
-                  onTriggerOpenModal('showConfirmPayModal')
-                  onTriggerOpenModal('showPrivateLabelModal')
-                }}
-              >
-                {textConsts.confirmBtn}
-              </SuccessButton>
-              <Button
-                className={classNames.cancelBtn}
-                color="primary"
-                onClick={() => onTriggerOpenModal('showConfirmPayModal')}
-              >
-                {textConsts.cancelBtn}
-              </Button>
-            </div>
-          </div>
-        </Modal>
 
-        <Modal openModal={showSuccessModal} setOpenModal={() => onTriggerOpenModal('showSuccessModal')}>
-          <div className={classNames.modalMessageWrapper}>
-            <Typography paragraph variant="h5">
-              {textConsts.successTitle}
-            </Typography>
+        <ConfirmationModal
+          openModal={showConfirmPayModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}
+          title={textConsts.confirmTitle}
+          message={`${textConsts.confirmMessage} ($ ${
+            selectedProduct && toFixedWithDollarSign(calcProductPrice(selectedProduct))
+          })`}
+          successBtnText={textConsts.confirmBtn}
+          cancelBtnText={textConsts.cancelBtn}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showConfirmPayModal')
+            onTriggerOpenModal('showPrivateLabelModal')
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmPayModal')}
+        />
 
-            <SuccessButton
-              disableElevation
-              variant="contained"
-              onClick={() => {
-                onTriggerOpenModal('showSuccessModal')
-              }}
-            >
-              {textConsts.successBtn}
-            </SuccessButton>
-          </div>
-        </Modal>
+        <SuccessInfoModal
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={textConsts.successTitle}
+          successBtnText={textConsts.successBtn}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showSuccessModal')
+          }}
+        />
       </React.Fragment>
     )
   }

@@ -16,6 +16,8 @@ import {SendOwnProductForm} from '@components/forms/send-own-product-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {ErrorInfoModal} from '@components/modals/error-info-modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 import {WarehouseHistory} from '@components/screens/warehouse/warehouse-history'
@@ -158,68 +160,35 @@ export class BuyerWarehouseViewRaw extends Component {
           </div>
         </Modal>
 
-        <Modal
-          openModal={showRedistributeBoxAddNewBoxModal}
-          setOpenModal={() => onTriggerOpenModal('showRedistributeBoxAddNewBoxModal')}
-        >
-          <div className={classNames.modalMessageWrapper}>
-            <Typography paragraph variant="h5">
-              {textConsts.modalRedistributionAddNewBoxTitle}
-            </Typography>
-            <Typography paragraph className={classNames.modalMessage}>
-              {textConsts.modalRedistributionAddNewBoxMessage}
-            </Typography>
-            <Button
-              className={classNames.modalMessageBtn}
-              color="primary"
-              onClick={() => onTriggerOpenModal('showRedistributeBoxAddNewBoxModal')}
-            >
-              {textConsts.closeBtn}
-            </Button>
-          </div>
-        </Modal>
-
-        <Modal
+        <SuccessInfoModal
           openModal={showRedistributeBoxSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showRedistributeBoxSuccessModal')}
-        >
-          <div className={classNames.modalMessageWrapper}>
-            <Typography paragraph variant="h5">
-              {textConsts.modalRedistributionSuccessTitle}
-            </Typography>
-            <Typography paragraph className={classNames.modalMessage}>
-              {textConsts.modalRedistributionSuccessMessage}
-            </Typography>
-            <Button
-              className={classNames.modalMessageBtn}
-              color="primary"
-              onClick={() => onTriggerOpenModal('showRedistributeBoxSuccessModal')}
-            >
-              {textConsts.closeBtn}
-            </Button>
-          </div>
-        </Modal>
+          title={textConsts.modalRedistributionSuccessMessage}
+          successBtnText={textConsts.closeBtn}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showRedistributeBoxSuccessModal')
+          }}
+        />
 
-        <Modal
+        <ErrorInfoModal
+          openModal={showRedistributeBoxAddNewBoxModal}
+          setOpenModal={() => onTriggerOpenModal('showRedistributeBoxAddNewBoxModal')}
+          title={textConsts.modalRedistributionAddNewBoxMessage}
+          btnText={textConsts.closeBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showRedistributeBoxAddNewBoxModal')
+          }}
+        />
+
+        <ErrorInfoModal
           openModal={showRedistributeBoxFailModal}
           setOpenModal={() => onTriggerOpenModal('showRedistributeBoxFailModal')}
-        >
-          <div className={classNames.modalMessageWrapper}>
-            <Typography paragraph variant="h5">
-              {textConsts.modalRedistributionFailTitle}
-            </Typography>
-            <Typography paragraph className={classNames.modalMessage}>
-              {textConsts.modalRedistributionFailMessage}
-            </Typography>
-            <Button
-              className={classNames.modalMessageBtn}
-              color="primary"
-              onClick={() => onTriggerOpenModal('showRedistributeBoxFailModal')}
-            >
-              {textConsts.closeBtn}
-            </Button>
-          </div>
-        </Modal>
+          title={textConsts.modalRedistributionFailMessage}
+          btnText={textConsts.closeBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showRedistributeBoxFailModal')
+          }}
+        />
       </React.Fragment>
     )
   }
