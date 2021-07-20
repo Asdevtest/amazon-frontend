@@ -74,7 +74,9 @@ export class BuyerWarehouseViewModel {
     if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
       this.onTriggerOpenModal('showRedistributeBoxFailModal')
     } else {
-      const boxes = updatedBoxes.map(el => el.items.map(item => ({...item, product: item.product._id})))
+      const boxes = updatedBoxes.map(el =>
+        el.items.map(item => ({...item, product: item.product._id, order: item.order._id})),
+      )
       const splitBoxesResult = await this.splitBoxes(id, boxes)
 
       await this.postTask({idsData: splitBoxesResult, idsBeforeData: [id], type})
