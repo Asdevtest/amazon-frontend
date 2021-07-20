@@ -50,6 +50,7 @@ export class BuyerWarehouseViewRaw extends Component {
       tasksMy,
       drawerOpen,
       curPage,
+      history,
       rowsPerPage,
       boxesMy,
       selectedBoxes,
@@ -91,6 +92,7 @@ export class BuyerWarehouseViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
+            history={history}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={buyerUsername}

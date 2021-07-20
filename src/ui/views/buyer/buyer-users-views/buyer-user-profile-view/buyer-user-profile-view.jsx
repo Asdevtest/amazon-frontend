@@ -42,6 +42,7 @@ export class BuyerUserProfileView extends Component {
       tabExchange,
       tabHistory,
       tabReview,
+      history,
       showPrivateLabelModal,
       onChangeTabReview,
       onTriggerPrivateLabelModal,
@@ -67,6 +68,7 @@ export class BuyerUserProfileView extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
+            history={history}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}

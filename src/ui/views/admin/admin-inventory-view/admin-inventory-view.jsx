@@ -34,6 +34,7 @@ export class AdminInventoryViewRaw extends Component {
       getCurrentData,
       drawerOpen,
       curPage,
+      history,
       rowsPerPage,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -55,6 +56,8 @@ export class AdminInventoryViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
+            history={history}
+            curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={adminUsername}

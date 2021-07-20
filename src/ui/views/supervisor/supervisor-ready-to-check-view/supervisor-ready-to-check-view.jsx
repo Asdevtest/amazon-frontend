@@ -38,6 +38,7 @@ class SupervisorReadyToCheckViewRaw extends Component {
       drawerOpen,
       productsReadyToCheck,
       rowsPerPage,
+      history,
       curPage,
       onTriggerDrawerOpen,
       onChangePage,
@@ -63,6 +64,7 @@ class SupervisorReadyToCheckViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
+            history={history}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}

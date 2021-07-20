@@ -43,6 +43,7 @@ class AdminWarehouseOrdersViewRaw extends Component {
       ordersData,
       drawerOpen,
       modalBarcode,
+      history,
       rowsPerPage,
       curPage,
       onChangeModalBarcode,
@@ -67,6 +68,8 @@ class AdminWarehouseOrdersViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
+            curUserRole={UserRole.ADMIN}
+            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onChangeDrawerOpen}
           >

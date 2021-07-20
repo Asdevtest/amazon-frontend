@@ -3,11 +3,13 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {UserRole} from '@constants/user-roles'
 
+import {AdministratorModel} from '@models/administrator-model'
 import {BuyerModel} from '@models/buyer-model'
 import {ClientModel} from '@models/client-model'
 import {ResearcherModel} from '@models/researcher-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {SupervisorModel} from '@models/supervisor-model'
+import {UserModel} from '@models/user-model'
 
 const userRoleModels = {
   [UserRole.SUPERVISOR]: SupervisorModel,
@@ -15,6 +17,7 @@ const userRoleModels = {
   [UserRole.BUYER]: BuyerModel,
   [UserRole.CLIENT]: ClientModel,
   [UserRole.STOREKEEPER]: StorekeeperModel,
+  [UserRole.ADMIN]: AdministratorModel,
 }
 
 export class AppbarModel {
@@ -42,5 +45,9 @@ export class AppbarModel {
       this.error = error
       console.log(error)
     }
+  }
+
+  onExitFromRole() {
+    UserModel.signOut()
   }
 }

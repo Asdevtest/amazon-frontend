@@ -40,6 +40,7 @@ class AdminExchangeViewsRaw extends Component {
       currentProductsData,
       activeSubCategory,
       drawerOpen,
+      history,
       curPage,
       rowsPerPage,
       requestStatus,
@@ -64,6 +65,8 @@ class AdminExchangeViewsRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
+            history={history}
+            curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={adminUsername}

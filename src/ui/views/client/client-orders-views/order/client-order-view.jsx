@@ -22,14 +22,17 @@ const textConsts = getLocalizedTexts(texts, 'ru').clientOrderView
 
 @observer
 export class ClientOrderView extends Component {
-  viewModel = new ClientOrderViewModel({history: this.props.history, location: this.props.location})
+  viewModel = new ClientOrderViewModel({
+    history: this.props.history,
+    location: this.props.location,
+  })
 
   componentDidMount() {
     this.viewModel.loadData()
   }
 
   render() {
-    const {drawerOpen, order, onTriggerDrawerOpen} = this.viewModel
+    const {drawerOpen, order, onTriggerDrawerOpen, history} = this.viewModel
 
     return (
       <React.Fragment>
@@ -44,6 +47,7 @@ export class ClientOrderView extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
+            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.CLIENT}

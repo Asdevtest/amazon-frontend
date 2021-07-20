@@ -32,7 +32,7 @@ export class AdminDashboardViewRaw extends Component {
   }
 
   render() {
-    const {drawerOpen, onChangeTriggerDrawerOpen} = this.viewModel
+    const {drawerOpen, onChangeTriggerDrawerOpen, history} = this.viewModel
     const {classes: classNames} = this.props
     return (
       <React.Fragment>
@@ -45,6 +45,8 @@ export class AdminDashboardViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
+            history={history}
+            curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={onChangeTriggerDrawerOpen}
             title={textConsts.appbarTitle}
             username={adminUsername}

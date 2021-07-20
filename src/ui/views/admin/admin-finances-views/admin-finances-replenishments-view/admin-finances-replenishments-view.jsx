@@ -42,6 +42,8 @@ export class AdminFinancesReplenishmentsViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc=""
+            history={this.props.history}
+            curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={this.onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={adminUsername}

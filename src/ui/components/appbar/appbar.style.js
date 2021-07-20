@@ -71,4 +71,17 @@ export const useClassNames = makeStyles(theme => ({
   footer: {
     bottom: 0,
   },
+  menuWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '200px',
+  },
+  menuTitle: {
+    height: '30px',
+    fontSize: '18px',
+    fontWeight: 400,
+    lineHeight: '18px',
+    color: 'rgba(90, 97, 105, 1)',
+    textAlign: 'center',
+  },
 }))

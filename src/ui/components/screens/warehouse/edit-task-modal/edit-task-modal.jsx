@@ -5,6 +5,7 @@ import {observer} from 'mobx-react'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
+import {TaskOperationType} from '@constants/task-operation-type'
 import {texts} from '@constants/texts'
 import {getWarehousesOptionByCode} from '@constants/warehouses'
 
@@ -129,6 +130,19 @@ export const EditTaskModal = observer(
         </div>
 
         <div className={classNames.buttonsWrapper}>
+          {task.operationType === TaskOperationType.RECEIVE && (
+            <Button
+              disableElevation
+              color="primary"
+              variant="contained"
+              onClick={() => {
+                setNewBoxes(newBoxes.concat({...newBoxes[0]}))
+              }}
+            >
+              {textConsts.addBoxBtn}
+            </Button>
+          )}
+
           <SuccessButton
             disableElevation
             className={classNames.submit}

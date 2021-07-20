@@ -37,8 +37,15 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
   }
 
   render() {
-    const {drawerOpen, productToPay, showConfirmPayModal, onTriggerDrawer, onTriggerOpenModal, onLaunchPrivateLabel} =
-      this.viewModel
+    const {
+      drawerOpen,
+      productToPay,
+      history,
+      showConfirmPayModal,
+      onTriggerDrawer,
+      onTriggerOpenModal,
+      onLaunchPrivateLabel,
+    } = this.viewModel
     const {classes: classNames} = this.props
 
     return (
@@ -53,6 +60,7 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
+            history={history}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}

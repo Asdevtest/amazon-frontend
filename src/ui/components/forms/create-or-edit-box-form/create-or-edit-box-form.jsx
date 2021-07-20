@@ -4,6 +4,7 @@ import {Button, Divider, NativeSelect, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {texts} from '@constants/texts'
 import {warehouses} from '@constants/warehouses'
 
@@ -82,12 +83,11 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField, c
       {canBeMasterBox ? (
         <div className={classNames.numberInputFieldsWrapper}>
           <Field
+            disabled
             type="number"
-            min="0"
             containerClasses={classNames.numberInputField}
             label={textConsts.amountOfSubBoxes}
-            value={orderBox.amount}
-            onChange={setFormField('amount', orderBoxIndex)}
+            value={1}
           />
           <Field
             type="number"
@@ -116,7 +116,7 @@ export const CreateOrEditBoxForm = observer(
       weightFinalAccountingKgSupplier: box?.weightFinalAccountingKgSupplier || '',
       warehouse: order?.warehouse || '',
       deliveryMethod: order?.deliveryMethod || '',
-      amount: order?.amount || 0,
+      amount: box?.amount || 1,
       items: box?.items || [
         {
           product: order?.product,
@@ -246,18 +246,20 @@ export const CreateOrEditBoxForm = observer(
         </div>
 
         <div className={classNames.buttonsWrapper}>
-          {canBeMasterBox && (
-            <Button
-              disableElevation
-              color="primary"
-              variant="contained"
-              onClick={() => {
-                setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
-              }}
-            >
-              {textConsts.addBoxBtn}
-            </Button>
-          )}
+          {canBeMasterBox &&
+            order.status !== OrderStatusByKey[OrderStatus.PAID] &&
+            order.status !== OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED] && (
+              <Button
+                disableElevation
+                color="primary"
+                variant="contained"
+                onClick={() => {
+                  setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
+                }}
+              >
+                {textConsts.addBoxBtn}
+              </Button>
+            )}
 
           <SuccessButton
             disableElevation

@@ -37,6 +37,7 @@ export class ResearcherProductView extends Component {
     const {
       drawerOpen,
       product,
+      history,
       actionStatus,
       suppliers,
       selectedSupplier,
@@ -66,6 +67,7 @@ export class ResearcherProductView extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
+            history={history}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}

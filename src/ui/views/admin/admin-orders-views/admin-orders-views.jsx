@@ -43,6 +43,7 @@ class AdminOrdersViewsRaw extends Component {
       drawerOpen,
       modalBarcode,
       rowsPerPage,
+      history,
       curPage,
       activeSubCategory,
       onTriggerBarcodeModal,
@@ -70,6 +71,8 @@ class AdminOrdersViewsRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
+            curUserRole={UserRole.ADMIN}
+            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onChangeDrawerOpen}
           >
