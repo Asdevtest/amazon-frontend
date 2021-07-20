@@ -1,7 +1,6 @@
 import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {ADMIN_USERS_INITIAL_DATA} from '@constants/mocks'
 
 import {AdministratorModel} from '@models/administrator-model'
 
@@ -12,7 +11,7 @@ export class AdminUsersViewModel {
   requestStatus = undefined
   error = undefined
 
-  users = [...ADMIN_USERS_INITIAL_DATA]
+  users = []
   editUserFormFields = undefined
   selectionModel = undefined
 

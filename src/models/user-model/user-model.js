@@ -12,6 +12,7 @@ const persistProperties = ['accessToken', 'userInfo']
 class UserModelStatic {
   accessToken = '-=test_token=-:60f5569e7c89b06e3da60451'
   userInfo = undefined
+  // '-=test_token=-:60f5569e7c89b06e3da60451'
 
   // [UserRole.STOREKEEPER]: "Bearer -=test_token=-:60f448b7df1b21433de554b7",
   // [UserRole.RESEARCHER]: "Bearer -=test_token=-:60f4487cdf1b21433de554b5",
