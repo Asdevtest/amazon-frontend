@@ -9,6 +9,8 @@ import {texts} from '@constants/texts'
 import {EntryLeftPanel} from '@components/entry-left-panel'
 import {EntryRightPanel} from '@components/entry-right-panel'
 import {RegistrationForm} from '@components/forms/registration-form'
+import {ErrorInfoModal} from '@components/modals/error-info-modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -18,28 +20,64 @@ import {styles} from './registration-view.style'
 const textConsts = getLocalizedTexts(texts, 'en').registerScreen
 
 @observer
-class RegistrstionViewRaw extends Component {
+class RegistrationViewRaw extends Component {
   viewModel = new RegistrationViewModel({history: this.props.history})
   render() {
     const {classes: classNames} = this.props
+
+    const {
+      name,
+      email,
+      password,
+      confirmPassword,
+      acceptTerms,
+      showErrorRegistrationModal,
+      showSuccessRegistrationModal,
+      onTriggerOpenModal,
+      onSubmitForm,
+      onClickRedirect,
+      onChangeFormField,
+    } = this.viewModel
+
     return (
       <div className={classNames.root}>
         <Hidden smDown>
           <EntryLeftPanel />
         </Hidden>
-        <EntryRightPanel redirect={textConsts.redirect} title={textConsts.title} onClickRedirect={this.onClickRedirect}>
+        <EntryRightPanel redirect={textConsts.redirect} title={textConsts.title} onClickRedirect={onClickRedirect}>
           <RegistrationForm
             formFields={{
-              email: this.viewModel.email,
-              password: this.viewModel.password,
-              confirmPassword: this.viewModel.confirmPassword,
-              acceptTerms: this.viewModel.acceptTerms,
+              name,
+              email,
+              password,
+              confirmPassword,
+              acceptTerms,
             }}
-            onChangeFormField={this.onChangeFormField}
-            onSubmit={this.viewModel.onSubmitForm}
+            onChangeFormField={onChangeFormField}
+            onSubmit={onSubmitForm}
           />
           {this.renderError()}
         </EntryRightPanel>
+
+        <SuccessInfoModal
+          openModal={showSuccessRegistrationModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessRegistrationModal')}
+          title={textConsts.successRegistration}
+          successBtnText={textConsts.okBtn}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showSuccessRegistrationModal')
+          }}
+        />
+
+        <ErrorInfoModal
+          openModal={showErrorRegistrationModal}
+          setOpenModal={() => onTriggerOpenModal('showErrorRegistrationModal')}
+          title={textConsts.errorRegistration}
+          btnText={textConsts.okBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showErrorRegistrationModal')
+          }}
+        />
       </div>
     )
   }
@@ -50,14 +88,6 @@ class RegistrstionViewRaw extends Component {
         ((this.viewModel.error.body && this.viewModel.error.body.message) || this.viewModel.error.message)}
     </h3>
   ) // TODO: fix error output
-
-  onClickRedirect = () => {
-    this.props.history.push('/auth')
-  }
-
-  onChangeFormField = fieldName => event => {
-    this.viewModel.setField(fieldName)(event.target.value)
-  }
 }
 
-export const RegistrationView = withStyles(styles)(RegistrstionViewRaw)
+export const RegistrationView = withStyles(styles)(RegistrationViewRaw)

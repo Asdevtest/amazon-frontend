@@ -50,6 +50,7 @@ export class ClientInventoryViewRaw extends Component {
       selectedProduct,
       showSetBarcodeModal,
       curPage,
+      history,
       productsMy,
       rowsPerPage,
       showOrderModal,
@@ -91,6 +92,7 @@ export class ClientInventoryViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
+            history={history}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}

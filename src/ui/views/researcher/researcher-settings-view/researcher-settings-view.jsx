@@ -34,8 +34,15 @@ class ResearcherSettingsViewRaw extends Component {
   }
 
   render() {
-    const {drawerOpen, formFields, onTriggerDrawerOpen, onChangeFormFields, onClickSaveUserInfo, onClickCancelEditing} =
-      this.viewModel
+    const {
+      drawerOpen,
+      formFields,
+      history,
+      onTriggerDrawerOpen,
+      onChangeFormFields,
+      onClickSaveUserInfo,
+      onClickCancelEditing,
+    } = this.viewModel
 
     return (
       <React.Fragment>
@@ -51,6 +58,7 @@ class ResearcherSettingsViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
+            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.RESEARCHER}

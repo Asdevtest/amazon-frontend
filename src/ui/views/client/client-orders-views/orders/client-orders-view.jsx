@@ -44,6 +44,7 @@ class ClientOrdersViewRaw extends Component {
       showBarcodeModal,
       rowsPerPage,
       curPage,
+      history,
       selectedOrder,
       onTriggerShowBarcodeModal,
       onTriggerDrawerOpen,
@@ -77,6 +78,7 @@ class ClientOrdersViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
+            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.CLIENT}

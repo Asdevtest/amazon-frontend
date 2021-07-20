@@ -50,6 +50,7 @@ export class ClientWarehouseViewRaw extends Component {
       curPage,
       rowsPerPage,
       boxesMy,
+      history,
       selectedBoxes,
       showSendOwnProductModal,
       showEditBoxModal,
@@ -89,6 +90,7 @@ export class ClientWarehouseViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
+            history={history}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}

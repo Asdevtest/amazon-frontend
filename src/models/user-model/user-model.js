@@ -49,7 +49,7 @@ class UserModelStatic {
     restApiService.setAccessToken(accessToken)
   }
 
-  async signUp(name, email, password) {
+  async signUp({name, email, password}) {
     const response = await restApiService.userApi.apiV1UsersPost({
       name,
       email,

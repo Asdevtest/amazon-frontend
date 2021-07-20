@@ -33,8 +33,15 @@ export class SupervisorSettingsViewRaw extends Component {
   }
 
   render() {
-    const {drawerOpen, formFields, onChangeFormFields, onTriggerDrawerOpen, onClickSaveUserInfo, onClickCancelEditing} =
-      this.viewModel
+    const {
+      drawerOpen,
+      history,
+      formFields,
+      onChangeFormFields,
+      onTriggerDrawerOpen,
+      onClickSaveUserInfo,
+      onClickCancelEditing,
+    } = this.viewModel
     const {classes: classNames} = this.props
     return (
       <React.Fragment>
@@ -49,6 +56,7 @@ export class SupervisorSettingsViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
+            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.SUPERVISOR}

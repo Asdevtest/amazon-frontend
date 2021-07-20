@@ -47,6 +47,7 @@ export class ClientExchangeViewRaw extends Component {
       drawerOpen,
       curPage,
       rowsPerPage,
+      history,
       productsVacant,
       showPrivateLabelModal,
       selectedProduct,
@@ -85,6 +86,7 @@ export class ClientExchangeViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
+            history={history}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}

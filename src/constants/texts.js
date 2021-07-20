@@ -50,6 +50,10 @@ export const texts = {
       checkboxLabel: 'Agree with ',
       termsAndConditions: 'Terms & Conditions',
       button: 'Register',
+
+      successRegistration: 'Успешная регистрация',
+      errorRegistration: 'Ошибка регистрации',
+      okBtn: 'Ок',
     },
     clientDashboardView: {
       appbarTitle: 'Dashboard',
@@ -1515,6 +1519,7 @@ export const texts = {
       incomingBoxes: 'Поступившие коробки:',
       saveChangesBtn: 'Сохранить',
       cancelChangesBtn: 'Отмена',
+      addBoxBtn: 'Добавить коробку',
     },
     warehouseCompletedTaskModal: {
       divideBox: 'Разьедена коробка номер:',
@@ -1565,6 +1570,10 @@ export const texts = {
     warehouseWarehouseView: {
       appbarTitle: 'Warehouse',
       mainTitle: 'Boxes in warehouse',
+    },
+    appbarTexts: {
+      menuTitle: 'Меню:',
+      exit: 'Выйти',
     },
   },
 }

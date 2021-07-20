@@ -38,6 +38,8 @@ export class AdminSettingsViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc=""
+            curUserRole={UserRole.ADMIN}
+            history={this.props.history}
             handlerTriggerDrawer={this.onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={adminUsername}

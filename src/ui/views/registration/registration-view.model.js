@@ -1,8 +1,10 @@
+import {transformAndValidate} from 'class-transformer-validator'
 import {action, makeAutoObservable} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {UserModel} from '@models/user-model'
+import {UserRegistrationContract} from '@models/user-model/user-model.contracts'
 
 import {getObjectKeys} from '@utils/object'
 
@@ -11,6 +13,7 @@ const delayRedirectToAuthTime = 1000
 export class RegistrationViewModel {
   history = undefined
 
+  name = ''
   email = ''
   password = ''
   confirmPassword = ''
@@ -18,6 +21,8 @@ export class RegistrationViewModel {
 
   requestStatus = undefined
   error = undefined
+  showErrorRegistrationModal = false
+  showSuccessRegistrationModal = false
 
   formValidationErrors = {
     email: null,
@@ -44,7 +49,13 @@ export class RegistrationViewModel {
     try {
       this.requestStatus = loadingStatuses.isLoading
       this.error = undefined
-      await UserModel.signUp(this.email, this.email, this.password) // TODO: change first parametr to name
+
+      const requestData = {name: this.name, email: this.email, password: this.password}
+
+      await transformAndValidate(UserRegistrationContract, requestData)
+
+      await UserModel.signUp(requestData)
+      this.onTriggerOpenModal('showSuccessRegistrationModal')
       this.requestStatus = loadingStatuses.success
       setTimeout(() => {
         this.history.push('/auth')
@@ -52,6 +63,19 @@ export class RegistrationViewModel {
     } catch (error) {
       this.requestStatus = loadingStatuses.failed
       this.error = error
+      this.onTriggerOpenModal('showErrorRegistrationModal')
     }
+  }
+
+  onTriggerOpenModal(modalState) {
+    this[modalState] = !this[modalState]
+  }
+
+  onClickRedirect = () => {
+    this.history.push('/auth')
+  }
+
+  onChangeFormField = fieldName => event => {
+    this.setField(fieldName)(event.target.value)
   }
 }

@@ -34,7 +34,7 @@ export class WarehouseWarehouseViewRaw extends Component {
   }
 
   render() {
-    const {drawerOpen, curPage, rowsPerPage, boxesMy, onTriggerDrawer, onChangeCurPage, onChangeRowsPerPage} =
+    const {drawerOpen, curPage, history, rowsPerPage, boxesMy, onTriggerDrawer, onChangeCurPage, onChangeRowsPerPage} =
       this.viewModel
 
     return (
@@ -50,6 +50,7 @@ export class WarehouseWarehouseViewRaw extends Component {
           <Appbar
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
+            history={history}
             username={storekeeperUsername}
             curUserRole={UserRole.STOREKEEPER}
           >

@@ -45,6 +45,7 @@ class BuyerBatchesViewRaw extends Component {
       batches,
       drawerOpen,
       curPage,
+      history,
       rowsPerPage,
       selectedBatchIndex,
       showEditBoxesModal,
@@ -74,6 +75,7 @@ class BuyerBatchesViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
+            history={history}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={this.onChangeDrawerOpen}

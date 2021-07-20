@@ -17,6 +17,14 @@ export const RegistrationFormRaw = ({classes: classNames, formFields, onChangeFo
     <div className={classNames.formFields}>
       <Field
         containerClasses={classNames.field}
+        label={'Your Name'}
+        placeholder={'name'}
+        type="text"
+        value={formFields.name}
+        onChange={onChangeFormField('name')}
+      />
+      <Field
+        containerClasses={classNames.field}
         label={textConsts.emailLabel}
         placeholder={textConsts.emailPlaceholder}
         type="email"
@@ -54,7 +62,18 @@ export const RegistrationFormRaw = ({classes: classNames, formFields, onChangeFo
         </Link>
       </Typography>
     </div>
-    <Button disableElevation color="primary" variant="contained" onClick={onSubmit}>
+    <Button
+      disableElevation
+      disabled={
+        formFields.password !== formFields.confirmPassword ||
+        formFields.name === '' ||
+        formFields.email === '' ||
+        formFields.password === ''
+      }
+      color="primary"
+      variant="contained"
+      onClick={onSubmit}
+    >
       {textConsts.button}
     </Button>
   </div>

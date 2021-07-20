@@ -40,6 +40,7 @@ class AdminUserBalanceViewRaw extends Component {
   render() {
     const {
       drawerOpen,
+      history,
       showReplenishModal,
       showWithdrawModal,
       makePayment,
@@ -60,6 +61,8 @@ class AdminUserBalanceViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
+            history={history}
+            curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={adminUsername}

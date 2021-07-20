@@ -63,6 +63,7 @@ export class ClientExchangeRequestsViewRaw extends Component {
       drawerOpen,
       paginationPage,
       rowsPerPage,
+      history,
       modalNewRequest,
       modalEditRequest,
       modalCloseRequest,
@@ -93,6 +94,7 @@ export class ClientExchangeRequestsViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
+            history={history}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}

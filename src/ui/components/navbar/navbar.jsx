@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {Divider, Drawer, Hidden, List} from '@material-ui/core'
@@ -11,7 +12,7 @@ import {NavbarCollapse} from './navbar-collapse'
 import {useClassNames} from './navbar.style'
 
 export const Navbar = observer(
-  ({activeCategory, activeSubCategory, curUserRole, drawerOpen, handlerTriggerDrawer, onChangeSubCategory}) => {
+  ({activeCategory, activeSubCategory, curUserRole, drawerOpen, setDrawerOpen, onChangeSubCategory}) => {
     const classNames = useClassNames()
 
     const drawerContent = (
@@ -62,7 +63,7 @@ export const Navbar = observer(
             anchor="left"
             classes={{root: classNames.root, paper: classNames.paper}}
             open={drawerOpen}
-            onClose={handlerTriggerDrawer}
+            onClose={setDrawerOpen}
           >
             {drawerContent}
           </Drawer>

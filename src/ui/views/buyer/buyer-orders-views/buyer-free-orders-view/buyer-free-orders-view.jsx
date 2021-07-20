@@ -49,6 +49,7 @@ class BuyerFreeOrdersViewRaw extends Component {
       drawerOpen,
       selectedOrder,
       curPage,
+      history,
       rowsPerPage,
       showBarcodeModal,
       showOrderModal,
@@ -85,6 +86,7 @@ class BuyerFreeOrdersViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
+            history={history}
             avatarSrc={avatar}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}

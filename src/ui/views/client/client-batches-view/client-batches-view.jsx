@@ -45,7 +45,7 @@ class ClientBatchesViewRaw extends Component {
       drawerOpen,
       rowsPerPage,
       paginationPage,
-
+      history,
       batches,
       selectedBatchIndex,
       showEditBoxesModal,
@@ -78,6 +78,7 @@ class ClientBatchesViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
+            history={history}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onChangeDrawerOpen}

@@ -40,6 +40,7 @@ export class BuyerProductsViewRaw extends Component {
       balance,
       drawerOpen,
       curPage,
+      history,
       productsVacant,
       rowsPerPage,
       onSelectProduct,
@@ -69,6 +70,7 @@ export class BuyerProductsViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
+            history={history}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
