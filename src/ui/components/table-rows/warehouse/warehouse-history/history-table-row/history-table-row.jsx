@@ -67,7 +67,7 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
             <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskMergeDescription()}</TableCell>
             <TableCell>
-              {item.status !== mapTaskStatusEmumToKey(TaskStatus.SOLVED) && (
+              {item.status !== mapTaskStatusEmumToKey[TaskStatus.SOLVED] && (
                 <ErrorButton onClick={() => onCancelMergeBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
               )}
             </TableCell>
@@ -79,7 +79,7 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
             <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskDivideDescription()}</TableCell>
             <TableCell>
-              {item.status !== mapTaskStatusEmumToKey(TaskStatus.SOLVED) && (
+              {item.status !== mapTaskStatusEmumToKey[TaskStatus.SOLVED] && (
                 <ErrorButton onClick={() => onCancelSplitBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
               )}
             </TableCell>
