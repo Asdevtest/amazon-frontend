@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie'
 import {configurePersistable} from 'mobx-persist-store'
 
 configurePersistable(
@@ -6,9 +5,9 @@ configurePersistable(
     expireIn: 86400000,
     removeOnExpiration: true,
     storage: {
-      getItem: Cookies.get,
-      setItem: Cookies.set,
-      removeItem: Cookies.remove,
+      getItem: key => localStorage.getItem(key),
+      setItem: (key, value) => localStorage.setItem(key, value),
+      removeItem: key => localStorage.removeItem(key),
     },
     stringify: true,
     debugMode: false,

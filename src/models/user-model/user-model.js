@@ -10,8 +10,9 @@ import {UserInfoContract} from './user-model.contracts'
 const persistProperties = ['accessToken', 'userInfo']
 
 class UserModelStatic {
-  accessToken = '-=test_token=-:60f5569e7c89b06e3da60451'
+  accessToken = undefined
   userInfo = undefined
+  isHydrated = false
   // '-=test_token=-:60f5569e7c89b06e3da60451'
 
   // [UserRole.STOREKEEPER]: "Bearer -=test_token=-:60f448b7df1b21433de554b7",
@@ -23,8 +24,16 @@ class UserModelStatic {
 
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
-    makePersistableModel(this, {properties: persistProperties})
-    restApiService.setAccessToken(this.accessToken)
+    makePersistableModel(this, {properties: persistProperties}).then(persistStore => {
+      runInAction(() => {
+        this.isHydrated = persistStore.isHydrated
+        if (this.accessToken) {
+          restApiService.setAccessToken(this.accessToken)
+          this.getUserInfo()
+        }
+      })
+    })
+    restApiService.setAccessToken(this.accessToken) // TODO: для тестирования
   }
 
   isAuthenticated() {
