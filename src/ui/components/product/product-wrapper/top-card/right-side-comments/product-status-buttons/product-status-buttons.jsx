@@ -18,12 +18,14 @@ export const ProductStatusButtons = ({buttonsConfig, productStatus, onClickButto
   if (!buttonsConfig) {
     return <div />
   }
+
   const isSaveWithoutStatusChipSelected = [
     ProductStatus.NEW_PRODUCT,
     ProductStatus.RESEARCHER_FOUND_SUPPLIER,
     ProductStatus.BUYER_FOUND_SUPPLIER,
     ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
     ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
+    ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP,
   ].includes(ProductStatusByCode[productStatus])
   return (
     <Box marginBottom={2}>

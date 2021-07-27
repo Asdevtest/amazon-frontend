@@ -56,16 +56,10 @@ export class ClientExchangeViewModel {
 
   onClickLaunchPrivateLabelBtn(product) {
     this.selectedProduct = product
-    // this.onTriggerPrivateLabelModal();
   }
 
   async onLaunchPrivateLabel(product, orderData) {
     try {
-      const pickUpProductResult = await ClientModel.pickupProduct(product._id)
-      console.log('pickUpProductResult ', pickUpProductResult)
-      const makePaymentsResult = await ClientModel.makePayments([product._id])
-      console.log('makePaymentsResult ', makePaymentsResult)
-
       await this.createOrder(product, orderData)
 
       this.onTriggerOpenModal('showSuccessModal')

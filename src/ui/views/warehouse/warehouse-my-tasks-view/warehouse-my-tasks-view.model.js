@@ -2,6 +2,7 @@ import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {BoxesModel} from '@models/boxes-model'
@@ -9,7 +10,7 @@ import {BoxesWarehouseUpdateBoxInTaskContract} from '@models/boxes-model/boxes-m
 import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class WarehouseVacantViewModel {
   history = undefined
@@ -125,9 +126,32 @@ export class WarehouseVacantViewModel {
     }
   }
 
-  async onClickSolveTask() {
+  async onClickSolveTask(newBoxes, operationType) {
     try {
-      await BoxesModel.approveBoxesOperation(this.selectedTask.boxes[0]._id)
+      if (operationType === TaskOperationType.RECEIVE) {
+        const requestBoxes = newBoxes.map(box =>
+          getObjectFilteredByKeyArrayBlackList(
+            {
+              ...box,
+              items: [
+                {
+                  ...box.items[0],
+                  amount: box.items[0].amount,
+                  order: box.items[0].order._id,
+                  product: box.items[0].product._id,
+                },
+              ],
+            },
+            ['_id', 'status', 'createdBy', 'lastModifiedBy'],
+          ),
+        )
+
+        await BoxesModel.approveBoxesOperation(requestBoxes, this.selectedTask.boxesBefore[0]._id)
+      } else {
+        this.onSubmitUpdateBoxes(newBoxes)
+        await BoxesModel.approveBoxesOperation(this.selectedTask.boxes[0]._id)
+      }
+
       await StorekeeperModel.updateTask(this.selectedTask._id, {
         status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],
       })

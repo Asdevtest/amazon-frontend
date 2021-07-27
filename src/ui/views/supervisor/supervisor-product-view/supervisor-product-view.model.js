@@ -1,15 +1,29 @@
+import {transformAndValidate} from 'class-transformer-validator'
 import {action, makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByKey} from '@constants/product-status'
 
 import {SupervisorModel} from '@models/supervisor-model'
+import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervisor-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
 
 import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
-const fieldsOfProductAllowedToUpdate = ['status', 'checkednotes']
+const fieldsOfProductAllowedToUpdate = [
+  'status',
+  'checkednotes',
+  'fbaamount',
+  // 'amazon'
+  // 'delivery',
+  // 'fba',
+  // 'express',
+  // 'material',
+  // 'reffee',
+  // '',
+  // '' ...добавяться,как бек разрешит
+]
 
 const formFieldsDefault = {
   checkednotes: '',
@@ -32,6 +46,7 @@ const formFieldsDefault = {
   supplier: [],
   updateDate: '',
   _id: '',
+  fbaamount: 0,
 }
 
 export class SupervisorProductViewModel {
@@ -120,16 +135,23 @@ export class SupervisorProductViewModel {
               return value && parseFloat(value)
             case 'height':
               return value && parseFloat(value)
+            case 'fbaamount':
+              return Number(value)
             default:
               return value
           }
         },
       )
+
+      await transformAndValidate(SupervisorUpdateProductContract, updateProductData)
+
       await SupervisorModel.updateProduct(this.product._id, updateProductData)
       this.setActionStatus(loadingStatuses.success)
       this.history.push('/supervisor/products')
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
+
+      console.log('error', error)
 
       if (isValidationErrors(error)) {
         plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
@@ -241,7 +263,7 @@ export class SupervisorProductViewModel {
   updateAutoCalculatedFields() {
     // взято из fba app
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
-    console.log('this.product.totalFba ', this.product.totalFba)
+
     this.product.maxDelivery = this.product.express
       ? (parseInt(this.product.weight) || 0) * 7
       : (parseInt(this.product.weight) || 0) * 5

@@ -39,8 +39,9 @@ export class AdminUsersViewModel {
     this.showEditUserModal = !this.showEditUserModal
   }
 
-  onClickBalance() {
-    this.history.push('/admin/user/user_id/balance')
+  onClickBalance(userData) {
+    console.log('userData', userData)
+    this.history.push('/admin/user/user_id/balance', {user: userData})
   }
 
   onTriggerEditUserModal() {
@@ -78,7 +79,10 @@ export class AdminUsersViewModel {
       this.error = undefined
       const result = await AdministratorModel.getUsers()
 
-      const usersData = result.map(user => ({...getObjectFilteredByKeyArrayBlackList(user, ['_id']), id: user._id}))
+      const usersData = await result.map(user => ({
+        ...getObjectFilteredByKeyArrayBlackList(user, ['_id']),
+        id: user._id,
+      }))
 
       runInAction(() => {
         this.users = usersData
@@ -98,7 +102,7 @@ export class AdminUsersViewModel {
       this.error = undefined
       const data = getObjectFilteredByKeyArrayBlackList(this.editUserFormFields, ['_id', 'id'])
       await AdministratorModel.updateUser(this.selectionModel, data)
-      this.getUsers()
+      await this.getUsers()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

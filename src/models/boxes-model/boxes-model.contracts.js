@@ -38,11 +38,11 @@ export class BoxesCreateBoxContract {
   clientId
 
   @IsNotEmpty()
-  @IsInt()
+  @IsNumber()
   deliveryMethod
 
   @IsNotEmpty()
-  @IsInt()
+  @IsNumber()
   warehouse
 
   @IsArray() items

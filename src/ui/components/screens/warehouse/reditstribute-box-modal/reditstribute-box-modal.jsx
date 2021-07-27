@@ -153,6 +153,7 @@ export const RedistributeBox = ({
           {textConsts.toRedistributeBtn}
         </Button>
         <Button
+          disabled={totalProductsAmount < 1 && isMasterBox}
           variant="text"
           onClick={() => {
             addNewBoxModal ?? setAddNewBoxModal(true)

@@ -38,15 +38,16 @@ export const useClassNames = makeStyles(theme => ({
   inputWrapper: {
     border: '1px solid rgba(143, 152, 165, 1)',
     borderRadius: '4px',
-    width: '40px',
-    height: '20px',
+    maxWidth: '80px',
+    height: '40px',
   },
   input: {
-    fontSize: '14px',
+    fontSize: '20px',
     textAlign: 'center',
   },
   countWrapper: {
     display: 'flex',
+    alignItems: 'center',
   },
   chipWrapper: {
     display: 'flex',

@@ -33,9 +33,6 @@ export const EditOrderModal = ({
   onSubmitCreateBoxes,
 }) => {
   const classNames = useClassNames()
-  const [showCreateOrEditBoxBlock, setShowCreateOrEditBoxBlock] = useState(
-    orderStatusesThatTriggersEditBoxBlock.includes(parseInt(order?.status)),
-  )
 
   const [orderFields, setOrderFields] = useState({
     ...order,
@@ -55,18 +52,18 @@ export const EditOrderModal = ({
     batchPrice: 0,
   })
 
+  const [showCreateOrEditBoxBlock, setShowCreateOrEditBoxBlock] = useState(
+    orderStatusesThatTriggersEditBoxBlock.includes(orderFields.status),
+  )
+
   const setOrderField = filedName => e => {
     const newOrderFieldsState = {...orderFields}
     newOrderFieldsState[filedName] =
       filedName === 'deliveryCostToTheWarehouse' ? parseInt(e.target.value.match(/\d+/)) : e.target.value
-    if (filedName === 'status' && orderStatusesThatTriggersEditBoxBlock.includes(parseInt(e.target.value))) {
-      onTriggerShowCreateOrEditBoxBlock()
+    if (filedName === 'status') {
+      setShowCreateOrEditBoxBlock(() => !!orderStatusesThatTriggersEditBoxBlock.includes(parseInt(e.target.value)))
     }
     setOrderFields(newOrderFieldsState)
-  }
-
-  const onTriggerShowCreateOrEditBoxBlock = () => {
-    setShowCreateOrEditBoxBlock(!showCreateOrEditBoxBlock)
   }
 
   if (!order) {
@@ -118,7 +115,7 @@ export const EditOrderModal = ({
           <CreateOrEditBoxForm
             selectFieldsArePreDefined
             canBeMasterBox
-            order={orderFields}
+            formItem={orderFields}
             onSubmit={(boxId, formFieldsArr) => {
               onSubmitCreateBoxes(boxId, formFieldsArr)
               onSubmitSaveOrder(order, orderFields)

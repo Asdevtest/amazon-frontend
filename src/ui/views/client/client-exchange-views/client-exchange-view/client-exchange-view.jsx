@@ -133,6 +133,7 @@ export class ClientExchangeViewRaw extends Component {
           successBtnText={textConsts.confirmBtn}
           cancelBtnText={textConsts.cancelBtn}
           onClickSuccessBtn={() => {
+            onClickBuyProductBtn(selectedProduct)
             onTriggerOpenModal('showConfirmPayModal')
             onTriggerOpenModal('showPrivateLabelModal')
           }}

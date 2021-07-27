@@ -9,12 +9,20 @@ export class AdminUserBalanceViewModel {
   requestStatus = undefined
   error = undefined
 
+  user = undefined
+
   drawerOpen = false
   showReplenishModal = false
   showWithdrawModal = false
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+    if (location.state) {
+      const user = {
+        ...location.state.user,
+      }
+      this.user = user
+    }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 

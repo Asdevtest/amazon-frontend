@@ -51,6 +51,7 @@ export class ClientDashboardViewRaw extends Component {
           <Appbar
             avatarSrc={avatar}
             history={history}
+            curUserRole={UserRole.CLIENT}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}

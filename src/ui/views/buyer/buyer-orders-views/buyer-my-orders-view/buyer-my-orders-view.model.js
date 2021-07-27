@@ -79,7 +79,7 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onSubmitCreateBoxes(boxId, formFieldsArr) {
-    this.onTriggerShowOrderModal()
+    this.error = undefined
 
     for (let i = 0; i < formFieldsArr.length; i++) {
       const elementOrderBox = formFieldsArr[i]
@@ -87,9 +87,12 @@ export class BuyerMyOrdersViewModel {
       await this.onCreateBox(elementOrderBox)
     }
 
-    runInAction(() => {
-      this.selectedOrder = undefined
-    })
+    if (!this.error) {
+      runInAction(() => {
+        this.selectedOrder = undefined
+      })
+      this.onTriggerShowOrderModal()
+    }
   }
 
   async onCreateBox(formFields) {
@@ -107,24 +110,21 @@ export class BuyerMyOrdersViewModel {
         ],
       }
 
-      console.log('createBoxData', createBoxData)
-
       await transformAndValidate(BoxesCreateBoxContract, createBoxData)
 
       const createBoxResult = await BoxesModel.createBox(createBoxData)
 
       await BuyerModel.postTask({
         taskId: 0,
-        boxes: [createBoxResult.guid],
+        boxes: [],
+        boxesBefore: [createBoxResult.guid],
         operationType: 'receive',
       })
       return
     } catch (error) {
       console.log(error)
 
-      if (error[0].constraints.isNotEmpty) {
-        this.onTriggerOpenModal('showNoDimensionsErrorModal')
-      }
+      this.error = error
     }
   }
 

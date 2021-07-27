@@ -47,7 +47,7 @@ export const ProductWrapper = observer(
       <React.Fragment>
         <Tabs variant={'fullWidth'} classes={tabsStyles} value={tabIndex} onChange={(e, index) => setTabIndex(index)}>
           <Tab classes={tabItemStyles} label={'Основная информация'} />
-          <Tab classes={tabItemStyles} label={'Оффер'} />
+          <Tab classes={tabItemStyles} label={'Listing'} />
         </Tabs>
         <TabPanel value={tabIndex} index={0}>
           <TopCard

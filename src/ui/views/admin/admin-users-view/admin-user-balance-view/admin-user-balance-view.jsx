@@ -24,14 +24,10 @@ import {styles} from './admin-user-balance-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').adminUserBalanceView
 const navbarActiveCategory = 6
-const user = {
-  id: '60aabd92b2f06d5a147ba007',
-  name: 'researcher1',
-  email: 'researcher1@gmail.com',
-}
+
 @observer
 class AdminUserBalanceViewRaw extends Component {
-  viewModel = new AdminUserBalanceViewModel({history: this.props.history})
+  viewModel = new AdminUserBalanceViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.getBalanceHistory()
@@ -39,6 +35,7 @@ class AdminUserBalanceViewRaw extends Component {
 
   render() {
     const {
+      user,
       drawerOpen,
       history,
       showReplenishModal,

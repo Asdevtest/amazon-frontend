@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {Box, Container, Divider, Typography} from '@material-ui/core'
 
@@ -14,104 +14,100 @@ import {useClassNames} from './edit-box-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseViewsEditBoxModal
 
-const AttributesEditBlock = ({box, operationType, setNewBoxes, setAmountFieldNewBox}) => {
+const AttributesEditBlock = ({box, setNewBoxField}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           type="number"
-          min="0"
           containerClasses={classNames.numberInputField}
           label={textConsts.lengthCmWarehouse}
           value={box.lengthCmWarehouse}
-          onChange={setNewBoxes('lengthCmWarehouse', box._id)}
+          onChange={setNewBoxField('lengthCmWarehouse')}
         />
         <Field
           type="number"
-          min="0"
           containerClasses={classNames.numberInputField}
           label={textConsts.widthCmWarehouse}
           value={box.widthCmWarehouse}
-          onChange={setNewBoxes('widthCmWarehouse', box._id)}
+          onChange={setNewBoxField('widthCmWarehouse')}
         />
       </div>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           type="number"
-          min="0"
           containerClasses={classNames.numberInputField}
           label={textConsts.heightCmWarehouse}
           value={box.heightCmWarehouse}
-          onChange={setNewBoxes('heightCmWarehouse', box._id)}
+          onChange={setNewBoxField('heightCmWarehouse')}
         />
         <Field
           type="number"
-          min="0"
           containerClasses={classNames.numberInputField}
           label={textConsts.weighGrossKgWarehouse}
           value={box.weighGrossKgWarehouse}
-          onChange={setNewBoxes('weighGrossKgWarehouse', box._id)}
+          onChange={setNewBoxField('weighGrossKgWarehouse')}
         />
       </div>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           disabled
           type="number"
-          min="0"
           containerClasses={classNames.numberInputField}
           label={textConsts.volumeWeightKgWarehouse}
           value={box.volumeWeightKgWarehouse}
-          onChange={setNewBoxes('volumeWeightKgWarehouse', box._id)}
+          onChange={setNewBoxField('volumeWeightKgWarehouse')}
         />
         <Field
           disabled
           type="number"
-          min="0"
           containerClasses={classNames.numberInputField}
           label={textConsts.weightFinalAccountingKgWarehouse}
           value={box.weightFinalAccountingKgWarehouse}
-          onChange={setNewBoxes('weightFinalAccountingKgWarehouse', box._id)}
+          onChange={setNewBoxField('weightFinalAccountingKgWarehouse')}
         />
       </div>
-      {operationType === 'receive' ? (
-        <div className={classNames.numberInputFieldsWrapper}>
-          <Field
-            type="number"
-            min="0"
-            containerClasses={classNames.numberInputField}
-            label={textConsts.amountOfSubBoxes}
-            value={box.amount}
-            onChange={setNewBoxes('amount', box._id)}
-          />
-          <Field
-            type="number"
-            min="0"
-            containerClasses={classNames.numberInputField}
-            label={textConsts.amountIfItemsInBox}
-            value={box.items[0].amount}
-            onChange={setAmountFieldNewBox(box._id)}
-          />
-        </div>
-      ) : undefined}
     </div>
   )
 }
 
-export const EditBoxModal = ({setEditModal, box, operationType, setNewBoxes, setAmountFieldNewBox}) => {
+export const EditBoxModal = ({setEditModal, box, operationType, setNewBoxes, newBoxes}) => {
   const classNames = useClassNames()
+
+  const [editingBox, setEditingBox] = useState(box)
+
+  const setNewBoxField = fieldName => e => {
+    if (Number(e.target.value) < 0) {
+      return
+    }
+    const newFormFields = {...editingBox}
+    newFormFields[fieldName] = Number(e.target.value)
+    newFormFields.volumeWeightKgWarehouse =
+      ((parseFloat(newFormFields.lengthCmWarehouse) || 0) *
+        (parseFloat(newFormFields.heightCmWarehouse) || 0) *
+        (parseFloat(newFormFields.widthCmWarehouse) || 0)) /
+      5000
+    newFormFields.weightFinalAccountingKgWarehouse = Math.max(
+      parseFloat(newFormFields.volumeWeightKgWarehouse) || 0,
+      parseFloat(newFormFields.weighGrossKgWarehouse) || 0,
+    )
+
+    setEditingBox(newFormFields)
+  }
+
+  const onSubmith = () => {
+    const updatedNewBoxes = newBoxes.map(oldBox => (oldBox._id === editingBox._id ? editingBox : oldBox))
+    setNewBoxes([...updatedNewBoxes])
+    setEditModal()
+  }
 
   return (
     <Container disableGutters>
       <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
       <Divider className={classNames.divider} />
 
-      <AttributesEditBlock
-        box={box}
-        operationType={operationType}
-        setNewBoxes={setNewBoxes}
-        setAmountFieldNewBox={setAmountFieldNewBox}
-      />
+      <AttributesEditBlock box={editingBox} operationType={operationType} setNewBoxField={setNewBoxField} />
 
       <Box className={classNames.boxCode}>
         <Typography className={(classNames.modalText, classNames.typoCode)}>{textConsts.addPhotos}</Typography>
@@ -120,9 +116,15 @@ export const EditBoxModal = ({setEditModal, box, operationType, setNewBoxes, set
 
       <Divider className={classNames.divider} />
 
-      <Box className={classNames.saveBox}>
-        <Button onClick={() => setEditModal()}>{textConsts.closeBtn}</Button>
-      </Box>
+      <div className={classNames.buttonsWrapper}>
+        <Box className={classNames.saveBox}>
+          <Button onClick={() => onSubmith()}>{textConsts.saveBtn}</Button>
+        </Box>
+
+        <Box className={classNames.saveBox}>
+          <Button onClick={() => setEditModal()}>{textConsts.closeBtn}</Button>
+        </Box>
+      </div>
     </Container>
   )
 }

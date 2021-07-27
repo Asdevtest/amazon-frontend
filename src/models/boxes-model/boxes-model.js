@@ -44,10 +44,16 @@ class BoxesModelStatic {
     return response
   }
 
-  approveBoxesOperation = async id => {
-    const response = await restApiService.boxesApi.apiV1BoxesApprovePost({
-      InlineObject9: {guid: id},
-    })
+  approveBoxesOperation = async (request, id) => {
+    const response = await restApiService.boxesApi.apiV1BoxesApprovePost(
+      Array.isArray(request)
+        ? {
+            InlineObject9: {guid: id, additionalBoxes: [...request]},
+          }
+        : {
+            InlineObject9: {guid: request},
+          },
+    )
     return response
   }
 

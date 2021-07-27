@@ -9,6 +9,7 @@ import {useClassNames} from './table.style'
 
 export const Table = observer(
   ({
+    rowsOnly,
     rowsPerPage,
     handlerRowsPerPage,
     renderHeadRow,
@@ -22,14 +23,17 @@ export const Table = observer(
     ...restProps
   }) => {
     const classNames = useClassNames()
+
+    const dataWithPages = data.slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage)
+
     return (
       <Paper className={classNames.root}>
-        <TableToolbar handlerRowsPerPage={handlerRowsPerPage} rowsPerPage={rowsPerPage} />
+        {!rowsOnly && <TableToolbar handlerRowsPerPage={handlerRowsPerPage} rowsPerPage={rowsPerPage} />}
         <TableContainer>
           <MuiTable className={classNames.table}>
             <TableHead className={classNames.tableHead}>{renderHeadRow}</TableHead>
             <TableBody className={classNames.tableBody}>
-              {data.slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage).map((el, index) => (
+              {(rowsOnly ? data : dataWithPages).map((el, index) => (
                 <BodyRow
                   key={`${el._id ? el._id : 'tableItem'}_${index}`}
                   item={el}
@@ -42,17 +46,19 @@ export const Table = observer(
           </MuiTable>
         </TableContainer>
 
-        <Toolbar className={classNames.footer}>
-          <div className={classNames.buttonsWrapper}>{renderButtons && renderButtons()}</div>
-          <Pagination
-            className={classNames.pagination}
-            count={pageCount}
-            page={currentPage}
-            shape="rounded"
-            siblingCount={1}
-            onChange={handlerPageChange}
-          />
-        </Toolbar>
+        {!rowsOnly && (
+          <Toolbar className={classNames.footer}>
+            <div className={classNames.buttonsWrapper}>{renderButtons && renderButtons()}</div>
+            <Pagination
+              className={classNames.pagination}
+              count={pageCount}
+              page={currentPage}
+              shape="rounded"
+              siblingCount={1}
+              onChange={handlerPageChange}
+            />
+          </Toolbar>
+        )}
       </Paper>
     )
   },

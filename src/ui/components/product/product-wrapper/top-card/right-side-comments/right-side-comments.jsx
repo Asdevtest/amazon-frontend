@@ -13,7 +13,7 @@ import {Field} from '@components/field'
 import {checkIsBuyer, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import {ProductStatusButtons} from './product-status-buttons/product-status-buttons'
+import {ProductStatusButtons} from './product-status-buttons'
 import {useClassNames} from './right-side-comments.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent

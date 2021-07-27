@@ -1,9 +1,11 @@
+import {transformAndValidate} from 'class-transformer-validator'
 import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 
 import {ResearcherModel} from '@models/researcher-model'
+import {ResearcherUpdateProductContract} from '@models/researcher-model/researcher-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
 
 import {
@@ -38,6 +40,7 @@ const fieldsOfProductAllowedToUpdate = [
   'category',
   'weight',
   'minpurchase',
+  'fbaamount',
 ]
 
 const formFieldsDefault = {
@@ -60,6 +63,7 @@ const formFieldsDefault = {
   supplier: [],
   updateDate: '',
   _id: '',
+  fbaamount: '',
 }
 
 export class ResearcherProductViewModel {
@@ -311,6 +315,9 @@ export class ResearcherProductViewModel {
         },
       )
       console.log('updateProductData ', updateProductData)
+
+      await transformAndValidate(ResearcherUpdateProductContract, updateProductData)
+
       await ResearcherModel.updateProduct(this.product._id, updateProductData)
       this.setActionStatus(loadingStatuses.success)
       this.history.goBack()

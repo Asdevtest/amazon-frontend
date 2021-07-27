@@ -1126,6 +1126,12 @@ export const texts = {
       saveBtn: 'Сохранить',
       closeBtn: 'Закрыть',
     },
+    ordersViewsModalSetShippingLabel: {
+      title: 'Установить Shipping label',
+      code: 'Shipping label товара:',
+      saveBtn: 'Сохранить',
+      closeBtn: 'Закрыть',
+    },
     ordersViewsModalEditOrder: {
       title: 'Редактирование заказа',
       orderNum: 'Заказ',
@@ -1491,6 +1497,18 @@ export const texts = {
       amountOfSubBoxes: 'amountOfSubBoxes',
       amountIfItemsInBox: 'Items in box',
     },
+    warehouseReceiveBoxModal: {
+      title: 'Принять и распределить',
+      redistributionTitle: 'Redistribution',
+      newBoxesTitle: 'New boxes',
+      productsLeftToRedistribute: 'Left to redistribute',
+      qtyLabel: 'Qty',
+      toRedistributeBtn: 'To redistribute',
+      newBoxBtn: 'New box',
+      cancelBtn: 'Cancel',
+      actuallyAssembled: 'Actually assembled',
+    },
+
     warehouseBeforeAfterBlock: {
       boxNum: 'Коробка номер:',
       count: 'Количество',
@@ -1503,6 +1521,7 @@ export const texts = {
       width: 'Ширина ',
       height: 'Высота ',
       weight: 'Вес ',
+      volumeWeigh: 'Удельный вес',
       finalWeight: 'Финальный вес ',
       codeCheck: 'Штрихкод проклеен',
       photos: 'Фотографии:',
@@ -1519,7 +1538,8 @@ export const texts = {
       incomingBoxes: 'Поступившие коробки:',
       saveChangesBtn: 'Сохранить',
       cancelChangesBtn: 'Отмена',
-      addBoxBtn: 'Добавить коробку',
+      receiveBoxBtn: 'Принять коробку',
+      reReceiveBoxBtn: 'Перераспределить',
     },
     warehouseCompletedTaskModal: {
       divideBox: 'Разьедена коробка номер:',
@@ -1564,7 +1584,7 @@ export const texts = {
       supplierPriceNotAccepted: 'Прайс поставщика не подходит',
     },
     boxItemCard: {
-      count: 'Количество',
+      count: 'Количество:',
       barCode: `Баркод:`,
     },
     warehouseWarehouseView: {
@@ -1574,6 +1594,19 @@ export const texts = {
     appbarTexts: {
       menuTitle: 'Меню:',
       exit: 'Выйти',
+    },
+    commentsLine: {
+      commentLabel: 'Комментарий склада',
+      commentPlaceHolder: 'комментарий склада',
+
+      defectiveLabel: 'Брак',
+      defectivePlaceHolder: 'получили и нужно вернуть',
+
+      receivedLabel: 'Получено складом',
+      receivedPlaceHolder: 'общая сумма всех товаров в коробках когда склад заполнил их',
+
+      differenceLabel: 'Разница',
+      differencePlaceHolder: 'разница в количестве',
     },
   },
 }
