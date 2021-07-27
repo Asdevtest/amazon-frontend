@@ -10,7 +10,7 @@ import {UserInfoContract} from './user-model.contracts'
 const persistProperties = ['accessToken', 'userInfo']
 
 class UserModelStatic {
-  accessToken = undefined
+  accessToken = '-=test_token=-:60f5569e7c89b06e3da60451'
   userInfo = undefined
   isHydrated = false
   // '-=test_token=-:60f5569e7c89b06e3da60451'
