@@ -2,7 +2,7 @@ import {transformAndValidate} from 'class-transformer-validator'
 
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
-import {ResearcherCreateProductContract, ResearcherUpdateProductContract} from './researcher-model.contracts'
+import {ResearcherCreateProductContract} from './researcher-model.contracts'
 
 class ResearcherModelStatic {
   createProduct = async data => {
@@ -30,8 +30,9 @@ class ResearcherModelStatic {
   }
 
   updateProduct = async (id, data) => {
-    await transformAndValidate(ResearcherUpdateProductContract, data)
-    const response = await restApiService.researcherApi.apiV1ResearchersProductsGuidPatch(id, {InlineObject21: data})
+    const response = await restApiService.researcherApi.apiV1ResearchersProductsGuidPatch(id, {
+      InlineObject21: data,
+    })
     return response
   }
 

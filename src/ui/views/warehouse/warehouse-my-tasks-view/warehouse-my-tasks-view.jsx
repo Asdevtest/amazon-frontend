@@ -60,7 +60,6 @@ export class WarehouseMyTasksViewRaw extends Component {
       onCancelMergeBoxes,
       onCancelSplitBoxes,
       onClickSolveTask,
-      onSubmitUpdateBoxes,
       onTriggerOpenModal,
       tmpBarCode,
     } = this.viewModel
@@ -122,7 +121,6 @@ export class WarehouseMyTasksViewRaw extends Component {
             onSetBarcode={onTriggerShowBarcodeModal}
             onEditBox={onTriggerShowEditBoxModal}
             onClickSolveTask={onClickSolveTask}
-            onSubmitUpdateBoxes={onSubmitUpdateBoxes}
           />
         </Modal>
 

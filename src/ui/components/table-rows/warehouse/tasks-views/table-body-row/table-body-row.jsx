@@ -88,7 +88,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, hideActions, viewMode})
   const taskReceiveDescription = () => (
     <>
       <Typography className={classNames.descriptionWrapper}>{textConsts.receive}</Typography>
-      {item.boxes.map((box, index) => renderProductImage(box, index))}
+      {item.boxesBefore && item.boxesBefore.map((box, index) => renderProductImage(box, index))}
     </>
   )
 

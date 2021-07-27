@@ -108,4 +108,8 @@ export class SupervisorUpdateProductContract {
   @IsOptional()
   @IsNumber()
   margin
+
+  @IsNotEmpty()
+  @IsNumber()
+  fbaamount
 }

@@ -29,8 +29,8 @@ const ClientExchnageCreateOrderModalContentRaw = observer(
     const [showBarcodeModal, setShowBarcodeModal] = useState(false)
     const [orderFields, setOderFields] = useState({
       amount: 1,
-      deliveryMethod: 0,
-      warehouse: 0,
+      deliveryMethod: '',
+      warehouse: '',
       clientComment: '',
       barCode: '',
     })
@@ -73,7 +73,12 @@ const ClientExchnageCreateOrderModalContentRaw = observer(
           </MuiTable>
         </TableContainer>
         <div className={classNames.btnsWrapper}>
-          <Button color="primary" variant="contained" onClick={() => onClickOrderNowBtn(product, orderFields)}>
+          <Button
+            color="primary"
+            variant="contained"
+            disabled={orderFields.deliveryMethod === '' || orderFields.warehouse === ''}
+            onClick={() => onClickOrderNowBtn(product, orderFields)}
+          >
             {textConsts.orderNowBtn}
           </Button>
           <Button disableElevation className={classNames.cancelBtn} variant="contained" onClick={onClickCancelBtn}>

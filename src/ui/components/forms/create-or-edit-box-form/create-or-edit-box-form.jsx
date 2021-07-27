@@ -1,10 +1,11 @@
 import {useState} from 'react'
 
-import {Button, Divider, NativeSelect, Typography} from '@material-ui/core'
+import {Button, Chip, Divider, NativeSelect, Typography} from '@material-ui/core'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {texts} from '@constants/texts'
 import {warehouses} from '@constants/warehouses'
 
@@ -12,20 +13,24 @@ import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {LabelField} from '@components/label-field/label-field'
+import {Modal} from '@components/modal'
+import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {trimBarcode} from '@utils/text'
 
 import {BoxOrder} from './box-order'
 import {useClassNames} from './create-or-edit-box-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
 
-const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField, canBeMasterBox}) => {
+const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField, isEditModal, editInClientWarehouse}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
+          disabled={editInClientWarehouse}
           type="number"
           min="0"
           containerClasses={classNames.numberInputField}
@@ -34,6 +39,7 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField, c
           onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
         />
         <Field
+          disabled={editInClientWarehouse}
           type="number"
           min="0"
           containerClasses={classNames.numberInputField}
@@ -44,6 +50,7 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField, c
       </div>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
+          disabled={editInClientWarehouse}
           type="number"
           min="0"
           containerClasses={classNames.numberInputField}
@@ -52,6 +59,7 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField, c
           onChange={setFormField('heightCmSupplier', orderBoxIndex)}
         />
         <Field
+          disabled={editInClientWarehouse}
           type="number"
           min="0"
           containerClasses={classNames.numberInputField}
@@ -80,51 +88,84 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField, c
           onChange={setFormField('weightFinalAccountingKgSupplier', orderBoxIndex)}
         />
       </div>
-      {canBeMasterBox ? (
-        <div className={classNames.numberInputFieldsWrapper}>
-          <Field
-            disabled
-            type="number"
-            containerClasses={classNames.numberInputField}
-            label={textConsts.amountOfSubBoxes}
-            value={1}
-          />
-          <Field
-            type="number"
-            min="0"
-            containerClasses={classNames.numberInputField}
-            label={textConsts.amountIfItemsInBox}
-            value={orderBox.items[0].amount}
-            onChange={setAmountField(orderBoxIndex)}
-          />
-        </div>
-      ) : undefined}
+
+      <div className={classNames.numberInputFieldsWrapper}>
+        <Field
+          disabled
+          type="number"
+          containerClasses={classNames.numberInputField}
+          label={textConsts.amountOfSubBoxes}
+          value={isEditModal ? orderBox.amount : 1}
+        />
+        <Field
+          disabled={editInClientWarehouse}
+          type="number"
+          min="0"
+          containerClasses={classNames.numberInputField}
+          label={textConsts.amountIfItemsInBox}
+          value={orderBox.items[0].amount}
+          onChange={setAmountField(orderBoxIndex)}
+        />
+      </div>
     </div>
   )
 }
 
 export const CreateOrEditBoxForm = observer(
-  ({box, order, onSubmit, onCloseModal, onTriggerOpenModal, selectFieldsArePreDefined, canBeMasterBox}) => {
+  ({
+    formItem,
+    onSubmit,
+    onCloseModal,
+    onTriggerOpenModal,
+    selectFieldsArePreDefined,
+    canBeMasterBox,
+    isEditModal,
+    editInClientWarehouse,
+  }) => {
     const classNames = useClassNames()
 
-    const sourceBox = {
-      lengthCmSupplier: box?.lengthCmSupplier || '',
-      widthCmSupplier: box?.widthCmSupplier || '',
-      heightCmSupplier: box?.heightCmSupplier || '',
-      weighGrossKgSupplier: box?.weighGrossKgSupplier || '',
-      volumeWeightKgSupplier: box?.volumeWeightKgSupplier || '',
-      weightFinalAccountingKgSupplier: box?.weightFinalAccountingKgSupplier || '',
-      warehouse: order?.warehouse || '',
-      deliveryMethod: order?.deliveryMethod || '',
-      amount: box?.amount || 1,
-      items: box?.items || [
-        {
-          product: order?.product,
-          amount: order?.amount,
-          order,
-        },
-      ],
-    }
+    const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
+
+    const sourceBox = isEditModal
+      ? {
+          lengthCmSupplier: formItem?.lengthCmSupplier || '',
+          widthCmSupplier: formItem?.widthCmSupplier || '',
+          heightCmSupplier: formItem?.heightCmSupplier || '',
+          weighGrossKgSupplier: formItem?.weighGrossKgSupplier || '',
+          volumeWeightKgSupplier: formItem?.volumeWeightKgSupplier || '',
+          weightFinalAccountingKgSupplier: formItem?.weightFinalAccountingKgSupplier || '',
+          warehouse: formItem?.warehouse || '',
+          deliveryMethod: formItem?.deliveryMethod || '',
+          amount: 1, // formItem?.amount || 1,
+          shippingLabel: formItem?.shippingLabel || '',
+          items: formItem?.items || [
+            {
+              product: formItem?.product,
+              amount: formItem?.amount,
+              order: formItem,
+            },
+          ],
+        }
+      : {
+          lengthCmSupplier: formItem?.lengthCmSupplier || '',
+          widthCmSupplier: formItem?.widthCmSupplier || '',
+          heightCmSupplier: formItem?.heightCmSupplier || '',
+          weighGrossKgSupplier: formItem?.weighGrossKgSupplier || '',
+          volumeWeightKgSupplier: formItem?.volumeWeightKgSupplier || '',
+          weightFinalAccountingKgSupplier: formItem?.weightFinalAccountingKgSupplier || '',
+          warehouse: formItem?.warehouse || '',
+          deliveryMethod: formItem?.deliveryMethod || '',
+          amount: 1, // formItem?.amount || 1,
+          items: formItem?.items || [
+            {
+              product: formItem?.product,
+              amount: formItem?.amount,
+              order: formItem,
+            },
+          ],
+        }
+
+    console.log('sourceBox', sourceBox)
 
     const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
 
@@ -159,11 +200,30 @@ export const CreateOrEditBoxForm = observer(
       setFormFieldsArr(newStateFormFields)
     }
 
+    const setShippingLabel = () => value => {
+      const newFormFields = {...formFieldsArr[0]}
+      newFormFields.shippingLabel = value
+
+      const updatedNewBoxes = formFieldsArr.map((oldBox, index) => (index === 0 ? newFormFields : oldBox))
+      setFormFieldsArr(updatedNewBoxes)
+    }
+
+    const onClickShippingLabel = () => {
+      setShowSetShippingLabelModal(!showSetShippingLabelModal)
+    }
+
+    const onDeleteShippingLabel = () => {
+      const newFormFields = {...formFieldsArr[0]}
+      newFormFields.shippingLabel = ''
+      const updatedNewBoxes = formFieldsArr.map((oldBox, index) => (index === 0 ? newFormFields : oldBox))
+      setFormFieldsArr(updatedNewBoxes)
+    }
+
     return (
       <div className={classNames.root}>
         <div className={classNames.form}>
           <Typography paragraph className={classNames.subTitle}>
-            {box && box._id ? textConsts.updateBoxTitle : textConsts.newBoxTitle}
+            {formItem && formItem._id ? textConsts.updateBoxTitle : textConsts.newBoxTitle}
           </Typography>
           {selectFieldsArePreDefined ? (
             <LabelField
@@ -177,7 +237,7 @@ export const CreateOrEditBoxForm = observer(
               label={textConsts.warehouseLabel}
               inputComponent={
                 <NativeSelect
-                  disabled={selectFieldsArePreDefined}
+                  disabled={selectFieldsArePreDefined || editInClientWarehouse}
                   variant="filled"
                   value={formFieldsArr[0].warehouse}
                   input={<Input fullWidth />}
@@ -204,7 +264,7 @@ export const CreateOrEditBoxForm = observer(
               label={textConsts.deliveryMethodLabel}
               inputComponent={
                 <NativeSelect
-                  disabled={selectFieldsArePreDefined}
+                  disabled={selectFieldsArePreDefined || editInClientWarehouse}
                   variant="filled"
                   value={formFieldsArr[0].deliveryMethod}
                   input={<Input fullWidth />}
@@ -219,10 +279,45 @@ export const CreateOrEditBoxForm = observer(
               }
             />
           )}
+
+          {selectFieldsArePreDefined && (
+            <LabelField
+              containerClasses={classNames.field}
+              label={textConsts.statusLabel}
+              value={
+                formFieldsArr[0].items[0].order.status &&
+                getOrderStatusOptionByCode(formFieldsArr[0].items[0].order.status).label
+              }
+            />
+          )}
+
+          {editInClientWarehouse && (
+            <div>
+              <Chip
+                classes={{
+                  root: classNames.barcodeChip,
+                  clickable: classNames.barcodeChipHover,
+                  deletable: classNames.barcodeChipHover,
+                  deleteIcon: classNames.barcodeChipIcon,
+                }}
+                className={clsx({[classNames.barcodeChipExists]: formFieldsArr[0].shippingLabel})}
+                size="small"
+                label={
+                  formFieldsArr[0].shippingLabel ? trimBarcode(formFieldsArr[0].shippingLabel) : 'Set shipping label'
+                }
+                onClick={() => onClickShippingLabel()}
+                onDelete={!formFieldsArr[0].shippingLabel ? undefined : () => onDeleteShippingLabel()}
+              />
+              <Divider className={classNames.divider} />
+            </div>
+          )}
+
           <div className={classNames.blockOfNewBoxWrapper}>
             {formFieldsArr.map((orderBox, orderBoxIndex) => (
               <BlockOfNewBox
                 key={orderBoxIndex}
+                editInClientWarehouse={editInClientWarehouse}
+                isEditModal={isEditModal}
                 orderBoxIndex={orderBoxIndex}
                 orderBox={orderBox}
                 setFormField={setFormField}
@@ -235,9 +330,9 @@ export const CreateOrEditBoxForm = observer(
           <Divider className={classNames.divider} />
 
           <div className={classNames.ordersWrapper}>
-            {box && box._id ? (
+            {formItem && formItem._id ? (
               <Typography paragraph className={classNames.subTitle}>
-                {`${textConsts.boxTitle} #${box._id}`}
+                {`${textConsts.boxTitle} #${formItem._id}`}
               </Typography>
             ) : undefined}
             {formFieldsArr[0].items &&
@@ -247,18 +342,32 @@ export const CreateOrEditBoxForm = observer(
 
         <div className={classNames.buttonsWrapper}>
           {canBeMasterBox &&
-            order.status !== OrderStatusByKey[OrderStatus.PAID] &&
-            order.status !== OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED] && (
-              <Button
-                disableElevation
-                color="primary"
-                variant="contained"
-                onClick={() => {
-                  setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
-                }}
-              >
-                {textConsts.addBoxBtn}
-              </Button>
+            formItem.status !== OrderStatusByKey[OrderStatus.PAID] &&
+            formItem.status !== OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED] && (
+              <div className={classNames.buttonsWrapper}>
+                <Button
+                  disableElevation
+                  color="primary"
+                  variant="contained"
+                  onClick={() => {
+                    setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
+                  }}
+                >
+                  {textConsts.addBoxBtn}
+                </Button>
+
+                <Button
+                  disableElevation
+                  disabled={formFieldsArr.length === 1}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => {
+                    setFormFieldsArr([...formFieldsArr.slice(0, -1)])
+                  }}
+                >
+                  {'Убрать коробку'}
+                </Button>
+              </div>
             )}
 
           <SuccessButton
@@ -266,7 +375,7 @@ export const CreateOrEditBoxForm = observer(
             color="primary"
             variant="contained"
             onClick={() => {
-              onSubmit(box && box._id, formFieldsArr)
+              onSubmit(formItem && formItem._id, formFieldsArr)
 
               if (onTriggerOpenModal) {
                 onTriggerOpenModal('showEditBoxModal')
@@ -287,6 +396,20 @@ export const CreateOrEditBoxForm = observer(
             </Button>
           ) : undefined}
         </div>
+
+        <Modal
+          openModal={showSetShippingLabelModal}
+          setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+        >
+          <SetShippingLabelModal
+            order={formFieldsArr[0]}
+            onClickSaveShippingLabel={shippingLabel => {
+              setShippingLabel()(shippingLabel)
+              setShowSetShippingLabelModal(!showSetShippingLabelModal)
+            }}
+            onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+          />
+        </Modal>
       </div>
     )
   },

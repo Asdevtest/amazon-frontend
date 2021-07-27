@@ -15,6 +15,8 @@ import {useClassNames} from './select-fields.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').ordersViewsModalSelectFields
 
+const defaultYuansToDollarRate = 6.3
+
 export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTypeByCode, orderStatusByCode}) => {
   const classNames = useClassNames()
 
@@ -22,7 +24,7 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
 
   const [priceYuansForBatch, setPriceYuansForBatch] = useState('')
   const [usePriceInDollars, setUsePriceInDollars] = useState(false)
-  const [yuansToDollarRate, setYuansToDollarRate] = useState(6.3)
+  const [yuansToDollarRate, setYuansToDollarRate] = useState(defaultYuansToDollarRate)
 
   return (
     <Grid container justify="space-around">
@@ -118,7 +120,7 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
                 onChange={() => {
                   if (!usePriceInDollars) {
                     setPriceYuansForBatch('')
-                    setYuansToDollarRate('')
+                    setYuansToDollarRate(defaultYuansToDollarRate)
                   }
                   setUsePriceInDollars(!usePriceInDollars)
                 }}

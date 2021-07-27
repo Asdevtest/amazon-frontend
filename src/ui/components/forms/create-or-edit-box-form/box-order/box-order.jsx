@@ -22,6 +22,9 @@ export const BoxOrder = observer(({order}) => {
         <div>
           <Typography>{order.product && order.product.amazonTitle}</Typography>
           <Typography color="textSecondary">{order.product && order.product.id}</Typography>
+          <Typography color="textSecondary">
+            {`БАРКОД: ${order.product && order.product.barCode ? order.product.barCode : 'N/A'}`}
+          </Typography>
         </div>
       </div>
 

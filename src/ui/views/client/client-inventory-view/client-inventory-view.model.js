@@ -83,6 +83,7 @@ export class ClientInventoryViewModel {
       console.log('updateProductData ', updateProductDataFiltered)
 
       await ClientModel.updateProduct(productId, updateProductDataFiltered)
+      await this.loadData()
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -109,8 +110,11 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onSubmitOrderProductModal(ordersDataState) {
-    ordersDataState.forEach(product => this.createOrder(product))
+  async onSubmitOrderProductModal(ordersDataState) {
+    for (let i = 0; i < ordersDataState.length; i++) {
+      const product = ordersDataState[i]
+      await this.createOrder(product)
+    }
     this.selectedProducts = []
   }
 

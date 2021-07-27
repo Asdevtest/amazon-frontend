@@ -1,18 +1,19 @@
-const {makeStyles} = require('@material-ui/core')
+import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(theme => ({
   boxesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
   },
-  buttonsWrapper: {},
   currentBox: {
-    marginBottom: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
   },
   currentBoxFooter: {
     display: 'flex',
-    alignItems: 'flex-end',
-    height: '60px',
+    flexDirection: 'column',
+    gap: '15px',
   },
   newBoxes: {
     marginBottom: '20px',
@@ -24,9 +25,10 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: '5px',
   },
   divider: {
-    margin: '0 30px',
+    margin: '0 10px',
   },
   img: {
     width: '32px',
@@ -47,6 +49,12 @@ export const useClassNames = makeStyles(theme => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
+  titleOfCurBox: {
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '21px',
+    width: '250px',
+  },
   subTitle: {
     fontSize: '14px',
     color: theme.palette.text.secondary,
@@ -56,11 +64,41 @@ export const useClassNames = makeStyles(theme => ({
   inputWrapper: {
     border: '1px solid rgba(143, 152, 165, 1)',
     borderRadius: '4px',
-    maxWidth: '80px',
-    height: '40px',
+    maxWidth: '60px',
+    height: '30px',
   },
   input: {
     fontSize: '14px',
     textAlign: 'center',
+  },
+  row: {
+    minWidth: '300px',
+    outline: '1px solid rgba(143, 152, 165, 0.5)',
+  },
+
+  sizesCell: {
+    minWidth: '110px',
+    display: 'flex',
+    gap: '5px',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
+  sizeWrapper: {
+    display: 'flex',
+    gap: '5px',
+  },
+  descriptionWrapper: {
+    display: 'flex',
+  },
+  qtyWrapper: {
+    display: 'flex',
+    gap: '5px',
+  },
+  buttonsWrapper: {
+    marginTop: '30px',
+  },
+  qtyCell: {
+    minWidth: '80px',
   },
 }))

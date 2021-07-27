@@ -39,7 +39,7 @@ const renderAdminSubUsersTableCells = renderBtns => [
   {
     field: '',
     headerName: 'Admin',
-    renderCell: () => renderBtns,
+    renderCell: params => renderBtns(params),
     width: 300,
   },
 ]
@@ -59,6 +59,7 @@ class AdminUsersViewRaw extends Component {
       curPage,
       history,
       rowsPerPage,
+      editUserFormFields,
       showEditUserModal,
       showPermissionModal,
       submitEditUserForm,
@@ -69,7 +70,6 @@ class AdminUsersViewRaw extends Component {
       onTriggerEditUserModal,
       onTriggerPermissionModal,
       onSelectionModel,
-      editUserFormFields,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -96,11 +96,10 @@ class AdminUsersViewRaw extends Component {
                 {textConsts.mainTitle}
               </Typography>
               <DataGrid
-                autoHeight
                 pagination
                 page={curPage}
                 pageSize={rowsPerPage}
-                rowsPerPageOptions={[5, 10, 20]}
+                rowsPerPageOptions={[5, 15, 10, 20]}
                 rows={getCurrentData()}
                 columns={renderAdminSubUsersTableCells(this.renderAdminBtns)}
                 components={{
@@ -136,7 +135,7 @@ class AdminUsersViewRaw extends Component {
     )
   }
 
-  renderAdminBtns = (
+  renderAdminBtns = params => (
     <React.Fragment>
       <Button
         className={this.props.classes.editBtn}
@@ -145,7 +144,7 @@ class AdminUsersViewRaw extends Component {
       >
         {textConsts.editBtn}
       </Button>
-      <Button variant="contained" onClick={this.viewModel.onClickBalance}>
+      <Button variant="contained" onClick={() => this.viewModel.onClickBalance(params.row)}>
         {textConsts.balanceBtn}
       </Button>
     </React.Fragment>

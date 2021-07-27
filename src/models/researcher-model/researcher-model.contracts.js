@@ -146,6 +146,10 @@ export class ResearcherUpdateProductContract {
   @IsNumber()
   margin
 
+  @IsNotEmpty()
+  @IsNumber()
+  fbaamount
+
   // @IsNotEmpty()
   // @IsString()
   // category;

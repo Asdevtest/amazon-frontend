@@ -4,18 +4,21 @@ export const TaskOperationType = {
   MERGE: 'merge',
   SPLIT: 'split',
   RECEIVE: 'receive',
+  EDIT: 'edit',
 }
 
 export const mapTaskOperationTypeKeyToEnum = {
   merge: TaskOperationType.MERGE,
   split: TaskOperationType.SPLIT,
   receive: TaskOperationType.RECEIVE,
+  edit: TaskOperationType.EDIT,
 }
 
 export const mapTaskOperationTypeToLabel = {
   [TaskOperationType.MERGE]: 'Соединить',
   [TaskOperationType.SPLIT]: 'Разъединить',
   [TaskOperationType.RECEIVE]: 'Принять',
+  [TaskOperationType.EDIT]: 'Изменить',
 }
 
 export const mapTaskOperationTypeEnumToKey = objectFlip(mapTaskOperationTypeKeyToEnum)

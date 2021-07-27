@@ -141,7 +141,8 @@ export class BuyerWarehouseViewRaw extends Component {
         <Modal openModal={showEditBoxModal} setOpenModal={() => onTriggerOpenModal('showEditBoxModal')}>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
           <CreateOrEditBoxForm
-            box={boxesMy.find(box => box._id === selectedBoxes[0])}
+            isEditModal
+            formItem={boxesMy.find(box => box._id === selectedBoxes[0])}
             onSubmit={onEditBoxSubmit}
             onTriggerOpenModal={() => onTriggerOpenModal('showEditBoxModal')}
           />

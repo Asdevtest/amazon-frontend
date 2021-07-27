@@ -35,12 +35,14 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
 
+  console.log('selectedProductsData', selectedProductsData)
+
   const [orderState, setOrderState] = useState(
     selectedProductsData.map(product => ({
       status: 1,
       amount: 0,
-      deliveryMethod: 0,
-      warehouse: 0,
+      deliveryMethod: '',
+      warehouse: '',
       clientComment: '',
       barCode: '',
       product: product._id,
@@ -49,7 +51,7 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
   )
 
   const setOrderStateFiled = index => fieldsName => value => {
-    const newStateOrderState = {...orderState}
+    const newStateOrderState = [...orderState]
     newStateOrderState[index][fieldsName] = value
     setOrderState(newStateOrderState)
   }
@@ -100,6 +102,7 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
           disableElevation
           variant="contained"
           className={(classNames.modalButton, classNames.buyNowBtn)}
+          disabled={orderState.some(order => order.deliveryMethod === '' || order.warehouse === '')}
           onClick={() => {
             onTriggerOpenModal('showOrderModal')
             onSubmit(orderState)

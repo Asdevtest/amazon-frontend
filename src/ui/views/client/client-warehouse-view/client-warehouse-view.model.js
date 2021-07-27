@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TaskOperationType} from '@constants/task-operation-type'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
@@ -101,8 +102,9 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  onEditBoxSubmit(id, data) {
-    this.updateBox(id, data[0])
+  async onEditBoxSubmit(id, data) {
+    const editBoxesResult = await this.editBoxes(data[0])
+    await this.postTask({idsData: editBoxesResult, idsBeforeData: id, type: TaskOperationType.EDIT})
   }
 
   async onClickMerge(type) {
@@ -143,6 +145,18 @@ export class ClientWarehouseViewModel {
 
   onTriggerOpenModal(modalState) {
     this[modalState] = !this[modalState]
+  }
+
+  async editBoxes(boxes) {
+    try {
+      const result = await BoxesModel.editBoxes(boxes)
+
+      await this.getBoxesMy()
+      return result
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   async mergeBoxes(boxes) {

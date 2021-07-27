@@ -1,10 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {Divider, Typography, Paper, Checkbox} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TaskOperationType} from '@constants/task-operation-type'
-// import Carousel from 'react-material-ui-carousel'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
@@ -20,19 +19,9 @@ import {BoxItemCard} from './box-item-card'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseBeforeAfterBlock
 
-const Box = ({
-  box,
-  isNewBox = false,
-  isCurrentBox = false,
-  onClickEditBox,
-  isEdit,
-  taskType,
-  showEditBoxModal,
-  onTriggerShowEditBoxModal,
-  setNewBoxes,
-  setAmountFieldNewBox,
-}) => {
+const Box = ({box, setCurBox, isNewBox = false, isCurrentBox = false, onClickEditBox, isEdit, taskType}) => {
   const classNames = useClassNames()
+
   return (
     <Paper className={(classNames.box, classNames.mainPaper)}>
       <Typography className={classNames.boxTitle}>{`${textConsts.boxNum} ${box._id}`}</Typography>
@@ -72,11 +61,11 @@ const Box = ({
         </Typography>
 
         <Typography>
-          {'Групповой вес'}
+          {textConsts.weight}
           {box.weighGrossKgWarehouse}
         </Typography>
         <Typography>
-          {textConsts.weight}
+          {textConsts.volumeWeigh}
           {box.volumeWeightKgWarehouse}
         </Typography>
         <Typography>
@@ -101,41 +90,21 @@ const Box = ({
             />
           )}
 
-          {/*  раньше здесь предпологалось показывать добавленные фотографии ... нужно ли это?*/}
-          {/* {box.images?.length ? (
-              <Paper className={classNames.rightCardWrapper}>
-                <Typography className={classNames.categoryTitle}>{textConsts.photos}</Typography>
-
-                <Carousel autoPlay timeout={1000} animation="fade">
-                  {box.images &&
-                    box.images.map((el, index) => (
-                      <div key={index}>
-                        <img alt="" className={classNames.imgBox} src={el} />
-                      </div>
-                    ))}
-                </Carousel>
-              </Paper>
-            ) : undefined} */}
-
           <div className={classNames.editBtnWrapper}>
             {isEdit && (
-              <Button className={classNames.editBtn} onClick={() => onClickEditBox(box)}>
+              <Button
+                className={classNames.editBtn}
+                onClick={() => {
+                  setCurBox(box)
+                  onClickEditBox(box)
+                }}
+              >
                 {textConsts.editBtn}
               </Button>
             )}
           </div>
         </Paper>
       )}
-
-      <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
-        <EditBoxModal
-          setEditModal={onTriggerShowEditBoxModal}
-          box={box}
-          setNewBoxes={setNewBoxes}
-          setAmountFieldNewBox={setAmountFieldNewBox}
-          operationType={taskType}
-        />
-      </Modal>
     </Paper>
   )
 }
@@ -151,6 +120,9 @@ const NewBoxes = ({
   setAmountFieldNewBox,
 }) => {
   const classNames = useClassNames()
+
+  const [curBox, setCurBox] = useState({})
+
   return (
     <div className={classNames.newBoxes}>
       <Typography className={classNames.sectionTitle}>{textConsts.newBoxes}</Typography>
@@ -159,6 +131,7 @@ const NewBoxes = ({
           key={boxIndex}
           isNewBox
           box={box}
+          setCurBox={setCurBox}
           isEdit={isEdit}
           taskType={taskType}
           setNewBoxes={setNewBoxes}
@@ -168,6 +141,17 @@ const NewBoxes = ({
           onClickEditBox={onClickEditBox}
         />
       ))}
+
+      <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
+        <EditBoxModal
+          setEditModal={onTriggerShowEditBoxModal}
+          box={curBox}
+          newBoxes={newBoxes}
+          setNewBoxes={setNewBoxes}
+          setAmountFieldNewBox={setAmountFieldNewBox}
+          operationType={taskType}
+        />
+      </Modal>
     </div>
   )
 }
@@ -207,16 +191,18 @@ export const BeforeAfterBlock = observer(
           </>
         )}
 
-        <NewBoxes
-          isEdit={isEdit}
-          newBoxes={desiredBoxes}
-          taskType={taskType}
-          setNewBoxes={setNewBoxes}
-          setAmountFieldNewBox={setAmountFieldNewBox}
-          showEditBoxModal={showEditBoxModal}
-          onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
-          onClickEditBox={onClickEditBox}
-        />
+        {desiredBoxes.length > 0 && (
+          <NewBoxes
+            isEdit={isEdit}
+            newBoxes={desiredBoxes}
+            taskType={taskType}
+            setNewBoxes={setNewBoxes}
+            setAmountFieldNewBox={setAmountFieldNewBox}
+            showEditBoxModal={showEditBoxModal}
+            onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
+            onClickEditBox={onClickEditBox}
+          />
+        )}
       </Paper>
     )
   },
