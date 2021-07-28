@@ -26,10 +26,6 @@ export const Appbar = observer(({avatarSrc, children, title, username, curUserRo
   const classNames = useClassNames()
   const componentModel = useRef(new AppbarModel({userRole: curUserRole}))
 
-  useEffect(() => {
-    componentModel.current.getBalance()
-  }, [])
-
   const renderNavbarButton = (
     <Hidden mdUp>
       <IconButton onClick={setDrawerOpen}>
