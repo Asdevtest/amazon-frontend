@@ -123,6 +123,7 @@ export class WarehouseVacantViewModel {
       if (error[0].constraints.isNotEmpty) {
         this.onTriggerOpenModal('showNoDimensionsErrorModal')
       }
+      throw Error('No dimetions')
     }
   }
 
@@ -148,7 +149,7 @@ export class WarehouseVacantViewModel {
 
         await BoxesModel.approveBoxesOperation(requestBoxes, this.selectedTask.boxesBefore[0]._id)
       } else {
-        this.onSubmitUpdateBoxes(newBoxes)
+        await this.onSubmitUpdateBoxes(newBoxes)
         await BoxesModel.approveBoxesOperation(this.selectedTask.boxes[0]._id)
       }
 

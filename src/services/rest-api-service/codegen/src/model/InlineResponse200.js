@@ -192,6 +192,9 @@ class InlineResponse200 {
             if (data.hasOwnProperty('buyer')) {
                 obj['buyer'] = ApiV1AdminsGetProductsByStatusCreatedby.constructFromObject(data['buyer']);
             }
+            if (data.hasOwnProperty('checkedby')) {
+                obj['checkedby'] = ApiV1AdminsGetProductsByStatusCreatedby.constructFromObject(data['checkedby']);
+            }
             if (data.hasOwnProperty('buyerscomment')) {
                 obj['buyerscomment'] = ApiClient.convertToType(data['buyerscomment'], 'String');
             }

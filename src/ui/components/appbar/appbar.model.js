@@ -7,7 +7,9 @@ export class AppbarModel {
   error = undefined
   userRole = undefined
 
-  balance = UserModel.userInfo.balance
+  get balance() {
+    return UserModel.userInfo?.balance
+  }
 
   constructor({userRole}) {
     this.userRole = userRole

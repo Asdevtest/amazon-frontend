@@ -127,7 +127,7 @@ export class ClientExchangeViewRaw extends Component {
           openModal={showConfirmPayModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}
           title={textConsts.confirmTitle}
-          message={`${textConsts.confirmMessage} ($ ${
+          message={`${textConsts.confirmMessage} (${
             selectedProduct && toFixedWithDollarSign(calcProductPrice(selectedProduct))
           })`}
           successBtnText={textConsts.confirmBtn}

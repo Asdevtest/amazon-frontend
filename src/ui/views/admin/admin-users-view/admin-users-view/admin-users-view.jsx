@@ -74,6 +74,8 @@ class AdminUsersViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
+    console.log('getCurrentData() ', getCurrentData())
+
     return (
       <React.Fragment>
         <Navbar
@@ -96,7 +98,9 @@ class AdminUsersViewRaw extends Component {
                 {textConsts.mainTitle}
               </Typography>
               <DataGrid
+                autoHeight
                 pagination
+                useResizeContainer
                 page={curPage}
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[5, 15, 10, 20]}
