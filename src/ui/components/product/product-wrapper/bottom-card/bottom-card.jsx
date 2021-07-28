@@ -133,6 +133,7 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
             />
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              error={formFieldsValidationErrors.fbaamount}
               label={textConsts.recommendedBatch}
               value={product.fbaamount || ''}
               type="number"

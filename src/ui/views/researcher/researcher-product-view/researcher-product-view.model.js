@@ -309,12 +309,13 @@ export class ResearcherProductViewModel {
               return value && parseFloat(value)
             case 'height':
               return value && parseFloat(value)
+            case 'fbaamount':
+              return value && parseFloat(value)
             default:
               return value
           }
         },
       )
-      console.log('updateProductData ', updateProductData)
 
       await transformAndValidate(ResearcherUpdateProductContract, updateProductData)
 
@@ -323,6 +324,7 @@ export class ResearcherProductViewModel {
       this.history.goBack()
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
+      console.log('error', error)
 
       if (isValidationErrors(error)) {
         plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {

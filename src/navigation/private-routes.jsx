@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 
 import {observer} from 'mobx-react'
-import {Redirect, Route} from 'react-router-dom'
+import {Redirect, Route, useHistory} from 'react-router-dom'
 
 import {privateRoutesConfigs} from '@constants/routes'
 
@@ -9,11 +9,13 @@ import {privateRoutesConfigs} from '@constants/routes'
 import {UserModel} from '@models/user-model'
 
 export const PrivateRoutes = observer(() => {
+  const history = useHistory()
+
   useEffect(() => {
     if (UserModel.isAuthenticated()) {
       UserModel.getUserInfo()
     }
-  }, [])
+  }, [history.location.pathname])
 
   const redirectToAuth = <Redirect to={'/auth'} />
   const generateAllowedRoutes = () => (

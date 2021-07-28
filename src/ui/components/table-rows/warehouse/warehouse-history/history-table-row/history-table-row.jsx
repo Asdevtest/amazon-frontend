@@ -55,9 +55,16 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
   const taskReceiveDescription = () => (
     <React.Fragment>
       <Typography className={classNames.descriptionWrapper}>{textConsts.receive}</Typography>
-      {item.boxes.map((box, index) => renderProductImage(box, index))}
+      {item.boxesBefore.map((box, index) => renderProductImage(box, index))}
     </React.Fragment>
   )
+
+  const checkIfTaskCouldBeCanceled = status => {
+    if (status === mapTaskStatusEmumToKey[TaskStatus.NEW] || status === mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS]) {
+      return true
+    }
+    return false
+  }
 
   const renderHistoryItem = () => {
     switch (mapTaskOperationTypeKeyToEnum[item.operationType]) {
@@ -67,8 +74,10 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
             <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskMergeDescription()}</TableCell>
             <TableCell>
-              {item.status !== mapTaskStatusEmumToKey[TaskStatus.SOLVED] && (
-                <ErrorButton onClick={() => onCancelMergeBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
+              {checkIfTaskCouldBeCanceled(item.status) && (
+                <ErrorButton onClick={() => onCancelMergeBoxes(item.boxes[0]._id, item._id)}>
+                  {textConsts.cancelBtn}
+                </ErrorButton>
               )}
             </TableCell>
           </React.Fragment>
@@ -79,8 +88,10 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
             <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskDivideDescription()}</TableCell>
             <TableCell>
-              {item.status !== mapTaskStatusEmumToKey[TaskStatus.SOLVED] && (
-                <ErrorButton onClick={() => onCancelSplitBoxes(item.boxes[0]._id)}>{textConsts.cancelBtn}</ErrorButton>
+              {checkIfTaskCouldBeCanceled(item.status) && (
+                <ErrorButton onClick={() => onCancelSplitBoxes(item.boxes[0]._id, item._id)}>
+                  {textConsts.cancelBtn}
+                </ErrorButton>
               )}
             </TableCell>
           </React.Fragment>

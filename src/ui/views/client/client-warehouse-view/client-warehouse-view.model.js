@@ -198,8 +198,6 @@ export class ClientWarehouseViewModel {
     try {
       const result = await BoxesModel.getBoxes()
 
-      console.log(result)
-
       runInAction(() => {
         this.boxesMy = result
       })
@@ -215,9 +213,24 @@ export class ClientWarehouseViewModel {
     }
   }
 
+  // async updateTaskToNotSolved(taskId){
+  //   try {
+  //     await StorekeeperModel.updateTask(taskId, {
+  //         status: mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
+  //     })
+  //     await this.getTasksMy()
+
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.error = error
+  //   }
+  // }  ждем метода от бека -этот от сторкипера работает некорректно
+
   async cancelMergeBoxes(id) {
     try {
       await BoxesModel.cancelMergeBoxes(id)
+
+      // await this.updateTaskToNotSolved(taskId)
 
       await this.getBoxesMy()
     } catch (error) {
@@ -229,6 +242,8 @@ export class ClientWarehouseViewModel {
   async cancelSplitBoxes(id) {
     try {
       await BoxesModel.cancelSplitBoxes(id)
+
+      // await this.updateTaskToNotSolved(taskId)
 
       await this.getBoxesMy()
     } catch (error) {
