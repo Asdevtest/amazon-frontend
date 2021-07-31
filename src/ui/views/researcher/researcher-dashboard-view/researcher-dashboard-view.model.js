@@ -1,16 +1,16 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {researcherBalance} from '@constants/mocks'
 
 import {ResearcherModel} from '@models/researcher-model'
+import {UserModel} from '@models/user-model'
 
 export class ResearcherDashboardViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
-  balance = researcherBalance
+  balance = UserModel.userInfo?.balance
   drawerOpen = false
   productsVacant = []
   paymentsMy = []
@@ -23,25 +23,12 @@ export class ResearcherDashboardViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getBalance()
       await this.getProductsVacant()
       await this.getPaymentsMy()
       await this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-    }
-  }
-
-  async getBalance() {
-    try {
-      const result = await ResearcherModel.getBalance()
-      runInAction(() => {
-        this.balance = result
-      })
-    } catch (error) {
-      console.log(error)
-      this.error = error
     }
   }
 

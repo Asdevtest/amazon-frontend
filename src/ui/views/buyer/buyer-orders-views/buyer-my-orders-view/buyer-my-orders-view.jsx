@@ -13,7 +13,6 @@ import {warehouses} from '@constants/warehouses'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
-import {CreateOrEditBoxForm} from '@components/forms/create-or-edit-box-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -45,6 +44,7 @@ class BuyerMyOrdersViewRaw extends Component {
 
   render() {
     const {
+      curBoxesOfOrder,
       drawerOpen,
       ordersMy,
       curPage,
@@ -52,7 +52,6 @@ class BuyerMyOrdersViewRaw extends Component {
       rowsPerPage,
       selectedOrder,
       showOrderModal,
-      showCreateOrEditBoxModal,
       showNoDimensionsErrorModal,
       onTriggerDrawerOpen,
       onChangePage,
@@ -61,7 +60,6 @@ class BuyerMyOrdersViewRaw extends Component {
       onClickOrder,
       onSelectedOrder,
       onSubmitSaveOrder,
-      onTriggerShowCreateOrEditBoxModal,
       onSubmitCreateBoxes,
       onTriggerOpenModal,
     } = this.viewModel
@@ -111,20 +109,14 @@ class BuyerMyOrdersViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={showCreateOrEditBoxModal} setOpenModal={onTriggerShowCreateOrEditBoxModal}>
-          <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
-          <CreateOrEditBoxForm
-            order={selectedOrder}
-            onSubmit={onSubmitCreateBoxes}
-            onCloseModal={onTriggerShowCreateOrEditBoxModal}
-          />
-        </Modal>
+
         <Modal
           openModal={showOrderModal}
           setOpenModal={onTriggerShowOrderModal}
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
+            boxes={curBoxesOfOrder}
             order={selectedOrder}
             modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS}
             warehouses={warehouses}

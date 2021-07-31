@@ -19,7 +19,10 @@ export const useClassNames = makeStyles(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
-    gap: '20px',
+    // gap: '20px',
+  },
+  button: {
+    marginLeft: '10px',
   },
   subTitle: {
     color: theme.palette.text.secondary,
@@ -38,9 +41,6 @@ export const useClassNames = makeStyles(theme => ({
     margin: '0 -20px',
     marginTop: theme.spacing(1.25),
     marginBottom: theme.spacing(2.5),
-  },
-  submit: {
-    marginRight: theme.spacing(2),
   },
 
   carouselBox: {
@@ -105,5 +105,13 @@ export const useClassNames = makeStyles(theme => ({
   input: {
     fontSize: '14px',
     textAlign: 'center',
+  },
+  heightFieldAuto: {
+    height: 'auto',
+    minWidth: '380px',
+  },
+  commentsWrapper: {
+    display: 'flex',
+    gap: '10px',
   },
 }))

@@ -1,13 +1,16 @@
 import React, {useState} from 'react'
 
-import {Box, Divider, Paper, Typography} from '@material-ui/core'
+import {Box, Divider, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
 
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
-import {CreateOrEditBoxForm} from '@components/forms/create-or-edit-box-form'
+import {CreateBoxForm} from '@components/forms/create-box-form'
+import {Table} from '@components/table'
+import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -22,8 +25,17 @@ const orderStatusesThatTriggersEditBoxBlock = [
   OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
 ]
 
+const renderHeadRow = (
+  <TableRow>
+    {CLIENT_WAREHOUSE_HEAD_CELLS.map((item, index) => (
+      <TableCell key={index}>{item.label}</TableCell>
+    ))}
+  </TableRow>
+)
+
 export const EditOrderModal = ({
   order,
+  boxes,
   onTriggerModal,
   modalHeadCells,
   warehouses,
@@ -33,6 +45,8 @@ export const EditOrderModal = ({
   onSubmitCreateBoxes,
 }) => {
   const classNames = useClassNames()
+
+  const [showBoxesOfOrder, setShowBoxesOfOrder] = useState(false)
 
   const [orderFields, setOrderFields] = useState({
     ...order,
@@ -112,10 +126,11 @@ export const EditOrderModal = ({
       {showCreateOrEditBoxBlock ? (
         <React.Fragment>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
-          <CreateOrEditBoxForm
-            selectFieldsArePreDefined
-            canBeMasterBox
+          <CreateBoxForm
             formItem={orderFields}
+            showBoxesOfOrder={showBoxesOfOrder}
+            onTriggerOpenModal={onTriggerModal}
+            onClickShowBoxesOfOrder={() => setShowBoxesOfOrder(!showBoxesOfOrder)}
             onSubmit={(boxId, formFieldsArr) => {
               onSubmitCreateBoxes(boxId, formFieldsArr)
               onSubmitSaveOrder(order, orderFields)
@@ -123,6 +138,12 @@ export const EditOrderModal = ({
           />
         </React.Fragment>
       ) : undefined}
+      {showBoxesOfOrder && (
+        <div className={classNames.tableWrapper}>
+          <Typography className={classNames.modalTitle}>{textConsts.boxesTitle}</Typography>
+          <Table rowsOnly data={boxes} BodyRow={WarehouseBodyRow} renderHeadRow={renderHeadRow} />
+        </div>
+      )}
     </Box>
   )
 }

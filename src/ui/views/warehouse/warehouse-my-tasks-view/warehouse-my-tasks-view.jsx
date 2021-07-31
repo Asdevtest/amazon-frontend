@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
@@ -14,7 +13,6 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ErrorInfoModal} from '@components/modals/error-info-modal'
-// import { SetBarcodeModal } from '@components/modals/set-barcode-modal'; опять же пригодится?
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 import {Table} from '@components/table'
@@ -133,16 +131,6 @@ export class WarehouseMyTasksViewRaw extends Component {
             onTriggerOpenModal('showNoDimensionsErrorModal')
           }}
         />
-
-        {/* Наверно еще пригодится тут? */}
-        {/* <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
-          <SetBarcodeModal
-            task={selectedTask}
-            barCode={tmpBarCode}
-            onClickSaveBarcode={onClickSaveBarcode}
-            onCloseModal={onTriggerShowBarcodeModal}
-          />
-        </Modal> */}
       </React.Fragment>
     )
   }

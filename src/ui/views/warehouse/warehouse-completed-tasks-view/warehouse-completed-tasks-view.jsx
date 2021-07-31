@@ -4,7 +4,7 @@ import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {COMPLETED_TASKS_DATA, WAREHOUSE_TASKS_HEAD_CELLS} from '@constants/mocks'
+import {WAREHOUSE_TASKS_HEAD_CELLS} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -36,6 +36,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
 
   render() {
     const {
+      copletedTasks,
       drawerOpen,
       curPage,
       showBrowseTaskModal,
@@ -75,10 +76,10 @@ export class WarehouseCompletedTasksViewRaw extends Component {
               <div className={classNames.tableWrapper}>
                 <Table
                   currentPage={curPage}
-                  data={COMPLETED_TASKS_DATA}
+                  data={copletedTasks}
                   handlerPageChange={onChangeCurPage}
                   handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(COMPLETED_TASKS_DATA.length / rowsPerPage)}
+                  pageCount={Math.ceil(copletedTasks.length / rowsPerPage)}
                   BodyRow={TableBodyRow}
                   renderHeadRow={this.renderHeadRow}
                   rowsPerPage={rowsPerPage}
@@ -94,10 +95,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
         </Main>
         <Modal openModal={showBrowseTaskModal} setOpenModal={onTriggerBrowseTaskModal}>
           <Typography variant="h5">{textConsts.taskModalTitle}</Typography>
-          <BrowseTaskModal
-            task={COMPLETED_TASKS_DATA[selectedTaskIndex]}
-            onClickOpenCloseModal={onTriggerBrowseTaskModal}
-          />
+          <BrowseTaskModal task={copletedTasks[selectedTaskIndex]} onClickOpenCloseModal={onTriggerBrowseTaskModal} />
         </Modal>
       </React.Fragment>
     )

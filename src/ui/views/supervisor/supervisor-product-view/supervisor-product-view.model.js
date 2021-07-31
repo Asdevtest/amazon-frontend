@@ -12,17 +12,31 @@ import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList} from
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
 const fieldsOfProductAllowedToUpdate = [
-  'status',
   'checkednotes',
+  'lamazon',
+  'lsupplier',
+  'bsr',
+  'status',
+  'amazon',
+  'supplier',
+  'fbafee',
+  'reffee',
+  'delivery',
+  'icomment',
+  'fba',
+  'profit',
+  'margin',
+  'images',
+  'width',
+  'height',
+  'length',
+  'amazonTitle',
+  'amazonDetail',
+  'amazonDescription',
+  'category',
+  'weight',
+  'minpurchase',
   'fbaamount',
-  // 'amazon'
-  // 'delivery',
-  // 'fba',
-  // 'express',
-  // 'material',
-  // 'reffee',
-  // '',
-  // '' ...добавяться,как бек разрешит
 ]
 
 const formFieldsDefault = {
@@ -93,6 +107,7 @@ export class SupervisorProductViewModel {
 
   onChangeProductFields = fieldName =>
     action(e => {
+      this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
       this.product[fieldName] = e.target.value
       this.updateAutoCalculatedFields()
     })
@@ -137,6 +152,8 @@ export class SupervisorProductViewModel {
               return value && parseFloat(value)
             case 'fbaamount':
               return Number(value)
+            case 'fbafee':
+              return value && parseFloat(value)
             default:
               return value
           }

@@ -7,6 +7,7 @@ import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
 export class ClientWarehouseViewModel {
   history = undefined
@@ -102,9 +103,30 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  async onEditBoxSubmit(id, data) {
-    const editBoxesResult = await this.editBoxes(data[0])
-    await this.postTask({idsData: editBoxesResult, idsBeforeData: id, type: TaskOperationType.EDIT})
+  async onEditBoxSubmit(id, boxData) {
+    try {
+      const requestBox = getObjectFilteredByKeyArrayBlackList(
+        {
+          ...boxData,
+          items: [
+            {
+              ...boxData.items[0],
+              amount: boxData.items[0].amount,
+              order: boxData.items[0].order._id,
+              product: boxData.items[0].product._id,
+            },
+          ],
+        },
+        ['_id', 'status', 'createdBy', 'lastModifiedBy'],
+      )
+      const editBoxesResult = await this.editBox({id, data: requestBox})
+
+      await this.postTask({idsData: [editBoxesResult.guid], idsBeforeData: [id], type: TaskOperationType.EDIT})
+      await this.getTasksMy()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   async onClickMerge(type) {
@@ -147,11 +169,12 @@ export class ClientWarehouseViewModel {
     this[modalState] = !this[modalState]
   }
 
-  async editBoxes(boxes) {
+  async editBox(box) {
     try {
-      const result = await BoxesModel.editBoxes(boxes)
+      const result = await BoxesModel.editBox(box)
 
       await this.getBoxesMy()
+      this.onTriggerOpenModal('showEditBoxModal')
       return result
     } catch (error) {
       console.log(error)
@@ -225,6 +248,19 @@ export class ClientWarehouseViewModel {
   //     this.error = error
   //   }
   // }  ждем метода от бека -этот от сторкипера работает некорректно
+
+  async cancelEditBoxes(id) {
+    try {
+      await BoxesModel.cancelEditBoxes(id)
+
+      // await this.updateTaskToNotSolved(taskId)
+
+      await this.getBoxesMy()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
 
   async cancelMergeBoxes(id) {
     try {

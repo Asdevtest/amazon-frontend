@@ -16,7 +16,7 @@ import {useClassNames} from './history-table-row.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseHistoryBodyRow
 
-export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) => {
+export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, onCancelEditBoxes}) => {
   const classNames = useClassNames()
 
   const renderProductImage = (box, key) => (
@@ -55,6 +55,13 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
   const taskReceiveDescription = () => (
     <React.Fragment>
       <Typography className={classNames.descriptionWrapper}>{textConsts.receive}</Typography>
+      {item.boxesBefore.map((box, index) => renderProductImage(box, index))}
+    </React.Fragment>
+  )
+
+  const taskEditDescription = () => (
+    <React.Fragment>
+      <Typography className={classNames.descriptionWrapper}>{textConsts.edit}</Typography>
       {item.boxesBefore.map((box, index) => renderProductImage(box, index))}
     </React.Fragment>
   )
@@ -102,6 +109,20 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes}) 
             <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskReceiveDescription()}</TableCell>
             <TableCell />
+          </React.Fragment>
+        )
+      case TaskOperationType.EDIT:
+        return (
+          <React.Fragment>
+            <TableCell>{textConsts.tasks}</TableCell>
+            <TableCell>{taskEditDescription()}</TableCell>
+            <TableCell>
+              {checkIfTaskCouldBeCanceled(item.status) && (
+                <ErrorButton onClick={() => onCancelEditBoxes(item.boxes[0]._id, item._id)}>
+                  {textConsts.cancelBtn}
+                </ErrorButton>
+              )}
+            </TableCell>
           </React.Fragment>
         )
     }

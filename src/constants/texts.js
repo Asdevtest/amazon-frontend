@@ -175,14 +175,28 @@ export const texts = {
       weighGrossKgSupplier: 'weighGrossKgSupplier',
       volumeWeightKgSupplier: 'volumeWeightKgSupplier',
       weightFinalAccountingKgSupplier: 'weightFinalAccountingKgSupplier',
+
+      lengthCmWarehouse: 'lengthCmWarehouse',
+      widthCmWarehouse: 'widthCmWarehouse',
+      heightCmWarehouse: 'heightCmWarehouse',
+      weighGrossKgWarehouse: 'weighGrossKgWarehouse',
+      volumeWeightKgWarehouse: 'volumeWeightKgWarehouse',
+      weightFinalAccountingKgWarehouse: 'weightFinalAccountingKgWarehouse',
+
       amountLabel: 'Amount',
       materialLabel: 'Material',
       amountOfSubBoxes: 'amountOfSubBoxes',
       amountIfItemsInBox: 'Items in box',
 
+      warehouseDemensions: 'Warehouse demensions',
+
       saveChangesBtn: 'Save',
       cancelChangesBtn: 'Cancel',
       addBoxBtn: 'Добавить еще коробку',
+      removeBtn: 'Убрать коробку',
+
+      showBoxes: 'Показать коробки связанные с заказом...',
+      hideBoxes: 'Скрыть коробки связанные с заказом...',
     },
 
     warehouseEditBoxForm: {
@@ -1138,6 +1152,7 @@ export const texts = {
       productNum: 'Продукт',
       saveBtn: 'Сохранить',
       cancelBtn: 'Отмена',
+      boxesTitle: 'Коробки по данному заказу:',
     },
     freeOrdersView: {
       mainTitle: 'Свободные заказы',
@@ -1436,6 +1451,7 @@ export const texts = {
       cancelBtn: 'Отменить',
       acceptBtn: 'Подтвердить',
       receive: 'Принять коробку:',
+      edit: 'Изменить коробку:',
     },
     warehouseDashboardView: {
       appBarTitle: 'Dashboard',
@@ -1513,7 +1529,7 @@ export const texts = {
       boxNum: 'Коробка номер:',
       count: 'Количество',
       material: 'Материал',
-      shippingLabel: 'shippingLabel:',
+      shippingLabel: 'Шиппинг лебл:',
       setShippingLabel: 'Set shipping label',
       deleteAlert: 'delete',
       demensions: 'Габариты:',
@@ -1523,12 +1539,15 @@ export const texts = {
       weight: 'Вес ',
       volumeWeigh: 'Удельный вес',
       finalWeight: 'Финальный вес ',
-      codeCheck: 'Штрихкод проклеен',
+      codeCheck: 'Баркод проклеен поставщиком',
       photos: 'Фотографии:',
       editBtn: 'Редактировать коробку',
       incom: 'Поступление',
       newBoxes: 'Новые коробки',
       superTypo: 'Супер ',
+      barCodeReallyIsGlued: 'Баркод действительно проклеен?',
+      barCodeIsGluedWarehouse: 'Баркод проклеен складом',
+      shippingLabelIsGluedWarehouse: 'Шиппинг лебл был проклеен складом',
     },
     warehouseTaskForm: {
       taskTitle: 'Данные поступления',
@@ -1575,6 +1594,7 @@ export const texts = {
       unMerge: 'Разъедененние в коробки',
       changeStatus: ' изменил статус на ',
       receive: 'Принять коробку',
+      edit: 'Изменить коробку:',
     },
     productStatusButtonsConfigs: {
       searchForSupplier: 'Поиск поставщика',

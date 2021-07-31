@@ -7,6 +7,8 @@ export class WarehouseCompletedViewModel {
   requestStatus = undefined
   error = undefined
 
+  copletedTasks = []
+
   drawerOpen = false
   rowsPerPage = 15
   curPage = 1

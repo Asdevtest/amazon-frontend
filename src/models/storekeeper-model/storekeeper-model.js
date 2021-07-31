@@ -30,6 +30,11 @@ class StorekeeperModelStatic {
     const response = await restApiService.strokeepersApi.apiV1StorekeepersPaymentsMyBalanceGet()
     return response
   }
+
+  updateBarcodeAndStatusInOrder = async (id, data) => {
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersBarcodeAndStatusInOrderPatch(id, data)
+    return response
+  }
 }
 
 export const StorekeeperModel = new StorekeeperModelStatic()

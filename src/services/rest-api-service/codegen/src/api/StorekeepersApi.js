@@ -325,4 +325,77 @@ export default class StorekeepersApi {
       return response_and_data.data;
     });
   }
+
+  /**
+     * # Изменить баркод и статус в заказе.
+     * ## Изменить баркод и статус в заказе.  
+     * @param {String} guid GUID зордера, который мы хотим изменить
+     * @param {module:model/InlineObject22} InlineObject22 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+  apiV1StorekeepersBarcodeAndStatusInOrderPatchWithHttpInfo(guid, InlineObject22, opts) {
+    opts = opts || {};
+    let postBody = InlineObject22;
+    // verify the required parameter 'guid' is set
+    if (guid === undefined || guid === null) {
+      throw new Error(
+        "Missing the required parameter 'guid' when calling apiV1StorekeepersTasksGuidPatch"
+      );
+    }
+    // verify the required parameter 'InlineObject22' is set
+    if (InlineObject22 === undefined || InlineObject22 === null) {
+      throw new Error(
+        "Missing the required parameter 'InlineObject22' when calling apiV1StorekeepersTasksGuidPatch"
+      );
+    }
+
+    let pathParams = {
+      guid: guid
+    };
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [ 'application/json' ];
+    let accepts = [ 'text/html' ];
+    let returnType = 'String';
+    return this.apiClient.callApi(
+      '/api/v1/storekeepers/orders/set_barcode_and_status/{guid}',
+      'PATCH',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
+     * # Изменить баркод и статус в заказе.
+     * ## Изменить баркод и статус в заказе.  
+     * @param {String} guid GUID задачи, которую мы хотим изменить
+     * @param {module:model/InlineObject22} InlineObject22 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+  apiV1StorekeepersBarcodeAndStatusInOrderPatch(guid, InlineObject22, opts) {
+    return this.apiV1StorekeepersBarcodeAndStatusInOrderPatchWithHttpInfo(
+      guid,
+      InlineObject22,
+      opts
+    ).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
 }

@@ -27,6 +27,8 @@ export class BuyerMyOrdersViewModel {
   error = undefined
 
   ordersMy = []
+  curBoxesOfOrder = []
+
   drawerOpen = false
   showBarcodeModal = false
   showOrderModal = false
@@ -34,7 +36,6 @@ export class BuyerMyOrdersViewModel {
   curPage = 1
   selectedOrder = undefined
   barcode = ''
-  showCreateOrEditBoxModal = false
   showNoDimensionsErrorModal = false
 
   constructor({history}) {
@@ -56,8 +57,21 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  async getBoxesOfOrder(orderId) {
+    try {
+      const result = await BoxesModel.getBoxesOfOrder(orderId)
+      runInAction(() => {
+        this.curBoxesOfOrder = result
+      })
+    } catch (error) {
+      this.ordersMy = []
+      console.log(error)
+    }
+  }
+
   onClickOrder(order) {
     this.selectedOrder = order
+    this.getBoxesOfOrder(order._id)
     this.onTriggerShowOrderModal()
   }
 
@@ -154,10 +168,6 @@ export class BuyerMyOrdersViewModel {
 
   onTriggerShowOrderModal() {
     this.showOrderModal = !this.showOrderModal
-  }
-
-  onTriggerShowCreateOrEditBoxModal() {
-    this.showCreateOrEditBoxModal = !this.showCreateOrEditBoxModal
   }
 
   onTriggerDrawerOpen() {

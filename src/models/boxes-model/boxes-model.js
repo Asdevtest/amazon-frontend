@@ -25,9 +25,23 @@ class BoxesModelStatic {
     return response
   }
 
+  cancelEditBoxes = async id => {
+    const response = await restApiService.boxesApi.apiV1BoxesCancelEditPost({
+      InlineObject6: {guid: id},
+    })
+    return response
+  }
+
   splitBoxes = async (id, data) => {
     const response = await restApiService.boxesApi.apiV1BoxesSplitPost({
       InlineObject7: {guid: id, itemsBoxSet: data},
+    })
+    return response
+  }
+
+  editBox = async ({id, data}) => {
+    const response = await restApiService.boxesApi.apiV1BoxesEditPost(id, {
+      InlineObject7: data,
     })
     return response
   }
@@ -76,6 +90,11 @@ class BoxesModelStatic {
     const response = await restApiService.boxesApi.apiV1BoxesStorekeepersGuidPatch(id, {
       InlineObject10: data,
     })
+    return response
+  }
+
+  getBoxesOfOrder = async id => {
+    const response = await restApiService.boxesApi.apiV1BoxesOfOrderGet(id)
     return response
   }
 }

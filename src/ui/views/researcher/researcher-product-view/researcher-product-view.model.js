@@ -119,6 +119,7 @@ export class ResearcherProductViewModel {
 
   onChangeProductFields = fieldName =>
     action(e => {
+      this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
       if (fieldName === 'express') {
         this.product[fieldName] = !this.product[fieldName]
       } else {
@@ -310,6 +311,8 @@ export class ResearcherProductViewModel {
             case 'height':
               return value && parseFloat(value)
             case 'fbaamount':
+              return value && parseFloat(value)
+            case 'fbafee':
               return value && parseFloat(value)
             default:
               return value

@@ -86,7 +86,7 @@ export const EditTaskModal = observer(
             label={textConsts.statusLabel}
             inputComponent={
               <NativeSelect
-                disabled={newBoxes.length === 0}
+                disabled={newBoxes.length === 0 || task.operationType !== TaskOperationType.RECEIVE}
                 variant="filled"
                 value={newBoxes[0] && getOrderStatusOptionByCode(newBoxes[0].items[0].order.status).label}
                 className={classNames.nativeSelect}
@@ -110,6 +110,25 @@ export const EditTaskModal = observer(
             }
           />
 
+          <div className={classNames.commentsWrapper}>
+            <Field
+              multiline
+              className={classNames.heightFieldAuto}
+              rows={4}
+              rowsMax={6}
+              label={'Комментарий клиента'}
+              placeholder={'Комментарий клиента к задаче'}
+            />
+            <Field
+              multiline
+              className={classNames.heightFieldAuto}
+              rows={4}
+              rowsMax={6}
+              label={'Комментарий склада'}
+              placeholder={'Комментарий склада к задаче для клиента'}
+            />
+          </div>
+
           <BeforeAfterBlock
             incomingBoxes={task.boxesBefore}
             desiredBoxes={newBoxes}
@@ -127,6 +146,7 @@ export const EditTaskModal = observer(
           {task.operationType === TaskOperationType.RECEIVE && (
             <Button
               disableElevation
+              className={classNames.button}
               color="primary"
               variant="contained"
               onClick={() => {
@@ -136,20 +156,26 @@ export const EditTaskModal = observer(
               {newBoxes.length === 0 ? textConsts.receiveBoxBtn : textConsts.reReceiveBoxBtn}
             </Button>
           )}
+          <div className={classNames.button}>
+            <SuccessButton
+              disableElevation
+              disabled={newBoxes.length === 0}
+              variant="contained"
+              onClick={() => {
+                onClickSolveTask(newBoxes, task.operationType)
+              }}
+            >
+              {textConsts.saveChangesBtn}
+            </SuccessButton>
+          </div>
 
-          <SuccessButton
+          <Button
             disableElevation
-            disabled={newBoxes.length === 0}
-            className={classNames.submit}
+            className={classNames.button}
+            color="primary"
             variant="contained"
-            onClick={() => {
-              onClickSolveTask(newBoxes, task.operationType)
-            }}
+            onClick={onClickOpenCloseModal}
           >
-            {textConsts.saveChangesBtn}
-          </SuccessButton>
-
-          <Button disableElevation color="primary" variant="contained" onClick={onClickOpenCloseModal}>
             {textConsts.cancelChangesBtn}
           </Button>
         </div>

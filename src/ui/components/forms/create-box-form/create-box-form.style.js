@@ -17,10 +17,15 @@ export const useClassNames = makeStyles(theme => ({
   ordersWrapper: {
     flexGrow: 1,
   },
+
   buttonsWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
-    gap: '10px',
+    justifyContent: 'space-between',
+    marginTop: '10px',
+  },
+
+  button: {
+    marginLeft: '10px',
   },
   subTitle: {
     color: theme.palette.text.secondary,
@@ -42,9 +47,7 @@ export const useClassNames = makeStyles(theme => ({
   submit: {
     marginRight: theme.spacing(2),
   },
-  cancelBtn: {
-    marginLeft: theme.spacing(2),
-  },
+
   numberInputFieldsBlocksWrapper: {
     display: 'flex',
     flexDirection: 'row',
@@ -86,5 +89,9 @@ export const useClassNames = makeStyles(theme => ({
   },
   barcodeChipExists: {
     backgroundColor: 'rgb(61, 81, 112)',
+  },
+  topWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 }))

@@ -693,4 +693,183 @@ export default class BoxesApi {
       return response_and_data.data;
     });
   }
+
+  /**
+     * # Редактировать коробку.
+     * ## Редактировать коробку.     
+     * @param {String} guid    
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject7} opts.InlineObject7 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
+     */
+  apiV1BoxesEditPostWithHttpInfo(guid, opts) {
+    opts = opts || {};
+    let postBody = opts['InlineObject7'];
+
+    if (guid === undefined || guid === null) {
+      throw new Error(
+        "Missing the required parameter 'guid' when calling apiV1BoxesStorekeepersGuidPatch"
+      );
+    }
+
+    let pathParams = {
+      guid: guid
+    };
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [ 'application/json' ];
+    let accepts = [ 'text/html' ];
+    let returnType = Object;
+    return this.apiClient.callApi(
+      '/api/v1/boxes/edit/{guid}',
+      'POST',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
+     * # Редактировать коробку.
+     * ## Редактировать коробку.   При разделении коробок странная сущность передается. Там массив массивов.Первый массив это          новые коробки - сколько элементов, столько и создаст коробок. Второй массив - это элементы в коробке.          В нем строки новой коробки. Фронт отвечает за то, что суммарное содержание новых коробок,          было ровно содержанию исходной коробки.           
+     
+     * @param {String} guid 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject7} opts.InlineObject7 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
+     */
+  apiV1BoxesEditPost(guid, opts) {
+    return this.apiV1BoxesEditPostWithHttpInfo(guid, opts).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
+
+  /**
+     * # Отменить редактирование коробки.
+     * ## Отменить редактирование коробки.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject6} opts.InlineObject6 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+  apiV1BoxesCancelEditPostWithHttpInfo(opts) {
+    opts = opts || {};
+    let postBody = opts['InlineObject6'];
+
+    let pathParams = {};
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [ 'application/json' ];
+    let accepts = [ 'text/html' ];
+    let returnType = 'String';
+    return this.apiClient.callApi(
+      '/api/v1/boxes/cancel-edit',
+      'POST',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
+     * # Отменить редактирование коробки.
+     * ## Отменить редактирование коробки.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject6} opts.InlineObject6 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+  apiV1BoxesCancelEditPost(opts) {
+    return this.apiV1BoxesCancelEditPostWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
+
+  /**
+     * # Получить коробки от заказа и их строки.
+     * ## Получить коробки от заказа их строки.   
+     * @param {String} guid   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     */
+  apiV1BoxesOfOrderGetWithHttpInfo(guid, opts) {
+    opts = opts || {};
+    let postBody = null;
+
+    if (guid === undefined || guid === null) {
+      throw new Error(
+        "Missing the required parameter 'guid' when calling apiV1BoxesStorekeepersGuidPatch"
+      );
+    }
+
+    let pathParams = {
+      guid: guid
+    };
+
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = [ ApiV1BatchesBoxes ];
+    return this.apiClient.callApi(
+      '/api/v1/boxes/by_order_guid/{guid}',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
+     * # Получить коробки от заказа и их строки.
+     * ## Получить коробки от заказа их строки.  
+     * @param {String} guid   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     */
+  apiV1BoxesOfOrderGet(opts) {
+    return this.apiV1BoxesOfOrderGetWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
 }

@@ -114,21 +114,29 @@ export class WarehouseVacantViewModel {
           'weightFinalAccountingKgWarehouse',
         ]),
       }
-      await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, updateBoxData)
 
       await BoxesModel.updateBox(id, updateBoxData)
     } catch (error) {
       this.error = error
+    }
+  }
 
-      if (error[0].constraints.isNotEmpty) {
-        this.onTriggerOpenModal('showNoDimensionsErrorModal')
-      }
-      throw Error('No dimetions')
+  async updateBarcodeAndStatusInOrder(id, data) {
+    try {
+      await StorekeeperModel.updateBarcodeAndStatusInOrder(id, data)
+    } catch (error) {
+      this.error = error
     }
   }
 
   async onClickSolveTask(newBoxes, operationType) {
     try {
+      for (let i = 0; i < newBoxes.length; i++) {
+        const box = newBoxes[i]
+
+        await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, box)
+      }
+
       if (operationType === TaskOperationType.RECEIVE) {
         const requestBoxes = newBoxes.map(box =>
           getObjectFilteredByKeyArrayBlackList(
@@ -163,6 +171,10 @@ export class WarehouseVacantViewModel {
     } catch (error) {
       console.log(error)
       this.error = error
+
+      if (error[0].constraints.isNotEmpty) {
+        this.onTriggerOpenModal('showNoDimensionsErrorModal')
+      }
     }
   }
 

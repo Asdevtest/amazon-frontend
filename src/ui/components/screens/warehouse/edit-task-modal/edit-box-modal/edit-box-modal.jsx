@@ -117,11 +117,11 @@ export const EditBoxModal = ({setEditModal, box, operationType, setNewBoxes, new
       <Divider className={classNames.divider} />
 
       <div className={classNames.buttonsWrapper}>
-        <Box className={classNames.saveBox}>
+        <Box className={classNames.button}>
           <Button onClick={() => onSubmith()}>{textConsts.saveBtn}</Button>
         </Box>
 
-        <Box className={classNames.saveBox}>
+        <Box className={classNames.button}>
           <Button onClick={() => setEditModal()}>{textConsts.closeBtn}</Button>
         </Box>
       </div>
