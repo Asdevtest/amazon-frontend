@@ -92,6 +92,13 @@ export const TableBodyRow = ({item, itemIndex, handlers, hideActions, viewMode})
     </>
   )
 
+  const taskEditDescription = () => (
+    <>
+      <Typography className={classNames.descriptionWrapper}>{textConsts.edit}</Typography>
+      {item.boxesBefore && item.boxesBefore.map((box, index) => renderProductImage(box, index))}
+    </>
+  )
+
   const renderDescription = () => {
     switch (mapTaskOperationTypeKeyToEnum[item.operationType]) {
       case TaskOperationType.MERGE:
@@ -101,11 +108,17 @@ export const TableBodyRow = ({item, itemIndex, handlers, hideActions, viewMode})
         return <TableCell>{taskDivideDescription()}</TableCell>
       case TaskOperationType.RECEIVE:
         return <TableCell>{taskReceiveDescription()}</TableCell>
+      case TaskOperationType.EDIT:
+        return <TableCell>{taskEditDescription()}</TableCell>
     }
   }
 
   const renderActions = () => {
-    if (hideActions || mapTaskStatusKeyToEnum[item.status] !== TaskStatus.NEW) {
+    if (
+      hideActions ||
+      mapTaskStatusKeyToEnum[item.status] === TaskStatus.SOLVED ||
+      mapTaskStatusKeyToEnum[item.status] === TaskStatus.NOT_SOLVED
+    ) {
       return <TableCell />
     }
     if (viewMode === WarehouseTasksBodyRowViewMode.VACANT) {
@@ -151,13 +164,13 @@ export const TableBodyRow = ({item, itemIndex, handlers, hideActions, viewMode})
         )
       case TaskOperationType.RECEIVE:
         return <TableCell>{<Button onClick={onClickResolveBtn}>{textConsts.resolveBtn}</Button>}</TableCell>
+      case TaskOperationType.EDIT:
+        return <TableCell>{<Button onClick={onClickResolveBtn}>{textConsts.resolveBtn}</Button>}</TableCell>
     }
   }
 
   return (
     <TableRow>
-      {/* <TableCell>{item._id}</TableCell>   возможно тут это лишнее? место занимает */}
-      {/* <TableCell>{formatDateTime(item.createDate)}</TableCell> */}
       <TableCell>{formatDateTime(item.createDate)}</TableCell>
       <TableCell>{mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]]}</TableCell>
       {renderDescription()}

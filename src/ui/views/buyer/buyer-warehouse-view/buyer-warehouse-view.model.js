@@ -91,12 +91,33 @@ export class BuyerWarehouseViewModel {
   }
 
   async onEditBoxSubmit(id, data) {
-    const editBoxesResult = await this.editBoxes(data[0])
-    await this.postTask({
-      idsData: editBoxesResult,
-      idsBeforeData: id,
-      type: TaskOperationType.EDIT,
-    })
+    try {
+      const requestBox = getObjectFilteredByKeyArrayBlackList(
+        {
+          ...data[0],
+          items: [
+            {
+              ...data[0].items[0],
+              amount: data[0].items[0].amount,
+              order: data[0].items[0].order._id,
+              product: data[0].items[0].product._id,
+            },
+          ],
+        },
+        ['_id', 'status', 'createdBy', 'lastModifiedBy'],
+      )
+      const editBoxesResult = await this.editBox({id, data: requestBox})
+
+      await this.postTask({
+        idsData: [editBoxesResult.guid],
+        idsBeforeData: [id],
+        type: TaskOperationType.EDIT,
+      })
+      await this.getTasksMy()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   async onClickMerge(type) {
@@ -130,11 +151,12 @@ export class BuyerWarehouseViewModel {
     this[modalState] = !this[modalState]
   }
 
-  async editBoxes(boxes) {
+  async editBox(box) {
     try {
-      const result = await BoxesModel.editBoxes(boxes)
+      const result = await BoxesModel.editBox(box)
 
       await this.getBoxesMy()
+      this.onTriggerOpenModal('showEditBoxModal')
       return result
     } catch (error) {
       console.log(error)
@@ -207,6 +229,19 @@ export class BuyerWarehouseViewModel {
     }
   }
 
+  async cancelEditBoxes(id) {
+    try {
+      await BoxesModel.cancelEditBoxes(id)
+
+      // await this.updateTaskToNotSolved(taskId)
+
+      await this.getBoxesMy()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
   async cancelMergeBoxes(id) {
     try {
       await BoxesModel.cancelMergeBoxes(id)
@@ -240,16 +275,6 @@ export class BuyerWarehouseViewModel {
       runInAction(() => {
         this.tasksMy = toJS(result.sort(sortObjectsArrayByFiledDate('createDate')))
       })
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  //  для тестов
-  async removeBox(id) {
-    try {
-      await BoxesModel.removeBox(id)
     } catch (error) {
       console.log(error)
       this.error = error

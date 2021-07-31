@@ -8,7 +8,7 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {CreateOrEditBoxForm} from '@components/forms/create-or-edit-box-form'
+import {EditBoxForm} from '@components/forms/edit-box-form'
 import {SendOwnProductForm} from '@components/forms/send-own-product-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -112,7 +112,7 @@ export class AdminWarehouseBoxesViewRaw extends Component {
         </Modal>
         <Modal openModal={modalEditBox} setOpenModal={() => onTriggerModal('modalEditBox')}>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
-          <CreateOrEditBoxForm formFields={boxes.filter(box => selectedBoxes.includes(box.boxId))[0]} />
+          <EditBoxForm formItem={boxes.filter(box => selectedBoxes.includes(box.boxId))[0]} />
         </Modal>
         <Modal openModal={showRedistributeBoxModal} setOpenModal={() => onTriggerModal('showRedistributeBoxModal')}>
           <div className={classNames.redistributionWrapper}>

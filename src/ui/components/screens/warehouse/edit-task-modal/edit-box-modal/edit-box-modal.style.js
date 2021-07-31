@@ -69,9 +69,8 @@ export const useClassNames = makeStyles(() => ({
   input: {
     width: '400px',
   },
-  saveBox: {
-    textAlign: 'right',
-    marginTop: '16px',
+  button: {
+    marginRight: '10px',
   },
   saveBtn: {
     marginRight: '8px',
@@ -99,6 +98,6 @@ export const useClassNames = makeStyles(() => ({
   },
   buttonsWrapper: {
     display: 'flex',
-    gap: '10px',
+    marginTop: '16px',
   },
 }))

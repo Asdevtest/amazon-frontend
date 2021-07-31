@@ -3,6 +3,7 @@ import {makeAutoObservable} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {AdministratorModel} from '@models/administrator-model'
+import {UserModel} from '@models/user-model'
 
 export class AdminUserBalanceViewModel {
   history = undefined
@@ -10,6 +11,7 @@ export class AdminUserBalanceViewModel {
   error = undefined
 
   user = undefined
+  balance = UserModel.userInfo?.balance
 
   drawerOpen = false
   showReplenishModal = false

@@ -30,6 +30,15 @@ export const useClassNames = makeStyles(theme => ({
     overflow: 'hidden',
     overflowY: 'scroll',
   },
+  barCodeField: {
+    fontSize: '14px',
+    fontWeight: 500,
+    lineHeight: '21px',
+    width: '150px',
+    height: '45px',
+    overflowX: 'scroll',
+  },
+
   subTitle: {
     fontSize: '14px',
     color: theme.palette.text.secondary,
@@ -48,6 +57,11 @@ export const useClassNames = makeStyles(theme => ({
   countWrapper: {
     display: 'flex',
     alignItems: 'center',
+  },
+  superCount: {
+    marginLeft: '5px',
+    fontSize: '22px',
+    color: 'rgba(143, 152, 165, 1)',
   },
   chipWrapper: {
     display: 'flex',

@@ -22,6 +22,10 @@ const textConsts = getLocalizedTexts(texts, 'ru').warehouseBeforeAfterBlock
 const Box = ({box, setCurBox, isNewBox = false, isCurrentBox = false, onClickEditBox, isEdit, taskType}) => {
   const classNames = useClassNames()
 
+  const [barCodeReallyIsGlued, setBarCodeReallyIsGlued] = useState(false)
+
+  const [barCodeIsGluedWarehouse, setBarCodeIsGluedWarehouse] = useState(false) // временно, чтобы было понимание, как работают чекбоксы
+
   return (
     <Paper className={(classNames.box, classNames.mainPaper)}>
       <Typography className={classNames.boxTitle}>{`${textConsts.boxNum} ${box._id}`}</Typography>
@@ -34,7 +38,7 @@ const Box = ({box, setCurBox, isNewBox = false, isCurrentBox = false, onClickEdi
       <div className={classNames.itemsWrapper}>
         {box.items.map((item, index) => (
           <div key={`boxItem_${box.items[0].product?._id}_${index}`}>
-            <BoxItemCard item={item} index={index} />
+            <BoxItemCard item={item} index={index} superCount={box.amount} />
           </div>
         ))}
       </div>
@@ -77,17 +81,69 @@ const Box = ({box, setCurBox, isNewBox = false, isCurrentBox = false, onClickEdi
       {isNewBox && (
         <Paper className={classNames.bottomBlockWrapper}>
           {taskType === TaskOperationType.RECEIVE && (
-            <Field
-              oneLine
-              containerClasses={classNames.field}
-              label={textConsts.codeCheck}
-              inputComponent={
-                <Checkbox
-                  disabled
-                  checked={box.order && box.order.isBarCodeAlreadyAttachedByTheSupplier ? true : false}
+            <div className={classNames.barCodeActionsWrapper}>
+              {barCodeIsGluedWarehouse === false && (
+                <Field
+                  oneLine
+                  containerClasses={classNames.field}
+                  label={textConsts.codeCheck}
+                  inputComponent={
+                    <Checkbox
+                      disabled
+                      color="primary"
+                      checked={box.items[0].order.isBarCodeAlreadyAttachedByTheSupplier}
+                    />
+                  }
                 />
-              }
-            />
+              )}
+              {box.items[0].order.isBarCodeAlreadyAttachedByTheSupplier === true &&
+                barCodeIsGluedWarehouse === false && (
+                  <Field
+                    oneLine
+                    containerClasses={classNames.field}
+                    label={textConsts.barCodeReallyIsGlued}
+                    inputComponent={
+                      <Checkbox
+                        color="primary"
+                        checked={barCodeReallyIsGlued}
+                        onClick={() => setBarCodeReallyIsGlued(!barCodeReallyIsGlued)}
+                      />
+                    }
+                  />
+                )}
+
+              {(box.items[0].order.isBarCodeAlreadyAttachedByTheSupplier === false ||
+                barCodeReallyIsGlued === false) && (
+                <Field
+                  oneLine
+                  containerClasses={classNames.field}
+                  label={textConsts.barCodeIsGluedWarehouse}
+                  inputComponent={
+                    <Checkbox
+                      color="primary"
+                      checked={barCodeIsGluedWarehouse}
+                      onClick={() => setBarCodeIsGluedWarehouse(!barCodeIsGluedWarehouse)}
+                    />
+                  }
+                />
+              )}
+            </div>
+          )}
+          {taskType === TaskOperationType.EDIT && (
+            <div>
+              <div className={classNames.chipWrapper}>
+                <Typography className={classNames.subTitle}>{textConsts.shippingLabel}</Typography>
+                <Typography className={classNames.shippingLabelField}>
+                  {box.shippingLabel ? box.shippingLabel : 'N/A'}
+                </Typography>
+              </div>
+              <Field
+                oneLine
+                containerClasses={classNames.field}
+                label={textConsts.shippingLabelIsGluedWarehouse}
+                inputComponent={<Checkbox color="primary" />}
+              />
+            </div>
           )}
 
           <div className={classNames.editBtnWrapper}>
@@ -113,6 +169,7 @@ const NewBoxes = ({
   newBoxes,
   onClickEditBox,
   isEdit,
+  isNewBox,
   taskType,
   showEditBoxModal,
   onTriggerShowEditBoxModal,
@@ -129,7 +186,7 @@ const NewBoxes = ({
       {newBoxes.map((box, boxIndex) => (
         <Box
           key={boxIndex}
-          isNewBox
+          isNewBox={isNewBox}
           box={box}
           setCurBox={setCurBox}
           isEdit={isEdit}
@@ -193,6 +250,7 @@ export const BeforeAfterBlock = observer(
 
         {desiredBoxes.length > 0 && (
           <NewBoxes
+            isNewBox
             isEdit={isEdit}
             newBoxes={desiredBoxes}
             taskType={taskType}

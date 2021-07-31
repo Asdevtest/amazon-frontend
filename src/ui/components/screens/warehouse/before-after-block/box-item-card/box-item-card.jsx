@@ -13,7 +13,7 @@ import {useClassNames} from './box-item-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').boxItemCard
 
-export const BoxItemCard = ({item}) => {
+export const BoxItemCard = ({item, superCount}) => {
   const classNames = useClassNames()
 
   return (
@@ -22,14 +22,17 @@ export const BoxItemCard = ({item}) => {
         <img className={classNames.img} src={item.product?.images[0] && getAmazonImageUrl(item.product.images[0])} />
 
         <div className={classNames.attributeWrapper}>
-          <div className={classNames.chipWrapper}>
-            <Typography className={classNames.subTitle}>{textConsts.barCode}</Typography>
-            <Typography>{item.barCode ? item.barCode : 'N/A'}</Typography>
-          </div>
-
           <div className={classNames.countWrapper}>
             <Typography className={classNames.subTitle}>{textConsts.count}</Typography>
             <Input readOnly classes={{root: classNames.inputWrapper, input: classNames.input}} value={item.amount} />
+            {superCount > 1 && <Typography className={classNames.superCount}>{`x ${superCount}`}</Typography>}
+          </div>
+
+          <div className={classNames.chipWrapper}>
+            <Typography className={classNames.subTitle}>{textConsts.barCode}</Typography>
+            <Typography className={classNames.barCodeField}>
+              {item.product.barCode ? item.product.barCode : 'N/A'}
+            </Typography>
           </div>
         </div>
       </div>

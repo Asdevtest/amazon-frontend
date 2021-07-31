@@ -12,7 +12,7 @@ import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {SuccessButton} from '@components/buttons/success-button'
-import {CreateOrEditBoxForm} from '@components/forms/create-or-edit-box-form'
+import {EditBoxForm} from '@components/forms/edit-box-form'
 import {SendOwnProductForm} from '@components/forms/send-own-product-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -68,6 +68,7 @@ export class ClientWarehouseViewRaw extends Component {
       onEditBoxSubmit,
       cancelMergeBoxes,
       cancelSplitBoxes,
+      cancelEditBoxes,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -126,6 +127,7 @@ export class ClientWarehouseViewRaw extends Component {
                   title={textConsts.warehouseHistoryTitle}
                   onCancelMergeBoxes={cancelMergeBoxes}
                   onCancelSplitBoxes={cancelSplitBoxes}
+                  onCancelEditBoxes={cancelEditBoxes}
                 />
               </Paper>
             </MainContent>
@@ -138,10 +140,8 @@ export class ClientWarehouseViewRaw extends Component {
 
         <Modal openModal={showEditBoxModal} setOpenModal={() => onTriggerOpenModal('showEditBoxModal')}>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
-          <CreateOrEditBoxForm
-            isEditModal
-            editInClientWarehouse
-            selectFieldsArePreDefined
+
+          <EditBoxForm
             formItem={boxesMy.find(box => box._id === selectedBoxes[0])}
             onSubmit={onEditBoxSubmit}
             onTriggerOpenModal={() => onTriggerOpenModal('showEditBoxModal')}

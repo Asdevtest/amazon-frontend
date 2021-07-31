@@ -32,4 +32,7 @@ export const useClassNames = makeStyles(() => ({
   saveBtn: {
     marginRight: '8px',
   },
+  tableWrapper: {
+    marginTop: '15px',
+  },
 }))

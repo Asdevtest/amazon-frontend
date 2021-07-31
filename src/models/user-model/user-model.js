@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {ApiClient} from '@services/rest-api-service/codegen/src'
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
+import {isDebug} from '@utils/env'
 import {makePersistableModel} from '@utils/make-persistable-model'
 
 import {UserInfoContract} from './user-model.contracts'
@@ -10,7 +11,7 @@ import {UserInfoContract} from './user-model.contracts'
 const persistProperties = ['accessToken', 'userInfo']
 
 class UserModelStatic {
-  accessToken = '-=test_token=-:60f5569e7c89b06e3da60451'
+  accessToken = isDebug() ? '-=test_token=-:60f5569e7c89b06e3da60451' : undefined
   userInfo = undefined
   isHydrated = false
   // '-=test_token=-:60f5569e7c89b06e3da60451'

@@ -76,4 +76,17 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     gap: '5px',
   },
+  barCodeActionsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  shippingLabelField: {
+    marginLeft: '5px',
+    fontSize: '14px',
+    fontWeight: 500,
+    lineHeight: '21px',
+    width: '250px',
+    height: '45px',
+    overflowX: 'scroll',
+  },
 }))

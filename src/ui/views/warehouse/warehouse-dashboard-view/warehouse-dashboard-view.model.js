@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {StorekeeperModel} from '@models/storekeeper-model'
+import {UserModel} from '@models/user-model'
 
 export class WarehouseDashboardViewModel {
   history = undefined
@@ -11,7 +12,7 @@ export class WarehouseDashboardViewModel {
 
   drawerOpen = false
 
-  balance = 0
+  balance = UserModel.userInfo?.balance
   tasksVacant = []
   tasksMy = []
   boxesVacant = []
@@ -30,7 +31,6 @@ export class WarehouseDashboardViewModel {
   async loadData(id) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getBalance()
       await this.getTasksVacant()
       await this.getTasksMy()
       await this.getBoxesVacant()
@@ -40,18 +40,6 @@ export class WarehouseDashboardViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-    }
-  }
-
-  async getBalance() {
-    try {
-      const result = await StorekeeperModel.getBalance()
-      runInAction(() => {
-        this.balance = result
-      })
-    } catch (error) {
-      console.log(error)
-      this.error = error
     }
   }
 
