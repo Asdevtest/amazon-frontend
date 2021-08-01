@@ -151,9 +151,11 @@ export class SupervisorProductViewModel {
             case 'height':
               return value && parseFloat(value)
             case 'fbaamount':
-              return Number(value)
+              return value && parseInt(value)
             case 'fbafee':
               return value && parseFloat(value)
+            case 'profit':
+              return value && parseInt(value)
             default:
               return value
           }

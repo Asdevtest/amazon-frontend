@@ -51,7 +51,11 @@ export const TableBodyRow = ({item, itemIndex, handlers, hideActions, viewMode})
         <Typography className={classNames.imgNum}>{`#${key + 1}`}</Typography>
         {box.items.map((product, productIndex) => (
           <div key={productIndex} className={classNames.imgWrapper}>
-            <img alt="placeholder" className={classNames.img} src={getAmazonImageUrl(product.product.images[0])} />
+            <img
+              alt="placeholder"
+              className={classNames.img}
+              src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
+            />
             <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
           </div>
         ))}

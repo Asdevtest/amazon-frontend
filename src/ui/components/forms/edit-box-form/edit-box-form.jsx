@@ -242,7 +242,9 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
         <Divider className={classNames.divider} />
 
         <div className={classNames.tableWrapper}>
-          <Typography className={classNames.tableTitle}>{`${textConsts.boxTitle} #${formItem._id}`}</Typography>
+          <Typography className={classNames.tableTitle}>{`${textConsts.boxTitle} #${
+            formItem && formItem._id
+          }`}</Typography>
           <Table
             rowsOnly
             data={boxFields.items}
@@ -281,6 +283,7 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
           color="primary"
           variant="contained"
           onClick={() => {
+            console.log('formItem ', formItem)
             onSubmit(formItem._id, boxFields)
           }}
         >
