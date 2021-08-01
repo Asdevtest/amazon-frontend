@@ -283,7 +283,6 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
           color="primary"
           variant="contained"
           onClick={() => {
-            console.log('formItem ', formItem)
             onSubmit(formItem._id, boxFields)
           }}
         >

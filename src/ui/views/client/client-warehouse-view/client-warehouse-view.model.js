@@ -219,7 +219,7 @@ export class ClientWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      const result = await BoxesModel.getBoxes()
+      const result = await BoxesModel.getBoxesForCurClient()
 
       runInAction(() => {
         this.boxesMy = result

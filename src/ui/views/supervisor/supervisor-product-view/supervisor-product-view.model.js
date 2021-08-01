@@ -152,6 +152,8 @@ export class SupervisorProductViewModel {
               return value && parseFloat(value)
             case 'fbaamount':
               return value && parseInt(value)
+            case 'reffee':
+              return value && parseInt(value)
             case 'fbafee':
               return value && parseFloat(value)
             case 'profit':
