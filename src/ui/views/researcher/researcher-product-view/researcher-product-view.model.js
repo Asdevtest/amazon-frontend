@@ -297,7 +297,7 @@ export class ResearcherProductViewModel {
         (key, value) => {
           switch (key) {
             case 'status':
-              return value < 10 && this.lsupplier ? 10 : value
+              return value < 10 && this.selectedSupplier ? 10 : value
             case 'bsr':
               return value && parseInt(value)
             case 'amazon':

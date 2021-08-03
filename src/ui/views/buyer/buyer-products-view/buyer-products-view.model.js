@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BuyerModel} from '@models/buyer-model'
+import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 
@@ -10,7 +11,7 @@ export class BuyerProductsViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
-  balance = 0
+  balance = UserModel.userInfo?.balance
   productsVacant = []
 
   drawerOpen = false
@@ -25,24 +26,11 @@ export class BuyerProductsViewModel {
   async loadData() {
     try {
       this.requestStatus = loadingStatuses.isLoading
-      this.getBalance()
       this.getProductsVacant()
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       this.requestStatus = loadingStatuses.failed
       console.log(error)
-    }
-  }
-
-  async getBalance() {
-    try {
-      const result = await BuyerModel.getBalance()
-      runInAction(() => {
-        this.balance = result
-      })
-    } catch (error) {
-      console.log(error)
-      this.error = error
     }
   }
 

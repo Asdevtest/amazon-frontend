@@ -1,10 +1,13 @@
 import React, {useState} from 'react'
 
-import {Divider, Typography, Paper, Checkbox} from '@material-ui/core'
+import {Divider, Typography, Paper, Checkbox, NativeSelect} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {getDeliveryOptionByCode} from '@constants/delivery-options'
+import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByCode, OrderStatusByKey} from '@constants/order-status'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {texts} from '@constants/texts'
+import {getWarehousesOptionByCode} from '@constants/warehouses'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
@@ -12,6 +15,7 @@ import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 import {EditBoxModal} from '../edit-task-modal/edit-box-modal'
 import {useClassNames} from './before-after-block.style'
@@ -183,6 +187,47 @@ const NewBoxes = ({
   return (
     <div className={classNames.newBoxes}>
       <Typography className={classNames.sectionTitle}>{textConsts.newBoxes}</Typography>
+
+      <div className={classNames.fieldsWrapper}>
+        <Field
+          disabled
+          label={textConsts.warehouseLabel}
+          value={getWarehousesOptionByCode(newBoxes[0].warehouse).label}
+        />
+
+        <Field
+          disabled
+          label={textConsts.deliveryMethodLabel}
+          value={getDeliveryOptionByCode(newBoxes[0].deliveryMethod).label}
+        />
+        {taskType === TaskOperationType.RECEIVE && (
+          <Field
+            containerClasses={classNames.field}
+            label={textConsts.statusLabel}
+            inputComponent={
+              <NativeSelect
+                variant="filled"
+                value={newBoxes[0] && getOrderStatusOptionByCode(newBoxes[0].items[0].order.status).label}
+                className={classNames.nativeSelect}
+                input={<Input />}
+              >
+                <option>{'none'}</option>
+                {Object.keys(
+                  getObjectFilteredByKeyArrayWhiteList(OrderStatusByCode, [
+                    OrderStatusByKey[OrderStatus.IN_STOCK].toString(),
+                    OrderStatusByKey[OrderStatus.RETURN_ORDER].toString(),
+                  ]),
+                ).map((statusCode, statusIndex) => (
+                  <option key={statusIndex} value={statusCode}>
+                    {getOrderStatusOptionByCode(statusCode).label}
+                  </option>
+                ))}
+              </NativeSelect>
+            }
+          />
+        )}
+      </div>
+
       {newBoxes.map((box, boxIndex) => (
         <Box
           key={boxIndex}
@@ -234,19 +279,37 @@ export const BeforeAfterBlock = observer(
     const CurrentBox = ({currentBoxes}) => (
       <div className={classNames.currentBox}>
         <Typography className={classNames.sectionTitle}>{textConsts.incom}</Typography>
+
+        <div className={classNames.fieldsWrapper}>
+          <Field
+            disabled
+            label={textConsts.warehouseLabel}
+            value={getWarehousesOptionByCode(currentBoxes[0].warehouse).label}
+          />
+
+          <Field
+            disabled
+            label={textConsts.deliveryMethodLabel}
+            value={getDeliveryOptionByCode(currentBoxes[0].deliveryMethod).label}
+          />
+          {taskType === TaskOperationType.RECEIVE && (
+            <Field
+              disabled
+              label={textConsts.statusLabel}
+              value={getOrderStatusOptionByCode(currentBoxes[0].items[0].order.status).label}
+            />
+          )}
+        </div>
+
         {currentBoxes && currentBoxes.map((box, boxIndex) => <Box key={boxIndex} isCurrentBox box={box} />)}
       </div>
     )
 
     return (
       <Paper className={classNames.boxesWrapper}>
-        {incomingBoxes.length > 0 && (
-          <>
-            <CurrentBox currentBoxes={incomingBoxes} />
+        <CurrentBox currentBoxes={incomingBoxes} />
 
-            <Divider flexItem className={classNames.divider} orientation="vertical" />
-          </>
-        )}
+        <Divider flexItem className={classNames.divider} orientation="vertical" />
 
         {desiredBoxes.length > 0 && (
           <NewBoxes

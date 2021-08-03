@@ -9,6 +9,9 @@ import {
   PriceCell,
   SupervisorCell,
   renderFieldValueCell,
+  ClientCell,
+  ResearcherCell,
+  BuyerCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -29,9 +32,9 @@ export const exchangeCheckingColumns = () => [
     width: 150,
   },
   {
-    field: 'supervisor',
-    headerName: textConsts.supervisorField,
-    renderCell: params => <SupervisorCell params={params} />,
+    field: 'fees-net',
+    headerName: textConsts.feesAndNetField,
+    renderCell: params => <FeesValuesWithCalculateBtnCell params={params} />,
     width: 150,
   },
   {
@@ -52,6 +55,33 @@ export const exchangeCheckingColumns = () => [
     renderCell: params => <DateCell params={params} />,
     width: 150,
   },
+  {
+    field: 'client',
+    headerName: 'Client',
+    renderCell: params => <ClientCell params={params} />,
+    width: 200,
+  },
+
+  {
+    field: 'createdby',
+    headerName: textConsts.researcherField,
+    renderCell: params => <ResearcherCell params={params} />,
+    width: 200,
+  },
+
+  {
+    field: 'supervisor',
+    headerName: textConsts.supervisorField,
+    renderCell: params => <SupervisorCell params={params} />,
+    width: 200,
+  },
+  {
+    field: 'buyer',
+    headerName: textConsts.buyerField,
+    renderCell: params => <BuyerCell params={params} />,
+    width: 200,
+  },
+
   {
     field: 'profit',
     headerName: textConsts.profitField,
@@ -86,27 +116,6 @@ export const exchangeCheckingColumns = () => [
     field: 'barCode',
     headerName: textConsts.barcodeField,
     renderCell: params => renderFieldValueCell({params}),
-    width: 150,
-  },
-
-  {
-    field: 'asinCell',
-    headerName: textConsts.asinField,
-    renderCell: params => <AsinCell params={params} />,
-    width: 300,
-  },
-
-  {
-    field: 'price',
-    headerName: textConsts.priceField,
-    renderCell: params => <PriceCell params={params} />,
-    width: 150,
-  },
-
-  {
-    field: 'fees-net',
-    headerName: textConsts.feesAndNetField,
-    renderCell: params => <FeesValuesWithCalculateBtnCell params={params} />,
     width: 150,
   },
 ]

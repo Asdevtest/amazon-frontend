@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 
 import {adminUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
+import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -28,13 +28,35 @@ const textConsts = getLocalizedTexts(texts, 'en').adminUsersView
 const navbarActiveCategory = 6
 
 const renderAdminSubUsersTableCells = renderBtns => [
-  {field: 'date', headerName: 'Created', width: 300},
-  {field: 'email', headerName: 'Email', width: 300},
   {
-    field: 'bussinesUnit',
-    headerName: 'Bussines unit',
+    field: 'date',
+    headerName: 'Created',
     renderCell: params => !params.value && 'N/A',
-    width: 300,
+    width: 150,
+  },
+
+  {field: 'name', headerName: 'Name', width: 150},
+  {
+    field: 'balance',
+    headerName: 'Balance',
+    renderCell: params => !params.value && 'N/A',
+    width: 150,
+  },
+  {field: 'email', headerName: 'Email', width: 150},
+
+  {field: 'rate', headerName: 'Rate', renderCell: params => !params.value && 'N/A', width: 150},
+  {
+    field: 'role',
+    headerName: 'Role',
+    renderCell: params => UserRoleCodeMap[params.value],
+    width: 150,
+  },
+
+  {
+    field: 'active',
+    headerName: 'User status',
+    renderCell: params => (params.value === true ? 'Active' : 'Banned'),
+    width: 150,
   },
   {
     field: '',
@@ -74,8 +96,6 @@ class AdminUsersViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
-    console.log('getCurrentData() ', getCurrentData())
-
     return (
       <React.Fragment>
         <Navbar
@@ -98,7 +118,7 @@ class AdminUsersViewRaw extends Component {
                 {textConsts.mainTitle}
               </Typography>
               <DataGrid
-                autoHeight
+                // autoHeight // с этим пропсом у меня(Алексей) появляется тот баг с неотображением, несмотря на useResizeContainer
                 pagination
                 useResizeContainer
                 page={curPage}

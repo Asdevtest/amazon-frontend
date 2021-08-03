@@ -8,15 +8,14 @@ import {AdministratorModel} from '@models/administrator-model'
 import {copyToClipBoard} from '@utils/clipboard'
 
 const productsStatusBySubCategory = {
-  0: ProductStatusByKey[ProductStatus.NEW_PRODUCT],
-  1: ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT],
+  0: ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS],
+  1: ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT],
   2: ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
   3: ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH],
   4: ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
   5: ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
   6: ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
-  7: ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS],
-  8: ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
+  7: ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
 }
 
 export class AdminExchangeViewModel {
@@ -52,7 +51,9 @@ export class AdminExchangeViewModel {
   async getProductsByStatus(activeSubCategory) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const result = await AdministratorModel.getProductsByStatus(productsStatusBySubCategory[activeSubCategory])
+      const result = await AdministratorModel.getProductsByStatus({
+        status: productsStatusBySubCategory[activeSubCategory],
+      })
 
       runInAction(() => {
         this.currentProductsData = result
