@@ -122,8 +122,8 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
     weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
     volumeWeightKgWarehouse: formItem?.volumeWeightKgWarehouse || 0,
     weightFinalAccountingKgWarehouse: formItem?.weightFinalAccountingKgWarehouse || 0,
-    warehouse: formItem?.warehouse || '',
-    deliveryMethod: formItem?.deliveryMethod || '',
+    warehouse: formItem?.warehouse,
+    deliveryMethod: formItem?.deliveryMethod,
     amount: formItem?.amount,
     shippingLabel: formItem?.shippingLabel || '',
     items: formItem?.items || [
@@ -134,6 +134,9 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
       },
     ],
   })
+
+  console.log('formItem', formItem)
+  console.log('boxFields', boxFields)
 
   const setFormField = fieldName => e => {
     const newFormFields = {...boxFields}

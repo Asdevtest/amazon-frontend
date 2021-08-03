@@ -3,11 +3,11 @@ import React, {useState} from 'react'
 import {Divider, Typography, Paper, Checkbox, NativeSelect} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {getDeliveryOptionByCode} from '@constants/delivery-options'
+import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByCode, OrderStatusByKey} from '@constants/order-status'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {texts} from '@constants/texts'
-import {getWarehousesOptionByCode} from '@constants/warehouses'
+import {getWarehousesOptionByCode, warehouses} from '@constants/warehouses'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
@@ -17,7 +17,7 @@ import {Modal} from '@components/modal'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
-import {EditBoxModal} from '../edit-task-modal/edit-box-modal'
+import {EditBoxTasksModal} from '../edit-task-modal/edit-box-tasks-modal'
 import {useClassNames} from './before-after-block.style'
 import {BoxItemCard} from './box-item-card'
 
@@ -32,6 +32,52 @@ const Box = ({box, setCurBox, isNewBox = false, isCurrentBox = false, onClickEdi
 
   return (
     <Paper className={(classNames.box, classNames.mainPaper)}>
+      {isNewBox && (
+        <div className={classNames.fieldsWrapper}>
+          <Field
+            label={textConsts.warehouseLabel}
+            inputComponent={
+              <NativeSelect
+                disabled
+                variant="filled"
+                value={box.warehouse}
+                className={classNames.nativeSelect}
+                input={<Input />}
+              >
+                <option value={'None'} />
+                {Object.keys(warehouses).map((warehouseCode, warehouseIndex) => {
+                  const warehouseKey = warehouses[warehouseCode]
+                  return (
+                    <option key={warehouseIndex} value={warehouseCode}>
+                      {warehouseKey}
+                    </option>
+                  )
+                })}
+              </NativeSelect>
+            }
+          />
+
+          <Field
+            label={textConsts.deliveryMethodLabel}
+            inputComponent={
+              <NativeSelect
+                disabled
+                variant="filled"
+                value={box.deliveryMethod}
+                className={classNames.nativeSelect}
+                input={<Input />}
+              >
+                {Object.keys(DeliveryTypeByCode).map((deliveryCode, deliveryIndex) => (
+                  <option key={deliveryIndex} value={deliveryCode}>
+                    {getDeliveryOptionByCode(deliveryCode).label}
+                  </option>
+                ))}
+              </NativeSelect>
+            }
+          />
+        </div>
+      )}
+
       <Typography className={classNames.boxTitle}>{`${textConsts.boxNum} ${box._id}`}</Typography>
       {box.amount > 1 && (
         <div className={classNames.superWrapper}>
@@ -189,17 +235,6 @@ const NewBoxes = ({
       <Typography className={classNames.sectionTitle}>{textConsts.newBoxes}</Typography>
 
       <div className={classNames.fieldsWrapper}>
-        <Field
-          disabled
-          label={textConsts.warehouseLabel}
-          value={getWarehousesOptionByCode(newBoxes[0].warehouse).label}
-        />
-
-        <Field
-          disabled
-          label={textConsts.deliveryMethodLabel}
-          value={getDeliveryOptionByCode(newBoxes[0].deliveryMethod).label}
-        />
         {taskType === TaskOperationType.RECEIVE && (
           <Field
             containerClasses={classNames.field}
@@ -245,7 +280,7 @@ const NewBoxes = ({
       ))}
 
       <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
-        <EditBoxModal
+        <EditBoxTasksModal
           setEditModal={onTriggerShowEditBoxModal}
           box={curBox}
           newBoxes={newBoxes}
@@ -280,26 +315,28 @@ export const BeforeAfterBlock = observer(
       <div className={classNames.currentBox}>
         <Typography className={classNames.sectionTitle}>{textConsts.incom}</Typography>
 
-        <div className={classNames.fieldsWrapper}>
-          <Field
-            disabled
-            label={textConsts.warehouseLabel}
-            value={getWarehousesOptionByCode(currentBoxes[0].warehouse).label}
-          />
-
-          <Field
-            disabled
-            label={textConsts.deliveryMethodLabel}
-            value={getDeliveryOptionByCode(currentBoxes[0].deliveryMethod).label}
-          />
-          {taskType === TaskOperationType.RECEIVE && (
+        {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
+          <div className={classNames.fieldsWrapper}>
             <Field
               disabled
-              label={textConsts.statusLabel}
-              value={getOrderStatusOptionByCode(currentBoxes[0].items[0].order.status).label}
+              label={textConsts.warehouseLabel}
+              value={getWarehousesOptionByCode(currentBoxes[0].warehouse).label}
             />
-          )}
-        </div>
+
+            <Field
+              disabled
+              label={textConsts.deliveryMethodLabel}
+              value={getDeliveryOptionByCode(currentBoxes[0].deliveryMethod).label}
+            />
+            {taskType === TaskOperationType.RECEIVE && (
+              <Field
+                disabled
+                label={textConsts.statusLabel}
+                value={getOrderStatusOptionByCode(currentBoxes[0].items[0].order.status).label}
+              />
+            )}
+          </div>
+        )}
 
         {currentBoxes && currentBoxes.map((box, boxIndex) => <Box key={boxIndex} isCurrentBox box={box} />)}
       </div>

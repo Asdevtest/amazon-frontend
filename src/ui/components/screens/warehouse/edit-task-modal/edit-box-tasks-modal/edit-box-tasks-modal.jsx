@@ -10,7 +10,7 @@ import {Input} from '@components/input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import {useClassNames} from './edit-box-modal.style'
+import {useClassNames} from './edit-box-tasks-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseViewsEditBoxModal
 
@@ -72,7 +72,7 @@ const AttributesEditBlock = ({box, setNewBoxField}) => {
   )
 }
 
-export const EditBoxModal = ({setEditModal, box, operationType, setNewBoxes, newBoxes}) => {
+export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes, newBoxes}) => {
   const classNames = useClassNames()
 
   const [editingBox, setEditingBox] = useState(box)
