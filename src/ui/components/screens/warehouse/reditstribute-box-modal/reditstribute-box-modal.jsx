@@ -15,6 +15,57 @@ import {useClassNames} from './reditstribute-box-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientBoxRedistribution
 
+const Box = ({box, readOnly = false, boxIsMasterBox, index, isMasterBox, selectedBox, onChangeInput}) => {
+  const classNames = useClassNames()
+  return (
+    <div className={classNames.box}>
+      <Typography className={classNames.boxTitle}>{box._id}</Typography>
+      {box.items.map((order, orderIndex) => (
+        <div key={`box_${box._id}_${readOnly ? 1 : 0}_${index}`}>
+          <div key={orderIndex} className={classNames.order}>
+            <img
+              className={classNames.img}
+              src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
+            />
+            <Typography className={classNames.title}>{orderIndex + 1 + '. ' + order.product.amazonTitle}</Typography>
+            <Typography className={classNames.subTitle}>{textConsts.qtyLabel}</Typography>
+            <Input
+              classes={{root: classNames.inputWrapper, input: classNames.input}}
+              readOnly={readOnly}
+              value={isMasterBox ? (boxIsMasterBox ? selectedBox.amount : 1) : order.amount}
+              onChange={e => onChangeInput(e, box._id, order.order)}
+            />
+          </div>
+          {isMasterBox ? (
+            <Typography className={classNames.subTitle}>{`Unites per box ${box.items[0].amount}`}</Typography>
+          ) : undefined}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+const NewBoxes = ({newBoxes, isMasterBox, selectedBox, onChangeInput}) => {
+  const classNames = useClassNames()
+  return (
+    <div className={classNames.newBoxes}>
+      <Typography className={classNames.sectionTitle}>{textConsts.newBoxesTitle}</Typography>
+
+      {newBoxes.map((box, boxIndex) => (
+        <Box
+          key={boxIndex}
+          index={boxIndex}
+          box={box}
+          readOnly={isMasterBox}
+          isMasterBox={isMasterBox}
+          selectedBox={selectedBox}
+          onChangeInput={onChangeInput}
+        />
+      ))}
+    </div>
+  )
+}
+
 export const RedistributeBox = ({
   addNewBoxModal,
   setAddNewBoxModal,
@@ -83,38 +134,46 @@ export const RedistributeBox = ({
     onRedistribute(selectedBox._id, newBoxesWithoutEmptyOrders, operationTypes.SPLIT, isMasterBox)
   }
 
-  const Box = ({box, readOnly = false, boxIsMasterBox, index}) => (
-    <div className={classNames.box}>
-      <Typography className={classNames.boxTitle}>{box._id}</Typography>
-      {box.items.map((order, orderIndex) => (
-        <div key={`box_${box._id}_${readOnly ? 1 : 0}_${index}`}>
-          <div key={orderIndex} className={classNames.order}>
-            <img
-              className={classNames.img}
-              src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
-            />
-            <Typography className={classNames.title}>{orderIndex + 1 + '. ' + order.product.amazonTitle}</Typography>
-            <Typography className={classNames.subTitle}>{textConsts.qtyLabel}</Typography>
-            <Input
-              classes={{root: classNames.inputWrapper, input: classNames.input}}
-              readOnly={readOnly}
-              value={isMasterBox ? (boxIsMasterBox ? selectedBox.amount : 1) : order.amount}
-              onChange={e => onChangeInput(e, box._id, order.order)}
-            />
-          </div>
-          {isMasterBox ? (
-            <Typography className={classNames.subTitle}>{`Unites per box ${box.items[0].amount}`}</Typography>
-          ) : undefined}
-        </div>
-      ))}
-    </div>
-  )
+  // const Box = ({box, readOnly = false, boxIsMasterBox, index}) => (
+  //   <div className={classNames.box}>
+  //     <Typography className={classNames.boxTitle}>{box._id}</Typography>
+  //     {box.items.map((order, orderIndex) => (
+  //       <div key={`box_${box._id}_${readOnly ? 1 : 0}_${index}`}>
+  //         <div key={orderIndex} className={classNames.order}>
+  //           <img
+  //             className={classNames.img}
+  //             src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
+  //           />
+  //           <Typography className={classNames.title}>{orderIndex + 1 + '. ' + order.product.amazonTitle}</Typography>
+  //           <Typography className={classNames.subTitle}>{textConsts.qtyLabel}</Typography>
+  //           <Input
+  //             classes={{root: classNames.inputWrapper, input: classNames.input}}
+  //             readOnly={readOnly}
+  //             value={isMasterBox ? (boxIsMasterBox ? selectedBox.amount : 1) : order.amount}
+  //             onChange={e => onChangeInput(e, box._id, order.order)}
+  //           />
+  //         </div>
+  //         {isMasterBox ? (
+  //           <Typography className={classNames.subTitle}>{`Unites per box ${box.items[0].amount}`}</Typography>
+  //         ) : undefined}
+  //       </div>
+  //     ))}
+  //   </div>
+  // )
 
   const CurrentBox = () => (
     <div className={classNames.currentBox}>
       <Typography className={classNames.sectionTitle}>{textConsts.redistributionTitle}</Typography>
 
-      <Box readOnly boxIsMasterBox={isMasterBox} box={currentBox} index={0} />
+      <Box
+        readOnly
+        boxIsMasterBox={isMasterBox}
+        box={currentBox}
+        index={0}
+        isMasterBox={isMasterBox}
+        selectedBox={selectedBox}
+        onChangeInput={onChangeInput}
+      />
 
       <div className={classNames.currentBoxFooter}>
         <Typography
@@ -124,22 +183,27 @@ export const RedistributeBox = ({
     </div>
   )
 
-  const NewBoxes = () => (
-    <div className={classNames.newBoxes}>
-      <Typography className={classNames.sectionTitle}>{textConsts.newBoxesTitle}</Typography>
+  // const NewBoxes = () => (
+  //   <div className={classNames.newBoxes}>
+  //     <Typography className={classNames.sectionTitle}>{textConsts.newBoxesTitle}</Typography>
 
-      {newBoxes.map((box, boxIndex) => (
-        <Box key={boxIndex} index={boxIndex} box={box} readOnly={isMasterBox} />
-      ))}
-    </div>
-  )
+  //     {newBoxes.map((box, boxIndex) => (
+  //       <Box key={boxIndex} index={boxIndex} box={box} readOnly={isMasterBox} isMasterBox={isMasterBox} selectedBox={selectedBox} onChangeInput={onChangeInput}/>
+  //     ))}
+  //   </div>
+  // )
 
   return (
     <React.Fragment>
       <div className={classNames.boxesWrapper}>
         <CurrentBox />
         <Divider flexItem className={classNames.divider} orientation="vertical" />
-        <NewBoxes />
+        <NewBoxes
+          newBoxes={newBoxes}
+          isMasterBox={isMasterBox}
+          selectedBox={selectedBox}
+          onChangeInput={onChangeInput}
+        />
       </div>
 
       <div className={classNames.buttonsWrapper}>
