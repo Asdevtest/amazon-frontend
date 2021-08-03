@@ -85,6 +85,9 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
           {item.createdby.name}
         </Button>
       </TableCell>
+      <TableCell>
+        <Button color="primary">{item.buyer ? item.buyer.name : 'N/A'}</Button>
+      </TableCell>
       <TableCell className={classNames.bsrCell}>{item.bsr}</TableCell>
       <TableCell className={classNames.salersTotal}>{item.type}</TableCell>
       <TableCell className={classNames.rankTableCell}>{toFixedWithDollarSign(item.fbafee)}</TableCell>

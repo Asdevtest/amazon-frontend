@@ -20,8 +20,8 @@ import {TableHeadRow} from '@components/table-rows/buyer/products-view/table-hea
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/buyerAvatar.jpg'
-import {styles} from './buyer-my-products-view.style'
 import {BuyerProductsViewModel} from './buyer-products-view.model'
+import {styles} from './buyer-products-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerProductsView
 

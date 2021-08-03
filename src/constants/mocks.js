@@ -868,6 +868,7 @@ export const CLIENT_USER_MANAGERS_LIST = [
 
 export const BUYER_MY_PRODUCTS_HEAD_CELLS = [
   {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},
+  {id: 'status', align: 'center', disablePadding: true, label: 'Status'},
   {id: 'price', align: 'right', disablePadding: false, label: 'Price'},
   {id: 'fees', align: 'left', disablePadding: false, label: 'Fees & Net'},
   {id: 'profit', align: 'right', disablePadding: false, label: 'Profit'},

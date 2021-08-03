@@ -1,22 +1,17 @@
 import React, {useState} from 'react'
 
-import {NativeSelect, Typography} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {getDeliveryOptionByCode} from '@constants/delivery-options'
-import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByCode, OrderStatusByKey} from '@constants/order-status'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {texts} from '@constants/texts'
-import {getWarehousesOptionByCode} from '@constants/warehouses'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
-import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 import {BeforeAfterBlock} from '../before-after-block'
 import {ReceiveBoxModal} from '../receive-box-modal'
@@ -64,51 +59,6 @@ export const EditTaskModal = observer(
           <Typography paragraph className={classNames.subTitle}>
             {textConsts.taskTitle}
           </Typography>
-
-          <Field
-            disabled
-            containerClasses={classNames.field}
-            label={textConsts.warehouseLabel}
-            value={task.boxesBefore[0].warehouse && getWarehousesOptionByCode(task.boxesBefore[0].warehouse).label}
-          />
-
-          <Field
-            disabled
-            containerClasses={classNames.field}
-            label={textConsts.deliveryMethodLabel}
-            value={
-              task.boxesBefore[0].deliveryMethod && getDeliveryOptionByCode(task.boxesBefore[0].deliveryMethod).label
-            }
-          />
-
-          <Field
-            containerClasses={classNames.field}
-            label={textConsts.statusLabel}
-            inputComponent={
-              <NativeSelect
-                disabled={newBoxes.length === 0 || task.operationType !== TaskOperationType.RECEIVE}
-                variant="filled"
-                value={newBoxes[0] && getOrderStatusOptionByCode(newBoxes[0].items[0].order.status).label}
-                className={classNames.nativeSelect}
-                input={<Input />}
-                // onChange={setOrderField('status')} // нужен метод от бека
-              >
-                <option>{'none'}</option>
-                {Object.keys(
-                  getObjectFilteredByKeyArrayWhiteList(OrderStatusByCode, [
-                    OrderStatusByKey[OrderStatus.IN_STOCK].toString(),
-                    OrderStatusByKey[
-                      OrderStatus.RETURN_ORDER
-                    ].toString() /* еще добавить Partlly in stock(пока нет такого)*/,
-                  ]),
-                ).map((statusCode, statusIndex) => (
-                  <option key={statusIndex} value={statusCode}>
-                    {getOrderStatusOptionByCode(statusCode).label}
-                  </option>
-                ))}
-              </NativeSelect>
-            }
-          />
 
           <div className={classNames.commentsWrapper}>
             <Field

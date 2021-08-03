@@ -73,15 +73,39 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, params}) =
 ))
 
 export const SupervisorCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.supervisorCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
+  <div>
+    <Typography className={classNames.researcherCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
+    <Typography className={classNames.researcherCell}>{`rate: ${
+      !params.value ? 'N/A' : params.value.rate
+    }`}</Typography>
+  </div>
 ))
 
 export const ResearcherCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.researcherCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
+  <div>
+    <Typography className={classNames.researcherCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
+    <Typography className={classNames.researcherCell}>{`rate: ${
+      !params.value ? 'N/A' : params.value.rate
+    }`}</Typography>
+  </div>
+))
+
+export const ClientCell = withStyles(styles)(({classes: classNames, params}) => (
+  <div>
+    <Typography className={classNames.researcherCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
+    <Typography className={classNames.researcherCell}>{`rate: ${
+      !params.value ? 'N/A' : params.value.rate
+    }`}</Typography>
+  </div>
 ))
 
 export const BuyerCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.buyerCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
+  <div>
+    <Typography className={classNames.researcherCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
+    <Typography className={classNames.researcherCell}>{`rate: ${
+      !params.value ? 'N/A' : params.value.rate
+    }`}</Typography>
+  </div>
 ))
 
 export const RankCell = withStyles(styles)(({classes: classNames, params}) => (

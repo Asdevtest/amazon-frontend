@@ -5,6 +5,7 @@ export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
   {id: 'updateDate', align: 'center', disablePadding: true, label: 'Update date'},
   {id: 'price', align: 'right', disablePadding: false, label: 'Amazon $'},
   {id: 'researcher', align: 'left', disablePadding: false, label: 'Researcher'},
+  {id: 'buyer', align: 'left', disablePadding: false, label: 'Buyer'},
   {id: 'bsr', align: 'right', disablePadding: false, label: 'BSR'},
   {id: 'type', align: 'right', disablePadding: false, label: 'Type'},
   {id: 'fbaFee', align: 'center', disablePadding: false, label: 'Fba fee'},
@@ -12,6 +13,7 @@ export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
 
 export const CLIENT_ORDERS_HEAD_CELL = [
   'Заказы',
+  'Статус',
   'Штрих-код',
   'Кол-во',
   'Куда',

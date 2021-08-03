@@ -15,6 +15,7 @@ export const ProductStatus = {
   COMPLETE_SUCCESS: 'COMPLETE_SUCCESS',
   COMPLETE_SUPPLIER_WAS_NOT_FOUND: 'COMPLETE_SUPPLIER_WAS_NOT_FOUND',
   COMPLETE_PRICE_WAS_NOT_ACCEPTABLE: 'COMPLETE_PRICE_WAS_NOT_ACCEPTABLE',
+  PURCHASED_PRODUCT: 'PURCHASED_PRODUCT',
 }
 
 export const ProductStatusByCode = {
@@ -31,6 +32,7 @@ export const ProductStatusByCode = {
   60: ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
   // Статус которые проставит супервайзер по результатам второй проверки.
   70: ProductStatus.COMPLETE_SUCCESS, // если был поставлен статус 70 то нужно учитывать предыдущий статус товара. если переходили с 10->70 оплачиваем ресечеру и супервайзеру. если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.
+  75: ProductStatus.PURCHASED_PRODUCT, // продукт куплен
   80: ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND,
   // оплачиваем супервайзеру
   90: ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,

@@ -89,4 +89,7 @@ export const useClassNames = makeStyles(() => ({
     height: '45px',
     overflowX: 'scroll',
   },
+  fieldsWrapper: {
+    padding: '0 10px',
+  },
 }))

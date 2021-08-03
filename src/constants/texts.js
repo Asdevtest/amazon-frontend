@@ -1548,12 +1548,13 @@ export const texts = {
       barCodeReallyIsGlued: 'Баркод действительно проклеен?',
       barCodeIsGluedWarehouse: 'Баркод проклеен складом',
       shippingLabelIsGluedWarehouse: 'Шиппинг лебл был проклеен складом',
+
+      warehouseLabel: 'Склад',
+      deliveryMethodLabel: 'Метод доставки',
+      statusLabel: 'Статус заказа',
     },
     warehouseTaskForm: {
       taskTitle: 'Данные поступления',
-      warehouseLabel: 'Склад',
-      deliveryMethodLabel: 'Метод доставки',
-      statusLabel: 'Статус',
       incomingBoxes: 'Поступившие коробки:',
       saveChangesBtn: 'Сохранить',
       cancelChangesBtn: 'Отмена',

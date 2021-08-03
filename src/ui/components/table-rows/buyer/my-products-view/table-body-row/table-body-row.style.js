@@ -24,7 +24,7 @@ export const styles = createStyles({
   asinCell: {
     padding: '12px 0px',
     height: '88px',
-    scope: 'row',
+    maxWidth: '300px',
   },
   asinCellContainer: {
     display: 'inline-flex',
@@ -34,7 +34,7 @@ export const styles = createStyles({
     lineHeight: '18px',
     fontWeight: 500,
     whiteSpace: 'nowrap',
-    maxWidth: '250px',
+    maxWidth: '300px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },

@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {withStyles} from '@material-ui/styles'
 
+import {ProductStatusByCode} from '@constants/product-status'
+
 import {formatDateDistanceFromNow} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixedWithDollarSign} from '@utils/text'
@@ -58,6 +60,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
           </div>
         </div>
       </TableCell>
+      <TableCell className={classNames.priceTableCell}>{ProductStatusByCode[item.status]}</TableCell>
       <TableCell className={classNames.priceTableCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
       <TableCell className={classNames.feesTableCell}>
         <div>

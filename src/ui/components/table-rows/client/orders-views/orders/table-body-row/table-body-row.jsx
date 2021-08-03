@@ -4,6 +4,7 @@ import {Box, Chip, TableCell, TableRow, Tooltip, Typography, Checkbox} from '@ma
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
+import {OrderStatusByCode} from '@constants/order-status'
 import {texts} from '@constants/texts'
 import {warehouses} from '@constants/warehouses'
 
@@ -52,7 +53,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, selectedOrder, ...restProps
           </div>
         </div>
       </TableCell>
-
+      <TableCell className={classNames.priceTableCell}>{OrderStatusByCode[item.status]}</TableCell>
       <TableCell>
         <Chip
           className={clsx(
