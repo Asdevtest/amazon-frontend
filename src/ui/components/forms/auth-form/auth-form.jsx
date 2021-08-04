@@ -42,7 +42,7 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
           />
           <Typography className={classNames.label}>{textConsts.checkboxLabel}</Typography>
         </div>
-        <Typography>{textConsts.forgotPassword}</Typography>
+        <Typography className={classNames.forgotPassword}>{textConsts.forgotPassword}</Typography>
       </div>
       <Button disableElevation color="primary" variant="contained" onClick={onSubmit}>
         {textConsts.button}

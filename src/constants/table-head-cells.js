@@ -59,9 +59,8 @@ export const CLIENT_WAREHOUSE_HEAD_CELLS = [
   {id: 'img', label: 'Warehouse'},
   {id: 'img', label: 'Boxes'},
   {id: 'img', label: 'Price'},
-  {id: 'img', label: 'Weight'},
+  {id: 'img', label: 'Final Weight'},
   {id: 'img', label: 'Gross Weight'},
-  {id: 'img', label: 'Weight ??'},
   {id: 'img', label: 'Track ID'},
 ]
 

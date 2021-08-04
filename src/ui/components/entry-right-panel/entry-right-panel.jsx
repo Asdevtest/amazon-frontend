@@ -12,7 +12,9 @@ export const EntryRightPanel = ({onClickRedirect, redirect, title, children}) =>
       <div className={classNames.formWrapper}>
         <div className={classNames.formHeader}>
           <Typography className={classNames.title}>{title}</Typography>
-          <Typography onClick={onClickRedirect}>{redirect}</Typography>
+          <Typography className={classNames.redirect} onClick={onClickRedirect}>
+            {redirect}
+          </Typography>
         </div>
         <Divider className={classNames.divider} />
         {children}

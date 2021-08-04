@@ -41,6 +41,7 @@ const fieldsOfProductAllowedToUpdate = [
   'weight',
   'minpurchase',
   'fbaamount',
+  'currentSupplier',
 ]
 
 const formFieldsDefault = {
@@ -133,7 +134,6 @@ export class ResearcherProductViewModel {
   updateAutoCalculatedFields() {
     // взято из fba app
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
-    console.log('this.product.totalFba ', this.product.totalFba)
     this.product.maxDelivery = this.product.express
       ? (parseInt(this.product.weight) || 0) * 7
       : (parseInt(this.product.weight) || 0) * 5
@@ -181,15 +181,29 @@ export class ResearcherProductViewModel {
   }
 
   async onClickSupplierButtons(actionType) {
-    if (actionType === 'add') {
-      runInAction(() => {
+    switch (actionType) {
+      case 'add':
+        runInAction(() => {
+          this.selectedSupplier = undefined
+        })
+        this.onTriggerAddOrEditSupplierModal()
+        break
+      case 'edit':
+        this.onTriggerAddOrEditSupplierModal()
+        break
+      case 'accept':
+        this.product.currentSupplier = this.selectedSupplier
         this.selectedSupplier = undefined
-      })
-      this.onTriggerAddOrEditSupplierModal()
-    } else if (actionType === 'edit') {
-      this.onTriggerAddOrEditSupplierModal()
-    } else {
-      this.onRemoveSupplier()
+        this.updateAutoCalculatedFields()
+        break
+      case 'acceptRevoke':
+        this.product.currentSupplier = undefined
+        this.selectedSupplier = undefined
+        this.updateAutoCalculatedFields()
+        break
+      case 'delete':
+        this.onRemoveSupplier()
+        break
     }
   }
 
@@ -206,7 +220,8 @@ export class ResearcherProductViewModel {
         this.suppliers.splice(findSupplierIndex, 1)
         this.product.supplier.splice(findProductSupplierIndex, 1)
         this.selectedSupplier = undefined
-        this.onSaveProductData()
+        const editingСontinues = true
+        this.onSaveProductData(editingСontinues)
       })
     } catch (error) {
       console.log(error)
@@ -247,7 +262,8 @@ export class ResearcherProductViewModel {
           this.product.supplier.push(createSupplierResult.guid)
           this.suppliers.push({...supplier, _id: createSupplierResult.guid})
         })
-        this.onSaveProductData()
+        const editingСontinues = true
+        this.onSaveProductData(editingСontinues)
       }
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
@@ -287,7 +303,7 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onSaveProductData() {
+  async onSaveProductData(editingСontinues) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       const updateProductData = getObjectFilteredByKeyArrayWhiteList(
@@ -297,7 +313,7 @@ export class ResearcherProductViewModel {
         (key, value) => {
           switch (key) {
             case 'status':
-              return value < 10 && this.selectedSupplier ? 10 : value
+              return value < 10 && this.product.currentSupplier ? 10 : value
             case 'bsr':
               return value && parseInt(value)
             case 'amazon':
@@ -314,6 +330,10 @@ export class ResearcherProductViewModel {
               return value && parseFloat(value)
             case 'fbafee':
               return value && parseFloat(value)
+            case 'profit':
+              return value && parseFloat(value)
+            case 'currentSupplier':
+              return this.product.currentSupplier._id
             default:
               return value
           }
@@ -324,7 +344,8 @@ export class ResearcherProductViewModel {
 
       await ResearcherModel.updateProduct(this.product._id, updateProductData)
       this.setActionStatus(loadingStatuses.success)
-      this.history.goBack()
+
+      !editingСontinues && this.history.goBack()
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
       console.log('error', error)

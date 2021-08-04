@@ -96,7 +96,7 @@ export class ResearcherUpdateProductContract {
   supplier
 
   @IsNotEmpty()
-  @IsInt()
+  @IsNumber()
   reffee
 
   @IsNotEmpty()
@@ -140,7 +140,7 @@ export class ResearcherUpdateProductContract {
   minpurchase
 
   @IsNotEmpty()
-  @IsInt()
+  @IsNumber()
   profit
 
   @IsNotEmpty()
@@ -151,27 +151,7 @@ export class ResearcherUpdateProductContract {
   @IsNumber()
   fbaamount
 
-  // @IsNotEmpty()
-  // @IsString()
-  // category;
-
-  // @IsNotEmpty()
-  // @IsString()
-  // sku;
-
-  // @IsNotEmpty()
-  // @IsString()
-  // material;
-
-  // @IsNotEmpty()
-  // @IsString()
-  // currentSupplier;
-
-  // @IsNotEmpty()
-  // @IsString()
-  // barCode;
-
-  // @IsNotEmpty()
-  // @IsInt()
-  // byboxprice;
+  @IsOptional()
+  @IsString()
+  currentSupplier
 }
