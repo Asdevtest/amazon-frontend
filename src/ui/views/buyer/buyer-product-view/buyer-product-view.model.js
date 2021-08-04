@@ -140,12 +140,12 @@ export class BuyerProductViewModel {
         this.updateAutoCalculatedFields()
         break
       case 'delete':
-        this.onRemoveSuppliier()
+        this.onRemoveSupplier()
         break
     }
   }
 
-  async onRemoveSuppliier() {
+  async onRemoveSupplier() {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       await SupplierModel.removeSupplier(this.selectedSupplier._id)

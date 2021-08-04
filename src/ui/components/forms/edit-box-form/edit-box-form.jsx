@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {useState} from 'react'
 
 import {Button, Chip, Divider, NativeSelect, TableCell, TableRow, Typography} from '@material-ui/core'
@@ -7,7 +6,7 @@ import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
 import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
-import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {texts} from '@constants/texts'
 import {warehouses} from '@constants/warehouses'
 
@@ -109,12 +108,6 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
 
   const [boxFields, setBoxFields] = useState({
     ...formItem,
-    lengthCmSupplier: formItem?.lengthCmSupplier || '',
-    widthCmSupplier: formItem?.widthCmSupplier || '',
-    heightCmSupplier: formItem?.heightCmSupplier || '',
-    weighGrossKgSupplier: formItem?.weighGrossKgSupplier || '',
-    volumeWeightKgSupplier: formItem?.volumeWeightKgSupplier || '',
-    weightFinalAccountingKgSupplier: formItem?.weightFinalAccountingKgSupplier || '',
 
     lengthCmWarehouse: formItem?.lengthCmWarehouse || 0,
     widthCmWarehouse: formItem?.widthCmWarehouse || 0,
@@ -134,9 +127,6 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
       },
     ],
   })
-
-  console.log('formItem', formItem)
-  console.log('boxFields', boxFields)
 
   const setFormField = fieldName => e => {
     const newFormFields = {...boxFields}

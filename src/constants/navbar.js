@@ -99,7 +99,6 @@ export const navbarConfig = {
         {subtitle: 'Свободные заказы', subRoute: '/buyer/orders/free-orders'},
       ],
     },
-    // {icon: ArchiveOutlinedIcon, title: 'Мой склад', subtitles: null, route: '/buyer/warehouse'},
     {icon: AllInboxIcon, title: 'Партии товаров', route: '/buyer/batches', subtitles: null},
     {
       icon: PeopleIcon,

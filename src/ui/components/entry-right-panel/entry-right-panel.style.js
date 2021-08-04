@@ -33,4 +33,13 @@ export const useClassNames = makeStyles(theme => ({
   divider: {
     margin: '8px 0px 16px',
   },
+  redirect: {
+    marginLeft: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      color: '#007bff',
+      fontWeight: '500',
+    },
+  },
 }))

@@ -99,12 +99,12 @@ export const CreateBoxForm = observer(
     const classNames = useClassNames()
 
     const sourceBox = {
-      lengthCmSupplier: formItem?.lengthCmSupplier || '',
-      widthCmSupplier: formItem?.widthCmSupplier || '',
-      heightCmSupplier: formItem?.heightCmSupplier || '',
-      weighGrossKgSupplier: formItem?.weighGrossKgSupplier || '',
-      volumeWeightKgSupplier: formItem?.volumeWeightKgSupplier || '',
-      weightFinalAccountingKgSupplier: formItem?.weightFinalAccountingKgSupplier || '',
+      lengthCmSupplier: formItem?.lengthCmSupplier || 0,
+      widthCmSupplier: formItem?.widthCmSupplier || 0,
+      heightCmSupplier: formItem?.heightCmSupplier || 0,
+      weighGrossKgSupplier: formItem?.weighGrossKgSupplier || 0,
+      volumeWeightKgSupplier: formItem?.volumeWeightKgSupplier || 0,
+      weightFinalAccountingKgSupplier: formItem?.weightFinalAccountingKgSupplier || 0,
       warehouse: formItem?.warehouse || '',
       deliveryMethod: formItem?.deliveryMethod || '',
       amount: 1, // formItem?.amount || 1,

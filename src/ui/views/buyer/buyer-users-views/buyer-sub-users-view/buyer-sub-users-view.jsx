@@ -28,7 +28,7 @@ import {styles} from './buyer-sub-users-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerSubUsersView
 
-const navbarActiveCategory = 5
+const navbarActiveCategory = 4
 const navbarActiveSubCategory = 1
 
 @observer

@@ -89,20 +89,28 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
             <TableCell rowSpan={ordersQty}>{'ID: ' + box._id}</TableCell>
           </React.Fragment>
         )}
-        {/* <TableCell className={classNames.cellValueNumber}>
-        {'$' + order.product.delivery.toFixed(2)}
-      </TableCell> */}
 
         <TableCell className={classNames.cellValueNumber}>
           {toFixedWithDollarSign((parseFloat(order.product.amazon) || 0) * (parseInt(order.amount) || 0))}
         </TableCell>
-        <TableCell className={classNames.cellValueNumber}>{order.product.weight + ' kg'}</TableCell>
+
         <TableCell className={classNames.cellValueNumber}>
           {withKg(
-            Math.max(parseFloat(box.volumeWeightKgSupplier) || 0, parseFloat(box.weightFinalAccountingKgSupplier) || 0),
+            Math.max(
+              parseFloat(box.volumeWeightKgWarehouse ? box.volumeWeightKgWarehouse : box.volumeWeightKgSupplier) || 0,
+              parseFloat(
+                box.weightFinalAccountingKgWarehouse
+                  ? box.weightFinalAccountingKgWarehouse
+                  : box.weightFinalAccountingKgSupplier,
+              ) || 0,
+            ),
           )}
         </TableCell>
-        <TableCell className={classNames.cellValueNumber}>{withKg(box.weighGrossKgSupplier)}</TableCell>
+
+        <TableCell className={classNames.cellValueNumber}>
+          {withKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier)}
+        </TableCell>
+
         <TableCell>{order.track ? order.track : 'N/A'}</TableCell>
       </TableRow>
       {isMaximizedMasterBox ? (

@@ -28,4 +28,13 @@ export const styles = theme =>
       justifyContent: 'space-between',
       marginBottom: theme.spacing(2.5),
     },
+    forgotPassword: {
+      marginLeft: '20px',
+      transition: '0.3s ease',
+      cursor: 'pointer',
+      '&:hover': {
+        color: '#007bff',
+        fontWeight: '500',
+      },
+    },
   })

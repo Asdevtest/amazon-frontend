@@ -8,7 +8,7 @@ const textConfigs = getLocalizedTexts(texts, 'ru').productStatusButtonsConfigs
 
 export const productStatusButtonsConfigs = {
   [UserRole.SUPERVISOR]: curStatus => {
-    if (curStatus <= ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
+    if (curStatus === ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
       return [
         {
           statusKey: ProductStatus.TO_BUYER_FOR_RESEARCH,
@@ -23,7 +23,10 @@ export const productStatusButtonsConfigs = {
           colorHover: '#c51a1c',
         },
       ]
-    } else if (curStatus > ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
+    } else if (
+      curStatus > ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] ||
+      curStatus === ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER]
+    ) {
       return [
         {
           statusKey: ProductStatus.COMPLETE_SUCCESS,
@@ -68,9 +71,3 @@ export const productStatusButtonsConfigs = {
     }
   },
 }
-
-// TODO: уточнить, какие статусы может выставлять супервизор
-// {key: 0, label: 'Поиск поставщика', color: 'rgb(0, 123, 255)', colorHover: '#1269ec'},
-// {key: 1, label: 'Поставщик найден', color: 'rgb(15, 169, 20)', colorHover: '#009a07'},
-// {key: 2, label: 'Поставщик не найден', color: '#ff9800', colorHover: '#f57c00'},
-// {key: 3, label: 'Цена выше МЗЦ', color: 'rgb(210, 35, 35)', colorHover: '#c51a1c'},
