@@ -8,22 +8,7 @@ const textConfigs = getLocalizedTexts(texts, 'ru').productStatusButtonsConfigs
 
 export const productStatusButtonsConfigs = {
   [UserRole.SUPERVISOR]: curStatus => {
-    if (curStatus === ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
-      return [
-        {
-          statusKey: ProductStatus.TO_BUYER_FOR_RESEARCH,
-          label: textConfigs.searchForSupplier,
-          color: 'rgb(0, 123, 255)',
-          colorHover: '#1269ec',
-        },
-        {
-          statusKey: ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP,
-          label: textConfigs.rejectedBySupervisor,
-          color: 'rgb(210, 35, 35)',
-          colorHover: '#c51a1c',
-        },
-      ]
-    } else if (
+    if (
       curStatus > ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] ||
       curStatus === ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER]
     ) {
@@ -39,6 +24,21 @@ export const productStatusButtonsConfigs = {
           label: textConfigs.supplierWasNotFound,
           color: '#ff9800',
           colorHover: '#f57c00',
+        },
+      ]
+    } else if (curStatus <= ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
+      return [
+        {
+          statusKey: ProductStatus.TO_BUYER_FOR_RESEARCH,
+          label: textConfigs.searchForSupplier,
+          color: 'rgb(0, 123, 255)',
+          colorHover: '#1269ec',
+        },
+        {
+          statusKey: ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP,
+          label: textConfigs.rejectedBySupervisor,
+          color: 'rgb(210, 35, 35)',
+          colorHover: '#c51a1c',
         },
       ]
     }
