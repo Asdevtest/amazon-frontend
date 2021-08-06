@@ -5,6 +5,7 @@ import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {adminUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
@@ -77,6 +78,7 @@ class AdminUsersViewRaw extends Component {
   render() {
     const {
       getCurrentData,
+      requestStatus,
       drawerOpen,
       curPage,
       history,
@@ -118,7 +120,6 @@ class AdminUsersViewRaw extends Component {
                 {textConsts.mainTitle}
               </Typography>
               <DataGrid
-                // autoHeight // с этим пропсом у меня(Алексей) появляется тот баг с неотображением, несмотря на useResizeContainer
                 pagination
                 useResizeContainer
                 page={curPage}
@@ -126,6 +127,7 @@ class AdminUsersViewRaw extends Component {
                 rowsPerPageOptions={[5, 15, 10, 20]}
                 rows={getCurrentData()}
                 columns={renderAdminSubUsersTableCells(this.renderAdminBtns)}
+                loading={requestStatus === loadingStatuses.isLoading}
                 components={{
                   Toolbar: GridToolbar,
                 }}

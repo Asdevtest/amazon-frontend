@@ -711,6 +711,7 @@ export const texts = {
       netTypo: 'Net ',
       ratingTypo: ' reviews',
       setBarcodeChipLabel: 'Set barcode',
+      titleToolTip: 'Подсказка',
     },
 
     subUsersModalContent: {

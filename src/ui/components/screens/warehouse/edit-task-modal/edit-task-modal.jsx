@@ -45,6 +45,7 @@ export const EditTaskModal = observer(
             weighGrossKgWarehouse: box?.weighGrossKgWarehouse || '',
             volumeWeightKgWarehouse: box?.volumeWeightKgWarehouse || '',
             weightFinalAccountingKgWarehouse: box?.weightFinalAccountingKgWarehouse || '',
+            isShippingLabelAttachedByStorekeeper: box?.isShippingLabelAttachedByStorekeeper || false,
           }),
       ),
     ])

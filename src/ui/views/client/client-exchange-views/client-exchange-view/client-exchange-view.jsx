@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, {Component} from 'react'
 
 import {TableCell, TableRow, Typography} from '@material-ui/core'
@@ -21,7 +20,7 @@ import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
 import {ExchangeBodyRow} from '@components/table-rows/client/exchange'
 
-import {calcProductPrice, calcProductsPriceWithDelivery} from '@utils/calculation'
+import {calcProductPrice} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
@@ -51,7 +50,6 @@ export class ClientExchangeViewRaw extends Component {
       productsVacant,
       showPrivateLabelModal,
       selectedProduct,
-      dataToPay,
       showConfirmPayModal,
       showSuccessModal,
       onTriggerDrawer,
@@ -65,7 +63,6 @@ export class ClientExchangeViewRaw extends Component {
       onClickUsername,
       onTriggerOpenModal,
       setDataToPay,
-      onLaunchPrivateLabel,
     } = this.viewModel
     const {classes: classNames} = this.props
     const tableRowsHandlers = {
@@ -156,7 +153,9 @@ export class ClientExchangeViewRaw extends Component {
   renderTableHeadRow = () => (
     <TableRow>
       {CLIENT_EXCHANGE_HEAD_CELLS.map((item, index) => (
-        <TableCell key={index}>{item.label}</TableCell>
+        <TableCell key={index} align={item.align}>
+          {item.label}
+        </TableCell>
       ))}
       <TableCell />
     </TableRow>

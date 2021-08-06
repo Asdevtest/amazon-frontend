@@ -70,13 +70,16 @@ export class AdminOrdersAllViewModel {
   async getOrdersByStatus(activeSubCategory) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.error = undefined
       const result = await AdministratorModel.getOrdersByStatus(ordersStatusBySubCategory[activeSubCategory])
 
+      const ordersData = result.map(order => ({
+        ...getObjectFilteredByKeyArrayBlackList(order, ['_id']),
+        id: order._id,
+      }))
+
       runInAction(() => {
-        this.currentOrdersData = result.map(order => ({
-          ...getObjectFilteredByKeyArrayBlackList(order, ['_id']),
-          id: order._id,
-        }))
+        this.currentOrdersData = ordersData
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

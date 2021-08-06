@@ -27,9 +27,15 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, classes: classNames}) =>
     <TableCell>{toFixedWithDollarSign(item.amazon)}</TableCell>
     <TableCell>{toFixed(item.weight, 2)}</TableCell>
     <TableCell>{item.bsr}</TableCell>
+    <TableCell className={classNames.alignCenter}>{item.fbaamount}</TableCell>
     <TableCell>
       <Button color="primary" onClick={() => handlers.onClickUsername()}>
         {item.createdby.name}
+      </Button>
+    </TableCell>
+    <TableCell>
+      <Button color="primary" onClick={() => handlers.onClickUsername()}>
+        {item.buyer ? item.buyer.name : 'N/A'}
       </Button>
     </TableCell>
     <TableCell>

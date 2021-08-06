@@ -3,7 +3,9 @@ import React, {Component} from 'react'
 import {Typography} from '@material-ui/core'
 import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {adminUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -22,6 +24,7 @@ import {styles} from './admin-inventory-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').adminInventoryView
 
+@observer
 export class AdminInventoryViewRaw extends Component {
   viewModel = new AdminInventoryViewModel({history: this.props.history})
 
@@ -32,6 +35,7 @@ export class AdminInventoryViewRaw extends Component {
   render() {
     const {
       getCurrentData,
+      requestStatus,
       drawerOpen,
       curPage,
       history,
@@ -67,14 +71,14 @@ export class AdminInventoryViewRaw extends Component {
                 {textConsts.mainTitle}
               </Typography>
               <DataGrid
-                autoHeight
                 pagination
+                useResizeContainer
                 checkboxSelection
                 page={curPage}
                 pageSize={rowsPerPage}
                 rowHeight={100}
-                rowsPerPageOptions={[5, 10, 20]}
-                rows={getCurrentData()}
+                rowsPerPageOptions={[5, 10, 15, 20]}
+                loading={requestStatus === loadingStatuses.isLoading}
                 components={{
                   Toolbar: GridToolbar,
                 }}
@@ -82,6 +86,7 @@ export class AdminInventoryViewRaw extends Component {
                   items: [{columnField: 'fba', operatorValue: '', value: ''}],
                 }}
                 columns={exchangeInventoryColumns()}
+                rows={getCurrentData()}
                 onSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection.selectionModel[0])
                 }}

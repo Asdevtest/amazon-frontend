@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
@@ -30,7 +30,7 @@ export class AdminExchangeViewModel {
 
   drawerOpen = false
   rowsPerPage = 15
-  curPage = 1
+  curPage = 0
   showSetBarcodeModal = false
   selectedProduct = undefined
 
@@ -46,6 +46,10 @@ export class AdminExchangeViewModel {
 
   onSelectionModel(model) {
     this.selectionModel = model
+  }
+
+  getCurrentData() {
+    return toJS(this.currentProductsData)
   }
 
   async getProductsByStatus(activeSubCategory) {

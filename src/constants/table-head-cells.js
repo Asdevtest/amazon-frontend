@@ -44,7 +44,9 @@ export const CLIENT_EXCHANGE_HEAD_CELLS = [
   {id: 'priceAmazon', label: 'Цена'},
   {id: 'weight', label: 'Вес'},
   {id: 'bsr', label: 'BSR'},
+  {id: 'fbaamount', label: 'Рекомендованная партия', align: 'center'},
   {id: 'reasearcher', label: 'Ресерчер'},
+  {id: 'buyer', label: 'Баер'},
 ]
 
 export const CLIENT_WAREHOUSE_HEAD_CELLS = [

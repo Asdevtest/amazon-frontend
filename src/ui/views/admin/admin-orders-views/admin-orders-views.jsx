@@ -80,13 +80,15 @@ class AdminOrdersViewsRaw extends Component {
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
                 <DataGrid
-                  autoHeight
+                  // autoHeight
                   pagination
+                  useResizeContainer
                   checkboxSelection
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[5, 10, 20]}
+                  rowsPerPageOptions={[5, 10, 15, 20]}
                   rows={getCurrentData()}
+                  rowHeight={100}
                   components={{
                     Toolbar: GridToolbar,
                   }}

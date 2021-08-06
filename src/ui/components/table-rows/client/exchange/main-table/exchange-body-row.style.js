@@ -12,4 +12,7 @@ export const styles = createStyles({
     textAlign: 'right',
     flexDirection: 'row-reverse',
   },
+  alignCenter: {
+    textAlign: 'center',
+  },
 })
