@@ -128,6 +128,9 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
     ],
   })
 
+  console.log('formItem', formItem)
+  console.log('boxFields', boxFields)
+
   const setFormField = fieldName => e => {
     const newFormFields = {...boxFields}
     newFormFields[fieldName] = e.target.value

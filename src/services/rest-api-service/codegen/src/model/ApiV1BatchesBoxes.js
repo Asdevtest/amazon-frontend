@@ -178,6 +178,12 @@ class ApiV1BatchesBoxes {
       if (data.hasOwnProperty('clientId')) {
         obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
       }
+      if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+        obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(
+          data['isShippingLabelAttachedByStorekeeper'],
+          'Boolean'
+        );
+      }
     }
     return obj;
   }
@@ -398,5 +404,11 @@ ApiV1BatchesBoxes.prototype['images'] = undefined;
  * @member {String} clientId
  */
 ApiV1BatchesBoxes.prototype['clientId'] = undefined;
+
+/**
+ * true - если создаем черновик заказа.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+ApiV1BatchesBoxes.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
 
 export default ApiV1BatchesBoxes;
