@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 import {Typography} from '@material-ui/core'
 import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
-import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -31,13 +30,12 @@ class AdminExchangeViewsRaw extends Component {
   viewModel = new AdminExchangeViewModel({history: this.props.history})
 
   componentDidMount() {
-    console.log(this.viewModel.activeSubCategory)
     this.viewModel.getProductsByStatus(this.viewModel.activeSubCategory)
   }
 
   render() {
     const {
-      currentProductsData,
+      getCurrentData,
       activeSubCategory,
       drawerOpen,
       history,
@@ -76,14 +74,14 @@ class AdminExchangeViewsRaw extends Component {
                 {textConsts.mainTitle}
               </Typography>
               <DataGrid
-                autoHeight
                 pagination
+                useResizeContainer
                 checkboxSelection
                 page={curPage}
                 pageSize={rowsPerPage}
-                rowsPerPageOptions={[5, 10, 20]}
+                rowsPerPageOptions={[5, 10, 15, 20]}
                 rowHeight={100}
-                rows={toJS(currentProductsData)}
+                rows={getCurrentData()}
                 components={{
                   Toolbar: GridToolbar,
                 }}

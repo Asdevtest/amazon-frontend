@@ -23,12 +23,30 @@ import {BoxItemCard} from './box-item-card'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseBeforeAfterBlock
 
-const Box = ({box, setCurBox, isNewBox = false, isCurrentBox = false, onClickEditBox, isEdit, taskType}) => {
+const Box = ({
+  box,
+  setCurBox,
+  isNewBox = false,
+  isCurrentBox = false,
+  onClickEditBox,
+  isEdit,
+  taskType,
+  setNewBoxes,
+  newBoxes,
+}) => {
   const classNames = useClassNames()
 
   const [barCodeReallyIsGlued, setBarCodeReallyIsGlued] = useState(false)
 
   const [barCodeIsGluedWarehouse, setBarCodeIsGluedWarehouse] = useState(false) // временно, чтобы было понимание, как работают чекбоксы
+
+  const onChangeField = (value, field) => {
+    const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
+    const updatedTargetBox = {...targetBox, [field]: value}
+
+    const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? updatedTargetBox : box))
+    setNewBoxes(updatedNewBoxes)
+  }
 
   return (
     <Paper className={(classNames.box, classNames.mainPaper)}>
@@ -191,7 +209,15 @@ const Box = ({box, setCurBox, isNewBox = false, isCurrentBox = false, onClickEdi
                 oneLine
                 containerClasses={classNames.field}
                 label={textConsts.shippingLabelIsGluedWarehouse}
-                inputComponent={<Checkbox color="primary" />}
+                inputComponent={
+                  <Checkbox
+                    color="primary"
+                    checked={box.isShippingLabelAttachedByStorekeeper}
+                    onClick={() =>
+                      onChangeField(!box.isShippingLabelAttachedByStorekeeper, 'isShippingLabelAttachedByStorekeeper')
+                    }
+                  />
+                }
               />
             </div>
           )}
@@ -224,7 +250,6 @@ const NewBoxes = ({
   showEditBoxModal,
   onTriggerShowEditBoxModal,
   setNewBoxes,
-  setAmountFieldNewBox,
 }) => {
   const classNames = useClassNames()
 
@@ -271,8 +296,8 @@ const NewBoxes = ({
           setCurBox={setCurBox}
           isEdit={isEdit}
           taskType={taskType}
+          newBoxes={newBoxes}
           setNewBoxes={setNewBoxes}
-          setAmountFieldNewBox={setAmountFieldNewBox}
           showEditBoxModal={showEditBoxModal}
           onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
           onClickEditBox={onClickEditBox}
@@ -285,7 +310,6 @@ const NewBoxes = ({
           box={curBox}
           newBoxes={newBoxes}
           setNewBoxes={setNewBoxes}
-          setAmountFieldNewBox={setAmountFieldNewBox}
           operationType={taskType}
         />
       </Modal>

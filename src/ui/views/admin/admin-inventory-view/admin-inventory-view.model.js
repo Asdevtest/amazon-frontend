@@ -1,5 +1,7 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {loadingStatuses} from '@constants/loading-statuses'
+
 import {AdministratorModel} from '@models/administrator-model'
 
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
@@ -43,8 +45,13 @@ export class AdminInventoryViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
   async getProducts() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const result = await AdministratorModel.getProductsPaid()
 
       const productsData = result.map(product => ({
@@ -55,6 +62,7 @@ export class AdminInventoryViewModel {
       runInAction(() => {
         this.products = productsData
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {

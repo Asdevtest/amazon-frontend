@@ -199,7 +199,7 @@ export const GrossWeightCell = withStyles(styles)(({classes: classNames, params}
       <Typography>{toFixedWithKg(params.row.product.grossWeight)}</Typography>
     ) : (
       <Tooltip interactive placement="top" title={textConsts.titleToolTip} className={classNames.tooltip}>
-        <Typography>?</Typography>
+        <Typography>{'N/A'}</Typography>
       </Tooltip>
     )}
   </React.Fragment>

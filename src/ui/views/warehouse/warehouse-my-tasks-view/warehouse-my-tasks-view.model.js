@@ -112,6 +112,7 @@ export class WarehouseVacantViewModel {
           'weighGrossKgWarehouse',
           'volumeWeightKgWarehouse',
           'weightFinalAccountingKgWarehouse',
+          'isShippingLabelAttachedByStorekeeper',
         ]),
       }
 
@@ -172,7 +173,7 @@ export class WarehouseVacantViewModel {
       console.log(error)
       this.error = error
 
-      if (error[0].constraints.isNotEmpty) {
+      if (error[0]) {
         this.onTriggerOpenModal('showNoDimensionsErrorModal')
       }
     }

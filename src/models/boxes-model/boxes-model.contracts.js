@@ -6,6 +6,7 @@ import {
   IsArray, // ValidateNested,
   IsOptional,
   IsNumber,
+  IsBoolean,
 } from 'class-validator'
 
 export class BoxesCreateBoxContract {
@@ -112,4 +113,8 @@ export class BoxesWarehouseUpdateBoxInTaskContract {
   @IsNotEmpty()
   @IsNumber()
   weightFinalAccountingKgWarehouse
+
+  @IsOptional()
+  @IsBoolean()
+  isShippingLabelAttachedByStorekeeper
 }

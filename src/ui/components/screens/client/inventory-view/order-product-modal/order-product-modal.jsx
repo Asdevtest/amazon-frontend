@@ -35,8 +35,6 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
 
-  console.log('selectedProductsData', selectedProductsData)
-
   const [orderState, setOrderState] = useState(
     selectedProductsData.map(product => ({
       status: 1,
@@ -44,7 +42,7 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
       deliveryMethod: '',
       warehouse: '',
       clientComment: '',
-      barCode: '',
+      barCode: product.barCode,
       product: product._id,
       images: product.images,
     })),
