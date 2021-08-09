@@ -179,8 +179,8 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
             rows={4}
             rowsMax={6}
             className={classNames.commentInput}
-            value={orderFields.buyerscomment}
-            onChange={setOrderField('buyerscomment')}
+            value={orderFields.buyerComment}
+            onChange={setOrderField('buyerComment')}
           />
         </Box>
         <Box my={3}>

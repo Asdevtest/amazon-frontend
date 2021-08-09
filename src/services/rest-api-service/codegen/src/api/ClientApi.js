@@ -956,4 +956,67 @@ export default class ClientApi {
       return response_and_data.data;
     });
   }
+
+  /**
+     * # Отменить задачу по её GUID.
+     * ## Отменить задачу по её GUID.      
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+  apiV1ClientsTasksGuidCancelWithHttpInfo(guid, opts) {
+    opts = opts || {};
+    let postBody = null;
+    // verify the required parameter 'guid' is set
+    if (guid === undefined || guid === null) {
+      throw new Error(
+        "Missing the required parameter 'guid' when calling apiV1ClientsOrdersGuidDelete"
+      );
+    }
+
+    let pathParams = {
+      guid: guid
+    };
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = 'String';
+    return this.apiClient.callApi(
+      '/api/v1/clients/tasks/cancel/{guid}',
+      'POST',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
+     * # Отменить задачу по её GUID.
+     * ## Отменить задачу по её GUID.  
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+  apiV1ClientsTasksGuidCancel(guid, opts) {
+    return this.apiV1ClientsTasksGuidCancelWithHttpInfo(guid, opts).then(function(
+      response_and_data
+    ){
+      return response_and_data.data;
+    });
+  }
 }

@@ -117,11 +117,16 @@ export class ClientWarehouseViewModel {
             },
           ],
         },
-        ['_id', 'status', 'createdBy', 'lastModifiedBy'],
+        ['_id', 'status', 'createdBy', 'lastModifiedBy', 'clientComment'],
       )
       const editBoxesResult = await this.editBox({id, data: requestBox})
 
-      await this.postTask({idsData: [editBoxesResult.guid], idsBeforeData: [id], type: TaskOperationType.EDIT})
+      await this.postTask({
+        idsData: [editBoxesResult.guid],
+        idsBeforeData: [id],
+        type: TaskOperationType.EDIT,
+        clientComment: boxData.clientComment,
+      })
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
@@ -138,13 +143,14 @@ export class ClientWarehouseViewModel {
     this.selectedBoxes = []
   }
 
-  async postTask({idsData, idsBeforeData, type}) {
+  async postTask({idsData, idsBeforeData, type, clientComment}) {
     try {
       await ClientModel.createTask({
         taskId: 0,
         boxes: [...idsData],
         boxesBefore: [...idsBeforeData],
         operationType: type,
+        clientComment: clientComment || '',
       })
     } catch (error) {
       console.log(error)
@@ -236,24 +242,22 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  // async updateTaskToNotSolved(taskId){
-  //   try {
-  //     await StorekeeperModel.updateTask(taskId, {
-  //         status: mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
-  //     })
-  //     await this.getTasksMy()
+  async cancelTask(taskId) {
+    try {
+      await ClientModel.cancelTask(taskId)
 
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.error = error
-  //   }
-  // }  ждем метода от бека -этот от сторкипера работает некорректно
+      await this.getTasksMy()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
 
-  async cancelEditBoxes(id) {
+  async cancelEditBoxes(id, taskId) {
     try {
       await BoxesModel.cancelEditBoxes(id)
 
-      // await this.updateTaskToNotSolved(taskId)
+      await this.cancelTask(taskId)
 
       await this.getBoxesMy()
     } catch (error) {
@@ -262,11 +266,11 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  async cancelMergeBoxes(id) {
+  async cancelMergeBoxes(id, taskId) {
     try {
       await BoxesModel.cancelMergeBoxes(id)
 
-      // await this.updateTaskToNotSolved(taskId)
+      await this.cancelTask(taskId)
 
       await this.getBoxesMy()
     } catch (error) {
@@ -275,11 +279,11 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  async cancelSplitBoxes(id) {
+  async cancelSplitBoxes(id, taskId) {
     try {
       await BoxesModel.cancelSplitBoxes(id)
 
-      // await this.updateTaskToNotSolved(taskId)
+      await this.cancelTask(taskId)
 
       await this.getBoxesMy()
     } catch (error) {

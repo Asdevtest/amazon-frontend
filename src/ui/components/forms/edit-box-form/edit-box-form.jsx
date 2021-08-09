@@ -119,13 +119,7 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
     deliveryMethod: formItem?.deliveryMethod,
     amount: formItem?.amount,
     shippingLabel: formItem?.shippingLabel || '',
-    items: formItem?.items || [
-      {
-        product: formItem?.product,
-        amount: formItem?.amount,
-        order: formItem,
-      },
-    ],
+    clientComment: formItem?.clientComment || '',
   })
 
   console.log('formItem', formItem)
@@ -255,19 +249,31 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
         <div className={classNames.commentsWrapper}>
           <Field
             multiline
+            disabled
             className={classNames.heightFieldAuto}
             rows={4}
             rowsMax={6}
-            label={'Комментарий клиента'}
-            placeholder={'Комментарий клиента к задаче'}
+            label={'Комментарий баера к заказу'}
+            value={boxFields.items[0].order.buyerComment ? boxFields.items[0].order.buyerComment : ''}
           />
           <Field
             multiline
             className={classNames.heightFieldAuto}
             rows={4}
             rowsMax={6}
+            label={'Комментарий клиента к задаче'}
+            placeholder={'Комментарий клиента к задаче'}
+            onChange={setFormField('clientComment')}
+          />
+          <Field
+            multiline
+            disabled
+            className={classNames.heightFieldAuto}
+            rows={4}
+            rowsMax={6}
             label={'Комментарий склада'}
             placeholder={'Комментарий склада к задаче для клиента'}
+            // value={boxFields.items[0].order.storekeeperComment ? boxFields.items[0].order.storekeeperComment : ''} // пока не ясно откуда будет приходить коммент
           />
         </div>
       </div>

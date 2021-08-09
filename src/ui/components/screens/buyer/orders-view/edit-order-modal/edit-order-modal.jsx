@@ -46,15 +46,13 @@ export const EditOrderModal = ({
 }) => {
   const classNames = useClassNames()
 
-  const [showBoxesOfOrder, setShowBoxesOfOrder] = useState(false)
-
   const [orderFields, setOrderFields] = useState({
     ...order,
     warehouse: order?.warehouse || undefined,
     deliveryMethod: order?.deliveryMethod || undefined,
     status: order?.status || undefined,
     clientComment: order?.clientComment || '',
-    buyerscomment: order?.product.buyerscomment || '',
+    buyerComment: order?.buyerComment || '',
     deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || 0,
     amountPaymentPerConsignmentAtDollars: order?.deliveryCostToTheWarehouse || 0,
     isBarCodeAlreadyAttachedByTheSupplier: order?.isBarCodeAlreadyAttachedByTheSupplier || false,
@@ -122,15 +120,21 @@ export const EditOrderModal = ({
           <ErrorButton onClick={onTriggerModal}>{textConsts.cancelBtn}</ErrorButton>
         </Box>
       ) : undefined}
+      <div className={classNames.tableWrapper}>
+        <Typography className={classNames.modalTitle}>{textConsts.boxesTitle}</Typography>
+        {boxes.length > 0 ? (
+          <Table rowsOnly data={boxes} BodyRow={WarehouseBodyRow} renderHeadRow={renderHeadRow} />
+        ) : (
+          <Typography className={classNames.noBoxesText}>{'Коробок пока нет...'}</Typography>
+        )}
+      </div>
 
       {showCreateOrEditBoxBlock ? (
         <React.Fragment>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
           <CreateBoxForm
             formItem={orderFields}
-            showBoxesOfOrder={showBoxesOfOrder}
             onTriggerOpenModal={onTriggerModal}
-            onClickShowBoxesOfOrder={() => setShowBoxesOfOrder(!showBoxesOfOrder)}
             onSubmit={(boxId, formFieldsArr) => {
               onSubmitCreateBoxes(boxId, formFieldsArr)
               onSubmitSaveOrder(order, orderFields)
@@ -138,12 +142,6 @@ export const EditOrderModal = ({
           />
         </React.Fragment>
       ) : undefined}
-      {showBoxesOfOrder && (
-        <div className={classNames.tableWrapper}>
-          <Typography className={classNames.modalTitle}>{textConsts.boxesTitle}</Typography>
-          <Table rowsOnly data={boxes} BodyRow={WarehouseBodyRow} renderHeadRow={renderHeadRow} />
-        </div>
-      )}
     </Box>
   )
 }

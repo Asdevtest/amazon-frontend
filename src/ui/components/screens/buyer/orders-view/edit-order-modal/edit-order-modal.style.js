@@ -35,4 +35,11 @@ export const useClassNames = makeStyles(() => ({
   tableWrapper: {
     marginTop: '15px',
   },
+  noBoxesText: {
+    color: 'rgba(61, 81, 112, 1)',
+    fontSize: '24px',
+    fontWeight: 500,
+    lineHeight: '28px',
+    marginBottom: '24px',
+  },
 }))

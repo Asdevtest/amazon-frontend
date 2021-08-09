@@ -20,7 +20,7 @@ export const useClassNames = makeStyles(theme => ({
 
   buttonsWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     marginTop: '10px',
   },
 
