@@ -99,7 +99,7 @@ export class ClientInventoryViewRaw extends Component {
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>
-              <Grid container justify="center" spacing={1}>
+              <Grid container justify="center" spacing={2} md={12}>
                 {this.renderDashboardCards()}
               </Grid>
               <Typography variant="h6" className={classNames.someClass}>
@@ -155,7 +155,7 @@ export class ClientInventoryViewRaw extends Component {
 
   renderDashboardCards = () =>
     inventoryDashboardCardConfig.map(item => (
-      <Grid key={`inventoryDashboardCard_${item.dataKey}`} item xs={6} lg={4}>
+      <Grid key={`inventoryDashboardCard_${item.dataKey}`} item>
         <DashboardInfoCard value={this.getCardValueByDataKey(item.dataKey)} title={item.title} color={item.color} />
       </Grid>
     ))
@@ -176,26 +176,18 @@ export class ClientInventoryViewRaw extends Component {
   )
 
   getCardValueByDataKey = dataKey => {
-    const {productsMy} = this.viewModel
+    const {productsMy, orders} = this.viewModel
     switch (dataKey) {
-      case ClientInventoryDashboardCardDataKey.IN_INVENTORY:
+      case ClientInventoryDashboardCardDataKey.PRODUCTS_IN_INVENTORY:
         return productsMy.length
-      case ClientInventoryDashboardCardDataKey.FULL_COST:
-        return 1
-      case ClientInventoryDashboardCardDataKey.REPURCHASE_ITEMS:
-        return 2
-      case ClientInventoryDashboardCardDataKey.NOT_PAID_ORDERS:
-        return 3
-      case ClientInventoryDashboardCardDataKey.PAID_ORDERS:
-        return 4
-      case ClientInventoryDashboardCardDataKey.CANCELED_ORDERS:
-        return 5
-      case ClientInventoryDashboardCardDataKey.SOLD_ITEMS_ON_EXCHANGE:
-        return 6
-      case ClientInventoryDashboardCardDataKey.ACCURED_TO_RESERCHERS:
-        return 7
-      case ClientInventoryDashboardCardDataKey.DISPUTS_FOR_PRODUCTS:
-        return 8
+      case ClientInventoryDashboardCardDataKey.PRODUCTS_BOUGHT_ON_EXCHANGE:
+        return productsMy.length
+      case ClientInventoryDashboardCardDataKey.PRODUCTS_ADDED:
+        return 0
+      case ClientInventoryDashboardCardDataKey.ORDERS_CHECKOUT:
+        return orders.length
+      case ClientInventoryDashboardCardDataKey.BOUGHT_FOR_LAST_30_DAYS:
+        return 0
     }
   }
 }

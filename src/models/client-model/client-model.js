@@ -81,6 +81,11 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1ClientsPaymentsMyBalanceGet()
     return response
   }
+
+  cancelTask = async id => {
+    const response = await restApiService.clientApi.apiV1ClientsTasksGuidCancel(id)
+    return response
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

@@ -28,9 +28,19 @@ class InlineResponse2005 {
      * @param boxes {Array.<module:model/ApiV1BatchesBoxes>} Массив коробок.
      * @param boxesBefore {Array.<module:model/ApiV1BatchesBoxes>} Массив коробок.
      * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
+     * @param clientComment {String} комментарий клиента к задаче
+     * @param storekeeperComment {String} комментарий склада к задаче
      */
-  constructor(_id, taskId, boxes, status) {
-    InlineResponse2005.initialize(this, _id, taskId, boxes, status);
+  constructor(_id, taskId, boxes, status, clientComment, storekeeperComment) {
+    InlineResponse2005.initialize(
+      this,
+      _id,
+      taskId,
+      boxes,
+      status,
+      clientComment,
+      storekeeperComment
+    );
   }
 
   /**
@@ -38,12 +48,23 @@ class InlineResponse2005 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-  static initialize(obj, _id, taskId, boxes, boxesBefore, status) {
+  static initialize(
+    obj,
+    _id,
+    taskId,
+    boxes,
+    boxesBefore,
+    status,
+    clientComment,
+    storekeeperComment
+  ) {
     obj['_id'] = _id;
     obj['taskId'] = taskId;
     obj['boxes'] = boxes;
     obj['boxesBefore'] = boxesBefore;
     obj['status'] = status;
+    obj['clientComment'] = clientComment;
+    obj['storekeeperComment'] = storekeeperComment;
   }
 
   /**
@@ -80,6 +101,12 @@ class InlineResponse2005 {
       }
       if (data.hasOwnProperty('createDate')) {
         obj['createDate'] = ApiClient.convertToType(data['createDate'], 'Date');
+      }
+      if (data.hasOwnProperty('clientComment')) {
+        obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+      }
+      if (data.hasOwnProperty('storekeeperComment')) {
+        obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
       }
     }
     return obj;
@@ -158,5 +185,17 @@ InlineResponse2005['OperationTypeEnum'] = {
      */
   receive: 'receive'
 };
+
+/**
+ * Комментарий клиента к задаче
+ * @member {String} clientComment
+ */
+InlineResponse2005.prototype['clientComment'] = undefined;
+
+/**
+ * Комментарий склада к задаче
+ * @member {String} storekeeperComment
+ */
+InlineResponse2005.prototype['storekeeperComment'] = undefined;
 
 export default InlineResponse2005;

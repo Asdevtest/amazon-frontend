@@ -18,6 +18,7 @@ const updateOrderKeys = [
   'amountPaymentPerConsignmentAtDollars',
   'isBarCodeAlreadyAttachedByTheSupplier',
   'deliveryCostToTheWarehouse',
+  'buyerComment',
 ]
 
 export class BuyerMyOrdersViewModel {
@@ -64,7 +65,6 @@ export class BuyerMyOrdersViewModel {
         this.curBoxesOfOrder = result
       })
     } catch (error) {
-      this.ordersMy = []
       console.log(error)
     }
   }
@@ -76,7 +76,12 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onSubmitSaveOrder(order, orderFields) {
-    this.onSaveOrder(order, orderFields)
+    try {
+      await this.onSaveOrder(order, orderFields)
+      this.onTriggerShowOrderModal()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onSaveOrder(order, updateOrderData) {

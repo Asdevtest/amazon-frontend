@@ -40,14 +40,20 @@ export const AddOrEditSupplierModalContent = observer(({title, onTriggerShowModa
 
       <Field label={textConsts.name} value={tmpSupplier.name} onChange={onChangeField('name')} />
       <Field label={textConsts.link} value={tmpSupplier.link} onChange={onChangeField('link')} />
-      <Field label={textConsts.price} value={tmpSupplier.price} onChange={onChangeField('price')} />
-      <Field label={textConsts.deliveryPrice} value={tmpSupplier.delivery} onChange={onChangeField('delivery')} />
-      <Field label={textConsts.qty} value={tmpSupplier.amount} onChange={onChangeField('amount')} />
-      <Field label={textConsts.minLot} value={tmpSupplier.minlot} onChange={onChangeField('minlot')} />
-      <Field label={textConsts.lotCost} value={tmpSupplier.lotcost} onChange={onChangeField('lotcost')} />
+      <Field label={textConsts.price} value={tmpSupplier.price} type="number" onChange={onChangeField('price')} />
+      <Field
+        label={textConsts.deliveryPrice}
+        value={tmpSupplier.delivery}
+        type="number"
+        onChange={onChangeField('delivery')}
+      />
+      <Field label={textConsts.qty} value={tmpSupplier.amount} type="number" onChange={onChangeField('amount')} />
+      <Field label={textConsts.minLot} value={tmpSupplier.minlot} type="number" onChange={onChangeField('minlot')} />
+      <Field label={textConsts.lotCost} value={tmpSupplier.lotcost} type="number" onChange={onChangeField('lotcost')} />
       <Field
         disabled
         label={textConsts.csCode}
+        type="number"
         value={priceCalculation(tmpSupplier.price, tmpSupplier.delivery, tmpSupplier.amount)}
       />
       <Field

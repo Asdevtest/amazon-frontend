@@ -94,177 +94,169 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField}) 
   )
 }
 
-export const CreateBoxForm = observer(
-  ({formItem, showBoxesOfOrder, onSubmit, onTriggerOpenModal, onClickShowBoxesOfOrder}) => {
-    const classNames = useClassNames()
+export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) => {
+  const classNames = useClassNames()
 
-    const sourceBox = {
-      lengthCmSupplier: formItem?.lengthCmSupplier || 0,
-      widthCmSupplier: formItem?.widthCmSupplier || 0,
-      heightCmSupplier: formItem?.heightCmSupplier || 0,
-      weighGrossKgSupplier: formItem?.weighGrossKgSupplier || 0,
-      volumeWeightKgSupplier: formItem?.volumeWeightKgSupplier || 0,
-      weightFinalAccountingKgSupplier: formItem?.weightFinalAccountingKgSupplier || 0,
-      warehouse: formItem?.warehouse || '',
-      deliveryMethod: formItem?.deliveryMethod || '',
-      amount: 1, // formItem?.amount || 1,
-      items: formItem?.items || [
+  const sourceBox = {
+    lengthCmSupplier: formItem?.lengthCmSupplier || 0,
+    widthCmSupplier: formItem?.widthCmSupplier || 0,
+    heightCmSupplier: formItem?.heightCmSupplier || 0,
+    weighGrossKgSupplier: formItem?.weighGrossKgSupplier || 0,
+    volumeWeightKgSupplier: formItem?.volumeWeightKgSupplier || 0,
+    weightFinalAccountingKgSupplier: formItem?.weightFinalAccountingKgSupplier || 0,
+    warehouse: formItem?.warehouse || '',
+    deliveryMethod: formItem?.deliveryMethod || '',
+    amount: 1, // formItem?.amount || 1,
+    items: formItem?.items || [
+      {
+        product: formItem?.product,
+        amount: formItem?.amount,
+        order: formItem,
+      },
+    ],
+  }
+
+  const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
+
+  const setFormField = (fieldName, orderBoxIndex) => e => {
+    const newFormFields = {...formFieldsArr[orderBoxIndex]}
+    newFormFields[fieldName] = Number(e.target.value)
+    newFormFields.volumeWeightKgSupplier =
+      ((parseFloat(newFormFields.lengthCmSupplier) || 0) *
+        (parseFloat(newFormFields.heightCmSupplier) || 0) *
+        (parseFloat(newFormFields.widthCmSupplier) || 0)) /
+      5000
+    newFormFields.weightFinalAccountingKgSupplier = Math.max(
+      parseFloat(newFormFields.volumeWeightKgSupplier) || 0,
+      parseFloat(newFormFields.weighGrossKgSupplier) || 0,
+    )
+
+    const updatedNewBoxes = formFieldsArr.map((oldBox, index) => (index === orderBoxIndex ? newFormFields : oldBox))
+    setFormFieldsArr(updatedNewBoxes)
+  }
+
+  const setAmountField = orderBoxIndex => e => {
+    const newStateFormFields = [...formFieldsArr]
+    newStateFormFields[orderBoxIndex] = {
+      ...newStateFormFields[orderBoxIndex],
+      items: [
         {
-          product: formItem?.product,
-          amount: formItem?.amount,
-          order: formItem,
+          ...newStateFormFields[orderBoxIndex].items[0],
+          amount: e.target.value,
         },
       ],
     }
+    setFormFieldsArr(newStateFormFields)
+  }
 
-    const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
+  return (
+    <div className={classNames.root}>
+      <div className={classNames.form}>
+        <Typography paragraph className={classNames.subTitle}>
+          {formItem && formItem._id ? textConsts.updateBoxTitle : textConsts.newBoxTitle}
+        </Typography>
 
-    const setFormField = (fieldName, orderBoxIndex) => e => {
-      const newFormFields = {...formFieldsArr[orderBoxIndex]}
-      newFormFields[fieldName] = Number(e.target.value)
-      newFormFields.volumeWeightKgSupplier =
-        ((parseFloat(newFormFields.lengthCmSupplier) || 0) *
-          (parseFloat(newFormFields.heightCmSupplier) || 0) *
-          (parseFloat(newFormFields.widthCmSupplier) || 0)) /
-        5000
-      newFormFields.weightFinalAccountingKgSupplier = Math.max(
-        parseFloat(newFormFields.volumeWeightKgSupplier) || 0,
-        parseFloat(newFormFields.weighGrossKgSupplier) || 0,
-      )
+        <LabelField
+          containerClasses={classNames.field}
+          label={textConsts.warehouseLabel}
+          value={formFieldsArr[0].warehouse && warehouses[formFieldsArr[0].warehouse]}
+        />
 
-      const updatedNewBoxes = formFieldsArr.map((oldBox, index) => (index === orderBoxIndex ? newFormFields : oldBox))
-      setFormFieldsArr(updatedNewBoxes)
-    }
+        <LabelField
+          containerClasses={classNames.field}
+          label={textConsts.deliveryMethodLabel}
+          value={formFieldsArr[0].deliveryMethod && getDeliveryOptionByCode(formFieldsArr[0].deliveryMethod).label}
+        />
 
-    const setAmountField = orderBoxIndex => e => {
-      const newStateFormFields = [...formFieldsArr]
-      newStateFormFields[orderBoxIndex] = {
-        ...newStateFormFields[orderBoxIndex],
-        items: [
-          {
-            ...newStateFormFields[orderBoxIndex].items[0],
-            amount: e.target.value,
-          },
-        ],
-      }
-      setFormFieldsArr(newStateFormFields)
-    }
+        <LabelField
+          containerClasses={classNames.field}
+          label={textConsts.statusLabel}
+          value={
+            formFieldsArr[0].items[0].order.status &&
+            getOrderStatusOptionByCode(formFieldsArr[0].items[0].order.status).label
+          }
+        />
 
-    return (
-      <div className={classNames.root}>
-        <div className={classNames.form}>
-          <Typography paragraph className={classNames.subTitle}>
-            {formItem && formItem._id ? textConsts.updateBoxTitle : textConsts.newBoxTitle}
-          </Typography>
+        <Divider className={classNames.divider} />
 
-          <LabelField
-            containerClasses={classNames.field}
-            label={textConsts.warehouseLabel}
-            value={formFieldsArr[0].warehouse && warehouses[formFieldsArr[0].warehouse]}
-          />
-
-          <LabelField
-            containerClasses={classNames.field}
-            label={textConsts.deliveryMethodLabel}
-            value={formFieldsArr[0].deliveryMethod && getDeliveryOptionByCode(formFieldsArr[0].deliveryMethod).label}
-          />
-
-          <LabelField
-            containerClasses={classNames.field}
-            label={textConsts.statusLabel}
-            value={
-              formFieldsArr[0].items[0].order.status &&
-              getOrderStatusOptionByCode(formFieldsArr[0].items[0].order.status).label
-            }
-          />
-
-          <Divider className={classNames.divider} />
-
-          <div className={classNames.blockOfNewBoxWrapper}>
-            {formFieldsArr.map((orderBox, orderBoxIndex) => (
-              <BlockOfNewBox
-                key={orderBoxIndex}
-                orderBoxIndex={orderBoxIndex}
-                orderBox={orderBox}
-                setFormField={setFormField}
-                setAmountField={setAmountField}
-              />
-            ))}
-          </div>
-
-          {formItem.status !== OrderStatusByKey[OrderStatus.PAID] &&
-            formItem.status !== OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED] && (
-              <div className={classNames.buttonsWrapper}>
-                <Button
-                  disableElevation
-                  className={classNames.button}
-                  color="primary"
-                  variant="contained"
-                  onClick={() => {
-                    setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
-                  }}
-                >
-                  {textConsts.addBoxBtn}
-                </Button>
-
-                <Button
-                  disableElevation
-                  className={classNames.button}
-                  disabled={formFieldsArr.length === 1}
-                  color="primary"
-                  variant="contained"
-                  onClick={() => {
-                    setFormFieldsArr([...formFieldsArr.slice(0, -1)])
-                  }}
-                >
-                  {textConsts.removeBtn}
-                </Button>
-              </div>
-            )}
-
-          <Divider className={classNames.divider} />
-
-          <div className={classNames.ordersWrapper}>
-            {formItem && formItem._id ? (
-              <Typography paragraph className={classNames.subTitle}>
-                {`${textConsts.boxTitle} #${formItem._id}`}
-              </Typography>
-            ) : undefined}
-            {formFieldsArr[0].items &&
-              formFieldsArr[0].items.map((orderItem, orderIndex) => <BoxOrder key={orderIndex} order={orderItem} />)}
-          </div>
+        <div className={classNames.blockOfNewBoxWrapper}>
+          {formFieldsArr.map((orderBox, orderBoxIndex) => (
+            <BlockOfNewBox
+              key={orderBoxIndex}
+              orderBoxIndex={orderBoxIndex}
+              orderBox={orderBox}
+              setFormField={setFormField}
+              setAmountField={setAmountField}
+            />
+          ))}
         </div>
 
-        <div className={classNames.buttonsWrapper}>
-          <Button disableElevation color="primary" variant="contained" onClick={onClickShowBoxesOfOrder}>
-            {showBoxesOfOrder ? textConsts.hideBoxes : textConsts.showBoxes}
-          </Button>
+        {formItem.status !== OrderStatusByKey[OrderStatus.PAID] &&
+          formItem.status !== OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED] && (
+            <div className={classNames.buttonsWrapper}>
+              <Button
+                disableElevation
+                className={classNames.button}
+                color="primary"
+                variant="contained"
+                onClick={() => {
+                  setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
+                }}
+              >
+                {textConsts.addBoxBtn}
+              </Button>
 
-          <div>
-            <SuccessButton
-              disableElevation
-              className={classNames.button}
-              color="primary"
-              variant="contained"
-              onClick={() => {
-                onSubmit(formItem && formItem._id, formFieldsArr)
-              }}
-            >
-              {textConsts.saveChangesBtn}
-            </SuccessButton>
+              <Button
+                disableElevation
+                className={classNames.button}
+                disabled={formFieldsArr.length === 1}
+                color="primary"
+                variant="contained"
+                onClick={() => {
+                  setFormFieldsArr([...formFieldsArr.slice(0, -1)])
+                }}
+              >
+                {textConsts.removeBtn}
+              </Button>
+            </div>
+          )}
 
-            <Button
-              disableElevation
-              color="primary"
-              className={classNames.button}
-              variant="contained"
-              onClick={onTriggerOpenModal}
-            >
-              {textConsts.cancelChangesBtn}
-            </Button>
-          </div>
+        <Divider className={classNames.divider} />
+
+        <div className={classNames.ordersWrapper}>
+          {formItem && formItem._id ? (
+            <Typography paragraph className={classNames.subTitle}>
+              {`${textConsts.boxTitle} #${formItem._id}`}
+            </Typography>
+          ) : undefined}
+          {formFieldsArr[0].items &&
+            formFieldsArr[0].items.map((orderItem, orderIndex) => <BoxOrder key={orderIndex} order={orderItem} />)}
         </div>
       </div>
-    )
-  },
-)
+
+      <div className={classNames.buttonsWrapper}>
+        <SuccessButton
+          disableElevation
+          className={classNames.button}
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            onSubmit(formItem && formItem._id, formFieldsArr)
+          }}
+        >
+          {textConsts.saveChangesBtn}
+        </SuccessButton>
+
+        <Button
+          disableElevation
+          color="primary"
+          className={classNames.button}
+          variant="contained"
+          onClick={onTriggerOpenModal}
+        >
+          {textConsts.cancelChangesBtn}
+        </Button>
+      </div>
+    </div>
+  )
+})

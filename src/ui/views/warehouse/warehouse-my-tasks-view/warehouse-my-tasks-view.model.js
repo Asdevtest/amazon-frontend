@@ -130,7 +130,7 @@ export class WarehouseVacantViewModel {
     }
   }
 
-  async onClickSolveTask(newBoxes, operationType) {
+  async onClickSolveTask(newBoxes, operationType, comment) {
     try {
       for (let i = 0; i < newBoxes.length; i++) {
         const box = newBoxes[i]
@@ -164,6 +164,7 @@ export class WarehouseVacantViewModel {
 
       await StorekeeperModel.updateTask(this.selectedTask._id, {
         status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],
+        storekeeperComment: comment,
       })
 
       await this.getTasksMy()

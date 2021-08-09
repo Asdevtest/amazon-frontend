@@ -25,6 +25,8 @@ export class ClientInventoryViewModel {
 
   productsMy = []
   selectedProducts = []
+  orders = []
+
   drawerOpen = false
   rowsPerPage = 15
   curPage = 1
@@ -41,11 +43,27 @@ export class ClientInventoryViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.getProductsPaid()
+      await this.getProductsPaid()
+      await this.getOrders()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+    }
+  }
+
+  async getOrders() {
+    try {
+      const result = await ClientModel.getOrders()
+
+      runInAction(() => {
+        this.orders = result
+      })
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
     }
   }
 

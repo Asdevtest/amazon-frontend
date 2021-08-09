@@ -34,6 +34,8 @@ export const EditTaskModal = observer(
 
     const [receiveBoxModal, setReceiveBoxModal] = useState(false)
 
+    const [storekeeperComment, setStorekeeperComment] = useState(task.storekeeperComment)
+
     const [newBoxes, setNewBoxes] = useState([
       ...task.boxes.map(
         box =>
@@ -64,11 +66,13 @@ export const EditTaskModal = observer(
           <div className={classNames.commentsWrapper}>
             <Field
               multiline
+              disabled
               className={classNames.heightFieldAuto}
               rows={4}
               rowsMax={6}
               label={'Комментарий клиента'}
               placeholder={'Комментарий клиента к задаче'}
+              value={task.clientComment || ''}
             />
             <Field
               multiline
@@ -77,6 +81,8 @@ export const EditTaskModal = observer(
               rowsMax={6}
               label={'Комментарий склада'}
               placeholder={'Комментарий склада к задаче для клиента'}
+              value={storekeeperComment || ''}
+              onChange={e => setStorekeeperComment(e.target.value)}
             />
           </div>
 
@@ -113,7 +119,7 @@ export const EditTaskModal = observer(
               disabled={newBoxes.length === 0}
               variant="contained"
               onClick={() => {
-                onClickSolveTask(newBoxes, task.operationType)
+                onClickSolveTask(newBoxes, task.operationType, storekeeperComment)
               }}
             >
               {textConsts.saveChangesBtn}
