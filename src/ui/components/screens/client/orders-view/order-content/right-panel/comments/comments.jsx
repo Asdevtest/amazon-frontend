@@ -22,14 +22,7 @@ export const Comments = observer(({order}) => {
       <div className={classNames.commentsWrapper}>
         <div className={classNames.commentsSubWrapper}>
           <Typography className={classNames.label}>{textConsts.buyerLabel}</Typography>
-          <Input
-            disabled
-            multiline
-            rows={4}
-            rowsMax={6}
-            value={order.product.buyerComment}
-            className={classNames.input}
-          />
+          <Input disabled multiline rows={4} rowsMax={6} value={order.buyerComment} className={classNames.input} />
         </div>
         <div className={classNames.commentsLastSubWrapper}>
           <Typography className={classNames.label}>{textConsts.clientLabel}</Typography>

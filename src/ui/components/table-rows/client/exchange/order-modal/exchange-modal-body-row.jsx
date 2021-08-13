@@ -1,4 +1,4 @@
-import {NativeSelect, TableCell, TableRow} from '@material-ui/core'
+import {NativeSelect, TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
@@ -21,7 +21,12 @@ const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: c
         src={product.images && product.images[0] && getAmazonImageUrl(product.images[0])}
       />
     </TableCell>
-    <TableCell>{product.id}</TableCell>
+    <TableCell>
+      <div>
+        <Typography>{product.amazonTitle}</Typography>
+        <Typography>{`ID: ${product.id}`}</Typography>
+      </div>
+    </TableCell>
     <TableCell>{product.category}</TableCell>
     <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(product.currentSupplier.price)}</TableCell>
     <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(product.currentSupplier.delivery)}</TableCell>

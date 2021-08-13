@@ -163,7 +163,7 @@ export const texts = {
       addProductBtn: 'Add product',
     },
     clientEditBoxForm: {
-      newBoxTitle: 'New box',
+      newBoxTitle: 'Создание новых коробок!',
       updateBoxTitle: 'Update box',
       boxTitle: 'Box',
       warehouseLabel: 'Warehouse',
@@ -552,6 +552,8 @@ export const texts = {
       productsBoughtLast30DaysDashboardCard: 'Куплено за 30 дней',
       addProductBtn: 'Добавить свой товар',
       addProductModal: 'Добавить свой товар',
+      successTitle: 'Заказ создан',
+      successBtn: 'Ок',
     },
     researcherDashboardView: {
       appBarTitle: 'Dashboard',
@@ -837,6 +839,7 @@ export const texts = {
       supplierWasFound: 'Поставщик найден',
       supplierWasNotFound: 'Поставщик не найден',
       supplierPriceNotAccepted: 'Цена поставщика не приемлима',
+      publish: 'Опубликовать на бирже',
     },
     deliveryType: {
       road: 'Road',
@@ -1052,11 +1055,11 @@ export const texts = {
     addOrEditSupplierModalContent: {
       name: 'Название',
       link: 'Ссылка',
-      price: 'Цена за шт.',
-      deliveryPrice: 'Доставка на 1 ед.',
+      price: 'Цена за шт. $',
+      deliveryPrice: 'Доставка на 1 ед. $',
       qty: 'Кол-во закупки',
       minLot: 'Минимальная партия',
-      lotCost: 'Цена партии',
+      lotCost: 'Цена партии $',
       csCode: 'Цена партии',
       comment: 'Комментарий',
       saveBtn: 'Сохранить',
@@ -1250,7 +1253,7 @@ export const texts = {
       mainTitle: 'Заказ товара',
       imgCell: 'Фото',
 
-      id: 'id',
+      product: 'Товар',
       price: 'Цена',
       avgDeliveryPrice: 'Ср. стоимость доставки за 1 шт.',
       amount: 'Кол-во',
@@ -1356,7 +1359,7 @@ export const texts = {
       boxesCount: 'Коробки, кол-во 40, вес 50 и прочие.',
       sendDate: 'Дата отправки',
       dateSend: '20 09 2020',
-      sendNearDate: 'Дата ожи-мой доставка',
+      sendNearDate: 'Дата ожи-мой доставки',
       dateNearSend: '30 09 2020',
       docs: 'Документы',
     },
@@ -1604,6 +1607,7 @@ export const texts = {
       supplierWasFound: 'Поставщик найден',
       supplierWasNotFound: 'Поставщик не найден',
       supplierPriceNotAccepted: 'Прайс поставщика не подходит',
+      publish: 'Опубликовать на бирже',
     },
     boxItemCard: {
       count: 'Количество:',

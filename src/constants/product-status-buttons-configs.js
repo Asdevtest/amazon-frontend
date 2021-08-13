@@ -15,7 +15,7 @@ export const productStatusButtonsConfigs = {
       return [
         {
           statusKey: ProductStatus.COMPLETE_SUCCESS,
-          label: textConfigs.supplierWasFound,
+          label: textConfigs.publish,
           color: 'rgb(15, 169, 20)',
           colorHover: '#009a07',
         },

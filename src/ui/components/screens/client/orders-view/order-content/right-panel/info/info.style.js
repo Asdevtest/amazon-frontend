@@ -90,5 +90,6 @@ export const useClassNames = makeStyles(theme => ({
   },
   mainWrapper: {
     flexGrow: 4,
+    minWidth: '330px',
   },
 }))

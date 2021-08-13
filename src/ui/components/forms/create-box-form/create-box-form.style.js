@@ -94,4 +94,7 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  labelFieldsWrapper: {
+    display: 'flex',
+  },
 }))

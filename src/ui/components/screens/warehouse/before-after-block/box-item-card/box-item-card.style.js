@@ -34,9 +34,10 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '14px',
     fontWeight: 500,
     lineHeight: '21px',
-    width: '150px',
-    height: '45px',
+    width: '200px',
+    height: '50px',
     overflowX: 'scroll',
+    whiteSpace: 'nowrap',
   },
 
   subTitle: {

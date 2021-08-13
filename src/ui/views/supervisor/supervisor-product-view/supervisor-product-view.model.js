@@ -139,7 +139,7 @@ export class SupervisorProductViewModel {
             case 'checkednotes':
               return value || ''
             case 'bsr':
-              return value && parseInt(value)
+              return value && parseFloat(value)
             case 'amazon':
               return value && parseFloat(value)
             case 'weight':
@@ -151,13 +151,13 @@ export class SupervisorProductViewModel {
             case 'height':
               return value && parseFloat(value)
             case 'fbaamount':
-              return value && parseInt(value)
+              return value && parseFloat(value)
             case 'reffee':
-              return value && parseInt(value)
+              return value && parseFloat(value)
             case 'fbafee':
               return value && parseFloat(value)
             case 'profit':
-              return value && parseInt(value)
+              return value && parseFloat(value)
             default:
               return value
           }

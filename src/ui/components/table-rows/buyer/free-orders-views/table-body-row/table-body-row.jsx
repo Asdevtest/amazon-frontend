@@ -43,11 +43,9 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
         </div>
       </TableCell>
       <TableCell className={classNames.cellPadding}>
-        {/* по идее должно быть у заказа */}
         <Typography className={classNames.text}>{formatDate(item.product.createdat)}</Typography>
       </TableCell>
       <TableCell className={classNames.cellPadding}>
-        {/* что за поле */}
         <Typography className={classNames.text}>{item.updated}</Typography>
       </TableCell>
       <TableCell className={classNames.cellPadding}>
@@ -60,7 +58,7 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
         <Typography className={classNames.text}>{item.clientComment}</Typography>
       </TableCell>
       <TableCell className={classNames.cellPadding}>
-        <Typography className={classNames.text}>{item.product.buyerscomment}</Typography>
+        <Typography className={classNames.text}>{item.buyerComment}</Typography>
       </TableCell>
     </TableRow>
   )

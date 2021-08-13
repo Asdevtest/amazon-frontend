@@ -17,6 +17,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ErrorInfoModal} from '@components/modals/error-info-modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 import {Table} from '@components/table'
@@ -52,11 +53,12 @@ class BuyerMyOrdersViewRaw extends Component {
       rowsPerPage,
       selectedOrder,
       showOrderModal,
+      showSuccessModal,
       showNoDimensionsErrorModal,
+      showWarningNewBoxesModal,
       onTriggerDrawerOpen,
       onChangePage,
       onChangeRowsPerPage,
-      onTriggerShowOrderModal,
       onClickOrder,
       onSelectedOrder,
       onSubmitSaveOrder,
@@ -112,7 +114,7 @@ class BuyerMyOrdersViewRaw extends Component {
 
         <Modal
           openModal={showOrderModal}
-          setOpenModal={onTriggerShowOrderModal}
+          setOpenModal={() => onTriggerOpenModal('showOrderModal')}
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
@@ -122,7 +124,7 @@ class BuyerMyOrdersViewRaw extends Component {
             warehouses={warehouses}
             deliveryTypeByCode={DeliveryTypeByCode}
             orderStatusByCode={OrderStatusByCode}
-            onTriggerModal={onTriggerShowOrderModal}
+            onTriggerOpenModal={onTriggerOpenModal}
             onSubmitSaveOrder={onSubmitSaveOrder}
             onSubmitCreateBoxes={onSubmitCreateBoxes}
           />
@@ -135,6 +137,26 @@ class BuyerMyOrdersViewRaw extends Component {
           btnText={textConsts.okBtn}
           onClickBtn={() => {
             onTriggerOpenModal('showNoDimensionsErrorModal')
+          }}
+        />
+
+        <ErrorInfoModal
+          openModal={showWarningNewBoxesModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningNewBoxesModal')}
+          title={'Создание новых коробок. Будьте внимательны!'}
+          btnText={textConsts.okBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningNewBoxesModal')
+          }}
+        />
+
+        <SuccessInfoModal
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={"Создана задача складу: 'создание коробок'"}
+          successBtnText={textConsts.okBtn}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showSuccessModal')
           }}
         />
       </React.Fragment>

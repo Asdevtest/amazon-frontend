@@ -69,4 +69,10 @@ export const useClassNames = makeStyles(() => ({
     maxWidth: '400px',
     overflowX: 'scroll',
   },
+  amazonTitle: {
+    maxWidth: '350px',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 }))

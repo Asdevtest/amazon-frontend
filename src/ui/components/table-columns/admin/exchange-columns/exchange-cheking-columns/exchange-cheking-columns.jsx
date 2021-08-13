@@ -9,7 +9,6 @@ import {
   PriceCell,
   SupervisorCell,
   renderFieldValueCell,
-  ClientCell,
   ResearcherCell,
   BuyerCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -54,12 +53,6 @@ export const exchangeCheckingColumns = () => [
     headerName: textConsts.updateDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
-  },
-  {
-    field: 'client',
-    headerName: 'Client',
-    renderCell: params => <ClientCell params={params} />,
-    width: 200,
   },
 
   {

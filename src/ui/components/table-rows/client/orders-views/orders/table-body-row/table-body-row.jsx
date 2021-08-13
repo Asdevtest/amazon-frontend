@@ -1,8 +1,7 @@
 import React from 'react'
 
-import {Box, Chip, TableCell, TableRow, Tooltip, Typography, Checkbox} from '@material-ui/core'
+import {TableCell, TableRow, Typography, Checkbox} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 
 import {OrderStatusByCode} from '@constants/order-status'
 import {texts} from '@constants/texts'
@@ -11,6 +10,7 @@ import {warehouses} from '@constants/warehouses'
 import {Button} from '@components/buttons/button'
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
+import {formatDate} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
@@ -38,6 +38,10 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, selectedOrder, ...restProps
       </TableCell>
 
       <TableCell>
+        <Typography>{formatDate(item.createDate)}</Typography>
+      </TableCell>
+
+      <TableCell>
         <div className={classNames.order}>
           <img
             alt=""
@@ -55,29 +59,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, selectedOrder, ...restProps
       </TableCell>
       <TableCell className={classNames.priceTableCell}>{OrderStatusByCode[item.status]}</TableCell>
       <TableCell>
-        <Chip
-          className={clsx(
-            {
-              root: classNames.orderChip,
-              clickable: classNames.orderChipHover,
-              deletable: classNames.orderChipHover,
-              deleteIcon: classNames.orderChipIcon,
-            },
-            {[classNames.select]: item.chip},
-          )}
-          size="small"
-          color={item.barCode ? 'primary' : 'default'}
-          label={item.barCode ? item.barCode : textConsts.setBarcodeLabel}
-          onClick={e => {
-            e.stopPropagation()
-            if (item.barCode) {
-              navigator.clipboard.writeText(item.barCode)
-            } else {
-              handlers.onClickEditBarcode(item)
-            }
-          }}
-          onDelete={item.barCode ? () => handlers.onClickDeleteBarcode(item) : undefined}
-        />
+        <Typography className={classNames.barCode}>{item.product.barCode}</Typography>
       </TableCell>
 
       <TableCell>
@@ -89,20 +71,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, selectedOrder, ...restProps
       </TableCell>
 
       <TableCell>
-        {!item.boxId ? (
-          <Button size="small">{textConsts.distributeBtn}</Button>
-        ) : (
-          <Box display="flex" alignItems="center">
-            <Box mr={1.5}>
-              {item.boxId.map((box, index) => (
-                <Typography key={index}>{'ID: ' + box + ','}</Typography>
-              ))}
-            </Box>
-            <div>
-              <Typography>{item.boxQty + ' шт.'}</Typography>
-            </div>
-          </Box>
-        )}
+        <Button size="small">{'Смотреть подробнее'}</Button>
       </TableCell>
 
       <TableCell>
@@ -110,17 +79,11 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, selectedOrder, ...restProps
       </TableCell>
 
       <TableCell>
-        <Typography>{toFixedWithKg(item.weight)}</Typography>
+        <Typography>{toFixedWithKg(item.product.weight, 2)}</Typography>
       </TableCell>
 
       <TableCell>
-        {item.grossWeight ? (
-          <Typography>{toFixedWithKg(item.grossWeight)}</Typography>
-        ) : (
-          <Tooltip interactive placement="top" title={textConsts.titleToolTip} className={classNames.tooltip}>
-            <Typography>?</Typography>
-          </Tooltip>
-        )}
+        <Typography>{toFixedWithKg(item.product.weight * item.amount, 2)}</Typography>
       </TableCell>
 
       <TableCell>

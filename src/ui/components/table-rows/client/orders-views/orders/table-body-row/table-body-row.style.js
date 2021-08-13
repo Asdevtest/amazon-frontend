@@ -51,5 +51,12 @@ export const styles = createStyles({
   },
   select: {
     backgroundColor: 'rgb(61, 81, 112)',
+    maxWidth: '200px',
+  },
+  barCode: {
+    maxWidth: '200px',
+    whiteSpace: 'nowrap',
+    height: '50px',
+    overflowX: 'scroll',
   },
 })

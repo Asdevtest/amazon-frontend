@@ -36,7 +36,7 @@ const renderHeadRow = (
 export const EditOrderModal = ({
   order,
   boxes,
-  onTriggerModal,
+  onTriggerOpenModal,
   modalHeadCells,
   warehouses,
   deliveryTypeByCode,
@@ -54,13 +54,12 @@ export const EditOrderModal = ({
     clientComment: order?.clientComment || '',
     buyerComment: order?.buyerComment || '',
     deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || 0,
-    amountPaymentPerConsignmentAtDollars: order?.deliveryCostToTheWarehouse || 0,
+    amountPaymentPerConsignmentAtDollars: order?.amountPaymentPerConsignmentAtDollars || 0,
     isBarCodeAlreadyAttachedByTheSupplier: order?.isBarCodeAlreadyAttachedByTheSupplier || false,
     trackId: '',
     material: order?.product?.material || '',
     amount: order?.amount || 0,
     trackingNumberChina: order?.trackingNumberChina,
-    barCode: order?.barCode,
     batchPrice: 0,
   })
 
@@ -75,6 +74,13 @@ export const EditOrderModal = ({
     if (filedName === 'status') {
       setShowCreateOrEditBoxBlock(() => !!orderStatusesThatTriggersEditBoxBlock.includes(parseInt(e.target.value)))
     }
+    setOrderFields(newOrderFieldsState)
+  }
+
+  const resetOrderField = filedName => {
+    const newOrderFieldsState = {...orderFields}
+    newOrderFieldsState[filedName] = 0
+
     setOrderFields(newOrderFieldsState)
   }
 
@@ -94,6 +100,7 @@ export const EditOrderModal = ({
           deliveryTypeByCode={deliveryTypeByCode}
           orderStatusByCode={orderStatusByCode}
           setOrderField={setOrderField}
+          resetOrderField={resetOrderField}
           orderFields={orderFields}
         />
 
@@ -107,7 +114,7 @@ export const EditOrderModal = ({
           setOrderField={setOrderField}
         />
       </Paper>
-      {!showCreateOrEditBoxBlock ? (
+      {!showCreateOrEditBoxBlock && (
         <Box mt={2} className={classNames.buttonsBox}>
           <Button
             className={classNames.saveBtn}
@@ -117,9 +124,10 @@ export const EditOrderModal = ({
           >
             {textConsts.saveBtn}
           </Button>
-          <ErrorButton onClick={onTriggerModal}>{textConsts.cancelBtn}</ErrorButton>
+          <ErrorButton onClick={() => onTriggerOpenModal('showOrderModal')}>{textConsts.cancelBtn}</ErrorButton>
         </Box>
-      ) : undefined}
+      )}
+
       <div className={classNames.tableWrapper}>
         <Typography className={classNames.modalTitle}>{textConsts.boxesTitle}</Typography>
         {boxes.length > 0 ? (
@@ -129,19 +137,19 @@ export const EditOrderModal = ({
         )}
       </div>
 
-      {showCreateOrEditBoxBlock ? (
+      {showCreateOrEditBoxBlock && (
         <React.Fragment>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
           <CreateBoxForm
             formItem={orderFields}
-            onTriggerOpenModal={onTriggerModal}
+            onTriggerOpenModal={onTriggerOpenModal}
             onSubmit={(boxId, formFieldsArr) => {
-              onSubmitCreateBoxes(boxId, formFieldsArr)
+              formFieldsArr.length > 0 && onSubmitCreateBoxes(boxId, formFieldsArr)
               onSubmitSaveOrder(order, orderFields)
             }}
           />
         </React.Fragment>
-      ) : undefined}
+      )}
     </Box>
   )
 }

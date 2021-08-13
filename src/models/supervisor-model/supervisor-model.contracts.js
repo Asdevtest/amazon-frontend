@@ -9,10 +9,6 @@ export class SupervisorPayment extends InlineResponse2004 {}
 export class SupervisorUpdateProductParams extends InlineObject18 {}
 
 export class SupervisorUpdateProductContract {
-  @IsNotEmpty()
-  @IsInt()
-  status
-
   @IsOptional()
   @IsString()
   checkednotes
@@ -58,7 +54,7 @@ export class SupervisorUpdateProductContract {
   supplier
 
   @IsOptional()
-  @IsInt()
+  @IsNumber()
   reffee
 
   @IsOptional()
@@ -102,7 +98,7 @@ export class SupervisorUpdateProductContract {
   minpurchase
 
   @IsOptional()
-  @IsInt()
+  @IsNumber()
   profit
 
   @IsOptional()

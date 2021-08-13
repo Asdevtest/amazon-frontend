@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Divider, Grid, Typography} from '@material-ui/core'
+import {Divider, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
@@ -16,7 +16,7 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
   const classNames = useClassNames()
 
   return (
-    <Grid item xs={12} className={(classNames.orderContainer, classNames.orderBorderRightMdUp)}>
+    <div className={classNames.orderContainer}>
       <div className={classNames.product}>
         <img
           alt=""
@@ -24,7 +24,7 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
           src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
         />
         <div>
-          <Typography className={(classNames.containerTitle, classNames.csCodeTypo)}>{order.product.csCode}</Typography>
+          <Typography>{order.product.amazonTitle}</Typography>
           <Typography className={classNames.text}>
             <span className={classNames.asinTypo}>{textConsts.id}</span> {order.product.id}
           </Typography>
@@ -43,6 +43,6 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
         </Typography>
       </div>
       {narrow && <Divider orientation={'horizontal'} className={classNames.lastDivider} />}
-    </Grid>
+    </div>
   )
 }

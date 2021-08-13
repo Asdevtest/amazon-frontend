@@ -17,15 +17,7 @@ import {styles} from './client-exchange-create-order-modal-content.style'
 const textConsts = getLocalizedTexts(texts, 'en').clientExchnageModalContent
 
 const ClientExchnageCreateOrderModalContentRaw = observer(
-  ({
-    product,
-    modalHeadRow,
-    classes: classNames,
-    onClickOrderNowBtn,
-    onClickCancelBtn,
-    // setDataToPay,
-    // onTriggerOpenConfirmModal,
-  }) => {
+  ({product, modalHeadRow, classes: classNames, onClickOrderNowBtn, onClickCancelBtn}) => {
     const [showBarcodeModal, setShowBarcodeModal] = useState(false)
     const [orderFields, setOderFields] = useState({
       amount: 1,

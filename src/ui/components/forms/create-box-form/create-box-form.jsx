@@ -14,7 +14,6 @@ import {LabelField} from '@components/label-field/label-field'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import {BoxOrder} from './box-order'
 import {useClassNames} from './create-box-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
@@ -116,7 +115,7 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
     ],
   }
 
-  const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
+  const [formFieldsArr, setFormFieldsArr] = useState([])
 
   const setFormField = (fieldName, orderBoxIndex) => e => {
     const newFormFields = {...formFieldsArr[orderBoxIndex]}
@@ -153,29 +152,28 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
     <div className={classNames.root}>
       <div className={classNames.form}>
         <Typography paragraph className={classNames.subTitle}>
-          {formItem && formItem._id ? textConsts.updateBoxTitle : textConsts.newBoxTitle}
+          {textConsts.newBoxTitle}
         </Typography>
 
-        <LabelField
-          containerClasses={classNames.field}
-          label={textConsts.warehouseLabel}
-          value={formFieldsArr[0].warehouse && warehouses[formFieldsArr[0].warehouse]}
-        />
+        <div className={classNames.labelFieldsWrapper}>
+          <LabelField
+            containerClasses={classNames.field}
+            label={textConsts.warehouseLabel}
+            value={formItem.warehouse && warehouses[formItem.warehouse]}
+          />
 
-        <LabelField
-          containerClasses={classNames.field}
-          label={textConsts.deliveryMethodLabel}
-          value={formFieldsArr[0].deliveryMethod && getDeliveryOptionByCode(formFieldsArr[0].deliveryMethod).label}
-        />
+          <LabelField
+            containerClasses={classNames.field}
+            label={textConsts.deliveryMethodLabel}
+            value={formItem.deliveryMethod && getDeliveryOptionByCode(formItem.deliveryMethod).label}
+          />
 
-        <LabelField
-          containerClasses={classNames.field}
-          label={textConsts.statusLabel}
-          value={
-            formFieldsArr[0].items[0].order.status &&
-            getOrderStatusOptionByCode(formFieldsArr[0].items[0].order.status).label
-          }
-        />
+          <LabelField
+            containerClasses={classNames.field}
+            label={textConsts.statusLabel}
+            value={formItem.status && getOrderStatusOptionByCode(formItem.status).label}
+          />
+        </div>
 
         <Divider className={classNames.divider} />
 
@@ -201,6 +199,7 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
                 variant="contained"
                 onClick={() => {
                   setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
+                  onTriggerOpenModal('showWarningNewBoxesModal')
                 }}
               >
                 {textConsts.addBoxBtn}
@@ -209,7 +208,7 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
               <Button
                 disableElevation
                 className={classNames.button}
-                disabled={formFieldsArr.length === 1}
+                disabled={formFieldsArr.length < 1}
                 color="primary"
                 variant="contained"
                 onClick={() => {
@@ -220,18 +219,6 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
               </Button>
             </div>
           )}
-
-        <Divider className={classNames.divider} />
-
-        <div className={classNames.ordersWrapper}>
-          {formItem && formItem._id ? (
-            <Typography paragraph className={classNames.subTitle}>
-              {`${textConsts.boxTitle} #${formItem._id}`}
-            </Typography>
-          ) : undefined}
-          {formFieldsArr[0].items &&
-            formFieldsArr[0].items.map((orderItem, orderIndex) => <BoxOrder key={orderIndex} order={orderItem} />)}
-        </div>
       </div>
 
       <div className={classNames.buttonsWrapper}>
@@ -252,7 +239,7 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
           color="primary"
           className={classNames.button}
           variant="contained"
-          onClick={onTriggerOpenModal}
+          onClick={() => onTriggerOpenModal('showOrderModal')}
         >
           {textConsts.cancelChangesBtn}
         </Button>

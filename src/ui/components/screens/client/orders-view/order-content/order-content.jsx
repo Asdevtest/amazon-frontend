@@ -1,8 +1,12 @@
 import React, {useState} from 'react'
 
-import {Container, Divider, Grid, Typography, Hidden, useTheme, useMediaQuery, Paper} from '@material-ui/core'
+import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow, TableCell} from '@material-ui/core'
 
 import {getOrderStatusOptionByCode} from '@constants/order-status'
+import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
+
+import {Table} from '@components/table'
+import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 
 import {LeftPanel} from './left-panel'
 import {useClassNames} from './order-content.style'
@@ -10,7 +14,15 @@ import {RightPanel} from './right-panel'
 
 const MEDIA_SCALE_POINTS = '1812'
 
-export const OrderContent = ({order, deliveryOptions}) => {
+const renderHeadRow = (
+  <TableRow>
+    {CLIENT_WAREHOUSE_HEAD_CELLS.map((item, index) => (
+      <TableCell key={index}>{item.label}</TableCell>
+    ))}
+  </TableRow>
+)
+
+export const OrderContent = ({order, deliveryOptions, boxes}) => {
   const classNames = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)
@@ -18,35 +30,42 @@ export const OrderContent = ({order, deliveryOptions}) => {
   const theme = useTheme()
   const narrow = useMediaQuery(theme.breakpoints.down(MEDIA_SCALE_POINTS))
 
+  console.log('order', order)
+
   return (
     <Paper>
       <Container disableGutters maxWidth={false}>
-        <Grid container spacing={0}>
-          <Grid item xs={12} className={classNames.orderContainer}>
+        <div>
+          <div className={classNames.orderContainer}>
             <Typography className={classNames.containerTitle}>
               {getOrderStatusOptionByCode(order.status).label}
             </Typography>
-          </Grid>
+          </div>
 
-          <Grid item xs={12}>
-            <Divider orientation={'horizontal'} />
-          </Grid>
+          <Divider orientation={'horizontal'} />
 
-          <LeftPanel order={order} collapsed={collapsed} narrow={narrow} setCollapsed={setCollapsed} />
+          <div className={classNames.panelsWrapper}>
+            <LeftPanel order={order} collapsed={collapsed} narrow={narrow} setCollapsed={setCollapsed} />
 
-          <Hidden mdUp>
-            <Grid item xs={12}>
-              <Divider orientation={'horizontal'} />
-            </Grid>
-          </Hidden>
+            <RightPanel
+              order={order}
+              deliveryType={deliveryType}
+              setDeliveryType={setDeliveryType}
+              deliveryOptions={deliveryOptions}
+            />
+          </div>
 
-          <RightPanel
-            order={order}
-            deliveryType={deliveryType}
-            setDeliveryType={setDeliveryType}
-            deliveryOptions={deliveryOptions}
-          />
-        </Grid>
+          <Divider orientation={'horizontal'} />
+
+          <div className={classNames.tableWrapper}>
+            <Typography className={classNames.tableText}>{'Коробки к заказу:'}</Typography>
+            {boxes.length > 0 ? (
+              <Table rowsOnly data={boxes} BodyRow={WarehouseBodyRow} renderHeadRow={renderHeadRow} />
+            ) : (
+              <Typography className={classNames.noBoxesText}>{'Коробок пока нет...'}</Typography>
+            )}
+          </div>
+        </div>
       </Container>
     </Paper>
   )

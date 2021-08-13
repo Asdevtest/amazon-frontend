@@ -4,9 +4,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {ClientModel} from '@models/client-model'
 
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-
-const updateOrderKeys = ['status', 'amount', 'deliveryMethod', 'warehouse', 'clientComment', 'barCode']
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 
 export class ClientOrdersViewModel {
   history = undefined
@@ -16,7 +14,6 @@ export class ClientOrdersViewModel {
 
   orders = []
   drawerOpen = false
-  showBarcodeModal = false
   rowsPerPage = 15
   curPage = 1
   selectedOrder = undefined
@@ -45,7 +42,7 @@ export class ClientOrdersViewModel {
       const result = await ClientModel.getOrders()
 
       runInAction(() => {
-        this.orders = result
+        this.orders = result.sort(sortObjectsArrayByFiledDate('createDate'))
       })
     } catch (error) {
       console.log(error)
@@ -61,48 +58,6 @@ export class ClientOrdersViewModel {
 
   onClickCheckbox(order) {
     this.selectedOrder = order
-  }
-
-  onClickEditBarcode(order) {
-    this.selectedOrder = order
-    this.onTriggerShowBarcodeModal()
-  }
-
-  async onClickSaveBarcode(barCode) {
-    const updateOrderData = {
-      ...this.selectedOrder,
-      barCode,
-    }
-    await this.onSaveOrder(updateOrderData)
-    this.onTriggerShowBarcodeModal()
-  }
-
-  onClickDeleteBarcode(order) {
-    const updateOrderData = {
-      ...order,
-      barCode: '',
-    }
-    this.onSaveOrder(updateOrderData)
-  }
-
-  async onSaveOrder(order) {
-    try {
-      const updateOrderData = getObjectFilteredByKeyArrayWhiteList(order, updateOrderKeys, true)
-      await ClientModel.updateOrder(order._id, updateOrderData)
-      runInAction(() => {
-        this.selectedOrder = undefined
-      })
-      this.getOrders()
-    } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
-    }
-  }
-
-  onTriggerShowBarcodeModal() {
-    this.showBarcodeModal = !this.showBarcodeModal
   }
 
   onTriggerDrawerOpen(e, value) {

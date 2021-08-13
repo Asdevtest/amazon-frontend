@@ -26,6 +26,7 @@ export class ResearcherProductsViewModel {
   curPage = 1
 
   formFields = {...formFieldsDefault}
+  newProductId = undefined
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
@@ -41,7 +42,7 @@ export class ResearcherProductsViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      this.getPropductsVacant()
+      await this.getPropductsVacant()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -73,7 +74,13 @@ export class ResearcherProductsViewModel {
       id: this.formFields.productCode,
       lamazon: this.formFields.amazonLink,
     }
-    this.createProduct(product)
+    await this.createProduct(product)
+
+    const foundedProd = this.products.find(prod => prod._id === this.newProductId)
+
+    this.history.push('/researcher/product', {
+      product: foundedProd,
+    })
   }
 
   async createProduct(product) {
@@ -91,12 +98,14 @@ export class ResearcherProductsViewModel {
         images: [],
         reffee: 15,
       }
-      await ResearcherModel.createProduct(productFullData)
+      const response = await ResearcherModel.createProduct(productFullData)
+
       this.setActionStatus(loadingStatuses.success)
       runInAction(() => {
         this.formFields = formFieldsDefault
+        this.newProductId = response.guid
       })
-      this.loadData()
+      await this.loadData()
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
       if (isValidationErrors(error)) {
@@ -128,7 +137,9 @@ export class ResearcherProductsViewModel {
   async checkProductExists() {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
-      const checkProductExistResult = await ResearcherModel.checkProductExists(this.formFields.productCode)
+      const checkProductExistResult = await ResearcherModel.checkProductExists(
+        this.formFields.productCode.toUpperCase(),
+      )
       this.setActionStatus(loadingStatuses.success)
       return checkProductExistResult.isExist
     } catch (error) {

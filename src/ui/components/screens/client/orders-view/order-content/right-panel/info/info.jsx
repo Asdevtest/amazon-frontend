@@ -6,6 +6,7 @@ import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
 
+import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './info.style'
@@ -21,26 +22,24 @@ export const Info = ({order}) => {
       <div className={classNames.orderWrapperInfo}>
         <div className={classNames.orderSubWrapperInfo}>
           <Typography className={(classNames.label, classNames.dividerTypo)}>{textConsts.priceBatch}</Typography>
-          <Typography className={classNames.orderPrice}>{textConsts.batchPrice}</Typography>
+          <Typography className={classNames.orderPrice}>{'N/A'}</Typography>
         </div>
         <div className={classNames.typoFlexWrapper}>
           <Typography className={(classNames.label, classNames.dividerTypo)}>{textConsts.orderSum}</Typography>
-          <Typography className={classNames.orderPrice}>{textConsts.orderPrice}</Typography>
+          <Typography className={classNames.orderPrice}>
+            {calcProductsPriceWithDelivery(order.product, order)}
+          </Typography>
         </div>
       </div>
-      <div>
-        <Typography className={classNames.label}>{textConsts.boxcList}</Typography>
-        <Typography className={classNames.text}>{textConsts.boxesCount}</Typography>
-        <Typography className={classNames.text}>{textConsts.boxesCount}</Typography>
-      </div>
+
       <div className={classNames.orderWrapperInfo}>
         <div className={classNames.orderSubWrapperInfoDivider}>
           <Typography className={(classNames.label, classNames.dividerTypo)}>{textConsts.sendDate}</Typography>
-          <Typography className={classNames.text}>{textConsts.dateSend}</Typography>
+          <Typography className={classNames.text}>{'N/A'}</Typography>
         </div>
         <div>
           <Typography className={(classNames.label, classNames.dividerTypo)}>{textConsts.sendNearDate}</Typography>
-          <Typography className={classNames.text}>{textConsts.dateNearSend}</Typography>
+          <Typography className={classNames.text}>{'N/A'}</Typography>
         </div>
       </div>
 
@@ -53,9 +52,6 @@ export const Info = ({order}) => {
           >
             {textConsts.docs}
           </Button>
-        </div>
-        <div>
-          <Typography className={classNames.containerTitle}>{'ID ' + order.product.asin}</Typography>
         </div>
       </div>
     </div>

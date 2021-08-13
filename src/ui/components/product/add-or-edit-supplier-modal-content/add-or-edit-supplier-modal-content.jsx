@@ -40,16 +40,29 @@ export const AddOrEditSupplierModalContent = observer(({title, onTriggerShowModa
 
       <Field label={textConsts.name} value={tmpSupplier.name} onChange={onChangeField('name')} />
       <Field label={textConsts.link} value={tmpSupplier.link} onChange={onChangeField('link')} />
-      <Field label={textConsts.price} value={tmpSupplier.price} type="number" onChange={onChangeField('price')} />
+      <Field
+        label={textConsts.price}
+        value={tmpSupplier.price}
+        type="number"
+        placeholder="$"
+        onChange={onChangeField('price')}
+      />
       <Field
         label={textConsts.deliveryPrice}
         value={tmpSupplier.delivery}
         type="number"
+        placeholder="$"
         onChange={onChangeField('delivery')}
       />
       <Field label={textConsts.qty} value={tmpSupplier.amount} type="number" onChange={onChangeField('amount')} />
       <Field label={textConsts.minLot} value={tmpSupplier.minlot} type="number" onChange={onChangeField('minlot')} />
-      <Field label={textConsts.lotCost} value={tmpSupplier.lotcost} type="number" onChange={onChangeField('lotcost')} />
+      <Field
+        label={textConsts.lotCost}
+        value={tmpSupplier.lotcost}
+        type="number"
+        placeholder="$"
+        onChange={onChangeField('lotcost')}
+      />
       <Field
         disabled
         label={textConsts.csCode}

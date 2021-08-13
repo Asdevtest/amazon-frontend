@@ -38,7 +38,7 @@ export const ResearcherAddProductFormRaw = observer(
         <Field
           disabled
           label={textConsts.codeOfGood}
-          value={formFields.productCode}
+          value={formFields.productCode.toUpperCase()}
           onChange={onChangeFormFields('productCode')}
         />
       </div>

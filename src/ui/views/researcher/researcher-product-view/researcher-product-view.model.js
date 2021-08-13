@@ -315,7 +315,7 @@ export class ResearcherProductViewModel {
             case 'status':
               return value < 10 && this.product.currentSupplier ? 10 : value
             case 'bsr':
-              return value && parseInt(value)
+              return value && parseFloat(value)
             case 'amazon':
               return value && parseFloat(value)
             case 'weight':

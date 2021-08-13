@@ -19,8 +19,13 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 400,
     lineHeight: '21px',
   },
-  labelCell: {
-    textAlign: 'right',
-    width: '10%',
+
+  barCodeText: {
+    color: 'rgba(61, 81, 112, 1)',
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '21px',
+    maxWidth: '450px',
+    overflowX: 'scroll',
   },
 }))

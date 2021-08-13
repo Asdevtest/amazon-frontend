@@ -31,4 +31,10 @@ export const styles = createStyles({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+  barCode: {
+    maxWidth: '200px',
+    whiteSpace: 'nowrap',
+    height: '50px',
+    overflowX: 'scroll',
+  },
 })

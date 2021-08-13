@@ -21,7 +21,7 @@ import ApiV1AdminsGetProductsByStatusCurrentSupplier from './ApiV1AdminsGetProdu
  * @version v0.0.1
  */
 class InlineResponse200 {
-    /**
+  /**
      * Constructs a new <code>InlineResponse200</code>.
      * Схема товара.
      * @alias module:model/InlineResponse200
@@ -34,187 +34,203 @@ class InlineResponse200 {
      * @param supplier {Array.<module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier>} 
      * @param icomment {String} Комментарии к товару.
      */
-    constructor(_id, id, lamazon, bsr, fba, amazon, supplier, icomment) { 
-        
-        InlineResponse200.initialize(this, _id, id, lamazon, bsr, fba, amazon, supplier, icomment);
-    }
+  constructor(_id, id, lamazon, bsr, fba, amazon, supplier, icomment) {
+    InlineResponse200.initialize(this, _id, id, lamazon, bsr, fba, amazon, supplier, icomment);
+  }
 
-    /**
+  /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, id, lamazon, bsr, fba, amazon, supplier, icomment) { 
-        obj['_id'] = _id;
-        obj['id'] = id;
-        obj['lamazon'] = lamazon;
-        obj['bsr'] = bsr;
-        obj['fba'] = fba;
-        obj['amazon'] = amazon;
-        obj['supplier'] = supplier;
-        obj['icomment'] = icomment;
-    }
+  static initialize(obj, _id, id, lamazon, bsr, fba, amazon, supplier, icomment) {
+    obj['_id'] = _id;
+    obj['id'] = id;
+    obj['lamazon'] = lamazon;
+    obj['bsr'] = bsr;
+    obj['fba'] = fba;
+    obj['amazon'] = amazon;
+    obj['supplier'] = supplier;
+    obj['icomment'] = icomment;
+  }
 
-    /**
+  /**
      * Constructs a <code>InlineResponse200</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/InlineResponse200} obj Optional instance to populate.
      * @return {module:model/InlineResponse200} The populated <code>InlineResponse200</code> instance.
      */
-    static constructFromObject(data, obj) {
-        if (data) {
-            obj = obj || new InlineResponse200();
+  static constructFromObject(data, obj) {
+    if (data) {
+      obj = obj || new InlineResponse200();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
-            }
-            if (data.hasOwnProperty('material')) {
-                obj['material'] = ApiClient.convertToType(data['material'], 'String');
-            }
-            if (data.hasOwnProperty('currentSupplier')) {
-                obj['currentSupplier'] = ApiV1AdminsGetProductsByStatusCurrentSupplier.constructFromObject(data['currentSupplier']);
-            }
-            if (data.hasOwnProperty('category')) {
-                obj['category'] = ApiClient.convertToType(data['category'], 'String');
-            }
-            if (data.hasOwnProperty('lamazon')) {
-                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
-            }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('express')) {
-                obj['express'] = ApiClient.convertToType(data['express'], 'Boolean');
-            }
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
-            }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
-            }
-            if (data.hasOwnProperty('weight')) {
-                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
-            }
-            if (data.hasOwnProperty('supplier')) {
-                obj['supplier'] = ApiClient.convertToType(data['supplier'], [ApiV1AdminsGetProductsByStatusCurrentSupplier]);
-            }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
-            }
-            if (data.hasOwnProperty('fbalink')) {
-                obj['fbalink'] = ApiClient.convertToType(data['fbalink'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('icomment')) {
-                obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('checkednotes')) {
-                obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
-            }
-            if (data.hasOwnProperty('researcherFine')) {
-                obj['researcherFine'] = ApiClient.convertToType(data['researcherFine'], 'Number');
-            }
-            if (data.hasOwnProperty('researcherFineComment')) {
-                obj['researcherFineComment'] = ApiClient.convertToType(data['researcherFineComment'], 'String');
-            }
-            if (data.hasOwnProperty('supervisorFine')) {
-                obj['supervisorFine'] = ApiClient.convertToType(data['supervisorFine'], 'Number');
-            }
-            if (data.hasOwnProperty('supervisorFineComment')) {
-                obj['supervisorFineComment'] = ApiClient.convertToType(data['supervisorFineComment'], 'String');
-            }
-            if (data.hasOwnProperty('dirdecision')) {
-                obj['dirdecision'] = ApiClient.convertToType(data['dirdecision'], 'Number');
-            }
-            if (data.hasOwnProperty('amazonDescription')) {
-                obj['amazonDescription'] = ApiClient.convertToType(data['amazonDescription'], 'String');
-            }
-            if (data.hasOwnProperty('amazonDetail')) {
-                obj['amazonDetail'] = ApiClient.convertToType(data['amazonDetail'], 'String');
-            }
-            if (data.hasOwnProperty('amazonTitle')) {
-                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
-            }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
-            if (data.hasOwnProperty('minpurchase')) {
-                obj['minpurchase'] = ApiClient.convertToType(data['minpurchase'], 'Number');
-            }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('byboxprice')) {
-                obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number');
-            }
-            if (data.hasOwnProperty('createdby')) {
-                obj['createdby'] = ApiV1AdminsGetProductsByStatusCreatedby.constructFromObject(data['createdby']);
-            }
-            if (data.hasOwnProperty('createdat')) {
-                obj['createdat'] = ApiClient.convertToType(data['createdat'], 'Date');
-            }
-            if (data.hasOwnProperty('updateDate')) {
-                obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
-            }
-            if (data.hasOwnProperty('checkedat')) {
-                obj['checkedat'] = ApiClient.convertToType(data['checkedat'], 'Date');
-            }
-            if (data.hasOwnProperty('buyer')) {
-                obj['buyer'] = ApiV1AdminsGetProductsByStatusCreatedby.constructFromObject(data['buyer']);
-            }
-            if (data.hasOwnProperty('checkedby')) {
-                obj['checkedby'] = ApiV1AdminsGetProductsByStatusCreatedby.constructFromObject(data['checkedby']);
-            }
-            if (data.hasOwnProperty('buyerscomment')) {
-                obj['buyerscomment'] = ApiClient.convertToType(data['buyerscomment'], 'String');
-            }
-            if (data.hasOwnProperty('researcherRate')) {
-                obj['researcherRate'] = ApiClient.convertToType(data['researcherRate'], 'Number');
-            }
-            if (data.hasOwnProperty('supervisorRate')) {
-                obj['supervisorRate'] = ApiClient.convertToType(data['supervisorRate'], 'Number');
-            }
-            if (data.hasOwnProperty('paidat')) {
-                obj['paidat'] = ApiClient.convertToType(data['paidat'], 'Date');
-            }
-            if (data.hasOwnProperty('buyerRate')) {
-                obj['buyerRate'] = ApiClient.convertToType(data['buyerRate'], 'Number');
-            }
-        }
-        return obj;
+      if (data.hasOwnProperty('_id')) {
+        obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+      }
+      if (data.hasOwnProperty('id')) {
+        obj['id'] = ApiClient.convertToType(data['id'], 'String');
+      }
+      if (data.hasOwnProperty('material')) {
+        obj['material'] = ApiClient.convertToType(data['material'], 'String');
+      }
+      if (data.hasOwnProperty('currentSupplier')) {
+        obj['currentSupplier'] = ApiV1AdminsGetProductsByStatusCurrentSupplier.constructFromObject(
+          data['currentSupplier']
+        );
+      }
+      if (data.hasOwnProperty('category')) {
+        obj['category'] = ApiClient.convertToType(data['category'], 'String');
+      }
+      if (data.hasOwnProperty('lamazon')) {
+        obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
+      }
+      if (data.hasOwnProperty('bsr')) {
+        obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
+      }
+      if (data.hasOwnProperty('fba')) {
+        obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+      }
+      if (data.hasOwnProperty('express')) {
+        obj['express'] = ApiClient.convertToType(data['express'], 'Boolean');
+      }
+      if (data.hasOwnProperty('amazon')) {
+        obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+      }
+      if (data.hasOwnProperty('height')) {
+        obj['height'] = ApiClient.convertToType(data['height'], 'Number');
+      }
+      if (data.hasOwnProperty('width')) {
+        obj['width'] = ApiClient.convertToType(data['width'], 'Number');
+      }
+      if (data.hasOwnProperty('length')) {
+        obj['length'] = ApiClient.convertToType(data['length'], 'Number');
+      }
+      if (data.hasOwnProperty('weight')) {
+        obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
+      }
+      if (data.hasOwnProperty('supplier')) {
+        obj['supplier'] = ApiClient.convertToType(data['supplier'], [
+          ApiV1AdminsGetProductsByStatusCurrentSupplier
+        ]);
+      }
+      if (data.hasOwnProperty('reffee')) {
+        obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+      }
+      if (data.hasOwnProperty('fbafee')) {
+        obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+      }
+      if (data.hasOwnProperty('delivery')) {
+        obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+      }
+      if (data.hasOwnProperty('fbaamount')) {
+        obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
+      }
+      if (data.hasOwnProperty('fbalink')) {
+        obj['fbalink'] = ApiClient.convertToType(data['fbalink'], 'String');
+      }
+      if (data.hasOwnProperty('status')) {
+        obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+      }
+      if (data.hasOwnProperty('icomment')) {
+        obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
+      }
+      if (data.hasOwnProperty('images')) {
+        obj['images'] = ApiClient.convertToType(data['images'], [ 'String' ]);
+      }
+      if (data.hasOwnProperty('checkednotes')) {
+        obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
+      }
+      if (data.hasOwnProperty('researcherFine')) {
+        obj['researcherFine'] = ApiClient.convertToType(data['researcherFine'], 'Number');
+      }
+      if (data.hasOwnProperty('researcherFineComment')) {
+        obj['researcherFineComment'] = ApiClient.convertToType(
+          data['researcherFineComment'],
+          'String'
+        );
+      }
+      if (data.hasOwnProperty('supervisorFine')) {
+        obj['supervisorFine'] = ApiClient.convertToType(data['supervisorFine'], 'Number');
+      }
+      if (data.hasOwnProperty('supervisorFineComment')) {
+        obj['supervisorFineComment'] = ApiClient.convertToType(
+          data['supervisorFineComment'],
+          'String'
+        );
+      }
+      if (data.hasOwnProperty('dirdecision')) {
+        obj['dirdecision'] = ApiClient.convertToType(data['dirdecision'], 'Number');
+      }
+      if (data.hasOwnProperty('amazonDescription')) {
+        obj['amazonDescription'] = ApiClient.convertToType(data['amazonDescription'], 'String');
+      }
+      if (data.hasOwnProperty('amazonDetail')) {
+        obj['amazonDetail'] = ApiClient.convertToType(data['amazonDetail'], 'String');
+      }
+      if (data.hasOwnProperty('amazonTitle')) {
+        obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
+      }
+      if (data.hasOwnProperty('barCode')) {
+        obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+      }
+      if (data.hasOwnProperty('minpurchase')) {
+        obj['minpurchase'] = ApiClient.convertToType(data['minpurchase'], 'Number');
+      }
+      if (data.hasOwnProperty('profit')) {
+        obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+      }
+      if (data.hasOwnProperty('margin')) {
+        obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
+      }
+      if (data.hasOwnProperty('byboxprice')) {
+        obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number');
+      }
+      if (data.hasOwnProperty('createdby')) {
+        obj['createdby'] = ApiV1AdminsGetProductsByStatusCreatedby.constructFromObject(
+          data['createdby']
+        );
+      }
+      if (data.hasOwnProperty('createdat')) {
+        obj['createdat'] = ApiClient.convertToType(data['createdat'], 'Date');
+      }
+      if (data.hasOwnProperty('updateDate')) {
+        obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
+      }
+      if (data.hasOwnProperty('checkedat')) {
+        obj['checkedat'] = ApiClient.convertToType(data['checkedat'], 'Date');
+      }
+      if (data.hasOwnProperty('buyer')) {
+        obj['buyer'] = ApiV1AdminsGetProductsByStatusCreatedby.constructFromObject(data['buyer']);
+      }
+      if (data.hasOwnProperty('checkedby')) {
+        obj['checkedby'] = ApiV1AdminsGetProductsByStatusCreatedby.constructFromObject(
+          data['checkedby']
+        );
+      }
+      if (data.hasOwnProperty('buyerscomment')) {
+        obj['buyerscomment'] = ApiClient.convertToType(data['buyerscomment'], 'String');
+      }
+      if (data.hasOwnProperty('researcherRate')) {
+        obj['researcherRate'] = ApiClient.convertToType(data['researcherRate'], 'Number');
+      }
+      if (data.hasOwnProperty('supervisorRate')) {
+        obj['supervisorRate'] = ApiClient.convertToType(data['supervisorRate'], 'Number');
+      }
+      if (data.hasOwnProperty('paidat')) {
+        obj['paidat'] = ApiClient.convertToType(data['paidat'], 'Date');
+      }
+      if (data.hasOwnProperty('buyerRate')) {
+        obj['buyerRate'] = ApiClient.convertToType(data['buyerRate'], 'Number');
+      }
+      if (data.hasOwnProperty('clientId')) {
+        obj['clientId'] = ApiV1AdminsGetProductsByStatusCreatedby.constructFromObject(
+          data['clientId']
+        );
+      }
     }
-
-
+    return obj;
+  }
 }
 
 /**
@@ -491,10 +507,4 @@ InlineResponse200.prototype['paidat'] = undefined;
  */
 InlineResponse200.prototype['buyerRate'] = undefined;
 
-
-
-
-
-
 export default InlineResponse200;
-

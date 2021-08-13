@@ -1279,6 +1279,7 @@ export const CLIENT_INVENTORY_MY_PRODUCTS_HEAD_CELLS = [
   {id: 'margin', align: 'right', disablePadding: false, label: 'Margin'},
   {id: 'bsr', align: 'center', disablePadding: false, label: 'BSR'},
   {id: 'fbaAmount', align: 'right', disablePadding: false, label: 'Fba amount'},
+  {id: 'barCode', align: 'right', disablePadding: false, label: 'Barcode'},
 ]
 
 export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
@@ -1293,7 +1294,7 @@ export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
   {id: 'revenue', align: 'right', disablePadding: false, label: 'Revenue'},
   {id: 'amazonPrice', align: 'right', disablePadding: false, label: 'Amazon $'},
   {id: 'bsr', align: 'right', disablePadding: false, label: 'BSR'},
-  {id: 'fba', align: 'right', disablePadding: false, label: 'FBA'},
+  {id: 'fba', align: 'left', disablePadding: false, label: 'FBA'},
 ]
 
 export const HISTORY_DATA = [
