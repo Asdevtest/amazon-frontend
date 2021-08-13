@@ -38,6 +38,8 @@ export class BuyerMyOrdersViewModel {
   selectedOrder = undefined
   barcode = ''
   showNoDimensionsErrorModal = false
+  showWarningNewBoxesModal = false
+  showSuccessModal = false
 
   constructor({history}) {
     this.history = history
@@ -66,19 +68,20 @@ export class BuyerMyOrdersViewModel {
       })
     } catch (error) {
       console.log(error)
+      this.curBoxesOfOrder = []
     }
   }
 
   onClickOrder(order) {
     this.selectedOrder = order
     this.getBoxesOfOrder(order._id)
-    this.onTriggerShowOrderModal()
+    this.onTriggerOpenModal('showOrderModal')
   }
 
   async onSubmitSaveOrder(order, orderFields) {
     try {
       await this.onSaveOrder(order, orderFields)
-      this.onTriggerShowOrderModal()
+      this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
       console.log(error)
     }
@@ -110,7 +113,7 @@ export class BuyerMyOrdersViewModel {
       runInAction(() => {
         this.selectedOrder = undefined
       })
-      this.onTriggerShowOrderModal()
+      this.onTriggerOpenModal('showSuccessModal')
     }
   }
 
@@ -143,7 +146,9 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       console.log(error)
 
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -169,10 +174,6 @@ export class BuyerMyOrdersViewModel {
 
   onTriggerShowBarcodeModal() {
     this.showBarcodeModal = !this.showBarcodeModal
-  }
-
-  onTriggerShowOrderModal() {
-    this.showOrderModal = !this.showOrderModal
   }
 
   onTriggerDrawerOpen() {

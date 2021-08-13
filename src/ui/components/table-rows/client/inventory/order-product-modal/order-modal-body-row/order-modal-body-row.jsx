@@ -54,7 +54,10 @@ export const OrderModalBodyRow = ({
       </TableCell>
 
       <TableCell>
-        <Typography>{item.id}</Typography>
+        <div>
+          <Typography>{item.amazonTitle}</Typography>
+          <Typography>{`ID: ${item.id}`}</Typography>
+        </div>
       </TableCell>
 
       <TableCell>

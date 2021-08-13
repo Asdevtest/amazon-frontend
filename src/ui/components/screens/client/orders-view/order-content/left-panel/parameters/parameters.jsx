@@ -16,7 +16,7 @@ export const Parameters = ({order, collapsed}) => {
 
   const OrderParameter = ({label, value}) => (
     <TableRow>
-      <TableCell className={(classNames.parameterTableCell, classNames.labelCell)}>
+      <TableCell className={classNames.parameterTableCell}>
         <Typography className={classNames.containerTitle}>{label}</Typography>
       </TableCell>
       <TableCell className={classNames.parameterTableCell}>
@@ -28,11 +28,11 @@ export const Parameters = ({order, collapsed}) => {
   return (
     <Table>
       <TableBody>
-        <OrderParameter label={textConsts.minPrice} value={toFixed(order.amountPaymentPerConsignmentAtDollars)} />
+        <OrderParameter label={textConsts.minPrice} value={order.product.minpurchase} />
         <OrderParameter label={textConsts.qty} value={order.amount} />
-        <OrderParameter label={textConsts.minBuyPrice} value={toFixed(order.amountPaymentPerConsignmentAtDollars)} />
-        <OrderParameter label={textConsts.supplier} value={order.product.currentSupplier._id} />
-        <OrderParameter label={textConsts.maxDeliveryPrice} value={toFixed(order.deliveryCostToTheWarehouse)} />
+        <OrderParameter label={textConsts.minBuyPrice} value={toFixed(order.product.currentSupplier.price)} />
+        <OrderParameter label={textConsts.supplier} value={order.product.currentSupplier.link} />
+        <OrderParameter label={textConsts.maxDeliveryPrice} value={toFixed(order.product.currentSupplier.delivery)} />
         <OrderParameter
           label={textConsts.sizes}
           value={
@@ -46,6 +46,16 @@ export const Parameters = ({order, collapsed}) => {
           }
         />
         <OrderParameter label={textConsts.weight} value={toFixed(order.product.weight, 3)} />
+
+        <TableRow>
+          <TableCell className={classNames.parameterTableCell}>
+            <Typography className={classNames.containerTitle}>{'Баркод'}</Typography>
+          </TableCell>
+          <TableCell className={classNames.parameterTableCell}>
+            <Typography className={classNames.barCodeText}>{order.product.barCode}</Typography>
+          </TableCell>
+        </TableRow>
+
         {collapsed && <OrderParameter label={textConsts.extraParam} value={textConsts.extraParamValue} />}
       </TableBody>
     </Table>

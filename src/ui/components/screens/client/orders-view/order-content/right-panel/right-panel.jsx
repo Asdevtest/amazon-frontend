@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
-import {Divider, Grid} from '@material-ui/core'
+import {Divider} from '@material-ui/core'
 
 import {Comments} from './comments'
 import {Delivery} from './delivery'
@@ -11,18 +12,23 @@ export const RightPanel = ({order, deliveryType, setDeliveryType, deliveryOption
   const classNames = useClassNames()
 
   return (
-    <Grid item xs={12} md={8} className={classNames.orderContainer}>
+    <div className={classNames.orderContainer}>
       <div className={classNames.deliveryInfoWrapper}>
-        <Delivery deliveryType={deliveryType} setDeliveryType={setDeliveryType} deliveryOptions={deliveryOptions} />
+        <Info order={order} />
 
         <Divider flexItem orientation={'vertical'} className={classNames.verticalDivider} />
 
-        <Info order={order} />
+        <Delivery
+          order={order}
+          deliveryType={deliveryType}
+          setDeliveryType={setDeliveryType}
+          deliveryOptions={deliveryOptions}
+        />
       </div>
 
       <Divider orientation={'horizontal'} className={classNames.horizontalDivider} />
 
       <Comments order={order} />
-    </Grid>
+    </div>
   )
 }

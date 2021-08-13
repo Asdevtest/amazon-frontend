@@ -12,20 +12,21 @@ export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
 ]
 
 export const CLIENT_ORDERS_HEAD_CELL = [
+  'Дата',
   'Заказы',
   'Статус',
-  'Штрих-код',
+  'Баркод',
   'Кол-во',
   'Куда',
-  'Коробка',
+  'Действия',
   'Сумма',
-  'Вес',
-  'Вес финальный',
+  'Вес продукта',
+  'Суммарный вес',
   'Трек номер',
 ]
 export const CLIENT_EXCHANGE_MODAL_HEAD_CELLS = [
   {id: 'img', label: 'Image'},
-  {id: 'id', label: 'Id'},
+  {id: 'product', label: 'Product'},
   {id: 'category', label: 'Category'},
   {id: 'price', label: 'Price'},
   {id: 'deliveryPrice', label: 'Ср. стоимость доставки за 1 шт.'},
@@ -80,7 +81,7 @@ export const BATCHES_HEAD_CELLS = [
 export const BUYER_MY_ORDERS_HEAD_CELLS = [
   'Статус',
   'Товар',
-  'Штрихкод',
+  'Баркод',
   'Создан',
   'Изменён',
   'Склад',
@@ -96,7 +97,6 @@ export const BUYER_MY_ORDERS_MODAL_HEAD_CELLS = [
   'Ср. стоимость доставки за 1 шт.',
   'Количество',
   'Итого',
-  'Штрихкод',
   'Поставщик',
 ]
 

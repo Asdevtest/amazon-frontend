@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Table, TableCell, TableContainer, TableRow, TableHead, TableBody} from '@material-ui/core'
+import {Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Typography} from '@material-ui/core'
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
@@ -31,14 +31,16 @@ export const ProductTable = ({modalHeadCells, order, orderFields}) => {
                 alt={order.csCode}
               />
             </TableCell>
-            <TableCell>{order.product.id}</TableCell>
+            <TableCell>
+              <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
+              <Typography>{order.product.id}</Typography>
+            </TableCell>
             <TableCell>{order.product.currentSupplier ? order.product.currentSupplier.price : 'N/A'}</TableCell>
             <TableCell className={classNames.tableCell}>
               {order.product.currentSupplier ? order.product.currentSupplier.delivery : 'N/A'}
             </TableCell>
             <TableCell className={classNames.tableCell}>{orderFields.amount}</TableCell>
             <TableCell>{toFixedWithDollarSign(calcProductsPriceWithDelivery(order.product, orderFields))}</TableCell>
-            <TableCell>{order.barCode ? order.barCode : 'N/A'}</TableCell>
             <TableCell className={classNames.suplierLinkCell}>
               {order.product.currentSupplier ? order.product.currentSupplier.link : 'N/A'}
             </TableCell>

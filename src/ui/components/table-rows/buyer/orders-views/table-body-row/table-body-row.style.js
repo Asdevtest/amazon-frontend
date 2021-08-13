@@ -71,4 +71,10 @@ export const useClassNames = makeStyles(() => ({
   centerCell: {
     textAlign: 'center',
   },
+  barCode: {
+    maxWidth: '200px',
+    height: '50px',
+    whiteSpace: 'nowrap',
+    overflowX: 'scroll',
+  },
 }))

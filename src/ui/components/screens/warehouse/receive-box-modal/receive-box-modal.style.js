@@ -101,4 +101,7 @@ export const useClassNames = makeStyles(theme => ({
   qtyCell: {
     minWidth: '80px',
   },
+  deleteBtn: {
+    color: 'rgba(189, 194, 209, 1)',
+  },
 }))

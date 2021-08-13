@@ -30,9 +30,7 @@ export const BoxItemCard = ({item, superCount}) => {
 
           <div className={classNames.chipWrapper}>
             <Typography className={classNames.subTitle}>{textConsts.barCode}</Typography>
-            <Typography className={classNames.barCodeField}>
-              {item.product.barCode ? item.product.barCode : 'N/A'}
-            </Typography>
+            <Typography className={classNames.barCodeField}>{item.product.barCode || 'N/A'}</Typography>
           </div>
         </div>
       </div>

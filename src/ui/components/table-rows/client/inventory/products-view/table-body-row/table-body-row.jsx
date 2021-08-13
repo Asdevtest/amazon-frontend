@@ -59,7 +59,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
       <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.profit)}</TableCell>
       <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.margin)}</TableCell>
       <TableCell className={classNames.bsrCell}>{item.bsr}</TableCell>
-      <TableCell className={classNames.bsrCell}>{toFixedWithDollarSign(item.fbaamount)}</TableCell>
+      <TableCell className={classNames.bsrCell}>{item.fbaamount}</TableCell>
       <TableCell>
         <Chip
           classes={{

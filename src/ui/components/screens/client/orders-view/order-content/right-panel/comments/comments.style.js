@@ -25,6 +25,7 @@ export const useClassNames = makeStyles(() => ({
   },
   commentsSubWrapper: {
     marginRight: '20px',
+    minWidth: '400px',
   },
   commentsLastSubWrapper: {
     flexGrow: 1,

@@ -32,12 +32,7 @@ export const useClassNames = makeStyles(() => ({
     color: 'rgba(61, 81, 112, 1)',
     marginBottom: '8px',
   },
-  label: {
-    fontSize: '12px',
-    fontWeight: 400,
-    lineHeight: '20px',
-    color: 'rgba(143, 152, 165, 1)',
-  },
+
   text: {
     color: 'rgba(61, 81, 112, 1)',
     fontSize: '14px',
@@ -68,6 +63,8 @@ export const useClassNames = makeStyles(() => ({
   },
   contentWrapper: {
     display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
   },
   addressWrapper: {
     display: 'flex',
@@ -81,9 +78,15 @@ export const useClassNames = makeStyles(() => ({
   deliveryTypo: {
     marginBottom: '24px',
   },
-  radioGroup: {
-    justifyContent: 'space-between',
-    height: '100%',
-    paddingBottom: '6px',
+
+  field: {
+    flexBasis: '100%',
+  },
+  label: {
+    fontSize: '16px',
+    lineHeight: '20px',
+    color: 'rgba(61, 81, 112, 1)',
+    fontWeight: '600',
+    marginBottom: '12px',
   },
 }))

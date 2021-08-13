@@ -12,8 +12,6 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/client/orders-views/orders/table-body-row'
@@ -41,25 +39,18 @@ class ClientOrdersViewRaw extends Component {
     const {
       orders,
       drawerOpen,
-      showBarcodeModal,
       rowsPerPage,
       curPage,
       history,
       selectedOrder,
-      onTriggerShowBarcodeModal,
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
-      onClickEditBarcode,
-      onClickDeleteBarcode,
-      onClickSaveBarcode,
       onClickTableRow,
       onClickCheckbox,
     } = this.viewModel
     const {classes: className} = this.props
     const rowHandlers = {
-      onClickEditBarcode,
-      onClickDeleteBarcode,
       onClickTableRow,
       onClickCheckbox,
     }
@@ -103,14 +94,6 @@ class ClientOrdersViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-
-        <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
-          <SetBarcodeModal
-            order={selectedOrder}
-            onClickSaveBarcode={onClickSaveBarcode}
-            onCloseModal={onTriggerShowBarcodeModal}
-          />
-        </Modal>
       </React.Fragment>
     )
   }

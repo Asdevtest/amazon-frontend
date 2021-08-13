@@ -31,6 +31,7 @@ export class ClientInventoryViewModel {
   rowsPerPage = 15
   curPage = 1
   showOrderModal = false
+  showSuccessModal = false
   showSetBarcodeModal = false
   selectedProduct = undefined
   showSendOwnProductModal = false
@@ -129,11 +130,17 @@ export class ClientInventoryViewModel {
   }
 
   async onSubmitOrderProductModal(ordersDataState) {
-    for (let i = 0; i < ordersDataState.length; i++) {
-      const product = ordersDataState[i]
-      await this.createOrder(product)
+    try {
+      for (let i = 0; i < ordersDataState.length; i++) {
+        const product = ordersDataState[i]
+        await this.createOrder(product)
+      }
+      this.selectedProducts = []
+      this.onTriggerOpenModal('showSuccessModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
     }
-    this.selectedProducts = []
   }
 
   async createOrder(orderObject) {

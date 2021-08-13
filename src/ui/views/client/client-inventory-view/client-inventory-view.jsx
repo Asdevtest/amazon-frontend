@@ -18,6 +18,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {OrderProductModal} from '@components/screens/client/inventory-view/order-product-modal'
 import {Table} from '@components/table'
@@ -54,6 +55,7 @@ export class ClientInventoryViewRaw extends Component {
       productsMy,
       rowsPerPage,
       showOrderModal,
+      showSuccessModal,
       showSendOwnProductModal,
       onClickBarcode,
       onClickExchange,
@@ -149,6 +151,16 @@ export class ClientInventoryViewRaw extends Component {
             onSubmit={onSubmitOrderProductModal}
           />
         </Modal>
+
+        <SuccessInfoModal
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={textConsts.successTitle}
+          successBtnText={textConsts.successBtn}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showSuccessModal')
+          }}
+        />
       </React.Fragment>
     )
   }

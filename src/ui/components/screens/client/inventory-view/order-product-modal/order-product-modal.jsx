@@ -42,7 +42,7 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
       deliveryMethod: '',
       warehouse: '',
       clientComment: '',
-      barCode: product.barCode,
+      barCode: product.barCode || '',
       product: product._id,
       images: product.images,
     })),
@@ -63,7 +63,7 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
           <TableHead>
             <TableRow>
               <TableCell className={(classNames.tableCell, classNames.imgCell)}>{textConsts.imgCell}</TableCell>
-              <TableCell className={classNames.tableCell}>{textConsts.id}</TableCell>
+              <TableCell className={classNames.tableCell}>{textConsts.product}</TableCell>
               <TableCell className={classNames.tableCell}>{textConsts.price}</TableCell>
               <TableCell className={classNames.tableCell}>{textConsts.avgDeliveryPrice}</TableCell>
               <TableCell className={classNames.tableCell}>{textConsts.amount}</TableCell>

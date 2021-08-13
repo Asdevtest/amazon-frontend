@@ -1,18 +1,14 @@
 import {makeStyles} from '@material-ui/core'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles(() => ({
   orderContainer: {
     padding: '16px 32px',
-    minWidth: '400px',
     flexGrow: 4,
     maxWidth: '100%',
     flexBasis: '40%',
+    minWidth: '500px',
   },
-  orderBorderRightMdUp: {
-    [theme.breakpoints.up('md')]: {
-      borderRight: '1px solid #eee',
-    },
-  },
+
   orderPrice: {
     fontSize: '24px',
     fontWeight: 500,
@@ -70,9 +66,7 @@ export const useClassNames = makeStyles(theme => ({
     lineHeight: '21px',
     textTransform: 'none',
   },
-  csCodeTypo: {
-    height: '33%',
-  },
+
   asinTypo: {
     color: '#89919C',
   },

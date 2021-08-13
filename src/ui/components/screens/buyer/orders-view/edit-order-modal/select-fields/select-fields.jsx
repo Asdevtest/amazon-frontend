@@ -17,7 +17,14 @@ const textConsts = getLocalizedTexts(texts, 'en').ordersViewsModalSelectFields
 
 const defaultYuansToDollarRate = 6.3
 
-export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTypeByCode, orderStatusByCode}) => {
+export const SelectFields = ({
+  setOrderField,
+  resetOrderField,
+  orderFields,
+  warehouses,
+  deliveryTypeByCode,
+  orderStatusByCode,
+}) => {
   const classNames = useClassNames()
 
   const [supplierPaidDelivery, setSupplierPaidDelivery] = useState(false)
@@ -117,6 +124,7 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
             <div className={classNames.checkboxWithLabelWrapper}>
               <Checkbox
                 value={usePriceInDollars}
+                color="primary"
                 onChange={() => {
                   if (!usePriceInDollars) {
                     setPriceYuansForBatch('')
@@ -187,7 +195,9 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
           <div className={classNames.checkboxWithLabelWrapper}>
             <Checkbox
               checked={supplierPaidDelivery}
+              color="primary"
               onChange={() => {
+                resetOrderField('deliveryCostToTheWarehouse')
                 setSupplierPaidDelivery(!supplierPaidDelivery)
               }}
             />
@@ -196,8 +206,9 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
         </Box>
 
         <Box>
-          <div className={classNames.checkboxWithLabelWrapper}>
+          <div className={classNames.barCodeWrapper}>
             <Checkbox
+              color="primary"
               checked={orderFields.isBarCodeAlreadyAttachedByTheSupplier}
               onChange={() => {
                 setOrderField('isBarCodeAlreadyAttachedByTheSupplier')({
@@ -206,6 +217,8 @@ export const SelectFields = ({setOrderField, orderFields, warehouses, deliveryTy
               }}
             />
             <Typography className={classNames.modalText}>{textConsts.supplierAddBarCode}</Typography>
+            <Typography>{'Баркод:'}</Typography>
+            <Typography className={classNames.barCodeText}>{orderFields.product.barCode}</Typography>
           </div>
         </Box>
         <Box my={3}>

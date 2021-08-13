@@ -1,7 +1,7 @@
-/* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
 
-import {Container, Divider, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Container, Divider, IconButton, TableCell, TableRow, Typography} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 import {texts} from '@constants/texts'
 
@@ -132,11 +132,16 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           value={item.weightFinalAccountingKgWarehouse}
         />
       </TableCell>
+      <TableCell>
+        <IconButton onClick={() => handlers.onRemoveBox(item._id)}>
+          <DeleteIcon className={classNames.deleteBtn} />
+        </IconButton>
+      </TableCell>
     </TableRow>
   )
 }
 
-const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput}) => {
+const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.newBoxes}>
@@ -147,7 +152,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput}) => {
         data={newBoxes}
         BodyRow={TableBodyBoxRow}
         renderHeadRow={renderHeadRow}
-        rowsHandlers={{onChangeQtyInput, onChangeFieldInput}}
+        rowsHandlers={{onChangeQtyInput, onChangeFieldInput, onRemoveBox}}
       />
     </div>
   )
@@ -212,6 +217,11 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
     setNewBoxes(updatedNewBoxes)
   }
 
+  const onRemoveBox = boxId => {
+    const updatedNewBoxes = newBoxes.filter(box => box._id !== boxId)
+    setNewBoxes(updatedNewBoxes)
+  }
+
   const onClickRedistributeBtn = () => {
     const newBoxesWithoutEmptyBox = filterEmptyBoxes(newBoxes)
     const newBoxesWithoutEmptyOrders = filterEmptyOrders(newBoxesWithoutEmptyBox)
@@ -265,7 +275,12 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
       <div className={classNames.boxesWrapper}>
         <CurrentBox />
         <Divider flexItem className={classNames.divider} orientation="vertical" />
-        <NewBoxes newBoxes={newBoxes} onChangeQtyInput={onChangeQtyInput} onChangeFieldInput={onChangeFieldInput} />
+        <NewBoxes
+          newBoxes={newBoxes}
+          onChangeQtyInput={onChangeQtyInput}
+          onChangeFieldInput={onChangeFieldInput}
+          onRemoveBox={onRemoveBox}
+        />
       </div>
 
       <div className={classNames.buttonsWrapper}>

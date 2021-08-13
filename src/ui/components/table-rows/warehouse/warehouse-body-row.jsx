@@ -76,7 +76,9 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
         />
         <TableCell>{'ID: ' + order.order._id}</TableCell>
 
-        <TableCell>{order.barCode ? order.barCode : 'N/A'}</TableCell>
+        <TableCell>
+          <Typography className={classNames.barCode}>{order.product.barCode || 'N/A'}</Typography>
+        </TableCell>
 
         <TableCell>{order.product.id}</TableCell>
         <TableCell className={classNames.cellValueNumber}>

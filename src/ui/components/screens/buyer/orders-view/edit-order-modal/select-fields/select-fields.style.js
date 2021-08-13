@@ -25,4 +25,15 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
     gap: '10px',
   },
+  barCodeText: {
+    width: '300px',
+    height: '46px',
+    overflowX: 'scroll',
+  },
+  barCodeWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5px',
+    alignItems: 'flex-start',
+  },
 }))
