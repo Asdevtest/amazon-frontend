@@ -17,7 +17,6 @@ import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 import {Table} from '@components/table'
@@ -51,25 +50,17 @@ class BuyerFreeOrdersViewRaw extends Component {
       curPage,
       history,
       rowsPerPage,
-      showBarcodeModal,
       showOrderModal,
       onTriggerShowBarcodeModal,
       onTriggerShowOrderModal,
       onTriggerDrawerOpen,
       onChangePage,
       onChangeRowsPerPage,
-      onClickOrder,
-      onDoubleClickOrder,
-      onClickEditBarcode,
-      onClickSaveBarcode,
-      onClickDeleteBarcode,
+      onClickTableRowBtn,
     } = this.viewModel
     const {classes: classNames} = this.props
     const tableRowHandlers = {
-      onClickOrder,
-      onDoubleClickOrder,
-      onClickEditBarcode,
-      onClickDeleteBarcode,
+      onClickTableRowBtn,
     }
     return (
       <React.Fragment>
@@ -125,9 +116,6 @@ class BuyerFreeOrdersViewRaw extends Component {
               statusList={BUYER_ORDER_STATUS_LIST}
             />
           ) : undefined}
-        </Modal>
-        <Modal openModal={showBarcodeModal} setOpenModal={onTriggerShowBarcodeModal}>
-          <SetBarcodeModal onClickSaveBarcode={onClickSaveBarcode} onCloseModal={onTriggerShowBarcodeModal} />
         </Modal>
       </React.Fragment>
     )

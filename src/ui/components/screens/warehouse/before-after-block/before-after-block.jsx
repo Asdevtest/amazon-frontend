@@ -146,6 +146,30 @@ const Box = ({
         </Typography>
       </Paper>
 
+      <div>
+        <div className={classNames.chipWrapper}>
+          <Typography className={classNames.subTitle}>{textConsts.shippingLabel}</Typography>
+          <Typography className={classNames.shippingLabelField}>
+            {box.shippingLabel ? box.shippingLabel : 'N/A'}
+          </Typography>
+        </div>
+        <Field
+          oneLine
+          containerClasses={classNames.field}
+          label={textConsts.shippingLabelIsGluedWarehouse}
+          inputComponent={
+            <Checkbox
+              color="primary"
+              disabled={!box.shippingLabel || !isNewBox}
+              checked={box.isShippingLabelAttachedByStorekeeper}
+              onClick={() =>
+                onChangeField(!box.isShippingLabelAttachedByStorekeeper, 'isShippingLabelAttachedByStorekeeper')
+              }
+            />
+          }
+        />
+      </div>
+
       {isNewBox && (
         <Paper className={classNames.bottomBlockWrapper}>
           {taskType === TaskOperationType.RECEIVE && (
@@ -195,30 +219,6 @@ const Box = ({
                   }
                 />
               )}
-            </div>
-          )}
-          {taskType === TaskOperationType.EDIT && (
-            <div>
-              <div className={classNames.chipWrapper}>
-                <Typography className={classNames.subTitle}>{textConsts.shippingLabel}</Typography>
-                <Typography className={classNames.shippingLabelField}>
-                  {box.shippingLabel ? box.shippingLabel : 'N/A'}
-                </Typography>
-              </div>
-              <Field
-                oneLine
-                containerClasses={classNames.field}
-                label={textConsts.shippingLabelIsGluedWarehouse}
-                inputComponent={
-                  <Checkbox
-                    color="primary"
-                    checked={box.isShippingLabelAttachedByStorekeeper}
-                    onClick={() =>
-                      onChangeField(!box.isShippingLabelAttachedByStorekeeper, 'isShippingLabelAttachedByStorekeeper')
-                    }
-                  />
-                }
-              />
             </div>
           )}
 

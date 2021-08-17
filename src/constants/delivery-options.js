@@ -1,4 +1,5 @@
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {objectFlip} from '@utils/object'
 
 import {texts} from './texts'
 
@@ -45,3 +46,5 @@ export const DELIVERY_OPTIONS = [
 
 export const getDeliveryOptionByCode = deliveryCode =>
   DELIVERY_OPTIONS.find(deliveryOption => deliveryOption.key === DeliveryTypeByCode[deliveryCode])
+
+export const deliveryTypeCodeToKey = objectFlip(DeliveryTypeByCode, parseInt)

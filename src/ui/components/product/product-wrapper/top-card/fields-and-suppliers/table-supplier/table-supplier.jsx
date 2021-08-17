@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core'
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
@@ -48,7 +48,9 @@ export const TableSupplier = observer(({product, suppliers, selectedSupplier, on
                 onClick={() => onClickSupplier(supplier, index)}
               >
                 <TableCell className={(classNames.alignCenter, classNames.tableCellPadding)}>{supplier.name}</TableCell>
-                <TableCell className={classNames.alignCenter}>{supplier.link}</TableCell>
+                <TableCell className={classNames.alignCenter}>
+                  <Typography className={classNames.link}>{supplier.link}</Typography>
+                </TableCell>
                 <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.price)}</TableCell>
                 <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.delivery)}</TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.amount}</TableCell>

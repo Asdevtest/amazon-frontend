@@ -85,17 +85,6 @@ export class BuyerProductViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  async loadData() {
-    try {
-      this.requestStatus = loadingStatuses.isLoading
-
-      this.requestStatus = loadingStatuses.success
-    } catch (error) {
-      this.requestStatus = loadingStatuses.failed
-      console.log(error)
-    }
-  }
-
   onChangeProductFields = fieldsName =>
     action(e => {
       this.product[fieldsName] = e.target.value
@@ -274,11 +263,19 @@ export class BuyerProductViewModel {
   }
 
   updateAutoCalculatedFields() {
-    // взято из fba app
+    const strBsr = this.product.bsr + ''
+    this.product.bsr = parseFloat(strBsr.replace(',', '.')) || 0
+
+    this.product.amazon = parseFloat(this.product.amazon) || 0
+    this.product.weight = parseFloat(this.product.weight) || 0
+    this.product.length = parseFloat(this.product.length) || 0
+    this.product.width = parseFloat(this.product.width) || 0
+    this.product.height = parseFloat(this.product.height) || 0
+    this.product.fbafee = parseFloat(this.product.fbafee) || 0
+    this.product.profit = parseFloat(this.product.profit) || 0
+
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
-    this.product.maxDelivery = this.product.express
-      ? (parseInt(this.product.weight) || 0) * 7
-      : (parseInt(this.product.weight) || 0) * 5
+    this.product.maxDelivery = this.product.express ? (this.product.weight || 0) * 7 : (this.product.weight || 0) * 5
     // что-то не то
     this.product.minpurchase =
       (parseFloat(this.product.amazon) || 0) -

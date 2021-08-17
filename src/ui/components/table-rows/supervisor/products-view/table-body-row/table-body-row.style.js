@@ -115,4 +115,8 @@ export const useClassNames = makeStyles(() => ({
   selectedStarIcon: {
     color: '#FFC632',
   },
+  tableRow: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+  },
 }))

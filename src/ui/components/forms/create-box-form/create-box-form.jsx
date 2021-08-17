@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {useState} from 'react'
 
 import {Button, Divider, Typography} from '@material-ui/core'
@@ -115,7 +116,7 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
     ],
   }
 
-  const [formFieldsArr, setFormFieldsArr] = useState([])
+  const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
 
   const setFormField = (fieldName, orderBoxIndex) => e => {
     const newFormFields = {...formFieldsArr[orderBoxIndex]}
@@ -189,36 +190,33 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
           ))}
         </div>
 
-        {formItem.status !== OrderStatusByKey[OrderStatus.PAID] &&
-          formItem.status !== OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED] && (
-            <div className={classNames.buttonsWrapper}>
-              <Button
-                disableElevation
-                className={classNames.button}
-                color="primary"
-                variant="contained"
-                onClick={() => {
-                  setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
-                  onTriggerOpenModal('showWarningNewBoxesModal')
-                }}
-              >
-                {textConsts.addBoxBtn}
-              </Button>
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            disableElevation
+            className={classNames.button}
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
+              onTriggerOpenModal('showWarningNewBoxesModal')
+            }}
+          >
+            {textConsts.addBoxBtn}
+          </Button>
 
-              <Button
-                disableElevation
-                className={classNames.button}
-                disabled={formFieldsArr.length < 1}
-                color="primary"
-                variant="contained"
-                onClick={() => {
-                  setFormFieldsArr([...formFieldsArr.slice(0, -1)])
-                }}
-              >
-                {textConsts.removeBtn}
-              </Button>
-            </div>
-          )}
+          <Button
+            disableElevation
+            className={classNames.button}
+            disabled={formFieldsArr.length < 1}
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              setFormFieldsArr([...formFieldsArr.slice(0, -1)])
+            }}
+          >
+            {textConsts.removeBtn}
+          </Button>
+        </div>
       </div>
 
       <div className={classNames.buttonsWrapper}>

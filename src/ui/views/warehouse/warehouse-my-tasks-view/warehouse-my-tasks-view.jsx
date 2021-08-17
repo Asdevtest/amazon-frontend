@@ -59,6 +59,7 @@ export class WarehouseMyTasksViewRaw extends Component {
       onCancelSplitBoxes,
       onClickSolveTask,
       onTriggerOpenModal,
+      onCancelEditBox,
       tmpBarCode,
     } = this.viewModel
 
@@ -101,6 +102,7 @@ export class WarehouseMyTasksViewRaw extends Component {
                     onTriggerEditTaskModal,
                     onCancelMergeBoxes,
                     onCancelSplitBoxes,
+                    onCancelEditBox,
                   }}
                   viewMode={WarehouseTasksBodyRowViewMode.MY}
                 />

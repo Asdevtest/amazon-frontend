@@ -43,18 +43,14 @@ export class BuyerProductsViewRaw extends Component {
       history,
       productsVacant,
       rowsPerPage,
-      onSelectProduct,
-      onClickTableRow,
-      onDoubleClickTableRow,
+      onClickTableRowBtn,
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
     } = this.viewModel
     const {classes: classNames} = this.props
     const tableRowHandlers = {
-      onSelectProduct,
-      onClickTableRow,
-      onDoubleClickTableRow,
+      onClickTableRowBtn,
     }
     return (
       <React.Fragment>

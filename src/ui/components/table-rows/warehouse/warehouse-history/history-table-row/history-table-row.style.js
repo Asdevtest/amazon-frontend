@@ -47,4 +47,7 @@ export const useClassNames = makeStyles({
     alignItems: 'center',
     gap: '3px',
   },
+  infoBtn: {
+    marginRight: '20px',
+  },
 })

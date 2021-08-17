@@ -9,10 +9,18 @@ import {Input} from '@components/input'
 import {useClassNames} from './field.style'
 
 export const Field = observer(
-  ({label, containerClasses, containerProps, inputComponent, error, oneLine, ...restProps}) => {
+  ({label, containerClasses, containerProps, inputComponent, error, oneLine, noFullWidth, ...restProps}) => {
     const classNames = useClassNames()
     return (
-      <div className={clsx(classNames.root, containerClasses, {[classNames.rootOneLine]: oneLine})} {...containerProps}>
+      <div
+        className={clsx(
+          classNames.root,
+          containerClasses,
+          {[classNames.rootOneLine]: oneLine},
+          {[classNames.noFullWidth]: noFullWidth},
+        )}
+        {...containerProps}
+      >
         <Typography className={clsx(classNames.label, {[classNames.labelOneLine]: oneLine})}>{label}</Typography>
         {inputComponent || (
           <Input className={clsx(classNames.input, {[classNames.errorActive]: error})} {...restProps} />

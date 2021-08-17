@@ -22,7 +22,6 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     marginTop: '10px',
-    // gap: '10px',
   },
 
   button: {
@@ -109,10 +108,17 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '24px',
     fontWeight: 500,
     lineHeight: '28px',
-    marginBottom: '24px',
   },
   imgBox: {
     objectFit: 'center',
     height: '70vh',
+  },
+  boxTitleWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  amountSpan: {
+    margin: '0 0 0 20px',
+    color: 'rgb(0, 123, 255, 0.7)',
   },
 }))

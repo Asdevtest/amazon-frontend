@@ -29,18 +29,13 @@ export const WarehouseTasksBodyRowViewMode = {
   MY: 'MY',
 }
 
-export const TableBodyRow = ({item, itemIndex, handlers, hideActions, viewMode}) => {
+export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
   const classNames = useClassNames()
 
   const onClickResolveBtn = () => {
-    handlers.onSelectTask(item, itemIndex)
+    handlers.onSelectTask(item)
     handlers.onTriggerEditTaskModal()
   }
-
-  // const onClickBrowseBtn = (index) => {
-  //   handlers.onSelectTaskIndex(index);
-  //   handlers.onTriggerBrowseTaskModal();
-  // }; пока оставить
 
   const renderProductImage = (box, key) => {
     if (viewMode === WarehouseTasksBodyRowViewMode.VACANT) {
@@ -143,7 +138,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, hideActions, viewMode})
 
               <ErrorButton
                 className={classNames.cancelBtn}
-                onClick={() => handlers.onCancelMergeBoxes(item.boxes[0]._id)}
+                onClick={() => handlers.onCancelMergeBoxes(item.boxes[0]._id, item._id)}
               >
                 {textConsts.cancelBtn}
               </ErrorButton>
@@ -159,7 +154,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, hideActions, viewMode})
 
               <ErrorButton
                 className={classNames.cancelBtn}
-                onClick={() => handlers.onCancelSplitBoxes(item.boxes[0]._id)}
+                onClick={() => handlers.onCancelSplitBoxes(item.boxes[0]._id, item._id)}
               >
                 {textConsts.cancelBtn}
               </ErrorButton>
@@ -169,7 +164,20 @@ export const TableBodyRow = ({item, itemIndex, handlers, hideActions, viewMode})
       case TaskOperationType.RECEIVE:
         return <TableCell>{<Button onClick={onClickResolveBtn}>{textConsts.resolveBtn}</Button>}</TableCell>
       case TaskOperationType.EDIT:
-        return <TableCell>{<Button onClick={onClickResolveBtn}>{textConsts.resolveBtn}</Button>}</TableCell>
+        return (
+          <TableCell>
+            <div className={classNames.buttonsWrapper}>
+              <Button onClick={onClickResolveBtn}>{textConsts.resolveBtn}</Button>
+
+              <ErrorButton
+                className={classNames.cancelBtn}
+                onClick={() => handlers.onCancelEditBox(item.boxes[0]._id, item._id)}
+              >
+                {textConsts.cancelBtn}
+              </ErrorButton>
+            </div>
+          </TableCell>
+        )
     }
   }
 

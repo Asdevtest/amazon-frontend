@@ -8,6 +8,7 @@ import {UserRole} from '@constants/user-roles'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {ErrorInfoModal} from '@components/modals/error-info-modal'
 import {Navbar} from '@components/navbar'
 import {ProductWrapper} from '@components/product/product-wrapper'
 
@@ -27,10 +28,6 @@ export class SupervisorProductView extends Component {
     location: this.props.location,
   })
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
-
   render() {
     const {
       drawerOpen,
@@ -40,12 +37,14 @@ export class SupervisorProductView extends Component {
       actionStatus,
       selectedSupplier,
       formFieldsValidationErrors,
+      showWarningNoSupplierModal,
       onChangeProductFields,
       onClickSupplierButtons,
       onChangeSelectedSupplier,
       onTriggerDrawerOpen,
       onClickSetProductStatusBtn,
       handleProductActionButtons,
+      onTriggerOpenModal,
     } = this.viewModel
     return (
       <React.Fragment>
@@ -85,6 +84,15 @@ export class SupervisorProductView extends Component {
             </MainContent>
           </Appbar>
         </Main>
+        <ErrorInfoModal
+          openModal={showWarningNoSupplierModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningNoSupplierModal')}
+          title={'Нельзя выбрать без поставщика.'}
+          btnText={'ок'}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningNoSupplierModal')
+          }}
+        />
       </React.Fragment>
     )
   }

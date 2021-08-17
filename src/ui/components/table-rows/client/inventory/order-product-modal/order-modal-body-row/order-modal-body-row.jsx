@@ -3,7 +3,12 @@ import React, {useState} from 'react'
 import {Chip, Typography, TableCell, TableRow, NativeSelect} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
+import {
+  DeliveryType,
+  DeliveryTypeByCode,
+  deliveryTypeCodeToKey,
+  getDeliveryOptionByCode,
+} from '@constants/delivery-options'
 import {texts} from '@constants/texts'
 import {warehouses} from '@constants/warehouses'
 
@@ -12,6 +17,7 @@ import {Input} from '@components/input'
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {trimBarcode} from '@utils/text'
 
 import {useClassNames} from './order-modal-body-row.style'
@@ -112,7 +118,12 @@ export const OrderModalBodyRow = ({
           input={<Input />}
           onChange={e => onChangeInput(e, 'deliveryMethod')}
         >
-          {Object.keys(DeliveryTypeByCode).map((deliveryOptionCode, index) => (
+          {Object.keys(
+            getObjectFilteredByKeyArrayWhiteList(DeliveryTypeByCode, [
+              deliveryTypeCodeToKey[DeliveryType.SEA].toString(),
+              deliveryTypeCodeToKey[DeliveryType.AIR].toString(),
+            ]),
+          ).map((deliveryOptionCode, index) => (
             <option key={index} value={deliveryOptionCode}>
               {getDeliveryOptionByCode(deliveryOptionCode).label}
             </option>

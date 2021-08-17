@@ -16,7 +16,6 @@ export class BuyerFreeOrdersViewModel {
   showOrderModal = false
   rowsPerPage = 15
   curPage = 1
-  selectedOrder = undefined
 
   constructor({history}) {
     this.history = history
@@ -52,11 +51,7 @@ export class BuyerFreeOrdersViewModel {
     }
   }
 
-  async onClickOrder(value) {
-    this.selectedOrder = value
-  }
-
-  async onDoubleClickOrder(order) {
+  async onClickTableRowBtn(order) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       await BuyerModel.pickupOrder(order._id)
@@ -66,34 +61,6 @@ export class BuyerFreeOrdersViewModel {
       this.setActionStatus(loadingStatuses.failed)
       console.log(error)
     }
-  }
-
-  onClickEditBarcode(order) {
-    this.selectedOrder = order
-    this.onTriggerShowBarcodeModal()
-  }
-
-  async onClickSaveBarcode(barCode) {
-    const updateOrderData = {
-      ...this.selectedOrder,
-      barCode,
-    }
-    await this.onSaveOrder(updateOrderData)
-    this.onTriggerShowBarcodeModal()
-  }
-
-  onTriggerBarcodeModal() {}
-
-  onClickDeleteBarcode(order) {
-    const updateOrderData = {
-      ...order,
-      barCode: '',
-    }
-    this.onSaveOrder(updateOrderData)
-  }
-
-  onTriggerShowBarcodeModal() {
-    this.showBarcodeModal = !this.showBarcodeModal
   }
 
   onTriggerShowOrderModal() {

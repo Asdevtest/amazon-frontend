@@ -584,7 +584,7 @@ export const texts = {
       appBarUsername: 'Researcher',
       appUser: 'researcher',
       mainTitle: 'Мои товары',
-      cardMainTitle: 'Проверка товара на наличии в базе',
+      cardMainTitle: 'Проверка товара на наличие в базе',
     },
     researcherSettingsView: {
       appBarTitle: 'Settings',
@@ -829,7 +829,7 @@ export const texts = {
     researcherAddProductForm: {
       buttonCheck: 'Проверить',
       buttonAdd: 'Добавить',
-      linkAmazon: 'Введите ссылку на амазоне',
+      linkAmazon: 'Введите ссылку с амазона',
       codeOfGood: 'Код товара',
       successActionAlert: 'Operation complete',
     },
@@ -1432,11 +1432,11 @@ export const texts = {
       date: 'Дата',
       theme: 'Тема',
       description: 'Описание',
-      action: 'Действие',
+      action: 'Действия',
       statusTitle: 'Статус',
     },
     userBalanceHistory: {
-      mainTitle: 'Изменения на складе',
+      mainTitle: 'Изменения баланса',
       date: 'Дата',
       amount: 'Количество',
       type: 'Тип',
@@ -1557,6 +1557,33 @@ export const texts = {
       deliveryMethodLabel: 'Метод доставки',
       statusLabel: 'Статус заказа',
     },
+
+    beforeAfterInfoTaskBlock: {
+      boxNum: 'Коробка номер:',
+      count: 'Количество',
+      material: 'Материал',
+      shippingLabel: 'Шиппинг лебл:',
+      deleteAlert: 'delete',
+      demensions: 'Габариты:',
+      length: 'Длина ',
+      width: 'Ширина ',
+      height: 'Высота ',
+      weight: 'Вес ',
+      volumeWeigh: 'Удельный вес',
+      finalWeight: 'Финальный вес ',
+      codeCheck: 'Баркод проклеен поставщиком',
+      photos: 'Фотографии:',
+      incom: 'Поступление',
+      newBoxes: 'Новые коробки',
+      superTypo: 'Супер ',
+      barCodeIsGluedWarehouse: 'Баркод проклеен складом',
+      shippingLabelIsGluedWarehouse: 'Шиппинг лебл проклеен складом',
+
+      warehouseLabel: 'Склад',
+      deliveryMethodLabel: 'Метод доставки',
+      statusLabel: 'Статус заказа',
+    },
+
     warehouseTaskForm: {
       taskTitle: 'Данные поступления',
       incomingBoxes: 'Поступившие коробки:',
@@ -1612,6 +1639,38 @@ export const texts = {
     boxItemCard: {
       count: 'Количество:',
       barCode: `Баркод:`,
+      material: 'Материал',
+      codeCheck: 'Баркод проклеен поставщиком',
+    },
+
+    taskInfoBoxItemCard: {
+      count: 'Количество:',
+      barCode: `Баркод:`,
+      material: 'Материал',
+      codeCheck: 'Баркод проклеен поставщиком',
+      trulyСodeCheck: 'Баркод есть, проверено складом',
+
+      category: 'Категория',
+      bsr: 'BSR*',
+      amazonPrice: 'Amazon price*',
+      fieldWidth: 'Ширина, дюймы*',
+      fieldHeight: 'Высота, дюймы*',
+      fieldLength: 'Длина, дюймы*',
+      fieldWeight: 'Вес kg',
+      fieldSupplier: 'Поставщик (ссылка)',
+      typoExpress: 'Express',
+      maxDeliveryPrice: 'Max. Доставка за ед., $',
+      delivery: 'Доставка $',
+      refferalFee: 'Refferal fee , $',
+      fbaFee: 'FBA fee , $',
+      totalFba: 'Total FBA, $',
+      minpurchase: 'Мин. закуп. цена',
+      recommendedBatch: 'Рекомендованная партия FBA',
+      revenue: 'Прибыль $',
+      fieldMargin: 'Маржа, %',
+
+      allParameters: 'Показать все параметры товара',
+      close: 'Свернуть',
     },
     warehouseWarehouseView: {
       appbarTitle: 'Warehouse',
@@ -1633,6 +1692,22 @@ export const texts = {
 
       differenceLabel: 'Разница',
       differencePlaceHolder: 'разница в количестве',
+    },
+    taskInfoModal: {
+      divideBox: 'Разделить коробки',
+      mergeBoxes: 'Соединить коробки',
+      receiveBoxes: 'Принять коробку',
+      editBox: 'Изменить коробку',
+    },
+
+    supervisorReadyToCheckBodyRow: {
+      goToWorkBtn: 'Взять в работу',
+    },
+    buyerFreeOrdersBodyRow: {
+      goToWorkBtn: 'Взять в работу',
+    },
+    buyerReadyToCheckBodyRow: {
+      goToWorkBtn: 'Взять в работу',
     },
   },
 }

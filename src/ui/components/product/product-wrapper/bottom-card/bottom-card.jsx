@@ -104,7 +104,7 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
               error={formFieldsValidationErrors.maxDelivery}
               type="number"
               label={textConsts.maxDeliveryPrice}
-              value={product.maxDelivery || ''}
+              value={product.maxDelivery || 0}
               onChange={onChangeField('maxDelivery')}
             />
             <Field
@@ -144,7 +144,7 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
               error={formFieldsValidationErrors.profit}
               type="number"
               label={textConsts.revenue}
-              value={product.profit || ''}
+              value={product.profit || 0}
               onChange={onChangeField('profit')}
             />
             <Field
@@ -152,7 +152,7 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
               error={formFieldsValidationErrors.margin}
               type="number"
               label={textConsts.fieldMargin}
-              value={product.margin || ''}
+              value={product.margin || 0}
               onChange={onChangeField('margin')}
             />
             <Field

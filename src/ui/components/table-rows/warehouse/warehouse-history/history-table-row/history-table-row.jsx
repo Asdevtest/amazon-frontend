@@ -6,6 +6,7 @@ import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-
 import {mapTaskStatusEmumToKey, mapTaskStatusKeyToEnum, TaskStatus} from '@constants/task-status'
 import {texts} from '@constants/texts'
 
+import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 
 import {formatDateTime} from '@utils/date-time'
@@ -16,7 +17,7 @@ import {useClassNames} from './history-table-row.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseHistoryBodyRow
 
-export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, onCancelEditBoxes}) => {
+export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, onCancelEditBoxes, onClickTaskInfo}) => {
   const classNames = useClassNames()
 
   const renderProductImage = (box, key) => (
@@ -77,14 +78,20 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, o
     return false
   }
 
+  const renderTaskInfoBtn = () => (
+    <Button className={classNames.infoBtn} onClick={() => onClickTaskInfo(item)}>
+      {'Смотреть подробнее'}
+    </Button>
+  )
+
   const renderHistoryItem = () => {
     switch (mapTaskOperationTypeKeyToEnum[item.operationType]) {
       case TaskOperationType.MERGE:
         return (
           <React.Fragment>
-            <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskMergeDescription()}</TableCell>
             <TableCell>
+              {renderTaskInfoBtn()}
               {checkIfTaskCouldBeCanceled(item.status) && (
                 <ErrorButton onClick={() => onCancelMergeBoxes(item.boxes[0]._id, item._id)}>
                   {textConsts.cancelBtn}
@@ -96,9 +103,9 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, o
       case TaskOperationType.SPLIT:
         return (
           <React.Fragment>
-            <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskDivideDescription()}</TableCell>
             <TableCell>
+              {renderTaskInfoBtn()}
               {checkIfTaskCouldBeCanceled(item.status) && (
                 <ErrorButton onClick={() => onCancelSplitBoxes(item.boxes[0]._id, item._id)}>
                   {textConsts.cancelBtn}
@@ -110,7 +117,6 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, o
       case TaskOperationType.RECEIVE:
         return (
           <React.Fragment>
-            <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskReceiveDescription()}</TableCell>
             <TableCell />
           </React.Fragment>
@@ -118,9 +124,9 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, o
       case TaskOperationType.EDIT:
         return (
           <React.Fragment>
-            <TableCell>{textConsts.tasks}</TableCell>
             <TableCell>{taskEditDescription()}</TableCell>
             <TableCell>
+              {renderTaskInfoBtn()}
               {checkIfTaskCouldBeCanceled(item.status) && (
                 <ErrorButton onClick={() => onCancelEditBoxes(item.boxes[0]._id, item._id)}>
                   {textConsts.cancelBtn}
@@ -135,6 +141,7 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, o
   return (
     <TableRow>
       <TableCell className={classNames.centerTextCell}>{formatDateTime(item.createDate)}</TableCell>
+      <TableCell>{textConsts.tasks}</TableCell>
       {renderHistoryItem()}
       <TableCell>{mapTaskStatusKeyToEnum[item.status || 0]}</TableCell>
     </TableRow>
