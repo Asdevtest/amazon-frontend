@@ -122,9 +122,6 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
     clientComment: formItem?.clientComment || '',
   })
 
-  console.log('formItem', formItem)
-  console.log('boxFields', boxFields)
-
   const setFormField = fieldName => e => {
     const newFormFields = {...boxFields}
     newFormFields[fieldName] = e.target.value
@@ -232,9 +229,16 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
         <Divider className={classNames.divider} />
 
         <div className={classNames.tableWrapper}>
-          <Typography className={classNames.tableTitle}>{`${textConsts.boxTitle} #${
-            formItem && formItem._id
-          }`}</Typography>
+          <div className={classNames.boxTitleWrapper}>
+            <Typography className={classNames.tableTitle}>{`${textConsts.boxTitle} #${
+              formItem && formItem._id
+            }`}</Typography>
+
+            <Typography variant="h4" className={classNames.amountSpan}>
+              {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
+            </Typography>
+          </div>
+
           <Table
             rowsOnly
             data={boxFields.items}

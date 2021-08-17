@@ -4,30 +4,23 @@ import {Box, TableCell, TableRow, Typography} from '@material-ui/core'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
+import {texts} from '@constants/texts'
 import {warehouses} from '@constants/warehouses'
+
+import {Button} from '@components/buttons/button'
 
 import {formatDate} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-double-click'
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './table-body-row.style'
 
-export const TableBodyRow = ({item, itemIndex, handlers}) => {
+const textConsts = getLocalizedTexts(texts, 'ru').buyerFreeOrdersBodyRow
+
+export const TableBodyRow = ({item, handlers}) => {
   const classNames = useClassNames()
-  const [handleClick, handleDoubleClick] = useClickPreventionOnDoubleClick(
-    () => {
-      if (handlers.onClickOrder) {
-        handlers.onClickOrder(item, itemIndex)
-      }
-    },
-    () => {
-      if (handlers.onDoubleClickOrder) {
-        handlers.onDoubleClickOrder(item, itemIndex)
-      }
-    },
-  )
   return (
-    <TableRow onClick={handleClick} onDoubleClick={handleDoubleClick}>
+    <TableRow hover>
       <TableCell className={classNames.statusCell}>{getOrderStatusOptionByCode(item.status).label}</TableCell>
       <TableCell className={classNames.orderCell}>
         <div className={classNames.order}>
@@ -48,6 +41,13 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.cellPadding}>
         <Typography className={classNames.text}>{item.updated}</Typography>
       </TableCell>
+
+      <TableCell className={classNames.indexCell}>
+        <Button className={classNames.infoBtn} onClick={() => handlers.onClickTableRowBtn(item)}>
+          {textConsts.goToWorkBtn}
+        </Button>
+      </TableCell>
+
       <TableCell className={classNames.cellPadding}>
         <Typography className={classNames.text}>{warehouses[item.warehouse]}</Typography>
       </TableCell>

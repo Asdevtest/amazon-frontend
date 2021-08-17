@@ -46,6 +46,8 @@ export const EditOrderModal = ({
 }) => {
   const classNames = useClassNames()
 
+  const [collapseCreateOrEditBoxBlock, setCollapseCreateOrEditBoxBlock] = useState(false)
+
   const [orderFields, setOrderFields] = useState({
     ...order,
     warehouse: order?.warehouse || undefined,
@@ -114,7 +116,7 @@ export const EditOrderModal = ({
           setOrderField={setOrderField}
         />
       </Paper>
-      {!showCreateOrEditBoxBlock && (
+      {!collapseCreateOrEditBoxBlock && (
         <Box mt={2} className={classNames.buttonsBox}>
           <Button
             className={classNames.saveBtn}
@@ -138,6 +140,17 @@ export const EditOrderModal = ({
       </div>
 
       {showCreateOrEditBoxBlock && (
+        <Button
+          disableElevation
+          color="primary"
+          variant="contained"
+          onClick={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
+        >
+          {collapseCreateOrEditBoxBlock ? 'Не добавлять коробку' : 'Добавить коробку'}
+        </Button>
+      )}
+
+      {collapseCreateOrEditBoxBlock && (
         <React.Fragment>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
           <CreateBoxForm

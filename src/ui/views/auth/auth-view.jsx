@@ -47,7 +47,7 @@ export class AuthViewRaw extends Component {
       {this.viewModel.error &&
         ((this.viewModel.error.body && this.viewModel.error.body.message) || this.viewModel.error.message)}
     </h3>
-  ) // TODO: fix error output
+  )
 
   onClickRedirect = () => {
     this.props.history.push('/registration')

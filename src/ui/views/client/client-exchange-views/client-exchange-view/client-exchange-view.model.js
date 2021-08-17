@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {ClientModel} from '@models/client-model'
+import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 
@@ -37,6 +38,10 @@ export class ClientExchangeViewModel {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
+  }
+
+  async updateUserInfo() {
+    await UserModel.getUserInfo()
   }
 
   async getProductsVacant() {
@@ -86,7 +91,8 @@ export class ClientExchangeViewModel {
       }
       const createOrderResult = await ClientModel.createOrder(createorderData)
       console.log('createOrderResult ', createOrderResult)
-      this.loadData()
+      await this.updateUserInfo()
+      await this.loadData()
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
@@ -101,6 +107,7 @@ export class ClientExchangeViewModel {
       console.log('pickUpProductResult ', pickUpProductResult)
       const makePaymentsResult = await ClientModel.makePayments([product._id])
       console.log('makePaymentsResult ', makePaymentsResult)
+      await this.updateUserInfo()
       this.loadData()
     } catch (error) {
       console.log(error)

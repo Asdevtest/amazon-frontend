@@ -43,6 +43,7 @@ export const ProductWrapper = observer(
     const [tabIndex, setTabIndex] = React.useState(0)
     const tabsStyles = twitterTabsStylesHook.useTabs()
     const tabItemStyles = twitterTabsStylesHook.useTabItem()
+
     return (
       <React.Fragment>
         <Tabs variant={'fullWidth'} classes={tabsStyles} value={tabIndex} onChange={(e, index) => setTabIndex(index)}>

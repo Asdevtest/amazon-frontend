@@ -125,4 +125,10 @@ export const useClassNames = makeStyles(() => ({
   tableRowSelectedSupplier: {
     backgroundColor: 'rgba(245, 0, 87, 0.08)',
   },
+  link: {
+    width: '250px',
+    height: '50px',
+    overflowX: 'scroll',
+    whiteSpace: 'nowrap',
+  },
 }))

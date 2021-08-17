@@ -8,8 +8,6 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {UserModel} from '@models/user-model'
 
-import {isDebug} from '@utils/env'
-
 export const PrivateRoutes = observer(() => {
   const history = useHistory()
 
@@ -20,16 +18,21 @@ export const PrivateRoutes = observer(() => {
   }, [history.location.pathname])
 
   const redirectToAuth = <Redirect to={'/auth'} />
+
   const generateAllowedRoutes = () => {
-    const allowedRoutes = isDebug()
-      ? privateRoutesConfigs
-      : privateRoutesConfigs.filter(route => route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]))
+    const allowedRoutes = privateRoutesConfigs.filter(route =>
+      route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]),
+    )
+
+    const notAllowedRoute = !allowedRoutes.some(elem => elem.routePath === history.location.pathname)
+
     return (
       <>
         {allowedRoutes.map((route, index) => (
           <Route key={index} component={route.component} exact={route.exact} path={route.routePath} />
         ))}
-        {isDebug() ? undefined : <Redirect to={allowedRoutes[0].routePath} />}
+
+        {notAllowedRoute && <Redirect to={allowedRoutes[0].routePath} />}
       </>
     )
   }

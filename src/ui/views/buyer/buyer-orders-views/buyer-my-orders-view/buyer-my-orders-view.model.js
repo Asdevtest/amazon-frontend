@@ -7,6 +7,7 @@ import {BoxesModel} from '@models/boxes-model'
 import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
 import {BuyerModel} from '@models/buyer-model'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const updateOrderKeys = [
@@ -49,7 +50,7 @@ export class BuyerMyOrdersViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.getOrdersMy()
+      await this.getOrdersMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -156,7 +157,7 @@ export class BuyerMyOrdersViewModel {
     try {
       const result = await BuyerModel.getOrdersMy()
       runInAction(() => {
-        this.ordersMy = result
+        this.ordersMy = result.sort(sortObjectsArrayByFiledDate('createDate'))
       })
     } catch (error) {
       this.ordersMy = []

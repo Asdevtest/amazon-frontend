@@ -32,6 +32,11 @@ class BoxesModelStatic {
     return response
   }
 
+  cancelEditBoxesByStorekeeper = async id => {
+    const response = await restApiService.boxesApi.apiV1BoxesCancelEditByStorekeeperPost(id)
+    return response
+  }
+
   splitBoxes = async (id, data) => {
     const response = await restApiService.boxesApi.apiV1BoxesSplitPost({
       InlineObject7: {guid: id, itemsBoxSet: data},

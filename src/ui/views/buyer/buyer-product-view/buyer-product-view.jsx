@@ -31,10 +31,6 @@ class BuyerProductViewRaw extends Component {
     location: this.props.location,
   })
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
-
   render() {
     const {
       product,

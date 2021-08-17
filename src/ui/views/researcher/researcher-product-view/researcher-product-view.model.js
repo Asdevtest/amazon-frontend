@@ -99,17 +99,6 @@ export class ResearcherProductViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  async loadData() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-    }
-  }
-
   onChangeSelectedSupplier(supplier) {
     if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
       this.selectedSupplier = undefined
@@ -132,17 +121,27 @@ export class ResearcherProductViewModel {
     })
 
   updateAutoCalculatedFields() {
-    // взято из fba app
+    const strBsr = this.product.bsr + ''
+    this.product.bsr = parseFloat(strBsr.replace(',', '.')) || 0
+
+    this.product.amazon = parseFloat(this.product.amazon) || 0
+    this.product.weight = parseFloat(this.product.weight) || 0
+    this.product.length = parseFloat(this.product.length) || 0
+    this.product.width = parseFloat(this.product.width) || 0
+    this.product.height = parseFloat(this.product.height) || 0
+    this.product.fbafee = parseFloat(this.product.fbafee) || 0
+    this.product.profit = parseFloat(this.product.profit) || 0
+
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
-    this.product.maxDelivery = this.product.express
-      ? (parseInt(this.product.weight) || 0) * 7
-      : (parseInt(this.product.weight) || 0) * 5
-    // что-то не то
+
+    this.product.maxDelivery = this.product.express ? (this.product.weight || 0) * 7 : (this.product.weight || 0) * 5
+
     this.product.minpurchase =
       (parseFloat(this.product.amazon) || 0) -
       (parseFloat(this.product.totalFba) || 0) -
       0.4 * ((parseFloat(this.product.amazon) || 0) - (parseFloat(this.product.totalFba) || 0)) -
       (parseFloat(this.product.maxDelivery) || 0)
+
     if (this.product.currentSupplier) {
       this.product.reffee = (parseFloat(this.product.amazon) || 0) * 0.15
       if (this.product.fbafee) {
@@ -293,6 +292,7 @@ export class ResearcherProductViewModel {
         }
         this.updateAutoCalculatedFields()
       })
+
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

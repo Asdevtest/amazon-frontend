@@ -65,9 +65,7 @@ export class SupervisorReadyToCheckViewModel {
     this.curPage = 1
   }
 
-  onClickCalculateFees() {}
-
-  async onDoubleClickTableRow(item) {
+  async onClickTableRowBtn(item) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       await SupervisorModel.pickupProduct(item._id)

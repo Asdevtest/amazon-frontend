@@ -17,6 +17,7 @@ import {UserBalanceHistory} from '@components/screens/user-balance-history'
 import {AdminBalanceModal} from '@components/screens/users-views/sub-users-view/admin-balance-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixedWithDollarSign} from '@utils/text'
 
 import avatar from '../../assets/adminAvatar.jpg'
 import {AdminUserBalanceViewModel} from './admin-user-balance-view.model'
@@ -36,7 +37,7 @@ class AdminUserBalanceViewRaw extends Component {
   render() {
     const {
       user,
-      balance,
+      // balance,
       drawerOpen,
       history,
       showReplenishModal,
@@ -47,6 +48,8 @@ class AdminUserBalanceViewRaw extends Component {
       onTriggerDrawer,
     } = this.viewModel
     const {classes: classNames} = this.props
+
+    console.log('user', user)
 
     return (
       <>
@@ -67,7 +70,7 @@ class AdminUserBalanceViewRaw extends Component {
           >
             <MainContent>
               <Typography variant="h5">{`${textConsts.balance} of ${user.email}`}</Typography>
-              <Typography className={classNames.balanceTitle}>{balance}</Typography>
+              <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance)}</Typography>
               <Button
                 disableElevation
                 className={classNames.mr2}

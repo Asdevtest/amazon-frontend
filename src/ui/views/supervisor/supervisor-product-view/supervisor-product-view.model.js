@@ -2,7 +2,7 @@ import {transformAndValidate} from 'class-transformer-validator'
 import {action, makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatusByKey} from '@constants/product-status'
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 
 import {SupervisorModel} from '@models/supervisor-model'
 import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervisor-model.contracts'
@@ -74,6 +74,7 @@ export class SupervisorProductViewModel {
   suppliers = []
   drawerOpen = false
   selectedSupplier = undefined
+  showWarningNoSupplierModal = false
 
   formFields = {...formFieldsDefault}
 
@@ -94,17 +95,6 @@ export class SupervisorProductViewModel {
     this.updateAutoCalculatedFields()
   }
 
-  async loadData() {
-    try {
-      this.requestStatus = loadingStatuses.isLoading
-
-      this.requestStatus = loadingStatuses.success
-    } catch (error) {
-      this.requestStatus = loadingStatuses.failed
-      console.log(error)
-    }
-  }
-
   onChangeProductFields = fieldName =>
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
@@ -113,7 +103,11 @@ export class SupervisorProductViewModel {
     })
 
   onClickSetProductStatusBtn(statusKey) {
-    this.product.status = ProductStatusByKey[statusKey]
+    if (statusKey === ProductStatus.COMPLETE_SUCCESS && !this.product.currentSupplier) {
+      this.onTriggerOpenModal('showWarningNoSupplierModal')
+    } else {
+      this.product.status = ProductStatusByKey[statusKey]
+    }
   }
 
   async handleProductActionButtons(actionType) {
@@ -281,13 +275,25 @@ export class SupervisorProductViewModel {
     this.actionStatus = actionStatus
   }
 
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
+  }
+
   updateAutoCalculatedFields() {
-    // взято из fba app
+    const strBsr = this.product.bsr + ''
+    this.product.bsr = parseFloat(strBsr.replace(',', '.')) || 0
+
+    this.product.amazon = parseFloat(this.product.amazon) || 0
+    this.product.weight = parseFloat(this.product.weight) || 0
+    this.product.length = parseFloat(this.product.length) || 0
+    this.product.width = parseFloat(this.product.width) || 0
+    this.product.height = parseFloat(this.product.height) || 0
+    this.product.fbafee = parseFloat(this.product.fbafee) || 0
+    this.product.profit = parseFloat(this.product.profit) || 0
+
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
 
-    this.product.maxDelivery = this.product.express
-      ? (parseInt(this.product.weight) || 0) * 7
-      : (parseInt(this.product.weight) || 0) * 5
+    this.product.maxDelivery = this.product.express ? (this.product.weight || 0) * 7 : (this.product.weight || 0) * 5
     // что-то не то
     this.product.minpurchase =
       (parseFloat(this.product.amazon) || 0) -

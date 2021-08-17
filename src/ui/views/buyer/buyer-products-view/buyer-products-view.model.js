@@ -52,9 +52,7 @@ export class BuyerProductsViewModel {
     }
   }
 
-  onClickTableRow() {}
-
-  async onDoubleClickTableRow(product) {
+  async onClickTableRowBtn(product) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       await BuyerModel.pickupProduct(product._id)

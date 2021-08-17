@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Button, Chip, Checkbox} from '@material-ui/core'
+import {Button, Chip} from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
@@ -33,12 +33,9 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
     },
   )
   return (
-    <TableRow key={item.asin} hover role="checkbox" onClick={handleClick} onDoubleClick={handleDoubleClick}>
+    <TableRow key={item.asin} hover onClick={handleClick} onDoubleClick={handleDoubleClick}>
       <TableCell className={classNames.indexCell}>
         <Typography>{itemIndex + 1}</Typography>
-      </TableCell>
-      <TableCell padding="checkbox">
-        <Checkbox />
       </TableCell>
       <TableCell className={classNames.asinCell}>
         <div className={classNames.asinCellContainer}>

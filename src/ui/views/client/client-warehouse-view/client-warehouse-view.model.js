@@ -21,7 +21,9 @@ export class ClientWarehouseViewModel {
   curPage = 1
   rowsPerPage = 15
   selectedBoxes = []
+  curOpenedTask = {}
 
+  showTaskInfoModal = false
   showSendOwnProductModal = false
   showEditBoxModal = false
   showRedistributeBoxModal = false
@@ -51,6 +53,11 @@ export class ClientWarehouseViewModel {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
     }
+  }
+
+  setCurrentOpenedTask(item) {
+    this.curOpenedTask = item
+    this.onTriggerOpenModal('showTaskInfoModal')
   }
 
   onModalRedistributeBoxAddNewBox(value) {

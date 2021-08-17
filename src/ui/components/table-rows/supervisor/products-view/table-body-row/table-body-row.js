@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Button, Chip, Checkbox} from '@material-ui/core'
+import {Button, Chip} from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
@@ -16,7 +16,7 @@ import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-doubl
 
 import {useClassNames} from './table-body-row.style'
 
-export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
+export const TableBodyRow = ({item, itemIndex, handlers}) => {
   const classNames = useClassNames()
   const [handleClick, handleDoubleClick] = useClickPreventionOnDoubleClick(
     () => {
@@ -31,7 +31,13 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
     },
   )
   return (
-    <TableRow key={item.asin} hover role="checkbox" onClick={handleClick} onDoubleClick={handleDoubleClick}>
+    <TableRow
+      key={item.asin}
+      hover
+      className={classNames.tableRow}
+      onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
+    >
       <TableCell className={classNames.indexCell}>
         <Typography
           color={ProductStatusByCode[item.status] === ProductStatus.BUYER_FOUND_SUPPLIER ? 'primary' : 'textPrimary'}
@@ -39,14 +45,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedProducts}) => {
           {itemIndex + 1}
         </Typography>
       </TableCell>
-      <TableCell padding="checkbox">
-        <Checkbox
-          color="primary"
-          checked={selectedProducts.includes(itemIndex)}
-          onClick={e => e.stopPropagation()}
-          onChange={() => handlers.onSelectProduct(item, itemIndex)}
-        />
-      </TableCell>
+
       <TableCell className={classNames.asinCell}>
         <div className={classNames.asinCellContainer}>
           <div>

@@ -41,6 +41,7 @@ export const SelectFields = ({
             {textConsts.warehouse}
           </InputLabel>
           <NativeSelect
+            disabled
             variant="filled"
             inputProps={{
               name: 'warehouse-select',
@@ -67,6 +68,7 @@ export const SelectFields = ({
             {textConsts.deliveryMethod}
           </InputLabel>
           <NativeSelect
+            disabled
             variant="filled"
             inputProps={{
               name: 'delivery-select',
@@ -209,6 +211,7 @@ export const SelectFields = ({
           <div className={classNames.barCodeWrapper}>
             <Checkbox
               color="primary"
+              disabled={!orderFields.product.barCode}
               checked={orderFields.isBarCodeAlreadyAttachedByTheSupplier}
               onChange={() => {
                 setOrderField('isBarCodeAlreadyAttachedByTheSupplier')({
@@ -218,7 +221,7 @@ export const SelectFields = ({
             />
             <Typography className={classNames.modalText}>{textConsts.supplierAddBarCode}</Typography>
             <Typography>{'Баркод:'}</Typography>
-            <Typography className={classNames.barCodeText}>{orderFields.product.barCode}</Typography>
+            <Typography className={classNames.barCodeText}>{orderFields.product.barCode || 'N/A'}</Typography>
           </div>
         </Box>
         <Box my={3}>

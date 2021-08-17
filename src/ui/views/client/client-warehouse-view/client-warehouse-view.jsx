@@ -19,6 +19,7 @@ import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ErrorInfoModal} from '@components/modals/error-info-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
+import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {Navbar} from '@components/navbar'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 import {WarehouseHistory} from '@components/screens/warehouse/warehouse-history'
@@ -45,6 +46,7 @@ export class ClientWarehouseViewRaw extends Component {
 
   render() {
     const {
+      curOpenedTask,
       tasksMy,
       drawerOpen,
       curPage,
@@ -52,6 +54,7 @@ export class ClientWarehouseViewRaw extends Component {
       boxesMy,
       history,
       selectedBoxes,
+      showTaskInfoModal,
       showSendOwnProductModal,
       showEditBoxModal,
       showRedistributeBoxModal,
@@ -69,6 +72,7 @@ export class ClientWarehouseViewRaw extends Component {
       cancelMergeBoxes,
       cancelSplitBoxes,
       cancelEditBoxes,
+      setCurrentOpenedTask,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -128,6 +132,7 @@ export class ClientWarehouseViewRaw extends Component {
                   onCancelMergeBoxes={cancelMergeBoxes}
                   onCancelSplitBoxes={cancelSplitBoxes}
                   onCancelEditBoxes={cancelEditBoxes}
+                  onClickTaskInfo={setCurrentOpenedTask}
                 />
               </Paper>
             </MainContent>
@@ -162,6 +167,12 @@ export class ClientWarehouseViewRaw extends Component {
             />
           </div>
         </Modal>
+
+        <TaskInfoModal
+          openModal={showTaskInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
+          task={curOpenedTask}
+        />
 
         <SuccessInfoModal
           openModal={showRedistributeBoxSuccessModal}
@@ -233,7 +244,7 @@ export class ClientWarehouseViewRaw extends Component {
         </Button>
         <Button
           disableElevation
-          disabled={selectedBoxes.length !== 1 || isMasterBoxSelected}
+          disabled={selectedBoxes.length !== 1}
           color="primary"
           variant="contained"
           onClick={() => onTriggerOpenModal('showEditBoxModal')}

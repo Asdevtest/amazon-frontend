@@ -13,7 +13,6 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
-import {BrowseTaskModal} from '@components/screens/warehouse/browse-task-modal'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/warehouse/tasks-views/table-body-row'
 import {TableHeadRow} from '@components/table-rows/warehouse/tasks-views/table-head-row'
@@ -42,7 +41,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
       showBrowseTaskModal,
       rowsPerPage,
       history,
-      selectedTaskIndex,
+      // selectedTaskIndex, еще нужно
       onChangeTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -95,7 +94,6 @@ export class WarehouseCompletedTasksViewRaw extends Component {
         </Main>
         <Modal openModal={showBrowseTaskModal} setOpenModal={onTriggerBrowseTaskModal}>
           <Typography variant="h5">{textConsts.taskModalTitle}</Typography>
-          <BrowseTaskModal task={copletedTasks[selectedTaskIndex]} onClickOpenCloseModal={onTriggerBrowseTaskModal} />
         </Modal>
       </React.Fragment>
     )

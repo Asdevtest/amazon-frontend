@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {ClientModel} from '@models/client-model'
+import {UserModel} from '@models/user-model'
 
 import {copyToClipBoard} from '@utils/clipboard'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
@@ -99,7 +100,6 @@ export class ClientInventoryViewModel {
         fieldsOfProductAllowedToUpdate,
         true,
       )
-      console.log('updateProductData ', updateProductDataFiltered)
 
       await ClientModel.updateProduct(productId, updateProductDataFiltered)
       await this.loadData()
@@ -146,10 +146,15 @@ export class ClientInventoryViewModel {
   async createOrder(orderObject) {
     try {
       await ClientModel.createOrder(orderObject)
+      await this.updateUserInfo()
     } catch (error) {
       console.log(error)
       this.error = error
     }
+  }
+
+  async updateUserInfo() {
+    await UserModel.getUserInfo()
   }
 
   onClickExchange() {}

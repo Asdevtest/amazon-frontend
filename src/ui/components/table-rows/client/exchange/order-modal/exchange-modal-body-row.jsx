@@ -1,13 +1,19 @@
 import {NativeSelect, TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
-import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
+import {
+  DeliveryType,
+  DeliveryTypeByCode,
+  deliveryTypeCodeToKey,
+  getDeliveryOptionByCode,
+} from '@constants/delivery-options'
 import {warehouses} from '@constants/warehouses'
 
 import {Input} from '@components/input'
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixedWithDollarSign} from '@utils/text'
 
 import {styles} from './exchange-modal-body-row.style'
@@ -47,7 +53,12 @@ const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: c
         input={<Input />}
         onChange={setOderField('deliveryMethod')}
       >
-        {Object.keys(DeliveryTypeByCode).map((deliveryCode, deliveryIndex) => (
+        {Object.keys(
+          getObjectFilteredByKeyArrayWhiteList(DeliveryTypeByCode, [
+            deliveryTypeCodeToKey[DeliveryType.SEA].toString(),
+            deliveryTypeCodeToKey[DeliveryType.AIR].toString(),
+          ]),
+        ).map((deliveryCode, deliveryIndex) => (
           <option key={deliveryIndex} value={deliveryCode}>
             {getDeliveryOptionByCode(deliveryCode).label}
           </option>

@@ -14,7 +14,7 @@ import {useClassNames} from './warehouse-history.style'
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseHistory
 
 export const WarehouseHistory = observer(
-  ({title, tasksData, onCancelMergeBoxes, onCancelSplitBoxes, onCancelEditBoxes}) => {
+  ({title, tasksData, onCancelMergeBoxes, onCancelSplitBoxes, onCancelEditBoxes, onClickTaskInfo}) => {
     const classNames = useClassNames()
 
     return (
@@ -41,6 +41,7 @@ export const WarehouseHistory = observer(
                   onCancelMergeBoxes={onCancelMergeBoxes}
                   onCancelSplitBoxes={onCancelSplitBoxes}
                   onCancelEditBoxes={onCancelEditBoxes}
+                  onClickTaskInfo={onClickTaskInfo}
                 />
               ))}
             </TableBody>

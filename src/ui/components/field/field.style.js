@@ -34,4 +34,7 @@ export const useClassNames = makeStyles({
   errorActive: {
     border: '1px solid red',
   },
+  noFullWidth: {
+    width: 'auto',
+  },
 })

@@ -47,7 +47,7 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
         <Typography className={classNames.barCode}>{item.product.barCode}</Typography>
       </TableCell>
       <TableCell className={classNames.cellPadding}>
-        <Typography className={classNames.text}>{formatDate(item.product.createdat)}</Typography>
+        <Typography className={classNames.text}>{formatDate(item.createDate)}</Typography>
       </TableCell>
       <TableCell className={classNames.cellPadding}>
         <Typography className={classNames.text}>{item.updated}</Typography>

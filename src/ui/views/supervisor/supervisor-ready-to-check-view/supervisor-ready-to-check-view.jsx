@@ -43,13 +43,11 @@ class SupervisorReadyToCheckViewRaw extends Component {
       onTriggerDrawerOpen,
       onChangePage,
       onChangeRowsPerPage,
-      onClickCalculateFees,
-      onDoubleClickTableRow,
+      onClickTableRowBtn,
     } = this.viewModel
     const {classes: classNames} = this.props
     const tableRowHandlers = {
-      onClickCalculateFees,
-      onDoubleClickTableRow,
+      onClickTableRowBtn,
     }
     return (
       <React.Fragment>

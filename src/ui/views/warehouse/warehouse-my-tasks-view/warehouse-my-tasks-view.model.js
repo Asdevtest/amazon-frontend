@@ -162,10 +162,12 @@ export class WarehouseVacantViewModel {
         await BoxesModel.approveBoxesOperation(this.selectedTask.boxes[0]._id)
       }
 
-      await StorekeeperModel.updateTask(this.selectedTask._id, {
-        status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],
-        storekeeperComment: comment,
-      })
+      // await StorekeeperModel.updateTask(this.selectedTask._id, {
+      //   status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],
+      //   storekeeperComment: comment
+      // });
+
+      await this.updateTask(this.selectedTask._id, TaskStatus.SOLVED, comment)
 
       await this.getTasksMy()
 
@@ -180,20 +182,45 @@ export class WarehouseVacantViewModel {
     }
   }
 
-  async onCancelMergeBoxes(id) {
+  async updateTask(taskId, status, comment) {
     try {
-      await BoxesModel.cancelMergeBoxes(id)
-      this.getTasksVacant()
+      await StorekeeperModel.updateTask(taskId, {
+        status: mapTaskStatusEmumToKey[status],
+        storekeeperComment: comment || '',
+      })
     } catch (error) {
       console.log(error)
       this.error = error
     }
   }
 
-  async onCancelSplitBoxes(id) {
+  async onCancelMergeBoxes(id, taskId) {
+    try {
+      await BoxesModel.cancelMergeBoxes(id)
+      await this.updateTask(taskId, TaskStatus.NOT_SOLVED)
+      await this.getTasksMy()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onCancelSplitBoxes(id, taskId) {
     try {
       await BoxesModel.cancelSplitBoxes(id)
-      this.getTasksVacant()
+      await this.updateTask(taskId, TaskStatus.NOT_SOLVED)
+      await this.getTasksMy()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onCancelEditBox(id, taskId) {
+    try {
+      await BoxesModel.cancelEditBoxesByStorekeeper(id)
+      await this.updateTask(taskId, TaskStatus.NOT_SOLVED)
+      await this.getTasksMy()
     } catch (error) {
       console.log(error)
       this.error = error
