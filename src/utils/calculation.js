@@ -13,5 +13,8 @@ export const calcProductsPriceWithDelivery = (product, order) =>
 
 export const calcExchangePrice = (price, rate) => toFixed((parseFloat(price) || 0) / (parseFloat(rate) || 0), 3)
 
+export const calcExchangeDollarsInYuansPrice = (price, rate) =>
+  toFixed((parseFloat(price) || 0) * (parseFloat(rate) || 0), 3)
+
 export const calcPriceForItem = (fullPrice, amount) =>
   toFixedWithDollarSign((parseFloat(fullPrice) || 0) / (parseFloat(amount) || 0), 2)

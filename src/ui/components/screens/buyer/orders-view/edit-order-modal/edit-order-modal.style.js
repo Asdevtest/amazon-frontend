@@ -11,9 +11,10 @@ export const useClassNames = makeStyles(() => ({
 
   modalText: {
     color: 'rgba(61, 81, 112, 1)',
-    fontSize: '14px',
+    fontSize: '18px',
     fontWeight: 400,
     lineHeight: '21px',
+    marginBottom: '10px',
   },
   modalWrapper: {
     minWidth: '800px',

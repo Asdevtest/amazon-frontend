@@ -41,6 +41,7 @@ import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/s
 import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view'
 import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-view'
 import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view/supervisor-settings-view'
+import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-canceled-tasks-view'
 import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-completed-tasks-view'
 import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
 import {WarehouseMyTasksView} from '@views/warehouse/warehouse-my-tasks-view'
@@ -271,6 +272,12 @@ export const privateRoutesConfigs = [
   {
     routePath: '/warehouse/completed-tasks',
     component: WarehouseCompletedTasksView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+  },
+  {
+    routePath: '/warehouse/canceled-tasks',
+    component: WarehouseCanceledTasksView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
   },

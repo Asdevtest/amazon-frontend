@@ -100,7 +100,14 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
           disableElevation
           variant="contained"
           className={(classNames.modalButton, classNames.buyNowBtn)}
-          disabled={orderState.some(order => order.deliveryMethod === '' || order.warehouse === '')}
+          disabled={orderState.some(
+            order =>
+              order.deliveryMethod === '' ||
+              order.warehouse === '' ||
+              order.deliveryMethod === 'none' ||
+              order.warehouse === 'none' ||
+              order.amount <= 0,
+          )}
           onClick={() => {
             onTriggerOpenModal('showOrderModal')
             onSubmit(orderState)

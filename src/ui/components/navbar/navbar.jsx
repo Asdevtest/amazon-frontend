@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {Divider, Drawer, Hidden, List} from '@material-ui/core'
@@ -21,6 +20,7 @@ export const Navbar = observer(
           <img alt="company logo" className={classNames.logo} src={'/logo192.png'} />
         </div>
         <Divider />
+
         <List className={classNames.categoriesWrapper}>
           {navbarConfig[curUserRole].map((category, index) => (
             <React.Fragment key={index}>

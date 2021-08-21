@@ -1,17 +1,17 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {AdministratorModel} from '@models/administrator-model'
-import {UserModel} from '@models/user-model'
 
 export class AdminUserBalanceViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
-  user = undefined
-  balance = UserModel.userInfo?.balance
+  userId = undefined
+  user = {}
+  payments = []
 
   drawerOpen = false
   showReplenishModal = false
@@ -20,12 +20,23 @@ export class AdminUserBalanceViewModel {
   constructor({history, location}) {
     this.history = history
     if (location.state) {
-      const user = {
-        ...location.state.user,
-      }
-      this.user = user
+      this.userId = location.state.user.id
     }
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await this.getUserInfo(this.userId)
+      await this.getBalanceHistory(this.userId)
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
   }
 
   onTriggerReplenishModal() {
@@ -44,7 +55,29 @@ export class AdminUserBalanceViewModel {
     this.requestStatus = requestStatus
   }
 
-  async getBalanceHistory() {}
+  async getBalanceHistory(id) {
+    try {
+      const result = await AdministratorModel.getPaymentsById(id)
+
+      runInAction(() => {
+        this.payments = result
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getUserInfo(id) {
+    try {
+      const result = await AdministratorModel.getUsersById(id)
+
+      runInAction(() => {
+        this.user = result
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   async makePayment(data) {
     try {
@@ -52,6 +85,10 @@ export class AdminUserBalanceViewModel {
       this.error = undefined
 
       await AdministratorModel.makePayment(data)
+
+      await this.getUserInfo(data.recipient)
+
+      await this.getBalanceHistory(data.recipient)
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

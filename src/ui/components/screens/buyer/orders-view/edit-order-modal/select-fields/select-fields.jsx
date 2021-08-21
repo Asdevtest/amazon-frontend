@@ -8,8 +8,9 @@ import {texts} from '@constants/texts'
 
 import {Input} from '@components/input'
 
-import {calcExchangePrice, calcPriceForItem} from '@utils/calculation'
+import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {withDollarSign, withYuanSign} from '@utils/text'
 
 import {useClassNames} from './select-fields.style'
 
@@ -30,8 +31,10 @@ export const SelectFields = ({
   const [supplierPaidDelivery, setSupplierPaidDelivery] = useState(false)
 
   const [priceYuansForBatch, setPriceYuansForBatch] = useState('')
-  const [usePriceInDollars, setUsePriceInDollars] = useState(false)
+  const [usePriceInDollars, setUsePriceInDollars] = useState(true)
   const [yuansToDollarRate, setYuansToDollarRate] = useState(defaultYuansToDollarRate)
+
+  console.log('orderFields', orderFields)
 
   return (
     <Grid container justify="space-around">
@@ -114,18 +117,23 @@ export const SelectFields = ({
             <Typography className={classNames.modalText}>{textConsts.priceYuansForBatchTypo}</Typography>
             <Input
               disabled={usePriceInDollars}
-              value={priceYuansForBatch}
+              value={
+                usePriceInDollars
+                  ? calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, yuansToDollarRate)
+                  : priceYuansForBatch
+              }
               className={classNames.input}
+              type="number"
               onChange={e => {
                 setPriceYuansForBatch(e.target.value)
-                setOrderField('amountPaymentPerConsignmentAtDollars')({
+                setOrderField('totalPriceChanged')({
                   target: {value: calcExchangePrice(e.target.value, yuansToDollarRate)},
                 })
               }}
             />
             <div className={classNames.checkboxWithLabelWrapper}>
               <Checkbox
-                value={usePriceInDollars}
+                checked={usePriceInDollars}
                 color="primary"
                 onChange={() => {
                   if (!usePriceInDollars) {
@@ -142,33 +150,50 @@ export const SelectFields = ({
             <Typography className={classNames.modalText}>{textConsts.yuansToDollarRateTypo}</Typography>
             <Input
               disabled={usePriceInDollars}
+              type="number"
               value={yuansToDollarRate || 6.3}
               className={classNames.input}
               onChange={e => {
                 setYuansToDollarRate(e.target.value)
-                setOrderField('amountPaymentPerConsignmentAtDollars')({
+                setOrderField('totalPriceChanged')({
                   target: {value: calcExchangePrice(priceYuansForBatch, e.target.value)},
                 })
               }}
             />
           </Box>
           <Box className={classNames.tableCell}>
-            <Typography className={classNames.modalText}>
-              {textConsts.amountPaymentPerConsignmentAtDollarsTypo}
-            </Typography>
+            <Typography className={classNames.modalText}>{textConsts.totalPriceChanged}</Typography>
             <Input
               disabled={!usePriceInDollars}
-              value={orderFields.amountPaymentPerConsignmentAtDollars}
+              value={orderFields.totalPriceChanged}
+              type="number"
               className={classNames.input}
-              onChange={setOrderField('amountPaymentPerConsignmentAtDollars')}
+              onChange={setOrderField('totalPriceChanged')}
             />
           </Box>
           <Box className={classNames.tableCell}>
             <Typography className={classNames.modalText}>{textConsts.costPriceAmount}</Typography>
-            {calcPriceForItem(orderFields.amountPaymentPerConsignmentAtDollars, orderFields.amount)}
+            {calcPriceForItem(orderFields.totalPriceChanged, orderFields.amount)}
+          </Box>
+        </div>
+
+        <div className={classNames.totalPriceWrapper}>
+          <Box className={classNames.tableCell}>
+            <Typography className={classNames.totalPrice}>{textConsts.totalPriceInYuans}</Typography>
+            <Input
+              disabled
+              value={withYuanSign(calcExchangeDollarsInYuansPrice(orderFields.totalPrice, yuansToDollarRate))}
+              className={classNames.input}
+            />
+          </Box>
+
+          <Box className={classNames.tableCell}>
+            <Typography className={classNames.totalPrice}>{textConsts.totalPrice}</Typography>
+            <Input disabled value={withDollarSign(orderFields.totalPrice)} className={classNames.input} />
           </Box>
         </div>
       </Grid>
+
       <Grid item>
         <Box my={3}>
           <Typography className={classNames.modalText}>{textConsts.typoClientComment}</Typography>

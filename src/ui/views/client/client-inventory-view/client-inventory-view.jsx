@@ -183,7 +183,9 @@ export class ClientInventoryViewRaw extends Component {
       >
         {textConsts.orderBtn}
       </Button>
-      <Button color="default">{textConsts.resetBtn}</Button>
+      <Button color="default" onClick={() => this.viewModel.onResetselectedProducts()}>
+        {textConsts.resetBtn}
+      </Button>
     </React.Fragment>
   )
 

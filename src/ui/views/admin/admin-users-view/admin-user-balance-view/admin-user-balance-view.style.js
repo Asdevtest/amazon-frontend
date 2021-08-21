@@ -7,4 +7,8 @@ export const styles = createStyles(theme => ({
   balanceTitle: {
     fontSize: theme.spacing(9),
   },
+  balanceFreeze: {
+    fontSize: theme.spacing(5),
+    color: 'orange',
+  },
 }))

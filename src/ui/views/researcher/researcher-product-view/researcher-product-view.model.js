@@ -365,9 +365,7 @@ export class ResearcherProductViewModel {
     }
   }
   onResetInitialProductData() {
-    this.setActionStatus(loadingStatuses.isLoading)
-    this.product = this.productBase
-    this.setActionStatus(loadingStatuses.success)
+    this.history.goBack()
   }
 
   async onDeleteProduct() {

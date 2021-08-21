@@ -115,4 +115,11 @@ export const styles = createStyles({
   selectedStarIcon: {
     color: '#FFC632',
   },
+  row: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
 })

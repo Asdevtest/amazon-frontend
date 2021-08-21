@@ -4,7 +4,7 @@ import {Button, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {adminUsername, ADMIN_BALANCE_HISTORY_DATA} from '@constants/mocks'
+import {adminUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -31,13 +31,13 @@ class AdminUserBalanceViewRaw extends Component {
   viewModel = new AdminUserBalanceViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
-    this.viewModel.getBalanceHistory()
+    this.viewModel.loadData()
   }
 
   render() {
     const {
       user,
-      // balance,
+      payments,
       drawerOpen,
       history,
       showReplenishModal,
@@ -48,8 +48,6 @@ class AdminUserBalanceViewRaw extends Component {
       onTriggerDrawer,
     } = this.viewModel
     const {classes: classNames} = this.props
-
-    console.log('user', user)
 
     return (
       <>
@@ -71,6 +69,11 @@ class AdminUserBalanceViewRaw extends Component {
             <MainContent>
               <Typography variant="h5">{`${textConsts.balance} of ${user.email}`}</Typography>
               <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance)}</Typography>
+              {user.balanceFreeze && (
+                <Typography className={classNames.balanceFreeze}>{`${toFixedWithDollarSign(
+                  user.balanceFreeze,
+                )} -freeze`}</Typography>
+              )}
               <Button
                 disableElevation
                 className={classNames.mr2}
@@ -83,7 +86,7 @@ class AdminUserBalanceViewRaw extends Component {
               <Button disableElevation color="primary" onClick={onTriggerWithdrawModal}>
                 {textConsts.withdraw}
               </Button>
-              <UserBalanceHistory historyData={ADMIN_BALANCE_HISTORY_DATA} />
+              <UserBalanceHistory historyData={payments} />
             </MainContent>
           </Appbar>
         </Main>

@@ -118,6 +118,7 @@ export const OrderModalBodyRow = ({
           input={<Input />}
           onChange={e => onChangeInput(e, 'deliveryMethod')}
         >
+          <option value={'none'}>{'none'}</option>
           {Object.keys(
             getObjectFilteredByKeyArrayWhiteList(DeliveryTypeByCode, [
               deliveryTypeCodeToKey[DeliveryType.SEA].toString(),
@@ -142,6 +143,7 @@ export const OrderModalBodyRow = ({
           input={<Input />}
           onChange={e => onChangeInput(e, 'warehouse')}
         >
+          <option value={'none'}>{'none'}</option>
           {Object.keys(warehouses).map((warehouseOptionCode, index) => (
             <option key={index} value={warehouseOptionCode}>
               {warehouses[warehouseOptionCode]}

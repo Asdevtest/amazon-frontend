@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {TableCell, TableRow, Typography, Checkbox} from '@material-ui/core'
+import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {OrderStatusByCode} from '@constants/order-status'
@@ -19,22 +19,12 @@ import {styles} from './table-body-row.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersTableRow
 
-const TableBodyRowRaw = ({item, itemIndex, handlers, selectedOrder, ...restProps}) => {
+const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
   const classNames = restProps.classes
   return (
-    <TableRow onClick={() => handlers.onClickTableRow(item)}>
+    <TableRow hover onClick={() => handlers.onClickTableRow(item)}>
       <TableCell className={classNames.count}>
         <Typography>{itemIndex + 1}</Typography>
-      </TableCell>
-
-      <TableCell padding="checkbox">
-        <Checkbox
-          value={selectedOrder?._id === item._id}
-          onClick={e => {
-            e.stopPropagation()
-            handlers.onClickCheckbox()
-          }}
-        />
       </TableCell>
 
       <TableCell>

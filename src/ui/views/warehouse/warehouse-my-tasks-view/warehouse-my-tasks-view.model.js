@@ -7,6 +7,7 @@ import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BoxesWarehouseUpdateBoxInTaskContract} from '@models/boxes-model/boxes-model.contracts'
+import {OtherModel} from '@models/other-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
@@ -19,6 +20,8 @@ export class WarehouseVacantViewModel {
 
   tasksMy = []
   currentBox = undefined
+  imagesOfTask = []
+  imagesOfBox = []
 
   drawerOpen = false
   rowsPerPage = 15
@@ -86,10 +89,35 @@ export class WarehouseVacantViewModel {
       const result = await StorekeeperModel.getTasksMy()
 
       runInAction(() => {
-        this.tasksMy = result.sort(sortObjectsArrayByFiledDate('createDate'))
+        this.tasksMy = result
+          .sort(sortObjectsArrayByFiledDate('createDate'))
+          .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS])
       })
     } catch (error) {
       console.log(error)
+      this.error = error
+    }
+  }
+
+  async onSubmitPostImages({images, type}) {
+    this[type] = []
+
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i]
+
+      await this.onPostImage(image, type)
+    }
+  }
+
+  async onPostImage(imageData, imagesType) {
+    const formData = new FormData()
+    formData.append('filename', imageData)
+
+    try {
+      const imageFile = await OtherModel.postImage(formData)
+
+      this[imagesType].push('https://api1.kurakste.ru/uploads/' + imageFile.data.fileName)
+    } catch (error) {
       this.error = error
     }
   }
@@ -104,6 +132,12 @@ export class WarehouseVacantViewModel {
 
   async updateBox(id, data) {
     try {
+      if (data.tmpImages.length > 0) {
+        await this.onSubmitPostImages({images: data.tmpImages, type: 'imagesOfBox'})
+
+        data = {...data, images: this.imagesOfBox}
+      }
+
       const updateBoxData = {
         ...getObjectFilteredByKeyArrayWhiteList(data, [
           'lengthCmWarehouse',
@@ -113,6 +147,7 @@ export class WarehouseVacantViewModel {
           'volumeWeightKgWarehouse',
           'weightFinalAccountingKgWarehouse',
           'isShippingLabelAttachedByStorekeeper',
+          // 'images' КАК РАЗРЕШАТЬ ЭТО ПОЛЕ - РАСКОММЕНТИРОВАТЬ
         ]),
       }
 
@@ -130,15 +165,19 @@ export class WarehouseVacantViewModel {
     }
   }
 
-  async onClickSolveTask(newBoxes, operationType, comment) {
+  async onClickSolveTask({newBoxes, operationType, comment, photos}) {
     try {
       for (let i = 0; i < newBoxes.length; i++) {
-        const box = newBoxes[i]
+        const box = getObjectFilteredByKeyArrayBlackList(newBoxes[i], ['tmpImages'])
 
         await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, box)
       }
 
       if (operationType === TaskOperationType.RECEIVE) {
+        if (newBoxes[0].tmpImages.length > 0) {
+          await this.onSubmitPostImages({images: newBoxes[0].tmpImages, type: 'imagesOfBox'})
+        }
+
         const requestBoxes = newBoxes.map(box =>
           getObjectFilteredByKeyArrayBlackList(
             {
@@ -151,8 +190,9 @@ export class WarehouseVacantViewModel {
                   product: box.items[0].product._id,
                 },
               ],
+              images: this.imagesOfBox,
             },
-            ['_id', 'status', 'createdBy', 'lastModifiedBy'],
+            ['_id', 'status', 'createdBy', 'lastModifiedBy', 'createdAt', 'tmpImages'],
           ),
         )
 
@@ -162,10 +202,11 @@ export class WarehouseVacantViewModel {
         await BoxesModel.approveBoxesOperation(this.selectedTask.boxes[0]._id)
       }
 
-      // await StorekeeperModel.updateTask(this.selectedTask._id, {
-      //   status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],
-      //   storekeeperComment: comment
-      // });
+      if (photos.length > 0) {
+        await this.onSubmitPostImages({images: photos, type: 'imagesOfTask'})
+
+        comment = comment + '\n' + this.imagesOfTask.join(' \n ')
+      }
 
       await this.updateTask(this.selectedTask._id, TaskStatus.SOLVED, comment)
 

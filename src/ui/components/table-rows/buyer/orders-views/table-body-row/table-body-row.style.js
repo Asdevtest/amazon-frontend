@@ -77,4 +77,12 @@ export const useClassNames = makeStyles(() => ({
     whiteSpace: 'nowrap',
     overflowX: 'scroll',
   },
+
+  row: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
 }))

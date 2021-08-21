@@ -53,6 +53,7 @@ const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: c
         input={<Input />}
         onChange={setOderField('deliveryMethod')}
       >
+        <option value={'none'}>{'none'}</option>
         {Object.keys(
           getObjectFilteredByKeyArrayWhiteList(DeliveryTypeByCode, [
             deliveryTypeCodeToKey[DeliveryType.SEA].toString(),
@@ -77,6 +78,7 @@ const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: c
         input={<Input />}
         onChange={setOderField('warehouse')}
       >
+        <option value={'none'}>{'none'}</option>
         {Object.keys(warehouses).map((warehouseCode, warehouseIndex) => {
           const warehouseKey = warehouses[warehouseCode]
           return (

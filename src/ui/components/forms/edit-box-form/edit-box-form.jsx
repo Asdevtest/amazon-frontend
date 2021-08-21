@@ -5,7 +5,12 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
-import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
+import {
+  DeliveryType,
+  DeliveryTypeByCode,
+  deliveryTypeCodeToKey,
+  getDeliveryOptionByCode,
+} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {texts} from '@constants/texts'
 import {warehouses} from '@constants/warehouses'
@@ -20,6 +25,7 @@ import {Table} from '@components/table'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {trimBarcode} from '@utils/text'
 
 import {useClassNames} from './edit-box-form.style'
@@ -184,7 +190,12 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
                   input={<Input fullWidth />}
                   onChange={setFormField('deliveryMethod')}
                 >
-                  {Object.keys(DeliveryTypeByCode).map((deliveryOptionCode, index) => (
+                  {Object.keys(
+                    getObjectFilteredByKeyArrayWhiteList(DeliveryTypeByCode, [
+                      deliveryTypeCodeToKey[DeliveryType.SEA].toString(),
+                      deliveryTypeCodeToKey[DeliveryType.AIR].toString(),
+                    ]),
+                  ).map((deliveryOptionCode, index) => (
                     <option key={index} value={deliveryOptionCode}>
                       {getDeliveryOptionByCode(deliveryOptionCode).label}
                     </option>

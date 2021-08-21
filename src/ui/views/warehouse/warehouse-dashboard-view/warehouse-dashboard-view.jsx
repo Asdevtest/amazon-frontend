@@ -5,6 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {getWarehouseDashboardCardConfig, WarehouseDashboardCardDataKey} from '@constants/dashboard-configs'
+import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -71,12 +72,7 @@ export class WarehouseDashboardViewRaw extends Component {
   renderDashboardCards = () =>
     dashboardCardConfig.map(item => (
       <Grid key={`dashboardCard_${item.dataKey}`} item xs={6} lg={4}>
-        <DashboardInfoCard
-          value={this.getCardValueByDataKey(item.dataKey)}
-          title={item.title}
-          color={item.color}
-          // route="/researcher/products" тут пока не используется
-        />
+        <DashboardInfoCard value={this.getCardValueByDataKey(item.dataKey)} title={item.title} color={item.color} />
       </Grid>
     ))
 
@@ -84,9 +80,9 @@ export class WarehouseDashboardViewRaw extends Component {
     const {tasksVacant, tasksMy, boxesVacant, boxesMy, batches} = this.viewModel
     switch (dataKey) {
       case WarehouseDashboardCardDataKey.VACANT_TASKS:
-        return tasksVacant.length
+        return tasksVacant.filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.NEW]).length
       case WarehouseDashboardCardDataKey.TASKS_MY:
-        return tasksMy.length
+        return tasksMy.filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS]).length
       case WarehouseDashboardCardDataKey.BOXES_VACANT:
         return boxesVacant.length
       case WarehouseDashboardCardDataKey.BOXES_MY:
@@ -95,7 +91,7 @@ export class WarehouseDashboardViewRaw extends Component {
         return batches.length
 
       case WarehouseDashboardCardDataKey.COMPLETED_TASKS:
-        return 0
+        return tasksMy.filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.SOLVED]).length
       case WarehouseDashboardCardDataKey.MY_STATS:
         return 0
       case WarehouseDashboardCardDataKey.MY_PAYMENTS:

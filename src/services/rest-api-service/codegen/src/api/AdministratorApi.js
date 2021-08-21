@@ -885,4 +885,112 @@ export default class AdministratorApi {
       return response_and_data.data;
     });
   }
+
+  /**
+     * Получить пользователя по guid.
+     * ## Получить пользователя по guid.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
+     */
+  apiV1AdminsUserGetByIdWithHttpInfo(guid, opts) {
+    opts = opts || {};
+    let postBody = null;
+
+    let pathParams = {
+      guid: guid
+    };
+
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = InlineResponse2002;
+    return this.apiClient.callApi(
+      '/api/v1/admins/users/{guid}',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
+     * Получить пользователя по guid.
+     * ## Получить пользователя по guid.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
+     */
+  apiV1AdminsUserGetById(opts) {
+    return this.apiV1AdminsUserGetByIdWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
+
+  /**
+     * Получить изменения баланса пользователя по guid.
+     * ## Получить изменения баланса пользователя по guid.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
+     */
+  apiV1AdminsUserPaymentsGetByIdWithHttpInfo(guid, opts) {
+    opts = opts || {};
+    let postBody = null;
+
+    let pathParams = {
+      guid: guid
+    };
+
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = [ Object ];
+    return this.apiClient.callApi(
+      '/api/v1/other/payments/{guid}',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+  /**
+     * Получить изменения баланса пользователя по guid.
+     * ## Получить изменения баланса пользователя по guid.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
+     */
+  apiV1AdminsUserPaymentsGetById(opts) {
+    return this.apiV1AdminsUserPaymentsGetByIdWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
 }

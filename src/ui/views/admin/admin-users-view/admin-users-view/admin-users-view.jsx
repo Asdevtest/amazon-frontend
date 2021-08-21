@@ -19,6 +19,7 @@ import {Navbar} from '@components/navbar'
 import {AdminContentModal} from '@components/screens/users-views/sub-users-view/admin-content-modal'
 import {PermissionContentModal} from '@components/screens/users-views/sub-users-view/permission-modal'
 
+import {formatDateTimeWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/adminAvatar.jpg'
@@ -30,9 +31,9 @@ const navbarActiveCategory = 6
 
 const renderAdminSubUsersTableCells = renderBtns => [
   {
-    field: 'date',
+    field: 'createdAt',
     headerName: 'Created',
-    renderCell: params => !params.value && 'N/A',
+    renderCell: params => (params.value ? formatDateTimeWithParseISO(params.value) : 'N/A'),
     width: 150,
   },
 
@@ -41,6 +42,12 @@ const renderAdminSubUsersTableCells = renderBtns => [
     field: 'balance',
     headerName: 'Balance',
     renderCell: params => !params.value && 'N/A',
+    width: 150,
+  },
+  {
+    field: 'balanceFreeze',
+    headerName: 'Freeze',
+    renderCell: params => !params.value && '0',
     width: 150,
   },
   {field: 'email', headerName: 'Email', width: 150},

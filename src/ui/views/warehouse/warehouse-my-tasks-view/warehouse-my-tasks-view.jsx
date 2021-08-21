@@ -25,9 +25,8 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {WarehouseVacantViewModel} from './warehouse-my-tasks-view.model'
 import {styles} from './warehouse-my-tasks-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseVacantTasksView
-const navbarActiveCategory = 1
-const navBarActiveSubCategory = 1
+const textConsts = getLocalizedTexts(texts, 'ru').warehouseMyTasksView
+const navbarActiveCategory = 2
 
 @observer
 export class WarehouseMyTasksViewRaw extends Component {
@@ -73,7 +72,6 @@ export class WarehouseMyTasksViewRaw extends Component {
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}
           user={textConsts.appUser}
-          activeSubCategory={navBarActiveSubCategory}
         />
         <Main>
           <Appbar

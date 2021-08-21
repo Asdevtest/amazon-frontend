@@ -72,7 +72,7 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, o
   )
 
   const checkIfTaskCouldBeCanceled = status => {
-    if (status === mapTaskStatusEmumToKey[TaskStatus.NEW] || status === mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS]) {
+    if (status === mapTaskStatusEmumToKey[TaskStatus.NEW]) {
       return true
     }
     return false

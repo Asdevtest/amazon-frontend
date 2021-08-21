@@ -6,7 +6,7 @@ import {TaskOperationType} from '@constants/task-operation-type'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDate, sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
 export class ClientWarehouseViewModel {
@@ -124,7 +124,7 @@ export class ClientWarehouseViewModel {
             },
           ],
         },
-        ['_id', 'status', 'createdBy', 'lastModifiedBy', 'clientComment'],
+        ['_id', 'status', 'createdBy', 'lastModifiedBy', 'clientComment', 'createdAt'],
       )
       const editBoxesResult = await this.editBox({id, data: requestBox})
 
@@ -235,7 +235,7 @@ export class ClientWarehouseViewModel {
       const result = await BoxesModel.getBoxesForCurClient()
 
       runInAction(() => {
-        this.boxesMy = result
+        this.boxesMy = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       console.log(error)

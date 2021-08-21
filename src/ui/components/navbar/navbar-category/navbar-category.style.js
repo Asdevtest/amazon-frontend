@@ -10,6 +10,7 @@ export const styles = theme =>
       color: theme.palette.text.primary,
       borderLeft: `5px solid transparent`,
       paddingRight: '16px',
+      transition: '0.3s ease',
 
       '&$selected': {
         borderLeft: `5px solid ${theme.palette.primary.main}`,
@@ -18,7 +19,7 @@ export const styles = theme =>
       '&$selected:hover': {
         borderLeft: `5px solid ${theme.palette.primary.main}`,
       },
-      '&:hover': {},
+      '&:hover': {backgroundColor: 'rgba(0,123,255,0.3)'},
     },
     selected: {
       color: theme.palette.primary.main,

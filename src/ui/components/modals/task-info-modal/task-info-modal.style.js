@@ -3,7 +3,7 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(theme => ({
   heightFieldAuto: {
     height: 'auto',
-    minWidth: '380px',
+    minWidth: '650px',
   },
   commentsWrapper: {
     display: 'flex',

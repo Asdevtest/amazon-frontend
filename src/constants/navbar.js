@@ -1,3 +1,4 @@
+import {Block, DoneOutline, LocalConvenienceStore, Work} from '@material-ui/icons'
 import AllInboxIcon from '@material-ui/icons/AllInbox'
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined'
 import AssignmentIcon from '@material-ui/icons/Assignment'
@@ -119,21 +120,30 @@ export const navbarConfig = {
     },
     {
       icon: AssignmentIcon,
-      title: 'Задачи',
+      title: 'Вакантные задачи',
+      subtitles: null,
       route: '/warehouse/vacant-tasks',
-      subtitles: [
-        {subtitle: 'Вакантные задачи', subRoute: '/warehouse/vacant-tasks'},
-        {subtitle: 'Мои задачи', subRoute: '/warehouse/my-tasks'},
-      ],
     },
     {
-      icon: AssignmentIcon,
+      icon: Work,
+      title: 'Мои задачи',
+      subtitles: null,
+      route: '/warehouse/my-tasks',
+    },
+    {
+      icon: DoneOutline,
       title: 'Выполненые задачи',
       subtitles: null,
       route: '/warehouse/completed-tasks',
     },
     {
-      icon: AssignmentIcon,
+      icon: Block,
+      title: 'Отмененные задачи',
+      subtitles: null,
+      route: '/warehouse/canceled-tasks',
+    },
+    {
+      icon: LocalConvenienceStore,
       title: 'Склад',
       subtitles: null,
       route: '/warehouse/boxes',

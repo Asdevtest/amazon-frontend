@@ -36,4 +36,13 @@ export const useClassNames = makeStyles(() => ({
     gap: '5px',
     alignItems: 'flex-start',
   },
+  totalPriceWrapper: {
+    marginTop: '20px',
+  },
+  totalPrice: {
+    color: 'rgba(61, 81, 112, 1)',
+    fontSize: '16px',
+    fontWeight: 500,
+    lineHeight: '21px',
+  },
 }))

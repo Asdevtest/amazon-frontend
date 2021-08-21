@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {Button, Chip} from '@material-ui/core'
@@ -66,12 +67,17 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
           </div>
         </div>
       </TableCell>
+
       <TableCell className={classNames.priceTableCell}>{ProductStatusByCode[item.status]}</TableCell>
+
       <TableCell className={classNames.priceTableCell}>{formatDate(item.createdat)}</TableCell>
+
       <TableCell className={classNames.priceTableCell}>
         {(item.updatedat && formatDate(item.updatedat)) || ''}
       </TableCell>
+
       <TableCell className={classNames.priceTableCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
+
       <TableCell>
         <Button
           color="primary"
@@ -84,12 +90,17 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
           {item.createdby.name}
         </Button>
       </TableCell>
+
       <TableCell>
         <Button color="primary">{item.buyer ? item.buyer.name : 'N/A'}</Button>
       </TableCell>
+
       <TableCell className={classNames.bsrCell}>{item.bsr}</TableCell>
+
       <TableCell className={classNames.salersTotal}>{item.type}</TableCell>
+
       <TableCell className={classNames.rankTableCell}>{toFixedWithDollarSign(item.fbafee)}</TableCell>
+
       <TableCell className={classNames.deleteBtnCell}>
         <IconButton onClick={() => alert('Item deleting...')}>
           <DeleteIcon className={classNames.deleteBtn} />
