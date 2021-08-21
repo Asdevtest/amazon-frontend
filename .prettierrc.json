@@ -18,6 +18,7 @@
     "^@components/(.*)$",
     "^@views/(.*)$",
     "^@utils/(.*)$",
+    "^@typings/(.*)$",
     "^[./]"
   ],
   "importOrderSeparation": true,

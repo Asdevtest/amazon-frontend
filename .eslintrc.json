@@ -189,6 +189,49 @@
     "react/display-name": "off",
     "react/react-in-jsx-scope": "off"
   },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": [
+        "plugin:prettier/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": "tsconfig.json",
+        "tsconfigRootDir": ".",
+        "sourceType": "module",
+        "ecmaVersion": 2020,
+        "ecmaFeatures": {
+          "jsx": true,
+          "legacyDecorators": true
+        }
+      },
+      "plugins": ["@typescript-eslint"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": ",^_", "varsIgnorePattern": "^_" }],
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/prefer-optional-chain": [
+          "error"
+        ],
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/interface-name-prefix": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/unbound-method": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/restrict-template-expressions": [
+          "off", { "allowAny": true }],
+        "@typescript-eslint/no-shadow": [
+          "error"
+        ],
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/ban-types": "off"
+      }
+    }
+  ],
   "settings": {
     "react": {
       "createClass": "createReactClass",
@@ -221,9 +264,10 @@
           ["@styles","./src/styles/"],
           ["@components","./src/ui/components/"],
           ["@views","./src/ui/views/"],
-          ["@utils","./src/utils"]
+          ["@utils","./src/utils"],
+          ["@typings", "./src/typings"]
         ],
-        "extensions": [".ts", ".js", ".jsx", ".json"]
+        "extensions": [".ts", ".js", ".jsx", ".json", "tsx", ".d.ts"]
       }
     }
   },
