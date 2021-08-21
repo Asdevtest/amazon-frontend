@@ -20,6 +20,7 @@ const updateOrderKeys = [
   'isBarCodeAlreadyAttachedByTheSupplier',
   'deliveryCostToTheWarehouse',
   'buyerComment',
+  'totalPriceChanged',
 ]
 
 export class BuyerMyOrdersViewModel {

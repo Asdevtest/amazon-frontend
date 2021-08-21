@@ -308,6 +308,13 @@ export const texts = {
     clientExchangePrivateLabelView: {
       appbarTitle: 'Exchange - PrivateLabel',
       mainTitle: 'Information about Private Label',
+
+      confirmTitle: 'Вы покупаете товар, уверены?',
+      confirmMessage: 'У вас будет списание ',
+      confirmBtn: 'Да',
+      cancelBtn: 'Отмена',
+      successTitle: 'Товар оплачен',
+      successBtn: 'Ок!',
     },
     clientExchangeRequestsView: {
       appbarTitle: 'Exchange - Requests',
@@ -669,11 +676,14 @@ export const texts = {
       supplierAddBarCode: 'Поставщик поклеил баркод при отправке',
       usePriceInDollars: 'Использовать цену в долларах',
 
-      priceYuansForBatchTypo: 'Юаней за партию',
+      priceYuansForBatchTypo: 'Юаней за партию ¥',
       yuansToDollarRateTypo: 'Курс юаня к доллару',
-      amountPaymentPerConsignmentAtDollarsTypo: 'Долларов за партию',
-      costPriceAmount: 'Себестоимость в закупке',
+      totalPriceChanged: 'Долларов за партию фактически $',
+      costPriceAmount: 'Себестоимость в закупке за шт.',
       trackNumberTypo: 'Track number',
+
+      totalPrice: 'Запланированная стоимость заказа',
+      totalPriceInYuans: 'Запланированная стоимость в йенах',
     },
 
     buyerProductView: {
@@ -1157,6 +1167,8 @@ export const texts = {
       saveBtn: 'Сохранить',
       cancelBtn: 'Отмена',
       boxesTitle: 'Коробки по данному заказу:',
+      suppliers: 'Поставщики',
+      noBoxesYat: 'Коробок пока нет...',
     },
     freeOrdersView: {
       mainTitle: 'Свободные заказы',
@@ -1443,6 +1455,7 @@ export const texts = {
       comment: 'Комментарий',
       reason: 'Причина',
       username: 'Имя пользователя',
+      productId: 'Продукт Id',
     },
     warehouseHistoryBodyRow: {
       merge: 'Соединение в коробку: ',
@@ -1478,6 +1491,13 @@ export const texts = {
       appBarUsername: 'Warehouse',
       appUser: 'warehouse',
       mainTitle: 'Вакантные задачи',
+    },
+
+    warehouseMyTasksView: {
+      appBarTitle: 'Dashboard',
+      appBarUsername: 'Warehouse',
+      appUser: 'warehouse',
+      mainTitle: 'Мои задачи',
       taskModalTitle: 'Решить задачу',
       dimensionsMessage: 'Внесите размеры',
       okBtn: 'Ок',
@@ -1486,8 +1506,13 @@ export const texts = {
       appBarTitle: 'Dashboard',
       appBarUsername: 'Warehouse',
       appUser: 'warehouse',
-      mainTitle: 'Вакантные задачи',
-      taskModalTitle: 'Задача',
+      mainTitle: 'Выполненные задачи',
+    },
+    warehouseCanceledTasksView: {
+      appBarTitle: 'Dashboard',
+      appBarUsername: 'Warehouse',
+      appUser: 'warehouse',
+      mainTitle: 'Отмененные задачи',
     },
     warehouseModalEditTask: {
       batchDestination: 'Не назначен',
@@ -1621,6 +1646,7 @@ export const texts = {
       resolved: 'Решено',
       notResolved: 'Не решено',
       pickUp: 'Взять в работу',
+      showBtn: 'Смотреть подробнее',
 
       merge: 'Соединение в коробку',
       unMerge: 'Разъедененние в коробки',
@@ -1708,6 +1734,21 @@ export const texts = {
     },
     buyerReadyToCheckBodyRow: {
       goToWorkBtn: 'Взять в работу',
+    },
+    editOrderSuppliersTable: {
+      fieldAsin: 'ID*',
+      fieldLinkAmazon: 'Ссылка на товар Amazon',
+      checkboxFba: 'FBA',
+      tableName: 'Имя',
+      tableLink: 'Ссылка',
+      tablePrice: 'Цена',
+      tableSheep: 'Доставка',
+      tableCount: 'Количество',
+      tableMinBatch: 'Минимальная партия',
+      tableBatchCost: 'Цена партии',
+      tableCost: 'Стоимость',
+      tableComment: 'Комментарий',
+      tableCellNoVendors: 'Нет поставщиков',
     },
   },
 }

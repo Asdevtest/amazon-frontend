@@ -21,7 +21,7 @@ import InlineResponse200 from './InlineResponse200';
  * @version v0.0.1
  */
 class InlineResponse2001 {
-    /**
+  /**
      * Constructs a new <code>InlineResponse2001</code>.
      * Заказ.
      * @alias module:model/InlineResponse2001
@@ -31,154 +31,176 @@ class InlineResponse2001 {
      * @param deliveryCostToTheWarehouse {Number} Стоимость доставки до склада.
      * @param product {module:model/InlineResponse200} 
      */
-    constructor(clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) { 
-        
-        InlineResponse2001.initialize(this, clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product);
-    }
+  constructor(clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) {
+    InlineResponse2001.initialize(
+      this,
+      clientComment,
+      warehouse,
+      deliveryMethod,
+      deliveryCostToTheWarehouse,
+      product
+    );
+  }
 
-    /**
+  /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) { 
-        obj['clientComment'] = clientComment;
-        obj['warehouse'] = warehouse;
-        obj['deliveryMethod'] = deliveryMethod;
-        obj['deliveryCostToTheWarehouse'] = deliveryCostToTheWarehouse;
-        obj['product'] = product;
-    }
+  static initialize(
+    obj,
+    clientComment,
+    warehouse,
+    deliveryMethod,
+    deliveryCostToTheWarehouse,
+    product
+  ) {
+    obj['clientComment'] = clientComment;
+    obj['warehouse'] = warehouse;
+    obj['deliveryMethod'] = deliveryMethod;
+    obj['deliveryCostToTheWarehouse'] = deliveryCostToTheWarehouse;
+    obj['product'] = product;
+  }
 
-    /**
+  /**
      * Constructs a <code>InlineResponse2001</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/InlineResponse2001} obj Optional instance to populate.
      * @return {module:model/InlineResponse2001} The populated <code>InlineResponse2001</code> instance.
      */
-    static constructFromObject(data, obj) {
-        if (data) {
-            obj = obj || new InlineResponse2001();
+  static constructFromObject(data, obj) {
+    if (data) {
+      obj = obj || new InlineResponse2001();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('buyerId')) {
-                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
-            }
-            if (data.hasOwnProperty('trackingNumberChina')) {
-                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
-            }
-            if (data.hasOwnProperty('amountPaymentPerConsignmentAtDollars')) {
-                obj['amountPaymentPerConsignmentAtDollars'] = ApiClient.convertToType(data['amountPaymentPerConsignmentAtDollars'], 'Number');
-            }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('createDate')) {
-                obj['createDate'] = ApiClient.convertToType(data['createDate'], 'Date');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = InlineResponse200.constructFromObject(data['product']);
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsOrdersCreatedBy.constructFromObject(data['createdBy']);
-            }
-        }
-        return obj;
+      if (data.hasOwnProperty('_id')) {
+        obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+      }
+      if (data.hasOwnProperty('buyerId')) {
+        obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
+      }
+      if (data.hasOwnProperty('clientComment')) {
+        obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+      }
+      if (data.hasOwnProperty('buyerComment')) {
+        obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+      }
+      if (data.hasOwnProperty('warehouse')) {
+        obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+      }
+      if (data.hasOwnProperty('deliveryMethod')) {
+        obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+      }
+      if (data.hasOwnProperty('fba')) {
+        obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+      }
+      if (data.hasOwnProperty('status')) {
+        obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+      }
+      if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+        obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(
+          data['deliveryCostToTheWarehouse'],
+          'Number'
+        );
+      }
+      if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+        obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(
+          data['isBarCodeAlreadyAttachedByTheSupplier'],
+          'Boolean'
+        );
+      }
+      if (data.hasOwnProperty('trackingNumberChina')) {
+        obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
+      }
+      if (data.hasOwnProperty('amountPaymentPerConsignmentAtDollars')) {
+        obj['amountPaymentPerConsignmentAtDollars'] = ApiClient.convertToType(
+          data['amountPaymentPerConsignmentAtDollars'],
+          'Number'
+        );
+      }
+      if (data.hasOwnProperty('barCode')) {
+        obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+      }
+      if (data.hasOwnProperty('images')) {
+        obj['images'] = ApiClient.convertToType(data['images'], [ 'String' ]);
+      }
+      if (data.hasOwnProperty('createDate')) {
+        obj['createDate'] = ApiClient.convertToType(data['createDate'], 'Date');
+      }
+      if (data.hasOwnProperty('amount')) {
+        obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+      }
+      if (data.hasOwnProperty('product')) {
+        obj['product'] = InlineResponse200.constructFromObject(data['product']);
+      }
+      if (data.hasOwnProperty('createdBy')) {
+        obj['createdBy'] = ApiV1AdminsOrdersCreatedBy.constructFromObject(data['createdBy']);
+      }
+      if (data.hasOwnProperty('totalPrice')) {
+        obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
+      }
+      if (data.hasOwnProperty('totalPriceChanged')) {
+        obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
+      }
     }
-
-
+    return obj;
+  }
 }
-
-
 
 /**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
  * @readonly
  */
- InlineResponse2001['StatusEnum'] = {
-
-    /**
+InlineResponse2001['StatusEnum'] = {
+  /**
      * value: 0
      * @const
      */
-    "0": 0,
+  '0': 0,
 
-    /**
+  /**
      * value: 1
      * @const
      */
-    "1": 1,
+  '1': 1,
 
-    /**
+  /**
      * value: 10
      * @const
      */
-    "10": 10,
+  '10': 10,
 
-    /**
+  /**
      * value: 15
      * @const
      */
-    "15": 15,
+  '15': 15,
 
-    /**
+  /**
      * value: 20
      * @const
      */
-    "20": 20,
+  '20': 20,
 
-    /**
+  /**
      * value: 25
      * @const
      */
-    "25": 25,
+  '25': 25,
 
-    /**
+  /**
      * value: 30
      * @const
      */
-    "30": 30,
+  '30': 30,
 
-    /**
+  /**
      * value: 35
      * @const
      */
-    "35": 35
+  '35': 35
 };
-
 
 /**
  * GUID данной записи в БД.
@@ -286,8 +308,4 @@ InlineResponse2001.prototype['product'] = undefined;
  */
 InlineResponse2001.prototype['createdBy'] = undefined;
 
-
-
-
 export default InlineResponse2001;
-

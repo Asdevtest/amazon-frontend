@@ -71,7 +71,7 @@ export const PrivateLabelCard = ({item, onClickBuyProductBtn, setProductToPay, o
             color="primary"
             className={classNames.priceButton}
             variant="contained"
-            onClick={onClickBuyProductBtn}
+            onClick={() => onClickBuyProductBtn(item)}
           >
             {`${textConsts.addBtnPrefix} ${toFixedWithDollarSign(item.amazon)}`}
           </Button>

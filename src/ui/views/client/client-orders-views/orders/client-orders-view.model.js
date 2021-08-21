@@ -56,10 +56,6 @@ export class ClientOrdersViewModel {
     this.history.push('/client/orders/order', {order: toJS(order)})
   }
 
-  onClickCheckbox(order) {
-    this.selectedOrder = order
-  }
-
   onTriggerDrawerOpen(e, value) {
     this.drawerOpen = value
   }

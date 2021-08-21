@@ -14,13 +14,10 @@ import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 
 import {formatDateTime} from '@utils/date-time'
-// import { formatDateTime } from '@utils/date-time'; еще пригодится - там ппц снова ошибка с датой
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './table-body-row.style'
-
-// ; еще пригодится - там ппц снова ошибка с датой
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseTasksBodyRow
 
@@ -118,7 +115,13 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
       mapTaskStatusKeyToEnum[item.status] === TaskStatus.SOLVED ||
       mapTaskStatusKeyToEnum[item.status] === TaskStatus.NOT_SOLVED
     ) {
-      return <TableCell />
+      return (
+        <TableCell>
+          <div className={classNames.buttonsWrapper}>
+            <Button onClick={() => handlers.setCurrentOpenedTask(item)}>{textConsts.showBtn}</Button>
+          </div>
+        </TableCell>
+      )
     }
     if (viewMode === WarehouseTasksBodyRowViewMode.VACANT) {
       return (

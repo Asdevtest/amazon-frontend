@@ -28,7 +28,7 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
   )
 
   return (
-    <TableRow onClick={handleClick} onDoubleClick={handleDoubleClick}>
+    <TableRow hover className={classNames.row} onClick={handleClick} onDoubleClick={handleDoubleClick}>
       <TableCell className={classNames.statusCell}>{getOrderStatusOptionByCode(item.status).label}</TableCell>
       <TableCell className={classNames.orderCell}>
         <div className={classNames.order}>

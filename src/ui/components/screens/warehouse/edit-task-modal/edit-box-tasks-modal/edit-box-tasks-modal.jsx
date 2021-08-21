@@ -6,7 +6,6 @@ import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
-import {Input} from '@components/input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -96,6 +95,14 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
     setEditingBox(newFormFields)
   }
 
+  const setImagesOfBox = e => {
+    const newFormFields = {...editingBox}
+
+    newFormFields.tmpImages = [...e.target.files]
+
+    setEditingBox(newFormFields)
+  }
+
   const onSubmith = () => {
     const updatedNewBoxes = newBoxes.map(oldBox => (oldBox._id === editingBox._id ? editingBox : oldBox))
     setNewBoxes([...updatedNewBoxes])
@@ -111,7 +118,7 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
 
       <Box className={classNames.boxCode}>
         <Typography className={(classNames.modalText, classNames.typoCode)}>{textConsts.addPhotos}</Typography>
-        <Input disabled className={classNames.input} type="file" />
+        <input multiple="multiple" className={classNames.input} type="file" onChange={e => setImagesOfBox(e)} />
       </Box>
 
       <Divider className={classNames.divider} />

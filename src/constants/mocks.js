@@ -867,6 +867,7 @@ export const CLIENT_USER_MANAGERS_LIST = [
 ]
 
 export const BUYER_MY_PRODUCTS_HEAD_CELLS = [
+  {id: 'asin', align: 'center', disablePadding: true, label: '#'},
   {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},
   {id: 'status', align: 'center', disablePadding: true, label: 'Status'},
   {id: 'price', align: 'right', disablePadding: false, label: 'Price'},
@@ -1762,25 +1763,6 @@ export const DELIVERY_LIST = [
   {value: 'train', text: 'Железнодорожный'},
   {value: 'air', text: 'Авиационный'},
   {value: 'multiple', text: 'Мультимодальный'},
-]
-
-export const ADMIN_BALANCE_HISTORY_DATA = [
-  {
-    date: 'Дата',
-    amount: '142',
-    type: 'replenish',
-    comment: 'Комментарий',
-    reason: 'Причина',
-    username: 'Имя пользователя',
-  },
-  {
-    date: 'Дата2',
-    amount: '512',
-    type: 'withdraw',
-    comment: 'Комментарий',
-    reason: 'Причина',
-    username: 'Имя пользователя',
-  },
 ]
 
 export const ADMIN_ORDERS = [

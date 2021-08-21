@@ -12,10 +12,12 @@ export class ClientExchangePrivateLabelViewModel {
   error = undefined
 
   productsVacant = []
+  selectedProduct = {}
   drawerOpen = false
 
   productToPay = {}
   showConfirmPayModal = false
+  showSuccessModal = false
 
   constructor({history}) {
     this.history = history
@@ -52,23 +54,23 @@ export class ClientExchangePrivateLabelViewModel {
     }
   }
 
-  async onLaunchPrivateLabel(product, orderData) {
-    try {
-      const pickUpProductResult = await ClientModel.pickupProduct(product._id)
-      console.log('pickUpProductResult ', pickUpProductResult)
-      const makePaymentsResult = await ClientModel.makePayments([product._id])
-      console.log('makePaymentsResult ', makePaymentsResult)
+  // async onLaunchPrivateLabel(product, orderData) { // пока оставить, возможно еще нужно
+  //   try {
+  //     const pickUpProductResult = await ClientModel.pickupProduct(product._id);
+  //     console.log('pickUpProductResult ', pickUpProductResult);
+  //     const makePaymentsResult = await ClientModel.makePayments([ product._id ]);
+  //     console.log('makePaymentsResult ', makePaymentsResult);
 
-      await this.createOrder(product, orderData)
+  //     await this.createOrder(product, orderData);
 
-      this.loadData()
-    } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
-    }
-  }
+  //     this.loadData();
+  //   } catch (error) {
+  //     console.log(error);
+  //     if (error.body && error.body.message) {
+  //       this.error = error.body.message;
+  //     }
+  //   }
+  // }
 
   async createOrder(product, orderData) {
     try {
@@ -96,6 +98,7 @@ export class ClientExchangePrivateLabelViewModel {
     try {
       const makePaymentsResult = await ClientModel.makePayments([product._id])
       console.log('makePaymentsResult ', makePaymentsResult)
+      this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {

@@ -7,17 +7,19 @@ import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 
-export class WarehouseVacantViewModel {
+export class WarehouseCanceledTasksViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
-  tasksVacant = []
+  tasksMy = []
+  curOpenedTask = {}
 
   drawerOpen = false
   rowsPerPage = 15
   curPage = 1
-  selectedTask = undefined
+
+  showTaskInfoModal = false
 
   constructor({history}) {
     this.history = history
@@ -27,7 +29,7 @@ export class WarehouseVacantViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getTasksVacant()
+      await this.getTasksMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -35,14 +37,9 @@ export class WarehouseVacantViewModel {
     }
   }
 
-  async onClickPickupBtn(item) {
-    try {
-      await StorekeeperModel.pickupTask(item._id)
-      await this.getTasksVacant()
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
+  setCurrentOpenedTask(item) {
+    this.curOpenedTask = item
+    this.onTriggerOpenModal('showTaskInfoModal')
   }
 
   onChangeTriggerDrawerOpen() {
@@ -58,34 +55,23 @@ export class WarehouseVacantViewModel {
     this.curPage = 1
   }
 
-  async getTasksVacant() {
+  async getTasksMy() {
     try {
-      const result = await StorekeeperModel.getTasksVacant()
+      const result = await StorekeeperModel.getTasksMy()
 
       runInAction(() => {
-        this.tasksVacant = result
+        this.tasksMy = result
           .sort(sortObjectsArrayByFiledDate('createDate'))
-          .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.NEW])
+          .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED])
       })
     } catch (error) {
       console.log(error)
       this.error = error
-
-      if (error.body.message === 'По данному запросу ничего не найдено.') {
-        runInAction(() => {
-          this.tasksVacant = []
-        })
-      }
     }
   }
 
-  async pickupTask(taskId) {
-    try {
-      await StorekeeperModel.pickupTask(taskId)
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 
   setRequestStatus(requestStatus) {

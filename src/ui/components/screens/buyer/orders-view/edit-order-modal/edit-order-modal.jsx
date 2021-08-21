@@ -15,6 +15,7 @@ import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './edit-order-modal.style'
+import {EditOrderSuppliersTable} from './edit-order-suppliers-table'
 import {ProductTable} from './product-table'
 import {SelectFields} from './select-fields'
 
@@ -107,13 +108,21 @@ export const EditOrderModal = ({
         />
 
         <Divider className={classNames.divider} />
-        <Typography className={classNames.modalText}>{`${textConsts.productNum} ${order.product._id}`}</Typography>
 
+        <Typography className={classNames.modalText}>{`${textConsts.productNum} ${order.product._id}`}</Typography>
         <ProductTable
           modalHeadCells={modalHeadCells}
           order={order}
           orderFields={orderFields}
           setOrderField={setOrderField}
+        />
+
+        <Divider className={classNames.divider} />
+
+        <Typography className={classNames.modalText}>{textConsts.suppliers}</Typography>
+        <EditOrderSuppliersTable
+          selectedSupplier={orderFields.product.currentSupplier}
+          suppliers={orderFields.product.supplier}
         />
       </Paper>
       {!collapseCreateOrEditBoxBlock && (
@@ -135,7 +144,7 @@ export const EditOrderModal = ({
         {boxes.length > 0 ? (
           <Table rowsOnly data={boxes} BodyRow={WarehouseBodyRow} renderHeadRow={renderHeadRow} />
         ) : (
-          <Typography className={classNames.noBoxesText}>{'Коробок пока нет...'}</Typography>
+          <Typography className={classNames.noBoxesText}>{textConsts.noBoxesYat}</Typography>
         )}
       </div>
 

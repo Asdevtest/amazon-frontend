@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
+import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -14,7 +14,6 @@ import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/supervisor/products-view/table-body-row'
-import {TableHeadRow} from '@components/table-rows/supervisor/products-view/table-head-row'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -98,7 +97,15 @@ class SupervisorProductsViewRaw extends Component {
     )
   }
 
-  renderHeadRow = (<TableHeadRow headCells={SUPERVISOR_PRODUCTS_HEAD_CELLS} />)
+  renderHeadRow = (
+    <TableRow>
+      {SUPERVISOR_PRODUCTS_HEAD_CELLS.map((item, index) => (
+        <TableCell key={index} align={item.align}>
+          {item.label}
+        </TableCell>
+      ))}
+    </TableRow>
+  )
 }
 
 export const SupervisorProductsView = withStyles(styles)(SupervisorProductsViewRaw)

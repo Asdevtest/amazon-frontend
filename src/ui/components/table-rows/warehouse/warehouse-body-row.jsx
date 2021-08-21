@@ -8,6 +8,7 @@ import clsx from 'clsx'
 
 import {warehouses} from '@constants/warehouses'
 
+import {formatDateTimeWithParseISO} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixedWithDollarSign, withKg} from '@utils/text'
 
@@ -16,6 +17,7 @@ import {styles} from './warehouse-body-row.style'
 const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsDatas, areSubBoxes, ...restProps}) => {
   const classNames = restProps.classes
   const ordersQty = box.items.length
+  const boxCreatedAt = formatDateTimeWithParseISO(box.createdAt)
   const [isMaximizedMasterBox, setIsMaximizedMasterBox] = useState(false)
 
   const onTriggerIsMaximizedMasterBox = () => {
@@ -70,6 +72,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
             </TableCell>
           </React.Fragment>
         )}
+        <TableCell>{boxCreatedAt}</TableCell>
         <ProductCell
           imgSrc={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
           title={order.product.amazonTitle}

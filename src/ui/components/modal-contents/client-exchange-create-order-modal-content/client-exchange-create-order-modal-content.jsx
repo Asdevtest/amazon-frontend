@@ -68,7 +68,13 @@ const ClientExchnageCreateOrderModalContentRaw = observer(
           <Button
             color="primary"
             variant="contained"
-            disabled={orderFields.deliveryMethod === '' || orderFields.warehouse === ''}
+            disabled={
+              orderFields.deliveryMethod === '' ||
+              orderFields.warehouse === '' ||
+              orderFields.deliveryMethod === 'none' ||
+              orderFields.warehouse === 'none' ||
+              orderFields.amount <= 0
+            }
             onClick={() => onClickOrderNowBtn(product, orderFields)}
           >
             {textConsts.orderNowBtn}

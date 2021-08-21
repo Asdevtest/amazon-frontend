@@ -184,6 +184,9 @@ class ApiV1BatchesBoxes {
           'Boolean'
         );
       }
+      if (data.hasOwnProperty('createdAt')) {
+        obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
+      }
     }
     return obj;
   }

@@ -172,6 +172,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
     weighGrossKgWarehouse: emptyBox?.weighGrossKgWarehouse || '',
     volumeWeightKgWarehouse: emptyBox?.volumeWeightKgWarehouse || '',
     weightFinalAccountingKgWarehouse: emptyBox?.weightFinalAccountingKgWarehouse || '',
+    tmpImages: [],
   }
 
   const [newBoxes, setNewBoxes] = useState([emptyBoxWithDemensions])

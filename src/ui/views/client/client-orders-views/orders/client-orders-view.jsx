@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Typography, Container} from '@material-ui/core'
+import {Typography, Container, TableRow, TableCell} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -15,7 +15,6 @@ import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/client/orders-views/orders/table-body-row'
-import {TableHeadRow} from '@components/table-rows/client/orders-views/orders/table-head-row'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -47,12 +46,10 @@ class ClientOrdersViewRaw extends Component {
       onChangeCurPage,
       onChangeRowsPerPage,
       onClickTableRow,
-      onClickCheckbox,
     } = this.viewModel
     const {classes: className} = this.props
     const rowHandlers = {
       onClickTableRow,
-      onClickCheckbox,
     }
 
     return (
@@ -104,7 +101,15 @@ class ClientOrdersViewRaw extends Component {
     </Container>
   )
 
-  renderHeadRow = (<TableHeadRow headCells={CLIENT_ORDERS_HEAD_CELL} />)
+  renderHeadRow = (
+    <TableRow>
+      {CLIENT_ORDERS_HEAD_CELL.map((item, index) => (
+        <TableCell key={index} align={item.align}>
+          {item.label}
+        </TableCell>
+      ))}
+    </TableRow>
+  )
 }
 
 export const ClientOrdersView = withStyles(styles)(ClientOrdersViewRaw)

@@ -33,8 +33,8 @@ class AdministratorModelStatic {
     return response
   }
 
-  makePayment = async ids => {
-    const response = await restApiService.administratorApi.apiV1AdminsMakePaymentPost(ids)
+  makePayment = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsMakePaymentPost(data)
     return response
   }
 
@@ -77,6 +77,16 @@ class AdministratorModelStatic {
 
   getBalance = async () => {
     const response = await restApiService.administratorApi.apiV1AdminsPaymentsMyBalanceGet()
+    return response
+  }
+
+  getUsersById = async id => {
+    const response = await restApiService.administratorApi.apiV1AdminsUserGetById(id)
+    return response
+  }
+
+  getPaymentsById = async id => {
+    const response = await restApiService.administratorApi.apiV1AdminsUserPaymentsGetById(id)
     return response
   }
 }

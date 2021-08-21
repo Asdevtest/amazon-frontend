@@ -168,6 +168,10 @@ export class ClientInventoryViewModel {
     await this.onSaveProductData(product._id, {barCode: ''})
   }
 
+  onResetselectedProducts() {
+    this.selectedProducts = []
+  }
+
   onChangeCurPage(e, value) {
     this.curPage = value
   }

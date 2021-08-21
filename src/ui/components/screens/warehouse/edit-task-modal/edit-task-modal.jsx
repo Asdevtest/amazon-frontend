@@ -48,13 +48,12 @@ export const EditTaskModal = observer(
             volumeWeightKgWarehouse: box?.volumeWeightKgWarehouse || '',
             weightFinalAccountingKgWarehouse: box?.weightFinalAccountingKgWarehouse || '',
             isShippingLabelAttachedByStorekeeper: box?.isShippingLabelAttachedByStorekeeper || false,
+            tmpImages: [],
           }),
       ),
     ])
 
-    if (!task) {
-      return <div />
-    }
+    const [photosOfTask, setPhotosOfTask] = useState([])
 
     return (
       <div className={classNames.root}>
@@ -83,6 +82,16 @@ export const EditTaskModal = observer(
               placeholder={'Комментарий склада к задаче для клиента'}
               value={storekeeperComment || ''}
               onChange={e => setStorekeeperComment(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <Typography>{'Прикрепить фото к задаче'}</Typography>
+            <input
+              multiple="multiple"
+              className={classNames.filesInput}
+              type="file"
+              onChange={e => setPhotosOfTask([...e.target.files])}
             />
           </div>
 
@@ -119,7 +128,12 @@ export const EditTaskModal = observer(
               disabled={newBoxes.length === 0}
               variant="contained"
               onClick={() => {
-                onClickSolveTask(newBoxes, task.operationType, storekeeperComment)
+                onClickSolveTask({
+                  newBoxes,
+                  operationType: task.operationType,
+                  comment: storekeeperComment,
+                  photos: photosOfTask,
+                })
               }}
             >
               {textConsts.saveChangesBtn}

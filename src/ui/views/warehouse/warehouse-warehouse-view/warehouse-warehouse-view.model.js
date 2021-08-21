@@ -4,6 +4,8 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
 
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+
 export class WarehouseWarehouseViewModel {
   history = undefined
   requestStatus = undefined
@@ -49,7 +51,7 @@ export class WarehouseWarehouseViewModel {
       const result = await BoxesModel.getBoxes()
 
       runInAction(() => {
-        this.boxesMy = result
+        this.boxesMy = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       console.log(error)

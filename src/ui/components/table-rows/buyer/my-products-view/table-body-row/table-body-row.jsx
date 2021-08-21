@@ -33,7 +33,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
     },
   )
   return (
-    <TableRow key={item.asin} hover onClick={handleClick} onDoubleClick={handleDoubleClick}>
+    <TableRow key={item.asin} hover className={classNames.row} onClick={handleClick} onDoubleClick={handleDoubleClick}>
       <TableCell className={classNames.indexCell}>
         <Typography>{itemIndex + 1}</Typography>
       </TableCell>

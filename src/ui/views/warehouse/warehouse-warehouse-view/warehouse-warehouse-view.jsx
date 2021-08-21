@@ -23,8 +23,7 @@ import {styles} from './warehouse-warehouse-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseWarehouseView
 
-const activeCategory = 3
-const activeSubCategory = null
+const activeCategory = 5
 @observer
 export class WarehouseWarehouseViewRaw extends Component {
   viewModel = new WarehouseWarehouseViewModel({history: this.props.history})
@@ -41,7 +40,6 @@ export class WarehouseWarehouseViewRaw extends Component {
       <React.Fragment>
         <Navbar
           activeCategory={activeCategory}
-          activeSubCategory={activeSubCategory}
           curUserRole={UserRole.STOREKEEPER}
           drawerOpen={drawerOpen}
           handlerTriggerDrawer={onTriggerDrawer}

@@ -38,7 +38,11 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',
+    transition: '0.3s ease',
     height: '100%',
+    '&:hover': {
+      backgroundColor: 'rgba(0,123,255,0.3)',
+    },
   },
   usernameAndBalanceWrapper: {
     marginRight: '8px',

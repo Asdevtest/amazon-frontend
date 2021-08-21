@@ -86,6 +86,12 @@ class InlineResponse2002 {
       if (data.hasOwnProperty('balance')) {
         obj['balance'] = ApiClient.convertToType(data['balance'], 'balance');
       }
+      if (data.hasOwnProperty('createdAt')) {
+        obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
+      }
+      if (data.hasOwnProperty('balanceFreeze')) {
+        obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'balance');
+      }
     }
     return obj;
   }

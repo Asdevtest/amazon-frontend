@@ -27,11 +27,12 @@ export const Table = observer(
     const dataWithPages = data.slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage)
 
     return (
-      <Paper className={classNames.root}>
+      <Paper>
         {!rowsOnly && <TableToolbar handlerRowsPerPage={handlerRowsPerPage} rowsPerPage={rowsPerPage} />}
-        <TableContainer>
+        <TableContainer className={classNames.tableContainer}>
           <MuiTable className={classNames.table}>
             <TableHead className={classNames.tableHead}>{renderHeadRow}</TableHead>
+
             <TableBody className={classNames.tableBody}>
               {(rowsOnly ? data : dataWithPages).map((el, index) => (
                 <BodyRow

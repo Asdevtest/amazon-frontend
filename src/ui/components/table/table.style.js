@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(theme => ({
   table: {
     whiteSpace: 'nowrap',
+
     '& td': {
       flexShrink: 0,
       borderBottom: 'none',
@@ -36,5 +37,8 @@ export const useClassNames = makeStyles(theme => ({
   },
   pagination: {
     flexShrink: 0,
+  },
+  tableContainer: {
+    maxHeight: '75vh',
   },
 }))

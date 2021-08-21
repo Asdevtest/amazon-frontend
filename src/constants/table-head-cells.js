@@ -1,4 +1,5 @@
 export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
+  {id: 'asin', align: 'center', disablePadding: true, label: '#'},
   {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},
   {id: 'status', align: 'center', disablePadding: true, label: 'Status'},
   {id: 'createDate', align: 'center', disablePadding: true, label: 'Create date'},
@@ -9,20 +10,21 @@ export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
   {id: 'bsr', align: 'right', disablePadding: false, label: 'BSR'},
   {id: 'type', align: 'right', disablePadding: false, label: 'Type'},
   {id: 'fbaFee', align: 'center', disablePadding: false, label: 'Fba fee'},
+  {id: 'fbaFee', align: 'center', disablePadding: false, label: 'Action'},
 ]
 
 export const CLIENT_ORDERS_HEAD_CELL = [
-  'Дата',
-  'Заказы',
-  'Статус',
-  'Баркод',
-  'Кол-во',
-  'Куда',
-  'Действия',
-  'Сумма',
-  'Вес продукта',
-  'Суммарный вес',
-  'Трек номер',
+  {align: 'center', disablePadding: true, label: 'Дата'},
+  {align: 'center', disablePadding: true, label: 'Заказы'},
+  {align: 'center', disablePadding: true, label: 'Статус'},
+  {align: 'center', disablePadding: true, label: 'Баркод'},
+  {align: 'center', disablePadding: false, label: 'Кол-во'},
+  {align: 'center', disablePadding: false, label: 'Куда'},
+  {align: 'center', disablePadding: false, label: 'Действия'},
+  {align: 'center', disablePadding: false, label: 'Сумма'},
+  {align: 'center', disablePadding: false, label: 'Вес продукта'},
+  {align: 'center', disablePadding: false, label: 'Суммарный вес'},
+  {align: 'center', disablePadding: false, label: 'Трек номер'},
 ]
 export const CLIENT_EXCHANGE_MODAL_HEAD_CELLS = [
   {id: 'img', label: 'Image'},
@@ -53,6 +55,7 @@ export const CLIENT_EXCHANGE_HEAD_CELLS = [
 export const CLIENT_WAREHOUSE_HEAD_CELLS = [
   {id: 'img', label: '#'},
   {id: 'img', label: ''},
+  {id: 'img', label: 'CreatedAt'},
   {id: 'img', label: 'Product'},
   {id: 'img', label: 'Order'},
   {id: 'img', label: 'Barcode'},

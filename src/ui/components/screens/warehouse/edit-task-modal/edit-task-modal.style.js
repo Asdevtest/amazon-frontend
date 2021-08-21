@@ -114,4 +114,8 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     gap: '10px',
   },
+  filesInput: {
+    width: '700px',
+    height: '50px',
+  },
 }))
