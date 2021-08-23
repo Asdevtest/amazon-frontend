@@ -966,7 +966,7 @@ export default class AdministratorApi {
     let accepts = [ 'text/html' ];
     let returnType = [ Object ];
     return this.apiClient.callApi(
-      '/api/v1/other/payments/{guid}',
+      '/api/v1/other/payments/by_user/{guid}',
       'GET',
       pathParams,
       queryParams,
