@@ -61,7 +61,7 @@ export class WarehouseCanceledTasksViewModel {
 
       runInAction(() => {
         this.tasksMy = result
-          .sort(sortObjectsArrayByFiledDate('createDate'))
+          .sort(sortObjectsArrayByFiledDate('updateDate'))
           .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED])
       })
     } catch (error) {

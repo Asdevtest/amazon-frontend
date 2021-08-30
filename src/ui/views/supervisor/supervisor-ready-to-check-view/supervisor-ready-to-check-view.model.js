@@ -36,12 +36,14 @@ export class SupervisorReadyToCheckViewModel {
   async getProductsReadyToCheck() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
       const result = await SupervisorModel.getProductsVacant()
-      console.log(result)
+
       this.setRequestStatus(loadingStatuses.success)
       runInAction(() => {
-        console.log(result.sort(sortObjectsArrayByFiledDate('createdat')))
-        this.productsReadyToCheck = result.sort(sortObjectsArrayByFiledDate('createdat'))
+        this.productsReadyToCheck = result
+          .sort(sortObjectsArrayByFiledDate('createdat'))
+          .filter(el => el.icomment !== '')
       })
     } catch (error) {
       console.log(error)

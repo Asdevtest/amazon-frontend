@@ -49,7 +49,7 @@ export const adminOrdersViewColumns = () => [
   },
 
   {
-    field: 'sum',
+    field: 'totalPrice',
     headerName: textConsts.sumField,
     width: 160,
     type: 'number',

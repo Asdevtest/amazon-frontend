@@ -85,7 +85,8 @@ export const texts = {
       redistributeBtn: 'Redistribute',
       editBtn: 'Edit',
       closeBtn: 'Close',
-      warehouseHistoryTitle: 'Изменения на складе',
+      resetBtn: 'Сбросить',
+      warehouseHistoryTitle: 'Задачи склада',
 
       modalSendOwnProductTitle: 'Send own product',
       modalEditBoxTitle: 'Box editing',
@@ -98,28 +99,7 @@ export const texts = {
       modalRedistributionFailTitle: 'Fail',
       modalRedistributionFailMessage: 'Новые коробки должны отличаться от старых',
     },
-    buyerWarehouseView: {
-      appbarTitle: 'Warehouse',
-      mainTitle: 'Boxes in warehouse',
-      sendProductBtn: 'Send own product',
-      sendBatchBtn: 'Send batch',
-      mergeBtn: 'Merge',
-      redistributeBtn: 'Redistribute',
-      editBtn: 'Edit',
-      closeBtn: 'Close',
-      warehouseHistoryTitle: 'Изменения на складе',
 
-      modalSendOwnProductTitle: 'Send own product',
-      modalEditBoxTitle: 'Box editing',
-      modalRedistributionTitle: 'Box redistributing',
-      modalRedistributionAddNewBoxTitle: 'Attention!',
-      modalRedistributionAddNewBoxMessage:
-        'Увеличение количества коробок будет требовать дополнительной оплаты в зависимости от тарифов склада на котором находиться товар',
-      modalRedistributionSuccessTitle: 'Success!',
-      modalRedistributionSuccessMessage: 'Box redistribution was successful',
-      modalRedistributionFailTitle: 'Fail',
-      modalRedistributionFailMessage: 'Новые коробки должны отличаться от старых',
-    },
     adminWarehouseView: {
       appbarTitle: 'Warehouse',
       mainTitle: 'Boxes in warehouse',
@@ -186,7 +166,7 @@ export const texts = {
       amountLabel: 'Amount',
       materialLabel: 'Material',
       amountOfSubBoxes: 'amountOfSubBoxes',
-      amountIfItemsInBox: 'Items in box',
+      amountIfItemsInBox: 'Items in box *',
 
       warehouseDemensions: 'Warehouse demensions',
 
@@ -548,7 +528,7 @@ export const texts = {
       appbarTitle: 'Inventory',
       productsList: 'Products list',
       setBarCodeBtn: 'Set barcode',
-      exchangeBtn: 'Exchange',
+      listingBtn: 'Listing',
       setBarcodeChipLabel: 'Set barcode',
       orderBtn: 'Заказать',
       resetBtn: 'Сбросить',
@@ -676,14 +656,14 @@ export const texts = {
       supplierAddBarCode: 'Поставщик поклеил баркод при отправке',
       usePriceInDollars: 'Использовать цену в долларах',
 
-      priceYuansForBatchTypo: 'Юаней за партию ¥',
+      priceYuansForBatchTypo: 'Юаней за партию Ұ',
       yuansToDollarRateTypo: 'Курс юаня к доллару',
       totalPriceChanged: 'Долларов за партию фактически $',
       costPriceAmount: 'Себестоимость в закупке за шт.',
       trackNumberTypo: 'Track number',
 
       totalPrice: 'Запланированная стоимость заказа',
-      totalPriceInYuans: 'Запланированная стоимость в йенах',
+      totalPriceInYuans: 'Запланированная стоимость в юанях',
     },
 
     buyerProductView: {
@@ -1063,8 +1043,8 @@ export const texts = {
       time: 'Время осталось',
     },
     addOrEditSupplierModalContent: {
-      name: 'Название',
-      link: 'Ссылка',
+      name: 'Название*',
+      link: 'Ссылка*',
       price: 'Цена за шт. $',
       deliveryPrice: 'Доставка на 1 ед. $',
       qty: 'Кол-во закупки',
@@ -1108,7 +1088,7 @@ export const texts = {
       fieldWidth: 'Ширина, дюймы*',
       fieldHeight: 'Высота, дюймы*',
       fieldLength: 'Длина, дюймы*',
-      fieldWeight: 'Вес kg',
+      fieldWeight: 'Вес kg*',
       fieldSupplier: 'Поставщик (ссылка)',
       typoExpress: 'Express',
       maxDeliveryPrice: 'Max. Доставка за ед., $',
@@ -1117,7 +1097,7 @@ export const texts = {
       fbaFee: 'FBA fee , $',
       totalFba: 'Total FBA, $',
       minpurchase: 'Мин. закуп. цена',
-      recommendedBatch: 'Рекомендованная партия FBA',
+      recommendedBatch: 'Рекомендованная партия FBA*',
       revenue: 'Прибыль $',
       fieldMargin: 'Маржа, %',
       fieldStatus: 'Status',
@@ -1234,7 +1214,7 @@ export const texts = {
     buerUserHeaderTested: {
       mainTitle: 'Прошел проверку по стратегиям',
       flipping: 'Флипинг',
-      dropShiping: 'Дропшипинг с Ибей',
+      dropShiping: 'Дропшиппинг с Ибей',
       usa: 'Wholesale USA',
       privateLabel: 'Private Label',
     },
@@ -1333,6 +1313,11 @@ export const texts = {
     clientOrderView: {
       mainTitle: 'Заказ ',
       appBarTitle: 'Страница заказов',
+      appBarUsername: 'Client',
+      appUser: 'client',
+    },
+    clientListingView: {
+      appBarTitle: 'Листинг продукта',
       appBarUsername: 'Client',
       appUser: 'client',
     },
@@ -1441,7 +1426,8 @@ export const texts = {
       successActionAlert: 'Operation complete',
     },
     warehouseHistory: {
-      date: 'Дата',
+      date: 'Дата создания',
+      updateDate: 'Последнее обновление',
       theme: 'Тема',
       description: 'Описание',
       action: 'Действия',
@@ -1566,7 +1552,7 @@ export const texts = {
       width: 'Ширина ',
       height: 'Высота ',
       weight: 'Вес ',
-      volumeWeigh: 'Удельный вес',
+      volumeWeigh: 'Удельный вес ',
       finalWeight: 'Финальный вес ',
       codeCheck: 'Баркод проклеен поставщиком',
       photos: 'Фотографии:',

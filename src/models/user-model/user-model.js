@@ -13,14 +13,6 @@ class UserModelStatic {
   accessToken = undefined
   userInfo = undefined
   isHydrated = false
-  // '-=test_token=-:60f5569e7c89b06e3da60451'
-
-  // [UserRole.STOREKEEPER]: "Bearer -=test_token=-:60f448b7df1b21433de554b7",
-  // [UserRole.RESEARCHER]: "Bearer -=test_token=-:60f4487cdf1b21433de554b5",
-  // [UserRole.BUYER]: "Bearer -=test_token=-:60f44898df1b21433de554b6",
-  // [UserRole.SUPERVISOR]: "Bearer -=test_token=-:60f448c9df1b21433de554b8",
-  // [UserRole.CLIENT]: "Bearer -=test_token=-:60f448ebdf1b21433de554b9",
-  // [UserRole.ADMIN]: "Bearer -=test_token=-:60f448fadf1b21433de554ba"
 
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})

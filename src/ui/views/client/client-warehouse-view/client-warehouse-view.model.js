@@ -55,6 +55,10 @@ export class ClientWarehouseViewModel {
     }
   }
 
+  onResetselectedBoxes() {
+    this.selectedBoxes = []
+  }
+
   setCurrentOpenedTask(item) {
     this.curOpenedTask = item
     this.onTriggerOpenModal('showTaskInfoModal')
@@ -106,7 +110,7 @@ export class ClientWarehouseViewModel {
       this.onTriggerOpenModal('showRedistributeBoxSuccessModal')
       this.onTriggerOpenModal('showRedistributeBoxModal')
       this.onModalRedistributeBoxAddNewBox(null)
-      this.selectedBoxes = []
+      this.onResetselectedBoxes()
     }
   }
 
@@ -135,6 +139,7 @@ export class ClientWarehouseViewModel {
         clientComment: boxData.clientComment,
       })
       await this.getTasksMy()
+      this.onResetselectedBoxes()
     } catch (error) {
       console.log(error)
       this.error = error
@@ -147,7 +152,7 @@ export class ClientWarehouseViewModel {
     await this.postTask({idsData: [mergeBoxesResult.guid], idsBeforeData: [...this.selectedBoxes], type})
     await this.getTasksMy()
 
-    this.selectedBoxes = []
+    this.onResetselectedBoxes()
   }
 
   async postTask({idsData, idsBeforeData, type, clientComment}) {

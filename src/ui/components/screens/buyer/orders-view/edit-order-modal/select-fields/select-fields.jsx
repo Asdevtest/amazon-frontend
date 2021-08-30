@@ -34,8 +34,6 @@ export const SelectFields = ({
   const [usePriceInDollars, setUsePriceInDollars] = useState(true)
   const [yuansToDollarRate, setYuansToDollarRate] = useState(defaultYuansToDollarRate)
 
-  console.log('orderFields', orderFields)
-
   return (
     <Grid container justify="space-around">
       <Grid item>

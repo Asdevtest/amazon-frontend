@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 import {useState} from 'react'
 
 import {Button, Divider, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
-import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {texts} from '@constants/texts'
 import {warehouses} from '@constants/warehouses'
 
@@ -106,7 +105,7 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
     weightFinalAccountingKgSupplier: formItem?.weightFinalAccountingKgSupplier || 0,
     warehouse: formItem?.warehouse || '',
     deliveryMethod: formItem?.deliveryMethod || '',
-    amount: 1, // formItem?.amount || 1,
+    amount: 1,
     items: formItem?.items || [
       {
         product: formItem?.product,
@@ -119,6 +118,10 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
   const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
 
   const setFormField = (fieldName, orderBoxIndex) => e => {
+    if (Number(e.target.value) < 0) {
+      return
+    }
+
     const newFormFields = {...formFieldsArr[orderBoxIndex]}
     newFormFields[fieldName] = Number(e.target.value)
     newFormFields.volumeWeightKgSupplier =
@@ -136,6 +139,10 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
   }
 
   const setAmountField = orderBoxIndex => e => {
+    if (Number(e.target.value) < 1) {
+      return
+    }
+
     const newStateFormFields = [...formFieldsArr]
     newStateFormFields[orderBoxIndex] = {
       ...newStateFormFields[orderBoxIndex],
@@ -198,7 +205,6 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
             variant="contained"
             onClick={() => {
               setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
-              onTriggerOpenModal('showWarningNewBoxesModal')
             }}
           >
             {textConsts.addBoxBtn}
@@ -222,11 +228,13 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
       <div className={classNames.buttonsWrapper}>
         <SuccessButton
           disableElevation
+          disabled={formFieldsArr.length < 1}
           className={classNames.button}
           color="primary"
           variant="contained"
           onClick={() => {
-            onSubmit(formItem && formItem._id, formFieldsArr)
+            onSubmit(formItem._id, formFieldsArr)
+            onTriggerOpenModal()
           }}
         >
           {textConsts.saveChangesBtn}
@@ -237,7 +245,7 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
           color="primary"
           className={classNames.button}
           variant="contained"
-          onClick={() => onTriggerOpenModal('showOrderModal')}
+          onClick={() => onTriggerOpenModal()}
         >
           {textConsts.cancelChangesBtn}
         </Button>

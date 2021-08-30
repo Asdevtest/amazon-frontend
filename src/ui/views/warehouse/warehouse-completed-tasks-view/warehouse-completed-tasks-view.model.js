@@ -43,7 +43,7 @@ export class WarehouseCompletedViewModel {
 
       runInAction(() => {
         this.completedTasks = result
-          .sort(sortObjectsArrayByFiledDate('createDate'))
+          .sort(sortObjectsArrayByFiledDate('updateDate'))
           .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.SOLVED])
       })
     } catch (error) {

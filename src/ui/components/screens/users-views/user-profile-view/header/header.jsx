@@ -24,6 +24,7 @@ export const Header = observer(({user, timer, headerInfoData}) => {
           <img alt="user avatar" src={user && user.img} className={classNames.avatar} />
           <Button>{textConsts.sendBtn}</Button>
         </Box>
+
         <Box flexGrow={1}>
           <Typography className={classNames.username}>{user && user.name}</Typography>
           <Box className={classNames.hisGoodsOptionsBox}>

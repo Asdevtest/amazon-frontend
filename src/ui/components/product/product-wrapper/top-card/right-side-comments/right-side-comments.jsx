@@ -19,7 +19,14 @@ import {useClassNames} from './right-side-comments.style'
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 export const RightSideComments = observer(
-  ({curUserRole, onChangeField, product, onClickSetProductStatusBtn, handleProductActionButtons}) => {
+  ({
+    curUserRole,
+    onChangeField,
+    product,
+    onClickSetProductStatusBtn,
+    handleProductActionButtons,
+    formFieldsValidationErrors,
+  }) => {
     const classNames = useClassNames()
     const productStatusButtonsConfig =
       productStatusButtonsConfigs[curUserRole] && productStatusButtonsConfigs[curUserRole](product.status)
@@ -30,7 +37,10 @@ export const RightSideComments = observer(
           <Field
             multiline
             disabled={!checkIsResearcher(curUserRole)}
-            className={classNames.heightFieldAuto}
+            error={formFieldsValidationErrors.icomment}
+            className={clsx(classNames.heightFieldAuto, {
+              [classNames.errorActive]: formFieldsValidationErrors.icomment,
+            })}
             rows={4}
             rowsMax={6}
             label={textConsts.fieldResearcher}
@@ -48,7 +58,10 @@ export const RightSideComments = observer(
           <Field
             multiline
             disabled={!checkIsSupervisor(curUserRole)}
-            className={classNames.heightFieldAuto}
+            error={formFieldsValidationErrors.checkednotes}
+            className={clsx(classNames.heightFieldAuto, {
+              [classNames.errorActive]: formFieldsValidationErrors.checkednotes,
+            })}
             rows={4}
             rowsMax={6}
             label={textConsts.fieldSoperviser}
@@ -58,7 +71,10 @@ export const RightSideComments = observer(
           <Field
             multiline
             disabled={!checkIsBuyer(curUserRole)}
-            className={classNames.heightFieldAuto}
+            error={formFieldsValidationErrors.buyerscomment}
+            className={clsx(classNames.heightFieldAuto, {
+              [classNames.errorActive]: formFieldsValidationErrors.buyerscomment,
+            })}
             rows={4}
             rowsMax={6}
             label={textConsts.fieldBuyer}

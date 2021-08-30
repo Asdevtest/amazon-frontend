@@ -9,6 +9,7 @@ import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 import {CreateBoxForm} from '@components/forms/create-box-form'
+import {Modal} from '@components/modal'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 
@@ -139,6 +140,17 @@ export const EditOrderModal = ({
         </Box>
       )}
 
+      {showCreateOrEditBoxBlock && (
+        <Button
+          disableElevation
+          color="primary"
+          variant="contained"
+          onClick={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
+        >
+          {'Добавить коробку'}
+        </Button>
+      )}
+
       <div className={classNames.tableWrapper}>
         <Typography className={classNames.modalTitle}>{textConsts.boxesTitle}</Typography>
         {boxes.length > 0 ? (
@@ -148,30 +160,20 @@ export const EditOrderModal = ({
         )}
       </div>
 
-      {showCreateOrEditBoxBlock && (
-        <Button
-          disableElevation
-          color="primary"
-          variant="contained"
-          onClick={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
-        >
-          {collapseCreateOrEditBoxBlock ? 'Не добавлять коробку' : 'Добавить коробку'}
-        </Button>
-      )}
-
-      {collapseCreateOrEditBoxBlock && (
-        <React.Fragment>
-          <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
-          <CreateBoxForm
-            formItem={orderFields}
-            onTriggerOpenModal={onTriggerOpenModal}
-            onSubmit={(boxId, formFieldsArr) => {
-              formFieldsArr.length > 0 && onSubmitCreateBoxes(boxId, formFieldsArr)
-              onSubmitSaveOrder(order, orderFields)
-            }}
-          />
-        </React.Fragment>
-      )}
+      <Modal
+        openModal={collapseCreateOrEditBoxBlock}
+        setOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
+        dialogContextClassName={classNames.dialogContextClassName}
+      >
+        <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
+        <CreateBoxForm
+          formItem={orderFields}
+          onTriggerOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
+          onSubmit={(boxId, formFieldsArr) => {
+            onSubmitCreateBoxes(boxId, formFieldsArr)
+          }}
+        />
+      </Modal>
     </Box>
   )
 }

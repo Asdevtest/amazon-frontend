@@ -24,8 +24,6 @@ export const exchangeProductsColumns = ({handlers, activeSubCategory}) => {
         return exchangeAllColumns({handlers})
       case 7:
         return exchangeAllColumns({handlers})
-      case 8:
-        return exchangeAllColumns({handlers})
     }
   }
 

@@ -64,7 +64,7 @@ export const navbarConfig = {
       subtitles: null,
       route: '/researcher/dashboard',
     },
-    {icon: AssignmentIcon, title: 'Мои заказы', subtitles: null, route: '/researcher/products'},
+    {icon: AssignmentIcon, title: 'Мои товары', subtitles: null, route: '/researcher/products'},
     {icon: SettingsIcon, title: 'Настройки', subtitles: null, route: '/researcher/settings'},
   ],
   [UserRole.SUPERVISOR]: [

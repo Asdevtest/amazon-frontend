@@ -17,7 +17,7 @@ export const toFixedWithDollarSign = (int, x) => withDollarSign(toFixed(int, x))
 export const toFixedWithKg = (int, x) => withKg(toFixed(int, x))
 
 export const withDollarSign = str => (str && str !== '0' ? `$${str}` : str)
-export const withYuanSign = str => (str && str !== '0' ? `¥${str}` : str)
+export const withYuanSign = str => (str && str !== '0' ? `Ұ${str}` : str)
 export const withKg = str => (str && str !== '0' ? `${str} kg` : str)
 export const withAmount = str => (str && str !== '0' ? `${str} шт` : str)
 

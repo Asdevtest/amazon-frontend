@@ -25,7 +25,7 @@ export const exchangeAllColumns = () => [
     width: 300,
   },
   {
-    field: 'price',
+    field: 'amazon',
     headerName: textConsts.priceField,
     renderCell: params => <PriceCell params={params} />,
     width: 150,

@@ -45,22 +45,22 @@ const fieldsOfProductAllowedToUpdate = [
 ]
 
 const formFieldsDefault = {
-  amazon: 0,
-  bsr: 0,
+  amazon: '',
+  bsr: '',
   createdat: '',
   createdby: {},
-  delivery: 0,
-  dirdecision: 0,
+  delivery: '',
+  dirdecision: '',
   express: false,
   fba: false,
-  fbafee: 0,
+  fbafee: '',
   icomment: '',
   id: '',
   images: [],
   lamazon: '',
   material: '',
-  reffee: 15,
-  status: 0,
+  reffee: '',
+  status: '',
   supplier: [],
   updateDate: '',
   _id: '',
@@ -122,15 +122,15 @@ export class ResearcherProductViewModel {
 
   updateAutoCalculatedFields() {
     const strBsr = this.product.bsr + ''
-    this.product.bsr = parseFloat(strBsr.replace(',', '.')) || 0
+    this.product.bsr = parseFloat(strBsr.replace(',', '.')) || ''
 
-    this.product.amazon = parseFloat(this.product.amazon) || 0
-    this.product.weight = parseFloat(this.product.weight) || 0
-    this.product.length = parseFloat(this.product.length) || 0
-    this.product.width = parseFloat(this.product.width) || 0
-    this.product.height = parseFloat(this.product.height) || 0
-    this.product.fbafee = parseFloat(this.product.fbafee) || 0
-    this.product.profit = parseFloat(this.product.profit) || 0
+    this.product.amazon = parseFloat(this.product.amazon) || ''
+    this.product.weight = parseFloat(this.product.weight) || ''
+    this.product.length = parseFloat(this.product.length) || ''
+    this.product.width = parseFloat(this.product.width) || ''
+    this.product.height = parseFloat(this.product.height) || ''
+    this.product.fbafee = parseFloat(this.product.fbafee) || ''
+    this.product.profit = parseFloat(this.product.profit) || ''
 
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
 
@@ -339,6 +339,7 @@ export class ResearcherProductViewModel {
           }
         },
       )
+      console.log('updateProductData', updateProductData)
 
       await transformAndValidate(ResearcherUpdateProductContract, updateProductData)
 

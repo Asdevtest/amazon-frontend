@@ -27,7 +27,7 @@ import {TableHeadRow} from '@components/table-rows/client/inventory/products-vie
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/clientAvatar.jpg'
+import avatar from '../../assets/clientAvatar.jpg'
 import {ClientInventoryViewModel} from './client-inventory-view.model'
 import {styles} from './client-inventory-view.style'
 
@@ -68,6 +68,7 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerOpenModal,
       onTriggerCheckbox,
       onSubmitOrderProductModal,
+      onDoubleClickRow,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -77,6 +78,7 @@ export class ClientInventoryViewRaw extends Component {
       onDoubleClickBarcode,
       onDeleteBarcode,
       onCheckbox: onTriggerCheckbox,
+      onDoubleClickRow,
     }
 
     const rowsDatas = {

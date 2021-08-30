@@ -119,15 +119,6 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
         <Button
           disableElevation
           variant="contained"
-          className={(classNames.modalButton, classNames.buyNowBtn)}
-          onClick={() => onTriggerOpenModal('showOrderModal')}
-        >
-          {textConsts.addBasketBtn}
-        </Button>
-
-        <Button
-          disableElevation
-          variant="contained"
           className={(classNames.modalButton, classNames.cancelBtn)}
           onClick={() => onTriggerOpenModal('showOrderModal')}
         >

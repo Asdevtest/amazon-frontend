@@ -26,32 +26,6 @@ export class ResearcherCreateProductContract {
   @IsArray() images
 
   @IsNumber() reffee
-
-  //  те что ниже есть в документации,
-  //  но в метод мы передаем только те что выше
-  // @IsNotEmpty()
-  // @IsString()
-  // id;
-
-  // @IsNotEmpty()
-  // @IsString()
-  // lamazon;
-
-  // @IsNotEmpty()
-  // @IsString()
-  // currentSupplier;
-
-  // @IsNotEmpty()
-  // @IsString()
-  // category;
-
-  // @IsNotEmpty()
-  // @IsInt()
-  // status;
-
-  // @IsNotEmpty()
-  // @IsNumber()
-  // byboxprice;
 }
 
 export class ResearcherUpdateProductContract {
@@ -115,7 +89,7 @@ export class ResearcherUpdateProductContract {
   @IsInt()
   status
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   icomment
 

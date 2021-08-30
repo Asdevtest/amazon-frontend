@@ -241,6 +241,7 @@ export class BuyerProductViewModel {
     this.setActionStatus(loadingStatuses.isLoading)
     this.product = this.productBase
     this.setActionStatus(loadingStatuses.success)
+    this.history.push('/buyer/my-products')
   }
 
   onTriggerAddOrEditSupplierModal() {

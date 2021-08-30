@@ -1,11 +1,13 @@
 import {format, formatDistance, compareDesc, parseISO} from 'date-fns'
 
-export const formatDate = dateString => format(dateString, 'dd-MM-yyyy')
+export const formatDate = dateString => format(dateString, 'dd-MM-yyyy') // предпочтительный формат
 export const formatDateForBackend = dateString => format(dateString, 'yyyy-MM-dd')
 
 export const formatDateTime = dateString => format(dateString, 'MM-dd-yyyy HH:mm')
+export const formatNormDateTime = dateString => format(dateString, 'dd-MM-yyyy HH:mm') // предпочтительный формат
 
 export const formatDateTimeWithParseISO = dateString => format(parseISO(dateString), 'MM-dd-yyyy HH:mm')
+export const formatNormDateTimeWithParseISO = dateString => format(parseISO(dateString), 'dd-MM-yyyy HH:mm') // предпочтительный формат
 
 const now = new Date()
 

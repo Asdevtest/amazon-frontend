@@ -27,6 +27,7 @@ export const WarehouseHistory = observer(
             <TableHead>
               <TableRow>
                 <TableCell className={classNames.centerTextCell}>{textConsts.date}</TableCell>
+                <TableCell className={classNames.centerTextCell}>{textConsts.updateDate}</TableCell>
                 <TableCell>{textConsts.theme}</TableCell>
                 <TableCell>{textConsts.description}</TableCell>
                 <TableCell>{textConsts.action}</TableCell>

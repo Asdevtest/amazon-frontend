@@ -1,9 +1,11 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 
 import {AdministratorModel} from '@models/administrator-model'
+import {SettingsModel} from '@models/settings-model'
 
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
@@ -25,12 +27,42 @@ export class AdminOrdersAllViewModel {
   activeSubCategory = 0
   drawerOpen = false
   modalBarcode = false
-  rowsPerPage = 15
+
+  sortModel = []
+  filterModel = {items: []}
   curPage = 0
+  rowsPerPage = 15
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  setDataGridState(state) {
+    SettingsModel.setDataGridState(state, DataGridTablesKeys.ADMIN_ORDERS)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_ORDERS]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.curPage = state.pagination.page
+      this.rowsPerPage = state.pagination.pageSize
+    }
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e.pageSize
+  }
+
+  onChangeCurPage(e) {
+    this.curPage = e.page
   }
 
   getCurrentData() {
@@ -51,11 +83,6 @@ export class AdminOrdersAllViewModel {
 
   onChangeCurPage = e => {
     this.curPage = e.page
-  }
-
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e.pageSize
-    this.curPage = 0
   }
 
   onChangeSubCategory(value) {

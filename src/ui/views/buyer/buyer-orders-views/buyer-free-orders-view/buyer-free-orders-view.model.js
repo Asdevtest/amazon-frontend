@@ -4,6 +4,8 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BuyerModel} from '@models/buyer-model'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+
 export class BuyerFreeOrdersViewModel {
   history = undefined
   requestStatus = undefined
@@ -40,7 +42,7 @@ export class BuyerFreeOrdersViewModel {
     try {
       const result = await BuyerModel.getOrdersVacant()
       runInAction(() => {
-        this.ordersVacant = result
+        this.ordersVacant = result.sort(sortObjectsArrayByFiledDate('createDate'))
       })
     } catch (error) {
       this.ordersVacant = []
@@ -72,7 +74,7 @@ export class BuyerFreeOrdersViewModel {
   }
 
   onChangePage(e, value) {
-    this.paginationPge = value
+    this.curPage = value
   }
 
   onChangeRowsPerPage(e) {

@@ -5,7 +5,6 @@ import {texts} from './texts'
 const textConfig = getLocalizedTexts(texts, 'en').warehouseType
 
 export const warehouses = {
-  0: 'Warehouse 0',
   25: 'ONT 8 AMAZON',
   30: 'LGB8 Rialto, CA',
   35: 'MEM1 Memphis, TN',
@@ -14,7 +13,6 @@ export const warehouses = {
 }
 
 export const WarehouseType = {
-  WARE0: 'Warehouse 0',
   ONT: 'ONT 8 AMAZON',
   LGB8: 'LGB8 Rialto, CA',
   MEM1: 'MEM1 Memphis, TN',
@@ -23,7 +21,6 @@ export const WarehouseType = {
 }
 
 export const WarehouseTypeByCode = {
-  0: WarehouseType.WARE0,
   25: WarehouseType.ONT,
   30: WarehouseType.LGB8,
   35: WarehouseType.MEM1,
@@ -32,10 +29,6 @@ export const WarehouseTypeByCode = {
 }
 
 export const WAREHOUSE_OPTIONS = [
-  {
-    key: WarehouseType.WARE0,
-    label: textConfig.warehouse0,
-  },
   {
     key: WarehouseType.ONT,
     label: textConfig.ont8,
