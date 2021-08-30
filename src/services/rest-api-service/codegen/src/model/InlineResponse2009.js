@@ -11,8 +11,8 @@
  *
  */
 
-import ApiClient from '../ApiClient';
-import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
+import ApiClient from '../ApiClient'
+import ApiV1BatchesBoxes from './ApiV1BatchesBoxes'
 
 /**
  * The InlineResponse2009 model module.
@@ -20,7 +20,7 @@ import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
  * @version v0.0.1
  */
 class InlineResponse2009 {
-    /**
+  /**
      * Constructs a new <code>InlineResponse2009</code>.
      * @alias module:model/InlineResponse2009
      * @param _id {String} GUID задачи в DB
@@ -28,98 +28,94 @@ class InlineResponse2009 {
      * @param boxes {Array.<module:model/ApiV1BatchesBoxes>} Массив коробок.
      * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      */
-    constructor(_id, taskId, boxes, status) { 
-        
-        InlineResponse2009.initialize(this, _id, taskId, boxes, status);
-    }
+  constructor(_id, taskId, boxes, status) {
+    InlineResponse2009.initialize(this, _id, taskId, boxes, status)
+  }
 
-    /**
+  /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, taskId, boxes, status) { 
-        obj['_id'] = _id;
-        obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
-        obj['status'] = status;
-    }
+  static initialize(obj, _id, taskId, boxes, status) {
+    obj['_id'] = _id
+    obj['taskId'] = taskId
+    obj['boxes'] = boxes
+    obj['status'] = status
+  }
 
-    /**
+  /**
      * Constructs a <code>InlineResponse2009</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/InlineResponse2009} obj Optional instance to populate.
      * @return {module:model/InlineResponse2009} The populated <code>InlineResponse2009</code> instance.
      */
-    static constructFromObject(data, obj) {
-        if (data) {
-            obj = obj || new InlineResponse2009();
+  static constructFromObject(data, obj) {
+    if (data) {
+      obj = obj || new InlineResponse2009()
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
-            }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('createDate')) {
-                obj['createDate'] = ApiClient.convertToType(data['createDate'], 'Date');
-            }
-        }
-        return obj;
+      if (data.hasOwnProperty('_id')) {
+        obj['_id'] = ApiClient.convertToType(data['_id'], 'String')
+      }
+      if (data.hasOwnProperty('taskId')) {
+        obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number')
+      }
+      if (data.hasOwnProperty('operationType')) {
+        obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String')
+      }
+      if (data.hasOwnProperty('boxes')) {
+        obj['boxes'] = ApiClient.convertToType(data['boxes'], [ ApiV1BatchesBoxes ])
+      }
+      if (data.hasOwnProperty('status')) {
+        obj['status'] = ApiClient.convertToType(data['status'], 'Number')
+      }
+      if (data.hasOwnProperty('createDate')) {
+        obj['createDate'] = ApiClient.convertToType(data['createDate'], 'Date')
+      }
+      if (data.hasOwnProperty('updateDate')) {
+        obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date')
+      }
     }
-
-
+    return obj
+  }
 }
 
 /**
  * GUID задачи в DB
  * @member {String} _id
  */
-InlineResponse2009.prototype['_id'] = undefined;
+InlineResponse2009.prototype['_id'] = undefined
 
 /**
  * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
  * @member {Number} taskId
  */
-InlineResponse2009.prototype['taskId'] = undefined;
+InlineResponse2009.prototype['taskId'] = undefined
 
 /**
  * Тип операции
  * @member {module:model/InlineResponse2009.OperationTypeEnum} operationType
  */
-InlineResponse2009.prototype['operationType'] = undefined;
+InlineResponse2009.prototype['operationType'] = undefined
 
 /**
  * Массив коробок.
  * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
  */
-InlineResponse2009.prototype['boxes'] = undefined;
+InlineResponse2009.prototype['boxes'] = undefined
 
 /**
  * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
  * @member {Number} status
  */
-InlineResponse2009.prototype['status'] = undefined;
+InlineResponse2009.prototype['status'] = undefined
 
 /**
  * Дата создания.
  * @member {Date} createDate
  */
-InlineResponse2009.prototype['createDate'] = undefined;
-
-
-
-
+InlineResponse2009.prototype['createDate'] = undefined
 
 /**
  * Allowed values for the <code>operationType</code> property.
@@ -127,27 +123,23 @@ InlineResponse2009.prototype['createDate'] = undefined;
  * @readonly
  */
 InlineResponse2009['OperationTypeEnum'] = {
-
-    /**
+  /**
      * value: "merge"
      * @const
      */
-    "merge": "merge",
+  merge: 'merge',
 
-    /**
+  /**
      * value: "split"
      * @const
      */
-    "split": "split",
+  split: 'split',
 
-    /**
+  /**
      * value: "receive"
      * @const
      */
-    "receive": "receive"
-};
+  receive: 'receive'
+}
 
-
-
-export default InlineResponse2009;
-
+export default InlineResponse2009

@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useRef, useState} from 'react'
 
 import {Avatar, Divider, Paper, Typography, Hidden, IconButton} from '@material-ui/core'
 import Menu from '@material-ui/core/Menu'

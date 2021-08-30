@@ -30,6 +30,10 @@ export const AddOrEditSupplierModalContent = observer(({title, onTriggerShowModa
   })
 
   const onChangeField = fieldName => event => {
+    if (fieldName !== 'name' && fieldName !== 'comment' && fieldName !== 'link' && Number(event.target.value) < 0) {
+      return
+    }
+
     setTmpSupplier({...tmpSupplier, [fieldName]: event.target.value})
   }
 
@@ -84,6 +88,7 @@ export const AddOrEditSupplierModalContent = observer(({title, onTriggerShowModa
       <div className={classNames.buttonsWrapper}>
         <Button
           disableElevation
+          disabled={'' === tmpSupplier.name || '' === tmpSupplier.link}
           className={classNames.saveBtn}
           variant="contained"
           onClick={() => {

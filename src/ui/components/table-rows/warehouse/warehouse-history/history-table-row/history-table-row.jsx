@@ -9,7 +9,7 @@ import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 
-import {formatDateTime} from '@utils/date-time'
+import {formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -140,7 +140,8 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, o
 
   return (
     <TableRow>
-      <TableCell className={classNames.centerTextCell}>{formatDateTime(item.createDate)}</TableCell>
+      <TableCell className={classNames.centerTextCell}>{formatNormDateTime(item.createDate)}</TableCell>
+      <TableCell className={classNames.centerTextCell}>{formatNormDateTime(item.updateDate)}</TableCell>
       <TableCell>{textConsts.tasks}</TableCell>
       {renderHistoryItem()}
       <TableCell>{mapTaskStatusKeyToEnum[item.status || 0]}</TableCell>

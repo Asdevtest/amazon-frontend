@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Typography, Container, TableRow, TableCell} from '@material-ui/core'
+import {Typography, TableRow, TableCell} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -9,7 +9,6 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -75,7 +74,6 @@ class ClientOrdersViewRaw extends Component {
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={className.tableWrapper}>
                 <Table
-                  renderButtons={this.renderButtons}
                   currentPage={curPage}
                   data={orders}
                   handlerPageChange={onChangeCurPage}
@@ -94,12 +92,6 @@ class ClientOrdersViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderButtons = () => (
-    <Container className={this.props.classes.buttonWrapper}>
-      <Button color="secondary">{textConsts.ordersBtn}</Button>
-    </Container>
-  )
 
   renderHeadRow = (
     <TableRow>

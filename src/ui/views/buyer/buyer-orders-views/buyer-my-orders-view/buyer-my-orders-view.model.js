@@ -66,7 +66,7 @@ export class BuyerMyOrdersViewModel {
     try {
       const result = await BoxesModel.getBoxesOfOrder(orderId)
       runInAction(() => {
-        this.curBoxesOfOrder = result
+        this.curBoxesOfOrder = result.sort(sortObjectsArrayByFiledDate('createdAt')).reverse()
       })
     } catch (error) {
       console.log(error)
@@ -102,7 +102,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitCreateBoxes(boxId, formFieldsArr) {
+  async onSubmitCreateBoxes(orderId, formFieldsArr) {
     this.error = undefined
 
     for (let i = 0; i < formFieldsArr.length; i++) {
@@ -112,11 +112,9 @@ export class BuyerMyOrdersViewModel {
     }
 
     if (!this.error) {
-      runInAction(() => {
-        this.selectedOrder = undefined
-      })
       this.onTriggerOpenModal('showSuccessModal')
     }
+    await this.getBoxesOfOrder(orderId)
   }
 
   async onCreateBox(formFields) {

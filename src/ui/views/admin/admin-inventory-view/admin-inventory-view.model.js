@@ -1,8 +1,12 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {AdministratorModel} from '@models/administrator-model'
+import {SettingsModel} from '@models/settings-model'
+
+import {exchangeInventoryColumns} from '@components/table-columns/admin/inventory-columns'
 
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
@@ -16,37 +20,44 @@ export class AdminInventoryViewModel {
   selectionModel = undefined
 
   drawerOpen = false
-  rowsPerPage = 15
-  curPage = 0
   selectedProduct = undefined
+
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
+  rowsPerPage = 15
+  columns = exchangeInventoryColumns()
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  getCurrentData() {
-    return toJS(this.products)
+  setDataGridState(state) {
+    SettingsModel.setDataGridState(state, DataGridTablesKeys.ADMIN_INVENTORY)
   }
 
-  onSelectionModel(model) {
-    this.selectionModel = model
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_INVENTORY]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.curPage = state.pagination.page
+      this.rowsPerPage = state.pagination.pageSize
+    }
   }
 
-  onChangeCurPage(e) {
-    this.curPage = e.page
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
   }
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e.pageSize
   }
 
-  onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+  onChangeCurPage(e) {
+    this.curPage = e.page
   }
 
   async getProducts() {
@@ -70,5 +81,21 @@ export class AdminInventoryViewModel {
       }
       this.products = []
     }
+  }
+
+  getCurrentData() {
+    return toJS(this.products)
+  }
+
+  onSelectionModel(model) {
+    this.selectionModel = model
+  }
+
+  onTriggerDrawer() {
+    this.drawerOpen = !this.drawerOpen
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

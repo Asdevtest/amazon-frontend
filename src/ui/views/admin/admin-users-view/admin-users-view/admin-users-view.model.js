@@ -1,8 +1,10 @@
 import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {AdministratorModel} from '@models/administrator-model'
+import {SettingsModel} from '@models/settings-model'
 
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
@@ -14,10 +16,15 @@ export class AdminUsersViewModel {
   users = []
   editUserFormFields = undefined
   selectionModel = undefined
+  dataGridState = null
 
-  drawerOpen = false
+  sortModel = []
+  filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+
+  drawerOpen = false
+
   showEditUserModal = false
   showPermissionModal = false
 
@@ -26,51 +33,20 @@ export class AdminUsersViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  getCurrentData() {
-    return toJS(this.users)
+  setDataGridState(state) {
+    SettingsModel.setDataGridState(state, DataGridTablesKeys.ADMIN_USERS)
   }
 
-  onSelectionModel(model) {
-    this.editUserFormFields = this.users.find(el => el.id === model)
-    this.selectionModel = model
-  }
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_USERS]
 
-  onClickEditUser() {
-    this.showEditUserModal = !this.showEditUserModal
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.curPage = state.pagination.page
+      this.rowsPerPage = state.pagination.pageSize
+    }
   }
-
-  onClickBalance(userData) {
-    this.history.push('/admin/user/user_id/balance', {user: userData})
-  }
-
-  onTriggerEditUserModal() {
-    this.showEditUserModal = !this.showEditUserModal
-  }
-
-  onTriggerPermissionModal() {
-    this.showPermissionModal = !this.showPermissionModal
-  }
-
-  onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
-  }
-
-  onChangeCurPage(e) {
-    this.curPage = e.page
-  }
-
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e.pageSize
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onChangeFormField = fieldName =>
-    action(e => {
-      this.editUserFormFields = {...this.editUserFormFields, [fieldName]: e.target.value}
-    })
 
   async getUsers() {
     try {
@@ -109,4 +85,58 @@ export class AdminUsersViewModel {
       this.error = error?.body?.message || error
     }
   }
+
+  getCurrentData() {
+    return toJS(this.users)
+  }
+
+  onSelectionModel(model) {
+    this.editUserFormFields = this.users.find(el => el.id === model)
+    this.selectionModel = model
+  }
+
+  onClickEditUser() {
+    this.showEditUserModal = !this.showEditUserModal
+  }
+
+  onClickBalance(userData) {
+    this.history.push('/admin/user/user_id/balance', {user: userData})
+  }
+
+  onTriggerEditUserModal() {
+    this.showEditUserModal = !this.showEditUserModal
+  }
+
+  onTriggerPermissionModal() {
+    this.showPermissionModal = !this.showPermissionModal
+  }
+
+  onTriggerDrawer() {
+    this.drawerOpen = !this.drawerOpen
+  }
+
+  onChangeCurPage(e) {
+    this.curPage = e.page
+  }
+
+  // onChangeFilterModel(e) {
+  //   this.filterModel = e.filterModel
+  // }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e.pageSize
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
+  onChangeFormField = fieldName =>
+    action(e => {
+      this.editUserFormFields = {...this.editUserFormFields, [fieldName]: e.target.value}
+    })
 }

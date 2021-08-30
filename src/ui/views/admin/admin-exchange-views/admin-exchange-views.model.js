@@ -1,9 +1,11 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 
 import {AdministratorModel} from '@models/administrator-model'
+import {SettingsModel} from '@models/settings-model'
 
 import {copyToClipBoard} from '@utils/clipboard'
 
@@ -28,9 +30,12 @@ export class AdminExchangeViewModel {
 
   selectionModel = undefined
 
-  drawerOpen = false
-  rowsPerPage = 15
+  sortModel = []
+  filterModel = {items: []}
   curPage = 0
+  rowsPerPage = 15
+
+  drawerOpen = false
   showSetBarcodeModal = false
   selectedProduct = undefined
 
@@ -42,6 +47,55 @@ export class AdminExchangeViewModel {
   onChangeSubCategory(value) {
     this.activeSubCategory = value
     this.getProductsByStatus(value)
+    this.getDataGridState()
+  }
+
+  dataGridTableKeyDependingOnActiveSubCategory() {
+    switch (this.activeSubCategory) {
+      case 0:
+        return DataGridTablesKeys.ADMIN_EXCHANGE_NEW
+      case 1:
+        return DataGridTablesKeys.ADMIN_EXCHANGE_PURCHASED
+      case 2:
+        return DataGridTablesKeys.ADMIN_EXCHANGE_SUPPLIER_SEARCHING
+      case 3:
+        return DataGridTablesKeys.ADMIN_EXCHANGE_BUYER_WORK
+      case 4:
+        return DataGridTablesKeys.ADMIN_EXCHANGE_SUPPLIER_FOUNDED
+      case 5:
+        return DataGridTablesKeys.ADMIN_EXCHANGE_SUPPLIER_NOT_FOUNDED
+      case 6:
+        return DataGridTablesKeys.ADMIN_EXCHANGE_HIGH_PRICE
+      case 7:
+        return DataGridTablesKeys.ADMIN_EXCHANGE_CANCELED
+    }
+  }
+
+  setDataGridState(state) {
+    SettingsModel.setDataGridState(state, this.dataGridTableKeyDependingOnActiveSubCategory())
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[this.dataGridTableKeyDependingOnActiveSubCategory()]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.curPage = state.pagination.page
+      this.rowsPerPage = state.pagination.pageSize
+    }
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e.pageSize
+  }
+
+  onChangeCurPage(e) {
+    this.curPage = e.page
   }
 
   onSelectionModel(model) {
@@ -87,17 +141,6 @@ export class AdminExchangeViewModel {
   onDoubleClickBarcode = item => {
     this.setSelectedProduct(item)
     this.onTriggerShowBarcodeModal()
-  }
-
-  onDeleteBarcode() {}
-
-  onChangeCurPage(e) {
-    this.curPage = e.page
-  }
-
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = Number(e.target.value)
-    this.curPage = 1
   }
 
   onTriggerDrawer() {

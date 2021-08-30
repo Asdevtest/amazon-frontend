@@ -4,5 +4,11 @@ export const useClassNames = makeStyles(() => ({
   tableRow: {
     cursor: 'pointer',
     transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
+  noClickable: {
+    cursor: 'default',
   },
 }))

@@ -14,6 +14,7 @@ export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
 ]
 
 export const CLIENT_ORDERS_HEAD_CELL = [
+  {align: 'center', disablePadding: true, label: '#'},
   {align: 'center', disablePadding: true, label: 'Дата'},
   {align: 'center', disablePadding: true, label: 'Заказы'},
   {align: 'center', disablePadding: true, label: 'Статус'},

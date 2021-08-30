@@ -22,7 +22,13 @@ const textConsts = getLocalizedTexts(texts, 'en').inventoryView
 export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
   const classNames = useClassNames()
   return (
-    <TableRow key={item._id} hover role="checkbox">
+    <TableRow
+      key={item._id}
+      hover
+      className={classNames.row}
+      role="checkbox"
+      onDoubleClick={() => handlers.onDoubleClickRow(item)}
+    >
       <TableCell className={classNames.indexCell}>
         <Typography>{itemIndex + 1}</Typography>
       </TableCell>
@@ -83,7 +89,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
           variant="contained"
           onClick={() => handlers.onClickExchange(item, itemIndex)}
         >
-          {textConsts.exchangeBtn}
+          {textConsts.listingBtn}
         </Button>
       </TableCell>
       <TableCell className={classNames.deleteBtnCell}>

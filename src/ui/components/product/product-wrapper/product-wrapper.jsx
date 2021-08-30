@@ -5,8 +5,8 @@ import React from 'react'
 import {Typography, Box, Tabs, Tab} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {Listing} from '../listing'
 import {BottomCard} from './bottom-card'
-import {OfferTab} from './offer-tab'
 import {TopCard} from './top-card'
 
 const TabPanel = ({children, value, index, ...other}) => (
@@ -58,6 +58,7 @@ export const ProductWrapper = observer(
             selectedSupplier={selectedSupplier}
             actionStatus={actionStatus}
             handleProductActionButtons={handleProductActionButtons}
+            formFieldsValidationErrors={formFieldsValidationErrors}
             onChangeField={onChangeField}
             onClickSetProductStatusBtn={onClickSetProductStatusBtn}
             onClickSupplierBtns={handleSupplierButtons}
@@ -72,7 +73,7 @@ export const ProductWrapper = observer(
           />
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
-          <OfferTab />
+          <Listing product={product} />
         </TabPanel>
       </React.Fragment>
     )

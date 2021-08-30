@@ -135,4 +135,11 @@ export const useClassNames = makeStyles(() => ({
   barcodeChipExists: {
     backgroundColor: 'rgb(61, 81, 112)',
   },
+  row: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
 }))

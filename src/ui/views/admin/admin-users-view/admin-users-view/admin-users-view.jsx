@@ -44,6 +44,7 @@ const renderAdminSubUsersTableCells = renderBtns => [
     renderCell: params => !params.value && 'N/A',
     width: 150,
   },
+
   {
     field: 'balanceFreeze',
     headerName: 'Freeze',
@@ -80,11 +81,14 @@ class AdminUsersViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.getUsers()
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
       getCurrentData,
+      sortModel,
+      filterModel,
       requestStatus,
       drawerOpen,
       curPage,
@@ -101,6 +105,8 @@ class AdminUsersViewRaw extends Component {
       onTriggerEditUserModal,
       onTriggerPermissionModal,
       onSelectionModel,
+      setDataGridState,
+      onChangeSortingModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -129,23 +135,24 @@ class AdminUsersViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                sortModel={sortModel}
+                filterModel={filterModel}
                 page={curPage}
                 pageSize={rowsPerPage}
-                rowsPerPageOptions={[5, 15, 10, 20]}
+                rowsPerPageOptions={[5, 10, 15, 20]}
                 rows={getCurrentData()}
                 columns={renderAdminSubUsersTableCells(this.renderAdminBtns)}
                 loading={requestStatus === loadingStatuses.isLoading}
                 components={{
                   Toolbar: GridToolbar,
                 }}
-                filterModel={{
-                  items: [{columnField: 'email', operatorValue: '', value: ''}],
-                }}
                 onSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection.selectionModel[0])
                 }}
+                onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
+                onStateChange={e => setDataGridState(e.state)}
               />
             </MainContent>
           </Appbar>

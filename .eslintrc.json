@@ -181,9 +181,7 @@
     "use-isnan": "error",
     "valid-typeof": "off",
     "semi": "off",
-    "prettier/prettier": ["error", {
-    "endOfLine":"auto"
-    }],
+    "prettier/prettier": "off",// ["error", {"endOfLine":"auto"}],
     "import/namespace": "off",
     "import/no-named-as-default": "off",
     "import/no-named-as-default-member": "off",

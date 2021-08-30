@@ -168,6 +168,10 @@ export class ClientInventoryViewModel {
     await this.onSaveProductData(product._id, {barCode: ''})
   }
 
+  onDoubleClickRow(item) {
+    this.history.push('/client/inventoryes/listing', {product: toJS(item)})
+  }
+
   onResetselectedProducts() {
     this.selectedProducts = []
   }

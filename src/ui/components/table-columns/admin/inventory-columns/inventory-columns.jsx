@@ -33,7 +33,7 @@ export const exchangeInventoryColumns = () => [
     width: 150,
   },
   {
-    field: 'price',
+    field: 'amazon',
     headerName: textConsts.priceField,
     renderCell: params => <PriceCell params={params} />,
     width: 150,

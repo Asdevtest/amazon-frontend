@@ -13,13 +13,13 @@ import {useClassNames} from './user-balance-history.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').userBalanceHistory
 
-export const UserBalanceHistory = ({historyData}) => {
+export const UserBalanceHistory = ({historyData, title}) => {
   const classNames = useClassNames()
 
   return (
     <React.Fragment>
       <Typography paragraph variant="h5" className={classNames.mainTitle}>
-        {textConsts.mainTitle}
+        {title}
       </Typography>
       <Paper>
         <TableContainer>

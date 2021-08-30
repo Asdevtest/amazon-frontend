@@ -42,7 +42,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, params}) => (
 
 export const PriceCell = withStyles(styles)(({classes: classNames, params}) => (
   <div className={classNames.priceTableCell}>
-    {!params.row.amazon ? 'N/A' : toFixedWithDollarSign(params.row.amazon)}
+    {!params.row.amazon ? 'N/A' : toFixedWithDollarSign(params.row.amazon, 2)}
   </div>
 ))
 

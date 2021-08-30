@@ -934,4 +934,62 @@ export default class BoxesApi {
       return response_and_data.data;
     });
   }
+
+
+  /**
+     * # Получить транзакции по GUID продукта.
+     * ## Получить транзакции по GUID продукта.  
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+  apiV1BoxesByProductWithHttpInfo(guid, opts) {
+    opts = opts || {};
+    let postBody = null;
+
+    let pathParams = {
+      guid: guid
+    };
+
+    let queryParams = {};
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    };
+    let formParams = {};
+
+    let authNames = [ 'AccessTokenBearer' ];
+    let contentTypes = [];
+    let accepts = [ 'text/html' ];
+    let returnType = [ Object ];
+    
+    return this.apiClient.callApi(
+      '/api/v1/boxes/by_product_guid/{guid}',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    );
+  }
+
+   /**
+     * # Получить транзакции по GUID продукта.
+     * ## Получить транзакции по GUID продукта.   
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+  apiV1BoxesByProduct(guid, opts) {
+    return this.apiV1BoxesByProductWithHttpInfo(guid, opts).then(function(response_and_data){
+      return response_and_data.data;
+    });
+  }
 }

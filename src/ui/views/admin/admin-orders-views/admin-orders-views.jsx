@@ -34,12 +34,15 @@ class AdminOrdersViewsRaw extends Component {
 
   componentDidMount() {
     this.viewModel.getOrdersByStatus(this.viewModel.activeSubCategory)
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
       requestStatus,
       getCurrentData,
+      sortModel,
+      filterModel,
       drawerOpen,
       modalBarcode,
       rowsPerPage,
@@ -52,6 +55,8 @@ class AdminOrdersViewsRaw extends Component {
       onChangeRowsPerPage,
       onSelectionModel,
       onChangeSubCategory,
+      setDataGridState,
+      onChangeSortingModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -80,10 +85,11 @@ class AdminOrdersViewsRaw extends Component {
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
                 <DataGrid
-                  // autoHeight
                   pagination
                   useResizeContainer
                   checkboxSelection
+                  sortModel={sortModel}
+                  filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[5, 10, 15, 20]}
@@ -92,16 +98,15 @@ class AdminOrdersViewsRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  filterModel={{
-                    items: [{columnField: 'warehouse', operatorValue: '', value: ''}],
-                  }}
                   columns={adminOrdersViewColumns()}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection.selectionModel[0])
                   }}
+                  onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
+                  onStateChange={e => setDataGridState(e.state)}
                 />
                 <div className={classNames.buttonsWrapper}>{this.renderButtons}</div>
               </div>

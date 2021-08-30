@@ -86,7 +86,7 @@ class AdminUserBalanceViewRaw extends Component {
               <Button disableElevation color="primary" onClick={onTriggerWithdrawModal}>
                 {textConsts.withdraw}
               </Button>
-              <UserBalanceHistory historyData={payments} />
+              <UserBalanceHistory historyData={payments} title={'Изменения баланса'} />
             </MainContent>
           </Appbar>
         </Main>

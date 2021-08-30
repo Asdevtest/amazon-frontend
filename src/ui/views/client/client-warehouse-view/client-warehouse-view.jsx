@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Button, TableCell, TableRow, Typography, Paper} from '@material-ui/core'
+import {TableCell, TableRow, Typography, Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -11,6 +11,7 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {EditBoxForm} from '@components/forms/edit-box-form'
 import {SendOwnProductForm} from '@components/forms/send-own-product-form'
@@ -216,7 +217,7 @@ export class ClientWarehouseViewRaw extends Component {
   )
 
   renderButtons = () => {
-    const {selectedBoxes, isMasterBoxSelected, onTriggerOpenModal, onClickMerge} = this.viewModel
+    const {selectedBoxes, isMasterBoxSelected, onTriggerOpenModal, onClickMerge, onResetselectedBoxes} = this.viewModel
     return (
       <React.Fragment>
         <Button disableElevation color="primary" variant="contained">
@@ -250,6 +251,10 @@ export class ClientWarehouseViewRaw extends Component {
           onClick={() => onTriggerOpenModal('showEditBoxModal')}
         >
           {textConsts.editBtn}
+        </Button>
+
+        <Button color="default" onClick={() => onResetselectedBoxes()}>
+          {textConsts.resetBtn}
         </Button>
       </React.Fragment>
     )

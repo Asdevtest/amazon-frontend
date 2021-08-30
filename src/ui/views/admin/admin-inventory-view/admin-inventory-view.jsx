@@ -14,8 +14,8 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {exchangeInventoryColumns} from '@components/table-columns/admin/inventory-columns'
 
+// import {exchangeInventoryColumns} from '@components/table-columns/admin/inventory-columns'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/adminAvatar.jpg'
@@ -30,11 +30,15 @@ export class AdminInventoryViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.getProducts()
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
       getCurrentData,
+      columns,
+      sortModel,
+      filterModel,
       requestStatus,
       drawerOpen,
       curPage,
@@ -44,6 +48,8 @@ export class AdminInventoryViewRaw extends Component {
       onChangeRowsPerPage,
       onSelectionModel,
       onTriggerDrawer,
+      setDataGridState,
+      onChangeSortingModel,
     } = this.viewModel
 
     const activeCategory = 2
@@ -74,6 +80,9 @@ export class AdminInventoryViewRaw extends Component {
                 pagination
                 useResizeContainer
                 checkboxSelection
+                columns={columns}
+                sortModel={sortModel}
+                filterModel={filterModel}
                 page={curPage}
                 pageSize={rowsPerPage}
                 rowHeight={100}
@@ -82,16 +91,14 @@ export class AdminInventoryViewRaw extends Component {
                 components={{
                   Toolbar: GridToolbar,
                 }}
-                filterModel={{
-                  items: [{columnField: 'fba', operatorValue: '', value: ''}],
-                }}
-                columns={exchangeInventoryColumns()}
                 rows={getCurrentData()}
                 onSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection.selectionModel[0])
                 }}
+                onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
+                onStateChange={e => setDataGridState(e.state)}
               />
             </MainContent>
           </Appbar>

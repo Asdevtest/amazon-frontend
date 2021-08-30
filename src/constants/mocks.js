@@ -1749,8 +1749,8 @@ export const VACANT_TASKS_DATA = [
 ]
 
 export const WAREHOUSE_TASKS_HEAD_CELLS = [
-  // {title: 'Id'},
-  {title: 'Дата'},
+  {title: 'Дата создания'},
+  {title: 'Последнее обновление'},
   {title: 'Тип задачи'},
   {title: 'Описание'},
   {title: 'Действия'},

@@ -31,11 +31,14 @@ class AdminExchangeViewsRaw extends Component {
 
   componentDidMount() {
     this.viewModel.getProductsByStatus(this.viewModel.activeSubCategory)
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
       getCurrentData,
+      sortModel,
+      filterModel,
       activeSubCategory,
       drawerOpen,
       history,
@@ -47,6 +50,8 @@ class AdminExchangeViewsRaw extends Component {
       onSelectionModel,
       onChangeSubCategory,
       onTriggerDrawer,
+      setDataGridState,
+      onChangeSortingModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -77,6 +82,8 @@ class AdminExchangeViewsRaw extends Component {
                 pagination
                 useResizeContainer
                 checkboxSelection
+                sortModel={sortModel}
+                filterModel={filterModel}
                 page={curPage}
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[5, 10, 15, 20]}
@@ -85,16 +92,15 @@ class AdminExchangeViewsRaw extends Component {
                 components={{
                   Toolbar: GridToolbar,
                 }}
-                filterModel={{
-                  items: [{columnField: 'warehouse', operatorValue: '', value: ''}],
-                }}
                 columns={exchangeProductsColumns({activeSubCategory})}
                 loading={requestStatus === loadingStatuses.isLoading}
                 onSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection.selectionModel[0])
                 }}
+                onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
+                onStateChange={e => setDataGridState(e.state)}
               />
             </MainContent>
           </Appbar>

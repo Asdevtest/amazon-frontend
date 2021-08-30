@@ -90,7 +90,7 @@ export class WarehouseVacantViewModel {
 
       runInAction(() => {
         this.tasksMy = result
-          .sort(sortObjectsArrayByFiledDate('createDate'))
+          .sort(sortObjectsArrayByFiledDate('updateDate'))
           .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS])
       })
     } catch (error) {

@@ -23,7 +23,8 @@ import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
 import {ClientExchangeRequestsView} from '@views/client/client-exchange-views/client-exchange-requests-view'
 import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
-import {ClientInventoryView} from '@views/client/client-inventory-view'
+import {ClientInventoryView} from '@views/client/client-inventory-views/client-inventory-view'
+import {ClientListingView} from '@views/client/client-inventory-views/listing-view'
 import {ClientOrderView} from '@views/client/client-orders-views/order'
 import {ClientOrdersView} from '@views/client/client-orders-views/orders'
 import {ClientProductView} from '@views/client/client-product-view'
@@ -199,6 +200,12 @@ export const privateRoutesConfigs = [
   {
     routePath: '/client/orders/order',
     component: ClientOrderView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+  {
+    routePath: '/client/inventoryes/listing',
+    component: ClientListingView,
     exact: false,
     permission: [UserRole.CLIENT],
   },

@@ -4,6 +4,7 @@ import {ApiClient, BoxesApi} from './codegen/src'
 import AdministratorApi from './codegen/src/api/AdministratorApi'
 import BuyerApi from './codegen/src/api/BuyerApi'
 import ClientApi from './codegen/src/api/ClientApi'
+import OtherApi from './codegen/src/api/OtherApi'
 import ProductForTestOnlyApi from './codegen/src/api/ProductForTestOnlyApi'
 import ResearcherApi from './codegen/src/api/ResearcherApi'
 import StorekeepersApi from './codegen/src/api/StorekeepersApi'
@@ -32,6 +33,7 @@ class RestApiService {
     this.supplierApi = new SupplierApi(this.apiClient)
     this.userApi = new UserApi(this.apiClient)
     this.boxesApi = new BoxesApi(this.apiClient)
+    this.otherApi = new OtherApi(this.apiClient)
   }
 
   setAccessToken = accessToken => {

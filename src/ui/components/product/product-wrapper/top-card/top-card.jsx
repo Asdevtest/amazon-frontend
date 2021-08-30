@@ -30,6 +30,7 @@ export const TopCard = observer(
     product,
     onClickSupplierBtns,
     selectedSupplier,
+    formFieldsValidationErrors,
     onClickSupplier,
     onClickParseProductData,
     onClickSetProductStatusBtn,
@@ -91,6 +92,7 @@ export const TopCard = observer(
             <RightSideComments
               curUserRole={curUserRole}
               product={product}
+              formFieldsValidationErrors={formFieldsValidationErrors}
               handleProductActionButtons={handleProductActionButtons}
               onClickSetProductStatusBtn={onClickSetProductStatusBtn}
               onChangeField={onChangeField}

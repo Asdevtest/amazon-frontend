@@ -2,6 +2,11 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   mainWrapper: {
+    gap: '5px',
+    width: '100%',
+    flexDirection: 'column',
+  },
+  productBlockWrapper: {
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
@@ -27,11 +32,46 @@ export const useClassNames = makeStyles(() => ({
     textAlign: 'center',
     marginBottom: '24px',
   },
-  descriptionProduct: {
+  listingTitle: {
+    height: '45px',
+    width: '100%',
+    display: 'block',
+    fontSize: '25px',
+  },
+
+  searchSupplierField: {
     height: 'auto',
     width: '100%',
     display: 'block',
   },
+
+  detailDescriptionWrapper: {
+    width: '100%',
+  },
+
+  detailDescription: {
+    height: '100px',
+    width: '100%',
+    display: 'block',
+    border: '1px solid rgba(217, 222, 229, 1)',
+    borderRadius: '4px',
+    padding: '6px 8px 7px',
+    color: 'rgba(61, 81, 112, 1)',
+    fontSize: '17px',
+    '&:focus': {
+      border: '1px solid rgba(0, 123, 255, 1)',
+      outline: 'none',
+    },
+  },
+
+  subTitle: {
+    color: 'rgba(61, 81, 112, 1)',
+    fontSize: '16px',
+    fontWeight: '600',
+    lineHeight: '20px',
+    marginBottom: '12px',
+  },
+
   text: {
     color: 'rgba(61, 81, 112, 1)',
     fontSize: '14px',
@@ -87,5 +127,39 @@ export const useClassNames = makeStyles(() => ({
     maxWidth: '400px',
     whiteSpace: 'nowrap',
     overflowX: 'scroll',
+  },
+
+  inputFileWrapper: {
+    width: '150px',
+    height: '150px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: '1px solid rgba(61, 81, 112, 1)',
+    borderRadius: '10px',
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      opacity: '0.7',
+    },
+  },
+
+  fileInput: {
+    display: 'none',
+    // opacity: '0',
+    // overflow: 'hidden',
+    // zIndex: '-1'
+  },
+
+  filesInputList: {
+    listStyle: 'none',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, auto)',
+    gap: '10px',
+  },
+
+  filesInputListItem: {
+    padding: '0',
   },
 }))
