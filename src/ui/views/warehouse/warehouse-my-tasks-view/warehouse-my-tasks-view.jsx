@@ -45,6 +45,8 @@ export class WarehouseMyTasksViewRaw extends Component {
       rowsPerPage,
       history,
       selectedTask,
+      progressValue,
+      showProgress,
       showEditBoxModal,
       showNoDimensionsErrorModal,
       onChangeTriggerDrawerOpen,
@@ -114,6 +116,8 @@ export class WarehouseMyTasksViewRaw extends Component {
             task={selectedTask}
             tmpBarCode={tmpBarCode}
             showEditBoxModal={showEditBoxModal}
+            progressValue={progressValue}
+            showProgress={showProgress}
             onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
             onClickOpenCloseModal={onTriggerEditTaskModal}
             onSetBarcode={onTriggerShowBarcodeModal}

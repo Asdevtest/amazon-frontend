@@ -9,7 +9,7 @@ export class SupervisorPayment extends InlineResponse2004 {}
 export class SupervisorUpdateProductParams extends InlineObject18 {}
 
 export class SupervisorUpdateProductContract {
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   checkednotes
 
@@ -17,7 +17,7 @@ export class SupervisorUpdateProductContract {
   @IsString()
   lamazon
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   bsr
 
@@ -33,19 +33,19 @@ export class SupervisorUpdateProductContract {
   @IsNumber()
   amazon
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   height
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   width
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   length
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   weight
 
@@ -60,10 +60,6 @@ export class SupervisorUpdateProductContract {
   @IsOptional()
   @IsNumber()
   fbafee
-
-  @IsOptional()
-  @IsInt()
-  delivery
 
   @IsOptional()
   @IsString()
@@ -97,11 +93,11 @@ export class SupervisorUpdateProductContract {
   @IsNumber()
   minpurchase
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   profit
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   margin
 

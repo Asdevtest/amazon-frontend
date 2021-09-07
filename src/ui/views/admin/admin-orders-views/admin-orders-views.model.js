@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables-keys'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
@@ -24,7 +25,7 @@ export class AdminOrdersAllViewModel {
 
   selectionModel = undefined
 
-  activeSubCategory = 0
+  activeSubCategory = SettingsModel.activeSubCategoryState[ActiveSubCategoryTablesKeys.ADMIN_ORDERS] || 0
   drawerOpen = false
   modalBarcode = false
 
@@ -36,6 +37,10 @@ export class AdminOrdersAllViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  setActiveSubCategoryState(state) {
+    SettingsModel.setActiveSubCategoryState(state, ActiveSubCategoryTablesKeys.ADMIN_ORDERS)
   }
 
   setDataGridState(state) {
@@ -86,6 +91,7 @@ export class AdminOrdersAllViewModel {
   }
 
   onChangeSubCategory(value) {
+    this.setActiveSubCategoryState(value)
     this.activeSubCategory = value
     this.getOrdersByStatus(value)
   }

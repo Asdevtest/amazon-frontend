@@ -126,4 +126,13 @@ export const useClassNames = makeStyles(() => ({
   buttonDelete: {
     flexGrow: 1,
   },
+  supplierActionsWrapper: {
+    display: 'flex',
+  },
+  supplierActionsTitle: {
+    marginRight: '10px',
+  },
+  supplierTitle: {
+    marginBottom: '5px',
+  },
 }))

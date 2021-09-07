@@ -9,6 +9,7 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {ProductWrapper} from '@components/product/product-wrapper'
@@ -31,6 +32,8 @@ export class ResearcherProductView extends Component {
 
   render() {
     const {
+      showProgress,
+      progressValue,
       drawerOpen,
       product,
       history,
@@ -39,6 +42,7 @@ export class ResearcherProductView extends Component {
       selectedSupplier,
       showAddOrEditSupplierModal,
       formFieldsValidationErrors,
+      showConfirmPayModal,
       onTriggerAddOrEditSupplierModal,
       onClickSaveSupplierBtn,
       onChangeProductFields,
@@ -47,6 +51,8 @@ export class ResearcherProductView extends Component {
       onTriggerDrawerOpen,
       onClickParseProductData,
       handleProductActionButtons,
+      onTriggerOpenModal,
+      onSaveProductData,
     } = this.viewModel
 
     return (
@@ -92,10 +98,25 @@ export class ResearcherProductView extends Component {
           <AddOrEditSupplierModalContent
             title={textConsts.modalAddTitle}
             supplier={selectedSupplier}
+            showProgress={showProgress}
+            progressValue={progressValue}
             onClickSaveBtn={onClickSaveSupplierBtn}
             onTriggerShowModal={onTriggerAddOrEditSupplierModal}
           />
         </Modal>
+        <ConfirmationModal
+          openModal={showConfirmPayModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}
+          title={textConsts.confirmTitle}
+          message={textConsts.confirmMessage}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={() => {
+            onSaveProductData()
+            onTriggerOpenModal('showConfirmPayModal')
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmPayModal')}
+        />
       </React.Fragment>
     )
   }

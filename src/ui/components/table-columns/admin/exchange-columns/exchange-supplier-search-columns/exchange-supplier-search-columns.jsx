@@ -8,6 +8,7 @@ import {
   PriceCell,
   SupervisorCell,
   renderFieldValueCell,
+  ResearcherCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -27,30 +28,34 @@ export const exchangeSupplierSearchColumns = () => [
     renderCell: params => <PriceCell params={params} />,
     width: 150,
   },
-  {
-    field: 'supervisor',
-    headerName: textConsts.supervisorField,
-    renderCell: params => <SupervisorCell params={params} />,
-    width: 150,
-  },
+
   {
     field: 'createdat',
     headerName: textConsts.createDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
   },
-  {
-    field: 'checkedat',
-    headerName: textConsts.checkDateField,
-    renderCell: params => <DateCell params={params} />,
-    width: 150,
-  },
+
   {
     field: 'updateDate',
     headerName: textConsts.updateDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
   },
+
+  {
+    field: 'createdby',
+    headerName: textConsts.researcherField,
+    renderCell: params => <ResearcherCell params={params} />,
+    width: 200,
+  },
+  {
+    field: 'supervisor',
+    headerName: textConsts.supervisorField,
+    renderCell: params => <SupervisorCell params={params} />,
+    width: 150,
+  },
+
   {
     field: 'profit',
     headerName: textConsts.profitField,

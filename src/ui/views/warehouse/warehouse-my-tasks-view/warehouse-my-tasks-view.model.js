@@ -23,6 +23,9 @@ export class WarehouseVacantViewModel {
   imagesOfTask = []
   imagesOfBox = []
 
+  showProgress = false
+  progressValue = 0
+
   drawerOpen = false
   rowsPerPage = 15
   curPage = 1
@@ -101,12 +104,20 @@ export class WarehouseVacantViewModel {
 
   async onSubmitPostImages({images, type}) {
     this[type] = []
+    const loadingStep = 100 / images.length
+
+    this.showProgress = true
 
     for (let i = 0; i < images.length; i++) {
       const image = images[i]
 
       await this.onPostImage(image, type)
+
+      this.progressValue = this.progressValue + loadingStep
     }
+
+    this.showProgress = false
+    this.progressValue = 0
   }
 
   async onPostImage(imageData, imagesType) {
@@ -147,7 +158,7 @@ export class WarehouseVacantViewModel {
           'volumeWeightKgWarehouse',
           'weightFinalAccountingKgWarehouse',
           'isShippingLabelAttachedByStorekeeper',
-          // 'images' КАК РАЗРЕШАТЬ ЭТО ПОЛЕ - РАСКОММЕНТИРОВАТЬ
+          'images',
         ]),
       }
 
@@ -204,8 +215,6 @@ export class WarehouseVacantViewModel {
 
       if (photos.length > 0) {
         await this.onSubmitPostImages({images: photos, type: 'imagesOfTask'})
-
-        comment = comment + '\n' + this.imagesOfTask.join(' \n ')
       }
 
       await this.updateTask(this.selectedTask._id, TaskStatus.SOLVED, comment)
@@ -228,6 +237,7 @@ export class WarehouseVacantViewModel {
       await StorekeeperModel.updateTask(taskId, {
         status: mapTaskStatusEmumToKey[status],
         storekeeperComment: comment || '',
+        images: this.imagesOfTask || [],
       })
     } catch (error) {
       console.log(error)

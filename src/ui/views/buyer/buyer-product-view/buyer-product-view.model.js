@@ -1,9 +1,10 @@
 import {action, makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatusByKey} from '@constants/product-status'
+import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
 
 import {BuyerModel} from '@models/buyer-model'
+import {OtherModel} from '@models/other-model'
 import {SupplierModel} from '@models/supplier-model'
 
 import {isNotUndefined, isUndefined} from '@utils/checks'
@@ -65,6 +66,10 @@ export class BuyerProductViewModel {
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
   showNoSuplierErrorModal = false
+
+  readyImages = []
+  progressValue = 0
+  showProgress = false
 
   formFields = {...formFieldsDefault}
 
@@ -190,7 +195,11 @@ export class BuyerProductViewModel {
         },
       )
 
-      if (updateProductData.currentSupplier) {
+      if (
+        updateProductData.currentSupplier ||
+        updateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]
+      ) {
+        console.log('updateProductData', updateProductData)
         await BuyerModel.updateProduct(this.product._id, updateProductData)
         this.history.push('/buyer/my-products')
       } else {
@@ -208,8 +217,49 @@ export class BuyerProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn(supplier) {
+  async onSubmitPostImages({images, type}) {
+    const loadingStep = 100 / images.length
+
+    this[type] = []
+    this.showProgress = true
+
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i]
+      await this.onPostImage(image, type)
+      this.progressValue = this.progressValue + loadingStep
+    }
+
+    this.showProgress = false
+    this.progressValue = 0
+  }
+
+  async onPostImage(imageData, imagesType) {
+    const formData = new FormData()
+    formData.append('filename', imageData)
+
     try {
+      const imageFile = await OtherModel.postImage(formData)
+
+      this[imagesType].push('https://api1.kurakste.ru/uploads/' + imageFile.data.fileName)
+    } catch (error) {
+      this.error = error
+    }
+  }
+
+  async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
+    try {
+      await this.onSubmitPostImages({images: photosOfSupplier, type: 'readyImages'})
+
+      supplier = {
+        ...supplier,
+        amount: parseFloat(supplier?.amount) || '',
+        delivery: parseFloat(supplier?.delivery) || '',
+        lotcost: parseFloat(supplier?.lotcost) || '',
+        minlot: parseInt(supplier?.minlot) || '',
+        price: parseFloat(supplier?.price) || '',
+        images: supplier.images.concat(this.readyImages),
+      }
+
       this.setActionStatus(loadingStatuses.isLoading)
       if (supplier._id) {
         const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
@@ -264,20 +314,9 @@ export class BuyerProductViewModel {
   }
 
   updateAutoCalculatedFields() {
-    const strBsr = this.product.bsr + ''
-    this.product.bsr = parseFloat(strBsr.replace(',', '.')) || 0
-
-    this.product.amazon = parseFloat(this.product.amazon) || 0
-    this.product.weight = parseFloat(this.product.weight) || 0
-    this.product.length = parseFloat(this.product.length) || 0
-    this.product.width = parseFloat(this.product.width) || 0
-    this.product.height = parseFloat(this.product.height) || 0
-    this.product.fbafee = parseFloat(this.product.fbafee) || 0
-    this.product.profit = parseFloat(this.product.profit) || 0
-
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
     this.product.maxDelivery = this.product.express ? (this.product.weight || 0) * 7 : (this.product.weight || 0) * 5
-    // что-то не то
+
     this.product.minpurchase =
       (parseFloat(this.product.amazon) || 0) -
       (parseFloat(this.product.totalFba) || 0) -

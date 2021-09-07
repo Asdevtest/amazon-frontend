@@ -63,4 +63,9 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '14px',
     textAlign: 'center',
   },
+  heightFieldAuto: {
+    height: 'auto',
+    maxWidth: '380px',
+    minWidth: '250px',
+  },
 }))

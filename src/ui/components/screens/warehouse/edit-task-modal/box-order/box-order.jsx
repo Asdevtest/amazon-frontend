@@ -26,7 +26,7 @@ export const BoxOrder = ({box, onSetBarcode}) => {
       <div className={classNames.fields}>
         <div>
           <Typography>{textConsts.amountLabel}</Typography>
-          <Input className={classNames.inputNumber} type="number" value={box.amount} />
+          <Input className={classNames.inputNumber} value={box.amount} />
         </div>
         <div>
           <Typography>{textConsts.materialLabel}</Typography>

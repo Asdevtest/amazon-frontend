@@ -91,15 +91,10 @@ export const navbarConfig = {
   [UserRole.BUYER]: [
     {icon: InboxOutlinedIcon, title: 'Товары', route: '/buyer/products', subtitles: null},
     {icon: InboxOutlinedIcon, title: 'Мои товары', route: '/buyer/my-products', subtitles: null},
-    {
-      icon: AssignmentIcon,
-      title: 'Заказы',
-      route: '/buyer/orders/my-orders',
-      subtitles: [
-        {subtitle: 'Мои заказы', subRoute: '/buyer/orders/my-orders'},
-        {subtitle: 'Свободные заказы', subRoute: '/buyer/orders/free-orders'},
-      ],
-    },
+
+    {icon: Work, title: 'Мои заказы', route: '/buyer/my-orders', subtitles: null},
+    {icon: AssignmentIcon, title: 'Свободные заказы', route: '/buyer/free-orders', subtitles: null},
+
     {icon: AllInboxIcon, title: 'Партии товаров', route: '/buyer/batches', subtitles: null},
     {
       icon: PeopleIcon,
@@ -161,13 +156,14 @@ export const navbarConfig = {
       title: 'Биржа товаров',
       route: '/admin/exchange',
       subtitles: [
+        {subtitle: 'Созданные', subRoute: '/admin/exchange'},
         {subtitle: 'Новые', subRoute: '/admin/exchange'},
-        {subtitle: 'Купленные', subRoute: '/admin/exchange'},
-        {subtitle: 'В поиске поставщика', subRoute: '/admin/exchange'},
+        {subtitle: 'Поиск поставщика', subRoute: '/admin/exchange'},
         {subtitle: 'В работе у байера', subRoute: '/admin/exchange'},
         {subtitle: 'Поставщик найден', subRoute: '/admin/exchange'},
         {subtitle: 'Поставщик не найден', subRoute: '/admin/exchange'},
         {subtitle: 'Цена выше МЗЦ', subRoute: '/admin/exchange'},
+        {subtitle: 'Опубликованные', subRoute: '/admin/exchange'},
         {subtitle: 'Отклоненные', subRoute: '/admin/exchange'},
       ],
     },

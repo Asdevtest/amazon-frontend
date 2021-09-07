@@ -24,14 +24,12 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField}) 
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.lengthCmSupplier}
           value={orderBox.lengthCmSupplier}
           onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
         />
         <Field
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.widthCmSupplier}
           value={orderBox.widthCmSupplier}
@@ -40,14 +38,12 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField}) 
       </div>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.heightCmSupplier}
           value={orderBox.heightCmSupplier}
           onChange={setFormField('heightCmSupplier', orderBoxIndex)}
         />
         <Field
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.weighGrossKgSupplier}
           value={orderBox.weighGrossKgSupplier}
@@ -57,7 +53,6 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField}) 
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           disabled
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.volumeWeightKgSupplier}
           value={orderBox.volumeWeightKgSupplier}
@@ -65,7 +60,6 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField}) 
         />
         <Field
           disabled
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.weightFinalAccountingKgSupplier}
           value={orderBox.weightFinalAccountingKgSupplier}
@@ -74,15 +68,8 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField}) 
       </div>
 
       <div className={classNames.numberInputFieldsWrapper}>
+        <Field disabled containerClasses={classNames.numberInputField} label={textConsts.amountOfSubBoxes} value={1} />
         <Field
-          disabled
-          type="number"
-          containerClasses={classNames.numberInputField}
-          label={textConsts.amountOfSubBoxes}
-          value={1}
-        />
-        <Field
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.amountIfItemsInBox}
           value={orderBox.items[0].amount}
@@ -97,12 +84,12 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
   const classNames = useClassNames()
 
   const sourceBox = {
-    lengthCmSupplier: formItem?.lengthCmSupplier || 0,
-    widthCmSupplier: formItem?.widthCmSupplier || 0,
-    heightCmSupplier: formItem?.heightCmSupplier || 0,
-    weighGrossKgSupplier: formItem?.weighGrossKgSupplier || 0,
-    volumeWeightKgSupplier: formItem?.volumeWeightKgSupplier || 0,
-    weightFinalAccountingKgSupplier: formItem?.weightFinalAccountingKgSupplier || 0,
+    lengthCmSupplier: formItem?.lengthCmSupplier || '',
+    widthCmSupplier: formItem?.widthCmSupplier || '',
+    heightCmSupplier: formItem?.heightCmSupplier || '',
+    weighGrossKgSupplier: formItem?.weighGrossKgSupplier || '',
+    volumeWeightKgSupplier: formItem?.volumeWeightKgSupplier || '',
+    weightFinalAccountingKgSupplier: formItem?.weightFinalAccountingKgSupplier || '',
     warehouse: formItem?.warehouse || '',
     deliveryMethod: formItem?.deliveryMethod || '',
     amount: 1,
@@ -118,12 +105,12 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
   const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
 
   const setFormField = (fieldName, orderBoxIndex) => e => {
-    if (Number(e.target.value) < 0) {
+    if (isNaN(e.target.value) || Number(e.target.value) < 0) {
       return
     }
 
     const newFormFields = {...formFieldsArr[orderBoxIndex]}
-    newFormFields[fieldName] = Number(e.target.value)
+    newFormFields[fieldName] = e.target.value
     newFormFields.volumeWeightKgSupplier =
       ((parseFloat(newFormFields.lengthCmSupplier) || 0) *
         (parseFloat(newFormFields.heightCmSupplier) || 0) *
@@ -139,7 +126,7 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
   }
 
   const setAmountField = orderBoxIndex => e => {
-    if (Number(e.target.value) < 1) {
+    if (isNaN(e.target.value) || Number(e.target.value) < 0) {
       return
     }
 
@@ -149,7 +136,7 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
       items: [
         {
           ...newStateFormFields[orderBoxIndex].items[0],
-          amount: e.target.value,
+          amount: Number(e.target.value),
         },
       ],
     }

@@ -3,7 +3,6 @@ import {useState} from 'react'
 import {Button, Chip, Divider, NativeSelect, TableCell, TableRow, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
-import Carousel from 'react-material-ui-carousel'
 
 import {
   DeliveryType,
@@ -21,9 +20,9 @@ import {Input} from '@components/input'
 import {LabelField} from '@components/label-field/label-field'
 import {Modal} from '@components/modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
+import {ShowBigImagesModal} from '@components/modals/show-big-images-modal'
 import {Table} from '@components/table'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {trimBarcode} from '@utils/text'
@@ -41,14 +40,12 @@ const WarehouseDemensions = ({orderBox}) => {
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           disabled
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.lengthCmWarehouse}
           value={orderBox.lengthCmWarehouse || 0}
         />
         <Field
           disabled
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.widthCmWarehouse}
           value={orderBox.widthCmWarehouse || 0}
@@ -57,14 +54,12 @@ const WarehouseDemensions = ({orderBox}) => {
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           disabled
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.heightCmWarehouse}
           value={orderBox.heightCmWarehouse || 0}
         />
         <Field
           disabled
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.weighGrossKgWarehouse}
           value={orderBox.weighGrossKgWarehouse || 0}
@@ -73,14 +68,12 @@ const WarehouseDemensions = ({orderBox}) => {
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           disabled
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.volumeWeightKgWarehouse}
           value={orderBox.volumeWeightKgWarehouse || 0}
         />
         <Field
           disabled
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.weightFinalAccountingKgWarehouse}
           value={orderBox.weightFinalAccountingKgWarehouse || 0}
@@ -288,7 +281,6 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
             rowsMax={6}
             label={'Комментарий склада'}
             placeholder={'Комментарий склада к задаче для клиента'}
-            // value={boxFields.items[0].order.storekeeperComment ? boxFields.items[0].order.storekeeperComment : ''} // пока не ясно откуда будет приходить коммент
           />
         </div>
       </div>
@@ -317,15 +309,12 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
         </Button>
       </div>
 
-      <Modal openModal={showPhotosModal} setOpenModal={() => setShowPhotosModal(!showPhotosModal)}>
-        <Carousel autoPlay={false} timeout={100} animation="fade">
-          {curPhotos.map((el, index) => (
-            <div key={index}>
-              <img alt="" className={classNames.imgBox} src={getAmazonImageUrl(el)} />
-            </div>
-          ))}
-        </Carousel>
-      </Modal>
+      <ShowBigImagesModal
+        isAmazone
+        openModal={showPhotosModal}
+        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        images={curPhotos}
+      />
 
       <Modal
         openModal={showSetShippingLabelModal}

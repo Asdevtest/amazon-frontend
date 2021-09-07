@@ -4,20 +4,20 @@ import {texts} from '@constants/texts'
 
 import {
   AsinCell,
-  BuyerCell,
   DateCell,
   PriceCell,
-  ResearcherCell,
-  SupplierCell,
-  renderFieldValueCell,
   SupervisorCell,
+  renderFieldValueCell,
+  ResearcherCell,
+  BuyerCell,
+  SupplierCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-const textConsts = getLocalizedTexts(texts, 'en').exchangeAllColumns
+const textConsts = getLocalizedTexts(texts, 'en').exchangeCheckingColumns
 
-export const exchangeAllColumns = () => [
+export const exchangePublishedColumns = () => [
   {
     field: 'asinCell',
     headerName: textConsts.asinField,
@@ -30,39 +30,10 @@ export const exchangeAllColumns = () => [
     renderCell: params => <PriceCell params={params} />,
     width: 150,
   },
-  {
-    field: 'researcher',
-    headerName: textConsts.researcherField,
-    renderCell: params => <ResearcherCell params={params} />,
-    width: 150,
-  },
-  {
-    field: 'supervisor',
-    headerName: textConsts.supervisorField,
-    renderCell: params => <SupervisorCell params={params} />,
-    width: 150,
-  },
-  {
-    field: 'buyer',
-    headerName: textConsts.buyerField,
-    renderCell: params => <BuyerCell params={params} />,
-    width: 150,
-  },
-  {
-    field: 'currentSupplier',
-    headerName: textConsts.supplierField,
-    renderCell: params => <SupplierCell params={params} />,
-    width: 150,
-  },
+
   {
     field: 'createdat',
     headerName: textConsts.createDateField,
-    renderCell: params => <DateCell params={params} />,
-    width: 150,
-  },
-  {
-    field: 'checkedat',
-    headerName: textConsts.checkDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
   },
@@ -72,6 +43,32 @@ export const exchangeAllColumns = () => [
     renderCell: params => <DateCell params={params} />,
     width: 150,
   },
+
+  {
+    field: 'createdby',
+    headerName: textConsts.researcherField,
+    renderCell: params => <ResearcherCell params={params} />,
+    width: 200,
+  },
+  {
+    field: 'supervisor',
+    headerName: textConsts.supervisorField,
+    renderCell: params => <SupervisorCell params={params} />,
+    width: 200,
+  },
+  {
+    field: 'buyer',
+    headerName: textConsts.buyerField,
+    renderCell: params => <BuyerCell params={params} />,
+    width: 200,
+  },
+  {
+    field: 'currentSupplier',
+    headerName: textConsts.supplierField,
+    renderCell: params => <SupplierCell params={params} />,
+    width: 150,
+  },
+
   {
     field: 'profit',
     headerName: textConsts.profitField,

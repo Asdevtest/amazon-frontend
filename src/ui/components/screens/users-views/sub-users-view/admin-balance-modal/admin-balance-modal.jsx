@@ -26,7 +26,7 @@ const replenishSelectOptions = [
 
 export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSubmit}) => {
   const classNames = useClassNames()
-  const [balanceValue, setBalanceValue] = useState(0)
+  const [balanceValue, setBalanceValue] = useState('')
   const [reasonValue, setReasonValue] = useState(
     isWithdraw ? textConsts.widthdrawOptionFine : textConsts.replenishOptionReplenish,
   )
@@ -84,9 +84,9 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
         <Field
           label={textConsts.balanceLabel}
           value={balanceValue}
-          type="number"
-          min="0"
-          onChange={e => setBalanceValue(parseFloat(e.target.value))}
+          onChange={e => {
+            !(isNaN(e.target.value) || Number(e.target.value) < 0) && setBalanceValue(e.target.value)
+          }}
         />
         <Field
           containerClasses={classNames.field}

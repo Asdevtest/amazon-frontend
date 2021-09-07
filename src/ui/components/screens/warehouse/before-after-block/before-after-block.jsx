@@ -117,34 +117,65 @@ const Box = ({
         </Paper>
       )}
 
-      <Paper className={classNames.demensionsWrapper}>
-        <Typography className={classNames.categoryTitle}>{textConsts.demensions}</Typography>
-        <Typography>
-          {textConsts.length}
-          {box.lengthCmWarehouse}
-        </Typography>
-        <Typography>
-          {textConsts.width}
-          {box.widthCmWarehouse}
-        </Typography>
-        <Typography>
-          {textConsts.height}
-          {box.heightCmWarehouse}
-        </Typography>
+      {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
+        <Paper className={classNames.demensionsWrapper}>
+          <Typography className={classNames.categoryTitle}>{textConsts.demensionsSupplier}</Typography>
+          <Typography>
+            {textConsts.length}
+            {box.lengthCmSupplier}
+          </Typography>
+          <Typography>
+            {textConsts.width}
+            {box.widthCmSupplier}
+          </Typography>
+          <Typography>
+            {textConsts.height}
+            {box.heightCmSupplier}
+          </Typography>
 
-        <Typography>
-          {textConsts.weight}
-          {box.weighGrossKgWarehouse}
-        </Typography>
-        <Typography>
-          {textConsts.volumeWeigh}
-          {box.volumeWeightKgWarehouse}
-        </Typography>
-        <Typography>
-          {textConsts.finalWeight}
-          {box.weightFinalAccountingKgWarehouse}
-        </Typography>
-      </Paper>
+          <Typography>
+            {textConsts.weight}
+            {box.weighGrossKgSupplier}
+          </Typography>
+          <Typography>
+            {textConsts.volumeWeigh}
+            {box.volumeWeightKgSupplier}
+          </Typography>
+          <Typography>
+            {textConsts.finalWeight}
+            {box.weightFinalAccountingKgSupplier}
+          </Typography>
+        </Paper>
+      ) : (
+        <Paper className={classNames.demensionsWrapper}>
+          <Typography className={classNames.categoryTitle}>{textConsts.demensionsWarehouse}</Typography>
+          <Typography>
+            {textConsts.length}
+            {box.lengthCmWarehouse}
+          </Typography>
+          <Typography>
+            {textConsts.width}
+            {box.widthCmWarehouse}
+          </Typography>
+          <Typography>
+            {textConsts.height}
+            {box.heightCmWarehouse}
+          </Typography>
+
+          <Typography>
+            {textConsts.weight}
+            {box.weighGrossKgWarehouse}
+          </Typography>
+          <Typography>
+            {textConsts.volumeWeigh}
+            {box.volumeWeightKgWarehouse}
+          </Typography>
+          <Typography>
+            {textConsts.finalWeight}
+            {box.weightFinalAccountingKgWarehouse}
+          </Typography>
+        </Paper>
+      )}
 
       <div>
         <div className={classNames.chipWrapper}>
@@ -362,7 +393,8 @@ export const BeforeAfterBlock = observer(
           </div>
         )}
 
-        {currentBoxes && currentBoxes.map((box, boxIndex) => <Box key={boxIndex} isCurrentBox box={box} />)}
+        {currentBoxes &&
+          currentBoxes.map((box, boxIndex) => <Box key={boxIndex} isCurrentBox box={box} taskType={taskType} />)}
       </div>
     )
 

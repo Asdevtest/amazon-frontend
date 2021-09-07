@@ -73,8 +73,17 @@ export const EditOrderModal = ({
 
   const setOrderField = filedName => e => {
     const newOrderFieldsState = {...orderFields}
-    newOrderFieldsState[filedName] =
-      filedName === 'deliveryCostToTheWarehouse' ? parseInt(e.target.value.match(/\d+/)) : e.target.value
+
+    if (['totalPriceChanged'].includes(filedName)) {
+      if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+        return
+      }
+      newOrderFieldsState[filedName] = e.target.value
+    } else {
+      newOrderFieldsState[filedName] =
+        filedName === 'deliveryCostToTheWarehouse' ? parseInt(e.target.value.match(/\d+/)) : e.target.value
+    }
+
     if (filedName === 'status') {
       setShowCreateOrEditBoxBlock(() => !!orderStatusesThatTriggersEditBoxBlock.includes(parseInt(e.target.value)))
     }

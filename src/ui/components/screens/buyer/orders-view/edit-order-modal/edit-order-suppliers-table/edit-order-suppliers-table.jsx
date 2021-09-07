@@ -1,10 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
+
+import {Button} from '@components/buttons/button'
+import {ShowBigImagesModal} from '@components/modals/show-big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {priceCalculation} from '@utils/price-calculation'
@@ -16,6 +19,8 @@ const textConsts = getLocalizedTexts(texts, 'ru').editOrderSuppliersTable
 
 export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) => {
   const classNames = useClassNames()
+
+  const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   return (
     <TableContainer className={classNames.table}>
@@ -57,6 +62,24 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                   {withDollarSign(priceCalculation(supplier.price, supplier.delivery, supplier.amount))}
                 </TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.comment}</TableCell>
+                <TableCell>
+                  <Button
+                    disableElevation
+                    disabled={!supplier.images || supplier.images < 1}
+                    color="primary"
+                    className={classNames.button}
+                    variant="contained"
+                    onClick={() => setShowPhotosModal(!showPhotosModal)}
+                  >
+                    {'Фотографии'}
+                  </Button>
+                </TableCell>
+                <ShowBigImagesModal
+                  isAmazone
+                  openModal={showPhotosModal}
+                  setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+                  images={supplier.images || []}
+                />
               </TableRow>
             ))
           ) : (

@@ -13,6 +13,7 @@ import {UserRole} from '@constants/user-roles'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
+import {Field} from '@components/field'
 import {EditBoxForm} from '@components/forms/edit-box-form'
 import {SendOwnProductForm} from '@components/forms/send-own-product-form'
 import {Main} from '@components/main'
@@ -47,6 +48,7 @@ export class ClientWarehouseViewRaw extends Component {
 
   render() {
     const {
+      tmpClientComment,
       curOpenedTask,
       tasksMy,
       drawerOpen,
@@ -55,6 +57,7 @@ export class ClientWarehouseViewRaw extends Component {
       boxesMy,
       history,
       selectedBoxes,
+      showMergeBoxModal,
       showTaskInfoModal,
       showSendOwnProductModal,
       showEditBoxModal,
@@ -74,6 +77,8 @@ export class ClientWarehouseViewRaw extends Component {
       cancelSplitBoxes,
       cancelEditBoxes,
       setCurrentOpenedTask,
+      setTmpClientComment,
+      onClickMerge,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -169,6 +174,37 @@ export class ClientWarehouseViewRaw extends Component {
           </div>
         </Modal>
 
+        <Modal openModal={showMergeBoxModal} setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}>
+          <Typography variant="h5">{textConsts.modalMergeTitle}</Typography>
+          <Field
+            multiline
+            className={classNames.heightFieldAuto}
+            rows={4}
+            rowsMax={6}
+            label={textConsts.modalMergeFieldLabel}
+            value={tmpClientComment}
+            onChange={e => setTmpClientComment(e)}
+          />
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classNames.button}
+              onClick={() => onClickMerge(operationTypes.MERGE, tmpClientComment)}
+            >
+              {textConsts.modalMergeMergeBtn}
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classNames.button}
+              onClick={() => onTriggerOpenModal('showMergeBoxModal')}
+            >
+              {textConsts.modalMergeCancelBtn}
+            </Button>
+          </div>
+        </Modal>
+
         <TaskInfoModal
           openModal={showTaskInfoModal}
           setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
@@ -217,7 +253,7 @@ export class ClientWarehouseViewRaw extends Component {
   )
 
   renderButtons = () => {
-    const {selectedBoxes, isMasterBoxSelected, onTriggerOpenModal, onClickMerge, onResetselectedBoxes} = this.viewModel
+    const {selectedBoxes, isMasterBoxSelected, onTriggerOpenModal, onResetselectedBoxes} = this.viewModel
     return (
       <React.Fragment>
         <Button disableElevation color="primary" variant="contained">
@@ -229,7 +265,7 @@ export class ClientWarehouseViewRaw extends Component {
           disabled={selectedBoxes.length <= 1 || isMasterBoxSelected}
           color="primary"
           variant="contained"
-          onClick={() => onClickMerge(operationTypes.MERGE)}
+          onClick={() => onTriggerOpenModal('showMergeBoxModal')}
         >
           {textConsts.mergeBtn}
         </Button>

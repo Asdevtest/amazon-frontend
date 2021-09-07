@@ -144,12 +144,15 @@ export const useClassNames = makeStyles(() => ({
       opacity: '0.7',
     },
   },
+  inputWaitFileWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
   fileInput: {
     display: 'none',
-    // opacity: '0',
-    // overflow: 'hidden',
-    // zIndex: '-1'
   },
 
   filesInputList: {
@@ -161,5 +164,12 @@ export const useClassNames = makeStyles(() => ({
 
   filesInputListItem: {
     padding: '0',
+  },
+  buttonsWrapper: {
+    display: 'flex',
+    marginTop: '15px',
+  },
+  button: {
+    marginRight: '10px',
   },
 }))

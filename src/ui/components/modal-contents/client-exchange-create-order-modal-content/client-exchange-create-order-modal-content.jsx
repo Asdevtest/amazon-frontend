@@ -33,7 +33,17 @@ const ClientExchnageCreateOrderModalContentRaw = observer(
 
     const setOderField = fieldName => e => {
       const newOrderFields = {...orderFields}
-      newOrderFields[fieldName] = e.target.value
+
+      if (['amount'].includes(fieldName)) {
+        if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+          return
+        }
+
+        newOrderFields[fieldName] = e.target.value
+      } else {
+        newOrderFields[fieldName] = e.target.value
+      }
+
       setOderFields(newOrderFields)
     }
 
@@ -73,7 +83,8 @@ const ClientExchnageCreateOrderModalContentRaw = observer(
               orderFields.warehouse === '' ||
               orderFields.deliveryMethod === 'none' ||
               orderFields.warehouse === 'none' ||
-              orderFields.amount <= 0
+              Number(orderFields.amount) <= 0 ||
+              !Number.isInteger(Number(orderFields.amount))
             }
             onClick={() => onClickOrderNowBtn(product, orderFields)}
           >

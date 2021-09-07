@@ -12,8 +12,9 @@ import {styles} from './modal-table-body-row.style'
 
 const ModalTableBodyRowRaw = ({product, managersList, ...restProps}) => {
   const classNames = restProps.classes
+
   const [qty, setQty] = useState(product.qty)
-  const handleInput = e => setQty(e.target.value)
+
   return (
     <TableRow>
       <TableCell className={classNames.imgCell}>
@@ -27,11 +28,9 @@ const ModalTableBodyRowRaw = ({product, managersList, ...restProps}) => {
       </TableCell>
       <TableCell>
         <Input
-          type="number"
           value={qty}
-          inputProps={{min: 0}}
           className={classNames.countCell}
-          onChange={e => handleInput(e)}
+          onChange={e => !(isNaN(e.target.value) || Number(e.target.value) < 0) && setQty(parseFloat(e.target.value))}
         />
       </TableCell>
       <TableCell className={classNames.avgPriceCell}>

@@ -2,15 +2,18 @@ import React, {useState} from 'react'
 
 import {Container, Divider, IconButton, TableCell, TableRow, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import {transformAndValidate} from 'class-transformer-validator'
 
 import {texts} from '@constants/texts'
 
+import {BoxesWarehouseReceiveBoxModalContract} from '@models/boxes-model/boxes-model.contracts'
+
 import {Button} from '@components/buttons/button'
 import {Input} from '@components/input'
+import {ErrorInfoModal} from '@components/modals/error-info-modal'
 import {Table} from '@components/table'
 import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
-import {filterEmptyBoxes, filterEmptyOrders} from '@utils/filters'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -57,7 +60,6 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.qtyCell}>
         <Input
           classes={{root: classNames.inputWrapper, input: classNames.input}}
-          type="number"
           value={item.items[0].amount}
           onChange={e => handlers.onChangeQtyInput(e, item._id, item.items[0].order)}
         />
@@ -66,7 +68,6 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       <TableCell>
         <Input
           classes={{root: classNames.inputWrapper, input: classNames.input}}
-          type="number"
           value={item.amount}
           onChange={e => handlers.onChangeFieldInput(e, item._id, 'amount')}
         />
@@ -76,7 +77,6 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
         <Input
           disabled
           classes={{root: classNames.inputWrapper, input: classNames.input}}
-          type="number"
           value={item.items[0].amount * item.amount}
         />
       </TableCell>
@@ -86,7 +86,6 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           <Typography>{'H:'}</Typography>
           <Input
             classes={{root: classNames.inputWrapper, input: classNames.input}}
-            type="number"
             value={item.heightCmWarehouse}
             onChange={e => handlers.onChangeFieldInput(e, item._id, 'heightCmWarehouse')}
           />
@@ -95,7 +94,6 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           <Typography>{'W:'}</Typography>
           <Input
             classes={{root: classNames.inputWrapper, input: classNames.input}}
-            type="number"
             value={item.widthCmWarehouse}
             onChange={e => handlers.onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
           />
@@ -104,7 +102,6 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           <Typography>{'L:'}</Typography>
           <Input
             classes={{root: classNames.inputWrapper, input: classNames.input}}
-            type="number"
             value={item.lengthCmWarehouse}
             onChange={e => handlers.onChangeFieldInput(e, item._id, 'lengthCmWarehouse')}
           />
@@ -113,7 +110,6 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       <TableCell>
         <Input
           classes={{root: classNames.inputWrapper, input: classNames.input}}
-          type="number"
           value={item.weighGrossKgWarehouse}
           onChange={e => handlers.onChangeFieldInput(e, item._id, 'weighGrossKgWarehouse')}
         />
@@ -160,8 +156,9 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox})
 
 export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => {
   const classNames = useClassNames()
+  const [showNoDimensionsErrorModal, setShowNoDimensionsErrorModal] = useState(false)
 
-  const emptyProducts = selectedBox.items.map(product => ({...product, amount: 0}))
+  const emptyProducts = selectedBox.items.map(product => ({...product, amount: ''}))
   const getEmptyBox = () => ({...selectedBox, _id: 'new_id_' + Date.now(), items: emptyProducts, amount: 1})
   const emptyBox = getEmptyBox()
   const emptyBoxWithDemensions = {
@@ -182,11 +179,13 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
     selectedBox.items.reduce((acc, order) => acc + order.amount * selectedBox.amount, 0) - actuallyAssembled
 
   const onChangeFieldInput = (e, _id, field) => {
-    if (Number(e.target.value) < 0) {
+    if (isNaN(e.target.value) || Number(e.target.value) < 0) {
       return
     }
     const targetBox = newBoxes.filter(box => box._id === _id)[0]
-    const updatedTargetBox = {...targetBox, [field]: Number(e.target.value)}
+
+    const updatedTargetBox =
+      field === 'amount' ? {...targetBox, [field]: Number(e.target.value)} : {...targetBox, [field]: e.target.value}
 
     updatedTargetBox.volumeWeightKgWarehouse =
       ((parseFloat(updatedTargetBox.lengthCmWarehouse) || 0) *
@@ -203,7 +202,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
   }
 
   const onChangeQtyInput = (e, _id, order) => {
-    if (Number(e.target.value) < 0) {
+    if (isNaN(e.target.value) || Number(e.target.value) < 0) {
       return
     }
     const targetBox = newBoxes.filter(box => box._id === _id)[0]
@@ -223,13 +222,32 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
     setNewBoxes(updatedNewBoxes)
   }
 
-  const onClickRedistributeBtn = () => {
-    const newBoxesWithoutEmptyBox = filterEmptyBoxes(newBoxes)
-    const newBoxesWithoutEmptyOrders = filterEmptyOrders(newBoxesWithoutEmptyBox)
-    setSourceBoxes([...newBoxesWithoutEmptyOrders])
-    setOpenModal()
-  }
+  const onClickRedistributeBtn = async () => {
+    try {
+      const newBoxesWithoutEmptyBoxes = newBoxes.filter(el => el.items[0].amount !== (0 || ''))
 
+      const newBoxesWithoutNumberFields = newBoxesWithoutEmptyBoxes.map(el => ({
+        ...el,
+        lengthCmWarehouse: parseFloat(el?.lengthCmWarehouse) || '',
+        widthCmWarehouse: parseFloat(el?.widthCmWarehouse) || '',
+        heightCmWarehouse: parseFloat(el?.heightCmWarehouse) || '',
+        weighGrossKgWarehouse: parseFloat(el?.weighGrossKgWarehouse) || '',
+        volumeWeightKgWarehouse: parseFloat(el?.volumeWeightKgWarehouse) || '',
+        weightFinalAccountingKgWarehouse: parseFloat(el?.weightFinalAccountingKgWarehouse) || '',
+      }))
+
+      for (let i = 0; i < newBoxesWithoutNumberFields.length; i++) {
+        const box = newBoxesWithoutNumberFields[i]
+
+        await transformAndValidate(BoxesWarehouseReceiveBoxModalContract, box)
+      }
+
+      setSourceBoxes([...newBoxesWithoutNumberFields])
+      setOpenModal()
+    } catch (error) {
+      setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)
+    }
+  }
   const CurrentBox = () => (
     <div className={classNames.currentBox}>
       <Typography className={classNames.sectionTitle}>{textConsts.redistributionTitle}</Typography>
@@ -287,7 +305,6 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
       <div className={classNames.buttonsWrapper}>
         <Button
           variant="text"
-          // disabled={totalProductsAmount !== 0} сняты ограничения для китайцев
           onClick={() => {
             onClickRedistributeBtn()
           }}
@@ -295,7 +312,6 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
           {textConsts.toRedistributeBtn}
         </Button>
         <Button
-          // disabled={totalProductsAmount < 1} сняты ограничения для китайцев
           variant="text"
           onClick={() => {
             setNewBoxes(newBoxes.concat(getEmptyBox()))
@@ -312,6 +328,15 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
           {textConsts.cancelBtn}
         </Button>
       </div>
+      <ErrorInfoModal
+        openModal={showNoDimensionsErrorModal}
+        setOpenModal={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
+        title={textConsts.dimensionsMessage}
+        btnText={textConsts.okBtn}
+        onClickBtn={() => {
+          setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)
+        }}
+      />
     </Container>
   )
 }

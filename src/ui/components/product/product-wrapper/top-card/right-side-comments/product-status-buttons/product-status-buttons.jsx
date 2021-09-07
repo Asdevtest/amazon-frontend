@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {Box, Grid} from '@material-ui/core'
@@ -19,14 +20,14 @@ export const ProductStatusButtons = ({buttonsConfig, productStatus, onClickButto
     return <div />
   }
 
-  const isSaveWithoutStatusChipSelected = [
-    ProductStatus.NEW_PRODUCT,
-    ProductStatus.RESEARCHER_FOUND_SUPPLIER,
-    ProductStatus.BUYER_FOUND_SUPPLIER,
-    ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
-    ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-    ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP,
-  ].includes(ProductStatusByCode[productStatus])
+  // const isSaveWithoutStatusChipSelected = [ //похоже не нужно
+  //   ProductStatus.NEW_PRODUCT,
+  //   ProductStatus.RESEARCHER_FOUND_SUPPLIER,
+  //   ProductStatus.BUYER_FOUND_SUPPLIER,
+  //   ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
+  //   ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
+  //   ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP
+  // ].includes(ProductStatusByCode[productStatus])
   return (
     <Box marginBottom={2}>
       <Grid container spacing={1}>
@@ -47,7 +48,7 @@ export const ProductStatusButtons = ({buttonsConfig, productStatus, onClickButto
               label={textConfig.saveWithoutStatusBtn}
               color={saveWithoutStatusBtnColor}
               colorHover={saveWithoutStatusBtnColorHover}
-              selected={isSaveWithoutStatusChipSelected}
+              // selected={isSaveWithoutStatusChipSelected} //похоже не нужно
               onClick={onClickSaveWithoutStatusChange}
             />
           </Grid>

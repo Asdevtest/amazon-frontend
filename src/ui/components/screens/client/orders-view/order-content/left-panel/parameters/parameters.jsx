@@ -31,7 +31,16 @@ export const Parameters = ({order, collapsed}) => {
         <OrderParameter label={textConsts.minPrice} value={order.product.minpurchase} />
         <OrderParameter label={textConsts.qty} value={order.amount} />
         <OrderParameter label={textConsts.minBuyPrice} value={toFixed(order.product.currentSupplier.price)} />
-        <OrderParameter label={textConsts.supplier} value={order.product.currentSupplier.link} />
+
+        <TableRow>
+          <TableCell className={classNames.parameterTableCell}>
+            <Typography className={classNames.containerTitle}>{textConsts.supplier}</Typography>
+          </TableCell>
+          <TableCell className={classNames.parameterTableCell}>
+            <Typography className={classNames.scrollingText}>{toFixed(order.product.currentSupplier.link)}</Typography>
+          </TableCell>
+        </TableRow>
+
         <OrderParameter label={textConsts.maxDeliveryPrice} value={toFixed(order.product.currentSupplier.delivery)} />
         <OrderParameter
           label={textConsts.sizes}
@@ -52,7 +61,7 @@ export const Parameters = ({order, collapsed}) => {
             <Typography className={classNames.containerTitle}>{'Баркод'}</Typography>
           </TableCell>
           <TableCell className={classNames.parameterTableCell}>
-            <Typography className={classNames.barCodeText}>{order.product.barCode}</Typography>
+            <Typography className={classNames.scrollingText}>{order.product.barCode}</Typography>
           </TableCell>
         </TableRow>
 

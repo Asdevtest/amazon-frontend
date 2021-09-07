@@ -8,7 +8,9 @@ const textConfigs = getLocalizedTexts(texts, 'ru').productStatusButtonsConfigs
 
 export const productStatusButtonsConfigs = {
   [UserRole.SUPERVISOR]: curStatus => {
-    if (
+    if (curStatus === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]) {
+      return
+    } else if (
       curStatus > ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] ||
       curStatus === ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER]
     ) {

@@ -30,8 +30,6 @@ export const OrderContent = ({order, deliveryOptions, boxes}) => {
   const theme = useTheme()
   const narrow = useMediaQuery(theme.breakpoints.down(MEDIA_SCALE_POINTS))
 
-  console.log('order', order)
-
   return (
     <Paper>
       <Container disableGutters maxWidth={false}>

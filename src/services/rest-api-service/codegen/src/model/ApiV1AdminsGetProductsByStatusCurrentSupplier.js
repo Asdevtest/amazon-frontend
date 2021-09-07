@@ -11,7 +11,7 @@
  *
  */
 
-import ApiClient from '../ApiClient';
+import ApiClient from '../ApiClient'
 
 /**
  * The ApiV1AdminsGetProductsByStatusCurrentSupplier model module.
@@ -19,7 +19,7 @@ import ApiClient from '../ApiClient';
  * @version v0.0.1
  */
 class ApiV1AdminsGetProductsByStatusCurrentSupplier {
-    /**
+  /**
      * Constructs a new <code>ApiV1AdminsGetProductsByStatusCurrentSupplier</code>.
      * Новый поставщик.
      * @alias module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier
@@ -32,130 +32,134 @@ class ApiV1AdminsGetProductsByStatusCurrentSupplier {
      * @param lotcost {Number} Стоимость лота.
      * @param comment {String} Комментарий
      */
-    constructor(name, link, price, delivery, amount, minlot, lotcost, comment) { 
-        
-        ApiV1AdminsGetProductsByStatusCurrentSupplier.initialize(this, name, link, price, delivery, amount, minlot, lotcost, comment);
-    }
+  constructor(name, link, price, delivery, amount, minlot, lotcost, comment) {
+    ApiV1AdminsGetProductsByStatusCurrentSupplier.initialize(
+      this,
+      name,
+      link,
+      price,
+      delivery,
+      amount,
+      minlot,
+      lotcost,
+      comment
+    )
+  }
 
-    /**
+  /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, link, price, delivery, amount, minlot, lotcost, comment) { 
-        obj['name'] = name;
-        obj['link'] = link;
-        obj['price'] = price;
-        obj['delivery'] = delivery;
-        obj['amount'] = amount;
-        obj['minlot'] = minlot;
-        obj['lotcost'] = lotcost;
-        obj['comment'] = comment;
-    }
+  static initialize(obj, name, link, price, delivery, amount, minlot, lotcost, comment) {
+    obj['name'] = name
+    obj['link'] = link
+    obj['price'] = price
+    obj['delivery'] = delivery
+    obj['amount'] = amount
+    obj['minlot'] = minlot
+    obj['lotcost'] = lotcost
+    obj['comment'] = comment
+  }
 
-    /**
+  /**
      * Constructs a <code>ApiV1AdminsGetProductsByStatusCurrentSupplier</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier} obj Optional instance to populate.
      * @return {module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier} The populated <code>ApiV1AdminsGetProductsByStatusCurrentSupplier</code> instance.
      */
-    static constructFromObject(data, obj) {
-        if (data) {
-            obj = obj || new ApiV1AdminsGetProductsByStatusCurrentSupplier();
+  static constructFromObject(data, obj) {
+    if (data) {
+      obj = obj || new ApiV1AdminsGetProductsByStatusCurrentSupplier()
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
-            }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-        }
-        return obj;
+      if (data.hasOwnProperty('name')) {
+        obj['name'] = ApiClient.convertToType(data['name'], 'String')
+      }
+      if (data.hasOwnProperty('link')) {
+        obj['link'] = ApiClient.convertToType(data['link'], 'String')
+      }
+      if (data.hasOwnProperty('price')) {
+        obj['price'] = ApiClient.convertToType(data['price'], 'Number')
+      }
+      if (data.hasOwnProperty('delivery')) {
+        obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number')
+      }
+      if (data.hasOwnProperty('amount')) {
+        obj['amount'] = ApiClient.convertToType(data['amount'], 'Number')
+      }
+      if (data.hasOwnProperty('minlot')) {
+        obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number')
+      }
+      if (data.hasOwnProperty('lotcost')) {
+        obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number')
+      }
+      if (data.hasOwnProperty('comment')) {
+        obj['comment'] = ApiClient.convertToType(data['comment'], 'String')
+      }
+      if (data.hasOwnProperty('_id')) {
+        obj['_id'] = ApiClient.convertToType(data['_id'], 'String')
+      }
+      if (data.hasOwnProperty('images')) {
+        obj['images'] = ApiClient.convertToType(data['images'], 'Array')
+      }
     }
-
-
+    return obj
+  }
 }
 
 /**
  * Название поставщика.
  * @member {String} name
  */
-ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['name'] = undefined;
+ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['name'] = undefined
 
 /**
  * Ссылка на поставщика.
  * @member {String} link
  */
-ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['link'] = undefined;
+ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['link'] = undefined
 
 /**
  * Цена
  * @member {Number} price
  */
-ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['price'] = undefined;
+ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['price'] = undefined
 
 /**
  * Тип доставки
  * @member {Number} delivery
  */
-ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['delivery'] = undefined;
+ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['delivery'] = undefined
 
 /**
  * кол-во
  * @member {Number} amount
  */
-ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['amount'] = undefined;
+ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['amount'] = undefined
 
 /**
  * Минимальный лот.
  * @member {Number} minlot
  */
-ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['minlot'] = undefined;
+ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['minlot'] = undefined
 
 /**
  * Стоимость лота.
  * @member {Number} lotcost
  */
-ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['lotcost'] = undefined;
+ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['lotcost'] = undefined
 
 /**
  * Комментарий
  * @member {String} comment
  */
-ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['comment'] = undefined;
+ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['comment'] = undefined
 
 /**
  * GUID поставщика в БД
  * @member {String} _id
  */
-ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['_id'] = undefined;
+ApiV1AdminsGetProductsByStatusCurrentSupplier.prototype['_id'] = undefined
 
-
-
-
-
-
-export default ApiV1AdminsGetProductsByStatusCurrentSupplier;
-
+export default ApiV1AdminsGetProductsByStatusCurrentSupplier

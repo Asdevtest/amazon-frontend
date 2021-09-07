@@ -95,13 +95,13 @@ export const privateRoutesConfigs = [
     permission: [UserRole.BUYER],
   },
   {
-    routePath: '/buyer/orders/my-orders',
+    routePath: '/buyer/my-orders',
     component: BuyerMyOrdersView,
     exact: false,
     permission: [UserRole.BUYER],
   },
   {
-    routePath: '/buyer/orders/free-orders',
+    routePath: '/buyer/free-orders',
     component: BuyerFreeOrdersView,
     exact: false,
     permission: [UserRole.BUYER],

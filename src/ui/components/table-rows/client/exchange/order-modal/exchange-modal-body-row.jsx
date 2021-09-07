@@ -37,7 +37,7 @@ const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: c
     <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(product.currentSupplier.price)}</TableCell>
     <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(product.currentSupplier.delivery)}</TableCell>
     <TableCell>
-      <Input className={classNames.input} type="number" value={orderFields.amount} onChange={setOderField('amount')} />
+      <Input className={classNames.input} value={orderFields.amount} onChange={setOderField('amount')} />
     </TableCell>
     <TableCell className={classNames.alignRight}>{calcProductsPriceWithDelivery(product, orderFields)}</TableCell>
 

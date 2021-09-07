@@ -8,7 +8,11 @@ import {SupervisorModel} from '@models/supervisor-model'
 import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervisor-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
 
-import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {
+  getNewObjectWithDefaultValue,
+  getObjectFilteredByKeyArrayWhiteList,
+  getObjectFilteredByKeyArrayBlackList,
+} from '@utils/object'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
 const fieldsOfProductAllowedToUpdate = [
@@ -69,7 +73,6 @@ export class SupervisorProductViewModel {
   error = undefined
   actionStatus = undefined
 
-  productBase = undefined
   product = undefined
   suppliers = []
   drawerOpen = false
@@ -87,7 +90,6 @@ export class SupervisorProductViewModel {
         ...location.state.product,
         supplier: location.state.product.supplier.map(supplierItem => supplierItem._id),
       }
-      this.productBase = product
       this.product = product
       this.suppliers = location.state.product.supplier
     }
@@ -98,7 +100,17 @@ export class SupervisorProductViewModel {
   onChangeProductFields = fieldName =>
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
-      this.product[fieldName] = e.target.value
+
+      if (['checkednotes'].includes(fieldName)) {
+        this.product[fieldName] = e.target.value
+      } else {
+        if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+          return
+        }
+
+        this.product[fieldName] = e.target.value
+      }
+
       this.updateAutoCalculatedFields()
     })
 
@@ -110,21 +122,21 @@ export class SupervisorProductViewModel {
     }
   }
 
-  async handleProductActionButtons(actionType) {
+  async handleProductActionButtons(actionType, withoutStatus) {
     switch (actionType) {
       case 'accept':
-        this.onSaveProductData()
+        this.onSaveProductData(withoutStatus)
         break
       case 'cancel':
-        this.onResetInitialProductData()
+        this.history.push('/supervisor/products')
         break
     }
   }
 
-  async onSaveProductData() {
+  async onSaveProductData(withoutStatus) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
-      const updateProductData = getObjectFilteredByKeyArrayWhiteList(
+      let updateProductData = getObjectFilteredByKeyArrayWhiteList(
         this.product,
         fieldsOfProductAllowedToUpdate,
         false,
@@ -157,6 +169,9 @@ export class SupervisorProductViewModel {
           }
         },
       )
+      if (withoutStatus) {
+        updateProductData = getObjectFilteredByKeyArrayBlackList(updateProductData, ['status'])
+      }
 
       await transformAndValidate(SupervisorUpdateProductContract, updateProductData)
 
@@ -181,12 +196,6 @@ export class SupervisorProductViewModel {
         })
       }
     }
-  }
-
-  onResetInitialProductData() {
-    this.setActionStatus(loadingStatuses.isLoading)
-    this.product = this.productBase
-    this.setActionStatus(loadingStatuses.success)
   }
 
   onChangeSelectedSupplier(supplier) {
@@ -280,17 +289,6 @@ export class SupervisorProductViewModel {
   }
 
   updateAutoCalculatedFields() {
-    const strBsr = this.product.bsr + ''
-    this.product.bsr = parseFloat(strBsr.replace(',', '.')) || 0
-
-    this.product.amazon = parseFloat(this.product.amazon) || 0
-    this.product.weight = parseFloat(this.product.weight) || 0
-    this.product.length = parseFloat(this.product.length) || 0
-    this.product.width = parseFloat(this.product.width) || 0
-    this.product.height = parseFloat(this.product.height) || 0
-    this.product.fbafee = parseFloat(this.product.fbafee) || 0
-    this.product.profit = parseFloat(this.product.profit) || 0
-
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
 
     this.product.maxDelivery = this.product.express ? (this.product.weight || 0) * 7 : (this.product.weight || 0) * 5

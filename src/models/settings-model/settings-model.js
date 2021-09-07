@@ -1,19 +1,24 @@
 import {makeAutoObservable} from 'mobx'
+import {makePersistable} from 'mobx-persist-store'
 
-import {makePersistableModel} from '@utils/make-persistable-model'
+const persistProperties = ['dataGridState', 'activeSubCategoryState']
 
-const persistProperties = ['dataGridState']
-
+const stateModelName = 'SettingsModel'
 class SettingsModelStatic {
   dataGridState = {}
+  activeSubCategoryState = {}
 
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
-    makePersistableModel(this, {properties: persistProperties})
+    makePersistable(this, {name: stateModelName, properties: persistProperties})
   }
 
   setDataGridState(state, tableKey) {
     this.dataGridState = {...this.dataGridState, [tableKey]: state}
+  }
+
+  setActiveSubCategoryState(state, tableKey) {
+    this.activeSubCategoryState = {...this.activeSubCategoryState, [tableKey]: state}
   }
 }
 
