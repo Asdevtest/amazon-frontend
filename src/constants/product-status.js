@@ -6,6 +6,8 @@ import {objectFlip} from '@utils/object'
 export const ProductStatus = {
   NEW_PRODUCT: 'NEW_PRODUCT',
   RESEARCHER_FOUND_SUPPLIER: 'RESEARCHER_FOUND_SUPPLIER',
+  RESEARCHER_CREATED_PRODUCT: 'RESEARCHER_CREATED_PRODUCT',
+  CHEKED_BY_SUPERVISOR: 'CHEKED_BY_SUPERVISOR',
   REJECTED_BY_SUPERVISOR_AT_FIRST_STEP: 'REJECTED_BY_SUPERVISOR_AT_FIRST_STEP',
   BUYER_PICKED_PRODUCT: 'BUYER_PICKED_PRODUCT',
   TO_BUYER_FOR_RESEARCH: 'TO_BUYER_FOR_RESEARCH',
@@ -21,8 +23,10 @@ export const ProductStatus = {
 export const ProductStatusByCode = {
   // Товар после заведения в базе ресерчером получает этот статус. Ресечер может дополнительно сменить его на статус 30
   0: ProductStatus.NEW_PRODUCT,
+  5: ProductStatus.RESEARCHER_CREATED_PRODUCT,
   10: ProductStatus.RESEARCHER_FOUND_SUPPLIER,
   // Статусы, которые поставит супервайзер по итогам проверки
+  15: ProductStatus.CHEKED_BY_SUPERVISOR,
   20: ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP, // Если ставит этот статус - должны заплатить супервайзеру.
   30: ProductStatus.TO_BUYER_FOR_RESEARCH,
   35: ProductStatus.BUYER_PICKED_PRODUCT, // статус проставляется автоматически после того как баер взял товар в работу

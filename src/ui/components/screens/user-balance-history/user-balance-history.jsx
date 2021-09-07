@@ -22,38 +22,44 @@ export const UserBalanceHistory = ({historyData, title}) => {
         {title}
       </Typography>
       <Paper>
-        <TableContainer>
-          <Table className={classNames.table}>
-            <TableHead>
-              <TableRow>
-                <TableCell className={classNames.centerTextCell}>{textConsts.date}</TableCell>
-                <TableCell className={classNames.rightTextCell}>{textConsts.amount}</TableCell>
-                <TableCell className={classNames.centerTextCell}>{textConsts.type}</TableCell>
-                <TableCell className={classNames.centerTextCell}>{textConsts.comment}</TableCell>
-                <TableCell className={classNames.centerTextCell}>{textConsts.productId}</TableCell>
-                <TableCell className={classNames.centerTextCell}>{textConsts.username}</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {historyData.map((item, index) => (
-                <TableRow
-                  key={index}
-                  className={clsx({
-                    [classNames.replenishRow]: item.sum >= 0,
-                    [classNames.withdrawRow]: item.sum < 0,
-                  })}
-                >
-                  <TableCell className={classNames.dateCell}>{formatDateTimeWithParseISO(item.createdDate)}</TableCell>
-                  <TableCell className={classNames.amountCell}>{toFixedWithDollarSign(item.sum)}</TableCell>
-                  <TableCell className={classNames.typeCell}>{item.sum >= 0 ? 'replenish' : 'withdraw'}</TableCell>
-                  <TableCell className={classNames.commentCell}>{item.comment}</TableCell>
-                  <TableCell className={classNames.reasonCell}>{item.productId}</TableCell>
-                  <TableCell className={classNames.usernameCell}>{item.recipient.name}</TableCell>
+        {historyData.length > 0 ? (
+          <TableContainer>
+            <Table className={classNames.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell className={classNames.centerTextCell}>{textConsts.date}</TableCell>
+                  <TableCell className={classNames.rightTextCell}>{textConsts.amount}</TableCell>
+                  <TableCell className={classNames.centerTextCell}>{textConsts.type}</TableCell>
+                  <TableCell className={classNames.centerTextCell}>{textConsts.comment}</TableCell>
+                  <TableCell className={classNames.centerTextCell}>{textConsts.productId}</TableCell>
+                  <TableCell className={classNames.centerTextCell}>{textConsts.username}</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {historyData.map((item, index) => (
+                  <TableRow
+                    key={index}
+                    className={clsx({
+                      [classNames.replenishRow]: item.sum >= 0,
+                      [classNames.withdrawRow]: item.sum < 0,
+                    })}
+                  >
+                    <TableCell className={classNames.dateCell}>
+                      {formatDateTimeWithParseISO(item.createdDate)}
+                    </TableCell>
+                    <TableCell className={classNames.amountCell}>{toFixedWithDollarSign(item.sum)}</TableCell>
+                    <TableCell className={classNames.typeCell}>{item.sum >= 0 ? 'replenish' : 'withdraw'}</TableCell>
+                    <TableCell className={classNames.commentCell}>{item.comment}</TableCell>
+                    <TableCell className={classNames.reasonCell}>{item.productId}</TableCell>
+                    <TableCell className={classNames.usernameCell}>{item.recipient.name}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <Typography>{textConsts.noPayments}</Typography>
+        )}
       </Paper>
     </React.Fragment>
   )

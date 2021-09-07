@@ -20,12 +20,14 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '21px',
   },
 
-  barCodeText: {
+  scrollingText: {
     color: 'rgba(61, 81, 112, 1)',
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
-    maxWidth: '450px',
+    maxWidth: '300px',
     overflowX: 'scroll',
+    height: '45px',
+    whiteSpace: 'nowrap',
   },
 }))

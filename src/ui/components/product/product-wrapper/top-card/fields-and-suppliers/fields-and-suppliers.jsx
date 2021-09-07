@@ -46,35 +46,46 @@ export const FieldsAndSuppliers = observer(
               onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
             />
           </Box>
+
+          <Typography variant="h4" className={classNames.supplierTitle}>
+            {textConsts.supplierTitle}
+          </Typography>
           {!(checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) ? (
-            <Container disableGutters className={classNames.supplierContainer}>
-              <IconButton className={classNames.iconBtn} onClick={() => onClickSupplierBtns('add')}>
-                <AddIcon />
-              </IconButton>
-              {selectedSupplier ? (
-                <>
-                  <IconButton className={classNames.iconBtn} onClick={() => onClickSupplierBtns('edit')}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
-                    onClick={() => onClickSupplierBtns('delete')}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                  <IconButton
-                    className={clsx(classNames.iconBtn, classNames.iconBtnAccept, {
-                      [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
-                    })}
-                    onClick={() =>
-                      isSupplierAcceptRevokeActive ? onClickSupplierBtns('acceptRevoke') : onClickSupplierBtns('accept')
-                    }
-                  >
-                    {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
-                  </IconButton>
-                </>
-              ) : undefined}
-            </Container>
+            <div className={classNames.supplierActionsWrapper}>
+              <Typography variant="h6" className={classNames.supplierActionsTitle}>
+                {textConsts.supplierActionsTitle}
+              </Typography>
+              <Container disableGutters className={classNames.supplierContainer}>
+                <IconButton className={classNames.iconBtn} onClick={() => onClickSupplierBtns('add')}>
+                  <AddIcon />
+                </IconButton>
+                {selectedSupplier ? (
+                  <>
+                    <IconButton className={classNames.iconBtn} onClick={() => onClickSupplierBtns('edit')}>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
+                      onClick={() => onClickSupplierBtns('delete')}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton
+                      className={clsx(classNames.iconBtn, classNames.iconBtnAccept, {
+                        [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
+                      })}
+                      onClick={() =>
+                        isSupplierAcceptRevokeActive
+                          ? onClickSupplierBtns('acceptRevoke')
+                          : onClickSupplierBtns('accept')
+                      }
+                    >
+                      {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
+                    </IconButton>
+                  </>
+                ) : undefined}
+              </Container>
+            </div>
           ) : undefined}
           <TableSupplier
             product={product}

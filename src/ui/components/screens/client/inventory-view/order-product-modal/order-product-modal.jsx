@@ -38,7 +38,7 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
   const [orderState, setOrderState] = useState(
     selectedProductsData.map(product => ({
       status: 1,
-      amount: 0,
+      amount: 1,
       deliveryMethod: '',
       warehouse: '',
       clientComment: '',
@@ -50,7 +50,17 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
 
   const setOrderStateFiled = index => fieldsName => value => {
     const newStateOrderState = [...orderState]
-    newStateOrderState[index][fieldsName] = value
+
+    if (['amount'].includes(fieldsName)) {
+      if (isNaN(value) || Number(value) < 0) {
+        return
+      }
+
+      newStateOrderState[index][fieldsName] = value
+    } else {
+      newStateOrderState[index][fieldsName] = value
+    }
+
     setOrderState(newStateOrderState)
   }
 
@@ -106,7 +116,8 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
               order.warehouse === '' ||
               order.deliveryMethod === 'none' ||
               order.warehouse === 'none' ||
-              order.amount <= 0,
+              Number(order.amount) <= 0 ||
+              !Number.isInteger(Number(order.amount)),
           )}
           onClick={() => {
             onTriggerOpenModal('showOrderModal')

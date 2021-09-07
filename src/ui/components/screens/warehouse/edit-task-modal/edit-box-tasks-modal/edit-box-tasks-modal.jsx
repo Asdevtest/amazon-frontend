@@ -19,14 +19,12 @@ const AttributesEditBlock = ({box, setNewBoxField}) => {
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.lengthCmWarehouse}
           value={box.lengthCmWarehouse}
           onChange={setNewBoxField('lengthCmWarehouse')}
         />
         <Field
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.widthCmWarehouse}
           value={box.widthCmWarehouse}
@@ -35,14 +33,12 @@ const AttributesEditBlock = ({box, setNewBoxField}) => {
       </div>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.heightCmWarehouse}
           value={box.heightCmWarehouse}
           onChange={setNewBoxField('heightCmWarehouse')}
         />
         <Field
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.weighGrossKgWarehouse}
           value={box.weighGrossKgWarehouse}
@@ -52,7 +48,6 @@ const AttributesEditBlock = ({box, setNewBoxField}) => {
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           disabled
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.volumeWeightKgWarehouse}
           value={box.volumeWeightKgWarehouse}
@@ -60,7 +55,6 @@ const AttributesEditBlock = ({box, setNewBoxField}) => {
         />
         <Field
           disabled
-          type="number"
           containerClasses={classNames.numberInputField}
           label={textConsts.weightFinalAccountingKgWarehouse}
           value={box.weightFinalAccountingKgWarehouse}
@@ -77,11 +71,11 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
   const [editingBox, setEditingBox] = useState(box)
 
   const setNewBoxField = fieldName => e => {
-    if (Number(e.target.value) < 0) {
+    if (isNaN(e.target.value) || Number(e.target.value) < 0) {
       return
     }
     const newFormFields = {...editingBox}
-    newFormFields[fieldName] = Number(e.target.value)
+    newFormFields[fieldName] = e.target.value
     newFormFields.volumeWeightKgWarehouse =
       ((parseFloat(newFormFields.lengthCmWarehouse) || 0) *
         (parseFloat(newFormFields.heightCmWarehouse) || 0) *
@@ -104,7 +98,17 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
   }
 
   const onSubmith = () => {
-    const updatedNewBoxes = newBoxes.map(oldBox => (oldBox._id === editingBox._id ? editingBox : oldBox))
+    const lastStepEditBox = {
+      ...editingBox,
+      lengthCmWarehouse: parseFloat(editingBox?.lengthCmWarehouse) || '',
+      widthCmWarehouse: parseFloat(editingBox?.widthCmWarehouse) || '',
+      heightCmWarehouse: parseFloat(editingBox?.heightCmWarehouse) || '',
+      weighGrossKgWarehouse: parseFloat(editingBox?.weighGrossKgWarehouse) || '',
+      volumeWeightKgWarehouse: parseFloat(editingBox?.volumeWeightKgWarehouse) || '',
+      weightFinalAccountingKgWarehouse: parseFloat(editingBox?.weightFinalAccountingKgWarehouse) || '',
+    }
+
+    const updatedNewBoxes = newBoxes.map(oldBox => (oldBox._id === lastStepEditBox._id ? lastStepEditBox : oldBox))
     setNewBoxes([...updatedNewBoxes])
     setEditModal()
   }

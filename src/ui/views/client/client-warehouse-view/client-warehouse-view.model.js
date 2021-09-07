@@ -23,6 +23,9 @@ export class ClientWarehouseViewModel {
   selectedBoxes = []
   curOpenedTask = {}
 
+  tmpClientComment = ''
+
+  showMergeBoxModal = false
   showTaskInfoModal = false
   showSendOwnProductModal = false
   showEditBoxModal = false
@@ -53,6 +56,10 @@ export class ClientWarehouseViewModel {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
     }
+  }
+
+  setTmpClientComment(e) {
+    this.tmpClientComment = e.target.value
   }
 
   onResetselectedBoxes() {
@@ -95,7 +102,7 @@ export class ClientWarehouseViewModel {
     this.selectedBoxes = updatedselectedBoxes
   }
 
-  async onRedistribute(id, updatedBoxes, type, isMasterBox) {
+  async onRedistribute(id, updatedBoxes, type, isMasterBox, comment) {
     if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
       this.onTriggerOpenModal('showRedistributeBoxFailModal')
     } else {
@@ -104,7 +111,7 @@ export class ClientWarehouseViewModel {
       )
       const splitBoxesResult = await this.splitBoxes(id, boxes)
 
-      await this.postTask({idsData: splitBoxesResult, idsBeforeData: [id], type})
+      await this.postTask({idsData: splitBoxesResult, idsBeforeData: [id], type, clientComment: comment})
       await this.getTasksMy()
 
       this.onTriggerOpenModal('showRedistributeBoxSuccessModal')
@@ -146,13 +153,22 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  async onClickMerge(type) {
+  async onClickMerge(type, comment) {
     const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes)
 
-    await this.postTask({idsData: [mergeBoxesResult.guid], idsBeforeData: [...this.selectedBoxes], type})
+    await this.postTask({
+      idsData: [mergeBoxesResult.guid],
+      idsBeforeData: [...this.selectedBoxes],
+      type,
+      clientComment: comment,
+    })
     await this.getTasksMy()
 
+    this.onTriggerOpenModal('showMergeBoxModal')
+
     this.onResetselectedBoxes()
+
+    this.tmpClientComment = ''
   }
 
   async postTask({idsData, idsBeforeData, type, clientComment}) {

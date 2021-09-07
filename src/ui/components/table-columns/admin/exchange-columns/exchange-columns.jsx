@@ -1,29 +1,34 @@
-import {exchangeAllColumns} from './exchange-all-columns'
 import {exchangeBuyerWorkColumns} from './exchange-buyer-work-columns'
-import {exchangeCheckingColumns} from './exchange-cheking-columns'
+import {exchangeCanceledColumns} from './exchange-canceled-columns'
+import {exchangeСreatedColumns} from './exchange-created-columns'
+import {exchangeHighPriceColumns} from './exchange-high-price-columns'
+import {exchangeNewColumns} from './exchange-new-columns'
+import {exchangePublishedColumns} from './exchange-published-columns'
 import {exchangeSupplierFoundedColumns} from './exchange-supplier-founded-columns'
+import {exchangeSupplierNotFoundedColumns} from './exchange-supplier-not-founded-columns'
 import {exchangeSupplierSearchColumns} from './exchange-supplier-search-columns'
-import {exchangeWaitingColumns} from './exchange-waiting-columns'
 
-export const exchangeProductsColumns = ({handlers, activeSubCategory}) => {
+export const exchangeProductsColumns = ({activeSubCategory}) => {
   const getSubCategoryColumns = () => {
     switch (activeSubCategory) {
       case 0:
-        return exchangeWaitingColumns({handlers})
+        return exchangeСreatedColumns()
       case 1:
-        return exchangeCheckingColumns({handlers})
+        return exchangeNewColumns()
       case 2:
-        return exchangeSupplierSearchColumns({handlers})
+        return exchangeSupplierSearchColumns()
       case 3:
-        return exchangeBuyerWorkColumns({handlers})
+        return exchangeBuyerWorkColumns()
       case 4:
-        return exchangeSupplierFoundedColumns({handlers})
+        return exchangeSupplierFoundedColumns()
       case 5:
-        return exchangeAllColumns({handlers})
+        return exchangeSupplierNotFoundedColumns()
       case 6:
-        return exchangeAllColumns({handlers})
+        return exchangeHighPriceColumns()
       case 7:
-        return exchangeAllColumns({handlers})
+        return exchangePublishedColumns()
+      case 8:
+        return exchangeCanceledColumns()
     }
   }
 

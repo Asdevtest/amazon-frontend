@@ -33,7 +33,6 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
               error={formFieldsValidationErrors.bsr}
-              type="number"
               label={textConsts.bsr}
               value={product.bsr || ''}
               onChange={onChangeField('bsr')}
@@ -41,7 +40,6 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
               label={textConsts.amazonPrice}
-              type="number"
               error={formFieldsValidationErrors.amazon}
               value={product.amazon || ''}
               onChange={onChangeField('amazon')}
@@ -49,7 +47,6 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
               error={formFieldsValidationErrors.width}
-              type="number"
               label={textConsts.fieldWidth}
               value={product.width || ''}
               onChange={onChangeField('width')}
@@ -57,7 +54,6 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
               error={formFieldsValidationErrors.height}
-              type="number"
               label={textConsts.fieldHeight}
               value={product.height || ''}
               onChange={onChangeField('height')}
@@ -65,7 +61,6 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
               error={formFieldsValidationErrors.length}
-              type="number"
               label={textConsts.fieldLength}
               value={product.length || ''}
               onChange={onChangeField('length')}
@@ -73,7 +68,6 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
               error={formFieldsValidationErrors.weight}
-              type="number"
               label={textConsts.fieldWeight}
               value={product.weight || ''}
               onChange={onChangeField('weight')}
@@ -94,7 +88,6 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
             <Field
               disabled
               error={formFieldsValidationErrors.minpurchase}
-              type="number"
               label={textConsts.minpurchase}
               value={product.minpurchase || ''}
               onChange={onChangeField('minpurchase')}
@@ -102,7 +95,6 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
             <Field
               disabled
               error={formFieldsValidationErrors.maxDelivery}
-              type="number"
               label={textConsts.maxDeliveryPrice}
               value={product.maxDelivery || 0}
               onChange={onChangeField('maxDelivery')}
@@ -110,7 +102,6 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
             <Field
               disabled
               error={formFieldsValidationErrors.reffee}
-              type="number"
               label={textConsts.refferalFee}
               value={product.reffee || ''}
               onChange={onChangeField('reffee')}
@@ -118,7 +109,6 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
             <Field
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
               error={formFieldsValidationErrors.fbafee}
-              type="number"
               label={textConsts.fbaFee}
               value={product.fbafee || ''}
               onChange={onChangeField('fbafee')}
@@ -126,7 +116,6 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
             <Field
               disabled
               error={formFieldsValidationErrors.totalFba}
-              type="number"
               label={textConsts.totalFba}
               value={product.totalFba || ''}
               onChange={onChangeField('totalFba')}
@@ -136,13 +125,11 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
               error={formFieldsValidationErrors.fbaamount}
               label={textConsts.recommendedBatch}
               value={product.fbaamount || ''}
-              type="number"
               onChange={onChangeField('fbaamount')}
             />
             <Field
               disabled
               error={formFieldsValidationErrors.profit}
-              type="number"
               label={textConsts.revenue}
               value={product.profit || 0}
               onChange={onChangeField('profit')}
@@ -150,7 +137,6 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
             <Field
               disabled
               error={formFieldsValidationErrors.margin}
-              type="number"
               label={textConsts.fieldMargin}
               value={product.margin || 0}
               onChange={onChangeField('margin')}

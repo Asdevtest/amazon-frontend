@@ -91,7 +91,10 @@ export class BuyerMyOrdersViewModel {
 
   async onSaveOrder(order, updateOrderData) {
     try {
-      const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(updateOrderData, updateOrderKeys, true)
+      const updateOrderDataFiltered = {
+        ...getObjectFilteredByKeyArrayWhiteList(updateOrderData, updateOrderKeys, true),
+        totalPriceChanged: parseFloat(updateOrderData?.totalPriceChanged) || 0,
+      }
       await BuyerModel.updateOrder(order._id, updateOrderDataFiltered)
       this.loadData()
     } catch (error) {
@@ -123,6 +126,12 @@ export class BuyerMyOrdersViewModel {
         ...getObjectFilteredByKeyArrayBlackList(formFields, ['items']),
         clientId: this.selectedOrder.createdBy._id,
         deliveryMethod: formFields.deliveryMethod,
+        lengthCmSupplier: parseFloat(formFields?.lengthCmSupplier) || 0,
+        widthCmSupplier: parseFloat(formFields?.widthCmSupplier) || 0,
+        heightCmSupplier: parseFloat(formFields?.heightCmSupplier) || 0,
+        weighGrossKgSupplier: parseFloat(formFields?.weighGrossKgSupplier) || 0,
+        volumeWeightKgSupplier: parseFloat(formFields?.volumeWeightKgSupplier) || 0,
+        weightFinalAccountingKgSupplier: parseFloat(formFields?.weightFinalAccountingKgSupplier) || 0,
         items: [
           {
             product: formFields.items[0].product._id,

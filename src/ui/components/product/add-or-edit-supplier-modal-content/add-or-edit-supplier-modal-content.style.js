@@ -34,4 +34,19 @@ export const useClassNames = makeStyles(() => ({
   commentField: {
     height: 'auto',
   },
+  bottomWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  loadTitle: {
+    color: 'rgba(61, 81, 112, 1)',
+    fontSize: '16px',
+    fontWeight: '600',
+    lineHeight: '20px',
+    marginBottom: '12px',
+  },
+  imagesButton: {
+    marginTop: '30px',
+  },
 }))

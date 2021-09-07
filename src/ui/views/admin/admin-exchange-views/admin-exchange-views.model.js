@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables-keys'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
@@ -7,17 +8,16 @@ import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 
-import {copyToClipBoard} from '@utils/clipboard'
-
 const productsStatusBySubCategory = {
-  0: ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS],
-  1: ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT],
-  2: ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
-  3: ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH],
+  0: ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT], // 5 статус
+  1: ProductStatusByKey[ProductStatus.CHEKED_BY_SUPERVISOR], // 15 статус
+  2: ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH],
+  3: ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT],
   4: ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
   5: ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
   6: ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
-  7: ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
+  7: ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS],
+  8: ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
 }
 
 export class AdminExchangeViewModel {
@@ -25,7 +25,7 @@ export class AdminExchangeViewModel {
   requestStatus = undefined
   error = undefined
 
-  activeSubCategory = 0
+  activeSubCategory = SettingsModel.activeSubCategoryState[ActiveSubCategoryTablesKeys.ADMIN_EXCHANGE] || 0
   currentProductsData = []
 
   selectionModel = undefined
@@ -45,6 +45,7 @@ export class AdminExchangeViewModel {
   }
 
   onChangeSubCategory(value) {
+    this.setActiveSubCategoryState(value)
     this.activeSubCategory = value
     this.getProductsByStatus(value)
     this.getDataGridState()
@@ -53,9 +54,9 @@ export class AdminExchangeViewModel {
   dataGridTableKeyDependingOnActiveSubCategory() {
     switch (this.activeSubCategory) {
       case 0:
-        return DataGridTablesKeys.ADMIN_EXCHANGE_NEW
+        return DataGridTablesKeys.ADMIN_EXCHANGE_CREATED
       case 1:
-        return DataGridTablesKeys.ADMIN_EXCHANGE_PURCHASED
+        return DataGridTablesKeys.ADMIN_EXCHANGE_CHEKED_BY_SUPERVISOR
       case 2:
         return DataGridTablesKeys.ADMIN_EXCHANGE_SUPPLIER_SEARCHING
       case 3:
@@ -67,8 +68,14 @@ export class AdminExchangeViewModel {
       case 6:
         return DataGridTablesKeys.ADMIN_EXCHANGE_HIGH_PRICE
       case 7:
+        return DataGridTablesKeys.ADMIN_EXCHANGE_PUBLISHED
+      case 8:
         return DataGridTablesKeys.ADMIN_EXCHANGE_CANCELED
     }
+  }
+
+  setActiveSubCategoryState(state) {
+    SettingsModel.setActiveSubCategoryState(state, ActiveSubCategoryTablesKeys.ADMIN_EXCHANGE)
   }
 
   setDataGridState(state) {
@@ -125,30 +132,8 @@ export class AdminExchangeViewModel {
     }
   }
 
-  onClickSaveBarcode = () => {}
-
-  onClickBarcode = item => {
-    if (item.barCode) {
-      copyToClipBoard(item.barCode)
-    } else {
-      this.setSelectedProduct(item)
-      this.onTriggerShowBarcodeModal()
-    }
-  }
-
-  onClickExchange() {}
-
-  onDoubleClickBarcode = item => {
-    this.setSelectedProduct(item)
-    this.onTriggerShowBarcodeModal()
-  }
-
   onTriggerDrawer() {
     this.drawerOpen = !this.drawerOpen
-  }
-
-  onTriggerShowBarcodeModal() {
-    this.showSetBarcodeModal = !this.showSetBarcodeModal
   }
 
   setSelectedProduct(item) {

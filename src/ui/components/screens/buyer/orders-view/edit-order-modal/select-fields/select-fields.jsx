@@ -121,12 +121,13 @@ export const SelectFields = ({
                   : priceYuansForBatch
               }
               className={classNames.input}
-              type="number"
               onChange={e => {
-                setPriceYuansForBatch(e.target.value)
-                setOrderField('totalPriceChanged')({
-                  target: {value: calcExchangePrice(e.target.value, yuansToDollarRate)},
-                })
+                if (!isNaN(e.target.value) || Number(e.target.value) < 0) {
+                  setPriceYuansForBatch(e.target.value)
+                  setOrderField('totalPriceChanged')({
+                    target: {value: calcExchangePrice(e.target.value, yuansToDollarRate)},
+                  })
+                }
               }}
             />
             <div className={classNames.checkboxWithLabelWrapper}>
@@ -148,14 +149,15 @@ export const SelectFields = ({
             <Typography className={classNames.modalText}>{textConsts.yuansToDollarRateTypo}</Typography>
             <Input
               disabled={usePriceInDollars}
-              type="number"
               value={yuansToDollarRate || 6.3}
               className={classNames.input}
               onChange={e => {
-                setYuansToDollarRate(e.target.value)
-                setOrderField('totalPriceChanged')({
-                  target: {value: calcExchangePrice(priceYuansForBatch, e.target.value)},
-                })
+                if (!isNaN(e.target.value) || Number(e.target.value) < 0) {
+                  setYuansToDollarRate(e.target.value)
+                  setOrderField('totalPriceChanged')({
+                    target: {value: calcExchangePrice(priceYuansForBatch, e.target.value)},
+                  })
+                }
               }}
             />
           </Box>
@@ -164,7 +166,6 @@ export const SelectFields = ({
             <Input
               disabled={!usePriceInDollars}
               value={orderFields.totalPriceChanged}
-              type="number"
               className={classNames.input}
               onChange={setOrderField('totalPriceChanged')}
             />

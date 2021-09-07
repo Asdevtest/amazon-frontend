@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Typography, Container} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -12,7 +12,6 @@ import {UserRole} from '@constants/user-roles'
 import {warehouses} from '@constants/warehouses'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -33,7 +32,6 @@ import {styles} from './buyer-my-orders-view.style'
 const textConsts = getLocalizedTexts(texts, 'ru').myOrdersView
 
 const navbarActiveCategory = 2
-const navbarActiveSubCategory = 0
 
 @observer
 class BuyerMyOrdersViewRaw extends Component {
@@ -75,7 +73,6 @@ class BuyerMyOrdersViewRaw extends Component {
         <Navbar
           curUserRole={UserRole.BUYER}
           activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
@@ -96,7 +93,6 @@ class BuyerMyOrdersViewRaw extends Component {
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
                 <Table
-                  renderButtons={this.renderButtons}
                   currentPage={curPage}
                   data={ordersMy}
                   handlerPageChange={onChangePage}
@@ -160,15 +156,6 @@ class BuyerMyOrdersViewRaw extends Component {
           }}
         />
       </React.Fragment>
-    )
-  }
-
-  renderButtons = () => {
-    const {classes: classNames} = this.props
-    return (
-      <Container className={classNames.buttonWrapper}>
-        <Button color="secondary">{textConsts.ordersBtn}</Button>
-      </Container>
     )
   }
 

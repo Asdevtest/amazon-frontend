@@ -4,6 +4,7 @@ import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 
+import {OtherModel} from '@models/other-model'
 import {ResearcherModel} from '@models/researcher-model'
 import {ResearcherUpdateProductContract} from '@models/researcher-model/researcher-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
@@ -73,12 +74,16 @@ export class ResearcherProductViewModel {
   error = undefined
   actionStatus = undefined
 
-  productBase = undefined
   product = undefined
   suppliers = []
   drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
+  showConfirmPayModal = false
+
+  readyImages = []
+  progressValue = 0
+  showProgress = false
 
   formFields = {...formFieldsDefault}
 
@@ -91,7 +96,6 @@ export class ResearcherProductViewModel {
         ...location.state.product,
         supplier: location.state.product.supplier.map(supplierItem => supplierItem._id),
       }
-      this.productBase = product
       this.product = product
       this.suppliers = location.state.product.supplier
       this.updateAutoCalculatedFields()
@@ -112,7 +116,13 @@ export class ResearcherProductViewModel {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
       if (fieldName === 'express') {
         this.product[fieldName] = !this.product[fieldName]
+      } else if (['icomment'].includes(fieldName)) {
+        this.product[fieldName] = e.target.value
       } else {
+        if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+          return
+        }
+
         this.product[fieldName] = e.target.value
       }
       if (['express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba'].includes(fieldName)) {
@@ -121,17 +131,6 @@ export class ResearcherProductViewModel {
     })
 
   updateAutoCalculatedFields() {
-    const strBsr = this.product.bsr + ''
-    this.product.bsr = parseFloat(strBsr.replace(',', '.')) || ''
-
-    this.product.amazon = parseFloat(this.product.amazon) || ''
-    this.product.weight = parseFloat(this.product.weight) || ''
-    this.product.length = parseFloat(this.product.length) || ''
-    this.product.width = parseFloat(this.product.width) || ''
-    this.product.height = parseFloat(this.product.height) || ''
-    this.product.fbafee = parseFloat(this.product.fbafee) || ''
-    this.product.profit = parseFloat(this.product.profit) || ''
-
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
 
     this.product.maxDelivery = this.product.express ? (this.product.weight || 0) * 7 : (this.product.weight || 0) * 5
@@ -234,10 +233,10 @@ export class ResearcherProductViewModel {
   async handleProductActionButtons(actionType) {
     switch (actionType) {
       case 'accept':
-        this.onSaveProductData()
+        this.onTriggerOpenModal('showConfirmPayModal')
         break
       case 'cancel':
-        this.onResetInitialProductData()
+        this.history.goBack()
         break
       case 'delete':
         this.onDeleteProduct()
@@ -245,8 +244,49 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn(supplier) {
+  async onSubmitPostImages({images, type}) {
+    const loadingStep = 100 / images.length
+
+    this[type] = []
+    this.showProgress = true
+
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i]
+      await this.onPostImage(image, type)
+      this.progressValue = this.progressValue + loadingStep
+    }
+
+    this.showProgress = false
+    this.progressValue = 0
+  }
+
+  async onPostImage(imageData, imagesType) {
+    const formData = new FormData()
+    formData.append('filename', imageData)
+
     try {
+      const imageFile = await OtherModel.postImage(formData)
+
+      this[imagesType].push('https://api1.kurakste.ru/uploads/' + imageFile.data.fileName)
+    } catch (error) {
+      this.error = error
+    }
+  }
+
+  async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
+    try {
+      await this.onSubmitPostImages({images: photosOfSupplier, type: 'readyImages'})
+
+      supplier = {
+        ...supplier,
+        amount: parseFloat(supplier?.amount) || '',
+        delivery: parseFloat(supplier?.delivery) || '',
+        lotcost: parseFloat(supplier?.lotcost) || '',
+        minlot: parseInt(supplier?.minlot) || '',
+        price: parseFloat(supplier?.price) || '',
+        images: supplier.images.concat(this.readyImages),
+      }
+
       this.setActionStatus(loadingStatuses.isLoading)
       if (supplier._id) {
         const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
@@ -339,7 +379,6 @@ export class ResearcherProductViewModel {
           }
         },
       )
-      console.log('updateProductData', updateProductData)
 
       await transformAndValidate(ResearcherUpdateProductContract, updateProductData)
 
@@ -364,9 +403,6 @@ export class ResearcherProductViewModel {
         })
       }
     }
-  }
-  onResetInitialProductData() {
-    this.history.goBack()
   }
 
   async onDeleteProduct() {
@@ -397,5 +433,9 @@ export class ResearcherProductViewModel {
 
   setActionStatus(actionStatus) {
     this.actionStatus = actionStatus
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }

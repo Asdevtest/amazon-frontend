@@ -1,13 +1,14 @@
 import {makeAutoObservable, runInAction} from 'mobx'
+import {makePersistable} from 'mobx-persist-store'
 
 import {ApiClient} from '@services/rest-api-service/codegen/src'
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
-import {makePersistableModel} from '@utils/make-persistable-model'
-
 import {UserInfoContract} from './user-model.contracts'
 
 const persistProperties = ['accessToken', 'userInfo']
+
+const stateModelName = 'UserModel'
 
 class UserModelStatic {
   accessToken = undefined
@@ -16,7 +17,7 @@ class UserModelStatic {
 
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
-    makePersistableModel(this, {properties: persistProperties}).then(persistStore => {
+    makePersistable(this, {name: stateModelName, properties: persistProperties}).then(persistStore => {
       runInAction(() => {
         this.isHydrated = persistStore.isHydrated
         if (this.accessToken) {
@@ -25,7 +26,7 @@ class UserModelStatic {
         }
       })
     })
-    restApiService.setAccessToken(this.accessToken) // TODO: для тестирования
+    restApiService.setAccessToken(this.accessToken)
   }
 
   isAuthenticated() {

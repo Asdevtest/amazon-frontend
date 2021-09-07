@@ -98,6 +98,11 @@ export const texts = {
       modalRedistributionSuccessMessage: 'Box redistribution was successful',
       modalRedistributionFailTitle: 'Fail',
       modalRedistributionFailMessage: 'Новые коробки должны отличаться от старых',
+
+      modalMergeTitle: 'Соединение коробок',
+      modalMergeFieldLabel: 'Комментарий клиента к задаче',
+      modalMergeMergeBtn: 'Соединить',
+      modalMergeCancelBtn: 'Отменить',
     },
 
     adminWarehouseView: {
@@ -681,6 +686,10 @@ export const texts = {
       appUser: 'researcher',
       modalAddTitle: 'Добавить нового поставщика',
       modalEditTitle: 'Редактировать поставщика',
+      confirmTitle: 'Внимание',
+      confirmMessage: 'Товар будет отправлен на проверку к Supervisor. Вы уверены?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
     },
     supervisorProductView: {
       appBarTitle: 'Product',
@@ -1083,6 +1092,9 @@ export const texts = {
       buttonCancel: 'Отменить',
       buttonDelete: 'Удалить',
 
+      supplierTitle: 'Список поставщиков',
+      supplierActionsTitle: 'Действия: ',
+
       bsr: 'BSR*',
       amazonPrice: 'Amazon price*',
       fieldWidth: 'Ширина, дюймы*',
@@ -1442,6 +1454,7 @@ export const texts = {
       reason: 'Причина',
       username: 'Имя пользователя',
       productId: 'Продукт Id',
+      noPayments: 'Транзакций пока нет...',
     },
     warehouseHistoryBodyRow: {
       merge: 'Соединение в коробку: ',
@@ -1538,6 +1551,8 @@ export const texts = {
       newBoxBtn: 'New box',
       cancelBtn: 'Cancel',
       actuallyAssembled: 'Actually assembled',
+      dimensionsMessage: 'Внесите размеры всех коробок',
+      okBtn: 'Ок',
     },
 
     warehouseBeforeAfterBlock: {
@@ -1547,7 +1562,8 @@ export const texts = {
       shippingLabel: 'Шиппинг лебл:',
       setShippingLabel: 'Set shipping label',
       deleteAlert: 'delete',
-      demensions: 'Габариты:',
+      demensionsSupplier: 'Размеры от склада:',
+      demensionsWarehouse: 'Размеры от склада:',
       length: 'Длина ',
       width: 'Ширина ',
       height: 'Высота ',
@@ -1710,6 +1726,12 @@ export const texts = {
       mergeBoxes: 'Соединить коробки',
       receiveBoxes: 'Принять коробку',
       editBox: 'Изменить коробку',
+      closeBtn: 'Закрыть',
+
+      clientLabel: 'Комментарий клиента',
+      warehouseLabel: 'Комментарий склада',
+      clientPlaceholder: 'Комментарий клиента к задаче',
+      warehousePlaceholder: 'Комментарий склада к задаче для клиента',
     },
 
     supervisorReadyToCheckBodyRow: {

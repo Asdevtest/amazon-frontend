@@ -4,20 +4,20 @@ import {texts} from '@constants/texts'
 
 import {
   AsinCell,
-  DateCell,
-  FeesValuesWithCalculateBtnCell,
-  PriceCell,
-  SupervisorCell,
-  renderFieldValueCell,
-  ResearcherCell,
   BuyerCell,
+  DateCell,
+  PriceCell,
+  ResearcherCell,
+  SupervisorCell,
+  SupplierCell,
+  renderFieldValueCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-const textConsts = getLocalizedTexts(texts, 'en').exchangeCheckingColumns
+const textConsts = getLocalizedTexts(texts, 'en').exchangeSupplierFoundedColumns
 
-export const exchangeCheckingColumns = () => [
+export const exchangeHighPriceColumns = () => [
   {
     field: 'asinCell',
     headerName: textConsts.asinField,
@@ -30,21 +30,10 @@ export const exchangeCheckingColumns = () => [
     renderCell: params => <PriceCell params={params} />,
     width: 150,
   },
-  {
-    field: 'fees-net',
-    headerName: textConsts.feesAndNetField,
-    renderCell: params => <FeesValuesWithCalculateBtnCell params={params} />,
-    width: 150,
-  },
+
   {
     field: 'createdat',
     headerName: textConsts.createDateField,
-    renderCell: params => <DateCell params={params} />,
-    width: 150,
-  },
-  {
-    field: 'checkedat',
-    headerName: textConsts.checkDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
   },
@@ -56,23 +45,28 @@ export const exchangeCheckingColumns = () => [
   },
 
   {
-    field: 'createdby',
+    field: 'researcher',
     headerName: textConsts.researcherField,
     renderCell: params => <ResearcherCell params={params} />,
-    width: 200,
+    width: 150,
   },
-
   {
     field: 'supervisor',
     headerName: textConsts.supervisorField,
     renderCell: params => <SupervisorCell params={params} />,
-    width: 200,
+    width: 150,
   },
   {
     field: 'buyer',
     headerName: textConsts.buyerField,
     renderCell: params => <BuyerCell params={params} />,
-    width: 200,
+    width: 150,
+  },
+  {
+    field: 'currentSupplier',
+    headerName: textConsts.supplierField,
+    renderCell: params => <SupplierCell params={params} />,
+    width: 150,
   },
 
   {

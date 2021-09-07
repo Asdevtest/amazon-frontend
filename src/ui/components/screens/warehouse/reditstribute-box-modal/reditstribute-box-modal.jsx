@@ -5,6 +5,7 @@ import {Button, Divider, Typography} from '@material-ui/core'
 import {operationTypes} from '@constants/operation-types'
 import {texts} from '@constants/texts'
 
+import {Field} from '@components/field'
 import {Input} from '@components/input'
 
 import {filterEmptyBoxes, filterEmptyOrders} from '@utils/filters'
@@ -76,6 +77,8 @@ export const RedistributeBox = ({
   const classNames = useClassNames()
   const [currentBox, setCurrentBox] = useState(selectedBox)
 
+  const [comment, setComment] = useState('')
+
   const isMasterBox = selectedBox?.amount && selectedBox?.amount > 1
 
   const emptyProducts = currentBox.items.map(product => ({...product, amount: isMasterBox ? product.amount : 0}))
@@ -131,35 +134,8 @@ export const RedistributeBox = ({
       newBoxesWithoutEmptyOrders.push(beforeBox)
     }
 
-    onRedistribute(selectedBox._id, newBoxesWithoutEmptyOrders, operationTypes.SPLIT, isMasterBox)
+    onRedistribute(selectedBox._id, newBoxesWithoutEmptyOrders, operationTypes.SPLIT, isMasterBox, comment)
   }
-
-  // const Box = ({box, readOnly = false, boxIsMasterBox, index}) => (
-  //   <div className={classNames.box}>
-  //     <Typography className={classNames.boxTitle}>{box._id}</Typography>
-  //     {box.items.map((order, orderIndex) => (
-  //       <div key={`box_${box._id}_${readOnly ? 1 : 0}_${index}`}>
-  //         <div key={orderIndex} className={classNames.order}>
-  //           <img
-  //             className={classNames.img}
-  //             src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
-  //           />
-  //           <Typography className={classNames.title}>{orderIndex + 1 + '. ' + order.product.amazonTitle}</Typography>
-  //           <Typography className={classNames.subTitle}>{textConsts.qtyLabel}</Typography>
-  //           <Input
-  //             classes={{root: classNames.inputWrapper, input: classNames.input}}
-  //             readOnly={readOnly}
-  //             value={isMasterBox ? (boxIsMasterBox ? selectedBox.amount : 1) : order.amount}
-  //             onChange={e => onChangeInput(e, box._id, order.order)}
-  //           />
-  //         </div>
-  //         {isMasterBox ? (
-  //           <Typography className={classNames.subTitle}>{`Unites per box ${box.items[0].amount}`}</Typography>
-  //         ) : undefined}
-  //       </div>
-  //     ))}
-  //   </div>
-  // )
 
   const CurrentBox = () => (
     <div className={classNames.currentBox}>
@@ -183,16 +159,6 @@ export const RedistributeBox = ({
     </div>
   )
 
-  // const NewBoxes = () => (
-  //   <div className={classNames.newBoxes}>
-  //     <Typography className={classNames.sectionTitle}>{textConsts.newBoxesTitle}</Typography>
-
-  //     {newBoxes.map((box, boxIndex) => (
-  //       <Box key={boxIndex} index={boxIndex} box={box} readOnly={isMasterBox} isMasterBox={isMasterBox} selectedBox={selectedBox} onChangeInput={onChangeInput}/>
-  //     ))}
-  //   </div>
-  // )
-
   return (
     <React.Fragment>
       <div className={classNames.boxesWrapper}>
@@ -203,6 +169,16 @@ export const RedistributeBox = ({
           isMasterBox={isMasterBox}
           selectedBox={selectedBox}
           onChangeInput={onChangeInput}
+        />
+        <Divider flexItem className={classNames.divider} orientation="vertical" />
+        <Field
+          multiline
+          className={classNames.heightFieldAuto}
+          rows={4}
+          rowsMax={6}
+          label={'Комментарий клиента к задаче'}
+          value={comment}
+          onChange={e => setComment(e.target.value)}
         />
       </div>
 

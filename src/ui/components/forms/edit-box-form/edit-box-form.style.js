@@ -109,10 +109,7 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: 500,
     lineHeight: '28px',
   },
-  imgBox: {
-    objectFit: 'center',
-    height: '70vh',
-  },
+
   boxTitleWrapper: {
     display: 'flex',
     alignItems: 'center',

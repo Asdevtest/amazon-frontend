@@ -8,6 +8,7 @@ import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 
@@ -27,6 +28,8 @@ export const EditTaskModal = observer(
     onEditBox,
     onClickSolveTask,
     tmpBarCode,
+    progressValue,
+    showProgress,
     showEditBoxModal,
     onTriggerShowEditBoxModal,
   }) => {
@@ -157,6 +160,7 @@ export const EditTaskModal = observer(
             setSourceBoxes={setNewBoxes}
           />
         </Modal>
+        {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
       </div>
     )
   },

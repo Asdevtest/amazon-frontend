@@ -118,3 +118,29 @@ export class BoxesWarehouseUpdateBoxInTaskContract {
   @IsBoolean()
   isShippingLabelAttachedByStorekeeper
 }
+
+export class BoxesWarehouseReceiveBoxModalContract {
+  @IsNotEmpty()
+  @IsNumber()
+  lengthCmWarehouse
+
+  @IsNotEmpty()
+  @IsNumber()
+  widthCmWarehouse
+
+  @IsNotEmpty()
+  @IsNumber()
+  heightCmWarehouse
+
+  @IsNotEmpty()
+  @IsNumber()
+  weighGrossKgWarehouse
+
+  @IsNotEmpty()
+  @IsNumber()
+  volumeWeightKgWarehouse
+
+  @IsNotEmpty()
+  @IsNumber()
+  weightFinalAccountingKgWarehouse
+}

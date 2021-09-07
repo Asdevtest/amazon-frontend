@@ -22,4 +22,15 @@ export const styles = createStyles(theme => ({
     justifyContent: 'flex-end',
     padding: '0 0 10px',
   },
+  heightFieldAuto: {
+    height: 'auto',
+    maxWidth: '380px',
+    minWidth: '250px',
+  },
+  buttonsWrapper: {
+    marginTop: '15px',
+  },
+  button: {
+    marginRight: '10px',
+  },
 }))

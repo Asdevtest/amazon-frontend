@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import {Chip, Typography, TableCell, TableRow, NativeSelect} from '@material-ui/core'
 import clsx from 'clsx'
@@ -39,12 +39,6 @@ export const OrderModalBodyRow = ({
     setOrderStateFiled(nameInput)(event.target.value)
   }
 
-  const [amount, setAmount] = useState(0)
-  const handleInput = e => {
-    setAmount(e.target.value)
-    onChangeInput(e, 'amount')
-  }
-
   return (
     <TableRow key={item._id} hover role="checkbox">
       <TableCell className={classNames.asinCell}>
@@ -76,13 +70,10 @@ export const OrderModalBodyRow = ({
 
       <TableCell>
         <Input
-          type="number"
-          value={amount}
+          value={orderState.amount}
           inputProps={{min: 0}}
           className={classNames.amountCell}
-          onChange={e => {
-            handleInput(e)
-          }}
+          onChange={e => onChangeInput(e, 'amount')}
         />
       </TableCell>
 

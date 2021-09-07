@@ -1,28 +1,58 @@
-/* eslint-disable no-unused-vars */
 import React, {useEffect, useRef} from 'react'
 
-import {Typography, Box, Divider, Paper} from '@material-ui/core'
+import {Typography, Divider, Paper} from '@material-ui/core'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto'
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
+import {useHistory} from 'react-router-dom'
 
+import {UserRoleCodeMap} from '@constants/user-roles'
+
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
-import {Modal} from '@components/modal'
+import {ShowImageModal} from '@components/modals/show-image-modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {UserBalanceHistory} from '@components/screens/user-balance-history'
 
+import {checkIsBuyer, checkIsSupervisor} from '@utils/checks'
+
+import {Button} from '../../buttons/button'
 import {ListingModel} from './listing.model'
 import {useClassNames} from './listing.style'
 
 export const Listing = observer(({product}) => {
   const classNames = useClassNames()
-  const listingModel = useRef(new ListingModel({product}))
+  const history = useHistory()
+  const listingModel = useRef(new ListingModel({history, product}))
 
   useEffect(() => {
     listingModel.current.loadData()
   }, [])
 
-  const {payments, showImageModal, curImage, imagesFromBoxes, onTriggerOpenModal, onClickImg} = listingModel.current
+  const {
+    tmpImagesLoadMap,
+    listingProduct,
+    payments,
+    showImageModal,
+    curImage,
+    userRole,
+    progressValue,
+    imagesFromBoxes,
+    showSuccessModal,
+    showProgress,
+    onTriggerOpenModal,
+    onClickImg,
+    onChangeField,
+    onChangeArrayField,
+    setTmpListingImages,
+    onSaveSubmith,
+    onCancel,
+    onRemoveTmpListingImage,
+  } = listingModel.current
+
+  const userIsSupervisor = checkIsSupervisor(UserRoleCodeMap[userRole])
 
   return (
     <div className={classNames.mainWrapper}>
@@ -32,26 +62,101 @@ export const Listing = observer(({product}) => {
 
           <Field
             multiline
+            disabled={!userIsSupervisor}
             className={classNames.listingTitle}
             rows={4}
             label={'Название листинга:'}
             placeholder="введите название листинга, строка"
+            value={listingProduct.listingName}
+            onChange={e => onChangeField(e, 'listingName')}
           />
 
           {[1, 2, 3, 4, 5].map((el, index) => (
-            <Field key={index} oneLine className={classNames.descriptionProduct} label={`Bullet Point #${el}: `} />
+            <Field
+              key={index}
+              oneLine
+              disabled={
+                (index === 0
+                  ? index !== 0
+                  : listingProduct.listingBulletPoints[index]
+                  ? false
+                  : !listingProduct.listingBulletPoints[index - 1]) || !userIsSupervisor
+              }
+              className={classNames.descriptionProduct}
+              label={`Bullet Point #${el}: `}
+              value={listingProduct.listingBulletPoints[index] || ''}
+              onChange={e => onChangeArrayField(e, 'listingBulletPoints', index)}
+            />
           ))}
 
           <div className={classNames.detailDescriptionWrapper}>
             <Typography className={classNames.subTitle}>{'Подробно о товаре:'}</Typography>
-            <textarea className={classNames.detailDescription} placeholder="введите описание" />
+            <textarea
+              className={classNames.detailDescription}
+              disabled={!userIsSupervisor}
+              placeholder="введите описание"
+              value={listingProduct.listingProductDetails}
+              onChange={e => onChangeField(e, 'listingProductDetails')}
+            />
           </div>
 
-          <Field multiline label={'Поисковые запросы:'} placeholder="введите поисковые запросы" />
+          <Field
+            multiline
+            disabled={!userIsSupervisor}
+            label={'Поисковые запросы:'}
+            placeholder="введите поисковые запросы"
+            value={listingProduct.listingSearchTerms}
+            onChange={e => onChangeField(e, 'listingSearchTerms')}
+          />
 
           {[1, 2, 3, 4, 5].map((el, index) => (
-            <Field key={index} oneLine className={classNames.descriptionProduct} label={`Subject Matter #${el}: `} />
+            <Field
+              key={index}
+              oneLine
+              disabled={
+                (index === 0
+                  ? index !== 0
+                  : listingProduct.listingSubjectMatters[index]
+                  ? false
+                  : !listingProduct.listingSubjectMatters[index - 1]) || !userIsSupervisor
+              }
+              className={classNames.descriptionProduct}
+              label={`Subject Matter #${el}: `}
+              value={listingProduct.listingSubjectMatters[index] || ''}
+              onChange={e => onChangeArrayField(e, 'listingSubjectMatters', index)}
+            />
           ))}
+
+          {userIsSupervisor && (
+            <div>
+              <Typography className={classNames.subTitle}>{'Добавить фотографии:'}</Typography>
+              <div className={classNames.filesInputList}>
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((el, index) => (
+                  <li key={index} className={classNames.filesInputListItem}>
+                    <label className={classNames.inputFileWrapper}>
+                      {tmpImagesLoadMap[index] !== false ? (
+                        <div className={classNames.inputWaitFileWrapper}>
+                          <DoneOutlineIcon fontSize="large" onClick={() => onRemoveTmpListingImage(index)} />
+                          <span>{'Файл выбран'}</span>
+                          <span>{tmpImagesLoadMap[index].name}</span>
+                        </div>
+                      ) : (
+                        <div className={classNames.inputWaitFileWrapper}>
+                          <AddAPhotoIcon fontSize="large" />
+
+                          <Input
+                            type="file"
+                            className={classNames.fileInput}
+                            onChange={e => setTmpListingImages(e, index)}
+                          />
+                        </div>
+                      )}
+                    </label>
+                  </li>
+                ))}
+              </div>
+            </div>
+          )}
         </Paper>
 
         <Divider orientation="vertical" />
@@ -61,66 +166,121 @@ export const Listing = observer(({product}) => {
 
           <Field
             multiline
+            disabled={!userIsSupervisor}
             className={classNames.searchSupplierField}
             label={'Задание для поиска постащика:'}
             placeholder={`-цена до 1000$;\n-доставка: США, Европа;\n-расчеты через юр. лицо`}
+            value={listingProduct.listingTaskToFindSupplier}
+            onChange={e => onChangeField(e, 'listingTaskToFindSupplier')}
           />
 
           <Field
             multiline
+            disabled={!userIsSupervisor}
             className={classNames.searchSupplierField}
             label={'Обратить внимание:'}
-            placeholder={`-цены на товары;\n-минимальное количество товара для закупки и отгрузки;\n-гарантийные условия — что будет, если товар окажется некачественным;\n-условия возврата;\n-условия оплаты. Желательно исключить расчеты наличными, чтобы не было проблем с налоговой.`}
+            placeholder={`-цены на товары;\n-минимальное количество товара для закупки и отгрузки...`}
+            value={listingProduct.listingSupplierImportantPoints}
+            onChange={e => onChangeField(e, 'listingSupplierImportantPoints')}
           />
 
           <Field
             multiline
+            disabled={!userIsSupervisor}
             className={classNames.searchSupplierField}
             label={'Дополнительная информация:'}
-            placeholder={`дедлайн: 05.10.2021`}
+            placeholder={`дедлайн`}
+            value={listingProduct.listingExtraInfo}
+            onChange={e => onChangeField(e, 'listingExtraInfo')}
           />
 
           <Field
             multiline
+            disabled={!userIsSupervisor}
             className={classNames.searchSupplierField}
             label={'Конкуренты:'}
-            placeholder={`дедлайн: 05.10.2021`}
+            placeholder={`конкуренты`}
+            value={listingProduct.listingSupplierCompetitors}
+            onChange={e => onChangeField(e, 'listingSupplierCompetitors')}
           />
 
           <div className={classNames.photoWrapper}>
             <Typography className={classNames.subTitle}>{'Фотографии продукта в коробках:'}</Typography>
 
-            <Carousel autoPlay={false} timeout={100} animation="fade">
-              {imagesFromBoxes.map((el, index) => (
-                <div key={index}>
-                  <img alt="" className={classNames.imgBox} src={el} onClick={e => onClickImg(e.target.src)} />
-                </div>
-              ))}
-            </Carousel>
+            {imagesFromBoxes.length > 0 ? (
+              <Carousel autoPlay={false} timeout={100} animation="fade">
+                {imagesFromBoxes.map((el, index) => (
+                  <div key={index}>
+                    <img alt="" className={classNames.imgBox} src={el} onClick={e => onClickImg(e.target.src)} />
+                  </div>
+                ))}
+              </Carousel>
+            ) : (
+              <Typography>{'Фотографий пока нет...'}</Typography>
+            )}
           </div>
 
-          <Typography className={classNames.subTitle}>{'Добавить фотографии:'}</Typography>
-          <div className={classNames.filesInputList}>
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((el, index) => (
-              <li key={index} className={classNames.filesInputListItem}>
-                <label className={classNames.inputFileWrapper}>
-                  <AddAPhotoIcon fontSize="large" />
-                  <span>{'Прикрепить файл'}</span>
-                  <Input type="file" className={classNames.fileInput} />
-                </label>
-              </li>
-            ))}
+          <div className={classNames.photoWrapper}>
+            <Typography className={classNames.subTitle}>{'Фотографии листинга:'}</Typography>
+
+            {listingProduct.listingImages.length > 0 ? (
+              <Carousel autoPlay={false} timeout={100} animation="fade">
+                {listingProduct.listingImages.map((el, index) => (
+                  <div key={index}>
+                    <img alt="" className={classNames.imgBox} src={el} onClick={e => onClickImg(e.target.src)} />
+                  </div>
+                ))}
+              </Carousel>
+            ) : (
+              <Typography>{'Фотографий пока нет...'}</Typography>
+            )}
           </div>
         </Paper>
       </div>
+      {userIsSupervisor ? (
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            disableElevation
+            className={classNames.button}
+            color="primary"
+            variant="contained"
+            onClick={onSaveSubmith}
+          >
+            {'Сохранить'}
+          </Button>
 
-      <UserBalanceHistory historyData={payments} title="Транзакции:" />
-
-      <Modal openModal={showImageModal} setOpenModal={() => onTriggerOpenModal('showImageModal')}>
-        <div>
-          <img alt="" className={classNames.bigImg} src={curImage} />
+          <Button disableElevation className={classNames.button} color="primary" variant="contained" onClick={onCancel}>
+            {'Отменить'}
+          </Button>
         </div>
-      </Modal>
+      ) : (
+        <div className={classNames.buttonsWrapper}>
+          <Button disableElevation className={classNames.button} color="primary" variant="contained" onClick={onCancel}>
+            {'Назад'}
+          </Button>
+        </div>
+      )}
+
+      {!checkIsBuyer(UserRoleCodeMap[userRole]) && <UserBalanceHistory historyData={payments} title="Транзакции:" />}
+
+      <ShowImageModal
+        openModal={showImageModal}
+        setOpenModal={() => onTriggerOpenModal('showImageModal')}
+        image={curImage}
+      />
+
+      <SuccessInfoModal
+        openModal={showSuccessModal}
+        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+        title={'Данные успешно сохранены'}
+        successBtnText={'ок'}
+        onClickSuccessBtn={() => {
+          onTriggerOpenModal('showSuccessModal')
+          history.goBack()
+        }}
+      />
+
+      {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
     </div>
   )
 })

@@ -11,15 +11,14 @@
  *
  */
 
-
-import ApiClient from "../ApiClient";
-import InlineObject23 from '../model/InlineObject23';
-import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse2004 from '../model/InlineResponse2004';
-import InlineResponse400 from '../model/InlineResponse400';
-import InlineResponse404 from '../model/InlineResponse404';
-import InlineResponse409 from '../model/InlineResponse409';
-import InlineResponse500 from '../model/InlineResponse500';
+import ApiClient from '../ApiClient'
+import InlineObject23 from '../model/InlineObject23'
+import InlineResponse200 from '../model/InlineResponse200'
+import InlineResponse2004 from '../model/InlineResponse2004'
+import InlineResponse400 from '../model/InlineResponse400'
+import InlineResponse404 from '../model/InlineResponse404'
+import InlineResponse409 from '../model/InlineResponse409'
+import InlineResponse500 from '../model/InlineResponse500'
 
 /**
 * Supervisor service.
@@ -27,162 +26,171 @@ import InlineResponse500 from '../model/InlineResponse500';
 * @version v0.0.1
 */
 export default class SupervisorApi {
-
-    /**
+  /**
     * Constructs a new SupervisorApi. 
     * @alias module:api/SupervisorApi
     * @class
     * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
     * default to {@link module:ApiClient#instance} if unspecified.
     */
-    constructor(apiClient) {
-        this.apiClient = apiClient || ApiClient.instance;
-    }
+  constructor(apiClient) {
+    this.apiClient = apiClient || ApiClient.instance
+  }
 
-
-
-    /**
+  /**
      * # Получить оплаты созданные данным супервайзером.
      * ## Получить оплаты созданные данным супервайзером.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
-    apiV1SupervisorsPaymentsCreatedByThisSuperGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
+  apiV1SupervisorsPaymentsCreatedByThisSuperGetWithHttpInfo(opts) {
+    opts = opts || {}
+    let postBody = null
 
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [InlineResponse2004];
-      return this.apiClient.callApi(
-        '/api/v1/supervisors/payments/created_by_this_super', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
+    let pathParams = {}
+    let queryParams = {}
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
     }
+    let formParams = {}
 
-    /**
+    let authNames = [ 'AccessTokenBearer' ]
+    let contentTypes = []
+    let accepts = [ 'text/html' ]
+    let returnType = [ InlineResponse2004 ]
+    return this.apiClient.callApi(
+      '/api/v1/supervisors/payments/created_by_this_super',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    )
+  }
+
+  /**
      * # Получить оплаты созданные данным супервайзером.
      * ## Получить оплаты созданные данным супервайзером.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */
-    apiV1SupervisorsPaymentsCreatedByThisSuperGet(opts) {
-      return this.apiV1SupervisorsPaymentsCreatedByThisSuperGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1SupervisorsPaymentsCreatedByThisSuperGet(opts) {
+    return this.apiV1SupervisorsPaymentsCreatedByThisSuperGetWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data
+    })
+  }
 
-
-    /**
+  /**
      * Получить баланс для супервайзера.
      * Получить баланс для супервайзера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Number} and HTTP response
      */
-    apiV1SupervisorsPaymentsMyBalanceGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
+  apiV1SupervisorsPaymentsMyBalanceGetWithHttpInfo(opts) {
+    opts = opts || {}
+    let postBody = null
 
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = 'Number';
-      return this.apiClient.callApi(
-        '/api/v1/supervisors/payments/my-balance', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
+    let pathParams = {}
+    let queryParams = {}
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
     }
+    let formParams = {}
 
-    /**
+    let authNames = [ 'AccessTokenBearer' ]
+    let contentTypes = []
+    let accepts = [ 'text/html' ]
+    let returnType = 'Number'
+    return this.apiClient.callApi(
+      '/api/v1/supervisors/payments/my-balance',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    )
+  }
+
+  /**
      * Получить баланс для супервайзера.
      * Получить баланс для супервайзера.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Number}
      */
-    apiV1SupervisorsPaymentsMyBalanceGet(opts) {
-      return this.apiV1SupervisorsPaymentsMyBalanceGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1SupervisorsPaymentsMyBalanceGet(opts) {
+    return this.apiV1SupervisorsPaymentsMyBalanceGetWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data
+    })
+  }
 
-
-    /**
+  /**
      * # Получить все оплаты, которые были начислены супервайзеру.
      * ## Получить все оплаты, которые были начислены супервайзеру.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
-    apiV1SupervisorsPaymentsMyGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
+  apiV1SupervisorsPaymentsMyGetWithHttpInfo(opts) {
+    opts = opts || {}
+    let postBody = null
 
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [InlineResponse2004];
-      return this.apiClient.callApi(
-        '/api/v1/supervisors/payments/my', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
+    let pathParams = {}
+    let queryParams = {}
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
     }
+    let formParams = {}
 
-    /**
+    let authNames = [ 'AccessTokenBearer' ]
+    let contentTypes = []
+    let accepts = [ 'text/html' ]
+    let returnType = [ InlineResponse2004 ]
+    return this.apiClient.callApi(
+      '/api/v1/supervisors/payments/my',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    )
+  }
+
+  /**
      * # Получить все оплаты, которые были начислены супервайзеру.
      * ## Получить все оплаты, которые были начислены супервайзеру.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */
-    apiV1SupervisorsPaymentsMyGet(opts) {
-      return this.apiV1SupervisorsPaymentsMyGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1SupervisorsPaymentsMyGet(opts) {
+    return this.apiV1SupervisorsPaymentsMyGetWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data
+    })
+  }
 
-
-    /**
+  /**
      * # Изменить статус и дать комментарий доя продукта.
      * ## Изменить статус и дать комментарий для продукта.  ## 20, 70, 80, 90 - эти статусы запускают процесс выплат. После того как поставлен   ## одн из таких статусов - больше нельзя така как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,      researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,       // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/    
      * @param {String} guid GUID продукта, который планируем изменить
@@ -191,41 +199,48 @@ export default class SupervisorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, InlineObject23, opts) {
-      opts = opts || {};
-      let postBody = InlineObject23;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1SupervisorsProductsGuidPatch");
-      }
-      // verify the required parameter 'InlineObject23' is set
-      if (InlineObject23 === undefined || InlineObject23 === null) {
-        throw new Error("Missing the required parameter 'InlineObject23' when calling apiV1SupervisorsProductsGuidPatch");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/supervisors/products/{guid}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
+  apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, InlineObject23, opts) {
+    opts = opts || {}
+    let postBody = InlineObject23
+    // verify the required parameter 'guid' is set
+    if (guid === undefined || guid === null) {
+      throw new Error("Missing the required parameter 'guid' when calling apiV1SupervisorsProductsGuidPatch")
+    }
+    // verify the required parameter 'InlineObject23' is set
+    if (InlineObject23 === undefined || InlineObject23 === null) {
+      throw new Error("Missing the required parameter 'InlineObject23' when calling apiV1SupervisorsProductsGuidPatch")
     }
 
-    /**
+    let pathParams = {
+      guid: guid
+    }
+    let queryParams = {}
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    }
+    let formParams = {}
+
+    let authNames = [ 'AccessTokenBearer' ]
+    let contentTypes = [ 'application/json' ]
+    let accepts = [ 'text/html' ]
+    let returnType = 'String'
+    return this.apiClient.callApi(
+      '/api/v1/supervisors/products/{guid}',
+      'PATCH',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    )
+  }
+
+  /**
      * # Изменить статус и дать комментарий доя продукта.
      * ## Изменить статус и дать комментарий для продукта.  ## 20, 70, 80, 90 - эти статусы запускают процесс выплат. После того как поставлен   ## одн из таких статусов - больше нельзя така как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,      researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,       // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/    
      * @param {String} guid GUID продукта, который планируем изменить
@@ -234,62 +249,66 @@ export default class SupervisorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1SupervisorsProductsGuidPatch(guid, InlineObject23, opts) {
-      return this.apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, InlineObject23, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1SupervisorsProductsGuidPatch(guid, InlineObject23, opts) {
+    return this.apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, InlineObject23, opts).then(function(
+      response_and_data
+    ){
+      return response_and_data.data
+    })
+  }
 
-
-    /**
+  /**
      * # Получить список товаров взятых на проверку супервайзером.
      * ## Получить список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1SupervisorsProductsMyGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
+  apiV1SupervisorsProductsMyGetWithHttpInfo(opts) {
+    opts = opts || {}
+    let postBody = null
 
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
-      return this.apiClient.callApi(
-        '/api/v1/supervisors/products/my', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
+    let pathParams = {}
+    let queryParams = {}
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
     }
+    let formParams = {}
 
-    /**
+    let authNames = [ 'AccessTokenBearer' ]
+    let contentTypes = []
+    let accepts = [ 'text/html' ]
+    let returnType = [ InlineResponse200 ]
+    return this.apiClient.callApi(
+      '/api/v1/supervisors/products/my',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    )
+  }
+
+  /**
      * # Получить список товаров взятых на проверку супервайзером.
      * ## Получить список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
-    apiV1SupervisorsProductsMyGet(opts) {
-      return this.apiV1SupervisorsProductsMyGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1SupervisorsProductsMyGet(opts) {
+    return this.apiV1SupervisorsProductsMyGetWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data
+    })
+  }
 
-
-    /**
+  /**
      * # Закрепить продукт за супервайзером. Взять его в работу.
      * ## Закрепить продукт за супервайзером. Взять его в работу.  ##  Выставляет у продукта поле checkedby  
      * @param {String} guid GUID продукта, который планируем изменить
@@ -297,37 +316,44 @@ export default class SupervisorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1SupervisorsProductsPickupGuidPostWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1SupervisorsProductsPickupGuidPost");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/supervisors/products/pickup/{guid}', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
+  apiV1SupervisorsProductsPickupGuidPostWithHttpInfo(guid, opts) {
+    opts = opts || {}
+    let postBody = null
+    // verify the required parameter 'guid' is set
+    if (guid === undefined || guid === null) {
+      throw new Error("Missing the required parameter 'guid' when calling apiV1SupervisorsProductsPickupGuidPost")
     }
 
-    /**
+    let pathParams = {
+      guid: guid
+    }
+    let queryParams = {}
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    }
+    let formParams = {}
+
+    let authNames = [ 'AccessTokenBearer' ]
+    let contentTypes = []
+    let accepts = [ 'text/html' ]
+    let returnType = 'String'
+    return this.apiClient.callApi(
+      '/api/v1/supervisors/products/pickup/{guid}',
+      'POST',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    )
+  }
+
+  /**
      * # Закрепить продукт за супервайзером. Взять его в работу.
      * ## Закрепить продукт за супервайзером. Взять его в работу.  ##  Выставляет у продукта поле checkedby  
      * @param {String} guid GUID продукта, который планируем изменить
@@ -335,59 +361,127 @@ export default class SupervisorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1SupervisorsProductsPickupGuidPost(guid, opts) {
-      return this.apiV1SupervisorsProductsPickupGuidPostWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+  apiV1SupervisorsProductsPickupGuidPost(guid, opts) {
+    return this.apiV1SupervisorsProductsPickupGuidPostWithHttpInfo(guid, opts).then(function(response_and_data){
+      return response_and_data.data
+    })
+  }
 
-
-    /**
+  /**
      * # Получить список вакантных товаров.
      * ## Получить список вакантных товаров.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
-    apiV1SupervisorsProductsVacGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
+  apiV1SupervisorsProductsVacGetWithHttpInfo(opts) {
+    opts = opts || {}
+    let postBody = null
 
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [InlineResponse200];
-      return this.apiClient.callApi(
-        '/api/v1/supervisors/products/vac', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
+    let pathParams = {}
+    let queryParams = {}
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
     }
+    let formParams = {}
 
-    /**
+    let authNames = [ 'AccessTokenBearer' ]
+    let contentTypes = []
+    let accepts = [ 'text/html' ]
+    let returnType = [ InlineResponse200 ]
+    return this.apiClient.callApi(
+      '/api/v1/supervisors/products/vac',
+      'GET',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    )
+  }
+
+  /**
      * # Получить список вакантных товаров.
      * ## Получить список вакантных товаров.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
-    apiV1SupervisorsProductsVacGet(opts) {
-      return this.apiV1SupervisorsProductsVacGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
+  apiV1SupervisorsProductsVacGet(opts) {
+    return this.apiV1SupervisorsProductsVacGetWithHttpInfo(opts).then(function(response_and_data){
+      return response_and_data.data
+    })
+  }
+
+  /**
+     * # Изменить статус и дать комментарий доя продукта.
+     * ## Изменить статус и дать комментарий для продукта.  ## 20, 70, 80, 90 - эти статусы запускают процесс выплат. После того как поставлен   ## одн из таких статусов - больше нельзя така как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,      researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,       // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/    
+     * @param {String} guid GUID продукта, который планируем изменить
+     * @param {module:model/InlineObject23} InlineObject23 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+  apiV1SupervisorsProductsGuidListingPatchWithHttpInfo(guid, InlineObject23, opts) {
+    opts = opts || {}
+    let postBody = InlineObject23
+    // verify the required parameter 'guid' is set
+    if (guid === undefined || guid === null) {
+      throw new Error("Missing the required parameter 'guid' when calling apiV1SupervisorsProductsGuidPatch")
+    }
+    // verify the required parameter 'InlineObject23' is set
+    if (InlineObject23 === undefined || InlineObject23 === null) {
+      throw new Error("Missing the required parameter 'InlineObject23' when calling apiV1SupervisorsProductsGuidPatch")
     }
 
+    let pathParams = {
+      guid: guid
+    }
+    let queryParams = {}
+    let headerParams = {
+      'Accept-Encoding': opts['Accept_Encoding']
+    }
+    let formParams = {}
 
+    let authNames = [ 'AccessTokenBearer' ]
+    let contentTypes = [ 'application/json' ]
+    let accepts = [ 'text/html' ]
+    let returnType = 'String'
+    return this.apiClient.callApi(
+      '/api/v1/supervisors/products/listing/{guid}',
+      'PATCH',
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      null
+    )
+  }
+
+  /**
+     * # Изменить статус и дать комментарий доя продукта.
+     * ## Изменить статус и дать комментарий для продукта.  ## 20, 70, 80, 90 - эти статусы запускают процесс выплат. После того как поставлен   ## одн из таких статусов - больше нельзя така как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,      researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,       // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/    
+     * @param {String} guid GUID продукта, который планируем изменить
+     * @param {module:model/InlineObject23} InlineObject23 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+  apiV1SupervisorsProductsGuidListingPatch(guid, InlineObject23, opts) {
+    return this.apiV1SupervisorsProductsGuidListingPatchWithHttpInfo(guid, InlineObject23, opts).then(function(
+      response_and_data
+    ){
+      return response_and_data.data
+    })
+  }
 }

@@ -38,6 +38,12 @@ class SupervisorModelStatic {
     const response = await restApiService.supervisorApi.apiV1SupervisorsProductsPickupGuidPost(id)
     return response
   }
+
+  updateProductListing = async (id, data) => {
+    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsGuidListingPatch(id, data)
+
+    return response
+  }
 }
 
 export const SupervisorModel = new SupervisorModelStatic()

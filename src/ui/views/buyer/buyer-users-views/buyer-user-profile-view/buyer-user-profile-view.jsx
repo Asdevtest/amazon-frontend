@@ -24,7 +24,7 @@ import {BuyerUserProfileViewModel} from './buyer-user-profile-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerUserView
 
-const navbarActiveCategory = 4
+const navbarActiveCategory = 5
 const navbarActiveSubCategory = 0
 
 @observer

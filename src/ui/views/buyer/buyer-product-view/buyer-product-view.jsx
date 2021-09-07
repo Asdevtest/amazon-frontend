@@ -33,6 +33,8 @@ class BuyerProductViewRaw extends Component {
 
   render() {
     const {
+      showProgress,
+      progressValue,
       product,
       drawerOpen,
       suppliers,
@@ -95,6 +97,8 @@ class BuyerProductViewRaw extends Component {
           <AddOrEditSupplierModalContent
             title={textConsts.modalAddTitle}
             supplier={selectedSupplier}
+            showProgress={showProgress}
+            progressValue={progressValue}
             onClickSaveBtn={onClickSaveSupplierBtn}
             onTriggerShowModal={onTriggerAddOrEditSupplierModal}
           />

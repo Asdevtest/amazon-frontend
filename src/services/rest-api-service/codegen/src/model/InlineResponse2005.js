@@ -94,6 +94,9 @@ class InlineResponse2005 {
       if (data.hasOwnProperty('updateDate')) {
         obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date')
       }
+      if (data.hasOwnProperty('images')) {
+        obj['images'] = ApiClient.convertToType(data['images'], 'Array')
+      }
     }
     return obj
   }

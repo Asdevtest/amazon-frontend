@@ -18,6 +18,8 @@ import {useClassNames} from './right-side-comments.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
+const withoutStatus = true
+
 export const RightSideComments = observer(
   ({
     curUserRole,
@@ -52,7 +54,7 @@ export const RightSideComments = observer(
             buttonsConfig={productStatusButtonsConfig}
             onClickButton={onClickSetProductStatusBtn}
             onClickSaveWithoutStatusChange={
-              checkIsSupervisor(curUserRole) ? () => handleProductActionButtons('accept') : undefined
+              checkIsSupervisor(curUserRole) ? () => handleProductActionButtons('accept', withoutStatus) : undefined
             }
           />
           <Field
@@ -100,6 +102,7 @@ export const RightSideComments = observer(
               >
                 {textConsts.buttonCancel}
               </ErrorButton>
+
               {checkIsResearcher(curUserRole) ? (
                 <ErrorButton
                   className={classNames.buttonDelete}
