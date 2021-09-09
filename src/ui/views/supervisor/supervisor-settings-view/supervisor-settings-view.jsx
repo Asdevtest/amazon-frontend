@@ -35,7 +35,6 @@ export class SupervisorSettingsViewRaw extends Component {
   render() {
     const {
       drawerOpen,
-      history,
       formFields,
       onChangeFormFields,
       onTriggerDrawerOpen,
@@ -56,7 +55,6 @@ export class SupervisorSettingsViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.SUPERVISOR}

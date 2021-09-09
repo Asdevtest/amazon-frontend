@@ -44,7 +44,6 @@ export class ClientProductView extends Component {
       showAddOrEditSupplierModal,
       activeChip,
       product,
-      history,
       onChangeFieldProduct,
       onChangeSelectedSupplier,
       onTriggerAddOrEditSupplierModal,
@@ -67,7 +66,6 @@ export class ClientProductView extends Component {
           <Appbar
             avatarSrc={avatar}
             notificationCount={2}
-            history={history}
             setDrawerOpen={onChangeDrawerOpen}
             title={textConsts.appBarTitle}
             username={textConsts.appBarUsername}

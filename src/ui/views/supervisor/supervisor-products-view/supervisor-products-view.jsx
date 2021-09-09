@@ -38,7 +38,6 @@ class SupervisorProductsViewRaw extends Component {
       selectedProducts,
       productsMy,
       curPage,
-      history,
       rowsPerPage,
       onTriggerDrawerOpen,
       onSelectProduct,
@@ -68,7 +67,6 @@ class SupervisorProductsViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            history={history}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}

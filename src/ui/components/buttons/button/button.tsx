@@ -5,7 +5,18 @@ import clsx from 'clsx'
 import {useClassNames} from './button.style'
 import {StyledButton} from './styled-button'
 
-export const Button = ({variant, color, children, success, danger, className, disabled, ...restProps}) => {
+interface Props {
+  variant?: string
+  color?: string
+  success?: boolean
+  danger?: boolean
+  className: string
+  disabled?: boolean
+  onClick?: () => void
+  disableElevation?: boolean
+}
+
+export const Button = ({variant, color, children, success, danger, className, disabled, ...restProps}: Props) => {
   const classNames = useClassNames()
   return (
     <StyledButton

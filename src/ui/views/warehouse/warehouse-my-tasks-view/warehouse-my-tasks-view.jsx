@@ -43,7 +43,6 @@ export class WarehouseMyTasksViewRaw extends Component {
       curPage,
       showEditTaskModal,
       rowsPerPage,
-      history,
       selectedTask,
       progressValue,
       showProgress,
@@ -80,7 +79,6 @@ export class WarehouseMyTasksViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc=""
-            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onChangeTriggerDrawerOpen}
             curUserRole={UserRole.STOREKEEPER}

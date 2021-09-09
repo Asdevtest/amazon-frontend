@@ -38,7 +38,6 @@ export class BuyerMyProductsViewRaw extends Component {
       productsMy,
       drawerOpen,
       curPage,
-      history,
       rowsPerPage,
       onChangePage,
       onChangeRowsPerPage,
@@ -64,7 +63,6 @@ export class BuyerMyProductsViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            history={history}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}

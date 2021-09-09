@@ -36,7 +36,7 @@ export class ClientDashboardViewRaw extends Component {
   }
 
   render() {
-    const {balance, drawerOpen, onTriggerDrawer, history} = this.viewModel
+    const {balance, drawerOpen, onTriggerDrawer} = this.viewModel
     const {classes} = this.props
 
     return (
@@ -50,7 +50,6 @@ export class ClientDashboardViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
-            history={history}
             curUserRole={UserRole.CLIENT}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}

@@ -1,1 +1,1 @@
-export {StyledBadge} from './styled-badge'
+export {StyledBadge} from './styled-badge.tsx'

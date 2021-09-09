@@ -1,1 +1,1 @@
-export * from './error-button'
+export * from './error-button.tsx'

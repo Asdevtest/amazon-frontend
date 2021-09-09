@@ -38,7 +38,6 @@ class BuyerProductViewRaw extends Component {
       product,
       drawerOpen,
       suppliers,
-      history,
       selectedSupplier,
       showAddOrEditSupplierModal,
       formFieldsValidationErrors,
@@ -69,7 +68,6 @@ class BuyerProductViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            history={history}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}

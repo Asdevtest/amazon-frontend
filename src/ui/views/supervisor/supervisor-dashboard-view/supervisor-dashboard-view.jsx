@@ -34,7 +34,7 @@ export class SupervisorDashboardViewRaw extends Component {
   }
 
   render() {
-    const {balance, drawerOpen, onTriggerDrawerOpen, history} = this.viewModel
+    const {balance, drawerOpen, onTriggerDrawerOpen} = this.viewModel
     const {classes: classNames} = this.props
     return (
       <React.Fragment>
@@ -49,7 +49,6 @@ export class SupervisorDashboardViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.SUPERVISOR}

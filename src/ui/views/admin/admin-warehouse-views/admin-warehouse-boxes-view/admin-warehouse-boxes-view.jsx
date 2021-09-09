@@ -44,7 +44,6 @@ export class AdminWarehouseBoxesViewRaw extends Component {
       curPage,
       rowsPerPage,
       boxes,
-      history,
       selectedBoxes,
       modalSendOwnProduct,
       modalEditBox,
@@ -80,7 +79,6 @@ export class AdminWarehouseBoxesViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
-            history={history}
             curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}

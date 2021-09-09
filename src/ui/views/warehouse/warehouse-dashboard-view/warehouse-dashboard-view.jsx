@@ -34,7 +34,7 @@ export class WarehouseDashboardViewRaw extends Component {
   }
 
   render() {
-    const {balance, drawerOpen, onChangeTriggerDrawerOpen, history} = this.viewModel
+    const {balance, drawerOpen, onChangeTriggerDrawerOpen} = this.viewModel
     const {classes: classNames} = this.props
 
     return (
@@ -51,7 +51,6 @@ export class WarehouseDashboardViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc=""
-            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onChangeTriggerDrawerOpen}
             curUserRole={UserRole.STOREKEEPER}

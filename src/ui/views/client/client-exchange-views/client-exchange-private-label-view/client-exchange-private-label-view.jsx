@@ -41,7 +41,6 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
     const {
       drawerOpen,
       productToPay,
-      history,
       showConfirmPayModal,
       showSuccessModal,
       onTriggerDrawer,
@@ -62,7 +61,6 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
-            history={history}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
             username={clientUsername}

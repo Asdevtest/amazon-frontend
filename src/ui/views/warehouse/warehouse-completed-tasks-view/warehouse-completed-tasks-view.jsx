@@ -40,7 +40,6 @@ export class WarehouseCompletedTasksViewRaw extends Component {
       drawerOpen,
       curPage,
       rowsPerPage,
-      history,
       showTaskInfoModal,
       onChangeTriggerDrawerOpen,
       onChangeCurPage,
@@ -65,7 +64,6 @@ export class WarehouseCompletedTasksViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc=""
-            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onChangeTriggerDrawerOpen}
             curUserRole={UserRole.STOREKEEPER}

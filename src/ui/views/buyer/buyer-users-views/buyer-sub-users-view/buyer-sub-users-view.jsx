@@ -43,7 +43,6 @@ class BuyerSubUsersViewRaw extends Component {
     const {
       drawerOpen,
       curPage,
-      history,
       rowsPerPage,
       showAddSubUserModal,
       showEditSubUserModal,
@@ -71,7 +70,6 @@ class BuyerSubUsersViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.BUYER}

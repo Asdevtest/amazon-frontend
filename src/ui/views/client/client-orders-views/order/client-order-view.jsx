@@ -32,7 +32,7 @@ export class ClientOrderView extends Component {
   }
 
   render() {
-    const {orderBoxes, drawerOpen, order, onTriggerDrawerOpen, history} = this.viewModel
+    const {orderBoxes, drawerOpen, order, onTriggerDrawerOpen} = this.viewModel
 
     return (
       <React.Fragment>
@@ -47,7 +47,6 @@ export class ClientOrderView extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.CLIENT}
