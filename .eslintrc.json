@@ -267,7 +267,7 @@
           ["@utils","./src/utils"],
           ["@typings", "./src/typings"]
         ],
-        "extensions": [".ts", ".js", ".jsx", ".json", "tsx", ".d.ts"]
+        "extensions": [".ts", ".js", ".jsx", ".json", ".tsx", ".d.ts"]
       }
     }
   },

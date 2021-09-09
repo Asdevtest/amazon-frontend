@@ -34,7 +34,7 @@ export class ResearcherDashboardViewRaw extends Component {
   }
 
   render() {
-    const {balance, drawerOpen, onTriggerDrawerOpen, history} = this.viewModel
+    const {balance, drawerOpen, onTriggerDrawerOpen} = this.viewModel
     const {classes: classNames} = this.props
 
     return (
@@ -52,7 +52,6 @@ export class ResearcherDashboardViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             drawerOpen={drawerOpen}
-            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.RESEARCHER}

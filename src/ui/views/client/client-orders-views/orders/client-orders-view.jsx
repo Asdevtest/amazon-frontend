@@ -39,7 +39,6 @@ class ClientOrdersViewRaw extends Component {
       drawerOpen,
       rowsPerPage,
       curPage,
-      history,
       selectedOrder,
       onTriggerDrawerOpen,
       onChangeCurPage,
@@ -65,7 +64,6 @@ class ClientOrdersViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.CLIENT}

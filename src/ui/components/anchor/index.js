@@ -1,1 +1,1 @@
-export {Anchor} from './anchor'
+export {Anchor} from './anchor.tsx'

@@ -1,1 +1,1 @@
-export * from './success-button'
+export * from './success-button.tsx'

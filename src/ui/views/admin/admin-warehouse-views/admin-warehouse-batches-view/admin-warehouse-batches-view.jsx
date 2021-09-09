@@ -45,7 +45,6 @@ class AdminWarehouseBatchesViewRaw extends Component {
     const {
       batches,
       drawerOpen,
-      history,
       curPage,
       rowsPerPage,
       selectedBatchIndex,
@@ -79,7 +78,6 @@ class AdminWarehouseBatchesViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             curUserRole={UserRole.ADMIN}
-            history={history}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}

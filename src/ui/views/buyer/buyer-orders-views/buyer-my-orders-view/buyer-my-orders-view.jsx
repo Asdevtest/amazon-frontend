@@ -47,7 +47,6 @@ class BuyerMyOrdersViewRaw extends Component {
       drawerOpen,
       ordersMy,
       curPage,
-      history,
       rowsPerPage,
       selectedOrder,
       showOrderModal,
@@ -83,7 +82,6 @@ class BuyerMyOrdersViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            history={history}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}

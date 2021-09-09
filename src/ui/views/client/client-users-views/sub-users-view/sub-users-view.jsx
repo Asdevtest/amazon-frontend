@@ -46,7 +46,6 @@ class ClientSubUsersViewRaw extends Component {
       modalAddSubUser,
       modalEditSubUser,
       modalPermission,
-      history,
       rowsPerPage,
       paginationPage,
       onChangeModalEditSubUser,
@@ -71,7 +70,6 @@ class ClientSubUsersViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            history={history}
             avatarSrc={avatar}
             username={textConsts.appBarUsername}
             setDrawerOpen={onChangeDrawerOpen}

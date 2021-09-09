@@ -92,7 +92,6 @@ class AdminUsersViewRaw extends Component {
       requestStatus,
       drawerOpen,
       curPage,
-      history,
       rowsPerPage,
       editUserFormFields,
       showEditUserModal,
@@ -122,7 +121,6 @@ class AdminUsersViewRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
-            history={history}
             curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}

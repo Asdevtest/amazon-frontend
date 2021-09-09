@@ -6,13 +6,12 @@ import {observer} from 'mobx-react'
 
 import {Input} from '@components/input'
 
-import {FieldClass} from '@typings/class-name-types'
-
+import {StyleClass} from '../../../typings/class-name-types'
 import {useClassNames} from './field.style'
 
 interface Props {
   label: string
-  containerClasses?: FieldClass
+  containerClasses?: StyleClass
   inputComponent?: React.ComponentType
   error?: string
   oneLine?: boolean

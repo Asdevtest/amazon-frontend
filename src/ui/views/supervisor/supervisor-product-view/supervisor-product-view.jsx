@@ -32,7 +32,6 @@ export class SupervisorProductView extends Component {
     const {
       drawerOpen,
       product,
-      history,
       suppliers,
       actionStatus,
       selectedSupplier,
@@ -59,7 +58,6 @@ export class SupervisorProductView extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            history={history}
             user={textConsts.appUser}
             username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}

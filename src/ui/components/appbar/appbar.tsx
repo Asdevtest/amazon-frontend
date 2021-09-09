@@ -8,6 +8,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import MenuIcon from '@material-ui/icons/Menu'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import {observer} from 'mobx-react'
+import {useHistory} from 'react-router-dom'
 
 import {texts} from '@constants/texts'
 
@@ -21,7 +22,16 @@ import {useClassNames} from './appbar.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').appbarTexts
 
-export const Appbar = observer(({avatarSrc, children, title, username, curUserRole, setDrawerOpen, history}) => {
+interface Props {
+  avatarSrc: string
+  title: string
+  username: string
+  curUserRole: string
+  setDrawerOpen: () => void
+}
+
+export const Appbar = observer(({avatarSrc, children, title, username, curUserRole, setDrawerOpen}: Props) => {
+  const history = useHistory()
   const classNames = useClassNames()
   const componentModel = useRef(new AppbarModel({userRole: curUserRole}))
 
@@ -33,9 +43,9 @@ export const Appbar = observer(({avatarSrc, children, title, username, curUserRo
     </Hidden>
   )
 
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null)
 
-  const handleClick = event => {
+  const handleClick = (event: {currentTarget: HTMLDivElement}) => {
     setAnchorEl(event.currentTarget)
   }
 

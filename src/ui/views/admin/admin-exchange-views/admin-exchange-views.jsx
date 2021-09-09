@@ -41,7 +41,6 @@ class AdminExchangeViewsRaw extends Component {
       filterModel,
       activeSubCategory,
       drawerOpen,
-      history,
       curPage,
       rowsPerPage,
       requestStatus,
@@ -68,7 +67,6 @@ class AdminExchangeViewsRaw extends Component {
         <Main>
           <Appbar
             avatarSrc={avatar}
-            history={history}
             curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
