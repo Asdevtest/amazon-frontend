@@ -1,0 +1,11 @@
+setup:
+  stage: setup
+  script:
+    - yarn install
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_PROTECTED == "true"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(master|dev)/i'
+  artifacts:
+    paths:
+      - node_modules
+    expire_in: 3 hours

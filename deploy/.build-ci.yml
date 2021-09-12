@@ -1,0 +1,15 @@
+build:
+  stage: build
+  dependencies:
+    - setup
+  variables:
+    DOCKER_TLS_CERTDIR: ''
+  before_script:
+    - cp $CI_ENV_STAGING .env
+  script:
+    - source .env
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker build . -t $CI_REGISTRY/frontend:$CI_COMMIT_REF_SLUG --build-arg ENV_FILE=.env && docker push $CI_REGISTRY/frontend:$CI_COMMIT_REF_SLUG; 
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"  && $CI_COMMIT_REF_PROTECTED == "true" && $CI_DEV_SKIP_BUILD_AND_DOCKERIZE != "Y"'
+      when: on_success

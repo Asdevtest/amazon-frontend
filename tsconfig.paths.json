@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@constants/*": ["./src/constants/*"],
+      "@models/*": ["./src/models/*"],
+      "@navigation/*": ["./src/navigation/*"],
+      "@services/*": ["./src/services/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@components/*": ["./src/ui/components/*"],
+      "@views/*": ["./src/ui/views/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@typings/*": ["./src/typings/*"],
+    }
+  }
+}
