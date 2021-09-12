@@ -1,0 +1,13 @@
+stages:
+  - setup
+  - lint
+  - build
+  - deploy
+
+
+include:
+  - local: deploy/.setup-ci.yml
+  - local: deploy/.lint-ci.yml
+  - local: deploy/.build-ci.yml
+  - local: deploy/.deploy-ci.yml
+

@@ -1,0 +1,20 @@
+deploy:
+  stage: deploy
+  before_script:
+    - docker info
+    - cp $CI_ENV_STAGING .env
+  script:
+    - source .env
+    - docker-compose --file deploy/docker-compose.yml down --remove-orphans || true
+    - sleep 30
+    - docker images -a | grep "frontend" | awk '{print $3}' | xargs docker rmi || true
+    - docker-compose --file deploy/docker-compose.yml up -d
+    - >
+      if [[ $CI_REQUEST_SSL_CERT == "Y" ]]; then
+        chmod +x ./deploy/init-letsencrypt.sh && deploy/init-letsencrypt.sh && docker-compose -f deploy/docker-compose.yml restart reverse-proxy;
+      fi 
+  tags:
+    - amazon-front-stage
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_PROTECTED == "true" && $CI_DEV_SKIP_BUILD_AND_DOCKERIZE != "Y"'
+      when: on_success
