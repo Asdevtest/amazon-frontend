@@ -52,8 +52,10 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
     alignSelf: 'center',
     width: '100%',
+    gap: '10px',
   },
   numberInputFieldsWrapper: {
     display: 'flex',
@@ -96,5 +98,9 @@ export const useClassNames = makeStyles(theme => ({
   },
   labelFieldsWrapper: {
     display: 'flex',
+  },
+  iconBtn: {
+    width: '50px',
+    height: '50px',
   },
 }))

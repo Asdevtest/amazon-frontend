@@ -3,13 +3,14 @@ import React, {useState} from 'react'
 import {Box, Grid, InputLabel, NativeSelect, Typography, Checkbox} from '@material-ui/core'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
-import {getOrderStatusOptionByCode} from '@constants/order-status'
+import {getOrderStatusOptionByCode, OrderStatusByCode, OrderStatusByKey, OrderStatus} from '@constants/order-status'
 import {texts} from '@constants/texts'
 
 import {Input} from '@components/input'
 
 import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {withDollarSign, withYuanSign} from '@utils/text'
 
 import {useClassNames} from './select-fields.style'
@@ -18,14 +19,13 @@ const textConsts = getLocalizedTexts(texts, 'en').ordersViewsModalSelectFields
 
 const defaultYuansToDollarRate = 6.3
 
-export const SelectFields = ({
-  setOrderField,
-  resetOrderField,
-  orderFields,
-  warehouses,
-  deliveryTypeByCode,
-  orderStatusByCode,
-}) => {
+const allowOrderStatuses = [
+  `${OrderStatusByKey[OrderStatus.PAID]}`,
+  `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+  `${OrderStatusByKey[OrderStatus.RETURN_ORDER]}`,
+]
+
+export const SelectFields = ({setOrderField, resetOrderField, orderFields, warehouses, deliveryTypeByCode}) => {
   const classNames = useClassNames()
 
   const [supplierPaidDelivery, setSupplierPaidDelivery] = useState(false)
@@ -93,6 +93,7 @@ export const SelectFields = ({
           </InputLabel>
           <NativeSelect
             variant="filled"
+            disabled={orderFields.status !== OrderStatusByKey[OrderStatus.AT_PROCESS]}
             inputProps={{
               name: 'status-select',
               id: 'status-select',
@@ -102,7 +103,10 @@ export const SelectFields = ({
             input={<Input />}
             onChange={setOrderField('status')}
           >
-            {Object.keys(orderStatusByCode).map((statusCode, statusIndex) => (
+            <option value="unchanged">{'unchanged'}</option>
+            {Object.keys({
+              ...getObjectFilteredByKeyArrayWhiteList(OrderStatusByCode, allowOrderStatuses),
+            }).map((statusCode, statusIndex) => (
               <option key={statusIndex} value={statusCode}>
                 {getOrderStatusOptionByCode(statusCode).label}
               </option>
@@ -115,6 +119,7 @@ export const SelectFields = ({
             <Typography className={classNames.modalText}>{textConsts.priceYuansForBatchTypo}</Typography>
             <Input
               disabled={usePriceInDollars}
+              inputProps={{maxLength: 24}}
               value={
                 usePriceInDollars
                   ? calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, yuansToDollarRate)
@@ -149,6 +154,7 @@ export const SelectFields = ({
             <Typography className={classNames.modalText}>{textConsts.yuansToDollarRateTypo}</Typography>
             <Input
               disabled={usePriceInDollars}
+              inputProps={{maxLength: 24}}
               value={yuansToDollarRate || 6.3}
               className={classNames.input}
               onChange={e => {
@@ -165,6 +171,7 @@ export const SelectFields = ({
             <Typography className={classNames.modalText}>{textConsts.totalPriceChanged}</Typography>
             <Input
               disabled={!usePriceInDollars}
+              inputProps={{maxLength: 24}}
               value={orderFields.totalPriceChanged}
               className={classNames.input}
               onChange={setOrderField('totalPriceChanged')}
@@ -210,6 +217,7 @@ export const SelectFields = ({
           <Typography className={classNames.modalText}>{textConsts.typoBuyerComment}</Typography>
           <Input
             multiline
+            inputProps={{maxLength: 500}}
             rows={4}
             rowsMax={6}
             className={classNames.commentInput}
@@ -252,6 +260,7 @@ export const SelectFields = ({
           <Typography className={classNames.modalText}>{textConsts.typoShipPrice}</Typography>
           <Input
             disabled={supplierPaidDelivery}
+            inputProps={{maxLength: 24}}
             className={classNames.numInput}
             value={`$ ${orderFields.deliveryCostToTheWarehouse || 0}`}
             onChange={setOrderField('deliveryCostToTheWarehouse')}
@@ -260,7 +269,7 @@ export const SelectFields = ({
         <Box my={3}>
           <Typography className={classNames.modalText}>{textConsts.trackNumberTypo}</Typography>
           <Input
-            type="text"
+            inputProps={{maxLength: 50}}
             value={orderFields.trackingNumberChina}
             className={classNames.numInput}
             onChange={setOrderField('trackingNumberChina')}

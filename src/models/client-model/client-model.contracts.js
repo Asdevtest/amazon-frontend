@@ -21,32 +21,6 @@ export class ClientBox extends InlineResponse2006 {}
 
 export class ClientBatches extends InlineResponse2008 {}
 
-export class ClientUpdateProductContract {
-  @IsNotEmpty()
-  @IsString()
-  currentSupplier
-
-  @IsNotEmpty()
-  @IsInt()
-  dirdecision
-
-  @IsNotEmpty()
-  @IsInt()
-  researcherFine
-
-  @IsNotEmpty()
-  @IsString()
-  researcherFineComment
-
-  @IsNotEmpty()
-  @IsInt()
-  supervisorFine
-
-  @IsNotEmpty()
-  @IsString()
-  supervisorFineComment
-}
-
 export class ClientUpdateOrderContract {
   @IsOptional()
   @IsString()
@@ -76,21 +50,6 @@ export class ClientUpdateOrderContract {
   @IsArray()
   images
 }
-
-// похоже, это не нужно т.к.это заполняется не из полей
-// export class BuyerPostTaskContract {
-//   @IsNotEmpty()
-//   @IsInt()
-//   taskId;
-
-//   @IsNotEmpty()
-//   @IsArray()
-//   boxes;
-
-//   @IsNotEmpty()
-//   @IsString()
-//   operationType;
-// }
 
 export class ClientAddOwnProductContract {
   @IsNotEmpty()

@@ -15,13 +15,13 @@ import {Tested} from './tested'
 
 const textConsts = getLocalizedTexts(texts, 'ru').buerUserHeader
 
-export const Header = observer(({user, timer, headerInfoData}) => {
+export const Header = observer(({user, timer, headerInfoData, avatar}) => {
   const classNames = useClassNames()
   return (
     <Paper className={classNames.paper}>
       <Box className={classNames.mainBox}>
         <Box className={classNames.sendOrderBox}>
-          <img alt="user avatar" src={user && user.img} className={classNames.avatar} />
+          <img alt="user avatar" src={avatar} className={classNames.avatar} />
           <Button>{textConsts.sendBtn}</Button>
         </Box>
 

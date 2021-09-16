@@ -181,9 +181,9 @@ export const navbarConfig = {
     {
       icon: ArchiveOutlinedIcon,
       title: 'Склад',
-      route: '/admin/warehouse/orders',
+      route: '/admin/warehouse/tasks',
       subtitles: [
-        {subtitle: 'Заказы', subRoute: '/admin/warehouse/orders'},
+        {subtitle: 'Задачи', subRoute: '/admin/warehouse/tasks'},
         {subtitle: 'Коробки', subRoute: '/admin/warehouse/boxes'},
         {subtitle: 'Партии', subRoute: '/admin/warehouse/batches'},
       ],

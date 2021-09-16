@@ -76,6 +76,9 @@ class InlineResponse2009 {
       if (data.hasOwnProperty('updateDate')) {
         obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date')
       }
+      if (data.hasOwnProperty('boxesBefore')) {
+        obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ ApiV1BatchesBoxes ])
+      }
     }
     return obj
   }

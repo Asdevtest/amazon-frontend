@@ -10,11 +10,12 @@ import EditIcon from '@material-ui/icons/Edit'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
+import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
 import {texts} from '@constants/texts'
 
 import {Field} from '@components/field'
 
-import {checkIsClient, checkIsSupervisor} from '@utils/checks'
+import {checkIsClient, checkIsSupervisor, checkIsAdmin} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './fields-and-suppliers.style'
@@ -50,7 +51,7 @@ export const FieldsAndSuppliers = observer(
           <Typography variant="h4" className={classNames.supplierTitle}>
             {textConsts.supplierTitle}
           </Typography>
-          {!(checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) ? (
+          {!(checkIsClient(curUserRole) || checkIsSupervisor(curUserRole) || checkIsAdmin(curUserRole)) ? (
             <div className={classNames.supplierActionsWrapper}>
               <Typography variant="h6" className={classNames.supplierActionsTitle}>
                 {textConsts.supplierActionsTitle}
@@ -64,12 +65,16 @@ export const FieldsAndSuppliers = observer(
                     <IconButton className={classNames.iconBtn} onClick={() => onClickSupplierBtns('edit')}>
                       <EditIcon />
                     </IconButton>
-                    <IconButton
-                      className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
-                      onClick={() => onClickSupplierBtns('delete')}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
+
+                    {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
+                      <IconButton
+                        className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
+                        onClick={() => onClickSupplierBtns('delete')}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
+
                     <IconButton
                       className={clsx(classNames.iconBtn, classNames.iconBtnAccept, {
                         [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,

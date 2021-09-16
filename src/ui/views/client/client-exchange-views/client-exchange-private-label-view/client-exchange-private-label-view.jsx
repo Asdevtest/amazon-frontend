@@ -108,16 +108,11 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
 
   renderProductsVacant = () => {
     const {classes: classNames} = this.props
-    const {productsVacant, onClickBuyProductBtn, setProductToPay, onTriggerOpenModal} = this.viewModel
+    const {productsVacant, setProductToPay, onTriggerOpenModal} = this.viewModel
 
     return productsVacant.map((item, index) => (
       <div key={`product_${item._id}_${index}`} className={classNames.cardWrapper}>
-        <PrivateLabelCard
-          item={item}
-          setProductToPay={setProductToPay}
-          onClickBuyProductBtn={onClickBuyProductBtn}
-          onTriggerOpenModal={onTriggerOpenModal}
-        />
+        <PrivateLabelCard item={item} setProductToPay={setProductToPay} onTriggerOpenModal={onTriggerOpenModal} />
       </div>
     ))
   }

@@ -12,6 +12,18 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'center',
     flexDirection: 'column',
   },
+  progressContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+
+    border: '7px solid rgb(255, 255, 255, .2)',
+    borderRadius: '20px',
+    padding: '10px',
+    background: 'rgb(126, 125, 138, .4)',
+  },
+
   subWrapper: {
     top: 0,
     left: 0,

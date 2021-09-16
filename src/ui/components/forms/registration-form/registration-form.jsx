@@ -25,7 +25,6 @@ export const RegistrationFormRaw = ({classes: classNames, formFields, onChangeFo
           containerClasses={classNames.field}
           label={'Your Name'}
           placeholder={'name'}
-          type="text"
           value={formFields.name}
           onChange={onChangeFormField('name')}
         />

@@ -19,9 +19,9 @@ import {SendOwnProductForm} from '@components/forms/send-own-product-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
-import {ErrorInfoModal} from '@components/modals/error-info-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 import {WarehouseHistory} from '@components/screens/warehouse/warehouse-history'
@@ -219,7 +219,7 @@ export class ClientWarehouseViewRaw extends Component {
           }}
         />
 
-        <ErrorInfoModal
+        <WarningInfoModal
           openModal={showRedistributeBoxAddNewBoxModal}
           setOpenModal={() => onTriggerOpenModal('showRedistributeBoxAddNewBoxModal')}
           title={textConsts.modalRedistributionAddNewBoxMessage}
@@ -229,7 +229,7 @@ export class ClientWarehouseViewRaw extends Component {
           }}
         />
 
-        <ErrorInfoModal
+        <WarningInfoModal
           openModal={showRedistributeBoxFailModal}
           setOpenModal={() => onTriggerOpenModal('showRedistributeBoxFailModal')}
           title={textConsts.modalRedistributionFailMessage}

@@ -48,6 +48,10 @@ export class AdminInventoryViewModel {
     }
   }
 
+  onClickTableRow(product) {
+    this.history.push('/admin/product', {product: toJS(product)})
+  }
+
   onChangeSortingModel(e) {
     this.sortModel = e.sortModel
   }

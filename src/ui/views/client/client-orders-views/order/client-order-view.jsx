@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {DELIVERY_OPTIONS} from '@constants/delivery-options'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -11,7 +10,7 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {OrderContent} from '@components/screens/client/orders-view/order-content'
+import {OrderContent} from '@components/screens/orders-view/order-content'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -53,7 +52,7 @@ export class ClientOrderView extends Component {
           >
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
-              <OrderContent order={order} boxes={orderBoxes} deliveryOptions={DELIVERY_OPTIONS} />
+              <OrderContent order={order} boxes={orderBoxes} />
             </MainContent>
           </Appbar>
         </Main>

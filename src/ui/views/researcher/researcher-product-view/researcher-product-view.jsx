@@ -41,7 +41,8 @@ export class ResearcherProductView extends Component {
       selectedSupplier,
       showAddOrEditSupplierModal,
       formFieldsValidationErrors,
-      showConfirmPayModal,
+      showConfirmModal,
+      confirmModalSettings,
       onTriggerAddOrEditSupplierModal,
       onClickSaveSupplierBtn,
       onChangeProductFields,
@@ -51,7 +52,6 @@ export class ResearcherProductView extends Component {
       onClickParseProductData,
       handleProductActionButtons,
       onTriggerOpenModal,
-      onSaveProductData,
     } = this.viewModel
 
     return (
@@ -103,17 +103,18 @@ export class ResearcherProductView extends Component {
           />
         </Modal>
         <ConfirmationModal
-          openModal={showConfirmPayModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}
+          isWarning={confirmModalSettings.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
           title={textConsts.confirmTitle}
-          message={textConsts.confirmMessage}
+          message={confirmModalSettings.message}
           successBtnText={textConsts.yesBtn}
           cancelBtnText={textConsts.noBtn}
           onClickSuccessBtn={() => {
-            onSaveProductData()
-            onTriggerOpenModal('showConfirmPayModal')
+            confirmModalSettings.onClickOkBtn()
+            onTriggerOpenModal('showConfirmModal')
           }}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmPayModal')}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
       </React.Fragment>
     )

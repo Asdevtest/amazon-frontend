@@ -58,36 +58,8 @@ export class AdminOrdersAllViewModel {
     }
   }
 
-  onChangeSortingModel(e) {
-    this.sortModel = e.sortModel
-  }
-
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e.pageSize
-  }
-
-  onChangeCurPage(e) {
-    this.curPage = e.page
-  }
-
-  getCurrentData() {
-    return toJS(this.currentOrdersData)
-  }
-
-  onSelectionModel(model) {
-    this.selectionModel = model
-  }
-
-  onTriggerBarcodeModal() {
-    this.modalBarcode = !this.modalBarcode
-  }
-
-  onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
-  }
-
-  onChangeCurPage = e => {
-    this.curPage = e.page
+  onClickTableRow(order) {
+    this.history.push('/admin/orders/order', {order: toJS(order)})
   }
 
   onChangeSubCategory(value) {
@@ -121,5 +93,37 @@ export class AdminOrdersAllViewModel {
       this.error = error
       this.currentOrdersData = []
     }
+  }
+
+  getCurrentData() {
+    return toJS(this.currentOrdersData)
+  }
+
+  onSelectionModel(model) {
+    this.selectionModel = model
+  }
+
+  onTriggerBarcodeModal() {
+    this.modalBarcode = !this.modalBarcode
+  }
+
+  onChangeDrawerOpen(e, value) {
+    this.drawerOpen = value
+  }
+
+  onChangeCurPage = e => {
+    this.curPage = e.page
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e.pageSize
+  }
+
+  onChangeCurPage(e) {
+    this.curPage = e.page
   }
 }

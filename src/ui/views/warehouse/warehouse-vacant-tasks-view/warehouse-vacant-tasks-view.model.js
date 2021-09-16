@@ -18,6 +18,7 @@ export class WarehouseVacantViewModel {
   rowsPerPage = 15
   curPage = 1
   selectedTask = undefined
+  showWarningModal = false
 
   constructor({history}) {
     this.history = history
@@ -38,6 +39,7 @@ export class WarehouseVacantViewModel {
   async onClickPickupBtn(item) {
     try {
       await StorekeeperModel.pickupTask(item._id)
+      this.onTriggerOpenModal('showWarningModal')
       await this.getTasksVacant()
     } catch (error) {
       console.log(error)
@@ -90,5 +92,9 @@ export class WarehouseVacantViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }

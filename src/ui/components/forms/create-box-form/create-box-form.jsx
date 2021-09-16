@@ -1,6 +1,7 @@
 import {useState} from 'react'
 
-import {Button, Divider, Typography} from '@material-ui/core'
+import {Button, Divider, Typography, IconButton} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
@@ -16,9 +17,9 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './create-box-form.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
+const textConsts = getLocalizedTexts(texts, 'en').buyerCreateBoxForm
 
-const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField}) => {
+const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField, onRemoveBox}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
@@ -63,7 +64,6 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField}) 
           containerClasses={classNames.numberInputField}
           label={textConsts.weightFinalAccountingKgSupplier}
           value={orderBox.weightFinalAccountingKgSupplier}
-          onChange={setFormField('weightFinalAccountingKgSupplier', orderBoxIndex)}
         />
       </div>
 
@@ -76,11 +76,14 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField}) 
           onChange={setAmountField(orderBoxIndex)}
         />
       </div>
+      <IconButton className={classNames.iconBtn} onClick={() => onRemoveBox(orderBoxIndex)}>
+        <DeleteIcon className={classNames.deleteBtn} />
+      </IconButton>
     </div>
   )
 }
 
-export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) => {
+export const CreateBoxForm = observer(({formItem, boxesForCreation, onTriggerOpenModal, setBoxesForCreation}) => {
   const classNames = useClassNames()
 
   const sourceBox = {
@@ -89,7 +92,6 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
     heightCmSupplier: formItem?.heightCmSupplier || '',
     weighGrossKgSupplier: formItem?.weighGrossKgSupplier || '',
     volumeWeightKgSupplier: formItem?.volumeWeightKgSupplier || '',
-    weightFinalAccountingKgSupplier: formItem?.weightFinalAccountingKgSupplier || '',
     warehouse: formItem?.warehouse || '',
     deliveryMethod: formItem?.deliveryMethod || '',
     amount: 1,
@@ -143,6 +145,11 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
     setFormFieldsArr(newStateFormFields)
   }
 
+  const onRemoveBox = boxIndex => {
+    const updatedNewBoxes = formFieldsArr.filter((box, i) => i !== boxIndex)
+    setFormFieldsArr(updatedNewBoxes)
+  }
+
   return (
     <div className={classNames.root}>
       <div className={classNames.form}>
@@ -180,6 +187,7 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
               orderBox={orderBox}
               setFormField={setFormField}
               setAmountField={setAmountField}
+              onRemoveBox={onRemoveBox}
             />
           ))}
         </div>
@@ -196,19 +204,6 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
           >
             {textConsts.addBoxBtn}
           </Button>
-
-          <Button
-            disableElevation
-            className={classNames.button}
-            disabled={formFieldsArr.length < 1}
-            color="primary"
-            variant="contained"
-            onClick={() => {
-              setFormFieldsArr([...formFieldsArr.slice(0, -1)])
-            }}
-          >
-            {textConsts.removeBtn}
-          </Button>
         </div>
       </div>
 
@@ -220,7 +215,7 @@ export const CreateBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal})
           color="primary"
           variant="contained"
           onClick={() => {
-            onSubmit(formItem._id, formFieldsArr)
+            setBoxesForCreation([...boxesForCreation, ...formFieldsArr])
             onTriggerOpenModal()
           }}
         >

@@ -73,7 +73,7 @@ export class ClientUserProfileView extends Component {
             setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
-              <Header user={user} timer={textConsts.timer} headerInfoData={headerInfoData} />
+              <Header user={user} timer={textConsts.timer} headerInfoData={headerInfoData} avatar={avatar} />
 
               <ActiveOrders
                 tabExchange={tabExchange}

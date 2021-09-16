@@ -10,13 +10,22 @@ export const Modal = props => {
   return (
     <Dialog
       maxWidth={false}
+      classes={{
+        paperScrollBody: clsx({[classNames.warningPaper]: props.isWarning}),
+      }}
       open={props.openModal}
       scroll="body"
       onClose={() => {
         props.setOpenModal(false)
       }}
     >
-      <DialogContent className={clsx(classNames.dialogPadding, props.dialogContextClassName)}>
+      <DialogContent
+        className={clsx(
+          classNames.dialogPadding,
+          {[classNames.warningDialogPadding]: props.isWarning},
+          props.dialogContextClassName,
+        )}
+      >
         {props.children}
       </DialogContent>
     </Dialog>

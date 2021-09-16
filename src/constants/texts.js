@@ -184,6 +184,43 @@ export const texts = {
       hideBoxes: 'Скрыть коробки связанные с заказом...',
     },
 
+    buyerCreateBoxForm: {
+      newBoxTitle: 'Создание новых коробок!',
+      updateBoxTitle: 'Update box',
+      boxTitle: 'Box',
+      warehouseLabel: 'Warehouse',
+      deliveryMethodLabel: 'Delivery method',
+      statusLabel: 'Status',
+      lengthCmSupplier: 'lengthCmSupplier',
+      widthCmSupplier: 'widthCmSupplier',
+      heightCmSupplier: 'heightCmSupplier',
+      weighGrossKgSupplier: 'weighGrossKgSupplier',
+      volumeWeightKgSupplier: 'volumeWeightKgSupplier',
+      weightFinalAccountingKgSupplier: 'weightFinalAccountingKgSupplier',
+
+      lengthCmWarehouse: 'lengthCmWarehouse',
+      widthCmWarehouse: 'widthCmWarehouse',
+      heightCmWarehouse: 'heightCmWarehouse',
+      weighGrossKgWarehouse: 'weighGrossKgWarehouse',
+      volumeWeightKgWarehouse: 'volumeWeightKgWarehouse',
+      weightFinalAccountingKgWarehouse: 'weightFinalAccountingKgWarehouse',
+
+      amountLabel: 'Amount',
+      materialLabel: 'Material',
+      amountOfSubBoxes: 'amountOfSubBoxes',
+      amountIfItemsInBox: 'Items in box *',
+
+      warehouseDemensions: 'Warehouse demensions',
+
+      saveChangesBtn: 'Добавить',
+      cancelChangesBtn: 'Cancel',
+      addBoxBtn: 'Добавить еще коробку',
+      removeBtn: 'Убрать коробку',
+
+      showBoxes: 'Показать коробки связанные с заказом...',
+      hideBoxes: 'Скрыть коробки связанные с заказом...',
+    },
+
     warehouseEditBoxForm: {
       amountLabel: 'Qty',
       materialLabel: 'Material',
@@ -286,6 +323,8 @@ export const texts = {
       cancelBtn: 'Отмена',
       successTitle: 'Заказ успешно создан!',
       successBtn: 'Ок!',
+      warningModalTitle: 'Этот товар перемещён в Инвентарь',
+      okBtn: 'Ок',
     },
     exchangeBodyRow: {
       byForBtn: 'Купить за',
@@ -679,7 +718,18 @@ export const texts = {
       modalEditTitle: 'Редактировать поставщика',
       showNoSuplierErrorTitle: 'Не выбран поставщик',
       errorBtn: 'Ок',
+      confirmTitle: 'Внимание',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      okBtn: 'ок',
+      deleteSupplierMessage: 'Вы точно хитите удалить поставщика?',
     },
+    adminProductView: {
+      appBarTitle: 'Product',
+      appBarUsername: 'Admin',
+      appUser: 'admin',
+    },
+
     researcherProductView: {
       appBarTitle: 'Product',
       appBarUsername: 'Researcher',
@@ -688,6 +738,8 @@ export const texts = {
       modalEditTitle: 'Редактировать поставщика',
       confirmTitle: 'Внимание',
       confirmMessage: 'Товар будет отправлен на проверку к Supervisor. Вы уверены?',
+      deleteMessage: 'Вы точно хитите удалить продукт?',
+      deleteSupplierMessage: 'Вы точно хитите удалить поставщика?',
       yesBtn: 'Да',
       noBtn: 'Нет',
     },
@@ -697,6 +749,10 @@ export const texts = {
       appUser: 'supervisor',
       modalAddTitle: 'Добавить нового поставщика',
       modalEditTitle: 'Редактировать поставщика',
+      confirmTitle: 'Внимание',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      okBtn: 'ок',
     },
     buyerProductsView: {
       appBarTitle: 'Products',
@@ -713,6 +769,17 @@ export const texts = {
       ratingTypo: ' reviews',
       setBarcodeChipLabel: 'Set barcode',
       titleToolTip: 'Подсказка',
+
+      operatioTypeMerge: 'Соединить',
+      operatioTypeSplit: 'Разделить',
+      operatioTypeReceive: 'Принять',
+      operatioTypeEdit: 'Изменить',
+
+      merge: 'Соединение в коробку',
+      unMerge: 'Разъедененние в коробки',
+      changeStatus: ' изменил статус на ',
+      receive: 'Принять коробку:',
+      edit: 'Изменить коробку:',
     },
 
     subUsersModalContent: {
@@ -1063,6 +1130,9 @@ export const texts = {
       comment: 'Комментарий',
       saveBtn: 'Сохранить',
       cancelBtn: 'Отменить',
+      loadTitle: 'Прикрепить фото к задаче',
+      availablePhotos: 'Имеющиеся фотографии',
+      circularProgressTitle: 'Загрузка фотографий...',
     },
     productWrapperComponent: {
       buttonParseAmazon: ' Parse Amazon ',
@@ -1100,15 +1170,15 @@ export const texts = {
       fieldWidth: 'Ширина, дюймы*',
       fieldHeight: 'Высота, дюймы*',
       fieldLength: 'Длина, дюймы*',
-      fieldWeight: 'Вес kg*',
+      fieldWeight: 'Вес, кг*',
       fieldSupplier: 'Поставщик (ссылка)',
       typoExpress: 'Express',
-      maxDeliveryPrice: 'Max. Доставка за ед., $',
+      maxDeliveryPrice: 'Макс. доставка за ед., $',
       delivery: 'Доставка $',
       refferalFee: 'Refferal fee , $',
       fbaFee: 'FBA fee , $',
       totalFba: 'Total FBA, $',
-      minpurchase: 'Мин. закуп. цена',
+      minpurchase: 'Мин. закуп. цена, $',
       recommendedBatch: 'Рекомендованная партия FBA*',
       revenue: 'Прибыль $',
       fieldMargin: 'Маржа, %',
@@ -1118,6 +1188,8 @@ export const texts = {
       summary: 'Краткое описание на Amazon',
       description: 'Подробно',
       category: 'Категория',
+
+      supplierPhotos: 'Фотографии',
     },
     buyerBatchesView: {
       editBatch: 'Редактировать партию',
@@ -1161,6 +1233,15 @@ export const texts = {
       boxesTitle: 'Коробки по данному заказу:',
       suppliers: 'Поставщики',
       noBoxesYat: 'Коробок пока нет...',
+      confirmTitle: 'Внимание.Вы уверены?',
+      confirmStatusMessage: 'Статус будет нельзя поменять на другой!',
+      confirmSubmitMessage: 'Вы уверены что все данные внесены верно? Действие НЕОБРАТИМО!',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      addBoxBtn: 'Добавить коробку',
+      okBtn: 'ок',
+      firstWarning:
+        'После сохранения заполненной формы заказа - изменения статуса и содержания коробок будет НЕВОЗМОЖНО!!!',
     },
     freeOrdersView: {
       mainTitle: 'Свободные заказы',
@@ -1299,6 +1380,14 @@ export const texts = {
       appUser: 'admin',
       ordersBtn: 'Мои заказы',
     },
+
+    adminTasksView: {
+      mainTitle: 'Задачи склада',
+      appBarTitle: 'Страница задач склада',
+      appBarUsername: 'Admin',
+      appUser: 'admin',
+      actionBtn: 'Смотреть подробнее',
+    },
     clientOrdersTableRow: {
       asinTypo: 'ASIN ',
       setBarcodeLabel: 'Set barcode',
@@ -1322,11 +1411,27 @@ export const texts = {
       grossWeightField: 'Вес финальный',
       trackIdField: 'Трек номер',
     },
+
+    adminTasksTableColumns: {
+      createDateField: 'Дата создания',
+      updateDateField: 'Последнее обновление',
+      typeField: 'Тип',
+      descriptionField: 'Описание',
+      actionField: 'Дествие',
+      statusField: 'Статус',
+    },
+
     clientOrderView: {
       mainTitle: 'Заказ ',
       appBarTitle: 'Страница заказов',
       appBarUsername: 'Client',
       appUser: 'client',
+    },
+    adminOrderView: {
+      mainTitle: 'Заказ ',
+      appBarTitle: 'Страница заказов',
+      appBarUsername: 'Admin',
+      appUser: 'admin',
     },
     clientListingView: {
       appBarTitle: 'Листинг продукта',
@@ -1490,6 +1595,8 @@ export const texts = {
       appBarUsername: 'Warehouse',
       appUser: 'warehouse',
       mainTitle: 'Вакантные задачи',
+      okBtn: 'Ок',
+      warningTitle: 'Данная задача взята в работу и перенесена в раздел Мои задачи',
     },
 
     warehouseMyTasksView: {
@@ -1555,6 +1662,20 @@ export const texts = {
       okBtn: 'Ок',
     },
 
+    boxesToCreateTable: {
+      title: 'Принять и распределить',
+      redistributionTitle: 'Redistribution',
+      newBoxesTitle: 'Будут созданы коробки:',
+      productsLeftToRedistribute: 'Left to redistribute',
+      qtyLabel: 'Qty',
+      toRedistributeBtn: 'To redistribute',
+      newBoxBtn: 'New box',
+      cancelBtn: 'Cancel',
+      actuallyAssembled: 'Actually assembled',
+      dimensionsMessage: 'Внесите размеры всех коробок',
+      okBtn: 'Ок',
+    },
+
     warehouseBeforeAfterBlock: {
       boxNum: 'Коробка номер:',
       count: 'Количество',
@@ -1562,7 +1683,7 @@ export const texts = {
       shippingLabel: 'Шиппинг лебл:',
       setShippingLabel: 'Set shipping label',
       deleteAlert: 'delete',
-      demensionsSupplier: 'Размеры от склада:',
+      demensionsSupplier: 'Размеры от поставщика:',
       demensionsWarehouse: 'Размеры от склада:',
       length: 'Длина ',
       width: 'Ширина ',
@@ -1684,15 +1805,15 @@ export const texts = {
       fieldWidth: 'Ширина, дюймы*',
       fieldHeight: 'Высота, дюймы*',
       fieldLength: 'Длина, дюймы*',
-      fieldWeight: 'Вес kg',
+      fieldWeight: 'Вес, кг*',
       fieldSupplier: 'Поставщик (ссылка)',
       typoExpress: 'Express',
-      maxDeliveryPrice: 'Max. Доставка за ед., $',
+      maxDeliveryPrice: 'Макс. доставка за ед., $',
       delivery: 'Доставка $',
       refferalFee: 'Refferal fee , $',
       fbaFee: 'FBA fee , $',
       totalFba: 'Total FBA, $',
-      minpurchase: 'Мин. закуп. цена',
+      minpurchase: 'Мин. закуп. цена, $',
       recommendedBatch: 'Рекомендованная партия FBA',
       revenue: 'Прибыль $',
       fieldMargin: 'Маржа, %',

@@ -80,9 +80,14 @@ export class BuyerMyOrdersViewModel {
     this.onTriggerOpenModal('showOrderModal')
   }
 
-  async onSubmitSaveOrder(order, orderFields) {
+  async onSubmitSaveOrder(order, orderFields, boxesForCreation) {
     try {
-      await this.onSaveOrder(order, orderFields)
+      await this.onSaveOrder(order, orderFields, boxesForCreation)
+
+      if (boxesForCreation.length > 0) {
+        await this.onSubmitCreateBoxes(order._id, boxesForCreation)
+      }
+
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
       console.log(error)
@@ -96,6 +101,7 @@ export class BuyerMyOrdersViewModel {
         totalPriceChanged: parseFloat(updateOrderData?.totalPriceChanged) || 0,
       }
       await BuyerModel.updateOrder(order._id, updateOrderDataFiltered)
+
       this.loadData()
     } catch (error) {
       console.log(error)
@@ -131,7 +137,6 @@ export class BuyerMyOrdersViewModel {
         heightCmSupplier: parseFloat(formFields?.heightCmSupplier) || 0,
         weighGrossKgSupplier: parseFloat(formFields?.weighGrossKgSupplier) || 0,
         volumeWeightKgSupplier: parseFloat(formFields?.volumeWeightKgSupplier) || 0,
-        weightFinalAccountingKgSupplier: parseFloat(formFields?.weightFinalAccountingKgSupplier) || 0,
         items: [
           {
             product: formFields.items[0].product._id,

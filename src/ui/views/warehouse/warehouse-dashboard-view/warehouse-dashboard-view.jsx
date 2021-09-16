@@ -71,7 +71,13 @@ export class WarehouseDashboardViewRaw extends Component {
   renderDashboardCards = () =>
     dashboardCardConfig.map(item => (
       <Grid key={`dashboardCard_${item.dataKey}`} item xs={6} lg={4}>
-        <DashboardInfoCard value={this.getCardValueByDataKey(item.dataKey)} title={item.title} color={item.color} />
+        <DashboardInfoCard
+          value={this.getCardValueByDataKey(item.dataKey)}
+          title={item.title}
+          color={item.color}
+          route={item.route || false}
+          onClickViewMore={this.viewModel.onClickInfoCardViewMode}
+        />
       </Grid>
     ))
 
@@ -92,9 +98,9 @@ export class WarehouseDashboardViewRaw extends Component {
       case WarehouseDashboardCardDataKey.COMPLETED_TASKS:
         return tasksMy.filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.SOLVED]).length
       case WarehouseDashboardCardDataKey.MY_STATS:
-        return 0
+        return 'N/A'
       case WarehouseDashboardCardDataKey.MY_PAYMENTS:
-        return 0
+        return 'N/A'
     }
   }
 }

@@ -8,7 +8,8 @@ import {UserRole} from '@constants/user-roles'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {ErrorInfoModal} from '@components/modals/error-info-modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {ProductWrapper} from '@components/product/product-wrapper'
 
@@ -36,7 +37,10 @@ export class SupervisorProductView extends Component {
       actionStatus,
       selectedSupplier,
       formFieldsValidationErrors,
-      showWarningNoSupplierModal,
+      showWarningModal,
+      showConfirmModal,
+      confirmMessage,
+      warningModalTitle,
       onChangeProductFields,
       onClickSupplierButtons,
       onChangeSelectedSupplier,
@@ -44,6 +48,7 @@ export class SupervisorProductView extends Component {
       onClickSetProductStatusBtn,
       handleProductActionButtons,
       onTriggerOpenModal,
+      onSaveProductData,
     } = this.viewModel
     return (
       <React.Fragment>
@@ -82,14 +87,27 @@ export class SupervisorProductView extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <ErrorInfoModal
-          openModal={showWarningNoSupplierModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningNoSupplierModal')}
-          title={'Нельзя выбрать без поставщика.'}
-          btnText={'ок'}
+        <WarningInfoModal
+          openModal={showWarningModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
+          title={warningModalTitle}
+          btnText={textConsts.okBtn}
           onClickBtn={() => {
-            onTriggerOpenModal('showWarningNoSupplierModal')
+            onTriggerOpenModal('showWarningModal')
           }}
+        />
+        <ConfirmationModal
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={textConsts.confirmTitle}
+          message={confirmMessage}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={() => {
+            onSaveProductData()
+            onTriggerOpenModal('showConfirmModal')
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
       </React.Fragment>
     )

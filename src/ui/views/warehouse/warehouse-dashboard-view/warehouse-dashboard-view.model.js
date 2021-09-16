@@ -43,6 +43,10 @@ export class WarehouseDashboardViewModel {
     }
   }
 
+  onClickInfoCardViewMode(route) {
+    this.history.push(route)
+  }
+
   async getTasksVacant() {
     try {
       const result = await StorekeeperModel.getTasksVacant()

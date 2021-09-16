@@ -98,6 +98,7 @@ export class ClientExchangePrivateLabelViewModel {
     try {
       const makePaymentsResult = await ClientModel.makePayments([product._id])
       console.log('makePaymentsResult ', makePaymentsResult)
+
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       console.log(error)

@@ -18,6 +18,7 @@ export const ProductStatus = {
   COMPLETE_SUPPLIER_WAS_NOT_FOUND: 'COMPLETE_SUPPLIER_WAS_NOT_FOUND',
   COMPLETE_PRICE_WAS_NOT_ACCEPTABLE: 'COMPLETE_PRICE_WAS_NOT_ACCEPTABLE',
   PURCHASED_PRODUCT: 'PURCHASED_PRODUCT',
+  NO_PUBLISHED: 'NO_PUBLISHED',
 }
 
 export const ProductStatusByCode = {
@@ -41,6 +42,7 @@ export const ProductStatusByCode = {
   // оплачиваем супервайзеру
   90: ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
   // оплачиваем супервайзеру
+  100: ProductStatus.NO_PUBLISHED, // статус для скрытия товара с биржи товаров админом (создана задача на бек)
 }
 
 export const ProductStatusByKey = objectFlip(ProductStatusByCode, parseInt)

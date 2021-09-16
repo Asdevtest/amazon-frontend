@@ -25,7 +25,12 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, product, orde
       <Divider className={classNames.divider} />
       <Box className={classNames.boxCode}>
         <Typography className={(classNames.modalText, classNames.typoCode)}>{textConsts.code}</Typography>
-        <Input className={classNames.input} value={barCode} onChange={e => setBarCode(e.target.value)} />
+        <Input
+          className={classNames.input}
+          inputProps={{maxLength: 2000}}
+          value={barCode}
+          onChange={e => setBarCode(e.target.value)}
+        />
       </Box>
       <Divider className={classNames.divider} />
       <Box className={classNames.saveBox}>

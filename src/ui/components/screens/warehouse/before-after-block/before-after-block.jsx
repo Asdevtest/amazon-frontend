@@ -4,7 +4,7 @@ import {Divider, Typography, Paper, Checkbox, NativeSelect} from '@material-ui/c
 import {observer} from 'mobx-react'
 
 import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
-import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByCode, OrderStatusByKey} from '@constants/order-status'
+import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {texts} from '@constants/texts'
 import {getWarehousesOptionByCode, warehouses} from '@constants/warehouses'
@@ -15,7 +15,6 @@ import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 import {EditBoxTasksModal} from '../edit-task-modal/edit-box-tasks-modal'
 import {useClassNames} from './before-after-block.style'
@@ -289,35 +288,6 @@ const NewBoxes = ({
   return (
     <div className={classNames.newBoxes}>
       <Typography className={classNames.sectionTitle}>{textConsts.newBoxes}</Typography>
-
-      <div className={classNames.fieldsWrapper}>
-        {taskType === TaskOperationType.RECEIVE && (
-          <Field
-            containerClasses={classNames.field}
-            label={textConsts.statusLabel}
-            inputComponent={
-              <NativeSelect
-                variant="filled"
-                value={newBoxes[0] && getOrderStatusOptionByCode(newBoxes[0].items[0].order.status).label}
-                className={classNames.nativeSelect}
-                input={<Input />}
-              >
-                <option>{'none'}</option>
-                {Object.keys(
-                  getObjectFilteredByKeyArrayWhiteList(OrderStatusByCode, [
-                    OrderStatusByKey[OrderStatus.IN_STOCK].toString(),
-                    OrderStatusByKey[OrderStatus.RETURN_ORDER].toString(),
-                  ]),
-                ).map((statusCode, statusIndex) => (
-                  <option key={statusIndex} value={statusCode}>
-                    {getOrderStatusOptionByCode(statusCode).label}
-                  </option>
-                ))}
-              </NativeSelect>
-            }
-          />
-        )}
-      </div>
 
       {newBoxes.map((box, boxIndex) => (
         <Box

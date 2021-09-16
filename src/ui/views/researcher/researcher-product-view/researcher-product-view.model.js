@@ -3,12 +3,14 @@ import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
+import {texts} from '@constants/texts'
 
 import {OtherModel} from '@models/other-model'
 import {ResearcherModel} from '@models/researcher-model'
 import {ResearcherUpdateProductContract} from '@models/researcher-model/researcher-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
 
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {
   getObjectFilteredByKeyArrayWhiteList,
   getObjectFilteredByKeyArrayBlackList,
@@ -16,6 +18,8 @@ import {
 } from '@utils/object'
 import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
+
+const textConsts = getLocalizedTexts(texts, 'en').researcherProductView
 
 const fieldsOfProductAllowedToUpdate = [
   'lamazon',
@@ -75,11 +79,19 @@ export class ResearcherProductViewModel {
   actionStatus = undefined
 
   product = undefined
+  curUpdateProductData = {}
   suppliers = []
+
   drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
-  showConfirmPayModal = false
+  showConfirmModal = false
+
+  confirmModalSettings = {
+    isWarning: false,
+    message: textConsts.confirmMessage,
+    onClickOkBtn: () => this.onSaveProductData(),
+  }
 
   readyImages = []
   progressValue = 0
@@ -94,10 +106,12 @@ export class ResearcherProductViewModel {
     if (location.state) {
       const product = {
         ...location.state.product,
-        supplier: location.state.product.supplier.map(supplierItem => supplierItem._id),
+        supplier: location.state.product.supplier.map(supplierItem =>
+          typeof supplierItem === 'string' ? supplierItem : supplierItem._id,
+        ),
       }
       this.product = product
-      this.suppliers = location.state.product.supplier
+      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.supplier
       this.updateAutoCalculatedFields()
     }
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -122,8 +136,11 @@ export class ResearcherProductViewModel {
         if (isNaN(e.target.value) || Number(e.target.value) < 0) {
           return
         }
-
-        this.product[fieldName] = e.target.value
+        if (['bsr', 'fbaamount'].includes(fieldName)) {
+          this.product[fieldName] = parseInt(e.target.value)
+        } else {
+          this.product[fieldName] = e.target.value
+        }
       }
       if (['express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba'].includes(fieldName)) {
         this.updateAutoCalculatedFields()
@@ -131,6 +148,9 @@ export class ResearcherProductViewModel {
     })
 
   updateAutoCalculatedFields() {
+    const strBsr = this.product.bsr + ''
+    this.product.bsr = parseFloat(strBsr.replace(',', '')) || 0
+
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
 
     this.product.maxDelivery = this.product.express ? (this.product.weight || 0) * 7 : (this.product.weight || 0) * 5
@@ -200,7 +220,13 @@ export class ResearcherProductViewModel {
         this.updateAutoCalculatedFields()
         break
       case 'delete':
-        this.onRemoveSupplier()
+        this.confirmModalSettings = {
+          isWarning: true,
+          message: textConsts.deleteSupplierMessage,
+          onClickOkBtn: () => this.onRemoveSupplier(),
+        }
+
+        this.onTriggerOpenModal('showConfirmModal')
         break
     }
   }
@@ -211,16 +237,17 @@ export class ResearcherProductViewModel {
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
       this.setActionStatus(loadingStatuses.success)
       const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === this.selectedSupplier._id)
-      const findProductSupplierIndex = this.product.supplier.findIndex(
-        supplierItem => supplierItem._id === this.selectedSupplier._id,
-      )
+
       runInAction(() => {
         this.suppliers.splice(findSupplierIndex, 1)
-        this.product.supplier.splice(findProductSupplierIndex, 1)
         this.selectedSupplier = undefined
-        const editingСontinues = true
-        this.onSaveProductData(editingСontinues)
+
+        this.product.supplier
+        this.selectedSupplier = undefined
       })
+
+      const forcedSaveSupplierItem = {supplier: [...this.product.supplier]}
+      await this.onForcedSaveSelectedFields(forcedSaveSupplierItem)
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -233,14 +260,85 @@ export class ResearcherProductViewModel {
   async handleProductActionButtons(actionType) {
     switch (actionType) {
       case 'accept':
-        this.onTriggerOpenModal('showConfirmPayModal')
+        this.openConfirmModalWithTextByStatus()
         break
       case 'cancel':
         this.history.goBack()
         break
       case 'delete':
-        this.onDeleteProduct()
+        this.confirmModalSettings = {
+          isWarning: true,
+          message: textConsts.deleteMessage,
+          onClickOkBtn: () => this.onDeleteProduct(),
+        }
+
+        this.onTriggerOpenModal('showConfirmModal')
+
         break
+    }
+  }
+
+  async openConfirmModalWithTextByStatus() {
+    try {
+      this.curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
+        toJS(this.product),
+        fieldsOfProductAllowedToUpdate,
+        true,
+        (key, value) => {
+          switch (key) {
+            case 'status':
+              return value < 10 && this.product.currentSupplier ? 10 : value
+            case 'bsr':
+              return value && parseInt(value)
+            case 'amazon':
+              return value && parseFloat(value)
+            case 'weight':
+              return value && parseFloat(value)
+            case 'length':
+              return value && parseFloat(value)
+            case 'width':
+              return value && parseFloat(value)
+            case 'height':
+              return value && parseFloat(value)
+            case 'fbaamount':
+              return value && parseFloat(value)
+            case 'fbafee':
+              return value && parseFloat(value)
+            case 'profit':
+              return value && parseFloat(value)
+            case 'currentSupplier':
+              return this.product.currentSupplier._id
+            default:
+              return value
+          }
+        },
+      )
+
+      await transformAndValidate(ResearcherUpdateProductContract, this.curUpdateProductData)
+
+      this.confirmModalSettings = {
+        isWarning: false,
+        message: textConsts.confirmMessage,
+        onClickOkBtn: () => this.onSaveProductData(),
+      }
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+      this.setActionStatus(loadingStatuses.failed)
+
+      if (isValidationErrors(error)) {
+        plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
+          runInAction(() => {
+            this.formFieldsValidationErrors[errorProperty] = constraint
+          })
+        })
+      } else {
+        console.warn('error ', error)
+        runInAction(() => {
+          this.error = error
+        })
+      }
     }
   }
 
@@ -301,8 +399,9 @@ export class ResearcherProductViewModel {
           this.product.supplier.push(createSupplierResult.guid)
           this.suppliers.push({...supplier, _id: createSupplierResult.guid})
         })
-        const editingСontinues = true
-        this.onSaveProductData(editingСontinues)
+
+        const forcedSaveSupplierItem = {supplier: [...this.product.supplier]}
+        await this.onForcedSaveSelectedFields(forcedSaveSupplierItem)
       }
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
@@ -343,65 +442,28 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onSaveProductData(editingСontinues) {
+  async onForcedSaveSelectedFields(selectedFieldsObj) {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
-      const updateProductData = getObjectFilteredByKeyArrayWhiteList(
-        toJS(this.product),
-        fieldsOfProductAllowedToUpdate,
-        true,
-        (key, value) => {
-          switch (key) {
-            case 'status':
-              return value < 10 && this.product.currentSupplier ? 10 : value
-            case 'bsr':
-              return value && parseFloat(value)
-            case 'amazon':
-              return value && parseFloat(value)
-            case 'weight':
-              return value && parseFloat(value)
-            case 'length':
-              return value && parseFloat(value)
-            case 'width':
-              return value && parseFloat(value)
-            case 'height':
-              return value && parseFloat(value)
-            case 'fbaamount':
-              return value && parseFloat(value)
-            case 'fbafee':
-              return value && parseFloat(value)
-            case 'profit':
-              return value && parseFloat(value)
-            case 'currentSupplier':
-              return this.product.currentSupplier._id
-            default:
-              return value
-          }
-        },
-      )
-
-      await transformAndValidate(ResearcherUpdateProductContract, updateProductData)
-
-      await ResearcherModel.updateProduct(this.product._id, updateProductData)
-      this.setActionStatus(loadingStatuses.success)
-
-      !editingСontinues && this.history.goBack()
+      await ResearcherModel.updateProduct(this.product._id, selectedFieldsObj)
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
       console.log('error', error)
+    }
+  }
 
-      if (isValidationErrors(error)) {
-        plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
-          runInAction(() => {
-            this.formFieldsValidationErrors[errorProperty] = constraint
-          })
-        })
-      } else {
-        console.warn('error ', error)
-        runInAction(() => {
-          this.error = error
-        })
-      }
+  async onSaveProductData(editingСontinues) {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+
+      await ResearcherModel.updateProduct(this.product._id, this.curUpdateProductData)
+      this.setActionStatus(loadingStatuses.success)
+
+      this.history.replace('/researcher/product', {product: toJS(this.product), suppliers: toJS(this.suppliers)})
+
+      !editingСontinues && this.history.push('/researcher/products')
+    } catch (error) {
+      this.setActionStatus(loadingStatuses.failed)
+      console.log('error', error)
     }
   }
 

@@ -1,17 +1,16 @@
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {ProductWrapper} from '@components/product/product-wrapper'
@@ -20,12 +19,11 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/buyerAvatar.jpg'
 import {BuyerProductViewModel} from './buyer-product-view.model'
-import {styles} from './buyer-product-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
 
 @observer
-class BuyerProductViewRaw extends Component {
+export class BuyerProductView extends Component {
   viewModel = new BuyerProductViewModel({
     history: this.props.history,
     location: this.props.location,
@@ -41,7 +39,10 @@ class BuyerProductViewRaw extends Component {
       selectedSupplier,
       showAddOrEditSupplierModal,
       formFieldsValidationErrors,
-      showNoSuplierErrorModal,
+      warningModalTitle,
+      showWarningModal,
+      showConfirmModal,
+      confirmModalSettings,
       onTriggerDrawerOpen,
       onClickSupplierButtons,
       onChangeSelectedSupplier,
@@ -52,8 +53,6 @@ class BuyerProductViewRaw extends Component {
       onClickSaveSupplierBtn,
       onTriggerOpenModal,
     } = this.viewModel
-
-    const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
@@ -102,26 +101,31 @@ class BuyerProductViewRaw extends Component {
           />
         </Modal>
 
-        <Modal openModal={showNoSuplierErrorModal} setOpenModal={() => onTriggerOpenModal('showNoSuplierErrorModal')}>
-          <div className={classNames.modalMessageWrapper}>
-            <Typography paragraph variant="h5">
-              {textConsts.showNoSuplierErrorTitle}
-            </Typography>
+        <WarningInfoModal
+          openModal={showWarningModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
+          title={warningModalTitle}
+          btnText={textConsts.okBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningModal')
+          }}
+        />
 
-            <Button
-              disableElevation
-              variant="contained"
-              onClick={() => {
-                onTriggerOpenModal('showNoSuplierErrorModal')
-              }}
-            >
-              {textConsts.errorBtn}
-            </Button>
-          </div>
-        </Modal>
+        <ConfirmationModal
+          isWarning={confirmModalSettings.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={textConsts.confirmTitle}
+          message={confirmModalSettings.message}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={() => {
+            confirmModalSettings.onClickOkBtn()
+            onTriggerOpenModal('showConfirmModal')
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
       </React.Fragment>
     )
   }
 }
-
-export const BuyerProductView = withStyles(styles)(BuyerProductViewRaw)

@@ -58,7 +58,6 @@ const AttributesEditBlock = ({box, setNewBoxField}) => {
           containerClasses={classNames.numberInputField}
           label={textConsts.weightFinalAccountingKgWarehouse}
           value={box.weightFinalAccountingKgWarehouse}
-          onChange={setNewBoxField('weightFinalAccountingKgWarehouse')}
         />
       </div>
     </div>
@@ -105,7 +104,6 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
       heightCmWarehouse: parseFloat(editingBox?.heightCmWarehouse) || '',
       weighGrossKgWarehouse: parseFloat(editingBox?.weighGrossKgWarehouse) || '',
       volumeWeightKgWarehouse: parseFloat(editingBox?.volumeWeightKgWarehouse) || '',
-      weightFinalAccountingKgWarehouse: parseFloat(editingBox?.weightFinalAccountingKgWarehouse) || '',
     }
 
     const updatedNewBoxes = newBoxes.map(oldBox => (oldBox._id === lastStepEditBox._id ? lastStepEditBox : oldBox))
