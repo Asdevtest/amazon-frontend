@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {FC} from 'react'
 
 import clsx from 'clsx'
 
@@ -16,7 +16,7 @@ interface Props {
   disableElevation?: boolean
 }
 
-export const Button = ({variant, color, children, success, danger, className, disabled, ...restProps}: Props) => {
+export const Button: FC<Props> = ({variant, color, children, success, danger, className, disabled, ...restProps}) => {
   const classNames = useClassNames()
   return (
     <StyledButton

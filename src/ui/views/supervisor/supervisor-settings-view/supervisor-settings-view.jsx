@@ -33,14 +33,8 @@ export class SupervisorSettingsViewRaw extends Component {
   }
 
   render() {
-    const {
-      drawerOpen,
-      formFields,
-      onChangeFormFields,
-      onTriggerDrawerOpen,
-      onClickSaveUserInfo,
-      onClickCancelEditing,
-    } = this.viewModel
+    const {drawerOpen, formFields, onChangeFormFields, onTriggerDrawerOpen, onClickSaveUserInfo, onClickCancelEditing} =
+      this.viewModel
     const {classes: classNames} = this.props
     return (
       <React.Fragment>

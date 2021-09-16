@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, FC} from 'react'
 
 import {Avatar, Divider, Paper, Typography, Hidden, IconButton} from '@material-ui/core'
 import Menu from '@material-ui/core/Menu'
@@ -30,7 +30,7 @@ interface Props {
   setDrawerOpen: () => void
 }
 
-export const Appbar = observer(({avatarSrc, children, title, username, curUserRole, setDrawerOpen}: Props) => {
+export const Appbar: FC<Props> = observer(({avatarSrc, children, title, username, curUserRole, setDrawerOpen}) => {
   const history = useHistory()
   const classNames = useClassNames()
   const componentModel = useRef(new AppbarModel({userRole: curUserRole}))

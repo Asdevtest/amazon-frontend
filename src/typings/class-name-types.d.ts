@@ -1,3 +1,3 @@
 export interface StyleClass {
-  [key: string]: string | number
+  [key: string]: string
 }

@@ -1,3 +1,5 @@
+import React, {FC} from 'react'
+
 import {Button} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
@@ -10,7 +12,7 @@ interface Props {
   onClick: () => void
 }
 
-const SuccessButtonRaw = ({classes: classNames, ...restProps}: Props) => (
+const SuccessButtonRaw: FC<Props> = ({classes: classNames, ...restProps}) => (
   <Button {...restProps} className={classNames.button} />
 )
 

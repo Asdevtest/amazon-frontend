@@ -34,14 +34,8 @@ class ResearcherSettingsViewRaw extends Component {
   }
 
   render() {
-    const {
-      drawerOpen,
-      formFields,
-      onTriggerDrawerOpen,
-      onChangeFormFields,
-      onClickSaveUserInfo,
-      onClickCancelEditing,
-    } = this.viewModel
+    const {drawerOpen, formFields, onTriggerDrawerOpen, onChangeFormFields, onClickSaveUserInfo, onClickCancelEditing} =
+      this.viewModel
 
     return (
       <React.Fragment>
