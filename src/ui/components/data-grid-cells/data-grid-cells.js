@@ -4,11 +4,13 @@ import {Button, Chip, Typography, Box, Tooltip} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
+import {TaskOperationType} from '@constants/task-operation-type'
+import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 import {texts} from '@constants/texts'
 
 import {StarRating} from '@components/star-rating'
 
-import {formatDateDistanceFromNow, formatDateTime} from '@utils/date-time'
+import {formatDateDistanceFromNow, formatDateTime, formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, trimBarcode, toFixedWithKg} from '@utils/text'
@@ -157,6 +159,12 @@ export const DateCell = withStyles(styles)(({classes: classNames, params}) => (
   <Typography className={classNames.supervisorCell}>{!params.value ? 'N/A' : formatDateTime(params.value)}</Typography>
 ))
 
+export const NormDateCell = withStyles(styles)(({classes: classNames, params}) => (
+  <Typography className={classNames.supervisorCell}>
+    {!params.value ? 'N/A' : formatNormDateTime(params.value)}
+  </Typography>
+))
+
 export const OrderCell = withStyles(styles)(({classes: classNames, params}) => (
   <div className={classNames.order}>
     <img
@@ -221,3 +229,104 @@ export const OrderSum = ({params}) => (
     ) || 'N/A'}
   </Typography>
 )
+
+export const TaskTypeCell = withStyles(styles)(({params}) => {
+  const renderOperationType = type => {
+    switch (type) {
+      case TaskOperationType.MERGE:
+        return <Typography>{textConsts.operatioTypeMerge}</Typography>
+
+      case TaskOperationType.SPLIT:
+        return <Typography>{textConsts.operatioTypeSplit}</Typography>
+
+      case TaskOperationType.RECEIVE:
+        return <Typography>{textConsts.operatioTypeReceive}</Typography>
+
+      case TaskOperationType.EDIT:
+        return <Typography>{textConsts.operatioTypeEdit}</Typography>
+    }
+  }
+  return <React.Fragment>{renderOperationType(params.value)}</React.Fragment>
+})
+
+export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, params}) => {
+  const renderProductImage = (box, key) => (
+    <div key={key} className={classNames.imagesWrapper}>
+      <Typography className={classNames.imgNum}>{`#${key + 1}`}</Typography>
+      {box.items.map((product, productIndex) => (
+        <div key={productIndex} className={classNames.imgWrapper}>
+          <img
+            alt="placeholder"
+            className={classNames.taskDescriptionImg}
+            src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
+          />
+          <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
+        </div>
+      ))}
+      <Typography className={classNames.imgNum}>{box.amount > 1 && `Super x${box.amount}`}</Typography>
+    </div>
+  )
+
+  const renderBlockProductsImages = (
+    <div className={classNames.blockProductsImagesWrapper}>
+      <>
+        {params.row.boxesBefore && params.row.boxesBefore.map((box, index) => renderProductImage(box, index))}
+        <Typography>{'=>'}</Typography>
+      </>
+
+      {params.row.boxes.map((box, index) => renderProductImage(box, index))}
+    </div>
+  )
+
+  const taskMergeDescription = () => (
+    <>
+      <Typography>{textConsts.merge}</Typography>
+      {renderBlockProductsImages}
+    </>
+  )
+  const taskDivideDescription = () => (
+    <>
+      <Typography className={classNames.descriptionWrapper}>{textConsts.unMerge}</Typography>
+      {renderBlockProductsImages}
+    </>
+  )
+  const taskReceiveDescription = () => (
+    <div className={classNames.blockProductsImagesWrapper}>
+      <>
+        <Typography className={classNames.descriptionWrapper}>{textConsts.receive}</Typography>
+        {params.row.boxesBefore && params.row.boxesBefore.map((box, index) => renderProductImage(box, index))}
+      </>
+    </div>
+  )
+
+  const taskEditDescription = () => (
+    <div className={classNames.blockProductsImagesWrapper}>
+      <>
+        <Typography className={classNames.descriptionWrapper}>{textConsts.edit}</Typography>
+        {params.row.boxesBefore && params.row.boxesBefore.map((box, index) => renderProductImage(box, index))}
+      </>
+    </div>
+  )
+
+  const renderTaskDescription = type => {
+    switch (type) {
+      case TaskOperationType.MERGE:
+        return <div>{taskMergeDescription()}</div>
+
+      case TaskOperationType.SPLIT:
+        return <div>{taskDivideDescription()}</div>
+      case TaskOperationType.RECEIVE:
+        return <div>{taskReceiveDescription()}</div>
+      case TaskOperationType.EDIT:
+        return <div>{taskEditDescription()}</div>
+    }
+  }
+
+  return <React.Fragment>{renderTaskDescription(params.row.operationType)}</React.Fragment>
+})
+
+export const TaskStatusCell = withStyles(styles)(({params}) => (
+  <React.Fragment>
+    <Typography>{mapTaskStatusKeyToEnum[params.row.status]}</Typography>
+  </React.Fragment>
+))

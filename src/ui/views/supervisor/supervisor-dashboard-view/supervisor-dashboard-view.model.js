@@ -34,6 +34,10 @@ export class SupervisorDashboardViewModel {
     }
   }
 
+  onClickInfoCardViewMode(route) {
+    this.history.push(route)
+  }
+
   async getProductsVacant() {
     try {
       const result = await SupervisorModel.getProductsVacant()

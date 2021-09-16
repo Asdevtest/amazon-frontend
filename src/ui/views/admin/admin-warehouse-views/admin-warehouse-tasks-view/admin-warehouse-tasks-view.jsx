@@ -13,90 +13,94 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
+import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {Navbar} from '@components/navbar'
-import {adminOrdersViewColumns} from '@components/table-columns/admin/orders-columns'
+import {adminTasksViewColumns} from '@components/table-columns/admin/tasks-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/adminAvatar.jpg'
-import {AdminOrdersAllViewModel} from './admin-orders-views.model'
-import {styles} from './admin-orders-views.style'
+import {AdminWarehouseTasksViewModel} from './admin-warehouse-tasks-view.model'
+import {styles} from './admin-warehouse-tasks-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').adminOrdersView
+const textConsts = getLocalizedTexts(texts, 'ru').adminTasksView
 
-const navbarActiveCategory = 3
+const activeCategory = 4
+const activeSubCategory = 0
 
 @observer
-class AdminOrdersViewsRaw extends Component {
-  viewModel = new AdminOrdersAllViewModel({history: this.props.history})
+export class AdminWarehouseTasksViewRaw extends Component {
+  viewModel = new AdminWarehouseTasksViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getOrdersByStatus(this.viewModel.activeSubCategory)
-    this.viewModel.getDataGridState()
+    this.viewModel.loadData()
   }
 
   render() {
     const {
+      curOpenedTask,
+      showTaskInfoModal,
+      onTriggerOpenModal,
+
       requestStatus,
       getCurrentData,
       sortModel,
       filterModel,
       drawerOpen,
-      modalBarcode,
       rowsPerPage,
+      history,
       curPage,
-      activeSubCategory,
-      onTriggerBarcodeModal,
       onChangeDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
       onSelectionModel,
-      onChangeSubCategory,
       setDataGridState,
       onChangeSortingModel,
     } = this.viewModel
+
     const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
         <Navbar
           curUserRole={UserRole.ADMIN}
-          activeCategory={navbarActiveCategory}
+          activeCategory={activeCategory}
           activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeDrawerOpen}
           user={textConsts.appUser}
-          onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
-            curUserRole={UserRole.ADMIN}
+            avatarSrc=""
+            history={history}
             username={textConsts.appBarUsername}
             setDrawerOpen={onChangeDrawerOpen}
+            curUserRole={UserRole.ADMIN}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
+
               <div className={classNames.tableWrapper}>
                 <DataGrid
                   pagination
                   useResizeContainer
                   checkboxSelection
+                  classes={{
+                    row: classNames.row,
+                  }}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[5, 10, 15, 20]}
                   rows={getCurrentData()}
-                  rowHeight={100}
+                  rowHeight={200}
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={adminOrdersViewColumns()}
+                  columns={adminTasksViewColumns(this.renderAdminBtns)}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection.selectionModel[0])
@@ -106,24 +110,26 @@ class AdminOrdersViewsRaw extends Component {
                   onPageChange={onChangeCurPage}
                   onStateChange={e => setDataGridState(e.state)}
                 />
-                <div className={classNames.buttonsWrapper}>{this.renderButtons}</div>
               </div>
             </MainContent>
           </Appbar>
         </Main>
-
-        <Modal openModal={modalBarcode} setOpenModal={onTriggerBarcodeModal}>
-          <SetBarcodeModal onCloseModal={onTriggerBarcodeModal} />
-        </Modal>
+        <TaskInfoModal
+          openModal={showTaskInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
+          task={curOpenedTask}
+        />
       </React.Fragment>
     )
   }
 
-  renderButtons = (
-    <div className={this.props.classes.buttonWrapper}>
-      <Button color="secondary">{textConsts.ordersBtn}</Button>
-    </div>
+  renderAdminBtns = params => (
+    <React.Fragment>
+      <Button variant="contained" onClick={() => this.viewModel.setCurrentOpenedTask(params.row)}>
+        {textConsts.actionBtn}
+      </Button>
+    </React.Fragment>
   )
 }
 
-export const AdminOrdersViews = withStyles(styles)(AdminOrdersViewsRaw)
+export const AdminWarehouseTasksView = withStyles(styles)(AdminWarehouseTasksViewRaw)

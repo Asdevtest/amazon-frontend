@@ -8,6 +8,7 @@ export const getResearcherDashboardCardConfig = textConsts => [
     dataKey: ResearcherDashboardCardDataKey.PRODUCTS,
     title: textConsts.myProductsCardTitle,
     color: '#63c2de',
+    route: '/researcher/products',
   },
   {
     dataKey: ResearcherDashboardCardDataKey.CUR_BALANCE,
@@ -32,11 +33,13 @@ export const getSupervisorDashboardCardConfig = textConsts => [
     dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS,
     title: textConsts.newProductsCardTitle,
     color: '#63c2de',
+    route: '/supervisor/ready-to-check',
   },
   {
     dataKey: SupervisorDashboardCardDataKey.ME_CHECKING,
     title: textConsts.meCheckingCardTitle,
     color: '#FFC107',
+    route: '/supervisor/products',
   },
   {
     dataKey: SupervisorDashboardCardDataKey.ACCURED,
@@ -70,11 +73,13 @@ export const getClientDashboardCardConfig = textConsts => [
         dataKey: ClientDashboardCardDataKey.IN_INVENTORY,
         title: textConsts.itemsInInventorySectionItemTitle,
         color: '#20a8d8',
+        route: '/client/inventory',
       },
       {
         dataKey: ClientDashboardCardDataKey.FULL_COST,
         title: textConsts.fullCostOfWarehouseSectionItemTitle,
         color: '#63c2de',
+        route: '/client/warehouse',
       },
       {
         dataKey: ClientDashboardCardDataKey.REPURCHASE_ITEMS,
@@ -97,6 +102,7 @@ export const getClientDashboardCardConfig = textConsts => [
         dataKey: ClientDashboardCardDataKey.PAID_ORDERS,
         title: textConsts.paidOrdersSectionItemTitle,
         color: '#f86c6b',
+        route: '/client/orders',
       },
       {
         dataKey: ClientDashboardCardDataKey.CANCELED_ORDERS,
@@ -113,6 +119,7 @@ export const getClientDashboardCardConfig = textConsts => [
         dataKey: ClientDashboardCardDataKey.SOLD_ITEMS_ON_EXCHANGE,
         title: textConsts.soldItemsOnExchangeSectionItemTitle,
         color: '#63c2de',
+        route: '/client/exchange',
       },
       {
         dataKey: ClientDashboardCardDataKey.ACCURED_TO_RESERCHERS,
@@ -175,11 +182,13 @@ export const getWarehouseDashboardCardConfig = textConsts => [
     dataKey: WarehouseDashboardCardDataKey.VACANT_TASKS,
     title: textConsts.vacantTasksCardTitle,
     color: '#63c2de',
+    route: '/warehouse/vacant-tasks',
   },
   {
     dataKey: WarehouseDashboardCardDataKey.TASKS_MY,
     title: textConsts.tasksMyCardTitle,
     color: '#FFC107',
+    route: '/warehouse/my-tasks',
   },
   {
     dataKey: WarehouseDashboardCardDataKey.BOXES_VACANT,
@@ -201,6 +210,7 @@ export const getWarehouseDashboardCardConfig = textConsts => [
     dataKey: WarehouseDashboardCardDataKey.COMPLETED_TASKS,
     title: textConsts.comletedTasksCardTitle,
     color: '#4dbd74',
+    route: '/warehouse/completed-tasks',
   },
   {
     dataKey: WarehouseDashboardCardDataKey.MY_STATS,

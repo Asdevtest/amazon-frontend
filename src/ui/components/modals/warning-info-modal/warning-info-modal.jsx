@@ -5,9 +5,9 @@ import {Typography} from '@material-ui/core'
 import {Button} from '@components/buttons/button'
 import {Modal} from '@components/modal'
 
-import {useClassNames} from './error-info-modal.style'
+import {useClassNames} from './warning-info-modal.style'
 
-export const ErrorInfoModal = ({openModal, setOpenModal, title, btnText, onClickBtn}) => {
+export const WarningInfoModal = ({openModal, setOpenModal, title, btnText, onClickBtn}) => {
   const classNames = useClassNames()
 
   return (

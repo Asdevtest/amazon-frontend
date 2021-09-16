@@ -2,13 +2,15 @@ import {AdminDashboardView} from '@views/admin/admin-dashboard-view'
 import {AdminExchangeViews} from '@views/admin/admin-exchange-views'
 import {AdminFinancesReplenishmentsView} from '@views/admin/admin-finances-views/admin-finances-replenishments-view'
 import {AdminInventoryView} from '@views/admin/admin-inventory-view'
-import {AdminOrdersViews} from '@views/admin/admin-orders-views'
+import {AdminOrderView} from '@views/admin/admin-orders-views/order'
+import {AdminOrdersViews} from '@views/admin/admin-orders-views/orders'
+import {AdminProductView} from '@views/admin/admin-product-view'
 import {AdminSettingsView} from '@views/admin/admin-settings-view'
 import {AdminUserBalanceView} from '@views/admin/admin-users-view/admin-user-balance-view'
 import {AdminUsersView} from '@views/admin/admin-users-view/admin-users-view'
 import {AdminWarehouseBatchesView} from '@views/admin/admin-warehouse-views/admin-warehouse-batches-view'
 import {AdminWarehouseBoxesView} from '@views/admin/admin-warehouse-views/admin-warehouse-boxes-view'
-import {AdminWarehouseOrdersView} from '@views/admin/admin-warehouse-views/admin-warehouse-orders-view'
+import {AdminWarehouseTasksView} from '@views/admin/admin-warehouse-views/admin-warehouse-tasks-view'
 import {AuthView} from '@views/auth'
 import {BuyerBatchesView} from '@views/buyer/buyer-batches-view'
 import {BuyerMyProductsView} from '@views/buyer/buyer-my-products-view'
@@ -27,7 +29,6 @@ import {ClientInventoryView} from '@views/client/client-inventory-views/client-i
 import {ClientListingView} from '@views/client/client-inventory-views/listing-view'
 import {ClientOrderView} from '@views/client/client-orders-views/order'
 import {ClientOrdersView} from '@views/client/client-orders-views/orders'
-import {ClientProductView} from '@views/client/client-product-view'
 import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
 import {ClientUserProfileView} from '@views/client/client-users-views/user-profile-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
@@ -155,12 +156,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.CLIENT],
   },
-  {
-    routePath: '/client/product',
-    component: ClientProductView,
-    exact: false,
-    permission: [UserRole.CLIENT],
-  },
+
   {
     routePath: '/client/exchange',
     component: ClientExchangeView,
@@ -307,14 +303,26 @@ export const privateRoutesConfigs = [
     permission: [UserRole.ADMIN],
   },
   {
-    routePath: '/admin/orders',
-    component: AdminOrdersViews,
+    routePath: '/admin/orders/order',
+    component: AdminOrderView,
     exact: false,
     permission: [UserRole.ADMIN],
   },
   {
-    routePath: '/admin/warehouse/orders',
-    component: AdminWarehouseOrdersView,
+    routePath: '/admin/orders',
+    component: AdminOrdersViews,
+    exact: true,
+    permission: [UserRole.ADMIN],
+  },
+  {
+    routePath: '/admin/product',
+    component: AdminProductView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+  },
+  {
+    routePath: '/admin/warehouse/tasks',
+    component: AdminWarehouseTasksView,
     exact: false,
     permission: [UserRole.ADMIN],
   },

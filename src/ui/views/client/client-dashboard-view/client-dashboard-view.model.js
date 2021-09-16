@@ -38,26 +38,15 @@ export class ClientDashboardViewModel {
   async loadData() {
     try {
       this.requestStatus = loadingStatuses.isLoading
-      await this.getProductsMy()
-      await this.getBoxesMy()
-      await this.getOrders()
       await this.getProductsPaid()
+      await this.getOrders()
+
+      await this.getBoxesMy()
+
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       this.requestStatus = loadingStatuses.failed
       console.log(error)
-    }
-  }
-
-  async getProductsMy() {
-    try {
-      const result = await ClientModel.getProductsMy()
-      runInAction(() => {
-        this.productsMy = result
-      })
-    } catch (error) {
-      console.log(error)
-      this.error = error
     }
   }
 
@@ -95,5 +84,9 @@ export class ClientDashboardViewModel {
       console.log(error)
       this.error = error
     }
+  }
+
+  onClickInfoCardViewMode(route) {
+    this.history.push(route)
   }
 }

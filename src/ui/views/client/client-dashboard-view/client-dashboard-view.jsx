@@ -91,39 +91,35 @@ export class ClientDashboardViewRaw extends Component {
       <DashboardInfoCard
         color={infoCardData.color}
         title={infoCardData.title}
+        route={infoCardData.route || false}
         value={this.getCardValueByDataKey(infoCardData.dataKey)}
-        onClickViewMore={this.onClickViewMore}
+        onClickViewMore={this.viewModel.onClickInfoCardViewMode}
       />
     </Grid>
   )
 
   getCardValueByDataKey = dataKey => {
-    const {productsMy} = this.viewModel
+    const {productsPaid, orders} = this.viewModel
     switch (dataKey) {
       case ClientDashboardCardDataKey.IN_INVENTORY:
-        return productsMy.length
+        return productsPaid.length
       case ClientDashboardCardDataKey.FULL_COST:
-        return 1
+        return 'N/A'
       case ClientDashboardCardDataKey.REPURCHASE_ITEMS:
-        return 2
+        return 'N/A'
       case ClientDashboardCardDataKey.NOT_PAID_ORDERS:
-        return 3
+        return 'N/A'
       case ClientDashboardCardDataKey.PAID_ORDERS:
-        return 4
+        return orders.length
       case ClientDashboardCardDataKey.CANCELED_ORDERS:
-        return 5
+        return 'N/A'
       case ClientDashboardCardDataKey.SOLD_ITEMS_ON_EXCHANGE:
-        return 6
+        return 'N/A'
       case ClientDashboardCardDataKey.ACCURED_TO_RESERCHERS:
-        return 7
+        return 'N/A'
       case ClientDashboardCardDataKey.DISPUTS_FOR_PRODUCTS:
-        return 8
+        return 'N/A'
     }
-  }
-
-  onClickViewMore = () => {
-    const {history} = this.props
-    history.push('/client/inventory')
   }
 }
 

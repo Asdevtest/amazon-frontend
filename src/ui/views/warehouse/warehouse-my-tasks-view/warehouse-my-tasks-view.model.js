@@ -2,6 +2,7 @@ import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {OrderStatusByKey, OrderStatus} from '@constants/order-status'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
@@ -156,7 +157,6 @@ export class WarehouseVacantViewModel {
           'heightCmWarehouse',
           'weighGrossKgWarehouse',
           'volumeWeightKgWarehouse',
-          'weightFinalAccountingKgWarehouse',
           'isShippingLabelAttachedByStorekeeper',
           'images',
         ]),
@@ -208,6 +208,9 @@ export class WarehouseVacantViewModel {
         )
 
         await BoxesModel.approveBoxesOperation(requestBoxes, this.selectedTask.boxesBefore[0]._id)
+        await this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
+          status: OrderStatusByKey[OrderStatus.IN_STOCK],
+        })
       } else {
         await this.onSubmitUpdateBoxes(newBoxes)
         await BoxesModel.approveBoxesOperation(this.selectedTask.boxes[0]._id)

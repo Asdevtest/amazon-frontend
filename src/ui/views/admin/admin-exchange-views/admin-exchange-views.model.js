@@ -51,6 +51,10 @@ export class AdminExchangeViewModel {
     this.getDataGridState()
   }
 
+  onClickTableRow(product) {
+    this.history.push('/admin/product', {product: toJS(product)})
+  }
+
   dataGridTableKeyDependingOnActiveSubCategory() {
     switch (this.activeSubCategory) {
       case 0:

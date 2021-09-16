@@ -5,7 +5,6 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {DeliveryTypeByCode} from '@constants/delivery-options'
-import {OrderStatusByCode} from '@constants/order-status'
 import {BUYER_MY_ORDERS_HEAD_CELLS, BUYER_MY_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -15,8 +14,8 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
-import {ErrorInfoModal} from '@components/modals/error-info-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 import {Table} from '@components/table'
@@ -117,14 +116,13 @@ class BuyerMyOrdersViewRaw extends Component {
             modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS}
             warehouses={warehouses}
             deliveryTypeByCode={DeliveryTypeByCode}
-            orderStatusByCode={OrderStatusByCode}
             onTriggerOpenModal={onTriggerOpenModal}
             onSubmitSaveOrder={onSubmitSaveOrder}
             onSubmitCreateBoxes={onSubmitCreateBoxes}
           />
         </Modal>
 
-        <ErrorInfoModal
+        <WarningInfoModal
           openModal={showNoDimensionsErrorModal}
           setOpenModal={() => onTriggerOpenModal('showNoDimensionsErrorModal')}
           title={textConsts.dimensionsMessage}
@@ -134,7 +132,7 @@ class BuyerMyOrdersViewRaw extends Component {
           }}
         />
 
-        <ErrorInfoModal
+        <WarningInfoModal
           openModal={showWarningNewBoxesModal}
           setOpenModal={() => onTriggerOpenModal('showWarningNewBoxesModal')}
           title={'Создание новых коробок. Будьте внимательны!'}

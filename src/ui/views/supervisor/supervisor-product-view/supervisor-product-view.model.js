@@ -1,5 +1,5 @@
 import {transformAndValidate} from 'class-transformer-validator'
-import {action, makeAutoObservable, runInAction} from 'mobx'
+import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
@@ -67,6 +67,20 @@ const formFieldsDefault = {
   fbaamount: 0,
 }
 
+const confirmMessageByProductStatus = {
+  30: 'Отправить на поиск поставщика?',
+  20: 'Товар не подходит?',
+  70: 'Опубликовать на бирже?',
+  80: 'Поставщик не найден?',
+}
+
+const confirmMessageWithoutStatus = 'Сохранить без статуса?'
+
+const warningModalTitleVariants = {
+  NO_SUPPLIER: 'Нельзя выбрать без поставщика.',
+  CHOOSE_STATUS: 'Нужно выбрать статус',
+}
+
 export class SupervisorProductViewModel {
   history = undefined
   requestStatus = undefined
@@ -74,10 +88,16 @@ export class SupervisorProductViewModel {
   actionStatus = undefined
 
   product = undefined
+
   suppliers = []
+  curUpdateProductData = {}
+  confirmMessage = ''
+  warningModalTitle = ''
+
   drawerOpen = false
   selectedSupplier = undefined
-  showWarningNoSupplierModal = false
+  showWarningModal = false
+  showConfirmModal = false
 
   formFields = {...formFieldsDefault}
 
@@ -88,10 +108,12 @@ export class SupervisorProductViewModel {
     if (location.state) {
       const product = {
         ...location.state.product,
-        supplier: location.state.product.supplier.map(supplierItem => supplierItem._id),
+        supplier: location.state.product.supplier.map(supplierItem =>
+          typeof supplierItem === 'string' ? supplierItem : supplierItem._id,
+        ),
       }
       this.product = product
-      this.suppliers = location.state.product.supplier
+      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.supplier
     }
     makeAutoObservable(this, undefined, {autoBind: true})
     this.updateAutoCalculatedFields()
@@ -108,7 +130,11 @@ export class SupervisorProductViewModel {
           return
         }
 
-        this.product[fieldName] = e.target.value
+        if (['bsr', 'fbaamount'].includes(fieldName)) {
+          this.product[fieldName] = parseInt(e.target.value)
+        } else {
+          this.product[fieldName] = e.target.value
+        }
       }
 
       this.updateAutoCalculatedFields()
@@ -116,7 +142,9 @@ export class SupervisorProductViewModel {
 
   onClickSetProductStatusBtn(statusKey) {
     if (statusKey === ProductStatus.COMPLETE_SUCCESS && !this.product.currentSupplier) {
-      this.onTriggerOpenModal('showWarningNoSupplierModal')
+      this.warningModalTitle = warningModalTitleVariants.NO_SUPPLIER
+
+      this.onTriggerOpenModal('showWarningModal')
     } else {
       this.product.status = ProductStatusByKey[statusKey]
     }
@@ -125,7 +153,8 @@ export class SupervisorProductViewModel {
   async handleProductActionButtons(actionType, withoutStatus) {
     switch (actionType) {
       case 'accept':
-        this.onSaveProductData(withoutStatus)
+        this.openConfirmModalWithTextByStatus(withoutStatus)
+
         break
       case 'cancel':
         this.history.push('/supervisor/products')
@@ -133,10 +162,9 @@ export class SupervisorProductViewModel {
     }
   }
 
-  async onSaveProductData(withoutStatus) {
+  async openConfirmModalWithTextByStatus(withoutStatus) {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
-      let updateProductData = getObjectFilteredByKeyArrayWhiteList(
+      this.curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
         this.product,
         fieldsOfProductAllowedToUpdate,
         false,
@@ -145,7 +173,7 @@ export class SupervisorProductViewModel {
             case 'checkednotes':
               return value || ''
             case 'bsr':
-              return value && parseFloat(value)
+              return value && parseInt(value)
             case 'amazon':
               return value && parseFloat(value)
             case 'weight':
@@ -170,18 +198,24 @@ export class SupervisorProductViewModel {
         },
       )
       if (withoutStatus) {
-        updateProductData = getObjectFilteredByKeyArrayBlackList(updateProductData, ['status'])
+        this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(this.curUpdateProductData, ['status'])
       }
 
-      await transformAndValidate(SupervisorUpdateProductContract, updateProductData)
+      await transformAndValidate(SupervisorUpdateProductContract, this.curUpdateProductData)
 
-      await SupervisorModel.updateProduct(this.product._id, updateProductData)
-      this.setActionStatus(loadingStatuses.success)
-      this.history.push('/supervisor/products')
+      this.confirmMessage = withoutStatus
+        ? confirmMessageWithoutStatus
+        : confirmMessageByProductStatus[this.curUpdateProductData.status]
+
+      if (this.confirmMessage) {
+        this.onTriggerOpenModal('showConfirmModal')
+      } else {
+        this.warningModalTitle = warningModalTitleVariants.CHOOSE_STATUS
+        this.onTriggerOpenModal('showWarningModal')
+      }
     } catch (error) {
+      console.log(error)
       this.setActionStatus(loadingStatuses.failed)
-
-      console.log('error', error)
 
       if (isValidationErrors(error)) {
         plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
@@ -195,6 +229,22 @@ export class SupervisorProductViewModel {
           this.error = error
         })
       }
+    }
+  }
+
+  async onSaveProductData() {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+
+      await SupervisorModel.updateProduct(this.product._id, this.curUpdateProductData)
+      this.setActionStatus(loadingStatuses.success)
+
+      this.history.replace('/supervisor/product', {product: toJS(this.product), suppliers: toJS(this.suppliers)})
+
+      this.history.push('/supervisor/products')
+    } catch (error) {
+      this.setActionStatus(loadingStatuses.failed)
+      console.log('error', error)
     }
   }
 
@@ -289,6 +339,9 @@ export class SupervisorProductViewModel {
   }
 
   updateAutoCalculatedFields() {
+    const strBsr = this.product.bsr + ''
+    this.product.bsr = parseFloat(strBsr.replace(',', '')) || 0
+
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
 
     this.product.maxDelivery = this.product.express ? (this.product.weight || 0) * 7 : (this.product.weight || 0) * 5

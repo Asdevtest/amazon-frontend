@@ -12,7 +12,7 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
-import {ErrorInfoModal} from '@components/modals/error-info-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 import {Table} from '@components/table'
@@ -124,7 +124,7 @@ export class WarehouseMyTasksViewRaw extends Component {
           />
         </Modal>
 
-        <ErrorInfoModal
+        <WarningInfoModal
           openModal={showNoDimensionsErrorModal}
           setOpenModal={() => onTriggerOpenModal('showNoDimensionsErrorModal')}
           title={textConsts.dimensionsMessage}

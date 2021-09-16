@@ -17,106 +17,6 @@ export class BuyerPayment extends InlineResponse2004 {}
 
 export class BuyerUpdateProductContract {
   @IsNotEmpty()
-  @IsInt()
-  status
-
-  @IsOptional()
-  @IsString()
-  checkednotes
-
-  @IsOptional()
-  @IsString()
-  lamazon
-
-  @IsOptional()
-  @IsNumber()
-  bsr
-
-  @IsOptional()
-  @IsBoolean()
-  fba
-
-  @IsOptional()
-  @IsBoolean()
-  express
-
-  @IsOptional()
-  @IsNumber()
-  amazon
-
-  @IsOptional()
-  @IsNumber()
-  height
-
-  @IsOptional()
-  @IsNumber()
-  width
-
-  @IsOptional()
-  @IsNumber()
-  length
-
-  @IsOptional()
-  @IsNumber()
-  weight
-
-  @IsOptional()
-  @IsArray()
-  supplier
-
-  @IsOptional()
-  @IsInt()
-  reffee
-
-  @IsOptional()
-  @IsNumber()
-  fbafee
-
-  @IsOptional()
-  @IsInt()
-  delivery
-
-  @IsOptional()
-  @IsString()
-  fbalink
-
-  @IsOptional()
-  @IsInt()
-  status
-
-  @IsOptional()
-  @IsString()
-  icomment
-
-  @IsOptional()
-  @IsArray()
-  images
-
-  @IsOptional()
-  @IsString()
-  amazonDescription
-
-  @IsOptional()
-  @IsString()
-  amazonDetail
-
-  @IsOptional()
-  @IsString()
-  amazonTitle
-
-  @IsOptional()
-  @IsNumber()
-  minpurchase
-
-  @IsOptional()
-  @IsInt()
-  profit
-
-  @IsOptional()
-  @IsNumber()
-  margin
-
-  @IsOptional()
   @IsString()
   buyerscomment
 }
@@ -146,21 +46,6 @@ export class BuyerUpdateOrderContract {
   @IsArray()
   images
 }
-
-// похоже, это не нужно т.к.это заполняется не из полей
-// export class BuyerPostTaskContract {
-//   @IsNotEmpty()
-//   @IsInt()
-//   taskId;
-
-//   @IsNotEmpty()
-//   @IsArray()
-//   boxes;
-
-//   @IsNotEmpty()
-//   @IsString()
-//   operationType;
-// }
 
 export class BuyerAddOwnProductContract {
   @IsNotEmpty()

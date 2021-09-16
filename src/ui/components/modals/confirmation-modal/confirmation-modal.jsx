@@ -1,8 +1,10 @@
 import React from 'react'
 
 import {Typography} from '@material-ui/core'
+import clsx from 'clsx'
 
 import {Button} from '@components/buttons/button'
+import {ErrorButton} from '@components/buttons/error-button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {Modal} from '@components/modal'
 
@@ -13,6 +15,7 @@ export const ConfirmationModal = ({
   setOpenModal,
   title,
   message,
+  isWarning,
   successBtnText,
   cancelBtnText,
   onClickSuccessBtn,
@@ -21,18 +24,25 @@ export const ConfirmationModal = ({
   const classNames = useClassNames()
 
   return (
-    <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <div className={classNames.modalMessageWrapper}>
-        <Typography paragraph variant="h5">
+    <Modal isWarning={isWarning} openModal={openModal} setOpenModal={setOpenModal}>
+      <div className={clsx(classNames.modalMessageWrapper, {[classNames.warningModalMessageWrapper]: isWarning})}>
+        <Typography paragraph variant="h5" className={clsx({[classNames.title]: isWarning})}>
           {title}
         </Typography>
-        <Typography paragraph className={classNames.modalMessage}>
+        <Typography paragraph className={clsx(classNames.modalMessage, {[classNames.warningModalMessage]: isWarning})}>
           {message}
         </Typography>
-        <div className={classNames.buttonsWrapper}>
-          <SuccessButton disableElevation variant="contained" onClick={onClickSuccessBtn}>
-            {successBtnText}
-          </SuccessButton>
+        <div className={clsx(classNames.buttonsWrapper, {[classNames.warningButtonsWrapper]: isWarning})}>
+          {isWarning ? (
+            <ErrorButton disableElevation variant="contained" onClick={onClickSuccessBtn}>
+              {successBtnText}
+            </ErrorButton>
+          ) : (
+            <SuccessButton disableElevation variant="contained" onClick={onClickSuccessBtn}>
+              {successBtnText}
+            </SuccessButton>
+          )}
+
           <Button className={classNames.cancelBtn} color="primary" onClick={onClickCancelBtn}>
             {cancelBtnText}
           </Button>

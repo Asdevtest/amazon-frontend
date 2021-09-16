@@ -10,7 +10,7 @@ import {BoxesWarehouseReceiveBoxModalContract} from '@models/boxes-model/boxes-m
 
 import {Button} from '@components/buttons/button'
 import {Input} from '@components/input'
-import {ErrorInfoModal} from '@components/modals/error-info-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Table} from '@components/table'
 import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
@@ -328,7 +328,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
           {textConsts.cancelBtn}
         </Button>
       </div>
-      <ErrorInfoModal
+      <WarningInfoModal
         openModal={showNoDimensionsErrorModal}
         setOpenModal={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
         title={textConsts.dimensionsMessage}

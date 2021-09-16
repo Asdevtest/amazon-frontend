@@ -11,6 +11,7 @@ import {UserRole} from '@constants/user-roles'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/warehouse/tasks-views/table-body-row'
@@ -39,10 +40,12 @@ export class WarehouseVacantTasksViewRaw extends Component {
       drawerOpen,
       curPage,
       rowsPerPage,
+      showWarningModal,
       onChangeTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
       onClickPickupBtn,
+      onTriggerOpenModal,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -86,6 +89,15 @@ export class WarehouseVacantTasksViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+        <WarningInfoModal
+          openModal={showWarningModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
+          title={textConsts.warningTitle}
+          btnText={textConsts.okBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningModal')
+          }}
+        />
       </React.Fragment>
     )
   }

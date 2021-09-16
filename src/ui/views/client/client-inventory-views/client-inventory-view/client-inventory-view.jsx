@@ -197,11 +197,11 @@ export class ClientInventoryViewRaw extends Component {
       case ClientInventoryDashboardCardDataKey.PRODUCTS_BOUGHT_ON_EXCHANGE:
         return productsMy.length
       case ClientInventoryDashboardCardDataKey.PRODUCTS_ADDED:
-        return 0
+        return 'N/A'
       case ClientInventoryDashboardCardDataKey.ORDERS_CHECKOUT:
         return orders.length
       case ClientInventoryDashboardCardDataKey.BOUGHT_FOR_LAST_30_DAYS:
-        return 0
+        return 'N/A'
     }
   }
 }

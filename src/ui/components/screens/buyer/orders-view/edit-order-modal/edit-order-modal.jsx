@@ -10,11 +10,14 @@ import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 import {CreateBoxForm} from '@components/forms/create-box-form'
 import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
+import {BoxesToCreateTable} from './boxes-to-create-table'
 import {useClassNames} from './edit-order-modal.style'
 import {EditOrderSuppliersTable} from './edit-order-suppliers-table'
 import {ProductTable} from './product-table'
@@ -22,10 +25,7 @@ import {SelectFields} from './select-fields'
 
 const textConsts = getLocalizedTexts(texts, 'ru').ordersViewsModalEditOrder
 
-const orderStatusesThatTriggersEditBoxBlock = [
-  OrderStatusByKey[OrderStatus.PAID],
-  OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
-]
+const orderStatusesThatTriggersEditBoxBlock = [OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]]
 
 const renderHeadRow = (
   <TableRow>
@@ -35,6 +35,11 @@ const renderHeadRow = (
   </TableRow>
 )
 
+const confirmModalModes = {
+  STATUS: 'STATUS',
+  SUBMIT: 'SUBMIT',
+}
+
 export const EditOrderModal = ({
   order,
   boxes,
@@ -42,13 +47,28 @@ export const EditOrderModal = ({
   modalHeadCells,
   warehouses,
   deliveryTypeByCode,
-  orderStatusByCode,
   onSubmitSaveOrder,
-  onSubmitCreateBoxes,
 }) => {
   const classNames = useClassNames()
 
   const [collapseCreateOrEditBoxBlock, setCollapseCreateOrEditBoxBlock] = useState(false)
+
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
+
+  const [confirmModalMode, setConfirmModalMode] = useState(confirmModalModes.STATUS)
+
+  const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
+
+  const [showWarningInfoModal, setShowWarningInfoModal] = useState(
+    order.status === OrderStatusByKey[OrderStatus.AT_PROCESS],
+  )
+
+  const [boxesForCreation, setBoxesForCreation] = useState([])
+
+  const onRemoveForCreationBox = boxIndex => {
+    const updatedNewBoxes = boxesForCreation.filter((box, i) => i !== boxIndex)
+    setBoxesForCreation(updatedNewBoxes)
+  }
 
   const [orderFields, setOrderFields] = useState({
     ...order,
@@ -67,10 +87,6 @@ export const EditOrderModal = ({
     batchPrice: 0,
   })
 
-  const [showCreateOrEditBoxBlock, setShowCreateOrEditBoxBlock] = useState(
-    orderStatusesThatTriggersEditBoxBlock.includes(orderFields.status),
-  )
-
   const setOrderField = filedName => e => {
     const newOrderFieldsState = {...orderFields}
 
@@ -79,14 +95,18 @@ export const EditOrderModal = ({
         return
       }
       newOrderFieldsState[filedName] = e.target.value
+    } else if (filedName === 'status') {
+      newOrderFieldsState[filedName] = e.target.value
+      setTmpNewOrderFieldsState(newOrderFieldsState)
+
+      setConfirmModalMode(confirmModalModes.STATUS)
+      setShowConfirmModal(!showConfirmModal)
+      return
     } else {
       newOrderFieldsState[filedName] =
         filedName === 'deliveryCostToTheWarehouse' ? parseInt(e.target.value.match(/\d+/)) : e.target.value
     }
 
-    if (filedName === 'status') {
-      setShowCreateOrEditBoxBlock(() => !!orderStatusesThatTriggersEditBoxBlock.includes(parseInt(e.target.value)))
-    }
     setOrderFields(newOrderFieldsState)
   }
 
@@ -97,8 +117,24 @@ export const EditOrderModal = ({
     setOrderFields(newOrderFieldsState)
   }
 
-  if (!order) {
-    return <div />
+  const confirmModalMessageByMode = () => {
+    switch (confirmModalMode) {
+      case 'STATUS':
+        return textConsts.confirmStatusMessage
+
+      case 'SUBMIT':
+        return textConsts.confirmSubmitMessage
+    }
+  }
+
+  const confirmModalActionByMode = () => {
+    switch (confirmModalMode) {
+      case 'STATUS':
+        return setOrderFields(tmpNewOrderFieldsState)
+
+      case 'SUBMIT':
+        return onSubmitSaveOrder(order, orderFields, boxesForCreation)
+    }
   }
 
   return (
@@ -111,7 +147,6 @@ export const EditOrderModal = ({
         <SelectFields
           warehouses={warehouses}
           deliveryTypeByCode={deliveryTypeByCode}
-          orderStatusByCode={orderStatusByCode}
           setOrderField={setOrderField}
           resetOrderField={resetOrderField}
           orderFields={orderFields}
@@ -135,29 +170,37 @@ export const EditOrderModal = ({
           suppliers={orderFields.product.supplier}
         />
       </Paper>
-      {!collapseCreateOrEditBoxBlock && (
-        <Box mt={2} className={classNames.buttonsBox}>
-          <Button
-            className={classNames.saveBtn}
-            onClick={() => {
-              onSubmitSaveOrder(order, orderFields)
-            }}
-          >
-            {textConsts.saveBtn}
-          </Button>
-          <ErrorButton onClick={() => onTriggerOpenModal('showOrderModal')}>{textConsts.cancelBtn}</ErrorButton>
-        </Box>
-      )}
 
-      {showCreateOrEditBoxBlock && (
+      <Box mt={2} className={classNames.buttonsBox}>
+        <Button
+          className={classNames.saveBtn}
+          onClick={() => {
+            if (boxesForCreation.length > 0) {
+              setConfirmModalMode(confirmModalModes.SUBMIT)
+              setShowConfirmModal(!showConfirmModal)
+            } else {
+              onSubmitSaveOrder(order, orderFields, boxesForCreation)
+            }
+          }}
+        >
+          {textConsts.saveBtn}
+        </Button>
+        <ErrorButton onClick={() => onTriggerOpenModal('showOrderModal')}>{textConsts.cancelBtn}</ErrorButton>
+      </Box>
+
+      {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) && (
         <Button
           disableElevation
           color="primary"
           variant="contained"
           onClick={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
         >
-          {'Добавить коробку'}
+          {textConsts.addBoxBtn}
         </Button>
+      )}
+
+      {boxesForCreation.length > 0 && (
+        <BoxesToCreateTable newBoxes={boxesForCreation} onRemoveBox={onRemoveForCreationBox} />
       )}
 
       <div className={classNames.tableWrapper}>
@@ -177,12 +220,35 @@ export const EditOrderModal = ({
         <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
         <CreateBoxForm
           formItem={orderFields}
+          boxesForCreation={boxesForCreation}
+          setBoxesForCreation={setBoxesForCreation}
           onTriggerOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
-          onSubmit={(boxId, formFieldsArr) => {
-            onSubmitCreateBoxes(boxId, formFieldsArr)
-          }}
         />
       </Modal>
+
+      <ConfirmationModal
+        openModal={showConfirmModal}
+        setOpenModal={() => setShowConfirmModal(!showConfirmModal)}
+        title={textConsts.confirmTitle}
+        message={confirmModalMessageByMode(confirmModalMode)}
+        successBtnText={textConsts.yesBtn}
+        cancelBtnText={textConsts.noBtn}
+        onClickSuccessBtn={() => {
+          confirmModalActionByMode(confirmModalMode)
+          setShowConfirmModal(!showConfirmModal)
+        }}
+        onClickCancelBtn={() => setShowConfirmModal(!showConfirmModal)}
+      />
+
+      <WarningInfoModal
+        openModal={showWarningInfoModal}
+        setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
+        title={textConsts.firstWarning}
+        btnText={textConsts.okBtn}
+        onClickBtn={() => {
+          setShowWarningInfoModal(!showWarningInfoModal)
+        }}
+      />
     </Box>
   )
 }

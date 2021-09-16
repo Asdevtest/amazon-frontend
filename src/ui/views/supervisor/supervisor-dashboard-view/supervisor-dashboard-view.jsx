@@ -75,13 +75,11 @@ export class SupervisorDashboardViewRaw extends Component {
           value={this.getCardValueByDataKey(item.dataKey)}
           title={item.title}
           color={item.color}
-          route="/supervisor/products"
-          onClickViewMore={this.onClickInfoCardViewMode}
+          route={item.route || false}
+          onClickViewMore={this.viewModel.onClickInfoCardViewMode}
         />
       </Grid>
     ))
-
-  onClickInfoCardViewMode = () => {}
 
   getCardValueByDataKey = dataKey => {
     const {productsVacant, producatsMy, paymentsMy} = this.viewModel
@@ -93,7 +91,7 @@ export class SupervisorDashboardViewRaw extends Component {
       case SupervisorDashboardCardDataKey.ACCURED:
         return paymentsMy.length
       case SupervisorDashboardCardDataKey.FINES:
-        return 0
+        return 'N/A'
     }
   }
 }

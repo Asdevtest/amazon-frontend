@@ -1,7 +1,6 @@
 import React from 'react'
 
-import {Container, Grid, Typography, Paper} from '@material-ui/core'
-import MuiCheckbox from '@material-ui/core/Checkbox'
+import {Grid, Typography, Paper} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {ProductStatusByCode} from '@constants/product-status'
@@ -72,19 +71,7 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
               value={product.weight || ''}
               onChange={onChangeField('weight')}
             />
-            <Container disableGutters className={classNames.checkboxContainer} maxWidth={false}>
-              <Typography className={(classNames.label, classNames.typoMarginRight)}>
-                {textConsts.typoExpress}
-              </Typography>
 
-              <MuiCheckbox
-                checked={product.express}
-                className={classNames.checkbox}
-                color="primary"
-                disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
-                onChange={onChangeField('express')}
-              />
-            </Container>
             <Field
               disabled
               error={formFieldsValidationErrors.minpurchase}

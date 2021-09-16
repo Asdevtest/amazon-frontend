@@ -76,7 +76,8 @@ export class ResearcherDashboardViewRaw extends Component {
           value={this.getCardValueByDataKey(item.dataKey)}
           title={item.title}
           color={item.color}
-          route="/researcher/products"
+          route={item.route || false}
+          onClickViewMore={this.viewModel.onClickInfoCardViewMode}
         />
       </Grid>
     ))
@@ -86,7 +87,7 @@ export class ResearcherDashboardViewRaw extends Component {
       case ResearcherDashboardCardDataKey.PRODUCTS:
         return this.viewModel.productsVacant.length
       case ResearcherDashboardCardDataKey.CUR_BALANCE:
-        return 0
+        return this.viewModel.balance
       case ResearcherDashboardCardDataKey.FINES:
         return 0
     }

@@ -9,7 +9,7 @@ import {useClassNames} from './dashboard-info-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').dashboardInfoCard
 
-export const DashboardInfoCard = observer(({color, title, value, onClickViewMore}) => {
+export const DashboardInfoCard = observer(({color, title, value, route, onClickViewMore}) => {
   const classNames = useClassNames()
   return (
     <Paper className={classNames.root}>
@@ -19,9 +19,9 @@ export const DashboardInfoCard = observer(({color, title, value, onClickViewMore
       <div className={classNames.titleWrapper}>
         <Typography className={classNames.title}>{title}</Typography>
       </div>
-      {onClickViewMore ? (
+      {route ? (
         <div className={classNames.subTitleWrapper}>
-          <Typography className={classNames.subTitle} onClick={onClickViewMore}>
+          <Typography className={classNames.subTitle} onClick={() => onClickViewMore(route)}>
             {textConsts.viewMoreBtn}
           </Typography>
         </div>

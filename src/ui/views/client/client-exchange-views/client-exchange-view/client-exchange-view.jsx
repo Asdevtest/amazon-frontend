@@ -16,6 +16,7 @@ import {Modal} from '@components/modal'
 import {ClientExchnageCreateOrderModalContent} from '@components/modal-contents/client-exchange-create-order-modal-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
 import {ExchangeBodyRow} from '@components/table-rows/client/exchange'
@@ -51,6 +52,7 @@ export class ClientExchangeViewRaw extends Component {
       selectedProduct,
       showConfirmPayModal,
       showSuccessModal,
+      showWarningModal,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -133,6 +135,15 @@ export class ClientExchangeViewRaw extends Component {
             onTriggerOpenModal('showPrivateLabelModal')
           }}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmPayModal')}
+        />
+        <WarningInfoModal
+          openModal={showWarningModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
+          title={textConsts.warningModalTitle}
+          btnText={textConsts.okBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningModal')
+          }}
         />
 
         <SuccessInfoModal

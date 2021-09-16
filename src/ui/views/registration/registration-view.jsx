@@ -9,8 +9,8 @@ import {texts} from '@constants/texts'
 import {EntryLeftPanel} from '@components/entry-left-panel'
 import {EntryRightPanel} from '@components/entry-right-panel'
 import {RegistrationForm} from '@components/forms/registration-form'
-import {ErrorInfoModal} from '@components/modals/error-info-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -69,7 +69,7 @@ class RegistrationViewRaw extends Component {
           }}
         />
 
-        <ErrorInfoModal
+        <WarningInfoModal
           openModal={showErrorRegistrationModal}
           setOpenModal={() => onTriggerOpenModal('showErrorRegistrationModal')}
           title={textConsts.errorRegistration}

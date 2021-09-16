@@ -1,11 +1,11 @@
 import React from 'react'
 
-import {Table, TableBody, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Table, TableBody, TableCell, TableRow, Typography, Link} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixed} from '@utils/text'
+import {toFixed, checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {useClassNames} from './parameters.style'
 
@@ -37,7 +37,9 @@ export const Parameters = ({order, collapsed}) => {
             <Typography className={classNames.containerTitle}>{textConsts.supplier}</Typography>
           </TableCell>
           <TableCell className={classNames.parameterTableCell}>
-            <Typography className={classNames.scrollingText}>{toFixed(order.product.currentSupplier.link)}</Typography>
+            <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.currentSupplier.link)}>
+              <Typography className={classNames.scrollingText}>{order.product.currentSupplier.link}</Typography>
+            </Link>
           </TableCell>
         </TableRow>
 

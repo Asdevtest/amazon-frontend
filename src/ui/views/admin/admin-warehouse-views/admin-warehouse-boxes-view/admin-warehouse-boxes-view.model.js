@@ -1,5 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {loadingStatuses} from '@constants/loading-statuses'
+
 import {BoxesModel} from '@models/boxes-model'
 
 export class AdminWarehouseBoxesViewModel {
@@ -15,17 +17,33 @@ export class AdminWarehouseBoxesViewModel {
   selectedBoxes = ['2096c_box']
   modalSendOwnProduct = false
   modalEditBox = false
-  showRedistributeBoxModal = false
-  showRedistributeBoxAddNewBoxModal = null
-  showRedistributeBoxSuccessModal = false
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  onShowModalRedistributeBoxAddNewBox(value) {
-    this.showRedistributeBoxAddNewBoxModal = value
+  async loadData() {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+      await this.getBoxes()
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      this.requestStatus = loadingStatuses.failed
+      console.log(error)
+    }
+  }
+
+  async getBoxes() {
+    try {
+      const result = await BoxesModel.getBoxes()
+      runInAction(() => {
+        this.boxes = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   onTriggerDrawer() {
@@ -48,28 +66,7 @@ export class AdminWarehouseBoxesViewModel {
     this.selectedBoxes = updatedselectedBoxes
   }
 
-  onRedistribute(updatedBoxes) {
-    this.boxes = updatedBoxes
-    this.selectedBoxes = []
-  }
-
-  onClickMerge() {
-    alert('Box merging')
-  }
-
   onTriggerModal(modalState) {
     this[modalState] = !this[modalState]
-  }
-
-  async getBoxes() {
-    try {
-      const result = await BoxesModel.getBoxes() // такого метода пока нет
-      runInAction(() => {
-        this.boxes = result
-      })
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
   }
 }

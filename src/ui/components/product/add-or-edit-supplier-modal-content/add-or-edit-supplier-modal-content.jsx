@@ -10,6 +10,7 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {Field} from '@components/field'
 import {ShowBigImagesModal} from '@components/modals/show-big-images-modal'
 
+import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {priceCalculation} from '@utils/price-calculation'
 
@@ -42,12 +43,15 @@ export const AddOrEditSupplierModalContent = observer(
         fieldName !== 'name' &&
         fieldName !== 'comment' &&
         fieldName !== 'link' &&
-        (Number(event.target.value) < 0 || isNaN(event.target.value))
+        !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)
       ) {
         return
       }
-
-      setTmpSupplier({...tmpSupplier, [fieldName]: event.target.value})
+      if (['minlot', 'amount'].includes(fieldName)) {
+        setTmpSupplier({...tmpSupplier, [fieldName]: parseInt(event.target.value)})
+      } else {
+        setTmpSupplier({...tmpSupplier, [fieldName]: event.target.value})
+      }
     }
 
     return (
@@ -55,19 +59,47 @@ export const AddOrEditSupplierModalContent = observer(
         <Typography className={classNames.modalTitle}>{title}</Typography>
         <Divider className={classNames.titleDivider} />
 
-        <Field label={textConsts.name} value={tmpSupplier.name} onChange={onChangeField('name')} />
-        <Field label={textConsts.link} value={tmpSupplier.link} onChange={onChangeField('link')} />
-        <Field label={textConsts.price} value={tmpSupplier.price} placeholder="$" onChange={onChangeField('price')} />
+        <Field
+          label={textConsts.name}
+          inputProps={{maxLength: 2000}}
+          value={tmpSupplier.name}
+          onChange={onChangeField('name')}
+        />
+        <Field
+          label={textConsts.link}
+          inputProps={{maxLength: 2000}}
+          value={tmpSupplier.link}
+          onChange={onChangeField('link')}
+        />
+        <Field
+          label={textConsts.price}
+          inputProps={{maxLength: 50}}
+          value={tmpSupplier.price}
+          placeholder="$"
+          onChange={onChangeField('price')}
+        />
         <Field
           label={textConsts.deliveryPrice}
+          inputProps={{maxLength: 50}}
           value={tmpSupplier.delivery}
           placeholder="$"
           onChange={onChangeField('delivery')}
         />
-        <Field label={textConsts.qty} value={tmpSupplier.amount} onChange={onChangeField('amount')} />
-        <Field label={textConsts.minLot} value={tmpSupplier.minlot} onChange={onChangeField('minlot')} />
+        <Field
+          label={textConsts.qty}
+          inputProps={{maxLength: 50}}
+          value={tmpSupplier.amount}
+          onChange={onChangeField('amount')}
+        />
+        <Field
+          label={textConsts.minLot}
+          inputProps={{maxLength: 50}}
+          value={tmpSupplier.minlot}
+          onChange={onChangeField('minlot')}
+        />
         <Field
           label={textConsts.lotCost}
+          inputProps={{maxLength: 50}}
           value={tmpSupplier.lotcost}
           placeholder="$"
           onChange={onChangeField('lotcost')}
@@ -82,6 +114,7 @@ export const AddOrEditSupplierModalContent = observer(
           <Field
             multiline
             className={classNames.commentField}
+            inputProps={{maxLength: 2000}}
             rows={4}
             rowsMax={6}
             label={textConsts.comment}
@@ -90,7 +123,7 @@ export const AddOrEditSupplierModalContent = observer(
           />
 
           <div>
-            <Typography className={classNames.loadTitle}>{'Прикрепить фото к задаче'}</Typography>
+            <Typography className={classNames.loadTitle}>{textConsts.loadTitle}</Typography>
             <input multiple="multiple" type="file" onChange={e => setPhotosOfSupplier([...e.target.files])} />
 
             <Button
@@ -101,7 +134,7 @@ export const AddOrEditSupplierModalContent = observer(
               variant="contained"
               onClick={() => setShowPhotosModal(!showPhotosModal)}
             >
-              {'Имеющиеся фотографии'}
+              {textConsts.availablePhotos}
             </Button>
           </div>
         </div>
@@ -130,7 +163,7 @@ export const AddOrEditSupplierModalContent = observer(
           </Button>
         </div>
 
-        {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+        {showProgress && <CircularProgressWithLabel value={progressValue} title={textConsts.circularProgressTitle} />}
 
         <ShowBigImagesModal
           isAmazone

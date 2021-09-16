@@ -26,4 +26,11 @@ export const styles = createStyles(theme => ({
       marginRight: 0,
     },
   },
+  row: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
 }))

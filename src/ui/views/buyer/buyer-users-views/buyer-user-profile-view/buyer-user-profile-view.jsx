@@ -73,7 +73,12 @@ export class BuyerUserProfileView extends Component {
             curUserRole={UserRole.BUYER}
           >
             <MainContent>
-              <Header user={this.viewModel.userDataMy} timer={textConsts.timer} headerInfoData={headerInfoData} />
+              <Header
+                user={this.viewModel.userDataMy}
+                timer={textConsts.timer}
+                headerInfoData={headerInfoData}
+                avatar={avatar}
+              />
 
               <ActiveOrders
                 tabExchange={tabExchange}

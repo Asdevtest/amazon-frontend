@@ -57,6 +57,7 @@ export class BuyerProductsViewModel {
       this.setActionStatus(loadingStatuses.isLoading)
       await BuyerModel.pickupProduct(product._id)
       this.setActionStatus(loadingStatuses.success)
+
       this.history.push('/buyer/product', {product: toJS(product)})
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)

@@ -1,18 +1,25 @@
-import {action, makeAutoObservable, runInAction} from 'mobx'
+import {transformAndValidate} from 'class-transformer-validator'
+import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
+import {texts} from '@constants/texts'
 
 import {BuyerModel} from '@models/buyer-model'
+import {BuyerUpdateProductContract} from '@models/buyer-model/buyer-model.contracts'
 import {OtherModel} from '@models/other-model'
 import {SupplierModel} from '@models/supplier-model'
 
 import {isNotUndefined, isUndefined} from '@utils/checks'
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayBlackList,
   getObjectFilteredByKeyArrayWhiteList,
 } from '@utils/object'
+import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
+
+const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
 
 const fieldsOfProductAllowedToUpdate = [
   'lsupplier',
@@ -52,6 +59,18 @@ const formFieldsDefault = {
   supplier: [],
   updateDate: '',
   _id: '',
+  buyerscomment: '',
+}
+
+const confirmMessageByProductStatus = {
+  60: 'Прайс поставщика не подходит?',
+  50: 'Поставщик не найден?',
+  40: 'Поставщик найден?',
+}
+
+const warningModalTitleVariants = {
+  NO_SUPPLIER: 'Нельзя выбрать без поставщика.',
+  CHOOSE_STATUS: 'Нужно выбрать статус',
 }
 
 export class BuyerProductViewModel {
@@ -59,13 +78,23 @@ export class BuyerProductViewModel {
   requestStatus = undefined
   actionStatus = undefined
 
-  productBase = undefined
   product = undefined
   suppliers = []
+  curUpdateProductData = {}
+  warningModalTitle = ''
+
   drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
-  showNoSuplierErrorModal = false
+
+  showWarningModal = false
+  showConfirmModal = false
+
+  confirmModalSettings = {
+    isWarning: false,
+    message: '',
+    onClickOkBtn: () => this.onSaveProductData(),
+  }
 
   readyImages = []
   progressValue = 0
@@ -77,14 +106,16 @@ export class BuyerProductViewModel {
 
   constructor({history, location}) {
     this.history = history
+
     if (location.state) {
       const product = {
         ...location.state.product,
-        supplier: location.state.product.supplier.map(supplierItem => supplierItem._id),
+        supplier: location.state.product.supplier.map(supplierItem =>
+          typeof supplierItem === 'string' ? supplierItem : supplierItem._id,
+        ),
       }
-      this.productBase = product
       this.product = product
-      this.suppliers = location.state.product.supplier
+      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.supplier
       this.updateAutoCalculatedFields()
     }
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -92,6 +123,8 @@ export class BuyerProductViewModel {
 
   onChangeProductFields = fieldsName =>
     action(e => {
+      this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldsName]: ''}
+
       this.product[fieldsName] = e.target.value
       this.updateAutoCalculatedFields()
     })
@@ -134,28 +167,33 @@ export class BuyerProductViewModel {
         this.updateAutoCalculatedFields()
         break
       case 'delete':
-        this.onRemoveSupplier()
+        this.confirmModalSettings = {
+          isWarning: true,
+          message: textConsts.deleteSupplierMessage,
+          onClickOkBtn: () => this.onRemoveSupplier(),
+        }
+        this.onTriggerOpenModal('showConfirmModal')
         break
     }
   }
-
   async onRemoveSupplier() {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
       this.setActionStatus(loadingStatuses.success)
       const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === this.selectedSupplier._id)
-      const findProductSupplierIndex = this.product.supplier.findIndex(
-        supplierItem => supplierItem._id === this.selectedSupplier._id,
-      )
+
       runInAction(() => {
         this.suppliers.splice(findSupplierIndex, 1)
-        this.product.supplier.splice(findProductSupplierIndex, 1)
+        this.product.supplier
         this.selectedSupplier = undefined
         if (this.product.currentSupplier && this.product.currentSupplier._id === this.selectedSupplier._id) {
           this.product.currentSupplier = undefined
         }
       })
+
+      const forcedSaveSupplierItem = {supplier: [...this.product.supplier]}
+      await this.onForcedSaveSelectedFields(forcedSaveSupplierItem)
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -168,19 +206,18 @@ export class BuyerProductViewModel {
   async handleProductActionButtons(actionType) {
     switch (actionType) {
       case 'accept':
-        this.onSaveProductData()
+        this.openConfirmModalWithTextByStatus()
 
         break
       case 'cancel':
-        this.onResetInitialProductData()
+        this.history.push('/buyer/my-products')
         break
     }
   }
 
-  async onSaveProductData() {
+  async openConfirmModalWithTextByStatus() {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
-      const updateProductData = getObjectFilteredByKeyArrayWhiteList(
+      this.curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
         this.product,
         fieldsOfProductAllowedToUpdate,
         false,
@@ -195,18 +232,57 @@ export class BuyerProductViewModel {
         },
       )
 
-      if (
-        updateProductData.currentSupplier ||
-        updateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]
-      ) {
-        console.log('updateProductData', updateProductData)
-        await BuyerModel.updateProduct(this.product._id, updateProductData)
-        this.history.push('/buyer/my-products')
-      } else {
-        this.onTriggerOpenModal('showNoSuplierErrorModal')
-      }
+      await transformAndValidate(BuyerUpdateProductContract, this.curUpdateProductData)
 
+      if (
+        (this.curUpdateProductData.currentSupplier ||
+          this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]) &&
+        this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
+        this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]
+      ) {
+        this.confirmModalSettings = {
+          isWarning: false,
+          message: confirmMessageByProductStatus[this.curUpdateProductData.status],
+          onClickOkBtn: () => this.onSaveProductData(),
+        }
+
+        this.onTriggerOpenModal('showConfirmModal')
+      } else {
+        this.warningModalTitle =
+          this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] ||
+          this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]
+            ? warningModalTitleVariants.CHOOSE_STATUS
+            : warningModalTitleVariants.NO_SUPPLIER
+        this.onTriggerOpenModal('showWarningModal')
+      }
+    } catch (error) {
+      console.log(error)
+      this.setActionStatus(loadingStatuses.failed)
+
+      if (isValidationErrors(error)) {
+        plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
+          runInAction(() => {
+            this.formFieldsValidationErrors[errorProperty] = constraint
+          })
+        })
+      } else {
+        console.warn('error ', error)
+        runInAction(() => {
+          this.error = error
+        })
+      }
+    }
+  }
+
+  async onSaveProductData() {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+      await BuyerModel.updateProduct(this.product._id, this.curUpdateProductData)
       this.setActionStatus(loadingStatuses.success)
+
+      this.history.replace('/buyer/product', {product: toJS(this.product), suppliers: toJS(this.suppliers)})
+
+      this.history.push('/buyer/my-products')
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -246,6 +322,15 @@ export class BuyerProductViewModel {
     }
   }
 
+  async onForcedSaveSelectedFields(selectedFieldsObj) {
+    try {
+      await BuyerModel.updateProduct(this.product._id, selectedFieldsObj)
+    } catch (error) {
+      this.setActionStatus(loadingStatuses.failed)
+      console.log('error', error)
+    }
+  }
+
   async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
     try {
       await this.onSubmitPostImages({images: photosOfSupplier, type: 'readyImages'})
@@ -272,7 +357,11 @@ export class BuyerProductViewModel {
           this.product.supplier.push(createSupplierResult.guid)
           this.suppliers.push({...supplier, _id: createSupplierResult.guid})
         })
+
+        const forcedSaveSupplierItem = {supplier: [...this.product.supplier]}
+        await this.onForcedSaveSelectedFields(forcedSaveSupplierItem)
       }
+
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
       console.log(error)
@@ -285,13 +374,6 @@ export class BuyerProductViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
-  }
-
-  onResetInitialProductData() {
-    this.setActionStatus(loadingStatuses.isLoading)
-    this.product = this.productBase
-    this.setActionStatus(loadingStatuses.success)
-    this.history.push('/buyer/my-products')
   }
 
   onTriggerAddOrEditSupplierModal() {

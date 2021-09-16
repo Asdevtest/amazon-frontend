@@ -14,4 +14,11 @@ export const styles = createStyles(theme => ({
   mr2: {
     marginRight: theme.spacing(2),
   },
+  row: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
 }))

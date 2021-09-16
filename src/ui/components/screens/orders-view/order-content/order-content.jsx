@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 
 import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow, TableCell} from '@material-ui/core'
 
+import {DELIVERY_OPTIONS} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 
@@ -22,7 +23,7 @@ const renderHeadRow = (
   </TableRow>
 )
 
-export const OrderContent = ({order, deliveryOptions, boxes}) => {
+export const OrderContent = ({order, boxes}) => {
   const classNames = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)
@@ -49,7 +50,7 @@ export const OrderContent = ({order, deliveryOptions, boxes}) => {
               order={order}
               deliveryType={deliveryType}
               setDeliveryType={setDeliveryType}
-              deliveryOptions={deliveryOptions}
+              deliveryOptions={DELIVERY_OPTIONS}
             />
           </div>
 

@@ -13,7 +13,7 @@ import {useClassNames} from './private-label-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').privateLabelCard
 
-export const PrivateLabelCard = ({item, onClickBuyProductBtn, setProductToPay, onTriggerOpenModal}) => {
+export const PrivateLabelCard = ({item, setProductToPay, onTriggerOpenModal}) => {
   const classNames = useClassNames()
 
   const InfoRow = ({label, value}) => (
@@ -71,7 +71,10 @@ export const PrivateLabelCard = ({item, onClickBuyProductBtn, setProductToPay, o
             color="primary"
             className={classNames.priceButton}
             variant="contained"
-            onClick={() => onClickBuyProductBtn(item)}
+            onClick={() => {
+              setProductToPay(item)
+              onTriggerOpenModal('showConfirmPayModal')
+            }}
           >
             {`${textConsts.addBtnPrefix} ${toFixedWithDollarSign(item.amazon)}`}
           </Button>

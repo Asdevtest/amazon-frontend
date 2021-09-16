@@ -49,6 +49,7 @@ export class AdminInventoryViewRaw extends Component {
       onTriggerDrawer,
       setDataGridState,
       onChangeSortingModel,
+      onClickTableRow,
     } = this.viewModel
 
     const activeCategory = 2
@@ -78,6 +79,9 @@ export class AdminInventoryViewRaw extends Component {
                 pagination
                 useResizeContainer
                 checkboxSelection
+                classes={{
+                  row: classNames.row,
+                }}
                 columns={columns}
                 sortModel={sortModel}
                 filterModel={filterModel}
@@ -97,6 +101,7 @@ export class AdminInventoryViewRaw extends Component {
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
                 onStateChange={e => setDataGridState(e.state)}
+                onRowDoubleClick={e => onClickTableRow(e.row)}
               />
             </MainContent>
           </Appbar>

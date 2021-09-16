@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@material-ui/core'
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Link} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
@@ -11,7 +11,7 @@ import {ShowBigImagesModal} from '@components/modals/show-big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {priceCalculation} from '@utils/price-calculation'
-import {toFixedWithDollarSign, withDollarSign} from '@utils/text'
+import {toFixedWithDollarSign, withDollarSign, checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {useClassNames} from './edit-order-suppliers-table.style'
 
@@ -51,13 +51,15 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
               >
                 <TableCell className={(classNames.alignCenter, classNames.tableCellPadding)}>{supplier.name}</TableCell>
                 <TableCell className={classNames.alignCenter}>
-                  <Typography className={classNames.link}>{supplier.link}</Typography>
+                  <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplier.link)}>
+                    <Typography className={classNames.link}>{supplier.link}</Typography>
+                  </Link>
                 </TableCell>
-                <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.price)}</TableCell>
-                <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.delivery)}</TableCell>
+                <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.price, 2)}</TableCell>
+                <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.delivery, 2)}</TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.amount}</TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.minlot}</TableCell>
-                <TableCell className={classNames.alignCenter}>{supplier.lotcost}</TableCell>
+                <TableCell className={classNames.alignCenter}>{toFixedWithDollarSign(supplier.lotcost, 2)}</TableCell>
                 <TableCell className={classNames.alignCenter}>
                   {withDollarSign(priceCalculation(supplier.price, supplier.delivery, supplier.amount))}
                 </TableCell>

@@ -51,6 +51,7 @@ class AdminExchangeViewsRaw extends Component {
       onTriggerDrawer,
       setDataGridState,
       onChangeSortingModel,
+      onClickTableRow,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -80,6 +81,9 @@ class AdminExchangeViewsRaw extends Component {
                 pagination
                 useResizeContainer
                 checkboxSelection
+                classes={{
+                  row: classNames.row,
+                }}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}
@@ -99,6 +103,7 @@ class AdminExchangeViewsRaw extends Component {
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
                 onStateChange={e => setDataGridState(e.state)}
+                onRowDoubleClick={e => onClickTableRow(e.row)}
               />
             </MainContent>
           </Appbar>

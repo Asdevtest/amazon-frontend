@@ -1,3 +1,5 @@
+import {checkIsAbsoluteUrl} from './checks'
+
 export const getModelNameWithotPostfix = modelName => modelName.replace('Static', '')
 
 export const trimBarcode = value => (value.length >= 8 ? String(value.substr(-8)) : value)
@@ -22,3 +24,5 @@ export const withKg = str => (str && str !== '0' ? `${str} kg` : str)
 export const withAmount = str => (str && str !== '0' ? `${str} шт` : str)
 
 export const withText = (str, text) => (str && str !== 0 ? `${str}${text}` : str)
+
+export const checkAndMakeAbsoluteUrl = urlStr => (checkIsAbsoluteUrl(urlStr) ? urlStr : `https://${urlStr}`)

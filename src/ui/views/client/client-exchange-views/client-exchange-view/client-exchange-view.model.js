@@ -21,6 +21,7 @@ export class ClientExchangeViewModel {
   showPrivateLabelModal = false
   showConfirmPayModal = false
   showSuccessModal = false
+  showWarningModal = false
   selectedProduct = undefined
 
   constructor({history}) {
@@ -140,6 +141,7 @@ export class ClientExchangeViewModel {
   onClickCancelBtn = () => {
     this.onTriggerPrivateLabelModal()
     this.selectedProduct = undefined
+    this.onTriggerOpenModal('showWarningModal')
   }
 
   onClickOrderNowBtn = (product, orderData) => {

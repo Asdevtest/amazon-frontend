@@ -32,6 +32,10 @@ export class ResearcherDashboardViewModel {
     }
   }
 
+  onClickInfoCardViewMode(route) {
+    this.history.push(route)
+  }
+
   async getProductsVacant() {
     const result = await ResearcherModel.getProductsVacant()
     runInAction(() => {
