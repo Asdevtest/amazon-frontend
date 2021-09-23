@@ -19,82 +19,83 @@ import ApiClient from '../ApiClient';
  * @version v0.0.1
  */
 class InlineResponse2002 {
-  /**
+    /**
      * Constructs a new <code>InlineResponse2002</code>.
      * @alias module:model/InlineResponse2002
      * @param _id {String} GUID пользователя в БД.
      * @param name {String} Имя пользователя.
      * @param email {String} email
-     * @param balance {Number} Баланс юзера
      * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
      * @param fba {Boolean} Флаг fba.
      * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
      * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
-  constructor(_id, name, email, role, fba, active, rate, balance) {
-    InlineResponse2002.initialize(this, _id, name, email, role, fba, active, rate, balance);
-  }
+    constructor(_id, name, email, role, fba, active, rate) { 
+        
+        InlineResponse2002.initialize(this, _id, name, email, role, fba, active, rate);
+    }
 
-  /**
+    /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-  static initialize(obj, _id, name, email, role, fba, active, rate, balance) {
-    obj['_id'] = _id;
-    obj['name'] = name;
-    obj['email'] = email;
-    obj['role'] = role;
-    obj['fba'] = fba;
-    obj['active'] = active;
-    obj['rate'] = rate;
-    obj['balance'] = balance;
-  }
+    static initialize(obj, _id, name, email, role, fba, active, rate) { 
+        obj['_id'] = _id;
+        obj['name'] = name;
+        obj['email'] = email;
+        obj['role'] = role;
+        obj['fba'] = fba;
+        obj['active'] = active;
+        obj['rate'] = rate;
+    }
 
-  /**
+    /**
      * Constructs a <code>InlineResponse2002</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/InlineResponse2002} obj Optional instance to populate.
      * @return {module:model/InlineResponse2002} The populated <code>InlineResponse2002</code> instance.
      */
-  static constructFromObject(data, obj) {
-    if (data) {
-      obj = obj || new InlineResponse2002();
+    static constructFromObject(data, obj) {
+        if (data) {
+            obj = obj || new InlineResponse2002();
 
-      if (data.hasOwnProperty('_id')) {
-        obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-      }
-      if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String');
-      }
-      if (data.hasOwnProperty('email')) {
-        obj['email'] = ApiClient.convertToType(data['email'], 'String');
-      }
-      if (data.hasOwnProperty('role')) {
-        obj['role'] = ApiClient.convertToType(data['role'], 'Number');
-      }
-      if (data.hasOwnProperty('fba')) {
-        obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-      }
-      if (data.hasOwnProperty('active')) {
-        obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
-      }
-      if (data.hasOwnProperty('rate')) {
-        obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
-      }
-      if (data.hasOwnProperty('balance')) {
-        obj['balance'] = ApiClient.convertToType(data['balance'], 'balance');
-      }
-      if (data.hasOwnProperty('createdAt')) {
-        obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
-      }
-      if (data.hasOwnProperty('balanceFreeze')) {
-        obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'balance');
-      }
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            }
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            }
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            }
+            if (data.hasOwnProperty('active')) {
+                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
+            }
+            if (data.hasOwnProperty('rate')) {
+                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
+            }
+            if (data.hasOwnProperty('balance')) {
+                obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
+            }
+            if (data.hasOwnProperty('balanceFreeze')) {
+                obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+        }
+        return obj;
     }
-    return obj;
-  }
+
+
 }
 
 /**
@@ -140,9 +141,27 @@ InlineResponse2002.prototype['active'] = undefined;
 InlineResponse2002.prototype['rate'] = undefined;
 
 /**
- * Баланс юзера   
+ * Балан сотрудника
  * @member {Number} balance
  */
 InlineResponse2002.prototype['balance'] = undefined;
 
+/**
+ * Замороженная при оплате ордера сумма.
+ * @member {Number} balanceFreeze
+ */
+InlineResponse2002.prototype['balanceFreeze'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+InlineResponse2002.prototype['createdAt'] = undefined;
+
+
+
+
+
+
 export default InlineResponse2002;
+

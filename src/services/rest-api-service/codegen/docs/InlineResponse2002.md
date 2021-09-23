@@ -11,5 +11,8 @@ Name | Type | Description | Notes
 **fba** | **Boolean** | Флаг fba. | 
 **active** | **Boolean** | Если истина - пользователь активен. Если нет - заблокирован админом. | 
 **rate** | **Number** | Ставка, по который оплачивается сотрудник. | 
+**balance** | **Number** | Балан сотрудника | [optional] 
+**balanceFreeze** | **Number** | Замороженная при оплате ордера сумма. | [optional] 
+**createdAt** | **Date** | Дата создания | [optional] 
 
 

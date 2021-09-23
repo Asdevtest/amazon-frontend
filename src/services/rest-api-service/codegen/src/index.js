@@ -13,14 +13,15 @@
 
 
 import ApiClient from './ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedby from './model/ApiV1AdminsGetProductsByStatusCreatedby';
+import ApiV1AdminsGetProductsByStatusClientId from './model/ApiV1AdminsGetProductsByStatusClientId';
 import ApiV1AdminsGetProductsByStatusCurrentSupplier from './model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
 import ApiV1AdminsOrdersCreatedBy from './model/ApiV1AdminsOrdersCreatedBy';
+import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
 import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
 import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
 import ApiV1BatchesItems from './model/ApiV1BatchesItems';
+import ApiV1BoxesApproveAdditionalBoxes from './model/ApiV1BoxesApproveAdditionalBoxes';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
-import ApiV1BuyersPaymentsMyCreatedBy from './model/ApiV1BuyersPaymentsMyCreatedBy';
 import BadRequestError from './model/BadRequestError';
 import ConflictInTheState from './model/ConflictInTheState';
 import DefaultHeaders from './model/DefaultHeaders';
@@ -46,7 +47,15 @@ import InlineObject24 from './model/InlineObject24';
 import InlineObject25 from './model/InlineObject25';
 import InlineObject26 from './model/InlineObject26';
 import InlineObject27 from './model/InlineObject27';
+import InlineObject28 from './model/InlineObject28';
+import InlineObject29 from './model/InlineObject29';
 import InlineObject3 from './model/InlineObject3';
+import InlineObject30 from './model/InlineObject30';
+import InlineObject31 from './model/InlineObject31';
+import InlineObject32 from './model/InlineObject32';
+import InlineObject33 from './model/InlineObject33';
+import InlineObject34 from './model/InlineObject34';
+import InlineObject35 from './model/InlineObject35';
 import InlineObject4 from './model/InlineObject4';
 import InlineObject5 from './model/InlineObject5';
 import InlineObject6 from './model/InlineObject6';
@@ -55,6 +64,7 @@ import InlineObject8 from './model/InlineObject8';
 import InlineObject9 from './model/InlineObject9';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
+import InlineResponse20010 from './model/InlineResponse20010';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
@@ -69,6 +79,8 @@ import InlineResponse2012 from './model/InlineResponse2012';
 import InlineResponse2013 from './model/InlineResponse2013';
 import InlineResponse2014 from './model/InlineResponse2014';
 import InlineResponse2015 from './model/InlineResponse2015';
+import InlineResponse2016 from './model/InlineResponse2016';
+import InlineResponse2017 from './model/InlineResponse2017';
 import InlineResponse400 from './model/InlineResponse400';
 import InlineResponse403 from './model/InlineResponse403';
 import InlineResponse404 from './model/InlineResponse404';
@@ -86,6 +98,7 @@ import BatchesApi from './api/BatchesApi';
 import BoxesApi from './api/BoxesApi';
 import BuyerApi from './api/BuyerApi';
 import ClientApi from './api/ClientApi';
+import OtherApi from './api/OtherApi';
 import ProductForTestOnlyApi from './api/ProductForTestOnlyApi';
 import ResearcherApi from './api/ResearcherApi';
 import StorekeepersApi from './api/StorekeepersApi';
@@ -133,10 +146,10 @@ export {
     ApiClient,
 
     /**
-     * The ApiV1AdminsGetProductsByStatusCreatedby model constructor.
-     * @property {module:model/ApiV1AdminsGetProductsByStatusCreatedby}
+     * The ApiV1AdminsGetProductsByStatusClientId model constructor.
+     * @property {module:model/ApiV1AdminsGetProductsByStatusClientId}
      */
-    ApiV1AdminsGetProductsByStatusCreatedby,
+    ApiV1AdminsGetProductsByStatusClientId,
 
     /**
      * The ApiV1AdminsGetProductsByStatusCurrentSupplier model constructor.
@@ -149,6 +162,12 @@ export {
      * @property {module:model/ApiV1AdminsOrdersCreatedBy}
      */
     ApiV1AdminsOrdersCreatedBy,
+
+    /**
+     * The ApiV1AdminsPaymentsCreatedBy model constructor.
+     * @property {module:model/ApiV1AdminsPaymentsCreatedBy}
+     */
+    ApiV1AdminsPaymentsCreatedBy,
 
     /**
      * The ApiV1BatchesBatch model constructor.
@@ -169,16 +188,16 @@ export {
     ApiV1BatchesItems,
 
     /**
+     * The ApiV1BoxesApproveAdditionalBoxes model constructor.
+     * @property {module:model/ApiV1BoxesApproveAdditionalBoxes}
+     */
+    ApiV1BoxesApproveAdditionalBoxes,
+
+    /**
      * The ApiV1BoxesItems model constructor.
      * @property {module:model/ApiV1BoxesItems}
      */
     ApiV1BoxesItems,
-
-    /**
-     * The ApiV1BuyersPaymentsMyCreatedBy model constructor.
-     * @property {module:model/ApiV1BuyersPaymentsMyCreatedBy}
-     */
-    ApiV1BuyersPaymentsMyCreatedBy,
 
     /**
      * The BadRequestError model constructor.
@@ -331,10 +350,58 @@ export {
     InlineObject27,
 
     /**
+     * The InlineObject28 model constructor.
+     * @property {module:model/InlineObject28}
+     */
+    InlineObject28,
+
+    /**
+     * The InlineObject29 model constructor.
+     * @property {module:model/InlineObject29}
+     */
+    InlineObject29,
+
+    /**
      * The InlineObject3 model constructor.
      * @property {module:model/InlineObject3}
      */
     InlineObject3,
+
+    /**
+     * The InlineObject30 model constructor.
+     * @property {module:model/InlineObject30}
+     */
+    InlineObject30,
+
+    /**
+     * The InlineObject31 model constructor.
+     * @property {module:model/InlineObject31}
+     */
+    InlineObject31,
+
+    /**
+     * The InlineObject32 model constructor.
+     * @property {module:model/InlineObject32}
+     */
+    InlineObject32,
+
+    /**
+     * The InlineObject33 model constructor.
+     * @property {module:model/InlineObject33}
+     */
+    InlineObject33,
+
+    /**
+     * The InlineObject34 model constructor.
+     * @property {module:model/InlineObject34}
+     */
+    InlineObject34,
+
+    /**
+     * The InlineObject35 model constructor.
+     * @property {module:model/InlineObject35}
+     */
+    InlineObject35,
 
     /**
      * The InlineObject4 model constructor.
@@ -383,6 +450,12 @@ export {
      * @property {module:model/InlineResponse2001}
      */
     InlineResponse2001,
+
+    /**
+     * The InlineResponse20010 model constructor.
+     * @property {module:model/InlineResponse20010}
+     */
+    InlineResponse20010,
 
     /**
      * The InlineResponse2002 model constructor.
@@ -467,6 +540,18 @@ export {
      * @property {module:model/InlineResponse2015}
      */
     InlineResponse2015,
+
+    /**
+     * The InlineResponse2016 model constructor.
+     * @property {module:model/InlineResponse2016}
+     */
+    InlineResponse2016,
+
+    /**
+     * The InlineResponse2017 model constructor.
+     * @property {module:model/InlineResponse2017}
+     */
+    InlineResponse2017,
 
     /**
      * The InlineResponse400 model constructor.
@@ -569,6 +654,12 @@ export {
     * @property {module:api/ClientApi}
     */
     ClientApi,
+
+    /**
+    * The OtherApi service constructor.
+    * @property {module:api/OtherApi}
+    */
+    OtherApi,
 
     /**
     * The ProductForTestOnlyApi service constructor.

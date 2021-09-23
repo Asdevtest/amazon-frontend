@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**email** | **String** |  | 
-**password** | **String** |  | 
+**additionalBoxes** | [**[ApiV1BoxesApproveAdditionalBoxes]**](ApiV1BoxesApproveAdditionalBoxes.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

@@ -11,10 +11,15 @@
  *
  */
 
-import ApiClient from '../ApiClient';
+
+import ApiClient from "../ApiClient";
 import ApiV1BatchesBoxes from '../model/ApiV1BatchesBoxes';
 import InlineObject10 from '../model/InlineObject10';
-import InlineObject4 from '../model/InlineObject4';
+import InlineObject11 from '../model/InlineObject11';
+import InlineObject12 from '../model/InlineObject12';
+import InlineObject13 from '../model/InlineObject13';
+import InlineObject14 from '../model/InlineObject14';
+import InlineObject15 from '../model/InlineObject15';
 import InlineObject5 from '../model/InlineObject5';
 import InlineObject6 from '../model/InlineObject6';
 import InlineObject7 from '../model/InlineObject7';
@@ -22,6 +27,7 @@ import InlineObject8 from '../model/InlineObject8';
 import InlineObject9 from '../model/InlineObject9';
 import InlineResponse201 from '../model/InlineResponse201';
 import InlineResponse2011 from '../model/InlineResponse2011';
+import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
@@ -33,426 +39,774 @@ import InlineResponse500 from '../model/InlineResponse500';
 * @version v0.0.1
 */
 export default class BoxesApi {
-  /**
+
+    /**
     * Constructs a new BoxesApi. 
     * @alias module:api/BoxesApi
     * @class
     * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
     * default to {@link module:ApiClient#instance} if unspecified.
     */
-  constructor(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
-  }
-
-  /**
-     * # Подтвердить операцию объединения/разъединения коробок.
-     * ## Подтвердить операцию объединения/разъединения коробок.  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject9} opts.InlineObject9 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-  apiV1BoxesApprovePostWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = opts['InlineObject9'];
-
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/boxes/approve',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Подтвердить операцию объединения/разъединения коробок.
-     * ## Подтвердить операцию объединения/разъединения коробок.  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject9} opts.InlineObject9 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-  apiV1BoxesApprovePost(opts) {
-    return this.apiV1BoxesApprovePostWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
-
-  /**
-     * # Отменить объединение коробок.
-     * ## Отменить объединение коробок.  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject6} opts.InlineObject6 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-  apiV1BoxesCancelMergePostWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = opts['InlineObject6'];
-
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/boxes/cancel-merge',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Отменить объединение коробок.
-     * ## Отменить объединение коробок.  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject6} opts.InlineObject6 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-  apiV1BoxesCancelMergePost(opts) {
-    return this.apiV1BoxesCancelMergePostWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
-
-  /**
-     * # Отменить разделение коробок.
-     * ## Отменить разделение коробок.   ## !!! У каждой коробки которая была создана разделением есть братья.    ## !!! Братья - коробки которые были созданы с этой, при разделении родителя.    ## !!! При отмене текущая коробка и все ee братья будут удалены. Родитель восстановлен.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject8} opts.InlineObject8 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-  apiV1BoxesCancelSplitPostWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = opts['InlineObject8'];
-
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/boxes/cancel-split',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Отменить разделение коробок.
-     * ## Отменить разделение коробок.   ## !!! У каждой коробки которая была создана разделением есть братья.    ## !!! Братья - коробки которые были созданы с этой, при разделении родителя.    ## !!! При отмене текущая коробка и все ee братья будут удалены. Родитель восстановлен.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject8} opts.InlineObject8 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-  apiV1BoxesCancelSplitPost(opts) {
-    return this.apiV1BoxesCancelSplitPostWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
-
-  /**
-     * # Получить черновики коробок и их строки по текущему клиенту.
-     * ## Получить черновики коробок и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
-     */
-  apiV1BoxesClientsDraftsGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
-
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ ApiV1BatchesBoxes ];
-    return this.apiClient.callApi(
-      '/api/v1/boxes/clients/drafts',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Получить черновики коробок и их строки по текущему клиенту.
-     * ## Получить черновики коробок и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
-     */
-  apiV1BoxesClientsDraftsGet(opts) {
-    return this.apiV1BoxesClientsDraftsGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
-
-  /**
-     * # Получить коробки и их строки по текущему клиенту.
-     * ## Получить коробки(без черновиков) и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
-     */
-  apiV1BoxesClientsGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
-
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ ApiV1BatchesBoxes ];
-    return this.apiClient.callApi(
-      '/api/v1/boxes/clients',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Получить коробки и их строки по текущему клиенту.
-     * ## Получить коробки(без черновиков) и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
-     */
-  apiV1BoxesClientsGet(opts) {
-    return this.apiV1BoxesClientsGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
-
-  /**
-     * # Получить черновики коробок и их строки.
-     * ## Получить черновики коробок и их строки.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
-     */
-  apiV1BoxesDraftsGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
-
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ ApiV1BatchesBoxes ];
-    return this.apiClient.callApi(
-      '/api/v1/boxes/drafts',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Получить черновики коробок и их строки.
-     * ## Получить черновики коробок и их строки.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
-     */
-  apiV1BoxesDraftsGet(opts) {
-    return this.apiV1BoxesDraftsGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
-
-  /**
-     * # Получить коробки и их строки.
-     * ## Получить коробки их строки.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
-     */
-  apiV1BoxesGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
-
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ ApiV1BatchesBoxes ];
-    return this.apiClient.callApi(
-      '/api/v1/boxes/',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Получить коробки и их строки.
-     * ## Получить коробки их строки.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
-     */
-  apiV1BoxesGet(opts) {
-    return this.apiV1BoxesGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
-
-  /**
-     * # Удалить коробку.
-     * ## Удалить коробку.  
-     * @param {String} guid GUID для которой подтверждаем действие.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-  apiV1BoxesGuidDeleteWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = null;
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesGuidDelete");
+    constructor(apiClient) {
+        this.apiClient = apiClient || ApiClient.instance;
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/boxes/{guid}',
-      'DELETE',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
 
-  /**
+    /**
+     * # Подтвердить операцию объединения/разъединения коробок.
+     * ## Подтвердить операцию объединения/разъединения коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject13} opts.InlineObject13 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BoxesApprovePostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['InlineObject13'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/boxes/approve', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Подтвердить операцию объединения/разъединения коробок.
+     * ## Подтвердить операцию объединения/разъединения коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject13} opts.InlineObject13 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BoxesApprovePost(opts) {
+      return this.apiV1BoxesApprovePostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить коробки и их строки по GUID заказа.
+     * ## # Получить коробки и их строки по GUID заказа.   
+     * @param {String} guid GUID
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     */
+    apiV1BoxesByOrderGuidGuidGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesByOrderGuidGuidGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [ApiV1BatchesBoxes];
+      return this.apiClient.callApi(
+        '/api/v1/boxes/by_order_guid/{guid}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить коробки и их строки по GUID заказа.
+     * ## # Получить коробки и их строки по GUID заказа.   
+     * @param {String} guid GUID
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     */
+    apiV1BoxesByOrderGuidGuidGet(guid, opts) {
+      return this.apiV1BoxesByOrderGuidGuidGetWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить коробки и их строки по GUID продукта.
+     * ## Получить коробки и их строки по GUID продукта.   
+     * @param {String} guid GUID
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     */
+    apiV1BoxesByProductGuidGuidGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesByProductGuidGuidGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [ApiV1BatchesBoxes];
+      return this.apiClient.callApi(
+        '/api/v1/boxes/by_product_guid/{guid}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить коробки и их строки по GUID продукта.
+     * ## Получить коробки и их строки по GUID продукта.   
+     * @param {String} guid GUID
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     */
+    apiV1BoxesByProductGuidGuidGet(guid, opts) {
+      return this.apiV1BoxesByProductGuidGuidGetWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Рассчитать стоимость доставки коробов.
+     * ## Рассчитать стоимость доставки коробов.   
+     * @param {Object} body 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
+     */
+    apiV1BoxesCalculateBoxDeliveryCostsInBatchPostWithHttpInfo(body, opts) {
+      opts = opts || {};
+      let postBody = body;
+      // verify the required parameter 'body' is set
+      if (body === undefined || body === null) {
+        throw new Error("Missing the required parameter 'body' when calling apiV1BoxesCalculateBoxDeliveryCostsInBatchPost");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = [Object];
+      return this.apiClient.callApi(
+        '/api/v1/boxes/calculate_box_delivery_costs_in_batch', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Рассчитать стоимость доставки коробов.
+     * ## Рассчитать стоимость доставки коробов.   
+     * @param {Object} body 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
+     */
+    apiV1BoxesCalculateBoxDeliveryCostsInBatchPost(body, opts) {
+      return this.apiV1BoxesCalculateBoxDeliveryCostsInBatchPostWithHttpInfo(body, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Отменить редактирование коробок.
+     * ## Отменить объединение коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject8} opts.InlineObject8 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BoxesCancelEditPostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['InlineObject8'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/boxes/cancel-edit', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Отменить редактирование коробок.
+     * ## Отменить объединение коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject8} opts.InlineObject8 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BoxesCancelEditPost(opts) {
+      return this.apiV1BoxesCancelEditPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Отменить редактирование коробок сотрудником склада.
+     * ## Отменить редактирование коробок сотрудником склада.  
+     * @param {String} guid GUID коробки, объединение которой нужно отменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BoxesCancelEditWithDraftGuidPostWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesCancelEditWithDraftGuidPost");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/boxes/cancel_edit_with_draft/{guid}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Отменить редактирование коробок сотрудником склада.
+     * ## Отменить редактирование коробок сотрудником склада.  
+     * @param {String} guid GUID коробки, объединение которой нужно отменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BoxesCancelEditWithDraftGuidPost(guid, opts) {
+      return this.apiV1BoxesCancelEditWithDraftGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Отменить объединение коробок.
+     * ## Отменить объединение коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject10} opts.InlineObject10 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BoxesCancelMergePostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['InlineObject10'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/boxes/cancel-merge', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Отменить объединение коробок.
+     * ## Отменить объединение коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject10} opts.InlineObject10 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BoxesCancelMergePost(opts) {
+      return this.apiV1BoxesCancelMergePostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Отменить разделение коробок.
+     * ## Отменить разделение коробок.   ## !!! У каждой коробки которая была создана разделением есть братья.    ## !!! Братья - коробки которые были созданы с этой, при разделении родителя.    ## !!! При отмене текущая коробка и все ee братья будут удалены. Родитель восстановлен.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject12} opts.InlineObject12 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BoxesCancelSplitPostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['InlineObject12'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/boxes/cancel-split', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Отменить разделение коробок.
+     * ## Отменить разделение коробок.   ## !!! У каждой коробки которая была создана разделением есть братья.    ## !!! Братья - коробки которые были созданы с этой, при разделении родителя.    ## !!! При отмене текущая коробка и все ee братья будут удалены. Родитель восстановлен.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject12} opts.InlineObject12 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BoxesCancelSplitPost(opts) {
+      return this.apiV1BoxesCancelSplitPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить черновики коробок и их строки по текущему клиенту.
+     * ## Получить черновики коробок и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     */
+    apiV1BoxesClientsDraftsGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [ApiV1BatchesBoxes];
+      return this.apiClient.callApi(
+        '/api/v1/boxes/clients/drafts', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить черновики коробок и их строки по текущему клиенту.
+     * ## Получить черновики коробок и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     */
+    apiV1BoxesClientsDraftsGet(opts) {
+      return this.apiV1BoxesClientsDraftsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить коробки и их строки по текущему клиенту.
+     * ## Получить коробки(без черновиков) и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     */
+    apiV1BoxesClientsGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [ApiV1BatchesBoxes];
+      return this.apiClient.callApi(
+        '/api/v1/boxes/clients', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить коробки и их строки по текущему клиенту.
+     * ## Получить коробки(без черновиков) и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     */
+    apiV1BoxesClientsGet(opts) {
+      return this.apiV1BoxesClientsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить черновики коробок и их строки.
+     * ## Получить черновики коробок и их строки.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     */
+    apiV1BoxesDraftsGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [ApiV1BatchesBoxes];
+      return this.apiClient.callApi(
+        '/api/v1/boxes/drafts', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить черновики коробок и их строки.
+     * ## Получить черновики коробок и их строки.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     */
+    apiV1BoxesDraftsGet(opts) {
+      return this.apiV1BoxesDraftsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Отредактировать коробку.
+     * ## Отредактировать коробку. Коробка после редактирования станет черновиком. Ее нужно будет подтвердить  ## ВНИМАНИЕ - фактически будет создана новая коробка а старая пометится как удаленная.   ## ВНИМАНИЕ - передайте весь набор параметров как на создание новой коробки. Не только те которые нужно изменить.  
+     * @param {String} guid GUID в сущности в БД
+     * @param {module:model/InlineObject7} InlineObject7 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2012} and HTTP response
+     */
+    apiV1BoxesEditGuidPostWithHttpInfo(guid, InlineObject7, opts) {
+      opts = opts || {};
+      let postBody = InlineObject7;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesEditGuidPost");
+      }
+      // verify the required parameter 'InlineObject7' is set
+      if (InlineObject7 === undefined || InlineObject7 === null) {
+        throw new Error("Missing the required parameter 'InlineObject7' when calling apiV1BoxesEditGuidPost");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse2012;
+      return this.apiClient.callApi(
+        '/api/v1/boxes/edit/{guid}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Отредактировать коробку.
+     * ## Отредактировать коробку. Коробка после редактирования станет черновиком. Ее нужно будет подтвердить  ## ВНИМАНИЕ - фактически будет создана новая коробка а старая пометится как удаленная.   ## ВНИМАНИЕ - передайте весь набор параметров как на создание новой коробки. Не только те которые нужно изменить.  
+     * @param {String} guid GUID в сущности в БД
+     * @param {module:model/InlineObject7} InlineObject7 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2012}
+     */
+    apiV1BoxesEditGuidPost(guid, InlineObject7, opts) {
+      return this.apiV1BoxesEditGuidPostWithHttpInfo(guid, InlineObject7, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Изменить параметры коробки из роли сторкипера.
+     * ## Изменить параметры коробки из роли сторкипера.   
+     * @param {String} guid GUID коробки, которую мы хотим изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject6} opts.InlineObject6 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
+     */
+    apiV1BoxesEditWithDraftGuidPostWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['InlineObject6'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesEditWithDraftGuidPost");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse2011;
+      return this.apiClient.callApi(
+        '/api/v1/boxes/edit_with_draft/{guid}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Изменить параметры коробки из роли сторкипера.
+     * ## Изменить параметры коробки из роли сторкипера.   
+     * @param {String} guid GUID коробки, которую мы хотим изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @param {module:model/InlineObject6} opts.InlineObject6 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
+     */
+    apiV1BoxesEditWithDraftGuidPost(guid, opts) {
+      return this.apiV1BoxesEditWithDraftGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить коробки и их строки.
+     * ## Получить коробки их строки.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     */
+    apiV1BoxesGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [ApiV1BatchesBoxes];
+      return this.apiClient.callApi(
+        '/api/v1/boxes/', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить коробки и их строки.
+     * ## Получить коробки их строки.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     */
+    apiV1BoxesGet(opts) {
+      return this.apiV1BoxesGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Удалить коробку.
+     * ## Удалить коробку.  
+     * @param {String} guid GUID для которой подтверждаем действие.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BoxesGuidDeleteWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesGuidDelete");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/boxes/{guid}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
      * # Удалить коробку.
      * ## Удалить коробку.  
      * @param {String} guid GUID для которой подтверждаем действие.
@@ -460,536 +814,323 @@ export default class BoxesApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-  apiV1BoxesGuidDelete(guid, opts) {
-    return this.apiV1BoxesGuidDeleteWithHttpInfo(guid, opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1BoxesGuidDelete(guid, opts) {
+      return this.apiV1BoxesGuidDeleteWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Объединить две и более коробок.
      * ## Объединить две и более коробок.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject5} opts.InlineObject5 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
+     * @param {module:model/InlineObject9} opts.InlineObject9 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2012} and HTTP response
      */
-  apiV1BoxesMergePostWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = opts['InlineObject5'];
+    apiV1BoxesMergePostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['InlineObject9'];
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = Object;
-    return this.apiClient.callApi(
-      '/api/v1/boxes/merge',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse2012;
+      return this.apiClient.callApi(
+        '/api/v1/boxes/merge', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-  /**
+    /**
      * # Объединить две и более коробок.
      * ## Объединить две и более коробок.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject5} opts.InlineObject5 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
+     * @param {module:model/InlineObject9} opts.InlineObject9 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2012}
      */
-  apiV1BoxesMergePost(opts) {
-    return this.apiV1BoxesMergePostWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1BoxesMergePost(opts) {
+      return this.apiV1BoxesMergePostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Создать коробку и ее строки.
      * ## Создать коробку и ее строки.   ## Коробка состоит из шапки и строк (как накладная)   ## Коллекция Boxes содержит основные параметры коробки.   ## BoxesItems - коллекция которая содержит строки позиций в коробке.            У коробок есть еще такие параметры:            isActual - если false, то коробка удалена.            isDraft - если true, то коробка является черновиком. Его создал клиента при объеденении / разделении коробки            У клиента и у сотрудника склада их можно отфильтровать и обрабатывать в отдельном окне.         Сотрудник склада обработав позитивно изменение коробок от клиента просто ставит здесь (isDraft) false и коробка становится обычной.         Также у коробки созданной из других коробок заполнено поле parents. Это массив guid родительских коробок.         При отмене объединения коробок в базе по этим guid восстановим коробки isActual = true. А новые будут удалены isActual = false.         Также у коробки созданной при объединении/разделении будет заполнено поле brothers. Это guid других коробок которые были созданы вместе с этой из общих родителей.         Когда для любой из объединённых коробок будет запрошено удаление, восстановим старые коробки и кроме текущей коробки         будут удалены все ее братья.         
-     * @param {module:model/InlineObject4} InlineObject4 
+     * @param {module:model/InlineObject5} InlineObject5 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
      */
-  apiV1BoxesPostWithHttpInfo(InlineObject4, opts) {
-    opts = opts || {};
-    let postBody = InlineObject4;
-    // verify the required parameter 'InlineObject4' is set
-    if (InlineObject4 === undefined || InlineObject4 === null) {
-      throw new Error("Missing the required parameter 'InlineObject4' when calling apiV1BoxesPost");
+    apiV1BoxesPostWithHttpInfo(InlineObject5, opts) {
+      opts = opts || {};
+      let postBody = InlineObject5;
+      // verify the required parameter 'InlineObject5' is set
+      if (InlineObject5 === undefined || InlineObject5 === null) {
+        throw new Error("Missing the required parameter 'InlineObject5' when calling apiV1BoxesPost");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse201;
+      return this.apiClient.callApi(
+        '/api/v1/boxes/', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
     }
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = InlineResponse201;
-    return this.apiClient.callApi(
-      '/api/v1/boxes/',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * # Создать коробку и ее строки.
      * ## Создать коробку и ее строки.   ## Коробка состоит из шапки и строк (как накладная)   ## Коллекция Boxes содержит основные параметры коробки.   ## BoxesItems - коллекция которая содержит строки позиций в коробке.            У коробок есть еще такие параметры:            isActual - если false, то коробка удалена.            isDraft - если true, то коробка является черновиком. Его создал клиента при объеденении / разделении коробки            У клиента и у сотрудника склада их можно отфильтровать и обрабатывать в отдельном окне.         Сотрудник склада обработав позитивно изменение коробок от клиента просто ставит здесь (isDraft) false и коробка становится обычной.         Также у коробки созданной из других коробок заполнено поле parents. Это массив guid родительских коробок.         При отмене объединения коробок в базе по этим guid восстановим коробки isActual = true. А новые будут удалены isActual = false.         Также у коробки созданной при объединении/разделении будет заполнено поле brothers. Это guid других коробок которые были созданы вместе с этой из общих родителей.         Когда для любой из объединённых коробок будет запрошено удаление, восстановим старые коробки и кроме текущей коробки         будут удалены все ее братья.         
-     * @param {module:model/InlineObject4} InlineObject4 
+     * @param {module:model/InlineObject5} InlineObject5 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
      */
-  apiV1BoxesPost(InlineObject4, opts) {
-    return this.apiV1BoxesPostWithHttpInfo(InlineObject4, opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1BoxesPost(InlineObject5, opts) {
+      return this.apiV1BoxesPostWithHttpInfo(InlineObject5, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
+     * # Запросить отправку набора коробок в партию.
+     * ## Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле sendToBatch должно выставиться в true. Так же с клиента должны списаться деньги (и генерироваться оплаты) 
+     * @param {module:model/InlineObject15} InlineObject15 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BoxesRequestSendBoxesToBatchPostWithHttpInfo(InlineObject15, opts) {
+      opts = opts || {};
+      let postBody = InlineObject15;
+      // verify the required parameter 'InlineObject15' is set
+      if (InlineObject15 === undefined || InlineObject15 === null) {
+        throw new Error("Missing the required parameter 'InlineObject15' when calling apiV1BoxesRequestSendBoxesToBatchPost");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/boxes/request_send_boxes_to_batch', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Запросить отправку набора коробок в партию.
+     * ## Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле sendToBatch должно выставиться в true. Так же с клиента должны списаться деньги (и генерироваться оплаты) 
+     * @param {module:model/InlineObject15} InlineObject15 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BoxesRequestSendBoxesToBatchPost(InlineObject15, opts) {
+      return this.apiV1BoxesRequestSendBoxesToBatchPostWithHttpInfo(InlineObject15, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Отправить набор коробок в партию.
+     * ## Отправить набор коробок в партию.   Этот метод будет дергать склад и передавать в него массив id коробок, после этого метода у коробок sendToBatchComplete должен измениться на true
+     * @param {module:model/InlineObject14} InlineObject14 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BoxesSendBoxesToBatchPostWithHttpInfo(InlineObject14, opts) {
+      opts = opts || {};
+      let postBody = InlineObject14;
+      // verify the required parameter 'InlineObject14' is set
+      if (InlineObject14 === undefined || InlineObject14 === null) {
+        throw new Error("Missing the required parameter 'InlineObject14' when calling apiV1BoxesSendBoxesToBatchPost");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/boxes/send_boxes_to_batch', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Отправить набор коробок в партию.
+     * ## Отправить набор коробок в партию.   Этот метод будет дергать склад и передавать в него массив id коробок, после этого метода у коробок sendToBatchComplete должен измениться на true
+     * @param {module:model/InlineObject14} InlineObject14 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BoxesSendBoxesToBatchPost(InlineObject14, opts) {
+      return this.apiV1BoxesSendBoxesToBatchPostWithHttpInfo(InlineObject14, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Разделить коробку.
      * ## Разделить коробку.   При разделении коробок странная сущность передается. Там массив массивов.Первый массив это          новые коробки - сколько элементов, столько и создаст коробок. Второй массив - это элементы в коробке.          В нем строки новой коробки. Фронт отвечает за то, что суммарное содержание новых коробок,          было ровно содержанию исходной коробки.           
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject7} opts.InlineObject7 
+     * @param {module:model/InlineObject11} opts.InlineObject11 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
      */
-  apiV1BoxesSplitPostWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = opts['InlineObject7'];
+    apiV1BoxesSplitPostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['InlineObject11'];
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = [ String ];
-    return this.apiClient.callApi(
-      '/api/v1/boxes/split',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = ['String'];
+      return this.apiClient.callApi(
+        '/api/v1/boxes/split', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-  /**
+    /**
      * # Разделить коробку.
      * ## Разделить коробку.   При разделении коробок странная сущность передается. Там массив массивов.Первый массив это          новые коробки - сколько элементов, столько и создаст коробок. Второй массив - это элементы в коробке.          В нем строки новой коробки. Фронт отвечает за то, что суммарное содержание новых коробок,          было ровно содержанию исходной коробки.           
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject7} opts.InlineObject7 
+     * @param {module:model/InlineObject11} opts.InlineObject11 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
      */
-  apiV1BoxesSplitPost(opts) {
-    return this.apiV1BoxesSplitPostWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1BoxesSplitPost(opts) {
+      return this.apiV1BoxesSplitPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Изменить коробку сотрудником склада.
      * ## Изменить коробку сотрудником склада.            Сотрудник склада не может редактировать содержание коробки, но ему доступно для         редактирования параметры коробки.         
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject10} opts.InlineObject10 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-  apiV1BoxesStorekeepersGuidPatchWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = opts['InlineObject10'];
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1BoxesStorekeepersGuidPatch"
+    apiV1BoxesStorekeepersGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesStorekeepersGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/boxes/storekeepers/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/boxes/storekeepers/{guid}',
-      'PATCH',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * # Изменить коробку сотрудником склада.
      * ## Изменить коробку сотрудником склада.            Сотрудник склада не может редактировать содержание коробки, но ему доступно для         редактирования параметры коробки.         
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject10} opts.InlineObject10 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-  apiV1BoxesStorekeepersGuidPatch(guid, opts) {
-    return this.apiV1BoxesStorekeepersGuidPatchWithHttpInfo(guid, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
-
-  /**
-     * # Редактировать коробку.
-     * ## Редактировать коробку.     
-     * @param {String} guid    
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject7} opts.InlineObject7 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
-     */
-  apiV1BoxesEditPostWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = opts['InlineObject7'];
-
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1BoxesStorekeepersGuidPatch"
-      );
+    apiV1BoxesStorekeepersGuidPatch(guid, opts) {
+      return this.apiV1BoxesStorekeepersGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = Object;
-    return this.apiClient.callApi(
-      '/api/v1/boxes/edit/{guid}',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Редактировать коробку.
-     * ## Редактировать коробку.   При разделении коробок странная сущность передается. Там массив массивов.Первый массив это          новые коробки - сколько элементов, столько и создаст коробок. Второй массив - это элементы в коробке.          В нем строки новой коробки. Фронт отвечает за то, что суммарное содержание новых коробок,          было ровно содержанию исходной коробки.           
-     
-     * @param {String} guid 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject7} opts.InlineObject7 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
-     */
-  apiV1BoxesEditPost(guid, opts) {
-    return this.apiV1BoxesEditPostWithHttpInfo(guid, opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
-
-  /**
-     * # Отменить редактирование коробки.
-     * ## Отменить редактирование коробки.  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject6} opts.InlineObject6 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-  apiV1BoxesCancelEditPostWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = opts['InlineObject6'];
-
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/boxes/cancel-edit',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Отменить редактирование коробки.
-     * ## Отменить редактирование коробки.  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject6} opts.InlineObject6 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-  apiV1BoxesCancelEditPost(opts) {
-    return this.apiV1BoxesCancelEditPostWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
-
-  /**
-     * # Получить коробки от заказа и их строки.
-     * ## Получить коробки от заказа их строки.   
-     * @param {String} guid   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
-     */
-  apiV1BoxesOfOrderGetWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = null;
-
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1BoxesStorekeepersGuidPatch"
-      );
-    }
-
-    let pathParams = {
-      guid: guid
-    };
-
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ ApiV1BatchesBoxes ];
-    return this.apiClient.callApi(
-      '/api/v1/boxes/by_order_guid/{guid}',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Получить коробки от заказа и их строки.
-     * ## Получить коробки от заказа их строки.  
-     * @param {String} guid   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
-     */
-  apiV1BoxesOfOrderGet(opts) {
-    return this.apiV1BoxesOfOrderGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
-
-  /**
-     * # Отменить редактирование коробки сотрудником склада.
-     * ## Отменить редактирование коробки сотрудником склада.  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-  apiV1BoxesCancelEditByStorekeeperPostWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = null;
-
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1BoxesStorekeepersGuidPatch"
-      );
-    }
-
-    let pathParams = {
-      guid: guid
-    };
-
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/boxes/cancel_edit_with_draft/{guid}',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Отменить редактирование коробки сотрудником склада.
-     * ## Отменить редактирование коробки сотрудником склада.  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-  apiV1BoxesCancelEditByStorekeeperPost(opts) {
-    return this.apiV1BoxesCancelEditByStorekeeperPostWithHttpInfo(opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
-
-
-  /**
-     * # Получить транзакции по GUID продукта.
-     * ## Получить транзакции по GUID продукта.  
-     * @param {String} guid GUID в сущности в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-  apiV1BoxesByProductWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = null;
-
-    let pathParams = {
-      guid: guid
-    };
-
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ Object ];
-    
-    return this.apiClient.callApi(
-      '/api/v1/boxes/by_product_guid/{guid}',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-   /**
-     * # Получить транзакции по GUID продукта.
-     * ## Получить транзакции по GUID продукта.   
-     * @param {String} guid GUID в сущности в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-  apiV1BoxesByProduct(guid, opts) {
-    return this.apiV1BoxesByProductWithHttpInfo(guid, opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
 }

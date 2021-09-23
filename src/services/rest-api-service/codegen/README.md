@@ -135,22 +135,34 @@ Class | Method | HTTP request | Description
 *Amazonapi.AdministratorApi* | [**apiV1AdminsMakePaymentPost**](docs/AdministratorApi.md#apiV1AdminsMakePaymentPost) | **POST** /api/v1/admins/make_payment | # Создать оплату или штраф для пользователя.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsMakeProductsPaidPost**](docs/AdministratorApi.md#apiV1AdminsMakeProductsPaidPost) | **POST** /api/v1/admins/make_products_paid | # Оплатить выбранные продукты.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsOrdersGet**](docs/AdministratorApi.md#apiV1AdminsOrdersGet) | **GET** /api/v1/admins/orders | # Получить список заказов.
+*Amazonapi.AdministratorApi* | [**apiV1AdminsOrdersGuidPatch**](docs/AdministratorApi.md#apiV1AdminsOrdersGuidPatch) | **PATCH** /api/v1/admins/orders/{guid} | # Редактировать заказ.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsPatchProductsGuidPatch**](docs/AdministratorApi.md#apiV1AdminsPatchProductsGuidPatch) | **PATCH** /api/v1/admins/patch_products/{guid} | # Внести изменения в продукт.
+*Amazonapi.AdministratorApi* | [**apiV1AdminsPaymentsGet**](docs/AdministratorApi.md#apiV1AdminsPaymentsGet) | **GET** /api/v1/admins/payments | # Получить все оплаты, которые были начислены всем ролям.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsPickupProductGuidPost**](docs/AdministratorApi.md#apiV1AdminsPickupProductGuidPost) | **POST** /api/v1/admins/pickup_product/{guid} | # Взять продукт на проверку.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsUsersGet**](docs/AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsUsersGuidDelete**](docs/AdministratorApi.md#apiV1AdminsUsersGuidDelete) | **DELETE** /api/v1/admins/users/{guid} | Изменить пользователя.
+*Amazonapi.AdministratorApi* | [**apiV1AdminsUsersGuidGet**](docs/AdministratorApi.md#apiV1AdminsUsersGuidGet) | **GET** /api/v1/admins/users/{guid} | Получить пользователя по GUID.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsUsersGuidPatch**](docs/AdministratorApi.md#apiV1AdminsUsersGuidPatch) | **PATCH** /api/v1/admins/users/{guid} | Изменить пользователя.
 *Amazonapi.BatchesApi* | [**apiV1BatchesGet**](docs/BatchesApi.md#apiV1BatchesGet) | **GET** /api/v1/batches/ | # Получить партии.
 *Amazonapi.BoxesApi* | [**apiV1BoxesApprovePost**](docs/BoxesApi.md#apiV1BoxesApprovePost) | **POST** /api/v1/boxes/approve | # Подтвердить операцию объединения/разъединения коробок.
+*Amazonapi.BoxesApi* | [**apiV1BoxesByOrderGuidGuidGet**](docs/BoxesApi.md#apiV1BoxesByOrderGuidGuidGet) | **GET** /api/v1/boxes/by_order_guid/{guid} | # Получить коробки и их строки по GUID заказа.
+*Amazonapi.BoxesApi* | [**apiV1BoxesByProductGuidGuidGet**](docs/BoxesApi.md#apiV1BoxesByProductGuidGuidGet) | **GET** /api/v1/boxes/by_product_guid/{guid} | # Получить коробки и их строки по GUID продукта.
+*Amazonapi.BoxesApi* | [**apiV1BoxesCalculateBoxDeliveryCostsInBatchPost**](docs/BoxesApi.md#apiV1BoxesCalculateBoxDeliveryCostsInBatchPost) | **POST** /api/v1/boxes/calculate_box_delivery_costs_in_batch | # Рассчитать стоимость доставки коробов.
+*Amazonapi.BoxesApi* | [**apiV1BoxesCancelEditPost**](docs/BoxesApi.md#apiV1BoxesCancelEditPost) | **POST** /api/v1/boxes/cancel-edit | # Отменить редактирование коробок.
+*Amazonapi.BoxesApi* | [**apiV1BoxesCancelEditWithDraftGuidPost**](docs/BoxesApi.md#apiV1BoxesCancelEditWithDraftGuidPost) | **POST** /api/v1/boxes/cancel_edit_with_draft/{guid} | # Отменить редактирование коробок сотрудником склада.
 *Amazonapi.BoxesApi* | [**apiV1BoxesCancelMergePost**](docs/BoxesApi.md#apiV1BoxesCancelMergePost) | **POST** /api/v1/boxes/cancel-merge | # Отменить объединение коробок.
 *Amazonapi.BoxesApi* | [**apiV1BoxesCancelSplitPost**](docs/BoxesApi.md#apiV1BoxesCancelSplitPost) | **POST** /api/v1/boxes/cancel-split | # Отменить разделение коробок.
 *Amazonapi.BoxesApi* | [**apiV1BoxesClientsDraftsGet**](docs/BoxesApi.md#apiV1BoxesClientsDraftsGet) | **GET** /api/v1/boxes/clients/drafts | # Получить черновики коробок и их строки по текущему клиенту.
 *Amazonapi.BoxesApi* | [**apiV1BoxesClientsGet**](docs/BoxesApi.md#apiV1BoxesClientsGet) | **GET** /api/v1/boxes/clients | # Получить коробки и их строки по текущему клиенту.
 *Amazonapi.BoxesApi* | [**apiV1BoxesDraftsGet**](docs/BoxesApi.md#apiV1BoxesDraftsGet) | **GET** /api/v1/boxes/drafts | # Получить черновики коробок и их строки.
+*Amazonapi.BoxesApi* | [**apiV1BoxesEditGuidPost**](docs/BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку.
+*Amazonapi.BoxesApi* | [**apiV1BoxesEditWithDraftGuidPost**](docs/BoxesApi.md#apiV1BoxesEditWithDraftGuidPost) | **POST** /api/v1/boxes/edit_with_draft/{guid} | # Изменить параметры коробки из роли сторкипера.
 *Amazonapi.BoxesApi* | [**apiV1BoxesGet**](docs/BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
 *Amazonapi.BoxesApi* | [**apiV1BoxesGuidDelete**](docs/BoxesApi.md#apiV1BoxesGuidDelete) | **DELETE** /api/v1/boxes/{guid} | # Удалить коробку.
 *Amazonapi.BoxesApi* | [**apiV1BoxesMergePost**](docs/BoxesApi.md#apiV1BoxesMergePost) | **POST** /api/v1/boxes/merge | # Объединить две и более коробок.
 *Amazonapi.BoxesApi* | [**apiV1BoxesPost**](docs/BoxesApi.md#apiV1BoxesPost) | **POST** /api/v1/boxes/ | # Создать коробку и ее строки.
+*Amazonapi.BoxesApi* | [**apiV1BoxesRequestSendBoxesToBatchPost**](docs/BoxesApi.md#apiV1BoxesRequestSendBoxesToBatchPost) | **POST** /api/v1/boxes/request_send_boxes_to_batch | # Запросить отправку набора коробок в партию.
+*Amazonapi.BoxesApi* | [**apiV1BoxesSendBoxesToBatchPost**](docs/BoxesApi.md#apiV1BoxesSendBoxesToBatchPost) | **POST** /api/v1/boxes/send_boxes_to_batch | # Отправить набор коробок в партию.
 *Amazonapi.BoxesApi* | [**apiV1BoxesSplitPost**](docs/BoxesApi.md#apiV1BoxesSplitPost) | **POST** /api/v1/boxes/split | # Разделить коробку.
 *Amazonapi.BoxesApi* | [**apiV1BoxesStorekeepersGuidPatch**](docs/BoxesApi.md#apiV1BoxesStorekeepersGuidPatch) | **PATCH** /api/v1/boxes/storekeepers/{guid} | # Изменить коробку сотрудником склада.
 *Amazonapi.BuyerApi* | [**apiV1BuyersOrdersGuidGet**](docs/BuyerApi.md#apiV1BuyersOrdersGuidGet) | **GET** /api/v1/buyers/orders/{guid} | # Получить конкретный заказ по его GUID.
@@ -158,14 +170,12 @@ Class | Method | HTTP request | Description
 *Amazonapi.BuyerApi* | [**apiV1BuyersOrdersMyGet**](docs/BuyerApi.md#apiV1BuyersOrdersMyGet) | **GET** /api/v1/buyers/orders/my | # Получить список заказов текущего байера.
 *Amazonapi.BuyerApi* | [**apiV1BuyersOrdersPickupGuidPost**](docs/BuyerApi.md#apiV1BuyersOrdersPickupGuidPost) | **POST** /api/v1/buyers/orders/pickup/{guid} | # Закрепить заказ за байером. Взять его в работу.
 *Amazonapi.BuyerApi* | [**apiV1BuyersOrdersVacGet**](docs/BuyerApi.md#apiV1BuyersOrdersVacGet) | **GET** /api/v1/buyers/orders/vac | # Получить список свободных заказов.
-*Amazonapi.BuyerApi* | [**apiV1BuyersPaymentsMyBalanceGet**](docs/BuyerApi.md#apiV1BuyersPaymentsMyBalanceGet) | **GET** /api/v1/buyers/payments/my-balance | Получить баланс для байера.
-*Amazonapi.BuyerApi* | [**apiV1BuyersPaymentsMyGet**](docs/BuyerApi.md#apiV1BuyersPaymentsMyGet) | **GET** /api/v1/buyers/payments/my | Получить информацию об платежах для этого байера.
 *Amazonapi.BuyerApi* | [**apiV1BuyersProductsGuidPatch**](docs/BuyerApi.md#apiV1BuyersProductsGuidPatch) | **PATCH** /api/v1/buyers/products/{guid} | # Внести изменения в продукт.
 *Amazonapi.BuyerApi* | [**apiV1BuyersProductsMyGet**](docs/BuyerApi.md#apiV1BuyersProductsMyGet) | **GET** /api/v1/buyers/products/my | # Получить список товаров взятых в работу байером.
 *Amazonapi.BuyerApi* | [**apiV1BuyersProductsPickupGuidPost**](docs/BuyerApi.md#apiV1BuyersProductsPickupGuidPost) | **POST** /api/v1/buyers/products/pickup/{guid} | # Закрепить продукт за байером. Взять его в работу.
 *Amazonapi.BuyerApi* | [**apiV1BuyersProductsVacGet**](docs/BuyerApi.md#apiV1BuyersProductsVacGet) | **GET** /api/v1/buyers/products/vac | # Получить список вакантных товаров.
+*Amazonapi.BuyerApi* | [**apiV1BuyersTasksCancelGuidPost**](docs/BuyerApi.md#apiV1BuyersTasksCancelGuidPost) | **POST** /api/v1/buyers/tasks/cancel/{guid} | # Отменить задачу.
 *Amazonapi.BuyerApi* | [**apiV1BuyersTasksGet**](docs/BuyerApi.md#apiV1BuyersTasksGet) | **GET** /api/v1/buyers/tasks | # Показать все задачи данного пользователя.
-*Amazonapi.BuyerApi* | [**apiV1BuyersTasksGuidDelete**](docs/BuyerApi.md#apiV1BuyersTasksGuidDelete) | **DELETE** /api/v1/buyers/tasks/{guid} | # Удалить задачу.
 *Amazonapi.BuyerApi* | [**apiV1BuyersTasksPost**](docs/BuyerApi.md#apiV1BuyersTasksPost) | **POST** /api/v1/buyers/tasks | # Создать задачу.
 *Amazonapi.ClientApi* | [**apiV1ClientsBatchesGet**](docs/ClientApi.md#apiV1ClientsBatchesGet) | **GET** /api/v1/clients/batches | # Получить партии.
 *Amazonapi.ClientApi* | [**apiV1ClientsMakePaymentsPost**](docs/ClientApi.md#apiV1ClientsMakePaymentsPost) | **POST** /api/v1/clients/make_payments | # Оплатить товары.
@@ -179,9 +189,15 @@ Class | Method | HTTP request | Description
 *Amazonapi.ClientApi* | [**apiV1ClientsProductsPaidGet**](docs/ClientApi.md#apiV1ClientsProductsPaidGet) | **GET** /api/v1/clients/products/paid | # Получить список товаров оплаченных данного клиента.
 *Amazonapi.ClientApi* | [**apiV1ClientsProductsPickupGuidPost**](docs/ClientApi.md#apiV1ClientsProductsPickupGuidPost) | **POST** /api/v1/clients/products/pickup/{guid} | # Взять товар в работу.
 *Amazonapi.ClientApi* | [**apiV1ClientsProductsVacGet**](docs/ClientApi.md#apiV1ClientsProductsVacGet) | **GET** /api/v1/clients/products/vac | # Получить список вакантных товаров.
+*Amazonapi.ClientApi* | [**apiV1ClientsTasksCancelGuidPost**](docs/ClientApi.md#apiV1ClientsTasksCancelGuidPost) | **POST** /api/v1/clients/tasks/cancel/{guid} | # Отменить задачу.
 *Amazonapi.ClientApi* | [**apiV1ClientsTasksGet**](docs/ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя.
 *Amazonapi.ClientApi* | [**apiV1ClientsTasksGuidDelete**](docs/ClientApi.md#apiV1ClientsTasksGuidDelete) | **DELETE** /api/v1/clients/tasks/{guid} | # Удалить задачу.
 *Amazonapi.ClientApi* | [**apiV1ClientsTasksPost**](docs/ClientApi.md#apiV1ClientsTasksPost) | **POST** /api/v1/clients/tasks | # Создать задачу.
+*Amazonapi.OtherApi* | [**apiV1OtherImgGuidGet**](docs/OtherApi.md#apiV1OtherImgGuidGet) | **GET** /api/v1/other/img/{guid} | # Получить изображение.
+*Amazonapi.OtherApi* | [**apiV1OtherPaymentsByProductGuidGet**](docs/OtherApi.md#apiV1OtherPaymentsByProductGuidGet) | **GET** /api/v1/other/payments/by_product/{guid} | # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
+*Amazonapi.OtherApi* | [**apiV1OtherPaymentsByUserGuidGet**](docs/OtherApi.md#apiV1OtherPaymentsByUserGuidGet) | **GET** /api/v1/other/payments/by_user/{guid} | # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
+*Amazonapi.OtherApi* | [**apiV1OtherPaymentsMyGet**](docs/OtherApi.md#apiV1OtherPaymentsMyGet) | **GET** /api/v1/other/payments/my | # Получить все оплаты, которые были начислены обратившемуся пользователю.
+*Amazonapi.OtherApi* | [**apiV1OtherUploadFilePost**](docs/OtherApi.md#apiV1OtherUploadFilePost) | **POST** /api/v1/other/upload_file | # Загрузить изображение.
 *Amazonapi.ProductForTestOnlyApi* | [**apiV1ProductsIdDelete**](docs/ProductForTestOnlyApi.md#apiV1ProductsIdDelete) | **DELETE** /api/v1/products/{id} | Удалить продукт.
 *Amazonapi.ProductForTestOnlyApi* | [**apiV1ProductsIdGet**](docs/ProductForTestOnlyApi.md#apiV1ProductsIdGet) | **GET** /api/v1/products/{id} | Получить продукт по GUID.
 *Amazonapi.ProductForTestOnlyApi* | [**apiV1ProductsIdPatch**](docs/ProductForTestOnlyApi.md#apiV1ProductsIdPatch) | **PATCH** /api/v1/products/{id} | Изменить продукт.
@@ -189,22 +205,21 @@ Class | Method | HTTP request | Description
 *Amazonapi.ResearcherApi* | [**apiV1ResearchersCheckProductsIdGet**](docs/ResearcherApi.md#apiV1ResearchersCheckProductsIdGet) | **GET** /api/v1/researchers/check_products/{id} | Проверить продукт по ID существует ли он в базе.
 *Amazonapi.ResearcherApi* | [**apiV1ResearchersParseAmazonIdGet**](docs/ResearcherApi.md#apiV1ResearchersParseAmazonIdGet) | **GET** /api/v1/researchers/parse_amazon/{id} | Получить данные о продукте с сайта Амазон по id(asin)
 *Amazonapi.ResearcherApi* | [**apiV1ResearchersParseSellercentralGet**](docs/ResearcherApi.md#apiV1ResearchersParseSellercentralGet) | **GET** /api/v1/researchers/parse_sellercentral | Получить данные о продукте с SellerCentral
-*Amazonapi.ResearcherApi* | [**apiV1ResearchersPaymentsMyBalanceGet**](docs/ResearcherApi.md#apiV1ResearchersPaymentsMyBalanceGet) | **GET** /api/v1/researchers/payments/my-balance | Получить баланс для ресечера.
-*Amazonapi.ResearcherApi* | [**apiV1ResearchersPaymentsMyGet**](docs/ResearcherApi.md#apiV1ResearchersPaymentsMyGet) | **GET** /api/v1/researchers/payments/my | Получить информацию об платежах для этого менеджера.
 *Amazonapi.ResearcherApi* | [**apiV1ResearchersProductsGet**](docs/ResearcherApi.md#apiV1ResearchersProductsGet) | **GET** /api/v1/researchers/products | Получить список товаров созданных данным пользователем.
 *Amazonapi.ResearcherApi* | [**apiV1ResearchersProductsGuidDelete**](docs/ResearcherApi.md#apiV1ResearchersProductsGuidDelete) | **DELETE** /api/v1/researchers/products/{guid} | Удалить продукт.
 *Amazonapi.ResearcherApi* | [**apiV1ResearchersProductsGuidGet**](docs/ResearcherApi.md#apiV1ResearchersProductsGuidGet) | **GET** /api/v1/researchers/products/{guid} | Получить товар по GUID.
 *Amazonapi.ResearcherApi* | [**apiV1ResearchersProductsGuidPatch**](docs/ResearcherApi.md#apiV1ResearchersProductsGuidPatch) | **PATCH** /api/v1/researchers/products/{guid} | #  Изменить продукт.
 *Amazonapi.ResearcherApi* | [**apiV1ResearchersProductsPost**](docs/ResearcherApi.md#apiV1ResearchersProductsPost) | **POST** /api/v1/researchers/products | # Добавить новый продукт.
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersBatchesGet**](docs/StorekeepersApi.md#apiV1StorekeepersBatchesGet) | **GET** /api/v1/storekeepers/batches | # Получить партии....
+*Amazonapi.StorekeepersApi* | [**apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch) | **PATCH** /api/v1/storekeepers/orders/set_barcode_and_status/{guid} | # Изменить значение isBarCodeAlreadyAttachedByTheSupplier и status в сущности заказ.
+*Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksCancelGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksCancelGuidPost) | **POST** /api/v1/storekeepers/tasks/cancel/{guid} | # Отметить задачу, как отмененную..
+*Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksDoneGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksDoneGuidPost) | **POST** /api/v1/storekeepers/tasks/done/{guid} | # Отметить задачу, как выполненную.
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersTasksGuidPatch) | **PATCH** /api/v1/storekeepers/tasks/{guid} | # Изменить задачу.
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksMyGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksMyGet) | **GET** /api/v1/storekeepers/tasks/my | # Получить задачи закрепленные за данным сборщиком..
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksPickupGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksPickupGuidPost) | **POST** /api/v1/storekeepers/tasks/pickup/{guid} | # Закрепить задачу за сборщиком.
 *Amazonapi.StorekeepersApi* | [**apiV1StorekeepersTasksVacGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksVacGet) | **GET** /api/v1/storekeepers/tasks/vac | # Получить задачи не закрепленные за сотрудниками склада.
-*Amazonapi.SupervisorApi* | [**apiV1SupervisorsPaymentsCreatedByThisSuperGet**](docs/SupervisorApi.md#apiV1SupervisorsPaymentsCreatedByThisSuperGet) | **GET** /api/v1/supervisors/payments/created_by_this_super | # Получить оплаты созданные данным супервайзером.
-*Amazonapi.SupervisorApi* | [**apiV1SupervisorsPaymentsMyBalanceGet**](docs/SupervisorApi.md#apiV1SupervisorsPaymentsMyBalanceGet) | **GET** /api/v1/supervisors/payments/my-balance | Получить баланс для супервайзера.
-*Amazonapi.SupervisorApi* | [**apiV1SupervisorsPaymentsMyGet**](docs/SupervisorApi.md#apiV1SupervisorsPaymentsMyGet) | **GET** /api/v1/supervisors/payments/my | # Получить все оплаты, которые были начислены супервайзеру.
-*Amazonapi.SupervisorApi* | [**apiV1SupervisorsProductsGuidPatch**](docs/SupervisorApi.md#apiV1SupervisorsProductsGuidPatch) | **PATCH** /api/v1/supervisors/products/{guid} | # Изменить статус и дать комментарий доя продукта.
+*Amazonapi.SupervisorApi* | [**apiV1SupervisorsProductsGuidPatch**](docs/SupervisorApi.md#apiV1SupervisorsProductsGuidPatch) | **PATCH** /api/v1/supervisors/products/{guid} | # Изменить продукт.
+*Amazonapi.SupervisorApi* | [**apiV1SupervisorsProductsListingGuidPatch**](docs/SupervisorApi.md#apiV1SupervisorsProductsListingGuidPatch) | **PATCH** /api/v1/supervisors/products/listing/{guid} | # Изменить листинг для продукта.
 *Amazonapi.SupervisorApi* | [**apiV1SupervisorsProductsMyGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsMyGet) | **GET** /api/v1/supervisors/products/my | # Получить список товаров взятых на проверку супервайзером.
 *Amazonapi.SupervisorApi* | [**apiV1SupervisorsProductsPickupGuidPost**](docs/SupervisorApi.md#apiV1SupervisorsProductsPickupGuidPost) | **POST** /api/v1/supervisors/products/pickup/{guid} | # Закрепить продукт за супервайзером. Взять его в работу.
 *Amazonapi.SupervisorApi* | [**apiV1SupervisorsProductsVacGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsVacGet) | **GET** /api/v1/supervisors/products/vac | # Получить список вакантных товаров.
@@ -221,14 +236,15 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
- - [Amazonapi.ApiV1AdminsGetProductsByStatusCreatedby](docs/ApiV1AdminsGetProductsByStatusCreatedby.md)
+ - [Amazonapi.ApiV1AdminsGetProductsByStatusClientId](docs/ApiV1AdminsGetProductsByStatusClientId.md)
  - [Amazonapi.ApiV1AdminsGetProductsByStatusCurrentSupplier](docs/ApiV1AdminsGetProductsByStatusCurrentSupplier.md)
  - [Amazonapi.ApiV1AdminsOrdersCreatedBy](docs/ApiV1AdminsOrdersCreatedBy.md)
+ - [Amazonapi.ApiV1AdminsPaymentsCreatedBy](docs/ApiV1AdminsPaymentsCreatedBy.md)
  - [Amazonapi.ApiV1BatchesBatch](docs/ApiV1BatchesBatch.md)
  - [Amazonapi.ApiV1BatchesBoxes](docs/ApiV1BatchesBoxes.md)
  - [Amazonapi.ApiV1BatchesItems](docs/ApiV1BatchesItems.md)
+ - [Amazonapi.ApiV1BoxesApproveAdditionalBoxes](docs/ApiV1BoxesApproveAdditionalBoxes.md)
  - [Amazonapi.ApiV1BoxesItems](docs/ApiV1BoxesItems.md)
- - [Amazonapi.ApiV1BuyersPaymentsMyCreatedBy](docs/ApiV1BuyersPaymentsMyCreatedBy.md)
  - [Amazonapi.BadRequestError](docs/BadRequestError.md)
  - [Amazonapi.ConflictInTheState](docs/ConflictInTheState.md)
  - [Amazonapi.DefaultHeaders](docs/DefaultHeaders.md)
@@ -254,7 +270,15 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineObject25](docs/InlineObject25.md)
  - [Amazonapi.InlineObject26](docs/InlineObject26.md)
  - [Amazonapi.InlineObject27](docs/InlineObject27.md)
+ - [Amazonapi.InlineObject28](docs/InlineObject28.md)
+ - [Amazonapi.InlineObject29](docs/InlineObject29.md)
  - [Amazonapi.InlineObject3](docs/InlineObject3.md)
+ - [Amazonapi.InlineObject30](docs/InlineObject30.md)
+ - [Amazonapi.InlineObject31](docs/InlineObject31.md)
+ - [Amazonapi.InlineObject32](docs/InlineObject32.md)
+ - [Amazonapi.InlineObject33](docs/InlineObject33.md)
+ - [Amazonapi.InlineObject34](docs/InlineObject34.md)
+ - [Amazonapi.InlineObject35](docs/InlineObject35.md)
  - [Amazonapi.InlineObject4](docs/InlineObject4.md)
  - [Amazonapi.InlineObject5](docs/InlineObject5.md)
  - [Amazonapi.InlineObject6](docs/InlineObject6.md)
@@ -263,6 +287,7 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineObject9](docs/InlineObject9.md)
  - [Amazonapi.InlineResponse200](docs/InlineResponse200.md)
  - [Amazonapi.InlineResponse2001](docs/InlineResponse2001.md)
+ - [Amazonapi.InlineResponse20010](docs/InlineResponse20010.md)
  - [Amazonapi.InlineResponse2002](docs/InlineResponse2002.md)
  - [Amazonapi.InlineResponse2003](docs/InlineResponse2003.md)
  - [Amazonapi.InlineResponse2004](docs/InlineResponse2004.md)
@@ -277,6 +302,8 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineResponse2013](docs/InlineResponse2013.md)
  - [Amazonapi.InlineResponse2014](docs/InlineResponse2014.md)
  - [Amazonapi.InlineResponse2015](docs/InlineResponse2015.md)
+ - [Amazonapi.InlineResponse2016](docs/InlineResponse2016.md)
+ - [Amazonapi.InlineResponse2017](docs/InlineResponse2017.md)
  - [Amazonapi.InlineResponse400](docs/InlineResponse400.md)
  - [Amazonapi.InlineResponse403](docs/InlineResponse403.md)
  - [Amazonapi.InlineResponse404](docs/InlineResponse404.md)

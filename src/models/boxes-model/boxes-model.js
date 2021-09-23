@@ -107,6 +107,21 @@ class BoxesModelStatic {
     const response = await restApiService.boxesApi.apiV1BoxesByProduct(id)
     return response
   }
+
+  calculateBoxDeliveryCostsInBatch = async boxesIds => {
+    const response = await restApiService.boxesApi.apiV1BoxesCalculateBoxDeliveryCostsInBatchPost({boxesIds})
+    return response
+  }
+
+  sendBoxesToBatch = async boxesIds => {
+    const response = await restApiService.boxesApi.apiV1BoxesSendBoxesToBatchPost({boxesIds})
+    return response
+  }
+
+  requestSendBoxToBatch = async boxesIds => {
+    const response = await restApiService.boxesApi.apiV1BoxesRequestSendBoxesToBatchPost({cancel: false, boxesIds})
+    return response
+  }
 }
 
 export const BoxesModel = new BoxesModelStatic()

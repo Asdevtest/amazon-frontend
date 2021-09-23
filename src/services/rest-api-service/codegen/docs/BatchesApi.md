@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## apiV1BatchesGet
 
-> [InlineResponse2003] apiV1BatchesGet(opts)
+> [InlineResponse2004] apiV1BatchesGet(opts)
 
 # Получить партии.
 
@@ -48,7 +48,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2003]**](InlineResponse2003.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 

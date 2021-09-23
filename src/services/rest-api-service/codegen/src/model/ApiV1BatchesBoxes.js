@@ -20,177 +20,163 @@ import ApiV1BatchesItems from './ApiV1BatchesItems';
  * @version v0.0.1
  */
 class ApiV1BatchesBoxes {
-  /**
+    /**
      * Constructs a new <code>ApiV1BatchesBoxes</code>.
      * @alias module:model/ApiV1BatchesBoxes
      */
-  constructor() {
-    ApiV1BatchesBoxes.initialize(this);
-  }
+    constructor() { 
+        
+        ApiV1BatchesBoxes.initialize(this);
+    }
 
-  /**
+    /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-  static initialize(obj) {}
+    static initialize(obj) { 
+    }
 
-  /**
+    /**
      * Constructs a <code>ApiV1BatchesBoxes</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/ApiV1BatchesBoxes} obj Optional instance to populate.
      * @return {module:model/ApiV1BatchesBoxes} The populated <code>ApiV1BatchesBoxes</code> instance.
      */
-  static constructFromObject(data, obj) {
-    if (data) {
-      obj = obj || new ApiV1BatchesBoxes();
+    static constructFromObject(data, obj) {
+        if (data) {
+            obj = obj || new ApiV1BatchesBoxes();
 
-      if (data.hasOwnProperty('_id')) {
-        obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-      }
-      if (data.hasOwnProperty('amount')) {
-        obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-      }
-      if (data.hasOwnProperty('lengthCm')) {
-        obj['lengthCm'] = ApiClient.convertToType(data['lengthCm'], 'Number');
-      }
-      if (data.hasOwnProperty('widthCm')) {
-        obj['widthCm'] = ApiClient.convertToType(data['widthCm'], 'Number');
-      }
-      if (data.hasOwnProperty('heightCm')) {
-        obj['heightCm'] = ApiClient.convertToType(data['heightCm'], 'Number');
-      }
-      if (data.hasOwnProperty('weighGrossKg')) {
-        obj['weighGrossKg'] = ApiClient.convertToType(data['weighGrossKg'], 'Number');
-      }
-      if (data.hasOwnProperty('volumeWeightKg')) {
-        obj['volumeWeightKg'] = ApiClient.convertToType(data['volumeWeightKg'], 'Number');
-      }
-      if (data.hasOwnProperty('weightFinalAccountingKg')) {
-        obj['weightFinalAccountingKg'] = ApiClient.convertToType(
-          data['weightFinalAccountingKg'],
-          'Number'
-        );
-      }
-      if (data.hasOwnProperty('shippingLabel')) {
-        obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
-      }
-      if (data.hasOwnProperty('shipmentPlanId')) {
-        obj['shipmentPlanId'] = ApiClient.convertToType(data['shipmentPlanId'], 'String');
-      }
-      if (data.hasOwnProperty('warehouse')) {
-        obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-      }
-      if (data.hasOwnProperty('clientComment')) {
-        obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-      }
-      if (data.hasOwnProperty('deliveryMethod')) {
-        obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-      }
-      if (data.hasOwnProperty('lengthCmSupplier')) {
-        obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
-      }
-      if (data.hasOwnProperty('widthCmSupplier')) {
-        obj['widthCmSupplier'] = ApiClient.convertToType(data['widthCmSupplier'], 'Number');
-      }
-      if (data.hasOwnProperty('heightCmSupplier')) {
-        obj['heightCmSupplier'] = ApiClient.convertToType(data['heightCmSupplier'], 'Number');
-      }
-      if (data.hasOwnProperty('weighGrossKgSupplier')) {
-        obj['weighGrossKgSupplier'] = ApiClient.convertToType(
-          data['weighGrossKgSupplier'],
-          'Number'
-        );
-      }
-      if (data.hasOwnProperty('volumeWeightKgSupplier')) {
-        obj['volumeWeightKgSupplier'] = ApiClient.convertToType(
-          data['volumeWeightKgSupplier'],
-          'Number'
-        );
-      }
-      if (data.hasOwnProperty('weightFinalAccountingKgSupplier')) {
-        obj['weightFinalAccountingKgSupplier'] = ApiClient.convertToType(
-          data['weightFinalAccountingKgSupplier'],
-          'Number'
-        );
-      }
-      if (data.hasOwnProperty('buyerComment')) {
-        obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-      }
-      if (data.hasOwnProperty('status')) {
-        obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-      }
-      if (data.hasOwnProperty('lengthCmWarehouse')) {
-        obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
-      }
-      if (data.hasOwnProperty('widthCmWarehouse')) {
-        obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
-      }
-      if (data.hasOwnProperty('heightCmWarehouse')) {
-        obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
-      }
-      if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-        obj['weighGrossKgWarehouse'] = ApiClient.convertToType(
-          data['weighGrossKgWarehouse'],
-          'Number'
-        );
-      }
-      if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
-        obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(
-          data['volumeWeightKgWarehouse'],
-          'Number'
-        );
-      }
-      if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
-        obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(
-          data['weightFinalAccountingKgWarehouse'],
-          'Number'
-        );
-      }
-      if (data.hasOwnProperty('createdBy')) {
-        obj['createdBy'] = ApiClient.convertToType(data['createdBy'], 'String');
-      }
-      if (data.hasOwnProperty('buyerId')) {
-        obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
-      }
-      if (data.hasOwnProperty('lastModifiedBy')) {
-        obj['lastModifiedBy'] = ApiClient.convertToType(data['lastModifiedBy'], 'String');
-      }
-      if (data.hasOwnProperty('scheduledDispatchDate')) {
-        obj['scheduledDispatchDate'] = ApiClient.convertToType(
-          data['scheduledDispatchDate'],
-          'Date'
-        );
-      }
-      if (data.hasOwnProperty('factDispatchDate')) {
-        obj['factDispatchDate'] = ApiClient.convertToType(data['factDispatchDate'], 'Date');
-      }
-      if (data.hasOwnProperty('items')) {
-        obj['items'] = ApiClient.convertToType(data['items'], [ ApiV1BatchesItems ]);
-      }
-      if (data.hasOwnProperty('isDraft')) {
-        obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
-      }
-      if (data.hasOwnProperty('images')) {
-        obj['images'] = ApiClient.convertToType(data['images'], [ 'String' ]);
-      }
-      if (data.hasOwnProperty('clientId')) {
-        obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
-      }
-      if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-        obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(
-          data['isShippingLabelAttachedByStorekeeper'],
-          'Boolean'
-        );
-      }
-      if (data.hasOwnProperty('createdAt')) {
-        obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
-      }
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
+            }
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('lengthCm')) {
+                obj['lengthCm'] = ApiClient.convertToType(data['lengthCm'], 'Number');
+            }
+            if (data.hasOwnProperty('widthCm')) {
+                obj['widthCm'] = ApiClient.convertToType(data['widthCm'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCm')) {
+                obj['heightCm'] = ApiClient.convertToType(data['heightCm'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKg')) {
+                obj['weighGrossKg'] = ApiClient.convertToType(data['weighGrossKg'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightKg')) {
+                obj['volumeWeightKg'] = ApiClient.convertToType(data['volumeWeightKg'], 'Number');
+            }
+            if (data.hasOwnProperty('weightFinalAccountingKg')) {
+                obj['weightFinalAccountingKg'] = ApiClient.convertToType(data['weightFinalAccountingKg'], 'Number');
+            }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
+            if (data.hasOwnProperty('shipmentPlanId')) {
+                obj['shipmentPlanId'] = ApiClient.convertToType(data['shipmentPlanId'], 'String');
+            }
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('lengthCmSupplier')) {
+                obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('widthCmSupplier')) {
+                obj['widthCmSupplier'] = ApiClient.convertToType(data['widthCmSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmSupplier')) {
+                obj['heightCmSupplier'] = ApiClient.convertToType(data['heightCmSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgSupplier')) {
+                obj['weighGrossKgSupplier'] = ApiClient.convertToType(data['weighGrossKgSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightKgSupplier')) {
+                obj['volumeWeightKgSupplier'] = ApiClient.convertToType(data['volumeWeightKgSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('weightFinalAccountingKgSupplier')) {
+                obj['weightFinalAccountingKgSupplier'] = ApiClient.convertToType(data['weightFinalAccountingKgSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
+                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
+                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiClient.convertToType(data['createdBy'], 'String');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('clientId')) {
+                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
+            }
+            if (data.hasOwnProperty('buyerId')) {
+                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
+            }
+            if (data.hasOwnProperty('lastModifiedBy')) {
+                obj['lastModifiedBy'] = ApiClient.convertToType(data['lastModifiedBy'], 'String');
+            }
+            if (data.hasOwnProperty('scheduledDispatchDate')) {
+                obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'Date');
+            }
+            if (data.hasOwnProperty('factDispatchDate')) {
+                obj['factDispatchDate'] = ApiClient.convertToType(data['factDispatchDate'], 'Date');
+            }
+            if (data.hasOwnProperty('items')) {
+                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BatchesItems]);
+            }
+            if (data.hasOwnProperty('isDraft')) {
+                obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+        }
+        return obj;
     }
-    return obj;
-  }
+
+
 }
+
+/**
+ * ID коробки
+ * @member {Number} id
+ */
+ApiV1BatchesBoxes.prototype['id'] = undefined;
 
 /**
  * GUID коробки в БД
@@ -355,10 +341,28 @@ ApiV1BatchesBoxes.prototype['volumeWeightKgWarehouse'] = undefined;
 ApiV1BatchesBoxes.prototype['weightFinalAccountingKgWarehouse'] = undefined;
 
 /**
- * Клиент создавший заказ и коробку.
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+ApiV1BatchesBoxes.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Тот кто создал коробку.
  * @member {String} createdBy
  */
 ApiV1BatchesBoxes.prototype['createdBy'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+ApiV1BatchesBoxes.prototype['createdAt'] = undefined;
+
+/**
+ * Клиент кто или для кого создана коробка.
+ * @member {String} clientId
+ */
+ApiV1BatchesBoxes.prototype['clientId'] = undefined;
 
 /**
  * Байер взявший коробку в работу.
@@ -402,16 +406,10 @@ ApiV1BatchesBoxes.prototype['isDraft'] = undefined;
  */
 ApiV1BatchesBoxes.prototype['images'] = undefined;
 
-/**
- * clientId
- * @member {String} clientId
- */
-ApiV1BatchesBoxes.prototype['clientId'] = undefined;
 
-/**
- * true - если создаем черновик заказа.
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
- */
-ApiV1BatchesBoxes.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+
+
 
 export default ApiV1BatchesBoxes;
+

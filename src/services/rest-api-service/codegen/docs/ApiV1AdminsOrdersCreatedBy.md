@@ -11,5 +11,6 @@ Name | Type | Description | Notes
 **fba** | **Boolean** | Флаг fba. | 
 **active** | **Boolean** | Если истина - пользователь активен. Если нет - заблокирован админом. | 
 **rate** | **Number** | Ставка, по который оплачивается сотрудник. | 
+**balance** | **Number** | Баланс пользователя. | [optional] 
 
 

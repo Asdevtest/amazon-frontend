@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **Number** | id заказ. | [optional] 
 **_id** | **String** | GUID данной записи в БД. | [optional] 
 **buyerId** | **String** | GUID пользователя(байера) | [optional] 
 **clientComment** | **String** | Комментарии клиента. | 
@@ -14,8 +15,11 @@ Name | Type | Description | Notes
 **status** | **Number** | tmp | [optional] [default to StatusEnum.1]
 **deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | 
 **isBarCodeAlreadyAttachedByTheSupplier** | **Boolean** | Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика. | [optional] 
+**isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper** | **Boolean** | ????&#x3D;&#x3D;&#x3D;&#x3D;нет описания &#x3D;&#x3D;&#x3D;&#x3D; | [optional] 
 **trackingNumberChina** | **String** | Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ. | [optional] 
 **amountPaymentPerConsignmentAtDollars** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
+**totalPrice** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
+**totalPriceChanged** | **Number** | Если вдруг баер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа.  | [optional] 
 **barCode** | **String** | ссылка на баркод. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 **createDate** | **Date** |  | [optional] 

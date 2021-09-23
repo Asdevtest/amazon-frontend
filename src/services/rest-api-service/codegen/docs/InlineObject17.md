@@ -5,8 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
-**boxes** | **[String]** | Массив коробок. | 
+**boxesBefore** | **[String]** |  | [optional] 
+**boxes** | **[String]** |  | [optional] 
 **operationType** | **String** | Тип операции | 
+**clientComment** | **String** | Комментарий клиента. | [optional] [default to &#39;&#39;]
+**images** | **[String]** | Массив картинок. | [optional] 
+**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
 
 
 
@@ -18,6 +22,8 @@ Name | Type | Description | Notes
 * `split` (value: `"split"`)
 
 * `receive` (value: `"receive"`)
+
+* `edit` (value: `"edit"`)
 
 
 

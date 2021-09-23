@@ -50,6 +50,7 @@ export class WarehouseDashboardViewModel {
   async getTasksVacant() {
     try {
       const result = await StorekeeperModel.getTasksVacant()
+      console.log('result ', result)
       runInAction(() => {
         this.tasksVacant = result
       })

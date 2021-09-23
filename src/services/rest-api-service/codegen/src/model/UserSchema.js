@@ -83,6 +83,9 @@ class UserSchema {
             if (data.hasOwnProperty('rate')) {
                 obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
             }
+            if (data.hasOwnProperty('balance')) {
+                obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
+            }
         }
         return obj;
     }
@@ -131,6 +134,12 @@ UserSchema.prototype['active'] = undefined;
  * @member {Number} rate
  */
 UserSchema.prototype['rate'] = undefined;
+
+/**
+ * Баланс пользователя.
+ * @member {Number} balance
+ */
+UserSchema.prototype['balance'] = undefined;
 
 
 

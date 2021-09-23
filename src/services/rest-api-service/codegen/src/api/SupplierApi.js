@@ -11,11 +11,12 @@
  *
  */
 
-import ApiClient from '../ApiClient';
+
+import ApiClient from "../ApiClient";
 import ApiV1AdminsGetProductsByStatusCurrentSupplier from '../model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
-import InlineObject24 from '../model/InlineObject24';
-import InlineObject25 from '../model/InlineObject25';
-import InlineResponse2013 from '../model/InlineResponse2013';
+import InlineObject32 from '../model/InlineObject32';
+import InlineObject33 from '../model/InlineObject33';
+import InlineResponse2014 from '../model/InlineResponse2014';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse500 from '../model/InlineResponse500';
@@ -26,69 +27,68 @@ import InlineResponse500 from '../model/InlineResponse500';
 * @version v0.0.1
 */
 export default class SupplierApi {
-  /**
+
+    /**
     * Constructs a new SupplierApi. 
     * @alias module:api/SupplierApi
     * @class
     * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
     * default to {@link module:ApiClient#instance} if unspecified.
     */
-  constructor(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
-  }
+    constructor(apiClient) {
+        this.apiClient = apiClient || ApiClient.instance;
+    }
 
-  /**
+
+
+    /**
      * # Получить список поставщиков.
      * ## Получить список поставщиков.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier>} and HTTP response
      */
-  apiV1SuppliersGetWithHttpInfo(opts) {
-    opts = opts || {};
-    let postBody = null;
+    apiV1SuppliersGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ ApiV1AdminsGetProductsByStatusCurrentSupplier ];
-    return this.apiClient.callApi(
-      '/api/v1/suppliers/',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [ApiV1AdminsGetProductsByStatusCurrentSupplier];
+      return this.apiClient.callApi(
+        '/api/v1/suppliers/', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-  /**
+    /**
      * # Получить список поставщиков.
      * ## Получить список поставщиков.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier>}
      */
-  apiV1SuppliersGet(opts) {
-    return this.apiV1SuppliersGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1SuppliersGet(opts) {
+      return this.apiV1SuppliersGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Удалить поставщика.
      * ##  Удалить поставщика.   
      * @param {String} guid GUID в сущности в БД
@@ -96,46 +96,37 @@ export default class SupplierApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-  apiV1SuppliersGuidDeleteWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = null;
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1SuppliersGuidDelete"
+    apiV1SuppliersGuidDeleteWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1SuppliersGuidDelete");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/suppliers/{guid}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/suppliers/{guid}',
-      'DELETE',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * # Удалить поставщика.
      * ##  Удалить поставщика.   
      * @param {String} guid GUID в сущности в БД
@@ -143,13 +134,15 @@ export default class SupplierApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-  apiV1SuppliersGuidDelete(guid, opts) {
-    return this.apiV1SuppliersGuidDeleteWithHttpInfo(guid, opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1SuppliersGuidDelete(guid, opts) {
+      return this.apiV1SuppliersGuidDeleteWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
-  /**
+
+    /**
      * # Получить одного поставщика.
      * ## Получить одного поставщика.   
      * @param {String} guid GUID в сущности в БД
@@ -157,44 +150,37 @@ export default class SupplierApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier} and HTTP response
      */
-  apiV1SuppliersGuidGetWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = null;
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error("Missing the required parameter 'guid' when calling apiV1SuppliersGuidGet");
+    apiV1SuppliersGuidGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1SuppliersGuidGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = ApiV1AdminsGetProductsByStatusCurrentSupplier;
+      return this.apiClient.callApi(
+        '/api/v1/suppliers/{guid}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = ApiV1AdminsGetProductsByStatusCurrentSupplier;
-    return this.apiClient.callApi(
-      '/api/v1/suppliers/{guid}',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * # Получить одного поставщика.
      * ## Получить одного поставщика.   
      * @param {String} guid GUID в сущности в БД
@@ -202,131 +188,121 @@ export default class SupplierApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier}
      */
-  apiV1SuppliersGuidGet(guid, opts) {
-    return this.apiV1SuppliersGuidGetWithHttpInfo(guid, opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
-
-  /**
-     * # Изменить поставщика.
-     * ## Изменить  поставщика.   
-     * @param {String} guid GUID в сущности в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject25} opts.InlineObject25 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-  apiV1SuppliersGuidPatchWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = opts['InlineObject24'];
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error("Missing the required parameter 'guid' when calling apiV1SuppliersGuidPatch");
+    apiV1SuppliersGuidGet(guid, opts) {
+      return this.apiV1SuppliersGuidGetWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
-    let pathParams = {
-      guid: guid
-    };
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = 'String';
-    return this.apiClient.callApi(
-      '/api/v1/suppliers/{guid}',
-      'PATCH',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
+    /**
      * # Изменить поставщика.
      * ## Изменить  поставщика.   
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject25} opts.InlineObject25 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     * @param {module:model/InlineObject33} opts.InlineObject33 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-  apiV1SuppliersGuidPatch(guid, opts) {
-    return this.apiV1SuppliersGuidPatchWithHttpInfo(guid, opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1SuppliersGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['InlineObject33'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1SuppliersGuidPatch");
+      }
 
-  /**
-     * # Добавить нового поставщика.
-     * ## Добавить нового поставщика.   
-     * @param {module:model/InlineObject24} InlineObject24 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2013} and HTTP response
-     */
-  apiV1SuppliersPostWithHttpInfo(InlineObject24, opts) {
-    opts = opts || {};
-    let postBody = InlineObject24;
-    // verify the required parameter 'InlineObject24' is set
-    if (InlineObject24 === undefined || InlineObject24 === null) {
-      throw new Error(
-        "Missing the required parameter 'InlineObject24' when calling apiV1SuppliersPost"
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/suppliers/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
-
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [ 'application/json' ];
-    let accepts = [ 'text/html' ];
-    let returnType = InlineResponse2013;
-    return this.apiClient.callApi(
-      '/api/v1/suppliers/',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-  /**
-     * # Добавить нового поставщика.
-     * ## Добавить нового поставщика.   
-     * @param {module:model/InlineObject24} InlineObject24 
+    /**
+     * # Изменить поставщика.
+     * ## Изменить  поставщика.   
+     * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2013}
+     * @param {module:model/InlineObject33} opts.InlineObject33 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-  apiV1SuppliersPost(InlineObject24, opts) {
-    return this.apiV1SuppliersPostWithHttpInfo(InlineObject24, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data;
-    });
-  }
+    apiV1SuppliersGuidPatch(guid, opts) {
+      return this.apiV1SuppliersGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Добавить нового поставщика.
+     * ## Добавить нового поставщика.   
+     * @param {module:model/InlineObject32} InlineObject32 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
+     */
+    apiV1SuppliersPostWithHttpInfo(InlineObject32, opts) {
+      opts = opts || {};
+      let postBody = InlineObject32;
+      // verify the required parameter 'InlineObject32' is set
+      if (InlineObject32 === undefined || InlineObject32 === null) {
+        throw new Error("Missing the required parameter 'InlineObject32' when calling apiV1SuppliersPost");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse2014;
+      return this.apiClient.callApi(
+        '/api/v1/suppliers/', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Добавить нового поставщика.
+     * ## Добавить нового поставщика.   
+     * @param {module:model/InlineObject32} InlineObject32 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
+     */
+    apiV1SuppliersPost(InlineObject32, opts) {
+      return this.apiV1SuppliersPostWithHttpInfo(InlineObject32, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
 }

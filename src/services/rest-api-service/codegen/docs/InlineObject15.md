@@ -4,13 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Код текущего состояния заказа. | [optional] 
-**amount** | **Number** | Кол-во продукта по этой позиции. | 
-**deliveryMethod** | **Number** | Код метода доставки. | 
-**warehouse** | **Number** | Номер склада. | 
-**clientComment** | **String** | Комментарии клиента. | 
-**barCode** | **String** | Ссылка на баркод. | 
-**product** | **String** | GUID заказанного продукта | 
-**images** | **[String]** | Массив изображений. | [optional] 
+**cancel** | **Boolean** | Флаг отмены. Если он true - то все списания будут сделаны с обратным знаком. | [optional] [default to false]
+**boxesIds** | **[String]** |  | 
 
 

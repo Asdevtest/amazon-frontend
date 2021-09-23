@@ -2034,7 +2034,8 @@ export const texts = {
     },
     warehouseWarehouseView: {
       appbarTitle: 'Warehouse',
-      mainTitle: 'Boxes in warehouse',
+      mainTitle: 'Boxes for batches',
+      confirmSendBatchBtn: 'Confirm send to batch',
     },
     appbarTexts: {
       menuTitle: 'Меню:',
@@ -2089,6 +2090,9 @@ export const texts = {
       tableCost: 'Стоимость',
       tableComment: 'Комментарий',
       tableCellNoVendors: 'Нет поставщиков',
+    },
+    requestToSendBatchModal: {
+      modalTitle: 'Отправка коробок',
     },
   },
 }

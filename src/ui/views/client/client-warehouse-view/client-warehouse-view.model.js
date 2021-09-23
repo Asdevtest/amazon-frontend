@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TaskOperationType} from '@constants/task-operation-type'
@@ -33,6 +33,8 @@ export class ClientWarehouseViewModel {
   showRedistributeBoxAddNewBoxModal = false
   showRedistributeBoxSuccessModal = false
   showRedistributeBoxFailModal = false
+  showRequestToSendBatchModal = false
+  boxesDeliveryCosts = undefined
 
   get isMasterBoxSelected() {
     return this.selectedBoxes.some(boxId => {
@@ -331,6 +333,44 @@ export class ClientWarehouseViewModel {
     } catch (error) {
       console.log(error)
       this.error = error
+    }
+  }
+
+  triggerRequestToSendBatchModal() {
+    this.showRequestToSendBatchModal = !this.showRequestToSendBatchModal
+  }
+
+  async onClickRequestToSendBatch() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      const boxesDeliveryCosts = await BoxesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
+      runInAction(() => {
+        this.boxesDeliveryCosts = boxesDeliveryCosts
+      })
+      this.setRequestStatus(loadingStatuses.success)
+      this.triggerRequestToSendBatchModal()
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async onClickSendBoxesToBatch() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      const boxesSendToBatch = this.selectedBoxes.filter(
+        selectedBoxId => this.boxesDeliveryCosts.find(priceObj => priceObj.guid === selectedBoxId)?.deliveryCost,
+      )
+      await BoxesModel.requestSendBoxToBatch(boxesSendToBatch)
+      runInAction(() => {
+        this.showRequestToSendBatchModal = false
+        this.selectedBoxes = []
+      })
+      this.setRequestStatus(loadingStatuses.success)
+      this.loadData()
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
     }
   }
 }

@@ -11,6 +11,7 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -104,10 +105,10 @@ export class WarehouseWarehouseViewRaw extends Component {
 
               {/* <Table
                 currentPage={curPage}
-                data={boxesMy}
+                data={boxes}
                 handlerPageChange={onChangeCurPage}
                 handlerRowsPerPage={onChangeRowsPerPage}
-                pageCount={Math.ceil(boxesMy.length / rowsPerPage)}
+                pageCount={Math.ceil(boxes.length / rowsPerPage)}
                 BodyRow={WarehouseBodyRow}
                 renderHeadRow={this.renderHeadRow}
                 rowsPerPage={rowsPerPage}
@@ -116,6 +117,21 @@ export class WarehouseWarehouseViewRaw extends Component {
           </Appbar>
         </Main>
       </React.Fragment>
+    )
+  }
+
+  renderButtons = () => {
+    const {selectedBoxes, onClickConfirmSendToBatchBtn} = this.viewModel
+    return (
+      <Button
+        disableElevation
+        disabled={!selectedBoxes.length}
+        color="primary"
+        variant="contained"
+        onClick={onClickConfirmSendToBatchBtn}
+      >
+        {textConsts.confirmSendBatchBtn}
+      </Button>
     )
   }
 }

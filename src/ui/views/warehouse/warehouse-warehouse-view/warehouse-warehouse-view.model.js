@@ -5,6 +5,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
@@ -14,7 +15,8 @@ export class WarehouseWarehouseViewModel {
   requestStatus = undefined
   error = undefined
 
-  boxesMy = []
+  boxes = []
+  selectedBoxes = []
 
   drawerOpen = false
 
@@ -64,13 +66,13 @@ export class WarehouseWarehouseViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.boxesMy)
+    return toJS(this.boxes)
   }
 
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getBoxesMy()
+      await this.getBatches()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -91,12 +93,13 @@ export class WarehouseWarehouseViewModel {
     this.paginationPage = 1
   }
 
-  async getBoxesMy() {
+  async getBatches() {
     try {
-      const result = await BoxesModel.getBoxes()
+      const result = await StorekeeperModel.getBatches()
+      const boxes = result.map(batchObj => batchObj.boxes).flat()
 
       runInAction(() => {
-        this.boxesMy = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')).map(user => ({
+        this.boxes = boxes.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')).map(user => ({
           ...getObjectFilteredByKeyArrayBlackList(user, ['_id']),
           id: user._id,
         }))
@@ -104,6 +107,26 @@ export class WarehouseWarehouseViewModel {
     } catch (error) {
       console.log(error)
       this.error = error
+    }
+  }
+
+  onSelectBox(boxId) {
+    if (this.selectedBoxes.includes(boxId)) {
+      this.selectedBoxes = this.selectedBoxes.filter(selectedBoxId => selectedBoxId !== boxId)
+    } else {
+      this.selectedBoxes = [...this.selectedBoxes, boxId]
+    }
+  }
+
+  async onClickConfirmSendToBatchBtn() {
+    try {
+      await BoxesModel.sendBoxesToBatch(this.selectedBoxes)
+      runInAction(() => {
+        this.selectedBoxes = []
+      })
+      this.loadData()
+    } catch (error) {
+      console.log(error)
     }
   }
 }

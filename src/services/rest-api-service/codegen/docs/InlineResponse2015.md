@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**token** | **String** | Токен для авторизации. | [optional] 
+**fileName** | **String** | Имя файла для доступа к нему. | [optional] 
 
 

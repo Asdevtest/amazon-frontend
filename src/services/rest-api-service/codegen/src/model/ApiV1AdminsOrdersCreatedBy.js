@@ -19,7 +19,7 @@ import ApiClient from '../ApiClient';
  * @version v0.0.1
  */
 class ApiV1AdminsOrdersCreatedBy {
-  /**
+    /**
      * Constructs a new <code>ApiV1AdminsOrdersCreatedBy</code>.
      * Пользователь системы
      * @alias module:model/ApiV1AdminsOrdersCreatedBy
@@ -30,66 +30,67 @@ class ApiV1AdminsOrdersCreatedBy {
      * @param fba {Boolean} Флаг fba.
      * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
      * @param rate {Number} Ставка, по который оплачивается сотрудник.
-     * @param balance {Number} Баланс юзера.
      */
-  constructor(_id, name, email, role, fba, active, rate, balance) {
-    ApiV1AdminsOrdersCreatedBy.initialize(this, _id, name, email, role, fba, active, rate, balance);
-  }
+    constructor(_id, name, email, role, fba, active, rate) { 
+        
+        ApiV1AdminsOrdersCreatedBy.initialize(this, _id, name, email, role, fba, active, rate);
+    }
 
-  /**
+    /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-  static initialize(obj, _id, name, email, role, fba, active, rate, balance) {
-    obj['_id'] = _id;
-    obj['name'] = name;
-    obj['email'] = email;
-    obj['role'] = role;
-    obj['fba'] = fba;
-    obj['active'] = active;
-    obj['rate'] = rate;
-    obj['balance'] = balance;
-  }
+    static initialize(obj, _id, name, email, role, fba, active, rate) { 
+        obj['_id'] = _id;
+        obj['name'] = name;
+        obj['email'] = email;
+        obj['role'] = role;
+        obj['fba'] = fba;
+        obj['active'] = active;
+        obj['rate'] = rate;
+    }
 
-  /**
+    /**
      * Constructs a <code>ApiV1AdminsOrdersCreatedBy</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/ApiV1AdminsOrdersCreatedBy} obj Optional instance to populate.
      * @return {module:model/ApiV1AdminsOrdersCreatedBy} The populated <code>ApiV1AdminsOrdersCreatedBy</code> instance.
      */
-  static constructFromObject(data, obj) {
-    if (data) {
-      obj = obj || new ApiV1AdminsOrdersCreatedBy();
+    static constructFromObject(data, obj) {
+        if (data) {
+            obj = obj || new ApiV1AdminsOrdersCreatedBy();
 
-      if (data.hasOwnProperty('_id')) {
-        obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-      }
-      if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String');
-      }
-      if (data.hasOwnProperty('email')) {
-        obj['email'] = ApiClient.convertToType(data['email'], 'String');
-      }
-      if (data.hasOwnProperty('role')) {
-        obj['role'] = ApiClient.convertToType(data['role'], 'Number');
-      }
-      if (data.hasOwnProperty('fba')) {
-        obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-      }
-      if (data.hasOwnProperty('active')) {
-        obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
-      }
-      if (data.hasOwnProperty('rate')) {
-        obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
-      }
-      if (data.hasOwnProperty('balance')) {
-        obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
-      }
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            }
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            }
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            }
+            if (data.hasOwnProperty('active')) {
+                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
+            }
+            if (data.hasOwnProperty('rate')) {
+                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
+            }
+            if (data.hasOwnProperty('balance')) {
+                obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
+            }
+        }
+        return obj;
     }
-    return obj;
-  }
+
+
 }
 
 /**
@@ -135,9 +136,15 @@ ApiV1AdminsOrdersCreatedBy.prototype['active'] = undefined;
 ApiV1AdminsOrdersCreatedBy.prototype['rate'] = undefined;
 
 /**
- * Баланс юзера
+ * Баланс пользователя.
  * @member {Number} balance
  */
 ApiV1AdminsOrdersCreatedBy.prototype['balance'] = undefined;
 
+
+
+
+
+
 export default ApiV1AdminsOrdersCreatedBy;
+
