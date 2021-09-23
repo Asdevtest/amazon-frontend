@@ -10,6 +10,7 @@ import {ResearcherModel} from '@models/researcher-model'
 import {ResearcherUpdateProductContract} from '@models/researcher-model/researcher-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
 
+import {checkIsPositiveNum, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {
   getObjectFilteredByKeyArrayWhiteList,
@@ -133,7 +134,10 @@ export class ResearcherProductViewModel {
       } else if (['icomment'].includes(fieldName)) {
         this.product[fieldName] = e.target.value
       } else {
-        if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+        if (
+          !checkIsPositiveNum(e.target.value) ||
+          (fieldName === 'amazon' && !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value))
+        ) {
           return
         }
         if (['bsr', 'fbaamount'].includes(fieldName)) {
