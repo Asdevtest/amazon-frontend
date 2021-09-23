@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesApproveAdditionalBoxes from './ApiV1BoxesApproveAdditionalBoxes';
 
 /**
  * The InlineObject27 model module.
@@ -22,12 +23,10 @@ class InlineObject27 {
     /**
      * Constructs a new <code>InlineObject27</code>.
      * @alias module:model/InlineObject27
-     * @param email {String} 
-     * @param password {String} 
      */
-    constructor(email, password) { 
+    constructor() { 
         
-        InlineObject27.initialize(this, email, password);
+        InlineObject27.initialize(this);
     }
 
     /**
@@ -35,9 +34,7 @@ class InlineObject27 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email, password) { 
-        obj['email'] = email;
-        obj['password'] = password;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +48,8 @@ class InlineObject27 {
         if (data) {
             obj = obj || new InlineObject27();
 
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
-            }
-            if (data.hasOwnProperty('password')) {
-                obj['password'] = ApiClient.convertToType(data['password'], 'String');
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [ApiV1BoxesApproveAdditionalBoxes]);
             }
         }
         return obj;
@@ -65,14 +59,10 @@ class InlineObject27 {
 }
 
 /**
- * @member {String} email
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/ApiV1BoxesApproveAdditionalBoxes>} additionalBoxes
  */
-InlineObject27.prototype['email'] = undefined;
-
-/**
- * @member {String} password
- */
-InlineObject27.prototype['password'] = undefined;
+InlineObject27.prototype['additionalBoxes'] = undefined;
 
 
 

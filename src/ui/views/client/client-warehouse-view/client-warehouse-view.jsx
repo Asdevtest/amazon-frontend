@@ -19,6 +19,7 @@ import {SendOwnProductForm} from '@components/forms/send-own-product-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {RequestToSendBatchModal} from '@components/modals/request-to-send-batch-modal/request-to-send-batch-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -64,6 +65,8 @@ export class ClientWarehouseViewRaw extends Component {
       showRedistributeBoxAddNewBoxModal,
       showRedistributeBoxSuccessModal,
       showRedistributeBoxFailModal,
+      showRequestToSendBatchModal,
+      boxesDeliveryCosts,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -77,6 +80,8 @@ export class ClientWarehouseViewRaw extends Component {
       cancelEditBoxes,
       setCurrentOpenedTask,
       setTmpClientComment,
+      triggerRequestToSendBatchModal,
+      onClickSendBoxesToBatch,
       onClickMerge,
     } = this.viewModel
 
@@ -238,6 +243,15 @@ export class ClientWarehouseViewRaw extends Component {
             onTriggerOpenModal('showRedistributeBoxFailModal')
           }}
         />
+        <RequestToSendBatchModal
+          openModal={showRequestToSendBatchModal}
+          setOpenModal={triggerRequestToSendBatchModal}
+          boxesDeliveryCosts={boxesDeliveryCosts}
+          selectedBoxes={selectedBoxes}
+          boxesMy={boxesMy}
+          onClickRemoveBoxFromBatch={onTriggerCheckbox}
+          onClickSendBoxesToBatch={onClickSendBoxesToBatch}
+        />
       </React.Fragment>
     )
   }
@@ -251,10 +265,17 @@ export class ClientWarehouseViewRaw extends Component {
   )
 
   renderButtons = () => {
-    const {selectedBoxes, isMasterBoxSelected, onTriggerOpenModal, onResetselectedBoxes} = this.viewModel
+    const {selectedBoxes, isMasterBoxSelected, onTriggerOpenModal, onResetselectedBoxes, onClickRequestToSendBatch} =
+      this.viewModel
     return (
       <React.Fragment>
-        <Button disableElevation color="primary" variant="contained">
+        <Button
+          disableElevation
+          disabled={!selectedBoxes.length}
+          color="primary"
+          variant="contained"
+          onClick={onClickRequestToSendBatch}
+        >
           {textConsts.sendBatchBtn}
         </Button>
 

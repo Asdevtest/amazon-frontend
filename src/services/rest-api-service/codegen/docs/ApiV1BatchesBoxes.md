@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **Number** | ID коробки | [optional] 
 **_id** | **String** | GUID коробки в БД | [optional] 
 **amount** | **Number** | сколько таких же коробок в одной коробке | [optional] 
 **lengthCm** | **Number** | Поле в которое наследуем данные размеров коробок | [optional] 
@@ -31,7 +32,10 @@ Name | Type | Description | Notes
 **weighGrossKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
 **volumeWeightKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
 **weightFinalAccountingKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
-**createdBy** | **String** | Клиент создавший заказ и коробку. | [optional] 
+**isShippingLabelAttachedByStorekeeper** | **Boolean** | Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл. | [optional] 
+**createdBy** | **String** | Тот кто создал коробку. | [optional] 
+**createdAt** | **Date** | Дата создания | [optional] 
+**clientId** | **String** | Клиент кто или для кого создана коробка. | [optional] 
 **buyerId** | **String** | Байер взявший коробку в работу. | [optional] 
 **lastModifiedBy** | **String** | GUID любого, кто последний редактировал коробку. | [optional] 
 **scheduledDispatchDate** | **Date** | Запланированная дата отправки. | [optional] 

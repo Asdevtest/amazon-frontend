@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
 
-import {formatDateTimeWithParseISO} from '@utils/date-time'
+import {formatDateTime} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
@@ -44,9 +44,7 @@ export const UserBalanceHistory = ({historyData, title}) => {
                       [classNames.withdrawRow]: item.sum < 0,
                     })}
                   >
-                    <TableCell className={classNames.dateCell}>
-                      {formatDateTimeWithParseISO(item.createdDate)}
-                    </TableCell>
+                    <TableCell className={classNames.dateCell}>{formatDateTime(item.createdDate)}</TableCell>
                     <TableCell className={classNames.amountCell}>{toFixedWithDollarSign(item.sum)}</TableCell>
                     <TableCell className={classNames.typeCell}>{item.sum >= 0 ? 'replenish' : 'withdraw'}</TableCell>
                     <TableCell className={classNames.commentCell}>{item.comment}</TableCell>

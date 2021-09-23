@@ -195,7 +195,7 @@ let apiInstance = new Amazonapi.SupplierApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject25': new Amazonapi.InlineObject25() // InlineObject25 | 
+  'InlineObject33': new Amazonapi.InlineObject33() // InlineObject33 | 
 };
 apiInstance.apiV1SuppliersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject25** | [**InlineObject25**](InlineObject25.md)|  | [optional] 
+ **InlineObject33** | [**InlineObject33**](InlineObject33.md)|  | [optional] 
 
 ### Return type
 
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersPost
 
-> InlineResponse2013 apiV1SuppliersPost(InlineObject24, opts)
+> InlineResponse2014 apiV1SuppliersPost(InlineObject32, opts)
 
 # Добавить нового поставщика.
 
@@ -248,11 +248,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.SupplierApi();
-let InlineObject24 = new Amazonapi.InlineObject24(); // InlineObject24 | 
+let InlineObject32 = new Amazonapi.InlineObject32(); // InlineObject32 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1SuppliersPost(InlineObject24, opts).then((data) => {
+apiInstance.apiV1SuppliersPost(InlineObject32, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -265,12 +265,12 @@ apiInstance.apiV1SuppliersPost(InlineObject24, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject24** | [**InlineObject24**](InlineObject24.md)|  | 
+ **InlineObject32** | [**InlineObject32**](InlineObject32.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
 
-[**InlineResponse2013**](InlineResponse2013.md)
+[**InlineResponse2014**](InlineResponse2014.md)
 
 ### Authorization
 

@@ -23,12 +23,11 @@ class InlineObject17 {
      * Constructs a new <code>InlineObject17</code>.
      * @alias module:model/InlineObject17
      * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxes {Array.<String>} Массив коробок.
      * @param operationType {module:model/InlineObject17.OperationTypeEnum} Тип операции
      */
-    constructor(taskId, boxes, operationType) { 
+    constructor(taskId, operationType) { 
         
-        InlineObject17.initialize(this, taskId, boxes, operationType);
+        InlineObject17.initialize(this, taskId, operationType);
     }
 
     /**
@@ -36,9 +35,8 @@ class InlineObject17 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, boxes, operationType) { 
+    static initialize(obj, taskId, operationType) { 
         obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
         obj['operationType'] = operationType;
     }
 
@@ -56,11 +54,23 @@ class InlineObject17 {
             if (data.hasOwnProperty('taskId')) {
                 obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
             }
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
+            }
             if (data.hasOwnProperty('boxes')) {
                 obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
             }
             if (data.hasOwnProperty('operationType')) {
                 obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -76,7 +86,11 @@ class InlineObject17 {
 InlineObject17.prototype['taskId'] = undefined;
 
 /**
- * Массив коробок.
+ * @member {Array.<String>} boxesBefore
+ */
+InlineObject17.prototype['boxesBefore'] = undefined;
+
+/**
  * @member {Array.<String>} boxes
  */
 InlineObject17.prototype['boxes'] = undefined;
@@ -86,6 +100,25 @@ InlineObject17.prototype['boxes'] = undefined;
  * @member {module:model/InlineObject17.OperationTypeEnum} operationType
  */
 InlineObject17.prototype['operationType'] = undefined;
+
+/**
+ * Комментарий клиента.
+ * @member {String} clientComment
+ * @default ''
+ */
+InlineObject17.prototype['clientComment'] = '';
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject17.prototype['images'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineObject17.prototype['storekeeperComment'] = undefined;
 
 
 
@@ -114,7 +147,13 @@ InlineObject17['OperationTypeEnum'] = {
      * value: "receive"
      * @const
      */
-    "receive": "receive"
+    "receive": "receive",
+
+    /**
+     * value: "edit"
+     * @const
+     */
+    "edit": "edit"
 };
 
 

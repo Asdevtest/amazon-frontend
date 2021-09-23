@@ -4,13 +4,29 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Название поставщика. | [optional] 
-**link** | **String** | Ссылка на поставщика. | [optional] 
-**price** | **Number** | Цена | [optional] 
-**delivery** | **Number** | Тип доставки | [optional] 
-**amount** | **Number** | кол-во | [optional] 
-**minlot** | **Number** | Минимальный лот. | [optional] 
-**lotcost** | **Number** | Стоимость лота. | [optional] 
-**comment** | **String** | Комментарий | [optional] 
+**id** | **String** | ASIN продукта | 
+**lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
+**currentSupplier** | **String** | GUID поставщика | [optional] 
+**category** | **String** | Категория | [optional] 
+**bsr** | **Number** |  | 
+**status** | **Number** |  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком | [optional] [default to StatusEnum.0]
+**amazon** | **Number** |  | 
+**supplier** | **[String]** | Массив поставщиков. | 
+**fbafee** | **Number** | ФБА комиссия | 
+**delivery** | **Number** | Стоимость доставки. | 
+**icomment** | **String** | Комментарии к товару. | 
+**images** | **[String]** | Массив изображений. | 
+**byboxprice** | **Number** | Цена | [optional] 
+
+
+
+## Enum: StatusEnum
+
+
+* `0` (value: `0`)
+
+* `10` (value: `10`)
+
+
 
 

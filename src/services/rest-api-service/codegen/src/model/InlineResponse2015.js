@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse2015 {
     /**
      * Constructs a new <code>InlineResponse2015</code>.
-     * Пользователь после авторизации.
      * @alias module:model/InlineResponse2015
      */
     constructor() { 
@@ -48,8 +47,8 @@ class InlineResponse2015 {
         if (data) {
             obj = obj || new InlineResponse2015();
 
-            if (data.hasOwnProperty('token')) {
-                obj['token'] = ApiClient.convertToType(data['token'], 'String');
+            if (data.hasOwnProperty('fileName')) {
+                obj['fileName'] = ApiClient.convertToType(data['fileName'], 'String');
             }
         }
         return obj;
@@ -59,10 +58,10 @@ class InlineResponse2015 {
 }
 
 /**
- * Токен для авторизации.
- * @member {String} token
+ * Имя файла для доступа к нему.
+ * @member {String} fileName
  */
-InlineResponse2015.prototype['token'] = undefined;
+InlineResponse2015.prototype['fileName'] = undefined;
 
 
 

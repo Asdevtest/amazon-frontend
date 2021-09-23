@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **amount** | **Number** | кол-во | 
 **minlot** | **Number** | Минимальный лот. | 
 **lotcost** | **Number** | Стоимость лота. | 
+**images** | **[String]** | Массив картинок. | [optional] 
 **comment** | **String** | Комментарий | 
 **_id** | **String** | GUID поставщика в БД | [optional] 
 

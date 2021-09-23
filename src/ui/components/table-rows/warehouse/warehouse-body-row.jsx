@@ -8,7 +8,7 @@ import clsx from 'clsx'
 
 import {warehouses} from '@constants/warehouses'
 
-import {formatNormDateTimeWithParseISO} from '@utils/date-time'
+import {formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixedWithDollarSign, withKg} from '@utils/text'
 
@@ -17,7 +17,7 @@ import {styles} from './warehouse-body-row.style'
 const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsDatas, areSubBoxes, ...restProps}) => {
   const classNames = restProps.classes
   const ordersQty = box.items.length
-  const boxCreatedAt = formatNormDateTimeWithParseISO(box.createdAt)
+  const boxCreatedAt = formatNormDateTime(box.createdAt)
   const [isMaximizedMasterBox, setIsMaximizedMasterBox] = useState(false)
 
   const onTriggerIsMaximizedMasterBox = () => {

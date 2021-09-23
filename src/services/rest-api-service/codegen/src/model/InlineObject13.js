@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesApproveAdditionalBoxes from './ApiV1BoxesApproveAdditionalBoxes';
 
 /**
  * The InlineObject13 model module.
@@ -47,23 +48,11 @@ class InlineObject13 {
         if (data) {
             obj = obj || new InlineObject13();
 
-            if (data.hasOwnProperty('currentSupplier')) {
-                obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
-            if (data.hasOwnProperty('dirdecision')) {
-                obj['dirdecision'] = ApiClient.convertToType(data['dirdecision'], 'Number');
-            }
-            if (data.hasOwnProperty('researcherFine')) {
-                obj['researcherFine'] = ApiClient.convertToType(data['researcherFine'], 'Number');
-            }
-            if (data.hasOwnProperty('researcherFineComment')) {
-                obj['researcherFineComment'] = ApiClient.convertToType(data['researcherFineComment'], 'String');
-            }
-            if (data.hasOwnProperty('supervisorFine')) {
-                obj['supervisorFine'] = ApiClient.convertToType(data['supervisorFine'], 'Number');
-            }
-            if (data.hasOwnProperty('supervisorFineComment')) {
-                obj['supervisorFineComment'] = ApiClient.convertToType(data['supervisorFineComment'], 'String');
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [ApiV1BoxesApproveAdditionalBoxes]);
             }
         }
         return obj;
@@ -73,40 +62,16 @@ class InlineObject13 {
 }
 
 /**
- * GUID поставщика
- * @member {String} currentSupplier
+ * GUID для которой подтверждаем действие.
+ * @member {String} guid
  */
-InlineObject13.prototype['currentSupplier'] = undefined;
+InlineObject13.prototype['guid'] = undefined;
 
 /**
- * Решение по товару.
- * @member {Number} dirdecision
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/ApiV1BoxesApproveAdditionalBoxes>} additionalBoxes
  */
-InlineObject13.prototype['dirdecision'] = undefined;
-
-/**
- * Штраф на менеджера.
- * @member {Number} researcherFine
- */
-InlineObject13.prototype['researcherFine'] = undefined;
-
-/**
- * Комментарии к штрафу на менеджера.
- * @member {String} researcherFineComment
- */
-InlineObject13.prototype['researcherFineComment'] = undefined;
-
-/**
- * Штраф на супервайзера.
- * @member {Number} supervisorFine
- */
-InlineObject13.prototype['supervisorFine'] = undefined;
-
-/**
- * Комментарий к штрафу на супервайзера.
- * @member {String} supervisorFineComment
- */
-InlineObject13.prototype['supervisorFineComment'] = undefined;
+InlineObject13.prototype['additionalBoxes'] = undefined;
 
 
 

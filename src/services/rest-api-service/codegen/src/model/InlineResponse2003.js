@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BatchesBatch from './ApiV1BatchesBatch';
-import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
+import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
 
 /**
  * The InlineResponse2003 model module.
@@ -24,12 +23,10 @@ class InlineResponse2003 {
     /**
      * Constructs a new <code>InlineResponse2003</code>.
      * @alias module:model/InlineResponse2003
-     * @param batch {module:model/ApiV1BatchesBatch} 
-     * @param boxes {Array.<module:model/ApiV1BatchesBoxes>} Массив коробок.
      */
-    constructor(batch, boxes) { 
+    constructor() { 
         
-        InlineResponse2003.initialize(this, batch, boxes);
+        InlineResponse2003.initialize(this);
     }
 
     /**
@@ -37,9 +34,7 @@ class InlineResponse2003 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, batch, boxes) { 
-        obj['batch'] = batch;
-        obj['boxes'] = boxes;
+    static initialize(obj) { 
     }
 
     /**
@@ -53,11 +48,26 @@ class InlineResponse2003 {
         if (data) {
             obj = obj || new InlineResponse2003();
 
-            if (data.hasOwnProperty('batch')) {
-                obj['batch'] = ApiV1BatchesBatch.constructFromObject(data['batch']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
+            if (data.hasOwnProperty('createdDate')) {
+                obj['createdDate'] = ApiClient.convertToType(data['createdDate'], 'Date');
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('recipient')) {
+                obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient']);
+            }
+            if (data.hasOwnProperty('sum')) {
+                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -67,15 +77,44 @@ class InlineResponse2003 {
 }
 
 /**
- * @member {module:model/ApiV1BatchesBatch} batch
+ * GUID платежа
+ * @member {String} _id
  */
-InlineResponse2003.prototype['batch'] = undefined;
+InlineResponse2003.prototype['_id'] = undefined;
 
 /**
- * Массив коробок.
- * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
+ * Дата создания.
+ * @member {Date} createdDate
  */
-InlineResponse2003.prototype['boxes'] = undefined;
+InlineResponse2003.prototype['createdDate'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy
+ */
+InlineResponse2003.prototype['createdBy'] = undefined;
+
+/**
+ * GUID продукта.
+ * @member {String} productId
+ */
+InlineResponse2003.prototype['productId'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient
+ */
+InlineResponse2003.prototype['recipient'] = undefined;
+
+/**
+ * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+ * @member {Number} sum
+ */
+InlineResponse2003.prototype['sum'] = undefined;
+
+/**
+ * комментарий
+ * @member {String} comment
+ */
+InlineResponse2003.prototype['comment'] = undefined;
 
 
 

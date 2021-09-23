@@ -22,16 +22,11 @@ class InlineObject15 {
     /**
      * Constructs a new <code>InlineObject15</code>.
      * @alias module:model/InlineObject15
-     * @param amount {Number} Кол-во продукта по этой позиции.
-     * @param deliveryMethod {Number} Код метода доставки.
-     * @param warehouse {Number} Номер склада.
-     * @param clientComment {String} Комментарии клиента.
-     * @param barCode {String} Ссылка на баркод.
-     * @param product {String} GUID заказанного продукта
+     * @param boxesIds {Array.<String>} 
      */
-    constructor(amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
+    constructor(boxesIds) { 
         
-        InlineObject15.initialize(this, amount, deliveryMethod, warehouse, clientComment, barCode, product);
+        InlineObject15.initialize(this, boxesIds);
     }
 
     /**
@@ -39,13 +34,8 @@ class InlineObject15 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
-        obj['amount'] = amount;
-        obj['deliveryMethod'] = deliveryMethod;
-        obj['warehouse'] = warehouse;
-        obj['clientComment'] = clientComment;
-        obj['barCode'] = barCode;
-        obj['product'] = product;
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -59,29 +49,11 @@ class InlineObject15 {
         if (data) {
             obj = obj || new InlineObject15();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('cancel')) {
+                obj['cancel'] = ApiClient.convertToType(data['cancel'], 'Boolean');
             }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiClient.convertToType(data['product'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -91,52 +63,16 @@ class InlineObject15 {
 }
 
 /**
- * Код текущего состояния заказа.
- * @member {Number} status
+ * Флаг отмены. Если он true - то все списания будут сделаны с обратным знаком.
+ * @member {Boolean} cancel
+ * @default false
  */
-InlineObject15.prototype['status'] = undefined;
+InlineObject15.prototype['cancel'] = false;
 
 /**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
+ * @member {Array.<String>} boxesIds
  */
-InlineObject15.prototype['amount'] = undefined;
-
-/**
- * Код метода доставки.
- * @member {Number} deliveryMethod
- */
-InlineObject15.prototype['deliveryMethod'] = undefined;
-
-/**
- * Номер склада.
- * @member {Number} warehouse
- */
-InlineObject15.prototype['warehouse'] = undefined;
-
-/**
- * Комментарии клиента.
- * @member {String} clientComment
- */
-InlineObject15.prototype['clientComment'] = undefined;
-
-/**
- * Ссылка на баркод.
- * @member {String} barCode
- */
-InlineObject15.prototype['barCode'] = undefined;
-
-/**
- * GUID заказанного продукта
- * @member {String} product
- */
-InlineObject15.prototype['product'] = undefined;
-
-/**
- * Массив изображений.
- * @member {Array.<String>} images
- */
-InlineObject15.prototype['images'] = undefined;
+InlineObject15.prototype['boxesIds'] = undefined;
 
 
 

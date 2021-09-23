@@ -22,19 +22,16 @@ class InlineObject20 {
     /**
      * Constructs a new <code>InlineObject20</code>.
      * @alias module:model/InlineObject20
-     * @param id {String} ASIN продукта
-     * @param lamazon {String} Ссылка на этот продукт на амазоне.
-     * @param bsr {Number} 
-     * @param amazon {Number} 
-     * @param supplier {Array.<String>} Массив поставщиков.
-     * @param fbafee {Number} ФБА комиссия
-     * @param delivery {Number} Стоимость доставки.
-     * @param icomment {String} Комментарии к товару.
-     * @param images {Array.<String>} Массив изображений.
+     * @param amount {Number} Кол-во продукта по этой позиции.
+     * @param deliveryMethod {Number} Код метода доставки.
+     * @param warehouse {Number} Номер склада.
+     * @param clientComment {String} Комментарии клиента.
+     * @param barCode {String} Ссылка на баркод.
+     * @param product {String} GUID заказанного продукта
      */
-    constructor(id, lamazon, bsr, amazon, supplier, fbafee, delivery, icomment, images) { 
+    constructor(amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
         
-        InlineObject20.initialize(this, id, lamazon, bsr, amazon, supplier, fbafee, delivery, icomment, images);
+        InlineObject20.initialize(this, amount, deliveryMethod, warehouse, clientComment, barCode, product);
     }
 
     /**
@@ -42,16 +39,13 @@ class InlineObject20 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, lamazon, bsr, amazon, supplier, fbafee, delivery, icomment, images) { 
-        obj['id'] = id;
-        obj['lamazon'] = lamazon;
-        obj['bsr'] = bsr;
-        obj['amazon'] = amazon;
-        obj['supplier'] = supplier;
-        obj['fbafee'] = fbafee;
-        obj['delivery'] = delivery;
-        obj['icomment'] = icomment;
-        obj['images'] = images;
+    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
+        obj['amount'] = amount;
+        obj['deliveryMethod'] = deliveryMethod;
+        obj['warehouse'] = warehouse;
+        obj['clientComment'] = clientComment;
+        obj['barCode'] = barCode;
+        obj['product'] = product;
     }
 
     /**
@@ -65,53 +59,29 @@ class InlineObject20 {
         if (data) {
             obj = obj || new InlineObject20();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
-            }
-            if (data.hasOwnProperty('lamazon')) {
-                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
-            }
-            if (data.hasOwnProperty('currentSupplier')) {
-                obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'String');
-            }
-            if (data.hasOwnProperty('category')) {
-                obj['category'] = ApiClient.convertToType(data['category'], 'String');
-            }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
-            }
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('supplier')) {
-                obj['supplier'] = ApiClient.convertToType(data['supplier'], ['String']);
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
             }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
             }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('icomment')) {
-                obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = ApiClient.convertToType(data['product'], 'String');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('byboxprice')) {
-                obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number');
-            }
-            if (data.hasOwnProperty('researcherRate')) {
-                obj['researcherRate'] = ApiClient.convertToType(data['researcherRate'], 'Number');
-            }
-            if (data.hasOwnProperty('supervisorRate')) {
-                obj['supervisorRate'] = ApiClient.convertToType(data['supervisorRate'], 'Number');
-            }
-            if (data.hasOwnProperty('buyerRate')) {
-                obj['buyerRate'] = ApiClient.convertToType(data['buyerRate'], 'Number');
             }
         }
         return obj;
@@ -120,94 +90,47 @@ class InlineObject20 {
 
 }
 
-
+/**
+ * Код текущего состояния заказа.
+ * @member {Number} status
+ */
+InlineObject20.prototype['status'] = undefined;
 
 /**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
  */
- InlineObject20['StatusEnum'] = {
-
-    /**
-     * value: 0
-     * @const
-     */
-    "0": 0,
-
-    /**
-     * value: 10
-     * @const
-     */
-    "10": 10
-};
-
-
+InlineObject20.prototype['amount'] = undefined;
 
 /**
- * ASIN продукта
- * @member {String} id
+ * Код метода доставки.
+ * @member {Number} deliveryMethod
  */
-InlineObject20.prototype['id'] = undefined;
+InlineObject20.prototype['deliveryMethod'] = undefined;
 
 /**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lamazon
+ * Номер склада.
+ * @member {Number} warehouse
  */
-InlineObject20.prototype['lamazon'] = undefined;
+InlineObject20.prototype['warehouse'] = undefined;
 
 /**
- * GUID поставщика
- * @member {String} currentSupplier
+ * Комментарии клиента.
+ * @member {String} clientComment
  */
-InlineObject20.prototype['currentSupplier'] = undefined;
+InlineObject20.prototype['clientComment'] = undefined;
 
 /**
- * Категория
- * @member {String} category
+ * Ссылка на баркод.
+ * @member {String} barCode
  */
-InlineObject20.prototype['category'] = undefined;
+InlineObject20.prototype['barCode'] = undefined;
 
 /**
- * @member {Number} bsr
+ * GUID заказанного продукта
+ * @member {String} product
  */
-InlineObject20.prototype['bsr'] = undefined;
-
-/**
- *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
- * @member {module:model/InlineObject20.StatusEnum} status
- * @default StatusEnum.0
- */
-InlineObject20.prototype['status'] = InlineObject20.StatusEnum[0];
-
-/**
- * @member {Number} amazon
- */
-InlineObject20.prototype['amazon'] = undefined;
-
-/**
- * Массив поставщиков.
- * @member {Array.<String>} supplier
- */
-InlineObject20.prototype['supplier'] = undefined;
-
-/**
- * ФБА комиссия
- * @member {Number} fbafee
- */
-InlineObject20.prototype['fbafee'] = undefined;
-
-/**
- * Стоимость доставки.
- * @member {Number} delivery
- */
-InlineObject20.prototype['delivery'] = undefined;
-
-/**
- * Комментарии к товару.
- * @member {String} icomment
- */
-InlineObject20.prototype['icomment'] = undefined;
+InlineObject20.prototype['product'] = undefined;
 
 /**
  * Массив изображений.
@@ -215,29 +138,6 @@ InlineObject20.prototype['icomment'] = undefined;
  */
 InlineObject20.prototype['images'] = undefined;
 
-/**
- * Цена
- * @member {Number} byboxprice
- */
-InlineObject20.prototype['byboxprice'] = undefined;
-
-/**
- * Савка ресечера.
- * @member {Number} researcherRate
- */
-InlineObject20.prototype['researcherRate'] = undefined;
-
-/**
- * Савка супервайзера.
- * @member {Number} supervisorRate
- */
-InlineObject20.prototype['supervisorRate'] = undefined;
-
-/**
- * Савка байера.
- * @member {Number} buyerRate
- */
-InlineObject20.prototype['buyerRate'] = undefined;
 
 
 

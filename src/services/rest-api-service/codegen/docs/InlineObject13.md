@@ -4,11 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**currentSupplier** | **String** | GUID поставщика | [optional] 
-**dirdecision** | **Number** | Решение по товару. | [optional] 
-**researcherFine** | **Number** | Штраф на менеджера. | [optional] 
-**researcherFineComment** | **String** | Комментарии к штрафу на менеджера. | [optional] 
-**supervisorFine** | **Number** | Штраф на супервайзера. | [optional] 
-**supervisorFineComment** | **String** | Комментарий к штрафу на супервайзера. | [optional] 
+**guid** | **String** | GUID для которой подтверждаем действие. | [optional] 
+**additionalBoxes** | [**[ApiV1BoxesApproveAdditionalBoxes]**](ApiV1BoxesApproveAdditionalBoxes.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

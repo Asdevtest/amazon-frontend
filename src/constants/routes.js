@@ -285,6 +285,12 @@ export const privateRoutesConfigs = [
     permission: [UserRole.STOREKEEPER],
   },
   {
+    routePath: '/warehouse/warehouse',
+    component: WarehouseWarehouseView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+  },
+  {
     routePath: '/admin/dashboard',
     component: AdminDashboardView,
     exact: false,

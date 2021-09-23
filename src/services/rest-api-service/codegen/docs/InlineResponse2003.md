@@ -4,7 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**batch** | [**ApiV1BatchesBatch**](ApiV1BatchesBatch.md) |  | 
-**boxes** | [**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md) | Массив коробок. | 
+**_id** | **String** | GUID платежа | [optional] 
+**createdDate** | **Date** | Дата создания. | [optional] 
+**createdBy** | [**ApiV1AdminsPaymentsCreatedBy**](ApiV1AdminsPaymentsCreatedBy.md) |  | [optional] 
+**productId** | **String** | GUID продукта. | [optional] 
+**recipient** | [**ApiV1AdminsPaymentsCreatedBy**](ApiV1AdminsPaymentsCreatedBy.md) |  | [optional] 
+**sum** | **Number** | Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления. | [optional] 
+**comment** | **String** | комментарий | [optional] 
 
 

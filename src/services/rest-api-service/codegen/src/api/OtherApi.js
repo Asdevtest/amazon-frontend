@@ -11,78 +11,288 @@
  *
  */
 
+
+import ApiClient from "../ApiClient";
+import InlineResponse2003 from '../model/InlineResponse2003';
+import InlineResponse2015 from '../model/InlineResponse2015';
+import InlineResponse400 from '../model/InlineResponse400';
+import InlineResponse404 from '../model/InlineResponse404';
+import InlineResponse500 from '../model/InlineResponse500';
+
 /**
 * Other service.
 * @module api/OtherApi
 * @version v0.0.1
 */
 export default class OtherApi {
-  /**
-    * Constructs a new ClientApi. 
+
+    /**
+    * Constructs a new OtherApi. 
     * @alias module:api/OtherApi
     * @class
-    * @param {module:ApiClient} [apiClient] Optional API other implementation to use,
+    * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
     * default to {@link module:ApiClient#instance} if unspecified.
     */
-  constructor(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
-  }
+    constructor(apiClient) {
+        this.apiClient = apiClient || ApiClient.instance;
+    }
 
 
-  /**
-     * # Получить транзакции по GUID продукта.
-     * ## Получить транзакции по GUID продукта.  
-     * @param {String} guid GUID в сущности в БД
+
+    /**
+     * # Получить изображение.
+     * ## Получить изображение.   
+     * @param {String} guid guid файла
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-  apiV1PaymentsByProductWithHttpInfo(guid, opts) {
-    opts = opts || {};
-    let postBody = null;
+    apiV1OtherImgGuidGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1OtherImgGuidGet");
+      }
 
-    let pathParams = {
-      guid: guid
-    };
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
 
-    let queryParams = {};
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    };
-    let formParams = {};
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/api/v1/other/img/{guid}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
 
-    let authNames = [ 'AccessTokenBearer' ];
-    let contentTypes = [];
-    let accepts = [ 'text/html' ];
-    let returnType = [ Object ];
-    
-    return this.apiClient.callApi(
-      '/api/v1/other/payments/by_product/{guid}',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    );
-  }
-
-   /**
-     * # Получить транзакции по GUID продукта.
-     * ## Получить транзакции по GUID продукта.   
-     * @param {String} guid GUID в сущности в БД
+    /**
+     * # Получить изображение.
+     * ## Получить изображение.   
+     * @param {String} guid guid файла
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-  apiV1PaymentsByProduct(guid, opts) {
-    return this.apiV1PaymentsByProductWithHttpInfo(guid, opts).then(function(response_and_data){
-      return response_and_data.data;
-    });
-  }
+    apiV1OtherImgGuidGet(guid, opts) {
+      return this.apiV1OtherImgGuidGetWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
+     * ## Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.  
+     * @param {String} guid guid пользователя по которому нужны оплаты.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
+     */
+    apiV1OtherPaymentsByProductGuidGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1OtherPaymentsByProductGuidGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2003];
+      return this.apiClient.callApi(
+        '/api/v1/other/payments/by_product/{guid}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
+     * ## Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.  
+     * @param {String} guid guid пользователя по которому нужны оплаты.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
+     */
+    apiV1OtherPaymentsByProductGuidGet(guid, opts) {
+      return this.apiV1OtherPaymentsByProductGuidGetWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
+     * ## Получить все оплаты, которые были начислены пользователю с указанным гуидом.  
+     * @param {String} guid guid пользователя по которому нужны оплаты.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
+     */
+    apiV1OtherPaymentsByUserGuidGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1OtherPaymentsByUserGuidGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2003];
+      return this.apiClient.callApi(
+        '/api/v1/other/payments/by_user/{guid}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
+     * ## Получить все оплаты, которые были начислены пользователю с указанным гуидом.  
+     * @param {String} guid guid пользователя по которому нужны оплаты.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
+     */
+    apiV1OtherPaymentsByUserGuidGet(guid, opts) {
+      return this.apiV1OtherPaymentsByUserGuidGetWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить все оплаты, которые были начислены обратившемуся пользователю.
+     * ## Получить все оплаты, которые были начислены обратившемуся пользователю.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
+     */
+    apiV1OtherPaymentsMyGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2003];
+      return this.apiClient.callApi(
+        '/api/v1/other/payments/my', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить все оплаты, которые были начислены обратившемуся пользователю.
+     * ## Получить все оплаты, которые были начислены обратившемуся пользователю.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
+     */
+    apiV1OtherPaymentsMyGet(opts) {
+      return this.apiV1OtherPaymentsMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Загрузить изображение.
+     * ## Загрузить изображение.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
+     */
+    apiV1OtherUploadFilePostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse2015;
+      return this.apiClient.callApi(
+        '/api/v1/other/upload_file', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Загрузить изображение.
+     * ## Загрузить изображение.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
+     */
+    apiV1OtherUploadFilePost(opts) {
+      return this.apiV1OtherUploadFilePostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
 }
