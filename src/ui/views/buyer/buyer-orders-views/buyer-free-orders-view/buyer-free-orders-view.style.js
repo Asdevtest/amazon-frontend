@@ -9,5 +9,7 @@ export const styles = createStyles(() => ({
   },
   tableWrapper: {
     marginTop: '32px',
+    minWidth: '100%',
+    height: '100%',
   },
 }))

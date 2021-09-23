@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 
 import {Box, Grid, InputLabel, NativeSelect, Typography, Checkbox} from '@material-ui/core'
+import clsx from 'clsx'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode, OrderStatusByCode, OrderStatusByKey, OrderStatus} from '@constants/order-status'
@@ -9,9 +10,10 @@ import {texts} from '@constants/texts'
 import {Input} from '@components/input'
 
 import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} from '@utils/calculation'
+import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {withDollarSign, withYuanSign} from '@utils/text'
+import {toFixed, withDollarSign, withYuanSign} from '@utils/text'
 
 import {useClassNames} from './select-fields.style'
 
@@ -28,11 +30,15 @@ const allowOrderStatuses = [
 export const SelectFields = ({setOrderField, resetOrderField, orderFields, warehouses, deliveryTypeByCode}) => {
   const classNames = useClassNames()
 
-  const [supplierPaidDelivery, setSupplierPaidDelivery] = useState(false)
+  const [supplierPaidDelivery, setSupplierPaidDelivery] = useState(!(orderFields.deliveryCostToTheWarehouse > 0))
 
   const [priceYuansForBatch, setPriceYuansForBatch] = useState('')
   const [usePriceInDollars, setUsePriceInDollars] = useState(true)
   const [yuansToDollarRate, setYuansToDollarRate] = useState(defaultYuansToDollarRate)
+
+  const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(
+    (orderFields.totalPriceChanged = orderFields.totalPrice),
+  )
 
   return (
     <Grid container justify="space-around">
@@ -114,11 +120,15 @@ export const SelectFields = ({setOrderField, resetOrderField, orderFields, wareh
           </NativeSelect>
         </Box>
 
-        <div className={classNames.priceOptionsWrapper}>
-          <Box className={classNames.tableCell}>
+        <div
+          className={clsx(classNames.priceOptionsWrapper, {
+            [classNames.disabledPriceOptionsWrapper]: checkIsPlanningPrice,
+          })}
+        >
+          <Box className={classNames.noFlexElement}>
             <Typography className={classNames.modalText}>{textConsts.priceYuansForBatchTypo}</Typography>
             <Input
-              disabled={usePriceInDollars}
+              disabled={usePriceInDollars || checkIsPlanningPrice}
               inputProps={{maxLength: 24}}
               value={
                 usePriceInDollars
@@ -127,16 +137,17 @@ export const SelectFields = ({setOrderField, resetOrderField, orderFields, wareh
               }
               className={classNames.input}
               onChange={e => {
-                if (!isNaN(e.target.value) || Number(e.target.value) < 0) {
+                if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
                   setPriceYuansForBatch(e.target.value)
                   setOrderField('totalPriceChanged')({
-                    target: {value: calcExchangePrice(e.target.value, yuansToDollarRate)},
+                    target: {value: toFixed(Number(calcExchangePrice(e.target.value, yuansToDollarRate)), 2)},
                   })
                 }
               }}
             />
             <div className={classNames.checkboxWithLabelWrapper}>
               <Checkbox
+                disabled={checkIsPlanningPrice}
                 checked={usePriceInDollars}
                 color="primary"
                 onChange={() => {
@@ -150,10 +161,10 @@ export const SelectFields = ({setOrderField, resetOrderField, orderFields, wareh
               <Typography>{textConsts.usePriceInDollars}</Typography>
             </div>
           </Box>
-          <Box className={classNames.tableCell}>
+          <Box className={classNames.noFlexElement}>
             <Typography className={classNames.modalText}>{textConsts.yuansToDollarRateTypo}</Typography>
             <Input
-              disabled={usePriceInDollars}
+              disabled={usePriceInDollars || checkIsPlanningPrice}
               inputProps={{maxLength: 24}}
               value={yuansToDollarRate || 6.3}
               className={classNames.input}
@@ -167,20 +178,34 @@ export const SelectFields = ({setOrderField, resetOrderField, orderFields, wareh
               }}
             />
           </Box>
-          <Box className={classNames.tableCell}>
+          <Box className={classNames.noFlexElement}>
             <Typography className={classNames.modalText}>{textConsts.totalPriceChanged}</Typography>
             <Input
-              disabled={!usePriceInDollars}
+              disabled={!usePriceInDollars || checkIsPlanningPrice}
               inputProps={{maxLength: 24}}
               value={orderFields.totalPriceChanged}
               className={classNames.input}
               onChange={setOrderField('totalPriceChanged')}
             />
           </Box>
-          <Box className={classNames.tableCell}>
+          <Box className={classNames.noFlexElement}>
             <Typography className={classNames.modalText}>{textConsts.costPriceAmount}</Typography>
             {calcPriceForItem(orderFields.totalPriceChanged, orderFields.amount)}
           </Box>
+        </div>
+
+        <div className={classNames.checkboxWithLabelWrapper}>
+          <Checkbox
+            checked={checkIsPlanningPrice}
+            color="primary"
+            onChange={() => {
+              setCheckIsPlanningPrice(!checkIsPlanningPrice)
+              setOrderField('totalPriceChanged')({
+                target: {value: orderFields.totalPrice},
+              })
+            }}
+          />
+          <Typography>{textConsts.checkIsPlanningPriceText}</Typography>
         </div>
 
         <div className={classNames.totalPriceWrapper}>
@@ -225,19 +250,6 @@ export const SelectFields = ({setOrderField, resetOrderField, orderFields, wareh
             onChange={setOrderField('buyerComment')}
           />
         </Box>
-        <Box my={3}>
-          <div className={classNames.checkboxWithLabelWrapper}>
-            <Checkbox
-              checked={supplierPaidDelivery}
-              color="primary"
-              onChange={() => {
-                resetOrderField('deliveryCostToTheWarehouse')
-                setSupplierPaidDelivery(!supplierPaidDelivery)
-              }}
-            />
-            <Typography className={classNames.modalText}>{textConsts.supplierPaidDelivery}</Typography>
-          </div>
-        </Box>
 
         <Box>
           <div className={classNames.barCodeWrapper}>
@@ -256,13 +268,30 @@ export const SelectFields = ({setOrderField, resetOrderField, orderFields, wareh
             <Typography className={classNames.barCodeText}>{orderFields.product.barCode || 'N/A'}</Typography>
           </div>
         </Box>
+
+        <Box my={3}>
+          <div className={classNames.checkboxWithLabelWrapper}>
+            <Checkbox
+              checked={supplierPaidDelivery}
+              color="primary"
+              onChange={() => {
+                resetOrderField('deliveryCostToTheWarehouse')
+                setSupplierPaidDelivery(!supplierPaidDelivery)
+              }}
+            />
+            <Typography className={classNames.modalText}>{textConsts.supplierPaidDelivery}</Typography>
+          </div>
+        </Box>
+
         <Box my={3}>
           <Typography className={classNames.modalText}>{textConsts.typoShipPrice}</Typography>
           <Input
             disabled={supplierPaidDelivery}
             inputProps={{maxLength: 24}}
-            className={classNames.numInput}
-            value={`$ ${orderFields.deliveryCostToTheWarehouse || 0}`}
+            className={clsx(classNames.numInput, {
+              [classNames.errorInput]: orderFields.deliveryCostToTheWarehouse < 1 && !supplierPaidDelivery,
+            })}
+            value={orderFields.deliveryCostToTheWarehouse}
             onChange={setOrderField('deliveryCostToTheWarehouse')}
           />
         </Box>

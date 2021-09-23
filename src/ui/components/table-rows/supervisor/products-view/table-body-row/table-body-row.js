@@ -99,7 +99,7 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
 
       <TableCell className={classNames.salersTotal}>{item.type}</TableCell>
 
-      <TableCell className={classNames.rankTableCell}>{toFixedWithDollarSign(item.fbafee)}</TableCell>
+      <TableCell className={classNames.rankTableCell}>{toFixedWithDollarSign(item.fbafee, 2)}</TableCell>
 
       <TableCell className={classNames.deleteBtnCell}>
         <IconButton onClick={() => alert('Item deleting...')}>

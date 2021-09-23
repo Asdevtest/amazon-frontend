@@ -22,12 +22,14 @@ export const exchangeBuyerWorkColumns = () => [
     headerName: textConsts.asinField,
     renderCell: params => <AsinCell params={params} />,
     width: 300,
+    filterable: false,
   },
   {
     field: 'amazon',
     headerName: textConsts.priceField,
-    renderCell: params => <PriceCell params={params} />,
+    renderCell: params => <PriceCell price={params.row.amazon} />,
     width: 150,
+    type: 'number',
   },
 
   {
@@ -35,12 +37,14 @@ export const exchangeBuyerWorkColumns = () => [
     headerName: textConsts.createDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
+    type: 'date',
   },
   {
     field: 'updateDate',
     headerName: textConsts.updateDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
+    type: 'date',
   },
 
   {
@@ -48,12 +52,14 @@ export const exchangeBuyerWorkColumns = () => [
     headerName: textConsts.researcherField,
     renderCell: params => <ResearcherCell params={params} />,
     width: 150,
+    filterable: false,
   },
   {
     field: 'supervisor',
     headerName: textConsts.supervisorField,
     renderCell: params => <SupervisorCell params={params} />,
     width: 150,
+    filterable: false,
   },
 
   {
@@ -61,42 +67,48 @@ export const exchangeBuyerWorkColumns = () => [
     headerName: textConsts.buyerField,
     renderCell: params => <BuyerCell params={params} />,
     width: 150,
+    filterable: false,
   },
 
   {
     field: 'profit',
     headerName: textConsts.profitField,
-    renderCell: params => renderFieldValueCell({params}),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
+    type: 'number',
   },
   {
     field: 'margin',
     headerName: textConsts.marginField,
-    renderCell: params => renderFieldValueCell({params}),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
+    type: 'number',
   },
   {
     field: 'bsr',
     headerName: textConsts.bsrField,
-    renderCell: params => renderFieldValueCell({params}),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
+    type: 'number',
   },
   {
     field: 'fbafee',
     headerName: textConsts.fbaField,
-    renderCell: params => renderFieldValueCell({params}),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
+    type: 'number',
   },
   {
     field: 'fbaamount',
     headerName: textConsts.fbaAmountField,
-    renderCell: params => renderFieldValueCell({params}),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
+    type: 'number',
   },
   {
     field: 'barCode',
     headerName: textConsts.barcodeField,
-    renderCell: params => renderFieldValueCell({params}),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 ]

@@ -7,11 +7,23 @@ export const styles = createStyles({
   mainTitle: {
     marginTop: '24px',
   },
-  addProductBtnWrapper: {
+  addProductBtnsWrapper: {
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    padding: '0 0 10px',
+    justifyContent: 'space-between',
+    padding: '10px',
+  },
+  tableWrapper: {
+    minWidth: '100%',
+    height: '83vh',
+  },
+
+  row: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
   },
 })

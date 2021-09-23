@@ -3,6 +3,7 @@ export const DataGridTablesKeys = {
   ADMIN_INVENTORY: 'adminInventoryDataGridState',
   ADMIN_ORDERS: 'adminOrdersDataGridState',
   ADMIN_TASKS: 'adminTasksDataGridState',
+  ADMIN_BOXES: 'adminBoxesDataGridState',
 
   ADMIN_EXCHANGE_CREATED: 'adminExchangeCreatedDataGridState',
   ADMIN_EXCHANGE_CHEKED_BY_SUPERVISOR: 'adminExchangeChekedBySupervisorDataGridState',
@@ -13,4 +14,23 @@ export const DataGridTablesKeys = {
   ADMIN_EXCHANGE_HIGH_PRICE: 'adminExchangeHighPriceDataGridState',
   ADMIN_EXCHANGE_PUBLISHED: 'adminExchangePublishedDataGridState',
   ADMIN_EXCHANGE_CANCELED: 'adminExchangeCanceledDataGridState',
+
+  WAREHOUSE_VACANT_TASKS: 'warehouseVacantTasksDataGridState',
+  WAREHOUSE_MY_TASKS: 'warehouseMyTasksDataGridState',
+  WAREHOUSE_COMPLETED_TASKS: 'warehouseCompletedTasksDataGridState',
+  WAREHOUSE_CANCELED_TASKS: 'warehouseCanceledTasksDataGridState',
+  WAREHOUSE_BOXES: 'warehouseBoxesDataGridState',
+
+  RESEARCHER_PRODUCTS: 'researcherProductsDataGridState',
+
+  SUPERVISOR_PRODUCTS: 'supervisorProductsDataGridState',
+
+  BUYER_PRODUCTS: 'buyerProductsDataGridState',
+  BUYER_MY_ORDERS: 'buyerMyOrdersDataGridState',
+  BUYER_FREE_ORDERS: 'buyerFreeOrdersDataGridState',
+
+  CLIENT_EXCHANGE: 'clientExchangeCreatedDataGridState',
+  CLIENT_INVENTORY: 'clientInventoryDataGridState',
+  CLIENT_ORDERS: 'clientOrdersDataGridState',
+  CLIENT_WAREHOUSE: 'clientWarehouseDataGridState',
 }

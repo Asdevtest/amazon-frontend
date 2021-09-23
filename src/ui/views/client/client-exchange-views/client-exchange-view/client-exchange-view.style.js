@@ -30,4 +30,9 @@ export const styles = createStyles(theme => ({
   cancelBtn: {
     marginLeft: '10px',
   },
+  tableWrapper: {
+    marginTop: '32px',
+    minWidth: '100%',
+    height: '100%',
+  },
 }))

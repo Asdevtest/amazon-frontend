@@ -58,6 +58,13 @@ export const styles = createStyles(() => ({
   feesTableCell: {
     textAlign: 'left',
   },
+  feesTableWrapper: {
+    maxHeight: '100px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+
   rankTableCell: {
     textAlign: 'right',
   },
@@ -136,6 +143,12 @@ export const styles = createStyles(() => ({
     backgroundColor: 'rgb(61, 81, 112)',
   },
 
+  noActivebarCode: {
+    width: '170px',
+    height: '45px',
+    overflowX: 'scroll',
+  },
+
   order: {
     display: 'flex',
     alignItems: 'center',
@@ -207,6 +220,7 @@ export const styles = createStyles(() => ({
   },
 
   imagesWrapper: {
+    maxWidth: '90px',
     flexDirection: 'column',
     border: '1px solid rgba(0, 123, 255, 0.5)',
     borderRadius: '10px',
@@ -235,5 +249,10 @@ export const styles = createStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     gap: '3px',
+  },
+  taskTableCell: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
 }))

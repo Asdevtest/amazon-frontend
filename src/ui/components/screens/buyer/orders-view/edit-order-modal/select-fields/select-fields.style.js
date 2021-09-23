@@ -13,6 +13,11 @@ export const useClassNames = makeStyles(() => ({
   numInput: {
     width: '80px',
   },
+
+  errorInput: {
+    border: '1px solid red',
+  },
+
   commentInput: {
     fontSize: '13px',
     height: 'auto',
@@ -21,10 +26,20 @@ export const useClassNames = makeStyles(() => ({
   },
   priceOptionsWrapper: {
     marginTop: '30px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
+    display: 'inline-block',
+
+    border: '1px solid rgba(0, 0, 0, .3)',
+    borderRadius: '20px',
+    padding: '10px',
   },
+  disabledPriceOptionsWrapper: {
+    opacity: '0.7',
+  },
+
+  noFlexElement: {
+    marginBottom: '10px',
+  },
+
   barCodeText: {
     width: '300px',
     height: '46px',

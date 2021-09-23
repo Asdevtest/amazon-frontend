@@ -4,16 +4,24 @@ import {Button, Chip, Typography, Box, Tooltip} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
+import {DeliveryTypeByCode} from '@constants/delivery-options'
+import {ProductStatusByCode} from '@constants/product-status'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 import {texts} from '@constants/texts'
+import {warehouses} from '@constants/warehouses'
 
 import {StarRating} from '@components/star-rating'
 
-import {formatDateDistanceFromNow, formatDateTime, formatNormDateTime} from '@utils/date-time'
+import {
+  formatDateDistanceFromNow,
+  formatDateTime,
+  formatNormDateTime,
+  formatNormDateTimeWithParseISO,
+} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixedWithDollarSign, trimBarcode, toFixedWithKg} from '@utils/text'
+import {toFixedWithDollarSign, trimBarcode, toFixedWithKg, withKg, toFixed} from '@utils/text'
 
 import {styles} from './data-grid-cells.style'
 
@@ -42,30 +50,30 @@ export const AsinCell = withStyles(styles)(({classes: classNames, params}) => (
   </div>
 ))
 
-export const PriceCell = withStyles(styles)(({classes: classNames, params}) => (
-  <div className={classNames.priceTableCell}>
-    {!params.row.amazon ? 'N/A' : toFixedWithDollarSign(params.row.amazon, 2)}
-  </div>
+export const PriceCell = withStyles(styles)(({classes: classNames, price}) => (
+  <div className={classNames.priceTableCell}>{!price ? 'N/A' : toFixedWithDollarSign(price, 2)}</div>
 ))
 
-export const FeesValuesWithCalculateBtnCell = withStyles(styles)(({classes: classNames, params}) => (
+export const FeesValuesWithCalculateBtnCell = withStyles(styles)(({classes: classNames, params, noCalculate}) => (
   <div className={classNames.feesTableCell}>
-    <div>
+    <div className={classNames.feesTableWrapper}>
       <Typography className={classNames.typoCell}>
         {textConsts.feesTypo}
-        <span className={classNames.typoSpan}>{toFixedWithDollarSign(params.row.fbafee)}</span>
+        <span className={classNames.typoSpan}>{toFixedWithDollarSign(params.row.fbafee, 2)}</span>
       </Typography>
       <Typography className={classNames.typoCell}>
         {textConsts.netTypo}
-        <span className={classNames.typoSpan}>{toFixedWithDollarSign(params.row.reffee)}</span>
+        <span className={classNames.typoSpan}>{toFixedWithDollarSign(params.row.reffee, 2)}</span>
       </Typography>
-      <Button
-        disableElevation
-        className={classNames.cellBtn}
-        startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
-      >
-        {textConsts.calculateBtn}
-      </Button>
+      {!noCalculate && (
+        <Button
+          disableElevation
+          className={classNames.cellBtn}
+          startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
+        >
+          {textConsts.calculateBtn}
+        </Button>
+      )}
     </div>
   </div>
 ))
@@ -74,39 +82,47 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, params}) =
   <Typography className={classNames.supplierCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
 ))
 
-export const SupervisorCell = withStyles(styles)(({classes: classNames, params}) => (
+export const SupervisorCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
   <div>
     <Typography className={classNames.researcherCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
-    <Typography className={classNames.researcherCell}>{`rate: ${
-      !params.value ? 'N/A' : params.value.rate
-    }`}</Typography>
+    {!onlyName && (
+      <Typography className={classNames.researcherCell}>{`rate: ${
+        !params.value ? 'N/A' : params.value.rate
+      }`}</Typography>
+    )}
   </div>
 ))
 
-export const ResearcherCell = withStyles(styles)(({classes: classNames, params}) => (
+export const ResearcherCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
   <div>
     <Typography className={classNames.researcherCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
-    <Typography className={classNames.researcherCell}>{`rate: ${
-      !params.value ? 'N/A' : params.value.rate
-    }`}</Typography>
+    {!onlyName && (
+      <Typography className={classNames.researcherCell}>{`rate: ${
+        !params.value ? 'N/A' : params.value.rate
+      }`}</Typography>
+    )}
   </div>
 ))
 
-export const ClientCell = withStyles(styles)(({classes: classNames, params}) => (
+export const ClientCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
   <div>
     <Typography className={classNames.researcherCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
-    <Typography className={classNames.researcherCell}>{`rate: ${
-      !params.value ? 'N/A' : params.value.rate
-    }`}</Typography>
+    {!onlyName && (
+      <Typography className={classNames.researcherCell}>{`rate: ${
+        !params.value ? 'N/A' : params.value.rate
+      }`}</Typography>
+    )}
   </div>
 ))
 
-export const BuyerCell = withStyles(styles)(({classes: classNames, params}) => (
+export const BuyerCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
   <div>
     <Typography className={classNames.researcherCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
-    <Typography className={classNames.researcherCell}>{`rate: ${
-      !params.value ? 'N/A' : params.value.rate
-    }`}</Typography>
+    {!onlyName && (
+      <Typography className={classNames.researcherCell}>{`rate: ${
+        !params.value ? 'N/A' : params.value.rate
+      }`}</Typography>
+    )}
   </div>
 ))
 
@@ -145,12 +161,12 @@ export const BarcodeCell = withStyles(styles)(({classes: classNames, params, han
         deletable: classNames.barcodeChipHover,
         deleteIcon: classNames.barcodeChipIcon,
       }}
-      className={clsx({[classNames.barcodeChipExists]: params.row.barcode})}
+      className={clsx({[classNames.barcodeChipExists]: params.row.barCode})}
       size="small"
-      label={params.row.barcode ? trimBarcode(params.row.barcode) : textConsts.setBarcodeChipLabel}
+      label={params.row.barCode ? trimBarcode(params.row.barCode) : textConsts.setBarcodeChipLabel}
       onClick={() => handlers.onClickBarcode(params.row)}
       onDoubleClick={() => handlers.onDoubleClickBarcode(params.row)}
-      onDelete={!params.row.barcode ? undefined : () => handlers.onDeleteBarcode(params.row)}
+      onDelete={!params.row.barCode ? undefined : () => handlers.onDeleteBarcode(params.row)}
     />
   </React.Fragment>
 ))
@@ -165,18 +181,20 @@ export const NormDateCell = withStyles(styles)(({classes: classNames, params}) =
   </Typography>
 ))
 
-export const OrderCell = withStyles(styles)(({classes: classNames, params}) => (
+export const NormDateWithParseISOCell = withStyles(styles)(({classes: classNames, params}) => (
+  <Typography className={classNames.supervisorCell}>
+    {!params.value ? 'N/A' : formatNormDateTimeWithParseISO(params.value)}
+  </Typography>
+))
+
+export const OrderCell = withStyles(styles)(({classes: classNames, product}) => (
   <div className={classNames.order}>
-    <img
-      alt=""
-      src={params.row.product.images[0] && getAmazonImageUrl(params.row.product.images[0])}
-      className={classNames.orderImg}
-    />
+    <img alt="" src={product.images[0] && getAmazonImageUrl(product.images[0])} className={classNames.orderImg} />
     <div>
-      <Typography className={classNames.orderTitle}>{params.row.product.amazonTitle}</Typography>
+      <Typography className={classNames.orderTitle}>{product.amazonTitle}</Typography>
       <Typography className={classNames.orderText}>
         <span className={classNames.orderTextSpan}>{textConsts.id}</span>
-        {params.row.product.id}
+        {product.id}
       </Typography>
     </div>
   </div>
@@ -213,7 +231,7 @@ export const GrossWeightCell = withStyles(styles)(({classes: classNames, params}
   </React.Fragment>
 ))
 
-export const renderFieldValueCell = ({params}) => (!params.value ? 'N/A' : params.value)
+export const renderFieldValueCell = value => (!value ? 'N/A' : value)
 
 export const renderFixedDollarValueCell = ({params}) =>
   !params.value
@@ -249,23 +267,28 @@ export const TaskTypeCell = withStyles(styles)(({params}) => {
   return <React.Fragment>{renderOperationType(params.value)}</React.Fragment>
 })
 
-export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, params}) => {
-  const renderProductImage = (box, key) => (
-    <div key={key} className={classNames.imagesWrapper}>
-      <Typography className={classNames.imgNum}>{`#${key + 1}`}</Typography>
-      {box.items.map((product, productIndex) => (
-        <div key={productIndex} className={classNames.imgWrapper}>
-          <img
-            alt="placeholder"
-            className={classNames.taskDescriptionImg}
-            src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
-          />
-          <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
-        </div>
-      ))}
-      <Typography className={classNames.imgNum}>{box.amount > 1 && `Super x${box.amount}`}</Typography>
-    </div>
-  )
+export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, params, hideImage}) => {
+  const renderProductImage = (box, key) => {
+    if (hideImage) {
+      return
+    }
+    return (
+      <div key={key} className={classNames.imagesWrapper}>
+        <Typography className={classNames.imgNum}>{`#${key + 1}`}</Typography>
+        {box.items.map((product, productIndex) => (
+          <div key={productIndex} className={classNames.imgWrapper}>
+            <img
+              alt="placeholder"
+              className={classNames.taskDescriptionImg}
+              src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
+            />
+            <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
+          </div>
+        ))}
+        <Typography className={classNames.imgNum}>{box.amount > 1 && `Super x${box.amount}`}</Typography>
+      </div>
+    )
+  }
 
   const renderBlockProductsImages = (
     <div className={classNames.blockProductsImagesWrapper}>
@@ -279,32 +302,36 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, par
   )
 
   const taskMergeDescription = () => (
-    <>
+    <div className={classNames.taskTableCell}>
       <Typography>{textConsts.merge}</Typography>
+
       {renderBlockProductsImages}
-    </>
+    </div>
   )
   const taskDivideDescription = () => (
-    <>
+    <div className={classNames.taskTableCell}>
       <Typography className={classNames.descriptionWrapper}>{textConsts.unMerge}</Typography>
+
       {renderBlockProductsImages}
-    </>
+    </div>
   )
   const taskReceiveDescription = () => (
     <div className={classNames.blockProductsImagesWrapper}>
-      <>
+      <div className={classNames.taskTableCell}>
         <Typography className={classNames.descriptionWrapper}>{textConsts.receive}</Typography>
+
         {params.row.boxesBefore && params.row.boxesBefore.map((box, index) => renderProductImage(box, index))}
-      </>
+      </div>
     </div>
   )
 
   const taskEditDescription = () => (
     <div className={classNames.blockProductsImagesWrapper}>
-      <>
+      <div className={classNames.taskTableCell}>
         <Typography className={classNames.descriptionWrapper}>{textConsts.edit}</Typography>
+
         {params.row.boxesBefore && params.row.boxesBefore.map((box, index) => renderProductImage(box, index))}
-      </>
+      </div>
     </div>
   )
 
@@ -330,3 +357,55 @@ export const TaskStatusCell = withStyles(styles)(({params}) => (
     <Typography>{mapTaskStatusKeyToEnum[params.row.status]}</Typography>
   </React.Fragment>
 ))
+
+export const IdCell = withStyles(styles)(({id}) => (
+  <React.Fragment>
+    <Typography>{`id: ${id}`}</Typography>
+  </React.Fragment>
+))
+
+export const NoActiveBarcodeCell = withStyles(styles)(({classes: classNames, barCode}) => (
+  <React.Fragment>
+    <Typography className={classNames.noActivebarCode}>{barCode || 'N/A'}</Typography>
+  </React.Fragment>
+))
+
+export const WarehouseCell = withStyles(styles)(({warehouse}) => (
+  <React.Fragment>
+    <Typography>{warehouses[warehouse]}</Typography>
+  </React.Fragment>
+))
+
+export const WeightCell = withStyles(styles)(({weight}) => (
+  <React.Fragment>
+    <Typography>{`${weight || 'N/A'} kg`}</Typography>
+  </React.Fragment>
+))
+
+export const FinalWeightCell = withStyles(styles)(({volumeWeight, weightFinalAccounting}) => (
+  <React.Fragment>
+    <Typography>{withKg(Math.max(parseFloat(volumeWeight) || 0, parseFloat(weightFinalAccounting) || 0))}</Typography>
+  </React.Fragment>
+))
+
+export const ProductStatusCell = withStyles(styles)(({status}) => (
+  <React.Fragment>{ProductStatusByCode[status]}</React.Fragment>
+))
+
+export const DeliveryCell = withStyles(styles)(({delivery}) => (
+  <React.Fragment>
+    <Typography>{DeliveryTypeByCode[delivery]}</Typography>
+  </React.Fragment>
+))
+
+export const SmallRowImageCell = withStyles(styles)(({classes: classNames, images}) => (
+  <div>
+    <img alt="placeholder" className={classNames.img} src={images && images[0] && getAmazonImageUrl(images[0])} />
+  </div>
+))
+
+export const ToFixedWithDollarSignCell = withStyles(styles)(({classes: classNames, value, fix}) => (
+  <div className={classNames.priceTableCell}>{!value ? 'N/A' : toFixedWithDollarSign(value, fix)}</div>
+))
+
+export const ToFixedCell = withStyles(styles)(({value, fix}) => <div>{!value ? 'N/A' : toFixed(value, fix)}</div>)

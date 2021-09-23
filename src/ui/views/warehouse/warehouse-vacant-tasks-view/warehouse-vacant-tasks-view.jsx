@@ -1,22 +1,21 @@
 import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {WAREHOUSE_TASKS_HEAD_CELLS} from '@constants/mocks'
+import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
-import {Table} from '@components/table'
-import {TableBodyRow} from '@components/table-rows/warehouse/tasks-views/table-body-row'
-import {WarehouseTasksBodyRowViewMode} from '@components/table-rows/warehouse/tasks-views/table-body-row/table-body-row'
-import {TableHeadRow} from '@components/table-rows/warehouse/tasks-views/table-head-row'
+import {warehouseVacantTasksViewColumns} from '@components/table-columns/warehouse/vacant-tasks-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -32,11 +31,16 @@ export class WarehouseVacantTasksViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
-      tasksVacant,
+      requestStatus,
+      getCurrentData,
+      sortModel,
+      filterModel,
+
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -44,8 +48,11 @@ export class WarehouseVacantTasksViewRaw extends Component {
       onChangeTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
-      onClickPickupBtn,
       onTriggerOpenModal,
+
+      onSelectionModel,
+      setDataGridState,
+      onChangeSortingModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -71,19 +78,31 @@ export class WarehouseVacantTasksViewRaw extends Component {
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
-                <Table
-                  currentPage={curPage}
-                  data={tasksVacant}
-                  handlerPageChange={onChangeCurPage}
-                  handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(tasksVacant.length / rowsPerPage)}
-                  BodyRow={TableBodyRow}
-                  renderHeadRow={this.renderHeadRow}
-                  rowsPerPage={rowsPerPage}
-                  rowsHandlers={{
-                    onClickPickupBtn,
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  classes={{
+                    row: classNames.row,
                   }}
-                  viewMode={WarehouseTasksBodyRowViewMode.VACANT}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rows={getCurrentData()}
+                  rowHeight={200}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  columns={warehouseVacantTasksViewColumns(this.renderBtns)}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection.selectionModel[0])
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={e => setDataGridState(e.state)}
                 />
               </div>
             </MainContent>
@@ -102,7 +121,13 @@ export class WarehouseVacantTasksViewRaw extends Component {
     )
   }
 
-  renderHeadRow = (<TableHeadRow headCells={WAREHOUSE_TASKS_HEAD_CELLS} />)
+  renderBtns = params => (
+    <React.Fragment>
+      <div>
+        <Button onClick={() => this.viewModel.onClickPickupBtn(params.row)}>{textConsts.pickUp}</Button>
+      </div>
+    </React.Fragment>
+  )
 }
 
 export const WarehouseVacantTasksView = withStyles(styles)(WarehouseVacantTasksViewRaw)

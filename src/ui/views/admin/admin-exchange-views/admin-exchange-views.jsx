@@ -80,7 +80,6 @@ class AdminExchangeViewsRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
-                checkboxSelection
                 classes={{
                   row: classNames.row,
                 }}

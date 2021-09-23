@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 
 import {Grid, Typography} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {ClientInventoryDashboardCardDataKey, getClientInventoryDashboardCardConfig} from '@constants/dashboard-configs'
-import {clientUsername, CLIENT_INVENTORY_MY_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
+import {loadingStatuses} from '@constants/loading-statuses'
+import {clientUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -21,9 +23,7 @@ import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {OrderProductModal} from '@components/screens/client/inventory-view/order-product-modal'
-import {Table} from '@components/table'
-import {TableBodyRow} from '@components/table-rows/client/inventory/products-view/table-body-row'
-import {TableHeadRow} from '@components/table-rows/client/inventory/products-view/table-head-row'
+import {clientInventoryColumns} from '@components/table-columns/client/client-inventory-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -42,11 +42,17 @@ export class ClientInventoryViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
-      selectedProducts,
+      requestStatus,
+      getCurrentData,
+      sortModel,
+      filterModel,
+
+      selectedRowIds,
       drawerOpen,
       selectedProduct,
       showSetBarcodeModal,
@@ -57,7 +63,6 @@ export class ClientInventoryViewRaw extends Component {
       showSuccessModal,
       showSendOwnProductModal,
       onClickBarcode,
-      onClickExchange,
       onDoubleClickBarcode,
       onDeleteBarcode,
       onTriggerDrawer,
@@ -65,23 +70,18 @@ export class ClientInventoryViewRaw extends Component {
       onChangeRowsPerPage,
       onClickSaveBarcode,
       onTriggerOpenModal,
-      onTriggerCheckbox,
       onSubmitOrderProductModal,
-      onDoubleClickRow,
+
+      onSelectionModel,
+      setDataGridState,
+      onChangeSortingModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
-    const tableRowHandlers = {
+    const barCodeHandlers = {
       onClickBarcode,
-      onClickExchange,
       onDoubleClickBarcode,
       onDeleteBarcode,
-      onCheckbox: onTriggerCheckbox,
-      onDoubleClickRow,
-    }
-
-    const rowsDatas = {
-      selectedProducts,
     }
 
     return (
@@ -107,25 +107,54 @@ export class ClientInventoryViewRaw extends Component {
               <Typography variant="h6" className={classNames.someClass}>
                 {textConsts.productsList}
               </Typography>
-              <div className={classNames.addProductBtnWrapper}>
+              <div className={classNames.addProductBtnsWrapper}>
+                <Button
+                  variant="contained"
+                  disabled={this.viewModel.selectedRowIds.length === 0}
+                  onClick={() => this.viewModel.onTriggerOpenModal('showOrderModal')}
+                >
+                  {textConsts.orderBtn}
+                </Button>
+
                 <SuccessButton onClick={() => onTriggerOpenModal('showSendOwnProductModal')}>
                   {textConsts.addProductBtn}
                 </SuccessButton>
               </div>
 
-              <Table
-                renderButtons={this.renderButtons}
-                currentPage={curPage}
-                data={productsMy}
-                handlerPageChange={onChangeCurPage}
-                handlerRowsPerPage={onChangeRowsPerPage}
-                pageCount={Math.ceil(productsMy.length / rowsPerPage)}
-                BodyRow={TableBodyRow}
-                renderHeadRow={this.renderHeadRow}
-                rowsPerPage={rowsPerPage}
-                rowsHandlers={tableRowHandlers}
-                rowsDatas={rowsDatas}
-              />
+              <div className={classNames.tableWrapper}>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  checkboxSelection
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rows={getCurrentData()}
+                  rowHeight={100}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  columns={clientInventoryColumns({barCodeHandlers, renderBtns: this.renderBtns})}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => onSelectionModel(newSelection.selectionModel)}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={e => setDataGridState(e.state)}
+                />
+              </div>
+
+              {/* <React.Fragment>
+                <Button
+                  variant="contained"
+                  disabled={this.viewModel.selectedRowIds.length === 0}
+                  onClick={() => this.viewModel.onTriggerOpenModal('showOrderModal')}
+                >
+                  {textConsts.orderBtn}
+                </Button>
+              </React.Fragment> */}
             </MainContent>
           </Appbar>
         </Main>
@@ -145,7 +174,7 @@ export class ClientInventoryViewRaw extends Component {
 
         <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
           <OrderProductModal
-            selectedProductsData={productsMy.filter(product => selectedProducts.includes(product._id))}
+            selectedProductsData={productsMy.filter(product => selectedRowIds.includes(product.id))}
             onTriggerOpenModal={onTriggerOpenModal}
             onDoubleClickBarcode={onDoubleClickBarcode}
             onSubmit={onSubmitOrderProductModal}
@@ -172,20 +201,18 @@ export class ClientInventoryViewRaw extends Component {
       </Grid>
     ))
 
-  renderHeadRow = (<TableHeadRow headCells={CLIENT_INVENTORY_MY_PRODUCTS_HEAD_CELLS} />)
-
-  renderButtons = () => (
+  renderBtns = params => (
     <React.Fragment>
-      <Button
-        variant="contained"
-        disabled={this.viewModel.selectedProducts.length === 0}
-        onClick={() => this.viewModel.onTriggerOpenModal('showOrderModal')}
-      >
-        {textConsts.orderBtn}
-      </Button>
-      <Button color="default" onClick={() => this.viewModel.onResetselectedProducts()}>
-        {textConsts.resetBtn}
-      </Button>
+      <div>
+        <Button
+          disableElevation
+          color="primary"
+          variant="contained"
+          onClick={() => this.viewModel.onClickExchange(params.row)}
+        >
+          {textConsts.listingBtn}
+        </Button>
+      </div>
     </React.Fragment>
   )
 

@@ -22,4 +22,10 @@ export const styles = createStyles(theme => ({
     justifyContent: 'flex-end',
     padding: '0 0 10px',
   },
+
+  tableWrapper: {
+    marginTop: '32px',
+    width: '100%',
+    height: '100%',
+  },
 }))

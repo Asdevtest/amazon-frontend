@@ -43,6 +43,7 @@ export const RightSideComments = observer(
             className={clsx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.icomment,
             })}
+            inputProps={{maxLength: 1000}}
             rows={4}
             rowsMax={6}
             label={textConsts.fieldResearcher}
@@ -64,6 +65,7 @@ export const RightSideComments = observer(
             className={clsx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.checkednotes,
             })}
+            inputProps={{maxLength: 1000}}
             rows={4}
             rowsMax={6}
             label={textConsts.fieldSoperviser}
@@ -77,6 +79,7 @@ export const RightSideComments = observer(
             className={clsx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.buyerscomment,
             })}
+            inputProps={{maxLength: 1000}}
             rows={4}
             rowsMax={6}
             label={textConsts.fieldBuyer}

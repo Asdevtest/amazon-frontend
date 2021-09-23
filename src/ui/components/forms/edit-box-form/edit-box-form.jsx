@@ -3,6 +3,7 @@ import {useState} from 'react'
 import {Button, Chip, Divider, NativeSelect, TableCell, TableRow, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
+import Carousel from 'react-material-ui-carousel'
 
 import {
   DeliveryType,
@@ -21,11 +22,11 @@ import {LabelField} from '@components/label-field/label-field'
 import {Modal} from '@components/modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 import {ShowBigImagesModal} from '@components/modals/show-big-images-modal'
+import {ShowImageModal} from '@components/modals/show-image-modal'
 import {Table} from '@components/table'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {trimBarcode} from '@utils/text'
 
 import {useClassNames} from './edit-box-form.style'
 import {ProductInOrderTableRow} from './product-in-order-table-row'
@@ -100,12 +101,15 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
   const [showPhotosModal, setShowPhotosModal] = useState(false)
   const [curPhotos, setCurPhotos] = useState([])
 
+  const [showImageModal, setShowImageModal] = useState(false)
+  const [curImage, setCurImage] = useState('')
+
   const rowHandlers = {
     onTriggerOpenModal: () => setShowPhotosModal(!showPhotosModal),
     onSelectPhotos: setCurPhotos,
   }
 
-  const [boxFields, setBoxFields] = useState({
+  const boxInitialState = {
     ...formItem,
 
     lengthCmWarehouse: formItem?.lengthCmWarehouse || 0,
@@ -113,13 +117,18 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
     heightCmWarehouse: formItem?.heightCmWarehouse || 0,
     weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
     volumeWeightKgWarehouse: formItem?.volumeWeightKgWarehouse || 0,
-    weightFinalAccountingKgWarehouse: formItem?.weightFinalAccountingKgWarehouse || 0,
-    warehouse: formItem?.warehouse,
-    deliveryMethod: formItem?.deliveryMethod,
+    weightFinalAccountingKgWarehouse: Math.max(
+      parseFloat(formItem?.volumeWeightKgWarehouse) || 0,
+      parseFloat(formItem?.weighGrossKgWarehouse) || 0,
+    ),
+    warehouse: formItem?.warehouse.toString(),
+    deliveryMethod: formItem?.deliveryMethod.toString(),
     amount: formItem?.amount,
     shippingLabel: formItem?.shippingLabel || '',
     clientComment: formItem?.clientComment || '',
-  })
+  }
+
+  const [boxFields, setBoxFields] = useState(boxInitialState)
 
   const setFormField = fieldName => e => {
     const newFormFields = {...boxFields}
@@ -212,10 +221,11 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
                   clickable: classNames.barcodeChipHover,
                   deletable: classNames.barcodeChipHover,
                   deleteIcon: classNames.barcodeChipIcon,
+                  label: classNames.barcodeChiplabel,
                 }}
                 className={clsx({[classNames.barcodeChipExists]: boxFields.shippingLabel})}
                 size="small"
-                label={boxFields.shippingLabel ? trimBarcode(boxFields.shippingLabel) : 'Set shipping label'}
+                label={boxFields.shippingLabel ? boxFields.shippingLabel : 'Set shipping label'}
                 onClick={() => onClickShippingLabel()}
                 onDelete={!boxFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
               />
@@ -227,6 +237,30 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
               {textConsts.warehouseDemensions}
             </Typography>
             <WarehouseDemensions orderBox={boxFields} />
+
+            <div className={classNames.photoWrapper}>
+              <Typography className={classNames.subTitle}>{'Фотографии коробки сделанные на складе:'}</Typography>
+
+              {boxFields.images.length > 0 ? (
+                <Carousel autoPlay timeout={100} animation="fade">
+                  {boxFields.images.map((el, index) => (
+                    <div key={index}>
+                      <img
+                        alt=""
+                        className={classNames.imgBox}
+                        src={el}
+                        onClick={e => {
+                          setCurImage(e.target.src)
+                          setShowImageModal(!showImageModal)
+                        }}
+                      />
+                    </div>
+                  ))}
+                </Carousel>
+              ) : (
+                <Typography>{'Фотографий пока нет...'}</Typography>
+              )}
+            </div>
           </div>
         </div>
 
@@ -288,6 +322,7 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
       <div className={classNames.buttonsWrapper}>
         <SuccessButton
           disableElevation
+          disabled={JSON.stringify(boxInitialState) === JSON.stringify(boxFields)}
           className={classNames.button}
           color="primary"
           variant="contained"
@@ -314,6 +349,12 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={curPhotos}
+      />
+
+      <ShowImageModal
+        openModal={showImageModal}
+        setOpenModal={() => setShowImageModal(!showImageModal)}
+        image={curImage}
       />
 
       <Modal

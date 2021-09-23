@@ -1,8 +1,10 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {ClientModel} from '@models/client-model'
+import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {copyToClipBoard} from '@utils/clipboard'
@@ -25,21 +27,65 @@ export class ClientInventoryViewModel {
   actionStatus = undefined
 
   productsMy = []
-  selectedProducts = []
   orders = []
+  selectedRowIds = []
 
   drawerOpen = false
-  rowsPerPage = 15
-  curPage = 1
   showOrderModal = false
   showSuccessModal = false
   showSetBarcodeModal = false
   selectedProduct = undefined
   showSendOwnProductModal = false
 
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
+  rowsPerPage = 15
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  setDataGridState(state) {
+    SettingsModel.setDataGridState(state, DataGridTablesKeys.CLIENT_INVENTORY)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_INVENTORY]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.curPage = state.pagination.page
+      this.rowsPerPage = state.pagination.pageSize
+    }
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e.pageSize
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
+  onChangeDrawerOpen(e, value) {
+    this.drawerOpen = value
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onSelectionModel(model) {
+    console.log('model', model)
+
+    this.selectedRowIds = model
+  }
+
+  getCurrentData() {
+    return toJS(this.productsMy)
   }
 
   async loadData() {
@@ -113,13 +159,6 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onTriggerCheckbox(productId) {
-    const updatedselectedProducts = this.selectedProducts.includes(productId)
-      ? this.selectedProducts.filter(_id => _id !== productId)
-      : this.selectedProducts.concat(productId)
-    this.selectedProducts = updatedselectedProducts
-  }
-
   onClickBarcode(item) {
     if (item.barCode) {
       copyToClipBoard(item.barcCde)
@@ -135,7 +174,7 @@ export class ClientInventoryViewModel {
         const product = ordersDataState[i]
         await this.createOrder(product)
       }
-      this.selectedProducts = []
+
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       console.log(error)
@@ -157,8 +196,6 @@ export class ClientInventoryViewModel {
     await UserModel.getUserInfo()
   }
 
-  onClickExchange() {}
-
   onDoubleClickBarcode = item => {
     this.setSelectedProduct(item)
     this.onTriggerOpenModal('showSetBarcodeModal')
@@ -168,21 +205,12 @@ export class ClientInventoryViewModel {
     await this.onSaveProductData(product._id, {barCode: ''})
   }
 
-  onDoubleClickRow(item) {
+  onClickExchange(item) {
     this.history.push('/client/inventoryes/listing', {product: toJS(item)})
-  }
-
-  onResetselectedProducts() {
-    this.selectedProducts = []
   }
 
   onChangeCurPage(e, value) {
     this.curPage = value
-  }
-
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = Number(e.target.value)
-    this.curPage = 1
   }
 
   onTriggerDrawer() {
@@ -195,10 +223,6 @@ export class ClientInventoryViewModel {
 
   setSelectedProduct(item) {
     this.selectedProduct = item
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
   }
 
   setActionStatus(actionStatus) {

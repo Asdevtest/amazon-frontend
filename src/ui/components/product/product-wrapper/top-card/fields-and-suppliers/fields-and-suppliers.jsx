@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Box, Container, Grid, IconButton, Typography} from '@material-ui/core'
+import {Box, Container, Grid, IconButton, Typography, Link} from '@material-ui/core'
 import MuiCheckbox from '@material-ui/core/Checkbox'
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
@@ -17,6 +17,7 @@ import {Field} from '@components/field'
 
 import {checkIsClient, checkIsSupervisor, checkIsAdmin} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {useClassNames} from './fields-and-suppliers.style'
 import {TableSupplier} from './table-supplier'
@@ -31,13 +32,19 @@ export const FieldsAndSuppliers = observer(
     return (
       <Grid item xs={12}>
         <Box className={classNames.productFieldBox}>
-          <Field disabled label={textConsts.fieldAsin} value={product.id} onChange={onChangeField('asin')} />
+          <Field disabled label={textConsts.fieldAsin} value={product.id} />
           <Field
             disabled
             label={textConsts.fieldLinkAmazon}
-            value={product.lamazon}
-            onChange={onChangeField('lamazon')}
+            // value={product.lamazon}
+            // onChange={onChangeField('lamazon')}
+            inputComponent={
+              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.lamazon)}>
+                <Typography className={classNames.amazonLink}>{product.lamazon}</Typography>
+              </Link>
+            }
           />
+
           <Box className={classNames.productCheckboxBox} mb={2.5}>
             <Typography className={(classNames.label, classNames.typoCheckbox)}>{textConsts.checkboxFba}</Typography>
 

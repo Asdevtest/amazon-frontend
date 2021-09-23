@@ -1,8 +1,10 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {ClientModel} from '@models/client-model'
+import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
@@ -16,23 +18,65 @@ export class ClientExchangeViewModel {
   dataToPay = {}
 
   drawerOpen = false
-  curPage = 1
-  rowsPerPage = 15
   showPrivateLabelModal = false
   showConfirmPayModal = false
   showSuccessModal = false
   showWarningModal = false
   selectedProduct = undefined
 
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
+  rowsPerPage = 15
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  setDataGridState(state) {
+    SettingsModel.setDataGridState(state, DataGridTablesKeys.CLIENT_EXCHANGE)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_EXCHANGE]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.curPage = state.pagination.page
+      this.rowsPerPage = state.pagination.pageSize
+    }
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e.pageSize
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
+  onChangeDrawerOpen(e, value) {
+    this.drawerOpen = value
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onSelectionModel(model) {
+    this.selectionModel = model
+  }
+
+  getCurrentData() {
+    return toJS(this.productsVacant)
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.getProductsVacant()
+      await this.getProductsVacant()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -154,20 +198,11 @@ export class ClientExchangeViewModel {
     this.curPage = value
   }
 
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = Number(e.target.value)
-    this.curPage = 1
-  }
-
   onTriggerPrivateLabelModal() {
     this.showPrivateLabelModal = !this.showPrivateLabelModal
   }
 
   onTriggerDrawer() {
     this.drawerOpen = !this.drawerOpen
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
   }
 }

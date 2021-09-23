@@ -39,6 +39,6 @@ export const useClassNames = makeStyles(theme => ({
     flexShrink: 0,
   },
   tableContainer: {
-    maxHeight: '75vh',
+    maxHeight: '69vh',
   },
 }))

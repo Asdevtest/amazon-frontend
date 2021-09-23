@@ -141,7 +141,7 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
 
               <ErrorButton
                 className={classNames.cancelBtn}
-                onClick={() => handlers.onCancelMergeBoxes(item.boxes[0]._id, item._id)}
+                onClick={() => handlers.onClickCancelTask(item.boxes[0]._id, item._id, item.operationType)}
               >
                 {textConsts.cancelBtn}
               </ErrorButton>
@@ -157,7 +157,7 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
 
               <ErrorButton
                 className={classNames.cancelBtn}
-                onClick={() => handlers.onCancelSplitBoxes(item.boxes[0]._id, item._id)}
+                onClick={() => handlers.onClickCancelTask(item.boxes[0]._id, item._id, item.operationType)}
               >
                 {textConsts.cancelBtn}
               </ErrorButton>
@@ -174,7 +174,7 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
 
               <ErrorButton
                 className={classNames.cancelBtn}
-                onClick={() => handlers.onCancelEditBox(item.boxes[0]._id, item._id)}
+                onClick={() => handlers.onClickCancelTask(item.boxes[0]._id, item._id, item.operationType)}
               >
                 {textConsts.cancelBtn}
               </ErrorButton>

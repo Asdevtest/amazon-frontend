@@ -135,4 +135,16 @@ export const useClassNames = makeStyles(() => ({
   supplierTitle: {
     marginBottom: '5px',
   },
+  amazonLink: {
+    width: '100%',
+    height: '50px',
+    overflowX: 'scroll',
+    whiteSpace: 'nowrap',
+
+    background: 'rgba(59, 59, 59, 0.1)',
+    borderRadius: '5px',
+    padding: '0 5px',
+
+    border: '0.3px solid rgba(118, 118, 118, 0.1)',
+  },
 }))

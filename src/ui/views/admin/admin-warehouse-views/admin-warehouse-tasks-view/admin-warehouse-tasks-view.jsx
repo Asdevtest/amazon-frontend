@@ -33,6 +33,7 @@ export class AdminWarehouseTasksViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
+    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -86,7 +87,6 @@ export class AdminWarehouseTasksViewRaw extends Component {
                 <DataGrid
                   pagination
                   useResizeContainer
-                  checkboxSelection
                   classes={{
                     row: classNames.row,
                   }}
