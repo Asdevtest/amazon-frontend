@@ -15,7 +15,6 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-// import {exchangeInventoryColumns} from '@components/table-columns/admin/inventory-columns'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/adminAvatar.jpg'
@@ -78,7 +77,6 @@ export class AdminInventoryViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
-                checkboxSelection
                 classes={{
                   row: classNames.row,
                 }}

@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 
-import {TableCell, TableRow, Typography} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {BUYER_MY_PRODUCTS_HEAD_CELLS} from '@constants/mocks'
+import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -12,8 +13,7 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {Table} from '@components/table'
-import {TableBodyRow} from '@components/table-rows/buyer/my-products-view/table-body-row'
+import {buyerProductsViewColumns} from '@components/table-columns/buyer/buyer-products-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -31,23 +31,29 @@ export class BuyerMyProductsViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
-      productsMy,
+      requestStatus,
+      getCurrentData,
+      sortModel,
+      filterModel,
+
       drawerOpen,
       curPage,
       rowsPerPage,
-      onChangePage,
+      onChangeCurPage,
       onChangeRowsPerPage,
       onTriggerDrawerOpen,
       onClickTableRow,
+
+      onSelectionModel,
+      setDataGridState,
+      onChangeSortingModel,
     } = this.viewModel
     const {classes: classNames} = this.props
-    const tableRowHandlers = {
-      onClickTableRow,
-    }
 
     return (
       <React.Fragment>
@@ -71,16 +77,32 @@ export class BuyerMyProductsViewRaw extends Component {
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
-                <Table
-                  currentPage={curPage}
-                  data={productsMy}
-                  handlerPageChange={onChangePage}
-                  handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(productsMy.length / rowsPerPage)}
-                  BodyRow={TableBodyRow}
-                  renderHeadRow={this.renderHeadRow}
-                  rowsPerPage={rowsPerPage}
-                  rowsHandlers={tableRowHandlers}
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  classes={{
+                    row: classNames.row,
+                  }}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rows={getCurrentData()}
+                  rowHeight={100}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  columns={buyerProductsViewColumns()}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection.selectionModel[0])
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={e => setDataGridState(e.state)}
+                  onRowDoubleClick={e => onClickTableRow(e.row)}
                 />
               </div>
             </MainContent>
@@ -89,16 +111,6 @@ export class BuyerMyProductsViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderHeadRow = (
-    <TableRow>
-      {BUYER_MY_PRODUCTS_HEAD_CELLS.map((item, index) => (
-        <TableCell key={index} align={item.align}>
-          {item.label}
-        </TableCell>
-      ))}
-    </TableRow>
-  )
 }
 
 export const BuyerMyProductsView = withStyles(styles)(BuyerMyProductsViewRaw)

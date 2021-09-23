@@ -1,8 +1,10 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
 
+import {SettingsModel} from '@models/settings-model'
 import {SupervisorModel} from '@models/supervisor-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
@@ -13,15 +15,56 @@ export class SupervisorProductsViewModel {
   error = undefined
 
   drawerOpen = false
-  rowsPerPage = 15
-  curPage = 1
-  selectedProducts = []
 
   productsMy = []
+
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
+  rowsPerPage = 15
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  setDataGridState(state) {
+    SettingsModel.setDataGridState(state, DataGridTablesKeys.SUPERVISOR_PRODUCTS)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.SUPERVISOR_PRODUCTS]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.curPage = state.pagination.page
+      this.rowsPerPage = state.pagination.pageSize
+    }
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e.pageSize
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
+  onChangeDrawerOpen(e, value) {
+    this.drawerOpen = value
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onSelectionModel(model) {
+    this.selectionModel = model
+  }
+
+  getCurrentData() {
+    return toJS(this.productsMy)
   }
 
   async loadData() {
@@ -60,18 +103,6 @@ export class SupervisorProductsViewModel {
     }
   }
 
-  onSelectProduct(item, index) {
-    const selectedProducts = [...this.selectedProducts]
-    const newSelectedProducts = [...selectedProducts]
-    const findRequestIndex = selectedProducts.indexOf(index)
-    if (findRequestIndex !== -1) {
-      newSelectedProducts.splice(findRequestIndex, 1)
-    } else {
-      newSelectedProducts.push(index)
-    }
-    this.selectedProducts = newSelectedProducts
-  }
-
   onClickTableRow(item) {
     this.history.push('/supervisor/product', {product: toJS(item)})
   }
@@ -84,16 +115,5 @@ export class SupervisorProductsViewModel {
 
   onChangePage(e, value) {
     this.curPage = value
-  }
-
-  onChangeRowsPerPage = e => {
-    this.rowsPerPage = Number(e.target.value)
-    this.curPage = 1
-  }
-
-  onClickCalculateFees() {}
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
   }
 }

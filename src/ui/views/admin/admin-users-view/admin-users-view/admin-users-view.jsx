@@ -19,7 +19,7 @@ import {Navbar} from '@components/navbar'
 import {AdminContentModal} from '@components/screens/users-views/sub-users-view/admin-content-modal'
 import {PermissionContentModal} from '@components/screens/users-views/sub-users-view/permission-modal'
 
-import {formatDateTimeWithParseISO} from '@utils/date-time'
+import {formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/adminAvatar.jpg'
@@ -33,8 +33,9 @@ const renderAdminSubUsersTableCells = renderBtns => [
   {
     field: 'createdAt',
     headerName: 'Created',
-    renderCell: params => (params.value ? formatDateTimeWithParseISO(params.value) : 'N/A'),
+    renderCell: params => (params.value ? formatNormDateTimeWithParseISO(params.value) : 'N/A'),
     width: 150,
+    type: 'date',
   },
 
   {field: 'name', headerName: 'Name', width: 150},
@@ -43,6 +44,7 @@ const renderAdminSubUsersTableCells = renderBtns => [
     headerName: 'Balance',
     renderCell: params => !params.value && 'N/A',
     width: 150,
+    type: 'number',
   },
 
   {
@@ -50,14 +52,35 @@ const renderAdminSubUsersTableCells = renderBtns => [
     headerName: 'Freeze',
     renderCell: params => !params.value && '0',
     width: 150,
+    type: 'number',
   },
   {field: 'email', headerName: 'Email', width: 150},
 
-  {field: 'rate', headerName: 'Rate', renderCell: params => !params.value && 'N/A', width: 150},
+  {field: 'rate', headerName: 'Rate', renderCell: params => !params.value && 'N/A', width: 150, type: 'number'},
   {
     field: 'role',
     headerName: 'Role',
     renderCell: params => UserRoleCodeMap[params.value],
+    filterable: false,
+    // valueParser: value => {
+
+    //   switch (value.toUpperCase()) {
+    //     case UserRole.ADMIN:
+    //       return '0' // НЕ РАБОТАЕТ С НУЛЕМ
+    //     case UserRole.CLIENT:
+    //       return '10'
+    //     case UserRole.SUPERVISOR:
+    //       return '20'
+    //     case UserRole.RESEARCHER:
+    //       return '30'
+    //     case UserRole.BUYER:
+    //       return '40'
+    //     case UserRole.STOREKEEPER:
+    //       return '50'
+    //     default:
+    //       return value
+    //   }
+    // },
     width: 150,
   },
 
@@ -66,6 +89,16 @@ const renderAdminSubUsersTableCells = renderBtns => [
     headerName: 'User status',
     renderCell: params => (params.value === true ? 'Active' : 'Banned'),
     width: 150,
+    valueParser: value => {
+      switch (value) {
+        case 'Active':
+          return 'true'
+        case 'Banned':
+          return 'false'
+        default:
+          return value
+      }
+    },
   },
   {
     field: '',

@@ -1,15 +1,18 @@
 import React, {Component} from 'react'
 
 import {TableCell, TableRow, Typography} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {clientUsername} from '@constants/mocks'
-import {CLIENT_EXCHANGE_HEAD_CELLS, CLIENT_EXCHANGE_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
+import {CLIENT_EXCHANGE_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -18,8 +21,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
-import {Table} from '@components/table'
-import {ExchangeBodyRow} from '@components/table-rows/client/exchange'
+import {clientExchangeViewColumns} from '@components/table-columns/client/client-exchange-columns'
 
 import {calcProductPrice} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -40,14 +42,19 @@ export class ClientExchangeViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
+      requestStatus,
+      getCurrentData,
+      sortModel,
+      filterModel,
+
       drawerOpen,
       curPage,
       rowsPerPage,
-      productsVacant,
       showPrivateLabelModal,
       selectedProduct,
       showConfirmPayModal,
@@ -59,19 +66,18 @@ export class ClientExchangeViewRaw extends Component {
       onClickOrderNowBtn,
       onClickCancelBtn,
       onTriggerPrivateLabelModal,
-      onClickLaunchPrivateLabelBtn,
       onClickBuyProductBtn,
-      onClickUsername,
       onTriggerOpenModal,
       setDataToPay,
+
+      onSelectionModel,
+      setDataGridState,
+      onChangeSortingModel,
     } = this.viewModel
     const {classes: classNames} = this.props
-    const tableRowsHandlers = {
-      onClickLaunchPrivateLabelBtn,
-      onClickBuyProductBtn,
-      onClickUsername,
-      onTriggerOpenModal,
-    }
+    // const tableRowsHandlers = {
+    //   onClickBuyProductBtn,
+    // }
     return (
       <React.Fragment>
         <Navbar
@@ -95,17 +101,31 @@ export class ClientExchangeViewRaw extends Component {
                   {textConsts.mainTitle}
                 </Typography>
               </div>
-              <Table
-                currentPage={curPage}
-                data={productsVacant}
-                handlerPageChange={onChangeCurPage}
-                handlerRowsPerPage={onChangeRowsPerPage}
-                pageCount={Math.ceil(productsVacant.length / rowsPerPage)}
-                BodyRow={ExchangeBodyRow}
-                renderHeadRow={this.renderTableHeadRow()}
-                rowsPerPage={rowsPerPage}
-                rowsHandlers={tableRowsHandlers}
-              />
+              <div className={classNames.tableWrapper}>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rows={getCurrentData()}
+                  rowHeight={100}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  columns={clientExchangeViewColumns(this.renderBtns)}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection.selectionModel[0])
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={e => setDataGridState(e.state)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>
@@ -159,15 +179,19 @@ export class ClientExchangeViewRaw extends Component {
     )
   }
 
-  renderTableHeadRow = () => (
-    <TableRow>
-      {CLIENT_EXCHANGE_HEAD_CELLS.map((item, index) => (
-        <TableCell key={index} align={item.align}>
-          {item.label}
-        </TableCell>
-      ))}
-      <TableCell />
-    </TableRow>
+  renderBtns = params => (
+    <React.Fragment>
+      <div>
+        <SuccessButton
+          onClick={() => {
+            this.viewModel.onClickLaunchPrivateLabelBtn(params.row)
+            this.viewModel.onTriggerOpenModal('showConfirmPayModal')
+          }}
+        >
+          {`${textConsts.byForBtn} ${toFixedWithDollarSign(calcProductPrice(params.row))}`}
+        </SuccessButton>
+      </div>
+    </React.Fragment>
   )
 
   renderModalHeadRow = () => (

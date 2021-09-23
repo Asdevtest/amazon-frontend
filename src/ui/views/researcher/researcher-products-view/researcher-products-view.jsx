@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 
 import {Typography, Paper} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {RESEARCHER_HEAD_CELLS} from '@constants/mocks'
+import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -13,9 +14,7 @@ import {ResearcherAddProductForm} from '@components/forms/reasearcher-add-produc
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {Table} from '@components/table'
-import {TableBodyRow} from '@components/table-rows/researcher/table-body-row'
-import {TableHeadRow} from '@components/table-rows/researcher/table-head-row'
+import {researcherProductsViewColumns} from '@components/table-columns/researcher/researcher-products-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -33,15 +32,20 @@ class ResearcherProductsViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
+      requestStatus,
+      getCurrentData,
+      sortModel,
+      filterModel,
+
       drawerOpen,
       rowsPerPage,
       curPage,
       formFields,
-      products,
       error,
       actionStatus,
       chekedCode,
@@ -52,11 +56,12 @@ class ResearcherProductsViewRaw extends Component {
       onChangeRowsPerPage,
       onChangeFormFields,
       onClickTableRow,
+
+      onSelectionModel,
+      setDataGridState,
+      onChangeSortingModel,
     } = this.viewModel
     const {classes: classNames} = this.props
-    const rowsHandlers = {
-      onClickTableRow,
-    }
 
     return (
       <React.Fragment>
@@ -93,16 +98,32 @@ class ResearcherProductsViewRaw extends Component {
               </Paper>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
-                <Table
-                  currentPage={curPage}
-                  data={products}
-                  handlerPageChange={onChangeCurPage}
-                  handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(products.length / rowsPerPage)}
-                  BodyRow={TableBodyRow}
-                  renderHeadRow={this.renderHeadRow}
-                  rowsPerPage={rowsPerPage}
-                  rowsHandlers={rowsHandlers}
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  classes={{
+                    row: classNames.row,
+                  }}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rows={getCurrentData()}
+                  rowHeight={60}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  columns={researcherProductsViewColumns()}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection.selectionModel[0])
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={e => setDataGridState(e.state)}
+                  onRowDoubleClick={e => onClickTableRow(e.row)}
                 />
               </div>
             </MainContent>
@@ -111,7 +132,6 @@ class ResearcherProductsViewRaw extends Component {
       </React.Fragment>
     )
   }
-  renderHeadRow = (<TableHeadRow headCells={RESEARCHER_HEAD_CELLS} />)
 }
 
 export const ResearcherProductsView = withStyles(styles)(ResearcherProductsViewRaw)

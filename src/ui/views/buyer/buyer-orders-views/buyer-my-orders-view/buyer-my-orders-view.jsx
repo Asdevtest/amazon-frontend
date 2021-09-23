@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {DeliveryTypeByCode} from '@constants/delivery-options'
-import {BUYER_MY_ORDERS_HEAD_CELLS, BUYER_MY_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
+import {loadingStatuses} from '@constants/loading-statuses'
+import {BUYER_MY_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 import {warehouses} from '@constants/warehouses'
@@ -18,9 +20,7 @@ import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
-import {Table} from '@components/table'
-import {TableBodyRow} from '@components/table-rows/buyer/orders-views/table-body-row'
-import {TableHeadRow} from '@components/table-rows/buyer/orders-views/table-head-row'
+import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -38,13 +38,18 @@ class BuyerMyOrdersViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
+      requestStatus,
+      getCurrentData,
+      sortModel,
+      filterModel,
+
       curBoxesOfOrder,
       drawerOpen,
-      ordersMy,
       curPage,
       rowsPerPage,
       selectedOrder,
@@ -53,19 +58,19 @@ class BuyerMyOrdersViewRaw extends Component {
       showNoDimensionsErrorModal,
       showWarningNewBoxesModal,
       onTriggerDrawerOpen,
-      onChangePage,
+      onChangeCurPage,
       onChangeRowsPerPage,
       onClickOrder,
-      onSelectedOrder,
       onSubmitSaveOrder,
       onSubmitCreateBoxes,
       onTriggerOpenModal,
+
+      onSelectionModel,
+      setDataGridState,
+      onChangeSortingModel,
     } = this.viewModel
     const {classes: classNames} = this.props
-    const rowHandlers = {
-      onClickOrder,
-      onSelectedOrder,
-    }
+
     return (
       <React.Fragment>
         <Navbar
@@ -89,16 +94,32 @@ class BuyerMyOrdersViewRaw extends Component {
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
-                <Table
-                  currentPage={curPage}
-                  data={ordersMy}
-                  handlerPageChange={onChangePage}
-                  handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(ordersMy.length / rowsPerPage)}
-                  BodyRow={TableBodyRow}
-                  renderHeadRow={this.renderHeadRow}
-                  rowsPerPage={rowsPerPage}
-                  rowsHandlers={rowHandlers}
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  classes={{
+                    row: classNames.row,
+                  }}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rows={getCurrentData()}
+                  rowHeight={100}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  columns={buyerMyOrdersViewColumns()}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection.selectionModel[0])
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={e => setDataGridState(e.state)}
+                  onRowDoubleClick={e => onClickOrder(e.row)}
                 />
               </div>
             </MainContent>
@@ -154,8 +175,6 @@ class BuyerMyOrdersViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderHeadRow = (<TableHeadRow headCells={BUYER_MY_ORDERS_HEAD_CELLS} />)
 }
 
 export const BuyerMyOrdersView = withStyles(styles)(BuyerMyOrdersViewRaw)

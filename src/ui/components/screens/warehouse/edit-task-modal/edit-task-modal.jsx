@@ -27,7 +27,6 @@ export const EditTaskModal = observer(
     onSetBarcode,
     onEditBox,
     onClickSolveTask,
-    tmpBarCode,
     progressValue,
     showProgress,
     showEditBoxModal,
@@ -49,7 +48,10 @@ export const EditTaskModal = observer(
             heightCmWarehouse: box?.heightCmWarehouse || '',
             weighGrossKgWarehouse: box?.weighGrossKgWarehouse || '',
             volumeWeightKgWarehouse: box?.volumeWeightKgWarehouse || '',
-            weightFinalAccountingKgWarehouse: box?.weightFinalAccountingKgWarehouse || '',
+            weightFinalAccountingKgWarehouse: Math.max(
+              parseFloat(box?.volumeWeightKgWarehouse) || 0,
+              parseFloat(box?.weighGrossKgWarehouse) || 0,
+            ),
             isShippingLabelAttachedByStorekeeper: box?.isShippingLabelAttachedByStorekeeper || false,
             tmpImages: [],
           }),
@@ -102,7 +104,6 @@ export const EditTaskModal = observer(
             incomingBoxes={task.boxesBefore}
             desiredBoxes={newBoxes}
             taskType={task.operationType}
-            tmpBarCode={tmpBarCode}
             setNewBoxes={setNewBoxes}
             showEditBoxModal={showEditBoxModal}
             onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}

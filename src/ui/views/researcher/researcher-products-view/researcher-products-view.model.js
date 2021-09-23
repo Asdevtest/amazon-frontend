@@ -1,9 +1,11 @@
 import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 
 import {ResearcherModel} from '@models/researcher-model'
+import {SettingsModel} from '@models/settings-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
@@ -22,8 +24,6 @@ export class ResearcherProductsViewModel {
   actionStatus = undefined
 
   drawerOpen = false
-  rowsPerPage = 15
-  curPage = 1
 
   formFields = {...formFieldsDefault}
   newProductId = undefined
@@ -33,9 +33,53 @@ export class ResearcherProductsViewModel {
   products = []
   chekedCode = ''
 
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
+  rowsPerPage = 15
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  setDataGridState(state) {
+    SettingsModel.setDataGridState(state, DataGridTablesKeys.RESEARCHER_PRODUCTS)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.RESEARCHER_PRODUCTS]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.curPage = state.pagination.page
+      this.rowsPerPage = state.pagination.pageSize
+    }
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e.pageSize
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
+  onChangeDrawerOpen(e, value) {
+    this.drawerOpen = value
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onSelectionModel(model) {
+    this.selectionModel = model
+  }
+
+  getCurrentData() {
+    return toJS(this.products)
   }
 
   async loadData() {
@@ -170,11 +214,6 @@ export class ResearcherProductsViewModel {
       }
     })
 
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = Number(e.target.value)
-    this.curPage = 1
-  }
-
   onChangeCurPage(e, value) {
     this.curPage = value
   }
@@ -185,9 +224,5 @@ export class ResearcherProductsViewModel {
 
   setActionStatus(actionStatus) {
     this.actionStatus = actionStatus
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
   }
 }

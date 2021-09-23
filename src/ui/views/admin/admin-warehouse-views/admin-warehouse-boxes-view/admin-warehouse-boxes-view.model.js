@@ -1,8 +1,12 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
+import {SettingsModel} from '@models/settings-model'
+
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
 export class AdminWarehouseBoxesViewModel {
   history = undefined
@@ -12,15 +16,50 @@ export class AdminWarehouseBoxesViewModel {
   boxes = []
 
   drawerOpen = false
-  curPage = 1
-  rowsPerPage = 15
   selectedBoxes = ['2096c_box']
   modalSendOwnProduct = false
   modalEditBox = false
+  selectionModel = undefined
+
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
+  rowsPerPage = 15
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e.pageSize
+  }
+
+  getCurrentData() {
+    return toJS(this.boxes)
+  }
+
+  onSelectionModel(model) {
+    this.selectionModel = model
+  }
+
+  setDataGridState(state) {
+    SettingsModel.setDataGridState(state, DataGridTablesKeys.ADMIN_BOXES)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_BOXES]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.curPage = state.pagination.page
+      this.rowsPerPage = state.pagination.pageSize
+    }
   }
 
   async loadData() {
@@ -38,7 +77,10 @@ export class AdminWarehouseBoxesViewModel {
     try {
       const result = await BoxesModel.getBoxes()
       runInAction(() => {
-        this.boxes = result
+        this.boxes = result.map(user => ({
+          ...getObjectFilteredByKeyArrayBlackList(user, ['_id']),
+          id: user._id,
+        }))
       })
     } catch (error) {
       console.log(error)

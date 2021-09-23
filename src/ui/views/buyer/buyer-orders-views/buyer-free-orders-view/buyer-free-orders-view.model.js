@@ -1,8 +1,10 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BuyerModel} from '@models/buyer-model'
+import {SettingsModel} from '@models/settings-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 
@@ -16,12 +18,56 @@ export class BuyerFreeOrdersViewModel {
   drawerOpen = false
   showBarcodeModal = false
   showOrderModal = false
+
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
   rowsPerPage = 15
-  curPage = 1
+
+  showWarningModal = false
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  setDataGridState(state) {
+    SettingsModel.setDataGridState(state, DataGridTablesKeys.BUYER_FREE_ORDERS)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_FREE_ORDERS]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.curPage = state.pagination.page
+      this.rowsPerPage = state.pagination.pageSize
+    }
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e.pageSize
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
+  onChangeDrawerOpen(e, value) {
+    this.drawerOpen = value
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onSelectionModel(model) {
+    this.selectionModel = model
+  }
+
+  getCurrentData() {
+    return toJS(this.ordersVacant)
   }
 
   async loadData() {
@@ -42,7 +88,10 @@ export class BuyerFreeOrdersViewModel {
     try {
       const result = await BuyerModel.getOrdersVacant()
       runInAction(() => {
-        this.ordersVacant = result.sort(sortObjectsArrayByFiledDate('createDate'))
+        this.ordersVacant = result.sort(sortObjectsArrayByFiledDate('createDate')).map(order => ({
+          ...order,
+          id: order._id,
+        }))
       })
     } catch (error) {
       this.ordersVacant = []
@@ -57,6 +106,7 @@ export class BuyerFreeOrdersViewModel {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       await BuyerModel.pickupOrder(order._id)
+      this.onTriggerOpenModal('showWarningModal')
       this.setActionStatus(loadingStatuses.success)
       this.loadData()
     } catch (error) {
@@ -77,16 +127,11 @@ export class BuyerFreeOrdersViewModel {
     this.curPage = value
   }
 
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = Number(e.target.value)
-    this.curPage = 1
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
   setActionStatus(actionStatus) {
     this.actionStatus = actionStatus
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }

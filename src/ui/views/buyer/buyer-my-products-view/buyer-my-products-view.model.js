@@ -1,8 +1,10 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BuyerModel} from '@models/buyer-model'
+import {SettingsModel} from '@models/settings-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 
@@ -12,12 +14,54 @@ export class BuyerMyProductsViewModel {
 
   productsMy = []
   drawerOpen = false
+
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
   rowsPerPage = 15
-  curPage = 1
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  setDataGridState(state) {
+    SettingsModel.setDataGridState(state, DataGridTablesKeys.BUYER_PRODUCTS)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_PRODUCTS]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.curPage = state.pagination.page
+      this.rowsPerPage = state.pagination.pageSize
+    }
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e.pageSize
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
+  onChangeDrawerOpen(e, value) {
+    this.drawerOpen = value
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onSelectionModel(model) {
+    this.selectionModel = model
+  }
+
+  getCurrentData() {
+    return toJS(this.productsMy)
   }
 
   async loadData() {
@@ -59,14 +103,5 @@ export class BuyerMyProductsViewModel {
 
   onChangePage(e, value) {
     this.curPage = value
-  }
-
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = Number(e.target.value)
-    this.curPage = 1
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
   }
 }

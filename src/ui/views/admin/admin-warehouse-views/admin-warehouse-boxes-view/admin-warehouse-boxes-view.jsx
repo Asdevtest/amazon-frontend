@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
 
-import {TableCell, TableRow, Typography} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {adminUsername, clientWarehouseViewTable} from '@constants/mocks'
+import {loadingStatuses} from '@constants/loading-statuses'
+import {adminUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -12,16 +14,13 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {Table} from '@components/table'
-import {WarehouseBodyRow} from '@components/table-rows/warehouse'
+import {adminBoxesViewColumns} from '@components/table-columns/admin/boxes-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/adminAvatar.jpg'
 import {AdminWarehouseBoxesViewModel} from './admin-warehouse-boxes-view.model'
 import {styles} from './admin-warehouse-boxes-view.style'
-
-const {headCells} = clientWarehouseViewTable
 
 const textConsts = getLocalizedTexts(texts, 'en').adminWarehouseView
 
@@ -34,27 +33,27 @@ export class AdminWarehouseBoxesViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
+      getCurrentData,
+      sortModel,
+      filterModel,
+      requestStatus,
+
       drawerOpen,
       curPage,
       rowsPerPage,
-      boxes,
-      selectedBoxes,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
-      onTriggerCheckbox,
-    } = this.viewModel
 
-    const rowsHandlers = {
-      checkbox: id => onTriggerCheckbox(id),
-    }
-    const rowsDatas = {
-      selectedBoxes,
-    }
+      onSelectionModel,
+      setDataGridState,
+      onChangeSortingModel,
+    } = this.viewModel
 
     return (
       <React.Fragment>
@@ -77,17 +76,29 @@ export class AdminWarehouseBoxesViewRaw extends Component {
               <Typography paragraph variant="h5">
                 {textConsts.mainTitle}
               </Typography>
-              <Table
-                currentPage={curPage}
-                data={boxes}
-                handlerPageChange={onChangeCurPage}
-                handlerRowsPerPage={onChangeRowsPerPage}
-                pageCount={Math.ceil(boxes.length / rowsPerPage)}
-                BodyRow={WarehouseBodyRow}
-                renderHeadRow={this.renderHeadRow}
-                rowsPerPage={rowsPerPage}
-                rowsHandlers={rowsHandlers}
-                rowsDatas={rowsDatas}
+
+              <DataGrid
+                pagination
+                useResizeContainer
+                sortModel={sortModel}
+                filterModel={filterModel}
+                page={curPage}
+                pageSize={rowsPerPage}
+                rowsPerPageOptions={[5, 10, 15, 20]}
+                rows={getCurrentData()}
+                columns={adminBoxesViewColumns()}
+                rowHeight={100}
+                loading={requestStatus === loadingStatuses.isLoading}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
+                onSelectionModelChange={newSelection => {
+                  onSelectionModel(newSelection.selectionModel[0])
+                }}
+                onSortModelChange={onChangeSortingModel}
+                onPageSizeChange={onChangeRowsPerPage}
+                onPageChange={onChangeCurPage}
+                onStateChange={e => setDataGridState(e.state)}
               />
             </MainContent>
           </Appbar>
@@ -95,14 +106,6 @@ export class AdminWarehouseBoxesViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderHeadRow = (
-    <TableRow>
-      {headCells.map((item, index) => (
-        <TableCell key={index}>{item.label}</TableCell>
-      ))}
-    </TableRow>
-  )
 }
 
 export const AdminWarehouseBoxesView = withStyles(styles)(AdminWarehouseBoxesViewRaw)

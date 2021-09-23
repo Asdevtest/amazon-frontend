@@ -15,6 +15,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 
+import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {BoxesToCreateTable} from './boxes-to-create-table'
@@ -85,13 +86,14 @@ export const EditOrderModal = ({
     amount: order?.amount || 0,
     trackingNumberChina: order?.trackingNumberChina,
     batchPrice: 0,
+    totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
   })
 
   const setOrderField = filedName => e => {
     const newOrderFieldsState = {...orderFields}
 
-    if (['totalPriceChanged'].includes(filedName)) {
-      if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+    if (['totalPriceChanged', 'deliveryCostToTheWarehouse'].includes(filedName)) {
+      if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
         return
       }
       newOrderFieldsState[filedName] = e.target.value
@@ -103,8 +105,7 @@ export const EditOrderModal = ({
       setShowConfirmModal(!showConfirmModal)
       return
     } else {
-      newOrderFieldsState[filedName] =
-        filedName === 'deliveryCostToTheWarehouse' ? parseInt(e.target.value.match(/\d+/)) : e.target.value
+      newOrderFieldsState[filedName] = e.target.value
     }
 
     setOrderFields(newOrderFieldsState)

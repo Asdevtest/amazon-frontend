@@ -87,6 +87,11 @@ export const useClassNames = makeStyles(theme => ({
       color: 'rgba(255,255,255,0.46)',
     },
   },
+  barcodeChiplabel: {
+    width: '300px',
+    textAlign: 'center',
+  },
+
   barcodeChipExists: {
     backgroundColor: 'rgb(61, 81, 112)',
   },
@@ -117,5 +122,21 @@ export const useClassNames = makeStyles(theme => ({
   amountSpan: {
     margin: '0 0 0 20px',
     color: 'rgb(0, 123, 255, 0.7)',
+  },
+  imgBox: {
+    width: '200px',
+    height: '200px',
+    objectFit: 'center',
+    transition: '.2s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
+  },
+  photoWrapper: {
+    width: '400px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 }))

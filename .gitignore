@@ -25,3 +25,4 @@ yarn-error.log*
 # Custom
 /.husky
 .env
+.idea
