@@ -1173,7 +1173,7 @@ export const texts = {
     },
     productWrapperComponent: {
       buttonParseAmazon: ' Parse Amazon ',
-      buttonParseSellcentrall: 'Parse Sellcentrall',
+      buttonParseSellcentrall: 'Parse Seller central',
       alertSuccess: 'Запрос обработан',
       alertFailed: 'Запрос не был обработан',
 
