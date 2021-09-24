@@ -7,7 +7,7 @@ import {
   FinalWeightCell,
   IdCell,
   NoActiveBarcodeCell,
-  NormDateWithParseISOCell,
+  NormDateCell,
   OrderCell,
   PriceCell,
   renderFieldValueCell,
@@ -23,7 +23,7 @@ export const adminBoxesViewColumns = () => [
   {
     field: 'createdAt',
     headerName: textConsts.createdAtField,
-    renderCell: params => <NormDateWithParseISOCell params={params} />,
+    renderCell: params => <NormDateCell params={params} />,
     width: 150,
     type: 'date',
   },
