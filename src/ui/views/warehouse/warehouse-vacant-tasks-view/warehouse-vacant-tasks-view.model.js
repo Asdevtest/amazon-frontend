@@ -96,8 +96,8 @@ export class WarehouseVacantViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangeCurPage(e, value) {
-    this.curPage = value
+  onChangeCurPage(e) {
+    this.curPage = e.page
   }
 
   async getTasksVacant() {

@@ -107,13 +107,11 @@ export class SupervisorProductsViewModel {
     this.history.push('/supervisor/product', {product: toJS(item)})
   }
 
-  onClickResearcherName() {}
-
   onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangePage(e, value) {
-    this.curPage = value
+  onChangeCurPage(e) {
+    this.curPage = e.page
   }
 }

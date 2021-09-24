@@ -84,8 +84,8 @@ export class WarehouseWarehouseViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangeCurPage = (e, value) => {
-    this.curPage = value
+  onChangeCurPage(e) {
+    this.curPage = e.page
   }
 
   onChangeRowsPerPage = e => {

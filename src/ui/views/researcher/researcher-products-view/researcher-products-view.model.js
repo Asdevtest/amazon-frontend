@@ -214,8 +214,8 @@ export class ResearcherProductsViewModel {
       }
     })
 
-  onChangeCurPage(e, value) {
-    this.curPage = value
+  onChangeCurPage(e) {
+    this.curPage = e.page
   }
 
   onTriggerDrawerOpen() {

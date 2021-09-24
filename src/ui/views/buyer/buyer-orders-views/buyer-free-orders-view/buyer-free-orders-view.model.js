@@ -123,8 +123,8 @@ export class BuyerFreeOrdersViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangePage(e, value) {
-    this.curPage = value
+  onChangeCurPage(e) {
+    this.curPage = e.page
   }
 
   setActionStatus(actionStatus) {

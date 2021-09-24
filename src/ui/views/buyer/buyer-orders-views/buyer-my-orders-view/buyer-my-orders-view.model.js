@@ -37,13 +37,16 @@ export class BuyerMyOrdersViewModel {
   drawerOpen = false
   showBarcodeModal = false
   showOrderModal = false
-  rowsPerPage = 15
-  curPage = 1
   selectedOrder = undefined
   barcode = ''
   showNoDimensionsErrorModal = false
   showWarningNewBoxesModal = false
   showSuccessModal = false
+
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
+  rowsPerPage = 15
 
   constructor({history}) {
     this.history = history
@@ -238,8 +241,8 @@ export class BuyerMyOrdersViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangePage(e, value) {
-    this.curPage = value
+  onChangeCurPage(e) {
+    this.curPage = e.page
   }
 
   actionStatus(actionStatus) {

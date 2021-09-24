@@ -17,6 +17,9 @@ export class BuyerMyProductsViewModel {
 
   sortModel = []
   filterModel = {items: []}
+
+  sortModel = []
+  filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
 
@@ -101,7 +104,7 @@ export class BuyerMyProductsViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangePage(e, value) {
-    this.curPage = value
+  onChangeCurPage(e) {
+    this.curPage = e.page
   }
 }

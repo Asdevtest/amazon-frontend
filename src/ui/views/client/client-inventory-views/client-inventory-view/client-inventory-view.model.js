@@ -209,8 +209,8 @@ export class ClientInventoryViewModel {
     this.history.push('/client/inventoryes/listing', {product: toJS(item)})
   }
 
-  onChangeCurPage(e, value) {
-    this.curPage = value
+  onChangeCurPage(e) {
+    this.curPage = e.page
   }
 
   onTriggerDrawer() {

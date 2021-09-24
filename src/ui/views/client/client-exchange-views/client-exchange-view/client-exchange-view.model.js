@@ -194,8 +194,8 @@ export class ClientExchangeViewModel {
     this.selectedProduct = undefined
   }
 
-  onChangeCurPage(e, value) {
-    this.curPage = value
+  onChangeCurPage(e) {
+    this.curPage = e.page
   }
 
   onTriggerPrivateLabelModal() {
