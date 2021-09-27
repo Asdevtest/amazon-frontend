@@ -13,7 +13,7 @@ class ClientModelStatic {
 
   updateProduct = async (id, data) => {
     const response = await restApiService.clientApi.apiV1ClientsProductsGuidPatch(id, {
-      InlineObject13: data,
+      InlineObject18: data,
     })
     return response
   }
@@ -25,7 +25,7 @@ class ClientModelStatic {
 
   makePayments = async productIds => {
     const response = await restApiService.clientApi.apiV1ClientsMakePaymentsPost({
-      InlineObject14: {guids: productIds},
+      InlineObject19: {guids: productIds},
     })
     return response
   }

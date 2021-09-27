@@ -35,6 +35,11 @@ class StorekeeperModelStatic {
     const response = await restApiService.strokeepersApi.apiV1StorekeepersBarcodeAndStatusInOrderPatch(id, data)
     return response
   }
+
+  resolveTask = async (id, data) => {
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksDoneGuidPost(id, {InlineObject27: data})
+    return response
+  }
 }
 
 export const StorekeeperModel = new StorekeeperModelStatic()

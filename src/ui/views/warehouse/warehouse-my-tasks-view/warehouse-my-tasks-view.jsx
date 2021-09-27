@@ -66,7 +66,6 @@ export class WarehouseMyTasksViewRaw extends Component {
       onClickSolveTask,
       onTriggerOpenModal,
       setTmpWarehouseComment,
-      // onClickCancelTask,
       onClickConfirmCancelTask,
 
       onSelectionModel,

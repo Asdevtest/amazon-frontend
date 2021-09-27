@@ -16,6 +16,7 @@ import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {FieldsAndSuppliers} from './fields-and-suppliers'
+import {TableSupplier} from './fields-and-suppliers/table-supplier'
 import {RightSideComments} from './right-side-comments'
 import {useClassNames} from './top-card.style'
 
@@ -98,6 +99,13 @@ export const TopCard = observer(
               onChangeField={onChangeField}
             />
           </Grid>
+
+          <TableSupplier
+            product={product}
+            selectedSupplier={selectedSupplier}
+            suppliers={suppliers}
+            onClickSupplier={onClickSupplier}
+          />
         </Paper>
       </React.Fragment>
     )

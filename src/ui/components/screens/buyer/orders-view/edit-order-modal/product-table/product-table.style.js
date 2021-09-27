@@ -9,6 +9,8 @@ export const useClassNames = makeStyles(() => ({
     textAlign: 'center',
     position: 'relative',
     margin: '12px',
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
 
   table: {
@@ -74,5 +76,12 @@ export const useClassNames = makeStyles(() => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+  },
+
+  link: {
+    width: '250px',
+    height: '50px',
+    overflowX: 'scroll',
+    whiteSpace: 'nowrap',
   },
 }))

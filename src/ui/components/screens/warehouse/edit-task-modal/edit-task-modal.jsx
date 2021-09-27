@@ -133,6 +133,7 @@ export const EditTaskModal = observer(
               variant="contained"
               onClick={() => {
                 onClickSolveTask({
+                  task,
                   newBoxes,
                   operationType: task.operationType,
                   comment: storekeeperComment,

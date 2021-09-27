@@ -13,21 +13,21 @@ class BoxesModelStatic {
 
   mergeBoxes = async ids => {
     const response = await restApiService.boxesApi.apiV1BoxesMergePost({
-      InlineObject5: {guids: ids},
+      InlineObject9: {guids: ids},
     })
     return response
   }
 
   cancelMergeBoxes = async id => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelMergePost({
-      InlineObject6: {guid: id},
+      InlineObject8: {guid: id},
     })
     return response
   }
 
   cancelEditBoxes = async id => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelEditPost({
-      InlineObject6: {guid: id},
+      InlineObject8: {guid: id},
     })
     return response
   }
@@ -39,21 +39,19 @@ class BoxesModelStatic {
 
   splitBoxes = async (id, data) => {
     const response = await restApiService.boxesApi.apiV1BoxesSplitPost({
-      InlineObject7: {guid: id, itemsBoxSet: data},
+      InlineObject11: {guid: id, itemsBoxSet: data},
     })
     return response
   }
 
   editBox = async ({id, data}) => {
-    const response = await restApiService.boxesApi.apiV1BoxesEditPost(id, {
-      InlineObject7: data,
-    })
+    const response = await restApiService.boxesApi.apiV1BoxesEditGuidPost(id, data)
     return response
   }
 
   cancelSplitBoxes = async id => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelSplitPost({
-      InlineObject8: {guid: id},
+      InlineObject12: {guid: id},
     })
     return response
   }
@@ -67,10 +65,10 @@ class BoxesModelStatic {
     const response = await restApiService.boxesApi.apiV1BoxesApprovePost(
       Array.isArray(request)
         ? {
-            InlineObject9: {guid: id, additionalBoxes: [...request]},
+            InlineObject13: {guid: id, additionalBoxes: [...request]},
           }
         : {
-            InlineObject9: {guid: request},
+            InlineObject13: {guid: request},
           },
     )
     return response
@@ -93,7 +91,7 @@ class BoxesModelStatic {
 
   updateBox = async (id, data) => {
     const response = await restApiService.boxesApi.apiV1BoxesStorekeepersGuidPatch(id, {
-      InlineObject10: data,
+      InlineObject8: data,
     })
     return response
   }

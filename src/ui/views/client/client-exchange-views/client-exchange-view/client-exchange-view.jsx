@@ -16,11 +16,12 @@ import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
-import {ClientExchnageCreateOrderModalContent} from '@components/modal-contents/client-exchange-create-order-modal-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
+import {OrderProductModal} from '@components/screens/client/order-product-modal'
 import {clientExchangeViewColumns} from '@components/table-columns/client/client-exchange-columns'
 
 import {calcProductPrice} from '@utils/calculation'
@@ -47,6 +48,11 @@ export class ClientExchangeViewRaw extends Component {
 
   render() {
     const {
+      showSetBarcodeModal,
+      onClickSaveBarcode,
+      showOrderModal,
+      onDoubleClickBarcode,
+
       requestStatus,
       getCurrentData,
       sortModel,
@@ -55,7 +61,6 @@ export class ClientExchangeViewRaw extends Component {
       drawerOpen,
       curPage,
       rowsPerPage,
-      showPrivateLabelModal,
       selectedProduct,
       showConfirmPayModal,
       showSuccessModal,
@@ -65,19 +70,15 @@ export class ClientExchangeViewRaw extends Component {
       onChangeRowsPerPage,
       onClickOrderNowBtn,
       onClickCancelBtn,
-      onTriggerPrivateLabelModal,
       onClickBuyProductBtn,
       onTriggerOpenModal,
-      setDataToPay,
 
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
     } = this.viewModel
     const {classes: classNames} = this.props
-    // const tableRowsHandlers = {
-    //   onClickBuyProductBtn,
-    // }
+
     return (
       <React.Fragment>
         <Navbar
@@ -129,14 +130,22 @@ export class ClientExchangeViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={showPrivateLabelModal} setOpenModal={onTriggerPrivateLabelModal}>
-          <ClientExchnageCreateOrderModalContent
-            modalHeadRow={this.renderModalHeadRow()}
+
+        <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
+          <SetBarcodeModal
             product={selectedProduct}
-            setDataToPay={setDataToPay}
-            onClickOrderNowBtn={onClickOrderNowBtn}
-            onClickCancelBtn={onClickCancelBtn}
-            onTriggerOpenConfirmModal={() => onTriggerOpenModal('showConfirmPayModal')}
+            onClickSaveBarcode={onClickSaveBarcode}
+            onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
+          />
+        </Modal>
+
+        <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
+          <OrderProductModal
+            selectedProductsData={[selectedProduct]}
+            onTriggerOpenModal={onTriggerOpenModal}
+            onDoubleClickBarcode={onDoubleClickBarcode}
+            onSubmit={onClickOrderNowBtn}
+            onClickCancel={onClickCancelBtn}
           />
         </Modal>
 
@@ -152,7 +161,7 @@ export class ClientExchangeViewRaw extends Component {
           onClickSuccessBtn={() => {
             onClickBuyProductBtn(selectedProduct)
             onTriggerOpenModal('showConfirmPayModal')
-            onTriggerOpenModal('showPrivateLabelModal')
+            onTriggerOpenModal('showOrderModal')
           }}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmPayModal')}
         />

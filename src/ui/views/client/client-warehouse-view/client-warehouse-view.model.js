@@ -137,8 +137,10 @@ export class ClientWarehouseViewModel {
             },
           ],
         },
-        ['_id', 'status', 'createdBy', 'lastModifiedBy', 'clientComment', 'createdAt'],
+        ['_id', 'id', 'status', 'createdBy', 'lastModifiedBy', 'clientComment', 'createdAt'],
       )
+
+      console.log('requestBox', requestBox)
       const editBoxesResult = await this.editBox({id, data: requestBox})
 
       await this.postTask({

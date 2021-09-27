@@ -22,16 +22,33 @@ export class ClientExchangeViewModel {
   showConfirmPayModal = false
   showSuccessModal = false
   showWarningModal = false
-  selectedProduct = undefined
+
+  selectedProduct = {}
 
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
 
+  showSetBarcodeModal = false
+  showOrderModal = false
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  onDoubleClickBarcode = item => {
+    this.setSelectedProduct(item)
+    this.onTriggerOpenModal('showSetBarcodeModal')
+  }
+
+  async onClickSaveBarcode(barCode) {
+    await this.onSaveProductData(this.selectedProduct._id, {barCode})
+    this.onTriggerOpenModal('showSetBarcodeModal')
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
   }
 
   setDataGridState(state) {
@@ -108,36 +125,25 @@ export class ClientExchangeViewModel {
     this.selectedProduct = product
   }
 
-  async onLaunchPrivateLabel(product, orderData) {
+  async createOrder(orderObject) {
     try {
-      await this.createOrder(product, orderData)
-
-      this.onTriggerOpenModal('showSuccessModal')
-
-      this.loadData()
+      await ClientModel.createOrder(orderObject)
+      this.selectedProduct = {}
+      await this.updateUserInfo()
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      this.error = error
     }
   }
 
-  async createOrder(product, orderData) {
+  async onLaunchPrivateLabel(order) {
     try {
-      const createorderData = {
-        status: 0,
-        amount: orderData.amount,
-        deliveryMethod: orderData.deliveryMethod,
-        warehouse: orderData.warehouse,
-        clientComment: orderData.clientComment,
-        barCode: orderData.barCode,
-        product: product._id,
-      }
-      const createOrderResult = await ClientModel.createOrder(createorderData)
-      console.log('createOrderResult ', createOrderResult)
-      await this.updateUserInfo()
-      await this.loadData()
+      await this.createOrder(order)
+
+      this.onTriggerOpenModal('showOrderModal')
+      this.onTriggerOpenModal('showSuccessModal')
+
+      this.loadData()
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
@@ -183,23 +189,20 @@ export class ClientExchangeViewModel {
   }
 
   onClickCancelBtn = () => {
-    this.onTriggerPrivateLabelModal()
-    this.selectedProduct = undefined
+    this.onTriggerOpenModal('showOrderModal')
+
+    this.selectedProduct = {}
     this.onTriggerOpenModal('showWarningModal')
   }
 
-  onClickOrderNowBtn = (product, orderData) => {
-    this.onTriggerPrivateLabelModal()
-    this.onLaunchPrivateLabel(product, orderData)
-    this.selectedProduct = undefined
+  onClickOrderNowBtn = orderData => {
+    this.onTriggerOpenModal('showOrderModal')
+
+    this.onLaunchPrivateLabel(orderData[0])
   }
 
   onChangeCurPage(e) {
     this.curPage = e.page
-  }
-
-  onTriggerPrivateLabelModal() {
-    this.showPrivateLabelModal = !this.showPrivateLabelModal
   }
 
   onTriggerDrawer() {

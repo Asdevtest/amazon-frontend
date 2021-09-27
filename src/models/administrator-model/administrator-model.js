@@ -45,7 +45,7 @@ class AdministratorModelStatic {
 
   updateUser = async (id, data) => {
     const response = await restApiService.administratorApi.apiV1AdminsUsersGuidPatch(id, {
-      InlineObject3: data,
+      InlineObject4: data,
     })
     return response
   }

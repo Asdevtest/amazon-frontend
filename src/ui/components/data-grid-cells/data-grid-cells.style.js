@@ -8,6 +8,8 @@ export const styles = createStyles(() => ({
     borderRadius: '2px',
     verticalAlign: 'middle',
     marginRight: '16px',
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
   chip: {
     height: '20px',
@@ -157,6 +159,8 @@ export const styles = createStyles(() => ({
     height: '64px',
     width: '64px',
     marginRight: '12px',
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
   orderTitle: {
     fontWeight: 500,
@@ -212,6 +216,8 @@ export const styles = createStyles(() => ({
   taskDescriptionImg: {
     width: '40px',
     height: '40px',
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
   descriptionWrapper: {
     display: 'flex',

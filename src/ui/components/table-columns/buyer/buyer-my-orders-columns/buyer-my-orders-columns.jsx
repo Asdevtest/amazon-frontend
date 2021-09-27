@@ -11,6 +11,7 @@ import {
   WarehouseCell,
   renderFieldValueCell,
   NormDateCell,
+  OrderStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -24,6 +25,14 @@ export const buyerMyOrdersViewColumns = () => [
     renderCell: params => <NormDateCell params={params} />,
     width: 150,
     type: 'date',
+  },
+
+  {
+    field: 'status',
+    headerName: textConsts.statusField,
+    width: 200,
+    renderCell: params => <OrderStatusCell status={params.row.status} />,
+    filterable: false,
   },
 
   {

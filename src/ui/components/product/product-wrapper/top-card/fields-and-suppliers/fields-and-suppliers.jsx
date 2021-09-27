@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {Box, Container, Grid, IconButton, Typography, Link} from '@material-ui/core'
@@ -36,8 +37,6 @@ export const FieldsAndSuppliers = observer(
           <Field
             disabled
             label={textConsts.fieldLinkAmazon}
-            // value={product.lamazon}
-            // onChange={onChangeField('lamazon')}
             inputComponent={
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.lamazon)}>
                 <Typography className={classNames.amazonLink}>{product.lamazon}</Typography>
@@ -99,12 +98,12 @@ export const FieldsAndSuppliers = observer(
               </Container>
             </div>
           ) : undefined}
-          <TableSupplier
+          {/* <TableSupplier
             product={product}
             selectedSupplier={selectedSupplier}
             suppliers={suppliers}
             onClickSupplier={onClickSupplier}
-          />
+          /> */}
         </Box>
       </Grid>
     )

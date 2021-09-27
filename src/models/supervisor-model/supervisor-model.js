@@ -12,10 +12,8 @@ class SupervisorModelStatic {
   }
 
   updateProduct = async (id, data) => {
-    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsGuidPatch(id, data)
-    // if (response && response.error) {
-    //   throw new Error(response.message);
-    // }  кажется это не нужно?
+    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsGuidPatch(id, {InlineObject30: data})
+
     return response
   }
 

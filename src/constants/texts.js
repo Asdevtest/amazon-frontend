@@ -1455,6 +1455,7 @@ export const texts = {
 
     buyerMyOrdersTableColumns: {
       asinTypo: 'ASIN ',
+      statusField: 'Статус',
       ordersField: 'Заказы',
       barcodeField: 'Баркод',
       amountField: 'Кол-во',

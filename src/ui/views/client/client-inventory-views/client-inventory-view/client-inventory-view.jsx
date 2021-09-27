@@ -22,7 +22,7 @@ import {Modal} from '@components/modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
-import {OrderProductModal} from '@components/screens/client/inventory-view/order-product-modal'
+import {OrderProductModal} from '@components/screens/client/order-product-modal'
 import {clientInventoryColumns} from '@components/table-columns/client/client-inventory-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -145,16 +145,6 @@ export class ClientInventoryViewRaw extends Component {
                   onStateChange={e => setDataGridState(e.state)}
                 />
               </div>
-
-              {/* <React.Fragment>
-                <Button
-                  variant="contained"
-                  disabled={this.viewModel.selectedRowIds.length === 0}
-                  onClick={() => this.viewModel.onTriggerOpenModal('showOrderModal')}
-                >
-                  {textConsts.orderBtn}
-                </Button>
-              </React.Fragment> */}
             </MainContent>
           </Appbar>
         </Main>
