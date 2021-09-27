@@ -37,7 +37,7 @@ export const SelectFields = ({setOrderField, resetOrderField, orderFields, wareh
   const [yuansToDollarRate, setYuansToDollarRate] = useState(defaultYuansToDollarRate)
 
   const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(
-    (orderFields.totalPriceChanged = orderFields.totalPrice),
+    orderFields.totalPriceChanged === orderFields.totalPrice,
   )
 
   return (
@@ -203,6 +203,7 @@ export const SelectFields = ({setOrderField, resetOrderField, orderFields, wareh
               setOrderField('totalPriceChanged')({
                 target: {value: orderFields.totalPrice},
               })
+              setPriceYuansForBatch(calcExchangeDollarsInYuansPrice(orderFields.totalPrice, yuansToDollarRate))
             }}
           />
           <Typography>{textConsts.checkIsPlanningPriceText}</Typography>

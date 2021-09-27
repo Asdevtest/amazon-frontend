@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
 
 import {Box, Divider, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
@@ -96,6 +97,7 @@ export const EditOrderModal = ({
       if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
         return
       }
+
       newOrderFieldsState[filedName] = e.target.value
     } else if (filedName === 'status') {
       newOrderFieldsState[filedName] = e.target.value

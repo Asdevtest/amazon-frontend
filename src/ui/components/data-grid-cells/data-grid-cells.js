@@ -5,6 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
 import {DeliveryTypeByCode} from '@constants/delivery-options'
+import {OrderStatusByCode} from '@constants/order-status'
 import {ProductStatusByCode} from '@constants/product-status'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusKeyToEnum} from '@constants/task-status'
@@ -30,13 +31,12 @@ const textConsts = getLocalizedTexts(texts, 'en').dataGridCells
 export const AsinCell = withStyles(styles)(({classes: classNames, params}) => (
   <div className={classNames.asinCell}>
     <div className={classNames.asinCellContainer}>
-      <div>
-        <img
-          alt="placeholder"
-          className={classNames.img}
-          src={params.row.images && params.row.images[0] && getAmazonImageUrl(params.row.images[0])}
-        />
-      </div>
+      <img
+        alt="placeholder"
+        className={classNames.img}
+        src={params.row.images && params.row.images[0] && getAmazonImageUrl(params.row.images[0])}
+      />
+
       <div>
         <Typography className={classNames.csCodeTypo}>{params.row.amazonTitle}</Typography>
         <Typography className={classNames.typoCell}>
@@ -409,3 +409,9 @@ export const ToFixedWithDollarSignCell = withStyles(styles)(({classes: className
 ))
 
 export const ToFixedCell = withStyles(styles)(({value, fix}) => <div>{!value ? 'N/A' : toFixed(value, fix)}</div>)
+
+export const OrderStatusCell = withStyles(styles)(({status}) => (
+  <React.Fragment>
+    <Typography>{OrderStatusByCode[status]}</Typography>
+  </React.Fragment>
+))

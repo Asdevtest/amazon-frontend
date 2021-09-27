@@ -217,7 +217,16 @@ export class WarehouseVacantViewModel {
     }
   }
 
-  async onClickSolveTask({newBoxes, operationType, comment, photos}) {
+  async resolveTask(taskId, newBoxes) {
+    try {
+      await StorekeeperModel.resolveTask(taskId, {additionalBoxes: newBoxes})
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onClickSolveTask({task, newBoxes, operationType, comment, photos}) {
     try {
       for (let i = 0; i < newBoxes.length; i++) {
         const box = getObjectFilteredByKeyArrayBlackList(newBoxes[i], ['tmpImages'])
@@ -244,24 +253,27 @@ export class WarehouseVacantViewModel {
               ],
               images: this.imagesOfBox,
             },
-            ['_id', 'status', 'createdBy', 'lastModifiedBy', 'createdAt', 'tmpImages'],
+            ['_id', 'id', 'status', 'createdBy', 'lastModifiedBy', 'createdAt', 'tmpImages'],
           ),
         )
+        // await this.resolveTask(task.id, requestBoxes)
 
-        await BoxesModel.approveBoxesOperation(requestBoxes, this.selectedTask.boxesBefore[0]._id)
+        await BoxesModel.approveBoxesOperation(requestBoxes, this.selectedTask.boxesBefore[0]._id) //  этот метод пока на беке не исправят ошибку 500(написал на бек)
         await this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
           status: OrderStatusByKey[OrderStatus.IN_STOCK],
         })
       } else {
         await this.onSubmitUpdateBoxes(newBoxes)
-        await BoxesModel.approveBoxesOperation(this.selectedTask.boxes[0]._id)
+        await this.resolveTask(task.id)
+
+        // await BoxesModel.approveBoxesOperation(this.selectedTask.boxes[0]._id)
       }
 
       if (photos.length > 0) {
         await this.onSubmitPostImages({images: photos, type: 'imagesOfTask'})
       }
 
-      await this.updateTask(this.selectedTask.id, TaskStatus.SOLVED, comment)
+      await this.updateTask(this.selectedTask.id, comment) // запрос не работает пока поле статуса обязательно(написал в чат бека))
 
       await this.getTasksMy()
 
@@ -276,10 +288,68 @@ export class WarehouseVacantViewModel {
     }
   }
 
-  async updateTask(taskId, status, comment) {
+  // async onClickSolveTask({newBoxes, operationType, comment, photos}) {
+  //   try {
+  //     for (let i = 0; i < newBoxes.length; i++) {
+  //       const box = getObjectFilteredByKeyArrayBlackList(newBoxes[i], ['tmpImages'])
+
+  //       await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, box)
+  //     }
+
+  //     if (operationType === TaskOperationType.RECEIVE) {
+  //       if (newBoxes[0].tmpImages.length > 0) {
+  //         await this.onSubmitPostImages({images: newBoxes[0].tmpImages, type: 'imagesOfBox'})
+  //       }
+
+  //       const requestBoxes = newBoxes.map(box =>
+  //         getObjectFilteredByKeyArrayBlackList(
+  //           {
+  //             ...box,
+  //             items: [
+  //               {
+  //                 ...box.items[0],
+  //                 amount: box.items[0].amount,
+  //                 order: box.items[0].order._id,
+  //                 product: box.items[0].product._id,
+  //               },
+  //             ],
+  //             images: this.imagesOfBox,
+  //           },
+  //           ['_id', 'status', 'createdBy', 'lastModifiedBy', 'createdAt', 'tmpImages'],
+  //         ),
+  //       )
+
+  //       await BoxesModel.approveBoxesOperation(requestBoxes, this.selectedTask.boxesBefore[0]._id)
+  //       await this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
+  //         status: OrderStatusByKey[OrderStatus.IN_STOCK],
+  //       })
+  //     } else {
+  //       await this.onSubmitUpdateBoxes(newBoxes)
+  //       await BoxesModel.approveBoxesOperation(this.selectedTask.boxes[0]._id)
+  //     }
+
+  //     if (photos.length > 0) {
+  //       await this.onSubmitPostImages({images: photos, type: 'imagesOfTask'})
+  //     }
+
+  //     await this.updateTask(this.selectedTask.id, TaskStatus.SOLVED, comment)
+
+  //     await this.getTasksMy()
+
+  //     this.onTriggerEditTaskModal()
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.error = error
+
+  //     if (error[0]) {
+  //       this.onTriggerOpenModal('showNoDimensionsErrorModal')
+  //     }
+  //   }
+  // }
+
+  async updateTask(taskId, comment) {
     try {
       await StorekeeperModel.updateTask(taskId, {
-        status: mapTaskStatusEmumToKey[status],
         storekeeperComment: comment || '',
         images: this.imagesOfTask || [],
       })

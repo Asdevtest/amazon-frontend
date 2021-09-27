@@ -18,7 +18,7 @@ import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {trimBarcode} from '@utils/text'
+import {toFixed, trimBarcode} from '@utils/text'
 
 import {useClassNames} from './order-modal-body-row.style'
 
@@ -61,11 +61,11 @@ export const OrderModalBodyRow = ({
       </TableCell>
 
       <TableCell>
-        <Typography>{item.currentSupplier.price}</Typography>
+        <Typography>{item.currentSupplier && item.currentSupplier.price}</Typography>
       </TableCell>
 
       <TableCell>
-        <Typography>{item.currentSupplier.delivery}</Typography>
+        <Typography>{item.currentSupplier && item.currentSupplier.delivery}</Typography>
       </TableCell>
 
       <TableCell>
@@ -78,7 +78,7 @@ export const OrderModalBodyRow = ({
       </TableCell>
 
       <TableCell>
-        <Typography>{calcProductsPriceWithDelivery(item, orderState)}</Typography>
+        <Typography>{toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}</Typography>
       </TableCell>
 
       <TableCell>

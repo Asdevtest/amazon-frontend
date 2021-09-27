@@ -19,14 +19,20 @@ import {Modal} from '@components/modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {OrderModalBodyRow} from '@components/table-rows/client/inventory/order-product-modal/order-modal-body-row'
 
-import {isNotUndefined} from '@utils/checks'
+import {checkIsPositiveNum, isNotUndefined} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './order-product-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrderProductModal
 
-export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onDoubleClickBarcode, onSubmit}) => {
+export const OrderProductModal = ({
+  onTriggerOpenModal,
+  selectedProductsData,
+  onDoubleClickBarcode,
+  onSubmit,
+  onClickCancel,
+}) => {
   const classNames = useClassNames()
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
   const [tmpOrderIndex, setTmpOrderIndex] = useState(undefined)
@@ -52,11 +58,11 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
     const newStateOrderState = [...orderState]
 
     if (['amount'].includes(fieldsName)) {
-      if (isNaN(value) || Number(value) < 0) {
+      if (!checkIsPositiveNum(value)) {
         return
       }
 
-      newStateOrderState[index][fieldsName] = value
+      newStateOrderState[index][fieldsName] = parseInt(value) || 0
     } else {
       newStateOrderState[index][fieldsName] = value
     }
@@ -131,7 +137,7 @@ export const OrderProductModal = ({onTriggerOpenModal, selectedProductsData, onD
           disableElevation
           variant="contained"
           className={(classNames.modalButton, classNames.cancelBtn)}
-          onClick={() => onTriggerOpenModal('showOrderModal')}
+          onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}
         >
           {textConsts.cancelBtn}
         </Button>

@@ -35,6 +35,7 @@ export const useClassNames = makeStyles(() => ({
     marginBottom: '24px',
   },
   table: {
+    borderRadius: '10px',
     border: '1px solid rgb(224, 224, 224)',
     '& td': {
       flexShrink: 0,
