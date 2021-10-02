@@ -50,7 +50,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new Amazonapi.BoxesApi();
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject13': new Amazonapi.InlineObject13() // InlineObject13 | 
+  'InlineObject12': new Amazonapi.InlineObject12() // InlineObject12 | 
 };
 apiInstance.apiV1BoxesApprovePost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -66,7 +66,7 @@ apiInstance.apiV1BoxesApprovePost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject13** | [**InlineObject13**](InlineObject13.md)|  | [optional] 
+ **InlineObject12** | [**InlineObject12**](InlineObject12.md)|  | [optional] 
 
 ### Return type
 
@@ -266,7 +266,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new Amazonapi.BoxesApi();
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject8': new Amazonapi.InlineObject8() // InlineObject8 | 
+  'InlineObject7': new Amazonapi.InlineObject7() // InlineObject7 | 
 };
 apiInstance.apiV1BoxesCancelEditPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -282,7 +282,7 @@ apiInstance.apiV1BoxesCancelEditPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject8** | [**InlineObject8**](InlineObject8.md)|  | [optional] 
+ **InlineObject7** | [**InlineObject7**](InlineObject7.md)|  | [optional] 
 
 ### Return type
 
@@ -374,7 +374,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new Amazonapi.BoxesApi();
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject10': new Amazonapi.InlineObject10() // InlineObject10 | 
+  'InlineObject9': new Amazonapi.InlineObject9() // InlineObject9 | 
 };
 apiInstance.apiV1BoxesCancelMergePost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -390,7 +390,7 @@ apiInstance.apiV1BoxesCancelMergePost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject10** | [**InlineObject10**](InlineObject10.md)|  | [optional] 
+ **InlineObject9** | [**InlineObject9**](InlineObject9.md)|  | [optional] 
 
 ### Return type
 
@@ -428,7 +428,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new Amazonapi.BoxesApi();
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject12': new Amazonapi.InlineObject12() // InlineObject12 | 
+  'InlineObject11': new Amazonapi.InlineObject11() // InlineObject11 | 
 };
 apiInstance.apiV1BoxesCancelSplitPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -444,7 +444,7 @@ apiInstance.apiV1BoxesCancelSplitPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject12** | [**InlineObject12**](InlineObject12.md)|  | [optional] 
+ **InlineObject11** | [**InlineObject11**](InlineObject11.md)|  | [optional] 
 
 ### Return type
 
@@ -618,7 +618,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesEditGuidPost
 
-> InlineResponse2012 apiV1BoxesEditGuidPost(guid, InlineObject7, opts)
+> InlineResponse2012 apiV1BoxesEditGuidPost(guid, InlineObject6, opts)
 
 # Отредактировать коробку.
 
@@ -637,11 +637,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new Amazonapi.BoxesApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
-let InlineObject7 = new Amazonapi.InlineObject7(); // InlineObject7 | 
+let InlineObject6 = new Amazonapi.InlineObject6(); // InlineObject6 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1BoxesEditGuidPost(guid, InlineObject7, opts).then((data) => {
+apiInstance.apiV1BoxesEditGuidPost(guid, InlineObject6, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -655,7 +655,7 @@ apiInstance.apiV1BoxesEditGuidPost(guid, InlineObject7, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
- **InlineObject7** | [**InlineObject7**](InlineObject7.md)|  | 
+ **InlineObject6** | [**InlineObject6**](InlineObject6.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
@@ -695,7 +695,7 @@ let apiInstance = new Amazonapi.BoxesApi();
 let guid = "guid_example"; // String | GUID коробки, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject6': new Amazonapi.InlineObject6() // InlineObject6 | 
+  'InlineObject5': new Amazonapi.InlineObject5() // InlineObject5 | 
 };
 apiInstance.apiV1BoxesEditWithDraftGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -712,7 +712,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID коробки, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject6** | [**InlineObject6**](InlineObject6.md)|  | [optional] 
+ **InlineObject5** | [**InlineObject5**](InlineObject5.md)|  | [optional] 
 
 ### Return type
 
@@ -856,7 +856,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new Amazonapi.BoxesApi();
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject9': new Amazonapi.InlineObject9() // InlineObject9 | 
+  'InlineObject8': new Amazonapi.InlineObject8() // InlineObject8 | 
 };
 apiInstance.apiV1BoxesMergePost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -872,7 +872,7 @@ apiInstance.apiV1BoxesMergePost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject9** | [**InlineObject9**](InlineObject9.md)|  | [optional] 
+ **InlineObject8** | [**InlineObject8**](InlineObject8.md)|  | [optional] 
 
 ### Return type
 
@@ -890,7 +890,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesPost
 
-> InlineResponse201 apiV1BoxesPost(InlineObject5, opts)
+> InlineResponse201 apiV1BoxesPost(InlineObject4, opts)
 
 # Создать коробку и ее строки.
 
@@ -908,11 +908,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.BoxesApi();
-let InlineObject5 = new Amazonapi.InlineObject5(); // InlineObject5 | 
+let InlineObject4 = new Amazonapi.InlineObject4(); // InlineObject4 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1BoxesPost(InlineObject5, opts).then((data) => {
+apiInstance.apiV1BoxesPost(InlineObject4, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -925,7 +925,7 @@ apiInstance.apiV1BoxesPost(InlineObject5, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject5** | [**InlineObject5**](InlineObject5.md)|  | 
+ **InlineObject4** | [**InlineObject4**](InlineObject4.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
@@ -1072,7 +1072,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new Amazonapi.BoxesApi();
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject11': new Amazonapi.InlineObject11() // InlineObject11 | 
+  'InlineObject10': new Amazonapi.InlineObject10() // InlineObject10 | 
 };
 apiInstance.apiV1BoxesSplitPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1088,7 +1088,7 @@ apiInstance.apiV1BoxesSplitPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject11** | [**InlineObject11**](InlineObject11.md)|  | [optional] 
+ **InlineObject10** | [**InlineObject10**](InlineObject10.md)|  | [optional] 
 
 ### Return type
 
@@ -1126,7 +1126,8 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new Amazonapi.BoxesApi();
 let guid = "guid_example"; // String | 
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': gzip, deflate, // String | 
+  'InlineObject13': new Amazonapi.InlineObject13() // InlineObject13 | 
 };
 apiInstance.apiV1BoxesStorekeepersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1143,6 +1144,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **InlineObject13** | [**InlineObject13**](InlineObject13.md)|  | [optional] 
 
 ### Return type
 
@@ -1154,6 +1156,6 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: text/html
 

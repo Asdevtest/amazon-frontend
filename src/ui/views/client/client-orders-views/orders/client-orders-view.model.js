@@ -87,7 +87,7 @@ export class ClientOrdersViewModel {
       const result = await ClientModel.getOrders()
 
       runInAction(() => {
-        this.orders = result.sort(sortObjectsArrayByFiledDate('createDate')).map(item => ({
+        this.orders = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
           ...item,
           tmpBarCode: item.product.barCode,
           tmpTotalPrice:

@@ -85,7 +85,7 @@ export class AdminWarehouseTasksViewModel {
 
       runInAction(() => {
         this.tasksData = result
-          .sort(sortObjectsArrayByFiledDate('updateDate'))
+          .sort(sortObjectsArrayByFiledDate('updatedAt'))
           .map(el => ({...el, beforeBoxes: el.boxesBefore}))
           .map(order => ({
             ...order,

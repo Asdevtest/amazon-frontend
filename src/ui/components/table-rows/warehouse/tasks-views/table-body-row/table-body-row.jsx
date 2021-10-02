@@ -186,8 +186,8 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
 
   return (
     <TableRow>
-      <TableCell>{formatNormDateTime(item.createDate)}</TableCell>
-      <TableCell>{formatNormDateTime(item.updateDate)}</TableCell>
+      <TableCell>{formatNormDateTime(item.createdAt)}</TableCell>
+      <TableCell>{formatNormDateTime(item.updatedAt)}</TableCell>
       <TableCell>{mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]]}</TableCell>
       {renderDescription()}
       {renderActions()}

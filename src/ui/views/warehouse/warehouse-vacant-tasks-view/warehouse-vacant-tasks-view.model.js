@@ -106,7 +106,7 @@ export class WarehouseVacantViewModel {
 
       runInAction(() => {
         this.tasksVacant = result
-          .sort(sortObjectsArrayByFiledDate('updateDate'))
+          .sort(sortObjectsArrayByFiledDate('updatedAt'))
           .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.NEW])
           .map(el => ({...el, beforeBoxes: el.boxesBefore}))
           .map(order => ({

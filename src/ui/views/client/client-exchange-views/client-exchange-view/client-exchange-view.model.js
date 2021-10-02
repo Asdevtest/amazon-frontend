@@ -121,9 +121,9 @@ export class ClientExchangeViewModel {
     try {
       const result = await ClientModel.getProductsVacant()
       runInAction(() => {
-        this.productsVacant = result.sort(sortObjectsArrayByFiledDate('checkedat')).map(item => ({
+        this.productsVacant = result.sort(sortObjectsArrayByFiledDate('checkedAt')).map(item => ({
           ...item,
-          tmpResearcherName: item.createdby.name,
+          tmpResearcherName: item.createdBy.name,
           tmpBuyerName: item.buyer.name,
         }))
       })
@@ -142,12 +142,22 @@ export class ClientExchangeViewModel {
 
   async createOrder(orderObject) {
     try {
-      await ClientModel.createOrder(orderObject)
+      const createorderData = {
+        status: 0,
+        amount: orderObject.amount,
+        deliveryMethod: orderObject.deliveryMethod,
+        warehouse: orderObject.warehouse,
+        clientComment: orderObject.clientComment,
+        barCode: orderObject.barCode,
+        productId: orderObject.productId,
+      }
+      await ClientModel.createOrder(createorderData)
       this.selectedProduct = {}
       await this.updateUserInfo()
     } catch (error) {
       console.log(error)
       this.error = error
+      throw new Error('Failed to create order')
     }
   }
 

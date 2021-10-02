@@ -60,6 +60,8 @@ export class WarehouseVacantViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_MY_TASKS]
 
+    console.log('state', toJS(state))
+
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
@@ -134,13 +136,13 @@ export class WarehouseVacantViewModel {
 
       runInAction(() => {
         this.tasksMy = result
-          .sort(sortObjectsArrayByFiledDate('updateDate'))
+          .sort(sortObjectsArrayByFiledDate('updatedAt'))
           .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS])
           .map(el => ({...el, beforeBoxes: el.boxesBefore}))
-          .map(order => ({
-            ...order,
-            id: order._id,
-            tmpOperationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[order.operationType]],
+          .map(task => ({
+            ...getObjectFilteredByKeyArrayBlackList(task, ['_id']),
+            id: task._id,
+            tmpOperationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[task.operationType]],
           }))
       })
     } catch (error) {
@@ -197,15 +199,25 @@ export class WarehouseVacantViewModel {
       }
 
       const updateBoxData = {
-        ...getObjectFilteredByKeyArrayWhiteList(data, [
-          'lengthCmWarehouse',
-          'widthCmWarehouse',
-          'heightCmWarehouse',
-          'weighGrossKgWarehouse',
-          'volumeWeightKgWarehouse',
-          'isShippingLabelAttachedByStorekeeper',
-          'images',
-        ]),
+        ...getObjectFilteredByKeyArrayWhiteList(
+          data,
+          [
+            'lengthCmWarehouse',
+            'widthCmWarehouse',
+            'heightCmWarehouse',
+            'weighGrossKgWarehouse',
+            'volumeWeightKgWarehouse',
+            'isShippingLabelAttachedByStorekeeper',
+            'images',
+          ],
+          (key, value) => {
+            if (key === 'images') {
+              return value || []
+            } else {
+              return value
+            }
+          },
+        ),
       }
 
       await BoxesModel.updateBox(id, updateBoxData)
@@ -251,20 +263,18 @@ export class WarehouseVacantViewModel {
               ...box,
               items: [
                 {
-                  ...box.items[0],
                   amount: box.items[0].amount,
-                  order: box.items[0].order._id,
-                  product: box.items[0].product._id,
+                  orderId: box.items[0].order._id,
+                  productId: box.items[0].product._id,
                 },
               ],
-              images: this.imagesOfBox,
+              images: this.imagesOfBox || [],
             },
-            ['_id', 'id', 'status', 'createdBy', 'lastModifiedBy', 'createdAt', 'tmpImages'],
+            ['_id', 'id', 'status', 'createdBy', 'lastModifiedBy', 'createdAt', 'tmpImages', 'weightFinalAccountingKgWarehouse', 'buyerComment', 'shipmentPlanId', 'isDraft', 'scheduledDispatchDate', 'factDispatchDate'],
           ),
         )
-        // await this.resolveTask(task.id, requestBoxes)
+        await this.resolveTask(task.id, requestBoxes)
 
-        await BoxesModel.approveBoxesOperation(requestBoxes, this.selectedTask.boxesBefore[0]._id) //  этот метод пока на беке не исправят ошибку 500(написал на бек)
         await this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
           status: OrderStatusByKey[OrderStatus.IN_STOCK],
         })

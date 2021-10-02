@@ -50,6 +50,9 @@ class InlineObject10 {
             if (data.hasOwnProperty('guid')) {
                 obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
+            if (data.hasOwnProperty('itemsBoxSet')) {
+                obj['itemsBoxSet'] = ApiClient.convertToType(data['itemsBoxSet'], [[Object]]);
+            }
         }
         return obj;
     }
@@ -58,10 +61,16 @@ class InlineObject10 {
 }
 
 /**
- * GUID коробки, объединение которой нужно отменить
+ * GUID коробки, которую делим
  * @member {String} guid
  */
 InlineObject10.prototype['guid'] = undefined;
+
+/**
+ * Массив боксайтемов каждый элемент массива - содержание айтемов новой коробки
+ * @member {Array.<Array.<Object>>} itemsBoxSet
+ */
+InlineObject10.prototype['itemsBoxSet'] = undefined;
 
 
 

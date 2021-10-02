@@ -50,7 +50,7 @@ export class ClientExchangePrivateLabelViewModel {
           .filter(
             item => item.strategyStatus === mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL],
           )
-          .sort(sortObjectsArrayByFiledDate('checkedat'))
+          .sort(sortObjectsArrayByFiledDate('checkedAt'))
       })
     } catch (error) {
       this.productsVacant = []
@@ -70,7 +70,7 @@ export class ClientExchangePrivateLabelViewModel {
         warehouse: orderData.warehouse,
         clientComment: orderData.clientComment,
         barCode: orderData.barCode,
-        product: product._id,
+        productId: product._id,
       }
       const createOrderResult = await ClientModel.createOrder(createorderData)
       console.log('createOrderResult ', createOrderResult)

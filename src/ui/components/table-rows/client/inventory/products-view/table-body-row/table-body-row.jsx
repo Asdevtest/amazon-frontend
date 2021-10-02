@@ -53,15 +53,15 @@ export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
             <Typography className={classNames.typoCell}>
               {'ASIN '}
               <span className={classNames.typoSpan}>{item.id}</span>
-              {` | ${formatDateDistanceFromNow(item.createdat)}`}
+              {` | ${formatDateDistanceFromNow(item.createdAt)}`}
             </Typography>
             <Chip className={classNames.chip} label={item.category} />
           </div>
         </div>
       </TableCell>
       <TableCell className={classNames.priceTableCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
-      <TableCell>{formatDate(item.createdat)}</TableCell>
-      <TableCell>{formatDate(item.checkedat)}</TableCell>
+      <TableCell>{formatDate(item.createdAt)}</TableCell>
+      <TableCell>{formatDate(item.checkedAt)}</TableCell>
       <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.profit)}</TableCell>
       <TableCell className={classNames.revenueCell}>{toFixedWithDollarSign(item.margin)}</TableCell>
       <TableCell className={classNames.bsrCell}>{item.bsr}</TableCell>

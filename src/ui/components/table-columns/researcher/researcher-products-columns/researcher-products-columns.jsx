@@ -29,7 +29,7 @@ export const researcherProductsViewColumns = () => [
   },
 
   {
-    field: 'createdat',
+    field: 'createdAt',
     headerName: textConsts.createDateField,
     minWidth: 250,
     renderCell: params => <NormDateCell params={params} />,

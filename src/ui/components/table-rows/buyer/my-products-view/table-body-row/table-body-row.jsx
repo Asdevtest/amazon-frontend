@@ -51,7 +51,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
             <Typography className={classNames.typoCell}>
               {'ASIN '}
               <span className={classNames.typoSpan}>{item.id}</span>
-              {` | ${formatDateDistanceFromNow(item.createdat)}`}
+              {` | ${formatDateDistanceFromNow(item.createdAt)}`}
             </Typography>
             <Chip className={classNames.chip} label={item.category} />
           </div>

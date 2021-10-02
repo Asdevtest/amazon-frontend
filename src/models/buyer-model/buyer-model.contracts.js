@@ -18,13 +18,13 @@ export class BuyerPayment extends InlineResponse2004 {}
 export class BuyerUpdateProductContract {
   @IsNotEmpty()
   @IsString()
-  buyerscomment
+  buyersComment
 }
 
 export class BuyerUpdateOrderContract {
   @IsOptional()
   @IsString()
-  buyerscomment
+  buyersComment
 
   @IsNotEmpty()
   @IsInt()

@@ -114,8 +114,11 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('createDate')) {
-                obj['createDate'] = ApiClient.convertToType(data['createDate'], 'Date');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
@@ -286,7 +289,7 @@ InlineResponse2001.prototype['amountPaymentPerConsignmentAtDollars'] = undefined
 InlineResponse2001.prototype['totalPrice'] = undefined;
 
 /**
- * Если вдруг баер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
+ * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
  * @member {Number} totalPriceChanged
  */
 InlineResponse2001.prototype['totalPriceChanged'] = undefined;
@@ -304,9 +307,14 @@ InlineResponse2001.prototype['barCode'] = undefined;
 InlineResponse2001.prototype['images'] = undefined;
 
 /**
- * @member {Date} createDate
+ * @member {Date} createdAt
  */
-InlineResponse2001.prototype['createDate'] = undefined;
+InlineResponse2001.prototype['createdAt'] = undefined;
+
+/**
+ * @member {Date} updatedAt
+ */
+InlineResponse2001.prototype['updatedAt'] = undefined;
 
 /**
  * кол-во

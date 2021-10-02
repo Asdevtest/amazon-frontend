@@ -47,6 +47,9 @@ class InlineObject31 {
         if (data) {
             obj = obj || new InlineObject31();
 
+            if (data.hasOwnProperty('fbm')) {
+                obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean');
+            }
             if (data.hasOwnProperty('listingName')) {
                 obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String');
             }
@@ -77,12 +80,21 @@ class InlineObject31 {
             if (data.hasOwnProperty('listingSupplierCompetitors')) {
                 obj['listingSupplierCompetitors'] = ApiClient.convertToType(data['listingSupplierCompetitors'], 'String');
             }
+            if (data.hasOwnProperty('strategyStatus')) {
+                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
+            }
         }
         return obj;
     }
 
 
 }
+
+/**
+ * Признак fbm
+ * @member {Boolean} fbm
+ */
+InlineObject31.prototype['fbm'] = undefined;
 
 /**
  * @member {String} listingName
@@ -136,6 +148,13 @@ InlineObject31.prototype['listingExtraInfo'] = undefined;
  * @member {String} listingSupplierCompetitors
  */
 InlineObject31.prototype['listingSupplierCompetitors'] = undefined;
+
+/**
+ * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+ * @member {Number} strategyStatus
+ * @default 0
+ */
+InlineObject31.prototype['strategyStatus'] = 0;
 
 
 

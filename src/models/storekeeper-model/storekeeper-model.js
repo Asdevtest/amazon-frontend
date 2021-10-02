@@ -17,7 +17,7 @@ class StorekeeperModelStatic {
   }
 
   updateTask = async (id, data) => {
-    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksGuidPatch(id, data)
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksGuidPatch(id, {InlineObject28: data})
     return response
   }
 

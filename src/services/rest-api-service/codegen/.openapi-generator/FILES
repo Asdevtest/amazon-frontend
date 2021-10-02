@@ -3,7 +3,7 @@
 .travis.yml
 README.md
 docs/AdministratorApi.md
-docs/ApiV1AdminsGetProductsByStatusClientId.md
+docs/ApiV1AdminsGetProductsByStatusClient.md
 docs/ApiV1AdminsGetProductsByStatusCurrentSupplier.md
 docs/ApiV1AdminsOrdersCreatedBy.md
 docs/ApiV1AdminsPaymentsCreatedBy.md
@@ -85,7 +85,7 @@ docs/NotFoundError.md
 docs/OtherApi.md
 docs/PasteSuccessfully.md
 docs/PayloadTooLarge.md
-docs/ProductForTestOnlyApi.md
+docs/ProductApi.md
 docs/ResearcherApi.md
 docs/StorekeepersApi.md
 docs/SupervisorApi.md
@@ -104,14 +104,14 @@ src/api/BoxesApi.js
 src/api/BuyerApi.js
 src/api/ClientApi.js
 src/api/OtherApi.js
-src/api/ProductForTestOnlyApi.js
+src/api/ProductApi.js
 src/api/ResearcherApi.js
 src/api/StorekeepersApi.js
 src/api/SupervisorApi.js
 src/api/SupplierApi.js
 src/api/UserApi.js
 src/index.js
-src/model/ApiV1AdminsGetProductsByStatusClientId.js
+src/model/ApiV1AdminsGetProductsByStatusClient.js
 src/model/ApiV1AdminsGetProductsByStatusCurrentSupplier.js
 src/model/ApiV1AdminsOrdersCreatedBy.js
 src/model/ApiV1AdminsPaymentsCreatedBy.js

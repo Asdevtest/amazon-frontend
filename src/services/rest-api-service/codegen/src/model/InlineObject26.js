@@ -53,14 +53,20 @@ class InlineObject26 {
             if (data.hasOwnProperty('material')) {
                 obj['material'] = ApiClient.convertToType(data['material'], 'String');
             }
-            if (data.hasOwnProperty('currentSupplier')) {
-                obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'String');
+            if (data.hasOwnProperty('currentSupplierId')) {
+                obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
+            }
+            if (data.hasOwnProperty('fbm')) {
+                obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean');
             }
             if (data.hasOwnProperty('category')) {
                 obj['category'] = ApiClient.convertToType(data['category'], 'String');
             }
             if (data.hasOwnProperty('lamazon')) {
                 obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
+            }
+            if (data.hasOwnProperty('lsupplier')) {
+                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
             }
             if (data.hasOwnProperty('bsr')) {
                 obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
@@ -85,9 +91,6 @@ class InlineObject26 {
             }
             if (data.hasOwnProperty('weight')) {
                 obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
-            }
-            if (data.hasOwnProperty('supplier')) {
-                obj['supplier'] = ApiClient.convertToType(data['supplier'], ['String']);
             }
             if (data.hasOwnProperty('reffee')) {
                 obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
@@ -167,13 +170,15 @@ class InlineObject26 {
             if (data.hasOwnProperty('listingSupplierCompetitors')) {
                 obj['listingSupplierCompetitors'] = ApiClient.convertToType(data['listingSupplierCompetitors'], 'String');
             }
+            if (data.hasOwnProperty('strategyStatus')) {
+                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
+            }
         }
         return obj;
     }
 
 
 }
-
 
 
 
@@ -204,7 +209,6 @@ class InlineObject26 {
 };
 
 
-
 /**
  * SKU - ставит склад - только для склада
  * @member {String} sku
@@ -218,10 +222,16 @@ InlineObject26.prototype['sku'] = undefined;
 InlineObject26.prototype['material'] = undefined;
 
 /**
- * GUID поставщика
- * @member {String} currentSupplier
+ * GUID поставщика, если передать строку \"clear\" то поставщику будет сброшен (у байера и ресечера).
+ * @member {String} currentSupplierId
  */
-InlineObject26.prototype['currentSupplier'] = undefined;
+InlineObject26.prototype['currentSupplierId'] = undefined;
+
+/**
+ * Признак fbm
+ * @member {Boolean} fbm
+ */
+InlineObject26.prototype['fbm'] = undefined;
 
 /**
  * Категория
@@ -234,6 +244,12 @@ InlineObject26.prototype['category'] = undefined;
  * @member {String} lamazon
  */
 InlineObject26.prototype['lamazon'] = undefined;
+
+/**
+ * Ссылка на этот продукт на амазоне.
+ * @member {String} lsupplier
+ */
+InlineObject26.prototype['lsupplier'] = undefined;
 
 /**
  * @member {Number} bsr
@@ -276,12 +292,6 @@ InlineObject26.prototype['length'] = undefined;
  * @member {Number} weight
  */
 InlineObject26.prototype['weight'] = undefined;
-
-/**
- * Массив поставщиков.
- * @member {Array.<String>} supplier
- */
-InlineObject26.prototype['supplier'] = undefined;
 
 /**
  * комиссия которую берет амазон за любой заказ - 15%
@@ -426,6 +436,14 @@ InlineObject26.prototype['listingExtraInfo'] = undefined;
  * @member {String} listingSupplierCompetitors
  */
 InlineObject26.prototype['listingSupplierCompetitors'] = undefined;
+
+/**
+ * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+ * @member {Number} strategyStatus
+ * @default 0
+ */
+InlineObject26.prototype['strategyStatus'] = 0;
+
 
 
 

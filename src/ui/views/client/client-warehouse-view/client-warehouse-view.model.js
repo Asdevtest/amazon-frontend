@@ -30,6 +30,12 @@ const updateBoxBlackList = [
   'tmpFinalWeight',
   'tmpGrossWeight',
   'tmpWarehouses',
+  'weightFinalAccountingKgWarehouse',
+  'buyerComment',
+  'shipmentPlanId',
+  'isDraft',
+  'scheduledDispatchDate',
+  'factDispatchDate'
 ]
 
 export class ClientWarehouseViewModel {
@@ -106,7 +112,7 @@ export class ClientWarehouseViewModel {
   onSelectionModel(model) {
     console.log('model', model)
 
-    const boxes = this.boxesMy.filter(box => model.includes(+box.id))
+    const boxes = this.boxesMy.filter(box => model.selectionModel.includes(box._id))
     const res = boxes.reduce((ac, el) => ac.concat(el._id), [])
     this.selectedBoxes = res
   }
@@ -163,7 +169,7 @@ export class ClientWarehouseViewModel {
       this.onTriggerOpenModal('showRedistributeBoxFailModal')
     } else {
       const boxes = updatedBoxes.map(el =>
-        el.items.map(item => ({...item, product: item.product._id, order: item.order._id})),
+        el.items.map(item => ({amount: item.amount, productId: item.product._id, orderId: item.order._id})),
       )
       const splitBoxesResult = await this.splitBoxes(id, boxes)
 
@@ -183,10 +189,10 @@ export class ClientWarehouseViewModel {
           ...boxData,
           items: [
             {
-              ...boxData.items[0],
+              ...getObjectFilteredByKeyArrayBlackList(boxData.items[0], 'order', 'product'),
               amount: boxData.items[0].amount,
-              order: boxData.items[0].order._id,
-              product: boxData.items[0].product._id,
+              orderId: boxData.items[0].order._id,
+              productId: boxData.items[0].product._id,
             },
           ],
         },
@@ -244,7 +250,7 @@ export class ClientWarehouseViewModel {
       const result = await ClientModel.getTasks()
 
       runInAction(() => {
-        this.tasksMy = result.sort(sortObjectsArrayByFiledDate('createDate'))
+        this.tasksMy = result.sort(sortObjectsArrayByFiledDate('createdAt'))
       })
     } catch (error) {
       console.log(error)
@@ -311,6 +317,7 @@ export class ClientWarehouseViewModel {
       runInAction(() => {
         this.boxesMy = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
           ...item,
+          id: item._id,
           tmpBarCode: item.items[0].product.barCode,
           tmpAsin: item.items[0].product.id,
           tmpQty: item.items[0].order.amount,

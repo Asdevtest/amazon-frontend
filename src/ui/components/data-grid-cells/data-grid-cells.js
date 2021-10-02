@@ -36,7 +36,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, params}) => (
         <Typography className={classNames.typoCell}>
           {textConsts.asinTypo}
           <span className={classNames.typoSpan}>{params.row.id}</span>
-          {` | ${formatDateDistanceFromNow(params.row.createdat)}`}
+          {` | ${formatDateDistanceFromNow(params.row.createdAt)}`}
         </Typography>
         <Typography className={classNames.csCodeTypo}>{params.row.category}</Typography>
       </div>
@@ -94,11 +94,11 @@ export const SupervisorCell = withStyles(styles)(({classes: classNames, params, 
 export const ResearcherCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
   <div>
     <Typography className={classNames.researcherCell}>
-      {!params.row.createdby ? 'N/A' : params.row.createdby.name}
+      {!params.row.createdBy ? 'N/A' : params.row.createdBy.name}
     </Typography>
     {!onlyName && (
       <Typography className={classNames.researcherCell}>{`rate: ${
-        !params.row.createdby ? 'N/A' : params.row.createdby.rate
+        !params.row.createdBy ? 'N/A' : params.row.createdBy.rate
       }`}</Typography>
     )}
   </div>
@@ -153,7 +153,7 @@ export const DateCell = withStyles(styles)(({classes: classNames, params}) => (
 
 export const NormDateCell = withStyles(styles)(({classes: classNames, params}) => (
   <Typography className={classNames.supervisorCell}>
-    {!params.value ? 'N/A' : formatNormDateTime(params.value)}
+    {!(params && params.value) ? 'N/A' : formatNormDateTime(params.value)}
   </Typography>
 ))
 
@@ -186,16 +186,17 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, par
     return (
       <div key={key} className={classNames.imagesWrapper}>
         <Typography className={classNames.imgNum}>{`#${key + 1}`}</Typography>
-        {box.items.map((product, productIndex) => (
-          <div key={productIndex} className={classNames.imgWrapper}>
-            <img
-              alt="placeholder"
-              className={classNames.taskDescriptionImg}
-              src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
-            />
-            <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
-          </div>
-        ))}
+        {box.items &&
+          box.items.map((product, productIndex) => (
+            <div key={productIndex} className={classNames.imgWrapper}>
+              <img
+                alt="placeholder"
+                className={classNames.taskDescriptionImg}
+                src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
+              />
+              <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
+            </div>
+          ))}
         <Typography className={classNames.imgNum}>{box.amount > 1 && `Super x${box.amount}`}</Typography>
       </div>
     )

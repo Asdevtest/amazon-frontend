@@ -27,11 +27,11 @@ class InlineObject20 {
      * @param warehouse {Number} Номер склада.
      * @param clientComment {String} Комментарии клиента.
      * @param barCode {String} Ссылка на баркод.
-     * @param product {String} GUID заказанного продукта
+     * @param productId {String} GUID заказанного продукта
      */
-    constructor(amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
+    constructor(amount, deliveryMethod, warehouse, clientComment, barCode, productId) { 
         
-        InlineObject20.initialize(this, amount, deliveryMethod, warehouse, clientComment, barCode, product);
+        InlineObject20.initialize(this, amount, deliveryMethod, warehouse, clientComment, barCode, productId);
     }
 
     /**
@@ -39,13 +39,13 @@ class InlineObject20 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, barCode, product) { 
+    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, barCode, productId) { 
         obj['amount'] = amount;
         obj['deliveryMethod'] = deliveryMethod;
         obj['warehouse'] = warehouse;
         obj['clientComment'] = clientComment;
         obj['barCode'] = barCode;
-        obj['product'] = product;
+        obj['productId'] = productId;
     }
 
     /**
@@ -77,8 +77,8 @@ class InlineObject20 {
             if (data.hasOwnProperty('barCode')) {
                 obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiClient.convertToType(data['product'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
@@ -128,9 +128,9 @@ InlineObject20.prototype['barCode'] = undefined;
 
 /**
  * GUID заказанного продукта
- * @member {String} product
+ * @member {String} productId
  */
-InlineObject20.prototype['product'] = undefined;
+InlineObject20.prototype['productId'] = undefined;
 
 /**
  * Массив изображений.

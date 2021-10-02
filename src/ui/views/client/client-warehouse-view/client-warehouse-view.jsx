@@ -252,6 +252,7 @@ export class ClientWarehouseViewRaw extends Component {
 
   renderButtons = () => {
     const {selectedBoxes, isMasterBoxSelected, onTriggerOpenModal, onClickRequestToSendBatch} = this.viewModel
+    console.log('selectedBoxes ', selectedBoxes)
     return (
       <React.Fragment>
         <Button

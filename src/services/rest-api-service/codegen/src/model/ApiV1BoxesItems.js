@@ -22,13 +22,13 @@ class ApiV1BoxesItems {
     /**
      * Constructs a new <code>ApiV1BoxesItems</code>.
      * @alias module:model/ApiV1BoxesItems
-     * @param product {String} GUID продукта в БД
+     * @param productId {String} GUID продукта в БД
      * @param amount {Number} Кол-во продукта
-     * @param order {String} GUID заказа в БД
+     * @param orderId {String} GUID заказа в БД
      */
-    constructor(product, amount, order) { 
+    constructor(productId, amount, orderId) { 
         
-        ApiV1BoxesItems.initialize(this, product, amount, order);
+        ApiV1BoxesItems.initialize(this, productId, amount, orderId);
     }
 
     /**
@@ -36,10 +36,10 @@ class ApiV1BoxesItems {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, product, amount, order) { 
-        obj['product'] = product;
+    static initialize(obj, productId, amount, orderId) { 
+        obj['productId'] = productId;
         obj['amount'] = amount;
-        obj['order'] = order;
+        obj['orderId'] = orderId;
     }
 
     /**
@@ -53,14 +53,14 @@ class ApiV1BoxesItems {
         if (data) {
             obj = obj || new ApiV1BoxesItems();
 
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiClient.convertToType(data['product'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('order')) {
-                obj['order'] = ApiClient.convertToType(data['order'], 'String');
+            if (data.hasOwnProperty('orderId')) {
+                obj['orderId'] = ApiClient.convertToType(data['orderId'], 'String');
             }
         }
         return obj;
@@ -71,9 +71,9 @@ class ApiV1BoxesItems {
 
 /**
  * GUID продукта в БД
- * @member {String} product
+ * @member {String} productId
  */
-ApiV1BoxesItems.prototype['product'] = undefined;
+ApiV1BoxesItems.prototype['productId'] = undefined;
 
 /**
  * Кол-во продукта
@@ -83,9 +83,9 @@ ApiV1BoxesItems.prototype['amount'] = undefined;
 
 /**
  * GUID заказа в БД
- * @member {String} order
+ * @member {String} orderId
  */
-ApiV1BoxesItems.prototype['order'] = undefined;
+ApiV1BoxesItems.prototype['orderId'] = undefined;
 
 
 

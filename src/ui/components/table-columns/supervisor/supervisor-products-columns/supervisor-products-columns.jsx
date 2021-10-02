@@ -15,13 +15,31 @@ const textConsts = getLocalizedTexts(texts, 'ru').supervisorProductsTableColumns
 
 export const supervisorProductsViewColumns = () => [
   {
-    field: 'createdat',
+    field: 'createdAt',
     headerName: textConsts.createDateField,
     minWidth: 150,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
     flex: 2,
   },
+  {
+    field: 'asinCell',
+    headerName: textConsts.asinField,
+    renderCell: params => <AsinCell params={params} />,
+    minWidth: 350,
+    filterable: false,
+    flex: 3,
+  },
+
+  {
+    field: 'status',
+    headerName: textConsts.statusField,
+    renderCell: params => <NormDateCell status={params.value} />,
+    minWidth: 350,
+    flex: 3,
+    filterable: false,
+  },
+
 
   {
     field: 'updateDate',
@@ -31,15 +49,13 @@ export const supervisorProductsViewColumns = () => [
     type: 'date',
     flex: 2,
   },
-
   {
-    field: 'asinCell',
-    headerName: textConsts.asinField,
-    renderCell: params => <AsinCell params={params} />,
-    minWidth: 350,
-    filterable: false,
-    sortable: false,
-    flex: 3,
+    field: 'checkedAt',
+    headerName: textConsts.updateDateField,
+    minWidth: 150,
+    renderCell: params => <NormDateCell params={params} />,
+    type: 'date',
+    flex: 2,
   },
 
   {

@@ -29,10 +29,7 @@ export const FieldsAndSuppliers = observer(
   ({curUserRole, onChangeField, product, onClickSupplierBtns, selectedSupplier}) => {
     const classNames = useClassNames()
     const isSupplierAcceptRevokeActive =
-      selectedSupplier && product.currentSupplier && product.currentSupplier._id === selectedSupplier._id
-
-    console.log('product', product)
-
+      selectedSupplier && product.currentSupplierId && product.currentSupplierId === selectedSupplier._id
     return (
       <Grid item xs={12}>
         <Box className={classNames.productFieldBox}>

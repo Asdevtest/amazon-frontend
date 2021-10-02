@@ -24,17 +24,10 @@ class InlineObject25 {
      * @alias module:model/InlineObject25
      * @param id {String} ASIN продукта
      * @param lamazon {String} Ссылка на этот продукт на амазоне.
-     * @param bsr {Number} 
-     * @param amazon {Number} 
-     * @param supplier {Array.<String>} Массив поставщиков.
-     * @param fbafee {Number} ФБА комиссия
-     * @param delivery {Number} Стоимость доставки.
-     * @param icomment {String} Комментарии к товару.
-     * @param images {Array.<String>} Массив изображений.
      */
-    constructor(id, lamazon, bsr, amazon, supplier, fbafee, delivery, icomment, images) { 
+    constructor(id, lamazon) { 
         
-        InlineObject25.initialize(this, id, lamazon, bsr, amazon, supplier, fbafee, delivery, icomment, images);
+        InlineObject25.initialize(this, id, lamazon);
     }
 
     /**
@@ -42,16 +35,9 @@ class InlineObject25 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, lamazon, bsr, amazon, supplier, fbafee, delivery, icomment, images) { 
+    static initialize(obj, id, lamazon) { 
         obj['id'] = id;
         obj['lamazon'] = lamazon;
-        obj['bsr'] = bsr;
-        obj['amazon'] = amazon;
-        obj['supplier'] = supplier;
-        obj['fbafee'] = fbafee;
-        obj['delivery'] = delivery;
-        obj['icomment'] = icomment;
-        obj['images'] = images;
     }
 
     /**
@@ -71,8 +57,11 @@ class InlineObject25 {
             if (data.hasOwnProperty('lamazon')) {
                 obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
             }
-            if (data.hasOwnProperty('currentSupplier')) {
-                obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'String');
+            if (data.hasOwnProperty('lsupplier')) {
+                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
+            }
+            if (data.hasOwnProperty('currentSupplierId')) {
+                obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
             }
             if (data.hasOwnProperty('category')) {
                 obj['category'] = ApiClient.convertToType(data['category'], 'String');
@@ -80,14 +69,17 @@ class InlineObject25 {
             if (data.hasOwnProperty('bsr')) {
                 obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
             }
+            if (data.hasOwnProperty('fbm')) {
+                obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean');
+            }
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
             if (data.hasOwnProperty('amazon')) {
                 obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
             }
-            if (data.hasOwnProperty('supplier')) {
-                obj['supplier'] = ApiClient.convertToType(data['supplier'], ['String']);
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
             if (data.hasOwnProperty('fbafee')) {
                 obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
@@ -104,12 +96,19 @@ class InlineObject25 {
             if (data.hasOwnProperty('byboxprice')) {
                 obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number');
             }
+            if (data.hasOwnProperty('reffee')) {
+                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            }
+            if (data.hasOwnProperty('strategyStatus')) {
+                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
+            }
         }
         return obj;
     }
 
 
 }
+
 
 
 
@@ -127,12 +126,17 @@ class InlineObject25 {
     "0": 0,
 
     /**
+     * value: 5
+     * @const
+     */
+    "5": 5,
+
+    /**
      * value: 10
      * @const
      */
     "10": 10
 };
-
 
 
 /**
@@ -148,10 +152,16 @@ InlineObject25.prototype['id'] = undefined;
 InlineObject25.prototype['lamazon'] = undefined;
 
 /**
- * GUID поставщика
- * @member {String} currentSupplier
+ * Ссылка на этот продукт на поставщика.
+ * @member {String} lsupplier
  */
-InlineObject25.prototype['currentSupplier'] = undefined;
+InlineObject25.prototype['lsupplier'] = undefined;
+
+/**
+ * GUID поставщика
+ * @member {String} currentSupplierId
+ */
+InlineObject25.prototype['currentSupplierId'] = undefined;
 
 /**
  * Категория
@@ -163,6 +173,12 @@ InlineObject25.prototype['category'] = undefined;
  * @member {Number} bsr
  */
 InlineObject25.prototype['bsr'] = undefined;
+
+/**
+ * Признак fbm
+ * @member {Boolean} fbm
+ */
+InlineObject25.prototype['fbm'] = undefined;
 
 /**
  *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
@@ -178,9 +194,9 @@ InlineObject25.prototype['amazon'] = undefined;
 
 /**
  * Массив поставщиков.
- * @member {Array.<String>} supplier
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject25.prototype['supplier'] = undefined;
+InlineObject25.prototype['suppliersIds'] = undefined;
 
 /**
  * ФБА комиссия
@@ -211,6 +227,19 @@ InlineObject25.prototype['images'] = undefined;
  * @member {Number} byboxprice
  */
 InlineObject25.prototype['byboxprice'] = undefined;
+
+/**
+ * комиссия которую берет амазон за любой заказ - 15%
+ * @member {Number} reffee
+ */
+InlineObject25.prototype['reffee'] = undefined;
+
+/**
+ * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+ * @member {Number} strategyStatus
+ * @default 0
+ */
+InlineObject25.prototype['strategyStatus'] = 0;
 
 
 

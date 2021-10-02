@@ -22,13 +22,10 @@ class InlineObject2 {
     /**
      * Constructs a new <code>InlineObject2</code>.
      * @alias module:model/InlineObject2
-     * @param recipient {String} GUID пользователя.
-     * @param sum {Number} Начисленная сумма выплаты. Может быть отрицательной.
-     * @param comment {String} комментарий
      */
-    constructor(recipient, sum, comment) { 
+    constructor() { 
         
-        InlineObject2.initialize(this, recipient, sum, comment);
+        InlineObject2.initialize(this);
     }
 
     /**
@@ -36,10 +33,7 @@ class InlineObject2 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, recipient, sum, comment) { 
-        obj['recipient'] = recipient;
-        obj['sum'] = sum;
-        obj['comment'] = comment;
+    static initialize(obj) { 
     }
 
     /**
@@ -53,17 +47,44 @@ class InlineObject2 {
         if (data) {
             obj = obj || new InlineObject2();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
-            if (data.hasOwnProperty('recipient')) {
-                obj['recipient'] = ApiClient.convertToType(data['recipient'], 'String');
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
             }
-            if (data.hasOwnProperty('sum')) {
-                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            }
+            if (data.hasOwnProperty('trackingNumberChina')) {
+                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
+            }
+            if (data.hasOwnProperty('amountPaymentPerConsignmentAtDollars')) {
+                obj['amountPaymentPerConsignmentAtDollars'] = ApiClient.convertToType(data['amountPaymentPerConsignmentAtDollars'], 'Number');
+            }
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
+            }
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
             }
         }
         return obj;
@@ -72,31 +93,145 @@ class InlineObject2 {
 
 }
 
-/**
- * GUID продукта.
- * @member {String} productId
- */
-InlineObject2.prototype['productId'] = undefined;
+
+
 
 /**
- * GUID пользователя.
- * @member {String} recipient
+ * Allowed values for the <code>status</code> property.
+ * @enum {Number}
+ * @readonly
  */
-InlineObject2.prototype['recipient'] = undefined;
+ InlineObject2['StatusEnum'] = {
+
+    /**
+     * value: 0
+     * @const
+     */
+    "0": 0,
+
+    /**
+     * value: 1
+     * @const
+     */
+    "1": 1,
+
+    /**
+     * value: 10
+     * @const
+     */
+    "10": 10,
+
+    /**
+     * value: 15
+     * @const
+     */
+    "15": 15,
+
+    /**
+     * value: 20
+     * @const
+     */
+    "20": 20,
+
+    /**
+     * value: 25
+     * @const
+     */
+    "25": 25,
+
+    /**
+     * value: 30
+     * @const
+     */
+    "30": 30,
+
+    /**
+     * value: 35
+     * @const
+     */
+    "35": 35
+};
+
+
 
 /**
- * Начисленная сумма выплаты. Может быть отрицательной.
- * @member {Number} sum
+ * комментарии байера.
+ * @member {String} buyerComment
  */
-InlineObject2.prototype['sum'] = undefined;
+InlineObject2.prototype['buyerComment'] = undefined;
 
 /**
- * комментарий
- * @member {String} comment
+ * Номер склада.
+ * @member {Number} warehouse
  */
-InlineObject2.prototype['comment'] = undefined;
+InlineObject2.prototype['warehouse'] = undefined;
 
+/**
+ * Вид доставки.
+ * @member {Number} deliveryMethod
+ */
+InlineObject2.prototype['deliveryMethod'] = undefined;
 
+/**
+ * Признак FBA это заказ или нет.
+ * @member {Boolean} fba
+ */
+InlineObject2.prototype['fba'] = undefined;
+
+/**
+ * tmp
+ * @member {module:model/InlineObject2.StatusEnum} status
+ * @default StatusEnum.1
+ */
+InlineObject2.prototype['status'] = InlineObject2.StatusEnum[1];
+
+/**
+ * Стоимость доставки до склада.
+ * @member {Number} deliveryCostToTheWarehouse
+ */
+InlineObject2.prototype['deliveryCostToTheWarehouse'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject2.prototype['images'] = undefined;
+
+/**
+ * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
+ */
+InlineObject2.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+
+/**
+ * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
+ * @member {String} trackingNumberChina
+ */
+InlineObject2.prototype['trackingNumberChina'] = undefined;
+
+/**
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} amountPaymentPerConsignmentAtDollars
+ */
+InlineObject2.prototype['amountPaymentPerConsignmentAtDollars'] = undefined;
+
+/**
+ * Баркод.
+ * @member {String} barCode
+ */
+InlineObject2.prototype['barCode'] = undefined;
+
+/**
+ * Если вдруг баер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
+ * @member {Number} totalPriceChanged
+ */
+InlineObject2.prototype['totalPriceChanged'] = undefined;
+
+/**
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} totalPrice
+ */
+InlineObject2.prototype['totalPrice'] = undefined;
 
 
 

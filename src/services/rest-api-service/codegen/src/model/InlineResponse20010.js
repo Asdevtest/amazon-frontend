@@ -83,8 +83,8 @@ class InlineResponse20010 {
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('createDate')) {
-                obj['createDate'] = ApiClient.convertToType(data['createDate'], 'Date');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
             if (data.hasOwnProperty('updateDate')) {
                 obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
@@ -152,9 +152,9 @@ InlineResponse20010.prototype['images'] = undefined;
 
 /**
  * Дата создания.
- * @member {Date} createDate
+ * @member {Date} createdAt
  */
-InlineResponse20010.prototype['createDate'] = undefined;
+InlineResponse20010.prototype['createdAt'] = undefined;
 
 /**
  * Дата создания.

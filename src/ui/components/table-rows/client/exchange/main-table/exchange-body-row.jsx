@@ -30,7 +30,7 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, classes: classNames}) =>
     <TableCell className={classNames.alignCenter}>{item.fbaamount}</TableCell>
     <TableCell>
       <Button color="primary" onClick={() => handlers.onClickUsername()}>
-        {item.createdby.name}
+        {item.createdBy.name}
       </Button>
     </TableCell>
     <TableCell>

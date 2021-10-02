@@ -22,11 +22,10 @@ class InlineObject {
     /**
      * Constructs a new <code>InlineObject</code>.
      * @alias module:model/InlineObject
-     * @param dirdecision {module:model/InlineObject.DirdecisionEnum} Решение директора:        newProduct = 0,    approved = 1,    rejected = 2   
      */
-    constructor(dirdecision) { 
+    constructor() { 
         
-        InlineObject.initialize(this, dirdecision);
+        InlineObject.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, dirdecision) { 
-        obj['dirdecision'] = dirdecision;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,20 +47,8 @@ class InlineObject {
         if (data) {
             obj = obj || new InlineObject();
 
-            if (data.hasOwnProperty('dirdecision')) {
-                obj['dirdecision'] = ApiClient.convertToType(data['dirdecision'], 'Number');
-            }
-            if (data.hasOwnProperty('researcherFine')) {
-                obj['researcherFine'] = ApiClient.convertToType(data['researcherFine'], 'Number');
-            }
-            if (data.hasOwnProperty('researcherFineComment')) {
-                obj['researcherFineComment'] = ApiClient.convertToType(data['researcherFineComment'], 'String');
-            }
-            if (data.hasOwnProperty('supervisorFine')) {
-                obj['supervisorFine'] = ApiClient.convertToType(data['supervisorFine'], 'Number');
-            }
-            if (data.hasOwnProperty('supervisorFineComment')) {
-                obj['supervisorFineComment'] = ApiClient.convertToType(data['supervisorFineComment'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
         }
         return obj;
@@ -72,63 +58,33 @@ class InlineObject {
 }
 
 /**
- * Решение директора:        newProduct = 0,    approved = 1,    rejected = 2   
- * @member {module:model/InlineObject.DirdecisionEnum} dirdecision
+ * Админ может менять статус с 70 на 100 и обратно
+ * @member {module:model/InlineObject.StatusEnum} status
  */
-InlineObject.prototype['dirdecision'] = undefined;
-
-/**
- * Штраф на менеджера.
- * @member {Number} researcherFine
- */
-InlineObject.prototype['researcherFine'] = undefined;
-
-/**
- * Комментарии к штрафу на менеджера.
- * @member {String} researcherFineComment
- */
-InlineObject.prototype['researcherFineComment'] = undefined;
-
-/**
- * Штраф на супервайзера.
- * @member {Number} supervisorFine
- */
-InlineObject.prototype['supervisorFine'] = undefined;
-
-/**
- * Комментарии к штрафу на супервайзера.
- * @member {String} supervisorFineComment
- */
-InlineObject.prototype['supervisorFineComment'] = undefined;
+InlineObject.prototype['status'] = undefined;
 
 
 
 
 
 /**
- * Allowed values for the <code>dirdecision</code> property.
+ * Allowed values for the <code>status</code> property.
  * @enum {Number}
  * @readonly
  */
-InlineObject['DirdecisionEnum'] = {
+InlineObject['StatusEnum'] = {
 
     /**
-     * value: 0
+     * value: 70
      * @const
      */
-    "0": 0,
+    "70": 70,
 
     /**
-     * value: 1
+     * value: 100
      * @const
      */
-    "1": 1,
-
-    /**
-     * value: 2
-     * @const
-     */
-    "2": 2
+    "100": 100
 };
 
 

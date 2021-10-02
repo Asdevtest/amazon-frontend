@@ -7,7 +7,7 @@ const formFieldsDefault = {
   amazon: 0,
   bsr: 0,
   createdat: '',
-  createdby: {},
+  createdBy: {},
   delivery: 0,
   dirdecision: 0,
   express: false,

@@ -91,6 +91,7 @@ class InlineObject16 {
 }
 
 
+
 /**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
@@ -146,6 +147,7 @@ class InlineObject16 {
      */
     "35": 35
 };
+
 
 
 /**
@@ -220,8 +222,6 @@ InlineObject16.prototype['barCode'] = undefined;
  * @member {Number} totalPriceChanged
  */
 InlineObject16.prototype['totalPriceChanged'] = undefined;
-
-
 
 
 

@@ -24,7 +24,6 @@ export class ResearcherDashboardViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getProductsVacant()
-      await this.getPaymentsMy()
       await this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -40,13 +39,6 @@ export class ResearcherDashboardViewModel {
     const result = await ResearcherModel.getProductsVacant()
     runInAction(() => {
       this.productsVacant = result
-    })
-  }
-
-  async getPaymentsMy() {
-    const result = await ResearcherModel.getPaymentsMy()
-    runInAction(() => {
-      this.paymentsMy = result
     })
   }
 

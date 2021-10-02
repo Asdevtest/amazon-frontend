@@ -170,7 +170,7 @@ export const EditOrderModal = ({
         <Typography className={classNames.modalText}>{textConsts.suppliers}</Typography>
         <EditOrderSuppliersTable
           selectedSupplier={orderFields.product.currentSupplier}
-          suppliers={orderFields.product.supplier}
+          suppliers={orderFields.product.suppliers}
         />
       </Paper>
 

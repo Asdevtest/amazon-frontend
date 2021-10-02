@@ -15,7 +15,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').buyerFreeOrdersTableColumns
 
 export const buyerFreeOrdersViewColumns = renderBtns => [
   {
-    field: 'createDate',
+    field: 'createdAt',
     headerName: textConsts.createdAtField,
     renderCell: params => <NormDateCell params={params} />,
     width: 150,

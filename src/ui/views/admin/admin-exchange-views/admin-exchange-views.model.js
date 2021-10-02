@@ -127,7 +127,7 @@ export class AdminExchangeViewModel {
       runInAction(() => {
         this.currentProductsData = result.map(item => ({
           ...item,
-          tmpResearcherName: item.createdby?.name,
+          tmpResearcherName: item.createdBy?.name,
           tmpBuyerName: item.buyer?.name,
           tmpClientName: item.clientId?.name,
           tmpCurrentSupplierName: item.currentSupplier?.name,

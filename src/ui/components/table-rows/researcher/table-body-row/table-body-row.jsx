@@ -23,7 +23,7 @@ export const TableBodyRow = ({item, handlers}) => {
     >
       <TableCell>{item.id}</TableCell>
       <TableCell>{ProductStatusByCode[item.status]}</TableCell>
-      <TableCell>{formatDate(item.createdat)}</TableCell>
+      <TableCell>{formatDate(item.createdAt)}</TableCell>
       <TableCell>{toFixed(item.amazon)}</TableCell>
       <TableCell>{item.bsr}</TableCell>
     </TableRow>

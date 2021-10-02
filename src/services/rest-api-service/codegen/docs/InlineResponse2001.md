@@ -19,10 +19,11 @@ Name | Type | Description | Notes
 **trackingNumberChina** | **String** | Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ. | [optional] 
 **amountPaymentPerConsignmentAtDollars** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
 **totalPrice** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
-**totalPriceChanged** | **Number** | Если вдруг баер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа.  | [optional] 
+**totalPriceChanged** | **Number** | Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа.  | [optional] 
 **barCode** | **String** | ссылка на баркод. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
-**createDate** | **Date** |  | [optional] 
+**createdAt** | **Date** |  | [optional] 
+**updatedAt** | **Date** |  | [optional] 
 **amount** | **Number** | кол-во | [optional] 
 **product** | [**InlineResponse200**](InlineResponse200.md) |  | 
 **createdBy** | [**ApiV1AdminsOrdersCreatedBy**](ApiV1AdminsOrdersCreatedBy.md) |  | [optional] 

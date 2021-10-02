@@ -22,11 +22,10 @@ class InlineObject28 {
     /**
      * Constructs a new <code>InlineObject28</code>.
      * @alias module:model/InlineObject28
-     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
      */
-    constructor(status) { 
+    constructor() { 
         
-        InlineObject28.initialize(this, status);
+        InlineObject28.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject28 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, status) { 
-        obj['status'] = status;
+    static initialize(obj) { 
     }
 
     /**

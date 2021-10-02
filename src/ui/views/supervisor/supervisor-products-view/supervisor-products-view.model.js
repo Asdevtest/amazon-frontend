@@ -84,10 +84,10 @@ export class SupervisorProductsViewModel {
       const result = await SupervisorModel.getProductsMy()
 
       runInAction(() => {
-        this.productsMy = result.sort(sortObjectsArrayByFiledDate('createdat')).map(item => ({
+        this.productsMy = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
           ...item,
           tmpStatus: ProductStatusByCode[item.status],
-          tmpResearcherName: item.createdby.name,
+          tmpResearcherName: item.createdBy.name,
           tmpBuyerName: item.buyer ? item.buyer.name : '',
         }))
       })

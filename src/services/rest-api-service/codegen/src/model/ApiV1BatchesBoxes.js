@@ -57,15 +57,6 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('lengthCm')) {
-                obj['lengthCm'] = ApiClient.convertToType(data['lengthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCm')) {
-                obj['widthCm'] = ApiClient.convertToType(data['widthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCm')) {
-                obj['heightCm'] = ApiClient.convertToType(data['heightCm'], 'Number');
-            }
             if (data.hasOwnProperty('weighGrossKg')) {
                 obj['weighGrossKg'] = ApiClient.convertToType(data['weighGrossKg'], 'Number');
             }
@@ -129,9 +120,6 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
                 obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
-                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
-            }
             if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
                 obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
@@ -189,24 +177,6 @@ ApiV1BatchesBoxes.prototype['_id'] = undefined;
  * @member {Number} amount
  */
 ApiV1BatchesBoxes.prototype['amount'] = undefined;
-
-/**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} lengthCm
- */
-ApiV1BatchesBoxes.prototype['lengthCm'] = undefined;
-
-/**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} widthCm
- */
-ApiV1BatchesBoxes.prototype['widthCm'] = undefined;
-
-/**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} heightCm
- */
-ApiV1BatchesBoxes.prototype['heightCm'] = undefined;
 
 /**
  * Общий вес кг коробки
@@ -333,12 +303,6 @@ ApiV1BatchesBoxes.prototype['weighGrossKgWarehouse'] = undefined;
  * @member {Number} volumeWeightKgWarehouse
  */
 ApiV1BatchesBoxes.prototype['volumeWeightKgWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} weightFinalAccountingKgWarehouse
- */
-ApiV1BatchesBoxes.prototype['weightFinalAccountingKgWarehouse'] = undefined;
 
 /**
  * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.

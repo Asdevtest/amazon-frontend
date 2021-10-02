@@ -9,23 +9,49 @@ export class ResearcherCheckProductExistResponse extends InlineResponse2009 {}
 export class ResearcherPayment extends InlineResponse2004 {}
 
 export class ResearcherCreateProductContract {
-  @IsString() lsupplier
+  @IsOptional()
+  @IsString()
+  lsupplier
 
-  @IsInt() bsr
+  @IsOptional()
+  @IsInt()
+  bsr
 
-  @IsInt() amazon
+  @IsOptional()
+  @IsInt()
+  amazon
 
-  @IsArray() supplier
+  @IsOptional()
+  @IsArray()
+  suppliers
 
-  @IsNumber() fbafee
+  @IsOptional()
+  @IsNumber()
+  fbafee
 
-  @IsInt() delivery
+  @IsOptional()
+  @IsInt()
+  delivery
 
-  @IsString() icomment
+  @IsOptional()
+  @IsString()
+  icomment
 
-  @IsArray() images
+  @IsOptional()
+  @IsArray()
+  images
 
-  @IsNumber() reffee
+  @IsOptional()
+  @IsNumber()
+  reffee
+
+  @IsNotEmpty()
+  @IsString()
+  id
+
+  @IsNotEmpty()
+  @IsString()
+  lamazon
 }
 
 export class ResearcherUpdateProductContract {
@@ -64,10 +90,6 @@ export class ResearcherUpdateProductContract {
   @IsNotEmpty()
   @IsNumber()
   weight
-
-  @IsNotEmpty()
-  @IsArray()
-  supplier
 
   @IsNotEmpty()
   @IsNumber()

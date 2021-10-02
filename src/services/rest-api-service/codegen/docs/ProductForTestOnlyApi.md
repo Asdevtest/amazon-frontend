@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsIdGet
 
-> InlineResponse200 apiV1ProductsIdGet(id, opts)
+> apiV1ProductsIdGet(id, opts)
 
 Получить продукт по GUID.
 
@@ -89,8 +89,8 @@ let id = "id_example"; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1ProductsIdGet(id, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
+apiInstance.apiV1ProductsIdGet(id, opts).then(() => {
+  console.log('API called successfully.');
 }, (error) => {
   console.error(error);
 });
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+null (empty response body)
 
 ### Authorization
 
@@ -142,7 +142,7 @@ let apiInstance = new Amazonapi.ProductForTestOnlyApi();
 let id = 60806dbd5346527a0f90f41e; // String | GUID продукта, который будет изменен
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject24': new Amazonapi.InlineObject24() // InlineObject24 | 
+  'InlineObject22': new Amazonapi.InlineObject22() // InlineObject22 | 
 };
 apiInstance.apiV1ProductsIdPatch(id, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| GUID продукта, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject24** | [**InlineObject24**](InlineObject24.md)|  | [optional] 
+ **InlineObject22** | [**InlineObject22**](InlineObject22.md)|  | [optional] 
 
 ### Return type
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsPost
 
-> InlineResponse2014 apiV1ProductsPost(InlineObject23, opts)
+> InlineResponse2014 apiV1ProductsPost(opts)
 
 Добавить новый продукт.
 
@@ -195,11 +195,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.ProductForTestOnlyApi();
-let InlineObject23 = new Amazonapi.InlineObject23(); // InlineObject23 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1ProductsPost(InlineObject23, opts).then((data) => {
+apiInstance.apiV1ProductsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -212,7 +211,6 @@ apiInstance.apiV1ProductsPost(InlineObject23, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject23** | [**InlineObject23**](InlineObject23.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
@@ -225,6 +223,6 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: text/html
 

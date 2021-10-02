@@ -57,11 +57,6 @@ class ResearcherModelStatic {
     })
     return response
   }
-
-  getPaymentsMy = async () => {
-    const response = await restApiService.researcherApi.apiV1ResearchersPaymentsMyGet()
-    return response
-  }
 }
 
 export const ResearcherModel = new ResearcherModelStatic()

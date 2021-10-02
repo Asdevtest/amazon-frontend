@@ -13,7 +13,7 @@
 
 
 import ApiClient from './ApiClient';
-import ApiV1AdminsGetProductsByStatusClientId from './model/ApiV1AdminsGetProductsByStatusClientId';
+import ApiV1AdminsGetProductsByStatusClient from './model/ApiV1AdminsGetProductsByStatusClient';
 import ApiV1AdminsGetProductsByStatusCurrentSupplier from './model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
 import ApiV1AdminsOrdersCreatedBy from './model/ApiV1AdminsOrdersCreatedBy';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
@@ -99,7 +99,7 @@ import BoxesApi from './api/BoxesApi';
 import BuyerApi from './api/BuyerApi';
 import ClientApi from './api/ClientApi';
 import OtherApi from './api/OtherApi';
-import ProductForTestOnlyApi from './api/ProductForTestOnlyApi';
+import ProductApi from './api/ProductApi';
 import ResearcherApi from './api/ResearcherApi';
 import StorekeepersApi from './api/StorekeepersApi';
 import SupervisorApi from './api/SupervisorApi';
@@ -146,10 +146,10 @@ export {
     ApiClient,
 
     /**
-     * The ApiV1AdminsGetProductsByStatusClientId model constructor.
-     * @property {module:model/ApiV1AdminsGetProductsByStatusClientId}
+     * The ApiV1AdminsGetProductsByStatusClient model constructor.
+     * @property {module:model/ApiV1AdminsGetProductsByStatusClient}
      */
-    ApiV1AdminsGetProductsByStatusClientId,
+    ApiV1AdminsGetProductsByStatusClient,
 
     /**
      * The ApiV1AdminsGetProductsByStatusCurrentSupplier model constructor.
@@ -662,10 +662,10 @@ export {
     OtherApi,
 
     /**
-    * The ProductForTestOnlyApi service constructor.
-    * @property {module:api/ProductForTestOnlyApi}
+    * The ProductApi service constructor.
+    * @property {module:api/ProductApi}
     */
-    ProductForTestOnlyApi,
+    ProductApi,
 
     /**
     * The ResearcherApi service constructor.

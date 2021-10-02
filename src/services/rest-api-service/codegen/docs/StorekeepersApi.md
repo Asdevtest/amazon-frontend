@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksGuidPatch
 
-> String apiV1StorekeepersTasksGuidPatch(guid, InlineObject28, opts)
+> String apiV1StorekeepersTasksGuidPatch(guid, opts)
 
 # Изменить задачу.
 
@@ -254,11 +254,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new Amazonapi.StorekeepersApi();
 let guid = "guid_example"; // String | GUID задачи, которую мы хотим изменить
-let InlineObject28 = new Amazonapi.InlineObject28(); // InlineObject28 | 
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': gzip, deflate, // String | 
+  'InlineObject28': new Amazonapi.InlineObject28() // InlineObject28 | 
 };
-apiInstance.apiV1StorekeepersTasksGuidPatch(guid, InlineObject28, opts).then((data) => {
+apiInstance.apiV1StorekeepersTasksGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -272,8 +272,8 @@ apiInstance.apiV1StorekeepersTasksGuidPatch(guid, InlineObject28, opts).then((da
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID задачи, которую мы хотим изменить | 
- **InlineObject28** | [**InlineObject28**](InlineObject28.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **InlineObject28** | [**InlineObject28**](InlineObject28.md)|  | [optional] 
 
 ### Return type
 
