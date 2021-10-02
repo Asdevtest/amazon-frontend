@@ -4,11 +4,9 @@ import {texts} from '@constants/texts'
 
 import {
   AsinCell,
-  BuyerCell,
   NormDateCell,
-  ProductStatusCell,
   renderFieldValueCell,
-  ResearcherCell,
+  ToFixedWithDollarSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -17,71 +15,68 @@ const textConsts = getLocalizedTexts(texts, 'ru').supervisorProductsTableColumns
 
 export const supervisorProductsViewColumns = () => [
   {
+    field: 'createdat',
+    headerName: textConsts.createDateField,
+    minWidth: 150,
+    renderCell: params => <NormDateCell params={params} />,
+    type: 'date',
+    flex: 2,
+  },
+
+  {
+    field: 'updateDate',
+    headerName: textConsts.updateDateField,
+    minWidth: 150,
+    renderCell: params => <NormDateCell params={params} />,
+    type: 'date',
+    flex: 2,
+  },
+
+  {
     field: 'asinCell',
     headerName: textConsts.asinField,
     renderCell: params => <AsinCell params={params} />,
     minWidth: 350,
     filterable: false,
+    sortable: false,
     flex: 3,
   },
 
   {
-    field: 'status',
+    field: 'tmpStatus',
     headerName: textConsts.statusField,
-    renderCell: params => <ProductStatusCell status={params.value} />,
-    minWidth: 350,
-    flex: 3,
-    filterable: false,
-  },
-
-  {
-    field: 'createdat',
-    headerName: textConsts.createDateField,
-    minWidth: 250,
-    renderCell: params => <NormDateCell params={params} />,
-    type: 'date',
-    flex: 2,
-  },
-
-  {
-    field: 'checkedat',
-    headerName: textConsts.updateDateField,
-    minWidth: 250,
-    renderCell: params => <NormDateCell params={params} />,
-    type: 'date',
-    flex: 2,
+    width: 250,
+    renderCell: params => renderFieldValueCell(params.row.tmpStatus),
   },
 
   {
     field: 'amazon',
     headerName: textConsts.amazonPriceField,
-    renderCell: params => renderFieldValueCell(params.value),
-    minWidth: 150,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
+    minWidth: 130,
     type: 'number',
     flex: 1,
   },
 
   {
-    field: 'createdby',
+    field: 'tmpResearcherName',
     headerName: textConsts.researcherField,
-    renderCell: params => <ResearcherCell params={params} />,
-    width: 250,
-    filterable: false,
+    renderCell: params => renderFieldValueCell(params.row.tmpResearcherName),
+    width: 200,
   },
 
   {
-    field: 'buyer',
+    field: 'tmpBuyerName',
     headerName: textConsts.buyerField,
-    renderCell: params => <BuyerCell params={params} />,
-    width: 250,
-    filterable: false,
+    renderCell: params => renderFieldValueCell(params.row.tmpBuyerName),
+    width: 200,
   },
 
   {
     field: 'bsr',
     headerName: textConsts.bsrField,
     renderCell: params => renderFieldValueCell(params.value),
-    minWidth: 150,
+    minWidth: 130,
     type: 'number',
     flex: 1,
   },
@@ -89,8 +84,8 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'fbafee',
     headerName: textConsts.fbafeeField,
-    renderCell: params => renderFieldValueCell(params.value),
-    minWidth: 150,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.row.fbafee} fix={2} />,
+    minWidth: 130,
     type: 'number',
     flex: 1,
   },

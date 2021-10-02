@@ -2,12 +2,13 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
+import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
 export class AdminWarehouseTasksViewModel {
   history = undefined
@@ -87,8 +88,10 @@ export class AdminWarehouseTasksViewModel {
           .sort(sortObjectsArrayByFiledDate('updateDate'))
           .map(el => ({...el, beforeBoxes: el.boxesBefore}))
           .map(order => ({
-            ...getObjectFilteredByKeyArrayBlackList(order, ['_id']),
+            ...order,
             id: order._id,
+            tmpOperationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[order.operationType]],
+            tmpStatus: mapTaskStatusKeyToEnum[order.status],
           }))
       })
     } catch (error) {

@@ -5,8 +5,9 @@ import {texts} from '@constants/texts'
 import {
   AsinCell,
   FeesValuesWithCalculateBtnCell,
-  ProductStatusCell,
+  NormDateCell,
   renderFieldValueCell,
+  ToFixedWithDollarSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -15,37 +16,53 @@ const textConsts = getLocalizedTexts(texts, 'ru').buyerProductsTableColumns
 
 export const buyerProductsViewColumns = () => [
   {
+    field: 'createdat',
+    headerName: textConsts.createDateField,
+    minWidth: 150,
+    renderCell: params => <NormDateCell params={params} />,
+    type: 'date',
+  },
+
+  {
+    field: 'updateDate',
+    headerName: textConsts.updateDateField,
+    minWidth: 150,
+    renderCell: params => <NormDateCell params={params} />,
+    type: 'date',
+  },
+
+  {
     field: 'asinCell',
     headerName: textConsts.asinField,
     renderCell: params => <AsinCell params={params} />,
     minWidth: 350,
     filterable: false,
+    sortable: false,
     flex: 3,
   },
 
   {
-    field: 'status',
+    field: 'tmpStatus',
     headerName: textConsts.statusField,
-    renderCell: params => <ProductStatusCell status={params.value} />,
-    minWidth: 350,
-    flex: 3,
-    filterable: false,
+    width: 300,
+    renderCell: params => renderFieldValueCell(params.row.tmpStatus),
   },
 
   {
     field: 'feesAndNet',
     headerName: textConsts.feesAndNetField,
     renderCell: params => <FeesValuesWithCalculateBtnCell params={params} />,
-    minWidth: 250,
+    minWidth: 170,
     flex: 1,
     filterable: false,
+    sortable: false,
   },
 
   {
     field: 'amazon',
     headerName: textConsts.amazonPriceField,
-    renderCell: params => renderFieldValueCell(params.value),
-    minWidth: 150,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
+    minWidth: 130,
     type: 'number',
     flex: 1,
   },
@@ -53,8 +70,8 @@ export const buyerProductsViewColumns = () => [
   {
     field: 'profit',
     headerName: textConsts.profitField,
-    renderCell: params => renderFieldValueCell(params.value),
-    minWidth: 150,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.row.profit} fix={2} />,
+    minWidth: 130,
     type: 'number',
     flex: 1,
   },
@@ -63,7 +80,7 @@ export const buyerProductsViewColumns = () => [
     field: 'bsr',
     headerName: textConsts.bsrField,
     renderCell: params => renderFieldValueCell(params.value),
-    minWidth: 150,
+    minWidth: 130,
     type: 'number',
     flex: 1,
   },
@@ -72,7 +89,7 @@ export const buyerProductsViewColumns = () => [
     field: 'fbaamount',
     headerName: textConsts.fbaamountField,
     renderCell: params => renderFieldValueCell(params.value),
-    minWidth: 150,
+    minWidth: 130,
     type: 'number',
     flex: 1,
   },

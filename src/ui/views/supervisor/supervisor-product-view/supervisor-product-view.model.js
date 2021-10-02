@@ -8,6 +8,7 @@ import {SupervisorModel} from '@models/supervisor-model'
 import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervisor-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
 
+import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayWhiteList,
@@ -41,6 +42,7 @@ const fieldsOfProductAllowedToUpdate = [
   'weight',
   'minpurchase',
   'fbaamount',
+  'strategyStatus',
 ]
 
 const formFieldsDefault = {
@@ -126,7 +128,7 @@ export class SupervisorProductViewModel {
       if (['checkednotes'].includes(fieldName)) {
         this.product[fieldName] = e.target.value
       } else {
-        if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+        if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
           return
         }
 

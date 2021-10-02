@@ -2,14 +2,14 @@ import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
 
 import {ResearcherModel} from '@models/researcher-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
-import {getNewObjectWithDefaultValue} from '@utils/object'
+import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
 const formFieldsDefault = {
@@ -122,8 +122,15 @@ export class ResearcherProductsViewModel {
 
     const foundedProd = this.products.find(prod => prod._id === this.newProductId)
 
+    const unclutteredProd = getObjectFilteredByKeyArrayBlackList(
+      {
+        ...foundedProd,
+      },
+      ['tmpStatus'],
+    )
+
     this.history.push('/researcher/product', {
-      product: foundedProd,
+      product: unclutteredProd,
     })
   }
 
@@ -171,7 +178,10 @@ export class ResearcherProductsViewModel {
     try {
       const result = await ResearcherModel.getProductsVacant()
       runInAction(() => {
-        this.products = result.sort(sortObjectsArrayByFiledDate('createdat'))
+        this.products = result.sort(sortObjectsArrayByFiledDate('createdat')).map(item => ({
+          ...item,
+          tmpStatus: ProductStatusByCode[item.status],
+        }))
       })
     } catch (error) {
       console.log(error)
@@ -199,7 +209,14 @@ export class ResearcherProductsViewModel {
 
   onClickTableRow(item) {
     if (item.status < ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
-      this.history.push('/researcher/product', {product: toJS(item)})
+      const requestItem = getObjectFilteredByKeyArrayBlackList(
+        {
+          ...item,
+        },
+        ['tmpStatus'],
+      )
+
+      this.history.push('/researcher/product', {product: toJS(requestItem)})
     }
   }
 

@@ -2,6 +2,7 @@ import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
@@ -55,8 +56,10 @@ export class AdminUsersViewModel {
       const result = await AdministratorModel.getUsers()
 
       const usersData = await result.map(user => ({
-        ...getObjectFilteredByKeyArrayBlackList(user, ['_id']),
+        ...user,
         id: user._id,
+        tmpRole: UserRoleCodeMap[user.role],
+        tmpActive: user.active === true ? 'Active' : 'Banned',
       }))
 
       runInAction(() => {
@@ -118,10 +121,6 @@ export class AdminUsersViewModel {
   onChangeCurPage(e) {
     this.curPage = e.page
   }
-
-  // onChangeFilterModel(e) {
-  //   this.filterModel = e.filterModel
-  // }
 
   onChangeSortingModel(e) {
     this.sortModel = e.sortModel

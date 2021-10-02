@@ -2,12 +2,13 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
+import {ProductStatusByCode} from '@constants/product-status'
 
 import {SettingsModel} from '@models/settings-model'
 import {SupervisorModel} from '@models/supervisor-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
 export class SupervisorProductsViewModel {
   history = undefined
@@ -81,19 +82,14 @@ export class SupervisorProductsViewModel {
   async getProductsMy() {
     try {
       const result = await SupervisorModel.getProductsMy()
-      const productsBuyerFoundSupplier = result.filter(
-        product => ProductStatusByCode[product.status] === ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
-      )
-      const productsBuyerNotFoundSupplier = result.filter(
-        product => ProductStatusByCode[product.status] !== ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
-      )
 
       runInAction(() => {
-        // Если статус продукта BUYER_FOUND_SUPPLIER то поднимаем его вверх списка, если нет то сортируем по дате
-        this.productsMy = [
-          ...productsBuyerFoundSupplier.sort(sortObjectsArrayByFiledDate('createdat')),
-          ...productsBuyerNotFoundSupplier.sort(sortObjectsArrayByFiledDate('createdat')),
-        ]
+        this.productsMy = result.sort(sortObjectsArrayByFiledDate('createdat')).map(item => ({
+          ...item,
+          tmpStatus: ProductStatusByCode[item.status],
+          tmpResearcherName: item.createdby.name,
+          tmpBuyerName: item.buyer ? item.buyer.name : '',
+        }))
       })
     } catch (error) {
       console.log(error)
@@ -104,7 +100,14 @@ export class SupervisorProductsViewModel {
   }
 
   onClickTableRow(item) {
-    this.history.push('/supervisor/product', {product: toJS(item)})
+    const requestItem = getObjectFilteredByKeyArrayBlackList(
+      {
+        ...item,
+      },
+      ['tmpStatus', 'tmpResearcherName', 'tmpBuyerName'],
+    )
+
+    this.history.push('/supervisor/product', {product: toJS(requestItem)})
   }
 
   onTriggerDrawerOpen() {

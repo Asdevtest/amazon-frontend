@@ -11,12 +11,13 @@ export const Modal = props => {
     <Dialog
       maxWidth={false}
       classes={{
+        root: clsx({[classNames.warningBackground]: props.isWarning}),
         paperScrollBody: clsx({[classNames.warningPaper]: props.isWarning}),
       }}
       open={props.openModal}
       scroll="body"
-      onClose={() => {
-        props.setOpenModal(false)
+      onClose={event => {
+        ;(event.detail !== 0 || event.code === 'Escape') && props.setOpenModal(false) // event.detail!==0 чтобы модалка не закрывалась при клике на внешний скролл
       }}
     >
       <DialogContent

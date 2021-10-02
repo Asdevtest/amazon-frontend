@@ -4,7 +4,11 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatusByKey, OrderStatus} from '@constants/order-status'
-import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
+import {
+  mapTaskOperationTypeKeyToEnum,
+  mapTaskOperationTypeToLabel,
+  TaskOperationType,
+} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {BoxesModel} from '@models/boxes-model'
@@ -134,8 +138,9 @@ export class WarehouseVacantViewModel {
           .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS])
           .map(el => ({...el, beforeBoxes: el.boxesBefore}))
           .map(order => ({
-            ...getObjectFilteredByKeyArrayBlackList(order, ['_id']),
+            ...order,
             id: order._id,
+            tmpOperationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[order.operationType]],
           }))
       })
     } catch (error) {
@@ -226,6 +231,7 @@ export class WarehouseVacantViewModel {
     }
   }
 
+  // eslint-disable-next-line no-unused-vars
   async onClickSolveTask({task, newBoxes, operationType, comment, photos}) {
     try {
       for (let i = 0; i < newBoxes.length; i++) {
@@ -265,15 +271,13 @@ export class WarehouseVacantViewModel {
       } else {
         await this.onSubmitUpdateBoxes(newBoxes)
         await this.resolveTask(task.id)
-
-        // await BoxesModel.approveBoxesOperation(this.selectedTask.boxes[0]._id)
       }
 
       if (photos.length > 0) {
         await this.onSubmitPostImages({images: photos, type: 'imagesOfTask'})
       }
 
-      await this.updateTask(this.selectedTask.id, comment) // запрос не работает пока поле статуса обязательно(написал в чат бека))
+      await this.updateTask(this.selectedTask.id, comment, mapTaskStatusEmumToKey[TaskStatus.SOLVED]) // запрос не работает пока поле статуса обязательно(написал в чат бека))
 
       await this.getTasksMy()
 
@@ -347,11 +351,12 @@ export class WarehouseVacantViewModel {
   //   }
   // }
 
-  async updateTask(taskId, comment) {
+  async updateTask(taskId, comment, status) {
     try {
       await StorekeeperModel.updateTask(taskId, {
         storekeeperComment: comment || '',
         images: this.imagesOfTask || [],
+        status,
       })
     } catch (error) {
       console.log(error)

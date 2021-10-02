@@ -19,7 +19,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.14.5",
     "@date-io/date-fns": "1.x",
     "@material-ui/core": "^4.11.4",
-    "@material-ui/data-grid": "^4.0.0-alpha.32",
+    "@material-ui/data-grid": "^4.0.0-alpha.37",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@material-ui/pickers": "^3.2.10",

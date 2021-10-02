@@ -3,7 +3,6 @@ import {Component} from 'react'
 import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
-import {adminUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -45,7 +44,6 @@ export class AdminFinancesReplenishmentsViewRaw extends Component {
             curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={this.onTriggerDrawer}
             title={textConsts.appbarTitle}
-            username={adminUsername}
           >
             <MainContent>
               <Typography paragraph variant="h5" className={classNames.example}>

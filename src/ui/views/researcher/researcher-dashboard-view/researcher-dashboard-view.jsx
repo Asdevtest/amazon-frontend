@@ -52,7 +52,6 @@ export class ResearcherDashboardViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             drawerOpen={drawerOpen}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.RESEARCHER}
           >

@@ -2,11 +2,13 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {ProductStatusByCode} from '@constants/product-status'
 
 import {BuyerModel} from '@models/buyer-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
 export class BuyerMyProductsViewModel {
   history = undefined
@@ -84,7 +86,10 @@ export class BuyerMyProductsViewModel {
       this.error = undefined
       const result = await BuyerModel.getProductsMy()
       runInAction(() => {
-        this.productsMy = result.sort(sortObjectsArrayByFiledDate('checkedat'))
+        this.productsMy = result.sort(sortObjectsArrayByFiledDate('checkedat')).map(item => ({
+          ...item,
+          tmpStatus: ProductStatusByCode[item.status],
+        }))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -97,7 +102,14 @@ export class BuyerMyProductsViewModel {
   }
 
   onClickTableRow(item) {
-    this.history.push('/buyer/product', {product: toJS(item)})
+    const requestItem = getObjectFilteredByKeyArrayBlackList(
+      {
+        ...item,
+      },
+      ['tmpStatus'],
+    )
+
+    this.history.push('/buyer/product', {product: toJS(requestItem)})
   }
 
   onTriggerDrawerOpen() {

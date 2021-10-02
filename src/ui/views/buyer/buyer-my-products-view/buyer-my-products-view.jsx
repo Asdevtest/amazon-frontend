@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -23,8 +24,9 @@ import {styles} from './buyer-my-products-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').myProductsView
 
-const navbarActiveCategory = 1
+const navbarActiveCategory = 2
 
+const attentionStatuses = [ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT]]
 @observer
 export class BuyerMyProductsViewRaw extends Component {
   viewModel = new BuyerMyProductsViewModel({history: this.props.history})
@@ -70,7 +72,6 @@ export class BuyerMyProductsViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             user={textConsts.appUser}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.BUYER}
           >
@@ -83,6 +84,9 @@ export class BuyerMyProductsViewRaw extends Component {
                   classes={{
                     row: classNames.row,
                   }}
+                  getRowClassName={params =>
+                    attentionStatuses.includes(params.getValue(params.id, 'status')) && classNames.attentionRow
+                  }
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
@@ -96,7 +100,7 @@ export class BuyerMyProductsViewRaw extends Component {
                   columns={buyerProductsViewColumns()}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection.selectionModel[0])
+                    onSelectionModel(newSelection[0])
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}

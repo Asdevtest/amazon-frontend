@@ -6,12 +6,12 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {adminUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
+import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {NormDateCell, renderFieldValueCell} from '@components/data-grid-cells/data-grid-cells'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -19,7 +19,6 @@ import {Navbar} from '@components/navbar'
 import {AdminContentModal} from '@components/screens/users-views/sub-users-view/admin-content-modal'
 import {PermissionContentModal} from '@components/screens/users-views/sub-users-view/permission-modal'
 
-import {formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/adminAvatar.jpg'
@@ -33,7 +32,7 @@ const renderAdminSubUsersTableCells = renderBtns => [
   {
     field: 'createdAt',
     headerName: 'Created',
-    renderCell: params => (params.value ? formatNormDateTimeWithParseISO(params.value) : 'N/A'),
+    renderCell: params => <NormDateCell params={params} />,
     width: 150,
     type: 'date',
   },
@@ -42,7 +41,7 @@ const renderAdminSubUsersTableCells = renderBtns => [
   {
     field: 'balance',
     headerName: 'Balance',
-    renderCell: params => !params.value && 'N/A',
+    renderCell: params => renderFieldValueCell(params.row.balance),
     width: 150,
     type: 'number',
   },
@@ -54,57 +53,38 @@ const renderAdminSubUsersTableCells = renderBtns => [
     width: 150,
     type: 'number',
   },
+
   {field: 'email', headerName: 'Email', width: 150},
 
-  {field: 'rate', headerName: 'Rate', renderCell: params => !params.value && 'N/A', width: 150, type: 'number'},
   {
-    field: 'role',
+    field: 'rate',
+    headerName: 'Rate',
+    renderCell: params => renderFieldValueCell(params.row.rate),
+    width: 150,
+    type: 'number',
+  },
+
+  {
+    field: 'tmpRole',
     headerName: 'Role',
-    renderCell: params => UserRoleCodeMap[params.value],
-    filterable: false,
-    // valueParser: value => {
-
-    //   switch (value.toUpperCase()) {
-    //     case UserRole.ADMIN:
-    //       return '0' // НЕ РАБОТАЕТ С НУЛЕМ
-    //     case UserRole.CLIENT:
-    //       return '10'
-    //     case UserRole.SUPERVISOR:
-    //       return '20'
-    //     case UserRole.RESEARCHER:
-    //       return '30'
-    //     case UserRole.BUYER:
-    //       return '40'
-    //     case UserRole.STOREKEEPER:
-    //       return '50'
-    //     default:
-    //       return value
-    //   }
-    // },
+    renderCell: params => renderFieldValueCell(params.row.tmpRole),
     width: 150,
   },
 
   {
-    field: 'active',
+    field: 'tmpActive',
     headerName: 'User status',
-    renderCell: params => (params.value === true ? 'Active' : 'Banned'),
+    renderCell: params => renderFieldValueCell(params.row.tmpActive),
     width: 150,
-    valueParser: value => {
-      switch (value) {
-        case 'Active':
-          return 'true'
-        case 'Banned':
-          return 'false'
-        default:
-          return value
-      }
-    },
   },
+
   {
     field: '',
     headerName: 'Admin',
     renderCell: params => renderBtns(params),
     width: 300,
+    filterable: false,
+    sortable: false,
   },
 ]
 
@@ -157,7 +137,6 @@ class AdminUsersViewRaw extends Component {
             curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
-            username={adminUsername}
           >
             <MainContent>
               <Typography paragraph variant="h5" className={classNames.example}>
@@ -178,7 +157,7 @@ class AdminUsersViewRaw extends Component {
                   Toolbar: GridToolbar,
                 }}
                 onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection.selectionModel[0])
+                  onSelectionModel(newSelection[0])
                 }}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}

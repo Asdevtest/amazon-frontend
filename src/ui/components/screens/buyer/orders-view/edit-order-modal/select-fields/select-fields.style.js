@@ -14,6 +14,10 @@ export const useClassNames = makeStyles(() => ({
     width: '80px',
   },
 
+  numWideInput: {
+    width: '300px',
+  },
+
   errorInput: {
     border: '1px solid red',
   },

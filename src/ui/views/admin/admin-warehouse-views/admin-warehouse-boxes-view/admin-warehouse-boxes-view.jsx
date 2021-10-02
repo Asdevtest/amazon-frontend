@@ -6,7 +6,6 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {adminUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -70,7 +69,6 @@ export class AdminWarehouseBoxesViewRaw extends Component {
             curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
-            username={adminUsername}
           >
             <MainContent>
               <Typography paragraph variant="h5">
@@ -93,7 +91,7 @@ export class AdminWarehouseBoxesViewRaw extends Component {
                   Toolbar: GridToolbar,
                 }}
                 onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection.selectionModel[0])
+                  onSelectionModel(newSelection[0])
                 }}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}

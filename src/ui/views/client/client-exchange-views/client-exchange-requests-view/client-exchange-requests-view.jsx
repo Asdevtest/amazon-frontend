@@ -4,7 +4,7 @@ import {Button, TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {clientExchangeRequestsViewTable, clientUsername} from '@constants/mocks'
+import {clientExchangeRequestsViewTable} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -95,7 +95,6 @@ export class ClientExchangeRequestsViewRaw extends Component {
             avatarSrc={avatar}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
-            username={clientUsername}
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>

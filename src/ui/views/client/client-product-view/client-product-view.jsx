@@ -9,24 +9,25 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {Listing} from '@components/product/listing'
+import {ProductWrapper} from '@components/product/product-wrapper'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/clientAvatar.jpg'
-import {ClientListingViewModel} from './listing-view.model'
+import avatar from '../assets/clientAvatar.jpg'
+import {ClientProductViewModel} from './client-product-view.model'
 
-const textConsts = getLocalizedTexts(texts, 'ru').clientListingView
+const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
 
 @observer
-export class ClientListingView extends Component {
-  viewModel = new ClientListingViewModel({
+export class ClientProductView extends Component {
+  viewModel = new ClientProductViewModel({
     history: this.props.history,
     location: this.props.location,
   })
 
   render() {
-    const {product, drawerOpen, onTriggerDrawerOpen, history} = this.viewModel
+    const {product, drawerOpen, suppliers, formFieldsValidationErrors, onTriggerDrawerOpen, onChangeProductFields} =
+      this.viewModel
 
     return (
       <React.Fragment>
@@ -41,13 +42,20 @@ export class ClientListingView extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            history={history}
-            username={textConsts.appBarUsername}
+            user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>
-              <Listing product={product} />
+              {product ? (
+                <ProductWrapper
+                  curUserRole={UserRole.CLIENT}
+                  product={product}
+                  suppliers={suppliers}
+                  formFieldsValidationErrors={formFieldsValidationErrors}
+                  onChangeField={onChangeProductFields}
+                />
+              ) : undefined}
             </MainContent>
           </Appbar>
         </Main>

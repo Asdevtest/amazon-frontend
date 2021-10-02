@@ -290,3 +290,37 @@ export const getAdminDashboardCardConfig = textConsts => [
     ],
   },
 ]
+
+export const BuyerDashboardCardDataKey = {
+  NEW_PRODUCTS: 'NEW_PRODUCTS',
+  ME_PRODUCTS: 'ME_PRODUCTS',
+  ME_ORDERS: 'ME_ORDERS',
+  FREE_ORDERS: 'FREE_ORDERS',
+}
+
+export const getBuyerDashboardCardConfig = textConsts => [
+  {
+    dataKey: BuyerDashboardCardDataKey.NEW_PRODUCTS,
+    title: textConsts.newProductsCardTitle,
+    color: '#63c2de',
+    route: '/buyer/products',
+  },
+  {
+    dataKey: BuyerDashboardCardDataKey.ME_PRODUCTS,
+    title: textConsts.myProductCardTitle,
+    color: '#FFC107',
+    route: '/buyer/my-products',
+  },
+  {
+    dataKey: BuyerDashboardCardDataKey.ME_ORDERS,
+    title: textConsts.myOrdersCardTitle,
+    color: '#4dbd74',
+    route: '/buyer/my-orders',
+  },
+  {
+    dataKey: BuyerDashboardCardDataKey.FREE_ORDERS,
+    title: textConsts.freeOrdersCardTitle,
+    color: '#f86c6b',
+    route: '/buyer/free-orders',
+  },
+]

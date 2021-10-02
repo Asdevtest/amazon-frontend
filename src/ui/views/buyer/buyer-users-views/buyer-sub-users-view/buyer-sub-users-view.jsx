@@ -28,7 +28,7 @@ import {styles} from './buyer-sub-users-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerSubUsersView
 
-const navbarActiveCategory = 5
+const navbarActiveCategory = 6
 const navbarActiveSubCategory = 1
 
 @observer
@@ -70,7 +70,6 @@ class BuyerSubUsersViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.BUYER}
           >

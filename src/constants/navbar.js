@@ -89,7 +89,14 @@ export const navbarConfig = {
     {icon: SettingsIcon, title: 'Настройки', subtitles: null, route: '/supervisor/settings'},
   ],
   [UserRole.BUYER]: [
-    {icon: InboxOutlinedIcon, title: 'Товары', route: '/buyer/products', subtitles: null},
+    {
+      icon: InfoOutlinedIcon,
+      title: 'Главная страница',
+      subtitles: null,
+      route: '/buyer/dashboard',
+    },
+
+    {icon: InboxOutlinedIcon, title: 'Новые товары', route: '/buyer/products', subtitles: null},
     {icon: InboxOutlinedIcon, title: 'Мои товары', route: '/buyer/my-products', subtitles: null},
 
     {icon: Work, title: 'Мои заказы', route: '/buyer/my-orders', subtitles: null},

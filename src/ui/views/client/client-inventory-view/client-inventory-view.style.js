@@ -18,12 +18,7 @@ export const styles = createStyles({
     minWidth: '100%',
     height: '83vh',
   },
-
-  row: {
-    cursor: 'pointer',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
+  buttonOffset: {
+    marginLeft: '20px',
   },
 })

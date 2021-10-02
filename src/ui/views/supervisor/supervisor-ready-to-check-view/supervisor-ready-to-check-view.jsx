@@ -62,7 +62,6 @@ class SupervisorReadyToCheckViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             user={textConsts.appUser}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.SUPERVISOR}
           >

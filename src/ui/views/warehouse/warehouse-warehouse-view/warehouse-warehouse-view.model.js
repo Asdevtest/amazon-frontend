@@ -2,13 +2,13 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {warehouses} from '@constants/warehouses'
 
 import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
 export class WarehouseWarehouseViewModel {
   history = undefined
@@ -99,9 +99,24 @@ export class WarehouseWarehouseViewModel {
       const boxes = result.map(batchObj => batchObj.boxes).flat()
 
       runInAction(() => {
-        this.boxes = boxes.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')).map(user => ({
-          ...getObjectFilteredByKeyArrayBlackList(user, ['_id']),
-          id: user._id,
+        this.boxes = boxes.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')).map(item => ({
+          ...item,
+          tmpBarCode: item.items[0].product.barCode,
+          tmpAsin: item.items[0].product.id,
+          tmpQty: item.items[0].order.amount,
+          tmpMaterial: item.items[0].product.material,
+          tmpAmazonPrice: item.items[0].product.amazon,
+          tmpTrackingNumberChina: item.items[0].order.trackingNumberChina,
+          tmpFinalWeight: Math.max(
+            parseFloat(item.volumeWeightKgWarehouse ? item.volumeWeightKgWarehouse : item.volumeWeightKgSupplier) || 0,
+            parseFloat(
+              item.weightFinalAccountingKgWarehouse
+                ? item.weightFinalAccountingKgWarehouse
+                : item.weightFinalAccountingKgSupplier,
+            ) || 0,
+          ),
+          tmpGrossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
+          tmpWarehouses: warehouses[item.warehouse],
         }))
       })
     } catch (error) {

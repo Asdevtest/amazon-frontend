@@ -22,7 +22,6 @@ const textConsts = getLocalizedTexts(texts, 'en').ordersViewsModalSelectFields
 const defaultYuansToDollarRate = 6.3
 
 const allowOrderStatuses = [
-  `${OrderStatusByKey[OrderStatus.PAID]}`,
   `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
   `${OrderStatusByKey[OrderStatus.RETURN_ORDER]}`,
 ]
@@ -301,7 +300,7 @@ export const SelectFields = ({setOrderField, resetOrderField, orderFields, wareh
           <Input
             inputProps={{maxLength: 50}}
             value={orderFields.trackingNumberChina}
-            className={classNames.numInput}
+            className={classNames.numWideInput}
             onChange={setOrderField('trackingNumberChina')}
           />
         </Box>

@@ -69,7 +69,6 @@ export class ClientUserProfileView extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             user={textConsts.appUser}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>

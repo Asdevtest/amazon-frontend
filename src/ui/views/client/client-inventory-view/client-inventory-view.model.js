@@ -47,6 +47,12 @@ export class ClientInventoryViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onClickShowProduct() {
+    const foundedProduct = this.productsMy.filter(product => this.selectedRowIds.includes(product.id))[0]
+
+    this.history.push('/client/product', {product: toJS(foundedProduct)})
+  }
+
   setDataGridState(state) {
     SettingsModel.setDataGridState(state, DataGridTablesKeys.CLIENT_INVENTORY)
   }
@@ -79,8 +85,6 @@ export class ClientInventoryViewModel {
   }
 
   onSelectionModel(model) {
-    console.log('model', model)
-
     this.selectedRowIds = model
   }
 
@@ -170,12 +174,15 @@ export class ClientInventoryViewModel {
 
   async onSubmitOrderProductModal(ordersDataState) {
     try {
+      this.error = undefined
       for (let i = 0; i < ordersDataState.length; i++) {
         const product = ordersDataState[i]
         await this.createOrder(product)
       }
 
-      this.onTriggerOpenModal('showSuccessModal')
+      if (!this.error) {
+        this.onTriggerOpenModal('showSuccessModal')
+      }
     } catch (error) {
       console.log(error)
       this.error = error
@@ -185,6 +192,7 @@ export class ClientInventoryViewModel {
   async createOrder(orderObject) {
     try {
       await ClientModel.createOrder(orderObject)
+      await this.onSaveProductData(orderObject.product, {barCode: orderObject.barCode})
       await this.updateUserInfo()
     } catch (error) {
       console.log(error)
@@ -203,10 +211,6 @@ export class ClientInventoryViewModel {
 
   async onDeleteBarcode(product) {
     await this.onSaveProductData(product._id, {barCode: ''})
-  }
-
-  onClickExchange(item) {
-    this.history.push('/client/inventoryes/listing', {product: toJS(item)})
   }
 
   onChangeCurPage(e) {

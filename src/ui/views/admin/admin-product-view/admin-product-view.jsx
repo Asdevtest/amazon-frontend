@@ -53,7 +53,6 @@ export class AdminProductView extends Component {
             avatarSrc={avatar}
             history={history}
             user={textConsts.appUser}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.ADMIN}
           >

@@ -8,7 +8,9 @@ import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
+const fieldsOfProductAllowedToUpdate = ['barCode']
 export class ClientExchangeViewModel {
   history = undefined
   requestStatus = undefined
@@ -30,7 +32,6 @@ export class ClientExchangeViewModel {
   curPage = 0
   rowsPerPage = 15
 
-  showSetBarcodeModal = false
   showOrderModal = false
 
   constructor({history}) {
@@ -43,12 +44,22 @@ export class ClientExchangeViewModel {
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
 
-  async onClickSaveBarcode(barCode) {
-    await this.onSaveProductData(this.selectedProduct._id, {barCode})
-    this.onTriggerOpenModal('showSetBarcodeModal')
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
+  async onSaveProductData(productId, updateProductData) {
+    try {
+      const updateProductDataFiltered = getObjectFilteredByKeyArrayWhiteList(
+        toJS(updateProductData),
+        fieldsOfProductAllowedToUpdate,
+        true,
+      )
+
+      await ClientModel.updateProduct(productId, updateProductDataFiltered)
+      await this.loadData()
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
   }
 
   setDataGridState(state) {
@@ -110,7 +121,11 @@ export class ClientExchangeViewModel {
     try {
       const result = await ClientModel.getProductsVacant()
       runInAction(() => {
-        this.productsVacant = result.sort(sortObjectsArrayByFiledDate('checkedat'))
+        this.productsVacant = result.sort(sortObjectsArrayByFiledDate('checkedat')).map(item => ({
+          ...item,
+          tmpResearcherName: item.createdby.name,
+          tmpBuyerName: item.buyer.name,
+        }))
       })
     } catch (error) {
       console.log(error)
@@ -138,7 +153,10 @@ export class ClientExchangeViewModel {
 
   async onLaunchPrivateLabel(order) {
     try {
-      await this.createOrder(order)
+      const requestProduct = getObjectFilteredByKeyArrayBlackList({...order}, ['tmpResearcherName', 'tmpBuyerName'])
+
+      await this.createOrder(requestProduct)
+      await this.onSaveProductData(requestProduct.product, {barCode: requestProduct.barCode})
 
       this.onTriggerOpenModal('showOrderModal')
       this.onTriggerOpenModal('showSuccessModal')

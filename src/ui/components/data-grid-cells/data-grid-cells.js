@@ -1,18 +1,12 @@
 import React from 'react'
 
-import {Button, Chip, Typography, Box, Tooltip} from '@material-ui/core'
+import {Button, Chip, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
-import {DeliveryTypeByCode} from '@constants/delivery-options'
-import {OrderStatusByCode} from '@constants/order-status'
-import {ProductStatusByCode} from '@constants/product-status'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 import {texts} from '@constants/texts'
-import {warehouses} from '@constants/warehouses'
-
-import {StarRating} from '@components/star-rating'
 
 import {
   formatDateDistanceFromNow,
@@ -22,7 +16,7 @@ import {
 } from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixedWithDollarSign, trimBarcode, toFixedWithKg, withKg, toFixed} from '@utils/text'
+import {toFixedWithDollarSign, trimBarcode, toFixedWithKg} from '@utils/text'
 
 import {styles} from './data-grid-cells.style'
 
@@ -50,10 +44,6 @@ export const AsinCell = withStyles(styles)(({classes: classNames, params}) => (
   </div>
 ))
 
-export const PriceCell = withStyles(styles)(({classes: classNames, price}) => (
-  <div className={classNames.priceTableCell}>{!price ? 'N/A' : toFixedWithDollarSign(price, 2)}</div>
-))
-
 export const FeesValuesWithCalculateBtnCell = withStyles(styles)(({classes: classNames, params, noCalculate}) => (
   <div className={classNames.feesTableCell}>
     <div className={classNames.feesTableWrapper}>
@@ -79,7 +69,15 @@ export const FeesValuesWithCalculateBtnCell = withStyles(styles)(({classes: clas
 ))
 
 export const SupplierCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.supplierCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
+  <div>
+    <Typography className={classNames.researcherCell}>
+      {!params.row.currentSupplier ? 'N/A' : params.row.currentSupplier.name}
+    </Typography>
+
+    <Typography className={classNames.noActiveLink}>{`link: ${
+      !params.row.currentSupplier ? 'N/A' : params.row.currentSupplier.link
+    }`}</Typography>
+  </div>
 ))
 
 export const SupervisorCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
@@ -95,10 +93,12 @@ export const SupervisorCell = withStyles(styles)(({classes: classNames, params, 
 
 export const ResearcherCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
   <div>
-    <Typography className={classNames.researcherCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
+    <Typography className={classNames.researcherCell}>
+      {!params.row.createdby ? 'N/A' : params.row.createdby.name}
+    </Typography>
     {!onlyName && (
       <Typography className={classNames.researcherCell}>{`rate: ${
-        !params.value ? 'N/A' : params.value.rate
+        !params.row.createdby ? 'N/A' : params.row.createdby.rate
       }`}</Typography>
     )}
   </div>
@@ -106,10 +106,12 @@ export const ResearcherCell = withStyles(styles)(({classes: classNames, params, 
 
 export const ClientCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
   <div>
-    <Typography className={classNames.researcherCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
+    <Typography className={classNames.researcherCell}>
+      {!params.row.clientId ? 'N/A' : params.row.clientId.name}
+    </Typography>
     {!onlyName && (
       <Typography className={classNames.researcherCell}>{`rate: ${
-        !params.value ? 'N/A' : params.value.rate
+        !params.row.clientId ? 'N/A' : params.row.clientId.rate
       }`}</Typography>
     )}
   </div>
@@ -117,39 +119,13 @@ export const ClientCell = withStyles(styles)(({classes: classNames, params, only
 
 export const BuyerCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
   <div>
-    <Typography className={classNames.researcherCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
+    <Typography className={classNames.researcherCell}>{!params.row.buyer ? 'N/A' : params.row.buyer.name}</Typography>
     {!onlyName && (
       <Typography className={classNames.researcherCell}>{`rate: ${
-        !params.value ? 'N/A' : params.value.rate
+        !params.row.buyer ? 'N/A' : params.row.buyer.rate
       }`}</Typography>
     )}
   </div>
-))
-
-export const RankCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.rankTableCell}>{!params.value ? 'N/A' : '#' + params.value}</Typography>
-))
-
-export const RatingCell = withStyles(styles)(({classes: classNames, params}) => (
-  <div className={classNames.ratingTableCell}>
-    <StarRating rating={params.value} />
-    <Typography className={classNames.rankTypoReviews}>
-      {!params.value ? 'N/A' : params.value}
-      {textConsts.ratingTypo}
-    </Typography>
-  </div>
-))
-
-export const SalesCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.salesCell}>{!params.value ? 'N/A' : params.value}</Typography>
-))
-
-export const SalesTotalCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.salesCell}>{!params.value ? 'N/A' : params.value}</Typography>
-))
-
-export const TypeCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.salersTotal}>{!params.value ? 'N/A' : params.value}</Typography>
 ))
 
 export const BarcodeCell = withStyles(styles)(({classes: classNames, params, handlers}) => (
@@ -200,72 +176,7 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product}) => 
   </div>
 ))
 
-export const BoxCell = withStyles(styles)(({params}) => (
-  <React.Fragment>
-    {!params.row.boxesId ? (
-      <Button size="small">{textConsts.distributeBtn}</Button>
-    ) : (
-      <Box display="flex" alignItems="center">
-        <Box mr={1.5}>
-          {params.row.boxesId.map((box, index) => (
-            <Typography key={index}>{'ID: ' + box + ','}</Typography>
-          ))}
-        </Box>
-        <div>
-          <Typography>{params.row.boxesId.length + ' шт.'}</Typography>
-        </div>
-      </Box>
-    )}
-  </React.Fragment>
-))
-
-export const GrossWeightCell = withStyles(styles)(({classes: classNames, params}) => (
-  <React.Fragment>
-    {params.row.product.grossWeight ? (
-      <Typography>{toFixedWithKg(params.row.product.grossWeight)}</Typography>
-    ) : (
-      <Tooltip interactive placement="top" title={textConsts.titleToolTip} className={classNames.tooltip}>
-        <Typography>{'N/A'}</Typography>
-      </Tooltip>
-    )}
-  </React.Fragment>
-))
-
 export const renderFieldValueCell = value => (!value ? 'N/A' : value)
-
-export const renderFixedDollarValueCell = ({params}) =>
-  !params.value
-    ? 'N/A'
-    : toFixedWithDollarSign(params.row.deliveryCostToTheWarehouse + params.row.product.amazon * params.row.amount)
-
-export const OrderSum = ({params}) => (
-  <Typography>
-    {toFixedWithDollarSign(
-      ((parseFloat(params.row.product.currentSupplier?.price) || 0) +
-        (parseFloat(params.row.product.currentSupplier?.delivery) || 0)) *
-        (parseInt(params.row.amount) || 0),
-    ) || 'N/A'}
-  </Typography>
-)
-
-export const TaskTypeCell = withStyles(styles)(({params}) => {
-  const renderOperationType = type => {
-    switch (type) {
-      case TaskOperationType.MERGE:
-        return <Typography>{textConsts.operatioTypeMerge}</Typography>
-
-      case TaskOperationType.SPLIT:
-        return <Typography>{textConsts.operatioTypeSplit}</Typography>
-
-      case TaskOperationType.RECEIVE:
-        return <Typography>{textConsts.operatioTypeReceive}</Typography>
-
-      case TaskOperationType.EDIT:
-        return <Typography>{textConsts.operatioTypeEdit}</Typography>
-    }
-  }
-  return <React.Fragment>{renderOperationType(params.value)}</React.Fragment>
-})
 
 export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, params, hideImage}) => {
   const renderProductImage = (box, key) => {
@@ -370,32 +281,8 @@ export const NoActiveBarcodeCell = withStyles(styles)(({classes: classNames, bar
   </React.Fragment>
 ))
 
-export const WarehouseCell = withStyles(styles)(({warehouse}) => (
-  <React.Fragment>
-    <Typography>{warehouses[warehouse]}</Typography>
-  </React.Fragment>
-))
-
-export const WeightCell = withStyles(styles)(({weight}) => (
-  <React.Fragment>
-    <Typography>{`${weight || 'N/A'} kg`}</Typography>
-  </React.Fragment>
-))
-
-export const FinalWeightCell = withStyles(styles)(({volumeWeight, weightFinalAccounting}) => (
-  <React.Fragment>
-    <Typography>{withKg(Math.max(parseFloat(volumeWeight) || 0, parseFloat(weightFinalAccounting) || 0))}</Typography>
-  </React.Fragment>
-))
-
-export const ProductStatusCell = withStyles(styles)(({status}) => (
-  <React.Fragment>{ProductStatusByCode[status]}</React.Fragment>
-))
-
-export const DeliveryCell = withStyles(styles)(({delivery}) => (
-  <React.Fragment>
-    <Typography>{DeliveryTypeByCode[delivery]}</Typography>
-  </React.Fragment>
+export const ToFixedWithKgSignCell = withStyles(styles)(({classes: classNames, value, fix}) => (
+  <div className={classNames.priceTableCell}>{!value ? (value === 0 ? 0 : 'N/A') : toFixedWithKg(value, fix)}</div>
 ))
 
 export const SmallRowImageCell = withStyles(styles)(({classes: classNames, images}) => (
@@ -405,13 +292,7 @@ export const SmallRowImageCell = withStyles(styles)(({classes: classNames, image
 ))
 
 export const ToFixedWithDollarSignCell = withStyles(styles)(({classes: classNames, value, fix}) => (
-  <div className={classNames.priceTableCell}>{!value ? 'N/A' : toFixedWithDollarSign(value, fix)}</div>
-))
-
-export const ToFixedCell = withStyles(styles)(({value, fix}) => <div>{!value ? 'N/A' : toFixed(value, fix)}</div>)
-
-export const OrderStatusCell = withStyles(styles)(({status}) => (
-  <React.Fragment>
-    <Typography>{OrderStatusByCode[status]}</Typography>
-  </React.Fragment>
+  <div className={classNames.priceTableCell}>
+    {!value ? (value === 0 ? 0 : 'N/A') : toFixedWithDollarSign(value, fix)}
+  </div>
 ))

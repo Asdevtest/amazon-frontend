@@ -151,6 +151,12 @@ export const styles = createStyles(() => ({
     overflowX: 'scroll',
   },
 
+  noActiveLink: {
+    width: '150px',
+    height: '45px',
+    overflowX: 'scroll',
+  },
+
   order: {
     display: 'flex',
     alignItems: 'center',

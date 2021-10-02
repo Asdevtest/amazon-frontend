@@ -1,14 +1,10 @@
 import React from 'react'
 
-import {DeliveryType, deliveryTypeCodeToKey} from '@constants/delivery-options'
 import {texts} from '@constants/texts'
-import {WarehouseType} from '@constants/warehouses'
 
 import {
-  DeliveryCell,
   NoActiveBarcodeCell,
   OrderCell,
-  WarehouseCell,
   renderFieldValueCell,
   NormDateCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -32,6 +28,7 @@ export const buyerFreeOrdersViewColumns = renderBtns => [
     width: 250,
     renderCell: params => renderBtns(params),
     filterable: false,
+    sortable: false,
   },
 
   {
@@ -40,57 +37,30 @@ export const buyerFreeOrdersViewColumns = renderBtns => [
     width: 300,
     renderCell: params => <OrderCell product={params.row.product} />,
     filterable: false,
+    sortable: false,
   },
 
   {field: 'amount', headerName: textConsts.amountField, type: 'number', width: 130},
 
   {
-    field: 'barCode',
+    field: 'tmpBarCode',
     headerName: textConsts.barcodeField,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.row.product.barCode} />,
+    renderCell: params => <NoActiveBarcodeCell barCode={params.row.tmpBarCode} />,
     width: 200,
-    filterable: false,
   },
 
   {
-    field: 'warehouse',
+    field: 'tmpWarehouses',
     headerName: textConsts.warehouseField,
-    renderCell: params => <WarehouseCell warehouse={params.row.warehouse} />,
+    renderCell: params => renderFieldValueCell(params.row.tmpWarehouses),
     width: 200,
-    valueParser: value => {
-      switch (value) {
-        case WarehouseType.ONT:
-          return '25'
-        case WarehouseType.LGB8:
-          return '30'
-        case WarehouseType.MEM1:
-          return '35'
-        case WarehouseType.MDW2:
-          return '40'
-        case WarehouseType.LAX9:
-          return '42'
-        default:
-          return value
-      }
-    },
   },
 
   {
-    field: 'deliveryMethod',
+    field: 'tmpDeliveryMethod',
     headerName: textConsts.deliveryField,
-    renderCell: params => <DeliveryCell delivery={params.row.deliveryMethod} />,
+    renderCell: params => renderFieldValueCell(params.row.tmpDeliveryMethod),
     width: 200,
-    valueParser: value => {
-      switch (value.toUpperCase()) {
-        case deliveryTypeCodeToKey[DeliveryType.SEA]:
-          return '1'
-        case deliveryTypeCodeToKey[DeliveryType.AIR]:
-          return '2'
-
-        default:
-          return value
-      }
-    },
   },
 
   {

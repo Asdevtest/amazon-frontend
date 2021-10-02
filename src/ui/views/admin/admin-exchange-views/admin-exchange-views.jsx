@@ -6,7 +6,6 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {adminUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -71,7 +70,6 @@ class AdminExchangeViewsRaw extends Component {
             curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
-            username={adminUsername}
           >
             <MainContent>
               <Typography paragraph variant="h5" className={classNames.example}>
@@ -96,7 +94,7 @@ class AdminExchangeViewsRaw extends Component {
                 columns={exchangeProductsColumns({activeSubCategory})}
                 loading={requestStatus === loadingStatuses.isLoading}
                 onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection.selectionModel[0])
+                  onSelectionModel(newSelection[0])
                 }}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}

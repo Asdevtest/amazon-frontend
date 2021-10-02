@@ -77,7 +77,6 @@ class ResearcherProductsViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.RESEARCHER}
           >
@@ -117,7 +116,7 @@ class ResearcherProductsViewRaw extends Component {
                   columns={researcherProductsViewColumns()}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection.selectionModel[0])
+                    onSelectionModel(newSelection[0])
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}

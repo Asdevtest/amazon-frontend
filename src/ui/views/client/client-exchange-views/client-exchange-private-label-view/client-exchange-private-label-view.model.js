@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {mapProductStrategyStatusEnumToKey, ProductStrategyStatus} from '@constants/product-strategy-status'
 
 import {ClientModel} from '@models/client-model'
 
@@ -42,8 +43,14 @@ export class ClientExchangePrivateLabelViewModel {
   async getProductsVacant() {
     try {
       const result = await ClientModel.getProductsVacant()
+
+      console.log('result', result)
       runInAction(() => {
-        this.productsVacant = result.sort(sortObjectsArrayByFiledDate('checkedat'))
+        this.productsVacant = result
+          .filter(
+            item => item.strategyStatus === mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL],
+          )
+          .sort(sortObjectsArrayByFiledDate('checkedat'))
       })
     } catch (error) {
       this.productsVacant = []
@@ -53,24 +60,6 @@ export class ClientExchangePrivateLabelViewModel {
       }
     }
   }
-
-  // async onLaunchPrivateLabel(product, orderData) { // пока оставить, возможно еще нужно
-  //   try {
-  //     const pickUpProductResult = await ClientModel.pickupProduct(product._id);
-  //     console.log('pickUpProductResult ', pickUpProductResult);
-  //     const makePaymentsResult = await ClientModel.makePayments([ product._id ]);
-  //     console.log('makePaymentsResult ', makePaymentsResult);
-
-  //     await this.createOrder(product, orderData);
-
-  //     this.loadData();
-  //   } catch (error) {
-  //     console.log(error);
-  //     if (error.body && error.body.message) {
-  //       this.error = error.body.message;
-  //     }
-  //   }
-  // }
 
   async createOrder(product, orderData) {
     try {

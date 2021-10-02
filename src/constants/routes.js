@@ -13,6 +13,7 @@ import {AdminWarehouseBoxesView} from '@views/admin/admin-warehouse-views/admin-
 import {AdminWarehouseTasksView} from '@views/admin/admin-warehouse-views/admin-warehouse-tasks-view'
 import {AuthView} from '@views/auth'
 import {BuyerBatchesView} from '@views/buyer/buyer-batches-view'
+import {BuyerDashboardView} from '@views/buyer/buyer-dashboard-view'
 import {BuyerMyProductsView} from '@views/buyer/buyer-my-products-view'
 import {BuyerFreeOrdersView} from '@views/buyer/buyer-orders-views/buyer-free-orders-view'
 import {BuyerMyOrdersView} from '@views/buyer/buyer-orders-views/buyer-my-orders-view'
@@ -25,10 +26,10 @@ import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
 import {ClientExchangeRequestsView} from '@views/client/client-exchange-views/client-exchange-requests-view'
 import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
-import {ClientInventoryView} from '@views/client/client-inventory-views/client-inventory-view'
-import {ClientListingView} from '@views/client/client-inventory-views/listing-view'
+import {ClientInventoryView} from '@views/client/client-inventory-view'
 import {ClientOrderView} from '@views/client/client-orders-views/order'
 import {ClientOrdersView} from '@views/client/client-orders-views/orders'
+import {ClientProductView} from '@views/client/client-product-view/'
 import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
 import {ClientUserProfileView} from '@views/client/client-users-views/user-profile-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
@@ -71,6 +72,13 @@ export const publicRoutesConfigs = [
 ]
 
 export const privateRoutesConfigs = [
+  {
+    routePath: '/buyer/dashboard',
+    component: BuyerDashboardView,
+    exact: false,
+    permission: [UserRole.BUYER],
+  },
+
   {
     routePath: '/buyer/products',
     component: BuyerProductsView,
@@ -145,6 +153,13 @@ export const privateRoutesConfigs = [
     permission: [UserRole.RESEARCHER],
   },
   {
+    routePath: '/client/product',
+    component: ClientProductView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
     routePath: '/client/dashboard',
     component: ClientDashboardView,
     exact: false,
@@ -199,12 +214,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.CLIENT],
   },
-  {
-    routePath: '/client/inventoryes/listing',
-    component: ClientListingView,
-    exact: false,
-    permission: [UserRole.CLIENT],
-  },
+
   {
     routePath: '/client/users/user-profile',
     component: ClientUserProfileView,

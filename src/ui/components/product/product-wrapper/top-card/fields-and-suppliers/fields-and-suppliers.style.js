@@ -7,6 +7,13 @@ export const useClassNames = makeStyles(() => ({
     color: 'rgba(61, 81, 112, 1)',
     fontWeight: '600',
   },
+  strategyLabel: {
+    fontSize: '16px',
+    lineHeight: '20px',
+    color: 'rgba(61, 81, 112, 1)',
+    fontWeight: '600',
+    marginBottom: '12px',
+  },
   input: {
     width: '100%',
   },
@@ -146,5 +153,17 @@ export const useClassNames = makeStyles(() => ({
     padding: '0 5px',
 
     border: '0.3px solid rgba(118, 118, 118, 0.1)',
+  },
+
+  nativeSelect: {
+    width: '300px',
+  },
+
+  strategyWrapper: {
+    marginBottom: '20px',
+  },
+
+  productCheckboxBoxesWrapper: {
+    display: 'flex',
   },
 }))

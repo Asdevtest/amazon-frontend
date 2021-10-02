@@ -4,7 +4,6 @@ import {Grid, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {AdminDashboardCardDataKey, getAdminDashboardCardConfig} from '@constants/dashboard-configs'
-import {adminUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -48,7 +47,6 @@ export class AdminDashboardViewRaw extends Component {
             curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={onChangeTriggerDrawerOpen}
             title={textConsts.appbarTitle}
-            username={adminUsername}
           >
             <MainContent>
               <Typography paragraph variant="h5">

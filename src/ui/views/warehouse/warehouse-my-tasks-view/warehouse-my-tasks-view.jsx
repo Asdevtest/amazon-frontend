@@ -89,7 +89,6 @@ export class WarehouseMyTasksViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc=""
-            username={textConsts.appBarUsername}
             setDrawerOpen={onChangeTriggerDrawerOpen}
             curUserRole={UserRole.STOREKEEPER}
           >
@@ -116,7 +115,7 @@ export class WarehouseMyTasksViewRaw extends Component {
                   columns={warehouseMyTasksViewColumns(this.renderBtns)}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection.selectionModel[0])
+                    onSelectionModel(newSelection[0])
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}

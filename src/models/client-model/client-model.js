@@ -83,7 +83,7 @@ class ClientModelStatic {
   }
 
   cancelTask = async id => {
-    const response = await restApiService.clientApi.apiV1ClientsTasksGuidCancel(id)
+    const response = await restApiService.clientApi.apiV1ClientsTasksCancelGuidPost(id)
     return response
   }
 }

@@ -15,13 +15,19 @@ export const styles = createStyles(theme => ({
   modalMessageBtn: {
     alignSelf: 'flex-end',
   },
-  addProductBtnWrapper: {
+  btnsWrapper: {
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     padding: '0 0 10px',
   },
+  leftBtnsWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '10px',
+  },
+
   heightFieldAuto: {
     height: 'auto',
     maxWidth: '380px',
@@ -32,5 +38,14 @@ export const styles = createStyles(theme => ({
   },
   button: {
     marginRight: '10px',
+  },
+
+  tableWrapper: {
+    minWidth: '100%',
+    height: '83vh',
+  },
+
+  isDraftRow: {
+    opacity: '.5',
   },
 }))

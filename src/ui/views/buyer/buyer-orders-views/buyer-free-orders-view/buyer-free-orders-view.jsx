@@ -31,7 +31,7 @@ import {styles} from './buyer-free-orders-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').freeOrdersView
 
-const navbarActiveCategory = 3
+const navbarActiveCategory = 4
 
 @observer
 class BuyerFreeOrdersViewRaw extends Component {
@@ -85,7 +85,6 @@ class BuyerFreeOrdersViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             user={textConsts.appUser}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.BUYER}
           >
@@ -108,7 +107,7 @@ class BuyerFreeOrdersViewRaw extends Component {
                   columns={buyerFreeOrdersViewColumns(this.renderBtns)}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection.selectionModel[0])
+                    onSelectionModel(newSelection[0])
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}

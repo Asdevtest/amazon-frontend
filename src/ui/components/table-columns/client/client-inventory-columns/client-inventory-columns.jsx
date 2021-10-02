@@ -14,7 +14,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientInventoryColumns
 
-export const clientInventoryColumns = ({barCodeHandlers, renderBtns}) => [
+export const clientInventoryColumns = ({barCodeHandlers}) => [
   {
     field: 'createdat',
     headerName: textConsts.createDateField,
@@ -37,19 +37,20 @@ export const clientInventoryColumns = ({barCodeHandlers, renderBtns}) => [
     renderCell: params => <AsinCell params={params} />,
     width: 300,
     filterable: false,
+    sortable: false,
   },
   {
     field: 'amazon',
     headerName: textConsts.priceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
-    width: 150,
+    width: 130,
   },
 
   {
     field: 'profit',
     headerName: textConsts.profitField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.profit} fix={2} />,
-    width: 150,
+    width: 130,
     type: 'number',
   },
 
@@ -57,14 +58,14 @@ export const clientInventoryColumns = ({barCodeHandlers, renderBtns}) => [
     field: 'margin',
     headerName: textConsts.marginField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.margin} fix={2} />,
-    width: 150,
+    width: 130,
     type: 'number',
   },
   {
     field: 'bsr',
     headerName: textConsts.bsrField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 150,
+    width: 130,
     type: 'number',
   },
 
@@ -72,7 +73,7 @@ export const clientInventoryColumns = ({barCodeHandlers, renderBtns}) => [
     field: 'fbafee',
     headerName: textConsts.fbaField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.fbafee} fix={2} />,
-    width: 150,
+    width: 130,
     type: 'number',
   },
 
@@ -80,7 +81,7 @@ export const clientInventoryColumns = ({barCodeHandlers, renderBtns}) => [
     field: 'fbaamount',
     headerName: textConsts.fbaAmountField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 150,
+    width: 130,
     type: 'number',
   },
 
@@ -88,15 +89,6 @@ export const clientInventoryColumns = ({barCodeHandlers, renderBtns}) => [
     field: 'barCode',
     headerName: textConsts.barcodeField,
     renderCell: params => <BarcodeCell params={params} handlers={barCodeHandlers} />,
-    width: 150,
-    filterable: false,
-  },
-
-  {
-    field: 'action',
-    headerName: textConsts.actionField,
-    width: 250,
-    renderCell: params => renderBtns(params),
-    filterable: false,
+    width: 130,
   },
 ]
