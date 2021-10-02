@@ -73,7 +73,6 @@ export class WarehouseCompletedTasksViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc=""
-            username={textConsts.appBarUsername}
             setDrawerOpen={onChangeTriggerDrawerOpen}
             curUserRole={UserRole.STOREKEEPER}
           >
@@ -99,28 +98,13 @@ export class WarehouseCompletedTasksViewRaw extends Component {
                   columns={warehouseCompletedTasksViewColumns(this.renderBtns)}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection.selectionModel[0])
+                    onSelectionModel(newSelection[0])
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
                   onStateChange={e => setDataGridState(e.state)}
                 />
-
-                {/* <Table
-                  currentPage={curPage}
-                  data={completedTasks}
-                  handlerPageChange={onChangeCurPage}
-                  handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(completedTasks.length / rowsPerPage)}
-                  BodyRow={TableBodyRow}
-                  renderHeadRow={this.renderHeadRow}
-                  rowsPerPage={rowsPerPage}
-                  rowsHandlers={{
-                    setCurrentOpenedTask,
-                  }}
-                  type={'completed'}
-                /> */}
               </div>
             </MainContent>
           </Appbar>

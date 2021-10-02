@@ -4,7 +4,6 @@ import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {clientUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -63,7 +62,6 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
             avatarSrc={avatar}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
-            username={clientUsername}
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>

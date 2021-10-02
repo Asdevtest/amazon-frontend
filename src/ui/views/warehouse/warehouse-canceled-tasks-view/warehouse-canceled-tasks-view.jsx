@@ -77,7 +77,6 @@ export class WarehouseCanceledTasksViewRaw extends Component {
             notificationCount={2}
             avatarSrc=""
             history={history}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onChangeTriggerDrawerOpen}
             curUserRole={UserRole.STOREKEEPER}
           >
@@ -103,28 +102,13 @@ export class WarehouseCanceledTasksViewRaw extends Component {
                   columns={warehouseCanceledTasksViewColumns(this.renderBtns)}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection.selectionModel[0])
+                    onSelectionModel(newSelection[0])
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
                   onStateChange={e => setDataGridState(e.state)}
                 />
-
-                {/* <Table
-                  currentPage={curPage}
-                  data={tasksMy}
-                  handlerPageChange={onChangeCurPage}
-                  handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(tasksMy.length / rowsPerPage)}
-                  BodyRow={TableBodyRow}
-                  renderHeadRow={this.renderHeadRow}
-                  rowsPerPage={rowsPerPage}
-                  rowsHandlers={{
-                    setCurrentOpenedTask,
-                  }}
-                  viewMode={WarehouseTasksBodyRowViewMode.MY}
-                /> */}
               </div>
             </MainContent>
           </Appbar>

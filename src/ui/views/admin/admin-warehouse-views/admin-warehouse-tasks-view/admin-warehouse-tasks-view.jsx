@@ -76,7 +76,6 @@ export class AdminWarehouseTasksViewRaw extends Component {
             notificationCount={2}
             avatarSrc=""
             history={history}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onChangeDrawerOpen}
             curUserRole={UserRole.ADMIN}
           >
@@ -103,7 +102,7 @@ export class AdminWarehouseTasksViewRaw extends Component {
                   columns={adminTasksViewColumns(this.renderAdminBtns)}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection.selectionModel[0])
+                    onSelectionModel(newSelection[0])
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}

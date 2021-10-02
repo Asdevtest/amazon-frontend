@@ -6,7 +6,6 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {storekeeperUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -67,7 +66,6 @@ export class WarehouseWarehouseViewRaw extends Component {
           <Appbar
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
-            username={storekeeperUsername}
             curUserRole={UserRole.STOREKEEPER}
           >
             <MainContent>
@@ -94,7 +92,7 @@ export class WarehouseWarehouseViewRaw extends Component {
                   columns={warehouseBoxesViewColumns()}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection.selectionModel[0])
+                    onSelectionModel(newSelection[0])
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
@@ -102,17 +100,6 @@ export class WarehouseWarehouseViewRaw extends Component {
                   onStateChange={e => setDataGridState(e.state)}
                 />
               </div>
-
-              {/* <Table
-                currentPage={curPage}
-                data={boxes}
-                handlerPageChange={onChangeCurPage}
-                handlerRowsPerPage={onChangeRowsPerPage}
-                pageCount={Math.ceil(boxes.length / rowsPerPage)}
-                BodyRow={WarehouseBodyRow}
-                renderHeadRow={this.renderHeadRow}
-                rowsPerPage={rowsPerPage}
-              /> */}
             </MainContent>
           </Appbar>
         </Main>

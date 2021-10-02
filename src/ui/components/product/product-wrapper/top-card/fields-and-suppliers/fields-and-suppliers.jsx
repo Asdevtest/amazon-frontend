@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
 
-import {Box, Container, Grid, IconButton, Typography, Link} from '@material-ui/core'
+import {Box, Container, Grid, IconButton, Typography, Link, InputLabel, NativeSelect} from '@material-ui/core'
 import MuiCheckbox from '@material-ui/core/Checkbox'
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
@@ -12,24 +11,28 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
+import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {texts} from '@constants/texts'
 
 import {Field} from '@components/field'
+import {Input} from '@components/input'
 
-import {checkIsClient, checkIsSupervisor, checkIsAdmin} from '@utils/checks'
+import {checkIsClient, checkIsSupervisor, checkIsAdmin, checkIsResearcher} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {useClassNames} from './fields-and-suppliers.style'
-import {TableSupplier} from './table-supplier'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 export const FieldsAndSuppliers = observer(
-  ({suppliers, curUserRole, onChangeField, product, onClickSupplierBtns, selectedSupplier, onClickSupplier}) => {
+  ({curUserRole, onChangeField, product, onClickSupplierBtns, selectedSupplier}) => {
     const classNames = useClassNames()
     const isSupplierAcceptRevokeActive =
       selectedSupplier && product.currentSupplier && product.currentSupplier._id === selectedSupplier._id
+
+    console.log('product', product)
+
     return (
       <Grid item xs={12}>
         <Box className={classNames.productFieldBox}>
@@ -44,14 +47,52 @@ export const FieldsAndSuppliers = observer(
             }
           />
 
-          <Box className={classNames.productCheckboxBox} mb={2.5}>
-            <Typography className={(classNames.label, classNames.typoCheckbox)}>{textConsts.checkboxFba}</Typography>
+          <Typography className={classNames.label}>{textConsts.deliveryMethod}</Typography>
 
-            <MuiCheckbox
-              disabled
-              checked={product.fba}
-              onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
-            />
+          <div className={classNames.productCheckboxBoxesWrapper}>
+            <Box className={classNames.productCheckboxBox} mb={2.5}>
+              <Typography className={clsx(classNames.label, classNames.typoCheckbox)}>
+                {textConsts.checkboxFbm}
+              </Typography>
+
+              <MuiCheckbox
+                disabled={!(checkIsSupervisor(curUserRole) || checkIsResearcher(curUserRole))}
+                color="primary"
+                checked={!product.fba}
+                onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
+              />
+            </Box>
+
+            <Box className={classNames.productCheckboxBox} mb={2.5}>
+              <Typography className={clsx(classNames.label, classNames.typoCheckbox)}>
+                {textConsts.checkboxFba}
+              </Typography>
+
+              <MuiCheckbox
+                disabled={!(checkIsSupervisor(curUserRole) || checkIsResearcher(curUserRole))}
+                color="primary"
+                checked={product.fba}
+                onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
+              />
+            </Box>
+          </div>
+
+          <Box mt={3} className={classNames.strategyWrapper}>
+            <InputLabel className={classNames.strategyLabel}>{textConsts.strategyLabel}</InputLabel>
+
+            <NativeSelect
+              disabled={!(checkIsSupervisor(curUserRole) || checkIsResearcher(curUserRole))}
+              value={product.strategyStatus}
+              className={classNames.nativeSelect}
+              input={<Input />}
+              onChange={onChangeField('strategyStatus')}
+            >
+              {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
+                <option key={statusIndex} value={statusCode}>
+                  {mapProductStrategyStatusEnum[statusCode]}
+                </option>
+              ))}
+            </NativeSelect>
           </Box>
 
           <Typography variant="h4" className={classNames.supplierTitle}>
@@ -98,12 +139,6 @@ export const FieldsAndSuppliers = observer(
               </Container>
             </div>
           ) : undefined}
-          {/* <TableSupplier
-            product={product}
-            selectedSupplier={selectedSupplier}
-            suppliers={suppliers}
-            onClickSupplier={onClickSupplier}
-          /> */}
         </Box>
       </Grid>
     )

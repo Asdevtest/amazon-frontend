@@ -25,12 +25,11 @@ const textConsts = getLocalizedTexts(texts, 'ru').appbarTexts
 interface Props {
   avatarSrc: string
   title: string
-  username: string
   curUserRole: string
   setDrawerOpen: () => void
 }
 
-export const Appbar: FC<Props> = observer(({avatarSrc, children, title, username, curUserRole, setDrawerOpen}) => {
+export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserRole, setDrawerOpen}) => {
   const history = useHistory()
   const classNames = useClassNames()
   const componentModel = useRef(new AppbarModel({userRole: curUserRole}))
@@ -82,7 +81,7 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, username
             {avatarSrc ? <Avatar alt="avatar" className={classNames.avatar} src={avatarSrc} /> : undefined}
 
             <div className={classNames.usernameAndBalanceWrapper}>
-              <Typography className={classNames.username}>{username}</Typography>
+              <Typography className={classNames.username}>{componentModel.current.userName}</Typography>
               {componentModel.current.balance && (
                 <Typography className={classNames.balance}>
                   {toFixedWithDollarSign(componentModel.current.balance, 2)}

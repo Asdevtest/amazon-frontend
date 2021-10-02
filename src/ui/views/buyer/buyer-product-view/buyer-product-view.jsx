@@ -68,7 +68,6 @@ export class BuyerProductView extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             user={textConsts.appUser}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.BUYER}
           >

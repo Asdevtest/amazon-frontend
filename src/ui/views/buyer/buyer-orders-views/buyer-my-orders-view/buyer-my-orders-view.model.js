@@ -2,7 +2,10 @@ import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
+import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {OrderStatusByCode} from '@constants/order-status'
+import {warehouses} from '@constants/warehouses'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
@@ -173,7 +176,13 @@ export class BuyerMyOrdersViewModel {
   async onCreateBox(formFields) {
     try {
       const createBoxData = {
-        ...getObjectFilteredByKeyArrayBlackList(formFields, ['items']),
+        ...getObjectFilteredByKeyArrayBlackList(formFields, [
+          'items',
+          'tmpBarCode',
+          'tmpWarehouses',
+          'tmpDeliveryMethod',
+          'tmpStatus',
+        ]),
         clientId: this.selectedOrder.createdBy._id,
         deliveryMethod: formFields.deliveryMethod,
         lengthCmSupplier: parseFloat(formFields?.lengthCmSupplier) || 0,
@@ -216,7 +225,10 @@ export class BuyerMyOrdersViewModel {
       runInAction(() => {
         this.ordersMy = result.sort(sortObjectsArrayByFiledDate('createDate')).map(order => ({
           ...order,
-          id: order._id,
+          tmpBarCode: order.product.barCode,
+          tmpWarehouses: warehouses[order.warehouse],
+          tmpDeliveryMethod: DeliveryTypeByCode[order.deliveryMethod],
+          tmpStatus: OrderStatusByCode[order.status],
         }))
       })
     } catch (error) {

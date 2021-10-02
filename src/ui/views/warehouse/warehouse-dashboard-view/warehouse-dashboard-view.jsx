@@ -51,7 +51,6 @@ export class WarehouseDashboardViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc=""
-            username={textConsts.appBarUsername}
             setDrawerOpen={onChangeTriggerDrawerOpen}
             curUserRole={UserRole.STOREKEEPER}
           >

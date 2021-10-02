@@ -25,7 +25,7 @@ import {styles} from './buyer-products-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerProductsView
 
-const navbarActiveCategory = 0
+const navbarActiveCategory = 1
 
 @observer
 export class BuyerProductsViewRaw extends Component {
@@ -66,7 +66,6 @@ export class BuyerProductsViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             user={textConsts.appUser}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.BUYER}
           >

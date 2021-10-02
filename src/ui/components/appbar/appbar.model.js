@@ -11,6 +11,10 @@ export class AppbarModel {
     return UserModel.userInfo?.balance
   }
 
+  get userName() {
+    return UserModel.userInfo?.name
+  }
+
   constructor({userRole}) {
     this.userRole = userRole
     makeAutoObservable(this, undefined, {autoBind: true})

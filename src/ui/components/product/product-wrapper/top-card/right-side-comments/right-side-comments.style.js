@@ -112,6 +112,7 @@ export const useClassNames = makeStyles(() => ({
   },
   buttonsWrapper: {
     display: 'flex',
+    marginBottom: '20px',
   },
   buttonNormal: {
     flexGrow: 1,

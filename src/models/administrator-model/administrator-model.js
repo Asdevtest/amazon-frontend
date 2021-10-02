@@ -81,7 +81,7 @@ class AdministratorModelStatic {
   }
 
   getUsersById = async id => {
-    const response = await restApiService.administratorApi.apiV1AdminsUserGetById(id)
+    const response = await restApiService.administratorApi.apiV1AdminsUsersGuidGet(id)
     return response
   }
 

@@ -24,7 +24,7 @@ import {BuyerUserProfileViewModel} from './buyer-user-profile-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerUserView
 
-const navbarActiveCategory = 5
+const navbarActiveCategory = 6
 const navbarActiveSubCategory = 0
 
 @observer
@@ -68,7 +68,6 @@ export class BuyerUserProfileView extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             user={textConsts.appUser}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.BUYER}
           >

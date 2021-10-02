@@ -24,11 +24,6 @@ export const exchangeSection = {
   ],
 }
 
-export const adminUsername = 'Admin'
-export const clientUsername = 'Client'
-export const buyerUsername = 'Buyer'
-export const storekeeperUsername = 'Storekeeper'
-
 export const clientExchangeRequestsViewTable = {
   headCells: [
     {id: 'img', label: 'Budget'},

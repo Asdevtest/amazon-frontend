@@ -6,10 +6,6 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 
-import {exchangeInventoryColumns} from '@components/table-columns/admin/inventory-columns'
-
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-
 export class AdminInventoryViewModel {
   history = undefined
   requestStatus = undefined
@@ -26,7 +22,6 @@ export class AdminInventoryViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  columns = exchangeInventoryColumns()
 
   constructor({history}) {
     this.history = history
@@ -69,9 +64,12 @@ export class AdminInventoryViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       const result = await AdministratorModel.getProductsPaid()
 
-      const productsData = result.map(product => ({
-        ...getObjectFilteredByKeyArrayBlackList(product, ['_id']),
-        id: product._id,
+      const productsData = result.map(item => ({
+        ...item,
+        tmpResearcherName: item.createdby?.name,
+        tmpBuyerName: item.buyer?.name,
+        tmpClientName: item.clientId?.name,
+        tmpCurrentSupplierName: item.currentSupplier?.name,
       }))
 
       runInAction(() => {

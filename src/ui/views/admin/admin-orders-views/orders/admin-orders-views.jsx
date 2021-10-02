@@ -10,7 +10,6 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -43,6 +42,7 @@ class AdminOrdersViewsRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+
       drawerOpen,
       modalBarcode,
       rowsPerPage,
@@ -54,6 +54,7 @@ class AdminOrdersViewsRaw extends Component {
       onChangeRowsPerPage,
       onSelectionModel,
       onChangeSubCategory,
+
       setDataGridState,
       onChangeSortingModel,
       onClickTableRow,
@@ -77,7 +78,6 @@ class AdminOrdersViewsRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             curUserRole={UserRole.ADMIN}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onChangeDrawerOpen}
           >
             <MainContent>
@@ -102,7 +102,7 @@ class AdminOrdersViewsRaw extends Component {
                   columns={adminOrdersViewColumns()}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection.selectionModel[0])
+                    onSelectionModel(newSelection[0])
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
@@ -110,7 +110,6 @@ class AdminOrdersViewsRaw extends Component {
                   onStateChange={e => setDataGridState(e.state)}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
                 />
-                <div className={classNames.buttonsWrapper}>{this.renderButtons}</div>
               </div>
             </MainContent>
           </Appbar>
@@ -122,12 +121,6 @@ class AdminOrdersViewsRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderButtons = (
-    <div className={this.props.classes.buttonWrapper}>
-      <Button color="secondary">{textConsts.ordersBtn}</Button>
-    </div>
-  )
 }
 
 export const AdminOrdersViews = withStyles(styles)(AdminOrdersViewsRaw)

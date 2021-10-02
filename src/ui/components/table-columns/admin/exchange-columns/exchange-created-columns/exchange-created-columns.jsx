@@ -5,9 +5,10 @@ import {texts} from '@constants/texts'
 import {
   AsinCell,
   DateCell,
-  PriceCell,
+  NoActiveBarcodeCell,
   renderFieldValueCell,
   ResearcherCell,
+  ToFixedWithDollarSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -16,25 +17,41 @@ const textConsts = getLocalizedTexts(texts, 'en').exchangeCheckingColumns
 
 export const exchangeСreatedColumns = () => [
   {
-    field: 'asinCell',
-    headerName: textConsts.asinField,
-    renderCell: params => <AsinCell params={params} />,
-    width: 300,
-    filterable: false,
-  },
-  {
-    field: 'amazon',
-    headerName: textConsts.priceField,
-    renderCell: params => <PriceCell price={params.row.amazon} />,
-    width: 150,
-    type: 'number',
-  },
-  {
     field: 'createdat',
     headerName: textConsts.createDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
     type: 'date',
+  },
+  {
+    field: 'updateDate',
+    headerName: textConsts.updateDateField,
+    renderCell: params => <DateCell params={params} />,
+    width: 150,
+    type: 'date',
+  },
+
+  {
+    field: 'asinCell',
+    headerName: textConsts.asinField,
+    renderCell: params => <AsinCell params={params} />,
+    width: 300,
+    filterable: false,
+    sortable: false,
+  },
+  {
+    field: 'amazon',
+    headerName: textConsts.priceField,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
+    width: 150,
+    type: 'number',
+  },
+
+  {
+    field: 'barCode',
+    headerName: textConsts.barCodeField,
+    width: 150,
+    renderCell: params => <NoActiveBarcodeCell barCode={params.row.barCode} />,
   },
 
   {
@@ -47,14 +64,14 @@ export const exchangeСreatedColumns = () => [
   {
     field: 'profit',
     headerName: textConsts.profitField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
   },
   {
     field: 'margin',
     headerName: textConsts.marginField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
   },
@@ -68,7 +85,7 @@ export const exchangeСreatedColumns = () => [
   {
     field: 'fbafee',
     headerName: textConsts.fbaField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
   },
@@ -78,11 +95,5 @@ export const exchangeСreatedColumns = () => [
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
     type: 'number',
-  },
-  {
-    field: 'barCode',
-    headerName: textConsts.barcodeField,
-    renderCell: params => renderFieldValueCell(params.value),
-    width: 150,
   },
 ]

@@ -1,18 +1,15 @@
 import React from 'react'
 
 import {texts} from '@constants/texts'
-import {WarehouseType} from '@constants/warehouses'
 
 import {
-  FinalWeightCell,
   IdCell,
   NoActiveBarcodeCell,
   NormDateCell,
   OrderCell,
-  PriceCell,
   renderFieldValueCell,
-  WarehouseCell,
-  WeightCell,
+  ToFixedWithDollarSignCell,
+  ToFixedWithKgSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -30,71 +27,52 @@ export const adminBoxesViewColumns = () => [
   {
     field: 'orders',
     headerName: textConsts.ordersField,
-    width: 300,
+    width: 350,
     renderCell: params => <OrderCell product={params.row.items[0].product} />,
     filterable: false,
+    sortable: false,
   },
   {
-    field: 'orderId',
+    field: '_id',
     headerName: textConsts.ordersId,
-    renderCell: params => <IdCell id={params.row.items[0].order._id} />,
-    width: 200,
-    filterable: false,
+    renderCell: params => <IdCell id={params.row._id} />,
+    width: 300,
   },
 
   {
-    field: 'barCode',
+    field: 'tmpBarCode',
     headerName: textConsts.barCode,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.row.items[0].product.barCode} />,
+    renderCell: params => <NoActiveBarcodeCell barCode={params.row.tmpBarCode} />,
     width: 200,
-    filterable: false,
   },
 
   {
-    field: 'asin',
+    field: 'tmpAsin',
     headerName: textConsts.asinField,
-    renderCell: params => renderFieldValueCell(params.row.items[0].product.id),
+    renderCell: params => renderFieldValueCell(params.row.tmpAsin),
     width: 150,
-    filterable: false,
   },
 
   {
-    field: 'qty',
+    field: 'tmpQty',
     headerName: textConsts.qtyField,
-    renderCell: params => renderFieldValueCell(params.row.items[0].order.amount),
+    renderCell: params => renderFieldValueCell(params.row.tmpQty),
     width: 150,
-    filterable: false,
+    type: 'number',
   },
 
   {
-    field: 'material',
+    field: 'tmpMaterial',
     headerName: textConsts.materialField,
-    renderCell: params => renderFieldValueCell(params.row.items[0].product.material),
+    renderCell: params => renderFieldValueCell(params.row.tmpMaterial),
     width: 150,
-    filterable: false,
   },
 
   {
-    field: 'warehouse',
+    field: 'tmpWarehouses',
     headerName: textConsts.warehouseField,
-    renderCell: params => <WarehouseCell warehouse={params.row.warehouse} />,
+    renderCell: params => renderFieldValueCell(params.row.tmpWarehouses),
     width: 200,
-    valueParser: value => {
-      switch (value) {
-        case WarehouseType.ONT:
-          return '25'
-        case WarehouseType.LGB8:
-          return '30'
-        case WarehouseType.MEM1:
-          return '35'
-        case WarehouseType.MDW2:
-          return '40'
-        case WarehouseType.LAX9:
-          return '42'
-        default:
-          return value
-      }
-    },
   },
 
   {
@@ -105,49 +83,33 @@ export const adminBoxesViewColumns = () => [
   },
 
   {
-    field: 'price',
+    field: 'tmpAmazonPrice',
     headerName: textConsts.priceField,
-    renderCell: params => <PriceCell price={params.row.items[0].product.amazon} />,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.row.tmpAmazonPrice} fix={2} />,
     width: 200,
-    filterable: false,
+    type: 'number',
   },
 
   {
-    field: 'weight',
+    field: 'tmpFinalWeight',
     headerName: textConsts.weightField,
-    renderCell: params => (
-      <FinalWeightCell
-        volumeWeight={
-          params.row.volumeWeightKgWarehouse ? params.row.volumeWeightKgWarehouse : params.row.volumeWeightKgSupplier
-        }
-        weightFinalAccounting={
-          params.row.weightFinalAccountingKgWarehouse
-            ? params.row.weightFinalAccountingKgWarehouse
-            : params.row.weightFinalAccountingKgSupplier
-        }
-      />
-    ),
+    renderCell: params => <ToFixedWithKgSignCell value={params.row.tmpFinalWeight} fix={2} />,
+    type: 'number',
     width: 200,
-    filterable: false,
   },
 
   {
-    field: 'grossWeight',
+    field: 'tmpGrossWeight',
     headerName: textConsts.grossWeightField,
-    renderCell: params => (
-      <WeightCell
-        weight={params.row.weighGrossKgWarehouse ? params.row.weighGrossKgWarehouse : params.row.weighGrossKgSupplier}
-      />
-    ),
+    renderCell: params => <ToFixedWithKgSignCell value={params.row.tmpGrossWeight} fix={2} />,
+    type: 'number',
     width: 200,
-    filterable: false,
   },
 
   {
-    field: 'trackId',
+    field: 'tmpTrackingNumberChina',
     headerName: textConsts.trackIdField,
-    renderCell: params => renderFieldValueCell(params.row.items[0].order.trackingNumberChina),
+    renderCell: params => renderFieldValueCell(params.row.tmpTrackingNumberChina),
     width: 150,
-    filterable: false,
   },
 ]

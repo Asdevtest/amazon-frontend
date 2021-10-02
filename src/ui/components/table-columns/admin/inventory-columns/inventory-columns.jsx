@@ -5,7 +5,6 @@ import {texts} from '@constants/texts'
 import {
   AsinCell,
   BuyerCell,
-  PriceCell,
   ResearcherCell,
   SupervisorCell,
   SupplierCell,
@@ -13,6 +12,8 @@ import {
   FeesValuesWithCalculateBtnCell,
   DateCell,
   ClientCell,
+  ToFixedWithDollarSignCell,
+  NoActiveBarcodeCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -21,75 +22,13 @@ const textConsts = getLocalizedTexts(texts, 'en').exchangeInventoryColumns
 
 export const exchangeInventoryColumns = () => [
   {
-    field: 'asinCell',
-    headerName: textConsts.asinField,
-    renderCell: params => <AsinCell params={params} />,
-    width: 300,
-    filterable: false,
-  },
-  {
-    field: 'fees-net',
-    headerName: textConsts.feesAndNetField,
-    renderCell: params => <FeesValuesWithCalculateBtnCell noCalculate params={params} />,
-    width: 150,
-    filterable: false,
-  },
-  {
-    field: 'amazon',
-    headerName: textConsts.priceField,
-    renderCell: params => <PriceCell price={params.row.amazon} />,
-    width: 150,
-  },
-  {
-    field: 'clientId',
-    headerName: 'Client',
-    renderCell: params => <ClientCell params={params} />,
-    width: 200,
-    filterable: false,
-  },
-
-  {
-    field: 'createdby',
-    headerName: textConsts.researcherField,
-    renderCell: params => <ResearcherCell params={params} />,
-    width: 250,
-    filterable: false,
-  },
-  {
-    field: 'supervisor',
-    headerName: textConsts.supervisorField,
-    renderCell: params => <SupervisorCell params={params} />,
-    width: 250,
-    filterable: false,
-  },
-  {
-    field: 'buyer',
-    headerName: textConsts.buyerField,
-    renderCell: params => <BuyerCell params={params} />,
-    width: 250,
-    filterable: false,
-  },
-  {
-    field: 'currentSupplier',
-    headerName: textConsts.supplierField,
-    renderCell: params => <SupplierCell params={params} />,
-    width: 150,
-    filterable: false,
-  },
-  {
     field: 'createdat',
     headerName: textConsts.createDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
     type: 'date',
   },
-  {
-    field: 'checkedat',
-    headerName: textConsts.checkDateField,
-    renderCell: params => <DateCell params={params} />,
-    width: 150,
-    type: 'date',
-  },
+
   {
     field: 'updateDate',
     headerName: textConsts.updateDateField,
@@ -97,17 +36,80 @@ export const exchangeInventoryColumns = () => [
     width: 150,
     type: 'date',
   },
+
+  {
+    field: 'asinCell',
+    headerName: textConsts.asinField,
+    renderCell: params => <AsinCell params={params} />,
+    width: 300,
+    filterable: false,
+    sortable: false,
+  },
+  {
+    field: 'fees-net',
+    headerName: textConsts.feesAndNetField,
+    renderCell: params => <FeesValuesWithCalculateBtnCell noCalculate params={params} />,
+    width: 150,
+    filterable: false,
+    sortable: false,
+  },
+  {
+    field: 'amazon',
+    headerName: textConsts.priceField,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
+    width: 150,
+  },
+
+  {
+    field: 'barCode',
+    headerName: textConsts.barCodeField,
+    width: 150,
+    renderCell: params => <NoActiveBarcodeCell barCode={params.row.barCode} />,
+  },
+
+  {
+    field: 'tmpClientName',
+    headerName: 'Client',
+    renderCell: params => <ClientCell params={params} />,
+    width: 200,
+  },
+
+  {
+    field: 'tmpResearcherName',
+    headerName: textConsts.researcherField,
+    renderCell: params => <ResearcherCell params={params} />,
+    width: 250,
+  },
+  {
+    field: 'supervisor',
+    headerName: textConsts.supervisorField,
+    renderCell: params => <SupervisorCell params={params} />,
+    width: 250,
+  },
+  {
+    field: 'tmpBuyerName',
+    headerName: textConsts.buyerField,
+    renderCell: params => <BuyerCell params={params} />,
+    width: 250,
+  },
+  {
+    field: 'tmpCurrentSupplierName',
+    headerName: textConsts.supplierField,
+    renderCell: params => <SupplierCell params={params} />,
+    width: 170,
+  },
+
   {
     field: 'profit',
     headerName: textConsts.profitField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
   },
   {
     field: 'margin',
     headerName: textConsts.marginField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
   },
@@ -121,7 +123,7 @@ export const exchangeInventoryColumns = () => [
   {
     field: 'fbafee',
     headerName: textConsts.fbaField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
   },
@@ -131,11 +133,5 @@ export const exchangeInventoryColumns = () => [
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
     type: 'number',
-  },
-  {
-    field: 'barCode',
-    headerName: textConsts.barcodeField,
-    renderCell: params => renderFieldValueCell(params.value),
-    width: 150,
   },
 ]

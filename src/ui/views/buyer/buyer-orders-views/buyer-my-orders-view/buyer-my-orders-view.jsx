@@ -30,7 +30,7 @@ import {styles} from './buyer-my-orders-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').myOrdersView
 
-const navbarActiveCategory = 2
+const navbarActiveCategory = 3
 
 @observer
 class BuyerMyOrdersViewRaw extends Component {
@@ -87,7 +87,6 @@ class BuyerMyOrdersViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             user={textConsts.appUser}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.BUYER}
           >
@@ -113,7 +112,7 @@ class BuyerMyOrdersViewRaw extends Component {
                   columns={buyerMyOrdersViewColumns()}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection.selectionModel[0])
+                    onSelectionModel(newSelection[0])
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}

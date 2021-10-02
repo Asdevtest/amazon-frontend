@@ -71,7 +71,6 @@ class ClientSubUsersViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onChangeDrawerOpen}
             curUserRole={UserRole.CLIENT}
           >

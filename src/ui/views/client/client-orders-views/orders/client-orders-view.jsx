@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 
-import {Typography, TableRow, TableCell} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {CLIENT_ORDERS_HEAD_CELL} from '@constants/table-head-cells'
+import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -12,8 +13,7 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {Table} from '@components/table'
-import {TableBodyRow} from '@components/table-rows/client/orders-views/orders/table-body-row'
+import {clientOrdersViewColumns} from '@components/table-columns/client/client-orders-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -31,24 +31,29 @@ class ClientOrdersViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
-      orders,
+      requestStatus,
+      getCurrentData,
+      sortModel,
+      filterModel,
+
       drawerOpen,
       rowsPerPage,
       curPage,
-      selectedOrder,
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
       onClickTableRow,
+
+      onSelectionModel,
+      setDataGridState,
+      onChangeSortingModel,
     } = this.viewModel
-    const {classes: className} = this.props
-    const rowHandlers = {
-      onClickTableRow,
-    }
+    const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
@@ -64,24 +69,38 @@ class ClientOrdersViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
-              <div className={className.tableWrapper}>
-                <Table
-                  currentPage={curPage}
-                  data={orders}
-                  handlerPageChange={onChangeCurPage}
-                  handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(orders.length / rowsPerPage)}
-                  BodyRow={TableBodyRow}
-                  renderHeadRow={this.renderHeadRow}
-                  rowsPerPage={rowsPerPage}
-                  rowsHandlers={rowHandlers}
-                  selectedOrder={selectedOrder}
+              <div className={classNames.tableWrapper}>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  classes={{
+                    row: classNames.row,
+                  }}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rows={getCurrentData()}
+                  rowHeight={100}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  columns={clientOrdersViewColumns()}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection[0])
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={e => setDataGridState(e.state)}
+                  onRowDoubleClick={e => onClickTableRow(e.row)}
                 />
               </div>
             </MainContent>
@@ -90,16 +109,6 @@ class ClientOrdersViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderHeadRow = (
-    <TableRow>
-      {CLIENT_ORDERS_HEAD_CELL.map((item, index) => (
-        <TableCell key={index} align={item.align}>
-          {item.label}
-        </TableCell>
-      ))}
-    </TableRow>
-  )
 }
 
 export const ClientOrdersView = withStyles(styles)(ClientOrdersViewRaw)

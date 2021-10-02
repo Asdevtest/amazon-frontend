@@ -125,7 +125,13 @@ export class AdminExchangeViewModel {
       })
 
       runInAction(() => {
-        this.currentProductsData = result
+        this.currentProductsData = result.map(item => ({
+          ...item,
+          tmpResearcherName: item.createdby?.name,
+          tmpBuyerName: item.buyer?.name,
+          tmpClientName: item.clientId?.name,
+          tmpCurrentSupplierName: item.currentSupplier?.name,
+        }))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

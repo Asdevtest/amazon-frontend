@@ -3,12 +3,11 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables-keys'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {OrderStatus, OrderStatusByCode, OrderStatusByKey} from '@constants/order-status'
+import {warehouses} from '@constants/warehouses'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
-
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
 const ordersStatusBySubCategory = {
   0: undefined,
@@ -78,9 +77,16 @@ export class AdminOrdersAllViewModel {
       this.error = undefined
       const result = await AdministratorModel.getOrdersByStatus(ordersStatusBySubCategory[activeSubCategory])
 
-      const ordersData = result.map(order => ({
-        ...getObjectFilteredByKeyArrayBlackList(order, ['_id']),
-        id: order._id,
+      const ordersData = result.map(item => ({
+        ...item,
+        tmpBarCode: item.product.barCode,
+        tmpTotalPrice:
+          ((parseFloat(item.product.currentSupplier?.price) || 0) +
+            (parseFloat(item.product.currentSupplier?.delivery) || 0)) *
+          (parseInt(item.amount) || 0),
+        tmpGrossWeightKg: item.product.weight * item.amount,
+        tmpWarehouses: warehouses[item.warehouse],
+        tmpStatus: OrderStatusByCode[item.status],
       }))
 
       runInAction(() => {

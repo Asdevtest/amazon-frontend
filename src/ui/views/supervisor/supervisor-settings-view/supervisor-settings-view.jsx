@@ -49,7 +49,6 @@ export class SupervisorSettingsViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.SUPERVISOR}
           >

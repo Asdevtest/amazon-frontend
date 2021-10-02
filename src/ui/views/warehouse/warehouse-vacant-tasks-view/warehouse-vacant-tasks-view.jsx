@@ -71,7 +71,6 @@ export class WarehouseVacantTasksViewRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc=""
-            username={textConsts.appBarUsername}
             setDrawerOpen={onChangeTriggerDrawerOpen}
             curUserRole={UserRole.STOREKEEPER}
           >
@@ -90,14 +89,14 @@ export class WarehouseVacantTasksViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[5, 10, 15, 20]}
                   rows={getCurrentData()}
-                  rowHeight={200}
+                  rowHeight={70}
                   components={{
                     Toolbar: GridToolbar,
                   }}
                   columns={warehouseVacantTasksViewColumns(this.renderBtns)}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection.selectionModel[0])
+                    onSelectionModel(newSelection[0])
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}

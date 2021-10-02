@@ -5,7 +5,6 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {getClientDashboardCardConfig, ClientDashboardCardDataKey} from '@constants/dashboard-configs'
-import {clientUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -53,7 +52,6 @@ export class ClientDashboardViewRaw extends Component {
             curUserRole={UserRole.CLIENT}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
-            username={clientUsername}
             balance={balance}
           >
             <MainContent>

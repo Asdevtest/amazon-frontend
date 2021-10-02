@@ -14,5 +14,10 @@ export const useClassNames = makeStyles(() => ({
 
   warningPaper: {
     borderRadius: '20px',
+    backgroundColor: 'red',
+  },
+
+  warningBackground: {
+    backgroundColor: 'rgba(255,0,0,.5)',
   },
 }))

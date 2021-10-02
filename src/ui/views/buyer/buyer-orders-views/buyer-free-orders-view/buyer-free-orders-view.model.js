@@ -1,7 +1,9 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
+import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {warehouses} from '@constants/warehouses'
 
 import {BuyerModel} from '@models/buyer-model'
 import {SettingsModel} from '@models/settings-model'
@@ -90,7 +92,9 @@ export class BuyerFreeOrdersViewModel {
       runInAction(() => {
         this.ordersVacant = result.sort(sortObjectsArrayByFiledDate('createDate')).map(order => ({
           ...order,
-          id: order._id,
+          tmpBarCode: order.product.barCode,
+          tmpWarehouses: warehouses[order.warehouse],
+          tmpDeliveryMethod: DeliveryTypeByCode[order.deliveryMethod],
         }))
       })
     } catch (error) {

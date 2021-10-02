@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 
 import {ClientInventoryDashboardCardDataKey, getClientInventoryDashboardCardConfig} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {clientUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -27,7 +26,7 @@ import {clientInventoryColumns} from '@components/table-columns/client/client-in
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/clientAvatar.jpg'
+import avatar from '../assets/clientAvatar.jpg'
 import {ClientInventoryViewModel} from './client-inventory-view.model'
 import {styles} from './client-inventory-view.style'
 
@@ -62,6 +61,7 @@ export class ClientInventoryViewRaw extends Component {
       showOrderModal,
       showSuccessModal,
       showSendOwnProductModal,
+      onClickShowProduct,
       onClickBarcode,
       onDoubleClickBarcode,
       onDeleteBarcode,
@@ -97,7 +97,6 @@ export class ClientInventoryViewRaw extends Component {
             avatarSrc={avatar}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
-            username={clientUsername}
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>
@@ -108,13 +107,24 @@ export class ClientInventoryViewRaw extends Component {
                 {textConsts.productsList}
               </Typography>
               <div className={classNames.addProductBtnsWrapper}>
-                <Button
-                  variant="contained"
-                  disabled={this.viewModel.selectedRowIds.length === 0}
-                  onClick={() => this.viewModel.onTriggerOpenModal('showOrderModal')}
-                >
-                  {textConsts.orderBtn}
-                </Button>
+                <div>
+                  <Button
+                    variant="contained"
+                    disabled={selectedRowIds.length === 0}
+                    onClick={() => onTriggerOpenModal('showOrderModal')}
+                  >
+                    {textConsts.orderBtn}
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    className={classNames.buttonOffset}
+                    disabled={selectedRowIds.length !== 1}
+                    onClick={() => onClickShowProduct()}
+                  >
+                    {textConsts.showProductBtn}
+                  </Button>
+                </div>
 
                 <SuccessButton onClick={() => onTriggerOpenModal('showSendOwnProductModal')}>
                   {textConsts.addProductBtn}
@@ -136,9 +146,9 @@ export class ClientInventoryViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={clientInventoryColumns({barCodeHandlers, renderBtns: this.renderBtns})}
+                  columns={clientInventoryColumns({barCodeHandlers})}
                   loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => onSelectionModel(newSelection.selectionModel)}
+                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
@@ -190,21 +200,6 @@ export class ClientInventoryViewRaw extends Component {
         <DashboardInfoCard value={this.getCardValueByDataKey(item.dataKey)} title={item.title} color={item.color} />
       </Grid>
     ))
-
-  renderBtns = params => (
-    <React.Fragment>
-      <div>
-        <Button
-          disableElevation
-          color="primary"
-          variant="contained"
-          onClick={() => this.viewModel.onClickExchange(params.row)}
-        >
-          {textConsts.listingBtn}
-        </Button>
-      </div>
-    </React.Fragment>
-  )
 
   getCardValueByDataKey = dataKey => {
     const {productsMy, orders} = this.viewModel

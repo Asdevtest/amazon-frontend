@@ -6,7 +6,6 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {clientUsername} from '@constants/mocks'
 import {CLIENT_EXCHANGE_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -17,7 +16,6 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -48,8 +46,6 @@ export class ClientExchangeViewRaw extends Component {
 
   render() {
     const {
-      showSetBarcodeModal,
-      onClickSaveBarcode,
       showOrderModal,
       onDoubleClickBarcode,
 
@@ -93,7 +89,6 @@ export class ClientExchangeViewRaw extends Component {
             avatarSrc={avatar}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
-            username={clientUsername}
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>
@@ -119,7 +114,7 @@ export class ClientExchangeViewRaw extends Component {
                   columns={clientExchangeViewColumns(this.renderBtns)}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection.selectionModel[0])
+                    onSelectionModel(newSelection[0])
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
@@ -130,14 +125,6 @@ export class ClientExchangeViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-
-        <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
-          <SetBarcodeModal
-            product={selectedProduct}
-            onClickSaveBarcode={onClickSaveBarcode}
-            onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
-          />
-        </Modal>
 
         <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
           <OrderProductModal

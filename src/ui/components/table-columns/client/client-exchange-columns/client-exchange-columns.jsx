@@ -3,12 +3,10 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
-  BuyerCell,
   renderFieldValueCell,
-  ResearcherCell,
   SmallRowImageCell,
-  ToFixedCell,
   ToFixedWithDollarSignCell,
+  ToFixedWithKgSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -22,6 +20,7 @@ export const clientExchangeViewColumns = renderBtns => [
     width: 150,
     renderCell: params => <SmallRowImageCell images={params.row.images} />,
     filterable: false,
+    sortable: false,
   },
 
   {
@@ -42,7 +41,7 @@ export const clientExchangeViewColumns = renderBtns => [
   {
     field: 'weight',
     headerName: textConsts.weightField,
-    renderCell: params => <ToFixedCell value={params.row.weight} fix={2} />,
+    renderCell: params => <ToFixedWithKgSignCell value={params.row.weight} fix={2} />,
     width: 150,
     type: 'number',
   },
@@ -64,19 +63,17 @@ export const clientExchangeViewColumns = renderBtns => [
   },
 
   {
-    field: 'createdby',
+    field: 'tmpResearcherName',
     headerName: textConsts.researcherField,
-    renderCell: params => <ResearcherCell onlyName params={params} />,
-    width: 250,
-    filterable: false,
+    renderCell: params => renderFieldValueCell(params.row.tmpResearcherName),
+    width: 200,
   },
 
   {
-    field: 'buyer',
+    field: 'tmpBuyerName',
     headerName: textConsts.buyerField,
-    renderCell: params => <BuyerCell onlyName params={params} />,
-    width: 250,
-    filterable: false,
+    renderCell: params => renderFieldValueCell(params.row.tmpBuyerName),
+    width: 200,
   },
 
   {
@@ -85,5 +82,6 @@ export const clientExchangeViewColumns = renderBtns => [
     width: 250,
     renderCell: params => renderBtns(params),
     filterable: false,
+    sortable: false,
   },
 ]

@@ -69,7 +69,6 @@ class AdminWarehouseBatchesViewRaw extends Component {
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
         />
 
         <Main>
@@ -79,7 +78,6 @@ class AdminWarehouseBatchesViewRaw extends Component {
             avatarSrc={avatar}
             curUserRole={UserRole.ADMIN}
             user={textConsts.appUser}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>

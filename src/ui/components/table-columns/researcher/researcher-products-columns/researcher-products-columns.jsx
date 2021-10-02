@@ -2,7 +2,11 @@ import React from 'react'
 
 import {texts} from '@constants/texts'
 
-import {NormDateCell, ProductStatusCell, renderFieldValueCell} from '@components/data-grid-cells/data-grid-cells'
+import {
+  NormDateCell,
+  renderFieldValueCell,
+  ToFixedWithDollarSignCell,
+} from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -18,12 +22,10 @@ export const researcherProductsViewColumns = () => [
   },
 
   {
-    field: 'status',
+    field: 'tmpStatus',
     headerName: textConsts.statusField,
-    renderCell: params => <ProductStatusCell status={params.value} />,
-    minWidth: 350,
-    flex: 1,
-    filterable: false,
+    width: 350,
+    renderCell: params => renderFieldValueCell(params.row.tmpStatus),
   },
 
   {
@@ -38,7 +40,7 @@ export const researcherProductsViewColumns = () => [
   {
     field: 'amazon',
     headerName: textConsts.amazonPriceField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
     minWidth: 150,
     type: 'number',
     flex: 1,

@@ -47,7 +47,6 @@ export class AdminOrderView extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             history={history}
-            username={textConsts.appBarUsername}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.ADMIN}
           >

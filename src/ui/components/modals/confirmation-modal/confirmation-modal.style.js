@@ -26,7 +26,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   warningModalMessageWrapper: {
-    background: 'rgb(159, 159, 166)',
+    // background: 'rgb(159, 159, 166)',
+    background: 'rgb(0, 0, 0)',
     borderRadius: '20px 20px',
   },
 

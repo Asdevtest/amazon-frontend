@@ -611,6 +611,7 @@ export const texts = {
       listingBtn: 'Listing',
       setBarcodeChipLabel: 'Set barcode',
       orderBtn: 'Заказать',
+      showProductBtn: 'Смотреть подробно',
       resetBtn: 'Сбросить',
       productsInInventoryDashboardCard: 'Товаров в инвентаре',
       productsBoughtOnExchangeDashboardCard: 'Товаров купленных на бирже',
@@ -634,6 +635,7 @@ export const texts = {
       meCheckingCardTitle: 'У меня на проверке',
       accuredCardTitle: 'Начислено',
     },
+
     supervisorDashboardView: {
       appBarTitle: 'Dashboard',
       appBarUsername: 'Supervisor',
@@ -646,6 +648,21 @@ export const texts = {
       meCheckingCardTitle: 'У меня на проверке',
       accuredCardTitle: 'Начислено',
     },
+
+    buyerDashboardView: {
+      appBarTitle: 'Dashboard',
+      appBarUsername: 'Buyer',
+      appUser: 'buyer',
+      mainTitle: 'Dashboard',
+      myProductsCardTitle: 'Мои товары',
+      curBalanceCardTitle: 'Текущий баланс',
+
+      newProductsCardTitle: 'Новых товаров в базе',
+      myProductCardTitle: 'Мои продукты',
+      myOrdersCardTitle: 'Мои заказы',
+      freeOrdersCardTitle: 'Свободные заказы',
+    },
+
     researcherProductsView: {
       appBarTitle: 'Products',
       appBarUsername: 'Researcher',
@@ -775,7 +792,7 @@ export const texts = {
       modalEditTitle: 'Редактировать поставщика',
       confirmTitle: 'Внимание',
       confirmMessage: 'Товар будет отправлен на проверку к Supervisor. Вы уверены?',
-      deleteMessage: 'Вы точно хитите удалить продукт?',
+      deleteMessage: 'Вы точно хотите удалить продукт?',
       deleteSupplierMessage: 'Вы точно хитите удалить поставщика?',
       yesBtn: 'Да',
       noBtn: 'Нет',
@@ -1163,7 +1180,7 @@ export const texts = {
       qty: 'Кол-во закупки',
       minLot: 'Минимальная партия',
       lotCost: 'Цена партии $',
-      csCode: 'Цена партии',
+      csCode: 'Стоимость',
       comment: 'Комментарий',
       saveBtn: 'Сохранить',
       cancelBtn: 'Отменить',
@@ -1180,6 +1197,7 @@ export const texts = {
       fieldAsin: 'ASIN*',
       fieldLinkAmazon: 'Ссылка на товар Amazon',
       checkboxFba: 'FBA',
+      checkboxFbm: 'FBM',
       tableName: 'Имя',
       tableLink: 'Ссылка',
       tablePrice: 'Цена',
@@ -1227,6 +1245,8 @@ export const texts = {
       category: 'Категория',
 
       supplierPhotos: 'Фотографии',
+      strategyLabel: 'Стратегия продукта',
+      deliveryMethod: 'Метод отправки',
     },
     buyerBatchesView: {
       editBatch: 'Редактировать партию',
@@ -1384,7 +1404,7 @@ export const texts = {
       avgDeliveryPrice: 'Ср. стоимость доставки за 1 шт.',
       amount: 'Кол-во',
       total: 'Итого',
-      barCode: 'Штрихкод',
+      barCode: 'Баркод',
       deliveryMethod: 'Способ доставки',
       warehouse: 'Склад',
       comment: 'Комментарий клиента',
@@ -1443,13 +1463,35 @@ export const texts = {
       distributeBtn: 'Распределить',
       titleToolTip: 'Финальный вес будет расчитан когда склад получит товар',
       ordersField: 'Заказы',
+      barCodeField: 'Баркод',
+      amountField: 'Кол-во',
+      warehouseField: 'Куда',
+      boxField: 'Коробка',
+      sumField: 'Сумма',
+      weightField: 'Вес',
+      grossWeightField: 'Общий вес',
+      trackIdField: 'Трек номер',
+      statusField: 'Статус',
+    },
+
+    clientOrdersTableColumns: {
+      createDateField: 'Дата',
+      statusField: 'Статус',
+      barCodeField: 'Баркод',
+
+      asinTypo: 'ASIN ',
+      setBarcodeLabel: 'Set barcode',
+      barcodeDeleteAlert: 'Barcode deleting',
+      distributeBtn: 'Распределить',
+      titleToolTip: 'Финальный вес будет расчитан когда склад получит товар',
+      ordersField: 'Заказы',
       barcodeField: 'Штрих-код',
       amountField: 'Кол-во',
       warehouseField: 'Куда',
       boxField: 'Коробка',
       sumField: 'Сумма',
       weightField: 'Вес',
-      grossWeightField: 'Вес финальный',
+      grossWeightField: 'Общий вес',
       trackIdField: 'Трек номер',
     },
 
@@ -1495,6 +1537,22 @@ export const texts = {
       grossWeightField: 'Общий вес',
     },
 
+    clientBoxesTableColumns: {
+      createdAtField: 'Дата создания',
+      ordersField: 'Продукт',
+      ordersId: 'id Заказа',
+      barCode: 'Баркод',
+      asinField: 'ASIN',
+      qtyField: 'Количество',
+      materialField: 'Материал',
+      warehouseField: 'Склад',
+      boxIdField: 'id Коробки',
+      priceField: 'Цена',
+      trackIdField: 'Трек id',
+      weightField: 'Финальный Вес',
+      grossWeightField: 'Общий вес',
+    },
+
     warehouseBoxesTableColumns: {
       createdAtField: 'Дата создания',
       ordersField: 'Продукт',
@@ -1516,7 +1574,7 @@ export const texts = {
       updateDateField: 'Последнее обновление',
       typeField: 'Тип',
       descriptionField: 'Описание',
-      actionField: 'Дествие',
+      actionField: 'Действие',
       statusField: 'Статус',
 
       operatioTypeMerge: 'Соединить',
@@ -1539,6 +1597,8 @@ export const texts = {
       createDateField: 'Created',
       amazonPriceField: 'Amazon price',
       bsrField: 'BSR',
+      researcherField: 'Researcher',
+      buyerField: 'Buyer',
 
       updateDateField: 'Updated',
       fbafeeField: 'Fba fee',
@@ -1563,7 +1623,7 @@ export const texts = {
       updateDateField: 'Последнее обновление',
       typeField: 'Тип',
       descriptionField: 'Описание',
-      actionField: 'Дествие',
+      actionField: 'Действие',
       statusField: 'Статус',
 
       operatioTypeMerge: 'Соединить',
@@ -1579,7 +1639,7 @@ export const texts = {
       priceField: 'Amazon price',
       weightField: 'Weight',
       bsrField: 'BSR',
-      fbaamountField: 'Reccomend batch',
+      fbaamountField: 'Recommend batch',
       researcherField: 'Researcher',
       buyerField: 'Buyer',
     },
@@ -1589,7 +1649,7 @@ export const texts = {
       updateDateField: 'Последнее обновление',
       typeField: 'Тип',
       descriptionField: 'Описание',
-      actionField: 'Дествие',
+      actionField: 'Действие',
       statusField: 'Статус',
 
       operatioTypeMerge: 'Соединить',
@@ -1603,7 +1663,7 @@ export const texts = {
       updateDateField: 'Последнее обновление',
       typeField: 'Тип',
       descriptionField: 'Описание',
-      actionField: 'Дествие',
+      actionField: 'Действие',
       statusField: 'Статус',
 
       operatioTypeMerge: 'Соединить',
@@ -1617,7 +1677,7 @@ export const texts = {
       updateDateField: 'Последнее обновление',
       typeField: 'Тип',
       descriptionField: 'Описание',
-      actionField: 'Дествие',
+      actionField: 'Действие',
       statusField: 'Статус',
 
       operatioTypeMerge: 'Соединить',
@@ -1655,7 +1715,7 @@ export const texts = {
       extraParamValue: 'Значение',
     },
     clientOrderLeftPanel: {
-      id: 'ID ',
+      id: 'ASIN: ',
       allParameters: 'Все параметры товара',
       close: 'Свернуть',
     },

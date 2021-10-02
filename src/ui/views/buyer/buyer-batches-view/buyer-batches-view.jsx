@@ -75,7 +75,6 @@ class BuyerBatchesViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             user={textConsts.appUser}
-            username={textConsts.appBarUsername}
             setDrawerOpen={this.onChangeDrawerOpen}
             curUserRole={UserRole.BUYER}
           >

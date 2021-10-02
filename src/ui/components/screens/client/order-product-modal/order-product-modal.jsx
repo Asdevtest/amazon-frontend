@@ -50,7 +50,7 @@ export const OrderProductModal = ({
       clientComment: '',
       barCode: product.barCode || '',
       product: product._id,
-      images: product.images,
+      images: [],
     })),
   )
 

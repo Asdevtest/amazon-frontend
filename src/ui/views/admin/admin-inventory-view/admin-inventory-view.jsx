@@ -6,7 +6,6 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {adminUsername} from '@constants/mocks'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -14,6 +13,7 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
+import {exchangeInventoryColumns} from '@components/table-columns/admin/inventory-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -35,7 +35,6 @@ export class AdminInventoryViewRaw extends Component {
   render() {
     const {
       getCurrentData,
-      columns,
       sortModel,
       filterModel,
       requestStatus,
@@ -68,7 +67,6 @@ export class AdminInventoryViewRaw extends Component {
             curUserRole={UserRole.ADMIN}
             handlerTriggerDrawer={onTriggerDrawer}
             title={textConsts.appbarTitle}
-            username={adminUsername}
           >
             <MainContent>
               <Typography paragraph variant="h5" className={classNames.example}>
@@ -80,7 +78,7 @@ export class AdminInventoryViewRaw extends Component {
                 classes={{
                   row: classNames.row,
                 }}
-                columns={columns}
+                columns={exchangeInventoryColumns()}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}
@@ -93,7 +91,7 @@ export class AdminInventoryViewRaw extends Component {
                 }}
                 rows={getCurrentData()}
                 onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection.selectionModel[0])
+                  onSelectionModel(newSelection[0])
                 }}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}

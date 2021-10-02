@@ -1,13 +1,36 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {operationTypes} from '@constants/operation-types'
 import {TaskOperationType} from '@constants/task-operation-type'
+import {warehouses} from '@constants/warehouses'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
+import {SettingsModel} from '@models/settings-model'
 
-import {sortObjectsArrayByFiledDate, sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+
+const updateBoxBlackList = [
+  '_id',
+  'id',
+  'status',
+  'createdBy',
+  'lastModifiedBy',
+  'clientComment',
+  'createdAt',
+  'tmpBarCode',
+  'tmpAsin',
+  'tmpQty',
+  'tmpMaterial',
+  'tmpAmazonPrice',
+  'tmpTrackingNumberChina',
+  'tmpFinalWeight',
+  'tmpGrossWeight',
+  'tmpWarehouses',
+]
 
 export class ClientWarehouseViewModel {
   history = undefined
@@ -18,12 +41,8 @@ export class ClientWarehouseViewModel {
   tasksMy = []
 
   drawerOpen = false
-  curPage = 1
-  rowsPerPage = 15
   selectedBoxes = []
   curOpenedTask = {}
-
-  tmpClientComment = ''
 
   showMergeBoxModal = false
   showTaskInfoModal = false
@@ -35,6 +54,11 @@ export class ClientWarehouseViewModel {
   showRedistributeBoxFailModal = false
   showRequestToSendBatchModal = false
   boxesDeliveryCosts = undefined
+
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
+  rowsPerPage = 15
 
   get isMasterBoxSelected() {
     return this.selectedBoxes.some(boxId => {
@@ -48,6 +72,49 @@ export class ClientWarehouseViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  setDataGridState(state) {
+    SettingsModel.setDataGridState(state, DataGridTablesKeys.CLIENT_WAREHOUSE)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.curPage = state.pagination.page
+      this.rowsPerPage = state.pagination.pageSize
+    }
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e.pageSize
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
+  onChangeDrawerOpen(e, value) {
+    this.drawerOpen = value
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onSelectionModel(model) {
+    console.log('model', model)
+
+    const boxes = this.boxesMy.filter(box => model.includes(+box.id))
+    const res = boxes.reduce((ac, el) => ac.concat(el._id), [])
+    this.selectedBoxes = res
+  }
+
+  getCurrentData() {
+    return toJS(this.boxesMy)
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -58,14 +125,6 @@ export class ClientWarehouseViewModel {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
     }
-  }
-
-  setTmpClientComment(e) {
-    this.tmpClientComment = e.target.value
-  }
-
-  onResetselectedBoxes() {
-    this.selectedBoxes = []
   }
 
   setCurrentOpenedTask(item) {
@@ -81,13 +140,8 @@ export class ClientWarehouseViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangeCurPage = (e, value) => {
-    this.curPage = value
-  }
-
-  onChangeRowsPerPage = e => {
-    this.rowsPerPage = Number(e.target.value)
-    this.paginationPage = 1
+  onChangeCurPage = e => {
+    this.curPage = e.page
   }
 
   onTriggerCheckbox = boxId => {
@@ -119,7 +173,6 @@ export class ClientWarehouseViewModel {
       this.onTriggerOpenModal('showRedistributeBoxSuccessModal')
       this.onTriggerOpenModal('showRedistributeBoxModal')
       this.onModalRedistributeBoxAddNewBox(null)
-      this.onResetselectedBoxes()
     }
   }
 
@@ -137,10 +190,9 @@ export class ClientWarehouseViewModel {
             },
           ],
         },
-        ['_id', 'id', 'status', 'createdBy', 'lastModifiedBy', 'clientComment', 'createdAt'],
+        updateBoxBlackList,
       )
 
-      console.log('requestBox', requestBox)
       const editBoxesResult = await this.editBox({id, data: requestBox})
 
       await this.postTask({
@@ -150,27 +202,24 @@ export class ClientWarehouseViewModel {
         clientComment: boxData.clientComment,
       })
       await this.getTasksMy()
-      this.onResetselectedBoxes()
     } catch (error) {
       console.log(error)
       this.error = error
     }
   }
 
-  async onClickMerge(type, comment) {
+  async onClickMerge(comment) {
     const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes)
 
     await this.postTask({
       idsData: [mergeBoxesResult.guid],
       idsBeforeData: [...this.selectedBoxes],
-      type,
+      type: operationTypes.MERGE,
       clientComment: comment,
     })
     await this.getTasksMy()
 
     this.onTriggerOpenModal('showMergeBoxModal')
-
-    this.onResetselectedBoxes()
 
     this.tmpClientComment = ''
   }
@@ -260,7 +309,25 @@ export class ClientWarehouseViewModel {
       const result = await BoxesModel.getBoxesForCurClient()
 
       runInAction(() => {
-        this.boxesMy = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.boxesMy = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
+          ...item,
+          tmpBarCode: item.items[0].product.barCode,
+          tmpAsin: item.items[0].product.id,
+          tmpQty: item.items[0].order.amount,
+          tmpMaterial: item.items[0].product.material,
+          tmpAmazonPrice: item.items[0].product.amazon,
+          tmpTrackingNumberChina: item.items[0].order.trackingNumberChina,
+          tmpFinalWeight: Math.max(
+            parseFloat(item.volumeWeightKgWarehouse ? item.volumeWeightKgWarehouse : item.volumeWeightKgSupplier) || 0,
+            parseFloat(
+              item.weightFinalAccountingKgWarehouse
+                ? item.weightFinalAccountingKgWarehouse
+                : item.weightFinalAccountingKgSupplier,
+            ) || 0,
+          ),
+          tmpGrossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
+          tmpWarehouses: warehouses[item.warehouse],
+        }))
       })
     } catch (error) {
       console.log(error)
@@ -318,20 +385,6 @@ export class ClientWarehouseViewModel {
       await this.cancelTask(taskId)
 
       await this.getBoxesMy()
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  //  для тестов
-  async removeBox(id) {
-    try {
-      await BoxesModel.removeBox(id)
     } catch (error) {
       console.log(error)
       this.error = error
