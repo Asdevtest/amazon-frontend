@@ -49,8 +49,8 @@ export const OrderProductModal = ({
       warehouse: '',
       clientComment: '',
       barCode: product.barCode || '',
-      product: product._id,
-      images: [],
+      productId: product._id,
+      images: product.images,
     })),
   )
 

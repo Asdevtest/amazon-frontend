@@ -97,6 +97,28 @@ export const exchangeInventoryColumns = () => [
     headerName: textConsts.supplierField,
     renderCell: params => <SupplierCell params={params} />,
     width: 170,
+    filterable: false,
+  },
+  {
+    field: 'createdAt',
+    headerName: textConsts.createDateField,
+    renderCell: params => <DateCell params={params} />,
+    width: 150,
+    type: 'date',
+  },
+  {
+    field: 'checkedAt',
+    headerName: textConsts.checkDateField,
+    renderCell: params => <DateCell params={params} />,
+    width: 150,
+    type: 'date',
+  },
+  {
+    field: 'updaupdatedAtteDate',
+    headerName: textConsts.updateDateField,
+    renderCell: params => <DateCell params={params} />,
+    width: 150,
+    type: 'date',
   },
 
   {

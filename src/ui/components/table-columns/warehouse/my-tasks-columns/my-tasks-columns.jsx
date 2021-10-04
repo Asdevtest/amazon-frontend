@@ -15,7 +15,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').warehouseMyTasksTableColumns
 
 export const warehouseMyTasksViewColumns = renderBtns => [
   {
-    field: 'createDate',
+    field: 'createdAt',
     headerName: textConsts.createDateField,
     width: 250,
     renderCell: params => <NormDateCell params={params} />,
@@ -23,7 +23,7 @@ export const warehouseMyTasksViewColumns = renderBtns => [
   },
 
   {
-    field: 'updateDate',
+    field: 'updatedAt',
     headerName: textConsts.updateDateField,
     width: 250,
     renderCell: params => <NormDateCell params={params} />,

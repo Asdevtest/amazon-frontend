@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**fbm** | **Boolean** | Признак fbm | [optional] 
 **listingName** | **String** |  | [optional] 
 **listingBulletPoints** | **[String]** | Массив ... | [optional] 
 **listingProductDetails** | **String** |  | [optional] 
@@ -14,5 +15,6 @@ Name | Type | Description | Notes
 **listingSupplierImportantPoints** | **String** |  | [optional] 
 **listingExtraInfo** | **String** |  | [optional] 
 **listingSupplierCompetitors** | **String** |  | [optional] 
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] [default to 0]
 
 

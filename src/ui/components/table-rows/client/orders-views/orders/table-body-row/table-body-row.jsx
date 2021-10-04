@@ -28,7 +28,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
       </TableCell>
 
       <TableCell>
-        <Typography>{formatDate(item.createDate)}</Typography>
+        <Typography>{formatDate(item.createdAt)}</Typography>
       </TableCell>
 
       <TableCell>

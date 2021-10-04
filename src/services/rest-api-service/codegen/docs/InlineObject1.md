@@ -4,6 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guids** | **[String]** | Массив GUID которые нужно оплатить. | [optional] 
+**productId** | **String** | GUID продукта. | [optional] 
+**recipientId** | **String** | GUID пользователя. | 
+**sum** | **Number** | Начисленная сумма выплаты. Может быть отрицательной. | 
+**comment** | **String** | комментарий | 
 
 

@@ -508,7 +508,10 @@ class ApiClient {
     * @returns {Date} The parsed date object.
     */
     static parseDate(str) {
-        return new Date(str);
+        if (str) {
+            return new Date(str).toISOString()
+        }
+        return ''
     }
 
     /**

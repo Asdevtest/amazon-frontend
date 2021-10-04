@@ -8,9 +8,10 @@ import {texts} from '@constants/texts'
 import {BuyerModel} from '@models/buyer-model'
 import {BuyerUpdateProductContract} from '@models/buyer-model/buyer-model.contracts'
 import {OtherModel} from '@models/other-model'
+import {ProductModel} from '@models/product-model'
 import {SupplierModel} from '@models/supplier-model'
 
-import {isNotUndefined, isUndefined} from '@utils/checks'
+import {isUndefined} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {
   getNewObjectWithDefaultValue,
@@ -32,18 +33,17 @@ const fieldsOfProductAllowedToUpdate = [
   'status',
   'profit',
   'margin',
-  'buyerscomment',
+  'buyersComment',
   'additionalProp1',
-  'supplier',
-  'currentSupplier',
+  'currentSupplierId',
 ]
 
 const formFieldsDefault = {
   checkednotes: '',
   amazon: 0,
   bsr: 0,
-  createdat: '',
-  createdby: {},
+  createdAt: '',
+  createdBy: {},
   delivery: 0,
   dirdecision: 0,
   express: false,
@@ -56,10 +56,9 @@ const formFieldsDefault = {
   material: '',
   reffee: 15,
   status: 0,
-  supplier: [],
-  updateDate: '',
+  updatedAt: '',
   _id: '',
-  buyerscomment: '',
+  buyersComment: '',
 }
 
 const confirmMessageByProductStatus = {
@@ -110,12 +109,13 @@ export class BuyerProductViewModel {
     if (location.state) {
       const product = {
         ...location.state.product,
-        supplier: location.state.product.supplier.map(supplierItem =>
+        suppliers: location.state.product.suppliers.map(supplierItem =>
           typeof supplierItem === 'string' ? supplierItem : supplierItem._id,
         ),
       }
       this.product = product
-      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.supplier
+      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.suppliers
+      console.log(product)
       this.updateAutoCalculatedFields()
     }
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -157,21 +157,23 @@ export class BuyerProductViewModel {
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'accept':
-        this.product.currentSupplier = this.selectedSupplier
+        this.product.currentSupplierId = this.selectedSupplier._id
         this.selectedSupplier = undefined
         this.updateAutoCalculatedFields()
         break
       case 'acceptRevoke':
-        this.product.currentSupplier = undefined
+        this.product.currentSupplierId = undefined
         this.selectedSupplier = undefined
         this.updateAutoCalculatedFields()
         break
       case 'delete':
-        this.confirmModalSettings = {
-          isWarning: true,
-          message: textConsts.deleteSupplierMessage,
-          onClickOkBtn: () => this.onRemoveSupplier(),
-        }
+        runInAction(() => {
+          this.confirmModalSettings = {
+            isWarning: true,
+            message: textConsts.deleteSupplierMessage,
+            onClickOkBtn: () => this.onRemoveSupplier(),
+          }
+        })
         this.onTriggerOpenModal('showConfirmModal')
         break
     }
@@ -180,19 +182,20 @@ export class BuyerProductViewModel {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
+      await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
       this.setActionStatus(loadingStatuses.success)
       const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === this.selectedSupplier._id)
 
       runInAction(() => {
         this.suppliers.splice(findSupplierIndex, 1)
-        this.product.supplier
+        this.product.suppliers
         this.selectedSupplier = undefined
-        if (this.product.currentSupplier && this.product.currentSupplier._id === this.selectedSupplier._id) {
-          this.product.currentSupplier = undefined
+        if (this.product.currentSupplierId && this.product.currentSupplierId === this.selectedSupplier._id) {
+          this.product.currentSupplierId = undefined
         }
       })
 
-      const forcedSaveSupplierItem = {supplier: [...this.product.supplier]}
+      const forcedSaveSupplierItem = {supplier: [...this.product.suppliers]}
       await this.onForcedSaveSelectedFields(forcedSaveSupplierItem)
     } catch (error) {
       console.log(error)
@@ -222,38 +225,42 @@ export class BuyerProductViewModel {
         fieldsOfProductAllowedToUpdate,
         false,
         (key, value) => {
-          if (key === 'buyerscomment' && isUndefined(value)) {
+          if (key === 'buyersComment' && isUndefined(value)) {
             return ''
-          } else if (key === 'currentSupplier' && isNotUndefined(value)) {
-            return value && value._id
           } else {
             return value
           }
         },
       )
 
+      console.log('this.curUpdateProductData ', this.curUpdateProductData)
+
       await transformAndValidate(BuyerUpdateProductContract, this.curUpdateProductData)
 
       if (
-        (this.curUpdateProductData.currentSupplier ||
+        (this.curUpdateProductData.currentSupplierId ||
           this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]) &&
         this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
         this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]
       ) {
-        this.confirmModalSettings = {
-          isWarning: false,
-          message: confirmMessageByProductStatus[this.curUpdateProductData.status],
-          onClickOkBtn: () => this.onSaveProductData(),
-        }
+        runInAction(() => {
+          this.confirmModalSettings = {
+            isWarning: false,
+            message: confirmMessageByProductStatus[this.curUpdateProductData.status],
+            onClickOkBtn: () => this.onSaveProductData(),
+          }
+        })
 
         this.onTriggerOpenModal('showConfirmModal')
       } else {
-        this.warningModalTitle =
-          this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] ||
-          this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]
-            ? warningModalTitleVariants.CHOOSE_STATUS
-            : warningModalTitleVariants.NO_SUPPLIER
-        this.onTriggerOpenModal('showWarningModal')
+        runInAction(() => {
+          this.warningModalTitle =
+            this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] ||
+            this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]
+              ? warningModalTitleVariants.CHOOSE_STATUS
+              : warningModalTitleVariants.NO_SUPPLIER
+          this.onTriggerOpenModal('showWarningModal')
+        })
       }
     } catch (error) {
       console.log(error)
@@ -353,12 +360,13 @@ export class BuyerProductViewModel {
         this.suppliers[findSupplierIndex] = supplier
       } else {
         const createSupplierResult = await SupplierModel.createSupplier(supplier)
+        await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
         runInAction(() => {
-          this.product.supplier.push(createSupplierResult.guid)
+          this.product.suppliers.push(createSupplierResult.guid)
           this.suppliers.push({...supplier, _id: createSupplierResult.guid})
         })
 
-        const forcedSaveSupplierItem = {supplier: [...this.product.supplier]}
+        const forcedSaveSupplierItem = {supplier: [...this.product.suppliers]}
         await this.onForcedSaveSelectedFields(forcedSaveSupplierItem)
       }
 
@@ -404,28 +412,31 @@ export class BuyerProductViewModel {
       (parseFloat(this.product.totalFba) || 0) -
       0.4 * ((parseFloat(this.product.amazon) || 0) - (parseFloat(this.product.totalFba) || 0)) -
       (parseFloat(this.product.maxDelivery) || 0)
-    if (this.product.currentSupplier && this.product.currentSupplier._id) {
+    if (this.product.currentSupplierId) {
+      const findCurrentSupplier = this.suppliers.find(supplier => supplier._id === this.product.currentSupplierId)
+      if (!findCurrentSupplier) {
+        return
+      }
       this.product.reffee = (parseFloat(this.product.amazon) || 0) * 0.15
       if (this.product.fbafee) {
         this.product.profit = (
           (parseFloat(this.product.amazon) || 0).toFixed(2) -
             (this.product.reffee || 0).toFixed(2) -
-            (parseFloat(this.product.currentSupplier.delivery) || 0).toFixed(2) -
-            (parseFloat(this.product.currentSupplier.price) || 0).toFixed(2) -
+            (parseFloat(findCurrentSupplier.delivery) || 0).toFixed(2) -
+            (parseFloat(findCurrentSupplier.price) || 0).toFixed(2) -
             (parseFloat(this.product.fbafee) || 0).toFixed(2) || 0
         ).toFixed(4)
       } else {
         this.product.profit = (
           (parseFloat(this.product.amazon) || 0).toFixed(2) -
             (this.product.reffee || 0).toFixed(2) -
-            (parseFloat(this.product.currentSupplier.delivery) || 0).toFixed(2) -
-            (parseFloat(this.product.currentSupplier.price) || 0).toFixed(2) || 0
+            (parseFloat(findCurrentSupplier.delivery) || 0).toFixed(2) -
+            (parseFloat(findCurrentSupplier.price) || 0).toFixed(2) || 0
         ).toFixed(4)
       }
       this.product.margin =
         (this.product.profit /
-          ((parseFloat(this.product.currentSupplier.price) || 0) +
-            (parseFloat(this.product.currentSupplier.delivery) || 0))) *
+          ((parseFloat(findCurrentSupplier.price) || 0) + (parseFloat(findCurrentSupplier.delivery) || 0))) *
         100
     } else {
       this.product.profit = 0

@@ -32,7 +32,13 @@ export const PrivateRoutes = observer(() => {
           <Route key={index} component={route.component} exact={route.exact} path={route.routePath} />
         ))}
 
-        {notAllowedRoute && <Redirect to={allowedRoutes[0].routePath} />}
+        {notAllowedRoute ? (
+          allowedRoutes[0] ? (
+            <Redirect to={allowedRoutes[0].routePath} />
+          ) : (
+            <Redirect to={'/auth'} />
+          )
+        ) : undefined}
       </>
     )
   }

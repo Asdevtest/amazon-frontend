@@ -6,9 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **sku** | **String** | SKU - ставит склад - только для склада | [optional] 
 **material** | **String** | add to new functional | [optional] 
-**currentSupplier** | **String** | GUID поставщика | [optional] 
+**currentSupplierId** | **String** | GUID поставщика, если передать строку \&quot;clear\&quot; то поставщику будет сброшен (у байера и ресечера). | [optional] 
+**fbm** | **Boolean** | Признак fbm | [optional] 
 **category** | **String** | Категория | [optional] 
 **lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
+**lsupplier** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
 **bsr** | **Number** |  | [optional] 
 **fba** | **Boolean** | Признак fba | [optional] 
 **express** | **Boolean** |  уточнить  | [optional] 
@@ -17,7 +19,6 @@ Name | Type | Description | Notes
 **width** | **Number** |  | [optional] 
 **length** | **Number** |  | [optional] 
 **weight** | **Number** |  | [optional] 
-**supplier** | **[String]** | Массив поставщиков. | [optional] 
 **reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
 **fbafee** | **Number** | ФБА комиссия | [optional] 
 **fbaamount** | **Number** |  Общая сумма с фба. | [optional] 
@@ -44,12 +45,15 @@ Name | Type | Description | Notes
 **listingSupplierImportantPoints** | **String** |  | [optional] 
 **listingExtraInfo** | **String** |  | [optional] 
 **listingSupplierCompetitors** | **String** |  | [optional] 
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] [default to 0]
 **checkednotes** | **String** | Комментарий к статусу проверки. | [optional] 
 
 
 
 ## Enum: StatusEnum
 
+
+* `15` (value: `15`)
 
 * `20` (value: `20`)
 

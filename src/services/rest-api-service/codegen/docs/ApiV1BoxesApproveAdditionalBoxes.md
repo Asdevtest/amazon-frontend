@@ -5,9 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **amount** | **Number** | Сколько таких же коробок в одной коробке | [optional] 
-**lengthCm** | **Number** | Поле в которое наследуем данные размеров коробок | [optional] 
-**widthCm** | **Number** | Поле в которое наследуем данные размеров коробок | [optional] 
-**heightCm** | **Number** | Поле в которое наследуем данные размеров коробок | [optional] 
 **weighGrossKg** | **Number** | Общий вес кг коробки | [optional] 
 **volumeWeightKg** | **Number** | Объемный вес (подсчет) | [optional] 
 **weightFinalAccountingKg** | **Number** | Наибольший вес (подсчет) | [optional] 
@@ -16,7 +13,6 @@ Name | Type | Description | Notes
 **heightCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
 **weighGrossKgSupplier** | **Number** | Общий вес кг коробки который назвал поставщик. | [optional] 
 **volumeWeightKgSupplier** | **Number** | id склада - склады куда отправляют  | [optional] 
-**weightFinalAccountingKgSupplier** | **Number** | Наибольший вес (подсчет) (что большее объемный или обычный вес) у поставщика. | [optional] 
 **warehouse** | **Number** | id склада - склады куда отправляют  | [optional] 
 **deliveryMethod** | **Number** | Метод доставки - 1: Air , 2: Sea | [optional] 
 **scheduledDispatchDate** | **Date** | Запланированная дата отправки. | [optional] 
@@ -31,7 +27,6 @@ Name | Type | Description | Notes
 **heightCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
 **weighGrossKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
 **volumeWeightKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
-**weightFinalAccountingKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
 **isShippingLabelAttachedByStorekeeper** | **Boolean** | Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл. | [optional] 
 
 

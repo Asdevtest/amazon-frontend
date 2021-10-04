@@ -4,6 +4,7 @@ import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 
+import {ProductModel} from '@models/product-model'
 import {SupervisorModel} from '@models/supervisor-model'
 import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervisor-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
@@ -23,7 +24,6 @@ const fieldsOfProductAllowedToUpdate = [
   'bsr',
   'status',
   'amazon',
-  'supplier',
   'fbafee',
   'reffee',
   'delivery',
@@ -49,8 +49,8 @@ const formFieldsDefault = {
   checkednotes: '',
   amazon: 0,
   bsr: 0,
-  createdat: '',
-  createdby: {},
+  createdAt: '',
+  createdBy: {},
   delivery: 0,
   dirdecision: 0,
   express: false,
@@ -63,7 +63,6 @@ const formFieldsDefault = {
   material: '',
   reffee: 15,
   status: 0,
-  supplier: [],
   updateDate: '',
   _id: '',
   fbaamount: 0,
@@ -110,12 +109,14 @@ export class SupervisorProductViewModel {
     if (location.state) {
       const product = {
         ...location.state.product,
-        supplier: location.state.product.supplier.map(supplierItem =>
+        supplier: location.state.product.suppliers.map(supplierItem =>
           typeof supplierItem === 'string' ? supplierItem : supplierItem._id,
         ),
       }
       this.product = product
-      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.supplier
+      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.suppliers
+      console.log(product)
+      console.log(this.suppliers)
     }
     makeAutoObservable(this, undefined, {autoBind: true})
     this.updateAutoCalculatedFields()
@@ -275,42 +276,21 @@ export class SupervisorProductViewModel {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
+      await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
       this.setActionStatus(loadingStatuses.success)
       const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === this.selectedSupplier._id)
-      const findProductSupplierIndex = this.product.supplier.findIndex(
+      const findProductSupplierIndex = this.product.suppliers.findIndex(
         supplierItem => supplierItem._id === this.selectedSupplier._id,
       )
       runInAction(() => {
         this.suppliers.splice(findSupplierIndex, 1)
-        this.product.supplier.splice(findProductSupplierIndex, 1)
+        this.product.suppliers.splice(findProductSupplierIndex, 1)
         this.selectedSupplier = undefined
         this.onSaveProductData()
       })
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
-    }
-  }
-
-  async loadSupliersForProduct() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      runInAction(async () => {
-        this.suppliers = []
-        for (let index = 0; index < this.product.supplier.length; index++) {
-          const getSupplierResult = await SupplierModel.getSupplier(this.product.supplier[index])
-          runInAction(() => {
-            this.suppliers.push(getSupplierResult)
-          })
-        }
-      })
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
         this.error = error.body.message
       }

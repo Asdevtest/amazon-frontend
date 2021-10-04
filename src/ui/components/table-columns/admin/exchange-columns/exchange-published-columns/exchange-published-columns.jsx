@@ -11,7 +11,6 @@ import {
   BuyerCell,
   SupplierCell,
   ToFixedWithDollarSignCell,
-  NoActiveBarcodeCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -51,14 +50,23 @@ export const exchangePublishedColumns = () => [
   },
 
   {
-    field: 'barCode',
     headerName: textConsts.barCodeField,
     width: 150,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.row.barCode} />,
+  },
+  {
+    field: 'createdAt',
+    headerName: textConsts.createDateField,
+    renderCell: params => <DateCell params={params} />,
+    width: 150,
+    type: 'date',
+  },
+  {
+    field: 'updatedAt',
+    renderCell: params => <DateCell params={params} />,
   },
 
   {
-    field: 'createdby',
+    field: 'createdBy',
     headerName: textConsts.researcherField,
     renderCell: params => <ResearcherCell params={params} />,
     width: 200,

@@ -159,18 +159,23 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onSubmitCreateBoxes(orderId, formFieldsArr) {
-    this.error = undefined
+    try {
+      this.error = undefined
 
-    for (let i = 0; i < formFieldsArr.length; i++) {
-      const elementOrderBox = formFieldsArr[i]
+      for (let i = 0; i < formFieldsArr.length; i++) {
+        const elementOrderBox = formFieldsArr[i]
 
-      await this.onCreateBox(elementOrderBox)
+        await this.onCreateBox(elementOrderBox)
+      }
+
+      if (!this.error) {
+        this.onTriggerOpenModal('showSuccessModal')
+      }
+      await this.getBoxesOfOrder(orderId)
+    } catch (error) {
+      console.log(error)
+      throw error
     }
-
-    if (!this.error) {
-      this.onTriggerOpenModal('showSuccessModal')
-    }
-    await this.getBoxesOfOrder(orderId)
   }
 
   async onCreateBox(formFields) {
@@ -182,6 +187,7 @@ export class BuyerMyOrdersViewModel {
           'tmpWarehouses',
           'tmpDeliveryMethod',
           'tmpStatus',
+          'weightFinalAccountingKgSupplier'
         ]),
         clientId: this.selectedOrder.createdBy._id,
         deliveryMethod: formFields.deliveryMethod,
@@ -192,9 +198,9 @@ export class BuyerMyOrdersViewModel {
         volumeWeightKgSupplier: parseFloat(formFields?.volumeWeightKgSupplier) || 0,
         items: [
           {
-            product: formFields.items[0].product._id,
+            productId: formFields.items[0].product._id,
             amount: formFields.items[0].amount,
-            order: this.selectedOrder._id,
+            orderId: this.selectedOrder._id,
           },
         ],
       }
@@ -216,6 +222,7 @@ export class BuyerMyOrdersViewModel {
       runInAction(() => {
         this.error = error
       })
+      throw new Error('Error during box creation')
     }
   }
 
@@ -223,7 +230,7 @@ export class BuyerMyOrdersViewModel {
     try {
       const result = await BuyerModel.getOrdersMy()
       runInAction(() => {
-        this.ordersMy = result.sort(sortObjectsArrayByFiledDate('createDate')).map(order => ({
+        this.ordersMy = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(order => ({
           ...order,
           tmpBarCode: order.product.barCode,
           tmpWarehouses: warehouses[order.warehouse],

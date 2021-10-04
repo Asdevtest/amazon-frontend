@@ -42,7 +42,7 @@ export class SupervisorReadyToCheckViewModel {
       this.setRequestStatus(loadingStatuses.success)
       runInAction(() => {
         this.productsReadyToCheck = result
-          .sort(sortObjectsArrayByFiledDate('createdat'))
+          .sort(sortObjectsArrayByFiledDate('createdAt'))
           .filter(el => el.icomment !== '')
       })
     } catch (error) {

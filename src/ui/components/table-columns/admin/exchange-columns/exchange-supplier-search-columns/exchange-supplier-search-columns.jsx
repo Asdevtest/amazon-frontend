@@ -54,9 +54,23 @@ export const exchangeSupplierSearchColumns = () => [
     width: 150,
     renderCell: params => <NoActiveBarcodeCell barCode={params.row.barCode} />,
   },
+  {
+    field: 'createdAt',
+    headerName: textConsts.createDateField,
+    renderCell: params => <DateCell params={params} />,
+    width: 150,
+    type: 'date',
+  },
 
   {
-    field: 'createdby',
+    field: 'updatedAt',
+    headerName: textConsts.updateDateField,
+    renderCell: params => <DateCell params={params} />,
+    
+  },
+
+  {
+    field: 'createdBy',
     headerName: textConsts.researcherField,
     renderCell: params => <ResearcherCell params={params} />,
     width: 200,

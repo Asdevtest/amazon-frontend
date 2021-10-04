@@ -75,16 +75,16 @@ export const RightSideComments = observer(
           <Field
             multiline
             disabled={!checkIsBuyer(curUserRole)}
-            error={formFieldsValidationErrors.buyerscomment}
+            error={formFieldsValidationErrors.buyersComment}
             className={clsx(classNames.heightFieldAuto, {
-              [classNames.errorActive]: formFieldsValidationErrors.buyerscomment,
+              [classNames.errorActive]: formFieldsValidationErrors.buyersComment,
             })}
             inputProps={{maxLength: 1000}}
             rows={4}
             rowsMax={6}
             label={textConsts.fieldBuyer}
-            value={product.buyerscomment}
-            onChange={onChangeField('buyerscomment')}
+            value={product.buyersComment}
+            onChange={onChangeField('buyersComment')}
           />
           {checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || checkIsBuyer(curUserRole) ? (
             <div className={classNames.buttonsWrapper}>

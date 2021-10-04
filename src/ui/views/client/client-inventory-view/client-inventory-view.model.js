@@ -85,7 +85,7 @@ export class ClientInventoryViewModel {
   }
 
   onSelectionModel(model) {
-    this.selectedRowIds = model
+    this.selectedRowIds = [model]
   }
 
   getCurrentData() {
@@ -123,7 +123,7 @@ export class ClientInventoryViewModel {
     try {
       const result = await ClientModel.getProductsPaid()
       runInAction(() => {
-        this.productsMy = result.sort(sortObjectsArrayByFiledDate('checkedat'))
+        this.productsMy = result.sort(sortObjectsArrayByFiledDate('checkedAt'))
       })
     } catch (error) {
       console.log(error)

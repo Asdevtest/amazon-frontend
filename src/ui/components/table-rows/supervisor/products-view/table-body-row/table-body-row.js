@@ -61,7 +61,7 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
             <Typography className={classNames.typoCell}>
               {'ASIN '}
               <span className={classNames.typoSpan}>{item.id}</span>
-              {` | ${formatDateDistanceFromNow(item.createdat)}`}
+              {` | ${formatDateDistanceFromNow(item.createdAt)}`}
             </Typography>
             <Chip className={classNames.chip} label={item.category} />
           </div>
@@ -70,10 +70,10 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
 
       <TableCell className={classNames.priceTableCell}>{ProductStatusByCode[item.status]}</TableCell>
 
-      <TableCell className={classNames.priceTableCell}>{formatDate(item.createdat)}</TableCell>
+      <TableCell className={classNames.priceTableCell}>{formatDate(item.createdAt)}</TableCell>
 
       <TableCell className={classNames.priceTableCell}>
-        {(item.updatedat && formatDate(item.updatedat)) || ''}
+        {(item.updatedAt && formatDate(item.updatedAt)) || ''}
       </TableCell>
 
       <TableCell className={classNames.priceTableCell}>{toFixedWithDollarSign(item.amazon)}</TableCell>
@@ -87,7 +87,7 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
             handlers.onClickResearcherName(item)
           }}
         >
-          {item.createdby.name}
+          {item.createdBy.name}
         </Button>
       </TableCell>
 

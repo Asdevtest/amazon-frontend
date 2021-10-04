@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
 **clientComment** | **String** | Комментарий клиента. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
-**createDate** | **Date** | Дата создания. | [optional] 
+**createdAt** | **Date** | Дата создания. | [optional] 
 **updateDate** | **Date** | Дата создания. | [optional] 
 
 

@@ -10,7 +10,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').adminTasksTableColumns
 
 export const adminTasksViewColumns = renderBtns => [
   {
-    field: 'createDate',
+    field: 'createdAt',
     headerName: textConsts.createDateField,
     width: 250,
     renderCell: params => <NormDateCell params={params} />,
@@ -18,7 +18,7 @@ export const adminTasksViewColumns = renderBtns => [
   },
 
   {
-    field: 'updateDate',
+    field: 'updatedAt',
     headerName: textConsts.updateDateField,
     width: 250,
     renderCell: params => <NormDateCell params={params} />,

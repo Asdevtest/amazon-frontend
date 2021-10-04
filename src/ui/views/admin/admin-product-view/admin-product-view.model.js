@@ -6,8 +6,8 @@ const formFieldsDefault = {
   checkednotes: '',
   amazon: 0,
   bsr: 0,
-  createdat: '',
-  createdby: {},
+  createdAt: '',
+  createdBy: {},
   delivery: 0,
   dirdecision: 0,
   express: false,
@@ -55,10 +55,10 @@ export class AdminProductViewModel {
     if (location.state) {
       const product = {
         ...location.state.product,
-        supplier: location.state.product.supplier.map(supplierItem => supplierItem._id),
+        suppliers: location.state.product.suppliers.map(supplierItem => supplierItem._id),
       }
       this.product = product
-      this.suppliers = location.state.product.supplier
+      this.suppliers = location.state.product.suppliers
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }

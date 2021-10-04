@@ -140,7 +140,7 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, o
 
   return (
     <TableRow>
-      <TableCell className={classNames.centerTextCell}>{formatNormDateTime(item.createDate)}</TableCell>
+      <TableCell className={classNames.centerTextCell}>{formatNormDateTime(item.createdAt)}</TableCell>
       <TableCell className={classNames.centerTextCell}>{formatNormDateTime(item.updateDate)}</TableCell>
       <TableCell>{textConsts.tasks}</TableCell>
       {renderHistoryItem()}

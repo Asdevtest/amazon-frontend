@@ -47,7 +47,7 @@ export const TableSupplier = observer(({product, suppliers, selectedSupplier, on
                 className={clsx({
                   [classNames.tableRowSelectedSupplier]: selectedSupplier && supplier._id === selectedSupplier._id,
                   [classNames.tableRowAcceptedSupplier]:
-                    product.currentSupplier && product.currentSupplier._id === supplier._id,
+                    product.currentSupplierId && product.currentSupplierId === supplier._id,
                 })}
                 onClick={() => onClickSupplier(supplier, index)}
               >

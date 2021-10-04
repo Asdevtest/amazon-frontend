@@ -106,32 +106,38 @@ export class ResearcherProductsViewModel {
         return
       })
     }
-    this.chekedCode = this.formFields.productCode
+    runInAction(() => {
+      this.chekedCode = this.formFields.productCode
+    })
   }
 
   async onClickAddBtn() {
-    if (!(this.formFields.amazonLink || this.formFields.productCode)) {
-      this.error = 'All fields are required for this action'
-      return
+    try {
+      if (!(this.formFields.amazonLink || this.formFields.productCode)) {
+        this.error = 'All fields are required for this action'
+        return
+      }
+      const product = {
+        id: this.formFields.productCode,
+        lamazon: this.formFields.amazonLink,
+      }
+      await this.createProduct(product)
+
+      const foundedProd = this.products.find(prod => prod._id === this.newProductId)
+
+      const unclutteredProd = getObjectFilteredByKeyArrayBlackList(
+        {
+          ...foundedProd,
+        },
+        ['tmpStatus'],
+      )
+
+      this.history.push('/researcher/product', {
+        product: unclutteredProd,
+      })
+    } catch (error) {
+      console.warn(error)
     }
-    const product = {
-      id: this.formFields.productCode,
-      lamazon: this.formFields.amazonLink,
-    }
-    await this.createProduct(product)
-
-    const foundedProd = this.products.find(prod => prod._id === this.newProductId)
-
-    const unclutteredProd = getObjectFilteredByKeyArrayBlackList(
-      {
-        ...foundedProd,
-      },
-      ['tmpStatus'],
-    )
-
-    this.history.push('/researcher/product', {
-      product: unclutteredProd,
-    })
   }
 
   async createProduct(product) {
@@ -139,14 +145,6 @@ export class ResearcherProductsViewModel {
       this.setActionStatus(loadingStatuses.isLoading)
       const productFullData = {
         ...product,
-        lsupplier: '',
-        bsr: 0,
-        amazon: 0,
-        supplier: [],
-        fbafee: 0,
-        delivery: 0,
-        icomment: '',
-        images: [],
         reffee: 15,
       }
       const response = await ResearcherModel.createProduct(productFullData)
@@ -168,9 +166,10 @@ export class ResearcherProductsViewModel {
       } else {
         console.warn('error ', error)
         runInAction(() => {
-          this.error = error
+          this.error = error.message
         })
       }
+      throw new Error('Failed to create product')
     }
   }
 
@@ -178,7 +177,7 @@ export class ResearcherProductsViewModel {
     try {
       const result = await ResearcherModel.getProductsVacant()
       runInAction(() => {
-        this.products = result.sort(sortObjectsArrayByFiledDate('createdat')).map(item => ({
+        this.products = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
           ...item,
           tmpStatus: ProductStatusByCode[item.status],
         }))

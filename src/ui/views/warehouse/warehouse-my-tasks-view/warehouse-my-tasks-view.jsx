@@ -75,6 +75,8 @@ export class WarehouseMyTasksViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
+    console.log('getCurrentData() ', getCurrentData())
+
     return (
       <React.Fragment>
         <Navbar

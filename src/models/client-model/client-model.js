@@ -47,7 +47,7 @@ class ClientModelStatic {
 
   updateOrder = async (id, data) => {
     const response = await restApiService.clientApi.apiV1ClientsOrdersGuidPatch(id, {
-      InlineObject16: data,
+      InlineObject21: data,
     })
     return response
   }

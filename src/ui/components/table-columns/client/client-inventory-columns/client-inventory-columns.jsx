@@ -16,7 +16,7 @@ const textConsts = getLocalizedTexts(texts, 'en').clientInventoryColumns
 
 export const clientInventoryColumns = ({barCodeHandlers}) => [
   {
-    field: 'createdat',
+    field: 'createdAt',
     headerName: textConsts.createDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
@@ -24,7 +24,7 @@ export const clientInventoryColumns = ({barCodeHandlers}) => [
   },
 
   {
-    field: 'updateDate',
+    field: 'updatedAt',
     headerName: textConsts.updateDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,

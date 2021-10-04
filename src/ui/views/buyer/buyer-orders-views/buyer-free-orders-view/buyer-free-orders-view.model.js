@@ -90,7 +90,7 @@ export class BuyerFreeOrdersViewModel {
     try {
       const result = await BuyerModel.getOrdersVacant()
       runInAction(() => {
-        this.ordersVacant = result.sort(sortObjectsArrayByFiledDate('createDate')).map(order => ({
+        this.ordersVacant = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(order => ({
           ...order,
           tmpBarCode: order.product.barCode,
           tmpWarehouses: warehouses[order.warehouse],

@@ -8,17 +8,20 @@ Name | Type | Description | Notes
 **id** | **String** | ASIN продукта | 
 **material** | **String** |  | [optional] 
 **currentSupplier** | [**ApiV1AdminsGetProductsByStatusCurrentSupplier**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md) |  | [optional] 
+**currentSupplierId** | **String** | GUID поставщика в базе данных | [optional] 
 **category** | **String** | Категория | [optional] 
 **lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
+**lsupplier** | **String** | Ссылка на поставщика. | [optional] 
 **bsr** | **Number** |  | 
 **fba** | **Boolean** | Признак fba | 
+**fbm** | **Boolean** | Признак fbm | [optional] 
 **express** | **Boolean** | Признак экспресс доставки. | [optional] 
 **amazon** | **Number** |  | 
 **height** | **Number** | Высота | [optional] 
 **width** | **Number** | Ширина | [optional] 
 **length** | **Number** | Длинна | [optional] 
 **weight** | **Number** | Вес | [optional] 
-**supplier** | [**[ApiV1AdminsGetProductsByStatusCurrentSupplier]**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md) |  | 
+**suppliers** | [**[ApiV1AdminsGetProductsByStatusCurrentSupplier]**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md) |  | 
 **reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
 **fbafee** | **Number** | ФБА комиссия | [optional] 
 **delivery** | **Number** | Стоимость доставки. | [optional] 
@@ -33,7 +36,7 @@ Name | Type | Description | Notes
 **supervisorFine** | **Number** | Размер штрафа на супервайзера. | [optional] 
 **supervisorFineComment** | **String** | Комментарии к штрафу | [optional] 
 **dirdecision** | **Number** | Код решения директора. | [optional] 
-**clientId** | [**ApiV1AdminsGetProductsByStatusClientId**](ApiV1AdminsGetProductsByStatusClientId.md) |  | [optional] 
+**client** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
 **amazonDescription** | **String** | Описание с сайта амазон. | [optional] 
 **amazonDetail** | **String** | Данные из поля детали с сайта амазон. | [optional] 
 **amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
@@ -42,15 +45,15 @@ Name | Type | Description | Notes
 **profit** | **Number** | Прибыль | [optional] 
 **margin** | **Number** | Маржа | [optional] 
 **byboxprice** | **Number** | Цена | [optional] 
-**createdby** | [**ApiV1AdminsGetProductsByStatusClientId**](ApiV1AdminsGetProductsByStatusClientId.md) |  | [optional] 
-**createdat** | **Date** | Дата создания | [optional] 
-**updateDate** | **Date** | Дата изменения | [optional] 
-**checkedat** | **Date** | Дата проверки | [optional] 
-**buyer** | [**ApiV1AdminsGetProductsByStatusClientId**](ApiV1AdminsGetProductsByStatusClientId.md) |  | [optional] 
-**buyerscomment** | **String** | Комментарии к товару от байера. | [optional] 
+**createdBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**createdAt** | **Date** | Дата создания | [optional] 
+**updatedAt** | **Date** | Дата изменения | [optional] 
+**checkedAt** | **Date** | Дата проверки | [optional] 
+**buyer** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**buyersComment** | **String** | Комментарии к товару от байера. | [optional] 
 **researcherRate** | **Number** | Савка ресечера. | [optional] 
 **supervisorRate** | **Number** | Савка супервайзера. | [optional] 
-**paidat** | **Date** | Дата оплаты | [optional] 
+**paidAt** | **Date** | Дата оплаты | [optional] 
 **buyerRate** | **Number** | Савка байера. | [optional] 
 **listingName** | **String** |  | [optional] 
 **listingBulletPoints** | **[String]** | Массив ... | [optional] 
@@ -62,5 +65,6 @@ Name | Type | Description | Notes
 **listingSupplierImportantPoints** | **String** |  | [optional] 
 **listingExtraInfo** | **String** |  | [optional] 
 **listingSupplierCompetitors** | **String** |  | [optional] 
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] [default to 0]
 
 

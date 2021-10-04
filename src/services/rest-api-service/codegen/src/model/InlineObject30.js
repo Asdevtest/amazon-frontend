@@ -53,14 +53,20 @@ class InlineObject30 {
             if (data.hasOwnProperty('material')) {
                 obj['material'] = ApiClient.convertToType(data['material'], 'String');
             }
-            if (data.hasOwnProperty('currentSupplier')) {
-                obj['currentSupplier'] = ApiClient.convertToType(data['currentSupplier'], 'String');
+            if (data.hasOwnProperty('currentSupplierId')) {
+                obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
+            }
+            if (data.hasOwnProperty('fbm')) {
+                obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean');
             }
             if (data.hasOwnProperty('category')) {
                 obj['category'] = ApiClient.convertToType(data['category'], 'String');
             }
             if (data.hasOwnProperty('lamazon')) {
                 obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
+            }
+            if (data.hasOwnProperty('lsupplier')) {
+                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
             }
             if (data.hasOwnProperty('bsr')) {
                 obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
@@ -85,9 +91,6 @@ class InlineObject30 {
             }
             if (data.hasOwnProperty('weight')) {
                 obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
-            }
-            if (data.hasOwnProperty('supplier')) {
-                obj['supplier'] = ApiClient.convertToType(data['supplier'], ['String']);
             }
             if (data.hasOwnProperty('reffee')) {
                 obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
@@ -167,6 +170,9 @@ class InlineObject30 {
             if (data.hasOwnProperty('listingSupplierCompetitors')) {
                 obj['listingSupplierCompetitors'] = ApiClient.convertToType(data['listingSupplierCompetitors'], 'String');
             }
+            if (data.hasOwnProperty('strategyStatus')) {
+                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
+            }
             if (data.hasOwnProperty('checkednotes')) {
                 obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
             }
@@ -190,10 +196,16 @@ InlineObject30.prototype['sku'] = undefined;
 InlineObject30.prototype['material'] = undefined;
 
 /**
- * GUID поставщика
- * @member {String} currentSupplier
+ * GUID поставщика, если передать строку \"clear\" то поставщику будет сброшен (у байера и ресечера).
+ * @member {String} currentSupplierId
  */
-InlineObject30.prototype['currentSupplier'] = undefined;
+InlineObject30.prototype['currentSupplierId'] = undefined;
+
+/**
+ * Признак fbm
+ * @member {Boolean} fbm
+ */
+InlineObject30.prototype['fbm'] = undefined;
 
 /**
  * Категория
@@ -206,6 +218,12 @@ InlineObject30.prototype['category'] = undefined;
  * @member {String} lamazon
  */
 InlineObject30.prototype['lamazon'] = undefined;
+
+/**
+ * Ссылка на этот продукт на амазоне.
+ * @member {String} lsupplier
+ */
+InlineObject30.prototype['lsupplier'] = undefined;
 
 /**
  * @member {Number} bsr
@@ -248,12 +266,6 @@ InlineObject30.prototype['length'] = undefined;
  * @member {Number} weight
  */
 InlineObject30.prototype['weight'] = undefined;
-
-/**
- * Массив поставщиков.
- * @member {Array.<String>} supplier
- */
-InlineObject30.prototype['supplier'] = undefined;
 
 /**
  * комиссия которую берет амазон за любой заказ - 15%
@@ -399,6 +411,13 @@ InlineObject30.prototype['listingExtraInfo'] = undefined;
 InlineObject30.prototype['listingSupplierCompetitors'] = undefined;
 
 /**
+ * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+ * @member {Number} strategyStatus
+ * @default 0
+ */
+InlineObject30.prototype['strategyStatus'] = 0;
+
+/**
  * Комментарий к статусу проверки.
  * @member {String} checkednotes
  */
@@ -414,6 +433,12 @@ InlineObject30.prototype['checkednotes'] = undefined;
  * @readonly
  */
 InlineObject30['StatusEnum'] = {
+
+    /**
+     * value: 15
+     * @const
+     */
+    "15": 15,
 
     /**
      * value: 20

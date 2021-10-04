@@ -22,10 +22,13 @@ class InlineObject1 {
     /**
      * Constructs a new <code>InlineObject1</code>.
      * @alias module:model/InlineObject1
+     * @param recipientId {String} GUID пользователя.
+     * @param sum {Number} Начисленная сумма выплаты. Может быть отрицательной.
+     * @param comment {String} комментарий
      */
-    constructor() { 
+    constructor(recipientId, sum, comment) { 
         
-        InlineObject1.initialize(this);
+        InlineObject1.initialize(this, recipientId, sum, comment);
     }
 
     /**
@@ -33,7 +36,10 @@ class InlineObject1 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, recipientId, sum, comment) { 
+        obj['recipientId'] = recipientId;
+        obj['sum'] = sum;
+        obj['comment'] = comment;
     }
 
     /**
@@ -47,8 +53,17 @@ class InlineObject1 {
         if (data) {
             obj = obj || new InlineObject1();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('recipientId')) {
+                obj['recipientId'] = ApiClient.convertToType(data['recipientId'], 'String');
+            }
+            if (data.hasOwnProperty('sum')) {
+                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -58,10 +73,28 @@ class InlineObject1 {
 }
 
 /**
- * Массив GUID которые нужно оплатить.
- * @member {Array.<String>} guids
+ * GUID продукта.
+ * @member {String} productId
  */
-InlineObject1.prototype['guids'] = undefined;
+InlineObject1.prototype['productId'] = undefined;
+
+/**
+ * GUID пользователя.
+ * @member {String} recipientId
+ */
+InlineObject1.prototype['recipientId'] = undefined;
+
+/**
+ * Начисленная сумма выплаты. Может быть отрицательной.
+ * @member {Number} sum
+ */
+InlineObject1.prototype['sum'] = undefined;
+
+/**
+ * комментарий
+ * @member {String} comment
+ */
+InlineObject1.prototype['comment'] = undefined;
 
 
 

@@ -65,6 +65,9 @@ class InlineObject21 {
             if (data.hasOwnProperty('barCode')) {
                 obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -110,6 +113,12 @@ InlineObject21.prototype['clientComment'] = undefined;
  * @member {String} barCode
  */
 InlineObject21.prototype['barCode'] = undefined;
+
+/**
+ * GUID заказанного продукта
+ * @member {String} productId
+ */
+InlineObject21.prototype['productId'] = undefined;
 
 /**
  * Массив изображений.

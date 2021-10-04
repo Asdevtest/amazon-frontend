@@ -23,14 +23,10 @@ class InlineResponse2005 {
     /**
      * Constructs a new <code>InlineResponse2005</code>.
      * @alias module:model/InlineResponse2005
-     * @param _id {String} GUID
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxes {Array.<module:model/ApiV1BatchesBoxes>} Массив коробок.
-     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      */
-    constructor(_id, taskId, boxes, status) { 
+    constructor() { 
         
-        InlineResponse2005.initialize(this, _id, taskId, boxes, status);
+        InlineResponse2005.initialize(this);
     }
 
     /**
@@ -38,11 +34,7 @@ class InlineResponse2005 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, taskId, boxes, status) { 
-        obj['_id'] = _id;
-        obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
-        obj['status'] = status;
+    static initialize(obj) { 
     }
 
     /**
@@ -86,8 +78,8 @@ class InlineResponse2005 {
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('createDate')) {
-                obj['createDate'] = ApiClient.convertToType(data['createDate'], 'Date');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
             if (data.hasOwnProperty('updateDate')) {
                 obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
@@ -161,9 +153,9 @@ InlineResponse2005.prototype['images'] = undefined;
 
 /**
  * Дата создания.
- * @member {Date} createDate
+ * @member {Date} createdAt
  */
-InlineResponse2005.prototype['createDate'] = undefined;
+InlineResponse2005.prototype['createdAt'] = undefined;
 
 /**
  * Дата обновления.

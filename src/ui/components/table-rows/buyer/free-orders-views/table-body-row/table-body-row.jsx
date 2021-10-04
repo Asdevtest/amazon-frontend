@@ -36,7 +36,7 @@ export const TableBodyRow = ({item, handlers}) => {
         </div>
       </TableCell>
       <TableCell className={classNames.cellPadding}>
-        <Typography className={classNames.text}>{formatDate(item.createDate)}</Typography>
+        <Typography className={classNames.text}>{formatDate(item.createdAt)}</Typography>
       </TableCell>
       <TableCell className={classNames.cellPadding}>
         <Typography className={classNames.text}>{item.updated}</Typography>

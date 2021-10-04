@@ -78,7 +78,7 @@ export class AdminUsersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
-      const data = getObjectFilteredByKeyArrayBlackList(this.editUserFormFields, ['_id', 'id'])
+      const data = getObjectFilteredByKeyArrayBlackList(this.editUserFormFields, ['_id', 'id', 'createdAt'])
       await AdministratorModel.updateUser(this.selectionModel, data)
       await this.getUsers()
       this.setRequestStatus(loadingStatuses.success)

@@ -6,6 +6,7 @@ import {ProductDataParser} from '@constants/product-data-parser'
 import {texts} from '@constants/texts'
 
 import {OtherModel} from '@models/other-model'
+import {ProductModel} from '@models/product-model'
 import {ResearcherModel} from '@models/researcher-model'
 import {ResearcherUpdateProductContract} from '@models/researcher-model/researcher-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
@@ -28,7 +29,6 @@ const fieldsOfProductAllowedToUpdate = [
   'bsr',
   'status',
   'amazon',
-  'supplier',
   'fbafee',
   'reffee',
   'delivery',
@@ -54,8 +54,8 @@ const fieldsOfProductAllowedToUpdate = [
 const formFieldsDefault = {
   amazon: '',
   bsr: '',
-  createdat: '',
-  createdby: {},
+  createdAt: '',
+  createdBy: {},
   delivery: '',
   dirdecision: '',
   express: false,
@@ -68,8 +68,8 @@ const formFieldsDefault = {
   material: '',
   reffee: '',
   status: '',
-  supplier: [],
-  updateDate: '',
+  suppliers: [],
+  updatedAt: '',
   _id: '',
   fbaamount: '',
 }
@@ -108,12 +108,12 @@ export class ResearcherProductViewModel {
     if (location.state) {
       const product = {
         ...location.state.product,
-        supplier: location.state.product.supplier.map(supplierItem =>
+        suppliers: location.state.product.suppliers.map(supplierItem =>
           typeof supplierItem === 'string' ? supplierItem : supplierItem._id,
         ),
       }
       this.product = product
-      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.supplier
+      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.suppliers
       this.updateAutoCalculatedFields()
     }
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -236,6 +236,7 @@ export class ResearcherProductViewModel {
   async onRemoveSupplier() {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
+      await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
       this.setActionStatus(loadingStatuses.success)
       const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === this.selectedSupplier._id)
@@ -244,11 +245,11 @@ export class ResearcherProductViewModel {
         this.suppliers.splice(findSupplierIndex, 1)
         this.selectedSupplier = undefined
 
-        this.product.supplier
+        this.product.suppliers
         this.selectedSupplier = undefined
       })
 
-      const forcedSaveSupplierItem = {supplier: [...this.product.supplier]}
+      const forcedSaveSupplierItem = {supplier: [...this.product.suppliers]}
       await this.onForcedSaveSelectedFields(forcedSaveSupplierItem)
     } catch (error) {
       console.log(error)
@@ -282,7 +283,7 @@ export class ResearcherProductViewModel {
 
   async openConfirmModalWithTextByStatus() {
     try {
-      this.curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
+      const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
         toJS(this.product),
         fieldsOfProductAllowedToUpdate,
         true,
@@ -315,14 +316,21 @@ export class ResearcherProductViewModel {
           }
         },
       )
+      runInAction(() => {
+        this.curUpdateProductData = curUpdateProductData
+      })
 
-      await transformAndValidate(ResearcherUpdateProductContract, this.curUpdateProductData)
+      console.log('curUpdateProductData ', curUpdateProductData)
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        message: textConsts.confirmMessage,
-        onClickOkBtn: () => this.onSaveProductData(),
-      }
+      await transformAndValidate(ResearcherUpdateProductContract, curUpdateProductData)
+
+      runInAction(() => {
+        this.confirmModalSettings = {
+          isWarning: false,
+          message: textConsts.confirmMessage,
+          onClickOkBtn: () => this.onSaveProductData(),
+        }
+      })
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -397,12 +405,13 @@ export class ResearcherProductViewModel {
         })
       } else {
         const createSupplierResult = await SupplierModel.createSupplier(supplier)
+        await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
         runInAction(() => {
-          this.product.supplier.push(createSupplierResult.guid)
+          this.product.suppliers.push(createSupplierResult.guid)
           this.suppliers.push({...supplier, _id: createSupplierResult.guid})
         })
 
-        const forcedSaveSupplierItem = {supplier: [...this.product.supplier]}
+        const forcedSaveSupplierItem = {suppliers: [...this.product.suppliers]}
         await this.onForcedSaveSelectedFields(forcedSaveSupplierItem)
       }
       this.onTriggerAddOrEditSupplierModal()
@@ -446,7 +455,10 @@ export class ResearcherProductViewModel {
 
   async onForcedSaveSelectedFields(selectedFieldsObj) {
     try {
-      await ResearcherModel.updateProduct(this.product._id, selectedFieldsObj)
+      await ResearcherModel.updateProduct(
+        this.product._id,
+        getObjectFilteredByKeyArrayBlackList(selectedFieldsObj, ['suppliers']),
+      )
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
       console.log('error', error)
@@ -457,7 +469,10 @@ export class ResearcherProductViewModel {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
-      await ResearcherModel.updateProduct(this.product._id, this.curUpdateProductData)
+      await ResearcherModel.updateProduct(
+        this.product._id,
+        getObjectFilteredByKeyArrayBlackList(this.curUpdateProductData, ['suppliers']),
+      )
       this.setActionStatus(loadingStatuses.success)
 
       this.history.replace('/researcher/product', {product: toJS(this.product), suppliers: toJS(this.suppliers)})

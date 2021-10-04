@@ -56,15 +56,6 @@ class ApiV1BoxesApproveAdditionalBoxes {
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('lengthCm')) {
-                obj['lengthCm'] = ApiClient.convertToType(data['lengthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCm')) {
-                obj['widthCm'] = ApiClient.convertToType(data['widthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCm')) {
-                obj['heightCm'] = ApiClient.convertToType(data['heightCm'], 'Number');
-            }
             if (data.hasOwnProperty('weighGrossKg')) {
                 obj['weighGrossKg'] = ApiClient.convertToType(data['weighGrossKg'], 'Number');
             }
@@ -88,9 +79,6 @@ class ApiV1BoxesApproveAdditionalBoxes {
             }
             if (data.hasOwnProperty('volumeWeightKgSupplier')) {
                 obj['volumeWeightKgSupplier'] = ApiClient.convertToType(data['volumeWeightKgSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('weightFinalAccountingKgSupplier')) {
-                obj['weightFinalAccountingKgSupplier'] = ApiClient.convertToType(data['weightFinalAccountingKgSupplier'], 'Number');
             }
             if (data.hasOwnProperty('warehouse')) {
                 obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
@@ -134,9 +122,6 @@ class ApiV1BoxesApproveAdditionalBoxes {
             if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
                 obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
-                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
-            }
             if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
                 obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
@@ -152,24 +137,6 @@ class ApiV1BoxesApproveAdditionalBoxes {
  * @member {Number} amount
  */
 ApiV1BoxesApproveAdditionalBoxes.prototype['amount'] = undefined;
-
-/**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} lengthCm
- */
-ApiV1BoxesApproveAdditionalBoxes.prototype['lengthCm'] = undefined;
-
-/**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} widthCm
- */
-ApiV1BoxesApproveAdditionalBoxes.prototype['widthCm'] = undefined;
-
-/**
- * Поле в которое наследуем данные размеров коробок
- * @member {Number} heightCm
- */
-ApiV1BoxesApproveAdditionalBoxes.prototype['heightCm'] = undefined;
 
 /**
  * Общий вес кг коробки
@@ -218,12 +185,6 @@ ApiV1BoxesApproveAdditionalBoxes.prototype['weighGrossKgSupplier'] = undefined;
  * @member {Number} volumeWeightKgSupplier
  */
 ApiV1BoxesApproveAdditionalBoxes.prototype['volumeWeightKgSupplier'] = undefined;
-
-/**
- * Наибольший вес (подсчет) (что большее объемный или обычный вес) у поставщика.
- * @member {Number} weightFinalAccountingKgSupplier
- */
-ApiV1BoxesApproveAdditionalBoxes.prototype['weightFinalAccountingKgSupplier'] = undefined;
 
 /**
  * id склада - склады куда отправляют 
@@ -308,12 +269,6 @@ ApiV1BoxesApproveAdditionalBoxes.prototype['weighGrossKgWarehouse'] = undefined;
  * @member {Number} volumeWeightKgWarehouse
  */
 ApiV1BoxesApproveAdditionalBoxes.prototype['volumeWeightKgWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} weightFinalAccountingKgWarehouse
- */
-ApiV1BoxesApproveAdditionalBoxes.prototype['weightFinalAccountingKgWarehouse'] = undefined;
 
 /**
  * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
