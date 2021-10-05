@@ -13,7 +13,6 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {exchangeProductsColumns} from '@components/table-columns/admin/exchange-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -38,6 +37,9 @@ class AdminExchangeViewsRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
+
       activeSubCategory,
       drawerOpen,
       curPage,
@@ -61,14 +63,14 @@ class AdminExchangeViewsRaw extends Component {
           activeSubCategory={activeSubCategory}
           curUserRole={UserRole.ADMIN}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={onTriggerDrawer}
+          setDrawerOpen={onTriggerDrawer}
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
           <Appbar
             avatarSrc={avatar}
             curUserRole={UserRole.ADMIN}
-            handlerTriggerDrawer={onTriggerDrawer}
+            setDrawerOpen={onTriggerDrawer}
             title={textConsts.appbarTitle}
           >
             <MainContent>
@@ -91,7 +93,8 @@ class AdminExchangeViewsRaw extends Component {
                 components={{
                   Toolbar: GridToolbar,
                 }}
-                columns={exchangeProductsColumns({activeSubCategory})}
+                density={densityModel}
+                columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
                 onSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection[0])
@@ -99,7 +102,7 @@ class AdminExchangeViewsRaw extends Component {
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
-                onStateChange={e => setDataGridState(e.state)}
+                onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
                 onRowDoubleClick={e => onClickTableRow(e.row)}
               />
             </MainContent>

@@ -7,13 +7,14 @@ import {
   TaskDescriptionCell,
   TaskStatusCell,
   renderFieldValueCell,
+  NormalActionBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseCompletedTasksTableColumns
 
-export const warehouseCompletedTasksViewColumns = renderBtns => [
+export const warehouseCompletedTasksViewColumns = handlers => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
@@ -49,7 +50,12 @@ export const warehouseCompletedTasksViewColumns = renderBtns => [
     field: 'action',
     headerName: textConsts.actionField,
     width: 250,
-    renderCell: params => renderBtns(params),
+    renderCell: params => (
+      <NormalActionBtnCell
+        bTnText={textConsts.showBtn}
+        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row)}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

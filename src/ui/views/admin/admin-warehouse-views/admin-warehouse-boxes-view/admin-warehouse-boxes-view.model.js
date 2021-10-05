@@ -7,6 +7,10 @@ import {warehouses} from '@constants/warehouses'
 import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
 
+import {adminBoxesViewColumns} from '@components/table-columns/admin/boxes-columns'
+
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+
 export class AdminWarehouseBoxesViewModel {
   history = undefined
   requestStatus = undefined
@@ -24,6 +28,8 @@ export class AdminWarehouseBoxesViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = adminBoxesViewColumns()
 
   constructor({history}) {
     this.history = history
@@ -47,7 +53,15 @@ export class AdminWarehouseBoxesViewModel {
   }
 
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.ADMIN_BOXES)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_BOXES)
   }
 
   getDataGridState() {
@@ -56,8 +70,13 @@ export class AdminWarehouseBoxesViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = adminBoxesViewColumns().map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 

@@ -60,8 +60,8 @@ export class ClientSubUsersViewModel {
     this.modalAddSubUser = !this.modalAddSubUser
   }
 
-  onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+  onChangeDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
   }
 
   onChangePagination(e, value) {

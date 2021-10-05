@@ -22,7 +22,6 @@ import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
-import {clientInventoryColumns} from '@components/table-columns/client/client-inventory-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -50,6 +49,8 @@ export class ClientInventoryViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
 
       selectedRowIds,
       drawerOpen,
@@ -62,9 +63,7 @@ export class ClientInventoryViewRaw extends Component {
       showSuccessModal,
       showSendOwnProductModal,
       onClickShowProduct,
-      onClickBarcode,
       onDoubleClickBarcode,
-      onDeleteBarcode,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -75,14 +74,9 @@ export class ClientInventoryViewRaw extends Component {
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
     const {classes: classNames} = this.props
-
-    const barCodeHandlers = {
-      onClickBarcode,
-      onDoubleClickBarcode,
-      onDeleteBarcode,
-    }
 
     return (
       <React.Fragment>
@@ -90,12 +84,12 @@ export class ClientInventoryViewRaw extends Component {
           curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={onTriggerDrawer}
+          setDrawerOpen={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc={avatar}
-            handlerTriggerDrawer={onTriggerDrawer}
+            setDrawerOpen={onTriggerDrawer}
             title={textConsts.appbarTitle}
             curUserRole={UserRole.CLIENT}
           >
@@ -146,13 +140,15 @@ export class ClientInventoryViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={clientInventoryColumns({barCodeHandlers})}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>

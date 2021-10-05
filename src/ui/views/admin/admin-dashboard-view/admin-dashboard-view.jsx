@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import {Grid, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
 
 import {AdminDashboardCardDataKey, getAdminDashboardCardConfig} from '@constants/dashboard-configs'
 import {texts} from '@constants/texts'
@@ -23,6 +24,8 @@ const textConsts = getLocalizedTexts(texts, 'en').adminDashboardView
 
 const dashboardCardConfig = getAdminDashboardCardConfig(textConsts)
 const navbarActiveCategory = 0
+
+@observer
 export class AdminDashboardViewRaw extends Component {
   viewModel = new AdminDashboardViewModel({history: this.props.history})
 
@@ -39,13 +42,13 @@ export class AdminDashboardViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           curUserRole={UserRole.ADMIN}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={onChangeTriggerDrawerOpen}
+          setDrawerOpen={onChangeTriggerDrawerOpen}
         />
         <Main>
           <Appbar
             avatarSrc={avatar}
             curUserRole={UserRole.ADMIN}
-            handlerTriggerDrawer={onChangeTriggerDrawerOpen}
+            setDrawerOpen={onChangeTriggerDrawerOpen}
             title={textConsts.appbarTitle}
           >
             <MainContent>

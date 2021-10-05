@@ -6,6 +6,10 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 
+import {exchangeInventoryColumns} from '@components/table-columns/admin/inventory-columns'
+
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+
 export class AdminInventoryViewModel {
   history = undefined
   requestStatus = undefined
@@ -22,6 +26,8 @@ export class AdminInventoryViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = exchangeInventoryColumns()
 
   constructor({history}) {
     this.history = history
@@ -29,7 +35,15 @@ export class AdminInventoryViewModel {
   }
 
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.ADMIN_INVENTORY)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_INVENTORY)
   }
 
   getDataGridState() {
@@ -38,8 +52,13 @@ export class AdminInventoryViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = exchangeInventoryColumns().map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 

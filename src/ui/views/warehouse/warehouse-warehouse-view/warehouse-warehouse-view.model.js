@@ -8,7 +8,10 @@ import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 
+import {warehouseBoxesViewColumns} from '@components/table-columns/warehouse/warehouse-boxes-columns'
+
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class WarehouseWarehouseViewModel {
   history = undefined
@@ -24,6 +27,8 @@ export class WarehouseWarehouseViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = warehouseBoxesViewColumns()
 
   constructor({history}) {
     this.history = history
@@ -31,7 +36,15 @@ export class WarehouseWarehouseViewModel {
   }
 
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.WAREHOUSE_BOXES)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_BOXES)
   }
 
   getDataGridState() {
@@ -40,8 +53,13 @@ export class WarehouseWarehouseViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = warehouseBoxesViewColumns().map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 

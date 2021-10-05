@@ -15,7 +15,6 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {Navbar} from '@components/navbar'
-import {adminTasksViewColumns} from '@components/table-columns/admin/tasks-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -41,6 +40,9 @@ export class AdminWarehouseTasksViewRaw extends Component {
       curOpenedTask,
       showTaskInfoModal,
       onTriggerOpenModal,
+
+      densityModel,
+      columnsModel,
 
       requestStatus,
       getCurrentData,
@@ -99,7 +101,8 @@ export class AdminWarehouseTasksViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={adminTasksViewColumns(this.renderAdminBtns)}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
@@ -107,7 +110,7 @@ export class AdminWarehouseTasksViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
                 />
               </div>
             </MainContent>

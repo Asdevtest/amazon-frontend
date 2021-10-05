@@ -32,13 +32,13 @@ export class AdminSettingsViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           curUserRole={UserRole.ADMIN}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={this.onTriggerDrawer}
+          setDrawerOpen={this.onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc=""
             curUserRole={UserRole.ADMIN}
-            handlerTriggerDrawer={this.onTriggerDrawer}
+            setDrawerOpen={this.onTriggerDrawer}
             title={textConsts.appbarTitle}
           >
             <MainContent>

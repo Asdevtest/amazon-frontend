@@ -74,7 +74,7 @@ export class BuyerUserProfileViewModel {
     this.showPrivateLabelModal = !this.showPrivateLabelModal
   }
 
-  onTriggerDrawerOpen(e, value) {
-    this.drawerOpen = value
+  onTriggerDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
   }
 }

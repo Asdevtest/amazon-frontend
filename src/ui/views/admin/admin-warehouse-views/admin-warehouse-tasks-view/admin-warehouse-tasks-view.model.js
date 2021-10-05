@@ -8,7 +8,10 @@ import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 
+import {adminTasksViewColumns} from '@components/table-columns/admin/tasks-columns'
+
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminWarehouseTasksViewModel {
   history = undefined
@@ -21,10 +24,16 @@ export class AdminWarehouseTasksViewModel {
 
   drawerOpen = false
 
+  rowHandlers = {
+    setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = adminTasksViewColumns(this.rowHandlers)
 
   showTaskInfoModal = false
 
@@ -45,7 +54,15 @@ export class AdminWarehouseTasksViewModel {
   }
 
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.ADMIN_TASKS)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_TASKS)
   }
 
   getDataGridState() {
@@ -54,8 +71,13 @@ export class AdminWarehouseTasksViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = adminTasksViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 
@@ -63,8 +85,8 @@ export class AdminWarehouseTasksViewModel {
     this.requestStatus = requestStatus
   }
 
-  onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+  onChangeDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
   }
 
   onChangeSortingModel(e) {

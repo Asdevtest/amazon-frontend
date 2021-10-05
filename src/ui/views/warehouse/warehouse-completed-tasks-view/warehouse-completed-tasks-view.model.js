@@ -8,7 +8,10 @@ import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 
+import {warehouseCompletedTasksViewColumns} from '@components/table-columns/warehouse/completed-tasks-columns'
+
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class WarehouseCompletedViewModel {
   history = undefined
@@ -20,10 +23,16 @@ export class WarehouseCompletedViewModel {
 
   drawerOpen = false
 
+  rowHandlers = {
+    setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers)
 
   showTaskInfoModal = false
 
@@ -32,8 +41,20 @@ export class WarehouseCompletedViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.WAREHOUSE_COMPLETED_TASKS)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_COMPLETED_TASKS)
   }
 
   getDataGridState() {
@@ -42,8 +63,13 @@ export class WarehouseCompletedViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 
@@ -61,10 +87,6 @@ export class WarehouseCompletedViewModel {
 
   onChangeSortingModel(e) {
     this.sortModel = e.sortModel
-  }
-
-  onSelectionModel(model) {
-    this.selectionModel = model
   }
 
   getCurrentData() {

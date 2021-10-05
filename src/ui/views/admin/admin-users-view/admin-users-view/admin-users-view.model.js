@@ -7,7 +7,9 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import {adminUsersViewColumns} from '@components/table-columns/admin/users-columns'
+
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminUsersViewModel {
   history = undefined
@@ -19,10 +21,17 @@ export class AdminUsersViewModel {
   selectionModel = undefined
   dataGridState = null
 
+  rowHandlers = {
+    onClickEditUser: () => this.onClickEditUser(),
+    onClickBalance: item => this.onClickBalance(item),
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = adminUsersViewColumns(this.rowHandlers)
 
   drawerOpen = false
 
@@ -35,7 +44,15 @@ export class AdminUsersViewModel {
   }
 
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.ADMIN_USERS)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_USERS)
   }
 
   getDataGridState() {
@@ -44,8 +61,13 @@ export class AdminUsersViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = adminUsersViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 

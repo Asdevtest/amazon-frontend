@@ -13,7 +13,6 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {clientOrdersViewColumns} from '@components/table-columns/client/client-orders-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -40,6 +39,8 @@ class ClientOrdersViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
 
       drawerOpen,
       rowsPerPage,
@@ -52,6 +53,7 @@ class ClientOrdersViewRaw extends Component {
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -91,7 +93,8 @@ class ClientOrdersViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={clientOrdersViewColumns()}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
@@ -99,8 +102,9 @@ class ClientOrdersViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>

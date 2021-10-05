@@ -13,7 +13,6 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {exchangeInventoryColumns} from '@components/table-columns/admin/inventory-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -37,6 +36,9 @@ export class AdminInventoryViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
+
       requestStatus,
       drawerOpen,
       curPage,
@@ -59,13 +61,13 @@ export class AdminInventoryViewRaw extends Component {
           activeCategory={activeCategory}
           curUserRole={UserRole.ADMIN}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={onTriggerDrawer}
+          setDrawerOpen={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc={avatar}
             curUserRole={UserRole.ADMIN}
-            handlerTriggerDrawer={onTriggerDrawer}
+            setDrawerOpen={onTriggerDrawer}
             title={textConsts.appbarTitle}
           >
             <MainContent>
@@ -78,7 +80,8 @@ export class AdminInventoryViewRaw extends Component {
                 classes={{
                   row: classNames.row,
                 }}
-                columns={exchangeInventoryColumns()}
+                density={densityModel}
+                columns={columnsModel}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}
@@ -96,7 +99,7 @@ export class AdminInventoryViewRaw extends Component {
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
-                onStateChange={e => setDataGridState(e.state)}
+                onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
                 onRowDoubleClick={e => onClickTableRow(e.row)}
               />
             </MainContent>

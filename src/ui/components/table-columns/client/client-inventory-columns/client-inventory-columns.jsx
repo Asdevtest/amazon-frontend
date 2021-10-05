@@ -14,7 +14,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientInventoryColumns
 
-export const clientInventoryColumns = ({barCodeHandlers}) => [
+export const clientInventoryColumns = barCodeHandlers => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,

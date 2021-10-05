@@ -14,7 +14,6 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {buyerProductsViewColumns} from '@components/table-columns/buyer/buyer-products-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -42,6 +41,8 @@ export class BuyerMyProductsViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
 
       drawerOpen,
       curPage,
@@ -54,6 +55,7 @@ export class BuyerMyProductsViewRaw extends Component {
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -97,7 +99,8 @@ export class BuyerMyProductsViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={buyerProductsViewColumns()}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
@@ -105,8 +108,9 @@ export class BuyerMyProductsViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>

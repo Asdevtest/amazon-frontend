@@ -25,7 +25,6 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 import {WarehouseHistory} from '@components/screens/warehouse/warehouse-history'
-import {clientBoxesViewColumns} from '@components/table-columns/client/client-boxes-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -52,6 +51,8 @@ export class ClientWarehouseViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
 
       curOpenedTask,
       tasksMy,
@@ -86,6 +87,7 @@ export class ClientWarehouseViewRaw extends Component {
       onClickSendBoxesToBatch,
       onClickMerge,
 
+      onChangeFilterModel,
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
@@ -100,12 +102,12 @@ export class ClientWarehouseViewRaw extends Component {
           activeSubCategory={activeSubCategory}
           curUserRole={UserRole.CLIENT}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={onTriggerDrawer}
+          setDrawerOpen={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc={avatar}
-            handlerTriggerDrawer={onTriggerDrawer}
+            setDrawerOpen={onTriggerDrawer}
             title={textConsts.appbarTitle}
             curUserRole={UserRole.CLIENT}
           >
@@ -139,13 +141,15 @@ export class ClientWarehouseViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={clientBoxesViewColumns()}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
                 />
               </div>
 

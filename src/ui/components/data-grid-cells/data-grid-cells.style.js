@@ -267,4 +267,12 @@ export const styles = createStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'center',
   },
+
+  rowCancelBtn: {
+    marginLeft: '10px',
+  },
+
+  marginRightBtn: {
+    marginRight: '10px',
+  },
 }))

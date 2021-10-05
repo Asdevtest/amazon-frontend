@@ -7,9 +7,15 @@ import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants
 import {ResearcherModel} from '@models/researcher-model'
 import {SettingsModel} from '@models/settings-model'
 
+import {researcherProductsViewColumns} from '@components/table-columns/researcher/researcher-products-columns'
+
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
-import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import {
+  getNewObjectWithDefaultValue,
+  getObjectFilteredByKeyArrayBlackList,
+  getObjectFilteredByKeyArrayWhiteList,
+} from '@utils/object'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
 const formFieldsDefault = {
@@ -37,14 +43,28 @@ export class ResearcherProductsViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = researcherProductsViewColumns()
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.RESEARCHER_PRODUCTS)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.RESEARCHER_PRODUCTS)
   }
 
   getDataGridState() {
@@ -53,8 +73,13 @@ export class ResearcherProductsViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = researcherProductsViewColumns().map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 

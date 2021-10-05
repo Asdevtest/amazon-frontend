@@ -10,12 +10,10 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {Navbar} from '@components/navbar'
-import {warehouseCanceledTasksViewColumns} from '@components/table-columns/warehouse/canceled-tasks-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -41,8 +39,9 @@ export class WarehouseCanceledTasksViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
 
-      // tasksMy,
       curOpenedTask,
       drawerOpen,
       curPage,
@@ -52,7 +51,6 @@ export class WarehouseCanceledTasksViewRaw extends Component {
       onChangeTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
-      // setCurrentOpenedTask,
       onTriggerOpenModal,
 
       onSelectionModel,
@@ -99,7 +97,8 @@ export class WarehouseCanceledTasksViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={warehouseCanceledTasksViewColumns(this.renderBtns)}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
@@ -107,7 +106,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
                 />
               </div>
             </MainContent>
@@ -121,14 +120,6 @@ export class WarehouseCanceledTasksViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderBtns = params => (
-    <React.Fragment>
-      <div>
-        <Button onClick={() => this.viewModel.setCurrentOpenedTask(params.row)}>{textConsts.showBtn}</Button>
-      </div>
-    </React.Fragment>
-  )
 }
 
 export const WarehouseCanceledTasksView = withStyles(styles)(WarehouseCanceledTasksViewRaw)

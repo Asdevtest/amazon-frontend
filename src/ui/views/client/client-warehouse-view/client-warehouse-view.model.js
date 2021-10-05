@@ -10,8 +10,10 @@ import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
 
+import {clientBoxesViewColumns} from '@components/table-columns/client/client-boxes-columns'
+
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const updateBoxBlackList = [
   '_id',
@@ -65,6 +67,8 @@ export class ClientWarehouseViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = clientBoxesViewColumns()
 
   get isMasterBoxSelected() {
     return this.selectedBoxes.some(boxId => {
@@ -78,8 +82,20 @@ export class ClientWarehouseViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.CLIENT_WAREHOUSE)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
   }
 
   getDataGridState() {
@@ -88,8 +104,10 @@ export class ClientWarehouseViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = clientBoxesViewColumns().map(el => ({...el, hide: state.columns.lookup[el.field].hide}))
     }
   }
 
@@ -110,9 +128,7 @@ export class ClientWarehouseViewModel {
   }
 
   onSelectionModel(model) {
-    console.log('model', model)
-
-    const boxes = this.boxesMy.filter(box => model.selectionModel.includes(box._id))
+    const boxes = this.boxesMy.filter(box => model.includes(+box.id))
     const res = boxes.reduce((ac, el) => ac.concat(el._id), [])
     this.selectedBoxes = res
   }

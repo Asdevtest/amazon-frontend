@@ -53,6 +53,7 @@ class BuyerBatchesViewRaw extends Component {
       onClickTableRow,
       onTriggerEditBoxesModal,
       onDoubleClickTableRow,
+      onTriggerDrawerOpen,
     } = this.viewModel
     const {classes: className} = this.props
     const rowsHandlers = {
@@ -65,7 +66,7 @@ class BuyerBatchesViewRaw extends Component {
           curUserRole={UserRole.BUYER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={this.onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
 
@@ -75,7 +76,7 @@ class BuyerBatchesViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             user={textConsts.appUser}
-            setDrawerOpen={this.onChangeDrawerOpen}
+            setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.BUYER}
           >
             <MainContent>

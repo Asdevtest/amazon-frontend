@@ -10,8 +10,6 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {NormDateCell, renderFieldValueCell} from '@components/data-grid-cells/data-grid-cells'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -28,66 +26,6 @@ import {styles} from './admin-users-view.style'
 const textConsts = getLocalizedTexts(texts, 'en').adminUsersView
 const navbarActiveCategory = 6
 
-const renderAdminSubUsersTableCells = renderBtns => [
-  {
-    field: 'createdAt',
-    headerName: 'Created',
-    renderCell: params => <NormDateCell params={params} />,
-    width: 150,
-    type: 'date',
-  },
-
-  {field: 'name', headerName: 'Name', width: 150},
-  {
-    field: 'balance',
-    headerName: 'Balance',
-    renderCell: params => renderFieldValueCell(params.row.balance),
-    width: 150,
-    type: 'number',
-  },
-
-  {
-    field: 'balanceFreeze',
-    headerName: 'Freeze',
-    renderCell: params => !params.value && '0',
-    width: 150,
-    type: 'number',
-  },
-
-  {field: 'email', headerName: 'Email', width: 150},
-
-  {
-    field: 'rate',
-    headerName: 'Rate',
-    renderCell: params => renderFieldValueCell(params.row.rate),
-    width: 150,
-    type: 'number',
-  },
-
-  {
-    field: 'tmpRole',
-    headerName: 'Role',
-    renderCell: params => renderFieldValueCell(params.row.tmpRole),
-    width: 150,
-  },
-
-  {
-    field: 'tmpActive',
-    headerName: 'User status',
-    renderCell: params => renderFieldValueCell(params.row.tmpActive),
-    width: 150,
-  },
-
-  {
-    field: '',
-    headerName: 'Admin',
-    renderCell: params => renderBtns(params),
-    width: 300,
-    filterable: false,
-    sortable: false,
-  },
-]
-
 @observer
 class AdminUsersViewRaw extends Component {
   viewModel = new AdminUsersViewModel({history: this.props.history})
@@ -102,6 +40,9 @@ class AdminUsersViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
+
       requestStatus,
       drawerOpen,
       curPage,
@@ -129,13 +70,13 @@ class AdminUsersViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           curUserRole={UserRole.ADMIN}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={onTriggerDrawer}
+          setDrawerOpen={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc={avatar}
             curUserRole={UserRole.ADMIN}
-            handlerTriggerDrawer={onTriggerDrawer}
+            setDrawerOpen={onTriggerDrawer}
             title={textConsts.appbarTitle}
           >
             <MainContent>
@@ -151,7 +92,8 @@ class AdminUsersViewRaw extends Component {
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[5, 10, 15, 20]}
                 rows={getCurrentData()}
-                columns={renderAdminSubUsersTableCells(this.renderAdminBtns)}
+                density={densityModel}
+                columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
                 components={{
                   Toolbar: GridToolbar,
@@ -162,7 +104,7 @@ class AdminUsersViewRaw extends Component {
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
-                onStateChange={e => setDataGridState(e.state)}
+                onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
               />
             </MainContent>
           </Appbar>
@@ -184,21 +126,6 @@ class AdminUsersViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderAdminBtns = params => (
-    <React.Fragment>
-      <Button
-        className={this.props.classes.editBtn}
-        variant="contained"
-        onClick={() => this.viewModel.onClickEditUser()}
-      >
-        {textConsts.editBtn}
-      </Button>
-      <Button variant="contained" onClick={() => this.viewModel.onClickBalance(params.row)}>
-        {textConsts.balanceBtn}
-      </Button>
-    </React.Fragment>
-  )
 }
 
 export const AdminUsersView = withStyles(styles)(AdminUsersViewRaw)

@@ -10,11 +10,9 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {warehouseBoxesViewColumns} from '@components/table-columns/warehouse/warehouse-boxes-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -39,6 +37,8 @@ export class WarehouseWarehouseViewRaw extends Component {
       sortModel,
       filterModel,
       requestStatus,
+      densityModel,
+      columnsModel,
 
       drawerOpen,
       curPage,
@@ -60,14 +60,10 @@ export class WarehouseWarehouseViewRaw extends Component {
           activeCategory={activeCategory}
           curUserRole={UserRole.STOREKEEPER}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={onTriggerDrawer}
+          setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar
-            handlerTriggerDrawer={onTriggerDrawer}
-            title={textConsts.appbarTitle}
-            curUserRole={UserRole.STOREKEEPER}
-          >
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle} curUserRole={UserRole.STOREKEEPER}>
             <MainContent>
               <Typography paragraph variant="h5">
                 {textConsts.mainTitle}
@@ -89,7 +85,8 @@ export class WarehouseWarehouseViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={warehouseBoxesViewColumns()}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
@@ -97,7 +94,7 @@ export class WarehouseWarehouseViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
                 />
               </div>
             </MainContent>
@@ -107,20 +104,20 @@ export class WarehouseWarehouseViewRaw extends Component {
     )
   }
 
-  renderButtons = () => {
-    const {selectedBoxes, onClickConfirmSendToBatchBtn} = this.viewModel
-    return (
-      <Button
-        disableElevation
-        disabled={!selectedBoxes.length}
-        color="primary"
-        variant="contained"
-        onClick={onClickConfirmSendToBatchBtn}
-      >
-        {textConsts.confirmSendBatchBtn}
-      </Button>
-    )
-  }
+  // renderButtons = () => { ЭТА КНОПКА ЕЩЕ ПОЯВИТСЯ?
+  //   const {selectedBoxes, onClickConfirmSendToBatchBtn} = this.viewModel
+  //   return (
+  //     <Button
+  //       disableElevation
+  //       disabled={!selectedBoxes.length}
+  //       color="primary"
+  //       variant="contained"
+  //       onClick={onClickConfirmSendToBatchBtn}
+  //     >
+  //       {textConsts.confirmSendBatchBtn}
+  //     </Button>
+  //   )
+  // }
 }
 
 export const WarehouseWarehouseView = withStyles(styles)(WarehouseWarehouseViewRaw)

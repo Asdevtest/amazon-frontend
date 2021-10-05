@@ -152,12 +152,6 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.RESEARCHER],
   },
-  {
-    routePath: '/client/product',
-    component: ClientProductView,
-    exact: false,
-    permission: [UserRole.CLIENT],
-  },
 
   {
     routePath: '/client/dashboard',
@@ -168,6 +162,13 @@ export const privateRoutesConfigs = [
   {
     routePath: '/client/inventory',
     component: ClientInventoryView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
+    routePath: '/client/product',
+    component: ClientProductView,
     exact: false,
     permission: [UserRole.CLIENT],
   },

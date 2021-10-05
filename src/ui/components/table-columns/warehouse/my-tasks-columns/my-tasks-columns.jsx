@@ -7,13 +7,14 @@ import {
   TaskDescriptionCell,
   TaskStatusCell,
   renderFieldValueCell,
+  WarehouseMyTasksBtnsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseMyTasksTableColumns
 
-export const warehouseMyTasksViewColumns = renderBtns => [
+export const warehouseMyTasksViewColumns = handlers => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
@@ -50,7 +51,8 @@ export const warehouseMyTasksViewColumns = renderBtns => [
     field: 'action',
     headerName: textConsts.actionField,
     width: 250,
-    renderCell: params => renderBtns(params),
+
+    renderCell: params => <WarehouseMyTasksBtnsCell handlers={handlers} row={params.row} />,
     filterable: false,
     sortable: false,
   },

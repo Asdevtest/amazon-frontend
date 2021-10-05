@@ -7,6 +7,8 @@ import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
+import {clientExchangeViewColumns} from '@components/table-columns/client/client-exchange-columns'
+
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -27,16 +29,26 @@ export class ClientExchangeViewModel {
 
   selectedProduct = {}
 
+  rowHandlers = {
+    onClickLaunchPrivateLabelBtn: item => this.onClickLaunchPrivateLabelBtn(item),
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = clientExchangeViewColumns(this.rowHandlers)
 
   showOrderModal = false
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  onChangeFilterModel(model) {
+    this.filterModel = model
   }
 
   onDoubleClickBarcode = item => {
@@ -63,7 +75,15 @@ export class ClientExchangeViewModel {
   }
 
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.CLIENT_EXCHANGE)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_EXCHANGE)
   }
 
   getDataGridState() {
@@ -72,8 +92,13 @@ export class ClientExchangeViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = clientExchangeViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 
@@ -138,6 +163,7 @@ export class ClientExchangeViewModel {
 
   onClickLaunchPrivateLabelBtn(product) {
     this.selectedProduct = product
+    this.onTriggerOpenModal('showConfirmPayModal')
   }
 
   async createOrder(orderObject) {
@@ -182,6 +208,7 @@ export class ClientExchangeViewModel {
 
   async onClickBuyProductBtn(product) {
     try {
+      console.log('product ', product)
       const pickUpProductResult = await ClientModel.pickupProduct(product._id)
       console.log('pickUpProductResult ', pickUpProductResult)
       const makePaymentsResult = await ClientModel.makePayments([product._id])

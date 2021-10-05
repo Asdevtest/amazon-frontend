@@ -12,10 +12,7 @@ import {UserRole} from '@constants/user-roles'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {Navbar} from '@components/navbar'
-import {adminOrdersViewColumns} from '@components/table-columns/admin/orders-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -42,13 +39,13 @@ class AdminOrdersViewsRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
 
       drawerOpen,
-      modalBarcode,
       rowsPerPage,
       curPage,
       activeSubCategory,
-      onTriggerBarcodeModal,
       onChangeDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -99,7 +96,8 @@ class AdminOrdersViewsRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={adminOrdersViewColumns()}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
@@ -107,17 +105,13 @@ class AdminOrdersViewsRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
                 />
               </div>
             </MainContent>
           </Appbar>
         </Main>
-
-        <Modal openModal={modalBarcode} setOpenModal={onTriggerBarcodeModal}>
-          <SetBarcodeModal onCloseModal={onTriggerBarcodeModal} />
-        </Modal>
       </React.Fragment>
     )
   }

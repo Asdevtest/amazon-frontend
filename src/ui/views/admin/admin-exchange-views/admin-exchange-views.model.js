@@ -8,6 +8,10 @@ import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 
+import {exchangeProductsColumns} from '@components/table-columns/admin/exchange-columns'
+
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+
 const productsStatusBySubCategory = {
   0: ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT], // 5 статус
   1: ProductStatusByKey[ProductStatus.CHEKED_BY_SUPERVISOR], // 15 статус
@@ -34,6 +38,8 @@ export class AdminExchangeViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = exchangeProductsColumns({activeSubCategory: this.activeSubCategory})
 
   drawerOpen = false
   showSetBarcodeModal = false
@@ -79,7 +85,15 @@ export class AdminExchangeViewModel {
   }
 
   setActiveSubCategoryState(state) {
-    SettingsModel.setActiveSubCategoryState(state, ActiveSubCategoryTablesKeys.ADMIN_EXCHANGE)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setActiveSubCategoryState(requestState, ActiveSubCategoryTablesKeys.ADMIN_EXCHANGE)
   }
 
   setDataGridState(state) {
@@ -92,8 +106,13 @@ export class AdminExchangeViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = exchangeProductsColumns({activeSubCategory: this.activeSubCategory}).map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 

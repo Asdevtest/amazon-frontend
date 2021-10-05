@@ -8,7 +8,10 @@ import {warehouses} from '@constants/warehouses'
 import {BuyerModel} from '@models/buyer-model'
 import {SettingsModel} from '@models/settings-model'
 
+import {buyerFreeOrdersViewColumns} from '@components/table-columns/buyer/buyer-fre-orders-columns'
+
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class BuyerFreeOrdersViewModel {
   history = undefined
@@ -21,10 +24,16 @@ export class BuyerFreeOrdersViewModel {
   showBarcodeModal = false
   showOrderModal = false
 
+  rowHandlers = {
+    onClickTableRowBtn: item => this.onClickTableRowBtn(item),
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers)
 
   showWarningModal = false
 
@@ -33,8 +42,20 @@ export class BuyerFreeOrdersViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.BUYER_FREE_ORDERS)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.BUYER_FREE_ORDERS)
   }
 
   getDataGridState() {
@@ -43,8 +64,13 @@ export class BuyerFreeOrdersViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 
