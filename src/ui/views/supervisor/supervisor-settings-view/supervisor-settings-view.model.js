@@ -7,6 +7,8 @@ export class SupervisorSettingsViewModel {
   requestStatus = undefined
   error = undefined
 
+  drawerOpen = false
+
   formFields = undefined
 
   constructor({history}) {

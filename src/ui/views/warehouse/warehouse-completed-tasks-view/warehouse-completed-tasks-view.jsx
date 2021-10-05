@@ -10,12 +10,10 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {Navbar} from '@components/navbar'
-import {warehouseCompletedTasksViewColumns} from '@components/table-columns/warehouse/completed-tasks-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -41,6 +39,8 @@ export class WarehouseCompletedTasksViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
 
       curOpenedTask,
       drawerOpen,
@@ -52,9 +52,9 @@ export class WarehouseCompletedTasksViewRaw extends Component {
       onChangeRowsPerPage,
       onTriggerOpenModal,
 
-      onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -95,15 +95,14 @@ export class WarehouseCompletedTasksViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={warehouseCompletedTasksViewColumns(this.renderBtns)}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection[0])
-                  }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>
@@ -117,14 +116,6 @@ export class WarehouseCompletedTasksViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderBtns = params => (
-    <React.Fragment>
-      <div>
-        <Button onClick={() => this.viewModel.setCurrentOpenedTask(params.row)}>{textConsts.showBtn}</Button>
-      </div>
-    </React.Fragment>
-  )
 }
 
 export const WarehouseCompletedTasksView = withStyles(styles)(WarehouseCompletedTasksViewRaw)

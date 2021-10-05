@@ -5,15 +5,18 @@ import {texts} from '@constants/texts'
 import {
   renderFieldValueCell,
   SmallRowImageCell,
+  SuccessActionBtnCell,
   ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
+import {calcProductPrice} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixedWithDollarSign} from '@utils/text'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientExchangeTableColumns
 
-export const clientExchangeViewColumns = renderBtns => [
+export const clientExchangeViewColumns = handlers => [
   {
     field: 'image',
     headerName: textConsts.imageField,
@@ -80,7 +83,12 @@ export const clientExchangeViewColumns = renderBtns => [
     field: 'action',
     headerName: textConsts.actionField,
     width: 250,
-    renderCell: params => renderBtns(params),
+    renderCell: params => (
+      <SuccessActionBtnCell
+        bTnText={`${textConsts.byForBtn} ${toFixedWithDollarSign(calcProductPrice(params.row))}`}
+        onClickOkBtn={() => handlers.onClickLaunchPrivateLabelBtn(params.row)}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

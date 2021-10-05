@@ -7,8 +7,10 @@ import {ProductStatusByCode} from '@constants/product-status'
 import {SettingsModel} from '@models/settings-model'
 import {SupervisorModel} from '@models/supervisor-model'
 
+import {supervisorProductsViewColumns} from '@components/table-columns/supervisor/supervisor-products-columns'
+
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class SupervisorProductsViewModel {
   history = undefined
@@ -23,14 +25,28 @@ export class SupervisorProductsViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = supervisorProductsViewColumns()
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.SUPERVISOR_PRODUCTS)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SUPERVISOR_PRODUCTS)
   }
 
   getDataGridState() {
@@ -39,8 +55,13 @@ export class SupervisorProductsViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = supervisorProductsViewColumns().map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 

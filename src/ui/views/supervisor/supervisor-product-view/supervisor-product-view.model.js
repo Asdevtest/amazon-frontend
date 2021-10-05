@@ -304,8 +304,8 @@ export class SupervisorProductViewModel {
     this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
   }
 
-  onTriggerDrawerOpen(e, value) {
-    this.drawerOpen = value
+  onTriggerDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
   }
 
   setRequestStatus(requestStatus) {

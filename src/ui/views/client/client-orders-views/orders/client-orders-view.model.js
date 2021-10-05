@@ -8,7 +8,10 @@ import {warehouses} from '@constants/warehouses'
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
 
+import {clientOrdersViewColumns} from '@components/table-columns/client/client-orders-columns'
+
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class ClientOrdersViewModel {
   history = undefined
@@ -23,14 +26,28 @@ export class ClientOrdersViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = clientOrdersViewColumns()
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.CLIENT_ORDERS)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_ORDERS)
   }
 
   getDataGridState() {
@@ -39,8 +56,10 @@ export class ClientOrdersViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = clientOrdersViewColumns().map(el => ({...el, hide: state.columns.lookup[el.field].hide}))
     }
   }
 
@@ -111,8 +130,8 @@ export class ClientOrdersViewModel {
     this.history.push('/client/orders/order', {order: toJS(order)})
   }
 
-  onTriggerDrawerOpen(e, value) {
-    this.drawerOpen = value
+  onTriggerDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
   }
 
   onChangeCurPage(e) {

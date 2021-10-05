@@ -36,13 +36,13 @@ export class AdminFinancesReplenishmentsViewRaw extends Component {
           activeSubCategory={activeSubCategory}
           curUserRole={UserRole.ADMIN}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={this.onTriggerDrawer}
+          setDrawerOpen={this.onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc=""
             curUserRole={UserRole.ADMIN}
-            handlerTriggerDrawer={this.onTriggerDrawer}
+            setDrawerOpen={this.onTriggerDrawer}
             title={textConsts.appbarTitle}
           >
             <MainContent>

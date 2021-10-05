@@ -834,6 +834,9 @@ export const texts = {
       changeStatus: ' изменил статус на ',
       receive: 'Принять коробку',
       edit: 'Изменить коробку',
+
+      cancelBtn: 'Отмена',
+      resolveBtn: 'Решить',
     },
 
     subUsersModalContent: {
@@ -1519,6 +1522,7 @@ export const texts = {
       buyerCommentField: 'Комментарий закупщика',
       createdAtField: 'Создан',
       actionField: 'Действие',
+      pickUp: 'Взять в работу',
     },
 
     adminBoxesTableColumns: {
@@ -1535,6 +1539,20 @@ export const texts = {
       trackIdField: 'Трек id',
       weightField: 'Финальный Вес',
       grossWeightField: 'Общий вес',
+    },
+
+    adminUsersTableColumns: {
+      createdAtField: 'Created',
+      balanceField: 'Balance',
+      freezeField: 'Freeze',
+      emailField: 'Email',
+      rateField: 'Rate',
+      roleField: 'Role',
+      statusField: 'User status',
+      actionsField: 'Actions',
+
+      editBtnText: 'Edit User',
+      balanceBtnText: 'Balance',
     },
 
     clientBoxesTableColumns: {
@@ -1581,6 +1599,8 @@ export const texts = {
       operatioTypeSplit: 'Разделить',
       operatioTypeReceive: 'Принять',
       operatioTypeEdit: 'Изменить',
+
+      actionBtn: 'Смотреть подробнее',
     },
 
     researcherProductsTableColumns: {
@@ -1630,6 +1650,7 @@ export const texts = {
       operatioTypeSplit: 'Разделить',
       operatioTypeReceive: 'Принять',
       operatioTypeEdit: 'Изменить',
+      pickUp: 'Взять в работу',
     },
 
     clientExchangeTableColumns: {
@@ -1642,6 +1663,7 @@ export const texts = {
       fbaamountField: 'Recommend batch',
       researcherField: 'Researcher',
       buyerField: 'Buyer',
+      byForBtn: 'Купить за',
     },
 
     warehouseMyTasksTableColumns: {
@@ -1670,6 +1692,7 @@ export const texts = {
       operatioTypeSplit: 'Разделить',
       operatioTypeReceive: 'Принять',
       operatioTypeEdit: 'Изменить',
+      showBtn: 'Смотреть',
     },
 
     warehouseCompletedTasksTableColumns: {
@@ -1684,6 +1707,7 @@ export const texts = {
       operatioTypeSplit: 'Разделить',
       operatioTypeReceive: 'Принять',
       operatioTypeEdit: 'Изменить',
+      showBtn: 'Смотреть',
     },
 
     clientOrderView: {

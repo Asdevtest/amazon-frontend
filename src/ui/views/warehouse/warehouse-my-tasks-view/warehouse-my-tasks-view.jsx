@@ -6,13 +6,11 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {TaskOperationType} from '@constants/task-operation-type'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
-import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {Field} from '@components/field/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -20,7 +18,6 @@ import {Modal} from '@components/modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
-import {warehouseMyTasksViewColumns} from '@components/table-columns/warehouse/my-tasks-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -45,6 +42,8 @@ export class WarehouseMyTasksViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
 
       drawerOpen,
       curPage,
@@ -71,6 +70,7 @@ export class WarehouseMyTasksViewRaw extends Component {
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -114,7 +114,8 @@ export class WarehouseMyTasksViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={warehouseMyTasksViewColumns(this.renderBtns)}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
@@ -122,7 +123,8 @@ export class WarehouseMyTasksViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>
@@ -186,25 +188,6 @@ export class WarehouseMyTasksViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderBtns = params => (
-    <React.Fragment>
-      <div>
-        <Button onClick={() => this.viewModel.onClickResolveBtn(params.row)}>{textConsts.resolveBtn}</Button>
-
-        {params.row.operationType !== TaskOperationType.RECEIVE && (
-          <ErrorButton
-            className={this.props.classes.rowCancelBtn}
-            onClick={() => {
-              this.viewModel.onClickCancelTask(params.row.boxes[0]._id, params.row.id, params.row.operationType)
-            }}
-          >
-            {textConsts.cancelBtn}
-          </ErrorButton>
-        )}
-      </div>
-    </React.Fragment>
-  )
 }
 
 export const WarehouseMyTasksView = withStyles(styles)(WarehouseMyTasksViewRaw)

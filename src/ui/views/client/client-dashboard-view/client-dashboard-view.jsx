@@ -44,13 +44,13 @@ export class ClientDashboardViewRaw extends Component {
           curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={onTriggerDrawer}
+          setDrawerOpen={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc={avatar}
             curUserRole={UserRole.CLIENT}
-            handlerTriggerDrawer={onTriggerDrawer}
+            setDrawerOpen={onTriggerDrawer}
             title={textConsts.appbarTitle}
             balance={balance}
           >

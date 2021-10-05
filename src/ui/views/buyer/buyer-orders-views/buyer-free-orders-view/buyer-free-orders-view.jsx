@@ -14,14 +14,12 @@ import {UserRole} from '@constants/user-roles'
 import {warehouses} from '@constants/warehouses'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
-import {buyerFreeOrdersViewColumns} from '@components/table-columns/buyer/buyer-fre-orders-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -48,6 +46,8 @@ class BuyerFreeOrdersViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
 
       ordersVacant,
       drawerOpen,
@@ -66,6 +66,7 @@ class BuyerFreeOrdersViewRaw extends Component {
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -104,7 +105,8 @@ class BuyerFreeOrdersViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={buyerFreeOrdersViewColumns(this.renderBtns)}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
@@ -112,7 +114,8 @@ class BuyerFreeOrdersViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>
@@ -145,13 +148,6 @@ class BuyerFreeOrdersViewRaw extends Component {
       </React.Fragment>
     )
   }
-  renderBtns = params => (
-    <React.Fragment>
-      <div>
-        <Button onClick={() => this.viewModel.onClickTableRowBtn(params.row)}>{textConsts.pickUp}</Button>
-      </div>
-    </React.Fragment>
-  )
 }
 
 export const BuyerFreeOrdersView = withStyles(styles)(BuyerFreeOrdersViewRaw)

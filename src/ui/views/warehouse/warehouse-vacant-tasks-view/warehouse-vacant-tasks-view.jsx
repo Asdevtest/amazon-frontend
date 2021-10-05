@@ -10,12 +10,10 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
-import {warehouseVacantTasksViewColumns} from '@components/table-columns/warehouse/vacant-tasks-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -40,6 +38,8 @@ export class WarehouseVacantTasksViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
 
       drawerOpen,
       curPage,
@@ -53,6 +53,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -93,7 +94,8 @@ export class WarehouseVacantTasksViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={warehouseVacantTasksViewColumns(this.renderBtns)}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
@@ -101,7 +103,8 @@ export class WarehouseVacantTasksViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>
@@ -119,14 +122,6 @@ export class WarehouseVacantTasksViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderBtns = params => (
-    <React.Fragment>
-      <div>
-        <Button onClick={() => this.viewModel.onClickPickupBtn(params.row)}>{textConsts.pickUp}</Button>
-      </div>
-    </React.Fragment>
-  )
 }
 
 export const WarehouseVacantTasksView = withStyles(styles)(WarehouseVacantTasksViewRaw)

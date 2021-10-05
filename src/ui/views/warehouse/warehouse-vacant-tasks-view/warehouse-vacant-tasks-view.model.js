@@ -8,7 +8,10 @@ import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 
+import {warehouseVacantTasksViewColumns} from '@components/table-columns/warehouse/vacant-tasks-columns'
+
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class WarehouseVacantViewModel {
   history = undefined
@@ -21,18 +24,36 @@ export class WarehouseVacantViewModel {
   selectedTask = undefined
   showWarningModal = false
 
+  rowHandlers = {
+    onClickPickupBtn: item => this.onClickPickupBtn(item),
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers)
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.WAREHOUSE_VACANT_TASKS)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_VACANT_TASKS)
   }
 
   getDataGridState() {
@@ -41,8 +62,13 @@ export class WarehouseVacantViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 

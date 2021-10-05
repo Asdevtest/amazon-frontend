@@ -8,7 +8,10 @@ import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 
+import {warehouseCanceledTasksViewColumns} from '@components/table-columns/warehouse/canceled-tasks-columns'
+
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class WarehouseCanceledTasksViewModel {
   history = undefined
@@ -20,10 +23,16 @@ export class WarehouseCanceledTasksViewModel {
 
   drawerOpen = false
 
+  rowHandlers = {
+    setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers)
 
   showTaskInfoModal = false
 
@@ -32,8 +41,20 @@ export class WarehouseCanceledTasksViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
   setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS)
   }
 
   getDataGridState() {
@@ -42,8 +63,13 @@ export class WarehouseCanceledTasksViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 

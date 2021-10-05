@@ -11,7 +11,6 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -20,7 +19,6 @@ import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
-import {clientExchangeViewColumns} from '@components/table-columns/client/client-exchange-columns'
 
 import {calcProductPrice} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -53,6 +51,8 @@ export class ClientExchangeViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
 
       drawerOpen,
       curPage,
@@ -72,6 +72,7 @@ export class ClientExchangeViewRaw extends Component {
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -82,12 +83,12 @@ export class ClientExchangeViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={onTriggerDrawer}
+          setDrawerOpen={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc={avatar}
-            handlerTriggerDrawer={onTriggerDrawer}
+            setDrawerOpen={onTriggerDrawer}
             title={textConsts.appbarTitle}
             curUserRole={UserRole.CLIENT}
           >
@@ -111,7 +112,8 @@ export class ClientExchangeViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={clientExchangeViewColumns(this.renderBtns)}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
@@ -119,7 +121,8 @@ export class ClientExchangeViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>
@@ -174,21 +177,6 @@ export class ClientExchangeViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderBtns = params => (
-    <React.Fragment>
-      <div>
-        <SuccessButton
-          onClick={() => {
-            this.viewModel.onClickLaunchPrivateLabelBtn(params.row)
-            this.viewModel.onTriggerOpenModal('showConfirmPayModal')
-          }}
-        >
-          {`${textConsts.byForBtn} ${toFixedWithDollarSign(calcProductPrice(params.row))}`}
-        </SuccessButton>
-      </div>
-    </React.Fragment>
-  )
 
   renderModalHeadRow = () => (
     <TableRow>

@@ -44,8 +44,8 @@ export class AdminOrderViewModel {
     }
   }
 
-  onTriggerDrawerOpen(e, value) {
-    this.drawerOpen = value
+  onTriggerDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
   }
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus

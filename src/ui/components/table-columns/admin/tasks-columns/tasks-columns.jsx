@@ -2,13 +2,18 @@ import React from 'react'
 
 import {texts} from '@constants/texts'
 
-import {NormDateCell, TaskDescriptionCell, renderFieldValueCell} from '@components/data-grid-cells/data-grid-cells'
+import {
+  NormDateCell,
+  TaskDescriptionCell,
+  renderFieldValueCell,
+  NormalActionBtnCell,
+} from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'ru').adminTasksTableColumns
 
-export const adminTasksViewColumns = renderBtns => [
+export const adminTasksViewColumns = handlers => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
@@ -44,7 +49,12 @@ export const adminTasksViewColumns = renderBtns => [
     field: 'action',
     headerName: textConsts.actionField,
     width: 250,
-    renderCell: params => renderBtns(params),
+    renderCell: params => (
+      <NormalActionBtnCell
+        bTnText={textConsts.actionBtn}
+        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row)}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

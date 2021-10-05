@@ -14,7 +14,6 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {supervisorProductsViewColumns} from '@components/table-columns/supervisor/supervisor-products-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -45,6 +44,8 @@ class SupervisorProductsViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
 
       drawerOpen,
       curPage,
@@ -57,6 +58,7 @@ class SupervisorProductsViewRaw extends Component {
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -99,7 +101,8 @@ class SupervisorProductsViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={supervisorProductsViewColumns()}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
@@ -107,8 +110,9 @@ class SupervisorProductsViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>

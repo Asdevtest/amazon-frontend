@@ -80,8 +80,8 @@ export class ClientBatchesViewModel {
     this.rowsPerPage = Number(e.target.value)
     this.paginationPage = 1
   }
-  onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+  onChangeDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
   }
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus

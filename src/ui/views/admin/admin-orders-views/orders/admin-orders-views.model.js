@@ -9,6 +9,10 @@ import {warehouses} from '@constants/warehouses'
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 
+import {adminOrdersViewColumns} from '@components/table-columns/admin/orders-columns'
+
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+
 const ordersStatusBySubCategory = {
   0: undefined,
   1: OrderStatusByKey[OrderStatus.PAID],
@@ -26,12 +30,13 @@ export class AdminOrdersAllViewModel {
 
   activeSubCategory = SettingsModel.activeSubCategoryState[ActiveSubCategoryTablesKeys.ADMIN_ORDERS] || 0
   drawerOpen = false
-  modalBarcode = false
 
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = adminOrdersViewColumns()
 
   constructor({history}) {
     this.history = history
@@ -39,7 +44,15 @@ export class AdminOrdersAllViewModel {
   }
 
   setActiveSubCategoryState(state) {
-    SettingsModel.setActiveSubCategoryState(state, ActiveSubCategoryTablesKeys.ADMIN_ORDERS)
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setActiveSubCategoryState(requestState, ActiveSubCategoryTablesKeys.ADMIN_ORDERS)
   }
 
   setDataGridState(state) {
@@ -52,8 +65,13 @@ export class AdminOrdersAllViewModel {
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
-      this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = adminOrdersViewColumns().map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 
@@ -109,12 +127,8 @@ export class AdminOrdersAllViewModel {
     this.selectionModel = model
   }
 
-  onTriggerBarcodeModal() {
-    this.modalBarcode = !this.modalBarcode
-  }
-
-  onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+  onChangeDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
   }
 
   onChangeCurPage = e => {

@@ -55,12 +55,12 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={onTriggerDrawer}
+          setDrawerOpen={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc={avatar}
-            handlerTriggerDrawer={onTriggerDrawer}
+            setDrawerOpen={onTriggerDrawer}
             title={textConsts.appbarTitle}
             curUserRole={UserRole.CLIENT}
           >

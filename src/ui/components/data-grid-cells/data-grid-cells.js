@@ -8,6 +8,9 @@ import {TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 import {texts} from '@constants/texts'
 
+import {ErrorButton} from '@components/buttons/error-button/error-button'
+import {SuccessButton} from '@components/buttons/success-button/success-button'
+
 import {
   formatDateDistanceFromNow,
   formatDateTime,
@@ -206,7 +209,7 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, par
     <div className={classNames.blockProductsImagesWrapper}>
       <>
         {params.row.boxesBefore && params.row.boxesBefore.map((box, index) => renderProductImage(box, index))}
-        <Typography>{'=>'}</Typography>
+        {!hideImage && <Typography>{'=>'}</Typography>}
       </>
 
       {params.row.boxes.map((box, index) => renderProductImage(box, index))}
@@ -297,3 +300,54 @@ export const ToFixedWithDollarSignCell = withStyles(styles)(({classes: className
     {!value ? (value === 0 ? 0 : 'N/A') : toFixedWithDollarSign(value, fix)}
   </div>
 ))
+
+export const SuccessActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText}) => (
+  <div>
+    <SuccessButton onClick={onClickOkBtn}>{bTnText}</SuccessButton>
+  </div>
+))
+
+export const NormalActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText}) => (
+  <div>
+    <Button variant="contained" color="primary" onClick={onClickOkBtn}>
+      {bTnText}
+    </Button>
+  </div>
+))
+
+export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
+  <div>
+    <Button variant="contained" color="primary" onClick={() => handlers.onClickResolveBtn(row)}>
+      {textConsts.resolveBtn}
+    </Button>
+
+    {row.operationType !== TaskOperationType.RECEIVE && (
+      <ErrorButton
+        className={classNames.rowCancelBtn}
+        onClick={() => {
+          handlers.onClickCancelTask(row.boxes[0]._id, row.id, row.operationType)
+        }}
+      >
+        {textConsts.cancelBtn}
+      </ErrorButton>
+    )}
+  </div>
+))
+
+export const AdminUsersActionBtnsCell = withStyles(styles)(
+  ({classes: classNames, row, handlers, editBtnText, balanceBtnText}) => (
+    <React.Fragment>
+      <Button
+        className={classNames.marginRightBtn}
+        variant="contained"
+        color="primary"
+        onClick={() => handlers.onClickEditUser()}
+      >
+        {editBtnText}
+      </Button>
+      <Button variant="contained" color="primary" onClick={() => handlers.onClickBalance(row)}>
+        {balanceBtnText}
+      </Button>
+    </React.Fragment>
+  ),
+)

@@ -13,7 +13,6 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {adminBoxesViewColumns} from '@components/table-columns/admin/boxes-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -41,6 +40,8 @@ export class AdminWarehouseBoxesViewRaw extends Component {
       sortModel,
       filterModel,
       requestStatus,
+      densityModel,
+      columnsModel,
 
       drawerOpen,
       curPage,
@@ -61,13 +62,13 @@ export class AdminWarehouseBoxesViewRaw extends Component {
           activeSubCategory={activeSubCategory}
           curUserRole={UserRole.ADMIN}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={onTriggerDrawer}
+          setDrawerOpen={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc={avatar}
             curUserRole={UserRole.ADMIN}
-            handlerTriggerDrawer={onTriggerDrawer}
+            setDrawerOpen={onTriggerDrawer}
             title={textConsts.appbarTitle}
           >
             <MainContent>
@@ -84,7 +85,8 @@ export class AdminWarehouseBoxesViewRaw extends Component {
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[5, 10, 15, 20]}
                 rows={getCurrentData()}
-                columns={adminBoxesViewColumns()}
+                density={densityModel}
+                columns={columnsModel}
                 rowHeight={100}
                 loading={requestStatus === loadingStatuses.isLoading}
                 components={{
@@ -96,7 +98,7 @@ export class AdminWarehouseBoxesViewRaw extends Component {
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
-                onStateChange={e => setDataGridState(e.state)}
+                onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
               />
             </MainContent>
           </Appbar>

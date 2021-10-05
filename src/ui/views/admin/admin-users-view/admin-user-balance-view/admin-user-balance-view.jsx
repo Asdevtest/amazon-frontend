@@ -53,13 +53,13 @@ class AdminUserBalanceViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           curUserRole={UserRole.ADMIN}
           drawerOpen={drawerOpen}
-          handlerTriggerDrawer={onTriggerDrawer}
+          setDrawerOpen={onTriggerDrawer}
         />
         <Main>
           <Appbar
             avatarSrc={avatar}
             curUserRole={UserRole.ADMIN}
-            handlerTriggerDrawer={onTriggerDrawer}
+            setDrawerOpen={onTriggerDrawer}
             title={textConsts.appbarTitle}
           >
             <MainContent>

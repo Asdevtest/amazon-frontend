@@ -17,6 +17,8 @@ import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 
+import {warehouseMyTasksViewColumns} from '@components/table-columns/warehouse/my-tasks-columns'
+
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -41,16 +43,27 @@ export class WarehouseVacantViewModel {
   showEditBoxModal = false
   showCancelTaskModal = false
 
+  rowHandlers = {
+    onClickResolveBtn: item => this.onClickResolveBtn(item),
+    onClickCancelTask: (boxid, id, operationType) => this.onClickCancelTask(boxid, id, operationType),
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = warehouseMyTasksViewColumns(this.rowHandlers)
 
   tmpDataForCancelTask = {}
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  onChangeFilterModel(model) {
+    this.filterModel = model
   }
 
   setDataGridState(state) {
@@ -67,6 +80,12 @@ export class WarehouseVacantViewModel {
       this.filterModel = state.filter
       this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns.lookup[el.field].hide,
+      }))
     }
   }
 

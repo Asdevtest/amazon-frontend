@@ -14,7 +14,6 @@ import {ResearcherAddProductForm} from '@components/forms/reasearcher-add-produc
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {researcherProductsViewColumns} from '@components/table-columns/researcher/researcher-products-columns'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -41,6 +40,8 @@ class ResearcherProductsViewRaw extends Component {
       getCurrentData,
       sortModel,
       filterModel,
+      densityModel,
+      columnsModel,
 
       drawerOpen,
       rowsPerPage,
@@ -60,6 +61,7 @@ class ResearcherProductsViewRaw extends Component {
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -113,7 +115,8 @@ class ResearcherProductsViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
-                  columns={researcherProductsViewColumns()}
+                  density={densityModel}
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
@@ -121,8 +124,9 @@ class ResearcherProductsViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => setDataGridState(e.state)}
+                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>
