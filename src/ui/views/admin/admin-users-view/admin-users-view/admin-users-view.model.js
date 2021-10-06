@@ -43,6 +43,10 @@ export class AdminUsersViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
   setDataGridState(state) {
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
@@ -100,7 +104,17 @@ export class AdminUsersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
-      const data = getObjectFilteredByKeyArrayBlackList(this.editUserFormFields, ['_id', 'id', 'createdAt'])
+      const data = getObjectFilteredByKeyArrayBlackList(this.editUserFormFields, [
+        '_id',
+        'id',
+        'createdAt',
+        'tmpActive',
+        'tmpRole',
+      ])
+
+      console.log('this.selectionModel', this.selectionModel)
+      console.log('data', data)
+
       await AdministratorModel.updateUser(this.selectionModel, data)
       await this.getUsers()
       this.setRequestStatus(loadingStatuses.success)

@@ -50,6 +50,10 @@ export class AdminExchangeViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
   onChangeSubCategory(value) {
     this.setActiveSubCategoryState(value)
     this.activeSubCategory = value

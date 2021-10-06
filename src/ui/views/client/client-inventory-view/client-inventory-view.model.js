@@ -112,7 +112,7 @@ export class ClientInventoryViewModel {
   }
 
   onSelectionModel(model) {
-    this.selectedRowIds = [model]
+    this.selectedRowIds = model
   }
 
   getCurrentData() {

@@ -43,6 +43,10 @@ export class AdminOrdersAllViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
   setActiveSubCategoryState(state) {
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',

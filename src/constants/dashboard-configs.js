@@ -25,6 +25,11 @@ export const getResearcherDashboardCardConfig = textConsts => [
 export const SupervisorDashboardCardDataKey = {
   NEW_PRODUCTS: 'NEW_PRODUCTS',
   ME_CHECKING: 'ME_CHECKING',
+
+  SUPLIER_FOUNDED: 'SUPLIER_FOUNDED',
+  COMPLETE_SUCCESS: 'COMPLETE_SUCCESS',
+  PURCHASED: 'PURCHASED',
+
   ACCURED: 'ACCURED',
   FINES: 'FINES',
 }
@@ -41,6 +46,23 @@ export const getSupervisorDashboardCardConfig = textConsts => [
     color: '#FFC107',
     route: '/supervisor/products',
   },
+
+  {
+    dataKey: SupervisorDashboardCardDataKey.SUPLIER_FOUNDED,
+    title: textConsts.suplierFoundedCardTitle,
+    color: '#4d23c2',
+  },
+  {
+    dataKey: SupervisorDashboardCardDataKey.COMPLETE_SUCCESS,
+    title: textConsts.completeSuccessCardTitle,
+    color: '#236dc2',
+  },
+  {
+    dataKey: SupervisorDashboardCardDataKey.PURCHASED,
+    title: textConsts.purchasedCardTitle,
+    color: '#5fc2b0',
+  },
+
   {
     dataKey: SupervisorDashboardCardDataKey.ACCURED,
     title: textConsts.accuredCardTitle,

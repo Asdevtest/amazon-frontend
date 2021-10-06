@@ -55,6 +55,7 @@ class AdminOrdersViewsRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onClickTableRow,
+      onChangeFilterModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -105,8 +106,9 @@ class AdminOrdersViewsRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
+                  onStateChange={e => e.state.rows.totalRowCount > 0 && setDataGridState(e.state)}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>

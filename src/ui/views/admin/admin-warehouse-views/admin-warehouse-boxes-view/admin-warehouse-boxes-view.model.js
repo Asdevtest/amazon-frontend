@@ -36,6 +36,10 @@ export class AdminWarehouseBoxesViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
   onChangeSortingModel(e) {
     this.sortModel = e.sortModel
   }

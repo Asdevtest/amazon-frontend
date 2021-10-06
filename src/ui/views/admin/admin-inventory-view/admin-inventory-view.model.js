@@ -34,6 +34,10 @@ export class AdminInventoryViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
   setDataGridState(state) {
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',

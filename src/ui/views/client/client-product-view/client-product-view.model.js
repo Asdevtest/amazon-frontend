@@ -61,12 +61,12 @@ export class ClientProductViewModel {
     if (location.state) {
       const product = {
         ...location.state.product,
-        supplier: location.state.product.supplier.map(supplierItem =>
+        supplier: location.state.product.suppliers.map(supplierItem =>
           typeof supplierItem === 'string' ? supplierItem : supplierItem._id,
         ),
       }
       this.product = product
-      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.supplier
+      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.suppliers
       this.updateAutoCalculatedFields()
     }
     makeAutoObservable(this, undefined, {autoBind: true})

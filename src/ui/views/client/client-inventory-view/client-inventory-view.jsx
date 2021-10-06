@@ -147,7 +147,7 @@ export class ClientInventoryViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
+                  onStateChange={e => e.state.rows.totalRowCount > 0 && setDataGridState(e.state)}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>

@@ -32,6 +32,7 @@ export class ResearcherProductView extends Component {
 
   render() {
     const {
+      alertFailedText,
       showProgress,
       progressValue,
       drawerOpen,
@@ -75,6 +76,7 @@ export class ResearcherProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  alertFailedText={alertFailedText}
                   curUserRole={UserRole.RESEARCHER}
                   product={product}
                   suppliers={suppliers}

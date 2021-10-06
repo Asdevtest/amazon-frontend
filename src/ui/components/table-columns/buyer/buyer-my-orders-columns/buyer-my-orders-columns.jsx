@@ -41,6 +41,14 @@ export const buyerMyOrdersViewColumns = () => [
   {field: 'amount', headerName: textConsts.amountField, type: 'number', width: 130},
 
   {
+    field: 'updatedAt',
+    headerName: textConsts.updatedAtField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 150,
+    type: 'date',
+  },
+
+  {
     field: 'tmpBarCode',
     headerName: textConsts.barcodeField,
     renderCell: params => <NoActiveBarcodeCell barCode={params.row.tmpBarCode} />,

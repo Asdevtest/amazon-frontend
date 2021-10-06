@@ -84,9 +84,7 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
     display: 'flex',
   },
-  typoCheckbox: {
-    marginRight: '16px',
-  },
+
   supplierContainer: {
     marginBottom: '20px',
   },
@@ -165,5 +163,6 @@ export const useClassNames = makeStyles(() => ({
 
   productCheckboxBoxesWrapper: {
     display: 'flex',
+    gap: '20px',
   },
 }))

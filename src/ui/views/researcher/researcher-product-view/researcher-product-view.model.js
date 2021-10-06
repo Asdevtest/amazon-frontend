@@ -74,11 +74,14 @@ const formFieldsDefault = {
   fbaamount: '',
 }
 
+const fieldsNotFilledText = 'Не заполнены поля'
+
 export class ResearcherProductViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
   actionStatus = undefined
+  alertFailedText = undefined
 
   product = undefined
   curUpdateProductData = {}
@@ -108,7 +111,7 @@ export class ResearcherProductViewModel {
     if (location.state) {
       const product = {
         ...location.state.product,
-        suppliers: location.state.product.suppliers.map(supplierItem =>
+        suppliers: location.state.product.suppliers?.map(supplierItem =>
           typeof supplierItem === 'string' ? supplierItem : supplierItem._id,
         ),
       }
@@ -248,9 +251,6 @@ export class ResearcherProductViewModel {
         this.product.suppliers
         this.selectedSupplier = undefined
       })
-
-      const forcedSaveSupplierItem = {supplier: [...this.product.suppliers]}
-      await this.onForcedSaveSelectedFields(forcedSaveSupplierItem)
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -283,6 +283,8 @@ export class ResearcherProductViewModel {
 
   async openConfirmModalWithTextByStatus() {
     try {
+      this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+
       const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
         toJS(this.product),
         fieldsOfProductAllowedToUpdate,
@@ -292,21 +294,21 @@ export class ResearcherProductViewModel {
             case 'status':
               return value < 10 && this.product.currentSupplier ? 10 : value
             case 'bsr':
-              return value && parseInt(value)
+              return (value && parseInt(value)) || ''
             case 'amazon':
-              return value && parseFloat(value)
+              return (value && parseFloat(value)) || ''
             case 'weight':
-              return value && parseFloat(value)
+              return (value && parseFloat(value)) || ''
             case 'length':
-              return value && parseFloat(value)
+              return (value && parseFloat(value)) || ''
             case 'width':
-              return value && parseFloat(value)
+              return (value && parseFloat(value)) || ''
             case 'height':
-              return value && parseFloat(value)
+              return (value && parseFloat(value)) || ''
             case 'fbaamount':
-              return value && parseFloat(value)
+              return (value && parseFloat(value)) || ''
             case 'fbafee':
-              return value && parseFloat(value)
+              return (value && parseFloat(value)) || ''
             case 'profit':
               return value && parseFloat(value)
             case 'currentSupplier':
@@ -319,8 +321,6 @@ export class ResearcherProductViewModel {
       runInAction(() => {
         this.curUpdateProductData = curUpdateProductData
       })
-
-      console.log('curUpdateProductData ', curUpdateProductData)
 
       await transformAndValidate(ResearcherUpdateProductContract, curUpdateProductData)
 
@@ -341,10 +341,12 @@ export class ResearcherProductViewModel {
         plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
           runInAction(() => {
             this.formFieldsValidationErrors[errorProperty] = constraint
+            this.alertFailedText = fieldsNotFilledText
           })
         })
       } else {
         console.warn('error ', error)
+        this.alertFailedText = undefined
         runInAction(() => {
           this.error = error
         })
@@ -410,9 +412,6 @@ export class ResearcherProductViewModel {
           this.product.suppliers.push(createSupplierResult.guid)
           this.suppliers.push({...supplier, _id: createSupplierResult.guid})
         })
-
-        const forcedSaveSupplierItem = {suppliers: [...this.product.suppliers]}
-        await this.onForcedSaveSelectedFields(forcedSaveSupplierItem)
       }
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
@@ -427,6 +426,7 @@ export class ResearcherProductViewModel {
   async onClickParseProductData(productDataParser, product) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
+      this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       const parseResult = await (() => {
         switch (productDataParser) {
           case ProductDataParser.AMAZON:
@@ -453,17 +453,17 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onForcedSaveSelectedFields(selectedFieldsObj) {
-    try {
-      await ResearcherModel.updateProduct(
-        this.product._id,
-        getObjectFilteredByKeyArrayBlackList(selectedFieldsObj, ['suppliers']),
-      )
-    } catch (error) {
-      this.setActionStatus(loadingStatuses.failed)
-      console.log('error', error)
-    }
-  }
+  // async onForcedSaveSelectedFields(selectedFieldsObj) { //МОЖЕТ ПРИГОДИТСЯ
+  //   try {
+  //     await ResearcherModel.updateProduct(
+  //       this.product._id,
+  //       getObjectFilteredByKeyArrayBlackList(selectedFieldsObj, ['suppliers']),
+  //     )
+  //   } catch (error) {
+  //     this.setActionStatus(loadingStatuses.failed)
+  //     console.log('error', error)
+  //   }
+  // }
 
   async onSaveProductData(editingСontinues) {
     try {

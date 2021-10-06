@@ -17,7 +17,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersTableColumns
 
 export const clientOrdersViewColumns = () => [
   {
-    field: 'createDate',
+    field: 'createdAt',
     headerName: textConsts.createDateField,
     width: 150,
     renderCell: params => <NormDateCell params={params} />,
