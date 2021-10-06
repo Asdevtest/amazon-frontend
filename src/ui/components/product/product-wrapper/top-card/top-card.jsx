@@ -24,6 +24,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 export const TopCard = observer(
   ({
+    alertFailedText,
     suppliers,
     curUserRole,
     onChangeField,
@@ -76,7 +77,9 @@ export const TopCard = observer(
                     elevation={0}
                     severity={actionStatus === loadingStatuses.success ? 'success' : 'error'}
                   >
-                    {actionStatus === loadingStatuses.success ? textConsts.alertSuccess : textConsts.alertFailed}
+                    {actionStatus === loadingStatuses.success
+                      ? textConsts.alertSuccess
+                      : alertFailedText || textConsts.alertFailed}
                   </Alert>
                 ) : undefined}
               </Grid>

@@ -289,7 +289,21 @@ export class WarehouseVacantViewModel {
               ],
               images: this.imagesOfBox || [],
             },
-            ['_id', 'id', 'status', 'createdBy', 'lastModifiedBy', 'createdAt', 'tmpImages', 'weightFinalAccountingKgWarehouse', 'buyerComment', 'shipmentPlanId', 'isDraft', 'scheduledDispatchDate', 'factDispatchDate'],
+            [
+              '_id',
+              'id',
+              'status',
+              'createdBy',
+              'lastModifiedBy',
+              'createdAt',
+              'tmpImages',
+              'weightFinalAccountingKgWarehouse',
+              'buyerComment',
+              'shipmentPlanId',
+              'isDraft',
+              'scheduledDispatchDate',
+              'factDispatchDate',
+            ],
           ),
         )
         await this.resolveTask(task.id, requestBoxes)

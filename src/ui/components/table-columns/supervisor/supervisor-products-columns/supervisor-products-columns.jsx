@@ -32,25 +32,7 @@ export const supervisorProductsViewColumns = () => [
   },
 
   {
-    field: 'status',
-    headerName: textConsts.statusField,
-    renderCell: params => <NormDateCell status={params.value} />,
-    minWidth: 350,
-    flex: 3,
-    filterable: false,
-  },
-
-
-  {
-    field: 'updateDate',
-    headerName: textConsts.updateDateField,
-    minWidth: 150,
-    renderCell: params => <NormDateCell params={params} />,
-    type: 'date',
-    flex: 2,
-  },
-  {
-    field: 'checkedAt',
+    field: 'updatedAt',
     headerName: textConsts.updateDateField,
     minWidth: 150,
     renderCell: params => <NormDateCell params={params} />,

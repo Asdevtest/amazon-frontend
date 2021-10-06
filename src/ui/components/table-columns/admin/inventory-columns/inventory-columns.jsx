@@ -22,7 +22,7 @@ const textConsts = getLocalizedTexts(texts, 'en').exchangeInventoryColumns
 
 export const exchangeInventoryColumns = () => [
   {
-    field: 'createdat',
+    field: 'createdAt',
     headerName: textConsts.createDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
@@ -30,7 +30,7 @@ export const exchangeInventoryColumns = () => [
   },
 
   {
-    field: 'updateDate',
+    field: 'updatedAt',
     headerName: textConsts.updateDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,

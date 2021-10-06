@@ -208,7 +208,7 @@ export class BuyerMyOrdersViewModel {
           'tmpWarehouses',
           'tmpDeliveryMethod',
           'tmpStatus',
-          'weightFinalAccountingKgSupplier'
+          'weightFinalAccountingKgSupplier',
         ]),
         clientId: this.selectedOrder.createdBy._id,
         deliveryMethod: formFields.deliveryMethod,

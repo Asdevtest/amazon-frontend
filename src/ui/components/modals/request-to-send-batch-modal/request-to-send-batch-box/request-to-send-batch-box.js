@@ -19,6 +19,7 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
       ? `${box.items[0].product.amazonTitle.slice(0, 30)}...`
       : box.items[0].product.amazonTitle
   const tableCellClsx = clsx(classNames.tableCell, {[classNames.boxNoPrice]: !price})
+
   return (
     <tr className={classNames.box}>
       <td className={tableCellClsx}>

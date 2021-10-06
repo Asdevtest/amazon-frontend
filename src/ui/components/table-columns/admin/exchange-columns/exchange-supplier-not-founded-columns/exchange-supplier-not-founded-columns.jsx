@@ -19,14 +19,14 @@ const textConsts = getLocalizedTexts(texts, 'en').exchangeSupplierFoundedColumns
 
 export const exchangeSupplierNotFoundedColumns = () => [
   {
-    field: 'createdat',
+    field: 'createdAt',
     headerName: textConsts.createDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
     type: 'date',
   },
   {
-    field: 'updateDate',
+    field: 'updatedAt',
     headerName: textConsts.updateDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
@@ -66,7 +66,6 @@ export const exchangeSupplierNotFoundedColumns = () => [
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
     renderCell: params => <DateCell params={params} />,
-    
   },
 
   {

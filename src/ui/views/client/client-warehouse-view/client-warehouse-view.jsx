@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {Component} from 'react'
 
 import {Typography, Paper} from '@material-ui/core'
@@ -149,7 +150,7 @@ export class ClientWarehouseViewRaw extends Component {
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
                   onFilterModelChange={model => onChangeFilterModel(model)}
-                  onStateChange={e => e.state.containerSizes?.isVirtualized && setDataGridState(e.state)}
+                  onStateChange={e => e.state.rows.totalRowCount > 0 && setDataGridState(e.state)}
                 />
               </div>
 
@@ -255,8 +256,14 @@ export class ClientWarehouseViewRaw extends Component {
   }
 
   renderButtons = () => {
-    const {selectedBoxes, isMasterBoxSelected, onTriggerOpenModal, onClickRequestToSendBatch} = this.viewModel
-    console.log('selectedBoxes ', selectedBoxes)
+    const {
+      selectedBoxes,
+      isMasterBoxSelected,
+      onTriggerOpenModal,
+      onClickRequestToSendBatch,
+      triggerRequestToSendBatchModal,
+    } = this.viewModel
+    // console.log('selectedBoxes ', selectedBoxes)
     return (
       <React.Fragment>
         <Button
@@ -265,6 +272,7 @@ export class ClientWarehouseViewRaw extends Component {
           color="primary"
           variant="contained"
           onClick={onClickRequestToSendBatch}
+          // onClick={triggerRequestToSendBatchModal}
         >
           {textConsts.sendBatchBtn}
         </Button>

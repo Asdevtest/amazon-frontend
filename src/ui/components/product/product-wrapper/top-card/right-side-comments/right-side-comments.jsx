@@ -4,6 +4,7 @@ import {Box, Grid, Typography, Button} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {productStatusButtonsConfigs} from '@constants/product-status-buttons-configs'
 import {texts} from '@constants/texts'
 
@@ -86,7 +87,8 @@ export const RightSideComments = observer(
             value={product.buyersComment}
             onChange={onChangeField('buyersComment')}
           />
-          {checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || checkIsBuyer(curUserRole) ? (
+          {(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || checkIsBuyer(curUserRole)) &&
+          product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] ? (
             <div className={classNames.buttonsWrapper}>
               <Button
                 className={classNames.buttonNormal}

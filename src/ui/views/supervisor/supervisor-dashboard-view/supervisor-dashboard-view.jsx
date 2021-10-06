@@ -5,6 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {getSupervisorDashboardCardConfig, SupervisorDashboardCardDataKey} from '@constants/dashboard-configs'
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -87,10 +88,20 @@ export class SupervisorDashboardViewRaw extends Component {
         return productsVacant.length
       case SupervisorDashboardCardDataKey.ME_CHECKING:
         return producatsMy.length
+
+      case SupervisorDashboardCardDataKey.SUPLIER_FOUNDED:
+        return producatsMy.filter(prod => prod.status === ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER]).length
+
+      case SupervisorDashboardCardDataKey.COMPLETE_SUCCESS:
+        return producatsMy.filter(prod => prod.status === ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]).length
+
+      case SupervisorDashboardCardDataKey.PURCHASED:
+        return producatsMy.filter(prod => prod.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]).length
+
       case SupervisorDashboardCardDataKey.ACCURED:
-        return paymentsMy.length
+        return paymentsMy.reduce((ac, el) => el.sum > 0 && ac + el.sum, 0)
       case SupervisorDashboardCardDataKey.FINES:
-        return 'N/A'
+        return paymentsMy.reduce((ac, el) => el.sum < 0 && ac + el.sum, 0)
     }
   }
 }

@@ -115,7 +115,6 @@ export class BuyerProductViewModel {
       }
       this.product = product
       this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.suppliers
-      console.log(product)
       this.updateAutoCalculatedFields()
     }
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -194,9 +193,6 @@ export class BuyerProductViewModel {
           this.product.currentSupplierId = undefined
         }
       })
-
-      const forcedSaveSupplierItem = {supplier: [...this.product.suppliers]}
-      await this.onForcedSaveSelectedFields(forcedSaveSupplierItem)
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -232,8 +228,6 @@ export class BuyerProductViewModel {
           }
         },
       )
-
-      console.log('this.curUpdateProductData ', this.curUpdateProductData)
 
       await transformAndValidate(BuyerUpdateProductContract, this.curUpdateProductData)
 
@@ -329,14 +323,14 @@ export class BuyerProductViewModel {
     }
   }
 
-  async onForcedSaveSelectedFields(selectedFieldsObj) {
-    try {
-      await BuyerModel.updateProduct(this.product._id, selectedFieldsObj)
-    } catch (error) {
-      this.setActionStatus(loadingStatuses.failed)
-      console.log('error', error)
-    }
-  }
+  // async onForcedSaveSelectedFields(selectedFieldsObj) {  МОЖЕТ ПРИГОДИТЬСЯ
+  //   try {
+  //     await BuyerModel.updateProduct(this.product._id, selectedFieldsObj)
+  //   } catch (error) {
+  //     this.setActionStatus(loadingStatuses.failed)
+  //     console.log('error', error)
+  //   }
+  // }
 
   async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
     try {
@@ -365,9 +359,6 @@ export class BuyerProductViewModel {
           this.product.suppliers.push(createSupplierResult.guid)
           this.suppliers.push({...supplier, _id: createSupplierResult.guid})
         })
-
-        const forcedSaveSupplierItem = {supplier: [...this.product.suppliers]}
-        await this.onForcedSaveSelectedFields(forcedSaveSupplierItem)
       }
 
       this.onTriggerAddOrEditSupplierModal()

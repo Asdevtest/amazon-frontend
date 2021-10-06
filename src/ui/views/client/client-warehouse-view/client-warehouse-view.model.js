@@ -37,7 +37,7 @@ const updateBoxBlackList = [
   'shipmentPlanId',
   'isDraft',
   'scheduledDispatchDate',
-  'factDispatchDate'
+  'factDispatchDate',
 ]
 
 export class ClientWarehouseViewModel {
@@ -128,8 +128,12 @@ export class ClientWarehouseViewModel {
   }
 
   onSelectionModel(model) {
-    const boxes = this.boxesMy.filter(box => model.includes(+box.id))
+    console.log('model', model)
+
+    const boxes = this.boxesMy.filter(box => model.includes(box.id))
     const res = boxes.reduce((ac, el) => ac.concat(el._id), [])
+
+    console.log('res', res)
     this.selectedBoxes = res
   }
 

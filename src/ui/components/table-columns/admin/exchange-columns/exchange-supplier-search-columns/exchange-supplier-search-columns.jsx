@@ -18,14 +18,14 @@ const textConsts = getLocalizedTexts(texts, 'en').exchangeSupplierSearchColumns
 
 export const exchangeSupplierSearchColumns = () => [
   {
-    field: 'createdat',
+    field: 'createdAt',
     headerName: textConsts.createDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
     type: 'date',
   },
   {
-    field: 'updateDate',
+    field: 'updatedAt',
     headerName: textConsts.updateDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
@@ -66,7 +66,6 @@ export const exchangeSupplierSearchColumns = () => [
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
     renderCell: params => <DateCell params={params} />,
-    
   },
 
   {

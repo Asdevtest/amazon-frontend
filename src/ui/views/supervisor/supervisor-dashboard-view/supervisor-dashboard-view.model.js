@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {OtherModel} from '@models/other-model'
 import {SupervisorModel} from '@models/supervisor-model'
 import {UserModel} from '@models/user-model'
 
@@ -42,7 +43,7 @@ export class SupervisorDashboardViewModel {
     try {
       const result = await SupervisorModel.getProductsVacant()
       runInAction(() => {
-        this.productsVacant = result
+        this.productsVacant = result.filter(el => el.icomment !== '')
       })
     } catch (error) {
       console.log(error)
@@ -64,7 +65,7 @@ export class SupervisorDashboardViewModel {
 
   async getPaymentsMy() {
     try {
-      const result = await SupervisorModel.getPaymentsMy()
+      const result = await OtherModel.getMyPayments()
       runInAction(() => {
         this.paymentsMy = result
       })

@@ -641,11 +641,17 @@ export const texts = {
       appBarUsername: 'Supervisor',
       appUser: 'supervisor',
       mainTitle: 'Dashboard',
+
       myProductsCardTitle: 'Мои товары',
       curBalanceCardTitle: 'Текущий баланс',
+
+      newProductsCardTitle: 'Новых товаров к проверке',
+      meCheckingCardTitle: 'Всего товаров',
+      suplierFoundedCardTitle: 'Поставщик найден',
+      completeSuccessCardTitle: 'Опубликованные на бирже',
+      purchasedCardTitle: 'Купленные',
+
       finesCardTitle: 'Штрафы',
-      newProductsCardTitle: 'Новых товаров в базе',
-      meCheckingCardTitle: 'У меня на проверке',
       accuredCardTitle: 'Начислено',
     },
 
@@ -1509,6 +1515,7 @@ export const texts = {
       clientCommentField: 'Комментарий клиента',
       buyerCommentField: 'Комментарий закупщика',
       createdAtField: 'Создан',
+      updatedAtField: 'Изменен',
     },
 
     buyerFreeOrdersTableColumns: {

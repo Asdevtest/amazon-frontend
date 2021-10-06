@@ -27,6 +27,7 @@ const TabPanel = ({children, value, index, ...other}) => (
 
 export const ProductWrapper = observer(
   ({
+    alertFailedText,
     curUserRole,
     product,
     suppliers,
@@ -52,6 +53,7 @@ export const ProductWrapper = observer(
         </Tabs>
         <TabPanel value={tabIndex} index={0}>
           <TopCard
+            alertFailedText={alertFailedText}
             curUserRole={curUserRole}
             product={product}
             suppliers={suppliers}

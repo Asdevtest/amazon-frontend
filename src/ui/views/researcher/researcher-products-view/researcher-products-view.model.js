@@ -150,16 +150,7 @@ export class ResearcherProductsViewModel {
 
       const foundedProd = this.products.find(prod => prod._id === this.newProductId)
 
-      const unclutteredProd = getObjectFilteredByKeyArrayBlackList(
-        {
-          ...foundedProd,
-        },
-        ['tmpStatus'],
-      )
-
-      this.history.push('/researcher/product', {
-        product: unclutteredProd,
-      })
+      this.history.push('/researcher/product', {product: toJS(foundedProd)})
     } catch (error) {
       console.warn(error)
     }
@@ -202,7 +193,7 @@ export class ResearcherProductsViewModel {
     try {
       const result = await ResearcherModel.getProductsVacant()
       runInAction(() => {
-        this.products = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
+        this.products = result.sort(sortObjectsArrayByFiledDate('createdat')).map(item => ({
           ...item,
           tmpStatus: ProductStatusByCode[item.status],
         }))

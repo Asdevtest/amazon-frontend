@@ -17,14 +17,14 @@ const textConsts = getLocalizedTexts(texts, 'en').exchangeCheckingColumns
 
 export const exchangeСreatedColumns = () => [
   {
-    field: 'createdat',
+    field: 'createdAt',
     headerName: textConsts.createDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
     type: 'date',
   },
   {
-    field: 'updateDate',
+    field: 'updatedAt',
     headerName: textConsts.updateDateField,
     renderCell: params => <DateCell params={params} />,
     width: 150,
