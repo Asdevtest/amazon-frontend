@@ -155,7 +155,7 @@ export class WarehouseVacantViewModel {
 
       runInAction(() => {
         this.tasksMy = result
-          .sort(sortObjectsArrayByFiledDate('updatedAt'))
+          .sort(sortObjectsArrayByFiledDate('createdAt'))
           .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS])
           .map(el => ({...el, beforeBoxes: el.boxesBefore}))
           .map(task => ({
@@ -195,7 +195,7 @@ export class WarehouseVacantViewModel {
     try {
       const imageFile = await OtherModel.postImage(formData)
 
-      this[imagesType].push('https://api1.kurakste.ru/uploads/' + imageFile.data.fileName)
+      this[imagesType].push('http://188.120.232.27:3636/uploads/' + imageFile.data.fileName)
     } catch (error) {
       this.error = error
     }
@@ -229,6 +229,7 @@ export class WarehouseVacantViewModel {
             'isShippingLabelAttachedByStorekeeper',
             'images',
           ],
+          false,
           (key, value) => {
             if (key === 'images') {
               return value || []

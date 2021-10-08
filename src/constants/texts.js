@@ -843,6 +843,8 @@ export const texts = {
 
       cancelBtn: 'Отмена',
       resolveBtn: 'Решить',
+
+      superboxTypo: 'SB',
     },
 
     subUsersModalContent: {
@@ -982,7 +984,7 @@ export const texts = {
       new: 'New',
       readyToProcess: 'Ready to process',
       atProcess: 'At process',
-      paid: 'Paid',
+      paid: 'Paid to supplier',
       trackNumberIssued: 'Track number issued',
       inStock: 'In stock',
       returnOrder: 'Return order',
@@ -1300,14 +1302,13 @@ export const texts = {
       suppliers: 'Поставщики',
       noBoxesYat: 'Коробок пока нет...',
       confirmTitle: 'Внимание.Вы уверены?',
-      confirmStatusMessage: 'Статус будет нельзя поменять на другой!',
-      confirmSubmitMessage: 'Вы уверены что все данные внесены верно? Действие НЕОБРАТИМО!',
+      confirmStatusMessage: 'После сохранения, статус нельзя изменить на более ранний!',
+      confirmSubmitMessage: 'Вы уверены что все данные внесены верно?',
       yesBtn: 'Да',
       noBtn: 'Нет',
       addBoxBtn: 'Добавить коробку',
       okBtn: 'ок',
-      firstWarning:
-        'После сохранения заполненной формы заказа - изменения статуса и содержания коробок будет НЕВОЗМОЖНО!!!',
+      firstWarning: 'БУДЬТЕ ВНИМАТЕЛЬНЫ!!!',
     },
     freeOrdersView: {
       mainTitle: 'Свободные заказы',

@@ -7,7 +7,9 @@ import {
   NoActiveBarcodeCell,
   NormDateCell,
   OrderCell,
+  OrderManyItemsCell,
   renderFieldValueCell,
+  SuperboxQtyCell,
   ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -28,7 +30,12 @@ export const warehouseBoxesViewColumns = () => [
     field: 'orders',
     headerName: textConsts.ordersField,
     width: 350,
-    renderCell: params => <OrderCell product={params.row.items[0].product} />,
+    renderCell: params =>
+      params.row.items.length > 1 ? (
+        <OrderManyItemsCell box={params.row} />
+      ) : (
+        <OrderCell product={params.row.items[0].product} superbox={params.row.amount > 1 && params.row.amount} />
+      ),
     filterable: false,
     sortable: false,
   },
@@ -56,7 +63,14 @@ export const warehouseBoxesViewColumns = () => [
   {
     field: 'tmpQty',
     headerName: textConsts.qtyField,
-    renderCell: params => renderFieldValueCell(params.row.tmpQty),
+    renderCell: params =>
+      params.row.amount > 1 ? (
+        <SuperboxQtyCell qty={params.row.tmpQty} superbox={params.row.amount} />
+      ) : params.row.items.length > 1 ? (
+        'X'
+      ) : (
+        renderFieldValueCell(params.row.tmpQty)
+      ),
     width: 150,
     type: 'number',
   },

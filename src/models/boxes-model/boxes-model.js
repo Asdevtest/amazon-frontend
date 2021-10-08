@@ -97,12 +97,12 @@ class BoxesModelStatic {
   }
 
   getBoxesOfOrder = async id => {
-    const response = await restApiService.boxesApi.apiV1BoxesOfOrderGet(id)
+    const response = await restApiService.boxesApi.apiV1BoxesByOrderGuidGuidGet(id)
     return response
   }
 
   getBoxesByProductId = async id => {
-    const response = await restApiService.boxesApi.apiV1BoxesByProduct(id)
+    const response = await restApiService.boxesApi.apiV1BoxesByProductGuidGuidGet(id)
     return response
   }
 

@@ -153,7 +153,7 @@ export class BuyerMyOrdersViewModel {
       await this.onSaveOrder(order, orderFields, boxesForCreation)
 
       if (boxesForCreation.length > 0) {
-        await this.onSubmitCreateBoxes(order._id, boxesForCreation)
+        await this.onSubmitCreateBoxes(order, boxesForCreation)
       }
 
       this.onTriggerOpenModal('showOrderModal')
@@ -179,27 +179,27 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitCreateBoxes(orderId, formFieldsArr) {
+  async onSubmitCreateBoxes(order, formFieldsArr) {
     try {
       this.error = undefined
 
       for (let i = 0; i < formFieldsArr.length; i++) {
         const elementOrderBox = formFieldsArr[i]
 
-        await this.onCreateBox(elementOrderBox)
+        await this.onCreateBox(elementOrderBox, order)
       }
 
       if (!this.error) {
         this.onTriggerOpenModal('showSuccessModal')
       }
-      await this.getBoxesOfOrder(orderId)
+      await this.getBoxesOfOrder(order._id)
     } catch (error) {
       console.log(error)
       throw error
     }
   }
 
-  async onCreateBox(formFields) {
+  async onCreateBox(formFields, order) {
     try {
       const createBoxData = {
         ...getObjectFilteredByKeyArrayBlackList(formFields, [
@@ -235,6 +235,7 @@ export class BuyerMyOrdersViewModel {
         boxes: [],
         boxesBefore: [createBoxResult.guid],
         operationType: 'receive',
+        clientComment: order.clientComment || '',
       })
       return
     } catch (error) {

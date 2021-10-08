@@ -65,7 +65,7 @@ class AdminUserBalanceViewRaw extends Component {
             <MainContent>
               <Typography variant="h5">{`${textConsts.balance} of ${user.email}`}</Typography>
               <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance)}</Typography>
-              {user.balanceFreeze && (
+              {user.balanceFreeze !== 0 && (
                 <Typography className={classNames.balanceFreeze}>{`${toFixedWithDollarSign(
                   user.balanceFreeze,
                 )} -freeze`}</Typography>

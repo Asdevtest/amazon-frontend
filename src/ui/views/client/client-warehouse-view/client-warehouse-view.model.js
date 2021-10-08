@@ -209,7 +209,7 @@ export class ClientWarehouseViewModel {
           ...boxData,
           items: [
             {
-              ...getObjectFilteredByKeyArrayBlackList(boxData.items[0], 'order', 'product'),
+              ...getObjectFilteredByKeyArrayBlackList(boxData.items[0], ['order', 'product']),
               amount: boxData.items[0].amount,
               orderId: boxData.items[0].order._id,
               productId: boxData.items[0].product._id,
@@ -340,7 +340,7 @@ export class ClientWarehouseViewModel {
           id: item._id,
           tmpBarCode: item.items[0].product.barCode,
           tmpAsin: item.items[0].product.id,
-          tmpQty: item.items[0].order.amount,
+          tmpQty: item.items[0].amount,
           tmpMaterial: item.items[0].product.material,
           tmpAmazonPrice: item.items[0].product.amazon,
           tmpTrackingNumberChina: item.items[0].order.trackingNumberChina,

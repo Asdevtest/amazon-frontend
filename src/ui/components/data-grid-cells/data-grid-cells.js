@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Button, Chip, Typography} from '@material-ui/core'
+import {Button, Chip, Tooltip, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
@@ -166,7 +166,7 @@ export const NormDateWithParseISOCell = withStyles(styles)(({classes: classNames
   </Typography>
 ))
 
-export const OrderCell = withStyles(styles)(({classes: classNames, product}) => (
+export const OrderCell = withStyles(styles)(({classes: classNames, product, superbox}) => (
   <div className={classNames.order}>
     <img alt="" src={product.images[0] && getAmazonImageUrl(product.images[0])} className={classNames.orderImg} />
     <div>
@@ -175,6 +175,9 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product}) => 
         <span className={classNames.orderTextSpan}>{textConsts.id}</span>
         {product.id}
       </Typography>
+      {superbox && (
+        <Typography className={classNames.superboxTypo}>{`${textConsts.superboxTypo} x ${superbox}`}</Typography>
+      )}
     </div>
   </div>
 ))
@@ -351,3 +354,52 @@ export const AdminUsersActionBtnsCell = withStyles(styles)(
     </React.Fragment>
   ),
 )
+
+export const SuperboxQtyCell = withStyles(styles)(({classes: classNames, qty, superbox}) => (
+  <div>
+    <Typography>
+      {qty || 'N/A'}
+      <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
+    </Typography>
+  </div>
+))
+
+export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box}) => {
+  const renderProductInfo = () => (
+    <div className={classNames.manyItemsOrderWrapper}>
+      {box.items.map((item, itemIndex) => (
+        <div key={itemIndex} className={classNames.order}>
+          <img
+            alt=""
+            src={item.product.images[0] && getAmazonImageUrl(item.product.images[0])}
+            className={classNames.orderImg}
+          />
+          <div>
+            <Typography className={classNames.manyItemsOrderTitle}>{item.product.amazonTitle}</Typography>
+            <Typography className={classNames.orderText}>
+              <span className={classNames.orderTextSpan}>{textConsts.id}</span>
+              {item.product.id}
+            </Typography>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+
+  return (
+    <Tooltip title={renderProductInfo()}>
+      <div className={classNames.manyItemsImagesWrapper}>
+        {box.items.map((product, productIndex) => (
+          <div key={productIndex} className={classNames.manyItemsImgWrapper}>
+            <img
+              alt="placeholder"
+              className={classNames.taskDescriptionImg}
+              src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
+            />
+            <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
+          </div>
+        ))}
+      </div>
+    </Tooltip>
+  )
+})

@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
 
-import {formatNormDateTimeWithParseISO} from '@utils/date-time'
+// import {formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
@@ -27,7 +27,7 @@ export const UserBalanceHistory = ({historyData, title}) => {
             <Table className={classNames.table}>
               <TableHead>
                 <TableRow>
-                  <TableCell className={classNames.centerTextCell}>{textConsts.date}</TableCell>
+                  {/* <TableCell className={classNames.centerTextCell}>{textConsts.date}</TableCell> */}
                   <TableCell className={classNames.rightTextCell}>{textConsts.amount}</TableCell>
                   <TableCell className={classNames.centerTextCell}>{textConsts.type}</TableCell>
                   <TableCell className={classNames.centerTextCell}>{textConsts.comment}</TableCell>
@@ -44,9 +44,9 @@ export const UserBalanceHistory = ({historyData, title}) => {
                       [classNames.withdrawRow]: item.sum < 0,
                     })}
                   >
-                    <TableCell className={classNames.dateCell}>
+                    {/* <TableCell className={classNames.dateCell}> //ДАТЫ ПРОПАЛИ ИЗ ЗАПРОСА
                       {formatNormDateTimeWithParseISO(item.createdDate)}
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell className={classNames.amountCell}>{toFixedWithDollarSign(item.sum)}</TableCell>
                     <TableCell className={classNames.typeCell}>{item.sum >= 0 ? 'replenish' : 'withdraw'}</TableCell>
                     <TableCell className={classNames.commentCell}>{item.comment}</TableCell>

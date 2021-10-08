@@ -219,7 +219,7 @@ export class ClientInventoryViewModel {
   async createOrder(orderObject) {
     try {
       await ClientModel.createOrder(orderObject)
-      await this.onSaveProductData(orderObject.product, {barCode: orderObject.barCode})
+      await this.onSaveProductData(orderObject.productId, {barCode: orderObject.barCode})
       await this.updateUserInfo()
     } catch (error) {
       console.log(error)

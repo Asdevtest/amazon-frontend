@@ -7,6 +7,7 @@ import {observer} from 'mobx-react'
 
 import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {BUYER_MY_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -30,6 +31,8 @@ import {styles} from './buyer-my-orders-view.style'
 const textConsts = getLocalizedTexts(texts, 'ru').myOrdersView
 
 const navbarActiveCategory = 3
+
+const attentionStatuses = [OrderStatusByKey[OrderStatus.AT_PROCESS], OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]]
 
 @observer
 class BuyerMyOrdersViewRaw extends Component {
@@ -101,6 +104,9 @@ class BuyerMyOrdersViewRaw extends Component {
                   classes={{
                     row: classNames.row,
                   }}
+                  getRowClassName={params =>
+                    attentionStatuses.includes(params.getValue(params.id, 'status')) && classNames.attentionRow
+                  }
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}

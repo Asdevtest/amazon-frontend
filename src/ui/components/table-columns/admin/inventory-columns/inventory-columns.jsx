@@ -10,10 +10,10 @@ import {
   SupplierCell,
   renderFieldValueCell,
   FeesValuesWithCalculateBtnCell,
-  DateCell,
   ClientCell,
   ToFixedWithDollarSignCell,
   NoActiveBarcodeCell,
+  NormDateCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -24,7 +24,7 @@ export const exchangeInventoryColumns = () => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
-    renderCell: params => <DateCell params={params} />,
+    renderCell: params => <NormDateCell params={params} />,
     width: 150,
     type: 'date',
   },
@@ -32,7 +32,7 @@ export const exchangeInventoryColumns = () => [
   {
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
-    renderCell: params => <DateCell params={params} />,
+    renderCell: params => <NormDateCell params={params} />,
     width: 150,
     type: 'date',
   },
@@ -102,21 +102,21 @@ export const exchangeInventoryColumns = () => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
-    renderCell: params => <DateCell params={params} />,
+    renderCell: params => <NormDateCell params={params} />,
     width: 150,
     type: 'date',
   },
   {
     field: 'checkedAt',
     headerName: textConsts.checkDateField,
-    renderCell: params => <DateCell params={params} />,
+    renderCell: params => <NormDateCell params={params} />,
     width: 150,
     type: 'date',
   },
   {
     field: 'updaupdatedAtteDate',
     headerName: textConsts.updateDateField,
-    renderCell: params => <DateCell params={params} />,
+    renderCell: params => <NormDateCell params={params} />,
     width: 150,
     type: 'date',
   },

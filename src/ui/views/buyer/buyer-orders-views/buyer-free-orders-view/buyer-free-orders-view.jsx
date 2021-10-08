@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 
 import {DELIVERY_OPTIONS} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {BUYER_ORDER_STATUS_LIST} from '@constants/order-status'
 import {BUYER_FREE_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -131,7 +130,6 @@ class BuyerFreeOrdersViewRaw extends Component {
               modalHeadCells={BUYER_FREE_ORDERS_MODAL_HEAD_CELLS}
               warehouses={warehouses}
               deliveryList={DELIVERY_OPTIONS}
-              statusList={BUYER_ORDER_STATUS_LIST}
             />
           ) : undefined}
         </Modal>

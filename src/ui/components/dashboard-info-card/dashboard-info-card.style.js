@@ -43,7 +43,7 @@ export const useClassNames = makeStyles({
   circle: {
     border: `3px solid rgba(84, 173, 255, 1)`,
     borderRadius: '152px',
-    width: '88px',
+    width: '150px',
     height: '88px',
     display: 'flex',
     alignItems: 'center',

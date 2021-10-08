@@ -124,7 +124,7 @@ export class ListingModel {
     try {
       const imageFile = await OtherModel.postImage(formData)
 
-      this[imagesType].push('https://api1.kurakste.ru/uploads/' + imageFile.data.fileName)
+      this[imagesType].push('http://188.120.232.27:3636/uploads/' + imageFile.data.fileName)
     } catch (error) {
       this.error = error
     }
@@ -198,7 +198,11 @@ export class ListingModel {
   }
 
   getImagesFromBoxes(boxes) {
-    this.imagesFromBoxes = boxes.reduce((sum, cur) => sum.concat(...cur.images), [])
+    const res = []
+    boxes.forEach(cur => cur.images !== null && res.push(...cur.images))
+    this.imagesFromBoxes = res
+
+    // this.imagesFromBoxes = boxes.reduce((sum, cur) =>cur.images !== null && sum.push(...cur.images), []) не пойму почему это не работает(
   }
 
   async getBoxes() {
