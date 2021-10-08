@@ -138,7 +138,7 @@ export class ClientWarehouseViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[5, 10, 15, 20]}
                   rows={getCurrentData()}
-                  rowHeight={100}
+                  rowHeight={150}
                   components={{
                     Toolbar: GridToolbar,
                   }}
@@ -256,14 +256,7 @@ export class ClientWarehouseViewRaw extends Component {
   }
 
   renderButtons = () => {
-    const {
-      selectedBoxes,
-      isMasterBoxSelected,
-      onTriggerOpenModal,
-      onClickRequestToSendBatch,
-      triggerRequestToSendBatchModal,
-    } = this.viewModel
-    // console.log('selectedBoxes ', selectedBoxes)
+    const {selectedBoxes, isMasterBoxSelected, onTriggerOpenModal, onClickRequestToSendBatch} = this.viewModel
     return (
       <React.Fragment>
         <Button
@@ -272,7 +265,6 @@ export class ClientWarehouseViewRaw extends Component {
           color="primary"
           variant="contained"
           onClick={onClickRequestToSendBatch}
-          // onClick={triggerRequestToSendBatchModal}
         >
           {textConsts.sendBatchBtn}
         </Button>

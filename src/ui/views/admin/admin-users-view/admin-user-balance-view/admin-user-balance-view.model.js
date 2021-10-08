@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {AdministratorModel} from '@models/administrator-model'
+import {OtherModel} from '@models/other-model'
 
 export class AdminUserBalanceViewModel {
   history = undefined
@@ -57,7 +58,7 @@ export class AdminUserBalanceViewModel {
 
   async getBalanceHistory(id) {
     try {
-      const result = await AdministratorModel.getPaymentsById(id)
+      const result = await OtherModel.getPaymentsByUserId(id)
 
       runInAction(() => {
         this.payments = result

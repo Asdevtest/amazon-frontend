@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
 
 import {Box, Divider, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
@@ -148,6 +147,7 @@ export const EditOrderModal = ({
         <Typography className={classNames.modalText}>{`${textConsts.orderNum} ${order._id}`}</Typography>
 
         <SelectFields
+          order={order}
           warehouses={warehouses}
           deliveryTypeByCode={deliveryTypeByCode}
           setOrderField={setOrderField}

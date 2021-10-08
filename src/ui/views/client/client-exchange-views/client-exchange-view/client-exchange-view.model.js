@@ -192,7 +192,7 @@ export class ClientExchangeViewModel {
       const requestProduct = getObjectFilteredByKeyArrayBlackList({...order}, ['tmpResearcherName', 'tmpBuyerName'])
 
       await this.createOrder(requestProduct)
-      await this.onSaveProductData(requestProduct.product, {barCode: requestProduct.barCode})
+      await this.onSaveProductData(requestProduct.productId, {barCode: requestProduct.barCode})
 
       this.onTriggerOpenModal('showOrderModal')
       this.onTriggerOpenModal('showSuccessModal')

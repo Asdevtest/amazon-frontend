@@ -275,4 +275,38 @@ export const styles = createStyles(() => ({
   marginRightBtn: {
     marginRight: '10px',
   },
+
+  superboxTypo: {
+    margin: '0',
+    color: '#007BFF',
+    fontSize: '20px',
+    fontWeight: '900px',
+  },
+
+  manyItemsImagesWrapper: {
+    height: '90px',
+    border: '1px solid rgba(0, 123, 255, 0.5)',
+    borderRadius: '10px',
+    gap: '5px',
+    padding: '3px',
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: '5px',
+  },
+
+  manyItemsImgWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '2px',
+  },
+
+  manyItemsOrderTitle: {
+    fontWeight: 500,
+  },
+
+  manyItemsOrderWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5px',
+  },
 }))

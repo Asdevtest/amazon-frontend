@@ -5,13 +5,13 @@ import {texts} from '@constants/texts'
 import {
   AsinCell,
   BuyerCell,
-  DateCell,
   ResearcherCell,
   SupervisorCell,
   SupplierCell,
   renderFieldValueCell,
   ToFixedWithDollarSignCell,
   NoActiveBarcodeCell,
+  NormDateCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -22,14 +22,14 @@ export const exchangeSupplierFoundedColumns = () => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
-    renderCell: params => <DateCell params={params} />,
+    renderCell: params => <NormDateCell params={params} />,
     width: 150,
     type: 'date',
   },
   {
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
-    renderCell: params => <DateCell params={params} />,
+    renderCell: params => <NormDateCell params={params} />,
     width: 150,
     type: 'date',
   },
@@ -59,14 +59,14 @@ export const exchangeSupplierFoundedColumns = () => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
-    renderCell: params => <DateCell params={params} />,
+    renderCell: params => <NormDateCell params={params} />,
     width: 150,
     type: 'date',
   },
   {
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
-    renderCell: params => <DateCell params={params} />,
+    renderCell: params => <NormDateCell params={params} />,
   },
 
   {

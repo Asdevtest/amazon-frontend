@@ -307,15 +307,6 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
             placeholder={'Комментарий клиента к задаче'}
             onChange={setFormField('clientComment')}
           />
-          <Field
-            multiline
-            disabled
-            className={classNames.heightFieldAuto}
-            rows={4}
-            rowsMax={6}
-            label={'Комментарий склада'}
-            placeholder={'Комментарий склада к задаче для клиента'}
-          />
         </div>
       </div>
 

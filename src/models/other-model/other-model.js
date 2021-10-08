@@ -44,12 +44,17 @@ class OtherModelStatic {
   }
 
   getPaymentsByProductId = async id => {
-    const response = await restApiService.otherApi.apiV1PaymentsByProduct(id)
+    const response = await restApiService.otherApi.apiV1OtherPaymentsByProductGuidGet(id)
     return response
   }
 
   getMyPayments = async () => {
     const response = await restApiService.otherApi.apiV1OtherPaymentsMyGet()
+    return response
+  }
+
+  getPaymentsByUserId = async id => {
+    const response = await restApiService.otherApi.apiV1OtherPaymentsByUserGuidGet(id)
     return response
   }
 }

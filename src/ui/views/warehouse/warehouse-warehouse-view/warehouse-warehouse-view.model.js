@@ -121,7 +121,7 @@ export class WarehouseWarehouseViewModel {
           ...item,
           tmpBarCode: item.items[0].product.barCode,
           tmpAsin: item.items[0].product.id,
-          tmpQty: item.items[0].order.amount,
+          tmpQty: item.items[0].amount,
           tmpMaterial: item.items[0].product.material,
           tmpAmazonPrice: item.items[0].product.amazon,
           tmpTrackingNumberChina: item.items[0].order.trackingNumberChina,

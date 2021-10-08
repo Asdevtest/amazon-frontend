@@ -87,8 +87,9 @@ export const RightSideComments = observer(
             value={product.buyersComment}
             onChange={onChangeField('buyersComment')}
           />
-          {(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || checkIsBuyer(curUserRole)) &&
-          product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] ? (
+          {((checkIsResearcher(curUserRole) || checkIsBuyer(curUserRole)) &&
+            product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
+          checkIsSupervisor(curUserRole) ? (
             <div className={classNames.buttonsWrapper}>
               <Button
                 className={classNames.buttonNormal}

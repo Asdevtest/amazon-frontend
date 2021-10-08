@@ -22,11 +22,13 @@ const textConsts = getLocalizedTexts(texts, 'en').ordersViewsModalSelectFields
 const defaultYuansToDollarRate = 6.3
 
 const allowOrderStatuses = [
+  `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`,
+  `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
   `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
   `${OrderStatusByKey[OrderStatus.RETURN_ORDER]}`,
 ]
 
-export const SelectFields = ({setOrderField, resetOrderField, orderFields, warehouses, deliveryTypeByCode}) => {
+export const SelectFields = ({order, setOrderField, resetOrderField, orderFields, warehouses, deliveryTypeByCode}) => {
   const classNames = useClassNames()
 
   const [supplierPaidDelivery, setSupplierPaidDelivery] = useState(!(orderFields.deliveryCostToTheWarehouse > 0))
@@ -98,7 +100,6 @@ export const SelectFields = ({setOrderField, resetOrderField, orderFields, wareh
           </InputLabel>
           <NativeSelect
             variant="filled"
-            disabled={orderFields.status !== OrderStatusByKey[OrderStatus.AT_PROCESS]}
             inputProps={{
               name: 'status-select',
               id: 'status-select',
@@ -108,9 +109,11 @@ export const SelectFields = ({setOrderField, resetOrderField, orderFields, wareh
             input={<Input />}
             onChange={setOrderField('status')}
           >
-            <option value="unchanged">{'unchanged'}</option>
             {Object.keys({
-              ...getObjectFilteredByKeyArrayWhiteList(OrderStatusByCode, allowOrderStatuses),
+              ...getObjectFilteredByKeyArrayWhiteList(
+                OrderStatusByCode,
+                allowOrderStatuses.filter(el => el >= order.status),
+              ),
             }).map((statusCode, statusIndex) => (
               <option key={statusIndex} value={statusCode}>
                 {getOrderStatusOptionByCode(statusCode).label}
