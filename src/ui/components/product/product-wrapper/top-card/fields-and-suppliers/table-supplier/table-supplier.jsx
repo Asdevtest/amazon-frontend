@@ -20,6 +20,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 export const TableSupplier = observer(({product, suppliers, selectedSupplier, onClickSupplier}) => {
   const classNames = useClassNames()
   const [showPhotosModal, setShowPhotosModal] = useState(false)
+  const [curImages, setCurImages] = useState([])
 
   return (
     <TableContainer className={classNames.table}>
@@ -73,7 +74,10 @@ export const TableSupplier = observer(({product, suppliers, selectedSupplier, on
                     color="primary"
                     className={classNames.button}
                     variant="contained"
-                    onClick={() => setShowPhotosModal(!showPhotosModal)}
+                    onClick={() => {
+                      setCurImages(supplier.images)
+                      setShowPhotosModal(!showPhotosModal)
+                    }}
                   >
                     {textConsts.supplierPhotos}
                   </Button>
@@ -82,7 +86,7 @@ export const TableSupplier = observer(({product, suppliers, selectedSupplier, on
                   isAmazone
                   openModal={showPhotosModal}
                   setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-                  images={supplier.images || []}
+                  images={curImages}
                 />
               </TableRow>
             ))

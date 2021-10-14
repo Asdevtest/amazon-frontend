@@ -30,7 +30,7 @@ import {styles} from './buyer-batches-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').buyerBatchesView
 
-const navbarActiveCategory = 4
+const navbarActiveCategory = 5
 
 @observer
 class BuyerBatchesViewRaw extends Component {

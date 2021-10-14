@@ -11,6 +11,7 @@ import {
   deliveryTypeCodeToKey,
   getDeliveryOptionByCode,
 } from '@constants/delivery-options'
+import {loadingStatuses} from '@constants/loading-statuses'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {texts} from '@constants/texts'
 import {warehouses} from '@constants/warehouses'
@@ -94,7 +95,7 @@ const renderHeadRow = (
   </TableRow>
 )
 
-export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) => {
+export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, requestStatus}) => {
   const classNames = useClassNames()
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
@@ -313,7 +314,9 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal}) =
       <div className={classNames.buttonsWrapper}>
         <SuccessButton
           disableElevation
-          disabled={JSON.stringify(boxInitialState) === JSON.stringify(boxFields)}
+          disabled={
+            JSON.stringify(boxInitialState) === JSON.stringify(boxFields) || requestStatus === loadingStatuses.isLoading
+          }
           className={classNames.button}
           color="primary"
           variant="contained"

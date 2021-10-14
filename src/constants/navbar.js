@@ -180,9 +180,16 @@ export const navbarConfig = {
       title: 'Заказы',
       route: '/admin/orders',
       subtitles: [
-        {subtitle: 'Все', subRoute: '/admin/orders'},
-        {subtitle: 'Оплаченные', subRoute: '/admin/orders'},
-        {subtitle: 'Не оплаченные', subRoute: '/admin/orders'},
+        {subtitle: 'Доступен к обработке', subRoute: '/admin/orders'},
+        {subtitle: 'Закупщик взял заказ', subRoute: '/admin/orders'},
+        {subtitle: 'Закупщик оплатил заказ', subRoute: '/admin/orders'},
+
+        {subtitle: 'Выдан трек номер', subRoute: '/admin/orders'},
+        {subtitle: 'Пришёл на склад', subRoute: '/admin/orders'},
+        {subtitle: 'Возврат заказа', subRoute: '/admin/orders'},
+
+        {subtitle: 'Ожидает отправки', subRoute: '/admin/orders'},
+        {subtitle: 'Отправлен', subRoute: '/admin/orders'},
       ],
     },
     {
@@ -198,11 +205,11 @@ export const navbarConfig = {
     {
       icon: MonetizationOnOutlinedIcon,
       title: 'Финансы',
-      route: '/admin/finances/replenishments',
+      route: '/admin/finances',
       subtitles: [
-        {subtitle: 'Пополнения', subRoute: '/admin/finances/replenishments'},
-        {subtitle: 'Начисления', subRoute: '/admin/finances/accruals'},
-        {subtitle: 'Списания', subRoute: '/admin/finances/write-offs'},
+        {subtitle: 'Пополнения', subRoute: '/admin/finances'},
+        {subtitle: 'Начисления', subRoute: '/admin/finances'},
+        {subtitle: 'Списания', subRoute: '/admin/finances'},
       ],
     },
     {

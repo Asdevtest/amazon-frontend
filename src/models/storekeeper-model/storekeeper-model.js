@@ -32,7 +32,9 @@ class StorekeeperModelStatic {
   }
 
   updateBarcodeAndStatusInOrder = async (id, data) => {
-    const response = await restApiService.strokeepersApi.apiV1StorekeepersBarcodeAndStatusInOrderPatch(id, data)
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch(id, {
+      InlineObject29: data,
+    })
     return response
   }
 

@@ -131,6 +131,7 @@ export class ClientExchangeViewRaw extends Component {
 
         <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
           <OrderProductModal
+            requestStatus={requestStatus}
             selectedProductsData={[selectedProduct]}
             onTriggerOpenModal={onTriggerOpenModal}
             onDoubleClickBarcode={onDoubleClickBarcode}

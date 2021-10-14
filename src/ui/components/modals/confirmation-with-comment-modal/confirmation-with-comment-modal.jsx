@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 
 import {Typography} from '@material-ui/core'
 
+import {loadingStatuses} from '@constants/loading-statuses'
+
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {Modal} from '@components/modal'
@@ -9,6 +11,7 @@ import {Modal} from '@components/modal'
 import {useClassNames} from './confirmation-with-comment-modal.style'
 
 export const ConfirmWithCommentModal = ({
+  requestStatus,
   openModal,
   setOpenModal,
   titleText,
@@ -34,7 +37,13 @@ export const ConfirmWithCommentModal = ({
         onChange={e => setComment(e.target.value)}
       />
       <div className={classNames.buttonsWrapper}>
-        <Button color="primary" variant="contained" className={classNames.button} onClick={() => onSubmit(comment)}>
+        <Button
+          disabled={requestStatus === loadingStatuses.isLoading}
+          color="primary"
+          variant="contained"
+          className={classNames.button}
+          onClick={() => onSubmit(comment)}
+        >
           {okBtnText}
         </Button>
         <Button color="primary" variant="contained" className={classNames.button} onClick={setOpenModal}>

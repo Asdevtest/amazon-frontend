@@ -4,6 +4,7 @@ export const DataGridTablesKeys = {
   ADMIN_ORDERS: 'adminOrdersDataGridState',
   ADMIN_TASKS: 'adminTasksDataGridState',
   ADMIN_BOXES: 'adminBoxesDataGridState',
+  ADMIN_FINANCES: 'adminFinancesDataGridState',
 
   ADMIN_EXCHANGE_CREATED: 'adminExchangeCreatedDataGridState',
   ADMIN_EXCHANGE_CHEKED_BY_SUPERVISOR: 'adminExchangeChekedBySupervisorDataGridState',

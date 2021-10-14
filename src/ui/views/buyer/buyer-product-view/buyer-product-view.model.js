@@ -1,6 +1,7 @@
 import {transformAndValidate} from 'class-transformer-validator'
 import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {BACKEND_API_URL} from '@constants/env'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
 import {texts} from '@constants/texts'
@@ -180,8 +181,8 @@ export class BuyerProductViewModel {
   async onRemoveSupplier() {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
-      await SupplierModel.removeSupplier(this.selectedSupplier._id)
       await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
+      await SupplierModel.removeSupplier(this.selectedSupplier._id)
       this.setActionStatus(loadingStatuses.success)
       const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === this.selectedSupplier._id)
 
@@ -317,7 +318,7 @@ export class BuyerProductViewModel {
     try {
       const imageFile = await OtherModel.postImage(formData)
 
-      this[imagesType].push('http://188.120.232.27:3636/uploads/' + imageFile.data.fileName)
+      this[imagesType].push(BACKEND_API_URL + '/uploads/' + imageFile.data.fileName)
     } catch (error) {
       this.error = error
     }
@@ -334,6 +335,7 @@ export class BuyerProductViewModel {
 
   async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
     try {
+      this.setActionStatus(loadingStatuses.isLoading)
       await this.onSubmitPostImages({images: photosOfSupplier, type: 'readyImages'})
 
       supplier = {
@@ -346,7 +348,6 @@ export class BuyerProductViewModel {
         images: supplier.images.concat(this.readyImages),
       }
 
-      this.setActionStatus(loadingStatuses.isLoading)
       if (supplier._id) {
         const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
@@ -360,7 +361,7 @@ export class BuyerProductViewModel {
           this.suppliers.push({...supplier, _id: createSupplierResult.guid})
         })
       }
-
+      this.setActionStatus(loadingStatuses.success)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
       console.log(error)

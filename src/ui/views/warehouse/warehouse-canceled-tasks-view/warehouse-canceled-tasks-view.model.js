@@ -118,7 +118,7 @@ export class WarehouseCanceledTasksViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   async getTasksMy() {

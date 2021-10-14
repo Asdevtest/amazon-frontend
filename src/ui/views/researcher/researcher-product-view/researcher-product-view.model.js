@@ -1,6 +1,7 @@
 import {transformAndValidate} from 'class-transformer-validator'
 import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {BACKEND_API_URL} from '@constants/env'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {texts} from '@constants/texts'
@@ -117,7 +118,8 @@ export class ResearcherProductViewModel {
       }
       this.product = product
       this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.suppliers
-      this.updateAutoCalculatedFields()
+      const inConstructor = true
+      this.updateAutoCalculatedFields(inConstructor)
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -152,9 +154,9 @@ export class ResearcherProductViewModel {
       }
     })
 
-  updateAutoCalculatedFields() {
+  updateAutoCalculatedFields(inConstructor) {
     const strBsr = this.product.bsr + ''
-    this.product.bsr = parseFloat(strBsr.replace(',', '')) || 0
+    this.product.bsr = parseFloat(strBsr.replace(',', '')) || (inConstructor ? '' : 0)
 
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
 
@@ -377,7 +379,7 @@ export class ResearcherProductViewModel {
     try {
       const imageFile = await OtherModel.postImage(formData)
 
-      this[imagesType].push('http://188.120.232.27:3636/uploads/' + imageFile.data.fileName)
+      this[imagesType].push(BACKEND_API_URL + '/uploads/' + imageFile.data.fileName)
     } catch (error) {
       this.error = error
     }
@@ -385,6 +387,8 @@ export class ResearcherProductViewModel {
 
   async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
     try {
+      this.setActionStatus(loadingStatuses.isLoading)
+
       await this.onSubmitPostImages({images: photosOfSupplier, type: 'readyImages'})
 
       supplier = {
@@ -397,7 +401,6 @@ export class ResearcherProductViewModel {
         images: supplier.images.concat(this.readyImages),
       }
 
-      this.setActionStatus(loadingStatuses.isLoading)
       if (supplier._id) {
         const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
@@ -413,6 +416,8 @@ export class ResearcherProductViewModel {
           this.suppliers.push({...supplier, _id: createSupplierResult.guid})
         })
       }
+
+      this.setActionStatus(loadingStatuses.success)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
       console.log(error)
@@ -439,6 +444,7 @@ export class ResearcherProductViewModel {
         this.product = {
           ...this.product,
           ...parseFieldsAdapter(parseResult, productDataParser),
+          weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
         }
         this.updateAutoCalculatedFields()
       })

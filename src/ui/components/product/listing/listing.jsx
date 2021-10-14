@@ -220,7 +220,7 @@ export const Listing = observer(({product}) => {
             )}
           </div>
 
-          <div className={classNames.photoWrapper}>
+          <div>
             <Typography className={classNames.subTitle}>{'Фотографии листинга:'}</Typography>
 
             {listingProduct.listingImages.length > 0 ? (

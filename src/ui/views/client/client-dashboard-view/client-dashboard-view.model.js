@@ -18,9 +18,29 @@ export class ClientDashboardViewModel {
   orders = []
   productsPaid = []
 
+  showTransferModal = false
+
+  transferModalSettings = {
+    isWithdraw: false,
+  }
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  onClickAddMoney() {
+    this.transferModalSettings.isWithdraw = false
+    this.onTriggerOpenModal('showTransferModal')
+  }
+
+  onClickWithdrawMoney() {
+    this.transferModalSettings.isWithdraw = true
+    this.onTriggerOpenModal('showTransferModal')
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 
   onChangeCategory(index) {

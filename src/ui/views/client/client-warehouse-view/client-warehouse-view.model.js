@@ -128,12 +128,9 @@ export class ClientWarehouseViewModel {
   }
 
   onSelectionModel(model) {
-    console.log('model', model)
-
     const boxes = this.boxesMy.filter(box => model.includes(box.id))
     const res = boxes.reduce((ac, el) => ac.concat(el._id), [])
 
-    console.log('res', res)
     this.selectedBoxes = res
   }
 
@@ -145,8 +142,9 @@ export class ClientWarehouseViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getBoxesMy()
-      await this.getTasksMy()
+
       this.setRequestStatus(loadingStatuses.success)
+      await this.getTasksMy()
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
@@ -167,7 +165,7 @@ export class ClientWarehouseViewModel {
   }
 
   onChangeCurPage = e => {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   onTriggerCheckbox = boxId => {
@@ -185,25 +183,36 @@ export class ClientWarehouseViewModel {
   }
 
   async onRedistribute(id, updatedBoxes, type, isMasterBox, comment) {
-    if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
-      this.onTriggerOpenModal('showRedistributeBoxFailModal')
-    } else {
-      const boxes = updatedBoxes.map(el =>
-        el.items.map(item => ({amount: item.amount, productId: item.product._id, orderId: item.order._id})),
-      )
-      const splitBoxesResult = await this.splitBoxes(id, boxes)
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
 
-      await this.postTask({idsData: splitBoxesResult, idsBeforeData: [id], type, clientComment: comment})
-      await this.getTasksMy()
+      if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
+        this.onTriggerOpenModal('showRedistributeBoxFailModal')
+      } else {
+        const boxes = updatedBoxes.map(el =>
+          el.items.map(item => ({amount: item.amount, productId: item.product._id, orderId: item.order._id})),
+        )
+        const splitBoxesResult = await this.splitBoxes(id, boxes)
 
-      this.onTriggerOpenModal('showRedistributeBoxSuccessModal')
-      this.onTriggerOpenModal('showRedistributeBoxModal')
-      this.onModalRedistributeBoxAddNewBox(null)
+        await this.postTask({idsData: splitBoxesResult, idsBeforeData: [id], type, clientComment: comment})
+        await this.getTasksMy()
+
+        this.setRequestStatus(loadingStatuses.success)
+
+        this.onTriggerOpenModal('showRedistributeBoxSuccessModal')
+        this.onTriggerOpenModal('showRedistributeBoxModal')
+        this.onModalRedistributeBoxAddNewBox(null)
+      }
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      this.error = error
     }
   }
 
   async onEditBoxSubmit(id, boxData) {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const requestBox = getObjectFilteredByKeyArrayBlackList(
         {
           ...boxData,
@@ -227,27 +236,37 @@ export class ClientWarehouseViewModel {
         type: TaskOperationType.EDIT,
         clientComment: boxData.clientComment,
       })
+
+      this.setRequestStatus(loadingStatuses.success)
       await this.getTasksMy()
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       this.error = error
     }
   }
 
   async onClickMerge(comment) {
-    const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes)
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
 
-    await this.postTask({
-      idsData: [mergeBoxesResult.guid],
-      idsBeforeData: [...this.selectedBoxes],
-      type: operationTypes.MERGE,
-      clientComment: comment,
-    })
-    await this.getTasksMy()
+      const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes)
 
-    this.onTriggerOpenModal('showMergeBoxModal')
-
-    this.tmpClientComment = ''
+      await this.postTask({
+        idsData: [mergeBoxesResult.guid],
+        idsBeforeData: [...this.selectedBoxes],
+        type: operationTypes.MERGE,
+        clientComment: comment,
+      })
+      await this.getTasksMy()
+      this.setRequestStatus(loadingStatuses.success)
+      this.onTriggerOpenModal('showMergeBoxModal')
+      this.tmpClientComment = ''
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      this.error = error
+    }
   }
 
   async postTask({idsData, idsBeforeData, type, clientComment}) {

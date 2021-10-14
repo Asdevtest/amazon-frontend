@@ -130,7 +130,7 @@ export class AdminWarehouseBoxesViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   onChangeRowsPerPage = e => {

@@ -14,7 +14,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'ru').buyerProductsTableColumns
 
-export const buyerProductsViewColumns = () => [
+export const buyerProductsViewColumns = handlers => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
@@ -51,7 +51,13 @@ export const buyerProductsViewColumns = () => [
   {
     field: 'feesAndNet',
     headerName: textConsts.feesAndNetField,
-    renderCell: params => <FeesValuesWithCalculateBtnCell params={params} />,
+    renderCell: params => (
+      <FeesValuesWithCalculateBtnCell
+        noCalculate={!['30', '40', '50', '60'].includes(params.row.status)}
+        params={params}
+        onClickCalculate={handlers.onClickFeesCalculate}
+      />
+    ),
     minWidth: 170,
     flex: 1,
     filterable: false,

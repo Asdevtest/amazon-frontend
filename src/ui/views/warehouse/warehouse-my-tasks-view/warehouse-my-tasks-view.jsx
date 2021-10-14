@@ -133,6 +133,7 @@ export class WarehouseMyTasksViewRaw extends Component {
         <Modal openModal={showEditTaskModal} setOpenModal={onTriggerEditTaskModal}>
           <Typography variant="h5">{textConsts.taskModalTitle}</Typography>
           <EditTaskModal
+            requestStatus={requestStatus}
             task={selectedTask}
             showEditBoxModal={showEditBoxModal}
             progressValue={progressValue}

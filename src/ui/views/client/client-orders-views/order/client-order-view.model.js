@@ -4,6 +4,8 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+
 export class ClientOrderViewModel {
   history = undefined
   requestStatus = undefined
@@ -39,7 +41,7 @@ export class ClientOrderViewModel {
     try {
       const result = await BoxesModel.getBoxesOfOrder(orderId)
       runInAction(() => {
-        this.orderBoxes = result
+        this.orderBoxes = result.sort(sortObjectsArrayByFiledDate('createdAt'))
       })
     } catch (error) {
       console.log(error)

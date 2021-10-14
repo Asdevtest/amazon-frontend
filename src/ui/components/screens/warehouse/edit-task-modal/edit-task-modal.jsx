@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {texts} from '@constants/texts'
 
@@ -22,6 +23,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').warehouseTaskForm
 
 export const EditTaskModal = observer(
   ({
+    requestStatus,
     task,
     onClickOpenCloseModal,
     onSetBarcode,
@@ -129,7 +131,7 @@ export const EditTaskModal = observer(
           <div className={classNames.button}>
             <SuccessButton
               disableElevation
-              disabled={newBoxes.length === 0}
+              disabled={newBoxes.length === 0 || requestStatus === loadingStatuses.isLoading}
               variant="contained"
               onClick={() => {
                 onClickSolveTask({

@@ -11,7 +11,7 @@ import {clientInventoryColumns} from '@components/table-columns/client/client-in
 
 import {copyToClipBoard} from '@utils/clipboard'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const fieldsOfProductAllowedToUpdate = [
   'dirdecision',
@@ -201,6 +201,7 @@ export class ClientInventoryViewModel {
 
   async onSubmitOrderProductModal(ordersDataState) {
     try {
+      this.setActionStatus(loadingStatuses.isLoading)
       this.error = undefined
       for (let i = 0; i < ordersDataState.length; i++) {
         const product = ordersDataState[i]
@@ -210,7 +211,9 @@ export class ClientInventoryViewModel {
       if (!this.error) {
         this.onTriggerOpenModal('showSuccessModal')
       }
+      this.setActionStatus(loadingStatuses.success)
     } catch (error) {
+      this.setActionStatus(loadingStatuses.failed)
       console.log(error)
       this.error = error
     }
@@ -218,7 +221,7 @@ export class ClientInventoryViewModel {
 
   async createOrder(orderObject) {
     try {
-      await ClientModel.createOrder(orderObject)
+      await ClientModel.createOrder(getObjectFilteredByKeyArrayBlackList(orderObject, ['barCode']))
       await this.onSaveProductData(orderObject.productId, {barCode: orderObject.barCode})
       await this.updateUserInfo()
     } catch (error) {
@@ -241,7 +244,7 @@ export class ClientInventoryViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   onTriggerDrawer() {

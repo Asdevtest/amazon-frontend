@@ -47,29 +47,32 @@ export const AsinCell = withStyles(styles)(({classes: classNames, params}) => (
   </div>
 ))
 
-export const FeesValuesWithCalculateBtnCell = withStyles(styles)(({classes: classNames, params, noCalculate}) => (
-  <div className={classNames.feesTableCell}>
-    <div className={classNames.feesTableWrapper}>
-      <Typography className={classNames.typoCell}>
-        {textConsts.feesTypo}
-        <span className={classNames.typoSpan}>{toFixedWithDollarSign(params.row.fbafee, 2)}</span>
-      </Typography>
-      <Typography className={classNames.typoCell}>
-        {textConsts.netTypo}
-        <span className={classNames.typoSpan}>{toFixedWithDollarSign(params.row.reffee, 2)}</span>
-      </Typography>
-      {!noCalculate && (
-        <Button
-          disableElevation
-          className={classNames.cellBtn}
-          startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
-        >
-          {textConsts.calculateBtn}
-        </Button>
-      )}
+export const FeesValuesWithCalculateBtnCell = withStyles(styles)(
+  ({classes: classNames, params, noCalculate, onClickCalculate}) => (
+    <div className={classNames.feesTableCell}>
+      <div className={classNames.feesTableWrapper}>
+        <Typography className={classNames.typoCell}>
+          {textConsts.feesTypo}
+          <span className={classNames.typoSpan}>{toFixedWithDollarSign(params.row.fbafee, 2)}</span>
+        </Typography>
+        <Typography className={classNames.typoCell}>
+          {textConsts.netTypo}
+          <span className={classNames.typoSpan}>{toFixedWithDollarSign(params.row.reffee, 2)}</span>
+        </Typography>
+        {!noCalculate && (
+          <Button
+            disableElevation
+            className={classNames.cellBtn}
+            startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
+            onClick={() => onClickCalculate(params.row)}
+          >
+            {textConsts.calculateBtn}
+          </Button>
+        )}
+      </div>
     </div>
-  </div>
-))
+  ),
+)
 
 export const SupplierCell = withStyles(styles)(({classes: classNames, params}) => (
   <div>
@@ -109,12 +112,10 @@ export const ResearcherCell = withStyles(styles)(({classes: classNames, params, 
 
 export const ClientCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
   <div>
-    <Typography className={classNames.researcherCell}>
-      {!params.row.clientId ? 'N/A' : params.row.clientId.name}
-    </Typography>
+    <Typography className={classNames.researcherCell}>{!params.row.client ? 'N/A' : params.row.client.name}</Typography>
     {!onlyName && (
       <Typography className={classNames.researcherCell}>{`rate: ${
-        !params.row.clientId ? 'N/A' : params.row.clientId.rate
+        !params.row.client ? 'N/A' : params.row.client.rate
       }`}</Typography>
     )}
   </div>

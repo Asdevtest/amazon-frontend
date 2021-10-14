@@ -1,6 +1,6 @@
 import {AdminDashboardView} from '@views/admin/admin-dashboard-view'
 import {AdminExchangeViews} from '@views/admin/admin-exchange-views'
-import {AdminFinancesReplenishmentsView} from '@views/admin/admin-finances-views/admin-finances-replenishments-view'
+import {AdminFinancesViews} from '@views/admin/admin-finances-views/admin-finances-views'
 import {AdminInventoryView} from '@views/admin/admin-inventory-view'
 import {AdminOrderView} from '@views/admin/admin-orders-views/order'
 import {AdminOrdersViews} from '@views/admin/admin-orders-views/orders'
@@ -356,8 +356,8 @@ export const privateRoutesConfigs = [
     permission: [UserRole.ADMIN],
   },
   {
-    routePath: '/admin/finances/replenishments',
-    component: AdminFinancesReplenishmentsView,
+    routePath: '/admin/finances',
+    component: AdminFinancesViews,
     exact: false,
     permission: [UserRole.ADMIN],
   },

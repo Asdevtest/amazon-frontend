@@ -17,6 +17,8 @@ export const useClassNames = makeStyles({
   img: {
     width: '40px',
     height: '40px',
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
   descriptionWrapper: {
     display: 'flex',

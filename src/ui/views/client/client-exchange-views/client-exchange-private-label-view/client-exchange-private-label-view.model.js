@@ -4,6 +4,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {mapProductStrategyStatusEnumToKey, ProductStrategyStatus} from '@constants/product-strategy-status'
 
 import {ClientModel} from '@models/client-model'
+import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 
@@ -44,7 +45,6 @@ export class ClientExchangePrivateLabelViewModel {
     try {
       const result = await ClientModel.getProductsVacant()
 
-      console.log('result', result)
       runInAction(() => {
         this.productsVacant = result
           .filter(
@@ -69,11 +69,10 @@ export class ClientExchangePrivateLabelViewModel {
         deliveryMethod: orderData.deliveryMethod,
         warehouse: orderData.warehouse,
         clientComment: orderData.clientComment,
-        barCode: orderData.barCode,
         productId: product._id,
+        images: [],
       }
-      const createOrderResult = await ClientModel.createOrder(createorderData)
-      console.log('createOrderResult ', createOrderResult)
+      await ClientModel.createOrder(createorderData)
       this.loadData()
     } catch (error) {
       console.log(error)
@@ -83,10 +82,18 @@ export class ClientExchangePrivateLabelViewModel {
     }
   }
 
+  async updateUserInfo() {
+    await UserModel.getUserInfo()
+  }
+
   async onClickBuyProductBtn(product) {
     try {
-      const makePaymentsResult = await ClientModel.makePayments([product._id])
-      console.log('makePaymentsResult ', makePaymentsResult)
+      await ClientModel.pickupProduct(product._id)
+
+      await ClientModel.makePayments([product._id])
+
+      await this.updateUserInfo()
+      this.loadData()
 
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {

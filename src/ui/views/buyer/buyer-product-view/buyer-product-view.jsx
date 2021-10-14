@@ -31,6 +31,7 @@ export class BuyerProductView extends Component {
 
   render() {
     const {
+      requestStatus,
       showProgress,
       progressValue,
       product,
@@ -91,6 +92,7 @@ export class BuyerProductView extends Component {
         </Main>
         <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
           <AddOrEditSupplierModalContent
+            requestStatus={requestStatus}
             title={textConsts.modalAddTitle}
             supplier={selectedSupplier}
             showProgress={showProgress}

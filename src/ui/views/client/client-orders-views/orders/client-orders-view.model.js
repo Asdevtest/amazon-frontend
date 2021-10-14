@@ -135,6 +135,6 @@ export class ClientOrdersViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 }

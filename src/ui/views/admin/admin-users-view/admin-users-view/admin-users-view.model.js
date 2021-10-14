@@ -155,7 +155,7 @@ export class AdminUsersViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   onChangeSortingModel(e) {
