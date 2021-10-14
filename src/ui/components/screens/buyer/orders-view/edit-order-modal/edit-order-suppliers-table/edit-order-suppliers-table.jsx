@@ -21,6 +21,7 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
   const classNames = useClassNames()
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
+  const [curImages, setCurImages] = useState([])
 
   return (
     <TableContainer className={classNames.table}>
@@ -71,16 +72,19 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                     color="primary"
                     className={classNames.button}
                     variant="contained"
-                    onClick={() => setShowPhotosModal(!showPhotosModal)}
+                    onClick={() => {
+                      setCurImages(supplier.images)
+                      setShowPhotosModal(!showPhotosModal)
+                    }}
                   >
-                    {'Фотографии'}
+                    {textConsts.supplierPhotos}
                   </Button>
                 </TableCell>
                 <ShowBigImagesModal
                   isAmazone
                   openModal={showPhotosModal}
                   setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-                  images={supplier.images || []}
+                  images={curImages}
                 />
               </TableRow>
             ))

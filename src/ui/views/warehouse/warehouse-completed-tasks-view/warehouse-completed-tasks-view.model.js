@@ -135,7 +135,7 @@ export class WarehouseCompletedViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   onTriggerOpenModal(modal) {

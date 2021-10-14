@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 
 import {Button, Divider, Typography} from '@material-ui/core'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {texts} from '@constants/texts'
 
@@ -68,6 +69,7 @@ const NewBoxes = ({newBoxes, isMasterBox, selectedBox, onChangeInput}) => {
 }
 
 export const RedistributeBox = ({
+  requestStatus,
   addNewBoxModal,
   setAddNewBoxModal,
   selectedBox,
@@ -185,7 +187,7 @@ export const RedistributeBox = ({
       <div className={classNames.buttonsWrapper}>
         <Button
           variant="text"
-          disabled={totalProductsAmount !== 0 && !isMasterBox}
+          disabled={(totalProductsAmount !== 0 && !isMasterBox) || requestStatus === loadingStatuses.isLoading}
           onClick={() => {
             onClickRedistributeBtn()
           }}

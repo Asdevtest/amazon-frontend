@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {BACKEND_API_URL} from '@constants/env'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
@@ -124,7 +125,7 @@ export class ListingModel {
     try {
       const imageFile = await OtherModel.postImage(formData)
 
-      this[imagesType].push('http://188.120.232.27:3636/uploads/' + imageFile.data.fileName)
+      this[imagesType].push(BACKEND_API_URL + '/uploads/' + imageFile.data.fileName)
     } catch (error) {
       this.error = error
     }

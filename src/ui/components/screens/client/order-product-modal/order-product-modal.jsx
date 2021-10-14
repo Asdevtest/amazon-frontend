@@ -12,6 +12,7 @@ import {
   TableContainer,
 } from '@material-ui/core'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
@@ -27,6 +28,7 @@ import {useClassNames} from './order-product-modal.style'
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrderProductModal
 
 export const OrderProductModal = ({
+  requestStatus,
   onTriggerOpenModal,
   selectedProductsData,
   onDoubleClickBarcode,
@@ -50,7 +52,7 @@ export const OrderProductModal = ({
       clientComment: '',
       barCode: product.barCode || '',
       productId: product._id,
-      images: product.images,
+      images: [],
     })),
   )
 
@@ -116,15 +118,17 @@ export const OrderProductModal = ({
           disableElevation
           variant="contained"
           className={(classNames.modalButton, classNames.buyNowBtn)}
-          disabled={orderState.some(
-            order =>
-              order.deliveryMethod === '' ||
-              order.warehouse === '' ||
-              order.deliveryMethod === 'none' ||
-              order.warehouse === 'none' ||
-              Number(order.amount) <= 0 ||
-              !Number.isInteger(Number(order.amount)),
-          )}
+          disabled={
+            orderState.some(
+              order =>
+                order.deliveryMethod === '' ||
+                order.warehouse === '' ||
+                order.deliveryMethod === 'none' ||
+                order.warehouse === 'none' ||
+                Number(order.amount) <= 0 ||
+                !Number.isInteger(Number(order.amount)),
+            ) || requestStatus === loadingStatuses.isLoading
+          }
           onClick={() => {
             onTriggerOpenModal('showOrderModal')
             onSubmit(orderState)

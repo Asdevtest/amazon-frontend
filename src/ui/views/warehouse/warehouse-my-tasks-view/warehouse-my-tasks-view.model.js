@@ -2,6 +2,7 @@ import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
+import {BACKEND_API_URL} from '@constants/env'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatusByKey, OrderStatus} from '@constants/order-status'
 import {
@@ -133,7 +134,7 @@ export class WarehouseVacantViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   onTriggerEditTaskModal() {
@@ -195,7 +196,7 @@ export class WarehouseVacantViewModel {
     try {
       const imageFile = await OtherModel.postImage(formData)
 
-      this[imagesType].push('http://188.120.232.27:3636/uploads/' + imageFile.data.fileName)
+      this[imagesType].push(BACKEND_API_URL + '/uploads/' + imageFile.data.fileName)
     } catch (error) {
       this.error = error
     }
@@ -263,9 +264,10 @@ export class WarehouseVacantViewModel {
     }
   }
 
-  // eslint-disable-next-line no-unused-vars
   async onClickSolveTask({task, newBoxes, operationType, comment, photos}) {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       for (let i = 0; i < newBoxes.length; i++) {
         const box = getObjectFilteredByKeyArrayBlackList(newBoxes[i], ['tmpImages'])
 
@@ -322,11 +324,13 @@ export class WarehouseVacantViewModel {
       }
 
       await this.updateTask(this.selectedTask.id, comment, mapTaskStatusEmumToKey[TaskStatus.SOLVED]) // запрос не работает пока поле статуса обязательно(написал в чат бека))
-
-      await this.getTasksMy()
+      this.setRequestStatus(loadingStatuses.success)
 
       this.onTriggerEditTaskModal()
+
+      await this.getTasksMy()
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       this.error = error
 
@@ -451,7 +455,7 @@ export class WarehouseVacantViewModel {
   async onCancelMergeBoxes(id, taskId, warehouseComment) {
     try {
       await BoxesModel.cancelMergeBoxes(id)
-      await this.updateTask(taskId, TaskStatus.NOT_SOLVED, warehouseComment)
+      await this.updateTask(taskId, warehouseComment, mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED])
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
@@ -462,7 +466,7 @@ export class WarehouseVacantViewModel {
   async onCancelSplitBoxes(id, taskId, warehouseComment) {
     try {
       await BoxesModel.cancelSplitBoxes(id)
-      await this.updateTask(taskId, TaskStatus.NOT_SOLVED, warehouseComment)
+      await this.updateTask(taskId, warehouseComment, mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED])
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
@@ -472,8 +476,8 @@ export class WarehouseVacantViewModel {
 
   async onCancelEditBox(id, taskId, warehouseComment) {
     try {
-      await BoxesModel.cancelEditBoxesByStorekeeper(id)
-      await this.updateTask(taskId, TaskStatus.NOT_SOLVED, warehouseComment)
+      await BoxesModel.cancelEditBoxes(id)
+      await this.updateTask(taskId, warehouseComment, mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED])
       await this.getTasksMy()
     } catch (error) {
       console.log(error)

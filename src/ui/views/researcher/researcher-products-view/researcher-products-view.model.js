@@ -21,6 +21,7 @@ import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '
 const formFieldsDefault = {
   amazonLink: '',
   productCode: '',
+  strategyStatus: '',
 }
 
 export class ResearcherProductsViewModel {
@@ -145,6 +146,7 @@ export class ResearcherProductsViewModel {
       const product = {
         id: this.formFields.productCode,
         lamazon: this.formFields.amazonLink,
+        strategyStatus: this.formFields.strategyStatus,
       }
       await this.createProduct(product)
 
@@ -193,7 +195,7 @@ export class ResearcherProductsViewModel {
     try {
       const result = await ResearcherModel.getProductsVacant()
       runInAction(() => {
-        this.products = result.sort(sortObjectsArrayByFiledDate('createdat')).map(item => ({
+        this.products = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
           ...item,
           tmpStatus: ProductStatusByCode[item.status],
         }))
@@ -239,15 +241,17 @@ export class ResearcherProductsViewModel {
     action(e => {
       this.error = undefined
       this.actionStatus = undefined
-      this.chekedCode = ''
+
+      this.formFields[fieldName] = e.target.value
+
       if (fieldName === 'amazonLink') {
-        this.formFields[fieldName] = e.target.value
+        this.chekedCode = ''
         this.formFields.productCode = getAmazonCodeFromLink(e.target.value)
       }
     })
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   onTriggerDrawerOpen() {

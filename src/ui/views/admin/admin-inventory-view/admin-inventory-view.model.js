@@ -8,6 +8,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {exchangeInventoryColumns} from '@components/table-columns/admin/inventory-columns'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminInventoryViewModel {
@@ -79,7 +80,7 @@ export class AdminInventoryViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   async getProducts() {
@@ -91,12 +92,12 @@ export class AdminInventoryViewModel {
         ...item,
         tmpResearcherName: item.createdBy?.name,
         tmpBuyerName: item.buyer?.name,
-        tmpClientName: item.clientId?.name,
+        tmpClientName: item.client?.name,
         tmpCurrentSupplierName: item.currentSupplier?.name,
       }))
 
       runInAction(() => {
-        this.products = productsData
+        this.products = productsData.sort(sortObjectsArrayByFiledDate('updatedAt'))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

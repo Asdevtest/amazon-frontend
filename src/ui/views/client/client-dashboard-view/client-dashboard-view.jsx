@@ -13,6 +13,7 @@ import {DashboardBalance} from '@components/dashboard-balance'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {UserMoneyTransferModal} from '@components/modals/user-money-transfer-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -35,7 +36,16 @@ export class ClientDashboardViewRaw extends Component {
   }
 
   render() {
-    const {balance, drawerOpen, onTriggerDrawer} = this.viewModel
+    const {
+      balance,
+      drawerOpen,
+      showTransferModal,
+      transferModalSettings,
+      onTriggerDrawer,
+      onTriggerOpenModal,
+      onClickAddMoney,
+      onClickWithdrawMoney,
+    } = this.viewModel
     const {classes} = this.props
 
     return (
@@ -57,10 +67,16 @@ export class ClientDashboardViewRaw extends Component {
             <MainContent>
               <div className={classes.mb5}>
                 <DashboardBalance balance={balance} />
-                <Button disableElevation className={classes.mr2} color="primary" variant="contained">
+                <Button
+                  disableElevation
+                  className={classes.mr2}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => onClickWithdrawMoney()}
+                >
                   {textConsts.withdraw}
                 </Button>
-                <Button disableElevation color="primary">
+                <Button disableElevation color="primary" onClick={() => onClickAddMoney()}>
                   {textConsts.replenish}
                 </Button>
               </div>
@@ -68,6 +84,11 @@ export class ClientDashboardViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+        <UserMoneyTransferModal
+          openModal={showTransferModal}
+          setOpenModal={() => onTriggerOpenModal('showTransferModal')}
+          isWithdraw={transferModalSettings.isWithdraw}
+        />
       </React.Fragment>
     )
   }

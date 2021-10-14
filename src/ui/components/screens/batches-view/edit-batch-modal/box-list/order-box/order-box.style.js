@@ -52,6 +52,8 @@ export const useClassNames = makeStyles(() => ({
     textAlign: 'center',
     position: 'relative',
     margin: '12px',
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
   imgCross: {
     color: '#fff',

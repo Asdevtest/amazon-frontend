@@ -50,22 +50,6 @@ export const exchangePublishedColumns = () => [
   },
 
   {
-    headerName: textConsts.barCodeField,
-    width: 150,
-  },
-  {
-    field: 'createdAt',
-    headerName: textConsts.createDateField,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 150,
-    type: 'date',
-  },
-  {
-    field: 'updatedAt',
-    renderCell: params => <NormDateCell params={params} />,
-  },
-
-  {
     field: 'createdBy',
     headerName: textConsts.researcherField,
     renderCell: params => <ResearcherCell params={params} />,

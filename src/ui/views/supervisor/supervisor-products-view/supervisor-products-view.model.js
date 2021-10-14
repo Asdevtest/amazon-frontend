@@ -105,7 +105,7 @@ export class SupervisorProductsViewModel {
       const result = await SupervisorModel.getProductsMy()
 
       runInAction(() => {
-        this.productsMy = result.sort(sortObjectsArrayByFiledDate('createdat')).map(item => ({
+        this.productsMy = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
           ...item,
           tmpStatus: ProductStatusByCode[item.status],
           tmpResearcherName: item.createdBy?.name || '',
@@ -136,6 +136,6 @@ export class SupervisorProductsViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 }

@@ -154,7 +154,7 @@ export class BuyerFreeOrdersViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   setActionStatus(actionStatus) {

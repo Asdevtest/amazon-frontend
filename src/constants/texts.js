@@ -309,6 +309,13 @@ export const texts = {
       replenishOptionServicePayment: 'Оплата услуг',
     },
 
+    userMoneyTransferModal: {
+      titleAdd: 'Add money',
+      titleWithdraw: 'Withdraw money',
+
+      okBtn: 'Ок',
+    },
+
     tableToolbar: {
       filter: 'Filter',
       searchPlaceholder: 'Search...',
@@ -765,6 +772,10 @@ export const texts = {
       costPriceAmount: 'Себестоимость в закупке за шт.',
       trackNumberTypo: 'Track number',
 
+      circularProgressTitle: 'Загрузка фотографий...',
+      loadTitle: 'Прикрепить фото к задаче',
+      orderImagesBtn: 'Имеющиеся изображения к заказу',
+
       totalPrice: 'Запланированная стоимость заказа',
       totalPriceInYuans: 'Запланированная стоимость в юанях',
       checkIsPlanningPriceText: 'Фактическая стоимость совпадает с запланированной',
@@ -1186,11 +1197,11 @@ export const texts = {
     addOrEditSupplierModalContent: {
       name: 'Название*',
       link: 'Ссылка*',
-      price: 'Цена за шт. $',
-      deliveryPrice: 'Доставка на 1 ед. $',
-      qty: 'Кол-во закупки',
-      minLot: 'Минимальная партия',
-      lotCost: 'Цена партии $',
+      price: 'Цена за шт. $*',
+      deliveryPrice: 'Доставка на 1 ед. $*',
+      qty: 'Кол-во закупки*',
+      minLot: 'Минимальная партия*',
+      lotCost: 'Цена партии $*',
       csCode: 'Стоимость',
       comment: 'Комментарий',
       saveBtn: 'Сохранить',
@@ -1241,7 +1252,7 @@ export const texts = {
       typoExpress: 'Express',
       maxDeliveryPrice: 'Макс. доставка за ед., $',
       delivery: 'Доставка $',
-      refferalFee: 'Refferal fee , $',
+      refferalFee: 'Referral fee, $',
       fbaFee: 'FBA fee , $',
       totalFba: 'Total FBA, $',
       minpurchase: 'Мин. закуп. цена, $',
@@ -1452,6 +1463,13 @@ export const texts = {
       ordersBtn: 'Мои заказы',
     },
 
+    adminFinancesView: {
+      mainTitle: 'Финансы',
+      appBarTitle: 'Страница финансов',
+      appBarUsername: 'Admin',
+      appUser: 'admin',
+    },
+
     adminTasksView: {
       mainTitle: 'Задачи склада',
       appBarTitle: 'Страница задач склада',
@@ -1482,6 +1500,13 @@ export const texts = {
       grossWeightField: 'Общий вес',
       trackIdField: 'Трек номер',
       statusField: 'Статус',
+    },
+
+    adminFinancesTableColumns: {
+      commentField: 'Комментарий',
+      sumField: 'Сумма',
+      creatorNameField: 'Инициатор',
+      recipientNameField: 'Реципиент ',
     },
 
     clientOrdersTableColumns: {
@@ -2183,6 +2208,7 @@ export const texts = {
       tableCost: 'Стоимость',
       tableComment: 'Комментарий',
       tableCellNoVendors: 'Нет поставщиков',
+      supplierPhotos: 'Фотографии',
     },
     requestToSendBatchModal: {
       modalTitle: 'Отправка коробок',

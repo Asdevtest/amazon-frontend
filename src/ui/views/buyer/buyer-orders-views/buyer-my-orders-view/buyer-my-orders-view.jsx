@@ -61,18 +61,23 @@ class BuyerMyOrdersViewRaw extends Component {
       showSuccessModal,
       showNoDimensionsErrorModal,
       showWarningNewBoxesModal,
+
+      showProgress,
+      progressValue,
+
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
       onClickOrder,
       onSubmitSaveOrder,
-      onSubmitCreateBoxes,
       onTriggerOpenModal,
 
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+
+      setPhotosToLoad,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -141,14 +146,17 @@ class BuyerMyOrdersViewRaw extends Component {
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
+            requestStatus={requestStatus}
             boxes={curBoxesOfOrder}
             order={selectedOrder}
             modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS}
             warehouses={warehouses}
             deliveryTypeByCode={DeliveryTypeByCode}
+            showProgress={showProgress}
+            progressValue={progressValue}
+            setPhotosToLoad={setPhotosToLoad}
             onTriggerOpenModal={onTriggerOpenModal}
             onSubmitSaveOrder={onSubmitSaveOrder}
-            onSubmitCreateBoxes={onSubmitCreateBoxes}
           />
         </Modal>
 

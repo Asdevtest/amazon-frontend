@@ -89,6 +89,10 @@ export class AdminExchangeViewModel {
   }
 
   setActiveSubCategoryState(state) {
+    SettingsModel.setActiveSubCategoryState(state, ActiveSubCategoryTablesKeys.ADMIN_EXCHANGE)
+  }
+
+  setDataGridState(state) {
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -97,11 +101,7 @@ export class AdminExchangeViewModel {
       'columns',
     ])
 
-    SettingsModel.setActiveSubCategoryState(requestState, ActiveSubCategoryTablesKeys.ADMIN_EXCHANGE)
-  }
-
-  setDataGridState(state) {
-    SettingsModel.setDataGridState(state, this.dataGridTableKeyDependingOnActiveSubCategory())
+    SettingsModel.setDataGridState(requestState, this.dataGridTableKeyDependingOnActiveSubCategory())
   }
 
   getDataGridState() {
@@ -129,7 +129,7 @@ export class AdminExchangeViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   onSelectionModel(model) {
@@ -147,14 +147,16 @@ export class AdminExchangeViewModel {
         status: productsStatusBySubCategory[activeSubCategory],
       })
 
+      const productsData = result.map(item => ({
+        ...item,
+        tmpResearcherName: item.createdBy?.name,
+        tmpBuyerName: item.buyer?.name,
+        tmpClientName: item.clientId?.name,
+        tmpCurrentSupplierName: item.currentSupplier?.name,
+      }))
+
       runInAction(() => {
-        this.currentProductsData = result.map(item => ({
-          ...item,
-          tmpResearcherName: item.createdBy?.name,
-          tmpBuyerName: item.buyer?.name,
-          tmpClientName: item.clientId?.name,
-          tmpCurrentSupplierName: item.currentSupplier?.name,
-        }))
+        this.currentProductsData = productsData
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

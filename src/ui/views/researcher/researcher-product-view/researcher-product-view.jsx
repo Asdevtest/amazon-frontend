@@ -32,6 +32,7 @@ export class ResearcherProductView extends Component {
 
   render() {
     const {
+      requestStatus,
       alertFailedText,
       showProgress,
       progressValue,
@@ -95,6 +96,7 @@ export class ResearcherProductView extends Component {
         </Main>
         <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
           <AddOrEditSupplierModalContent
+            requestStatus={requestStatus}
             title={textConsts.modalAddTitle}
             supplier={selectedSupplier}
             showProgress={showProgress}

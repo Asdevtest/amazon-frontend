@@ -5,6 +5,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByCode} from '@constants/product-status'
 
 import {BuyerModel} from '@models/buyer-model'
+import {ResearcherModel} from '@models/researcher-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {buyerProductsViewColumns} from '@components/table-columns/buyer/buyer-products-columns'
@@ -22,16 +23,30 @@ export class BuyerMyProductsViewModel {
   sortModel = []
   filterModel = {items: []}
 
+  rowHandlers = {
+    onClickFeesCalculate: item => this.onClickFeesCalculate(item),
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'standart'
-  columnsModel = buyerProductsViewColumns()
+  columnsModel = buyerProductsViewColumns(this.rowHandlers)
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async onClickFeesCalculate(product) {
+    try {
+      const result = await ResearcherModel.parseParseSellerCentral(product.id)
+
+      BuyerModel.updateProduct(product._id, {fbafee: result.amazonFee})
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onChangeFilterModel(model) {
@@ -59,7 +74,7 @@ export class BuyerMyProductsViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = buyerProductsViewColumns().map(el => ({
+      this.columnsModel = buyerProductsViewColumns(this.rowHandlers).map(el => ({
         ...el,
         hide: state.columns.lookup[el.field].hide,
       }))
@@ -138,6 +153,6 @@ export class BuyerMyProductsViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 }

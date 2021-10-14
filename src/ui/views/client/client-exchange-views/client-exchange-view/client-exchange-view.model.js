@@ -174,7 +174,6 @@ export class ClientExchangeViewModel {
         deliveryMethod: orderObject.deliveryMethod,
         warehouse: orderObject.warehouse,
         clientComment: orderObject.clientComment,
-        barCode: orderObject.barCode,
         productId: orderObject.productId,
       }
       await ClientModel.createOrder(createorderData)
@@ -189,16 +188,20 @@ export class ClientExchangeViewModel {
 
   async onLaunchPrivateLabel(order) {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const requestProduct = getObjectFilteredByKeyArrayBlackList({...order}, ['tmpResearcherName', 'tmpBuyerName'])
 
       await this.createOrder(requestProduct)
       await this.onSaveProductData(requestProduct.productId, {barCode: requestProduct.barCode})
+      this.setRequestStatus(loadingStatuses.success)
 
       this.onTriggerOpenModal('showOrderModal')
       this.onTriggerOpenModal('showSuccessModal')
 
       this.loadData()
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       if (error.body && error.body.message) {
         this.error = error.body.message
@@ -257,7 +260,7 @@ export class ClientExchangeViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   onTriggerDrawer() {

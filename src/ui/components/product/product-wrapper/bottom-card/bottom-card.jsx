@@ -33,7 +33,7 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
               disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
               error={formFieldsValidationErrors.bsr}
               label={textConsts.bsr}
-              value={product.bsr || ''}
+              value={product.bsr}
               onChange={onChangeField('bsr')}
             />
             <Field

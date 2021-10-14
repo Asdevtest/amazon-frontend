@@ -123,7 +123,7 @@ export class WarehouseVacantViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   async getTasksVacant() {

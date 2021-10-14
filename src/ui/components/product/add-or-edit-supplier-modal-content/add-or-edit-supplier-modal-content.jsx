@@ -3,6 +3,7 @@ import {React, useState} from 'react'
 import {Container, Divider, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
@@ -19,7 +20,7 @@ import {useClassNames} from './add-or-edit-supplier-modal-content.style'
 const textConsts = getLocalizedTexts(texts, 'ru').addOrEditSupplierModalContent
 
 export const AddOrEditSupplierModalContent = observer(
-  ({title, onTriggerShowModal, supplier, onClickSaveBtn, showProgress, progressValue}) => {
+  ({title, onTriggerShowModal, supplier, onClickSaveBtn, showProgress, progressValue, requestStatus}) => {
     const classNames = useClassNames()
 
     const [tmpSupplier, setTmpSupplier] = useState({
@@ -143,7 +144,15 @@ export const AddOrEditSupplierModalContent = observer(
         <div className={classNames.buttonsWrapper}>
           <Button
             disableElevation
-            disabled={'' === tmpSupplier.name || '' === tmpSupplier.link}
+            disabled={
+              '' === tmpSupplier.price ||
+              '' === tmpSupplier.link ||
+              '' === tmpSupplier.amount ||
+              '' === tmpSupplier.delivery ||
+              '' === tmpSupplier.lotcost ||
+              '' === tmpSupplier.minlot ||
+              requestStatus === loadingStatuses.isLoading
+            }
             className={classNames.saveBtn}
             variant="contained"
             onClick={() => {

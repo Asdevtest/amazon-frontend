@@ -13,13 +13,12 @@ const textConsts = getLocalizedTexts(texts, 'en').batchesModalEditBoxList
 
 export const OrderBox = ({order}) => {
   const classNames = useClassNames()
-
   return (
     <Box className={classNames.listBox}>
       <Box className={classNames.subListBox}>
         <img
           className={classNames.imgBox}
-          src={getAmazonImageUrl(order.product.images?.[0])}
+          src={order.product.images?.[0] ? getAmazonImageUrl(order.product.images?.[0]) : ''}
           alt={order.product.amazonTitle}
         />
         <Typography className={classNames.modalText}>{order.product.id}</Typography>

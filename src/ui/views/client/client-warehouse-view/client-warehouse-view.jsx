@@ -176,6 +176,7 @@ export class ClientWarehouseViewRaw extends Component {
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
 
           <EditBoxForm
+            requestStatus={requestStatus}
             formItem={boxesMy.find(box => box._id === selectedBoxes[0])}
             onSubmit={onEditBoxSubmit}
             onTriggerOpenModal={() => onTriggerOpenModal('showEditBoxModal')}
@@ -188,6 +189,7 @@ export class ClientWarehouseViewRaw extends Component {
               {textConsts.modalRedistributionTitle}
             </Typography>
             <RedistributeBox
+              requestStatus={requestStatus}
               addNewBoxModal={showRedistributeBoxAddNewBoxModal}
               setAddNewBoxModal={value => onModalRedistributeBoxAddNewBox(value)}
               selectedBox={selectedBoxes.length && boxesMy.find(box => box._id === selectedBoxes[0])}
@@ -198,6 +200,7 @@ export class ClientWarehouseViewRaw extends Component {
         </Modal>
 
         <ConfirmWithCommentModal
+          requestStatus={requestStatus}
           openModal={showMergeBoxModal}
           setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
           titleText={textConsts.modalMergeTitle}

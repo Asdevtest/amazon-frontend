@@ -92,4 +92,23 @@ export const useClassNames = makeStyles(theme => ({
     flexGrow: 4,
     minWidth: '330px',
   },
+
+  subTitle: {
+    color: 'rgba(61, 81, 112, 1)',
+    fontSize: '16px',
+    fontWeight: '600',
+    lineHeight: '20px',
+    marginBottom: '12px',
+  },
+
+  imgBox: {
+    width: '400px',
+    height: '400px',
+    objectFit: 'center',
+    transition: '.2s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
+  },
 }))

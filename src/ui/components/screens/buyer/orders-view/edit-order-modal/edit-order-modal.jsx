@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 
 import {Box, Divider, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
@@ -42,6 +43,7 @@ const confirmModalModes = {
 }
 
 export const EditOrderModal = ({
+  requestStatus,
   order,
   boxes,
   onTriggerOpenModal,
@@ -49,6 +51,9 @@ export const EditOrderModal = ({
   warehouses,
   deliveryTypeByCode,
   onSubmitSaveOrder,
+  showProgress,
+  progressValue,
+  setPhotosToLoad,
 }) => {
   const classNames = useClassNames()
 
@@ -153,6 +158,9 @@ export const EditOrderModal = ({
           setOrderField={setOrderField}
           resetOrderField={resetOrderField}
           orderFields={orderFields}
+          showProgress={showProgress}
+          progressValue={progressValue}
+          setPhotosToLoad={setPhotosToLoad}
         />
 
         <Divider className={classNames.divider} />
@@ -176,6 +184,7 @@ export const EditOrderModal = ({
 
       <Box mt={2} className={classNames.buttonsBox}>
         <Button
+          disabled={requestStatus === loadingStatuses.isLoading}
           className={classNames.saveBtn}
           onClick={() => {
             if (boxesForCreation.length > 0) {

@@ -103,7 +103,7 @@ export class WarehouseWarehouseViewModel {
   }
 
   onChangeCurPage(e) {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   onChangeRowsPerPage = e => {

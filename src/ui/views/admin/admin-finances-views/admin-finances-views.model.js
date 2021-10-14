@@ -3,37 +3,24 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables-keys'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByCode, OrderStatusByKey} from '@constants/order-status'
-import {warehouses} from '@constants/warehouses'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 
-import {adminOrdersViewColumns} from '@components/table-columns/admin/orders-columns'
+import {adminFinancesViewColumns} from '@components/table-columns/admin/finances-columns'
 
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
-const ordersStatusBySubCategory = {
-  0: OrderStatusByKey[OrderStatus.READY_TO_PROCESS],
-  1: OrderStatusByKey[OrderStatus.AT_PROCESS],
-  2: OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
-  3: OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
-  4: OrderStatusByKey[OrderStatus.IN_STOCK],
-  5: OrderStatusByKey[OrderStatus.RETURN_ORDER],
-  6: undefined, //
-  7: undefined,
-}
-
-export class AdminOrdersAllViewModel {
+export class AdminFinancesViewsModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
-  currentOrdersData = []
+  currentFinancesData = []
 
   selectionModel = undefined
 
-  activeSubCategory = SettingsModel.activeSubCategoryState[ActiveSubCategoryTablesKeys.ADMIN_ORDERS] || 0
+  activeSubCategory = SettingsModel.activeSubCategoryState[ActiveSubCategoryTablesKeys.ADMIN_FINANCES] || 0
   drawerOpen = false
 
   sortModel = []
@@ -41,7 +28,7 @@ export class AdminOrdersAllViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'standart'
-  columnsModel = adminOrdersViewColumns()
+  columnsModel = adminFinancesViewColumns()
 
   constructor({history}) {
     this.history = history
@@ -53,7 +40,7 @@ export class AdminOrdersAllViewModel {
   }
 
   setActiveSubCategoryState(state) {
-    SettingsModel.setActiveSubCategoryState(state, ActiveSubCategoryTablesKeys.ADMIN_ORDERS)
+    SettingsModel.setActiveSubCategoryState(state, ActiveSubCategoryTablesKeys.ADMIN_FINANCES)
   }
 
   setDataGridState(state) {
@@ -65,11 +52,11 @@ export class AdminOrdersAllViewModel {
       'columns',
     ])
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_ORDERS)
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_FINANCES)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_ORDERS]
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_FINANCES]
 
     if (state) {
       this.sortModel = state.sorting.sortModel
@@ -77,59 +64,52 @@ export class AdminOrdersAllViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = adminOrdersViewColumns().map(el => ({
+      this.columnsModel = adminFinancesViewColumns().map(el => ({
         ...el,
         hide: state.columns.lookup[el.field].hide,
       }))
     }
   }
 
-  onClickTableRow(order) {
-    this.history.push('/admin/orders/order', {order: toJS(order)})
-  }
-
   onChangeSubCategory(value) {
     this.setActiveSubCategoryState(value)
     this.activeSubCategory = value
-    this.getOrdersByStatus(value)
+    this.getPayments(value)
   }
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
   }
 
-  async getOrdersByStatus(activeSubCategory) {
+  async getPayments(activeSubCategory) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
-      const result = await AdministratorModel.getOrdersByStatus(ordersStatusBySubCategory[activeSubCategory])
+      const result = await AdministratorModel.getAllPayments()
 
-      const ordersData = result.map(item => ({
+      const paymentsData = result.map(item => ({
         ...item,
-        tmpBarCode: item.product.barCode,
-        tmpTotalPrice:
-          ((parseFloat(item.product.currentSupplier?.price) || 0) +
-            (parseFloat(item.product.currentSupplier?.delivery) || 0)) *
-          (parseInt(item.amount) || 0),
-        tmpGrossWeightKg: item.product.weight * item.amount,
-        tmpWarehouses: warehouses[item.warehouse],
-        tmpStatus: OrderStatusByCode[item.status],
+        id: item._id,
+        tmpCreatorName: item.createdBy?.name,
+        tmpRecipientName: item.recipient?.name,
       }))
 
       runInAction(() => {
-        this.currentOrdersData = ordersData
+        this.currentFinancesData = paymentsData
+          .filter(el => (activeSubCategory <= 1 ? el.sum >= 0 : el.sum < 0))
+          .sort((a, b) => b.sum - a.sum)
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       this.error = error
-      this.currentOrdersData = []
+      this.currentFinancesData = []
     }
   }
 
   getCurrentData() {
-    return toJS(this.currentOrdersData)
+    return toJS(this.currentFinancesData)
   }
 
   onSelectionModel(model) {

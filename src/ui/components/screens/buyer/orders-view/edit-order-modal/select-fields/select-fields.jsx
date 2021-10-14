@@ -7,7 +7,10 @@ import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode, OrderStatusByCode, OrderStatusByKey, OrderStatus} from '@constants/order-status'
 import {texts} from '@constants/texts'
 
+import {Button} from '@components/buttons/button'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Input} from '@components/input'
+import {ShowBigImagesModal} from '@components/modals/show-big-images-modal'
 
 import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
@@ -18,7 +21,6 @@ import {toFixed, withDollarSign, withYuanSign} from '@utils/text'
 import {useClassNames} from './select-fields.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').ordersViewsModalSelectFields
-
 const defaultYuansToDollarRate = 6.3
 
 const allowOrderStatuses = [
@@ -28,7 +30,17 @@ const allowOrderStatuses = [
   `${OrderStatusByKey[OrderStatus.RETURN_ORDER]}`,
 ]
 
-export const SelectFields = ({order, setOrderField, resetOrderField, orderFields, warehouses, deliveryTypeByCode}) => {
+export const SelectFields = ({
+  order,
+  setOrderField,
+  resetOrderField,
+  orderFields,
+  warehouses,
+  deliveryTypeByCode,
+  showProgress,
+  progressValue,
+  setPhotosToLoad,
+}) => {
   const classNames = useClassNames()
 
   const [supplierPaidDelivery, setSupplierPaidDelivery] = useState(!(orderFields.deliveryCostToTheWarehouse > 0))
@@ -40,6 +52,8 @@ export const SelectFields = ({order, setOrderField, resetOrderField, orderFields
   const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(
     orderFields.totalPriceChanged === orderFields.totalPrice,
   )
+
+  const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   return (
     <Grid container justify="space-around">
@@ -307,7 +321,32 @@ export const SelectFields = ({order, setOrderField, resetOrderField, orderFields
             onChange={setOrderField('trackingNumberChina')}
           />
         </Box>
+
+        <div>
+          <Typography className={classNames.loadTitle}>{textConsts.loadTitle}</Typography>
+          <input multiple="multiple" type="file" onChange={e => setPhotosToLoad([...e.target.files])} />
+
+          <Button
+            disableElevation
+            disabled={order.images === null || order.images.length < 1}
+            color="primary"
+            className={classNames.imagesButton}
+            variant="contained"
+            onClick={() => setShowPhotosModal(!showPhotosModal)}
+          >
+            {textConsts.orderImagesBtn}
+          </Button>
+        </div>
       </Grid>
+
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={textConsts.circularProgressTitle} />}
+
+      <ShowBigImagesModal
+        isAmazone
+        openModal={showPhotosModal}
+        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        images={order.images || []}
+      />
     </Grid>
   )
 }

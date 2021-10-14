@@ -74,7 +74,7 @@ export const FieldsAndSuppliers = observer(
             <InputLabel className={classNames.strategyLabel}>{textConsts.strategyLabel}</InputLabel>
 
             <NativeSelect
-              disabled={!(checkIsSupervisor(curUserRole) || checkIsResearcher(curUserRole))}
+              disabled={!checkIsResearcher(curUserRole)}
               value={product.strategyStatus}
               className={classNames.nativeSelect}
               input={<Input />}

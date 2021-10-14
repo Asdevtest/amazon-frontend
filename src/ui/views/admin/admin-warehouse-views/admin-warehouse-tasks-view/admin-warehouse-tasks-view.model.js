@@ -142,7 +142,7 @@ export class AdminWarehouseTasksViewModel {
   }
 
   onChangeCurPage = e => {
-    this.curPage = e.page
+    this.curPage = e
   }
 
   onChangeRowsPerPage(e) {
