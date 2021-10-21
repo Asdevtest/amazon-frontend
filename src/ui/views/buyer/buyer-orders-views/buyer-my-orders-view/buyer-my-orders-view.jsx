@@ -45,6 +45,7 @@ class BuyerMyOrdersViewRaw extends Component {
 
   render() {
     const {
+      photosToLoad,
       requestStatus,
       getCurrentData,
       sortModel,
@@ -146,6 +147,7 @@ class BuyerMyOrdersViewRaw extends Component {
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
+            photosToLoad={photosToLoad}
             requestStatus={requestStatus}
             boxes={curBoxesOfOrder}
             order={selectedOrder}

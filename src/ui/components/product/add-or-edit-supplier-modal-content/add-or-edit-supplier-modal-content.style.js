@@ -9,7 +9,7 @@ export const useClassNames = makeStyles(() => ({
     marginBottom: '24px',
   },
   modalContainer: {
-    width: '600px',
+    width: '700px',
   },
   titleDivider: {
     margin: '32px -24px',
@@ -33,10 +33,10 @@ export const useClassNames = makeStyles(() => ({
   },
   commentField: {
     height: 'auto',
+    width: '280px',
   },
   bottomWrapper: {
     display: 'flex',
-    alignItems: 'center',
   },
 
   loadTitle: {
@@ -48,5 +48,9 @@ export const useClassNames = makeStyles(() => ({
   },
   imagesButton: {
     marginTop: '30px',
+  },
+
+  imageFileInputWrapper: {
+    width: '400px',
   },
 }))

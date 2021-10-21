@@ -69,6 +69,7 @@ const formFieldsDefault = {
 }
 
 const confirmMessageByProductStatus = {
+  15: 'Продукт подходит?',
   30: 'Отправить на поиск поставщика?',
   20: 'Товар не подходит?',
   70: 'Опубликовать на бирже?',
@@ -176,7 +177,7 @@ export class SupervisorProductViewModel {
             case 'checkednotes':
               return value || ''
             case 'bsr':
-              return value && parseInt(value)
+              return (value && parseInt(value)) || 0
             case 'amazon':
               return value && parseFloat(value)
             case 'weight':
@@ -327,7 +328,7 @@ export class SupervisorProductViewModel {
     this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
 
     this.product.maxDelivery = this.product.express ? (this.product.weight || 0) * 7 : (this.product.weight || 0) * 5
-    // что-то не то
+
     this.product.minpurchase =
       (parseFloat(this.product.amazon) || 0) -
       (parseFloat(this.product.totalFba) || 0) -

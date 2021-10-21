@@ -58,7 +58,6 @@ export class BuyerMyOrdersViewModel {
   densityModel = 'standart'
   columnsModel = buyerMyOrdersViewColumns()
 
-  photosToLoad = []
   progressValue = 0
   showProgress = false
   readyImages = []
@@ -86,7 +85,7 @@ export class BuyerMyOrdersViewModel {
 
   async onPostImage(imageData) {
     const formData = new FormData()
-    formData.append('filename', imageData)
+    formData.append('filename', imageData.file)
 
     try {
       const imageFile = await OtherModel.postImage(formData)
@@ -95,10 +94,6 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       this.error = error
     }
-  }
-
-  setPhotosToLoad(photos) {
-    this.photosToLoad = photos
   }
 
   onChangeFilterModel(model) {
@@ -128,7 +123,7 @@ export class BuyerMyOrdersViewModel {
       this.densityModel = state.density.value
       this.columnsModel = buyerMyOrdersViewColumns().map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }
@@ -189,10 +184,10 @@ export class BuyerMyOrdersViewModel {
     this.onTriggerOpenModal('showOrderModal')
   }
 
-  async onSubmitSaveOrder(order, orderFields, boxesForCreation) {
+  async onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.onSubmitPostImages({images: this.photosToLoad})
+      await this.onSubmitPostImages({images: photosToLoad})
 
       orderFields = {
         ...orderFields,
@@ -201,9 +196,12 @@ export class BuyerMyOrdersViewModel {
 
       await this.onSaveOrder(order, orderFields, boxesForCreation)
 
+      console.log('boxesForCreation', boxesForCreation)
+
       if (boxesForCreation.length > 0) {
         await this.onSubmitCreateBoxes(order, boxesForCreation)
       }
+
       this.setRequestStatus(loadingStatuses.success)
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {

@@ -28,8 +28,10 @@ class AdminExchangeViewsRaw extends Component {
   viewModel = new AdminExchangeViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getProductsByStatus(this.viewModel.activeSubCategory)
-    this.viewModel.getDataGridState()
+    // this.viewModel.getProductsByStatus()
+    // this.viewModel.getDataGridState()
+
+    this.viewModel.loadData()
   }
 
   render() {

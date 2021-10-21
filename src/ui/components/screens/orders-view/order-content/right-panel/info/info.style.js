@@ -100,11 +100,15 @@ export const useClassNames = makeStyles(theme => ({
     lineHeight: '20px',
     marginBottom: '12px',
   },
+  photoWrapper: {
+    maxWidth: '200px',
+  },
 
   imgBox: {
-    width: '400px',
-    height: '400px',
-    objectFit: 'center',
+    width: '200px',
+    height: '200px',
+    objectFit: 'contain',
+    objectPosition: 'center',
     transition: '.2s ease',
     cursor: 'pointer',
     '&:hover': {

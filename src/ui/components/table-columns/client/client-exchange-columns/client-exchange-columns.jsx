@@ -20,10 +20,17 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'image',
     headerName: textConsts.imageField,
-    width: 150,
+    width: 100,
     renderCell: params => <SmallRowImageCell images={params.row.images} />,
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'tmpStrategyStatus',
+    headerName: textConsts.strategyStatusField,
+    renderCell: params => renderFieldValueCell(params.row.tmpStrategyStatus),
+    width: 250,
   },
 
   {
@@ -37,7 +44,7 @@ export const clientExchangeViewColumns = handlers => [
     field: 'amazon',
     headerName: textConsts.priceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
-    width: 150,
+    width: 130,
     type: 'number',
   },
 
@@ -45,7 +52,7 @@ export const clientExchangeViewColumns = handlers => [
     field: 'weight',
     headerName: textConsts.weightField,
     renderCell: params => <ToFixedWithKgSignCell value={params.row.weight} fix={2} />,
-    width: 150,
+    width: 130,
     type: 'number',
   },
 
@@ -53,15 +60,15 @@ export const clientExchangeViewColumns = handlers => [
     field: 'bsr',
     headerName: textConsts.bsrField,
     renderCell: params => renderFieldValueCell(params.row.bsr),
-    width: 150,
+    width: 130,
     type: 'number',
   },
 
   {
     field: 'fbaamount',
     headerName: textConsts.fbaamountField,
-    renderCell: params => renderFieldValueCell(params.row.bsr),
-    width: 150,
+    renderCell: params => renderFieldValueCell(params.row.fbaamount),
+    width: 130,
     type: 'number',
   },
 

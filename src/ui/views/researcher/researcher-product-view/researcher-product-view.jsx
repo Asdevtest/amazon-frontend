@@ -10,6 +10,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {ProductWrapper} from '@components/product/product-wrapper'
@@ -45,6 +46,8 @@ export class ResearcherProductView extends Component {
       formFieldsValidationErrors,
       showConfirmModal,
       confirmModalSettings,
+      showWarningModal,
+      warningModalTitle,
       onTriggerAddOrEditSupplierModal,
       onClickSaveSupplierBtn,
       onChangeProductFields,
@@ -54,6 +57,7 @@ export class ResearcherProductView extends Component {
       onClickParseProductData,
       handleProductActionButtons,
       onTriggerOpenModal,
+      onClickSetProductStatusBtn,
     } = this.viewModel
 
     return (
@@ -87,6 +91,7 @@ export class ResearcherProductView extends Component {
                   handleSupplierButtons={onClickSupplierButtons}
                   handleProductActionButtons={handleProductActionButtons}
                   onChangeField={onChangeProductFields}
+                  onClickSetProductStatusBtn={onClickSetProductStatusBtn}
                   onClickSupplier={onChangeSelectedSupplier}
                   onClickParseProductData={onClickParseProductData}
                 />
@@ -105,6 +110,17 @@ export class ResearcherProductView extends Component {
             onTriggerShowModal={onTriggerAddOrEditSupplierModal}
           />
         </Modal>
+
+        <WarningInfoModal
+          openModal={showWarningModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
+          title={warningModalTitle}
+          btnText={textConsts.okBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningModal')
+          }}
+        />
+
         <ConfirmationModal
           isWarning={confirmModalSettings.isWarning}
           openModal={showConfirmModal}

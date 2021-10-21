@@ -23,14 +23,14 @@ export const exchangeHighPriceColumns = () => [
     field: 'createdAt',
     headerName: textConsts.createDateField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 100,
     type: 'date',
   },
   {
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 100,
     type: 'date',
   },
 
@@ -41,6 +41,13 @@ export const exchangeHighPriceColumns = () => [
     width: 300,
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'tmpStrategyStatus',
+    headerName: textConsts.strategyStatusField,
+    renderCell: params => renderFieldValueCell(params.row.tmpStrategyStatus),
+    width: 250,
   },
   {
     field: 'amazon',
@@ -55,18 +62,6 @@ export const exchangeHighPriceColumns = () => [
     headerName: textConsts.barCodeField,
     width: 150,
     renderCell: params => <NoActiveBarcodeCell barCode={params.row.barCode} />,
-  },
-  {
-    field: 'createdAt',
-    headerName: textConsts.createDateField,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 150,
-    type: 'date',
-  },
-  {
-    field: 'updatedAt',
-    headerName: textConsts.updateDateField,
-    renderCell: params => <NormDateCell params={params} />,
   },
 
   {

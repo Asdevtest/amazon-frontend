@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByCode} from '@constants/product-status'
+import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
 import {BuyerModel} from '@models/buyer-model'
 import {ResearcherModel} from '@models/researcher-model'
@@ -76,7 +77,7 @@ export class BuyerMyProductsViewModel {
       this.densityModel = state.density.value
       this.columnsModel = buyerProductsViewColumns(this.rowHandlers).map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }
@@ -125,6 +126,7 @@ export class BuyerMyProductsViewModel {
         this.productsMy = result.sort(sortObjectsArrayByFiledDate('checkedAt')).map(item => ({
           ...item,
           tmpStatus: ProductStatusByCode[item.status],
+          tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
         }))
       })
       this.setRequestStatus(loadingStatuses.success)
@@ -142,7 +144,7 @@ export class BuyerMyProductsViewModel {
       {
         ...item,
       },
-      ['tmpStatus'],
+      ['tmpStatus', 'tmpStrategyStatus'],
     )
 
     this.history.push('/buyer/product', {product: toJS(requestItem)})

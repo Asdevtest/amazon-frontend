@@ -59,7 +59,7 @@ export class ClientOrdersViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = clientOrdersViewColumns().map(el => ({...el, hide: state.columns.lookup[el.field].hide}))
+      this.columnsModel = clientOrdersViewColumns().map(el => ({...el, hide: state.columns?.lookup[el?.field]?.hide}))
     }
   }
 

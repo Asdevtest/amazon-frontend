@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByCode} from '@constants/product-status'
+import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
 import {SettingsModel} from '@models/settings-model'
 import {SupervisorModel} from '@models/supervisor-model'
@@ -60,7 +61,7 @@ export class SupervisorProductsViewModel {
       this.densityModel = state.density.value
       this.columnsModel = supervisorProductsViewColumns().map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }
@@ -110,6 +111,7 @@ export class SupervisorProductsViewModel {
           tmpStatus: ProductStatusByCode[item.status],
           tmpResearcherName: item.createdBy?.name || '',
           tmpBuyerName: item.buyer?.name || '',
+          tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
         }))
       })
     } catch (error) {
@@ -125,7 +127,7 @@ export class SupervisorProductsViewModel {
       {
         ...item,
       },
-      ['tmpStatus', 'tmpResearcherName', 'tmpBuyerName'],
+      ['tmpStatus', 'tmpResearcherName', 'tmpBuyerName', 'tmpStrategyStatus'],
     )
 
     this.history.push('/supervisor/product', {product: toJS(requestItem)})

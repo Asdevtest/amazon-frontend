@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
@@ -97,7 +98,7 @@ export class ClientExchangeViewModel {
       this.densityModel = state.density.value
       this.columnsModel = clientExchangeViewColumns(this.rowHandlers).map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }
@@ -150,6 +151,7 @@ export class ClientExchangeViewModel {
           ...item,
           tmpResearcherName: item.createdBy.name,
           tmpBuyerName: item.buyer.name,
+          tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
         }))
       })
     } catch (error) {
@@ -190,7 +192,11 @@ export class ClientExchangeViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const requestProduct = getObjectFilteredByKeyArrayBlackList({...order}, ['tmpResearcherName', 'tmpBuyerName'])
+      const requestProduct = getObjectFilteredByKeyArrayBlackList({...order}, [
+        'tmpResearcherName',
+        'tmpBuyerName',
+        'tmpStrategyStatus',
+      ])
 
       await this.createOrder(requestProduct)
       await this.onSaveProductData(requestProduct.productId, {barCode: requestProduct.barCode})

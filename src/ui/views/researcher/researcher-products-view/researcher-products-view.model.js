@@ -79,7 +79,7 @@ export class ResearcherProductsViewModel {
       this.densityModel = state.density.value
       this.columnsModel = researcherProductsViewColumns().map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }

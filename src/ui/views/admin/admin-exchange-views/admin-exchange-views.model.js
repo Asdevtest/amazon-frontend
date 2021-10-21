@@ -4,6 +4,7 @@ import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
@@ -115,7 +116,7 @@ export class AdminExchangeViewModel {
       this.densityModel = state.density.value
       this.columnsModel = exchangeProductsColumns({activeSubCategory: this.activeSubCategory}).map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }
@@ -140,11 +141,23 @@ export class AdminExchangeViewModel {
     return toJS(this.currentProductsData)
   }
 
-  async getProductsByStatus(activeSubCategory) {
+  async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
+      await this.getProductsByStatus()
+      this.getDataGridState()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getProductsByStatus() {
+    try {
       const result = await AdministratorModel.getProductsByStatus({
-        status: productsStatusBySubCategory[activeSubCategory],
+        status: productsStatusBySubCategory[this.activeSubCategory],
       })
 
       const productsData = result.map(item => ({
@@ -153,14 +166,13 @@ export class AdminExchangeViewModel {
         tmpBuyerName: item.buyer?.name,
         tmpClientName: item.clientId?.name,
         tmpCurrentSupplierName: item.currentSupplier?.name,
+        tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
       }))
 
       runInAction(() => {
         this.currentProductsData = productsData
       })
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       this.error = error
       this.currentProductsData = []

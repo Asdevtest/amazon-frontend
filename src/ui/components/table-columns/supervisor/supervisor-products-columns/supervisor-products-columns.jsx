@@ -17,10 +17,9 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
-    minWidth: 150,
+    width: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
-    flex: 2,
   },
   {
     field: 'asinCell',
@@ -34,10 +33,9 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
-    minWidth: 150,
+    width: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
-    flex: 2,
   },
 
   {
@@ -45,6 +43,13 @@ export const supervisorProductsViewColumns = () => [
     headerName: textConsts.statusField,
     width: 250,
     renderCell: params => renderFieldValueCell(params.row.tmpStatus),
+  },
+
+  {
+    field: 'tmpStrategyStatus',
+    headerName: textConsts.strategyStatusField,
+    renderCell: params => renderFieldValueCell(params.row.tmpStrategyStatus),
+    width: 250,
   },
 
   {

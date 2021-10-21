@@ -27,6 +27,8 @@ const navbarActiveCategory = 2
 const attentionStatuses = [
   ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
   ProductStatusByKey[ProductStatus.NEW_PRODUCT],
+  ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
+  ProductStatusByKey[ProductStatus.CHEKED_BY_SUPERVISOR],
 ]
 
 @observer

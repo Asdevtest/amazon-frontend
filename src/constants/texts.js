@@ -386,6 +386,7 @@ export const texts = {
     },
 
     exchangeInventoryColumns: {
+      strategyStatusField: 'Strategy',
       createDateField: 'Created',
       updateDateField: 'Updated',
       asinField: 'ASIN',
@@ -417,6 +418,7 @@ export const texts = {
     },
 
     clientInventoryColumns: {
+      strategyStatusField: 'Strategy',
       createDateField: 'Created',
       updateDateField: 'Updated',
       asinField: 'ASIN',
@@ -496,6 +498,7 @@ export const texts = {
       barcodeField: 'Barcode',
     },
     exchangeCheckingColumns: {
+      strategyStatusField: 'Strategy',
       asinField: 'ASIN',
       priceField: 'Price',
       feesAndNetField: 'Fees & Net',
@@ -524,6 +527,7 @@ export const texts = {
       updateDateField: 'Update date',
     },
     exchangeSupplierSearchColumns: {
+      strategyStatusField: 'Strategy',
       asinField: 'ASIN',
       priceField: 'Price',
       feesAndNetField: 'Fees & Net',
@@ -548,6 +552,7 @@ export const texts = {
     },
 
     exchangeBuyerWorkColumns: {
+      strategyStatusField: 'Strategy',
       asinField: 'ASIN',
       priceField: 'Price',
       feesAndNetField: 'Fees & Net',
@@ -572,6 +577,8 @@ export const texts = {
     },
 
     exchangeSupplierFoundedColumns: {
+      strategyStatusField: 'Strategy',
+
       asinField: 'ASIN',
       priceField: 'Price',
       feesAndNetField: 'Fees & Net',
@@ -813,6 +820,8 @@ export const texts = {
       deleteSupplierMessage: 'Вы точно хитите удалить поставщика?',
       yesBtn: 'Да',
       noBtn: 'Нет',
+
+      okBtn: 'Ок',
     },
     supervisorProductView: {
       appBarTitle: 'Product',
@@ -1485,6 +1494,8 @@ export const texts = {
       titleToolTip: 'Финальный вес будет расчитан когда склад получит товар',
     },
     adminOrdersTableColumns: {
+      createDateField: 'Создан',
+      updateDateField: 'Обновлен',
       asinTypo: 'ASIN ',
       setBarcodeLabel: 'Set barcode',
       barcodeDeleteAlert: 'Barcode deleting',
@@ -1645,6 +1656,7 @@ export const texts = {
     },
 
     supervisorProductsTableColumns: {
+      strategyStatusField: 'Strategy',
       asinField: 'ASIN',
       statusField: 'STATUS',
       createDateField: 'Created',
@@ -1659,6 +1671,7 @@ export const texts = {
     },
 
     buyerProductsTableColumns: {
+      strategyStatusField: 'Strategy',
       asinField: 'ASIN',
       statusField: 'STATUS',
       createDateField: 'Created',
@@ -1688,6 +1701,7 @@ export const texts = {
 
     clientExchangeTableColumns: {
       imageField: 'Image',
+      strategyStatusField: 'Strategy',
       actionField: 'Action',
       categoryField: 'Category',
       priceField: 'Amazon price',
@@ -2069,6 +2083,14 @@ export const texts = {
       receiveBoxBtn: 'Принять коробку',
       reReceiveBoxBtn: 'Перераспределить',
     },
+
+    imageFileInput: {
+      dragAndDropBtn: 'Click or Drop here',
+      hideImagesBtn: 'Hide images',
+      showImagesBtn: 'Show images',
+      removeAllBtn: 'Remove all',
+    },
+
     warehouseCompletedTaskModal: {
       divideBox: 'Разьедена коробка номер:',
       divideBoxes: 'в коробки под номерами:',
@@ -2107,7 +2129,10 @@ export const texts = {
       edit: 'Изменить коробку',
     },
     productStatusButtonsConfigs: {
-      searchForSupplier: 'Поиск поставщика',
+      checkedBySupervisor: 'Продукт подходит',
+      sendToSupervisor: 'Создать продукт',
+      createWithSupplier: 'Создать с поставщиком',
+      searchForSupplier: 'Поиск поставщика (продукт подходит)',
       rejectedBySupervisor: 'Не подходит',
       supplierWasFound: 'Поставщик найден',
       supplierWasNotFound: 'Поставщик не найден',

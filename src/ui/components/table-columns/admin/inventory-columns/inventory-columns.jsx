@@ -25,7 +25,7 @@ export const exchangeInventoryColumns = () => [
     field: 'createdAt',
     headerName: textConsts.createDateField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 100,
     type: 'date',
   },
 
@@ -33,7 +33,7 @@ export const exchangeInventoryColumns = () => [
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 100,
     type: 'date',
   },
 
@@ -45,6 +45,14 @@ export const exchangeInventoryColumns = () => [
     filterable: false,
     sortable: false,
   },
+
+  {
+    field: 'tmpStrategyStatus',
+    headerName: textConsts.strategyStatusField,
+    renderCell: params => renderFieldValueCell(params.row.tmpStrategyStatus),
+    width: 250,
+  },
+
   {
     field: 'fees-net',
     headerName: textConsts.feesAndNetField,
@@ -103,21 +111,21 @@ export const exchangeInventoryColumns = () => [
     field: 'createdAt',
     headerName: textConsts.createDateField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 100,
     type: 'date',
   },
   {
     field: 'checkedAt',
     headerName: textConsts.checkDateField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 100,
     type: 'date',
   },
   {
     field: 'updaupdatedAtteDate',
     headerName: textConsts.updateDateField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 100,
     type: 'date',
   },
 

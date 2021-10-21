@@ -11,6 +11,7 @@ import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
+import {ImageFileInput} from '@components/image-file-input'
 import {Modal} from '@components/modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -94,12 +95,10 @@ export const EditTaskModal = observer(
 
           <div>
             <Typography>{'Прикрепить фото к задаче'}</Typography>
-            <input
-              multiple="multiple"
-              className={classNames.filesInput}
-              type="file"
-              onChange={e => setPhotosOfTask([...e.target.files])}
-            />
+
+            <div className={classNames.imageFileInputWrapper}>
+              <ImageFileInput images={photosOfTask} setImages={setPhotosOfTask} maxNumber={50} />
+            </div>
           </div>
 
           <BeforeAfterBlock

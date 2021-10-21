@@ -66,7 +66,7 @@ export class AdminFinancesViewsModel {
       this.densityModel = state.density.value
       this.columnsModel = adminFinancesViewColumns().map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }

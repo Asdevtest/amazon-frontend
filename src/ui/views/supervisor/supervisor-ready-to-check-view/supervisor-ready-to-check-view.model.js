@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 
 import {SupervisorModel} from '@models/supervisor-model'
 
@@ -42,8 +43,8 @@ export class SupervisorReadyToCheckViewModel {
       this.setRequestStatus(loadingStatuses.success)
       runInAction(() => {
         this.productsReadyToCheck = result
+          .filter(el => el.status !== ProductStatusByKey[ProductStatus.NEW_PRODUCT])
           .sort(sortObjectsArrayByFiledDate('createdAt'))
-          .filter(el => el.icomment !== '')
       })
     } catch (error) {
       console.log(error)

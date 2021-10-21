@@ -64,4 +64,12 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 500,
     lineHeight: '21px',
   },
+
+  imageFileInputWrapper: {
+    width: '500px',
+  },
+
+  imagesButton: {
+    marginTop: '20px',
+  },
 }))

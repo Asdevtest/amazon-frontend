@@ -58,7 +58,7 @@ export class WarehouseWarehouseViewModel {
       this.densityModel = state.density.value
       this.columnsModel = warehouseBoxesViewColumns().map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }

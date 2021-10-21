@@ -7,6 +7,7 @@ import {observer} from 'mobx-react'
 
 import {Listing} from '../listing'
 import {BottomCard} from './bottom-card'
+import {useClassNames} from './product-wrapper.style'
 import {TopCard} from './top-card'
 
 const TabPanel = ({children, value, index, ...other}) => (
@@ -41,13 +42,22 @@ export const ProductWrapper = observer(
     handleProductActionButtons,
     onClickParseProductData,
   }) => {
+    const classNames = useClassNames()
+
     const [tabIndex, setTabIndex] = React.useState(0)
-    const tabsStyles = twitterTabsStylesHook.useTabs()
     const tabItemStyles = twitterTabsStylesHook.useTabItem()
 
     return (
       <React.Fragment>
-        <Tabs variant={'fullWidth'} classes={tabsStyles} value={tabIndex} onChange={(e, index) => setTabIndex(index)}>
+        <Tabs
+          variant={'fullWidth'}
+          classes={{
+            root: classNames.row,
+            indicator: classNames.indicator,
+          }}
+          value={tabIndex}
+          onChange={(e, index) => setTabIndex(index)}
+        >
           <Tab classes={tabItemStyles} label={'Основная информация'} />
           <Tab classes={tabItemStyles} label={'Listing'} />
         </Tabs>

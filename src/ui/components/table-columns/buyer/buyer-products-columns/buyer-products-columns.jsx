@@ -18,7 +18,7 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
-    minWidth: 150,
+    minWidth: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },
@@ -26,7 +26,7 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
-    minWidth: 150,
+    minWidth: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },
@@ -46,6 +46,13 @@ export const buyerProductsViewColumns = handlers => [
     headerName: textConsts.statusField,
     width: 300,
     renderCell: params => renderFieldValueCell(params.row.tmpStatus),
+  },
+
+  {
+    field: 'tmpStrategyStatus',
+    headerName: textConsts.strategyStatusField,
+    renderCell: params => renderFieldValueCell(params.row.tmpStrategyStatus),
+    width: 250,
   },
 
   {

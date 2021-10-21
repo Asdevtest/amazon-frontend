@@ -6,6 +6,7 @@ import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
+import {ImageFileInput} from '@components/image-file-input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -88,10 +89,10 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
     setEditingBox(newFormFields)
   }
 
-  const setImagesOfBox = e => {
+  const setImagesOfBox = images => {
     const newFormFields = {...editingBox}
 
-    newFormFields.tmpImages = [...e.target.files]
+    newFormFields.tmpImages = [...images]
 
     setEditingBox(newFormFields)
   }
@@ -120,7 +121,10 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
 
       <Box className={classNames.boxCode}>
         <Typography className={(classNames.modalText, classNames.typoCode)}>{textConsts.addPhotos}</Typography>
-        <input multiple="multiple" className={classNames.input} type="file" onChange={e => setImagesOfBox(e)} />
+
+        <div className={classNames.imageFileInputWrapper}>
+          <ImageFileInput images={editingBox.tmpImages} setImages={setImagesOfBox} maxNumber={50} />
+        </div>
       </Box>
 
       <Divider className={classNames.divider} />

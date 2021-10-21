@@ -2,11 +2,8 @@ import {createStyles} from '@material-ui/core'
 
 export const styles = createStyles(() => ({
   img: {
-    backgroundColor: 'rgba(61, 81, 112, 1)',
     height: '64px',
     width: '64px',
-    borderRadius: '2px',
-    verticalAlign: 'middle',
     marginRight: '16px',
     objectFit: 'contain',
     objectPosition: 'center',
@@ -308,5 +305,16 @@ export const styles = createStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '5px',
+  },
+
+  scrollingValue: {
+    width: '400px',
+    height: '45px',
+    overflowX: 'scroll',
+  },
+
+  normDateCellTypo: {
+    fontSize: '10px',
+    fontWeight: '600',
   },
 }))

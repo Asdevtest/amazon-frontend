@@ -23,7 +23,7 @@ export const adminBoxesViewColumns = () => [
     field: 'createdAt',
     headerName: textConsts.createdAtField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 100,
     type: 'date',
   },
   {

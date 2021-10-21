@@ -45,7 +45,6 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imgBox: {
-    backgroundColor: 'rgba(196, 196, 196, 1)',
     height: '64px',
     width: '64px',
     borderRadius: '3px',
