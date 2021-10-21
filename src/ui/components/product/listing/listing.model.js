@@ -36,24 +36,14 @@ export class ListingModel {
   curImage = undefined
   imagesFromBoxes = []
 
-  tmpImagesLoadMap = {
-    0: false,
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-    5: false,
-    6: false,
-    7: false,
-  }
-
   progressValue = 0
-
-  tmpListingImages = []
 
   showImageModal = false
   showSuccessModal = false
   showProgress = false
+
+  tmpListingImages = []
+  imagesToLoad = []
 
   get userRole() {
     return UserModel.userInfo?.role
@@ -89,7 +79,7 @@ export class ListingModel {
 
   async onSaveSubmith() {
     try {
-      await this.onSubmitPostImages({images: this.tmpImagesLoadMap, type: 'tmpListingImages'})
+      await this.onSubmitPostImages({images: this.tmpListingImages})
 
       await this.onSaveProductData()
 
@@ -99,33 +89,32 @@ export class ListingModel {
     }
   }
 
-  async onSubmitPostImages({images, type}) {
-    const imageFilesArray = Object.values(images).filter(el => el !== false)
-    const loadingStep = 100 / imageFilesArray.length
+  async onSubmitPostImages({images}) {
+    this.tmpListingImages = []
+    const loadingStep = 100 / images.length
 
-    this[type] = []
     this.showProgress = true
 
-    for (const key in images) {
-      if (images[key]) {
-        const image = images[key]
-        await this.onPostImage(image, type)
-        this.progressValue = this.progressValue + loadingStep
-      }
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i]
+
+      await this.onPostImage(image)
+
+      this.progressValue = this.progressValue + loadingStep
     }
 
     this.showProgress = false
     this.progressValue = 0
   }
 
-  async onPostImage(imageData, imagesType) {
+  async onPostImage(imageData) {
     const formData = new FormData()
-    formData.append('filename', imageData)
+    formData.append('filename', imageData.file)
 
     try {
       const imageFile = await OtherModel.postImage(formData)
 
-      this[imagesType].push(BACKEND_API_URL + '/uploads/' + imageFile.data.fileName)
+      this.imagesToLoad.push(BACKEND_API_URL + '/uploads/' + imageFile.data.fileName)
     } catch (error) {
       this.error = error
     }
@@ -135,12 +124,8 @@ export class ListingModel {
     this.history.goBack()
   }
 
-  onRemoveTmpListingImage(index) {
-    this.tmpImagesLoadMap[index] = false
-  }
-
-  setTmpListingImages(e, index) {
-    this.tmpImagesLoadMap[index] = e.target.files[0]
+  setTmpListingImages(images) {
+    this.tmpListingImages = images
   }
 
   onChangeArrayField(e, fieldName, itemIndex) {
@@ -178,7 +163,7 @@ export class ListingModel {
 
       await SupervisorModel.updateProductListing(this.listingProduct._id, {
         ...updateProductData,
-        listingImages: updateProductData.listingImages.concat(this.tmpListingImages),
+        listingImages: updateProductData.listingImages.concat(this.imagesToLoad),
       })
     } catch (error) {
       console.log('error', error)

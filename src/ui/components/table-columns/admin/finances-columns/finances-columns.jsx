@@ -2,7 +2,11 @@ import React from 'react'
 
 import {texts} from '@constants/texts'
 
-import {renderFieldValueCell, ToFixedWithDollarSignCell} from '@components/data-grid-cells/data-grid-cells'
+import {
+  renderFieldValueCell,
+  ScrollingCell,
+  ToFixedWithDollarSignCell,
+} from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -13,7 +17,7 @@ export const adminFinancesViewColumns = () => [
     field: 'comment',
     headerName: textConsts.commentField,
     width: 400,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <ScrollingCell value={params.value} />,
   },
 
   {

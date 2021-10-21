@@ -19,7 +19,6 @@ export const useClassNames = makeStyles(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
-    // gap: '20px',
   },
   button: {
     marginLeft: '10px',
@@ -117,5 +116,9 @@ export const useClassNames = makeStyles(theme => ({
   filesInput: {
     width: '700px',
     height: '50px',
+  },
+
+  imageFileInputWrapper: {
+    maxWidth: '866px',
   },
 }))

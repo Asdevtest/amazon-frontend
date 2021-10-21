@@ -19,7 +19,7 @@ export const clientOrdersViewColumns = () => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
-    width: 150,
+    width: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },

@@ -18,7 +18,7 @@ export const buyerMyOrdersViewColumns = () => [
     field: 'createdAt',
     headerName: textConsts.createdAtField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 100,
     type: 'date',
   },
 
@@ -44,7 +44,7 @@ export const buyerMyOrdersViewColumns = () => [
     field: 'updatedAt',
     headerName: textConsts.updatedAtField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 100,
     type: 'date',
   },
 

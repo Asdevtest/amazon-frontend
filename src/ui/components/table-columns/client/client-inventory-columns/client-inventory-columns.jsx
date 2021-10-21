@@ -19,7 +19,7 @@ export const clientInventoryColumns = barCodeHandlers => [
     field: 'createdAt',
     headerName: textConsts.createDateField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    minWidth: 100,
     type: 'date',
   },
 
@@ -27,7 +27,7 @@ export const clientInventoryColumns = barCodeHandlers => [
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    minWidth: 100,
     type: 'date',
   },
 
@@ -35,60 +35,75 @@ export const clientInventoryColumns = barCodeHandlers => [
     field: 'asinCell',
     headerName: textConsts.asinField,
     renderCell: params => <AsinCell params={params} />,
-    width: 300,
+    minWidth: 300,
     filterable: false,
     sortable: false,
   },
+
+  {
+    field: 'tmpStrategyStatus',
+    headerName: textConsts.strategyStatusField,
+    renderCell: params => renderFieldValueCell(params.row.tmpStrategyStatus),
+    width: 250,
+  },
+
   {
     field: 'amazon',
     headerName: textConsts.priceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
-    width: 130,
+    minWidth: 110,
+    headerAlign: 'center',
   },
 
   {
     field: 'profit',
     headerName: textConsts.profitField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.profit} fix={2} />,
-    width: 130,
+    minWidth: 110,
     type: 'number',
+    headerAlign: 'center',
   },
 
   {
     field: 'margin',
     headerName: textConsts.marginField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.margin} fix={2} />,
-    width: 130,
+    minWidth: 110,
     type: 'number',
+    headerAlign: 'center',
   },
   {
     field: 'bsr',
     headerName: textConsts.bsrField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 130,
+    minWidth: 110,
     type: 'number',
+    headerAlign: 'center',
   },
 
   {
     field: 'fbafee',
     headerName: textConsts.fbaField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.fbafee} fix={2} />,
-    width: 130,
+    minWidth: 110,
     type: 'number',
+    headerAlign: 'center',
   },
 
   {
     field: 'fbaamount',
     headerName: textConsts.fbaAmountField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 130,
+    minWidth: 110,
     type: 'number',
+    headerAlign: 'center',
   },
 
   {
     field: 'barCode',
     headerName: textConsts.barcodeField,
     renderCell: params => <BarcodeCell params={params} handlers={barCodeHandlers} />,
-    width: 130,
+    minWidth: 110,
+    headerAlign: 'center',
   },
 ]

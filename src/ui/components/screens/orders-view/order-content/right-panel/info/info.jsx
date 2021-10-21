@@ -66,7 +66,7 @@ export const Info = ({order}) => {
         </div>
       </div>
 
-      <div>
+      <div className={classNames.photoWrapper}>
         <Typography className={classNames.subTitle}>{'Фотографии к заказу:'}</Typography>
 
         {(order.images === null ? false : order.images.length > 0) ? (

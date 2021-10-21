@@ -1,8 +1,6 @@
 import React, {useEffect, useRef} from 'react'
 
 import {Typography, Divider, Paper} from '@material-ui/core'
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto'
-import DoneOutlineIcon from '@material-ui/icons/DoneOutline'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 import {useHistory} from 'react-router-dom'
@@ -11,7 +9,7 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
-import {Input} from '@components/input'
+import {ImageFileInput} from '@components/image-file-input'
 import {ShowImageModal} from '@components/modals/show-image-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {UserBalanceHistory} from '@components/screens/user-balance-history'
@@ -32,7 +30,7 @@ export const Listing = observer(({product}) => {
   }, [])
 
   const {
-    tmpImagesLoadMap,
+    tmpListingImages,
     listingProduct,
     payments,
     showImageModal,
@@ -49,7 +47,6 @@ export const Listing = observer(({product}) => {
     setTmpListingImages,
     onSaveSubmith,
     onCancel,
-    onRemoveTmpListingImage,
   } = listingModel.current
 
   const userIsSupervisor = checkIsSupervisor(UserRoleCodeMap[userRole])
@@ -130,30 +127,9 @@ export const Listing = observer(({product}) => {
           {userIsSupervisor && (
             <div>
               <Typography className={classNames.subTitle}>{'Добавить фотографии:'}</Typography>
-              <div className={classNames.filesInputList}>
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((el, index) => (
-                  <li key={index} className={classNames.filesInputListItem}>
-                    <label className={classNames.inputFileWrapper}>
-                      {tmpImagesLoadMap[index] !== false ? (
-                        <div className={classNames.inputWaitFileWrapper}>
-                          <DoneOutlineIcon fontSize="large" onClick={() => onRemoveTmpListingImage(index)} />
-                          <span>{'Файл выбран'}</span>
-                          <span>{tmpImagesLoadMap[index].name}</span>
-                        </div>
-                      ) : (
-                        <div className={classNames.inputWaitFileWrapper}>
-                          <AddAPhotoIcon fontSize="large" />
 
-                          <Input
-                            type="file"
-                            className={classNames.fileInput}
-                            onChange={e => setTmpListingImages(e, index)}
-                          />
-                        </div>
-                      )}
-                    </label>
-                  </li>
-                ))}
+              <div className={classNames.imageFileInputWrapper}>
+                <ImageFileInput images={tmpListingImages} setImages={setTmpListingImages} maxNumber={50} />
               </div>
             </div>
           )}
@@ -204,7 +180,7 @@ export const Listing = observer(({product}) => {
             onChange={e => onChangeField(e, 'listingSupplierCompetitors')}
           />
 
-          <div className={classNames.photoWrapper}>
+          <div>
             <Typography className={classNames.subTitle}>{'Фотографии продукта в коробках:'}</Typography>
 
             {imagesFromBoxes.length > 0 ? (

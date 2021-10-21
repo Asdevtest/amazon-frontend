@@ -68,7 +68,7 @@ export class WarehouseCanceledTasksViewModel {
       this.densityModel = state.density.value
       this.columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers).map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }

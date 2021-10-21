@@ -74,8 +74,6 @@ export class WarehouseVacantViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_MY_TASKS]
 
-    console.log('state', toJS(state))
-
     if (state) {
       this.sortModel = state.sorting.sortModel
       this.filterModel = state.filter
@@ -85,7 +83,7 @@ export class WarehouseVacantViewModel {
       this.densityModel = state.density.value
       this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers).map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }
@@ -191,7 +189,7 @@ export class WarehouseVacantViewModel {
 
   async onPostImage(imageData, imagesType) {
     const formData = new FormData()
-    formData.append('filename', imageData)
+    formData.append('filename', imageData.file)
 
     try {
       const imageFile = await OtherModel.postImage(formData)
@@ -323,7 +321,7 @@ export class WarehouseVacantViewModel {
         await this.onSubmitPostImages({images: photos, type: 'imagesOfTask'})
       }
 
-      await this.updateTask(this.selectedTask.id, comment, mapTaskStatusEmumToKey[TaskStatus.SOLVED]) // запрос не работает пока поле статуса обязательно(написал в чат бека))
+      await this.updateTask(this.selectedTask.id, comment)
       this.setRequestStatus(loadingStatuses.success)
 
       this.onTriggerEditTaskModal()
@@ -339,65 +337,6 @@ export class WarehouseVacantViewModel {
       }
     }
   }
-
-  // async onClickSolveTask({newBoxes, operationType, comment, photos}) {
-  //   try {
-  //     for (let i = 0; i < newBoxes.length; i++) {
-  //       const box = getObjectFilteredByKeyArrayBlackList(newBoxes[i], ['tmpImages'])
-
-  //       await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, box)
-  //     }
-
-  //     if (operationType === TaskOperationType.RECEIVE) {
-  //       if (newBoxes[0].tmpImages.length > 0) {
-  //         await this.onSubmitPostImages({images: newBoxes[0].tmpImages, type: 'imagesOfBox'})
-  //       }
-
-  //       const requestBoxes = newBoxes.map(box =>
-  //         getObjectFilteredByKeyArrayBlackList(
-  //           {
-  //             ...box,
-  //             items: [
-  //               {
-  //                 ...box.items[0],
-  //                 amount: box.items[0].amount,
-  //                 order: box.items[0].order._id,
-  //                 product: box.items[0].product._id,
-  //               },
-  //             ],
-  //             images: this.imagesOfBox,
-  //           },
-  //           ['_id', 'status', 'createdBy', 'lastModifiedBy', 'createdAt', 'tmpImages'],
-  //         ),
-  //       )
-
-  //       await BoxesModel.approveBoxesOperation(requestBoxes, this.selectedTask.boxesBefore[0]._id)
-  //       await this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
-  //         status: OrderStatusByKey[OrderStatus.IN_STOCK],
-  //       })
-  //     } else {
-  //       await this.onSubmitUpdateBoxes(newBoxes)
-  //       await BoxesModel.approveBoxesOperation(this.selectedTask.boxes[0]._id)
-  //     }
-
-  //     if (photos.length > 0) {
-  //       await this.onSubmitPostImages({images: photos, type: 'imagesOfTask'})
-  //     }
-
-  //     await this.updateTask(this.selectedTask.id, TaskStatus.SOLVED, comment)
-
-  //     await this.getTasksMy()
-
-  //     this.onTriggerEditTaskModal()
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.error = error
-
-  //     if (error[0]) {
-  //       this.onTriggerOpenModal('showNoDimensionsErrorModal')
-  //     }
-  //   }
-  // }
 
   async updateTask(taskId, comment, status) {
     try {

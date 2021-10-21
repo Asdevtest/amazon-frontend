@@ -103,9 +103,10 @@ export const useClassNames = makeStyles(() => ({
     width: '400px',
   },
   imgBox: {
-    width: '400px',
-    height: '400px',
-    objectFit: 'center',
+    width: '200px',
+    height: '200px',
+    objectFit: 'contain',
+    objectPosition: 'center',
     transition: '.2s ease',
     cursor: 'pointer',
     '&:hover': {
@@ -171,5 +172,9 @@ export const useClassNames = makeStyles(() => ({
   },
   button: {
     marginRight: '10px',
+  },
+
+  imageFileInputWrapper: {
+    width: '500px',
   },
 }))

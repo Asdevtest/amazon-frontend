@@ -56,7 +56,9 @@ export const RightSideComments = observer(
             buttonsConfig={productStatusButtonsConfig}
             onClickButton={onClickSetProductStatusBtn}
             onClickSaveWithoutStatusChange={
-              checkIsSupervisor(curUserRole) ? () => handleProductActionButtons('accept', withoutStatus) : undefined
+              checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole)
+                ? () => handleProductActionButtons('accept', withoutStatus)
+                : undefined
             }
           />
           <Field
@@ -87,8 +89,9 @@ export const RightSideComments = observer(
             value={product.buyersComment}
             onChange={onChangeField('buyersComment')}
           />
-          {((checkIsResearcher(curUserRole) || checkIsBuyer(curUserRole)) &&
-            product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
+          {(checkIsResearcher(curUserRole) &&
+            product.status < ProductStatusByKey[ProductStatus.CHEKED_BY_SUPERVISOR]) ||
+          (checkIsBuyer(curUserRole) && product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
           checkIsSupervisor(curUserRole) ? (
             <div className={classNames.buttonsWrapper}>
               <Button

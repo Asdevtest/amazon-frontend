@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
@@ -62,7 +63,7 @@ export class AdminInventoryViewModel {
       this.densityModel = state.density.value
       this.columnsModel = exchangeInventoryColumns().map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }
@@ -94,6 +95,7 @@ export class AdminInventoryViewModel {
         tmpBuyerName: item.buyer?.name,
         tmpClientName: item.client?.name,
         tmpCurrentSupplierName: item.currentSupplier?.name,
+        tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
       }))
 
       runInAction(() => {

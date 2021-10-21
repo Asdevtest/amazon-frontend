@@ -9,6 +9,7 @@ import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
+import {ImageFileInput} from '@components/image-file-input'
 import {ShowBigImagesModal} from '@components/modals/show-big-images-modal'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
@@ -124,7 +125,10 @@ export const AddOrEditSupplierModalContent = observer(
 
           <div>
             <Typography className={classNames.loadTitle}>{textConsts.loadTitle}</Typography>
-            <input multiple="multiple" type="file" onChange={e => setPhotosOfSupplier([...e.target.files])} />
+
+            <div className={classNames.imageFileInputWrapper}>
+              <ImageFileInput images={photosOfSupplier} setImages={setPhotosOfSupplier} maxNumber={50} />
+            </div>
 
             <Button
               disableElevation

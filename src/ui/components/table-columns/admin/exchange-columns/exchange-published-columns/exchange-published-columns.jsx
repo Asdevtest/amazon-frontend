@@ -22,14 +22,14 @@ export const exchangePublishedColumns = () => [
     field: 'createdAt',
     headerName: textConsts.createDateField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 100,
     type: 'date',
   },
   {
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 100,
     type: 'date',
   },
 
@@ -40,6 +40,13 @@ export const exchangePublishedColumns = () => [
     width: 300,
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'tmpStrategyStatus',
+    headerName: textConsts.strategyStatusField,
+    renderCell: params => renderFieldValueCell(params.row.tmpStrategyStatus),
+    width: 250,
   },
   {
     field: 'amazon',

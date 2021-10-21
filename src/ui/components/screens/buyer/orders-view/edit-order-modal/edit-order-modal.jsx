@@ -53,7 +53,6 @@ export const EditOrderModal = ({
   onSubmitSaveOrder,
   showProgress,
   progressValue,
-  setPhotosToLoad,
 }) => {
   const classNames = useClassNames()
 
@@ -140,9 +139,11 @@ export const EditOrderModal = ({
         return setOrderFields(tmpNewOrderFieldsState)
 
       case 'SUBMIT':
-        return onSubmitSaveOrder(order, orderFields, boxesForCreation)
+        return onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad)
     }
   }
+
+  const [photosToLoad, setPhotosToLoad] = useState([])
 
   return (
     <Box className={classNames.modalWrapper}>
@@ -152,6 +153,7 @@ export const EditOrderModal = ({
         <Typography className={classNames.modalText}>{`${textConsts.orderNum} ${order._id}`}</Typography>
 
         <SelectFields
+          photosToLoad={photosToLoad}
           order={order}
           warehouses={warehouses}
           deliveryTypeByCode={deliveryTypeByCode}
@@ -191,7 +193,7 @@ export const EditOrderModal = ({
               setConfirmModalMode(confirmModalModes.SUBMIT)
               setShowConfirmModal(!showConfirmModal)
             } else {
-              onSubmitSaveOrder(order, orderFields, boxesForCreation)
+              onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad)
             }
           }}
         >

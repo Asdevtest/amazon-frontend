@@ -9,6 +9,7 @@ import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {ImageFileInput} from '@components/image-file-input'
 import {Input} from '@components/input'
 import {ShowBigImagesModal} from '@components/modals/show-big-images-modal'
 
@@ -31,6 +32,7 @@ const allowOrderStatuses = [
 ]
 
 export const SelectFields = ({
+  photosToLoad,
   order,
   setOrderField,
   resetOrderField,
@@ -324,7 +326,10 @@ export const SelectFields = ({
 
         <div>
           <Typography className={classNames.loadTitle}>{textConsts.loadTitle}</Typography>
-          <input multiple="multiple" type="file" onChange={e => setPhotosToLoad([...e.target.files])} />
+
+          <div className={classNames.imageFileInputWrapper}>
+            <ImageFileInput images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
+          </div>
 
           <Button
             disableElevation

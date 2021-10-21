@@ -79,7 +79,7 @@ export class AdminWarehouseBoxesViewModel {
       this.densityModel = state.density.value
       this.columnsModel = adminBoxesViewColumns().map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }

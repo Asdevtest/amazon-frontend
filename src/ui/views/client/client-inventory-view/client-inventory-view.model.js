@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
@@ -90,7 +91,7 @@ export class ClientInventoryViewModel {
       this.densityModel = state.density.value
       this.columnsModel = clientInventoryColumns(this.barCodeHandlers).map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }
@@ -150,7 +151,10 @@ export class ClientInventoryViewModel {
     try {
       const result = await ClientModel.getProductsPaid()
       runInAction(() => {
-        this.productsMy = result.sort(sortObjectsArrayByFiledDate('checkedAt'))
+        this.productsMy = result.sort(sortObjectsArrayByFiledDate('checkedAt')).map(item => ({
+          ...item,
+          tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+        }))
       })
     } catch (error) {
       console.log(error)

@@ -1,0 +1,135 @@
+import {tooltipClasses} from '@mui/material/Tooltip'
+
+import {makeStyles} from '@material-ui/core'
+
+export const useClassNames = makeStyles(() => ({
+  mainWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+
+  dragAndDropBtn: {
+    height: '100px',
+    border: ' 3px dashed rgba(0,123, 255, .7)',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    borderRadius: '10px',
+
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
+  },
+
+  actionBtnsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  showImagesBtn: {
+    width: '110px',
+    transition: '0.3s ease',
+    border: ' 1px solid rgba(0,123, 255, .7)',
+    cursor: 'pointer',
+    borderRadius: '10px',
+    '&:hover': {
+      opacity: '0.7',
+    },
+  },
+
+  imagesCount: {
+    fontSize: '12px',
+    textAlign: 'center',
+  },
+
+  imagesCountSpan: {
+    fontSize: '16px',
+    fontWeight: '600',
+    color: 'rgba(0,123, 255, 1)',
+  },
+
+  removeAllBtn: {
+    width: '90px',
+    transition: '0.3s ease',
+    border: ' 1px solid rgba(0,123, 255, .7)',
+    cursor: 'pointer',
+    borderRadius: '10px',
+    '&:hover': {
+      opacity: '0.7',
+    },
+  },
+
+  dragingOnDropBtn: {
+    color: 'rgba(0,123, 255, 1)',
+    background: 'rgba(0,255, 0, .3)',
+  },
+
+  imageListWrapper: {
+    width: '95%',
+    margin: '0 auto',
+
+    maxHeight: '250px',
+    overflowY: 'scroll',
+  },
+
+  image: {
+    width: '80px',
+    height: '70px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+
+  tooltipImg: {
+    width: '300px',
+    height: '200px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+
+  tooltipText: {
+    maxWidth: '300px',
+  },
+
+  imgTooltip: {
+    [`& .${tooltipClasses.tooltip}`]: {
+      maxWidth: 450,
+    },
+  },
+
+  tooltipWrapper: {
+    padding: '0',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+
+  fileName: {
+    maxWidth: '80px',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    fontSize: '9px',
+  },
+
+  imageListItem: {
+    border: ' 1px solid rgba(0,123, 255, .7)',
+    borderRadius: '10px',
+    background: '#EFEFEF',
+
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '3px',
+  },
+
+  actionIconsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+  },
+  actionIcon: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+}))

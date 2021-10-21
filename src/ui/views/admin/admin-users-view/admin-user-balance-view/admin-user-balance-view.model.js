@@ -87,9 +87,9 @@ export class AdminUserBalanceViewModel {
 
       await AdministratorModel.makePayment(data)
 
-      await this.getUserInfo(data.recipient)
+      await this.getUserInfo(data.recipientId)
 
-      await this.getBalanceHistory(data.recipient)
+      await this.getBalanceHistory(data.recipientId)
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

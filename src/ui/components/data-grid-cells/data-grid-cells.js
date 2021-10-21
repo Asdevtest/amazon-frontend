@@ -151,20 +151,18 @@ export const BarcodeCell = withStyles(styles)(({classes: classNames, params, han
   </React.Fragment>
 ))
 
-export const DateCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.supervisorCell}>{!params.value ? 'N/A' : formatDateTime(params.value)}</Typography>
+export const DateCell = withStyles(styles)(({params}) => (
+  <Typography>{!params.value ? 'N/A' : formatDateTime(params.value)}</Typography>
 ))
 
 export const NormDateCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.supervisorCell}>
+  <Typography className={classNames.normDateCellTypo}>
     {!(params && params.value) ? 'N/A' : formatNormDateTime(params.value)}
   </Typography>
 ))
 
-export const NormDateWithParseISOCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.supervisorCell}>
-    {!params.value ? 'N/A' : formatNormDateTimeWithParseISO(params.value)}
-  </Typography>
+export const NormDateWithParseISOCell = withStyles(styles)(({params}) => (
+  <Typography>{!params.value ? 'N/A' : formatNormDateTimeWithParseISO(params.value)}</Typography>
 ))
 
 export const OrderCell = withStyles(styles)(({classes: classNames, product, superbox}) => (
@@ -404,3 +402,9 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box}
     </Tooltip>
   )
 })
+
+export const ScrollingCell = withStyles(styles)(({classes: classNames, value}) => (
+  <React.Fragment>
+    <Typography className={classNames.scrollingValue}>{value || 'N/A'}</Typography>
+  </React.Fragment>
+))

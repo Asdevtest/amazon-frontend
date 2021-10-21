@@ -34,7 +34,7 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
   const onTriggerConfirmModal = () => setConfirmModal(prevState => !prevState)
   const onConfirm = () => {
     const data = {
-      recipient: user.id || user._id,
+      recipientId: user.id || user._id,
       sum: isWithdraw ? Number(-balanceValue) : Number(balanceValue),
       comment: reasonValue,
     }

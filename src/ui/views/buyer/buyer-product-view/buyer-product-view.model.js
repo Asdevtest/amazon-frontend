@@ -313,7 +313,7 @@ export class BuyerProductViewModel {
 
   async onPostImage(imageData, imagesType) {
     const formData = new FormData()
-    formData.append('filename', imageData)
+    formData.append('filename', imageData.file)
 
     try {
       const imageFile = await OtherModel.postImage(formData)

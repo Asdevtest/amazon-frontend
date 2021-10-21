@@ -69,7 +69,7 @@ export class BuyerFreeOrdersViewModel {
       this.densityModel = state.density.value
       this.columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers).map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }

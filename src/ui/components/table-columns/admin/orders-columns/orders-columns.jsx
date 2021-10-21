@@ -4,6 +4,7 @@ import {texts} from '@constants/texts'
 
 import {
   NoActiveBarcodeCell,
+  NormDateCell,
   OrderCell,
   renderFieldValueCell,
   ToFixedWithDollarSignCell,
@@ -15,6 +16,22 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 const textConsts = getLocalizedTexts(texts, 'ru').adminOrdersTableColumns
 
 export const adminOrdersViewColumns = () => [
+  {
+    field: 'createdAt',
+    headerName: textConsts.createDateField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 100,
+    type: 'date',
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: textConsts.updateDateField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 100,
+    type: 'date',
+  },
+
   {field: 'id', headerName: 'ID', width: 100},
 
   {

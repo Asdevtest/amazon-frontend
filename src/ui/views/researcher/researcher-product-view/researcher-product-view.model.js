@@ -4,6 +4,7 @@ import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 import {BACKEND_API_URL} from '@constants/env'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {texts} from '@constants/texts'
 
 import {OtherModel} from '@models/other-model'
@@ -48,8 +49,8 @@ const fieldsOfProductAllowedToUpdate = [
   'weight',
   'minpurchase',
   'fbaamount',
-  'currentSupplier',
   'strategyStatus',
+  'currentSupplierId',
 ]
 
 const formFieldsDefault = {
@@ -77,6 +78,18 @@ const formFieldsDefault = {
 
 const fieldsNotFilledText = 'Не заполнены поля'
 
+const warningModalTitleVariants = {
+  NO_SUPPLIER: 'Нельзя выбрать без поставщика.',
+  CHOOSE_STATUS: 'Нужно выбрать статус',
+}
+
+const confirmMessageByProductStatus = {
+  5: 'Отправить на проверку супервизору?',
+  10: 'Отправить на проверку с поставщиком?',
+}
+
+const confirmMessageWithoutStatus = 'Сохранить без статуса?'
+
 export class ResearcherProductViewModel {
   history = undefined
   requestStatus = undefined
@@ -92,6 +105,9 @@ export class ResearcherProductViewModel {
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
   showConfirmModal = false
+  showWarningModal = false
+
+  warningModalTitle = ''
 
   confirmModalSettings = {
     isWarning: false,
@@ -135,9 +151,7 @@ export class ResearcherProductViewModel {
   onChangeProductFields = fieldName =>
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
-      if (fieldName === 'express') {
-        this.product[fieldName] = !this.product[fieldName]
-      } else if (['icomment'].includes(fieldName)) {
+      if (['icomment'].includes(fieldName)) {
         this.product[fieldName] = e.target.value
       } else {
         if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
@@ -168,7 +182,7 @@ export class ResearcherProductViewModel {
       0.4 * ((parseFloat(this.product.amazon) || 0) - (parseFloat(this.product.totalFba) || 0)) -
       (parseFloat(this.product.maxDelivery) || 0)
 
-    if (this.product.currentSupplier) {
+    if (this.product.currentSupplier && this.product.currentSupplier._id) {
       this.product.reffee = (parseFloat(this.product.amazon) || 0) * 0.15
       if (this.product.fbafee) {
         this.product.profit = (
@@ -217,12 +231,13 @@ export class ResearcherProductViewModel {
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'accept':
-        this.product.currentSupplier = this.selectedSupplier
+        this.product.currentSupplierId = this.selectedSupplier._id
         this.selectedSupplier = undefined
         this.updateAutoCalculatedFields()
         break
       case 'acceptRevoke':
-        this.product.currentSupplier = undefined
+        this.product.currentSupplierId = undefined
+        // this.product.currentSupplier = undefined
         this.selectedSupplier = undefined
         this.updateAutoCalculatedFields()
         break
@@ -248,10 +263,13 @@ export class ResearcherProductViewModel {
 
       runInAction(() => {
         this.suppliers.splice(findSupplierIndex, 1)
-        this.selectedSupplier = undefined
 
         this.product.suppliers
         this.selectedSupplier = undefined
+
+        if (this.product.currentSupplierId && this.product.currentSupplierId === this.selectedSupplier._id) {
+          this.product.currentSupplierId = undefined
+        }
       })
     } catch (error) {
       console.log(error)
@@ -262,10 +280,10 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async handleProductActionButtons(actionType) {
+  async handleProductActionButtons(actionType, withoutStatus) {
     switch (actionType) {
       case 'accept':
-        this.openConfirmModalWithTextByStatus()
+        this.openConfirmModalWithTextByStatus(withoutStatus)
         break
       case 'cancel':
         this.history.goBack()
@@ -283,7 +301,17 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async openConfirmModalWithTextByStatus() {
+  onClickSetProductStatusBtn(statusKey) {
+    if (statusKey === ProductStatus.RESEARCHER_FOUND_SUPPLIER && !this.product.currentSupplierId) {
+      this.warningModalTitle = warningModalTitleVariants.NO_SUPPLIER
+
+      this.onTriggerOpenModal('showWarningModal')
+    } else {
+      this.product.status = ProductStatusByKey[statusKey]
+    }
+  }
+
+  async openConfirmModalWithTextByStatus(withoutStatus) {
     try {
       this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
@@ -293,10 +321,8 @@ export class ResearcherProductViewModel {
         true,
         (key, value) => {
           switch (key) {
-            case 'status':
-              return value < 10 && this.product.currentSupplier ? 10 : value
             case 'bsr':
-              return (value && parseInt(value)) || ''
+              return (value && parseInt(value)) || 0
             case 'amazon':
               return (value && parseFloat(value)) || ''
             case 'weight':
@@ -320,21 +346,29 @@ export class ResearcherProductViewModel {
           }
         },
       )
-      runInAction(() => {
-        this.curUpdateProductData = curUpdateProductData
-      })
 
       await transformAndValidate(ResearcherUpdateProductContract, curUpdateProductData)
 
-      runInAction(() => {
-        this.confirmModalSettings = {
-          isWarning: false,
-          message: textConsts.confirmMessage,
-          onClickOkBtn: () => this.onSaveProductData(),
-        }
-      })
+      if (withoutStatus) {
+        this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(curUpdateProductData, ['status'])
+      } else {
+        this.curUpdateProductData = curUpdateProductData
+      }
 
-      this.onTriggerOpenModal('showConfirmModal')
+      this.confirmModalSettings = {
+        isWarning: false,
+        message: withoutStatus
+          ? confirmMessageWithoutStatus
+          : confirmMessageByProductStatus[this.curUpdateProductData.status],
+        onClickOkBtn: () => this.onSaveProductData(),
+      }
+
+      if (this.confirmModalSettings.message) {
+        this.onTriggerOpenModal('showConfirmModal')
+      } else {
+        this.warningModalTitle = warningModalTitleVariants.CHOOSE_STATUS
+        this.onTriggerOpenModal('showWarningModal')
+      }
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -374,7 +408,7 @@ export class ResearcherProductViewModel {
 
   async onPostImage(imageData, imagesType) {
     const formData = new FormData()
-    formData.append('filename', imageData)
+    formData.append('filename', imageData.file)
 
     try {
       const imageFile = await OtherModel.postImage(formData)
@@ -477,7 +511,10 @@ export class ResearcherProductViewModel {
 
       await ResearcherModel.updateProduct(
         this.product._id,
-        getObjectFilteredByKeyArrayBlackList(this.curUpdateProductData, ['suppliers']),
+        getObjectFilteredByKeyArrayBlackList(
+          this.curUpdateProductData,
+          this.curUpdateProductData.currentSupplierId === null ? ['suppliers', 'currentSupplierId'] : ['suppliers'],
+        ),
       )
       this.setActionStatus(loadingStatuses.success)
 

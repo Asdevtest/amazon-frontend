@@ -107,7 +107,7 @@ export class ClientWarehouseViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = clientBoxesViewColumns().map(el => ({...el, hide: state.columns.lookup[el.field].hide}))
+      this.columnsModel = clientBoxesViewColumns().map(el => ({...el, hide: state.columns?.lookup[el?.field]?.hide}))
     }
   }
 

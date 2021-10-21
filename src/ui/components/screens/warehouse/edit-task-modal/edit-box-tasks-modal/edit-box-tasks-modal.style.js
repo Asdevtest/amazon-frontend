@@ -60,8 +60,13 @@ export const useClassNames = makeStyles(() => ({
   },
   boxCode: {
     display: 'flex',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     margin: '48px 0px',
+  },
+
+  imageFileInputWrapper: {
+    width: '694px',
   },
   typoCode: {
     marginRight: '8px',

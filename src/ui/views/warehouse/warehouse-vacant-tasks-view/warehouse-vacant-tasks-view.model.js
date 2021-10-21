@@ -67,7 +67,7 @@ export class WarehouseVacantViewModel {
       this.densityModel = state.density.value
       this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers).map(el => ({
         ...el,
-        hide: state.columns.lookup[el.field].hide,
+        hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }
