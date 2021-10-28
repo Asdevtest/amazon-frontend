@@ -62,6 +62,9 @@ class InlineObject13 {
             if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
                 obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
             }
+            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
+                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
+            }
             if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
                 obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
@@ -99,6 +102,12 @@ InlineObject13.prototype['weighGrossKgWarehouse'] = undefined;
  * @member {Number} volumeWeightKgWarehouse
  */
 InlineObject13.prototype['volumeWeightKgWarehouse'] = undefined;
+
+/**
+ * Прикреплен ли баркод к коробке сотрудником склада.
+ * @member {Boolean} isBarCodeAttachedByTheStorekeeper
+ */
+InlineObject13.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
 
 /**
  * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.

@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **deliveryMethod** | **Number** | Код метода доставки. | 
 **warehouse** | **Number** | Номер склада. | 
 **clientComment** | **String** | Комментарии клиента. | 
-**barCode** | **String** | Ссылка на баркод. | 
 **productId** | **String** | GUID заказанного продукта | 
 **images** | **[String]** | Массив изображений. | [optional] 
 

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **listingTaskToFindSupplier** | **String** |  | [optional] 
 **listingSupplierImportantPoints** | **String** |  | [optional] 
 **listingExtraInfo** | **String** |  | [optional] 
-**listingSupplierCompetitors** | **String** |  | [optional] 
-**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] [default to 0]
+**listingSupplierCompetitors** | [**[ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]**](ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md) | Массив объектов: ссылки и комментарии к конкурентам | [optional] 
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
 
 

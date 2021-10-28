@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesByOrderGuidGuidGet
 
-> [ApiV1BatchesBoxes] apiV1BoxesByOrderGuidGuidGet(guid, opts)
+> [ApiV1AdminsTasksBoxesBefore] apiV1BoxesByOrderGuidGuidGet(guid, opts)
 
 # Получить коробки и их строки по GUID заказа.
 
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
+[**[ApiV1AdminsTasksBoxesBefore]**](ApiV1AdminsTasksBoxesBefore.md)
 
 ### Authorization
 
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesByProductGuidGuidGet
 
-> [ApiV1BatchesBoxes] apiV1BoxesByProductGuidGuidGet(guid, opts)
+> [ApiV1AdminsTasksBoxesBefore] apiV1BoxesByProductGuidGuidGet(guid, opts)
 
 # Получить коробки и их строки по GUID продукта.
 
@@ -178,7 +178,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
+[**[ApiV1AdminsTasksBoxesBefore]**](ApiV1AdminsTasksBoxesBefore.md)
 
 ### Authorization
 
@@ -462,7 +462,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsDraftsGet
 
-> [ApiV1BatchesBoxes] apiV1BoxesClientsDraftsGet(opts)
+> [ApiV1AdminsTasksBoxesBefore] apiV1BoxesClientsDraftsGet(opts)
 
 # Получить черновики коробок и их строки по текущему клиенту.
 
@@ -500,7 +500,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
+[**[ApiV1AdminsTasksBoxesBefore]**](ApiV1AdminsTasksBoxesBefore.md)
 
 ### Authorization
 
@@ -514,7 +514,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsGet
 
-> [ApiV1BatchesBoxes] apiV1BoxesClientsGet(opts)
+> [ApiV1AdminsTasksBoxesBefore] apiV1BoxesClientsGet(opts)
 
 # Получить коробки и их строки по текущему клиенту.
 
@@ -552,7 +552,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
+[**[ApiV1AdminsTasksBoxesBefore]**](ApiV1AdminsTasksBoxesBefore.md)
 
 ### Authorization
 
@@ -566,7 +566,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesDraftsGet
 
-> [ApiV1BatchesBoxes] apiV1BoxesDraftsGet(opts)
+> [ApiV1AdminsTasksBoxesBefore] apiV1BoxesDraftsGet(opts)
 
 # Получить черновики коробок и их строки.
 
@@ -604,7 +604,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
+[**[ApiV1AdminsTasksBoxesBefore]**](ApiV1AdminsTasksBoxesBefore.md)
 
 ### Authorization
 
@@ -730,7 +730,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesGet
 
-> [ApiV1BatchesBoxes] apiV1BoxesGet(opts)
+> [ApiV1AdminsTasksBoxesBefore] apiV1BoxesGet(opts)
 
 # Получить коробки и их строки.
 
@@ -768,7 +768,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
+[**[ApiV1AdminsTasksBoxesBefore]**](ApiV1AdminsTasksBoxesBefore.md)
 
 ### Authorization
 

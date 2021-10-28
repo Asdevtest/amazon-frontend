@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 
 import {Divider, Drawer, Hidden, List} from '@material-ui/core'
 import clsx from 'clsx'
@@ -8,11 +8,13 @@ import {navbarConfig} from '@constants/navbar'
 
 import {NavbarCategory} from './navbar-category'
 import {NavbarCollapse} from './navbar-collapse'
+import {NavbarModel} from './navbar.model'
 import {useClassNames} from './navbar.style'
 
 export const Navbar = observer(
   ({activeCategory, activeSubCategory, curUserRole, drawerOpen, setDrawerOpen, onChangeSubCategory}) => {
     const classNames = useClassNames()
+    const viewModel = useRef(new NavbarModel({curUserRole}))
 
     const drawerContent = (
       <React.Fragment>
@@ -30,6 +32,7 @@ export const Navbar = observer(
                 to={category.route}
                 icon={category.icon}
                 title={category.title}
+                badge={category.route === '/client/orders-notifications' && viewModel.current.ordersNotificationsAmount}
               />
 
               <NavbarCollapse

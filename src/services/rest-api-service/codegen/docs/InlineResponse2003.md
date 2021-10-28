@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | **String** | GUID платежа | [optional] 
-**createdDate** | **Date** | Дата создания. | [optional] 
+**createdAt** | **Date** | Дата создания. | [optional] 
 **createdBy** | [**ApiV1AdminsPaymentsCreatedBy**](ApiV1AdminsPaymentsCreatedBy.md) |  | [optional] 
 **productId** | **String** | GUID продукта. | [optional] 
 **recipient** | [**ApiV1AdminsPaymentsCreatedBy**](ApiV1AdminsPaymentsCreatedBy.md) |  | [optional] 

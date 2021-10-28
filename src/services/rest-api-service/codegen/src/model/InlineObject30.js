@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
 
 /**
  * The InlineObject30 model module.
@@ -168,7 +169,7 @@ class InlineObject30 {
                 obj['listingExtraInfo'] = ApiClient.convertToType(data['listingExtraInfo'], 'String');
             }
             if (data.hasOwnProperty('listingSupplierCompetitors')) {
-                obj['listingSupplierCompetitors'] = ApiClient.convertToType(data['listingSupplierCompetitors'], 'String');
+                obj['listingSupplierCompetitors'] = ApiClient.convertToType(data['listingSupplierCompetitors'], [ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]);
             }
             if (data.hasOwnProperty('strategyStatus')) {
                 obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
@@ -406,7 +407,8 @@ InlineObject30.prototype['listingSupplierImportantPoints'] = undefined;
 InlineObject30.prototype['listingExtraInfo'] = undefined;
 
 /**
- * @member {String} listingSupplierCompetitors
+ * Массив объектов: ссылки и комментарии к конкурентам
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors>} listingSupplierCompetitors
  */
 InlineObject30.prototype['listingSupplierCompetitors'] = undefined;
 

@@ -865,6 +865,8 @@ export const texts = {
       resolveBtn: 'Решить',
 
       superboxTypo: 'SB',
+      confirmBtn: 'Подтвердить',
+      rejectBtn: 'Отклонить',
     },
 
     subUsersModalContent: {
@@ -1464,6 +1466,12 @@ export const texts = {
       appUser: 'client',
       ordersBtn: 'Мои заказы',
     },
+    clientOrdersNotificationsView: {
+      mainTitle: 'Уведомления по заказам',
+      appBarTitle: 'Страница уведомлений по заказам',
+      appBarUsername: 'Client',
+      appUser: 'client',
+    },
     adminOrdersView: {
       mainTitle: 'Мои заказы',
       appBarTitle: 'Страница заказов',
@@ -1539,6 +1547,7 @@ export const texts = {
       weightField: 'Вес',
       grossWeightField: 'Общий вес',
       trackIdField: 'Трек номер',
+      neededToPayExtraField: 'Необходимо доплатить',
     },
 
     buyerMyOrdersTableColumns: {

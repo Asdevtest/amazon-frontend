@@ -51,8 +51,8 @@ class InlineResponse2003 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('createdDate')) {
-                obj['createdDate'] = ApiClient.convertToType(data['createdDate'], 'Date');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
@@ -84,9 +84,9 @@ InlineResponse2003.prototype['_id'] = undefined;
 
 /**
  * Дата создания.
- * @member {Date} createdDate
+ * @member {Date} createdAt
  */
-InlineResponse2003.prototype['createdDate'] = undefined;
+InlineResponse2003.prototype['createdAt'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy

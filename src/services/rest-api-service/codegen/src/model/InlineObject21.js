@@ -62,9 +62,6 @@ class InlineObject21 {
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
             if (data.hasOwnProperty('productId')) {
                 obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
@@ -107,12 +104,6 @@ InlineObject21.prototype['warehouse'] = undefined;
  * @member {String} clientComment
  */
 InlineObject21.prototype['clientComment'] = undefined;
-
-/**
- * Ссылка на баркод.
- * @member {String} barCode
- */
-InlineObject21.prototype['barCode'] = undefined;
 
 /**
  * GUID заказанного продукта

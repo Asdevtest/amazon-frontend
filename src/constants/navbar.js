@@ -56,6 +56,12 @@ export const navbarConfig = {
       route: '/client/finances',
       subtitles: null,
     },
+    {
+      icon: ChatBubbleOutlineOutlinedIcon,
+      title: 'Уведомления по заказам',
+      route: '/client/orders-notifications',
+      subtitles: null,
+    },
   ],
   [UserRole.RESEARCHER]: [
     {

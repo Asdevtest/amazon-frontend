@@ -31,4 +31,17 @@ export const styles = theme =>
       minWidth: '0',
       margin: '16px 16px 16px 11px',
     },
+    badge: {
+      position: 'absolute',
+      top: 2,
+      left: 25,
+      height: 20,
+      width: 20,
+      backgroundColor: 'red',
+      borderRadius: 30,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: 'white',
+    },
   })

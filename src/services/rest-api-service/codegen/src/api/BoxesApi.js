@@ -13,7 +13,7 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiV1BatchesBoxes from '../model/ApiV1BatchesBoxes';
+import ApiV1AdminsTasksBoxesBefore from '../model/ApiV1AdminsTasksBoxesBefore';
 import InlineObject10 from '../model/InlineObject10';
 import InlineObject11 from '../model/InlineObject11';
 import InlineObject12 from '../model/InlineObject12';
@@ -109,7 +109,7 @@ export default class BoxesApi {
      * @param {String} guid GUID
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>} and HTTP response
      */
     apiV1BoxesByOrderGuidGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -133,7 +133,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [ApiV1BatchesBoxes];
+      let returnType = [ApiV1AdminsTasksBoxesBefore];
       return this.apiClient.callApi(
         '/api/v1/boxes/by_order_guid/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -147,7 +147,7 @@ export default class BoxesApi {
      * @param {String} guid GUID
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>}
      */
     apiV1BoxesByOrderGuidGuidGet(guid, opts) {
       return this.apiV1BoxesByOrderGuidGuidGetWithHttpInfo(guid, opts)
@@ -163,7 +163,7 @@ export default class BoxesApi {
      * @param {String} guid GUID
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>} and HTTP response
      */
     apiV1BoxesByProductGuidGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -187,7 +187,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [ApiV1BatchesBoxes];
+      let returnType = [ApiV1AdminsTasksBoxesBefore];
       return this.apiClient.callApi(
         '/api/v1/boxes/by_product_guid/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -201,7 +201,7 @@ export default class BoxesApi {
      * @param {String} guid GUID
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>}
      */
     apiV1BoxesByProductGuidGuidGet(guid, opts) {
       return this.apiV1BoxesByProductGuidGuidGetWithHttpInfo(guid, opts)
@@ -470,7 +470,7 @@ export default class BoxesApi {
      * ## Получить черновики коробок и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>} and HTTP response
      */
     apiV1BoxesClientsDraftsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -489,7 +489,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [ApiV1BatchesBoxes];
+      let returnType = [ApiV1AdminsTasksBoxesBefore];
       return this.apiClient.callApi(
         '/api/v1/boxes/clients/drafts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -502,7 +502,7 @@ export default class BoxesApi {
      * ## Получить черновики коробок и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>}
      */
     apiV1BoxesClientsDraftsGet(opts) {
       return this.apiV1BoxesClientsDraftsGetWithHttpInfo(opts)
@@ -517,7 +517,7 @@ export default class BoxesApi {
      * ## Получить коробки(без черновиков) и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>} and HTTP response
      */
     apiV1BoxesClientsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -536,7 +536,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [ApiV1BatchesBoxes];
+      let returnType = [ApiV1AdminsTasksBoxesBefore];
       return this.apiClient.callApi(
         '/api/v1/boxes/clients', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -549,7 +549,7 @@ export default class BoxesApi {
      * ## Получить коробки(без черновиков) и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>}
      */
     apiV1BoxesClientsGet(opts) {
       return this.apiV1BoxesClientsGetWithHttpInfo(opts)
@@ -564,7 +564,7 @@ export default class BoxesApi {
      * ## Получить черновики коробок и их строки.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>} and HTTP response
      */
     apiV1BoxesDraftsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -583,7 +583,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [ApiV1BatchesBoxes];
+      let returnType = [ApiV1AdminsTasksBoxesBefore];
       return this.apiClient.callApi(
         '/api/v1/boxes/drafts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -596,7 +596,7 @@ export default class BoxesApi {
      * ## Получить черновики коробок и их строки.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>}
      */
     apiV1BoxesDraftsGet(opts) {
       return this.apiV1BoxesDraftsGetWithHttpInfo(opts)
@@ -727,7 +727,7 @@ export default class BoxesApi {
      * ## Получить коробки их строки.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>} and HTTP response
      */
     apiV1BoxesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -746,7 +746,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [ApiV1BatchesBoxes];
+      let returnType = [ApiV1AdminsTasksBoxesBefore];
       return this.apiClient.callApi(
         '/api/v1/boxes/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -759,7 +759,7 @@ export default class BoxesApi {
      * ## Получить коробки их строки.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>}
      */
     apiV1BoxesGet(opts) {
       return this.apiV1BoxesGetWithHttpInfo(opts)

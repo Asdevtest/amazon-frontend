@@ -33,5 +33,6 @@ export const DataGridTablesKeys = {
   CLIENT_EXCHANGE: 'clientExchangeCreatedDataGridState',
   CLIENT_INVENTORY: 'clientInventoryDataGridState',
   CLIENT_ORDERS: 'clientOrdersDataGridState',
+  CLIENT_ORDERS_NOTIFICATIONS: 'clientOrdersNotificationsDataGridState',
   CLIENT_WAREHOUSE: 'clientWarehouseDataGridState',
 }

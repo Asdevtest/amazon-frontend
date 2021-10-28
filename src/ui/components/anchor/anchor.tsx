@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {FC, forwardRef} from 'react'
 
 import {Box} from '@material-ui/core'
 
-export const Anchor = React.forwardRef(props => (
+interface Props {}
+
+export const Anchor: FC<Props> = forwardRef(({children}) => (
   <Box position="relative">
     <Box position="absolute" top={-56} />
-    {props.children}
+    {children}
   </Box>
 ))

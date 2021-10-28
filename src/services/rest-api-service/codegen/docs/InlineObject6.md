@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **scheduledDispatchDate** | **Date** | Запланированная дата отправки. | [optional] 
 **factDispatchDate** | **Date** | Запланированная дата доставки. | [optional] 
 **isDraft** | **Boolean** | true - если создаем черновик заказа. | [optional] 
+**isBarCodeAttachedByTheStorekeeper** | **Boolean** | Прикреплен ли баркод к коробке сотрудником склада. | [optional] 
 **items** | [**[ApiV1BoxesItems]**](ApiV1BoxesItems.md) | Массив коробок. | 
 **clientId** | **String** | GUID клиента | 
 **images** | **[String]** | Массив ссылок на фотографии. | [optional] 

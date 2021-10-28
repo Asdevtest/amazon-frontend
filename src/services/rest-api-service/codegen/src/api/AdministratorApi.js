@@ -21,6 +21,7 @@ import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse2002 from '../model/InlineResponse2002';
 import InlineResponse2003 from '../model/InlineResponse2003';
+import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
@@ -645,6 +646,56 @@ export default class AdministratorApi {
      */
     apiV1AdminsPickupProductGuidPost(guid, opts) {
       return this.apiV1AdminsPickupProductGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить задачи.
+     * ## Получить задачи.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.status если указать статус - отфильтрует, нет - выведет все.
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
+     */
+    apiV1AdminsTasksGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'status': opts['status']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2004];
+      return this.apiClient.callApi(
+        '/api/v1/admins/tasks', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить задачи.
+     * ## Получить задачи.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.status если указать статус - отфильтрует, нет - выведет все.
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
+     */
+    apiV1AdminsTasksGet(opts) {
+      return this.apiV1AdminsTasksGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

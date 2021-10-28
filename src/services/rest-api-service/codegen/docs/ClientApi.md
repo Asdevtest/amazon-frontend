@@ -7,9 +7,11 @@ Method | HTTP request | Description
 [**apiV1ClientsBatchesGet**](ClientApi.md#apiV1ClientsBatchesGet) | **GET** /api/v1/clients/batches | # Получить партии.
 [**apiV1ClientsMakePaymentsPost**](ClientApi.md#apiV1ClientsMakePaymentsPost) | **POST** /api/v1/clients/make_payments | # Оплатить товары.
 [**apiV1ClientsOrdersGet**](ClientApi.md#apiV1ClientsOrdersGet) | **GET** /api/v1/clients/orders | # Получить заказы текущего клиента.
+[**apiV1ClientsOrdersGuidConfirmPriceChangePost**](ClientApi.md#apiV1ClientsOrdersGuidConfirmPriceChangePost) | **POST** /api/v1/clients/orders/{guid}/confirm_price_change | # Потвердить измение цены.
 [**apiV1ClientsOrdersGuidDelete**](ClientApi.md#apiV1ClientsOrdersGuidDelete) | **DELETE** /api/v1/clients/orders/{guid} | # Удалить заказ по его GUID.
 [**apiV1ClientsOrdersGuidGet**](ClientApi.md#apiV1ClientsOrdersGuidGet) | **GET** /api/v1/clients/orders/{guid} | # Получить заказ по его GUID.
 [**apiV1ClientsOrdersGuidPatch**](ClientApi.md#apiV1ClientsOrdersGuidPatch) | **PATCH** /api/v1/clients/orders/{guid} | # Внести изменения в заказ.
+[**apiV1ClientsOrdersGuidRejectPriceChangePost**](ClientApi.md#apiV1ClientsOrdersGuidRejectPriceChangePost) | **POST** /api/v1/clients/orders/{guid}/reject_price_change | Отменить измение цены.
 [**apiV1ClientsOrdersPost**](ClientApi.md#apiV1ClientsOrdersPost) | **POST** /api/v1/clients/orders | # Создать заказ.
 [**apiV1ClientsProductsGuidPatch**](ClientApi.md#apiV1ClientsProductsGuidPatch) | **PATCH** /api/v1/clients/products/{guid} | # Внести изменения в товар.
 [**apiV1ClientsProductsMyGet**](ClientApi.md#apiV1ClientsProductsMyGet) | **GET** /api/v1/clients/products/my | # Получить список товаров данного клиента.
@@ -25,7 +27,7 @@ Method | HTTP request | Description
 
 ## apiV1ClientsBatchesGet
 
-> [InlineResponse2004] apiV1ClientsBatchesGet(opts)
+> [InlineResponse2005] apiV1ClientsBatchesGet(opts)
 
 # Получить партии.
 
@@ -63,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+[**[InlineResponse2005]**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -178,6 +180,62 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: text/html
+
+
+## apiV1ClientsOrdersGuidConfirmPriceChangePost
+
+> String apiV1ClientsOrdersGuidConfirmPriceChangePost(guid, opts)
+
+# Потвердить измение цены.
+
+## Метод должен вычислять разницу между totalPriceChanged и totalPrice - (totalPriceChanged-totalPrice).   ## Если разница больше 0 то нужно у клиента, который привязан к этому ордеру из поля balance вычесть эту разницу,  а в поле balanceFreeze прибавить  ## Если разница меньше 0 то нужно у клиента, который привязан к этому ордеру из поля balanceFreeze вычесть эту   разницу, а в поле balance прибавить   ## Далее нужно сделать у заказа totalPrice &#x3D; totalPriceChanged   
+
+### Example
+
+```javascript
+import Amazonapi from 'amazonapi';
+let defaultClient = Amazonapi.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new Amazonapi.ClientApi();
+let guid = e22e4a3-e65c-496b-9657-9104ad549fbc; // String | Guid ордера
+let opts = {
+  'Accept_Encoding': gzip, deflate, // String | 
+  'body': null // Object | 
+};
+apiInstance.apiV1ClientsOrdersGuidConfirmPriceChangePost(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| Guid ордера | 
+ **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **body** | **Object**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: text/html
 
 
@@ -345,6 +403,62 @@ Name | Type | Description  | Notes
 - **Accept**: text/html
 
 
+## apiV1ClientsOrdersGuidRejectPriceChangePost
+
+> String apiV1ClientsOrdersGuidRejectPriceChangePost(guid, opts)
+
+Отменить измение цены.
+
+## Этот метод должен устанавливать статус ордеру 40, а так же брать из заказа поле totalPrice и вычитать эту сумму у, привязанного к заказу, клиента из поля balanceFreeze и прибавлять в поле balance
+
+### Example
+
+```javascript
+import Amazonapi from 'amazonapi';
+let defaultClient = Amazonapi.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new Amazonapi.ClientApi();
+let guid = e22e4a3-e65c-496b-9657-9104ad549fbc; // String | Guid ордера
+let opts = {
+  'Accept_Encoding': gzip, deflate, // String | 
+  'body': null // Object | 
+};
+apiInstance.apiV1ClientsOrdersGuidRejectPriceChangePost(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| Guid ордера | 
+ **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **body** | **Object**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: text/html
+
+
 ## apiV1ClientsOrdersPost
 
 > InlineResponse2014 apiV1ClientsOrdersPost(InlineObject20, opts)
@@ -457,7 +571,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyGet
 
-> [InlineResponse2006] apiV1ClientsProductsMyGet(opts)
+> [InlineResponse2007] apiV1ClientsProductsMyGet(opts)
 
 # Получить список товаров данного клиента.
 
@@ -495,7 +609,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -509,7 +623,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsPaidGet
 
-> [InlineResponse2006] apiV1ClientsProductsPaidGet(opts)
+> [InlineResponse2007] apiV1ClientsProductsPaidGet(opts)
 
 # Получить список товаров оплаченных данного клиента.
 
@@ -547,7 +661,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -615,7 +729,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsVacGet
 
-> [InlineResponse2006] apiV1ClientsProductsVacGet(opts)
+> [InlineResponse2007] apiV1ClientsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -653,7 +767,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -721,7 +835,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsTasksGet
 
-> [InlineResponse2005] apiV1ClientsTasksGet(opts)
+> [InlineResponse2006] apiV1ClientsTasksGet(opts)
 
 # Показать все задачи данного пользователя.
 
@@ -759,7 +873,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 

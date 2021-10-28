@@ -86,6 +86,16 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1ClientsTasksCancelGuidPost(id)
     return response
   }
+
+  orderConfirmPriceChange = async orderId => {
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidConfirmPriceChangePost(orderId, {body: {}})
+    return response
+  }
+
+  orderRejectriceChange = async orderId => {
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidRejectPriceChangePost(orderId, {body: {}})
+    return response
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

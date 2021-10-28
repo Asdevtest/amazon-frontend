@@ -69,6 +69,9 @@ class InlineObject25 {
             if (data.hasOwnProperty('bsr')) {
                 obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
             }
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            }
             if (data.hasOwnProperty('fbm')) {
                 obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean');
             }
@@ -108,7 +111,6 @@ class InlineObject25 {
 
 
 }
-
 
 
 
@@ -173,6 +175,12 @@ InlineObject25.prototype['category'] = undefined;
  * @member {Number} bsr
  */
 InlineObject25.prototype['bsr'] = undefined;
+
+/**
+ * Признак fba
+ * @member {Boolean} fba
+ */
+InlineObject25.prototype['fba'] = undefined;
 
 /**
  * Признак fbm
@@ -240,6 +248,7 @@ InlineObject25.prototype['reffee'] = undefined;
  * @default 0
  */
 InlineObject25.prototype['strategyStatus'] = 0;
+
 
 
 

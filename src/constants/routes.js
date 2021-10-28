@@ -27,6 +27,7 @@ import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-view
 import {ClientExchangeRequestsView} from '@views/client/client-exchange-views/client-exchange-requests-view'
 import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
 import {ClientInventoryView} from '@views/client/client-inventory-view'
+import {ClientOrdersNotificationsView} from '@views/client/client-orders-notifications-view'
 import {ClientOrderView} from '@views/client/client-orders-views/order'
 import {ClientOrdersView} from '@views/client/client-orders-views/orders'
 import {ClientProductView} from '@views/client/client-product-view/'
@@ -226,6 +227,12 @@ export const privateRoutesConfigs = [
   {
     routePath: '/client/users/sub-users',
     component: ClientSubUsersView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+  {
+    routePath: '/client/orders-notifications',
+    component: ClientOrdersNotificationsView,
     exact: false,
     permission: [UserRole.CLIENT],
   },
