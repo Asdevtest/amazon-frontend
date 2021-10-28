@@ -6,7 +6,7 @@ export const styles = () =>
       margin: '0px 22px 0px 12px',
       color: '#FFF',
     },
-    anchorOriginTopRightRectangle: {
+    anchorOriginTopRightRectangular: {
       top: '14px',
       left: '12px',
       transform: 'none',

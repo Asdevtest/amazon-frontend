@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
 
 /**
  * The InlineObject31 model module.
@@ -78,7 +79,7 @@ class InlineObject31 {
                 obj['listingExtraInfo'] = ApiClient.convertToType(data['listingExtraInfo'], 'String');
             }
             if (data.hasOwnProperty('listingSupplierCompetitors')) {
-                obj['listingSupplierCompetitors'] = ApiClient.convertToType(data['listingSupplierCompetitors'], 'String');
+                obj['listingSupplierCompetitors'] = ApiClient.convertToType(data['listingSupplierCompetitors'], [ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]);
             }
             if (data.hasOwnProperty('strategyStatus')) {
                 obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
@@ -145,16 +146,16 @@ InlineObject31.prototype['listingSupplierImportantPoints'] = undefined;
 InlineObject31.prototype['listingExtraInfo'] = undefined;
 
 /**
- * @member {String} listingSupplierCompetitors
+ * Массив объектов: ссылки и комментарии к конкурентам
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors>} listingSupplierCompetitors
  */
 InlineObject31.prototype['listingSupplierCompetitors'] = undefined;
 
 /**
  * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
  * @member {Number} strategyStatus
- * @default 0
  */
-InlineObject31.prototype['strategyStatus'] = 0;
+InlineObject31.prototype['strategyStatus'] = undefined;
 
 
 

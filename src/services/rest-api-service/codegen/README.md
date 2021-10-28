@@ -138,6 +138,7 @@ Class | Method | HTTP request | Description
 *Amazonapi.AdministratorApi* | [**apiV1AdminsPatchProductsGuidPatch**](docs/AdministratorApi.md#apiV1AdminsPatchProductsGuidPatch) | **PATCH** /api/v1/admins/patch_products/{guid} | # Внести изменения в продукт (снять с биржи).
 *Amazonapi.AdministratorApi* | [**apiV1AdminsPaymentsGet**](docs/AdministratorApi.md#apiV1AdminsPaymentsGet) | **GET** /api/v1/admins/payments | # Получить все оплаты, которые были начислены всем ролям.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsPickupProductGuidPost**](docs/AdministratorApi.md#apiV1AdminsPickupProductGuidPost) | **POST** /api/v1/admins/pickup_product/{guid} | # Взять продукт на проверку.
+*Amazonapi.AdministratorApi* | [**apiV1AdminsTasksGet**](docs/AdministratorApi.md#apiV1AdminsTasksGet) | **GET** /api/v1/admins/tasks | # Получить задачи.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsUsersGet**](docs/AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsUsersGuidDelete**](docs/AdministratorApi.md#apiV1AdminsUsersGuidDelete) | **DELETE** /api/v1/admins/users/{guid} | Изменить пользователя.
 *Amazonapi.AdministratorApi* | [**apiV1AdminsUsersGuidGet**](docs/AdministratorApi.md#apiV1AdminsUsersGuidGet) | **GET** /api/v1/admins/users/{guid} | Получить пользователя по GUID.
@@ -179,9 +180,11 @@ Class | Method | HTTP request | Description
 *Amazonapi.ClientApi* | [**apiV1ClientsBatchesGet**](docs/ClientApi.md#apiV1ClientsBatchesGet) | **GET** /api/v1/clients/batches | # Получить партии.
 *Amazonapi.ClientApi* | [**apiV1ClientsMakePaymentsPost**](docs/ClientApi.md#apiV1ClientsMakePaymentsPost) | **POST** /api/v1/clients/make_payments | # Оплатить товары.
 *Amazonapi.ClientApi* | [**apiV1ClientsOrdersGet**](docs/ClientApi.md#apiV1ClientsOrdersGet) | **GET** /api/v1/clients/orders | # Получить заказы текущего клиента.
+*Amazonapi.ClientApi* | [**apiV1ClientsOrdersGuidConfirmPriceChangePost**](docs/ClientApi.md#apiV1ClientsOrdersGuidConfirmPriceChangePost) | **POST** /api/v1/clients/orders/{guid}/confirm_price_change | # Потвердить измение цены.
 *Amazonapi.ClientApi* | [**apiV1ClientsOrdersGuidDelete**](docs/ClientApi.md#apiV1ClientsOrdersGuidDelete) | **DELETE** /api/v1/clients/orders/{guid} | # Удалить заказ по его GUID.
 *Amazonapi.ClientApi* | [**apiV1ClientsOrdersGuidGet**](docs/ClientApi.md#apiV1ClientsOrdersGuidGet) | **GET** /api/v1/clients/orders/{guid} | # Получить заказ по его GUID.
 *Amazonapi.ClientApi* | [**apiV1ClientsOrdersGuidPatch**](docs/ClientApi.md#apiV1ClientsOrdersGuidPatch) | **PATCH** /api/v1/clients/orders/{guid} | # Внести изменения в заказ.
+*Amazonapi.ClientApi* | [**apiV1ClientsOrdersGuidRejectPriceChangePost**](docs/ClientApi.md#apiV1ClientsOrdersGuidRejectPriceChangePost) | **POST** /api/v1/clients/orders/{guid}/reject_price_change | Отменить измение цены.
 *Amazonapi.ClientApi* | [**apiV1ClientsOrdersPost**](docs/ClientApi.md#apiV1ClientsOrdersPost) | **POST** /api/v1/clients/orders | # Создать заказ.
 *Amazonapi.ClientApi* | [**apiV1ClientsProductsGuidPatch**](docs/ClientApi.md#apiV1ClientsProductsGuidPatch) | **PATCH** /api/v1/clients/products/{guid} | # Внести изменения в товар.
 *Amazonapi.ClientApi* | [**apiV1ClientsProductsMyGet**](docs/ClientApi.md#apiV1ClientsProductsMyGet) | **GET** /api/v1/clients/products/my | # Получить список товаров данного клиента.
@@ -235,13 +238,15 @@ Class | Method | HTTP request | Description
 
  - [Amazonapi.ApiV1AdminsGetProductsByStatusClient](docs/ApiV1AdminsGetProductsByStatusClient.md)
  - [Amazonapi.ApiV1AdminsGetProductsByStatusCurrentSupplier](docs/ApiV1AdminsGetProductsByStatusCurrentSupplier.md)
+ - [Amazonapi.ApiV1AdminsGetProductsByStatusListingSupplierCompetitors](docs/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md)
  - [Amazonapi.ApiV1AdminsOrdersCreatedBy](docs/ApiV1AdminsOrdersCreatedBy.md)
  - [Amazonapi.ApiV1AdminsPaymentsCreatedBy](docs/ApiV1AdminsPaymentsCreatedBy.md)
+ - [Amazonapi.ApiV1AdminsTasksBoxesBefore](docs/ApiV1AdminsTasksBoxesBefore.md)
+ - [Amazonapi.ApiV1AdminsTasksItems](docs/ApiV1AdminsTasksItems.md)
  - [Amazonapi.ApiV1BatchesBatch](docs/ApiV1BatchesBatch.md)
- - [Amazonapi.ApiV1BatchesBoxes](docs/ApiV1BatchesBoxes.md)
- - [Amazonapi.ApiV1BatchesItems](docs/ApiV1BatchesItems.md)
  - [Amazonapi.ApiV1BoxesApproveAdditionalBoxes](docs/ApiV1BoxesApproveAdditionalBoxes.md)
  - [Amazonapi.ApiV1BoxesItems](docs/ApiV1BoxesItems.md)
+ - [Amazonapi.ApiV1BoxesMergeBoxBody](docs/ApiV1BoxesMergeBoxBody.md)
  - [Amazonapi.BadRequestError](docs/BadRequestError.md)
  - [Amazonapi.ConflictInTheState](docs/ConflictInTheState.md)
  - [Amazonapi.DefaultHeaders](docs/DefaultHeaders.md)

@@ -336,6 +336,22 @@ export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames
   </div>
 ))
 
+export const ClientOrdersNotificationsBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
+  <div>
+    <Button variant="contained" color="primary" onClick={() => handlers.onClickConfirmBtn(row)}>
+      {textConsts.confirmBtn}
+    </Button>
+    <ErrorButton
+      className={classNames.rowCancelBtn}
+      onClick={() => {
+        handlers.onClickRejectBtn(row)
+      }}
+    >
+      {textConsts.rejectBtn}
+    </ErrorButton>
+  </div>
+))
+
 export const AdminUsersActionBtnsCell = withStyles(styles)(
   ({classes: classNames, row, handlers, editBtnText, balanceBtnText}) => (
     <React.Fragment>

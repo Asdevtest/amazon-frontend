@@ -15,13 +15,15 @@
 import ApiClient from './ApiClient';
 import ApiV1AdminsGetProductsByStatusClient from './model/ApiV1AdminsGetProductsByStatusClient';
 import ApiV1AdminsGetProductsByStatusCurrentSupplier from './model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
+import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
 import ApiV1AdminsOrdersCreatedBy from './model/ApiV1AdminsOrdersCreatedBy';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
+import ApiV1AdminsTasksBoxesBefore from './model/ApiV1AdminsTasksBoxesBefore';
+import ApiV1AdminsTasksItems from './model/ApiV1AdminsTasksItems';
 import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
-import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
-import ApiV1BatchesItems from './model/ApiV1BatchesItems';
 import ApiV1BoxesApproveAdditionalBoxes from './model/ApiV1BoxesApproveAdditionalBoxes';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
+import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
 import BadRequestError from './model/BadRequestError';
 import ConflictInTheState from './model/ConflictInTheState';
 import DefaultHeaders from './model/DefaultHeaders';
@@ -158,6 +160,12 @@ export {
     ApiV1AdminsGetProductsByStatusCurrentSupplier,
 
     /**
+     * The ApiV1AdminsGetProductsByStatusListingSupplierCompetitors model constructor.
+     * @property {module:model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors}
+     */
+    ApiV1AdminsGetProductsByStatusListingSupplierCompetitors,
+
+    /**
      * The ApiV1AdminsOrdersCreatedBy model constructor.
      * @property {module:model/ApiV1AdminsOrdersCreatedBy}
      */
@@ -170,22 +178,22 @@ export {
     ApiV1AdminsPaymentsCreatedBy,
 
     /**
+     * The ApiV1AdminsTasksBoxesBefore model constructor.
+     * @property {module:model/ApiV1AdminsTasksBoxesBefore}
+     */
+    ApiV1AdminsTasksBoxesBefore,
+
+    /**
+     * The ApiV1AdminsTasksItems model constructor.
+     * @property {module:model/ApiV1AdminsTasksItems}
+     */
+    ApiV1AdminsTasksItems,
+
+    /**
      * The ApiV1BatchesBatch model constructor.
      * @property {module:model/ApiV1BatchesBatch}
      */
     ApiV1BatchesBatch,
-
-    /**
-     * The ApiV1BatchesBoxes model constructor.
-     * @property {module:model/ApiV1BatchesBoxes}
-     */
-    ApiV1BatchesBoxes,
-
-    /**
-     * The ApiV1BatchesItems model constructor.
-     * @property {module:model/ApiV1BatchesItems}
-     */
-    ApiV1BatchesItems,
 
     /**
      * The ApiV1BoxesApproveAdditionalBoxes model constructor.
@@ -198,6 +206,12 @@ export {
      * @property {module:model/ApiV1BoxesItems}
      */
     ApiV1BoxesItems,
+
+    /**
+     * The ApiV1BoxesMergeBoxBody model constructor.
+     * @property {module:model/ApiV1BoxesMergeBoxBody}
+     */
+    ApiV1BoxesMergeBoxBody,
 
     /**
      * The BadRequestError model constructor.

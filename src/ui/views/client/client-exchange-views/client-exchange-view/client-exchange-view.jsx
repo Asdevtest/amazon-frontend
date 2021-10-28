@@ -102,6 +102,7 @@ export class ClientExchangeViewRaw extends Component {
                 <DataGrid
                   pagination
                   useResizeContainer
+                  autoHeight
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}

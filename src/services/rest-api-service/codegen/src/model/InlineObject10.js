@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 
 /**
  * The InlineObject10 model module.
@@ -50,6 +51,9 @@ class InlineObject10 {
             if (data.hasOwnProperty('guid')) {
                 obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
+            if (data.hasOwnProperty('boxBody')) {
+                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
+            }
             if (data.hasOwnProperty('itemsBoxSet')) {
                 obj['itemsBoxSet'] = ApiClient.convertToType(data['itemsBoxSet'], [[Object]]);
             }
@@ -65,6 +69,11 @@ class InlineObject10 {
  * @member {String} guid
  */
 InlineObject10.prototype['guid'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
+ */
+InlineObject10.prototype['boxBody'] = undefined;
 
 /**
  * Массив боксайтемов каждый элемент массива - содержание айтемов новой коробки

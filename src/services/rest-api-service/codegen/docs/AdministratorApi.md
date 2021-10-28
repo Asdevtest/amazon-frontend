@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**apiV1AdminsPatchProductsGuidPatch**](AdministratorApi.md#apiV1AdminsPatchProductsGuidPatch) | **PATCH** /api/v1/admins/patch_products/{guid} | # Внести изменения в продукт (снять с биржи).
 [**apiV1AdminsPaymentsGet**](AdministratorApi.md#apiV1AdminsPaymentsGet) | **GET** /api/v1/admins/payments | # Получить все оплаты, которые были начислены всем ролям.
 [**apiV1AdminsPickupProductGuidPost**](AdministratorApi.md#apiV1AdminsPickupProductGuidPost) | **POST** /api/v1/admins/pickup_product/{guid} | # Взять продукт на проверку.
+[**apiV1AdminsTasksGet**](AdministratorApi.md#apiV1AdminsTasksGet) | **GET** /api/v1/admins/tasks | # Получить задачи.
 [**apiV1AdminsUsersGet**](AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
 [**apiV1AdminsUsersGuidDelete**](AdministratorApi.md#apiV1AdminsUsersGuidDelete) | **DELETE** /api/v1/admins/users/{guid} | Изменить пользователя.
 [**apiV1AdminsUsersGuidGet**](AdministratorApi.md#apiV1AdminsUsersGuidGet) | **GET** /api/v1/admins/users/{guid} | Получить пользователя по GUID.
@@ -652,6 +653,60 @@ Name | Type | Description  | Notes
 ### Return type
 
 **String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html
+
+
+## apiV1AdminsTasksGet
+
+> [InlineResponse2004] apiV1AdminsTasksGet(opts)
+
+# Получить задачи.
+
+## Получить задачи.  
+
+### Example
+
+```javascript
+import Amazonapi from 'amazonapi';
+let defaultClient = Amazonapi.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new Amazonapi.AdministratorApi();
+let opts = {
+  'status': "status_example", // String | если указать статус - отфильтрует, нет - выведет все.
+  'Accept_Encoding': gzip, deflate // String | 
+};
+apiInstance.apiV1AdminsTasksGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **String**| если указать статус - отфильтрует, нет - выведет все. | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+
+### Return type
+
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 

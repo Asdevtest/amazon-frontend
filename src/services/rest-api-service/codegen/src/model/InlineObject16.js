@@ -77,9 +77,6 @@ class InlineObject16 {
             if (data.hasOwnProperty('amountPaymentPerConsignmentAtDollars')) {
                 obj['amountPaymentPerConsignmentAtDollars'] = ApiClient.convertToType(data['amountPaymentPerConsignmentAtDollars'], 'Number');
             }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
             if (data.hasOwnProperty('totalPriceChanged')) {
                 obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
@@ -145,7 +142,13 @@ class InlineObject16 {
      * value: 35
      * @const
      */
-    "35": 35
+    "35": 35,
+
+    /**
+     * value: 40
+     * @const
+     */
+    "40": 40
 };
 
 
@@ -175,7 +178,7 @@ InlineObject16.prototype['deliveryMethod'] = undefined;
 InlineObject16.prototype['fba'] = undefined;
 
 /**
- * tmp
+ *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      returnOrder: 35 Если Заказ пришёл не кондиционный - \"возврат заказа\"    
  * @member {module:model/InlineObject16.StatusEnum} status
  * @default StatusEnum.1
  */
@@ -212,13 +215,7 @@ InlineObject16.prototype['trackingNumberChina'] = undefined;
 InlineObject16.prototype['amountPaymentPerConsignmentAtDollars'] = undefined;
 
 /**
- * Баркод.
- * @member {String} barCode
- */
-InlineObject16.prototype['barCode'] = undefined;
-
-/**
- * Если вдруг баер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
+ * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
  * @member {Number} totalPriceChanged
  */
 InlineObject16.prototype['totalPriceChanged'] = undefined;

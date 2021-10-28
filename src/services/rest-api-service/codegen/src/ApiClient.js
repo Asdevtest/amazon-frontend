@@ -511,7 +511,7 @@ class ApiClient {
         if (str) {
             return new Date(str).toISOString()
         }
-        return ''
+        return
     }
 
     /**

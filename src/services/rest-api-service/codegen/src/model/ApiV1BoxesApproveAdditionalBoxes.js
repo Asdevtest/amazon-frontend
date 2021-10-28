@@ -95,6 +95,9 @@ class ApiV1BoxesApproveAdditionalBoxes {
             if (data.hasOwnProperty('isDraft')) {
                 obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
             }
+            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
+                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
+            }
             if (data.hasOwnProperty('items')) {
                 obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems]);
             }
@@ -215,6 +218,12 @@ ApiV1BoxesApproveAdditionalBoxes.prototype['factDispatchDate'] = undefined;
  * @member {Boolean} isDraft
  */
 ApiV1BoxesApproveAdditionalBoxes.prototype['isDraft'] = undefined;
+
+/**
+ * Прикреплен ли баркод к коробке сотрудником склада.
+ * @member {Boolean} isBarCodeAttachedByTheStorekeeper
+ */
+ApiV1BoxesApproveAdditionalBoxes.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
 
 /**
  * Массив коробок.

@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 
 /**
  * The InlineObject8 model module.
@@ -50,6 +51,9 @@ class InlineObject8 {
             if (data.hasOwnProperty('guids')) {
                 obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
             }
+            if (data.hasOwnProperty('boxBody')) {
+                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
+            }
         }
         return obj;
     }
@@ -62,6 +66,11 @@ class InlineObject8 {
  * @member {Array.<String>} guids
  */
 InlineObject8.prototype['guids'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
+ */
+InlineObject8.prototype['boxBody'] = undefined;
 
 
 

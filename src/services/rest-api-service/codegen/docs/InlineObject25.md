@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **currentSupplierId** | **String** | GUID поставщика | [optional] 
 **category** | **String** | Категория | [optional] 
 **bsr** | **Number** |  | [optional] 
+**fba** | **Boolean** | Признак fba | [optional] 
 **fbm** | **Boolean** | Признак fbm | [optional] 
 **status** | **Number** |  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком | [optional] [default to StatusEnum.0]
 **amazon** | **Number** |  | [optional] 

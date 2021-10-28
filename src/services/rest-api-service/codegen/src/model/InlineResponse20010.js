@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 
 /**
  * The InlineResponse20010 model module.
@@ -22,15 +21,12 @@ import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 class InlineResponse20010 {
     /**
      * Constructs a new <code>InlineResponse20010</code>.
+     * Схема парсинга.
      * @alias module:model/InlineResponse20010
-     * @param _id {String} GUID задачи в DB
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxes {Array.<module:model/ApiV1BatchesBoxes>} Массив коробок.
-     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
      */
-    constructor(_id, taskId, boxes, status) { 
+    constructor() { 
         
-        InlineResponse20010.initialize(this, _id, taskId, boxes, status);
+        InlineResponse20010.initialize(this);
     }
 
     /**
@@ -38,11 +34,7 @@ class InlineResponse20010 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, taskId, boxes, status) { 
-        obj['_id'] = _id;
-        obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
-        obj['status'] = status;
+    static initialize(obj) { 
     }
 
     /**
@@ -56,38 +48,83 @@ class InlineResponse20010 {
         if (data) {
             obj = obj || new InlineResponse20010();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('amazonFee')) {
+                obj['amazonFee'] = ApiClient.convertToType(data['amazonFee'], 'Number');
             }
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('width')) {
+                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
             }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            if (data.hasOwnProperty('height')) {
+                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
             }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1BatchesBoxes]);
+            if (data.hasOwnProperty('length')) {
+                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
+            if (data.hasOwnProperty('weight')) {
+                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('weightUnitString')) {
+                obj['weightUnitString'] = ApiClient.convertToType(data['weightUnitString'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('isWhiteGloveRequired')) {
+                obj['isWhiteGloveRequired'] = ApiClient.convertToType(data['isWhiteGloveRequired'], 'Boolean');
             }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('subCategory')) {
+                obj['subCategory'] = ApiClient.convertToType(data['subCategory'], 'String');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('fnsku')) {
+                obj['fnsku'] = ApiClient.convertToType(data['fnsku'], 'String');
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            if (data.hasOwnProperty('dimensionUnit')) {
+                obj['dimensionUnit'] = ApiClient.convertToType(data['dimensionUnit'], 'String');
             }
-            if (data.hasOwnProperty('updateDate')) {
-                obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            }
+            if (data.hasOwnProperty('binding')) {
+                obj['binding'] = ApiClient.convertToType(data['binding'], 'String');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('dimensionUnitString')) {
+                obj['dimensionUnitString'] = ApiClient.convertToType(data['dimensionUnitString'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('imageUrl')) {
+                obj['imageUrl'] = ApiClient.convertToType(data['imageUrl'], 'String');
+            }
+            if (data.hasOwnProperty('isAfn')) {
+                obj['isAfn'] = ApiClient.convertToType(data['isAfn'], 'Boolean');
+            }
+            if (data.hasOwnProperty('gl')) {
+                obj['gl'] = ApiClient.convertToType(data['gl'], 'String');
+            }
+            if (data.hasOwnProperty('TRexId')) {
+                obj['TRexId'] = ApiClient.convertToType(data['TRexId'], 'String');
+            }
+            if (data.hasOwnProperty('isAsinLimits')) {
+                obj['isAsinLimits'] = ApiClient.convertToType(data['isAsinLimits'], 'Boolean');
+            }
+            if (data.hasOwnProperty('originalUrl')) {
+                obj['originalUrl'] = ApiClient.convertToType(data['originalUrl'], 'String');
+            }
+            if (data.hasOwnProperty('productGroup')) {
+                obj['productGroup'] = ApiClient.convertToType(data['productGroup'], 'String');
+            }
+            if (data.hasOwnProperty('thumbStringUrl')) {
+                obj['thumbStringUrl'] = ApiClient.convertToType(data['thumbStringUrl'], 'String');
+            }
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
+            if (data.hasOwnProperty('encryptedMarketplaceId')) {
+                obj['encryptedMarketplaceId'] = ApiClient.convertToType(data['encryptedMarketplaceId'], 'String');
+            }
+            if (data.hasOwnProperty('weightUnit')) {
+                obj['weightUnit'] = ApiClient.convertToType(data['weightUnit'], 'String');
             }
         }
         return obj;
@@ -97,100 +134,137 @@ class InlineResponse20010 {
 }
 
 /**
- * GUID задачи в DB
- * @member {String} _id
+ * @member {Number} amazonFee
  */
-InlineResponse20010.prototype['_id'] = undefined;
+InlineResponse20010.prototype['amazonFee'] = undefined;
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * @member {Number} width
  */
-InlineResponse20010.prototype['taskId'] = undefined;
+InlineResponse20010.prototype['width'] = undefined;
 
 /**
- * Тип операции
- * @member {module:model/InlineResponse20010.OperationTypeEnum} operationType
+ * @member {Number} height
  */
-InlineResponse20010.prototype['operationType'] = undefined;
+InlineResponse20010.prototype['height'] = undefined;
 
 /**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/ApiV1BatchesBoxes>} boxesBefore
+ * @member {Number} length
  */
-InlineResponse20010.prototype['boxesBefore'] = undefined;
+InlineResponse20010.prototype['length'] = undefined;
 
 /**
- * Массив коробок.
- * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
+ * @member {Number} weight
  */
-InlineResponse20010.prototype['boxes'] = undefined;
+InlineResponse20010.prototype['weight'] = undefined;
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
+ * @member {String} weightUnitString
  */
-InlineResponse20010.prototype['status'] = undefined;
+InlineResponse20010.prototype['weightUnitString'] = undefined;
 
 /**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
+ * @member {Boolean} isWhiteGloveRequired
  */
-InlineResponse20010.prototype['storekeeperComment'] = undefined;
+InlineResponse20010.prototype['isWhiteGloveRequired'] = undefined;
 
 /**
- * Комментарий клиента.
- * @member {String} clientComment
+ * @member {String} subCategory
  */
-InlineResponse20010.prototype['clientComment'] = undefined;
+InlineResponse20010.prototype['subCategory'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * @member {String} fnsku
  */
-InlineResponse20010.prototype['images'] = undefined;
+InlineResponse20010.prototype['fnsku'] = undefined;
 
 /**
- * Дата создания.
- * @member {Date} createdAt
+ * @member {String} dimensionUnit
  */
-InlineResponse20010.prototype['createdAt'] = undefined;
+InlineResponse20010.prototype['dimensionUnit'] = undefined;
 
 /**
- * Дата создания.
- * @member {Date} updateDate
+ * @member {String} link
  */
-InlineResponse20010.prototype['updateDate'] = undefined;
-
-
-
-
+InlineResponse20010.prototype['link'] = undefined;
 
 /**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
+ * @member {String} binding
  */
-InlineResponse20010['OperationTypeEnum'] = {
+InlineResponse20010.prototype['binding'] = undefined;
 
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
+/**
+ * @member {String} title
+ */
+InlineResponse20010.prototype['title'] = undefined;
 
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
+/**
+ * @member {String} dimensionUnitString
+ */
+InlineResponse20010.prototype['dimensionUnitString'] = undefined;
 
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive"
-};
+/**
+ * @member {Number} price
+ */
+InlineResponse20010.prototype['price'] = undefined;
+
+/**
+ * @member {String} imageUrl
+ */
+InlineResponse20010.prototype['imageUrl'] = undefined;
+
+/**
+ * @member {Boolean} isAfn
+ */
+InlineResponse20010.prototype['isAfn'] = undefined;
+
+/**
+ * @member {String} gl
+ */
+InlineResponse20010.prototype['gl'] = undefined;
+
+/**
+ * @member {String} TRexId
+ */
+InlineResponse20010.prototype['TRexId'] = undefined;
+
+/**
+ * @member {Boolean} isAsinLimits
+ */
+InlineResponse20010.prototype['isAsinLimits'] = undefined;
+
+/**
+ * @member {String} originalUrl
+ */
+InlineResponse20010.prototype['originalUrl'] = undefined;
+
+/**
+ * @member {String} productGroup
+ */
+InlineResponse20010.prototype['productGroup'] = undefined;
+
+/**
+ * @member {String} thumbStringUrl
+ */
+InlineResponse20010.prototype['thumbStringUrl'] = undefined;
+
+/**
+ * @member {String} asin
+ */
+InlineResponse20010.prototype['asin'] = undefined;
+
+/**
+ * @member {String} encryptedMarketplaceId
+ */
+InlineResponse20010.prototype['encryptedMarketplaceId'] = undefined;
+
+/**
+ * @member {String} weightUnit
+ */
+InlineResponse20010.prototype['weightUnit'] = undefined;
+
+
+
 
 
 

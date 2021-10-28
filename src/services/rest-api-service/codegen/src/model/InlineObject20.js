@@ -26,12 +26,11 @@ class InlineObject20 {
      * @param deliveryMethod {Number} Код метода доставки.
      * @param warehouse {Number} Номер склада.
      * @param clientComment {String} Комментарии клиента.
-     * @param barCode {String} Ссылка на баркод.
      * @param productId {String} GUID заказанного продукта
      */
-    constructor(amount, deliveryMethod, warehouse, clientComment, barCode, productId) { 
+    constructor(amount, deliveryMethod, warehouse, clientComment, productId) { 
         
-        InlineObject20.initialize(this, amount, deliveryMethod, warehouse, clientComment, barCode, productId);
+        InlineObject20.initialize(this, amount, deliveryMethod, warehouse, clientComment, productId);
     }
 
     /**
@@ -39,12 +38,11 @@ class InlineObject20 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, barCode, productId) { 
+    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, productId) { 
         obj['amount'] = amount;
         obj['deliveryMethod'] = deliveryMethod;
         obj['warehouse'] = warehouse;
         obj['clientComment'] = clientComment;
-        obj['barCode'] = barCode;
         obj['productId'] = productId;
     }
 
@@ -73,9 +71,6 @@ class InlineObject20 {
             }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
             if (data.hasOwnProperty('productId')) {
                 obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
@@ -119,12 +114,6 @@ InlineObject20.prototype['warehouse'] = undefined;
  * @member {String} clientComment
  */
 InlineObject20.prototype['clientComment'] = undefined;
-
-/**
- * Ссылка на баркод.
- * @member {String} barCode
- */
-InlineObject20.prototype['barCode'] = undefined;
 
 /**
  * GUID заказанного продукта

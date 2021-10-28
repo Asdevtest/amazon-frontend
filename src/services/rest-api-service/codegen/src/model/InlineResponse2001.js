@@ -108,17 +108,14 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('totalPriceChanged')) {
                 obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
             if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
             }
             if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'String');
             }
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
@@ -135,7 +132,6 @@ class InlineResponse2001 {
 
 
 }
-
 
 
 
@@ -196,7 +192,6 @@ class InlineResponse2001 {
 };
 
 
-
 /**
  * id заказ.
  * @member {Number} id
@@ -246,7 +241,7 @@ InlineResponse2001.prototype['deliveryMethod'] = undefined;
 InlineResponse2001.prototype['fba'] = undefined;
 
 /**
- * tmp
+ *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      returnOrder: 35 Если Заказ пришёл не кондиционный - \"возврат заказа\"    
  * @member {module:model/InlineResponse2001.StatusEnum} status
  * @default StatusEnum.1
  */
@@ -295,24 +290,18 @@ InlineResponse2001.prototype['totalPrice'] = undefined;
 InlineResponse2001.prototype['totalPriceChanged'] = undefined;
 
 /**
- * ссылка на баркод.
- * @member {String} barCode
- */
-InlineResponse2001.prototype['barCode'] = undefined;
-
-/**
  * Массив картинок.
  * @member {Array.<String>} images
  */
 InlineResponse2001.prototype['images'] = undefined;
 
 /**
- * @member {Date} createdAt
+ * @member {String} createdAt
  */
 InlineResponse2001.prototype['createdAt'] = undefined;
 
 /**
- * @member {Date} updatedAt
+ * @member {String} updatedAt
  */
 InlineResponse2001.prototype['updatedAt'] = undefined;
 
@@ -331,6 +320,8 @@ InlineResponse2001.prototype['product'] = undefined;
  * @member {module:model/ApiV1AdminsOrdersCreatedBy} createdBy
  */
 InlineResponse2001.prototype['createdBy'] = undefined;
+
+
 
 
 

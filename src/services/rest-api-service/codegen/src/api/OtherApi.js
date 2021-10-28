@@ -69,7 +69,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = null;
+      let returnType = Object;
       return this.apiClient.callApi(
         '/api/v1/other/img/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
