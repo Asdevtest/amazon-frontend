@@ -14,6 +14,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
+import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/clientAvatar.jpg'
@@ -102,11 +103,7 @@ class ClientOrdersNotificationsViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => {
-                    if (!e.state.options.loading && !e.state.isScrolling && e.state.rows.totalRowCount) {
-                      setDataGridState(e.state)
-                    }
-                  }}
+                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                 />

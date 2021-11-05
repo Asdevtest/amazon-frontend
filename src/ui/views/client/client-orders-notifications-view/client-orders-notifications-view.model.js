@@ -111,6 +111,9 @@ export class ClientOrdersNotificationsViewModel {
   async getOrders() {
     try {
       const result = await ClientModel.getOrders()
+
+      console.log('result', result)
+
       runInAction(() => {
         this.orders = result
           .filter(order => order.totalPrice !== order.totalPriceChanged)
