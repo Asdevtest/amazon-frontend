@@ -44,6 +44,13 @@ export const ClientForm = ({batch}) => {
             <Input disabled value={'trackId'} />
           </Box>
         </Grid>
+
+        <Grid item>
+          <Box>
+            <Typography className={classNames.modalText}>{textConsts.dispatchDate}</Typography>
+            <Input disabled value={batch.scheduledDispatchDate} />
+          </Box>
+        </Grid>
       </Grid>
     </Paper>
   )

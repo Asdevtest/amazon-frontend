@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
-import {ShowBigImagesModal} from '@components/modals/show-big-images-modal'
+import {BigImagesModal} from '@components/modals/show-big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {priceCalculation} from '@utils/price-calculation'
@@ -80,7 +80,7 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                     {textConsts.supplierPhotos}
                   </Button>
                 </TableCell>
-                <ShowBigImagesModal
+                <BigImagesModal
                   isAmazone
                   openModal={showPhotosModal}
                   setOpenModal={() => setShowPhotosModal(!showPhotosModal)}

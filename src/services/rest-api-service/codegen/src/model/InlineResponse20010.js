@@ -11,7 +11,8 @@
  *
  */
 
-import ApiClient from '../ApiClient';
+import ApiClient from '../ApiClient'
+import ApiV1BatchesBoxes from './ApiV1BatchesBoxes'
 
 /**
  * The InlineResponse20010 model module.
@@ -19,254 +20,184 @@ import ApiClient from '../ApiClient';
  * @version v0.0.1
  */
 class InlineResponse20010 {
-    /**
+  /**
      * Constructs a new <code>InlineResponse20010</code>.
      * Схема парсинга.
      * @alias module:model/InlineResponse20010
      */
-    constructor() { 
-        
-        InlineResponse20010.initialize(this);
-    }
+  constructor(_id, taskId, boxes, status) {
+    InlineResponse20010.initialize(this, _id, taskId, boxes, status)
+  }
 
-    /**
+  /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
-    }
+  static initialize(obj, _id, taskId, boxes, status) {
+    obj['_id'] = _id
+    obj['taskId'] = taskId
+    obj['boxes'] = boxes
+    obj['status'] = status
+  }
 
-    /**
+  /**
      * Constructs a <code>InlineResponse20010</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/InlineResponse20010} obj Optional instance to populate.
      * @return {module:model/InlineResponse20010} The populated <code>InlineResponse20010</code> instance.
      */
-    static constructFromObject(data, obj) {
-        if (data) {
-            obj = obj || new InlineResponse20010();
+  static constructFromObject(data, obj) {
+    if (data) {
+      obj = obj || new InlineResponse20010()
 
-            if (data.hasOwnProperty('amazonFee')) {
-                obj['amazonFee'] = ApiClient.convertToType(data['amazonFee'], 'Number');
-            }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
-            }
-            if (data.hasOwnProperty('weight')) {
-                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
-            }
-            if (data.hasOwnProperty('weightUnitString')) {
-                obj['weightUnitString'] = ApiClient.convertToType(data['weightUnitString'], 'String');
-            }
-            if (data.hasOwnProperty('isWhiteGloveRequired')) {
-                obj['isWhiteGloveRequired'] = ApiClient.convertToType(data['isWhiteGloveRequired'], 'Boolean');
-            }
-            if (data.hasOwnProperty('subCategory')) {
-                obj['subCategory'] = ApiClient.convertToType(data['subCategory'], 'String');
-            }
-            if (data.hasOwnProperty('fnsku')) {
-                obj['fnsku'] = ApiClient.convertToType(data['fnsku'], 'String');
-            }
-            if (data.hasOwnProperty('dimensionUnit')) {
-                obj['dimensionUnit'] = ApiClient.convertToType(data['dimensionUnit'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('binding')) {
-                obj['binding'] = ApiClient.convertToType(data['binding'], 'String');
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('dimensionUnitString')) {
-                obj['dimensionUnitString'] = ApiClient.convertToType(data['dimensionUnitString'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('imageUrl')) {
-                obj['imageUrl'] = ApiClient.convertToType(data['imageUrl'], 'String');
-            }
-            if (data.hasOwnProperty('isAfn')) {
-                obj['isAfn'] = ApiClient.convertToType(data['isAfn'], 'Boolean');
-            }
-            if (data.hasOwnProperty('gl')) {
-                obj['gl'] = ApiClient.convertToType(data['gl'], 'String');
-            }
-            if (data.hasOwnProperty('TRexId')) {
-                obj['TRexId'] = ApiClient.convertToType(data['TRexId'], 'String');
-            }
-            if (data.hasOwnProperty('isAsinLimits')) {
-                obj['isAsinLimits'] = ApiClient.convertToType(data['isAsinLimits'], 'Boolean');
-            }
-            if (data.hasOwnProperty('originalUrl')) {
-                obj['originalUrl'] = ApiClient.convertToType(data['originalUrl'], 'String');
-            }
-            if (data.hasOwnProperty('productGroup')) {
-                obj['productGroup'] = ApiClient.convertToType(data['productGroup'], 'String');
-            }
-            if (data.hasOwnProperty('thumbStringUrl')) {
-                obj['thumbStringUrl'] = ApiClient.convertToType(data['thumbStringUrl'], 'String');
-            }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
-            }
-            if (data.hasOwnProperty('encryptedMarketplaceId')) {
-                obj['encryptedMarketplaceId'] = ApiClient.convertToType(data['encryptedMarketplaceId'], 'String');
-            }
-            if (data.hasOwnProperty('weightUnit')) {
-                obj['weightUnit'] = ApiClient.convertToType(data['weightUnit'], 'String');
-            }
-        }
-        return obj;
+      if (data.hasOwnProperty('_id')) {
+        obj['_id'] = ApiClient.convertToType(data['_id'], 'String')
+      }
+      if (data.hasOwnProperty('taskId')) {
+        obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number')
+      }
+      if (data.hasOwnProperty('operationType')) {
+        obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String')
+      }
+      if (data.hasOwnProperty('boxesBefore')) {
+        obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ ApiV1BatchesBoxes ])
+      }
+      if (data.hasOwnProperty('boxes')) {
+        obj['boxes'] = ApiClient.convertToType(data['boxes'], [ ApiV1BatchesBoxes ])
+      }
+      if (data.hasOwnProperty('status')) {
+        obj['status'] = ApiClient.convertToType(data['status'], 'Number')
+      }
+      if (data.hasOwnProperty('storekeeperComment')) {
+        obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String')
+      }
+      if (data.hasOwnProperty('clientComment')) {
+        obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String')
+      }
+      if (data.hasOwnProperty('images')) {
+        obj['images'] = ApiClient.convertToType(data['images'], [ 'String' ])
+      }
+      if (data.hasOwnProperty('createdAt')) {
+        obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date')
+      }
+      if (data.hasOwnProperty('updatedAt')) {
+        obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date')
+      }
     }
-
-
+    return obj
+  }
 }
 
 /**
  * @member {Number} amazonFee
  */
-InlineResponse20010.prototype['amazonFee'] = undefined;
+InlineResponse20010.prototype['_id'] = undefined
 
 /**
  * @member {Number} width
  */
-InlineResponse20010.prototype['width'] = undefined;
+InlineResponse20010.prototype['taskId'] = undefined
 
 /**
  * @member {Number} height
  */
-InlineResponse20010.prototype['height'] = undefined;
+InlineResponse20010.prototype['operationType'] = undefined
 
 /**
  * @member {Number} length
  */
-InlineResponse20010.prototype['length'] = undefined;
+InlineResponse20010.prototype['boxesBefore'] = undefined
 
 /**
  * @member {Number} weight
  */
-InlineResponse20010.prototype['weight'] = undefined;
+InlineResponse20010.prototype['boxes'] = undefined
 
 /**
  * @member {String} weightUnitString
  */
-InlineResponse20010.prototype['weightUnitString'] = undefined;
+InlineResponse20010.prototype['status'] = undefined
 
 /**
  * @member {Boolean} isWhiteGloveRequired
  */
-InlineResponse20010.prototype['isWhiteGloveRequired'] = undefined;
+InlineResponse20010.prototype['storekeeperComment'] = undefined
 
 /**
  * @member {String} subCategory
  */
-InlineResponse20010.prototype['subCategory'] = undefined;
+InlineResponse20010.prototype['clientComment'] = undefined
 
 /**
  * @member {String} fnsku
  */
-InlineResponse20010.prototype['fnsku'] = undefined;
+InlineResponse20010.prototype['images'] = undefined
 
 /**
  * @member {String} dimensionUnit
  */
-InlineResponse20010.prototype['dimensionUnit'] = undefined;
+InlineResponse20010.prototype['createdAt'] = undefined
 
 /**
  * @member {String} link
  */
-InlineResponse20010.prototype['link'] = undefined;
-
-/**
- * @member {String} binding
- */
-InlineResponse20010.prototype['binding'] = undefined;
-
-/**
- * @member {String} title
- */
-InlineResponse20010.prototype['title'] = undefined;
-
-/**
- * @member {String} dimensionUnitString
- */
-InlineResponse20010.prototype['dimensionUnitString'] = undefined;
-
-/**
- * @member {Number} price
- */
-InlineResponse20010.prototype['price'] = undefined;
+InlineResponse20010.prototype['updateDate'] = undefined
 
 /**
  * @member {String} imageUrl
  */
-InlineResponse20010.prototype['imageUrl'] = undefined;
+InlineResponse20010.prototype['imageUrl'] = undefined
 
 /**
  * @member {Boolean} isAfn
  */
-InlineResponse20010.prototype['isAfn'] = undefined;
+InlineResponse20010.prototype['isAfn'] = undefined
 
 /**
  * @member {String} gl
  */
-InlineResponse20010.prototype['gl'] = undefined;
+InlineResponse20010.prototype['gl'] = undefined
 
 /**
  * @member {String} TRexId
  */
-InlineResponse20010.prototype['TRexId'] = undefined;
+InlineResponse20010.prototype['TRexId'] = undefined
 
 /**
  * @member {Boolean} isAsinLimits
  */
-InlineResponse20010.prototype['isAsinLimits'] = undefined;
+InlineResponse20010.prototype['isAsinLimits'] = undefined
 
 /**
  * @member {String} originalUrl
  */
-InlineResponse20010.prototype['originalUrl'] = undefined;
+InlineResponse20010.prototype['originalUrl'] = undefined
 
 /**
  * @member {String} productGroup
  */
-InlineResponse20010.prototype['productGroup'] = undefined;
+InlineResponse20010.prototype['productGroup'] = undefined
 
 /**
  * @member {String} thumbStringUrl
  */
-InlineResponse20010.prototype['thumbStringUrl'] = undefined;
+InlineResponse20010.prototype['thumbStringUrl'] = undefined
 
 /**
  * @member {String} asin
  */
-InlineResponse20010.prototype['asin'] = undefined;
+InlineResponse20010.prototype['asin'] = undefined
 
 /**
  * @member {String} encryptedMarketplaceId
  */
-InlineResponse20010.prototype['encryptedMarketplaceId'] = undefined;
+InlineResponse20010.prototype['encryptedMarketplaceId'] = undefined
 
 /**
  * @member {String} weightUnit
  */
-InlineResponse20010.prototype['weightUnit'] = undefined;
+InlineResponse20010.prototype['weightUnit'] = undefined
 
-
-
-
-
-
-export default InlineResponse20010;
-
+export default InlineResponse20010

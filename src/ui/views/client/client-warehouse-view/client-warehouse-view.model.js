@@ -38,6 +38,7 @@ const updateBoxBlackList = [
   'isDraft',
   'scheduledDispatchDate',
   'factDispatchDate',
+  'updatedAt',
 ]
 
 export class ClientWarehouseViewModel {

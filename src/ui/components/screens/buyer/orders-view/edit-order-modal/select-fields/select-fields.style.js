@@ -72,4 +72,9 @@ export const useClassNames = makeStyles(() => ({
   imagesButton: {
     marginTop: '20px',
   },
+
+  onLineWrapper: {
+    display: 'flex',
+    gap: '10px',
+  },
 }))

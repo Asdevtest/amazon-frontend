@@ -11,7 +11,7 @@ import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {ImageFileInput} from '@components/image-file-input'
 import {Input} from '@components/input'
-import {ShowBigImagesModal} from '@components/modals/show-big-images-modal'
+import {BigImagesModal} from '@components/modals/show-big-images-modal'
 
 import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
@@ -35,7 +35,6 @@ export const SelectFields = ({
   photosToLoad,
   order,
   setOrderField,
-  resetOrderField,
   orderFields,
   warehouses,
   deliveryTypeByCode,
@@ -45,9 +44,9 @@ export const SelectFields = ({
 }) => {
   const classNames = useClassNames()
 
-  const [supplierPaidDelivery, setSupplierPaidDelivery] = useState(!(orderFields.deliveryCostToTheWarehouse > 0))
-
   const [priceYuansForBatch, setPriceYuansForBatch] = useState('')
+  const [priceYuansDeliveryCostToTheWarehouse, setPriceYuansDeliveryCostToTheWarehouse] = useState('')
+
   const [usePriceInDollars, setUsePriceInDollars] = useState(true)
   const [yuansToDollarRate, setYuansToDollarRate] = useState(defaultYuansToDollarRate)
 
@@ -144,25 +143,54 @@ export const SelectFields = ({
           })}
         >
           <Box className={classNames.noFlexElement}>
-            <Typography className={classNames.modalText}>{textConsts.priceYuansForBatchTypo}</Typography>
-            <Input
-              disabled={usePriceInDollars || checkIsPlanningPrice}
-              inputProps={{maxLength: 24}}
-              value={
-                usePriceInDollars
-                  ? calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, yuansToDollarRate)
-                  : priceYuansForBatch
-              }
-              className={classNames.input}
-              onChange={e => {
-                if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-                  setPriceYuansForBatch(e.target.value)
-                  setOrderField('totalPriceChanged')({
-                    target: {value: toFixed(Number(calcExchangePrice(e.target.value, yuansToDollarRate)), 2)},
-                  })
-                }
-              }}
-            />
+            <div className={classNames.onLineWrapper}>
+              <div>
+                <Typography className={classNames.modalText}>{textConsts.priceYuansForBatchTypo}</Typography>
+                <Input
+                  disabled={usePriceInDollars || checkIsPlanningPrice}
+                  inputProps={{maxLength: 24}}
+                  value={
+                    usePriceInDollars
+                      ? calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, yuansToDollarRate)
+                      : priceYuansForBatch
+                  }
+                  className={classNames.input}
+                  onChange={e => {
+                    if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+                      setPriceYuansForBatch(e.target.value)
+                      setOrderField('totalPriceChanged')({
+                        target: {value: toFixed(Number(calcExchangePrice(e.target.value, yuansToDollarRate)), 2)},
+                      })
+                    }
+                  }}
+                />
+              </div>
+
+              <div>
+                <Typography className={classNames.modalText}>
+                  {textConsts.priceYuansDeliveryCostToTheWarehouse}
+                </Typography>
+                <Input
+                  disabled={usePriceInDollars || checkIsPlanningPrice}
+                  inputProps={{maxLength: 24}}
+                  value={
+                    usePriceInDollars
+                      ? calcExchangeDollarsInYuansPrice(orderFields.deliveryCostToTheWarehouse, yuansToDollarRate)
+                      : priceYuansDeliveryCostToTheWarehouse
+                  }
+                  className={classNames.input}
+                  onChange={e => {
+                    if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+                      setPriceYuansDeliveryCostToTheWarehouse(e.target.value)
+                      setOrderField('deliveryCostToTheWarehouse')({
+                        target: {value: toFixed(Number(calcExchangePrice(e.target.value, yuansToDollarRate)), 2)},
+                      })
+                    }
+                  }}
+                />
+              </div>
+            </div>
+
             <div className={classNames.checkboxWithLabelWrapper}>
               <Checkbox
                 disabled={checkIsPlanningPrice}
@@ -197,14 +225,29 @@ export const SelectFields = ({
             />
           </Box>
           <Box className={classNames.noFlexElement}>
-            <Typography className={classNames.modalText}>{textConsts.totalPriceChanged}</Typography>
-            <Input
-              disabled={!usePriceInDollars || checkIsPlanningPrice}
-              inputProps={{maxLength: 24}}
-              value={orderFields.totalPriceChanged}
-              className={classNames.input}
-              onChange={setOrderField('totalPriceChanged')}
-            />
+            <div className={classNames.onLineWrapper}>
+              <div>
+                <Typography className={classNames.modalText}>{textConsts.totalPriceChanged}</Typography>
+                <Input
+                  disabled={!usePriceInDollars || checkIsPlanningPrice}
+                  inputProps={{maxLength: 24}}
+                  value={orderFields.totalPriceChanged}
+                  className={classNames.input}
+                  onChange={setOrderField('totalPriceChanged')}
+                />
+              </div>
+
+              <div>
+                <Typography className={classNames.modalText}>{textConsts.deliveryCostToTheWarehouse}</Typography>
+                <Input
+                  disabled={!usePriceInDollars || checkIsPlanningPrice}
+                  inputProps={{maxLength: 24}}
+                  value={orderFields.deliveryCostToTheWarehouse}
+                  className={classNames.input}
+                  onChange={setOrderField('deliveryCostToTheWarehouse')}
+                />
+              </div>
+            </div>
           </Box>
           <Box className={classNames.noFlexElement}>
             <Typography className={classNames.modalText}>{textConsts.costPriceAmount}</Typography>
@@ -289,32 +332,6 @@ export const SelectFields = ({
         </Box>
 
         <Box my={3}>
-          <div className={classNames.checkboxWithLabelWrapper}>
-            <Checkbox
-              checked={supplierPaidDelivery}
-              color="primary"
-              onChange={() => {
-                resetOrderField('deliveryCostToTheWarehouse')
-                setSupplierPaidDelivery(!supplierPaidDelivery)
-              }}
-            />
-            <Typography className={classNames.modalText}>{textConsts.supplierPaidDelivery}</Typography>
-          </div>
-        </Box>
-
-        <Box my={3}>
-          <Typography className={classNames.modalText}>{textConsts.typoShipPrice}</Typography>
-          <Input
-            disabled={supplierPaidDelivery}
-            inputProps={{maxLength: 24}}
-            className={clsx(classNames.numInput, {
-              [classNames.errorInput]: orderFields.deliveryCostToTheWarehouse < 1 && !supplierPaidDelivery,
-            })}
-            value={orderFields.deliveryCostToTheWarehouse}
-            onChange={setOrderField('deliveryCostToTheWarehouse')}
-          />
-        </Box>
-        <Box my={3}>
           <Typography className={classNames.modalText}>{textConsts.trackNumberTypo}</Typography>
           <Input
             inputProps={{maxLength: 50}}
@@ -346,7 +363,7 @@ export const SelectFields = ({
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={textConsts.circularProgressTitle} />}
 
-      <ShowBigImagesModal
+      <BigImagesModal
         isAmazone
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}

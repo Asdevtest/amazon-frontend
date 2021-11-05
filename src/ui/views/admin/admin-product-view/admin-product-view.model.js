@@ -1,5 +1,6 @@
 import {makeAutoObservable} from 'mobx'
 
+import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {getNewObjectWithDefaultValue} from '@utils/object'
 
 const formFieldsDefault = {
@@ -61,6 +62,8 @@ export class AdminProductViewModel {
       this.suppliers = location.state.product.suppliers
     }
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    updateProductAutoCalculatedFields.call(this)
   }
 
   onChangeSelectedSupplier(supplier) {

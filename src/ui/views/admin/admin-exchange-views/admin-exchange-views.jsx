@@ -14,6 +14,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
+import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/adminAvatar.jpg'
@@ -28,9 +29,6 @@ class AdminExchangeViewsRaw extends Component {
   viewModel = new AdminExchangeViewModel({history: this.props.history})
 
   componentDidMount() {
-    // this.viewModel.getProductsByStatus()
-    // this.viewModel.getDataGridState()
-
     this.viewModel.loadData()
   }
 
@@ -83,6 +81,7 @@ class AdminExchangeViewsRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                autoHeight
                 classes={{
                   row: classNames.row,
                 }}
@@ -105,7 +104,7 @@ class AdminExchangeViewsRaw extends Component {
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
-                onStateChange={e => e.state.rows.totalRowCount > 0 && setDataGridState(e.state)}
+                onStateChange={e => onStateChangeHandler(e, setDataGridState)}
                 onRowDoubleClick={e => onClickTableRow(e.row)}
                 onFilterModelChange={model => onChangeFilterModel(model)}
               />

@@ -45,6 +45,26 @@ export const useClassNames = makeStyles(() => ({
     display: 'block',
   },
 
+  link: {
+    width: '100%',
+    height: '50px',
+    overflowX: 'scroll',
+    whiteSpace: 'nowrap',
+  },
+
+  competitorMainWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-beetwen',
+
+    gap: '20px',
+  },
+
+  competitorWrapper: {
+    width: '100%',
+  },
+
   detailDescriptionWrapper: {
     width: '100%',
   },
@@ -70,6 +90,10 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     lineHeight: '20px',
     marginBottom: '12px',
+  },
+
+  carouselWrapper: {
+    width: '200px',
   },
 
   text: {

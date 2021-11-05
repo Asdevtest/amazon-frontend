@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, {Component} from 'react'
 
 import {Typography, Paper} from '@material-ui/core'
@@ -27,6 +26,7 @@ import {Navbar} from '@components/navbar'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 import {WarehouseHistory} from '@components/screens/warehouse/warehouse-history'
 
+import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/clientAvatar.jpg'
@@ -129,6 +129,7 @@ export class ClientWarehouseViewRaw extends Component {
                 <DataGrid
                   pagination
                   useResizeContainer
+                  autoHeight
                   checkboxSelection
                   isRowSelectable={params => params.row.isDraft === false}
                   getRowClassName={params => params.getValue(params.id, 'isDraft') === true && classNames.isDraftRow}
@@ -150,7 +151,7 @@ export class ClientWarehouseViewRaw extends Component {
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
                   onFilterModelChange={model => onChangeFilterModel(model)}
-                  onStateChange={e => e.state.rows.totalRowCount > 0 && setDataGridState(e.state)}
+                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
                 />
               </div>
 

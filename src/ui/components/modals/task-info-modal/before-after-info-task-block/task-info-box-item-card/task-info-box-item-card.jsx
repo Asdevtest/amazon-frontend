@@ -15,7 +15,7 @@ import {useClassNames} from './task-info-box-item-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').taskInfoBoxItemCard
 
-export const TaskInfoBoxItemCard = ({item, superCount}) => {
+export const TaskInfoBoxItemCard = ({item, superCount, box}) => {
   const classNames = useClassNames()
   const [collapsed, setCollapsed] = useState(false)
 
@@ -68,20 +68,20 @@ export const TaskInfoBoxItemCard = ({item, superCount}) => {
             <Typography className={classNames.subTitle}>{textConsts.barCode}</Typography>
             <Typography className={classNames.barCodeField}>{item.product.barCode || 'N/A'}</Typography>
           </div>
-          <div className={classNames.barCodeActionsWrapper}>
+
+          {box.isBarCodeAttachedByTheStorekeeper ? (
+            <Field
+              oneLine
+              label={textConsts.isBarCodeAttachedByTheStorekeeper}
+              inputComponent={<Checkbox disabled checked={box.isBarCodeAttachedByTheStorekeeper} />}
+            />
+          ) : (
             <Field
               oneLine
               label={textConsts.codeCheck}
               inputComponent={<Checkbox disabled checked={item.order.isBarCodeAlreadyAttachedByTheSupplier} />}
             />
-            <Field
-              oneLine
-              label={textConsts.trulyСodeCheck}
-              inputComponent={
-                <Checkbox disabled checked={item.order.isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper} />
-              }
-            />
-          </div>
+          )}
         </div>
       </div>
     </Paper>

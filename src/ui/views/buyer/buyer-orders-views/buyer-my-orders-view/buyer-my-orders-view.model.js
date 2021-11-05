@@ -33,6 +33,19 @@ const updateOrderKeys = [
   'images',
 ]
 
+const updateOrderKeysWithoutStatus = [
+  'deliveryMethod',
+  'warehouse',
+  'barCode',
+  'trackingNumberChina',
+  'amountPaymentPerConsignmentAtDollars',
+  'isBarCodeAlreadyAttachedByTheSupplier',
+  'deliveryCostToTheWarehouse',
+  'buyerComment',
+  'totalPriceChanged',
+  'images',
+]
+
 export class BuyerMyOrdersViewModel {
   history = undefined
   requestStatus = undefined
@@ -50,6 +63,7 @@ export class BuyerMyOrdersViewModel {
   showNoDimensionsErrorModal = false
   showWarningNewBoxesModal = false
   showSuccessModal = false
+  showOrderPriceMismatchModal = false
 
   sortModel = []
   filterModel = {items: []}
@@ -187,6 +201,9 @@ export class BuyerMyOrdersViewModel {
   async onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
+      const isMismatchOrderPrice = orderFields.totalPriceChanged - orderFields.totalPrice > 0
+
       await this.onSubmitPostImages({images: photosToLoad})
 
       orderFields = {
@@ -194,11 +211,9 @@ export class BuyerMyOrdersViewModel {
         images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
       }
 
-      await this.onSaveOrder(order, orderFields, boxesForCreation)
+      await this.onSaveOrder(order, orderFields, isMismatchOrderPrice)
 
-      console.log('boxesForCreation', boxesForCreation)
-
-      if (boxesForCreation.length > 0) {
+      if (boxesForCreation.length > 0 && !isMismatchOrderPrice) {
         await this.onSubmitCreateBoxes(order, boxesForCreation)
       }
 
@@ -210,10 +225,18 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSaveOrder(order, updateOrderData) {
+  async onSaveOrder(order, updateOrderData, isMismatchOrderPrice) {
     try {
+      if (isMismatchOrderPrice) {
+        this.onTriggerOpenModal('showOrderPriceMismatchModal')
+      }
+
       const updateOrderDataFiltered = {
-        ...getObjectFilteredByKeyArrayWhiteList(updateOrderData, updateOrderKeys, true),
+        ...getObjectFilteredByKeyArrayWhiteList(
+          updateOrderData,
+          isMismatchOrderPrice ? updateOrderKeysWithoutStatus : updateOrderKeys,
+          true,
+        ),
         totalPriceChanged: parseFloat(updateOrderData?.totalPriceChanged) || 0,
       }
       await BuyerModel.updateOrder(order._id, updateOrderDataFiltered)

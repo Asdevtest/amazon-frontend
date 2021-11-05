@@ -5,6 +5,8 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {AdministratorModel} from '@models/administrator-model'
 import {OtherModel} from '@models/other-model'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+
 export class AdminUserBalanceViewModel {
   history = undefined
   requestStatus = undefined
@@ -61,7 +63,7 @@ export class AdminUserBalanceViewModel {
       const result = await OtherModel.getPaymentsByUserId(id)
 
       runInAction(() => {
-        this.payments = result
+        this.payments = result.sort(sortObjectsArrayByFiledDate('createdAt'))
       })
     } catch (error) {
       console.log(error)

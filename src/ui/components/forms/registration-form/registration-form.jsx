@@ -62,7 +62,7 @@ export const RegistrationFormRaw = ({classes: classNames, formFields, onChangeFo
         />
         <Typography className={classNames.label}>
           {textConsts.checkboxLabel}
-          <Link href="#" to="/terms">
+          <Link href="#" to="/terms" target="_blank" rel="noopener">
             {textConsts.termsAndConditions}
           </Link>
         </Typography>
@@ -73,7 +73,8 @@ export const RegistrationFormRaw = ({classes: classNames, formFields, onChangeFo
           formFields.password !== formFields.confirmPassword ||
           formFields.name === '' ||
           formFields.email === '' ||
-          formFields.password === ''
+          formFields.password === '' ||
+          formFields.acceptTerms === false
         }
         color="primary"
         type="submit"

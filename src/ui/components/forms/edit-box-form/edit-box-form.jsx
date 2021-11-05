@@ -22,7 +22,7 @@ import {Input} from '@components/input'
 import {LabelField} from '@components/label-field/label-field'
 import {Modal} from '@components/modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
-import {ShowBigImagesModal} from '@components/modals/show-big-images-modal'
+import {BigImagesModal} from '@components/modals/show-big-images-modal'
 import {ShowImageModal} from '@components/modals/show-image-modal'
 import {Table} from '@components/table'
 
@@ -338,7 +338,7 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
         </Button>
       </div>
 
-      <ShowBigImagesModal
+      <BigImagesModal
         isAmazone
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}

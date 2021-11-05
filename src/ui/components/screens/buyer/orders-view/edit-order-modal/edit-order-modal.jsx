@@ -116,13 +116,6 @@ export const EditOrderModal = ({
     setOrderFields(newOrderFieldsState)
   }
 
-  const resetOrderField = filedName => {
-    const newOrderFieldsState = {...orderFields}
-    newOrderFieldsState[filedName] = 0
-
-    setOrderFields(newOrderFieldsState)
-  }
-
   const confirmModalMessageByMode = () => {
     switch (confirmModalMode) {
       case 'STATUS':
@@ -158,7 +151,7 @@ export const EditOrderModal = ({
           warehouses={warehouses}
           deliveryTypeByCode={deliveryTypeByCode}
           setOrderField={setOrderField}
-          resetOrderField={resetOrderField}
+          // resetOrderField={resetOrderField}
           orderFields={orderFields}
           showProgress={showProgress}
           progressValue={progressValue}

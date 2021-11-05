@@ -2,7 +2,9 @@ import {createStyles} from '@material-ui/styles'
 
 export const styles = theme =>
   createStyles({
-    root: {},
+    root: {
+      maxWidth: '700px',
+    },
     form: {
       display: 'flex',
       alignItems: 'center',

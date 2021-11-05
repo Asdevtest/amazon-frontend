@@ -8,7 +8,7 @@ const textConfigs = getLocalizedTexts(texts, 'ru').productStatusButtonsConfigs
 
 export const productStatusButtonsConfigs = {
   [UserRole.RESEARCHER]: curStatus => {
-    if (curStatus < ProductStatusByKey[ProductStatus.CHEKED_BY_SUPERVISOR]) {
+    if (curStatus < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) {
       return [
         {
           statusKey: ProductStatus.RESEARCHER_CREATED_PRODUCT,
@@ -57,7 +57,7 @@ export const productStatusButtonsConfigs = {
           colorHover: '#1269ec',
         },
         {
-          statusKey: ProductStatus.CHEKED_BY_SUPERVISOR,
+          statusKey: ProductStatus.CHECKED_BY_SUPERVISOR,
           label: textConfigs.checkedBySupervisor,
           color: 'rgb(15, 169, 20)',
           colorHover: '#009a07',

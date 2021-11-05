@@ -173,11 +173,12 @@ export const navbarConfig = {
         {subtitle: 'Новые', subRoute: '/admin/exchange'},
         {subtitle: 'Поиск поставщика', subRoute: '/admin/exchange'},
         {subtitle: 'В работе у байера', subRoute: '/admin/exchange'},
-        {subtitle: 'Поставщик найден', subRoute: '/admin/exchange'},
-        {subtitle: 'Поставщик не найден', subRoute: '/admin/exchange'},
+        {subtitle: 'Поставщик найден байером', subRoute: '/admin/exchange'},
+        {subtitle: 'Поставщик не найден байером', subRoute: '/admin/exchange'},
         {subtitle: 'Цена выше МЗЦ', subRoute: '/admin/exchange'},
         {subtitle: 'Опубликованные', subRoute: '/admin/exchange'},
         {subtitle: 'Отклоненные', subRoute: '/admin/exchange'},
+        {subtitle: 'Нет поставщика (закончено супервизором)', subRoute: '/admin/exchange'},
       ],
     },
     {icon: InboxOutlinedIcon, title: 'Инвентарь', route: '/admin/inventory', subtitles: null},
@@ -196,6 +197,7 @@ export const navbarConfig = {
 
         {subtitle: 'Ожидает отправки', subRoute: '/admin/orders'},
         {subtitle: 'Отправлен', subRoute: '/admin/orders'},
+        {subtitle: 'Закрыт', subRoute: '/admin/orders'},
       ],
     },
     {
@@ -214,7 +216,7 @@ export const navbarConfig = {
       route: '/admin/finances',
       subtitles: [
         {subtitle: 'Пополнения', subRoute: '/admin/finances'},
-        {subtitle: 'Начисления', subRoute: '/admin/finances'},
+        // {subtitle: 'Начисления', subRoute: '/admin/finances'}, // пока можно убрать
         {subtitle: 'Списания', subRoute: '/admin/finances'},
       ],
     },

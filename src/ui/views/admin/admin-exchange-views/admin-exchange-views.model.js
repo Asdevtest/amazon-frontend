@@ -15,7 +15,7 @@ import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const productsStatusBySubCategory = {
   0: ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT], // 5 статус
-  1: ProductStatusByKey[ProductStatus.CHEKED_BY_SUPERVISOR], // 15 статус
+  1: ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR], // 15 статус
   2: ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH],
   3: ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT],
   4: ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
@@ -23,6 +23,7 @@ const productsStatusBySubCategory = {
   6: ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
   7: ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS],
   8: ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
+  9: ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND],
 }
 
 export class AdminExchangeViewModel {
@@ -71,7 +72,7 @@ export class AdminExchangeViewModel {
       case 0:
         return DataGridTablesKeys.ADMIN_EXCHANGE_CREATED
       case 1:
-        return DataGridTablesKeys.ADMIN_EXCHANGE_CHEKED_BY_SUPERVISOR
+        return DataGridTablesKeys.ADMIN_EXCHANGE_CHECKED_BY_SUPERVISOR
       case 2:
         return DataGridTablesKeys.ADMIN_EXCHANGE_SUPPLIER_SEARCHING
       case 3:
@@ -86,6 +87,8 @@ export class AdminExchangeViewModel {
         return DataGridTablesKeys.ADMIN_EXCHANGE_PUBLISHED
       case 8:
         return DataGridTablesKeys.ADMIN_EXCHANGE_CANCELED
+      case 9:
+        return DataGridTablesKeys.COMPLETE_SUPPLIER_WAS_NOT_FOUND
     }
   }
 

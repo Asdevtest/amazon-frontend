@@ -38,6 +38,7 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
 
   render() {
     const {
+      productsVacant,
       drawerOpen,
       productToPay,
       showConfirmPayModal,
@@ -69,7 +70,13 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
                 <Typography paragraph variant="h6">
                   {textConsts.mainTitle}
                 </Typography>
-                <div className={classNames.cardsWrapper}>{this.renderProductsVacant()}</div>
+                <div className={classNames.cardsWrapper}>
+                  {productsVacant.length > 0 ? (
+                    this.renderProductsVacant()
+                  ) : (
+                    <Typography className={classNames.noRows}>{'Нет предложений...'}</Typography>
+                  )}
+                </div>
               </div>
             </MainContent>
           </Appbar>

@@ -76,6 +76,10 @@ export class RegistrationViewModel {
   }
 
   onChangeFormField = fieldName => event => {
-    this.setField(fieldName)(event.target.value)
+    if (fieldName === 'acceptTerms') {
+      this.setField(fieldName)(!this.acceptTerms)
+    } else {
+      this.setField(fieldName)(event.target.value)
+    }
   }
 }

@@ -38,6 +38,13 @@ export const researcherProductsViewColumns = () => [
   },
 
   {
+    field: 'tmpStrategyStatus',
+    headerName: textConsts.strategyStatusField,
+    renderCell: params => renderFieldValueCell(params.row.tmpStrategyStatus),
+    width: 250,
+  },
+
+  {
     field: 'amazon',
     headerName: textConsts.amazonPriceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,

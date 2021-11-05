@@ -123,12 +123,13 @@ export class WarehouseCanceledTasksViewModel {
 
   async getTasksMy() {
     try {
-      const result = await StorekeeperModel.getTasksMy()
+      const result = await StorekeeperModel.getTasksMy({
+        status: mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
+      })
 
       runInAction(() => {
         this.tasksMy = result
-          .sort(sortObjectsArrayByFiledDate('createdAt'))
-          .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED])
+          .sort(sortObjectsArrayByFiledDate('updatedAt'))
           .map(el => ({...el, beforeBoxes: el.boxesBefore}))
           .map(order => ({
             ...order,

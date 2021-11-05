@@ -12,6 +12,9 @@ export const OrderStatus = {
   TRACK_NUMBER_ISSUED: 'TRACK_NUMBER_ISSUED',
   IN_STOCK: 'IN_STOCK',
   RETURN_ORDER: 'RETURN_ORDER',
+  ORDER_CLOSED: 'ORDER_CLOSED',
+  AWAITING_SHIPMENT: 'AWAITING_SHIPMENT',
+  SHIPPED: 'SHIPPED',
 }
 
 export const OrderStatusByCode = {
@@ -23,6 +26,9 @@ export const OrderStatusByCode = {
   25: OrderStatus.TRACK_NUMBER_ISSUED, // выдан и принят трек номер - статус "выдан трек номер"
   30: OrderStatus.IN_STOCK, // Товар пришёл на склад - "Пришёл на склад"
   35: OrderStatus.RETURN_ORDER, // Если Заказ пришёл не кондиционный - "возврат заказа"
+  40: OrderStatus.ORDER_CLOSED, // Заказ закрыт
+  45: OrderStatus.AWAITING_SHIPMENT, // Ожидает отправки
+  50: OrderStatus.SHIPPED, // Отправлен
 }
 
 export const OrderStatusByKey = objectFlip(OrderStatusByCode, parseInt)
@@ -61,6 +67,19 @@ export const ORDER_STATUS_OPTIONS = [
   {
     key: OrderStatus.RETURN_ORDER,
     label: textConfig.returnOrder,
+  },
+
+  {
+    key: OrderStatus.ORDER_CLOSED,
+    label: textConfig.closed,
+  },
+  {
+    key: OrderStatus.AWAITING_SHIPMENT,
+    label: textConfig.awaitingShipment,
+  },
+  {
+    key: OrderStatus.SHIPPED,
+    label: textConfig.shipped,
   },
 ]
 

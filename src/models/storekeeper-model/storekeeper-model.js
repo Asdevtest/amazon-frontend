@@ -11,8 +11,8 @@ class StorekeeperModelStatic {
     return response
   }
 
-  getTasksMy = async () => {
-    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksMyGet()
+  getTasksMy = async data => {
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksMyGet(data)
     return response
   }
 

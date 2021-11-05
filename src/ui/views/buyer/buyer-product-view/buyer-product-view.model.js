@@ -12,6 +12,7 @@ import {OtherModel} from '@models/other-model'
 import {ProductModel} from '@models/product-model'
 import {SupplierModel} from '@models/supplier-model'
 
+import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {isUndefined} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {
@@ -116,7 +117,7 @@ export class BuyerProductViewModel {
       }
       this.product = product
       this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.suppliers
-      this.updateAutoCalculatedFields()
+      updateProductAutoCalculatedFields.call(this)
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -126,7 +127,7 @@ export class BuyerProductViewModel {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldsName]: ''}
 
       this.product[fieldsName] = e.target.value
-      this.updateAutoCalculatedFields()
+      updateProductAutoCalculatedFields.call(this)
     })
 
   onClickSetProductStatusBtn(statusKey) {
@@ -159,12 +160,12 @@ export class BuyerProductViewModel {
       case 'accept':
         this.product.currentSupplierId = this.selectedSupplier._id
         this.selectedSupplier = undefined
-        this.updateAutoCalculatedFields()
+        updateProductAutoCalculatedFields.call(this)
         break
       case 'acceptRevoke':
         this.product.currentSupplierId = undefined
         this.selectedSupplier = undefined
-        this.updateAutoCalculatedFields()
+        updateProductAutoCalculatedFields.call(this)
         break
       case 'delete':
         runInAction(() => {
@@ -279,7 +280,15 @@ export class BuyerProductViewModel {
   async onSaveProductData() {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
-      await BuyerModel.updateProduct(this.product._id, this.curUpdateProductData)
+
+      await BuyerModel.updateProduct(
+        this.product._id,
+        getObjectFilteredByKeyArrayBlackList(
+          this.curUpdateProductData,
+          this.curUpdateProductData.currentSupplierId === null ? ['currentSupplierId'] : [],
+        ),
+      )
+
       this.setActionStatus(loadingStatuses.success)
 
       this.history.replace('/buyer/product', {product: toJS(this.product), suppliers: toJS(this.suppliers)})
@@ -393,46 +402,5 @@ export class BuyerProductViewModel {
 
   setActionStatus(actionStatus) {
     this.actionStatus = actionStatus
-  }
-
-  updateAutoCalculatedFields() {
-    this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
-    this.product.maxDelivery = this.product.express ? (this.product.weight || 0) * 7 : (this.product.weight || 0) * 5
-
-    this.product.minpurchase =
-      (parseFloat(this.product.amazon) || 0) -
-      (parseFloat(this.product.totalFba) || 0) -
-      0.4 * ((parseFloat(this.product.amazon) || 0) - (parseFloat(this.product.totalFba) || 0)) -
-      (parseFloat(this.product.maxDelivery) || 0)
-    if (this.product.currentSupplierId) {
-      const findCurrentSupplier = this.suppliers.find(supplier => supplier._id === this.product.currentSupplierId)
-      if (!findCurrentSupplier) {
-        return
-      }
-      this.product.reffee = (parseFloat(this.product.amazon) || 0) * 0.15
-      if (this.product.fbafee) {
-        this.product.profit = (
-          (parseFloat(this.product.amazon) || 0).toFixed(2) -
-            (this.product.reffee || 0).toFixed(2) -
-            (parseFloat(findCurrentSupplier.delivery) || 0).toFixed(2) -
-            (parseFloat(findCurrentSupplier.price) || 0).toFixed(2) -
-            (parseFloat(this.product.fbafee) || 0).toFixed(2) || 0
-        ).toFixed(4)
-      } else {
-        this.product.profit = (
-          (parseFloat(this.product.amazon) || 0).toFixed(2) -
-            (this.product.reffee || 0).toFixed(2) -
-            (parseFloat(findCurrentSupplier.delivery) || 0).toFixed(2) -
-            (parseFloat(findCurrentSupplier.price) || 0).toFixed(2) || 0
-        ).toFixed(4)
-      }
-      this.product.margin =
-        (this.product.profit /
-          ((parseFloat(findCurrentSupplier.price) || 0) + (parseFloat(findCurrentSupplier.delivery) || 0))) *
-        100
-    } else {
-      this.product.profit = 0
-      this.product.margin = 0
-    }
   }
 }

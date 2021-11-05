@@ -45,6 +45,7 @@ import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/s
 import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view'
 import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-view'
 import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view/supervisor-settings-view'
+import {TermsView} from '@views/terms'
 import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-canceled-tasks-view'
 import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-completed-tasks-view'
 import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
@@ -68,6 +69,12 @@ export const publicRoutesConfigs = [
   {
     routePath: '/documentation',
     component: DocumentationView,
+    exact: false,
+  },
+
+  {
+    routePath: '/terms',
+    component: TermsView,
     exact: false,
   },
 ]

@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
-import {ShowBigImagesModal} from '@components/modals/show-big-images-modal'
+import {BigImagesModal} from '@components/modals/show-big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {priceCalculation} from '@utils/price-calculation'
@@ -74,7 +74,8 @@ export const TableSupplier = observer(({product, suppliers, selectedSupplier, on
                     color="primary"
                     className={classNames.button}
                     variant="contained"
-                    onClick={() => {
+                    onClick={e => {
+                      e.stopPropagation()
                       setCurImages(supplier.images)
                       setShowPhotosModal(!showPhotosModal)
                     }}
@@ -82,12 +83,6 @@ export const TableSupplier = observer(({product, suppliers, selectedSupplier, on
                     {textConsts.supplierPhotos}
                   </Button>
                 </TableCell>
-                <ShowBigImagesModal
-                  isAmazone
-                  openModal={showPhotosModal}
-                  setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-                  images={curImages}
-                />
               </TableRow>
             ))
           ) : (
@@ -98,6 +93,13 @@ export const TableSupplier = observer(({product, suppliers, selectedSupplier, on
             </TableRow>
           )}
         </TableBody>
+
+        <BigImagesModal
+          isAmazone
+          openModal={showPhotosModal}
+          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          images={curImages}
+        />
       </Table>
     </TableContainer>
   )

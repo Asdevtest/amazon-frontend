@@ -72,7 +72,6 @@ export const useClassNames = makeStyles(theme => ({
   },
   mainWrapper: {
     display: 'flex',
-    // flexDirection: 'column',
     justifyContent: 'space-between',
     width: '100%',
   },
