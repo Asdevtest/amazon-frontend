@@ -1,1 +1,1 @@
-export {clientOrdersViewColumns} from './client-orders-notifications-columns'
+export {clientOrdersNotificationsViewColumns} from './client-orders-notifications-columns'
