@@ -73,6 +73,7 @@ export const CLIENT_WAREHOUSE_HEAD_CELLS = [
 
 export const BATCHES_HEAD_CELLS = [
   {title: 'ClientID'},
+  {title: 'Dispatch Date'},
   {title: 'Quantity'},
   {title: 'Status'},
   {title: 'Created'},

@@ -1,5 +1,6 @@
 import {action, makeAutoObservable} from 'mobx'
 
+import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {getNewObjectWithDefaultValue} from '@utils/object'
 
 const formFieldsDefault = {
@@ -67,7 +68,7 @@ export class ClientProductViewModel {
       }
       this.product = product
       this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.suppliers
-      this.updateAutoCalculatedFields()
+      updateProductAutoCalculatedFields.call(this)
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -77,7 +78,7 @@ export class ClientProductViewModel {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldsName]: ''}
 
       this.product[fieldsName] = e.target.value
-      this.updateAutoCalculatedFields()
+      updateProductAutoCalculatedFields.call(this)
     })
 
   onChangeProduct(e, value) {
@@ -98,43 +99,5 @@ export class ClientProductViewModel {
 
   setActionStatus(actionStatus) {
     this.actionStatus = actionStatus
-  }
-
-  updateAutoCalculatedFields() {
-    this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
-    this.product.maxDelivery = this.product.express ? (this.product.weight || 0) * 7 : (this.product.weight || 0) * 5
-
-    this.product.minpurchase =
-      (parseFloat(this.product.amazon) || 0) -
-      (parseFloat(this.product.totalFba) || 0) -
-      0.4 * ((parseFloat(this.product.amazon) || 0) - (parseFloat(this.product.totalFba) || 0)) -
-      (parseFloat(this.product.maxDelivery) || 0)
-    if (this.product.currentSupplier && this.product.currentSupplier._id) {
-      this.product.reffee = (parseFloat(this.product.amazon) || 0) * 0.15
-      if (this.product.fbafee) {
-        this.product.profit = (
-          (parseFloat(this.product.amazon) || 0).toFixed(2) -
-            (this.product.reffee || 0).toFixed(2) -
-            (parseFloat(this.product.currentSupplier.delivery) || 0).toFixed(2) -
-            (parseFloat(this.product.currentSupplier.price) || 0).toFixed(2) -
-            (parseFloat(this.product.fbafee) || 0).toFixed(2) || 0
-        ).toFixed(4)
-      } else {
-        this.product.profit = (
-          (parseFloat(this.product.amazon) || 0).toFixed(2) -
-            (this.product.reffee || 0).toFixed(2) -
-            (parseFloat(this.product.currentSupplier.delivery) || 0).toFixed(2) -
-            (parseFloat(this.product.currentSupplier.price) || 0).toFixed(2) || 0
-        ).toFixed(4)
-      }
-      this.product.margin =
-        (this.product.profit /
-          ((parseFloat(this.product.currentSupplier.price) || 0) +
-            (parseFloat(this.product.currentSupplier.delivery) || 0))) *
-        100
-    } else {
-      this.product.profit = 0
-      this.product.margin = 0
-    }
   }
 }

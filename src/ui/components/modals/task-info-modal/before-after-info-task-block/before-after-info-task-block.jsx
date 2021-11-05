@@ -21,7 +21,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').beforeAfterInfoTaskBlock
 export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, taskType}) => {
   const classNames = useClassNames()
 
-  const Box = ({box, isNewBox}) => (
+  const Box = ({box, isNewBox, isCurrentBox}) => (
     <Paper className={classNames.box}>
       {(!isNewBox || taskType === TaskOperationType.EDIT) && (
         <div className={classNames.fieldsWrapper}>
@@ -54,7 +54,7 @@ export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, task
       <div className={classNames.itemsWrapper}>
         {box.items.map((item, index) => (
           <div key={index}>
-            <TaskInfoBoxItemCard item={item} index={index} superCount={box.amount} />
+            <TaskInfoBoxItemCard item={item} index={index} superCount={box.amount} box={box} />
           </div>
         ))}
       </div>
@@ -75,33 +75,70 @@ export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, task
           />
         </div>
         <Typography className={classNames.categoryTitle}>{textConsts.demensions}</Typography>
-        <div className={classNames.demensionsWrapper}>
-          <Typography>
-            {textConsts.length}
-            {box.lengthCmWarehouse || '-'}
-          </Typography>
-          <Typography>
-            {textConsts.width}
-            {box.widthCmWarehouse || '-'}
-          </Typography>
-          <Typography>
-            {textConsts.height}
-            {box.heightCmWarehouse || '-'}
-          </Typography>
 
-          <Typography>
-            {textConsts.weight}
-            {box.weighGrossKgWarehouse || '-'}
-          </Typography>
-          <Typography>
-            {textConsts.volumeWeigh}
-            {box.volumeWeightKgWarehouse || '-'}
-          </Typography>
-          <Typography>
-            {textConsts.finalWeight}
-            {box.weightFinalAccountingKgWarehouse || '-'}
-          </Typography>
-        </div>
+        {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
+          <Paper className={classNames.demensionsWrapper}>
+            <Typography className={classNames.categoryTitle}>{textConsts.demensionsSupplier}</Typography>
+            <Typography>
+              {textConsts.length}
+              {box.lengthCmSupplier}
+            </Typography>
+            <Typography>
+              {textConsts.width}
+              {box.widthCmSupplier}
+            </Typography>
+            <Typography>
+              {textConsts.height}
+              {box.heightCmSupplier}
+            </Typography>
+
+            <Typography>
+              {textConsts.weight}
+              {box.weighGrossKgSupplier}
+            </Typography>
+            <Typography>
+              {textConsts.volumeWeigh}
+              {box.volumeWeightKgSupplier}
+            </Typography>
+            <Typography>
+              {textConsts.finalWeight}
+              {box.weighGrossKgSupplier > box.volumeWeightKgSupplier
+                ? box.weighGrossKgSupplier
+                : box.volumeWeightKgSupplier}
+            </Typography>
+          </Paper>
+        ) : (
+          <Paper className={classNames.demensionsWrapper}>
+            <Typography className={classNames.categoryTitle}>{textConsts.demensionsWarehouse}</Typography>
+            <Typography>
+              {textConsts.length}
+              {box.lengthCmWarehouse}
+            </Typography>
+            <Typography>
+              {textConsts.width}
+              {box.widthCmWarehouse}
+            </Typography>
+            <Typography>
+              {textConsts.height}
+              {box.heightCmWarehouse}
+            </Typography>
+
+            <Typography>
+              {textConsts.weight}
+              {box.weighGrossKgWarehouse}
+            </Typography>
+            <Typography>
+              {textConsts.volumeWeigh}
+              {box.volumeWeightKgWarehouse}
+            </Typography>
+            <Typography>
+              {textConsts.finalWeight}
+              {box.weighGrossKgWarehouse > box.volumeWeightKgWarehouse
+                ? box.weighGrossKgWarehouse
+                : box.volumeWeightKgWarehouse}
+            </Typography>
+          </Paper>
+        )}
       </Paper>
     </Paper>
   )

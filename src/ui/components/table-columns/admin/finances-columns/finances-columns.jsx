@@ -3,6 +3,7 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
+  NormDateCell,
   renderFieldValueCell,
   ScrollingCell,
   ToFixedWithDollarSignCell,
@@ -13,6 +14,14 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 const textConsts = getLocalizedTexts(texts, 'ru').adminFinancesTableColumns
 
 export const adminFinancesViewColumns = () => [
+  {
+    field: 'createdAt',
+    headerName: textConsts.createDateField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 130,
+    type: 'date',
+  },
+
   {
     field: 'comment',
     headerName: textConsts.commentField,

@@ -15,6 +15,7 @@ import {MainContent} from '@components/main-content'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {Navbar} from '@components/navbar'
 
+import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {WarehouseCanceledTasksViewModel} from './warehouse-canceled-tasks-view.model'
@@ -84,6 +85,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
                 <DataGrid
                   pagination
                   useResizeContainer
+                  autoHeight
                   classes={{
                     row: classNames.row,
                   }}
@@ -106,7 +108,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => e.state.rows.totalRowCount > 0 && setDataGridState(e.state)}
+                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
                 />
               </div>
             </MainContent>

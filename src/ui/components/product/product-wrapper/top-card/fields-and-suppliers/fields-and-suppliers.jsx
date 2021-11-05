@@ -48,23 +48,21 @@ export const FieldsAndSuppliers = observer(
 
           <div className={classNames.productCheckboxBoxesWrapper}>
             <Box className={classNames.productCheckboxBox} mb={2.5}>
-              <Typography className={classNames.label}>{textConsts.checkboxFbm}</Typography>
-
+              <Typography className={classNames.label}>{textConsts.checkboxFba}</Typography>
               <MuiCheckbox
                 disabled={!(checkIsSupervisor(curUserRole) || checkIsResearcher(curUserRole))}
                 color="primary"
-                checked={!product.fba}
+                checked={product.fba}
                 onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
               />
             </Box>
 
             <Box className={classNames.productCheckboxBox} mb={2.5}>
-              <Typography className={classNames.label}>{textConsts.checkboxFba}</Typography>
-
+              <Typography className={classNames.label}>{textConsts.checkboxFbm}</Typography>
               <MuiCheckbox
                 disabled={!(checkIsSupervisor(curUserRole) || checkIsResearcher(curUserRole))}
                 color="primary"
-                checked={product.fba}
+                checked={!product.fba}
                 onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
               />
             </Box>
@@ -80,11 +78,13 @@ export const FieldsAndSuppliers = observer(
               input={<Input />}
               onChange={onChangeField('strategyStatus')}
             >
-              {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
-                <option key={statusIndex} value={statusCode}>
-                  {mapProductStrategyStatusEnum[statusCode]}
-                </option>
-              ))}
+              {Object.keys(mapProductStrategyStatusEnum)
+                .filter(el => el > 0)
+                .map((statusCode, statusIndex) => (
+                  <option key={statusIndex} value={statusCode}>
+                    {mapProductStrategyStatusEnum[statusCode]}
+                  </option>
+                ))}
             </NativeSelect>
           </Box>
 

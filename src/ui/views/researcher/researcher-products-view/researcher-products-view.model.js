@@ -3,6 +3,7 @@ import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
+import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
 import {ResearcherModel} from '@models/researcher-model'
 import {SettingsModel} from '@models/settings-model'
@@ -146,7 +147,8 @@ export class ResearcherProductsViewModel {
       const product = {
         id: this.formFields.productCode,
         lamazon: this.formFields.amazonLink,
-        strategyStatus: this.formFields.strategyStatus,
+        strategyStatus: Number(this.formFields.strategyStatus),
+        fba: true,
       }
       await this.createProduct(product)
 
@@ -198,6 +200,7 @@ export class ResearcherProductsViewModel {
         this.products = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
           ...item,
           tmpStatus: ProductStatusByCode[item.status],
+          tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
         }))
       })
     } catch (error) {

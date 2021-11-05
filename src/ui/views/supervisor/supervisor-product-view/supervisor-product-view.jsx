@@ -50,6 +50,7 @@ export class SupervisorProductView extends Component {
       onTriggerOpenModal,
       onSaveProductData,
     } = this.viewModel
+
     return (
       <React.Fragment>
         <Navbar

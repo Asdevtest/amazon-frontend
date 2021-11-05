@@ -106,12 +106,13 @@ export class WarehouseCompletedViewModel {
 
   async getTasksMy() {
     try {
-      const result = await StorekeeperModel.getTasksMy()
+      const result = await StorekeeperModel.getTasksMy({
+        status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],
+      })
 
       runInAction(() => {
         this.completedTasks = result
-          .sort(sortObjectsArrayByFiledDate('createdAt'))
-          .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.SOLVED])
+          .sort(sortObjectsArrayByFiledDate('updatedAt'))
           .map(el => ({...el, beforeBoxes: el.boxesBefore}))
           .map(order => ({
             ...order,

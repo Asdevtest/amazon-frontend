@@ -23,7 +23,8 @@ export const useClassNames = makeStyles(() => ({
     height: '72px',
     width: '72px',
     margin: '8px 8px 0 8px',
-    backgroundColor: '#ecb',
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
   parameterTableCell: {
     borderBottom: 'none',

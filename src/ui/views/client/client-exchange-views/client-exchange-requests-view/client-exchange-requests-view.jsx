@@ -32,21 +32,6 @@ const {headCells, tableKeys, requestsListRaw} = clientExchangeRequestsViewTable
 
 const requestsList = getRequiredListByKeys(requestsListRaw, tableKeys)
 
-const formFields = {
-  strategy: '',
-  monthlySales: '',
-  budget: '',
-  amazonPrice: '',
-  avgBSR: '',
-  avgReviews: '',
-  avgRevenue: '',
-  notes: '',
-  checkboxForbid: '',
-  checkboxNoPay: '',
-  deadline: Date.now(),
-  checkboxNoCheck: '',
-}
-
 const navbarActiveCategory = 1
 const navbarActiveSubCategory = 2
 
@@ -128,12 +113,12 @@ export class ClientExchangeRequestsViewRaw extends Component {
         </Main>
         <Modal openModal={modalNewRequest} setOpenModal={() => onClickCloseModal('modalNewRequest')}>
           <Typography variant="h5">{textConsts.modalNewRequestTitle}</Typography>
-          <RequestForm formFields={formFields} btnLabel={textConsts.modalBtnSendRequest} />
+          <RequestForm btnLabel={textConsts.modalBtnSendRequest} />
         </Modal>
 
         <Modal openModal={modalEditRequest} setOpenModal={() => onClickCloseModal('modalEditRequest')}>
           <Typography variant="h5">{textConsts.modalEditRequestTitle}</Typography>
-          <RequestForm formFields={formFields} btnLabel={textConsts.modalBtnSaveRequest} />
+          <RequestForm btnLabel={textConsts.modalBtnSaveRequest} />
         </Modal>
 
         <Modal openModal={modalCloseRequest} setOpenModal={() => onClickCloseModal('modalCloseRequest')}>

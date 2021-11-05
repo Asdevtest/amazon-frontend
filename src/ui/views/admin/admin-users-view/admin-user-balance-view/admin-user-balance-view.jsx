@@ -64,7 +64,7 @@ class AdminUserBalanceViewRaw extends Component {
           >
             <MainContent>
               <Typography variant="h5">{`${textConsts.balance} of ${user.email}`}</Typography>
-              <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance)}</Typography>
+              <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</Typography>
               {user.balanceFreeze !== 0 && (
                 <Typography className={classNames.balanceFreeze}>{`${toFixedWithDollarSign(
                   user.balanceFreeze,
@@ -82,7 +82,7 @@ class AdminUserBalanceViewRaw extends Component {
               <Button disableElevation color="primary" onClick={onTriggerWithdrawModal}>
                 {textConsts.withdraw}
               </Button>
-              <UserBalanceHistory historyData={payments} title={'Изменения баланса'} />
+              <UserBalanceHistory historyData={payments} title={textConsts.balanceHistoryTitle} />
             </MainContent>
           </Appbar>
         </Main>

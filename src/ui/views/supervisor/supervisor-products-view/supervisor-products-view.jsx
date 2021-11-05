@@ -15,6 +15,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
+import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {SupervisorProductsViewModel} from './supervisor-products-view.model'
@@ -28,7 +29,7 @@ const attentionStatuses = [
   ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
   ProductStatusByKey[ProductStatus.NEW_PRODUCT],
   ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
-  ProductStatusByKey[ProductStatus.CHEKED_BY_SUPERVISOR],
+  ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
 ]
 
 @observer
@@ -87,6 +88,7 @@ class SupervisorProductsViewRaw extends Component {
                 <DataGrid
                   pagination
                   useResizeContainer
+                  autoHeight
                   classes={{
                     row: classNames.row,
                   }}
@@ -112,7 +114,7 @@ class SupervisorProductsViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => e.state.rows.totalRowCount > 0 && setDataGridState(e.state)}
+                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                 />

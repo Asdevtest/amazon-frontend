@@ -93,6 +93,19 @@ export const EditTaskModal = observer(
             />
           </div>
 
+          {task.operationType === TaskOperationType.RECEIVE && (
+            <Field
+              multiline
+              disabled
+              className={classNames.heightFieldAuto}
+              rows={4}
+              rowsMax={6}
+              label={'Комментарий баера к заказу'}
+              placeholder={'Комментарий баера к заказу'}
+              value={task.boxesBefore[0].items[0].order.buyerComment || ''}
+            />
+          )}
+
           <div>
             <Typography>{'Прикрепить фото к задаче'}</Typography>
 

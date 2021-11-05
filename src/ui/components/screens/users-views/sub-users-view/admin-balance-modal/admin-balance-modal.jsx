@@ -8,6 +8,7 @@ import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
+import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './admin-balance-modal.style'
@@ -85,7 +86,7 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
           label={textConsts.balanceLabel}
           value={balanceValue}
           onChange={e => {
-            !(isNaN(e.target.value) || Number(e.target.value) < 0) && setBalanceValue(e.target.value)
+            checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) && setBalanceValue(e.target.value)
           }}
         />
         <Field

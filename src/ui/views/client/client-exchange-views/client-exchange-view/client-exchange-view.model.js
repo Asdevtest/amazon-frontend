@@ -149,8 +149,8 @@ export class ClientExchangeViewModel {
       runInAction(() => {
         this.productsVacant = result.sort(sortObjectsArrayByFiledDate('checkedAt')).map(item => ({
           ...item,
-          tmpResearcherName: item.createdBy.name,
-          tmpBuyerName: item.buyer.name,
+          tmpResearcherName: item.createdBy?.name,
+          tmpBuyerName: item.buyer?.name,
           tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
         }))
       })

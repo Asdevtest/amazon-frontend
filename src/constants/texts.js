@@ -55,6 +55,11 @@ export const texts = {
       errorRegistration: 'Ошибка регистрации',
       okBtn: 'Ок',
     },
+
+    termsScreen: {
+      soon: 'Coming soon...',
+    },
+
     clientDashboardView: {
       appbarTitle: 'Dashboard',
       balance: 'My balance',
@@ -281,6 +286,8 @@ export const texts = {
       mainTitle: 'Users',
       modalEditTitle: 'Edit user',
       modalEditBtn: 'Save',
+
+      balanceHistoryTitle: 'Изменения баланса',
     },
     adminSettingsView: {
       appbarTitle: 'Settings',
@@ -371,8 +378,7 @@ export const texts = {
       formAvgReviewsLabel: 'Average Reviews',
       formAvgRevenueLabel: 'Average Revenue',
       formNotesLabel: 'Notes',
-      formCheckboxForbidLabel:
-        'Запрещать добавлять товары которые когда либо были проданы на площадке по данной стратегии',
+      formCheckboxForbidLabel: 'Запрещать добавлять товары которые когда либо были проданы на площадке',
       formCheckboxNoPayLabel: 'Не оплачиваю повторно купленные товары',
       formDeadlineLabel: 'Target date',
       formCheckboxNoCheckLabel: 'Сотрудники платформы не будут участвовать в проверке качества найденого товара',
@@ -678,7 +684,7 @@ export const texts = {
       curBalanceCardTitle: 'Текущий баланс',
 
       newProductsCardTitle: 'Новых товаров в базе',
-      myProductCardTitle: 'Мои продукты',
+      myProductCardTitle: 'Мои товары',
       myOrdersCardTitle: 'Мои заказы',
       freeOrdersCardTitle: 'Свободные заказы',
     },
@@ -786,6 +792,8 @@ export const texts = {
       totalPrice: 'Запланированная стоимость заказа',
       totalPriceInYuans: 'Запланированная стоимость в юанях',
       checkIsPlanningPriceText: 'Фактическая стоимость совпадает с запланированной',
+      priceYuansDeliveryCostToTheWarehouse: 'Из них за доставку до склада Китая Ұ',
+      deliveryCostToTheWarehouse: 'Из них за доставку до склада Китая $',
     },
 
     buyerProductView: {
@@ -1010,6 +1018,10 @@ export const texts = {
       trackNumberIssued: 'Track number issued',
       inStock: 'In stock',
       returnOrder: 'Return order',
+
+      closed: 'Closed',
+      awaitingShipment: 'Awaiting shipment',
+      shipped: 'Shipped',
     },
     productStatusButtons: {
       saveWithoutStatusBtn: 'Сохранить без статуса',
@@ -1116,8 +1128,7 @@ export const texts = {
       formAvgReviewsLabel: 'Average Reviews',
       formAvgRevenueLabel: 'Average Revenue',
       formNotesLabel: 'Notes',
-      formCheckboxForbidLabel:
-        'Запрещать добавлять товары которые когда либо были проданы на площадке по данной стратегии',
+      formCheckboxForbidLabel: 'Запрещать добавлять товары которые когда либо были проданы на площадке',
       formCheckboxNoPayLabel: 'Не оплачиваю повторно купленные товары',
       formDeadlineLabel: 'Target date',
       formCheckboxNoCheckLabel: 'Сотрудники платформы не будут участвовать в проверке качества найденого товара',
@@ -1458,6 +1469,7 @@ export const texts = {
       deliveryMethod: 'Способ доставки:',
       status: 'Статус:',
       track: 'Трек номер США:',
+      dispatchDate: 'Ожидаемое время отправки:',
     },
     clientOrdersView: {
       mainTitle: 'Мои заказы',
@@ -1522,6 +1534,7 @@ export const texts = {
     },
 
     adminFinancesTableColumns: {
+      createDateField: 'Создано',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -1609,7 +1622,8 @@ export const texts = {
     },
 
     clientBoxesTableColumns: {
-      createdAtField: 'Дата создания',
+      createdAtField: 'Создания',
+      updatedAtField: 'Обновление',
       ordersField: 'Продукт',
       ordersId: 'id Заказа',
       barCode: 'Баркод',
@@ -1657,6 +1671,7 @@ export const texts = {
     },
 
     researcherProductsTableColumns: {
+      strategyStatusField: 'Strategy',
       asinField: 'ASIN',
       statusField: 'STATUS',
       createDateField: 'Created',
@@ -2161,6 +2176,8 @@ export const texts = {
       material: 'Материал',
       codeCheck: 'Баркод проклеен поставщиком',
       trulyСodeCheck: 'Баркод есть, проверено складом',
+
+      isBarCodeAttachedByTheStorekeeper: 'Баркод проклеен складом!',
 
       category: 'Категория',
       bsr: 'BSR*',

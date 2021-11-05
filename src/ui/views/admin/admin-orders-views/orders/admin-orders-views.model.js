@@ -11,6 +11,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {adminOrdersViewColumns} from '@components/table-columns/admin/orders-columns'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const ordersStatusBySubCategory = {
@@ -20,8 +21,9 @@ const ordersStatusBySubCategory = {
   3: OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
   4: OrderStatusByKey[OrderStatus.IN_STOCK],
   5: OrderStatusByKey[OrderStatus.RETURN_ORDER],
-  6: undefined, //
-  7: undefined,
+  6: OrderStatusByKey[OrderStatus.AWAITING_SHIPMENT],
+  7: OrderStatusByKey[OrderStatus.SHIPPED],
+  8: OrderStatusByKey[OrderStatus.ORDER_CLOSED],
 }
 
 export class AdminOrdersAllViewModel {
@@ -117,7 +119,7 @@ export class AdminOrdersAllViewModel {
       }))
 
       runInAction(() => {
-        this.currentOrdersData = ordersData
+        this.currentOrdersData = ordersData.sort(sortObjectsArrayByFiledDate('updatedAt'))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

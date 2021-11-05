@@ -42,8 +42,6 @@ export const styles = createStyles(theme => ({
 
   tableWrapper: {
     minWidth: '100%',
-    height: '83vh',
-    // zIndex: '-100000000'
   },
 
   isDraftRow: {

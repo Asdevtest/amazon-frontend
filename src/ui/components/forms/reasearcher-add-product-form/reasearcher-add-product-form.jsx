@@ -77,7 +77,10 @@ export const ResearcherAddProductFormRaw = observer(
         <Button variant="contained" color="primary" className={classNames.button} onClick={onClickCheckBtn}>
           {textConsts.buttonCheck}
         </Button>
-        <SuccessButton disabled={chekedCode === '' || errorMsg} onClick={onClickAddBtn}>
+        <SuccessButton
+          disabled={chekedCode === '' || errorMsg || formFields.strategyStatus < 10}
+          onClick={onClickAddBtn}
+        >
           {textConsts.buttonAdd}
         </SuccessButton>
       </Box>

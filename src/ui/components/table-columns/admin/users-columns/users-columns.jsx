@@ -59,7 +59,7 @@ export const adminUsersViewColumns = handlers => [
   },
 
   {
-    field: '',
+    field: 'actions',
     headerName: textConsts.actionsField,
     renderCell: params => (
       <AdminUsersActionBtnsCell

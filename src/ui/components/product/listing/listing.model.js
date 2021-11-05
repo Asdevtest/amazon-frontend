@@ -41,6 +41,7 @@ export class ListingModel {
   showImageModal = false
   showSuccessModal = false
   showProgress = false
+  showCompetitorModal = false
 
   tmpListingImages = []
   imagesToLoad = []
@@ -72,7 +73,7 @@ export class ListingModel {
 
       listingExtraInfo: product.listingExtraInfo || '',
 
-      listingSupplierCompetitors: product.listingSupplierCompetitors || '',
+      listingSupplierCompetitors: product.listingSupplierCompetitors || [],
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -137,6 +138,14 @@ export class ListingModel {
   onChangeField(e, fieldName) {
     const newFormFields = {...this.listingProduct}
     newFormFields[fieldName] = e.target.value
+    this.listingProduct = newFormFields
+  }
+
+  onRemoveCompetitor(index) {
+    const newFormFields = {...this.listingProduct}
+
+    newFormFields.listingSupplierCompetitors.splice(index, 1)
+
     this.listingProduct = newFormFields
   }
 

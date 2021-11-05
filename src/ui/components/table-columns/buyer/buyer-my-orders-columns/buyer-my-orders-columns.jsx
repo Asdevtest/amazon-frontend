@@ -79,7 +79,7 @@ export const buyerMyOrdersViewColumns = () => [
   {
     field: 'buyerComment',
     headerName: textConsts.buyerCommentField,
-    renderCell: params => renderFieldValueCell(params.row.clientComment),
+    renderCell: params => renderFieldValueCell(params.row.buyerComment),
     width: 300,
   },
 ]

@@ -31,9 +31,11 @@ export const useClassNames = makeStyles(theme => ({
     margin: '0 10px',
   },
   img: {
-    width: '32px',
-    height: '32px',
+    width: '40px',
+    height: '40px',
     marginRight: '4px',
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
   sectionTitle: {
     color: theme.palette.text.secondary,

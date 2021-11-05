@@ -150,12 +150,13 @@ export class WarehouseVacantViewModel {
 
   async getTasksMy() {
     try {
-      const result = await StorekeeperModel.getTasksMy()
+      const result = await StorekeeperModel.getTasksMy({
+        status: mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS],
+      })
 
       runInAction(() => {
         this.tasksMy = result
-          .sort(sortObjectsArrayByFiledDate('createdAt'))
-          .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS])
+          .sort(sortObjectsArrayByFiledDate('updatedAt'))
           .map(el => ({...el, beforeBoxes: el.boxesBefore}))
           .map(task => ({
             ...getObjectFilteredByKeyArrayBlackList(task, ['_id']),
@@ -304,6 +305,7 @@ export class WarehouseVacantViewModel {
               'isDraft',
               'scheduledDispatchDate',
               'factDispatchDate',
+              'updatedAt',
             ],
           ),
         )

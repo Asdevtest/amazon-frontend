@@ -212,16 +212,16 @@ export const getWarehouseDashboardCardConfig = textConsts => [
     color: '#FFC107',
     route: '/warehouse/my-tasks',
   },
-  {
-    dataKey: WarehouseDashboardCardDataKey.BOXES_VACANT,
-    title: textConsts.vacantBoxesCardTitle,
-    color: '#20a8d8',
-  },
-  {
-    dataKey: WarehouseDashboardCardDataKey.BOXES_MY,
-    title: textConsts.boxesMyCardTitle,
-    color: '#f86c6b',
-  },
+  // { // Эти не нужны пока
+  //   dataKey: WarehouseDashboardCardDataKey.BOXES_VACANT,
+  //   title: textConsts.vacantBoxesCardTitle,
+  //   color: '#20a8d8',
+  // },
+  // {
+  //   dataKey: WarehouseDashboardCardDataKey.BOXES_MY,
+  //   title: textConsts.boxesMyCardTitle,
+  //   color: '#f86c6b',
+  // },
   {
     dataKey: WarehouseDashboardCardDataKey.BATCHES,
     title: textConsts.batchesCardTitle,

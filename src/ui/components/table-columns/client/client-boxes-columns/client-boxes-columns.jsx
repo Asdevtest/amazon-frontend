@@ -56,6 +56,13 @@ export const clientBoxesViewColumns = () => [
     sortable: false,
   },
   {
+    field: 'updatedAt',
+    headerName: textConsts.updatedAtField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 100,
+    type: 'date',
+  },
+  {
     field: '_id',
     headerName: textConsts.ordersId,
     renderCell: params => <IdCell id={params.row._id} />,

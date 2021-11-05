@@ -9,6 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {adminFinancesViewColumns} from '@components/table-columns/admin/finances-columns'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminFinancesViewsModel {
@@ -96,8 +97,8 @@ export class AdminFinancesViewsModel {
 
       runInAction(() => {
         this.currentFinancesData = paymentsData
-          .filter(el => (activeSubCategory <= 1 ? el.sum >= 0 : el.sum < 0))
-          .sort((a, b) => b.sum - a.sum)
+          .filter(el => (activeSubCategory < 1 ? el.sum >= 0 : el.sum < 0))
+          .sort(sortObjectsArrayByFiledDate('createdAt'))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

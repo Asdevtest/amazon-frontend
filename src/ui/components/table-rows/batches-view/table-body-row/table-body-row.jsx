@@ -6,7 +6,6 @@ import clsx from 'clsx'
 import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {warehouses} from '@constants/warehouses'
 
-import {isNotUndefined} from '@utils/checks'
 import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-double-click'
 
 import {useClassNames} from './table-body-row.style'
@@ -29,12 +28,15 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedBatchIndex}) =>
   return item.boxes.map((box, boxIndex) => (
     <TableRow
       key={boxIndex}
-      className={clsx({[classNames.boxLastRow]: boxIndex === boxQty - 1})}
-      selected={isNotUndefined(selectedBatchIndex) && selectedBatchIndex === itemIndex}
+      className={clsx(classNames.row, {
+        [classNames.boxLastRow]: boxIndex === boxQty - 1,
+        [classNames.selected]: selectedBatchIndex === itemIndex,
+      })}
       onClick={handleClick}
       onDoubleClick={handleDoubleClick}
     >
       {boxIndex === 0 && <TableCell rowSpan={boxQty}>{'clientId'}</TableCell>}
+      <TableCell>{item.batch.scheduledDispatchDate}</TableCell>
       <TableCell>{box.items[0].amount}</TableCell>
       <TableCell>{box.status}</TableCell>
       <TableCell>{box.createdBy}</TableCell>

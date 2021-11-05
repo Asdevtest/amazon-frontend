@@ -14,6 +14,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
+import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/adminAvatar.jpg'
@@ -58,8 +59,6 @@ class AdminFinancesViewsRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
 
-    console.log(' FIRST activeSubCategory', activeSubCategory)
-
     return (
       <React.Fragment>
         <Navbar
@@ -85,6 +84,7 @@ class AdminFinancesViewsRaw extends Component {
                 <DataGrid
                   pagination
                   useResizeContainer
+                  autoHeight
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
@@ -104,7 +104,7 @@ class AdminFinancesViewsRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => e.state.rows.totalRowCount > 0 && setDataGridState(e.state)}
+                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>

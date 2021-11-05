@@ -37,8 +37,6 @@ const Box = ({
 
   const [barCodeReallyIsGlued, setBarCodeReallyIsGlued] = useState(false)
 
-  const [barCodeIsGluedWarehouse, setBarCodeIsGluedWarehouse] = useState(false) // временно, чтобы было понимание, как работают чекбоксы
-
   const onChangeField = (value, field) => {
     const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
     const updatedTargetBox = {...targetBox, [field]: value}
@@ -142,7 +140,9 @@ const Box = ({
           </Typography>
           <Typography>
             {textConsts.finalWeight}
-            {box.weightFinalAccountingKgSupplier}
+            {box.weighGrossKgSupplier > box.volumeWeightKgSupplier
+              ? box.weighGrossKgSupplier
+              : box.volumeWeightKgSupplier}
           </Typography>
         </Paper>
       ) : (
@@ -171,7 +171,9 @@ const Box = ({
           </Typography>
           <Typography>
             {textConsts.finalWeight}
-            {box.weightFinalAccountingKgWarehouse}
+            {box.weighGrossKgWarehouse > box.volumeWeightKgWarehouse
+              ? box.weighGrossKgWarehouse
+              : box.volumeWeightKgWarehouse}
           </Typography>
         </Paper>
       )}
@@ -204,7 +206,7 @@ const Box = ({
         <Paper className={classNames.bottomBlockWrapper}>
           {taskType === TaskOperationType.RECEIVE && (
             <div className={classNames.barCodeActionsWrapper}>
-              {barCodeIsGluedWarehouse === false && (
+              {box.isBarCodeAttachedByTheStorekeeper === false && (
                 <Field
                   oneLine
                   containerClasses={classNames.field}
@@ -219,7 +221,7 @@ const Box = ({
                 />
               )}
               {box.items[0].order.isBarCodeAlreadyAttachedByTheSupplier === true &&
-                barCodeIsGluedWarehouse === false && (
+                box.isBarCodeAttachedByTheStorekeeper === false && (
                   <Field
                     oneLine
                     containerClasses={classNames.field}
@@ -243,8 +245,10 @@ const Box = ({
                   inputComponent={
                     <Checkbox
                       color="primary"
-                      checked={barCodeIsGluedWarehouse}
-                      onClick={() => setBarCodeIsGluedWarehouse(!barCodeIsGluedWarehouse)}
+                      checked={box.isBarCodeAttachedByTheStorekeeper}
+                      onClick={() =>
+                        onChangeField(!box.isBarCodeAttachedByTheStorekeeper, 'isBarCodeAttachedByTheStorekeeper')
+                      }
                     />
                   }
                 />

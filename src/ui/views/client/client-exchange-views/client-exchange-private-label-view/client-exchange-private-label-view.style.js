@@ -24,4 +24,8 @@ export const styles = createStyles(theme => ({
   modalMessageBtn: {
     alignSelf: 'flex-end',
   },
+
+  noRows: {
+    marginTop: '150px',
+  },
 }))

@@ -2,12 +2,13 @@ import {makeStyles} from '@material-ui/core/styles'
 
 export const useClassNames = makeStyles(() => ({
   img: {
-    backgroundColor: 'rgba(61, 81, 112, 1)',
     height: '64px',
     width: '64px',
     borderRadius: '2px',
     verticalAlign: 'middle',
     marginRight: '16px',
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
   chip: {
     height: '20px',

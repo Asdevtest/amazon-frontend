@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react'
 
-import {Typography, Divider, Paper} from '@material-ui/core'
+import {Typography, Divider, Paper, Link, IconButton} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 import {useHistory} from 'react-router-dom'
@@ -10,11 +11,13 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
 import {ImageFileInput} from '@components/image-file-input'
+import {AddCompetitorModal} from '@components/modals/add-competitor-modal'
 import {ShowImageModal} from '@components/modals/show-image-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {UserBalanceHistory} from '@components/screens/user-balance-history'
 
 import {checkIsBuyer, checkIsSupervisor} from '@utils/checks'
+import {checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {Button} from '../../buttons/button'
 import {ListingModel} from './listing.model'
@@ -40,6 +43,7 @@ export const Listing = observer(({product}) => {
     imagesFromBoxes,
     showSuccessModal,
     showProgress,
+    showCompetitorModal,
     onTriggerOpenModal,
     onClickImg,
     onChangeField,
@@ -47,6 +51,7 @@ export const Listing = observer(({product}) => {
     setTmpListingImages,
     onSaveSubmith,
     onCancel,
+    onRemoveCompetitor,
   } = listingModel.current
 
   const userIsSupervisor = checkIsSupervisor(UserRoleCodeMap[userRole])
@@ -170,27 +175,58 @@ export const Listing = observer(({product}) => {
             onChange={e => onChangeField(e, 'listingExtraInfo')}
           />
 
-          <Field
-            multiline
-            disabled={!userIsSupervisor}
-            className={classNames.searchSupplierField}
-            label={'Конкуренты:'}
-            placeholder={`конкуренты`}
-            value={listingProduct.listingSupplierCompetitors}
-            onChange={e => onChangeField(e, 'listingSupplierCompetitors')}
-          />
+          <Typography className={classNames.subTitle}>{'Конкуренты:'}</Typography>
+
+          {listingProduct.listingSupplierCompetitors.length > 0 ? (
+            listingProduct.listingSupplierCompetitors.map((el, index) => (
+              <div key={index} className={classNames.competitorMainWrapper}>
+                <div className={classNames.competitorWrapper}>
+                  <Typography>{'Ссылка:'}</Typography>
+                  <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(el.link)}>
+                    <Typography className={classNames.link}>{el.link}</Typography>
+                  </Link>
+
+                  <Typography>{'Комментарий:'}</Typography>
+                  <Field multiline disabled className={classNames.searchSupplierField} value={el.comments} />
+                </div>
+
+                {userIsSupervisor && (
+                  <IconButton onClick={() => onRemoveCompetitor(index)}>
+                    <DeleteIcon className={classNames.deleteBtn} />
+                  </IconButton>
+                )}
+              </div>
+            ))
+          ) : (
+            <div>
+              <Typography>{'Нет конкурентов...'}</Typography>
+            </div>
+          )}
+          {userIsSupervisor && (
+            <Button
+              disableElevation
+              className={classNames.button}
+              color="primary"
+              variant="contained"
+              onClick={() => onTriggerOpenModal('showCompetitorModal')}
+            >
+              {'Добавить конкурента'}
+            </Button>
+          )}
 
           <div>
             <Typography className={classNames.subTitle}>{'Фотографии продукта в коробках:'}</Typography>
 
             {imagesFromBoxes.length > 0 ? (
-              <Carousel autoPlay={false} timeout={100} animation="fade">
-                {imagesFromBoxes.map((el, index) => (
-                  <div key={index}>
-                    <img alt="" className={classNames.imgBox} src={el} onClick={e => onClickImg(e.target.src)} />
-                  </div>
-                ))}
-              </Carousel>
+              <div className={classNames.carouselWrapper}>
+                <Carousel autoPlay={false} timeout={100} animation="fade">
+                  {imagesFromBoxes.map((el, index) => (
+                    <div key={index}>
+                      <img alt="" className={classNames.imgBox} src={el} onClick={e => onClickImg(e.target.src)} />
+                    </div>
+                  ))}
+                </Carousel>
+              </div>
             ) : (
               <Typography>{'Фотографий пока нет...'}</Typography>
             )}
@@ -200,13 +236,15 @@ export const Listing = observer(({product}) => {
             <Typography className={classNames.subTitle}>{'Фотографии листинга:'}</Typography>
 
             {listingProduct.listingImages.length > 0 ? (
-              <Carousel autoPlay={false} timeout={100} animation="fade">
-                {listingProduct.listingImages.map((el, index) => (
-                  <div key={index}>
-                    <img alt="" className={classNames.imgBox} src={el} onClick={e => onClickImg(e.target.src)} />
-                  </div>
-                ))}
-              </Carousel>
+              <div className={classNames.carouselWrapper}>
+                <Carousel autoPlay={false} timeout={100} animation="fade">
+                  {listingProduct.listingImages.map((el, index) => (
+                    <div key={index}>
+                      <img alt="" className={classNames.imgBox} src={el} onClick={e => onClickImg(e.target.src)} />
+                    </div>
+                  ))}
+                </Carousel>
+              </div>
             ) : (
               <Typography>{'Фотографий пока нет...'}</Typography>
             )}
@@ -254,6 +292,13 @@ export const Listing = observer(({product}) => {
           onTriggerOpenModal('showSuccessModal')
           history.goBack()
         }}
+      />
+
+      <AddCompetitorModal
+        openModal={showCompetitorModal}
+        setOpenModal={() => onTriggerOpenModal('showCompetitorModal')}
+        currentCompetitors={listingProduct.listingSupplierCompetitors}
+        onChangeField={onChangeField}
       />
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}

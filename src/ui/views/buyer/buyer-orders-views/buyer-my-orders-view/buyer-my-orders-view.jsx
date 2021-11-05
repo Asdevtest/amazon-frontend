@@ -22,6 +22,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 
+import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/buyerAvatar.jpg'
@@ -62,6 +63,7 @@ class BuyerMyOrdersViewRaw extends Component {
       showSuccessModal,
       showNoDimensionsErrorModal,
       showWarningNewBoxesModal,
+      showOrderPriceMismatchModal,
 
       showProgress,
       progressValue,
@@ -107,6 +109,7 @@ class BuyerMyOrdersViewRaw extends Component {
                 <DataGrid
                   pagination
                   useResizeContainer
+                  autoHeight
                   classes={{
                     row: classNames.row,
                   }}
@@ -132,7 +135,7 @@ class BuyerMyOrdersViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => e.state.rows.totalRowCount > 0 && setDataGridState(e.state)}
+                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
                   onRowDoubleClick={e => onClickOrder(e.row)}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                 />
@@ -179,6 +182,16 @@ class BuyerMyOrdersViewRaw extends Component {
           btnText={textConsts.okBtn}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningNewBoxesModal')
+          }}
+        />
+
+        <WarningInfoModal
+          openModal={showOrderPriceMismatchModal}
+          setOpenModal={() => onTriggerOpenModal('showOrderPriceMismatchModal')}
+          title={`Статус "оплачено" станет доступным после подтверждения изменения стоимости заказа клиентом. Текущий статус не будет изменен! Коробки не будут созданы`}
+          btnText={textConsts.okBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showOrderPriceMismatchModal')
           }}
         />
 
