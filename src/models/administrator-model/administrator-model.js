@@ -94,6 +94,11 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsPaymentsGet()
     return response
   }
+
+  getTasks = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsTasksGet()
+    return response
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

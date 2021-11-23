@@ -1,4 +1,4 @@
-import {getFloatOrZero, getFloatWithoutDollarSign} from '@utils/text'
+import {getFloatOrZero} from '@utils/text'
 
 export const ProductDataParser = {
   AMAZON: 'AMAZON',
@@ -14,7 +14,7 @@ export const parseFieldsAdapterConfig = {
     images: 'images',
     amazon: {
       fieldKey: 'price',
-      transformFunc: getFloatWithoutDollarSign,
+      transformFunc: n => n,
     },
     weight: {
       fieldKey: 'weight',

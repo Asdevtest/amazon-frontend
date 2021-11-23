@@ -36,6 +36,10 @@ export const ProductInOrderTableRow = observer(({item, handlers}) => {
         <Typography>{item.order.amount}</Typography>
       </TableCell>
 
+      <TableCell className={classNames.buyerComment}>
+        <Typography>{item.order.buyerComment}</Typography>
+      </TableCell>
+
       <TableCell>
         <Button
           disableElevation
@@ -44,7 +48,7 @@ export const ProductInOrderTableRow = observer(({item, handlers}) => {
           variant="contained"
           onClick={() => {
             handlers.onTriggerOpenModal()
-            handlers.onSelectPhotos(item.product.images)
+            handlers.onSelectPhotos({images: item.product.images, imgIndex: 0})
           }}
         >
           {'Фотографии'}

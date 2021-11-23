@@ -1,0 +1,17 @@
+# Amazonapi.ApiV1AdminsUsersPermissions
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**_id** | **String** | GUID Permission в базе данных | 
+**key** | **String** | Permission ключ | 
+**title** | **String** | Простое название | 
+**description** | **String** | Описание permission | 
+**allowedUrl** | **[String]** | Массив доступных url. | 
+**createdById** | **String** | GUID любого, кто последний создал permission. | 
+**lastModifiedById** | **String** | GUID любого, кто последний редактировал permission. | [optional] 
+**createdAt** | **Date** | Дата создания | 
+**updatedAt** | **Date** | Дата изменения | 
+
+

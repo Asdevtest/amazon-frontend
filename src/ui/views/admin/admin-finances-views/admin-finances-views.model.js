@@ -130,7 +130,7 @@ export class AdminFinancesViewsModel {
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e.pageSize
+    this.rowsPerPage = e
   }
 
   onChangeCurPage(e) {

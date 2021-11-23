@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 
-import {TableCell, TableRow, Typography} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {CLIENT_EXCHANGE_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -147,7 +146,7 @@ export class ClientExchangeViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}
           title={textConsts.confirmTitle}
           message={`${textConsts.confirmMessage} (${
-            selectedProduct && toFixedWithDollarSign(calcProductPrice(selectedProduct))
+            selectedProduct && toFixedWithDollarSign(calcProductPrice(selectedProduct), 2)
           })`}
           successBtnText={textConsts.confirmBtn}
           cancelBtnText={textConsts.cancelBtn}
@@ -180,16 +179,6 @@ export class ClientExchangeViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderModalHeadRow = () => (
-    <TableRow>
-      {CLIENT_EXCHANGE_MODAL_HEAD_CELLS.map((item, index) => (
-        <TableCell key={index}>{item.label}</TableCell>
-      ))}
-      <TableCell />
-      <TableCell />
-    </TableRow>
-  )
 }
 
 export const ClientExchangeView = withStyles(styles)(ClientExchangeViewRaw)

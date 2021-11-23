@@ -13,12 +13,12 @@
 
 
 import ApiClient from "../ApiClient";
+import InlineObject15 from '../model/InlineObject15';
 import InlineObject16 from '../model/InlineObject16';
-import InlineObject17 from '../model/InlineObject17';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse2006 from '../model/InlineResponse2006';
-import InlineResponse2013 from '../model/InlineResponse2013';
+import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
@@ -104,12 +104,12 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject16} opts.InlineObject16 
+     * @param {module:model/InlineObject15} opts.InlineObject15 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersOrdersGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject16'];
+      let postBody = opts['InlineObject15'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1BuyersOrdersGuidPatch");
@@ -143,7 +143,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject16} opts.InlineObject16 
+     * @param {module:model/InlineObject15} opts.InlineObject15 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersOrdersGuidPatch(guid, opts) {
@@ -610,17 +610,17 @@ export default class BuyerApi {
     /**
      * # Создать задачу.
      * ## Создать задачу.   
-     * @param {module:model/InlineObject17} InlineObject17 
+     * @param {module:model/InlineObject16} InlineObject16 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2013} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2012} and HTTP response
      */
-    apiV1BuyersTasksPostWithHttpInfo(InlineObject17, opts) {
+    apiV1BuyersTasksPostWithHttpInfo(InlineObject16, opts) {
       opts = opts || {};
-      let postBody = InlineObject17;
-      // verify the required parameter 'InlineObject17' is set
-      if (InlineObject17 === undefined || InlineObject17 === null) {
-        throw new Error("Missing the required parameter 'InlineObject17' when calling apiV1BuyersTasksPost");
+      let postBody = InlineObject16;
+      // verify the required parameter 'InlineObject16' is set
+      if (InlineObject16 === undefined || InlineObject16 === null) {
+        throw new Error("Missing the required parameter 'InlineObject16' when calling apiV1BuyersTasksPost");
       }
 
       let pathParams = {
@@ -636,7 +636,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2013;
+      let returnType = InlineResponse2012;
       return this.apiClient.callApi(
         '/api/v1/buyers/tasks', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -647,13 +647,13 @@ export default class BuyerApi {
     /**
      * # Создать задачу.
      * ## Создать задачу.   
-     * @param {module:model/InlineObject17} InlineObject17 
+     * @param {module:model/InlineObject16} InlineObject16 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2013}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2012}
      */
-    apiV1BuyersTasksPost(InlineObject17, opts) {
-      return this.apiV1BuyersTasksPostWithHttpInfo(InlineObject17, opts)
+    apiV1BuyersTasksPost(InlineObject16, opts) {
+      return this.apiV1BuyersTasksPostWithHttpInfo(InlineObject16, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

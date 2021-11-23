@@ -21,9 +21,8 @@ import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {LabelField} from '@components/label-field/label-field'
 import {Modal} from '@components/modal'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
-import {BigImagesModal} from '@components/modals/show-big-images-modal'
-import {ShowImageModal} from '@components/modals/show-image-modal'
 import {Table} from '@components/table'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -85,7 +84,7 @@ const WarehouseDemensions = ({orderBox}) => {
   )
 }
 
-export const CLIENT_EDIT_BOX_MODAL_HEAD_CELLS = ['Product', 'Barcode', 'Qty', 'Actions']
+export const CLIENT_EDIT_BOX_MODAL_HEAD_CELLS = ['Product', 'Barcode', 'Qty', 'Buyer order comment', 'Actions']
 
 const renderHeadRow = (
   <TableRow>
@@ -100,14 +99,12 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
   const [showPhotosModal, setShowPhotosModal] = useState(false)
-  const [curPhotos, setCurPhotos] = useState([])
 
-  const [showImageModal, setShowImageModal] = useState(false)
-  const [curImage, setCurImage] = useState('')
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   const rowHandlers = {
     onTriggerOpenModal: () => setShowPhotosModal(!showPhotosModal),
-    onSelectPhotos: setCurPhotos,
+    onSelectPhotos: setBigImagesOptions,
   }
 
   const boxInitialState = {
@@ -127,6 +124,7 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
     amount: formItem?.amount,
     shippingLabel: formItem?.shippingLabel || '',
     clientComment: formItem?.clientComment || '',
+    images: formItem?.images || [],
   }
 
   const [boxFields, setBoxFields] = useState(boxInitialState)
@@ -250,9 +248,10 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
                         alt=""
                         className={classNames.imgBox}
                         src={el}
-                        onClick={e => {
-                          setCurImage(e.target.src)
-                          setShowImageModal(!showImageModal)
+                        onClick={() => {
+                          setShowPhotosModal(!showPhotosModal)
+
+                          setBigImagesOptions({images: boxFields.images, imgIndex: index})
                         }}
                       />
                     </div>
@@ -292,19 +291,10 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
         <div className={classNames.commentsWrapper}>
           <Field
             multiline
-            disabled
             className={classNames.heightFieldAuto}
             rows={4}
             rowsMax={6}
-            label={'Комментарий баера к заказу'}
-            value={boxFields.items[0].order.buyerComment ? boxFields.items[0].order.buyerComment : ''}
-          />
-          <Field
-            multiline
-            className={classNames.heightFieldAuto}
-            rows={4}
-            rowsMax={6}
-            label={'Комментарий клиента к задаче'}
+            label={'Оставить комментарий к задаче'}
             placeholder={'Комментарий клиента к задаче'}
             onChange={setFormField('clientComment')}
           />
@@ -342,13 +332,8 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
         isAmazone
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={curPhotos}
-      />
-
-      <ShowImageModal
-        openModal={showImageModal}
-        setOpenModal={() => setShowImageModal(!showImageModal)}
-        image={curImage}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
       />
 
       <Modal

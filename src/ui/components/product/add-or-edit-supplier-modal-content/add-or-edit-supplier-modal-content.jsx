@@ -10,7 +10,7 @@ import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
 import {ImageFileInput} from '@components/image-file-input'
-import {BigImagesModal} from '@components/modals/show-big-images-modal'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'

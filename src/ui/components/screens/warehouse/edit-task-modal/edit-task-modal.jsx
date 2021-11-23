@@ -57,6 +57,7 @@ export const EditTaskModal = observer(
             ),
             isShippingLabelAttachedByStorekeeper: box?.isShippingLabelAttachedByStorekeeper || false,
             tmpImages: [],
+            images: box?.images || [],
           }),
       ),
     ])

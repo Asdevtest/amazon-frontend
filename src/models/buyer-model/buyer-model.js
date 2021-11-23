@@ -40,7 +40,7 @@ class BuyerModelStatic {
 
   updateOrder = async (id, data) => {
     const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidPatch(id, {
-      InlineObject16: data,
+      InlineObject115: data,
     })
     return response
   }

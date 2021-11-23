@@ -6,6 +6,7 @@ import {AdminOrderView} from '@views/admin/admin-orders-views/order'
 import {AdminOrdersViews} from '@views/admin/admin-orders-views/orders'
 import {AdminProductView} from '@views/admin/admin-product-view'
 import {AdminSettingsView} from '@views/admin/admin-settings-view'
+import {AdminUserPermissionsView} from '@views/admin/admin-user-permissions-view'
 import {AdminUserBalanceView} from '@views/admin/admin-users-view/admin-user-balance-view'
 import {AdminUsersView} from '@views/admin/admin-users-view/admin-users-view'
 import {AdminWarehouseBatchesView} from '@views/admin/admin-warehouse-views/admin-warehouse-batches-view'
@@ -31,6 +32,7 @@ import {ClientOrdersNotificationsView} from '@views/client/client-orders-notific
 import {ClientOrderView} from '@views/client/client-orders-views/order'
 import {ClientOrdersView} from '@views/client/client-orders-views/orders'
 import {ClientProductView} from '@views/client/client-product-view/'
+import {ClientRequestView} from '@views/client/client-request-view'
 import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
 import {ClientUserProfileView} from '@views/client/client-users-views/user-profile-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
@@ -38,7 +40,9 @@ import {DocumentationView} from '@views/documentation'
 import {RegistrationView} from '@views/registration'
 import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
 import {ResearcherProductView} from '@views/researcher/researcher-product-view/researcher-product-view'
+import {ResearcherProductsRequestsView} from '@views/researcher/researcher-products-requests-view'
 import {ResearcherProductsView} from '@views/researcher/researcher-products-view'
+import {ResearcherRequestView} from '@views/researcher/researcher-request-view'
 import {ResearcherSettingsView} from '@views/researcher/researcher-settings-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
 import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
@@ -148,12 +152,27 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.RESEARCHER],
   },
+
+  {
+    routePath: '/researcher/requests',
+    component: ResearcherProductsRequestsView,
+    exact: true,
+    permission: [UserRole.RESEARCHER],
+  },
   {
     routePath: '/researcher/product',
     component: ResearcherProductView,
     exact: false,
     permission: [UserRole.RESEARCHER],
   },
+
+  {
+    routePath: '/researcher/request',
+    component: ResearcherRequestView,
+    exact: true,
+    permission: [UserRole.RESEARCHER],
+  },
+
   {
     routePath: '/researcher/settings',
     component: ResearcherSettingsView,
@@ -221,6 +240,13 @@ export const privateRoutesConfigs = [
     routePath: '/client/orders/order',
     component: ClientOrderView,
     exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
+    routePath: '/client/request',
+    component: ClientRequestView,
+    exact: true,
     permission: [UserRole.CLIENT],
   },
 
@@ -336,6 +362,12 @@ export const privateRoutesConfigs = [
   {
     routePath: '/admin/orders/order',
     component: AdminOrderView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+  },
+  {
+    routePath: '/admin/permissions',
+    component: AdminUserPermissionsView,
     exact: false,
     permission: [UserRole.ADMIN],
   },

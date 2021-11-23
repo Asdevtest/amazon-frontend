@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesApproveAdditionalBoxes from './ApiV1BoxesApproveAdditionalBoxes';
 
 /**
  * The InlineObject32 model module.
@@ -22,18 +23,10 @@ class InlineObject32 {
     /**
      * Constructs a new <code>InlineObject32</code>.
      * @alias module:model/InlineObject32
-     * @param name {String} Название поставщика.
-     * @param link {String} Ссылка на поставщика.
-     * @param price {Number} Цена
-     * @param delivery {Number} Тип доставки
-     * @param amount {Number} кол-во
-     * @param minlot {Number} Минимальный лот.
-     * @param lotcost {Number} Стоимость лота.
-     * @param comment {String} Комментарий
      */
-    constructor(name, link, price, delivery, amount, minlot, lotcost, comment) { 
+    constructor() { 
         
-        InlineObject32.initialize(this, name, link, price, delivery, amount, minlot, lotcost, comment);
+        InlineObject32.initialize(this);
     }
 
     /**
@@ -41,15 +34,7 @@ class InlineObject32 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, link, price, delivery, amount, minlot, lotcost, comment) { 
-        obj['name'] = name;
-        obj['link'] = link;
-        obj['price'] = price;
-        obj['delivery'] = delivery;
-        obj['amount'] = amount;
-        obj['minlot'] = minlot;
-        obj['lotcost'] = lotcost;
-        obj['comment'] = comment;
+    static initialize(obj) { 
     }
 
     /**
@@ -63,32 +48,8 @@ class InlineObject32 {
         if (data) {
             obj = obj || new InlineObject32();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
-            }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [ApiV1BoxesApproveAdditionalBoxes]);
             }
         }
         return obj;
@@ -98,58 +59,10 @@ class InlineObject32 {
 }
 
 /**
- * Название поставщика.
- * @member {String} name
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/ApiV1BoxesApproveAdditionalBoxes>} additionalBoxes
  */
-InlineObject32.prototype['name'] = undefined;
-
-/**
- * Ссылка на поставщика.
- * @member {String} link
- */
-InlineObject32.prototype['link'] = undefined;
-
-/**
- * Цена
- * @member {Number} price
- */
-InlineObject32.prototype['price'] = undefined;
-
-/**
- * Тип доставки
- * @member {Number} delivery
- */
-InlineObject32.prototype['delivery'] = undefined;
-
-/**
- * кол-во
- * @member {Number} amount
- */
-InlineObject32.prototype['amount'] = undefined;
-
-/**
- * Минимальный лот.
- * @member {Number} minlot
- */
-InlineObject32.prototype['minlot'] = undefined;
-
-/**
- * Стоимость лота.
- * @member {Number} lotcost
- */
-InlineObject32.prototype['lotcost'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject32.prototype['images'] = undefined;
-
-/**
- * Комментарий
- * @member {String} comment
- */
-InlineObject32.prototype['comment'] = undefined;
+InlineObject32.prototype['additionalBoxes'] = undefined;
 
 
 

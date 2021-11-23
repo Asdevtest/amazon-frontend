@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 
 /**
  * The InlineObject7 model module.
@@ -47,8 +48,11 @@ class InlineObject7 {
         if (data) {
             obj = obj || new InlineObject7();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            }
+            if (data.hasOwnProperty('boxBody')) {
+                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
             }
         }
         return obj;
@@ -58,10 +62,15 @@ class InlineObject7 {
 }
 
 /**
- * GUID коробки, объединение которой нужно отменить
- * @member {String} guid
+ * Массив коробок.
+ * @member {Array.<String>} guids
  */
-InlineObject7.prototype['guid'] = undefined;
+InlineObject7.prototype['guids'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
+ */
+InlineObject7.prototype['boxBody'] = undefined;
 
 
 

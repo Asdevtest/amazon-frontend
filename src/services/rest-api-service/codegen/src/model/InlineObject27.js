@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesApproveAdditionalBoxes from './ApiV1BoxesApproveAdditionalBoxes';
 
 /**
  * The InlineObject27 model module.
@@ -48,8 +47,71 @@ class InlineObject27 {
         if (data) {
             obj = obj || new InlineObject27();
 
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [ApiV1BoxesApproveAdditionalBoxes]);
+            if (data.hasOwnProperty('strategy')) {
+                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'Number');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('monthlySales')) {
+                obj['monthlySales'] = ApiClient.convertToType(data['monthlySales'], 'Number');
+            }
+            if (data.hasOwnProperty('budget')) {
+                obj['budget'] = ApiClient.convertToType(data['budget'], 'Number');
+            }
+            if (data.hasOwnProperty('size')) {
+                obj['size'] = ApiClient.convertToType(data['size'], 'String');
+            }
+            if (data.hasOwnProperty('searchVolume')) {
+                obj['searchVolume'] = ApiClient.convertToType(data['searchVolume'], 'Number');
+            }
+            if (data.hasOwnProperty('countOfProposals')) {
+                obj['countOfProposals'] = ApiClient.convertToType(data['countOfProposals'], 'Number');
+            }
+            if (data.hasOwnProperty('minProductInProposals')) {
+                obj['minProductInProposals'] = ApiClient.convertToType(data['minProductInProposals'], 'Number');
+            }
+            if (data.hasOwnProperty('minKeywords')) {
+                obj['minKeywords'] = ApiClient.convertToType(data['minKeywords'], 'Number');
+            }
+            if (data.hasOwnProperty('minAmazonPrice')) {
+                obj['minAmazonPrice'] = ApiClient.convertToType(data['minAmazonPrice'], 'Number');
+            }
+            if (data.hasOwnProperty('maxAmazonPrice')) {
+                obj['maxAmazonPrice'] = ApiClient.convertToType(data['maxAmazonPrice'], 'Number');
+            }
+            if (data.hasOwnProperty('minBSR')) {
+                obj['minBSR'] = ApiClient.convertToType(data['minBSR'], 'Number');
+            }
+            if (data.hasOwnProperty('maxBSR')) {
+                obj['maxBSR'] = ApiClient.convertToType(data['maxBSR'], 'Number');
+            }
+            if (data.hasOwnProperty('minReviews')) {
+                obj['minReviews'] = ApiClient.convertToType(data['minReviews'], 'Number');
+            }
+            if (data.hasOwnProperty('maxReviews')) {
+                obj['maxReviews'] = ApiClient.convertToType(data['maxReviews'], 'Number');
+            }
+            if (data.hasOwnProperty('minRevenue')) {
+                obj['minRevenue'] = ApiClient.convertToType(data['minRevenue'], 'Number');
+            }
+            if (data.hasOwnProperty('maxRevenue')) {
+                obj['maxRevenue'] = ApiClient.convertToType(data['maxRevenue'], 'Number');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('deadline')) {
+                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
+            }
+            if (data.hasOwnProperty('checkboxForbid')) {
+                obj['checkboxForbid'] = ApiClient.convertToType(data['checkboxForbid'], 'Boolean');
+            }
+            if (data.hasOwnProperty('checkboxNoCheck')) {
+                obj['checkboxNoCheck'] = ApiClient.convertToType(data['checkboxNoCheck'], 'Boolean');
+            }
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
         }
         return obj;
@@ -59,10 +121,136 @@ class InlineObject27 {
 }
 
 /**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/ApiV1BoxesApproveAdditionalBoxes>} additionalBoxes
+ * выбор стратегии
+ * @member {Number} strategy
  */
-InlineObject27.prototype['additionalBoxes'] = undefined;
+InlineObject27.prototype['strategy'] = undefined;
+
+/**
+ * выбор стратегии
+ * @member {Number} status
+ */
+InlineObject27.prototype['status'] = undefined;
+
+/**
+ * количество продаж за месяц
+ * @member {Number} monthlySales
+ */
+InlineObject27.prototype['monthlySales'] = undefined;
+
+/**
+ * бюджет заявки
+ * @member {Number} budget
+ */
+InlineObject27.prototype['budget'] = undefined;
+
+/**
+ * размерный ряд
+ * @member {String} size
+ */
+InlineObject27.prototype['size'] = undefined;
+
+/**
+ * объём продаж данной категории
+ * @member {Number} searchVolume
+ */
+InlineObject27.prototype['searchVolume'] = undefined;
+
+/**
+ * количество предложений заявке
+ * @member {Number} countOfProposals
+ */
+InlineObject27.prototype['countOfProposals'] = undefined;
+
+/**
+ * Минимальное количество продуктов в предложении
+ * @member {Number} minProductInProposals
+ */
+InlineObject27.prototype['minProductInProposals'] = undefined;
+
+/**
+ * Минимальное количество ниш в предложении
+ * @member {Number} minKeywords
+ */
+InlineObject27.prototype['minKeywords'] = undefined;
+
+/**
+ * мин стоимость товара на Амазоне
+ * @member {Number} minAmazonPrice
+ */
+InlineObject27.prototype['minAmazonPrice'] = undefined;
+
+/**
+ * макс стоимость товара на Амазоне
+ * @member {Number} maxAmazonPrice
+ */
+InlineObject27.prototype['maxAmazonPrice'] = undefined;
+
+/**
+ * мин рейтинг BSR на Амазоне
+ * @member {Number} minBSR
+ */
+InlineObject27.prototype['minBSR'] = undefined;
+
+/**
+ * макс рейтинг BSR на Амазоне
+ * @member {Number} maxBSR
+ */
+InlineObject27.prototype['maxBSR'] = undefined;
+
+/**
+ * мин просмотры на Амазоне
+ * @member {Number} minReviews
+ */
+InlineObject27.prototype['minReviews'] = undefined;
+
+/**
+ * макс просмотры на Амазоне
+ * @member {Number} maxReviews
+ */
+InlineObject27.prototype['maxReviews'] = undefined;
+
+/**
+ * мин  доход по продукту на Амазоне
+ * @member {Number} minRevenue
+ */
+InlineObject27.prototype['minRevenue'] = undefined;
+
+/**
+ * макс доход по продукту на Амазоне
+ * @member {Number} maxRevenue
+ */
+InlineObject27.prototype['maxRevenue'] = undefined;
+
+/**
+ * комментарий к заявке
+ * @member {String} clientComment
+ */
+InlineObject27.prototype['clientComment'] = undefined;
+
+/**
+ * дедлайн заявки в формате \"YYYY-MM-DD\"
+ * @member {Date} deadline
+ */
+InlineObject27.prototype['deadline'] = undefined;
+
+/**
+ * Запретить товары, которые когда либо были проданы на площадке по данной стратегии 
+ * @member {Boolean} checkboxForbid
+ */
+InlineObject27.prototype['checkboxForbid'] = undefined;
+
+/**
+ * Сотрудники платформы не будут участвовать в проверке качества найденного товара
+ * @member {Boolean} checkboxNoCheck
+ */
+InlineObject27.prototype['checkboxNoCheck'] = undefined;
+
+/**
+ * GUID клиента, который обновил запрос на поиск товара.
+ * @member {String} lastModifiedById
+ */
+InlineObject27.prototype['lastModifiedById'] = undefined;
 
 
 

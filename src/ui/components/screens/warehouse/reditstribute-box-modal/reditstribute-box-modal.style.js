@@ -32,6 +32,8 @@ export const useClassNames = makeStyles(theme => ({
     width: '32px',
     height: '32px',
     marginRight: '4px',
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
   sectionTitle: {
     color: theme.palette.text.secondary,
@@ -67,5 +69,10 @@ export const useClassNames = makeStyles(theme => ({
     height: 'auto',
     maxWidth: '380px',
     minWidth: '250px',
+  },
+
+  itemWrapper: {
+    display: 'flex',
+    alignItems: 'center',
   },
 }))

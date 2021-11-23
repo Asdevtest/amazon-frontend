@@ -96,7 +96,7 @@ export class AdminWarehouseBoxesViewRaw extends Component {
                   Toolbar: GridToolbar,
                 }}
                 onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection[0])
+                  onSelectionModel(newSelection)
                 }}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}

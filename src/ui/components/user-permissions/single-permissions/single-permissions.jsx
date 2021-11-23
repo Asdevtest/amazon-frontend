@@ -1,0 +1,118 @@
+import React, {useEffect, useRef} from 'react'
+
+import {Typography} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
+import {observer} from 'mobx-react'
+import {useHistory} from 'react-router-dom'
+
+import {loadingStatuses} from '@constants/loading-statuses'
+import {texts} from '@constants/texts'
+
+import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {AddOrEditSinglePermissionForm} from '@components/forms/add-or-edit-single-permission-form'
+import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+
+import {onStateChangeHandler} from '@utils/for-data-grid'
+import {getLocalizedTexts} from '@utils/get-localized-texts'
+
+import {SinglePermissionsModel} from './single-permissions.model'
+import {useClassNames} from './single-permissions.style'
+
+const textConsts = getLocalizedTexts(texts, 'ru').singlePermissions
+
+export const SinglePermissions = observer(() => {
+  const classNames = useClassNames()
+  const history = useHistory()
+  const spModel = useRef(new SinglePermissionsModel({history}))
+
+  useEffect(() => {
+    spModel.current.loadData()
+  }, [])
+
+  const {
+    requestStatus,
+    getCurrentData,
+    sortModel,
+    filterModel,
+    densityModel,
+    columnsModel,
+
+    curPage,
+    rowsPerPage,
+    addOrEditSinglePermissionSettings,
+    showAddOrEditSinglePermissionModal,
+    showConfirmModal,
+    onChangeCurPage,
+    onChangeRowsPerPage,
+    onTriggerOpenModal,
+    onClickAddBtn,
+    removeSinglePermission,
+
+    setDataGridState,
+    onChangeSortingModel,
+    onChangeFilterModel,
+  } = spModel.current
+
+  return (
+    <div className={classNames.mainWrapper}>
+      <Typography variant="h6">{textConsts.mainTitle}</Typography>
+
+      <div className={classNames.placeAddBtnWrapper}>
+        <SuccessButton onClick={() => onClickAddBtn()}>{textConsts.addBtn}</SuccessButton>
+      </div>
+
+      <div className={classNames.tableWrapper}>
+        <DataGrid
+          pagination
+          useResizeContainer
+          autoHeight
+          sortModel={sortModel}
+          filterModel={filterModel}
+          page={curPage}
+          pageSize={rowsPerPage}
+          rowsPerPageOptions={[5, 10, 15, 20]}
+          rows={getCurrentData()}
+          rowHeight={70}
+          components={{
+            Toolbar: GridToolbar,
+          }}
+          density={densityModel}
+          columns={columnsModel}
+          loading={requestStatus === loadingStatuses.isLoading}
+          onSortModelChange={onChangeSortingModel}
+          onPageSizeChange={onChangeRowsPerPage}
+          onPageChange={onChangeCurPage}
+          onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+          onFilterModelChange={model => onChangeFilterModel(model)}
+        />
+      </div>
+
+      <Modal
+        openModal={showAddOrEditSinglePermissionModal}
+        setOpenModal={() => onTriggerOpenModal('showAddOrEditSinglePermissionModal')}
+      >
+        <AddOrEditSinglePermissionForm
+          setOpenModal={() => onTriggerOpenModal('showAddOrEditSinglePermissionModal')}
+          permissionToEdit={addOrEditSinglePermissionSettings.permission}
+          isEdit={addOrEditSinglePermissionSettings.isEdit}
+          onSubmit={addOrEditSinglePermissionSettings.onSubmit}
+        />
+      </Modal>
+
+      <ConfirmationModal
+        isWarning
+        openModal={showConfirmModal}
+        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+        title={textConsts.confirmTitle}
+        message={textConsts.confirmMessage}
+        successBtnText={textConsts.yesBtn}
+        cancelBtnText={textConsts.noBtn}
+        onClickSuccessBtn={() => {
+          removeSinglePermission()
+        }}
+        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+      />
+    </div>
+  )
+})

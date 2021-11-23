@@ -20,10 +20,14 @@ import ApiV1AdminsOrdersCreatedBy from './model/ApiV1AdminsOrdersCreatedBy';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
 import ApiV1AdminsTasksBoxesBefore from './model/ApiV1AdminsTasksBoxesBefore';
 import ApiV1AdminsTasksItems from './model/ApiV1AdminsTasksItems';
+import ApiV1AdminsUsersPermissionGroups from './model/ApiV1AdminsUsersPermissionGroups';
+import ApiV1AdminsUsersPermissions from './model/ApiV1AdminsUsersPermissions';
 import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
 import ApiV1BoxesApproveAdditionalBoxes from './model/ApiV1BoxesApproveAdditionalBoxes';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
+import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
+import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
 import BadRequestError from './model/BadRequestError';
 import ConflictInTheState from './model/ConflictInTheState';
 import DefaultHeaders from './model/DefaultHeaders';
@@ -58,7 +62,12 @@ import InlineObject32 from './model/InlineObject32';
 import InlineObject33 from './model/InlineObject33';
 import InlineObject34 from './model/InlineObject34';
 import InlineObject35 from './model/InlineObject35';
+import InlineObject36 from './model/InlineObject36';
+import InlineObject37 from './model/InlineObject37';
+import InlineObject38 from './model/InlineObject38';
+import InlineObject39 from './model/InlineObject39';
 import InlineObject4 from './model/InlineObject4';
+import InlineObject40 from './model/InlineObject40';
 import InlineObject5 from './model/InlineObject5';
 import InlineObject6 from './model/InlineObject6';
 import InlineObject7 from './model/InlineObject7';
@@ -67,6 +76,8 @@ import InlineObject9 from './model/InlineObject9';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
 import InlineResponse20010 from './model/InlineResponse20010';
+import InlineResponse20010Info from './model/InlineResponse20010Info';
+import InlineResponse20011 from './model/InlineResponse20011';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
@@ -82,7 +93,6 @@ import InlineResponse2013 from './model/InlineResponse2013';
 import InlineResponse2014 from './model/InlineResponse2014';
 import InlineResponse2015 from './model/InlineResponse2015';
 import InlineResponse2016 from './model/InlineResponse2016';
-import InlineResponse2017 from './model/InlineResponse2017';
 import InlineResponse400 from './model/InlineResponse400';
 import InlineResponse403 from './model/InlineResponse403';
 import InlineResponse404 from './model/InlineResponse404';
@@ -101,7 +111,9 @@ import BoxesApi from './api/BoxesApi';
 import BuyerApi from './api/BuyerApi';
 import ClientApi from './api/ClientApi';
 import OtherApi from './api/OtherApi';
+import PermissionsApi from './api/PermissionsApi';
 import ProductApi from './api/ProductApi';
+import ProductSearchRequestApi from './api/ProductSearchRequestApi';
 import ResearcherApi from './api/ResearcherApi';
 import StorekeepersApi from './api/StorekeepersApi';
 import SupervisorApi from './api/SupervisorApi';
@@ -190,6 +202,18 @@ export {
     ApiV1AdminsTasksItems,
 
     /**
+     * The ApiV1AdminsUsersPermissionGroups model constructor.
+     * @property {module:model/ApiV1AdminsUsersPermissionGroups}
+     */
+    ApiV1AdminsUsersPermissionGroups,
+
+    /**
+     * The ApiV1AdminsUsersPermissions model constructor.
+     * @property {module:model/ApiV1AdminsUsersPermissions}
+     */
+    ApiV1AdminsUsersPermissions,
+
+    /**
      * The ApiV1BatchesBatch model constructor.
      * @property {module:model/ApiV1BatchesBatch}
      */
@@ -212,6 +236,18 @@ export {
      * @property {module:model/ApiV1BoxesMergeBoxBody}
      */
     ApiV1BoxesMergeBoxBody,
+
+    /**
+     * The ApiV1BoxesSplitBoxItems model constructor.
+     * @property {module:model/ApiV1BoxesSplitBoxItems}
+     */
+    ApiV1BoxesSplitBoxItems,
+
+    /**
+     * The ApiV1BoxesSplitNewBoxesParams model constructor.
+     * @property {module:model/ApiV1BoxesSplitNewBoxesParams}
+     */
+    ApiV1BoxesSplitNewBoxesParams,
 
     /**
      * The BadRequestError model constructor.
@@ -418,10 +454,40 @@ export {
     InlineObject35,
 
     /**
+     * The InlineObject36 model constructor.
+     * @property {module:model/InlineObject36}
+     */
+    InlineObject36,
+
+    /**
+     * The InlineObject37 model constructor.
+     * @property {module:model/InlineObject37}
+     */
+    InlineObject37,
+
+    /**
+     * The InlineObject38 model constructor.
+     * @property {module:model/InlineObject38}
+     */
+    InlineObject38,
+
+    /**
+     * The InlineObject39 model constructor.
+     * @property {module:model/InlineObject39}
+     */
+    InlineObject39,
+
+    /**
      * The InlineObject4 model constructor.
      * @property {module:model/InlineObject4}
      */
     InlineObject4,
+
+    /**
+     * The InlineObject40 model constructor.
+     * @property {module:model/InlineObject40}
+     */
+    InlineObject40,
 
     /**
      * The InlineObject5 model constructor.
@@ -470,6 +536,18 @@ export {
      * @property {module:model/InlineResponse20010}
      */
     InlineResponse20010,
+
+    /**
+     * The InlineResponse20010Info model constructor.
+     * @property {module:model/InlineResponse20010Info}
+     */
+    InlineResponse20010Info,
+
+    /**
+     * The InlineResponse20011 model constructor.
+     * @property {module:model/InlineResponse20011}
+     */
+    InlineResponse20011,
 
     /**
      * The InlineResponse2002 model constructor.
@@ -560,12 +638,6 @@ export {
      * @property {module:model/InlineResponse2016}
      */
     InlineResponse2016,
-
-    /**
-     * The InlineResponse2017 model constructor.
-     * @property {module:model/InlineResponse2017}
-     */
-    InlineResponse2017,
 
     /**
      * The InlineResponse400 model constructor.
@@ -676,10 +748,22 @@ export {
     OtherApi,
 
     /**
+    * The PermissionsApi service constructor.
+    * @property {module:api/PermissionsApi}
+    */
+    PermissionsApi,
+
+    /**
     * The ProductApi service constructor.
     * @property {module:api/ProductApi}
     */
     ProductApi,
+
+    /**
+    * The ProductSearchRequestApi service constructor.
+    * @property {module:api/ProductSearchRequestApi}
+    */
+    ProductSearchRequestApi,
 
     /**
     * The ResearcherApi service constructor.

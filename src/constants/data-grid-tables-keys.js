@@ -6,6 +6,9 @@ export const DataGridTablesKeys = {
   ADMIN_BOXES: 'adminBoxesDataGridState',
   ADMIN_FINANCES: 'adminFinancesDataGridState',
 
+  ADMIN_SINGLE_PERMISSIONS: 'adminSinglePermissionsDataGridState',
+  ADMIN_GROUP_PERMISSIONS: 'adminGroupPermissionsDataGridState',
+
   ADMIN_EXCHANGE_CREATED: 'adminExchangeCreatedDataGridState',
   ADMIN_EXCHANGE_CHECKED_BY_SUPERVISOR: 'adminExchangeChekedBySupervisorDataGridState',
   ADMIN_EXCHANGE_SUPPLIER_SEARCHING: 'adminExchangeSupplierSearchingDataGridState',
@@ -24,6 +27,7 @@ export const DataGridTablesKeys = {
   WAREHOUSE_BOXES: 'warehouseBoxesDataGridState',
 
   RESEARCHER_PRODUCTS: 'researcherProductsDataGridState',
+  RESEARCHER_REQUESTS: 'researcherRequestsDataGridState',
 
   SUPERVISOR_PRODUCTS: 'supervisorProductsDataGridState',
 
@@ -36,4 +40,5 @@ export const DataGridTablesKeys = {
   CLIENT_ORDERS: 'clientOrdersDataGridState',
   CLIENT_ORDERS_NOTIFICATIONS: 'clientOrdersNotificationsDataGridState',
   CLIENT_WAREHOUSE: 'clientWarehouseDataGridState',
+  CLIENT_SEARCH_REQUESTS: 'clientSearchRequestsDataGridState',
 }

@@ -9,6 +9,7 @@ import {warehouses} from '@constants/warehouses'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 import {clientBoxesViewColumns} from '@components/table-columns/client/client-boxes-columns'
 
@@ -52,11 +53,13 @@ export class ClientWarehouseViewModel {
   drawerOpen = false
   selectedBoxes = []
   curOpenedTask = {}
+  toCancelData = {}
 
   showMergeBoxModal = false
   showTaskInfoModal = false
   showSendOwnProductModal = false
   showEditBoxModal = false
+  showConfirmModal = false
   showRedistributeBoxModal = false
   showRedistributeBoxAddNewBoxModal = false
   showRedistributeBoxSuccessModal = false
@@ -81,6 +84,10 @@ export class ClientWarehouseViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async updateUserInfo() {
+    await UserModel.getUserInfo()
   }
 
   onChangeFilterModel(model) {
@@ -113,7 +120,7 @@ export class ClientWarehouseViewModel {
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e.pageSize
+    this.rowsPerPage = e
   }
 
   setRequestStatus(requestStatus) {
@@ -211,20 +218,28 @@ export class ClientWarehouseViewModel {
     }
   }
 
+  onRemoveBoxFromSelected(boxId) {
+    this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
+  }
+
   async onEditBoxSubmit(id, boxData) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.selectedBoxes = []
+
+      const newItems = boxData.items.map(el => ({
+        ...getObjectFilteredByKeyArrayBlackList(el, ['order', 'product']),
+        amount: el.amount,
+        orderId: el.order._id,
+        productId: el.product._id,
+      }))
+
+      console.log('newItems', newItems)
+
       const requestBox = getObjectFilteredByKeyArrayBlackList(
         {
           ...boxData,
-          items: [
-            {
-              ...getObjectFilteredByKeyArrayBlackList(boxData.items[0], ['order', 'product']),
-              amount: boxData.items[0].amount,
-              orderId: boxData.items[0].order._id,
-              productId: boxData.items[0].product._id,
-            },
-          ],
+          items: newItems,
         },
         updateBoxBlackList,
       )
@@ -238,6 +253,9 @@ export class ClientWarehouseViewModel {
         clientComment: boxData.clientComment,
       })
 
+      await this.getBoxesMy()
+      this.onTriggerOpenModal('showEditBoxModal')
+
       this.setRequestStatus(loadingStatuses.success)
       await this.getTasksMy()
     } catch (error) {
@@ -247,22 +265,27 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  async onClickMerge(comment) {
+  async onClickMerge(boxBody, comment) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes)
+      const selectedIds = this.selectedBoxes
+      this.selectedBoxes = []
+
+      const mergeBoxesResult = await this.mergeBoxes(selectedIds, boxBody)
 
       await this.postTask({
         idsData: [mergeBoxesResult.guid],
-        idsBeforeData: [...this.selectedBoxes],
+        idsBeforeData: [...selectedIds],
         type: operationTypes.MERGE,
         clientComment: comment,
       })
-      await this.getTasksMy()
+
       this.setRequestStatus(loadingStatuses.success)
       this.onTriggerOpenModal('showMergeBoxModal')
       this.tmpClientComment = ''
+
+      await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
@@ -306,8 +329,6 @@ export class ClientWarehouseViewModel {
     try {
       const result = await BoxesModel.editBox(box)
 
-      await this.getBoxesMy()
-      this.onTriggerOpenModal('showEditBoxModal')
       return result
     } catch (error) {
       console.log(error)
@@ -315,9 +336,9 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  async mergeBoxes(boxes) {
+  async mergeBoxes(ids, boxBody) {
     try {
-      const result = await BoxesModel.mergeBoxes(boxes)
+      const result = await BoxesModel.mergeBoxes(ids, boxBody)
 
       await this.getBoxesMy()
       return result
@@ -399,12 +420,44 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  async cancelEditBoxes(id, taskId) {
+  onClickCancelBtnByAction(actionType, id) {
+    switch (actionType) {
+      case 'merge':
+        return this.cancelMergeBoxes(id)
+
+      case 'split':
+        return this.cancelSplitBoxes(id)
+
+      case 'edit':
+        return this.cancelEditBoxes(id)
+    }
+  }
+
+  onClickCancelBtn(id, taskId, type) {
+    this.toCancelData = {id, taskId, type}
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onClickCancelAfterConfirm() {
+    try {
+      await this.onClickCancelBtnByAction(this.toCancelData.type, this.toCancelData.id)
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      await this.cancelTask(this.toCancelData.taskId)
+
+      await this.getBoxesMy()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async cancelEditBoxes(id) {
     try {
       await BoxesModel.cancelEditBoxes(id)
 
-      await this.cancelTask(taskId)
-
       await this.getBoxesMy()
     } catch (error) {
       console.log(error)
@@ -412,12 +465,10 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  async cancelMergeBoxes(id, taskId) {
+  async cancelMergeBoxes(id) {
     try {
       await BoxesModel.cancelMergeBoxes(id)
 
-      await this.cancelTask(taskId)
-
       await this.getBoxesMy()
     } catch (error) {
       console.log(error)
@@ -425,11 +476,9 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  async cancelSplitBoxes(id, taskId) {
+  async cancelSplitBoxes(id) {
     try {
       await BoxesModel.cancelSplitBoxes(id)
-
-      await this.cancelTask(taskId)
 
       await this.getBoxesMy()
     } catch (error) {
@@ -469,6 +518,7 @@ export class ClientWarehouseViewModel {
         this.selectedBoxes = []
       })
       this.setRequestStatus(loadingStatuses.success)
+      this.updateUserInfo()
       this.loadData()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

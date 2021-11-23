@@ -16,6 +16,8 @@ export const useClassNames = makeStyles(theme => ({
     width: '64px',
     height: '64px',
     marginRight: theme.spacing(2),
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
   imgWithTitles: {
     display: 'flex',
@@ -40,5 +42,11 @@ export const useClassNames = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     width: '300px',
     overflowX: 'scroll',
+  },
+
+  buyerComment: {
+    height: '150px',
+    width: '300px',
+    overflowY: 'scroll',
   },
 }))

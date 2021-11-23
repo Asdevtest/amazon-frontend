@@ -47,32 +47,14 @@ class InlineObject33 {
         if (data) {
             obj = obj || new InlineObject33();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
-            }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -82,46 +64,10 @@ class InlineObject33 {
 }
 
 /**
- * Название поставщика.
- * @member {String} name
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject33.prototype['name'] = undefined;
-
-/**
- * Ссылка на поставщика.
- * @member {String} link
- */
-InlineObject33.prototype['link'] = undefined;
-
-/**
- * Цена
- * @member {Number} price
- */
-InlineObject33.prototype['price'] = undefined;
-
-/**
- * Тип доставки
- * @member {Number} delivery
- */
-InlineObject33.prototype['delivery'] = undefined;
-
-/**
- * кол-во
- * @member {Number} amount
- */
-InlineObject33.prototype['amount'] = undefined;
-
-/**
- * Минимальный лот.
- * @member {Number} minlot
- */
-InlineObject33.prototype['minlot'] = undefined;
-
-/**
- * Стоимость лота.
- * @member {Number} lotcost
- */
-InlineObject33.prototype['lotcost'] = undefined;
+InlineObject33.prototype['status'] = undefined;
 
 /**
  * Массив картинок.
@@ -130,10 +76,10 @@ InlineObject33.prototype['lotcost'] = undefined;
 InlineObject33.prototype['images'] = undefined;
 
 /**
- * Комментарий
- * @member {String} comment
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
  */
-InlineObject33.prototype['comment'] = undefined;
+InlineObject33.prototype['storekeeperComment'] = undefined;
 
 
 

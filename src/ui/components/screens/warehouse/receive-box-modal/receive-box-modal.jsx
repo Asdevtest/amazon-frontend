@@ -159,20 +159,25 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
   const [showNoDimensionsErrorModal, setShowNoDimensionsErrorModal] = useState(false)
 
   const emptyProducts = selectedBox.items.map(product => ({...product, amount: ''}))
-  const getEmptyBox = () => ({...selectedBox, _id: 'new_id_' + Date.now(), items: emptyProducts, amount: 1})
-  const emptyBox = getEmptyBox()
-  const emptyBoxWithDemensions = {
-    ...emptyBox,
-    lengthCmWarehouse: emptyBox?.lengthCmWarehouse || '',
-    widthCmWarehouse: emptyBox?.widthCmWarehouse || '',
-    heightCmWarehouse: emptyBox?.heightCmWarehouse || '',
-    weighGrossKgWarehouse: emptyBox?.weighGrossKgWarehouse || '',
-    volumeWeightKgWarehouse: emptyBox?.volumeWeightKgWarehouse || '',
-    weightFinalAccountingKgWarehouse: emptyBox?.weightFinalAccountingKgWarehouse || '',
-    tmpImages: [],
+  const getEmptyBox = () => {
+    const emptyBox = {...selectedBox, _id: 'new_id_' + Date.now(), items: emptyProducts, amount: 1}
+
+    const emptyBoxWithDemensions = {
+      ...emptyBox,
+      lengthCmWarehouse: emptyBox?.lengthCmWarehouse || '',
+      widthCmWarehouse: emptyBox?.widthCmWarehouse || '',
+      heightCmWarehouse: emptyBox?.heightCmWarehouse || '',
+      weighGrossKgWarehouse: emptyBox?.weighGrossKgWarehouse || '',
+      volumeWeightKgWarehouse: emptyBox?.volumeWeightKgWarehouse || '',
+      weightFinalAccountingKgWarehouse: emptyBox?.weightFinalAccountingKgWarehouse || '',
+      tmpImages: [],
+      images: (emptyBox?.images === null ? [] : emptyBox?.images) || [],
+    }
+
+    return emptyBoxWithDemensions
   }
 
-  const [newBoxes, setNewBoxes] = useState([emptyBoxWithDemensions])
+  const [newBoxes, setNewBoxes] = useState([getEmptyBox()])
 
   const actuallyAssembled = newBoxes.reduce((acc, box) => acc + box.items[0].amount * box.amount, 0)
   const totalProductsAmount =

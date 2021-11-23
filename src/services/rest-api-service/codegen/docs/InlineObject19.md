@@ -4,6 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guids** | **[String]** | массив GUIDов оплаченных товаров | [optional] 
+**status** | **Number** | Код текущего состояния заказа. | [optional] 
+**amount** | **Number** | Кол-во продукта по этой позиции. | 
+**deliveryMethod** | **Number** | Код метода доставки. | 
+**warehouse** | **Number** | Номер склада. | 
+**clientComment** | **String** | Комментарии клиента. | 
+**productId** | **String** | GUID заказанного продукта | 
+**images** | **[String]** | Массив изображений. | [optional] 
 
 

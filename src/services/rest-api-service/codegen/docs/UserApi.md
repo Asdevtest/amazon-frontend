@@ -117,7 +117,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersPost
 
-> ApiV1AdminsOrdersCreatedBy apiV1UsersPost(InlineObject34, opts)
+> ApiV1AdminsOrdersCreatedBy apiV1UsersPost(InlineObject39, opts)
 
 Создание нового пользователя. Регистрация.
 
@@ -129,11 +129,11 @@ Name | Type | Description  | Notes
 import Amazonapi from 'amazonapi';
 
 let apiInstance = new Amazonapi.UserApi();
-let InlineObject34 = new Amazonapi.InlineObject34(); // InlineObject34 | 
+let InlineObject39 = new Amazonapi.InlineObject39(); // InlineObject39 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1UsersPost(InlineObject34, opts).then((data) => {
+apiInstance.apiV1UsersPost(InlineObject39, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -146,7 +146,7 @@ apiInstance.apiV1UsersPost(InlineObject34, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject34** | [**InlineObject34**](InlineObject34.md)|  | 
+ **InlineObject39** | [**InlineObject39**](InlineObject39.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
@@ -165,7 +165,7 @@ No authorization required
 
 ## apiV1UsersSignInPost
 
-> InlineResponse2017 apiV1UsersSignInPost(InlineObject35, opts)
+> InlineResponse2016 apiV1UsersSignInPost(InlineObject40, opts)
 
 # Получение токена авторизации.
 
@@ -177,11 +177,11 @@ No authorization required
 import Amazonapi from 'amazonapi';
 
 let apiInstance = new Amazonapi.UserApi();
-let InlineObject35 = new Amazonapi.InlineObject35(); // InlineObject35 | 
+let InlineObject40 = new Amazonapi.InlineObject40(); // InlineObject40 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1UsersSignInPost(InlineObject35, opts).then((data) => {
+apiInstance.apiV1UsersSignInPost(InlineObject40, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -194,12 +194,12 @@ apiInstance.apiV1UsersSignInPost(InlineObject35, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject35** | [**InlineObject35**](InlineObject35.md)|  | 
+ **InlineObject40** | [**InlineObject40**](InlineObject40.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
 
-[**InlineResponse2017**](InlineResponse2017.md)
+[**InlineResponse2016**](InlineResponse2016.md)
 
 ### Authorization
 

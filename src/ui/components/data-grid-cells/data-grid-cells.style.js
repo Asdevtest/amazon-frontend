@@ -317,4 +317,18 @@ export const styles = createStyles(() => ({
     fontSize: '10px',
     fontWeight: '600',
   },
+
+  taskDescriptionScrollWrapper: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    maxWidth: '400px',
+    maxHeight: '140px',
+    overflowY: 'scroll',
+  },
+
+  smallRowImgWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 }))

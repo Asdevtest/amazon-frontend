@@ -25,11 +25,10 @@ class ApiV1BoxesApproveAdditionalBoxes {
      * Коробка
      * @alias module:model/ApiV1BoxesApproveAdditionalBoxes
      * @param items {Array.<module:model/ApiV1BoxesItems>} Массив коробок.
-     * @param clientId {String} GUID клиента
      */
-    constructor(items, clientId) { 
+    constructor(items) { 
         
-        ApiV1BoxesApproveAdditionalBoxes.initialize(this, items, clientId);
+        ApiV1BoxesApproveAdditionalBoxes.initialize(this, items);
     }
 
     /**
@@ -37,9 +36,8 @@ class ApiV1BoxesApproveAdditionalBoxes {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, items, clientId) { 
+    static initialize(obj, items) { 
         obj['items'] = items;
-        obj['clientId'] = clientId;
     }
 
     /**

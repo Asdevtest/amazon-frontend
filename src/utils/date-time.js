@@ -3,6 +3,8 @@ import {format, formatDistance, compareDesc, parseISO} from 'date-fns'
 export const formatDate = dateString => format(parseISO(dateString), 'dd-MM-yyyy') // предпочтительный формат
 export const formatDateForBackend = dateString => format(parseISO(dateString), 'yyyy-MM-dd')
 
+export const formatDateForBackendWithoutParseISO = dateString => format(dateString, 'yyyy-MM-dd')
+
 export const formatDateTime = dateString => format(parseISO(dateString), 'MM-dd-yyyy HH:mm')
 export const formatNormDateTime = dateString => {
   if (dateString) {

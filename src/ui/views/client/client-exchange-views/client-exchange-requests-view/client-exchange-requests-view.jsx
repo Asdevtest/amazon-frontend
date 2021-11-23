@@ -1,36 +1,32 @@
 import React, {Component} from 'react'
 
-import {Button, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Button, Typography} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {clientExchangeRequestsViewTable} from '@constants/mocks'
+import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
-import {RequestForm} from '@components/forms/request-form'
+import {ProductOrNicheSearchRequestForm} from '@components/forms/product-or-niche-search-request-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
-import {Table} from '@components/table'
-import {ExchangeRequestsBodyRow} from '@components/table-rows/client/exchange-requests'
 
+import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {getRequiredListByKeys} from '@utils/get-required-list-by-keys'
 
 import avatar from '../../assets/clientAvatar.jpg'
 import {ClientExchangeRequestsViewModel} from './client-exchange-requests-view.model'
 import {styles} from './client-exchange-requests-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientExchangeRequestsView
-
-const {headCells, tableKeys, requestsListRaw} = clientExchangeRequestsViewTable
-
-const requestsList = getRequiredListByKeys(requestsListRaw, tableKeys)
 
 const navbarActiveCategory = 1
 const navbarActiveSubCategory = 2
@@ -41,30 +37,41 @@ export class ClientExchangeRequestsViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
-      drawerOpen,
-      paginationPage,
-      rowsPerPage,
-      modalNewRequest,
-      modalEditRequest,
+      requestStatus,
+      getCurrentData,
+      sortModel,
+      filterModel,
+      densityModel,
+      columnsModel,
+
+      showConfirmModal,
+      showRequestForm,
+      requestFormSettings,
       modalCloseRequest,
-      selectedRequests,
       onTriggerDrawer,
-      onChangePagination,
-      onChangeRowsPerPage,
       onClickCloseModal,
-      onClickOpenModal,
+      onClickAddBtn,
+
+      drawerOpen,
+      curPage,
+      rowsPerPage,
+      onChangeCurPage,
+      onChangeRowsPerPage,
+      onTriggerOpenModal,
+      onClickTableRow,
+      removeProductSearchRequest,
+
+      setDataGridState,
+      onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
-    const rowsHandlers = {
-      edit: () => onClickOpenModal('modalEditRequest'),
-      close: () => onClickOpenModal('modalCloseRequest'),
-      onSelectRequest: this.onSelectRequest,
-    }
 
     return (
       <React.Fragment>
@@ -89,37 +96,63 @@ export class ClientExchangeRequestsViewRaw extends Component {
                 </Typography>
               </div>
               <div className={classNames.placeRequestBtnWrapper}>
-                <SuccessButton onClick={() => onClickOpenModal('modalNewRequest')}>
-                  {textConsts.placeOrderBtn}
-                </SuccessButton>
+                <SuccessButton onClick={() => onClickAddBtn()}>{textConsts.placeOrderBtn}</SuccessButton>
               </div>
               <div className={classNames.tableWrapper}>
-                <Table
-                  renderButtons={this.renderButtons}
-                  currentPage={paginationPage}
-                  data={requestsList}
-                  handlerPageChange={onChangePagination}
-                  handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(requestsList.length / rowsPerPage)}
-                  BodyRow={ExchangeRequestsBodyRow}
-                  renderHeadRow={this.renderHeadRow()}
-                  rowsPerPage={rowsPerPage}
-                  rowsHandlers={rowsHandlers}
-                  selectedRequests={selectedRequests}
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  autoHeight
+                  classes={{
+                    row: classNames.row,
+                  }}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rows={getCurrentData()}
+                  rowHeight={100}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onRowDoubleClick={e => onClickTableRow(e.row)}
                 />
               </div>
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={modalNewRequest} setOpenModal={() => onClickCloseModal('modalNewRequest')}>
+        <Modal openModal={showRequestForm} setOpenModal={() => onTriggerOpenModal('showRequestForm')}>
           <Typography variant="h5">{textConsts.modalNewRequestTitle}</Typography>
-          <RequestForm btnLabel={textConsts.modalBtnSendRequest} />
+          <ProductOrNicheSearchRequestForm
+            setOpenModal={() => onTriggerOpenModal('showRequestForm')}
+            requestToEdit={requestFormSettings.request}
+            isEdit={requestFormSettings.isEdit}
+            onSubmit={requestFormSettings.onSubmit}
+          />
         </Modal>
 
-        <Modal openModal={modalEditRequest} setOpenModal={() => onClickCloseModal('modalEditRequest')}>
-          <Typography variant="h5">{textConsts.modalEditRequestTitle}</Typography>
-          <RequestForm btnLabel={textConsts.modalBtnSaveRequest} />
-        </Modal>
+        <ConfirmationModal
+          isWarning
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={textConsts.confirmTitle}
+          message={textConsts.confirmMessage}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={() => {
+            removeProductSearchRequest()
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
 
         <Modal openModal={modalCloseRequest} setOpenModal={() => onClickCloseModal('modalCloseRequest')}>
           <Typography variant="h5">{textConsts.modalCloseRequestTitle}</Typography>
@@ -143,25 +176,6 @@ export class ClientExchangeRequestsViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderHeadRow = () => (
-    <TableRow>
-      <TableCell>#</TableCell>
-      {headCells.map((item, index) => (
-        <TableCell key={index}>{item.label}</TableCell>
-      ))}
-      <TableCell />
-      <TableCell />
-    </TableRow>
-  )
-
-  renderButtons = () => (
-    <React.Fragment>
-      <Button disableElevation variant="contained">
-        {textConsts.myRequests}
-      </Button>
-    </React.Fragment>
-  )
 }
 
 export const ClientExchangeRequestsView = withStyles(styles)(ClientExchangeRequestsViewRaw)

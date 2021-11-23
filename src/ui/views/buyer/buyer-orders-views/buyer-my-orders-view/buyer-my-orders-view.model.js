@@ -143,7 +143,7 @@ export class BuyerMyOrdersViewModel {
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e.pageSize
+    this.rowsPerPage = e
   }
 
   setRequestStatus(requestStatus) {

@@ -104,7 +104,7 @@ export class ClientExchangeViewModel {
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e.pageSize
+    this.rowsPerPage = e
   }
 
   setRequestStatus(requestStatus) {

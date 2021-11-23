@@ -9,6 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {adminBoxesViewColumns} from '@components/table-columns/admin/boxes-columns'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminWarehouseBoxesViewModel {
@@ -19,10 +20,7 @@ export class AdminWarehouseBoxesViewModel {
   boxes = []
 
   drawerOpen = false
-  selectedBoxes = ['2096c_box']
-  modalSendOwnProduct = false
-  modalEditBox = false
-  selectionModel = undefined
+  selectedBoxes = []
 
   sortModel = []
   filterModel = {items: []}
@@ -45,15 +43,11 @@ export class AdminWarehouseBoxesViewModel {
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e.pageSize
+    this.rowsPerPage = e
   }
 
   getCurrentData() {
     return toJS(this.boxes)
-  }
-
-  onSelectionModel(model) {
-    this.selectionModel = model
   }
 
   setDataGridState(state) {
@@ -66,6 +60,13 @@ export class AdminWarehouseBoxesViewModel {
     ])
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_BOXES)
+  }
+
+  onSelectionModel(model) {
+    const boxes = this.boxesMy.filter(box => model.includes(box.id))
+    const res = boxes.reduce((ac, el) => ac.concat(el._id), [])
+
+    this.selectedBoxes = res
   }
 
   getDataGridState() {
@@ -84,13 +85,17 @@ export class AdminWarehouseBoxesViewModel {
     }
   }
 
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
   async loadData() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.setRequestStatus(loadingStatuses.isLoading)
       await this.getBoxes()
-      this.requestStatus = loadingStatuses.success
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -98,9 +103,11 @@ export class AdminWarehouseBoxesViewModel {
   async getBoxes() {
     try {
       const result = await BoxesModel.getBoxes()
+
       runInAction(() => {
-        this.boxes = result.map(item => ({
+        this.boxes = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
           ...item,
+          id: item._id,
           tmpBarCode: item.items[0].product.barCode,
           tmpAsin: item.items[0].product.id,
           tmpQty: item.items[0].amount,
@@ -131,18 +138,6 @@ export class AdminWarehouseBoxesViewModel {
 
   onChangeCurPage(e) {
     this.curPage = e
-  }
-
-  onChangeRowsPerPage = e => {
-    this.rowsPerPage = Number(e.target.value)
-    this.curPage = 1
-  }
-
-  onTriggerCheckbox = boxId => {
-    const updatedselectedBoxes = this.selectedBoxes.includes(boxId)
-      ? this.selectedBoxes.filter(id => id !== boxId)
-      : this.selectedBoxes.concat(boxId)
-    this.selectedBoxes = updatedselectedBoxes
   }
 
   onTriggerModal(modalState) {

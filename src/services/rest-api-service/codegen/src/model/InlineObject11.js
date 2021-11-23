@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesApproveAdditionalBoxes from './ApiV1BoxesApproveAdditionalBoxes';
 
 /**
  * The InlineObject11 model module.
@@ -50,6 +51,9 @@ class InlineObject11 {
             if (data.hasOwnProperty('guid')) {
                 obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [ApiV1BoxesApproveAdditionalBoxes]);
+            }
         }
         return obj;
     }
@@ -58,10 +62,16 @@ class InlineObject11 {
 }
 
 /**
- * GUID коробки разделение которой отменяем.
+ * GUID для которой подтверждаем действие.
  * @member {String} guid
  */
 InlineObject11.prototype['guid'] = undefined;
+
+/**
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/ApiV1BoxesApproveAdditionalBoxes>} additionalBoxes
+ */
+InlineObject11.prototype['additionalBoxes'] = undefined;
 
 
 

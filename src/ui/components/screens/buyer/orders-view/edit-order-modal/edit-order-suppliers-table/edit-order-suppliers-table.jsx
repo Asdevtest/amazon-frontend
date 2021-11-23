@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
-import {BigImagesModal} from '@components/modals/show-big-images-modal'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {priceCalculation} from '@utils/price-calculation'

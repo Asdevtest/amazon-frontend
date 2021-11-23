@@ -71,6 +71,7 @@ export const navbarConfig = {
       route: '/researcher/dashboard',
     },
     {icon: AssignmentIcon, title: 'Мои товары', subtitles: null, route: '/researcher/products'},
+    {icon: AssignmentIcon, title: 'Заявки на поиск товара/ниши', subtitles: null, route: '/researcher/requests'},
     {icon: SettingsIcon, title: 'Настройки', subtitles: null, route: '/researcher/settings'},
   ],
   [UserRole.SUPERVISOR]: [
@@ -224,6 +225,12 @@ export const navbarConfig = {
       icon: PeopleIcon,
       title: 'Пользователи',
       route: '/admin/users',
+    },
+
+    {
+      icon: PeopleIcon,
+      title: 'Разрешения пользователей',
+      route: '/admin/permissions',
     },
     {icon: SettingsIcon, title: 'Настройки', subtitles: null, route: '/admin/settings'},
   ],

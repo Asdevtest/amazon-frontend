@@ -47,14 +47,8 @@ class InlineObject29 {
         if (data) {
             obj = obj || new InlineObject29();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
-            }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'], 'Boolean');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -64,82 +58,13 @@ class InlineObject29 {
 }
 
 /**
- * Статус
- * @member {module:model/InlineObject29.StatusEnum} status
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject29.prototype['status'] = undefined;
-
-/**
- * Признак того, что баркод поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
- */
-InlineObject29.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
-
-/**
- * ???===нет описания===
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper
- */
-InlineObject29.prototype['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = undefined;
+InlineObject29.prototype['suppliersIds'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
- */
-InlineObject29['StatusEnum'] = {
-
-    /**
-     * value: 0
-     * @const
-     */
-    "0": 0,
-
-    /**
-     * value: 1
-     * @const
-     */
-    "1": 1,
-
-    /**
-     * value: 10
-     * @const
-     */
-    "10": 10,
-
-    /**
-     * value: 15
-     * @const
-     */
-    "15": 15,
-
-    /**
-     * value: 20
-     * @const
-     */
-    "20": 20,
-
-    /**
-     * value: 25
-     * @const
-     */
-    "25": 25,
-
-    /**
-     * value: 30
-     * @const
-     */
-    "30": 30,
-
-    /**
-     * value: 35
-     * @const
-     */
-    "35": 35
-};
 
 
 

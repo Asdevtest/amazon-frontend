@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 
 /**
  * The InlineObject10 model module.
@@ -51,12 +50,6 @@ class InlineObject10 {
             if (data.hasOwnProperty('guid')) {
                 obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
-            if (data.hasOwnProperty('boxBody')) {
-                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
-            }
-            if (data.hasOwnProperty('itemsBoxSet')) {
-                obj['itemsBoxSet'] = ApiClient.convertToType(data['itemsBoxSet'], [[Object]]);
-            }
         }
         return obj;
     }
@@ -65,21 +58,10 @@ class InlineObject10 {
 }
 
 /**
- * GUID коробки, которую делим
+ * GUID коробки разделение которой отменяем.
  * @member {String} guid
  */
 InlineObject10.prototype['guid'] = undefined;
-
-/**
- * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
- */
-InlineObject10.prototype['boxBody'] = undefined;
-
-/**
- * Массив боксайтемов каждый элемент массива - содержание айтемов новой коробки
- * @member {Array.<Array.<Object>>} itemsBoxSet
- */
-InlineObject10.prototype['itemsBoxSet'] = undefined;
 
 
 

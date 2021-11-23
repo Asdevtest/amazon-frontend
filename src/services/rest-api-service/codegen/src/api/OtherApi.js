@@ -14,7 +14,7 @@
 
 import ApiClient from "../ApiClient";
 import InlineResponse2003 from '../model/InlineResponse2003';
-import InlineResponse2015 from '../model/InlineResponse2015';
+import InlineResponse2014 from '../model/InlineResponse2014';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse500 from '../model/InlineResponse500';
@@ -69,7 +69,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = Object;
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/other/img/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -253,7 +253,7 @@ export default class OtherApi {
      * ## Загрузить изображение.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
      */
     apiV1OtherUploadFilePostWithHttpInfo(opts) {
       opts = opts || {};
@@ -272,7 +272,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2015;
+      let returnType = InlineResponse2014;
       return this.apiClient.callApi(
         '/api/v1/other/upload_file', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -285,7 +285,7 @@ export default class OtherApi {
      * ## Загрузить изображение.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
      */
     apiV1OtherUploadFilePost(opts) {
       return this.apiV1OtherUploadFilePostWithHttpInfo(opts)

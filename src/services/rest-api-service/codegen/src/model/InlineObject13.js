@@ -22,10 +22,11 @@ class InlineObject13 {
     /**
      * Constructs a new <code>InlineObject13</code>.
      * @alias module:model/InlineObject13
+     * @param boxesIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(boxesIds) { 
         
-        InlineObject13.initialize(this);
+        InlineObject13.initialize(this, boxesIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject13 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -47,29 +49,11 @@ class InlineObject13 {
         if (data) {
             obj = obj || new InlineObject13();
 
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
+            if (data.hasOwnProperty('scheduledDispatchDate')) {
+                obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'Date');
             }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
-                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
-                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
-            }
-            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -79,47 +63,15 @@ class InlineObject13 {
 }
 
 /**
- * @member {Number} lengthCmWarehouse
+ * Запланированная дата отправки.
+ * @member {Date} scheduledDispatchDate
  */
-InlineObject13.prototype['lengthCmWarehouse'] = undefined;
+InlineObject13.prototype['scheduledDispatchDate'] = undefined;
 
 /**
- * @member {Number} widthCmWarehouse
+ * @member {Array.<String>} boxesIds
  */
-InlineObject13.prototype['widthCmWarehouse'] = undefined;
-
-/**
- * @member {Number} heightCmWarehouse
- */
-InlineObject13.prototype['heightCmWarehouse'] = undefined;
-
-/**
- * @member {Number} weighGrossKgWarehouse
- */
-InlineObject13.prototype['weighGrossKgWarehouse'] = undefined;
-
-/**
- * @member {Number} volumeWeightKgWarehouse
- */
-InlineObject13.prototype['volumeWeightKgWarehouse'] = undefined;
-
-/**
- * Прикреплен ли баркод к коробке сотрудником склада.
- * @member {Boolean} isBarCodeAttachedByTheStorekeeper
- */
-InlineObject13.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
-
-/**
- * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
- */
-InlineObject13.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
- */
-InlineObject13.prototype['images'] = undefined;
+InlineObject13.prototype['boxesIds'] = undefined;
 
 
 

@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 
-import {Button, Divider, Typography} from '@material-ui/core'
+import {Button, Divider, IconButton, Typography} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
@@ -9,6 +10,7 @@ import {texts} from '@constants/texts'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 
+import {checkIsPositiveNum} from '@utils/checks'
 import {filterEmptyBoxes, filterEmptyOrders} from '@utils/filters'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -17,37 +19,58 @@ import {useClassNames} from './reditstribute-box-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientBoxRedistribution
 
-const Box = ({box, readOnly = false, boxIsMasterBox, index, isMasterBox, selectedBox, onChangeInput}) => {
+const Box = ({
+  box,
+  readOnly = false,
+  boxIsMasterBox,
+  isMasterBox,
+  selectedBox,
+  onChangeInput,
+  onRemoveBox,
+  isNewBox,
+}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.box}>
       <Typography className={classNames.boxTitle}>{box._id}</Typography>
-      {box.items.map((order, orderIndex) => (
-        <div key={`box_${box._id}_${readOnly ? 1 : 0}_${index}`}>
-          <div key={orderIndex} className={classNames.order}>
-            <img
-              className={classNames.img}
-              src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
-            />
-            <Typography className={classNames.title}>{orderIndex + 1 + '. ' + order.product.amazonTitle}</Typography>
-            <Typography className={classNames.subTitle}>{textConsts.qtyLabel}</Typography>
-            <Input
-              classes={{root: classNames.inputWrapper, input: classNames.input}}
-              readOnly={readOnly}
-              value={isMasterBox ? (boxIsMasterBox ? selectedBox.amount : 1) : order.amount}
-              onChange={e => onChangeInput(e, box._id, order.order)}
-            />
-          </div>
-          {isMasterBox ? (
-            <Typography className={classNames.subTitle}>{`Unites per box ${box.items[0].amount}`}</Typography>
-          ) : undefined}
+      <div className={classNames.itemWrapper}>
+        <div>
+          {box.items.map((order, orderIndex) => (
+            <div key={`box_${box._id}_${readOnly ? 1 : 0}_${orderIndex}`}>
+              <div key={orderIndex} className={classNames.order}>
+                <img
+                  className={classNames.img}
+                  src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
+                />
+                <Typography className={classNames.title}>
+                  {orderIndex + 1 + '. ' + order.product.amazonTitle}
+                </Typography>
+                <Typography className={classNames.subTitle}>{textConsts.qtyLabel}</Typography>
+                <Input
+                  classes={{root: classNames.inputWrapper, input: classNames.input}}
+                  readOnly={readOnly}
+                  value={isMasterBox ? (boxIsMasterBox ? selectedBox.amount : 1) : order.amount}
+                  onChange={e => checkIsPositiveNum(e.target.value) && onChangeInput(e, box._id, order.order)}
+                />
+              </div>
+              {isMasterBox ? (
+                <Typography className={classNames.subTitle}>{`Unites per box ${box.items[0].amount}`}</Typography>
+              ) : undefined}
+            </div>
+          ))}
         </div>
-      ))}
+
+        {isNewBox && (
+          <IconButton onClick={() => onRemoveBox(box._id)}>
+            <DeleteIcon className={classNames.deleteBtn} />
+          </IconButton>
+        )}
+      </div>
     </div>
   )
 }
 
-const NewBoxes = ({newBoxes, isMasterBox, selectedBox, onChangeInput}) => {
+const NewBoxes = ({newBoxes, isMasterBox, selectedBox, onChangeInput, onRemoveBox}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.newBoxes}>
@@ -56,12 +79,14 @@ const NewBoxes = ({newBoxes, isMasterBox, selectedBox, onChangeInput}) => {
       {newBoxes.map((box, boxIndex) => (
         <Box
           key={boxIndex}
+          isNewBox
           index={boxIndex}
           box={box}
           readOnly={isMasterBox}
           isMasterBox={isMasterBox}
           selectedBox={selectedBox}
           onChangeInput={onChangeInput}
+          onRemoveBox={onRemoveBox}
         />
       ))}
     </div>
@@ -139,6 +164,20 @@ export const RedistributeBox = ({
     onRedistribute(selectedBox._id, newBoxesWithoutEmptyOrders, operationTypes.SPLIT, isMasterBox, comment)
   }
 
+  const onRemoveBox = boxId => {
+    const arr = newBoxes.filter(box => box._id !== boxId)
+    setNewBoxes([...arr])
+
+    if (!isMasterBox) {
+      const boxForRemove = newBoxes.find(box => box._id === boxId)
+      const newCurrentBox = currentBox
+      for (let i = 0; i < newCurrentBox.items.length; i++) {
+        newCurrentBox.items[i].amount += boxForRemove.items[i].amount
+      }
+      setCurrentBox(newCurrentBox)
+    }
+  }
+
   const CurrentBox = () => (
     <div className={classNames.currentBox}>
       <Typography className={classNames.sectionTitle}>{textConsts.redistributionTitle}</Typography>
@@ -171,6 +210,7 @@ export const RedistributeBox = ({
           isMasterBox={isMasterBox}
           selectedBox={selectedBox}
           onChangeInput={onChangeInput}
+          onRemoveBox={onRemoveBox}
         />
         <Divider flexItem className={classNames.divider} orientation="vertical" />
         <Field
@@ -187,7 +227,7 @@ export const RedistributeBox = ({
       <div className={classNames.buttonsWrapper}>
         <Button
           variant="text"
-          disabled={(totalProductsAmount !== 0 && !isMasterBox) || requestStatus === loadingStatuses.isLoading}
+          disabled={totalProductsAmount !== 0 || requestStatus === loadingStatuses.isLoading}
           onClick={() => {
             onClickRedistributeBtn()
           }}

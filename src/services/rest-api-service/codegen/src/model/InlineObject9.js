@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesSplitNewBoxesParams from './ApiV1BoxesSplitNewBoxesParams';
 
 /**
  * The InlineObject9 model module.
@@ -50,6 +51,9 @@ class InlineObject9 {
             if (data.hasOwnProperty('guid')) {
                 obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
+            if (data.hasOwnProperty('newBoxesParams')) {
+                obj['newBoxesParams'] = ApiClient.convertToType(data['newBoxesParams'], [ApiV1BoxesSplitNewBoxesParams]);
+            }
         }
         return obj;
     }
@@ -58,10 +62,15 @@ class InlineObject9 {
 }
 
 /**
- * GUID коробки, объединение которой нужно отменить
+ * GUID коробки, которую делим
  * @member {String} guid
  */
 InlineObject9.prototype['guid'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1BoxesSplitNewBoxesParams>} newBoxesParams
+ */
+InlineObject9.prototype['newBoxesParams'] = undefined;
 
 
 

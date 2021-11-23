@@ -156,7 +156,6 @@ Class | Method | HTTP request | Description
 *Amazonapi.BoxesApi* | [**apiV1BoxesClientsGet**](docs/BoxesApi.md#apiV1BoxesClientsGet) | **GET** /api/v1/boxes/clients | # Получить коробки и их строки по текущему клиенту.
 *Amazonapi.BoxesApi* | [**apiV1BoxesDraftsGet**](docs/BoxesApi.md#apiV1BoxesDraftsGet) | **GET** /api/v1/boxes/drafts | # Получить черновики коробок и их строки.
 *Amazonapi.BoxesApi* | [**apiV1BoxesEditGuidPost**](docs/BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку.
-*Amazonapi.BoxesApi* | [**apiV1BoxesEditWithDraftGuidPost**](docs/BoxesApi.md#apiV1BoxesEditWithDraftGuidPost) | **POST** /api/v1/boxes/edit_with_draft/{guid} | # Изменить параметры коробки из роли сторкипера.
 *Amazonapi.BoxesApi* | [**apiV1BoxesGet**](docs/BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
 *Amazonapi.BoxesApi* | [**apiV1BoxesGuidDelete**](docs/BoxesApi.md#apiV1BoxesGuidDelete) | **DELETE** /api/v1/boxes/{guid} | # Удалить коробку.
 *Amazonapi.BoxesApi* | [**apiV1BoxesMergePost**](docs/BoxesApi.md#apiV1BoxesMergePost) | **POST** /api/v1/boxes/merge | # Объединить две и более коробок.
@@ -200,8 +199,21 @@ Class | Method | HTTP request | Description
 *Amazonapi.OtherApi* | [**apiV1OtherPaymentsByUserGuidGet**](docs/OtherApi.md#apiV1OtherPaymentsByUserGuidGet) | **GET** /api/v1/other/payments/by_user/{guid} | # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
 *Amazonapi.OtherApi* | [**apiV1OtherPaymentsMyGet**](docs/OtherApi.md#apiV1OtherPaymentsMyGet) | **GET** /api/v1/other/payments/my | # Получить все оплаты, которые были начислены обратившемуся пользователю.
 *Amazonapi.OtherApi* | [**apiV1OtherUploadFilePost**](docs/OtherApi.md#apiV1OtherUploadFilePost) | **POST** /api/v1/other/upload_file | # Загрузить изображение.
+*Amazonapi.PermissionsApi* | [**apiV1PermissionsAdminsGuidDelete**](docs/PermissionsApi.md#apiV1PermissionsAdminsGuidDelete) | **DELETE** /api/v1/permissions/admins/{guid} | # Удалить permission по его GUID.
+*Amazonapi.PermissionsApi* | [**apiV1PermissionsAdminsGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsAdminsGuidPatch) | **PATCH** /api/v1/permissions/admins/{guid} | #  Изменить permission.
+*Amazonapi.PermissionsApi* | [**apiV1PermissionsGet**](docs/PermissionsApi.md#apiV1PermissionsGet) | **GET** /api/v1/permissions/ | Получить список permissions.
+*Amazonapi.PermissionsApi* | [**apiV1PermissionsGroupsAdminsGuidDelete**](docs/PermissionsApi.md#apiV1PermissionsGroupsAdminsGuidDelete) | **DELETE** /api/v1/permissions/groups/admins/{guid} | # Удалить группу permission по его GUID.
+*Amazonapi.PermissionsApi* | [**apiV1PermissionsGroupsAdminsGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsGroupsAdminsGuidPatch) | **PATCH** /api/v1/permissions/groups/admins/{guid} | #  Изменить группу permission.
+*Amazonapi.PermissionsApi* | [**apiV1PermissionsGroupsGet**](docs/PermissionsApi.md#apiV1PermissionsGroupsGet) | **GET** /api/v1/permissions/groups | Получить список групп permissions.
+*Amazonapi.PermissionsApi* | [**apiV1PermissionsGroupsPost**](docs/PermissionsApi.md#apiV1PermissionsGroupsPost) | **POST** /api/v1/permissions/groups | # Создать группу permission.
+*Amazonapi.PermissionsApi* | [**apiV1PermissionsPost**](docs/PermissionsApi.md#apiV1PermissionsPost) | **POST** /api/v1/permissions/ | # Создать permission.
 *Amazonapi.ProductApi* | [**apiV1ProductsAddSuppliersGuidPost**](docs/ProductApi.md#apiV1ProductsAddSuppliersGuidPost) | **POST** /api/v1/products/add_suppliers/{guid} | Добавить поставщиков к продукту.
 *Amazonapi.ProductApi* | [**apiV1ProductsRemoveSuppliersGuidPost**](docs/ProductApi.md#apiV1ProductsRemoveSuppliersGuidPost) | **POST** /api/v1/products/remove_suppliers/{guid} | Удалить поставщиков из продукта.
+*Amazonapi.ProductSearchRequestApi* | [**apiV1ProductSearchRequestsAddRequestPost**](docs/ProductSearchRequestApi.md#apiV1ProductSearchRequestsAddRequestPost) | **POST** /api/v1/product_search_requests/add_request | # Создать заявку на поиск товара.
+*Amazonapi.ProductSearchRequestApi* | [**apiV1ProductSearchRequestsClientsGet**](docs/ProductSearchRequestApi.md#apiV1ProductSearchRequestsClientsGet) | **GET** /api/v1/product_search_requests/clients | Получить список заявок созданных данным клиентом.
+*Amazonapi.ProductSearchRequestApi* | [**apiV1ProductSearchRequestsRemoveRequestGuidPatch**](docs/ProductSearchRequestApi.md#apiV1ProductSearchRequestsRemoveRequestGuidPatch) | **PATCH** /api/v1/product_search_requests/remove_request/{guid} | # Удалить заявку по его GUID.
+*Amazonapi.ProductSearchRequestApi* | [**apiV1ProductSearchRequestsResearchersGet**](docs/ProductSearchRequestApi.md#apiV1ProductSearchRequestsResearchersGet) | **GET** /api/v1/product_search_requests/researchers | Получить список всех доступных заявок.
+*Amazonapi.ProductSearchRequestApi* | [**apiV1ProductSearchRequestsUpdateRequestGuidPatch**](docs/ProductSearchRequestApi.md#apiV1ProductSearchRequestsUpdateRequestGuidPatch) | **PATCH** /api/v1/product_search_requests/update_request/{guid} | #  Изменить заявку на поиск товара.
 *Amazonapi.ResearcherApi* | [**apiV1ResearchersCheckProductsIdGet**](docs/ResearcherApi.md#apiV1ResearchersCheckProductsIdGet) | **GET** /api/v1/researchers/check_products/{id} | Проверить продукт по ID существует ли он в базе.
 *Amazonapi.ResearcherApi* | [**apiV1ResearchersParseAmazonIdGet**](docs/ResearcherApi.md#apiV1ResearchersParseAmazonIdGet) | **GET** /api/v1/researchers/parse_amazon/{id} | Получить данные о продукте с сайта Амазон по id(asin)
 *Amazonapi.ResearcherApi* | [**apiV1ResearchersParseSellercentralGet**](docs/ResearcherApi.md#apiV1ResearchersParseSellercentralGet) | **GET** /api/v1/researchers/parse_sellercentral | Получить данные о продукте с SellerCentral
@@ -243,10 +255,14 @@ Class | Method | HTTP request | Description
  - [Amazonapi.ApiV1AdminsPaymentsCreatedBy](docs/ApiV1AdminsPaymentsCreatedBy.md)
  - [Amazonapi.ApiV1AdminsTasksBoxesBefore](docs/ApiV1AdminsTasksBoxesBefore.md)
  - [Amazonapi.ApiV1AdminsTasksItems](docs/ApiV1AdminsTasksItems.md)
+ - [Amazonapi.ApiV1AdminsUsersPermissionGroups](docs/ApiV1AdminsUsersPermissionGroups.md)
+ - [Amazonapi.ApiV1AdminsUsersPermissions](docs/ApiV1AdminsUsersPermissions.md)
  - [Amazonapi.ApiV1BatchesBatch](docs/ApiV1BatchesBatch.md)
  - [Amazonapi.ApiV1BoxesApproveAdditionalBoxes](docs/ApiV1BoxesApproveAdditionalBoxes.md)
  - [Amazonapi.ApiV1BoxesItems](docs/ApiV1BoxesItems.md)
  - [Amazonapi.ApiV1BoxesMergeBoxBody](docs/ApiV1BoxesMergeBoxBody.md)
+ - [Amazonapi.ApiV1BoxesSplitBoxItems](docs/ApiV1BoxesSplitBoxItems.md)
+ - [Amazonapi.ApiV1BoxesSplitNewBoxesParams](docs/ApiV1BoxesSplitNewBoxesParams.md)
  - [Amazonapi.BadRequestError](docs/BadRequestError.md)
  - [Amazonapi.ConflictInTheState](docs/ConflictInTheState.md)
  - [Amazonapi.DefaultHeaders](docs/DefaultHeaders.md)
@@ -281,7 +297,12 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineObject33](docs/InlineObject33.md)
  - [Amazonapi.InlineObject34](docs/InlineObject34.md)
  - [Amazonapi.InlineObject35](docs/InlineObject35.md)
+ - [Amazonapi.InlineObject36](docs/InlineObject36.md)
+ - [Amazonapi.InlineObject37](docs/InlineObject37.md)
+ - [Amazonapi.InlineObject38](docs/InlineObject38.md)
+ - [Amazonapi.InlineObject39](docs/InlineObject39.md)
  - [Amazonapi.InlineObject4](docs/InlineObject4.md)
+ - [Amazonapi.InlineObject40](docs/InlineObject40.md)
  - [Amazonapi.InlineObject5](docs/InlineObject5.md)
  - [Amazonapi.InlineObject6](docs/InlineObject6.md)
  - [Amazonapi.InlineObject7](docs/InlineObject7.md)
@@ -290,6 +311,8 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineResponse200](docs/InlineResponse200.md)
  - [Amazonapi.InlineResponse2001](docs/InlineResponse2001.md)
  - [Amazonapi.InlineResponse20010](docs/InlineResponse20010.md)
+ - [Amazonapi.InlineResponse20010Info](docs/InlineResponse20010Info.md)
+ - [Amazonapi.InlineResponse20011](docs/InlineResponse20011.md)
  - [Amazonapi.InlineResponse2002](docs/InlineResponse2002.md)
  - [Amazonapi.InlineResponse2003](docs/InlineResponse2003.md)
  - [Amazonapi.InlineResponse2004](docs/InlineResponse2004.md)
@@ -305,7 +328,6 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineResponse2014](docs/InlineResponse2014.md)
  - [Amazonapi.InlineResponse2015](docs/InlineResponse2015.md)
  - [Amazonapi.InlineResponse2016](docs/InlineResponse2016.md)
- - [Amazonapi.InlineResponse2017](docs/InlineResponse2017.md)
  - [Amazonapi.InlineResponse400](docs/InlineResponse400.md)
  - [Amazonapi.InlineResponse403](docs/InlineResponse403.md)
  - [Amazonapi.InlineResponse404](docs/InlineResponse404.md)

@@ -11,23 +11,23 @@ class BoxesModelStatic {
     return response
   }
 
-  mergeBoxes = async ids => {
+  mergeBoxes = async (ids, boxBody) => {
     const response = await restApiService.boxesApi.apiV1BoxesMergePost({
-      InlineObject8: {guids: ids},
+      InlineObject7: {guids: ids, boxBody},
     })
     return response
   }
 
   cancelMergeBoxes = async id => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelMergePost({
-      InlineObject9: {guid: id},
+      InlineObject8: {guid: id},
     })
     return response
   }
 
   cancelEditBoxes = async id => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelEditPost({
-      InlineObject7: {guid: id},
+      InlineObject6: {guid: id},
     })
     return response
   }
@@ -39,7 +39,7 @@ class BoxesModelStatic {
 
   splitBoxes = async (id, data) => {
     const response = await restApiService.boxesApi.apiV1BoxesSplitPost({
-      InlineObject10: {guid: id, itemsBoxSet: data},
+      InlineObject9: {guid: id, itemsBoxSet: data},
     })
     return response
   }
@@ -51,7 +51,7 @@ class BoxesModelStatic {
 
   cancelSplitBoxes = async id => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelSplitPost({
-      InlineObject11: {guid: id},
+      InlineObject10: {guid: id},
     })
     return response
   }
@@ -65,10 +65,10 @@ class BoxesModelStatic {
     const response = await restApiService.boxesApi.apiV1BoxesApprovePost(
       Array.isArray(request)
         ? {
-            InlineObject12: {guid: id, additionalBoxes: [...request]},
+            InlineObject11: {guid: id, additionalBoxes: [...request]},
           }
         : {
-            InlineObject12: {guid: request},
+            InlineObject11: {guid: request},
           },
     )
     return response
@@ -91,7 +91,7 @@ class BoxesModelStatic {
 
   updateBox = async (id, data) => {
     const response = await restApiService.boxesApi.apiV1BoxesStorekeepersGuidPatch(id, {
-      InlineObject13: data,
+      InlineObject12: data,
     })
     return response
   }

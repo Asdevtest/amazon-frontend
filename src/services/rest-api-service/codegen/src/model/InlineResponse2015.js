@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse2015 {
     /**
      * Constructs a new <code>InlineResponse2015</code>.
+     * Успешный ответ
      * @alias module:model/InlineResponse2015
      */
     constructor() { 
@@ -47,8 +48,8 @@ class InlineResponse2015 {
         if (data) {
             obj = obj || new InlineResponse2015();
 
-            if (data.hasOwnProperty('fileName')) {
-                obj['fileName'] = ApiClient.convertToType(data['fileName'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -58,10 +59,10 @@ class InlineResponse2015 {
 }
 
 /**
- * Имя файла для доступа к нему.
- * @member {String} fileName
+ * guid созданного объекта
+ * @member {String} guid
  */
-InlineResponse2015.prototype['fileName'] = undefined;
+InlineResponse2015.prototype['guid'] = undefined;
 
 
 

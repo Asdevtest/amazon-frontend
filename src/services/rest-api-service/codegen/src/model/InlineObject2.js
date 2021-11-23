@@ -11,7 +11,7 @@
  *
  */
 
-import ApiClient from '../ApiClient';
+import ApiClient from '../ApiClient'
 
 /**
  * The InlineObject2 model module.
@@ -19,219 +19,211 @@ import ApiClient from '../ApiClient';
  * @version v0.0.1
  */
 class InlineObject2 {
-    /**
+  /**
      * Constructs a new <code>InlineObject2</code>.
      * @alias module:model/InlineObject2
      */
-    constructor() { 
-        
-        InlineObject2.initialize(this);
-    }
+  constructor() {
+    InlineObject2.initialize(this)
+  }
 
-    /**
+  /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
-    }
+  static initialize(obj) {}
 
-    /**
+  /**
      * Constructs a <code>InlineObject2</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/InlineObject2} obj Optional instance to populate.
      * @return {module:model/InlineObject2} The populated <code>InlineObject2</code> instance.
      */
-    static constructFromObject(data, obj) {
-        if (data) {
-            obj = obj || new InlineObject2();
+  static constructFromObject(data, obj) {
+    if (data) {
+      obj = obj || new InlineObject2()
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
-            }
-            if (data.hasOwnProperty('trackingNumberChina')) {
-                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
-            }
-            if (data.hasOwnProperty('amountPaymentPerConsignmentAtDollars')) {
-                obj['amountPaymentPerConsignmentAtDollars'] = ApiClient.convertToType(data['amountPaymentPerConsignmentAtDollars'], 'Number');
-            }
-            if (data.hasOwnProperty('totalPriceChanged')) {
-                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
-            }
-            if (data.hasOwnProperty('totalPrice')) {
-                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
-            }
-        }
-        return obj;
+      if (data.hasOwnProperty('buyerComment')) {
+        obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String')
+      }
+      if (data.hasOwnProperty('warehouse')) {
+        obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number')
+      }
+      if (data.hasOwnProperty('deliveryMethod')) {
+        obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number')
+      }
+      if (data.hasOwnProperty('fba')) {
+        obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean')
+      }
+      if (data.hasOwnProperty('status')) {
+        obj['status'] = ApiClient.convertToType(data['status'], 'Number')
+      }
+      if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+        obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number')
+      }
+      if (data.hasOwnProperty('images')) {
+        obj['images'] = ApiClient.convertToType(data['images'], [ 'String' ])
+      }
+      if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+        obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(
+          data['isBarCodeAlreadyAttachedByTheSupplier'],
+          'Boolean'
+        )
+      }
+      if (data.hasOwnProperty('trackingNumberChina')) {
+        obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String')
+      }
+      if (data.hasOwnProperty('amountPaymentPerConsignmentAtDollars')) {
+        obj['amountPaymentPerConsignmentAtDollars'] = ApiClient.convertToType(
+          data['amountPaymentPerConsignmentAtDollars'],
+          'Number'
+        )
+      }
+      if (data.hasOwnProperty('totalPriceChanged')) {
+        obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number')
+      }
+      if (data.hasOwnProperty('totalPrice')) {
+        obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number')
+      }
     }
-
-
+    return obj
+  }
 }
-
-
 
 /**
  * Allowed values for the <code>status</code> property.
  * @enum {Number}
  * @readonly
  */
- InlineObject2['StatusEnum'] = {
-
-    /**
+InlineObject2['StatusEnum'] = {
+  /**
      * value: 0
      * @const
      */
-    "0": 0,
+  '0': 0,
 
-    /**
+  /**
      * value: 1
      * @const
      */
-    "1": 1,
+  '1': 1,
 
-    /**
+  /**
      * value: 10
      * @const
      */
-    "10": 10,
+  '10': 10,
 
-    /**
+  /**
      * value: 15
      * @const
      */
-    "15": 15,
+  '15': 15,
 
-    /**
+  /**
      * value: 20
      * @const
      */
-    "20": 20,
+  '20': 20,
 
-    /**
+  /**
      * value: 25
      * @const
      */
-    "25": 25,
+  '25': 25,
 
-    /**
+  /**
      * value: 30
      * @const
      */
-    "30": 30,
+  '30': 30,
 
-    /**
+  /**
      * value: 35
      * @const
      */
-    "35": 35,
+  '35': 35,
 
-    /**
+  /**
      * value: 40
      * @const
      */
-    "40": 40
-};
-
+  '40': 40
+}
 
 /**
  * комментарии байера.
  * @member {String} buyerComment
  */
-InlineObject2.prototype['buyerComment'] = undefined;
+InlineObject2.prototype['buyerComment'] = undefined
 
 /**
  * Номер склада.
  * @member {Number} warehouse
  */
-InlineObject2.prototype['warehouse'] = undefined;
+InlineObject2.prototype['warehouse'] = undefined
 
 /**
  * Вид доставки.
  * @member {Number} deliveryMethod
  */
-InlineObject2.prototype['deliveryMethod'] = undefined;
+InlineObject2.prototype['deliveryMethod'] = undefined
 
 /**
  * Признак FBA это заказ или нет.
  * @member {Boolean} fba
  */
-InlineObject2.prototype['fba'] = undefined;
+InlineObject2.prototype['fba'] = undefined
 
 /**
  *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      returnOrder: 35 Если Заказ пришёл не кондиционный - \"возврат заказа\"    
  * @member {module:model/InlineObject2.StatusEnum} status
  * @default StatusEnum.1
  */
-InlineObject2.prototype['status'] = InlineObject2.StatusEnum[1];
+InlineObject2.prototype['status'] = InlineObject2.StatusEnum[1]
 
 /**
  * Стоимость доставки до склада.
  * @member {Number} deliveryCostToTheWarehouse
  */
-InlineObject2.prototype['deliveryCostToTheWarehouse'] = undefined;
+InlineObject2.prototype['deliveryCostToTheWarehouse'] = undefined
 
 /**
  * Массив картинок.
  * @member {Array.<String>} images
  */
-InlineObject2.prototype['images'] = undefined;
+InlineObject2.prototype['images'] = undefined
 
 /**
  * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
  * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
  */
-InlineObject2.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+InlineObject2.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined
 
 /**
  * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
  * @member {String} trackingNumberChina
  */
-InlineObject2.prototype['trackingNumberChina'] = undefined;
+InlineObject2.prototype['trackingNumberChina'] = undefined
 
 /**
  * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
  * @member {Number} amountPaymentPerConsignmentAtDollars
  */
-InlineObject2.prototype['amountPaymentPerConsignmentAtDollars'] = undefined;
+InlineObject2.prototype['amountPaymentPerConsignmentAtDollars'] = undefined
 
 /**
  * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
  * @member {Number} totalPriceChanged
  */
-InlineObject2.prototype['totalPriceChanged'] = undefined;
+InlineObject2.prototype['totalPriceChanged'] = undefined
 
 /**
  * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
  * @member {Number} totalPrice
  */
-InlineObject2.prototype['totalPrice'] = undefined;
+InlineObject2.prototype['totalPrice'] = undefined
 
-
-
-
-
-
-export default InlineObject2;
-
+export default InlineObject2

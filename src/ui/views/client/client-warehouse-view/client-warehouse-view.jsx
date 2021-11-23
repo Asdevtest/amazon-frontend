@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import {Typography, Paper} from '@material-ui/core'
 import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
+import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -17,7 +18,8 @@ import {SendOwnProductForm} from '@components/forms/send-own-product-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
-import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal/'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
 import {RequestToSendBatchModal} from '@components/modals/request-to-send-batch-modal/request-to-send-batch-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
@@ -63,6 +65,7 @@ export class ClientWarehouseViewRaw extends Component {
       boxesMy,
       selectedBoxes,
       showMergeBoxModal,
+      showConfirmModal,
       showTaskInfoModal,
       showSendOwnProductModal,
       showEditBoxModal,
@@ -80,13 +83,13 @@ export class ClientWarehouseViewRaw extends Component {
       onTriggerOpenModal,
       onModalRedistributeBoxAddNewBox,
       onEditBoxSubmit,
-      cancelMergeBoxes,
-      cancelSplitBoxes,
-      cancelEditBoxes,
       setCurrentOpenedTask,
       triggerRequestToSendBatchModal,
       onClickSendBoxesToBatch,
       onClickMerge,
+      onRemoveBoxFromSelected,
+      onClickCancelBtn,
+      onClickCancelAfterConfirm,
 
       onChangeFilterModel,
       onSelectionModel,
@@ -133,6 +136,7 @@ export class ClientWarehouseViewRaw extends Component {
                   checkboxSelection
                   isRowSelectable={params => params.row.isDraft === false}
                   getRowClassName={params => params.getValue(params.id, 'isDraft') === true && classNames.isDraftRow}
+                  selectionModel={selectedBoxes}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
@@ -159,10 +163,8 @@ export class ClientWarehouseViewRaw extends Component {
                 <WarehouseHistory
                   tasksData={tasksMy}
                   title={textConsts.warehouseHistoryTitle}
-                  onCancelMergeBoxes={cancelMergeBoxes}
-                  onCancelSplitBoxes={cancelSplitBoxes}
-                  onCancelEditBoxes={cancelEditBoxes}
                   onClickTaskInfo={setCurrentOpenedTask}
+                  onClickCancelBtn={onClickCancelBtn}
                 />
               </Paper>
             </MainContent>
@@ -200,14 +202,12 @@ export class ClientWarehouseViewRaw extends Component {
           </div>
         </Modal>
 
-        <ConfirmWithCommentModal
+        <MergeBoxesModal
+          selectedBoxes={(selectedBoxes.length && toJS(boxesMy.filter(box => selectedBoxes.includes(box._id)))) || []}
           requestStatus={requestStatus}
           openModal={showMergeBoxModal}
           setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
-          titleText={textConsts.modalMergeTitle}
-          commentLabelText={textConsts.modalMergeFieldLabel}
-          okBtnText={textConsts.modalMergeMergeBtn}
-          cancelBtnText={textConsts.modalMergeCancelBtn}
+          onRemoveBoxFromSelected={onRemoveBoxFromSelected}
           onSubmit={onClickMerge}
         />
 
@@ -254,6 +254,20 @@ export class ClientWarehouseViewRaw extends Component {
           boxesMy={boxesMy}
           onClickRemoveBoxFromBatch={onTriggerCheckbox}
           onClickSendBoxesToBatch={onClickSendBoxesToBatch}
+        />
+
+        <ConfirmationModal
+          isWarning
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={textConsts.confirmTitle}
+          message={textConsts.confirmMessage}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={() => {
+            onClickCancelAfterConfirm()
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
       </React.Fragment>
     )
