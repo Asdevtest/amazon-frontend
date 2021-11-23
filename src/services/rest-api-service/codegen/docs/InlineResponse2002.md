@@ -13,6 +13,9 @@ Name | Type | Description | Notes
 **rate** | **Number** | Ставка, по который оплачивается сотрудник. | 
 **balance** | **Number** | Балан сотрудника | [optional] 
 **balanceFreeze** | **Number** | Замороженная при оплате ордера сумма. | [optional] 
+**overdraft** | **Number** | Сумма на которую может уходить в минус пользователь. | [optional] 
+**permissions** | [**[ApiV1AdminsUsersPermissions]**](ApiV1AdminsUsersPermissions.md) |  | [optional] 
+**permissionGroups** | [**[ApiV1AdminsUsersPermissionGroups]**](ApiV1AdminsUsersPermissionGroups.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 
 

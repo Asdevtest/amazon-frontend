@@ -13,8 +13,8 @@
 
 
 import ApiClient from "../ApiClient";
-import InlineObject30 from '../model/InlineObject30';
-import InlineObject31 from '../model/InlineObject31';
+import InlineObject35 from '../model/InlineObject35';
+import InlineObject36 from '../model/InlineObject36';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
@@ -47,12 +47,12 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject30} opts.InlineObject30 
+     * @param {module:model/InlineObject35} opts.InlineObject35 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject30'];
+      let postBody = opts['InlineObject35'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1SupervisorsProductsGuidPatch");
@@ -86,7 +86,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject30} opts.InlineObject30 
+     * @param {module:model/InlineObject35} opts.InlineObject35 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsGuidPatch(guid, opts) {
@@ -103,12 +103,12 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject31} opts.InlineObject31 
+     * @param {module:model/InlineObject36} opts.InlineObject36 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsListingGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject31'];
+      let postBody = opts['InlineObject36'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1SupervisorsProductsListingGuidPatch");
@@ -142,7 +142,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject31} opts.InlineObject31 
+     * @param {module:model/InlineObject36} opts.InlineObject36 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsListingGuidPatch(guid, opts) {

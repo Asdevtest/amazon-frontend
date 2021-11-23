@@ -5,8 +5,8 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
 import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 
+import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {adminTasksViewColumns} from '@components/table-columns/admin/tasks-columns'
 
@@ -107,7 +107,7 @@ export class AdminWarehouseTasksViewModel {
 
   async getTasks() {
     try {
-      const result = await StorekeeperModel.getTasksVacant() // необходим отдельный запрос для админа
+      const result = await AdministratorModel.getTasks() // необходим отдельный запрос для админа
 
       runInAction(() => {
         this.tasksData = result
@@ -146,6 +146,6 @@ export class AdminWarehouseTasksViewModel {
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e.pageSize
+    this.rowsPerPage = e
   }
 }

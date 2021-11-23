@@ -49,6 +49,9 @@ class InlineObject14 {
         if (data) {
             obj = obj || new InlineObject14();
 
+            if (data.hasOwnProperty('cancel')) {
+                obj['cancel'] = ApiClient.convertToType(data['cancel'], 'Boolean');
+            }
             if (data.hasOwnProperty('boxesIds')) {
                 obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
@@ -58,6 +61,13 @@ class InlineObject14 {
 
 
 }
+
+/**
+ * Флаг отмены. Если он true - то все списания будут сделаны с обратным знаком.
+ * @member {Boolean} cancel
+ * @default false
+ */
+InlineObject14.prototype['cancel'] = false;
 
 /**
  * @member {Array.<String>} boxesIds

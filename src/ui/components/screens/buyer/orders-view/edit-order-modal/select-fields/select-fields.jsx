@@ -11,7 +11,7 @@ import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {ImageFileInput} from '@components/image-file-input'
 import {Input} from '@components/input'
-import {BigImagesModal} from '@components/modals/show-big-images-modal'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'

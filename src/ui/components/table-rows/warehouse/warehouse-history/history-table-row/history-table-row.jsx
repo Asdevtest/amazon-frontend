@@ -17,7 +17,7 @@ import {useClassNames} from './history-table-row.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseHistoryBodyRow
 
-export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, onCancelEditBoxes, onClickTaskInfo}) => {
+export const HistoryTableRow = ({item, onClickTaskInfo, onClickCancelBtn}) => {
   const classNames = useClassNames()
 
   const renderProductImage = (box, key) => (
@@ -93,7 +93,7 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, o
             <TableCell>
               {renderTaskInfoBtn()}
               {checkIfTaskCouldBeCanceled(item.status) && (
-                <ErrorButton onClick={() => onCancelMergeBoxes(item.boxes[0]._id, item._id)}>
+                <ErrorButton onClick={() => onClickCancelBtn(item.boxes[0]._id, item._id, 'merge')}>
                   {textConsts.cancelBtn}
                 </ErrorButton>
               )}
@@ -107,7 +107,7 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, o
             <TableCell>
               {renderTaskInfoBtn()}
               {checkIfTaskCouldBeCanceled(item.status) && (
-                <ErrorButton onClick={() => onCancelSplitBoxes(item.boxes[0]._id, item._id)}>
+                <ErrorButton onClick={() => onClickCancelBtn(item.boxes[0]._id, item._id, 'split')}>
                   {textConsts.cancelBtn}
                 </ErrorButton>
               )}
@@ -128,7 +128,7 @@ export const HistoryTableRow = ({item, onCancelMergeBoxes, onCancelSplitBoxes, o
             <TableCell>
               {renderTaskInfoBtn()}
               {checkIfTaskCouldBeCanceled(item.status) && (
-                <ErrorButton onClick={() => onCancelEditBoxes(item.boxes[0]._id, item._id)}>
+                <ErrorButton onClick={() => onClickCancelBtn(item.boxes[0]._id, item._id, 'edit')}>
                   {textConsts.cancelBtn}
                 </ErrorButton>
               )}

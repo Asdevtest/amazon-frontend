@@ -228,7 +228,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherUploadFilePost
 
-> InlineResponse2015 apiV1OtherUploadFilePost(opts)
+> InlineResponse2014 apiV1OtherUploadFilePost(opts)
 
 # Загрузить изображение.
 
@@ -266,7 +266,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2015**](InlineResponse2015.md)
+[**InlineResponse2014**](InlineResponse2014.md)
 
 ### Authorization
 

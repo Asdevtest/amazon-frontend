@@ -266,7 +266,9 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, par
     }
   }
 
-  return <React.Fragment>{renderTaskDescription(params.row.operationType)}</React.Fragment>
+  return (
+    <div className={classNames.taskDescriptionScrollWrapper}>{renderTaskDescription(params.row.operationType)}</div>
+  )
 })
 
 export const TaskStatusCell = withStyles(styles)(({params}) => (
@@ -292,7 +294,7 @@ export const ToFixedWithKgSignCell = withStyles(styles)(({classes: classNames, v
 ))
 
 export const SmallRowImageCell = withStyles(styles)(({classes: classNames, images}) => (
-  <div>
+  <div className={classNames.smallRowImgWrapper}>
     <img alt="placeholder" className={classNames.img} src={images && images[0] && getAmazonImageUrl(images[0])} />
   </div>
 ))
@@ -423,4 +425,21 @@ export const ScrollingCell = withStyles(styles)(({classes: classNames, value}) =
   <React.Fragment>
     <Typography className={classNames.scrollingValue}>{value || 'N/A'}</Typography>
   </React.Fragment>
+))
+
+export const EditOrRemoveBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
+  <div>
+    <Button variant="contained" color="primary" onClick={() => handlers.onClickEditBtn(row)}>
+      {textConsts.editBtn}
+    </Button>
+
+    <ErrorButton
+      className={classNames.rowCancelBtn}
+      onClick={() => {
+        handlers.onClickRemoveBtn(row._id)
+      }}
+    >
+      {textConsts.removeBtn}
+    </ErrorButton>
+  </div>
 ))

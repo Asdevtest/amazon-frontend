@@ -22,10 +22,12 @@ class InlineObject16 {
     /**
      * Constructs a new <code>InlineObject16</code>.
      * @alias module:model/InlineObject16
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param operationType {module:model/InlineObject16.OperationTypeEnum} Тип операции
      */
-    constructor() { 
+    constructor(taskId, operationType) { 
         
-        InlineObject16.initialize(this);
+        InlineObject16.initialize(this, taskId, operationType);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject16 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, taskId, operationType) { 
+        obj['taskId'] = taskId;
+        obj['operationType'] = operationType;
     }
 
     /**
@@ -47,38 +51,26 @@ class InlineObject16 {
         if (data) {
             obj = obj || new InlineObject16();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
             }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
             }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
             }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
-            }
-            if (data.hasOwnProperty('trackingNumberChina')) {
-                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
-            }
-            if (data.hasOwnProperty('amountPaymentPerConsignmentAtDollars')) {
-                obj['amountPaymentPerConsignmentAtDollars'] = ApiClient.convertToType(data['amountPaymentPerConsignmentAtDollars'], 'Number');
-            }
-            if (data.hasOwnProperty('totalPriceChanged')) {
-                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -87,108 +79,34 @@ class InlineObject16 {
 
 }
 
-
+/**
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
+ */
+InlineObject16.prototype['taskId'] = undefined;
 
 /**
- * Allowed values for the <code>status</code> property.
- * @enum {Number}
- * @readonly
+ * @member {Array.<String>} boxesBefore
  */
- InlineObject16['StatusEnum'] = {
-
-    /**
-     * value: 0
-     * @const
-     */
-    "0": 0,
-
-    /**
-     * value: 1
-     * @const
-     */
-    "1": 1,
-
-    /**
-     * value: 10
-     * @const
-     */
-    "10": 10,
-
-    /**
-     * value: 15
-     * @const
-     */
-    "15": 15,
-
-    /**
-     * value: 20
-     * @const
-     */
-    "20": 20,
-
-    /**
-     * value: 25
-     * @const
-     */
-    "25": 25,
-
-    /**
-     * value: 30
-     * @const
-     */
-    "30": 30,
-
-    /**
-     * value: 35
-     * @const
-     */
-    "35": 35,
-
-    /**
-     * value: 40
-     * @const
-     */
-    "40": 40
-};
-
-
+InlineObject16.prototype['boxesBefore'] = undefined;
 
 /**
- * комментарии байера.
- * @member {String} buyerComment
+ * @member {Array.<String>} boxes
  */
-InlineObject16.prototype['buyerComment'] = undefined;
+InlineObject16.prototype['boxes'] = undefined;
 
 /**
- * Номер склада.
- * @member {Number} warehouse
+ * Тип операции
+ * @member {module:model/InlineObject16.OperationTypeEnum} operationType
  */
-InlineObject16.prototype['warehouse'] = undefined;
+InlineObject16.prototype['operationType'] = undefined;
 
 /**
- * Вид доставки.
- * @member {Number} deliveryMethod
+ * Комментарий клиента.
+ * @member {String} clientComment
+ * @default ''
  */
-InlineObject16.prototype['deliveryMethod'] = undefined;
-
-/**
- * Признак FBA это заказ или нет.
- * @member {Boolean} fba
- */
-InlineObject16.prototype['fba'] = undefined;
-
-/**
- *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      returnOrder: 35 Если Заказ пришёл не кондиционный - \"возврат заказа\"    
- * @member {module:model/InlineObject16.StatusEnum} status
- * @default StatusEnum.1
- */
-InlineObject16.prototype['status'] = InlineObject16.StatusEnum[1];
-
-/**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
- */
-InlineObject16.prototype['deliveryCostToTheWarehouse'] = undefined;
+InlineObject16.prototype['clientComment'] = '';
 
 /**
  * Массив картинок.
@@ -197,30 +115,46 @@ InlineObject16.prototype['deliveryCostToTheWarehouse'] = undefined;
 InlineObject16.prototype['images'] = undefined;
 
 /**
- * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
  */
-InlineObject16.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+InlineObject16.prototype['storekeeperComment'] = undefined;
+
+
+
+
 
 /**
- * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
- * @member {String} trackingNumberChina
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineObject16.prototype['trackingNumberChina'] = undefined;
+InlineObject16['OperationTypeEnum'] = {
 
-/**
- * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
- * @member {Number} amountPaymentPerConsignmentAtDollars
- */
-InlineObject16.prototype['amountPaymentPerConsignmentAtDollars'] = undefined;
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
 
-/**
- * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
- * @member {Number} totalPriceChanged
- */
-InlineObject16.prototype['totalPriceChanged'] = undefined;
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
 
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive",
 
+    /**
+     * value: "edit"
+     * @const
+     */
+    "edit": "edit"
+};
 
 
 

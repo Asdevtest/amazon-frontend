@@ -35,9 +35,10 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   imgBox: {
-    width: '400px',
-    height: '400px',
-    objectFit: 'center',
+    width: '200px',
+    height: '200px',
+    objectFit: 'contain',
+    objectPosition: 'center',
     transition: '.2s ease',
     cursor: 'pointer',
     '&:hover': {
@@ -45,6 +46,6 @@ export const useClassNames = makeStyles(theme => ({
     },
   },
   photoWrapper: {
-    width: '400px',
+    width: '200px',
   },
 }))

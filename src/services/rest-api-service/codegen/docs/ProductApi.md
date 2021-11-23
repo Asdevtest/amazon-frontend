@@ -32,7 +32,7 @@ let apiInstance = new Amazonapi.ProductApi();
 let guid = "guid_example"; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject23': new Amazonapi.InlineObject23() // InlineObject23 | 
+  'InlineObject28': new Amazonapi.InlineObject28() // InlineObject28 | 
 };
 apiInstance.apiV1ProductsAddSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -49,7 +49,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject23** | [**InlineObject23**](InlineObject23.md)|  | [optional] 
+ **InlineObject28** | [**InlineObject28**](InlineObject28.md)|  | [optional] 
 
 ### Return type
 
@@ -88,7 +88,7 @@ let apiInstance = new Amazonapi.ProductApi();
 let guid = "guid_example"; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject24': new Amazonapi.InlineObject24() // InlineObject24 | 
+  'InlineObject29': new Amazonapi.InlineObject29() // InlineObject29 | 
 };
 apiInstance.apiV1ProductsRemoveSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject24** | [**InlineObject24**](InlineObject24.md)|  | [optional] 
+ **InlineObject29** | [**InlineObject29**](InlineObject29.md)|  | [optional] 
 
 ### Return type
 

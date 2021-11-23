@@ -15,6 +15,7 @@ import {Field} from '@components/field/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
@@ -57,6 +58,7 @@ export class WarehouseMyTasksViewRaw extends Component {
       showEditBoxModal,
       showNoDimensionsErrorModal,
       showCancelTaskModal,
+      showConfirmModal,
       onChangeTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -185,6 +187,20 @@ export class WarehouseMyTasksViewRaw extends Component {
           onClickBtn={() => {
             onTriggerOpenModal('showNoDimensionsErrorModal')
           }}
+        />
+
+        <ConfirmationModal
+          isWarning
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={textConsts.confirmTitle}
+          message={textConsts.confirmMessage}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showCancelTaskModal')
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
       </React.Fragment>
     )

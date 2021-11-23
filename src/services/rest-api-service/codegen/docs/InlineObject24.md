@@ -4,6 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersIds** | **[String]** | GUIDы поставщиков, которые нужно добавить в БД. | [optional] 
+**key** | **String** | Ключ группы permission | 
+**title** | **String** | Простое название | 
+**description** | **String** | Описание permission | 
+**permissions** | **[String]** |  | [optional] 
 
 

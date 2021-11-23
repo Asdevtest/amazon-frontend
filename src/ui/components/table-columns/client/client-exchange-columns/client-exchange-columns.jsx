@@ -92,7 +92,7 @@ export const clientExchangeViewColumns = handlers => [
     width: 250,
     renderCell: params => (
       <SuccessActionBtnCell
-        bTnText={`${textConsts.byForBtn} ${toFixedWithDollarSign(calcProductPrice(params.row))}`}
+        bTnText={`${textConsts.byForBtn} ${toFixedWithDollarSign(calcProductPrice(params.row), 2)}`}
         onClickOkBtn={() => handlers.onClickLaunchPrivateLabelBtn(params.row)}
       />
     ),

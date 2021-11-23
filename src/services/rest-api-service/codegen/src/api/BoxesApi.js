@@ -19,7 +19,6 @@ import InlineObject11 from '../model/InlineObject11';
 import InlineObject12 from '../model/InlineObject12';
 import InlineObject13 from '../model/InlineObject13';
 import InlineObject14 from '../model/InlineObject14';
-import InlineObject15 from '../model/InlineObject15';
 import InlineObject4 from '../model/InlineObject4';
 import InlineObject5 from '../model/InlineObject5';
 import InlineObject6 from '../model/InlineObject6';
@@ -28,7 +27,6 @@ import InlineObject8 from '../model/InlineObject8';
 import InlineObject9 from '../model/InlineObject9';
 import InlineResponse201 from '../model/InlineResponse201';
 import InlineResponse2011 from '../model/InlineResponse2011';
-import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse409 from '../model/InlineResponse409';
@@ -59,12 +57,12 @@ export default class BoxesApi {
      * ## Подтвердить операцию объединения/разъединения коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject12} opts.InlineObject12 
+     * @param {module:model/InlineObject11} opts.InlineObject11 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesApprovePostWithHttpInfo(opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject12'];
+      let postBody = opts['InlineObject11'];
 
       let pathParams = {
       };
@@ -92,7 +90,7 @@ export default class BoxesApi {
      * ## Подтвердить операцию объединения/разъединения коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject12} opts.InlineObject12 
+     * @param {module:model/InlineObject11} opts.InlineObject11 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesApprovePost(opts) {
@@ -266,15 +264,15 @@ export default class BoxesApi {
 
     /**
      * # Отменить редактирование коробок.
-     * ## Отменить объединение коробок.  
+     * ## Отменить редактирование коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject7} opts.InlineObject7 
+     * @param {module:model/InlineObject6} opts.InlineObject6 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesCancelEditPostWithHttpInfo(opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject7'];
+      let postBody = opts['InlineObject6'];
 
       let pathParams = {
       };
@@ -299,10 +297,10 @@ export default class BoxesApi {
 
     /**
      * # Отменить редактирование коробок.
-     * ## Отменить объединение коробок.  
+     * ## Отменить редактирование коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject7} opts.InlineObject7 
+     * @param {module:model/InlineObject6} opts.InlineObject6 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesCancelEditPost(opts) {
@@ -372,12 +370,12 @@ export default class BoxesApi {
      * ## Отменить объединение коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject9} opts.InlineObject9 
+     * @param {module:model/InlineObject8} opts.InlineObject8 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesCancelMergePostWithHttpInfo(opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject9'];
+      let postBody = opts['InlineObject8'];
 
       let pathParams = {
       };
@@ -405,7 +403,7 @@ export default class BoxesApi {
      * ## Отменить объединение коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject9} opts.InlineObject9 
+     * @param {module:model/InlineObject8} opts.InlineObject8 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesCancelMergePost(opts) {
@@ -421,12 +419,12 @@ export default class BoxesApi {
      * ## Отменить разделение коробок.   ## !!! У каждой коробки которая была создана разделением есть братья.    ## !!! Братья - коробки которые были созданы с этой, при разделении родителя.    ## !!! При отмене текущая коробка и все ee братья будут удалены. Родитель восстановлен.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject11} opts.InlineObject11 
+     * @param {module:model/InlineObject10} opts.InlineObject10 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesCancelSplitPostWithHttpInfo(opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject11'];
+      let postBody = opts['InlineObject10'];
 
       let pathParams = {
       };
@@ -454,7 +452,7 @@ export default class BoxesApi {
      * ## Отменить разделение коробок.   ## !!! У каждой коробки которая была создана разделением есть братья.    ## !!! Братья - коробки которые были созданы с этой, при разделении родителя.    ## !!! При отмене текущая коробка и все ee братья будут удалены. Родитель восстановлен.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject11} opts.InlineObject11 
+     * @param {module:model/InlineObject10} opts.InlineObject10 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesCancelSplitPost(opts) {
@@ -608,79 +606,23 @@ export default class BoxesApi {
 
     /**
      * # Отредактировать коробку.
-     * ## Отредактировать коробку. Коробка после редактирования станет черновиком. Ее нужно будет подтвердить  ## ВНИМАНИЕ - фактически будет создана новая коробка а старая пометится как удаленная.   ## ВНИМАНИЕ - передайте весь набор параметров как на создание новой коробки. Не только те которые нужно изменить.  
+     * ## ЭТО МЕТОД ИСОЛЬЗУЕТСЯ ДЛЯ ТАСКОВ  ## Отредактировать коробку. Коробка после редактирования станет черновиком. Ее нужно будет подтвердить  ## ВНИМАНИЕ - фактически будет создана новая коробка а старая пометится как удаленная.   ## ВНИМАНИЕ - передайте весь набор параметров как на создание новой коробки. Не только те которые нужно изменить.  
      * @param {String} guid GUID в сущности в БД
-     * @param {module:model/InlineObject6} InlineObject6 
+     * @param {module:model/InlineObject5} InlineObject5 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2012} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
      */
-    apiV1BoxesEditGuidPostWithHttpInfo(guid, InlineObject6, opts) {
+    apiV1BoxesEditGuidPostWithHttpInfo(guid, InlineObject5, opts) {
       opts = opts || {};
-      let postBody = InlineObject6;
+      let postBody = InlineObject5;
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesEditGuidPost");
       }
-      // verify the required parameter 'InlineObject6' is set
-      if (InlineObject6 === undefined || InlineObject6 === null) {
-        throw new Error("Missing the required parameter 'InlineObject6' when calling apiV1BoxesEditGuidPost");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
-      let returnType = InlineResponse2012;
-      return this.apiClient.callApi(
-        '/api/v1/boxes/edit/{guid}', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Отредактировать коробку.
-     * ## Отредактировать коробку. Коробка после редактирования станет черновиком. Ее нужно будет подтвердить  ## ВНИМАНИЕ - фактически будет создана новая коробка а старая пометится как удаленная.   ## ВНИМАНИЕ - передайте весь набор параметров как на создание новой коробки. Не только те которые нужно изменить.  
-     * @param {String} guid GUID в сущности в БД
-     * @param {module:model/InlineObject6} InlineObject6 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2012}
-     */
-    apiV1BoxesEditGuidPost(guid, InlineObject6, opts) {
-      return this.apiV1BoxesEditGuidPostWithHttpInfo(guid, InlineObject6, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Изменить параметры коробки из роли сторкипера.
-     * ## Изменить параметры коробки из роли сторкипера.   
-     * @param {String} guid GUID коробки, которую мы хотим изменить
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject5} opts.InlineObject5 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
-     */
-    apiV1BoxesEditWithDraftGuidPostWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = opts['InlineObject5'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesEditWithDraftGuidPost");
+      // verify the required parameter 'InlineObject5' is set
+      if (InlineObject5 === undefined || InlineObject5 === null) {
+        throw new Error("Missing the required parameter 'InlineObject5' when calling apiV1BoxesEditGuidPost");
       }
 
       let pathParams = {
@@ -699,23 +641,23 @@ export default class BoxesApi {
       let accepts = ['text/html'];
       let returnType = InlineResponse2011;
       return this.apiClient.callApi(
-        '/api/v1/boxes/edit_with_draft/{guid}', 'POST',
+        '/api/v1/boxes/edit/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * # Изменить параметры коробки из роли сторкипера.
-     * ## Изменить параметры коробки из роли сторкипера.   
-     * @param {String} guid GUID коробки, которую мы хотим изменить
+     * # Отредактировать коробку.
+     * ## ЭТО МЕТОД ИСОЛЬЗУЕТСЯ ДЛЯ ТАСКОВ  ## Отредактировать коробку. Коробка после редактирования станет черновиком. Ее нужно будет подтвердить  ## ВНИМАНИЕ - фактически будет создана новая коробка а старая пометится как удаленная.   ## ВНИМАНИЕ - передайте весь набор параметров как на создание новой коробки. Не только те которые нужно изменить.  
+     * @param {String} guid GUID в сущности в БД
+     * @param {module:model/InlineObject5} InlineObject5 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject5} opts.InlineObject5 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
      */
-    apiV1BoxesEditWithDraftGuidPost(guid, opts) {
-      return this.apiV1BoxesEditWithDraftGuidPostWithHttpInfo(guid, opts)
+    apiV1BoxesEditGuidPost(guid, InlineObject5, opts) {
+      return this.apiV1BoxesEditGuidPostWithHttpInfo(guid, InlineObject5, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -828,12 +770,12 @@ export default class BoxesApi {
      * ## Объединить две и более коробок.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject8} opts.InlineObject8 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2012} and HTTP response
+     * @param {module:model/InlineObject7} opts.InlineObject7 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
      */
     apiV1BoxesMergePostWithHttpInfo(opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject8'];
+      let postBody = opts['InlineObject7'];
 
       let pathParams = {
       };
@@ -848,7 +790,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2012;
+      let returnType = InlineResponse2011;
       return this.apiClient.callApi(
         '/api/v1/boxes/merge', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -861,8 +803,8 @@ export default class BoxesApi {
      * ## Объединить две и более коробок.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject8} opts.InlineObject8 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2012}
+     * @param {module:model/InlineObject7} opts.InlineObject7 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
      */
     apiV1BoxesMergePost(opts) {
       return this.apiV1BoxesMergePostWithHttpInfo(opts)
@@ -928,17 +870,17 @@ export default class BoxesApi {
     /**
      * # Запросить отправку набора коробок в партию.
      * ## Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле sendToBatch должно выставиться в true. Так же с клиента должны списаться деньги (и генерироваться оплаты) 
-     * @param {module:model/InlineObject15} InlineObject15 
+     * @param {module:model/InlineObject14} InlineObject14 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1BoxesRequestSendBoxesToBatchPostWithHttpInfo(InlineObject15, opts) {
+    apiV1BoxesRequestSendBoxesToBatchPostWithHttpInfo(InlineObject14, opts) {
       opts = opts || {};
-      let postBody = InlineObject15;
-      // verify the required parameter 'InlineObject15' is set
-      if (InlineObject15 === undefined || InlineObject15 === null) {
-        throw new Error("Missing the required parameter 'InlineObject15' when calling apiV1BoxesRequestSendBoxesToBatchPost");
+      let postBody = InlineObject14;
+      // verify the required parameter 'InlineObject14' is set
+      if (InlineObject14 === undefined || InlineObject14 === null) {
+        throw new Error("Missing the required parameter 'InlineObject14' when calling apiV1BoxesRequestSendBoxesToBatchPost");
       }
 
       let pathParams = {
@@ -965,13 +907,13 @@ export default class BoxesApi {
     /**
      * # Запросить отправку набора коробок в партию.
      * ## Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле sendToBatch должно выставиться в true. Так же с клиента должны списаться деньги (и генерироваться оплаты) 
-     * @param {module:model/InlineObject15} InlineObject15 
+     * @param {module:model/InlineObject14} InlineObject14 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1BoxesRequestSendBoxesToBatchPost(InlineObject15, opts) {
-      return this.apiV1BoxesRequestSendBoxesToBatchPostWithHttpInfo(InlineObject15, opts)
+    apiV1BoxesRequestSendBoxesToBatchPost(InlineObject14, opts) {
+      return this.apiV1BoxesRequestSendBoxesToBatchPostWithHttpInfo(InlineObject14, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -981,17 +923,17 @@ export default class BoxesApi {
     /**
      * # Отправить набор коробок в партию.
      * ## Отправить набор коробок в партию.   Этот метод будет дергать склад и передавать в него массив id коробок, после этого метода у коробок sendToBatchComplete должен измениться на true
-     * @param {module:model/InlineObject14} InlineObject14 
+     * @param {module:model/InlineObject13} InlineObject13 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1BoxesSendBoxesToBatchPostWithHttpInfo(InlineObject14, opts) {
+    apiV1BoxesSendBoxesToBatchPostWithHttpInfo(InlineObject13, opts) {
       opts = opts || {};
-      let postBody = InlineObject14;
-      // verify the required parameter 'InlineObject14' is set
-      if (InlineObject14 === undefined || InlineObject14 === null) {
-        throw new Error("Missing the required parameter 'InlineObject14' when calling apiV1BoxesSendBoxesToBatchPost");
+      let postBody = InlineObject13;
+      // verify the required parameter 'InlineObject13' is set
+      if (InlineObject13 === undefined || InlineObject13 === null) {
+        throw new Error("Missing the required parameter 'InlineObject13' when calling apiV1BoxesSendBoxesToBatchPost");
       }
 
       let pathParams = {
@@ -1018,13 +960,13 @@ export default class BoxesApi {
     /**
      * # Отправить набор коробок в партию.
      * ## Отправить набор коробок в партию.   Этот метод будет дергать склад и передавать в него массив id коробок, после этого метода у коробок sendToBatchComplete должен измениться на true
-     * @param {module:model/InlineObject14} InlineObject14 
+     * @param {module:model/InlineObject13} InlineObject13 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1BoxesSendBoxesToBatchPost(InlineObject14, opts) {
-      return this.apiV1BoxesSendBoxesToBatchPostWithHttpInfo(InlineObject14, opts)
+    apiV1BoxesSendBoxesToBatchPost(InlineObject13, opts) {
+      return this.apiV1BoxesSendBoxesToBatchPostWithHttpInfo(InlineObject13, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -1036,12 +978,12 @@ export default class BoxesApi {
      * ## Разделить коробку.   При разделении коробок странная сущность передается. Там массив массивов.Первый массив это          новые коробки - сколько элементов, столько и создаст коробок. Второй массив - это элементы в коробке.          В нем строки новой коробки. Фронт отвечает за то, что суммарное содержание новых коробок,          было ровно содержанию исходной коробки.           
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject10} opts.InlineObject10 
+     * @param {module:model/InlineObject9} opts.InlineObject9 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
      */
     apiV1BoxesSplitPostWithHttpInfo(opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject10'];
+      let postBody = opts['InlineObject9'];
 
       let pathParams = {
       };
@@ -1069,7 +1011,7 @@ export default class BoxesApi {
      * ## Разделить коробку.   При разделении коробок странная сущность передается. Там массив массивов.Первый массив это          новые коробки - сколько элементов, столько и создаст коробок. Второй массив - это элементы в коробке.          В нем строки новой коробки. Фронт отвечает за то, что суммарное содержание новых коробок,          было ровно содержанию исходной коробки.           
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject10} opts.InlineObject10 
+     * @param {module:model/InlineObject9} opts.InlineObject9 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
      */
     apiV1BoxesSplitPost(opts) {
@@ -1086,12 +1028,12 @@ export default class BoxesApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject13} opts.InlineObject13 
+     * @param {module:model/InlineObject12} opts.InlineObject12 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesStorekeepersGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject13'];
+      let postBody = opts['InlineObject12'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesStorekeepersGuidPatch");
@@ -1125,7 +1067,7 @@ export default class BoxesApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject13} opts.InlineObject13 
+     * @param {module:model/InlineObject12} opts.InlineObject12 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesStorekeepersGuidPatch(guid, opts) {

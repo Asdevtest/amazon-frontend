@@ -22,13 +22,10 @@ class InlineObject34 {
     /**
      * Constructs a new <code>InlineObject34</code>.
      * @alias module:model/InlineObject34
-     * @param name {String} Имя пользователя.
-     * @param email {String} email
-     * @param password {String} Пароль
      */
-    constructor(name, email, password) { 
+    constructor() { 
         
-        InlineObject34.initialize(this, name, email, password);
+        InlineObject34.initialize(this);
     }
 
     /**
@@ -36,10 +33,7 @@ class InlineObject34 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, email, password) { 
-        obj['name'] = name;
-        obj['email'] = email;
-        obj['password'] = password;
+    static initialize(obj) { 
     }
 
     /**
@@ -53,14 +47,14 @@ class InlineObject34 {
         if (data) {
             obj = obj || new InlineObject34();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
             }
-            if (data.hasOwnProperty('password')) {
-                obj['password'] = ApiClient.convertToType(data['password'], 'String');
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'], 'Boolean');
             }
         }
         return obj;
@@ -70,25 +64,82 @@ class InlineObject34 {
 }
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * Статус
+ * @member {module:model/InlineObject34.StatusEnum} status
  */
-InlineObject34.prototype['name'] = undefined;
+InlineObject34.prototype['status'] = undefined;
 
 /**
- * email
- * @member {String} email
+ * Признак того, что баркод поклеен у поставщика.
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
  */
-InlineObject34.prototype['email'] = undefined;
+InlineObject34.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
 
 /**
- * Пароль
- * @member {String} password
+ * ???===нет описания===
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper
  */
-InlineObject34.prototype['password'] = undefined;
+InlineObject34.prototype['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>status</code> property.
+ * @enum {Number}
+ * @readonly
+ */
+InlineObject34['StatusEnum'] = {
+
+    /**
+     * value: 0
+     * @const
+     */
+    "0": 0,
+
+    /**
+     * value: 1
+     * @const
+     */
+    "1": 1,
+
+    /**
+     * value: 10
+     * @const
+     */
+    "10": 10,
+
+    /**
+     * value: 15
+     * @const
+     */
+    "15": 15,
+
+    /**
+     * value: 20
+     * @const
+     */
+    "20": 20,
+
+    /**
+     * value: 25
+     * @const
+     */
+    "25": 25,
+
+    /**
+     * value: 30
+     * @const
+     */
+    "30": 30,
+
+    /**
+     * value: 35
+     * @const
+     */
+    "35": 35
+};
 
 
 

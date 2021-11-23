@@ -96,7 +96,7 @@ let apiInstance = new Amazonapi.BuyerApi();
 let guid = "guid_example"; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject16': new Amazonapi.InlineObject16() // InlineObject16 | 
+  'InlineObject15': new Amazonapi.InlineObject15() // InlineObject15 | 
 };
 apiInstance.apiV1BuyersOrdersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject16** | [**InlineObject16**](InlineObject16.md)|  | [optional] 
+ **InlineObject15** | [**InlineObject15**](InlineObject15.md)|  | [optional] 
 
 ### Return type
 
@@ -609,7 +609,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksPost
 
-> InlineResponse2013 apiV1BuyersTasksPost(InlineObject17, opts)
+> InlineResponse2012 apiV1BuyersTasksPost(InlineObject16, opts)
 
 # Создать задачу.
 
@@ -627,11 +627,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.BuyerApi();
-let InlineObject17 = new Amazonapi.InlineObject17(); // InlineObject17 | 
+let InlineObject16 = new Amazonapi.InlineObject16(); // InlineObject16 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1BuyersTasksPost(InlineObject17, opts).then((data) => {
+apiInstance.apiV1BuyersTasksPost(InlineObject16, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -644,12 +644,12 @@ apiInstance.apiV1BuyersTasksPost(InlineObject17, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject17** | [**InlineObject17**](InlineObject17.md)|  | 
+ **InlineObject16** | [**InlineObject16**](InlineObject16.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
 
-[**InlineResponse2013**](InlineResponse2013.md)
+[**InlineResponse2012**](InlineResponse2012.md)
 
 ### Authorization
 

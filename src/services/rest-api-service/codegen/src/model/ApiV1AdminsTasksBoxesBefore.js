@@ -159,6 +159,12 @@ class ApiV1AdminsTasksBoxesBefore {
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
+            if (data.hasOwnProperty('sendToBatchRequest')) {
+                obj['sendToBatchRequest'] = ApiClient.convertToType(data['sendToBatchRequest'], 'Boolean');
+            }
+            if (data.hasOwnProperty('sendToBatchComplete')) {
+                obj['sendToBatchComplete'] = ApiClient.convertToType(data['sendToBatchComplete'], 'Boolean');
+            }
         }
         return obj;
     }
@@ -387,6 +393,18 @@ ApiV1AdminsTasksBoxesBefore.prototype['isDraft'] = undefined;
  * @member {Array.<String>} images
  */
 ApiV1AdminsTasksBoxesBefore.prototype['images'] = undefined;
+
+/**
+ * Сделан ли запрос на отправку коробки в партию.
+ * @member {Boolean} sendToBatchRequest
+ */
+ApiV1AdminsTasksBoxesBefore.prototype['sendToBatchRequest'] = undefined;
+
+/**
+ * Отправлена ли коробка в партию.
+ * @member {Boolean} sendToBatchComplete
+ */
+ApiV1AdminsTasksBoxesBefore.prototype['sendToBatchComplete'] = undefined;
 
 
 

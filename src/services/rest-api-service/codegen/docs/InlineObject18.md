@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**barCode** | **String** | Баркод | [optional] 
+**guids** | **[String]** | массив GUIDов оплаченных товаров | [optional] 
 
 

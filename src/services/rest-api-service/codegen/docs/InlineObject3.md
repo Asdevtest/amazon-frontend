@@ -11,6 +11,9 @@ Name | Type | Description | Notes
 **active** | **Boolean** | Если истина - пользователь активен. Если нет - заблокирован админом. | [optional] 
 **rate** | **Number** | Ставка, по который оплачивается сотрудник. | [optional] 
 **balance** | **Number** | Текущий баланс пользователя. | [optional] 
+**overdraft** | **Number** | Сумма на которую может уходить в минус пользователь. | [optional] 
+**permissions** | **[String]** | Массив permission-ов. | [optional] 
+**permissionGroups** | **[String]** | Массив групп permission-ов. | [optional] 
 **balanceFreeze** | **Number** | Замороженная при оплате ордера сумма. | [optional] 
 
 

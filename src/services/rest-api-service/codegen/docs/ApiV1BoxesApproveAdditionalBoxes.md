@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **isDraft** | **Boolean** | true - если создаем черновик заказа. | [optional] 
 **isBarCodeAttachedByTheStorekeeper** | **Boolean** | Прикреплен ли баркод к коробке сотрудником склада. | [optional] 
 **items** | [**[ApiV1BoxesItems]**](ApiV1BoxesItems.md) | Массив коробок. | 
-**clientId** | **String** | GUID клиента | 
+**clientId** | **String** | GUID клиента | [optional] 
 **images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 **shippingLabel** | **String** | Шипингш лейбл | [optional] 
 **lengthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 

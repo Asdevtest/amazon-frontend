@@ -129,7 +129,7 @@ export class AdminExchangeViewModel {
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e.pageSize
+    this.rowsPerPage = e
   }
 
   onChangeCurPage(e) {

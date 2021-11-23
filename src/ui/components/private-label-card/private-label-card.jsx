@@ -35,7 +35,7 @@ export const PrivateLabelCard = ({item, setProductToPay, onTriggerOpenModal}) =>
       <div className={classNames.wrapper}>
         <Typography className={classNames.title}>{item.category}</Typography>
 
-        <InfoRow label={textConsts.price} value={toFixedWithDollarSign(item.amazon)} />
+        <InfoRow label={textConsts.price} value={toFixedWithDollarSign(item.amazon, 2)} />
         <div className={classNames.textWrapper}>
           <Typography className={clsx(classNames.text, classNames.label)}>{'Кол-во'}</Typography>
           <InputBase classes={{root: classNames.inputWrapper, input: classNames.input}} defaultValue={100} />
@@ -43,7 +43,7 @@ export const PrivateLabelCard = ({item, setProductToPay, onTriggerOpenModal}) =>
 
         <Divider className={classNames.divider} />
 
-        <InfoRow label={textConsts.avgPrice} value={toFixedWithDollarSign(item.avgPrice)} />
+        <InfoRow label={textConsts.avgPrice} value={toFixedWithDollarSign(item.avgPrice, 2)} />
 
         <InfoRow label={textConsts.recConsignmentQty} value={withAmount(item.fbaamount)} />
         <InfoRow label={textConsts.recConsignmentWeight} value={withKg(item.weight)} />
@@ -53,7 +53,7 @@ export const PrivateLabelCard = ({item, setProductToPay, onTriggerOpenModal}) =>
         <InfoRow label={textConsts.avgBSR} value={item.bsr} />
 
         <InfoRow label={textConsts.avgReviews} value={item.avgReviews} />
-        <InfoRow label={textConsts.avgRevenue} value={toFixedWithDollarSign(item.profit)} />
+        <InfoRow label={textConsts.avgRevenue} value={toFixedWithDollarSign(item.profit, 2)} />
 
         <div className={classNames.buttonsWrapper}>
           <SuccessButton
@@ -76,7 +76,7 @@ export const PrivateLabelCard = ({item, setProductToPay, onTriggerOpenModal}) =>
               onTriggerOpenModal('showConfirmPayModal')
             }}
           >
-            {`${textConsts.addBtnPrefix} ${toFixedWithDollarSign(item.amazon)}`}
+            {`${textConsts.addBtnPrefix} ${toFixedWithDollarSign(item.amazon, 2)}`}
           </Button>
         </div>
       </div>

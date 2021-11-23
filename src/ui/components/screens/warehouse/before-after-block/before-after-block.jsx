@@ -340,40 +340,37 @@ export const BeforeAfterBlock = observer(
       onEditBox(box)
     }
 
-    const CurrentBox = ({currentBoxes}) => {
-      console.log('currentBoxes ', currentBoxes)
-      return (
-        <div className={classNames.currentBox}>
-          <Typography className={classNames.sectionTitle}>{textConsts.incom}</Typography>
+    const CurrentBox = ({currentBoxes}) => (
+      <div className={classNames.currentBox}>
+        <Typography className={classNames.sectionTitle}>{textConsts.incom}</Typography>
 
-          {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
-            <div className={classNames.fieldsWrapper}>
+        {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
+          <div className={classNames.fieldsWrapper}>
+            <Field
+              disabled
+              label={textConsts.warehouseLabel}
+              value={getWarehousesOptionByCode(currentBoxes[0].warehouse).label}
+            />
+
+            <Field
+              disabled
+              label={textConsts.deliveryMethodLabel}
+              value={getDeliveryOptionByCode(currentBoxes[0].deliveryMethod).label}
+            />
+            {taskType === TaskOperationType.RECEIVE && (
               <Field
                 disabled
-                label={textConsts.warehouseLabel}
-                value={getWarehousesOptionByCode(currentBoxes[0].warehouse).label}
+                label={textConsts.statusLabel}
+                value={getOrderStatusOptionByCode(currentBoxes[0].items[0].order.status).label}
               />
+            )}
+          </div>
+        )}
 
-              <Field
-                disabled
-                label={textConsts.deliveryMethodLabel}
-                value={getDeliveryOptionByCode(currentBoxes[0].deliveryMethod).label}
-              />
-              {taskType === TaskOperationType.RECEIVE && (
-                <Field
-                  disabled
-                  label={textConsts.statusLabel}
-                  value={getOrderStatusOptionByCode(currentBoxes[0].items[0].order.status).label}
-                />
-              )}
-            </div>
-          )}
-
-          {currentBoxes &&
-            currentBoxes.map((box, boxIndex) => <Box key={boxIndex} isCurrentBox box={box} taskType={taskType} />)}
-        </div>
-      )
-    }
+        {currentBoxes &&
+          currentBoxes.map((box, boxIndex) => <Box key={boxIndex} isCurrentBox box={box} taskType={taskType} />)}
+      </div>
+    )
 
     return (
       <Paper className={classNames.boxesWrapper}>

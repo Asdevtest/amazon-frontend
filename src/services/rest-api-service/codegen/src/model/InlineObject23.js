@@ -47,8 +47,14 @@ class InlineObject23 {
         if (data) {
             obj = obj || new InlineObject23();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('allowedUrl')) {
+                obj['allowedUrl'] = ApiClient.convertToType(data['allowedUrl'], ['String']);
             }
         }
         return obj;
@@ -58,10 +64,22 @@ class InlineObject23 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * простое название
+ * @member {String} title
  */
-InlineObject23.prototype['suppliersIds'] = undefined;
+InlineObject23.prototype['title'] = undefined;
+
+/**
+ * описание permission
+ * @member {String} description
+ */
+InlineObject23.prototype['description'] = undefined;
+
+/**
+ * Массив доступных url.
+ * @member {Array.<String>} allowedUrl
+ */
+InlineObject23.prototype['allowedUrl'] = undefined;
 
 
 

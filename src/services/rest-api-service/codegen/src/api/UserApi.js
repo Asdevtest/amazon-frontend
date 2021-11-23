@@ -14,9 +14,9 @@
 
 import ApiClient from "../ApiClient";
 import ApiV1AdminsOrdersCreatedBy from '../model/ApiV1AdminsOrdersCreatedBy';
-import InlineObject34 from '../model/InlineObject34';
-import InlineObject35 from '../model/InlineObject35';
-import InlineResponse2017 from '../model/InlineResponse2017';
+import InlineObject39 from '../model/InlineObject39';
+import InlineObject40 from '../model/InlineObject40';
+import InlineResponse2016 from '../model/InlineResponse2016';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse403 from '../model/InlineResponse403';
 import InlineResponse404 from '../model/InlineResponse404';
@@ -139,17 +139,17 @@ export default class UserApi {
     /**
      * Создание нового пользователя. Регистрация.
      * ## Создание нового пользователя. Регистрация.   
-     * @param {module:model/InlineObject34} InlineObject34 
+     * @param {module:model/InlineObject39} InlineObject39 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsOrdersCreatedBy} and HTTP response
      */
-    apiV1UsersPostWithHttpInfo(InlineObject34, opts) {
+    apiV1UsersPostWithHttpInfo(InlineObject39, opts) {
       opts = opts || {};
-      let postBody = InlineObject34;
-      // verify the required parameter 'InlineObject34' is set
-      if (InlineObject34 === undefined || InlineObject34 === null) {
-        throw new Error("Missing the required parameter 'InlineObject34' when calling apiV1UsersPost");
+      let postBody = InlineObject39;
+      // verify the required parameter 'InlineObject39' is set
+      if (InlineObject39 === undefined || InlineObject39 === null) {
+        throw new Error("Missing the required parameter 'InlineObject39' when calling apiV1UsersPost");
       }
 
       let pathParams = {
@@ -176,13 +176,13 @@ export default class UserApi {
     /**
      * Создание нового пользователя. Регистрация.
      * ## Создание нового пользователя. Регистрация.   
-     * @param {module:model/InlineObject34} InlineObject34 
+     * @param {module:model/InlineObject39} InlineObject39 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsOrdersCreatedBy}
      */
-    apiV1UsersPost(InlineObject34, opts) {
-      return this.apiV1UsersPostWithHttpInfo(InlineObject34, opts)
+    apiV1UsersPost(InlineObject39, opts) {
+      return this.apiV1UsersPostWithHttpInfo(InlineObject39, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -192,17 +192,17 @@ export default class UserApi {
     /**
      * # Получение токена авторизации.
      * ## Получение токена авторизации.   ## Время жизни токена 96 часов   
-     * @param {module:model/InlineObject35} InlineObject35 
+     * @param {module:model/InlineObject40} InlineObject40 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2016} and HTTP response
      */
-    apiV1UsersSignInPostWithHttpInfo(InlineObject35, opts) {
+    apiV1UsersSignInPostWithHttpInfo(InlineObject40, opts) {
       opts = opts || {};
-      let postBody = InlineObject35;
-      // verify the required parameter 'InlineObject35' is set
-      if (InlineObject35 === undefined || InlineObject35 === null) {
-        throw new Error("Missing the required parameter 'InlineObject35' when calling apiV1UsersSignInPost");
+      let postBody = InlineObject40;
+      // verify the required parameter 'InlineObject40' is set
+      if (InlineObject40 === undefined || InlineObject40 === null) {
+        throw new Error("Missing the required parameter 'InlineObject40' when calling apiV1UsersSignInPost");
       }
 
       let pathParams = {
@@ -218,7 +218,7 @@ export default class UserApi {
       let authNames = [];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2017;
+      let returnType = InlineResponse2016;
       return this.apiClient.callApi(
         '/api/v1/users/sign_in', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -229,13 +229,13 @@ export default class UserApi {
     /**
      * # Получение токена авторизации.
      * ## Получение токена авторизации.   ## Время жизни токена 96 часов   
-     * @param {module:model/InlineObject35} InlineObject35 
+     * @param {module:model/InlineObject40} InlineObject40 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2016}
      */
-    apiV1UsersSignInPost(InlineObject35, opts) {
-      return this.apiV1UsersSignInPostWithHttpInfo(InlineObject35, opts)
+    apiV1UsersSignInPost(InlineObject40, opts) {
+      return this.apiV1UsersSignInPostWithHttpInfo(InlineObject40, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

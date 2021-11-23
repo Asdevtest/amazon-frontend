@@ -108,6 +108,11 @@ export const texts = {
       modalMergeFieldLabel: 'Комментарий клиента к задаче',
       modalMergeMergeBtn: 'Соединить',
       modalMergeCancelBtn: 'Отменить',
+
+      confirmTitle: 'Внимание',
+      confirmMessage: 'Вы точно хотите отменить задачу?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
     },
 
     adminWarehouseView: {
@@ -385,10 +390,28 @@ export const texts = {
 
       formCloseReasonLabel: 'Describe the reason for closing request',
 
-      selectOptionFlipping: 'Flipping',
-      selectOptionDropshipping: 'Dropshipping',
-      selectOptionOnlineArbitrage: 'OnlineArbitrage',
-      selectOptionPrivateLabel: 'PrivateLabel',
+      confirmTitle: 'Внимание',
+      confirmMessage: 'Вы точно хотите отменить запрос на поиск?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+    },
+
+    addOrEditSinglePermissionForm: {
+      addTitle: 'Новое разрешение',
+      editTitle: 'Изменить разрешение',
+
+      keyLabel: 'Ключ',
+      keyHolder: 'KEY_KEY_KEY...',
+      titleLabel: 'Название',
+      titleHolder: 'Разрешение №1 ',
+      descriptionLabel: 'Описание',
+      descriptionHolder: 'Доступ к редактированию товаров',
+      allowUrlsLabel: 'Разрешенные эндпоинты',
+      allowUrlsHolder: '/api/v1/permissions/...',
+
+      editBtn: 'Изменить',
+      createBtn: 'Создать разрешение',
+      cancelBtn: 'Отмена',
     },
 
     exchangeInventoryColumns: {
@@ -691,11 +714,22 @@ export const texts = {
 
     researcherProductsView: {
       appBarTitle: 'Products',
-      appBarUsername: 'Researcher',
-      appUser: 'researcher',
+      mainTitle: 'Заявки на поиск товара/ниши',
+    },
+
+    researcherProductsRequestsView: {
+      appBarTitle: 'Requests',
       mainTitle: 'Мои товары',
       cardMainTitle: 'Проверка товара на наличие в базе',
+
+      confirmTitle: 'Вы готовы начать работу по формированию предложения?',
+      confirmMessage: `На обработку заявки потребуется N часов. При 
+        невыполнении заявки в установленное время, будет произведена автоотмена задачи и 
+        назначен штраф в сумме N $`,
+      yesBtn: 'Да',
+      noBtn: 'Нет',
     },
+
     researcherSettingsView: {
       appBarTitle: 'Settings',
       appBarUsername: 'Researcher',
@@ -808,7 +842,7 @@ export const texts = {
       yesBtn: 'Да',
       noBtn: 'Нет',
       okBtn: 'ок',
-      deleteSupplierMessage: 'Вы точно хитите удалить поставщика?',
+      deleteSupplierMessage: 'Вы точно хотите удалить поставщика?',
     },
     adminProductView: {
       appBarTitle: 'Product',
@@ -825,7 +859,7 @@ export const texts = {
       confirmTitle: 'Внимание',
       confirmMessage: 'Товар будет отправлен на проверку к Supervisor. Вы уверены?',
       deleteMessage: 'Вы точно хотите удалить продукт?',
-      deleteSupplierMessage: 'Вы точно хитите удалить поставщика?',
+      deleteSupplierMessage: 'Вы точно хотите удалить поставщика?',
       yesBtn: 'Да',
       noBtn: 'Нет',
 
@@ -871,6 +905,9 @@ export const texts = {
 
       cancelBtn: 'Отмена',
       resolveBtn: 'Решить',
+
+      editBtn: 'Изменить',
+      removeBtn: 'Удалить',
 
       superboxTypo: 'SB',
       confirmBtn: 'Подтвердить',
@@ -1274,7 +1311,7 @@ export const texts = {
       typoExpress: 'Express',
       maxDeliveryPrice: 'Макс. доставка за ед., $',
       delivery: 'Доставка $',
-      refferalFee: 'Referral fee, $',
+      refferalFee: 'Referral fee, %',
       fbaFee: 'FBA fee , $',
       totalFba: 'Total FBA, $',
       minpurchase: 'Мин. закуп. цена, $',
@@ -1369,6 +1406,20 @@ export const texts = {
       dimensionsMessage: 'Для создания коробки поля должны быть заполнены!',
       okBtn: 'Ок',
     },
+
+    mergeBoxModal: {
+      mainTitle: 'Соедиение коробок:',
+      deliveryMethod: 'Метод доставки',
+      warehouse: 'Склад',
+      valueNone: 'none',
+      boxData: 'Данные итоговой коробки:',
+      attention: 'Обратите внимание на изменение склада и способа доставки!!!',
+      shippingLabel: 'Шиппинглейбл',
+      comment: 'Комментарий клиента к задаче',
+      saveBtn: 'Соединить',
+      cancelBtn: 'Отмена',
+    },
+
     buyerUserExchangeItem: {
       standartPrice: '$ 499',
       startBtn: 'Запустить',
@@ -1541,6 +1592,15 @@ export const texts = {
       recipientNameField: 'Реципиент ',
     },
 
+    adminSinglePermissionsColumns: {
+      createDateField: 'Создано',
+      updateDateField: 'Обновлено',
+      descriptionField: 'Описание',
+      keyField: 'Ключ',
+      titleField: 'Название',
+      actionField: 'Действия',
+    },
+
     clientOrdersTableColumns: {
       createDateField: 'Дата',
       statusField: 'Статус',
@@ -1679,6 +1739,14 @@ export const texts = {
       bsrField: 'BSR',
     },
 
+    researcherProductsRequestsTableColumns: {
+      strategyStatusField: 'Strategy',
+      createDateField: 'Created',
+      deadline: 'Deadline',
+      costOfOneProposal: 'Cost of proposal',
+      countOfProposals: 'Count of proposals',
+    },
+
     supervisorProductsTableColumns: {
       strategyStatusField: 'Strategy',
       asinField: 'ASIN',
@@ -1737,6 +1805,27 @@ export const texts = {
       byForBtn: 'Купить за',
     },
 
+    clientSearchRequestsTableColumns: {
+      actionField: 'Действия',
+      createDateField: 'Создана',
+      budget: 'Бюджет',
+      countOfProposals: 'Необходимо предложений',
+      deadline: 'Дедлайн',
+      strategyStatusField: 'Стратегия',
+      minKeywords: 'Минимально ниш',
+      minProductInProposals: 'Минимально продуктов',
+      monthlySales: 'Месячные продажи',
+      size: 'Размер',
+      minAmazonPrice: 'Мин. цена амазона',
+      maxAmazonPrice: 'Макс. цена амазона',
+      minBSR: 'Мин. бср',
+      maxBSR: 'Макс. бср',
+      minRevenue: 'Мин. доход',
+      maxRevenue: 'Макс. доход',
+      minReviews: 'Мин. отзывы',
+      maxReviews: 'Макс. отзывы',
+    },
+
     warehouseMyTasksTableColumns: {
       createDateField: 'Дата создания',
       updateDateField: 'Последнее обновление',
@@ -1782,22 +1871,34 @@ export const texts = {
     },
 
     clientOrderView: {
-      mainTitle: 'Заказ ',
+      mainTitle: 'Заказ',
       appBarTitle: 'Страница заказов',
-      appBarUsername: 'Client',
-      appUser: 'client',
     },
+
+    ResearcherRequestView: {
+      mainTitle: 'Запрос на поск товаров/ниш',
+      appBarTitle: 'Страница запросов на поиск',
+    },
+
+    ClientRequestView: {
+      mainTitle: 'Запрос на поск товаров/ниш',
+      appBarTitle: 'Страница запросов на поиск',
+    },
+
     adminOrderView: {
-      mainTitle: 'Заказ ',
+      mainTitle: 'Заказ',
       appBarTitle: 'Страница заказов',
-      appBarUsername: 'Admin',
-      appUser: 'admin',
     },
+
+    adminUserPermissionsView: {
+      mainTitle: 'Разрешения',
+      appBarTitle: 'Разрешения пользователей',
+    },
+
     clientListingView: {
       appBarTitle: 'Листинг продукта',
-      appBarUsername: 'Client',
-      appUser: 'client',
     },
+
     clientOrderParameters: {
       minPrice: ' Цена закупки (мин)',
       qty: 'Количество (шт)',
@@ -1950,6 +2051,7 @@ export const texts = {
       myPaymentsCardTitle: 'Мои платежи',
       warehouseHistoryTitle: 'Вакантные задачи',
     },
+
     warehouseVacantTasksView: {
       appBarTitle: 'Dashboard',
       appBarUsername: 'Warehouse',
@@ -1958,6 +2060,17 @@ export const texts = {
       okBtn: 'Ок',
       pickUp: 'Взять в работу',
       warningTitle: 'Данная задача взята в работу и перенесена в раздел Мои задачи',
+    },
+
+    singlePermissions: {
+      mainTitle: 'Единичные разрешения',
+      okBtn: 'Ок',
+      addBtn: 'Добавить',
+
+      confirmTitle: 'Внимание',
+      confirmMessage: 'Вы точно хотите удалить разрешение?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
     },
 
     warehouseMyTasksView: {
@@ -1972,7 +2085,13 @@ export const texts = {
       modalCancelTaskLabel: 'Причина отмена задачи',
       cancelBtn: 'Отмена',
       resolveBtn: 'Решить',
+
+      confirmTitle: 'Внимание',
+      confirmMessage: 'Вы точно хотите отменить задачу?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
     },
+
     warehouseCompletedTasksView: {
       appBarTitle: 'Dashboard',
       appBarUsername: 'Warehouse',

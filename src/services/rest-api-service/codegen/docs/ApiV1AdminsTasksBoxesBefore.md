@@ -41,5 +41,7 @@ Name | Type | Description | Notes
 **items** | [**[ApiV1AdminsTasksItems]**](ApiV1AdminsTasksItems.md) | Массив коробок. | [optional] 
 **isDraft** | **Boolean** | true - если создаем черновик заказа. | [optional] 
 **images** | **[String]** | Массив ссылок на фотографии. | [optional] 
+**sendToBatchRequest** | **Boolean** | Сделан ли запрос на отправку коробки в партию. | [optional] 
+**sendToBatchComplete** | **Boolean** | Отправлена ли коробка в партию. | [optional] 
 
 

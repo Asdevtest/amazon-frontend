@@ -82,7 +82,8 @@ const confirmMessageWithoutStatus = 'Сохранить без статуса?'
 const warningModalTitleVariants = {
   NO_SUPPLIER: 'Нельзя выбрать без поставщика.',
   CHOOSE_STATUS: 'Нужно выбрать статус',
-  PRICE_WAS_NOT_ACCEPTABLE: 'Цена поставщика неприемлима',
+  PRICE_WAS_NOT_ACCEPTABLE: 'Неприемлемая цена поставщика.',
+  SUPPLIER_WAS_NOT_FOUND_BY_BUYER: 'Поставщик не найден',
   ERROR: 'Ошибка',
 }
 
@@ -93,6 +94,7 @@ export class SupervisorProductViewModel {
   actionStatus = undefined
 
   product = undefined
+  productBase = undefined
 
   suppliers = []
   curUpdateProductData = {}
@@ -118,9 +120,8 @@ export class SupervisorProductViewModel {
         ),
       }
       this.product = product
+      this.productBase = product
       this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.suppliers
-      console.log(product)
-      console.log(this.suppliers)
     }
     makeAutoObservable(this, undefined, {autoBind: true})
     updateProductAutoCalculatedFields.call(this)
@@ -151,10 +152,13 @@ export class SupervisorProductViewModel {
     if (
       statusKey === ProductStatus.COMPLETE_SUCCESS &&
       (!this.product.currentSupplierId ||
-        this.product.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE])
+        this.product.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] ||
+        this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER])
     ) {
       if (this.product.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE]) {
         this.warningModalTitle = warningModalTitleVariants.PRICE_WAS_NOT_ACCEPTABLE
+      } else if (this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]) {
+        this.warningModalTitle = warningModalTitleVariants.SUPPLIER_WAS_NOT_FOUND_BY_BUYER
       } else if (!this.product.currentSupplierId) {
         this.warningModalTitle = warningModalTitleVariants.NO_SUPPLIER
       } else {

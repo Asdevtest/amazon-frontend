@@ -36,6 +36,8 @@ export class ListingModel {
   curImage = undefined
   imagesFromBoxes = []
 
+  bigImagesOptions = {images: [], imgIndex: 0}
+
   progressValue = 0
 
   showImageModal = false
@@ -78,7 +80,7 @@ export class ListingModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  async onSaveSubmith() {
+  async onSaveSubmit() {
     try {
       await this.onSubmitPostImages({images: this.tmpListingImages})
 
@@ -214,13 +216,13 @@ export class ListingModel {
     }
   }
 
-  onClickImg(img) {
+  onClickImg(opt) {
     this.onTriggerOpenModal('showImageModal')
-    this.setCurImage(img)
+    this.setBigImagesOptions(opt)
   }
 
-  setCurImage(img) {
-    this.curImage = img
+  setBigImagesOptions(opt) {
+    this.bigImagesOptions = {images: opt.images, imgIndex: opt.imgIndex}
   }
 
   setRequestStatus(requestStatus) {

@@ -7,7 +7,7 @@ import Carousel from 'react-material-ui-carousel'
 
 import {texts} from '@constants/texts'
 
-import {ShowImageModal} from '@components/modals/show-image-modal'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -20,11 +20,11 @@ export const Info = ({order}) => {
   const classNames = useClassNames()
 
   const [showImageModal, setShowImageModal] = useState(false)
-  const [curImage, setCurImage] = useState()
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
-  const onClickImg = img => {
+  const onClickImg = opt => {
     setShowImageModal(!showImageModal)
-    setCurImage(img)
+    setBigImagesOptions({images: opt.images, imgIndex: opt.imgIndex})
   }
 
   return (
@@ -73,7 +73,12 @@ export const Info = ({order}) => {
           <Carousel autoPlay={false} timeout={100} animation="fade">
             {order.images.map((el, index) => (
               <div key={index}>
-                <img alt="" className={classNames.imgBox} src={el} onClick={e => onClickImg(e.target.src)} />
+                <img
+                  alt=""
+                  className={classNames.imgBox}
+                  src={el}
+                  onClick={() => onClickImg({images: order.images, imgIndex: index})}
+                />
               </div>
             ))}
           </Carousel>
@@ -82,10 +87,12 @@ export const Info = ({order}) => {
         )}
       </div>
 
-      <ShowImageModal
+      <BigImagesModal
+        isAmazone
         openModal={showImageModal}
         setOpenModal={() => setShowImageModal(!showImageModal)}
-        image={curImage}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
       />
     </div>
   )

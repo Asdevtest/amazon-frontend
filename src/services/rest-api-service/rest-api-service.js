@@ -1,11 +1,12 @@
 import {BACKEND_API_URL} from '@constants/env'
 
-import {ApiClient, BatchesApi, BoxesApi} from './codegen/src'
+import {ApiClient, BatchesApi, BoxesApi, PermissionsApi} from './codegen/src'
 import AdministratorApi from './codegen/src/api/AdministratorApi'
 import BuyerApi from './codegen/src/api/BuyerApi'
 import ClientApi from './codegen/src/api/ClientApi'
 import OtherApi from './codegen/src/api/OtherApi'
 import Product from './codegen/src/api/ProductApi'
+import ProductSearchRequestApi from './codegen/src/api/ProductSearchRequestApi'
 import ResearcherApi from './codegen/src/api/ResearcherApi'
 import StorekeepersApi from './codegen/src/api/StorekeepersApi'
 import SupervisorApi from './codegen/src/api/SupervisorApi'
@@ -35,6 +36,8 @@ class RestApiService {
     this.boxesApi = new BoxesApi(this.apiClient)
     this.batchesApi = new BatchesApi(this.apiClient)
     this.otherApi = new OtherApi(this.apiClient)
+    this.productSearchRequestApi = new ProductSearchRequestApi(this.apiClient)
+    this.permissionsApi = new PermissionsApi(this.apiClient)
   }
 
   setAccessToken = accessToken => {

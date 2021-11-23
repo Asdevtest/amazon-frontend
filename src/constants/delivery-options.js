@@ -4,19 +4,19 @@ import {objectFlip} from '@utils/object'
 import {texts} from './texts'
 
 export const DeliveryType = {
-  ROAD: 'ROAD',
+  // ROAD: 'ROAD',
   SEA: 'SEA',
   AIR: 'AIR',
-  TRAIN: 'TRAIN',
-  MULTIPLE: 'MULTIPLE',
+  // TRAIN: 'TRAIN',
+  // MULTIPLE: 'MULTIPLE',
 }
 
 export const DeliveryTypeByCode = {
-  0: DeliveryType.ROAD,
+  // 0: DeliveryType.ROAD,
   1: DeliveryType.SEA,
   2: DeliveryType.AIR,
-  3: DeliveryType.TRAIN,
-  4: DeliveryType.MULTIPLE,
+  // 3: DeliveryType.TRAIN,
+  // 4: DeliveryType.MULTIPLE,
 }
 
 const textConfig = getLocalizedTexts(texts, 'en').deliveryType

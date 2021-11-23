@@ -14,9 +14,9 @@
 
 import ApiClient from "../ApiClient";
 import ApiV1AdminsGetProductsByStatusCurrentSupplier from '../model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
-import InlineObject32 from '../model/InlineObject32';
-import InlineObject33 from '../model/InlineObject33';
-import InlineResponse2014 from '../model/InlineResponse2014';
+import InlineObject37 from '../model/InlineObject37';
+import InlineObject38 from '../model/InlineObject38';
+import InlineResponse2013 from '../model/InlineResponse2013';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
 import InlineResponse500 from '../model/InlineResponse500';
@@ -202,12 +202,12 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject33} opts.InlineObject33 
+     * @param {module:model/InlineObject38} opts.InlineObject38 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SuppliersGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject33'];
+      let postBody = opts['InlineObject38'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1SuppliersGuidPatch");
@@ -241,7 +241,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject33} opts.InlineObject33 
+     * @param {module:model/InlineObject38} opts.InlineObject38 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SuppliersGuidPatch(guid, opts) {
@@ -255,17 +255,17 @@ export default class SupplierApi {
     /**
      * # Добавить нового поставщика.
      * ## Добавить нового поставщика.   
-     * @param {module:model/InlineObject32} InlineObject32 
+     * @param {module:model/InlineObject37} InlineObject37 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2013} and HTTP response
      */
-    apiV1SuppliersPostWithHttpInfo(InlineObject32, opts) {
+    apiV1SuppliersPostWithHttpInfo(InlineObject37, opts) {
       opts = opts || {};
-      let postBody = InlineObject32;
-      // verify the required parameter 'InlineObject32' is set
-      if (InlineObject32 === undefined || InlineObject32 === null) {
-        throw new Error("Missing the required parameter 'InlineObject32' when calling apiV1SuppliersPost");
+      let postBody = InlineObject37;
+      // verify the required parameter 'InlineObject37' is set
+      if (InlineObject37 === undefined || InlineObject37 === null) {
+        throw new Error("Missing the required parameter 'InlineObject37' when calling apiV1SuppliersPost");
       }
 
       let pathParams = {
@@ -281,7 +281,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = InlineResponse2014;
+      let returnType = InlineResponse2013;
       return this.apiClient.callApi(
         '/api/v1/suppliers/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -292,13 +292,13 @@ export default class SupplierApi {
     /**
      * # Добавить нового поставщика.
      * ## Добавить нового поставщика.   
-     * @param {module:model/InlineObject32} InlineObject32 
+     * @param {module:model/InlineObject37} InlineObject37 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2013}
      */
-    apiV1SuppliersPost(InlineObject32, opts) {
-      return this.apiV1SuppliersPostWithHttpInfo(InlineObject32, opts)
+    apiV1SuppliersPost(InlineObject37, opts) {
+      return this.apiV1SuppliersPostWithHttpInfo(InlineObject37, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

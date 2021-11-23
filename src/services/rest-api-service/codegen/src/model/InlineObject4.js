@@ -24,11 +24,10 @@ class InlineObject4 {
      * Constructs a new <code>InlineObject4</code>.
      * @alias module:model/InlineObject4
      * @param items {Array.<module:model/ApiV1BoxesItems>} Массив коробок.
-     * @param clientId {String} GUID клиента
      */
-    constructor(items, clientId) { 
+    constructor(items) { 
         
-        InlineObject4.initialize(this, items, clientId);
+        InlineObject4.initialize(this, items);
     }
 
     /**
@@ -36,9 +35,8 @@ class InlineObject4 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, items, clientId) { 
+    static initialize(obj, items) { 
         obj['items'] = items;
-        obj['clientId'] = clientId;
     }
 
     /**

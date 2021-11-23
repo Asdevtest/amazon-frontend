@@ -23,6 +23,8 @@ export const useClassNames = makeStyles(() => ({
   img: {
     height: '100%',
     width: '100%',
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
   crossBtn: {
     width: '20px',

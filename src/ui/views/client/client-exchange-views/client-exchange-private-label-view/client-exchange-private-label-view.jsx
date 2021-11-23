@@ -87,7 +87,7 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}
           title={textConsts.confirmTitle}
           message={`${textConsts.confirmMessage} (${
-            productToPay && toFixedWithDollarSign(calcProductPrice(productToPay))
+            productToPay && toFixedWithDollarSign(calcProductPrice(productToPay), 2)
           })`}
           successBtnText={textConsts.confirmBtn}
           cancelBtnText={textConsts.cancelBtn}

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | GUID коробки, объединение которой нужно отменить | [optional] 
+**guids** | **[String]** | Массив коробок. | [optional] 
+**boxBody** | [**ApiV1BoxesMergeBoxBody**](ApiV1BoxesMergeBoxBody.md) |  | [optional] 
 
 

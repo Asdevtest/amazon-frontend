@@ -9,10 +9,10 @@ import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
-import {ShowImageModal} from '@components/modals/show-image-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
+import {BigImagesModal} from '../big-images-modal'
 import {BeforeAfterInfoTaskBlock} from './before-after-info-task-block'
 import {useClassNames} from './task-info-modal.style'
 
@@ -22,7 +22,8 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task}) => {
   const classNames = useClassNames()
 
   const [showImageModal, setShowImageModal] = useState(false)
-  const [curImage, setCurImage] = useState('')
+
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   const renderDescriptionText = () => {
     switch (task.operationType) {
@@ -78,9 +79,9 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task}) => {
                       alt=""
                       className={classNames.imgBox}
                       src={el}
-                      onClick={e => {
+                      onClick={() => {
                         setShowImageModal(!showImageModal)
-                        setCurImage(e.target.src)
+                        setBigImagesOptions({images: task.images, imgIndex: index})
                       }}
                     />
                   </div>
@@ -102,10 +103,13 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task}) => {
             {textConsts.closeBtn}
           </Button>
         </div>
-        <ShowImageModal
+
+        <BigImagesModal
+          isAmazone
           openModal={showImageModal}
           setOpenModal={() => setShowImageModal(!showImageModal)}
-          image={curImage}
+          images={bigImagesOptions.images}
+          imgIndex={bigImagesOptions.imgIndex}
         />
       </div>
     </Modal>

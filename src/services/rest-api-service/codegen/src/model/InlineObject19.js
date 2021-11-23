@@ -22,10 +22,15 @@ class InlineObject19 {
     /**
      * Constructs a new <code>InlineObject19</code>.
      * @alias module:model/InlineObject19
+     * @param amount {Number} Кол-во продукта по этой позиции.
+     * @param deliveryMethod {Number} Код метода доставки.
+     * @param warehouse {Number} Номер склада.
+     * @param clientComment {String} Комментарии клиента.
+     * @param productId {String} GUID заказанного продукта
      */
-    constructor() { 
+    constructor(amount, deliveryMethod, warehouse, clientComment, productId) { 
         
-        InlineObject19.initialize(this);
+        InlineObject19.initialize(this, amount, deliveryMethod, warehouse, clientComment, productId);
     }
 
     /**
@@ -33,7 +38,12 @@ class InlineObject19 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, productId) { 
+        obj['amount'] = amount;
+        obj['deliveryMethod'] = deliveryMethod;
+        obj['warehouse'] = warehouse;
+        obj['clientComment'] = clientComment;
+        obj['productId'] = productId;
     }
 
     /**
@@ -47,8 +57,26 @@ class InlineObject19 {
         if (data) {
             obj = obj || new InlineObject19();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -58,10 +86,46 @@ class InlineObject19 {
 }
 
 /**
- * массив GUIDов оплаченных товаров
- * @member {Array.<String>} guids
+ * Код текущего состояния заказа.
+ * @member {Number} status
  */
-InlineObject19.prototype['guids'] = undefined;
+InlineObject19.prototype['status'] = undefined;
+
+/**
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
+ */
+InlineObject19.prototype['amount'] = undefined;
+
+/**
+ * Код метода доставки.
+ * @member {Number} deliveryMethod
+ */
+InlineObject19.prototype['deliveryMethod'] = undefined;
+
+/**
+ * Номер склада.
+ * @member {Number} warehouse
+ */
+InlineObject19.prototype['warehouse'] = undefined;
+
+/**
+ * Комментарии клиента.
+ * @member {String} clientComment
+ */
+InlineObject19.prototype['clientComment'] = undefined;
+
+/**
+ * GUID заказанного продукта
+ * @member {String} productId
+ */
+InlineObject19.prototype['productId'] = undefined;
+
+/**
+ * Массив изображений.
+ * @member {Array.<String>} images
+ */
+InlineObject19.prototype['images'] = undefined;
 
 
 

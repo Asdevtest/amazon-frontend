@@ -12,7 +12,7 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {Field} from '@components/field'
 import {ImageFileInput} from '@components/image-file-input'
 import {AddCompetitorModal} from '@components/modals/add-competitor-modal'
-import {ShowImageModal} from '@components/modals/show-image-modal'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {UserBalanceHistory} from '@components/screens/user-balance-history'
 
@@ -37,7 +37,7 @@ export const Listing = observer(({product}) => {
     listingProduct,
     payments,
     showImageModal,
-    curImage,
+    bigImagesOptions,
     userRole,
     progressValue,
     imagesFromBoxes,
@@ -49,7 +49,7 @@ export const Listing = observer(({product}) => {
     onChangeField,
     onChangeArrayField,
     setTmpListingImages,
-    onSaveSubmith,
+    onSaveSubmit,
     onCancel,
     onRemoveCompetitor,
   } = listingModel.current
@@ -149,7 +149,7 @@ export const Listing = observer(({product}) => {
             multiline
             disabled={!userIsSupervisor}
             className={classNames.searchSupplierField}
-            label={'Задание для поиска постащика:'}
+            label={'Задание для поиска поставщика:'}
             placeholder={`-цена до 1000$;\n-доставка: США, Европа;\n-расчеты через юр. лицо`}
             value={listingProduct.listingTaskToFindSupplier}
             onChange={e => onChangeField(e, 'listingTaskToFindSupplier')}
@@ -222,7 +222,12 @@ export const Listing = observer(({product}) => {
                 <Carousel autoPlay={false} timeout={100} animation="fade">
                   {imagesFromBoxes.map((el, index) => (
                     <div key={index}>
-                      <img alt="" className={classNames.imgBox} src={el} onClick={e => onClickImg(e.target.src)} />
+                      <img
+                        alt=""
+                        className={classNames.imgBox}
+                        src={el}
+                        onClick={() => onClickImg({images: imagesFromBoxes, imgIndex: index})}
+                      />
                     </div>
                   ))}
                 </Carousel>
@@ -240,7 +245,12 @@ export const Listing = observer(({product}) => {
                 <Carousel autoPlay={false} timeout={100} animation="fade">
                   {listingProduct.listingImages.map((el, index) => (
                     <div key={index}>
-                      <img alt="" className={classNames.imgBox} src={el} onClick={e => onClickImg(e.target.src)} />
+                      <img
+                        alt=""
+                        className={classNames.imgBox}
+                        src={el}
+                        onClick={() => onClickImg({images: listingProduct.listingImages, imgIndex: index})}
+                      />
                     </div>
                   ))}
                 </Carousel>
@@ -258,7 +268,7 @@ export const Listing = observer(({product}) => {
             className={classNames.button}
             color="primary"
             variant="contained"
-            onClick={onSaveSubmith}
+            onClick={onSaveSubmit}
           >
             {'Сохранить'}
           </Button>
@@ -277,10 +287,12 @@ export const Listing = observer(({product}) => {
 
       {!checkIsBuyer(UserRoleCodeMap[userRole]) && <UserBalanceHistory historyData={payments} title="Транзакции:" />}
 
-      <ShowImageModal
+      <BigImagesModal
+        isAmazone
         openModal={showImageModal}
         setOpenModal={() => onTriggerOpenModal('showImageModal')}
-        image={curImage}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
       />
 
       <SuccessInfoModal

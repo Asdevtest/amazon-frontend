@@ -16,7 +16,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {styles} from './admin-settings-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').adminSettingsView
-const navbarActiveCategory = 7
+const navbarActiveCategory = 8
 export class AdminSettingsViewRaw extends Component {
   state = {
     drawerOpen: false,

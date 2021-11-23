@@ -6,6 +6,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
+    minWidth: '230px',
   },
   nativeSelect: {
     width: '200px',

@@ -29,6 +29,7 @@
     "@mui-treasury/styles": "^1.13.1",
     "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
+    "@openapitools/openapi-generator-cli": "^2.4.13",
     "@types/classnames": "^2.3.1",
     "@types/eslint": "^7.28.0",
     "@types/eslint-plugin-prettier": "^3.1.0",

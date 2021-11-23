@@ -43,6 +43,7 @@ export class WarehouseVacantViewModel {
   showBarcodeModal = false
   showEditBoxModal = false
   showCancelTaskModal = false
+  showConfirmModal = false
 
   rowHandlers = {
     onClickResolveBtn: item => this.onClickResolveBtn(item),
@@ -89,7 +90,7 @@ export class WarehouseVacantViewModel {
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e.pageSize
+    this.rowsPerPage = e
   }
 
   setRequestStatus(requestStatus) {
@@ -321,6 +322,8 @@ export class WarehouseVacantViewModel {
 
       if (photos.length > 0) {
         await this.onSubmitPostImages({images: photos, type: 'imagesOfTask'})
+      } else {
+        this.imagesOfTask = []
       }
 
       await this.updateTask(this.selectedTask.id, comment)
@@ -355,7 +358,7 @@ export class WarehouseVacantViewModel {
 
   onClickCancelTask(boxId, taskId, taskType) {
     this.tmpDataForCancelTask = {boxId, taskId, taskType}
-    this.onTriggerOpenModal('showCancelTaskModal')
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async cancelTaskActionByStatus() {
@@ -386,6 +389,7 @@ export class WarehouseVacantViewModel {
   async onClickConfirmCancelTask() {
     try {
       await this.cancelTaskActionByStatus()
+      this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showCancelTaskModal')
     } catch (error) {
       console.log(error)

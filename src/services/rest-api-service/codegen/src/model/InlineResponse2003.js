@@ -11,8 +11,8 @@
  *
  */
 
-import ApiClient from '../ApiClient'
-import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy'
+import ApiClient from '../ApiClient';
+import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
 
 /**
  * The InlineResponse2003 model module.
@@ -20,96 +20,106 @@ import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy'
  * @version v0.0.1
  */
 class InlineResponse2003 {
-  /**
+    /**
      * Constructs a new <code>InlineResponse2003</code>.
      * @alias module:model/InlineResponse2003
      */
-  constructor() {
-    InlineResponse2003.initialize(this)
-  }
+    constructor() { 
+        
+        InlineResponse2003.initialize(this);
+    }
 
-  /**
+    /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-  static initialize(obj) {}
+    static initialize(obj) { 
+    }
 
-  /**
+    /**
      * Constructs a <code>InlineResponse2003</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/InlineResponse2003} obj Optional instance to populate.
      * @return {module:model/InlineResponse2003} The populated <code>InlineResponse2003</code> instance.
      */
-  static constructFromObject(data, obj) {
-    if (data) {
-      obj = obj || new InlineResponse2003()
+    static constructFromObject(data, obj) {
+        if (data) {
+            obj = obj || new InlineResponse2003();
 
-      if (data.hasOwnProperty('_id')) {
-        obj['_id'] = ApiClient.convertToType(data['_id'], 'String')
-      }
-      if (data.hasOwnProperty('createdAt')) {
-        obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date')
-      }
-      if (data.hasOwnProperty('createdBy')) {
-        obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy'])
-      }
-      if (data.hasOwnProperty('productId')) {
-        obj['productId'] = ApiClient.convertToType(data['productId'], 'String')
-      }
-      if (data.hasOwnProperty('recipient')) {
-        obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient'])
-      }
-      if (data.hasOwnProperty('sum')) {
-        obj['sum'] = ApiClient.convertToType(data['sum'], 'Number')
-      }
-      if (data.hasOwnProperty('comment')) {
-        obj['comment'] = ApiClient.convertToType(data['comment'], 'String')
-      }
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('recipient')) {
+                obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient']);
+            }
+            if (data.hasOwnProperty('sum')) {
+                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+        }
+        return obj;
     }
-    return obj
-  }
+
+
 }
 
 /**
  * GUID платежа
  * @member {String} _id
  */
-InlineResponse2003.prototype['_id'] = undefined
+InlineResponse2003.prototype['_id'] = undefined;
 
 /**
  * Дата создания.
  * @member {Date} createdAt
  */
-InlineResponse2003.prototype['createdAt'] = undefined
+InlineResponse2003.prototype['createdAt'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy
  */
-InlineResponse2003.prototype['createdBy'] = undefined
+InlineResponse2003.prototype['createdBy'] = undefined;
 
 /**
  * GUID продукта.
  * @member {String} productId
  */
-InlineResponse2003.prototype['productId'] = undefined
+InlineResponse2003.prototype['productId'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient
  */
-InlineResponse2003.prototype['recipient'] = undefined
+InlineResponse2003.prototype['recipient'] = undefined;
 
 /**
  * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
  * @member {Number} sum
  */
-InlineResponse2003.prototype['sum'] = undefined
+InlineResponse2003.prototype['sum'] = undefined;
 
 /**
  * комментарий
  * @member {String} comment
  */
-InlineResponse2003.prototype['comment'] = undefined
+InlineResponse2003.prototype['comment'] = undefined;
 
-export default InlineResponse2003
+
+
+
+
+
+export default InlineResponse2003;
+

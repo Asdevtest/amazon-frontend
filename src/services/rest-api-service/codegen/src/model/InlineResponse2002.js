@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsUsersPermissionGroups from './ApiV1AdminsUsersPermissionGroups';
+import ApiV1AdminsUsersPermissions from './ApiV1AdminsUsersPermissions';
 
 /**
  * The InlineResponse2002 model module.
@@ -88,6 +90,15 @@ class InlineResponse2002 {
             if (data.hasOwnProperty('balanceFreeze')) {
                 obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
             }
+            if (data.hasOwnProperty('overdraft')) {
+                obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
+            }
+            if (data.hasOwnProperty('permissions')) {
+                obj['permissions'] = ApiClient.convertToType(data['permissions'], [ApiV1AdminsUsersPermissions]);
+            }
+            if (data.hasOwnProperty('permissionGroups')) {
+                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], [ApiV1AdminsUsersPermissionGroups]);
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -151,6 +162,22 @@ InlineResponse2002.prototype['balance'] = undefined;
  * @member {Number} balanceFreeze
  */
 InlineResponse2002.prototype['balanceFreeze'] = undefined;
+
+/**
+ * Сумма на которую может уходить в минус пользователь.
+ * @member {Number} overdraft
+ */
+InlineResponse2002.prototype['overdraft'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsUsersPermissions>} permissions
+ */
+InlineResponse2002.prototype['permissions'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsUsersPermissionGroups>} permissionGroups
+ */
+InlineResponse2002.prototype['permissionGroups'] = undefined;
 
 /**
  * Дата создания

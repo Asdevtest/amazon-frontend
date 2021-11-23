@@ -22,10 +22,13 @@ class InlineObject24 {
     /**
      * Constructs a new <code>InlineObject24</code>.
      * @alias module:model/InlineObject24
+     * @param key {String} Ключ группы permission
+     * @param title {String} Простое название
+     * @param description {String} Описание permission
      */
-    constructor() { 
+    constructor(key, title, description) { 
         
-        InlineObject24.initialize(this);
+        InlineObject24.initialize(this, key, title, description);
     }
 
     /**
@@ -33,7 +36,10 @@ class InlineObject24 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, key, title, description) { 
+        obj['key'] = key;
+        obj['title'] = title;
+        obj['description'] = description;
     }
 
     /**
@@ -47,8 +53,17 @@ class InlineObject24 {
         if (data) {
             obj = obj || new InlineObject24();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('key')) {
+                obj['key'] = ApiClient.convertToType(data['key'], 'String');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('permissions')) {
+                obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
             }
         }
         return obj;
@@ -58,10 +73,27 @@ class InlineObject24 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * Ключ группы permission
+ * @member {String} key
  */
-InlineObject24.prototype['suppliersIds'] = undefined;
+InlineObject24.prototype['key'] = undefined;
+
+/**
+ * Простое название
+ * @member {String} title
+ */
+InlineObject24.prototype['title'] = undefined;
+
+/**
+ * Описание permission
+ * @member {String} description
+ */
+InlineObject24.prototype['description'] = undefined;
+
+/**
+ * @member {Array.<String>} permissions
+ */
+InlineObject24.prototype['permissions'] = undefined;
 
 
 

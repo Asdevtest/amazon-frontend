@@ -20,4 +20,12 @@ export const styles = createStyles(theme => ({
   tableWrapper: {
     marginTop: '15px',
   },
+
+  row: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
 }))
