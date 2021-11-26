@@ -123,7 +123,7 @@ export class BuyerMyProductsViewModel {
       this.error = undefined
       const result = await BuyerModel.getProductsMy()
       runInAction(() => {
-        this.productsMy = result.sort(sortObjectsArrayByFiledDate('checkedAt')).map(item => ({
+        this.productsMy = result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(item => ({
           ...item,
           tmpStatus: ProductStatusByCode[item.status],
           tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],

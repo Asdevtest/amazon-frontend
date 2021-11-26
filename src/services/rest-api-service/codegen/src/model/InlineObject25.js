@@ -53,6 +53,9 @@ class InlineObject25 {
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            }
         }
         return obj;
     }
@@ -71,6 +74,12 @@ InlineObject25.prototype['title'] = undefined;
  * @member {String} description
  */
 InlineObject25.prototype['description'] = undefined;
+
+/**
+ * Роль для которого данной группы permission-ов
+ * @member {Number} role
+ */
+InlineObject25.prototype['role'] = undefined;
 
 
 

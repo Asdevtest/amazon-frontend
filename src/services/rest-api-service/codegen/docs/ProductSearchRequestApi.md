@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductSearchRequestsClientsGet
 
-> [InlineResponse2008] apiV1ProductSearchRequestsClientsGet(opts)
+> [InlineResponse2009] apiV1ProductSearchRequestsClientsGet(opts)
 
 Получить список заявок созданных данным клиентом.
 
@@ -106,7 +106,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2009]**](InlineResponse2009.md)
 
 ### Authorization
 
@@ -176,7 +176,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductSearchRequestsResearchersGet
 
-> [InlineResponse2008] apiV1ProductSearchRequestsResearchersGet(opts)
+> [InlineResponse2009] apiV1ProductSearchRequestsResearchersGet(opts)
 
 Получить список всех доступных заявок.
 
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2009]**](InlineResponse2009.md)
 
 ### Authorization
 

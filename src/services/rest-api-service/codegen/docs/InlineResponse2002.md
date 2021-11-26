@@ -11,11 +11,13 @@ Name | Type | Description | Notes
 **fba** | **Boolean** | Флаг fba. | 
 **active** | **Boolean** | Если истина - пользователь активен. Если нет - заблокирован админом. | 
 **rate** | **Number** | Ставка, по который оплачивается сотрудник. | 
-**balance** | **Number** | Балан сотрудника | [optional] 
+**balance** | **Number** | Баланс сотрудника | [optional] 
 **balanceFreeze** | **Number** | Замороженная при оплате ордера сумма. | [optional] 
 **overdraft** | **Number** | Сумма на которую может уходить в минус пользователь. | [optional] 
 **permissions** | [**[ApiV1AdminsUsersPermissions]**](ApiV1AdminsUsersPermissions.md) |  | [optional] 
 **permissionGroups** | [**[ApiV1AdminsUsersPermissionGroups]**](ApiV1AdminsUsersPermissionGroups.md) |  | [optional] 
+**masterUser** | **String** | GUID мастер пользователя к которому относится данный субпользователь. | [optional] 
+**allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 
 

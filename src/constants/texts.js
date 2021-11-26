@@ -142,6 +142,11 @@ export const texts = {
       toRedistributeBtn: 'To redistribute',
       newBoxBtn: 'New box',
       cancelBtn: 'Cancel',
+
+      warehouse: 'Склад',
+      valueNone: 'none',
+      deliveryMethod: 'Доставка',
+      shippingLabel: 'Шиппинг лейбл',
     },
     clientSendOwnProductForm: {
       productNameLabel: 'Product name',
@@ -375,18 +380,18 @@ export const texts = {
       modalBtnSaveRequest: 'Save request',
       modalBtnCloseRequest: 'Send',
 
-      formStrategyLabel: 'Strategy',
-      formMonthlySalesLabel: 'Monthly sales',
-      formBudgetLabel: 'Budget',
-      formAmazonPriceLabel: 'Amazon price',
-      formAvgBSRLabel: 'Average BSR',
-      formAvgReviewsLabel: 'Average Reviews',
-      formAvgRevenueLabel: 'Average Revenue',
+      formStrategyLabel: 'Strategy *',
+      formMonthlySalesLabel: 'Monthly sales *',
+      formBudgetLabel: 'Budget *',
+      formAmazonPriceLabel: 'Amazon price *',
+      formAvgBSRLabel: 'Average BSR *',
+      formAvgReviewsLabel: 'Average Reviews *',
+      formAvgRevenueLabel: 'Average Revenue *',
       formNotesLabel: 'Notes',
-      formCheckboxForbidLabel: 'Запрещать добавлять товары которые когда либо были проданы на площадке',
+      formCheckboxForbidLabel: 'Запрещать добавлять товары, которые когда-либо были проданы на площадке.',
       formCheckboxNoPayLabel: 'Не оплачиваю повторно купленные товары',
-      formDeadlineLabel: 'Target date',
-      formCheckboxNoCheckLabel: 'Сотрудники платформы не будут участвовать в проверке качества найденого товара',
+      formDeadlineLabel: 'Target date *',
+      formCheckboxNoCheckLabel: 'Сотрудники платформы не будут участвовать в проверке качества найденного товара.',
 
       formCloseReasonLabel: 'Describe the reason for closing request',
 
@@ -394,6 +399,17 @@ export const texts = {
       confirmMessage: 'Вы точно хотите отменить запрос на поиск?',
       yesBtn: 'Да',
       noBtn: 'Нет',
+
+      countOfProposals: 'Count of proposals *',
+      countOfOneProposals: 'Cost of one proposal *',
+      minProductInProposals: 'Count of min product in proposals *',
+      minKeywords: 'Count of min key words in proposals *',
+      size: 'Size tier *',
+      searchVolume: 'Search volume *',
+
+      editBtn: 'Изменить',
+      createBtn: 'Создать заявку',
+      cancelBtn: 'Отмена',
     },
 
     addOrEditSinglePermissionForm: {
@@ -412,6 +428,33 @@ export const texts = {
       editBtn: 'Изменить',
       createBtn: 'Создать разрешение',
       cancelBtn: 'Отмена',
+    },
+
+    addOrEditGroupPermissionForm: {
+      addTitle: 'Новоя группа разрешений',
+      editTitle: 'Изменить группу разрешений',
+
+      keyLabel: 'Ключ',
+      keyHolder: 'KEY_KEY_KEY...',
+      titleLabel: 'Название',
+      titleHolder: 'Группа №1 ',
+      descriptionLabel: 'Описание',
+      descriptionHolder: 'Доступ к редактированию товаров',
+      allowPermissions: 'Разрешения',
+
+      editBtn: 'Изменить группу',
+      createBtn: 'Создать группу',
+      cancelBtn: 'Отмена',
+
+      currentPermissions: 'Существующие разрешения:',
+      selectChooseTitle: 'Выбрать доступные:',
+      permissionsWillbeCreated: 'Разрешения будут созданы:',
+
+      addNewPermBtn: 'Создать новое',
+
+      keyPermInfo: 'Ключ:',
+      descriptionPermInfo: 'Описание:',
+      allowedUrlPermInfo: 'Разрешенные эндпоинты:',
     },
 
     exchangeInventoryColumns: {
@@ -1176,6 +1219,17 @@ export const texts = {
       selectOptionDropshipping: 'Dropshipping',
       selectOptionOnlineArbitrage: 'OnlineArbitrage',
       selectOptionPrivateLabel: 'PrivateLabel',
+
+      countOfProposals: 'Count of proposals *',
+      countOfOneProposals: 'Cost of one proposal *',
+      minProductInProposals: 'Count of min product in proposals *',
+      minKeywords: 'Count of min key words in proposals *',
+      size: 'Size tier *',
+      searchVolume: 'Search volume *',
+
+      editBtn: 'Изменить',
+      createBtn: 'Создать заявку',
+      cancelBtn: 'Отмена',
     },
     clientComponent: {
       mainPage: 'Клиент - Главная страница',
@@ -1593,6 +1647,15 @@ export const texts = {
     },
 
     adminSinglePermissionsColumns: {
+      createDateField: 'Создано',
+      updateDateField: 'Обновлено',
+      descriptionField: 'Описание',
+      keyField: 'Ключ',
+      titleField: 'Название',
+      actionField: 'Действия',
+    },
+
+    adminGroupPermissionsColumns: {
       createDateField: 'Создано',
       updateDateField: 'Обновлено',
       descriptionField: 'Описание',
@@ -2068,7 +2131,20 @@ export const texts = {
       addBtn: 'Добавить',
 
       confirmTitle: 'Внимание',
-      confirmMessage: 'Вы точно хотите удалить разрешение?',
+      confirmRemovePermMessage: 'Вы точно хотите удалить разрешение?',
+      confirmCloseModalMessage: 'Данные не будут сохранены!',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+    },
+
+    groupPermissions: {
+      mainTitle: 'Группы разрешений',
+      okBtn: 'Ок',
+      addBtn: 'Добавить',
+
+      confirmTitle: 'Внимание',
+      confirmRemoveGroupMessage: 'Вы точно хотите удалить группу?',
+      confirmCloseModalMessage: 'Данные не будут сохранены!',
       yesBtn: 'Да',
       noBtn: 'Нет',
     },

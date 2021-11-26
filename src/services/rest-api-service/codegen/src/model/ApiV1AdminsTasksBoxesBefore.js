@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
 import ApiV1AdminsTasksItems from './ApiV1AdminsTasksItems';
 
 /**
@@ -127,7 +128,7 @@ class ApiV1AdminsTasksBoxesBefore {
                 obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiClient.convertToType(data['createdBy'], 'String');
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['createdBy']);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -142,7 +143,7 @@ class ApiV1AdminsTasksBoxesBefore {
                 obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
             }
             if (data.hasOwnProperty('lastModifiedBy')) {
-                obj['lastModifiedBy'] = ApiClient.convertToType(data['lastModifiedBy'], 'String');
+                obj['lastModifiedBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['lastModifiedBy']);
             }
             if (data.hasOwnProperty('scheduledDispatchDate')) {
                 obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'Date');
@@ -329,8 +330,7 @@ ApiV1AdminsTasksBoxesBefore.prototype['isBarCodeAttachedByTheStorekeeper'] = und
 ApiV1AdminsTasksBoxesBefore.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
 
 /**
- * Тот кто создал коробку.
- * @member {String} createdBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} createdBy
  */
 ApiV1AdminsTasksBoxesBefore.prototype['createdBy'] = undefined;
 
@@ -359,8 +359,7 @@ ApiV1AdminsTasksBoxesBefore.prototype['clientId'] = undefined;
 ApiV1AdminsTasksBoxesBefore.prototype['buyerId'] = undefined;
 
 /**
- * GUID любого, кто последний редактировал коробку.
- * @member {String} lastModifiedBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} lastModifiedBy
  */
 ApiV1AdminsTasksBoxesBefore.prototype['lastModifiedBy'] = undefined;
 

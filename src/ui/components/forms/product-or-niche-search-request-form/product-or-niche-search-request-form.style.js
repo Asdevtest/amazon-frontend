@@ -4,12 +4,16 @@ export const useClassNames = makeStyles(() => ({
   button: {
     marginLeft: '10px',
   },
-  multiline: {
+  noteField: {
     width: '100%',
-    minHeight: '100px',
+    minHeight: '130px',
   },
 
   rangeField: {
     width: '250px',
+  },
+  checkboxWrapper: {
+    display: 'flex',
+    alignItems: 'center',
   },
 }))

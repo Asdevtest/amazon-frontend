@@ -23,7 +23,7 @@ export const HistoryTableRow = ({item, onClickTaskInfo, onClickCancelBtn}) => {
   const renderProductImage = (box, key) => (
     <div key={key} className={classNames.imagesWrapper}>
       <Typography className={classNames.imgNum}>{`#${key + 1}`}</Typography>
-      {box.items.map((product, itemIndex) => (
+      {box.items?.map((product, itemIndex) => (
         <div key={itemIndex} className={classNames.imgWrapper}>
           <img
             alt="placeholder"

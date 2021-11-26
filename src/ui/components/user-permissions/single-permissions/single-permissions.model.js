@@ -2,13 +2,17 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {texts} from '@constants/texts'
 
 import {PermissionsModel} from '@models/permissions-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {adminSinglePermissionsColumns} from '@components/table-columns/admin/single-permissions-columns'
 
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+
+const textConsts = getLocalizedTexts(texts, 'ru').singlePermissions
 
 export class SinglePermissionsModel {
   history = undefined
@@ -24,6 +28,12 @@ export class SinglePermissionsModel {
     permission: {},
     isEdit: false,
     onSubmit: data => this.onSubmitCreateSinglePermission(data),
+  }
+
+  confirmModalSettings = {
+    isWarning: false,
+    message: '',
+    onClickSuccess: () => {},
   }
 
   rowHandlers = {
@@ -154,7 +164,9 @@ export class SinglePermissionsModel {
 
   async updateSinglePermission(data, permissionId) {
     try {
-      await PermissionsModel.updateSinglePermission(permissionId, data)
+      const allowData = getObjectFilteredByKeyArrayWhiteList(data, ['title', 'description', 'allowedUrl'])
+
+      await PermissionsModel.updateSinglePermission(permissionId, allowData)
     } catch (error) {
       console.log(error)
       this.error = error
@@ -182,6 +194,21 @@ export class SinglePermissionsModel {
     this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
   }
 
+  onClickCancelBtn() {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: textConsts.confirmCloseModalMessage,
+      onClickSuccess: () => this.cancelTheOrder(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  cancelTheOrder() {
+    this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
   onClickAddBtn() {
     this.addOrEditSinglePermissionSettings = {
       permission: {},
@@ -193,6 +220,12 @@ export class SinglePermissionsModel {
 
   onClickRemoveBtn(id) {
     this.permissionIdToRemove = id
+
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: textConsts.confirmRemovePermMessage,
+      onClickSuccess: () => this.removeSinglePermission(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }

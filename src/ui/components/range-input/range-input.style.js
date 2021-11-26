@@ -17,4 +17,8 @@ export const useClassNames = makeStyles(theme => ({
     color: theme.palette.text.secondary,
     marginRight: '8px',
   },
+
+  alarm: {
+    border: '1px solid red',
+  },
 }))

@@ -86,6 +86,24 @@ class UserSchema {
             if (data.hasOwnProperty('balance')) {
                 obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
             }
+            if (data.hasOwnProperty('balanceFreeze')) {
+                obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
+            }
+            if (data.hasOwnProperty('overdraft')) {
+                obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
+            }
+            if (data.hasOwnProperty('permissions')) {
+                obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
+            }
+            if (data.hasOwnProperty('permissionGroups')) {
+                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], ['String']);
+            }
+            if (data.hasOwnProperty('masterUser')) {
+                obj['masterUser'] = ApiClient.convertToType(data['masterUser'], 'String');
+            }
+            if (data.hasOwnProperty('allowedRoles')) {
+                obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
+            }
         }
         return obj;
     }
@@ -140,6 +158,42 @@ UserSchema.prototype['rate'] = undefined;
  * @member {Number} balance
  */
 UserSchema.prototype['balance'] = undefined;
+
+/**
+ * Замороженная при оплате ордера сумма..
+ * @member {Number} balanceFreeze
+ */
+UserSchema.prototype['balanceFreeze'] = undefined;
+
+/**
+ * Сумма на которую может уходить в минус пользователь.
+ * @member {Number} overdraft
+ */
+UserSchema.prototype['overdraft'] = undefined;
+
+/**
+ * Массив permission-ов.
+ * @member {Array.<String>} permissions
+ */
+UserSchema.prototype['permissions'] = undefined;
+
+/**
+ * Массив групп permission-ов.
+ * @member {Array.<String>} permissionGroups
+ */
+UserSchema.prototype['permissionGroups'] = undefined;
+
+/**
+ * GUID мастер пользователя к которму относится данный субпользователь.
+ * @member {String} masterUser
+ */
+UserSchema.prototype['masterUser'] = undefined;
+
+/**
+ * Массив массив ролей.
+ * @member {Array.<Number>} allowedRoles
+ */
+UserSchema.prototype['allowedRoles'] = undefined;
 
 
 

@@ -193,13 +193,22 @@ export class ClientWarehouseViewModel {
   async onRedistribute(id, updatedBoxes, type, isMasterBox, comment) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.selectedBoxes = []
 
       if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
         this.onTriggerOpenModal('showRedistributeBoxFailModal')
       } else {
-        const boxes = updatedBoxes.map(el =>
-          el.items.map(item => ({amount: item.amount, productId: item.product._id, orderId: item.order._id})),
-        )
+        const boxes = updatedBoxes.map(el => ({
+          boxBody: {
+            shippingLabel: el.shippingLabel,
+            warehouse: el.warehouse,
+            deliveryMethod: el.deliveryMethod,
+          },
+          boxItems: [
+            ...el.items.map(item => ({amount: item.amount, productId: item.product._id, orderId: item.order._id})),
+          ],
+        }))
+
         const splitBoxesResult = await this.splitBoxes(id, boxes)
 
         await this.postTask({idsData: splitBoxesResult, idsBeforeData: [id], type, clientComment: comment})
@@ -313,7 +322,7 @@ export class ClientWarehouseViewModel {
       const result = await ClientModel.getTasks()
 
       runInAction(() => {
-        this.tasksMy = result.sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.tasksMy = result.data.sort(sortObjectsArrayByFiledDate('createdAt'))
       })
     } catch (error) {
       console.log(error)

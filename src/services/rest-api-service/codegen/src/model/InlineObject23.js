@@ -56,6 +56,9 @@ class InlineObject23 {
             if (data.hasOwnProperty('allowedUrl')) {
                 obj['allowedUrl'] = ApiClient.convertToType(data['allowedUrl'], ['String']);
             }
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            }
         }
         return obj;
     }
@@ -80,6 +83,12 @@ InlineObject23.prototype['description'] = undefined;
  * @member {Array.<String>} allowedUrl
  */
 InlineObject23.prototype['allowedUrl'] = undefined;
+
+/**
+ * Роль для которого данный permission
+ * @member {Number} role
+ */
+InlineObject23.prototype['role'] = undefined;
 
 
 

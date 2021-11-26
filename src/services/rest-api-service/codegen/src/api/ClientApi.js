@@ -20,8 +20,8 @@ import InlineObject20 from '../model/InlineObject20';
 import InlineObject21 from '../model/InlineObject21';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse2005 from '../model/InlineResponse2005';
-import InlineResponse2006 from '../model/InlineResponse2006';
 import InlineResponse2007 from '../model/InlineResponse2007';
+import InlineResponse2008 from '../model/InlineResponse2008';
 import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse2013 from '../model/InlineResponse2013';
 import InlineResponse400 from '../model/InlineResponse400';
@@ -830,8 +830,12 @@ export default class ClientApi {
      * # Показать все задачи данного пользователя.
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
+     * @param {Number} opts.offset Смещение в пагинации (default to 0)
+     * @param {Number} opts.limit Сколько записей отдать в пагинации (default to 20)
+     * @param {String} opts.sortBy Название поля по которому происходи сортировка.
+     * @param {module:model/String} opts.order Направление сортировки
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2008} and HTTP response
      */
     apiV1ClientsTasksGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -840,6 +844,10 @@ export default class ClientApi {
       let pathParams = {
       };
       let queryParams = {
+        'offset': opts['offset'],
+        'limit': opts['limit'],
+        'sortBy': opts['sortBy'],
+        'order': opts['order']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -850,7 +858,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2006];
+      let returnType = InlineResponse2008;
       return this.apiClient.callApi(
         '/api/v1/clients/tasks', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -862,8 +870,12 @@ export default class ClientApi {
      * # Показать все задачи данного пользователя.
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
+     * @param {Number} opts.offset Смещение в пагинации (default to 0)
+     * @param {Number} opts.limit Сколько записей отдать в пагинации (default to 20)
+     * @param {String} opts.sortBy Название поля по которому происходи сортировка.
+     * @param {module:model/String} opts.order Направление сортировки
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2008}
      */
     apiV1ClientsTasksGet(opts) {
       return this.apiV1ClientsTasksGetWithHttpInfo(opts)

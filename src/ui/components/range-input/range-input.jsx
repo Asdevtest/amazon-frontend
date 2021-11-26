@@ -14,17 +14,19 @@ const textConsts = getLocalizedTexts(texts, 'en').rangeInput
 export const RangeInput = ({start, onChangeRangeStart, end, onChangeRangeEnd, className}) => {
   const classNames = useClassNames()
 
-  const renderField = (label, value, onChange) => (
+  const isStartBiggerOfEnd = end < start
+
+  const renderField = (label, value, onChange, alert) => (
     <div className={classNames.field}>
       <Typography className={classNames.label}>{label}</Typography>
-      <Input className={classNames.input} value={value} onChange={onChange} />
+      <Input className={clsx(classNames.input, {[classNames.alarm]: alert})} value={value} onChange={onChange} />
     </div>
   )
 
   return (
     <div className={clsx(classNames.root, className)}>
       {renderField(textConsts.start, start, onChangeRangeStart)}
-      {renderField(textConsts.end, end, onChangeRangeEnd)}
+      {renderField(textConsts.end, end, onChangeRangeEnd, isStartBiggerOfEnd)}
     </div>
   )
 }

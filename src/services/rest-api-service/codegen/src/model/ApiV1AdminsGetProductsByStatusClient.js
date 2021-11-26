@@ -88,6 +88,21 @@ class ApiV1AdminsGetProductsByStatusClient {
             if (data.hasOwnProperty('balanceFreeze')) {
                 obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
             }
+            if (data.hasOwnProperty('overdraft')) {
+                obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
+            }
+            if (data.hasOwnProperty('permissions')) {
+                obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
+            }
+            if (data.hasOwnProperty('permissionGroups')) {
+                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], ['String']);
+            }
+            if (data.hasOwnProperty('masterUser')) {
+                obj['masterUser'] = ApiClient.convertToType(data['masterUser'], 'String');
+            }
+            if (data.hasOwnProperty('allowedRoles')) {
+                obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
+            }
         }
         return obj;
     }
@@ -148,6 +163,36 @@ ApiV1AdminsGetProductsByStatusClient.prototype['balance'] = undefined;
  * @member {Number} balanceFreeze
  */
 ApiV1AdminsGetProductsByStatusClient.prototype['balanceFreeze'] = undefined;
+
+/**
+ * Овердрафт пользователя.
+ * @member {Number} overdraft
+ */
+ApiV1AdminsGetProductsByStatusClient.prototype['overdraft'] = undefined;
+
+/**
+ * Массив permission-ов.
+ * @member {Array.<String>} permissions
+ */
+ApiV1AdminsGetProductsByStatusClient.prototype['permissions'] = undefined;
+
+/**
+ * Массив групп permission-ов.
+ * @member {Array.<String>} permissionGroups
+ */
+ApiV1AdminsGetProductsByStatusClient.prototype['permissionGroups'] = undefined;
+
+/**
+ * GUID мастер пользователя к которму относится данный субпользователь.
+ * @member {String} masterUser
+ */
+ApiV1AdminsGetProductsByStatusClient.prototype['masterUser'] = undefined;
+
+/**
+ * Массив массив ролей.
+ * @member {Array.<Number>} allowedRoles
+ */
+ApiV1AdminsGetProductsByStatusClient.prototype['allowedRoles'] = undefined;
 
 
 

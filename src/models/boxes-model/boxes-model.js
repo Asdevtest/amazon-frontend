@@ -39,7 +39,7 @@ class BoxesModelStatic {
 
   splitBoxes = async (id, data) => {
     const response = await restApiService.boxesApi.apiV1BoxesSplitPost({
-      InlineObject9: {guid: id, itemsBoxSet: data},
+      InlineObject9: {guid: id, newBoxesParams: data},
     })
     return response
   }

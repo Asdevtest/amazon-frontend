@@ -29,12 +29,13 @@ class ApiV1AdminsUsersPermissions {
      * @param description {String} Описание permission
      * @param allowedUrl {Array.<String>} Массив доступных url.
      * @param createdById {String} GUID любого, кто последний создал permission.
+     * @param role {Number} Роль для которого данный permission
      * @param createdAt {Date} Дата создания
      * @param updatedAt {Date} Дата изменения
      */
-    constructor(_id, key, title, description, allowedUrl, createdById, createdAt, updatedAt) { 
+    constructor(_id, key, title, description, allowedUrl, createdById, role, createdAt, updatedAt) { 
         
-        ApiV1AdminsUsersPermissions.initialize(this, _id, key, title, description, allowedUrl, createdById, createdAt, updatedAt);
+        ApiV1AdminsUsersPermissions.initialize(this, _id, key, title, description, allowedUrl, createdById, role, createdAt, updatedAt);
     }
 
     /**
@@ -42,13 +43,14 @@ class ApiV1AdminsUsersPermissions {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, key, title, description, allowedUrl, createdById, createdAt, updatedAt) { 
+    static initialize(obj, _id, key, title, description, allowedUrl, createdById, role, createdAt, updatedAt) { 
         obj['_id'] = _id;
         obj['key'] = key;
         obj['title'] = title;
         obj['description'] = description;
         obj['allowedUrl'] = allowedUrl;
         obj['createdById'] = createdById;
+        obj['role'] = role;
         obj['createdAt'] = createdAt;
         obj['updatedAt'] = updatedAt;
     }
@@ -81,6 +83,9 @@ class ApiV1AdminsUsersPermissions {
             }
             if (data.hasOwnProperty('createdById')) {
                 obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
             if (data.hasOwnProperty('lastModifiedById')) {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
@@ -133,6 +138,12 @@ ApiV1AdminsUsersPermissions.prototype['allowedUrl'] = undefined;
  * @member {String} createdById
  */
 ApiV1AdminsUsersPermissions.prototype['createdById'] = undefined;
+
+/**
+ * Роль для которого данный permission
+ * @member {Number} role
+ */
+ApiV1AdminsUsersPermissions.prototype['role'] = undefined;
 
 /**
  * GUID любого, кто последний редактировал permission.

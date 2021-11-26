@@ -25,10 +25,11 @@ class InlineObject24 {
      * @param key {String} Ключ группы permission
      * @param title {String} Простое название
      * @param description {String} Описание permission
+     * @param role {Number} Роль для которого данной группы permission-ов
      */
-    constructor(key, title, description) { 
+    constructor(key, title, description, role) { 
         
-        InlineObject24.initialize(this, key, title, description);
+        InlineObject24.initialize(this, key, title, description, role);
     }
 
     /**
@@ -36,10 +37,11 @@ class InlineObject24 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, key, title, description) { 
+    static initialize(obj, key, title, description, role) { 
         obj['key'] = key;
         obj['title'] = title;
         obj['description'] = description;
+        obj['role'] = role;
     }
 
     /**
@@ -64,6 +66,9 @@ class InlineObject24 {
             }
             if (data.hasOwnProperty('permissions')) {
                 obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
+            }
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
         }
         return obj;
@@ -94,6 +99,12 @@ InlineObject24.prototype['description'] = undefined;
  * @member {Array.<String>} permissions
  */
 InlineObject24.prototype['permissions'] = undefined;
+
+/**
+ * Роль для которого данной группы permission-ов
+ * @member {Number} role
+ */
+InlineObject24.prototype['role'] = undefined;
 
 
 

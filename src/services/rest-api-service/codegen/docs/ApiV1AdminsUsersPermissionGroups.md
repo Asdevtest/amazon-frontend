@@ -8,7 +8,8 @@ Name | Type | Description | Notes
 **key** | **String** | Ключ группы пермишенов | 
 **title** | **String** | Простое название | 
 **description** | **String** | Описание группы пермишенов | 
-**permissions** | [**[ApiV1AdminsUsersPermissions]**](ApiV1AdminsUsersPermissions.md) |  | [optional] 
+**permissions** | [**[ApiV1AdminsUsersPermissions]**](ApiV1AdminsUsersPermissions.md) |  | 
+**role** | **Number** | Роль для которого данной группы permission-ов | 
 **createdById** | **String** | GUID любого, кто последний создал группу permission. | 
 **lastModifiedById** | **String** | GUID любого, кто последний редактировал группу permission. | [optional] 
 **createdAt** | **Date** | Дата создания | 

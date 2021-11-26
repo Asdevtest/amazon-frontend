@@ -242,6 +242,8 @@ Class | Method | HTTP request | Description
 *Amazonapi.SupplierApi* | [**apiV1SuppliersPost**](docs/SupplierApi.md#apiV1SuppliersPost) | **POST** /api/v1/suppliers/ | # Добавить нового поставщика.
 *Amazonapi.UserApi* | [**apiV1TechClearAllSchemasPost**](docs/UserApi.md#apiV1TechClearAllSchemasPost) | **POST** /api/v1/tech/clear_all_schemas | Очистить все коллекции в БД кроме пользователей.
 *Amazonapi.UserApi* | [**apiV1UsersInfoGet**](docs/UserApi.md#apiV1UsersInfoGet) | **GET** /api/v1/users/info | Получить информацию от текущем пользователе.
+*Amazonapi.UserApi* | [**apiV1UsersLinkSubUserPatch**](docs/UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка суб пользователя.
+*Amazonapi.UserApi* | [**apiV1UsersMePatch**](docs/UserApi.md#apiV1UsersMePatch) | **PATCH** /api/v1/users/me | # Обновления информации о себе самим пользователем.
 *Amazonapi.UserApi* | [**apiV1UsersPost**](docs/UserApi.md#apiV1UsersPost) | **POST** /api/v1/users/ | Создание нового пользователя. Регистрация.
 *Amazonapi.UserApi* | [**apiV1UsersSignInPost**](docs/UserApi.md#apiV1UsersSignInPost) | **POST** /api/v1/users/sign_in | # Получение токена авторизации.
 
@@ -253,6 +255,7 @@ Class | Method | HTTP request | Description
  - [Amazonapi.ApiV1AdminsGetProductsByStatusListingSupplierCompetitors](docs/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md)
  - [Amazonapi.ApiV1AdminsOrdersCreatedBy](docs/ApiV1AdminsOrdersCreatedBy.md)
  - [Amazonapi.ApiV1AdminsPaymentsCreatedBy](docs/ApiV1AdminsPaymentsCreatedBy.md)
+ - [Amazonapi.ApiV1AdminsPaymentsProduct](docs/ApiV1AdminsPaymentsProduct.md)
  - [Amazonapi.ApiV1AdminsTasksBoxesBefore](docs/ApiV1AdminsTasksBoxesBefore.md)
  - [Amazonapi.ApiV1AdminsTasksItems](docs/ApiV1AdminsTasksItems.md)
  - [Amazonapi.ApiV1AdminsUsersPermissionGroups](docs/ApiV1AdminsUsersPermissionGroups.md)
@@ -303,6 +306,8 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineObject39](docs/InlineObject39.md)
  - [Amazonapi.InlineObject4](docs/InlineObject4.md)
  - [Amazonapi.InlineObject40](docs/InlineObject40.md)
+ - [Amazonapi.InlineObject41](docs/InlineObject41.md)
+ - [Amazonapi.InlineObject42](docs/InlineObject42.md)
  - [Amazonapi.InlineObject5](docs/InlineObject5.md)
  - [Amazonapi.InlineObject6](docs/InlineObject6.md)
  - [Amazonapi.InlineObject7](docs/InlineObject7.md)
@@ -311,8 +316,9 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineResponse200](docs/InlineResponse200.md)
  - [Amazonapi.InlineResponse2001](docs/InlineResponse2001.md)
  - [Amazonapi.InlineResponse20010](docs/InlineResponse20010.md)
- - [Amazonapi.InlineResponse20010Info](docs/InlineResponse20010Info.md)
  - [Amazonapi.InlineResponse20011](docs/InlineResponse20011.md)
+ - [Amazonapi.InlineResponse20011Info](docs/InlineResponse20011Info.md)
+ - [Amazonapi.InlineResponse20012](docs/InlineResponse20012.md)
  - [Amazonapi.InlineResponse2002](docs/InlineResponse2002.md)
  - [Amazonapi.InlineResponse2003](docs/InlineResponse2003.md)
  - [Amazonapi.InlineResponse2004](docs/InlineResponse2004.md)
@@ -320,6 +326,7 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineResponse2006](docs/InlineResponse2006.md)
  - [Amazonapi.InlineResponse2007](docs/InlineResponse2007.md)
  - [Amazonapi.InlineResponse2008](docs/InlineResponse2008.md)
+ - [Amazonapi.InlineResponse2008Meta](docs/InlineResponse2008Meta.md)
  - [Amazonapi.InlineResponse2009](docs/InlineResponse2009.md)
  - [Amazonapi.InlineResponse201](docs/InlineResponse201.md)
  - [Amazonapi.InlineResponse2011](docs/InlineResponse2011.md)

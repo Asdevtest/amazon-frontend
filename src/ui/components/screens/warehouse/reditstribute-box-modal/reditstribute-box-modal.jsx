@@ -1,11 +1,13 @@
 import React, {useState} from 'react'
 
-import {Button, Divider, IconButton, Typography} from '@material-ui/core'
+import {Button, Divider, IconButton, InputLabel, NativeSelect, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 
+import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {texts} from '@constants/texts'
+import {warehouses} from '@constants/warehouses'
 
 import {Field} from '@components/field'
 import {Input} from '@components/input'
@@ -25,8 +27,9 @@ const Box = ({
   boxIsMasterBox,
   isMasterBox,
   selectedBox,
-  onChangeInput,
+  onChangeAmountInput,
   onRemoveBox,
+  onChangeField,
   isNewBox,
 }) => {
   const classNames = useClassNames()
@@ -50,7 +53,7 @@ const Box = ({
                   classes={{root: classNames.inputWrapper, input: classNames.input}}
                   readOnly={readOnly}
                   value={isMasterBox ? (boxIsMasterBox ? selectedBox.amount : 1) : order.amount}
-                  onChange={e => checkIsPositiveNum(e.target.value) && onChangeInput(e, box._id, order.order)}
+                  onChange={e => checkIsPositiveNum(e.target.value) && onChangeAmountInput(e, box._id, order.order)}
                 />
               </div>
               {isMasterBox ? (
@@ -58,6 +61,57 @@ const Box = ({
               ) : undefined}
             </div>
           ))}
+
+          <div>
+            <div>
+              <InputLabel className={classNames.modalText}>{textConsts.warehouse}</InputLabel>
+              <NativeSelect
+                variant="filled"
+                disabled={!isNewBox}
+                value={box.warehouse}
+                className={classNames.nativeSelect}
+                input={<Input />}
+                onChange={e => onChangeField(e, 'warehouse', box._id)}
+              >
+                <option>{textConsts.valueNone}</option>
+                {Object.keys(warehouses).map((warehouseCode, warehouseIndex) => {
+                  const warehouseKey = warehouses[warehouseCode]
+                  return (
+                    <option key={warehouseIndex} value={warehouseCode}>
+                      {warehouseKey}
+                    </option>
+                  )
+                })}
+              </NativeSelect>
+            </div>
+            <div>
+              <InputLabel className={classNames.modalText}>{textConsts.deliveryMethod}</InputLabel>
+              <NativeSelect
+                variant="filled"
+                disabled={!isNewBox}
+                value={box.deliveryMethod}
+                className={classNames.nativeSelect}
+                input={<Input />}
+                onChange={e => onChangeField(e, 'deliveryMethod', box._id)}
+              >
+                <option>{textConsts.valueNone}</option>
+                {Object.keys(DeliveryTypeByCode).map((deliveryCode, deliveryIndex) => (
+                  <option key={deliveryIndex} value={deliveryCode}>
+                    {getDeliveryOptionByCode(deliveryCode).label}
+                  </option>
+                ))}
+              </NativeSelect>
+            </div>
+
+            <Field
+              multiline
+              disabled={!isNewBox}
+              className={classNames.heightFieldAuto}
+              label={textConsts.shippingLabel}
+              value={box.shippingLabel}
+              onChange={e => onChangeField(e, 'shippingLabel', box._id)}
+            />
+          </div>
         </div>
 
         {isNewBox && (
@@ -70,7 +124,7 @@ const Box = ({
   )
 }
 
-const NewBoxes = ({newBoxes, isMasterBox, selectedBox, onChangeInput, onRemoveBox}) => {
+const NewBoxes = ({newBoxes, isMasterBox, selectedBox, onChangeAmountInput, onRemoveBox, onChangeField}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.newBoxes}>
@@ -85,7 +139,8 @@ const NewBoxes = ({newBoxes, isMasterBox, selectedBox, onChangeInput, onRemoveBo
           readOnly={isMasterBox}
           isMasterBox={isMasterBox}
           selectedBox={selectedBox}
-          onChangeInput={onChangeInput}
+          onChangeAmountInput={onChangeAmountInput}
+          onChangeField={onChangeField}
           onRemoveBox={onRemoveBox}
         />
       ))}
@@ -118,7 +173,7 @@ export const RedistributeBox = ({
     ? currentBox.amount - newBoxes.length
     : currentBox.items.reduce((acc, order) => acc + order.amount, 0)
 
-  const onChangeInput = (e, _id, order) => {
+  const onChangeAmountInput = (e, _id, order) => {
     const targetBox = newBoxes.filter(box => box._id === _id)[0]
     const targetProduct = targetBox.items.filter(product => product.order === order)[0]
     const updatedTargetProduct = {...targetProduct, amount: Number(e.target.value)}
@@ -145,6 +200,15 @@ export const RedistributeBox = ({
 
     setNewBoxes(updatedNewBoxes)
     setCurrentBox(updatedCurrentBox)
+  }
+
+  const onChangeField = (e, field, boxId) => {
+    const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
+    const updatedTargetBox = {...targetBox, [field]: e.target.value}
+
+    const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+
+    setNewBoxes(updatedNewBoxes)
   }
 
   const onClickRedistributeBtn = () => {
@@ -189,7 +253,7 @@ export const RedistributeBox = ({
         index={0}
         isMasterBox={isMasterBox}
         selectedBox={selectedBox}
-        onChangeInput={onChangeInput}
+        onChangeAmountInput={onChangeAmountInput}
       />
 
       <div className={classNames.currentBoxFooter}>
@@ -209,7 +273,8 @@ export const RedistributeBox = ({
           newBoxes={newBoxes}
           isMasterBox={isMasterBox}
           selectedBox={selectedBox}
-          onChangeInput={onChangeInput}
+          onChangeAmountInput={onChangeAmountInput}
+          onChangeField={onChangeField}
           onRemoveBox={onRemoveBox}
         />
         <Divider flexItem className={classNames.divider} orientation="vertical" />

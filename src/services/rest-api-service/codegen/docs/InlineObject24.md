@@ -8,5 +8,6 @@ Name | Type | Description | Notes
 **title** | **String** | Простое название | 
 **description** | **String** | Описание permission | 
 **permissions** | **[String]** |  | [optional] 
+**role** | **Number** | Роль для которого данной группы permission-ов | 
 
 

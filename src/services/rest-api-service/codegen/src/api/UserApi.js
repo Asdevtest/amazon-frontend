@@ -16,10 +16,13 @@ import ApiClient from "../ApiClient";
 import ApiV1AdminsOrdersCreatedBy from '../model/ApiV1AdminsOrdersCreatedBy';
 import InlineObject39 from '../model/InlineObject39';
 import InlineObject40 from '../model/InlineObject40';
+import InlineObject41 from '../model/InlineObject41';
+import InlineObject42 from '../model/InlineObject42';
 import InlineResponse2016 from '../model/InlineResponse2016';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse403 from '../model/InlineResponse403';
 import InlineResponse404 from '../model/InlineResponse404';
+import InlineResponse409 from '../model/InlineResponse409';
 import InlineResponse500 from '../model/InlineResponse500';
 
 /**
@@ -130,6 +133,112 @@ export default class UserApi {
      */
     apiV1UsersInfoGet(opts) {
       return this.apiV1UsersInfoGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Привязка суб пользователя.
+     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## В поле должен передаваться email пользователя которого к себе хочет привязать мастер пользователь.  
+     * @param {module:model/InlineObject41} InlineObject41 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1UsersLinkSubUserPatchWithHttpInfo(InlineObject41, opts) {
+      opts = opts || {};
+      let postBody = InlineObject41;
+      // verify the required parameter 'InlineObject41' is set
+      if (InlineObject41 === undefined || InlineObject41 === null) {
+        throw new Error("Missing the required parameter 'InlineObject41' when calling apiV1UsersLinkSubUserPatch");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/users/link_sub-user', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Привязка суб пользователя.
+     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## В поле должен передаваться email пользователя которого к себе хочет привязать мастер пользователь.  
+     * @param {module:model/InlineObject41} InlineObject41 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1UsersLinkSubUserPatch(InlineObject41, opts) {
+      return this.apiV1UsersLinkSubUserPatchWithHttpInfo(InlineObject41, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Обновления информации о себе самим пользователем.
+     * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  
+     * @param {module:model/InlineObject42} InlineObject42 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1UsersMePatchWithHttpInfo(InlineObject42, opts) {
+      opts = opts || {};
+      let postBody = InlineObject42;
+      // verify the required parameter 'InlineObject42' is set
+      if (InlineObject42 === undefined || InlineObject42 === null) {
+        throw new Error("Missing the required parameter 'InlineObject42' when calling apiV1UsersMePatch");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/users/me', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Обновления информации о себе самим пользователем.
+     * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  
+     * @param {module:model/InlineObject42} InlineObject42 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1UsersMePatch(InlineObject42, opts) {
+      return this.apiV1UsersMePatchWithHttpInfo(InlineObject42, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

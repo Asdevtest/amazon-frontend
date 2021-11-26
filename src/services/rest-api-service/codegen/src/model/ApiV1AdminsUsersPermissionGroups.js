@@ -27,13 +27,15 @@ class ApiV1AdminsUsersPermissionGroups {
      * @param key {String} Ключ группы пермишенов
      * @param title {String} Простое название
      * @param description {String} Описание группы пермишенов
+     * @param permissions {Array.<module:model/ApiV1AdminsUsersPermissions>} 
+     * @param role {Number} Роль для которого данной группы permission-ов
      * @param createdById {String} GUID любого, кто последний создал группу permission.
      * @param createdAt {Date} Дата создания
      * @param updatedAt {Date} Дата изменения
      */
-    constructor(key, title, description, createdById, createdAt, updatedAt) { 
+    constructor(key, title, description, permissions, role, createdById, createdAt, updatedAt) { 
         
-        ApiV1AdminsUsersPermissionGroups.initialize(this, key, title, description, createdById, createdAt, updatedAt);
+        ApiV1AdminsUsersPermissionGroups.initialize(this, key, title, description, permissions, role, createdById, createdAt, updatedAt);
     }
 
     /**
@@ -41,10 +43,12 @@ class ApiV1AdminsUsersPermissionGroups {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, key, title, description, createdById, createdAt, updatedAt) { 
+    static initialize(obj, key, title, description, permissions, role, createdById, createdAt, updatedAt) { 
         obj['key'] = key;
         obj['title'] = title;
         obj['description'] = description;
+        obj['permissions'] = permissions;
+        obj['role'] = role;
         obj['createdById'] = createdById;
         obj['createdAt'] = createdAt;
         obj['updatedAt'] = updatedAt;
@@ -75,6 +79,9 @@ class ApiV1AdminsUsersPermissionGroups {
             }
             if (data.hasOwnProperty('permissions')) {
                 obj['permissions'] = ApiClient.convertToType(data['permissions'], [ApiV1AdminsUsersPermissions]);
+            }
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
             if (data.hasOwnProperty('createdById')) {
                 obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
@@ -123,6 +130,12 @@ ApiV1AdminsUsersPermissionGroups.prototype['description'] = undefined;
  * @member {Array.<module:model/ApiV1AdminsUsersPermissions>} permissions
  */
 ApiV1AdminsUsersPermissionGroups.prototype['permissions'] = undefined;
+
+/**
+ * Роль для которого данной группы permission-ов
+ * @member {Number} role
+ */
+ApiV1AdminsUsersPermissionGroups.prototype['role'] = undefined;
 
 /**
  * GUID любого, кто последний создал группу permission.

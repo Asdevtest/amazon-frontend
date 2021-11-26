@@ -12,5 +12,11 @@ Name | Type | Description | Notes
 **active** | **Boolean** | Если истина - пользователь активен. Если нет - заблокирован админом. | 
 **rate** | **Number** | Ставка, по который оплачивается сотрудник. | 
 **balance** | **Number** | Баланс пользователя. | [optional] 
+**balanceFreeze** | **Number** | Замороженная при оплате ордера сумма.. | [optional] 
+**overdraft** | **Number** | Сумма на которую может уходить в минус пользователь. | [optional] 
+**permissions** | **[String]** | Массив permission-ов. | [optional] 
+**permissionGroups** | **[String]** | Массив групп permission-ов. | [optional] 
+**masterUser** | **String** | GUID мастер пользователя к которму относится данный субпользователь. | [optional] 
+**allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
 
 

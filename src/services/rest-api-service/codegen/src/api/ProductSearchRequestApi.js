@@ -11,15 +11,16 @@
  *
  */
 
-import ApiClient from '../ApiClient'
-import InlineObject26 from '../model/InlineObject26'
-import InlineObject27 from '../model/InlineObject27'
-import InlineResponse2008 from '../model/InlineResponse2008'
-import InlineResponse2015 from '../model/InlineResponse2015'
-import InlineResponse400 from '../model/InlineResponse400'
-import InlineResponse404 from '../model/InlineResponse404'
-import InlineResponse409 from '../model/InlineResponse409'
-import InlineResponse500 from '../model/InlineResponse500'
+
+import ApiClient from "../ApiClient";
+import InlineObject26 from '../model/InlineObject26';
+import InlineObject27 from '../model/InlineObject27';
+import InlineResponse2009 from '../model/InlineResponse2009';
+import InlineResponse2015 from '../model/InlineResponse2015';
+import InlineResponse400 from '../model/InlineResponse400';
+import InlineResponse404 from '../model/InlineResponse404';
+import InlineResponse409 from '../model/InlineResponse409';
+import InlineResponse500 from '../model/InlineResponse500';
 
 /**
 * ProductSearchRequest service.
@@ -27,18 +28,21 @@ import InlineResponse500 from '../model/InlineResponse500'
 * @version v0.0.1
 */
 export default class ProductSearchRequestApi {
-  /**
+
+    /**
     * Constructs a new ProductSearchRequestApi. 
     * @alias module:api/ProductSearchRequestApi
     * @class
     * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
     * default to {@link module:ApiClient#instance} if unspecified.
     */
-  constructor(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance
-  }
+    constructor(apiClient) {
+        this.apiClient = apiClient || ApiClient.instance;
+    }
 
-  /**
+
+
+    /**
      * # Создать заявку на поиск товара.
      * ## Добавление клиентом новой заявки на поиск товара. Рассчитывается исходя из формулы: бюджет Клиента деленный на количество необходимых предложений указанное Клиентом + стоимость работы Супервизора (в случае если в заявке указана необходимость проверки предложений от Ресерчеров Супервизором) – обратите внимание, что в списке выводится только стоимость подачи предложения для Ресерчера, без учета стоимости работы Супервизора!  
      * @param {module:model/InlineObject26} InlineObject26 
@@ -46,44 +50,36 @@ export default class ProductSearchRequestApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
-  apiV1ProductSearchRequestsAddRequestPostWithHttpInfo(InlineObject26, opts) {
-    opts = opts || {}
-    let postBody = InlineObject26
-    // verify the required parameter 'InlineObject26' is set
-    if (InlineObject26 === undefined || InlineObject26 === null) {
-      throw new Error(
-        "Missing the required parameter 'InlineObject26' when calling apiV1ProductSearchRequestsAddRequestPost"
-      )
+    apiV1ProductSearchRequestsAddRequestPostWithHttpInfo(InlineObject26, opts) {
+      opts = opts || {};
+      let postBody = InlineObject26;
+      // verify the required parameter 'InlineObject26' is set
+      if (InlineObject26 === undefined || InlineObject26 === null) {
+        throw new Error("Missing the required parameter 'InlineObject26' when calling apiV1ProductSearchRequestsAddRequestPost");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse2015;
+      return this.apiClient.callApi(
+        '/api/v1/product_search_requests/add_request', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
     }
 
-    let pathParams = {}
-    let queryParams = {}
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    }
-    let formParams = {}
-
-    let authNames = [ 'AccessTokenBearer' ]
-    let contentTypes = [ 'application/json' ]
-    let accepts = [ 'text/html' ]
-    let returnType = InlineResponse2015
-    return this.apiClient.callApi(
-      '/api/v1/product_search_requests/add_request',
-      'POST',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    )
-  }
-
-  /**
+    /**
      * # Создать заявку на поиск товара.
      * ## Добавление клиентом новой заявки на поиск товара. Рассчитывается исходя из формулы: бюджет Клиента деленный на количество необходимых предложений указанное Клиентом + стоимость работы Супервизора (в случае если в заявке указана необходимость проверки предложений от Ресерчеров Супервизором) – обратите внимание, что в списке выводится только стоимость подачи предложения для Ресерчера, без учета стоимости работы Супервизора!  
      * @param {module:model/InlineObject26} InlineObject26 
@@ -91,66 +87,62 @@ export default class ProductSearchRequestApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
-  apiV1ProductSearchRequestsAddRequestPost(InlineObject26, opts) {
-    return this.apiV1ProductSearchRequestsAddRequestPostWithHttpInfo(InlineObject26, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data
-    })
-  }
-
-  /**
-     * Получить список заявок созданных данным клиентом.
-     * Получить список заявок созданных данным клиентом.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
-     */
-  apiV1ProductSearchRequestsClientsGetWithHttpInfo(opts) {
-    opts = opts || {}
-    let postBody = null
-
-    let pathParams = {}
-    let queryParams = {}
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
+    apiV1ProductSearchRequestsAddRequestPost(InlineObject26, opts) {
+      return this.apiV1ProductSearchRequestsAddRequestPostWithHttpInfo(InlineObject26, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
-    let formParams = {}
 
-    let authNames = [ 'AccessTokenBearer' ]
-    let contentTypes = []
-    let accepts = [ 'text/html' ]
-    let returnType = [ InlineResponse2008 ]
-    return this.apiClient.callApi(
-      '/api/v1/product_search_requests/clients',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    )
-  }
 
-  /**
+    /**
      * Получить список заявок созданных данным клиентом.
      * Получить список заявок созданных данным клиентом.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
      */
-  apiV1ProductSearchRequestsClientsGet(opts) {
-    return this.apiV1ProductSearchRequestsClientsGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data
-    })
-  }
+    apiV1ProductSearchRequestsClientsGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
-  /**
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2009];
+      return this.apiClient.callApi(
+        '/api/v1/product_search_requests/clients', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить список заявок созданных данным клиентом.
+     * Получить список заявок созданных данным клиентом.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
+     */
+    apiV1ProductSearchRequestsClientsGet(opts) {
+      return this.apiV1ProductSearchRequestsClientsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Удалить заявку по его GUID.
      * ## Удалить заявку по его GUID.   
      * @param {String} guid GUID в сущности в БД
@@ -159,46 +151,37 @@ export default class ProductSearchRequestApi {
      * @param {Object} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-  apiV1ProductSearchRequestsRemoveRequestGuidPatchWithHttpInfo(guid, opts) {
-    opts = opts || {}
-    let postBody = {}
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1ProductSearchRequestsRemoveRequestGuidPatch"
-      )
+    apiV1ProductSearchRequestsRemoveRequestGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1ProductSearchRequestsRemoveRequestGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/product_search_requests/remove_request/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
     }
 
-    let pathParams = {
-      guid: guid
-    }
-    let queryParams = {}
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    }
-    let formParams = {}
-
-    let authNames = [ 'AccessTokenBearer' ]
-    let contentTypes = [ 'application/json' ]
-    let accepts = [ 'text/html' ]
-    let returnType = 'String'
-    return this.apiClient.callApi(
-      '/api/v1/product_search_requests/remove_request/{guid}',
-      'PATCH',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    )
-  }
-
-  /**
+    /**
      * # Удалить заявку по его GUID.
      * ## Удалить заявку по его GUID.   
      * @param {String} guid GUID в сущности в БД
@@ -207,66 +190,62 @@ export default class ProductSearchRequestApi {
      * @param {Object} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-  apiV1ProductSearchRequestsRemoveRequestGuidPatch(guid, opts) {
-    return this.apiV1ProductSearchRequestsRemoveRequestGuidPatchWithHttpInfo(guid, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data
-    })
-  }
-
-  /**
-     * Получить список всех доступных заявок.
-     * Получить список всех доступных заявок.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
-     */
-  apiV1ProductSearchRequestsResearchersGetWithHttpInfo(opts) {
-    opts = opts || {}
-    let postBody = null
-
-    let pathParams = {}
-    let queryParams = {}
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
+    apiV1ProductSearchRequestsRemoveRequestGuidPatch(guid, opts) {
+      return this.apiV1ProductSearchRequestsRemoveRequestGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
-    let formParams = {}
 
-    let authNames = [ 'AccessTokenBearer' ]
-    let contentTypes = []
-    let accepts = [ 'text/html' ]
-    let returnType = [ InlineResponse2008 ]
-    return this.apiClient.callApi(
-      '/api/v1/product_search_requests/researchers',
-      'GET',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    )
-  }
 
-  /**
+    /**
      * Получить список всех доступных заявок.
      * Получить список всех доступных заявок.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
      */
-  apiV1ProductSearchRequestsResearchersGet(opts) {
-    return this.apiV1ProductSearchRequestsResearchersGetWithHttpInfo(opts).then(function(response_and_data){
-      return response_and_data.data
-    })
-  }
+    apiV1ProductSearchRequestsResearchersGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
 
-  /**
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2009];
+      return this.apiClient.callApi(
+        '/api/v1/product_search_requests/researchers', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить список всех доступных заявок.
+     * Получить список всех доступных заявок.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
+     */
+    apiV1ProductSearchRequestsResearchersGet(opts) {
+      return this.apiV1ProductSearchRequestsResearchersGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * #  Изменить заявку на поиск товара.
      * ## Изменить заявку на поиск товара.   ## Нельзя менять после того как получены предложения.   
      * @param {String} guid GUID продукта БД
@@ -275,46 +254,37 @@ export default class ProductSearchRequestApi {
      * @param {module:model/InlineObject27} opts.InlineObject27 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-  apiV1ProductSearchRequestsUpdateRequestGuidPatchWithHttpInfo(guid, opts) {
-    opts = opts || {}
-    let postBody = opts['InlineObject27']
-    // verify the required parameter 'guid' is set
-    if (guid === undefined || guid === null) {
-      throw new Error(
-        "Missing the required parameter 'guid' when calling apiV1ProductSearchRequestsUpdateRequestGuidPatch"
-      )
+    apiV1ProductSearchRequestsUpdateRequestGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['InlineObject27'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1ProductSearchRequestsUpdateRequestGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/product_search_requests/update_request/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
     }
 
-    let pathParams = {
-      guid: guid
-    }
-    let queryParams = {}
-    let headerParams = {
-      'Accept-Encoding': opts['Accept_Encoding']
-    }
-    let formParams = {}
-
-    let authNames = [ 'AccessTokenBearer' ]
-    let contentTypes = [ 'application/json' ]
-    let accepts = [ 'text/html' ]
-    let returnType = 'String'
-    return this.apiClient.callApi(
-      '/api/v1/product_search_requests/update_request/{guid}',
-      'PATCH',
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      null
-    )
-  }
-
-  /**
+    /**
      * #  Изменить заявку на поиск товара.
      * ## Изменить заявку на поиск товара.   ## Нельзя менять после того как получены предложения.   
      * @param {String} guid GUID продукта БД
@@ -323,11 +293,12 @@ export default class ProductSearchRequestApi {
      * @param {module:model/InlineObject27} opts.InlineObject27 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-  apiV1ProductSearchRequestsUpdateRequestGuidPatch(guid, opts) {
-    return this.apiV1ProductSearchRequestsUpdateRequestGuidPatchWithHttpInfo(guid, opts).then(function(
-      response_and_data
-    ){
-      return response_and_data.data
-    })
-  }
+    apiV1ProductSearchRequestsUpdateRequestGuidPatch(guid, opts) {
+      return this.apiV1ProductSearchRequestsUpdateRequestGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
 }

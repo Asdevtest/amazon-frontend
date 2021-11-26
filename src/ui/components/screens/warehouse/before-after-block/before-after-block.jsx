@@ -101,8 +101,8 @@ const Box = ({
         </div>
       )}
       <div className={classNames.itemsWrapper}>
-        {box.items.map((item, index) => (
-          <div key={`boxItem_${box.items[0].product?._id}_${index}`}>
+        {box.items?.map((item, index) => (
+          <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
             <BoxItemCard item={item} index={index} superCount={box.amount} />
           </div>
         ))}
@@ -110,7 +110,7 @@ const Box = ({
       {isCurrentBox && (
         <Paper>
           <Typography>{textConsts.material}</Typography>
-          <Input className={classNames.inputText} value={box.items[0].product?.material} disabled={!isEdit} />
+          <Input className={classNames.inputText} value={box.items?.[0].product?.material} disabled={!isEdit} />
         </Paper>
       )}
 
@@ -215,12 +215,12 @@ const Box = ({
                     <Checkbox
                       disabled
                       color="primary"
-                      checked={box.items[0].order.isBarCodeAlreadyAttachedByTheSupplier}
+                      checked={box.items?.[0].order.isBarCodeAlreadyAttachedByTheSupplier}
                     />
                   }
                 />
               )}
-              {box.items[0].order.isBarCodeAlreadyAttachedByTheSupplier === true &&
+              {box.items?.[0].order.isBarCodeAlreadyAttachedByTheSupplier === true &&
                 box.isBarCodeAttachedByTheStorekeeper === false && (
                   <Field
                     oneLine
@@ -236,7 +236,7 @@ const Box = ({
                   />
                 )}
 
-              {(box.items[0].order.isBarCodeAlreadyAttachedByTheSupplier === false ||
+              {(box.items?.[0].order.isBarCodeAlreadyAttachedByTheSupplier === false ||
                 barCodeReallyIsGlued === false) && (
                 <Field
                   oneLine
@@ -361,7 +361,7 @@ export const BeforeAfterBlock = observer(
               <Field
                 disabled
                 label={textConsts.statusLabel}
-                value={getOrderStatusOptionByCode(currentBoxes[0].items[0].order.status).label}
+                value={getOrderStatusOptionByCode(currentBoxes[0].items?.[0].order.status)?.label}
               />
             )}
           </div>
