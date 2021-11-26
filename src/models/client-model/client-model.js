@@ -68,7 +68,12 @@ class ClientModelStatic {
   }
 
   getTasks = async () => {
-    const response = await restApiService.clientApi.apiV1ClientsTasksGet()
+    const response = await restApiService.clientApi.apiV1ClientsTasksGet({
+      offset: 0,
+      limit: 100000,
+      sortBy: 'ASC',
+      order: 'createdAt',
+    })
     return response
   }
 
