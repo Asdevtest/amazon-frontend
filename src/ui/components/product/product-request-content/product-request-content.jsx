@@ -4,12 +4,15 @@ import {Typography, Paper} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {texts} from '@constants/texts'
 
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './product-request-content.style'
 
 // import {Table} from '@components/table'
+const textConsts = getLocalizedTexts(texts, 'en').productSearchRequestContent
 
 export const ProductSearchRequestContent = ({request}) => {
   const classNames = useClassNames()
@@ -25,16 +28,16 @@ export const ProductSearchRequestContent = ({request}) => {
         <div className={classNames.requestDataWrapper}>
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography className={classNames.columnHead}>{'Параметр'}</Typography>
+              <Typography className={classNames.columnHead}>{textConsts.parameterFieldTypo}</Typography>
             </div>
             <div className={classNames.rightColumn}>
-              <Typography className={classNames.columnHead}>{'Значение'}</Typography>
+              <Typography className={classNames.columnHead}>{textConsts.valueFieldTypo}</Typography>
             </div>
           </div>
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>{'Strategy'}</Typography>
+              <Typography>{textConsts.tableStrategyField}</Typography>
             </div>
             <div className={classNames.rightColumn}>
               <Typography>{mapProductStrategyStatusEnum[request.strategy]}</Typography>
@@ -43,7 +46,7 @@ export const ProductSearchRequestContent = ({request}) => {
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>{'Monthly Sales'}</Typography>
+              <Typography>{textConsts.tableMonthlySalesField}</Typography>
             </div>
             <div className={classNames.rightColumn}>
               <Typography>{request.monthlySales}</Typography>
@@ -52,7 +55,7 @@ export const ProductSearchRequestContent = ({request}) => {
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>{'Budget'}</Typography>
+              <Typography>{textConsts.tableBudgetField}</Typography>
             </div>
             <div className={classNames.rightColumn}>
               <Typography>{toFixedWithDollarSign(request.budget, 2)}</Typography>
@@ -61,7 +64,7 @@ export const ProductSearchRequestContent = ({request}) => {
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>{'Min products'}</Typography>
+              <Typography>{textConsts.tableMinProductsField}</Typography>
             </div>
             <div className={classNames.rightColumn}>
               <Typography>{request.minProductInProposals}</Typography>
@@ -70,7 +73,7 @@ export const ProductSearchRequestContent = ({request}) => {
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>{'Min keywords'}</Typography>
+              <Typography>{textConsts.tableMinKeywordsField}</Typography>
             </div>
             <div className={classNames.rightColumn}>
               <Typography>{request.minKeywords}</Typography>
@@ -79,7 +82,7 @@ export const ProductSearchRequestContent = ({request}) => {
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>{'Amazone price'}</Typography>
+              <Typography>{textConsts.tableAmazonPriceField}</Typography>
             </div>
             <div className={classNames.rightColumn}>
               <Typography>{`from ${toFixedWithDollarSign(request.minAmazonPrice, 2)} to ${toFixedWithDollarSign(
@@ -91,7 +94,7 @@ export const ProductSearchRequestContent = ({request}) => {
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>{'Average BSR'}</Typography>
+              <Typography>{textConsts.tableAverageBsrField}</Typography>
             </div>
             <div className={classNames.rightColumn}>
               <Typography>{`from ${request.minBSR} to ${request.maxBSR}`}</Typography>
@@ -100,7 +103,7 @@ export const ProductSearchRequestContent = ({request}) => {
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>{'Average reviews'}</Typography>
+              <Typography>{textConsts.tableAverageReviewsField}</Typography>
             </div>
             <div className={classNames.rightColumn}>
               <Typography>{`from ${request.minReviews} to ${request.maxReviews}`}</Typography>
@@ -109,7 +112,7 @@ export const ProductSearchRequestContent = ({request}) => {
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>{'Average revenue'}</Typography>
+              <Typography>{textConsts.tableAverageRevenueField}</Typography>
             </div>
             <div className={classNames.rightColumn}>
               <Typography>{`from ${toFixedWithDollarSign(request.minRevenue, 2)} to ${toFixedWithDollarSign(
@@ -121,7 +124,7 @@ export const ProductSearchRequestContent = ({request}) => {
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>{'Notes'}</Typography>
+              <Typography>{textConsts.tableNotesField}</Typography>
             </div>
             <div className={clsx(classNames.rightColumn, classNames.clientComment)}>
               <Typography>{request.clientComment}</Typography>
@@ -130,7 +133,7 @@ export const ProductSearchRequestContent = ({request}) => {
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>{'Target date'}</Typography>
+              <Typography>{textConsts.tableTargetDateField}</Typography>
             </div>
             <div className={classNames.rightColumn}>
               <Typography>{request.deadline}</Typography>
@@ -139,10 +142,7 @@ export const ProductSearchRequestContent = ({request}) => {
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>
-                {`Запрещено добавлять товары которые когда либо были проданы либо 
-                опубликованы на площадке по данной стратегии`}
-              </Typography>
+              <Typography>{textConsts.tableForbidProductField}</Typography>
             </div>
             <div className={classNames.rightColumn}>
               <Typography>{request.checkboxForbid ? 'ДА' : 'НЕТ'}</Typography>
@@ -151,10 +151,7 @@ export const ProductSearchRequestContent = ({request}) => {
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>
-                {` Запрещено добавлять ниши которые когда либо были проданы либо опубликованы 
-                на площадке по данной стратегии`}
-              </Typography>
+              <Typography>{textConsts.tableForbidNicheField}</Typography>
             </div>
             <div className={classNames.rightColumn}>
               <Typography>{request.checkboxNoPay ? 'ДА' : 'НЕТ'}</Typography>
@@ -163,7 +160,7 @@ export const ProductSearchRequestContent = ({request}) => {
 
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography>{`Сотрудники платформы будут участвовать в проверке качества предложения`}</Typography>
+              <Typography>{textConsts.tableExaminationQualityField}</Typography>
             </div>
             <div className={classNames.rightColumn}>
               <Typography>{request.checkboxNoCheck ? 'ДА' : 'НЕТ'}</Typography>

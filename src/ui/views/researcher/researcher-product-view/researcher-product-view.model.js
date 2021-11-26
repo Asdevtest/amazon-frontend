@@ -191,6 +191,7 @@ export class ResearcherProductViewModel {
         break
       case 'accept':
         this.product.currentSupplierId = this.selectedSupplier._id
+        this.product.currentSupplier = this.selectedSupplier
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
         break

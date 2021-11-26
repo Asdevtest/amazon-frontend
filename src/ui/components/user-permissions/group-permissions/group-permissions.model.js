@@ -9,6 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {adminGroupPermissionsColumns} from '@components/table-columns/admin/group-permissions-columns copy'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -137,7 +138,9 @@ export class GroupPermissionsModel {
       const result = await PermissionsModel.getGroupPermissions()
 
       runInAction(() => {
-        this.groupPermissions = result.map(per => ({...per, id: per._id}))
+        this.groupPermissions = result
+          .sort(sortObjectsArrayByFiledDate('updatedAt'))
+          .map(per => ({...per, id: per._id}))
       })
     } catch (error) {
       this.payments = []
