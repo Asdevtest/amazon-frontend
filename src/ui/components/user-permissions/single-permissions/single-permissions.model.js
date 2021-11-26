@@ -9,6 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {adminSinglePermissionsColumns} from '@components/table-columns/admin/single-permissions-columns'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -133,7 +134,9 @@ export class SinglePermissionsModel {
       const result = await PermissionsModel.getSinglePermissions()
 
       runInAction(() => {
-        this.singlePermissions = result.map(per => ({...per, id: per._id}))
+        this.singlePermissions = result
+          .sort(sortObjectsArrayByFiledDate('updatedAt'))
+          .map(per => ({...per, id: per._id}))
       })
     } catch (error) {
       this.payments = []

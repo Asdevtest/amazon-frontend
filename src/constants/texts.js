@@ -412,6 +412,26 @@ export const texts = {
       cancelBtn: 'Отмена',
     },
 
+    productSearchRequestContent: {
+      parameterFieldTypo: 'Параметр',
+      valueFieldTypo: 'Значение',
+      tableStrategyField: 'Strategy',
+      tableMonthlySalesField: 'Monthly sales',
+      tableBudgetField: 'Budget',
+      tableMinProductsField: 'Min products',
+      tableMinKeywordsField: 'Min keywords',
+      tableAmazonPriceField: 'Amazone price',
+      tableAverageBsrField: 'Average BSR',
+      tableAverageReviewsField: 'Average reviews',
+      tableAverageRevenueField: 'Average revenue',
+      tableNotesField: 'Notes',
+      tableTargetDateField: 'Target date',
+      tableForbidProductField: 'Запрещать добавлять товары которые когда либо были проданы на площадке',
+      tableForbidNicheField:
+        'Запрещено добавлять ниши которые когда либо были проданы либо опубликованы на площадке по данной стратегии',
+      tableExaminationQualityField: 'Сотрудники платформы будут участвовать в проверке качества предложения',
+    },
+
     addOrEditSinglePermissionForm: {
       addTitle: 'Новое разрешение',
       editTitle: 'Изменить разрешение',
