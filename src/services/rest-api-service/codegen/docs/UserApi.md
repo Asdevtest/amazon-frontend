@@ -6,6 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1TechClearAllSchemasPost**](UserApi.md#apiV1TechClearAllSchemasPost) | **POST** /api/v1/tech/clear_all_schemas | Очистить все коллекции в БД кроме пользователей.
 [**apiV1UsersInfoGet**](UserApi.md#apiV1UsersInfoGet) | **GET** /api/v1/users/info | Получить информацию от текущем пользователе.
+[**apiV1UsersLinkSubUserPatch**](UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка суб пользователя.
+[**apiV1UsersMePatch**](UserApi.md#apiV1UsersMePatch) | **PATCH** /api/v1/users/me | # Обновления информации о себе самим пользователем.
 [**apiV1UsersPost**](UserApi.md#apiV1UsersPost) | **POST** /api/v1/users/ | Создание нового пользователя. Регистрация.
 [**apiV1UsersSignInPost**](UserApi.md#apiV1UsersSignInPost) | **POST** /api/v1/users/sign_in | # Получение токена авторизации.
 
@@ -112,6 +114,102 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: text/html
+
+
+## apiV1UsersLinkSubUserPatch
+
+> String apiV1UsersLinkSubUserPatch(InlineObject41, opts)
+
+# Привязка суб пользователя.
+
+## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## В поле должен передаваться email пользователя которого к себе хочет привязать мастер пользователь.  
+
+### Example
+
+```javascript
+import Amazonapi from 'amazonapi';
+
+let apiInstance = new Amazonapi.UserApi();
+let InlineObject41 = new Amazonapi.InlineObject41(); // InlineObject41 | 
+let opts = {
+  'Accept_Encoding': gzip, deflate // String | 
+};
+apiInstance.apiV1UsersLinkSubUserPatch(InlineObject41, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **InlineObject41** | [**InlineObject41**](InlineObject41.md)|  | 
+ **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+
+### Return type
+
+**String**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: text/html
+
+
+## apiV1UsersMePatch
+
+> String apiV1UsersMePatch(InlineObject42, opts)
+
+# Обновления информации о себе самим пользователем.
+
+## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  
+
+### Example
+
+```javascript
+import Amazonapi from 'amazonapi';
+
+let apiInstance = new Amazonapi.UserApi();
+let InlineObject42 = new Amazonapi.InlineObject42(); // InlineObject42 | 
+let opts = {
+  'Accept_Encoding': gzip, deflate // String | 
+};
+apiInstance.apiV1UsersMePatch(InlineObject42, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **InlineObject42** | [**InlineObject42**](InlineObject42.md)|  | 
+ **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+
+### Return type
+
+**String**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: text/html
 
 

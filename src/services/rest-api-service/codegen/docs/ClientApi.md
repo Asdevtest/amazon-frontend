@@ -835,7 +835,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsTasksGet
 
-> [InlineResponse2006] apiV1ClientsTasksGet(opts)
+> InlineResponse2008 apiV1ClientsTasksGet(opts)
 
 # Показать все задачи данного пользователя.
 
@@ -854,6 +854,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new Amazonapi.ClientApi();
 let opts = {
+  'offset': 0, // Number | Смещение в пагинации
+  'limit': 20, // Number | Сколько записей отдать в пагинации
+  'sortBy': "sortBy_example", // String | Название поля по которому происходи сортировка.
+  'order': "order_example", // String | Направление сортировки
   'Accept_Encoding': gzip, deflate // String | 
 };
 apiInstance.apiV1ClientsTasksGet(opts).then((data) => {
@@ -869,11 +873,15 @@ apiInstance.apiV1ClientsTasksGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **offset** | **Number**| Смещение в пагинации | [optional] [default to 0]
+ **limit** | **Number**| Сколько записей отдать в пагинации | [optional] [default to 20]
+ **sortBy** | **String**| Название поля по которому происходи сортировка. | [optional] 
+ **order** | **String**| Направление сортировки | [optional] 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**InlineResponse2008**](InlineResponse2008.md)
 
 ### Authorization
 

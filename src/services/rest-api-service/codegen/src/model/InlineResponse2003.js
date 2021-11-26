@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
+import ApiV1AdminsPaymentsProduct from './ApiV1AdminsPaymentsProduct';
 
 /**
  * The InlineResponse2003 model module.
@@ -57,8 +58,8 @@ class InlineResponse2003 {
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = ApiV1AdminsPaymentsProduct.constructFromObject(data['product']);
             }
             if (data.hasOwnProperty('recipient')) {
                 obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient']);
@@ -94,10 +95,9 @@ InlineResponse2003.prototype['createdAt'] = undefined;
 InlineResponse2003.prototype['createdBy'] = undefined;
 
 /**
- * GUID продукта.
- * @member {String} productId
+ * @member {module:model/ApiV1AdminsPaymentsProduct} product
  */
-InlineResponse2003.prototype['productId'] = undefined;
+InlineResponse2003.prototype['product'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient

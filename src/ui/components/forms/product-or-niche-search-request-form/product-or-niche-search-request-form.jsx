@@ -30,6 +30,10 @@ const numberFields = [
   'minRevenue',
   'maxRevenue',
   'maxReviews',
+  'countOfProposals',
+  'minProductInProposals',
+  'minKeywords',
+  'searchVolume',
 ]
 
 export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit, requestToEdit}) => {
@@ -63,13 +67,14 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
     maxRevenue: requestToEdit?.maxRevenue || '',
 
     clientComment: requestToEdit?.clientComment || '',
-    deadline: parseISO(requestToEdit?.deadline) || new Date(),
+    deadline: requestToEdit.deadline ? parseISO(requestToEdit?.deadline) : '',
 
     checkboxForbid: requestToEdit?.checkboxForbid || false,
-    // checkboxNoPay: false,
     checkboxNoCheck: requestToEdit?.checkboxNoCheck || false,
   }
+
   const [formFields, setFormFields] = useState(sourceFormFields)
+
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
 
@@ -77,6 +82,8 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
       return
     } else if (['checkboxForbid', 'checkboxNoPay', 'checkboxNoCheck'].includes(fieldName)) {
       newFormFields[fieldName] = event.target.checked
+    } else if (['minBSR', 'maxBSR', 'minReviews', 'maxReviews'].includes(fieldName)) {
+      newFormFields[fieldName] = parseInt(event.target.value)
     } else if (['deadline'].includes(fieldName)) {
       newFormFields[fieldName] = event
     } else {
@@ -85,6 +92,34 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
 
     setFormFields(newFormFields)
   }
+
+  const isOneStartsIsBiggerEnd =
+    formFields.minAmazonPrice > formFields.maxAmazonPrice ||
+    formFields.minBSR > formFields.maxBSR ||
+    formFields.minReviews > formFields.maxReviews ||
+    formFields.minRevenue > formFields.maxRevenue
+
+  const isOneOfFieldIsEmpty =
+    formFields.strategy === '' ||
+    formFields.monthlySales === '' ||
+    formFields.budget === '' ||
+    formFields.countOfProposals === '' ||
+    formFields.minProductInProposals === '' ||
+    formFields.minKeywords === '' ||
+    formFields.size === '' ||
+    formFields.searchVolume === '' ||
+    formFields.minAmazonPrice === '' ||
+    formFields.maxAmazonPrice === '' ||
+    formFields.minBSR === '' ||
+    formFields.maxBSR === '' ||
+    formFields.minReviews === '' ||
+    formFields.maxReviews === '' ||
+    formFields.minRevenue === '' ||
+    formFields.maxRevenue === '' ||
+    formFields.deadline === ''
+
+  const disableSubmitBtn =
+    JSON.stringify(sourceFormFields) === JSON.stringify(formFields) || isOneOfFieldIsEmpty || isOneStartsIsBiggerEnd
 
   return (
     <div className={classNames.root}>
@@ -123,7 +158,7 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
 
         <Field
           containerClasses={classNames.field}
-          label={'Count of proposals'}
+          label={textConsts.countOfProposals}
           value={formFields.countOfProposals}
           onChange={onChangeField('countOfProposals')}
         />
@@ -131,34 +166,34 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
         <Field
           disabled
           containerClasses={classNames.field}
-          label={'Cost of one proposal'}
+          label={textConsts.countOfOneProposals}
           value={formFields.budget / formFields.countOfProposals || 0}
         />
 
         <Field
           containerClasses={classNames.field}
-          label={'Count of min product in proposals'}
+          label={textConsts.minProductInProposals}
           value={formFields.minProductInProposals}
           onChange={onChangeField('minProductInProposals')}
         />
 
         <Field
           containerClasses={classNames.field}
-          label={'Count of min key words in proposals'}
+          label={textConsts.minKeywords}
           value={formFields.minKeywords}
           onChange={onChangeField('minKeywords')}
         />
 
         <Field
           containerClasses={classNames.field}
-          label={'Size tier'}
+          label={textConsts.size}
           value={formFields.size}
           onChange={onChangeField('size')}
         />
 
         <Field // tmp
           containerClasses={classNames.field}
-          label={'Search volume'}
+          label={textConsts.searchVolume}
           value={formFields.searchVolume}
           onChange={onChangeField('searchVolume')}
         />
@@ -228,8 +263,7 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
           multiline
           rows={4}
           rowsMax={6}
-          className={classNames.multiline}
-          containerClasses={classNames.field}
+          className={classNames.noteField}
           label={textConsts.formNotesLabel}
           value={formFields.clientComment}
           onChange={onChangeField('clientComment')}
@@ -242,28 +276,24 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
         />
 
         <div className={classNames.checkboxWrapper}>
-          <Checkbox color="primary" value={formFields.checkboxForbid} onChange={onChangeField('checkboxForbid')} />
+          <Checkbox color="primary" checked={formFields.checkboxForbid} onChange={onChangeField('checkboxForbid')} />
           <Typography>{textConsts.formCheckboxForbidLabel}</Typography>
         </div>
-        {/* <div className={classNames.checkboxWrapper}>
-          <Checkbox color="primary" value={formFields.checkboxNoPay} onChange={onChangeField('checkboxNoPay')} />
-          <Typography>{textConsts.formCheckboxNoPayLabel}</Typography>
-        </div> */}
 
         <div className={classNames.checkboxWrapper}>
-          <Checkbox color="primary" value={formFields.checkboxNoCheck} onChange={onChangeField('checkboxNoCheck')} />
+          <Checkbox color="primary" checked={formFields.checkboxNoCheck} onChange={onChangeField('checkboxNoCheck')} />
           <Typography>{textConsts.formCheckboxNoCheckLabel}</Typography>
         </div>
       </div>
 
       <Button
         disableElevation
-        disabled={JSON.stringify(sourceFormFields) === JSON.stringify(formFields)}
+        disabled={disableSubmitBtn}
         color="primary"
         variant="contained"
         onClick={() => onSubmit(formFields, requestToEdit._id)}
       >
-        {isEdit ? 'Изменить' : 'Создать заявку'}
+        {isEdit ? textConsts.editBtn : textConsts.createBtn}
       </Button>
 
       <Button
@@ -273,7 +303,7 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
         variant="contained"
         onClick={() => setOpenModal()}
       >
-        {'Отмена'}
+        {textConsts.cancelBtn}
       </Button>
     </div>
   )

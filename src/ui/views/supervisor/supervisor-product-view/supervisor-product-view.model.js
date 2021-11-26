@@ -152,10 +152,10 @@ export class SupervisorProductViewModel {
     if (
       statusKey === ProductStatus.COMPLETE_SUCCESS &&
       (!this.product.currentSupplierId ||
-        this.product.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] ||
+        this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] ||
         this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER])
     ) {
-      if (this.product.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE]) {
+      if (this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE]) {
         this.warningModalTitle = warningModalTitleVariants.PRICE_WAS_NOT_ACCEPTABLE
       } else if (this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]) {
         this.warningModalTitle = warningModalTitleVariants.SUPPLIER_WAS_NOT_FOUND_BY_BUYER

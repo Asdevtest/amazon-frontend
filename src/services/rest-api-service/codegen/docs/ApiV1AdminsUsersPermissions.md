@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **description** | **String** | Описание permission | 
 **allowedUrl** | **[String]** | Массив доступных url. | 
 **createdById** | **String** | GUID любого, кто последний создал permission. | 
+**role** | **Number** | Роль для которого данный permission | 
 **lastModifiedById** | **String** | GUID любого, кто последний редактировал permission. | [optional] 
 **createdAt** | **Date** | Дата создания | 
 **updatedAt** | **Date** | Дата изменения | 

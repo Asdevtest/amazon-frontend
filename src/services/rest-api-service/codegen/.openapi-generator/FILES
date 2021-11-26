@@ -8,6 +8,7 @@ docs/ApiV1AdminsGetProductsByStatusCurrentSupplier.md
 docs/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md
 docs/ApiV1AdminsOrdersCreatedBy.md
 docs/ApiV1AdminsPaymentsCreatedBy.md
+docs/ApiV1AdminsPaymentsProduct.md
 docs/ApiV1AdminsTasksBoxesBefore.md
 docs/ApiV1AdminsTasksItems.md
 docs/ApiV1AdminsUsersPermissionGroups.md
@@ -62,6 +63,8 @@ docs/InlineObject38.md
 docs/InlineObject39.md
 docs/InlineObject4.md
 docs/InlineObject40.md
+docs/InlineObject41.md
+docs/InlineObject42.md
 docs/InlineObject5.md
 docs/InlineObject6.md
 docs/InlineObject7.md
@@ -70,8 +73,9 @@ docs/InlineObject9.md
 docs/InlineResponse200.md
 docs/InlineResponse2001.md
 docs/InlineResponse20010.md
-docs/InlineResponse20010Info.md
 docs/InlineResponse20011.md
+docs/InlineResponse20011Info.md
+docs/InlineResponse20012.md
 docs/InlineResponse2002.md
 docs/InlineResponse2003.md
 docs/InlineResponse2004.md
@@ -79,6 +83,7 @@ docs/InlineResponse2005.md
 docs/InlineResponse2006.md
 docs/InlineResponse2007.md
 docs/InlineResponse2008.md
+docs/InlineResponse2008Meta.md
 docs/InlineResponse2009.md
 docs/InlineResponse201.md
 docs/InlineResponse2011.md
@@ -132,6 +137,7 @@ src/model/ApiV1AdminsGetProductsByStatusCurrentSupplier.js
 src/model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.js
 src/model/ApiV1AdminsOrdersCreatedBy.js
 src/model/ApiV1AdminsPaymentsCreatedBy.js
+src/model/ApiV1AdminsPaymentsProduct.js
 src/model/ApiV1AdminsTasksBoxesBefore.js
 src/model/ApiV1AdminsTasksItems.js
 src/model/ApiV1AdminsUsersPermissionGroups.js
@@ -182,6 +188,8 @@ src/model/InlineObject38.js
 src/model/InlineObject39.js
 src/model/InlineObject4.js
 src/model/InlineObject40.js
+src/model/InlineObject41.js
+src/model/InlineObject42.js
 src/model/InlineObject5.js
 src/model/InlineObject6.js
 src/model/InlineObject7.js
@@ -190,8 +198,9 @@ src/model/InlineObject9.js
 src/model/InlineResponse200.js
 src/model/InlineResponse2001.js
 src/model/InlineResponse20010.js
-src/model/InlineResponse20010Info.js
 src/model/InlineResponse20011.js
+src/model/InlineResponse20011Info.js
+src/model/InlineResponse20012.js
 src/model/InlineResponse2002.js
 src/model/InlineResponse2003.js
 src/model/InlineResponse2004.js
@@ -199,6 +208,7 @@ src/model/InlineResponse2005.js
 src/model/InlineResponse2006.js
 src/model/InlineResponse2007.js
 src/model/InlineResponse2008.js
+src/model/InlineResponse2008Meta.js
 src/model/InlineResponse2009.js
 src/model/InlineResponse201.js
 src/model/InlineResponse2011.js
@@ -219,12 +229,3 @@ src/model/PayloadTooLarge.js
 src/model/UnauthorizedError.js
 src/model/UpdatedSuccessfully.js
 src/model/UserSchema.js
-test/api/PermissionsApi.spec.js
-test/model/ApiV1AdminsUsersPermissionGroups.spec.js
-test/model/ApiV1AdminsUsersPermissions.spec.js
-test/model/ApiV1BoxesSplitBoxItems.spec.js
-test/model/ApiV1BoxesSplitNewBoxesParams.spec.js
-test/model/InlineObject38.spec.js
-test/model/InlineObject39.spec.js
-test/model/InlineObject40.spec.js
-test/model/InlineResponse20010Info.spec.js

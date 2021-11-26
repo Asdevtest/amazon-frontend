@@ -99,6 +99,12 @@ class InlineResponse2002 {
             if (data.hasOwnProperty('permissionGroups')) {
                 obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], [ApiV1AdminsUsersPermissionGroups]);
             }
+            if (data.hasOwnProperty('masterUser')) {
+                obj['masterUser'] = ApiClient.convertToType(data['masterUser'], 'String');
+            }
+            if (data.hasOwnProperty('allowedRoles')) {
+                obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -152,7 +158,7 @@ InlineResponse2002.prototype['active'] = undefined;
 InlineResponse2002.prototype['rate'] = undefined;
 
 /**
- * Балан сотрудника
+ * Баланс сотрудника
  * @member {Number} balance
  */
 InlineResponse2002.prototype['balance'] = undefined;
@@ -178,6 +184,18 @@ InlineResponse2002.prototype['permissions'] = undefined;
  * @member {Array.<module:model/ApiV1AdminsUsersPermissionGroups>} permissionGroups
  */
 InlineResponse2002.prototype['permissionGroups'] = undefined;
+
+/**
+ * GUID мастер пользователя к которому относится данный субпользователь.
+ * @member {String} masterUser
+ */
+InlineResponse2002.prototype['masterUser'] = undefined;
+
+/**
+ * Массив массив ролей.
+ * @member {Array.<Number>} allowedRoles
+ */
+InlineResponse2002.prototype['allowedRoles'] = undefined;
 
 /**
  * Дата создания

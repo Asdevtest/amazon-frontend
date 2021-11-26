@@ -103,7 +103,7 @@ export const EditTaskModal = observer(
               rowsMax={6}
               label={'Комментарий баера к заказу'}
               placeholder={'Комментарий баера к заказу'}
-              value={task.boxesBefore[0].items[0].order.buyerComment || ''}
+              value={task.boxesBefore[0].items?.[0].order.buyerComment || ''}
             />
           )}
 

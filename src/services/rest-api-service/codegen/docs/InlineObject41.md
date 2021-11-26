@@ -1,0 +1,9 @@
+# Amazonapi.InlineObject41
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**email** | **String** |  | 
+
+

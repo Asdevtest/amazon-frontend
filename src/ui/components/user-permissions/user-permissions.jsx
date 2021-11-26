@@ -5,6 +5,7 @@ import React from 'react'
 import {Typography, Box, Tabs, Tab} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {GroupPermissions} from './group-permissions'
 import {SinglePermissions} from './single-permissions'
 import {useClassNames} from './user-permissions.style'
 
@@ -45,7 +46,7 @@ export const UserPermissions = observer(() => {
         <Tab classes={tabItemStyles} label={'Разрешения'} />
       </Tabs>
       <TabPanel value={tabIndex} index={0}>
-        {}
+        <GroupPermissions />
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
         <SinglePermissions />

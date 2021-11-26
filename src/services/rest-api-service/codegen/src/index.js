@@ -18,6 +18,7 @@ import ApiV1AdminsGetProductsByStatusCurrentSupplier from './model/ApiV1AdminsGe
 import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
 import ApiV1AdminsOrdersCreatedBy from './model/ApiV1AdminsOrdersCreatedBy';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
+import ApiV1AdminsPaymentsProduct from './model/ApiV1AdminsPaymentsProduct';
 import ApiV1AdminsTasksBoxesBefore from './model/ApiV1AdminsTasksBoxesBefore';
 import ApiV1AdminsTasksItems from './model/ApiV1AdminsTasksItems';
 import ApiV1AdminsUsersPermissionGroups from './model/ApiV1AdminsUsersPermissionGroups';
@@ -68,6 +69,8 @@ import InlineObject38 from './model/InlineObject38';
 import InlineObject39 from './model/InlineObject39';
 import InlineObject4 from './model/InlineObject4';
 import InlineObject40 from './model/InlineObject40';
+import InlineObject41 from './model/InlineObject41';
+import InlineObject42 from './model/InlineObject42';
 import InlineObject5 from './model/InlineObject5';
 import InlineObject6 from './model/InlineObject6';
 import InlineObject7 from './model/InlineObject7';
@@ -76,8 +79,9 @@ import InlineObject9 from './model/InlineObject9';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
 import InlineResponse20010 from './model/InlineResponse20010';
-import InlineResponse20010Info from './model/InlineResponse20010Info';
 import InlineResponse20011 from './model/InlineResponse20011';
+import InlineResponse20011Info from './model/InlineResponse20011Info';
+import InlineResponse20012 from './model/InlineResponse20012';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
@@ -85,6 +89,7 @@ import InlineResponse2005 from './model/InlineResponse2005';
 import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse2007 from './model/InlineResponse2007';
 import InlineResponse2008 from './model/InlineResponse2008';
+import InlineResponse2008Meta from './model/InlineResponse2008Meta';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
@@ -188,6 +193,12 @@ export {
      * @property {module:model/ApiV1AdminsPaymentsCreatedBy}
      */
     ApiV1AdminsPaymentsCreatedBy,
+
+    /**
+     * The ApiV1AdminsPaymentsProduct model constructor.
+     * @property {module:model/ApiV1AdminsPaymentsProduct}
+     */
+    ApiV1AdminsPaymentsProduct,
 
     /**
      * The ApiV1AdminsTasksBoxesBefore model constructor.
@@ -490,6 +501,18 @@ export {
     InlineObject40,
 
     /**
+     * The InlineObject41 model constructor.
+     * @property {module:model/InlineObject41}
+     */
+    InlineObject41,
+
+    /**
+     * The InlineObject42 model constructor.
+     * @property {module:model/InlineObject42}
+     */
+    InlineObject42,
+
+    /**
      * The InlineObject5 model constructor.
      * @property {module:model/InlineObject5}
      */
@@ -538,16 +561,22 @@ export {
     InlineResponse20010,
 
     /**
-     * The InlineResponse20010Info model constructor.
-     * @property {module:model/InlineResponse20010Info}
-     */
-    InlineResponse20010Info,
-
-    /**
      * The InlineResponse20011 model constructor.
      * @property {module:model/InlineResponse20011}
      */
     InlineResponse20011,
+
+    /**
+     * The InlineResponse20011Info model constructor.
+     * @property {module:model/InlineResponse20011Info}
+     */
+    InlineResponse20011Info,
+
+    /**
+     * The InlineResponse20012 model constructor.
+     * @property {module:model/InlineResponse20012}
+     */
+    InlineResponse20012,
 
     /**
      * The InlineResponse2002 model constructor.
@@ -590,6 +619,12 @@ export {
      * @property {module:model/InlineResponse2008}
      */
     InlineResponse2008,
+
+    /**
+     * The InlineResponse2008Meta model constructor.
+     * @property {module:model/InlineResponse2008Meta}
+     */
+    InlineResponse2008Meta,
 
     /**
      * The InlineResponse2009 model constructor.

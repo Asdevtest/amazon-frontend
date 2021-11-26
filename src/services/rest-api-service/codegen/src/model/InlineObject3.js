@@ -68,6 +68,9 @@ class InlineObject3 {
             if (data.hasOwnProperty('balance')) {
                 obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
             }
+            if (data.hasOwnProperty('balanceFreeze')) {
+                obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
+            }
             if (data.hasOwnProperty('overdraft')) {
                 obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
             }
@@ -77,8 +80,8 @@ class InlineObject3 {
             if (data.hasOwnProperty('permissionGroups')) {
                 obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], ['String']);
             }
-            if (data.hasOwnProperty('balanceFreeze')) {
-                obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
+            if (data.hasOwnProperty('allowedRoles')) {
+                obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
             }
         }
         return obj;
@@ -130,6 +133,12 @@ InlineObject3.prototype['rate'] = undefined;
 InlineObject3.prototype['balance'] = undefined;
 
 /**
+ * Замороженная при оплате ордера сумма.
+ * @member {Number} balanceFreeze
+ */
+InlineObject3.prototype['balanceFreeze'] = undefined;
+
+/**
  * Сумма на которую может уходить в минус пользователь.
  * @member {Number} overdraft
  */
@@ -148,10 +157,10 @@ InlineObject3.prototype['permissions'] = undefined;
 InlineObject3.prototype['permissionGroups'] = undefined;
 
 /**
- * Замороженная при оплате ордера сумма.
- * @member {Number} balanceFreeze
+ * Массив массив ролей.
+ * @member {Array.<Number>} allowedRoles
  */
-InlineObject3.prototype['balanceFreeze'] = undefined;
+InlineObject3.prototype['allowedRoles'] = undefined;
 
 
 

@@ -26,10 +26,11 @@ class InlineObject22 {
      * @param title {String} простое название
      * @param description {String} описание permission
      * @param allowedUrl {Array.<String>} Массив доступных url
+     * @param role {Number} Роль для которого данный permission
      */
-    constructor(key, title, description, allowedUrl) { 
+    constructor(key, title, description, allowedUrl, role) { 
         
-        InlineObject22.initialize(this, key, title, description, allowedUrl);
+        InlineObject22.initialize(this, key, title, description, allowedUrl, role);
     }
 
     /**
@@ -37,11 +38,12 @@ class InlineObject22 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, key, title, description, allowedUrl) { 
+    static initialize(obj, key, title, description, allowedUrl, role) { 
         obj['key'] = key;
         obj['title'] = title;
         obj['description'] = description;
         obj['allowedUrl'] = allowedUrl;
+        obj['role'] = role;
     }
 
     /**
@@ -66,6 +68,9 @@ class InlineObject22 {
             }
             if (data.hasOwnProperty('allowedUrl')) {
                 obj['allowedUrl'] = ApiClient.convertToType(data['allowedUrl'], ['String']);
+            }
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
         }
         return obj;
@@ -97,6 +102,12 @@ InlineObject22.prototype['description'] = undefined;
  * @member {Array.<String>} allowedUrl
  */
 InlineObject22.prototype['allowedUrl'] = undefined;
+
+/**
+ * Роль для которого данный permission
+ * @member {Number} role
+ */
+InlineObject22.prototype['role'] = undefined;
 
 
 

@@ -397,7 +397,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksVacGet
 
-> apiV1StorekeepersTasksVacGet(opts)
+> [InlineResponse2004] apiV1StorekeepersTasksVacGet(opts)
 
 # Получить задачи не закрепленные за сотрудниками склада.
 
@@ -418,8 +418,8 @@ let apiInstance = new Amazonapi.StorekeepersApi();
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1StorekeepersTasksVacGet(opts).then(() => {
-  console.log('API called successfully.');
+apiInstance.apiV1StorekeepersTasksVacGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
 });
@@ -435,7 +435,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 

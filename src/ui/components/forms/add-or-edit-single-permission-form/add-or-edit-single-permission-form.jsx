@@ -16,7 +16,7 @@ import {useClassNames} from './add-or-edit-single-permission-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').addOrEditSinglePermissionForm
 
-export const AddOrEditSinglePermissionForm = observer(({setOpenModal, onSubmit, isEdit, permissionToEdit}) => {
+export const AddOrEditSinglePermissionForm = observer(({onCloseModal, onSubmit, isEdit, permissionToEdit}) => {
   const classNames = useClassNames()
 
   const sourceFormFields = {
@@ -51,12 +51,20 @@ export const AddOrEditSinglePermissionForm = observer(({setOpenModal, onSubmit, 
     setFormFields(newFormFields)
   }
 
+  const disableSubmitBtn =
+    JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
+    formFields.key === '' ||
+    formFields.title === '' ||
+    formFields.description === '' ||
+    !formFields.allowedUrl[0]
+
   return (
     <div className={classNames.root}>
       <Typography variant="h5">{isEdit ? textConsts.editTitle : textConsts.addTitle}</Typography>
 
       <div className={classNames.form}>
         <Field
+          disabled={isEdit}
           label={textConsts.keyLabel}
           value={formFields.key}
           placeholder={textConsts.keyHolder}
@@ -114,10 +122,10 @@ export const AddOrEditSinglePermissionForm = observer(({setOpenModal, onSubmit, 
 
       <Button
         disableElevation
-        disabled={JSON.stringify(sourceFormFields) === JSON.stringify(formFields)}
+        disabled={disableSubmitBtn}
         color="primary"
         variant="contained"
-        onClick={() => onSubmit(formFields, permissionToEdit._id)}
+        onClick={() => onSubmit(formFields, permissionToEdit && permissionToEdit._id)}
       >
         {isEdit ? textConsts.editBtn : textConsts.createBtn}
       </Button>
@@ -127,7 +135,7 @@ export const AddOrEditSinglePermissionForm = observer(({setOpenModal, onSubmit, 
         className={classNames.button}
         color="primary"
         variant="contained"
-        onClick={() => setOpenModal()}
+        onClick={() => onCloseModal()}
       >
         {textConsts.cancelBtn}
       </Button>

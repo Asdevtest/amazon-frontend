@@ -41,13 +41,14 @@ export const SinglePermissions = observer(() => {
     curPage,
     rowsPerPage,
     addOrEditSinglePermissionSettings,
+    confirmModalSettings,
     showAddOrEditSinglePermissionModal,
     showConfirmModal,
     onChangeCurPage,
     onChangeRowsPerPage,
     onTriggerOpenModal,
     onClickAddBtn,
-    removeSinglePermission,
+    onClickCancelBtn,
 
     setDataGridState,
     onChangeSortingModel,
@@ -93,24 +94,22 @@ export const SinglePermissions = observer(() => {
         setOpenModal={() => onTriggerOpenModal('showAddOrEditSinglePermissionModal')}
       >
         <AddOrEditSinglePermissionForm
-          setOpenModal={() => onTriggerOpenModal('showAddOrEditSinglePermissionModal')}
           permissionToEdit={addOrEditSinglePermissionSettings.permission}
           isEdit={addOrEditSinglePermissionSettings.isEdit}
+          onCloseModal={() => onClickCancelBtn()}
           onSubmit={addOrEditSinglePermissionSettings.onSubmit}
         />
       </Modal>
 
       <ConfirmationModal
-        isWarning
+        isWarning={confirmModalSettings.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
         title={textConsts.confirmTitle}
-        message={textConsts.confirmMessage}
+        message={confirmModalSettings.message}
         successBtnText={textConsts.yesBtn}
         cancelBtnText={textConsts.noBtn}
-        onClickSuccessBtn={() => {
-          removeSinglePermission()
-        }}
+        onClickSuccessBtn={confirmModalSettings.onClickSuccess}
         onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
       />
     </div>
