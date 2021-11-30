@@ -40,6 +40,8 @@ const updateBoxBlackList = [
   'scheduledDispatchDate',
   'factDispatchDate',
   'updatedAt',
+  'sendToBatchRequest',
+  'sendToBatchComplete',
 ]
 
 export class ClientWarehouseViewModel {

@@ -116,7 +116,7 @@ export class ClientOrdersNotificationsViewModel {
 
       runInAction(() => {
         this.orders = result
-          .filter(order => order.totalPrice !== order.totalPriceChanged)
+          .filter(order => order.totalPrice < order.totalPriceChanged)
           .sort(sortObjectsArrayByFiledDate('createdAt'))
           .map(item => ({
             ...item,

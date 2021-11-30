@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {PermissionsModel} from '@models/permissions-model'
 import {SettingsModel} from '@models/settings-model'
@@ -134,9 +135,11 @@ export class SinglePermissionsModel {
       const result = await PermissionsModel.getSinglePermissions()
 
       runInAction(() => {
-        this.singlePermissions = result
-          .sort(sortObjectsArrayByFiledDate('updatedAt'))
-          .map(per => ({...per, id: per._id}))
+        this.singlePermissions = result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(per => ({
+          ...per,
+          id: per._id,
+          tmpRole: UserRoleCodeMap[per.role],
+        }))
       })
     } catch (error) {
       this.payments = []
@@ -167,7 +170,7 @@ export class SinglePermissionsModel {
 
   async updateSinglePermission(data, permissionId) {
     try {
-      const allowData = getObjectFilteredByKeyArrayWhiteList(data, ['title', 'description', 'allowedUrl'])
+      const allowData = getObjectFilteredByKeyArrayWhiteList(data, ['title', 'description', 'allowedUrl', 'role'])
 
       await PermissionsModel.updateSinglePermission(permissionId, allowData)
     } catch (error) {

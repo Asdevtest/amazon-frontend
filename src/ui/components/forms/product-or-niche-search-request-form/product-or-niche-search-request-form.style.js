@@ -16,4 +16,10 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
   },
+  deadlineError: {
+    borderBottom: '1px solid red',
+  },
+  deadlineErrorText: {
+    color: 'red',
+  },
 }))

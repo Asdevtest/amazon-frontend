@@ -9,7 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {clientSearchRequestsViewColumns} from '@components/table-columns/client/client-search-requests-columns'
 
-import {formatDateForBackendWithoutParseISO} from '@utils/date-time'
+import {formatDateForBackendWithoutParseISO, sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
 export class ClientExchangeRequestsViewModel {
@@ -195,7 +195,7 @@ export class ClientExchangeRequestsViewModel {
       const result = await ProductSearchRequestModel.getProductSearchRequests()
 
       runInAction(() => {
-        this.searchRequests = result.map(request => ({
+        this.searchRequests = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(request => ({
           ...request,
           id: request._id,
           tmpStrategyStatus: mapProductStrategyStatusEnum[request.strategy],
