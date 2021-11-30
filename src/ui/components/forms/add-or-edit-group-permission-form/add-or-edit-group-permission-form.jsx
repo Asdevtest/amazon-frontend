@@ -5,11 +5,12 @@ import Select from '@mui/material/Select'
 
 import React, {useState} from 'react'
 
-import {Typography, Tooltip, IconButton} from '@material-ui/core'
+import {Typography, Tooltip, IconButton, NativeSelect, Input} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
@@ -31,6 +32,7 @@ export const AddOrEditGroupPermissionForm = observer(
       title: permissionToEdit?.title || '',
       description: permissionToEdit?.description || '',
       permissions: permissionToEdit?.permissions || [],
+      role: permissionToEdit?.role === 0 ? 0 : permissionToEdit?.role || '',
     }
 
     const [formFields, setFormFields] = useState(sourceFormFields)
@@ -92,13 +94,33 @@ export const AddOrEditGroupPermissionForm = observer(
       formFields.key === '' ||
       formFields.title === '' ||
       formFields.description === '' ||
-      (!newSinglePermission[0] && !formFields.permissions[0])
+      (!newSinglePermission[0] && !formFields.permissions[0]) ||
+      formFields.role === 'None'
 
     return (
       <div className={classNames.root}>
         <Typography variant="h5">{isEdit ? textConsts.editTitle : textConsts.addTitle}</Typography>
 
         <div className={classNames.form}>
+          <Field
+            label={textConsts.roleLabel}
+            inputComponent={
+              <NativeSelect
+                variant="filled"
+                value={formFields.role}
+                input={<Input fullWidth />}
+                onChange={onChangeField('role')}
+              >
+                <option value={'None'}>{textConsts.valueNone}</option>
+                {Object.keys(UserRoleCodeMap).map((roleCode, index) => (
+                  <option key={index} value={roleCode}>
+                    {UserRoleCodeMap[roleCode]}
+                  </option>
+                ))}
+              </NativeSelect>
+            }
+          />
+
           <Field
             disabled={isEdit}
             label={textConsts.keyLabel}

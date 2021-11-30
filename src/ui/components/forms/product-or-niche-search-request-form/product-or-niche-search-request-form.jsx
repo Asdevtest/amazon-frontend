@@ -1,6 +1,7 @@
 import {useState} from 'react'
 
 import {Button, Checkbox, NativeSelect, Typography} from '@material-ui/core'
+import clsx from 'clsx'
 import {parseISO} from 'date-fns'
 
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
@@ -101,6 +102,7 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
 
   const isOneOfFieldIsEmpty =
     formFields.strategy === '' ||
+    formFields.strategy === '0' ||
     formFields.monthlySales === '' ||
     formFields.budget === '' ||
     formFields.countOfProposals === '' ||
@@ -118,8 +120,13 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
     formFields.maxRevenue === '' ||
     formFields.deadline === ''
 
+  const isDeadlineError = formFields.deadline < new Date()
+
   const disableSubmitBtn =
-    JSON.stringify(sourceFormFields) === JSON.stringify(formFields) || isOneOfFieldIsEmpty || isOneStartsIsBiggerEnd
+    JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
+    isOneOfFieldIsEmpty ||
+    isOneStartsIsBiggerEnd ||
+    isDeadlineError
 
   return (
     <div className={classNames.root}>
@@ -272,7 +279,12 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
         <Field
           containerClasses={classNames.field}
           label={textConsts.formDeadlineLabel}
-          inputComponent={<DatePicker value={formFields.deadline} onChange={onChangeField('deadline')} />}
+          inputComponent={
+            <div className={clsx({[classNames.deadlineError]: isDeadlineError})}>
+              <DatePicker value={formFields.deadline} onChange={onChangeField('deadline')} />
+              {isDeadlineError && <p className={classNames.deadlineErrorText}>{textConsts.formDeadlineErrorText}</p>}
+            </div>
+          }
         />
 
         <div className={classNames.checkboxWrapper}>

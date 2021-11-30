@@ -388,9 +388,11 @@ export const texts = {
       formAvgReviewsLabel: 'Average Reviews *',
       formAvgRevenueLabel: 'Average Revenue *',
       formNotesLabel: 'Notes',
-      formCheckboxForbidLabel: 'Запрещать добавлять товары, которые когда-либо были проданы на площадке.',
+      formCheckboxForbidLabel:
+        'Запрещено добавлять товары, которые когда-либо были проданы, либо опубликованы на площадке по данной стратегии.',
       formCheckboxNoPayLabel: 'Не оплачиваю повторно купленные товары',
       formDeadlineLabel: 'Target date *',
+      formDeadlineErrorText: 'The deadline date cannot be later than the current date',
       formCheckboxNoCheckLabel: 'Сотрудники платформы не будут участвовать в проверке качества найденного товара.',
 
       formCloseReasonLabel: 'Describe the reason for closing request',
@@ -426,7 +428,8 @@ export const texts = {
       tableAverageRevenueField: 'Average revenue',
       tableNotesField: 'Notes',
       tableTargetDateField: 'Target date',
-      tableForbidProductField: 'Запрещать добавлять товары которые когда либо были проданы на площадке',
+      tableForbidProductField:
+        'Запрещать добавлять товары, которые когда-либо были проданы, либо опубликованы на площадке по данной стратегии.',
       tableForbidNicheField:
         'Запрещено добавлять ниши которые когда либо были проданы либо опубликованы на площадке по данной стратегии',
       tableExaminationQualityField: 'Сотрудники платформы будут участвовать в проверке качества предложения',
@@ -435,7 +438,8 @@ export const texts = {
     addOrEditSinglePermissionForm: {
       addTitle: 'Новое разрешение',
       editTitle: 'Изменить разрешение',
-
+      roleLabel: 'Роль',
+      valueNone: 'None',
       keyLabel: 'Ключ',
       keyHolder: 'KEY_KEY_KEY...',
       titleLabel: 'Название',
@@ -453,7 +457,8 @@ export const texts = {
     addOrEditGroupPermissionForm: {
       addTitle: 'Новоя группа разрешений',
       editTitle: 'Изменить группу разрешений',
-
+      roleLabel: 'Роль',
+      valueNone: 'None',
       keyLabel: 'Ключ',
       keyHolder: 'KEY_KEY_KEY...',
       titleLabel: 'Название',

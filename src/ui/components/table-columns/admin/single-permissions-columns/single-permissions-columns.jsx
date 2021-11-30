@@ -38,6 +38,13 @@ export const adminSinglePermissionsColumns = handlers => [
   },
 
   {
+    field: 'tmpRole',
+    headerName: 'Роль',
+    width: 250,
+    renderCell: params => renderFieldValueCell(params.value),
+  },
+
+  {
     field: 'title',
     headerName: textConsts.titleField,
     width: 250,

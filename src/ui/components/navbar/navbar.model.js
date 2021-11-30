@@ -20,7 +20,7 @@ export class NavbarModel {
     try {
       const orders = await ClientModel.getOrders()
       runInAction(() => {
-        this.ordersNotificationsAmount = orders.filter(order => order.totalPrice !== order.totalPriceChanged).length
+        this.ordersNotificationsAmount = orders.filter(order => order.totalPrice < order.totalPriceChanged).length
       })
     } catch (error) {
       console.warn(error)

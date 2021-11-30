@@ -307,6 +307,8 @@ export class WarehouseVacantViewModel {
               'scheduledDispatchDate',
               'factDispatchDate',
               'updatedAt',
+              'sendToBatchRequest',
+              'sendToBatchComplete',
             ],
           ),
         )

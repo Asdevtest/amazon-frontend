@@ -159,13 +159,13 @@ export class ResearcherProductViewModel {
         if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
           return
         }
-        if (['bsr', 'fbaamount'].includes(fieldName)) {
+        if (['fbaamount'].includes(fieldName)) {
           this.product[fieldName] = parseInt(e.target.value)
         } else {
           this.product[fieldName] = e.target.value
         }
       }
-      if (['express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba'].includes(fieldName)) {
+      if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba'].includes(fieldName)) {
         updateProductAutoCalculatedFields.call(this)
       }
     })
@@ -197,6 +197,7 @@ export class ResearcherProductViewModel {
         break
       case 'acceptRevoke':
         this.product.currentSupplierId = undefined
+        this.product.currentSupplier = undefined
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
         break
