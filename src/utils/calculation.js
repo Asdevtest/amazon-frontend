@@ -24,7 +24,7 @@ export function updateProductAutoCalculatedFields(inConstructor) {
   this.product.bsr = parseFloat(strBsr.replace(',', '')) || (inConstructor ? '' : 0)
 
   const strPrice = this.product.amazon + ''
-  this.product.amazon = parseFloat(strPrice.replace(',', '')) || ''
+  this.product.amazon = (strPrice.replace(',', '') === '0' ? '' : strPrice.replace(',', '')) || ''
 
   this.product.totalFba = (parseFloat(this.product.fbafee) || 0) + (parseFloat(this.product.amazon) || 0) * 0.15
 

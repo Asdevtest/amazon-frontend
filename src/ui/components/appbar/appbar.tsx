@@ -65,7 +65,6 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
           {renderNavbarButton}
 
           <Typography className={classNames.title}>{title}</Typography>
-
           <Divider orientation="vertical" />
           <Badge showZero badgeContent={2}>
             <NotificationsIcon color="action" />

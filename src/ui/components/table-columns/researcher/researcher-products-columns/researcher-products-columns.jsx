@@ -25,7 +25,7 @@ export const researcherProductsViewColumns = () => [
     field: 'tmpStatus',
     headerName: textConsts.statusField,
     width: 350,
-    renderCell: params => renderFieldValueCell(params.row.tmpStatus),
+    renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
@@ -40,7 +40,7 @@ export const researcherProductsViewColumns = () => [
   {
     field: 'tmpStrategyStatus',
     headerName: textConsts.strategyStatusField,
-    renderCell: params => renderFieldValueCell(params.row.tmpStrategyStatus),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
 

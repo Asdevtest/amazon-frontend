@@ -42,13 +42,13 @@ export const supervisorProductsViewColumns = () => [
     field: 'tmpStatus',
     headerName: textConsts.statusField,
     width: 250,
-    renderCell: params => renderFieldValueCell(params.row.tmpStatus),
+    renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'tmpStrategyStatus',
     headerName: textConsts.strategyStatusField,
-    renderCell: params => renderFieldValueCell(params.row.tmpStrategyStatus),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
 
@@ -64,14 +64,14 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'tmpResearcherName',
     headerName: textConsts.researcherField,
-    renderCell: params => renderFieldValueCell(params.row.tmpResearcherName),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
     field: 'tmpBuyerName',
     headerName: textConsts.buyerField,
-    renderCell: params => renderFieldValueCell(params.row.tmpBuyerName),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 

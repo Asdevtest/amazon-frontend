@@ -49,7 +49,7 @@ export const exchangeInventoryColumns = () => [
   {
     field: 'tmpStrategyStatus',
     headerName: textConsts.strategyStatusField,
-    renderCell: params => renderFieldValueCell(params.row.tmpStrategyStatus),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
 

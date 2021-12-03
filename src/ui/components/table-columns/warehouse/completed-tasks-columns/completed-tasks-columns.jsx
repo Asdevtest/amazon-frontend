@@ -35,7 +35,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     field: 'tmpOperationType',
     headerName: textConsts.typeField,
     width: 250,
-    renderCell: params => renderFieldValueCell(params.row.tmpOperationType),
+    renderCell: params => renderFieldValueCell(params.value),
   },
   {
     field: 'description',

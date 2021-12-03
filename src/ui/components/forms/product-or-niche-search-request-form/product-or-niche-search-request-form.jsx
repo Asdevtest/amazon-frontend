@@ -4,6 +4,7 @@ import {Button, Checkbox, NativeSelect, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {parseISO} from 'date-fns'
 
+import {productSizeStatus} from '@constants/product-size-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {texts} from '@constants/texts'
 
@@ -109,6 +110,7 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
     formFields.minProductInProposals === '' ||
     formFields.minKeywords === '' ||
     formFields.size === '' ||
+    formFields.size === 'None' ||
     formFields.searchVolume === '' ||
     formFields.minAmazonPrice === '' ||
     formFields.maxAmazonPrice === '' ||
@@ -194,8 +196,20 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
         <Field
           containerClasses={classNames.field}
           label={textConsts.size}
-          value={formFields.size}
-          onChange={onChangeField('size')}
+          inputComponent={
+            <NativeSelect
+              variant="filled"
+              value={formFields.size}
+              input={<Input fullWidth />}
+              onChange={onChangeField('size')}
+            >
+              {Object.values(productSizeStatus).map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </NativeSelect>
+          }
         />
 
         <Field // tmp

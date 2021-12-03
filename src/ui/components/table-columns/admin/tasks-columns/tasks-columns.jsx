@@ -34,7 +34,7 @@ export const adminTasksViewColumns = handlers => [
     field: 'tmpOperationType',
     headerName: textConsts.typeField,
     width: 250,
-    renderCell: params => renderFieldValueCell(params.row.tmpOperationType),
+    renderCell: params => renderFieldValueCell(params.value),
   },
   {
     field: 'description',
@@ -62,6 +62,6 @@ export const adminTasksViewColumns = handlers => [
     field: 'tmpStatus',
     headerName: textConsts.statusField,
     width: 250,
-    renderCell: params => renderFieldValueCell(params.row.tmpStatus),
+    renderCell: params => renderFieldValueCell(params.value),
   },
 ]

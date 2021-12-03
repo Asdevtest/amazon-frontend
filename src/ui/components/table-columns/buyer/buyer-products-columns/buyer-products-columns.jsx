@@ -45,13 +45,13 @@ export const buyerProductsViewColumns = handlers => [
     field: 'tmpStatus',
     headerName: textConsts.statusField,
     width: 300,
-    renderCell: params => renderFieldValueCell(params.row.tmpStatus),
+    renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'tmpStrategyStatus',
     headerName: textConsts.strategyStatusField,
-    renderCell: params => renderFieldValueCell(params.row.tmpStrategyStatus),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
 

@@ -34,6 +34,12 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '14px',
     fontWeight: 500,
   },
+  userroleTitle: {
+    marginRight: '5px',
+  },
+  userrole: {
+    marginRight: '20px',
+  },
   userInfoWrapper: {
     display: 'flex',
     alignItems: 'center',

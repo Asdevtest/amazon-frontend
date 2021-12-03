@@ -56,7 +56,7 @@ export const adminBoxesViewColumns = () => [
   {
     field: 'tmpAsin',
     headerName: textConsts.asinField,
-    renderCell: params => renderFieldValueCell(params.row.tmpAsin),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 
@@ -69,7 +69,7 @@ export const adminBoxesViewColumns = () => [
       ) : params.row.items.length > 1 ? (
         'X'
       ) : (
-        renderFieldValueCell(params.row.tmpQty)
+        renderFieldValueCell(params.value)
       ),
     width: 150,
     type: 'number',
@@ -78,14 +78,14 @@ export const adminBoxesViewColumns = () => [
   {
     field: 'tmpMaterial',
     headerName: textConsts.materialField,
-    renderCell: params => renderFieldValueCell(params.row.tmpMaterial),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 
   {
     field: 'tmpWarehouses',
     headerName: textConsts.warehouseField,
-    renderCell: params => renderFieldValueCell(params.row.tmpWarehouses),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
@@ -123,7 +123,7 @@ export const adminBoxesViewColumns = () => [
   {
     field: 'tmpTrackingNumberChina',
     headerName: textConsts.trackIdField,
-    renderCell: params => renderFieldValueCell(params.row.tmpTrackingNumberChina),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 ]

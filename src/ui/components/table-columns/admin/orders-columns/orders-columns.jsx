@@ -47,7 +47,7 @@ export const adminOrdersViewColumns = () => [
     field: 'tmpStatus',
     headerName: textConsts.statusField,
     width: 150,
-    renderCell: params => renderFieldValueCell(params.row.tmpStatus),
+    renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
@@ -62,7 +62,7 @@ export const adminOrdersViewColumns = () => [
   {
     field: 'tmpWarehouses',
     headerName: textConsts.warehouseField,
-    renderCell: params => renderFieldValueCell(params.row.tmpWarehouses),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
