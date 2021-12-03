@@ -56,6 +56,9 @@ export const AddOrEditGroupPermissionForm = observer(
     const onChangeField = fieldName => event => {
       const newFormFields = {...formFields}
       newFormFields[fieldName] = event.target.value
+      if (fieldName === 'key') {
+        newFormFields[fieldName] = event.target.value.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '')
+      }
       setFormFields(newFormFields)
     }
 
@@ -92,6 +95,7 @@ export const AddOrEditGroupPermissionForm = observer(
     const disableSubmitBtn =
       JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
       formFields.key === '' ||
+      formFields.key.match(/[_]/) === null ||
       formFields.title === '' ||
       formFields.description === '' ||
       (!newSinglePermission[0] && !formFields.permissions[0]) ||
@@ -126,6 +130,7 @@ export const AddOrEditGroupPermissionForm = observer(
             label={textConsts.keyLabel}
             value={formFields.key}
             placeholder={textConsts.keyHolder}
+            error={formFields.key.match(/[_]/) === null ? 'Значение должно содержать "_"' : ''}
             onChange={onChangeField('key')}
           />
 

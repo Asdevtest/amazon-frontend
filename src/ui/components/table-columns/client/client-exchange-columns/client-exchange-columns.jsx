@@ -29,14 +29,14 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'tmpStrategyStatus',
     headerName: textConsts.strategyStatusField,
-    renderCell: params => renderFieldValueCell(params.row.tmpStrategyStatus),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
 
   {
     field: 'category',
     headerName: textConsts.categoryField,
-    renderCell: params => renderFieldValueCell(params.row.category),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 
@@ -59,7 +59,7 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'bsr',
     headerName: textConsts.bsrField,
-    renderCell: params => renderFieldValueCell(params.row.bsr),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 130,
     type: 'number',
   },
@@ -67,7 +67,7 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'fbaamount',
     headerName: textConsts.fbaamountField,
-    renderCell: params => renderFieldValueCell(params.row.fbaamount),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 130,
     type: 'number',
   },
@@ -75,14 +75,14 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'tmpResearcherName',
     headerName: textConsts.researcherField,
-    renderCell: params => renderFieldValueCell(params.row.tmpResearcherName),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
     field: 'tmpBuyerName',
     headerName: textConsts.buyerField,
-    renderCell: params => renderFieldValueCell(params.row.tmpBuyerName),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 

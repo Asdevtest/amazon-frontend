@@ -38,6 +38,10 @@ export const AddOrEditSinglePermissionForm = observer(({onCloseModal, onSubmit, 
     } else {
       newFormFields[fieldName] = event.target.value
     }
+
+    if (fieldName === 'key') {
+      newFormFields[fieldName] = event.target.value.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '')
+    }
     setFormFields(newFormFields)
   }
 
@@ -56,6 +60,7 @@ export const AddOrEditSinglePermissionForm = observer(({onCloseModal, onSubmit, 
   const disableSubmitBtn =
     JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
     formFields.key === '' ||
+    formFields.key.match(/[_]/) === null ||
     formFields.title === '' ||
     formFields.description === '' ||
     !formFields.allowedUrl[0] ||
@@ -90,6 +95,7 @@ export const AddOrEditSinglePermissionForm = observer(({onCloseModal, onSubmit, 
           label={textConsts.keyLabel}
           value={formFields.key}
           placeholder={textConsts.keyHolder}
+          error={formFields.key.match(/[_]/) === null ? 'Значение должно содержать "_"' : ''}
           onChange={onChangeField('key')}
         />
 

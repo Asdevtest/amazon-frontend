@@ -21,7 +21,7 @@ export const adminUsersViewColumns = handlers => [
   {
     field: 'balance',
     headerName: textConsts.balanceField,
-    renderCell: params => renderFieldValueCell(params.row.balance),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
     type: 'number',
   },
@@ -39,7 +39,7 @@ export const adminUsersViewColumns = handlers => [
   {
     field: 'rate',
     headerName: textConsts.rateField,
-    renderCell: params => renderFieldValueCell(params.row.rate),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
     type: 'number',
   },
@@ -47,14 +47,14 @@ export const adminUsersViewColumns = handlers => [
   {
     field: 'tmpRole',
     headerName: textConsts.roleField,
-    renderCell: params => renderFieldValueCell(params.row.tmpRole),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 
   {
     field: 'tmpActive',
     headerName: textConsts.statusField,
-    renderCell: params => renderFieldValueCell(params.row.tmpActive),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 

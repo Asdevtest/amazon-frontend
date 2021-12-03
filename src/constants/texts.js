@@ -1340,7 +1340,7 @@ export const texts = {
       qty: 'Кол-во закупки*',
       minLot: 'Минимальная партия*',
       lotCost: 'Цена партии $*',
-      csCode: 'Стоимость',
+      csCode: 'Стоимость $',
       comment: 'Комментарий',
       saveBtn: 'Сохранить',
       cancelBtn: 'Отменить',
@@ -1709,6 +1709,7 @@ export const texts = {
       grossWeightField: 'Общий вес',
       trackIdField: 'Трек номер',
       neededToPayExtraField: 'Необходимо доплатить',
+      forDeliveryFromTheWarehouse: 'Из них за доставку до склада Китая',
     },
 
     buyerMyOrdersTableColumns: {

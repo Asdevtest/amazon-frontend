@@ -1,3 +1,5 @@
+import {objectFlip} from '@utils/object'
+
 export const UserRole = {
   ADMIN: 'ADMIN',
   CLIENT: 'CLIENT',
@@ -5,14 +7,17 @@ export const UserRole = {
   RESEARCHER: 'RESEARCHER',
   BUYER: 'BUYER',
   STOREKEEPER: 'STOREKEEPER',
+  CANDIDATE: `CANDIDATE`,
 }
 
 export const UserRoleCodeMap = {
-  0: 'ADMIN',
-  10: 'CLIENT',
-  20: 'SUPERVISOR',
-  30: 'RESEARCHER',
-  40: 'BUYER',
-  45: 'STOREKEEPER',
-  50: 'CANDIDATE',
+  0: UserRole.ADMIN,
+  10: UserRole.CLIENT,
+  20: UserRole.SUPERVISOR,
+  30: UserRole.RESEARCHER,
+  40: UserRole.BUYER,
+  45: UserRole.STOREKEEPER,
+  50: UserRole.CANDIDATE,
 }
+
+export const mapUserRoleEnumToKey = objectFlip(UserRoleCodeMap, parseInt)

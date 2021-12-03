@@ -4,7 +4,7 @@ import {Container, Button, Typography, NativeSelect, Checkbox} from '@material-u
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {Field} from '@components/field'
 import {Input} from '@components/input'
@@ -60,11 +60,13 @@ export const AdminContentModal = observer(
               value={editUserFormFields.role}
               onChange={onChangeFormField('role')}
             >
-              {Object.keys(UserRoleCodeMap).map(userRoleCode => (
-                <option key={userRoleCode} value={userRoleCode}>
-                  {UserRoleCodeMap[userRoleCode]}
-                </option>
-              ))}
+              {Object.keys(UserRoleCodeMap)
+                .filter(role => UserRoleCodeMap[role] !== UserRole.CANDIDATE)
+                .map(userRoleCode => (
+                  <option key={userRoleCode} value={userRoleCode}>
+                    {UserRoleCodeMap[userRoleCode]}
+                  </option>
+                ))}
             </NativeSelect>
           }
         />

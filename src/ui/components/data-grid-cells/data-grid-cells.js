@@ -181,7 +181,7 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
   </div>
 ))
 
-export const renderFieldValueCell = value => (!value ? 'N/A' : value)
+export const renderFieldValueCell = value => (!value && value !== 0 ? 'N/A' : value)
 
 export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, params, hideImage}) => {
   const renderProductImage = (box, key) => {

@@ -55,21 +55,21 @@ export const buyerFreeOrdersViewColumns = handlers => [
   {
     field: 'tmpWarehouses',
     headerName: textConsts.warehouseField,
-    renderCell: params => renderFieldValueCell(params.row.tmpWarehouses),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
     field: 'tmpDeliveryMethod',
     headerName: textConsts.deliveryField,
-    renderCell: params => renderFieldValueCell(params.row.tmpDeliveryMethod),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
     field: 'clientComment',
     headerName: textConsts.clientCommentField,
-    renderCell: params => renderFieldValueCell(params.row.clientComment),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 300,
   },
 ]

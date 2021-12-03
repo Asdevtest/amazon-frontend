@@ -33,6 +33,13 @@ export const clientOrdersNotificationsViewColumns = handlers => [
   },
 
   {
+    field: 'deliveryCostToTheWarehouse',
+    headerName: textConsts.forDeliveryFromTheWarehouse,
+    width: 250,
+    renderCell: params => renderFieldValueCell(params.value),
+  },
+
+  {
     field: 'orders',
     headerName: textConsts.ordersField,
     width: 400,
@@ -45,7 +52,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'tmpStatus',
     headerName: textConsts.statusField,
     width: 150,
-    renderCell: params => renderFieldValueCell(params.row.tmpStatus),
+    renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
@@ -66,7 +73,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
   {
     field: 'tmpWarehouses',
     headerName: textConsts.warehouseField,
-    renderCell: params => renderFieldValueCell(params.row.tmpWarehouses),
+    renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
