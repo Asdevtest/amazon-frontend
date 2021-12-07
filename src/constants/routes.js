@@ -44,16 +44,19 @@ import {ResearcherProductsRequestsView} from '@views/researcher/researcher-produ
 import {ResearcherProductsView} from '@views/researcher/researcher-products-view'
 import {ResearcherRequestView} from '@views/researcher/researcher-request-view'
 import {ResearcherSettingsView} from '@views/researcher/researcher-settings-view'
+import {ResearcherSubUsersView} from '@views/researcher/researcher-users-views/researcher-sub-users-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
 import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
-import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view'
+import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view/'
 import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-view'
 import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view/supervisor-settings-view'
+import {SupervisorSubUsersView} from '@views/supervisor/supervisor-users-views/supervisor-sub-users-view'
 import {TermsView} from '@views/terms'
 import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-canceled-tasks-view'
 import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-completed-tasks-view'
 import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
 import {WarehouseMyTasksView} from '@views/warehouse/warehouse-my-tasks-view'
+import {WarehouseSubUsersView} from '@views/warehouse/warehouse-users-views/warehouse-sub-users-view'
 import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-vacant-tasks-view'
 import {WarehouseWarehouseView} from '@views/warehouse/warehouse-warehouse-view/warehouse-warehouse-view'
 
@@ -170,6 +173,13 @@ export const privateRoutesConfigs = [
     routePath: '/researcher/request',
     component: ResearcherRequestView,
     exact: true,
+    permission: [UserRole.RESEARCHER],
+  },
+
+  {
+    routePath: '/researcher/users/sub-users',
+    component: ResearcherSubUsersView,
+    exact: false,
     permission: [UserRole.RESEARCHER],
   },
 
@@ -299,6 +309,14 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.SUPERVISOR],
   },
+
+  {
+    routePath: '/supervisor/users/sub-users',
+    component: SupervisorSubUsersView,
+    exact: false,
+    permission: [UserRole.SUPERVISOR],
+  },
+
   {
     routePath: '/warehouse/dashboard',
     component: WarehouseDashboardView,
@@ -329,6 +347,14 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.STOREKEEPER],
   },
+
+  {
+    routePath: '/warehouse/users/sub-users',
+    component: WarehouseSubUsersView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+  },
+
   {
     routePath: '/warehouse/canceled-tasks',
     component: WarehouseCanceledTasksView,

@@ -13,9 +13,9 @@
 
 
 import ApiClient from "../ApiClient";
-import InlineObject32 from '../model/InlineObject32';
 import InlineObject33 from '../model/InlineObject33';
 import InlineObject34 from '../model/InlineObject34';
+import InlineObject35 from '../model/InlineObject35';
 import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2005 from '../model/InlineResponse2005';
 import InlineResponse400 from '../model/InlineResponse400';
@@ -96,12 +96,12 @@ export default class StorekeepersApi {
      * @param {String} guid GUID ордера, который мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject34} opts.InlineObject34 
+     * @param {module:model/InlineObject35} opts.InlineObject35 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject34'];
+      let postBody = opts['InlineObject35'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch");
@@ -135,7 +135,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID ордера, который мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject34} opts.InlineObject34 
+     * @param {module:model/InlineObject35} opts.InlineObject35 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch(guid, opts) {
@@ -206,12 +206,12 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject32} opts.InlineObject32 
+     * @param {module:model/InlineObject33} opts.InlineObject33 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersTasksDoneGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject32'];
+      let postBody = opts['InlineObject33'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1StorekeepersTasksDoneGuidPost");
@@ -245,7 +245,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject32} opts.InlineObject32 
+     * @param {module:model/InlineObject33} opts.InlineObject33 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersTasksDoneGuidPost(guid, opts) {
@@ -262,12 +262,12 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject33} opts.InlineObject33 
+     * @param {module:model/InlineObject34} opts.InlineObject34 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersTasksGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject33'];
+      let postBody = opts['InlineObject34'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1StorekeepersTasksGuidPatch");
@@ -301,7 +301,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject33} opts.InlineObject33 
+     * @param {module:model/InlineObject34} opts.InlineObject34 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersTasksGuidPatch(guid, opts) {
@@ -316,6 +316,7 @@ export default class StorekeepersApi {
      * # Получить задачи закрепленные за данным сборщиком..
      * ## Получить задачи закрепленные за данным сборщиком.  
      * @param {Object} opts Optional parameters
+     * @param {Number} opts.status Статус задачи для фильтра.
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
@@ -326,6 +327,7 @@ export default class StorekeepersApi {
       let pathParams = {
       };
       let queryParams = {
+        'status': opts['status']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -348,6 +350,7 @@ export default class StorekeepersApi {
      * # Получить задачи закрепленные за данным сборщиком..
      * ## Получить задачи закрепленные за данным сборщиком.  
      * @param {Object} opts Optional parameters
+     * @param {Number} opts.status Статус задачи для фильтра.
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */

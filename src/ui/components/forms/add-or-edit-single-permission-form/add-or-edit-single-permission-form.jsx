@@ -20,6 +20,8 @@ const textConsts = getLocalizedTexts(texts, 'en').addOrEditSinglePermissionForm
 export const AddOrEditSinglePermissionForm = observer(({onCloseModal, onSubmit, isEdit, permissionToEdit}) => {
   const classNames = useClassNames()
 
+  const [onKeyFieldEditing, setOnKeyFieldEditing] = useState(false)
+
   const sourceFormFields = {
     key: permissionToEdit?.key || '',
     title: permissionToEdit?.title || '',
@@ -40,6 +42,7 @@ export const AddOrEditSinglePermissionForm = observer(({onCloseModal, onSubmit, 
     }
 
     if (fieldName === 'key') {
+      setOnKeyFieldEditing(true)
       newFormFields[fieldName] = event.target.value.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '')
     }
     setFormFields(newFormFields)
@@ -95,7 +98,7 @@ export const AddOrEditSinglePermissionForm = observer(({onCloseModal, onSubmit, 
           label={textConsts.keyLabel}
           value={formFields.key}
           placeholder={textConsts.keyHolder}
-          error={formFields.key.match(/[_]/) === null ? 'Значение должно содержать "_"' : ''}
+          error={formFields.key.match(/[_]/) === null && onKeyFieldEditing && textConsts.keyFieldError}
           onChange={onChangeField('key')}
         />
 

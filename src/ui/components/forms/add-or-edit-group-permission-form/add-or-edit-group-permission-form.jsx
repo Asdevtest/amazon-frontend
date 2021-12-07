@@ -27,11 +27,13 @@ export const AddOrEditGroupPermissionForm = observer(
   ({onCloseModal, onSubmit, isEdit, permissionToEdit, singlePermissions}) => {
     const classNames = useClassNames()
 
+    const [onKeyFieldEditing, setOnKeyFieldEditing] = useState(false)
+
     const sourceFormFields = {
       key: permissionToEdit?.key || '',
       title: permissionToEdit?.title || '',
       description: permissionToEdit?.description || '',
-      permissions: permissionToEdit?.permissions || [],
+      permissions: permissionToEdit?.permissions?.map(el => el._id) || [],
       role: permissionToEdit?.role === 0 ? 0 : permissionToEdit?.role || '',
     }
 
@@ -57,14 +59,13 @@ export const AddOrEditGroupPermissionForm = observer(
       const newFormFields = {...formFields}
       newFormFields[fieldName] = event.target.value
       if (fieldName === 'key') {
+        setOnKeyFieldEditing(true)
         newFormFields[fieldName] = event.target.value.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '')
       }
       setFormFields(newFormFields)
     }
 
-    const curPermissions = isEdit
-      ? formFields.permissions
-      : singlePermissions.filter(el => formFields.permissions.includes(el._id))
+    const curPermissions = singlePermissions.filter(el => formFields.permissions.includes(el._id))
 
     const handleSelectPermissionChange = event => {
       const {
@@ -93,12 +94,11 @@ export const AddOrEditGroupPermissionForm = observer(
     )
 
     const disableSubmitBtn =
-      JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
+      (JSON.stringify(sourceFormFields) === JSON.stringify(formFields) && !newSinglePermission[0]) ||
       formFields.key === '' ||
       formFields.key.match(/[_]/) === null ||
       formFields.title === '' ||
       formFields.description === '' ||
-      (!newSinglePermission[0] && !formFields.permissions[0]) ||
       formFields.role === 'None'
 
     return (
@@ -130,7 +130,7 @@ export const AddOrEditGroupPermissionForm = observer(
             label={textConsts.keyLabel}
             value={formFields.key}
             placeholder={textConsts.keyHolder}
-            error={formFields.key.match(/[_]/) === null ? 'Значение должно содержать "_"' : ''}
+            error={formFields.key.match(/[_]/) === null && onKeyFieldEditing && textConsts.keyFieldError}
             onChange={onChangeField('key')}
           />
 
@@ -162,63 +162,61 @@ export const AddOrEditGroupPermissionForm = observer(
 
                   {curPermissions.map((el, index) => (
                     <Tooltip key={index} title={renderPermissionInfo(el)}>
-                      <Typography className={classNames.singlePermission}>{`${el.title} (ключ: ${el.key})`}</Typography>
+                      <Typography className={classNames.singlePermission}>{`${el.title} (ключ: ${el.key}) (роль: ${
+                        UserRoleCodeMap[el.role]
+                      })`}</Typography>
                     </Tooltip>
                   ))}
 
-                  {!isEdit && (
-                    <div className={classNames.selectWrapper}>
-                      <Typography className={classNames.selectChoose}>{textConsts.selectChooseTitle}</Typography>
-                      <Select
-                        multiple
-                        disabled={isEdit}
-                        className={classNames.permissionSelect}
-                        value={formFields.permissions}
-                        renderValue={selected => selected.join(', ')}
-                        onChange={handleSelectPermissionChange}
-                      >
-                        {singlePermissions.map((per, index) => (
-                          <MenuItem key={index} value={per._id}>
-                            <Checkbox checked={formFields.permissions.includes(per._id)} />
-                            <ListItemText primary={`${per.title} (ключ: ${per.key})`} />
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </div>
-                  )}
+                  <div className={classNames.selectWrapper}>
+                    <Typography className={classNames.selectChoose}>{textConsts.selectChooseTitle}</Typography>
+                    <Select
+                      multiple
+                      className={classNames.permissionSelect}
+                      value={formFields.permissions}
+                      renderValue={selected => selected.join(', ')}
+                      onChange={handleSelectPermissionChange}
+                    >
+                      {singlePermissions.map((per, index) => (
+                        <MenuItem key={index} value={per._id}>
+                          <Checkbox checked={formFields.permissions.includes(per._id)} />
+                          <ListItemText
+                            primary={`${per.title} (ключ: ${per.key})  (роль: ${UserRoleCodeMap[per.role]})`}
+                          />
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
                 </div>
 
-                {!isEdit && (
-                  <div>
-                    <Typography className={classNames.permissionsSubTitle}>
-                      {textConsts.permissionsWillbeCreated}
-                    </Typography>
+                <div>
+                  <Typography className={classNames.permissionsSubTitle}>
+                    {textConsts.permissionsWillbeCreated}
+                  </Typography>
 
-                    {newSinglePermission.map((el, index) => (
-                      <Tooltip key={index} title={renderPermissionInfo(el)}>
-                        <div className={classNames.newSinglePermissionWrapper}>
-                          <Typography
-                            className={classNames.singlePermission}
-                          >{`${el.title} (ключ: ${el.key})`}</Typography>
+                  {newSinglePermission.map((el, index) => (
+                    <Tooltip key={index} title={renderPermissionInfo(el)}>
+                      <div className={classNames.newSinglePermissionWrapper}>
+                        <Typography className={classNames.singlePermission}>{`${el.title} (ключ: ${el.key}) (роль: ${
+                          UserRoleCodeMap[el.role]
+                        })`}</Typography>
 
-                          <IconButton onClick={() => onRemovePermission(index)}>
-                            <DeleteIcon />
-                          </IconButton>
-                        </div>
-                      </Tooltip>
-                    ))}
+                        <IconButton onClick={() => onRemovePermission(index)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </div>
+                    </Tooltip>
+                  ))}
 
-                    <Button
-                      disableElevation
-                      disabled={isEdit}
-                      color="primary"
-                      variant="contained"
-                      onClick={() => setShowAddOrEditSinglePermissionModal(!showAddOrEditSinglePermissionModal)}
-                    >
-                      {textConsts.addNewPermBtn}
-                    </Button>
-                  </div>
-                )}
+                  <Button
+                    disableElevation
+                    color="primary"
+                    variant="contained"
+                    onClick={() => setShowAddOrEditSinglePermissionModal(!showAddOrEditSinglePermissionModal)}
+                  >
+                    {textConsts.addNewPermBtn}
+                  </Button>
+                </div>
               </div>
             }
           />

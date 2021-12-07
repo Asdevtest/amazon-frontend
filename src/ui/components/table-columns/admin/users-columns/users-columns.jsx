@@ -29,7 +29,7 @@ export const adminUsersViewColumns = handlers => [
   {
     field: 'balanceFreeze',
     headerName: textConsts.freezeField,
-    renderCell: params => !params.value && '0',
+    renderCell: params => renderFieldValueCell(params.value),
     width: 150,
     type: 'number',
   },

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **warehouse** | **Number** | Номер склада. | 
 **clientComment** | **String** | Комментарии клиента. | 
 **productId** | **String** | GUID заказанного продукта | 
+**yuanToDollarRate** | **Number** | Курс юань доллар. | [optional] 
 **images** | **[String]** | Массив изображений. | [optional] 
 
 

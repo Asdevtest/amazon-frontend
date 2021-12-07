@@ -35,7 +35,7 @@ let apiInstance = new Amazonapi.SupervisorApi();
 let guid = "guid_example"; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject35': new Amazonapi.InlineObject35() // InlineObject35 | 
+  'InlineObject36': new Amazonapi.InlineObject36() // InlineObject36 | 
 };
 apiInstance.apiV1SupervisorsProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject35** | [**InlineObject35**](InlineObject35.md)|  | [optional] 
+ **InlineObject36** | [**InlineObject36**](InlineObject36.md)|  | [optional] 
 
 ### Return type
 
@@ -91,7 +91,7 @@ let apiInstance = new Amazonapi.SupervisorApi();
 let guid = "guid_example"; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject36': new Amazonapi.InlineObject36() // InlineObject36 | 
+  'InlineObject37': new Amazonapi.InlineObject37() // InlineObject37 | 
 };
 apiInstance.apiV1SupervisorsProductsListingGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject36** | [**InlineObject36**](InlineObject36.md)|  | [optional] 
+ **InlineObject37** | [**InlineObject37**](InlineObject37.md)|  | [optional] 
 
 ### Return type
 

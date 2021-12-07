@@ -23,14 +23,14 @@ class ProductModelStatic {
 
   addSuppliersToProduct = async (id, supplier) => {
     const response = await restApiService.product.apiV1ProductsAddSuppliersGuidPost(id, {
-      InlineObject28: {suppliersIds: supplier},
+      InlineObject29: {suppliersIds: supplier},
     })
     return response
   }
 
   removeSuppliersFromProduct = async (id, supplier) => {
     const response = await restApiService.product.apiV1ProductsRemoveSuppliersGuidPost(id, {
-      InlineObject29: {suppliersIds: supplier},
+      InlineObject30: {suppliersIds: supplier},
     })
     return response
   }

@@ -199,6 +199,7 @@ export class GroupPermissionsModel {
 
       this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
       this.getGroupPermissions()
+      this.getSinglePermissions()
     } catch (error) {
       console.log(error)
       this.error = error
@@ -216,7 +217,7 @@ export class GroupPermissionsModel {
 
   async updateGroupPermission(data, permissionId) {
     try {
-      const allowData = getObjectFilteredByKeyArrayWhiteList(data, ['title', 'description', 'role'])
+      const allowData = getObjectFilteredByKeyArrayWhiteList(data, ['title', 'description', 'permissions'])
 
       await PermissionsModel.updateGroupPermission(permissionId, allowData)
     } catch (error) {
@@ -227,10 +228,16 @@ export class GroupPermissionsModel {
 
   async onSubmitUpdateGroupPermission(data, newSinglePermissions, permissionId) {
     try {
+      if (newSinglePermissions.length > 0) {
+        await this.createAllSinglePermissions(newSinglePermissions)
+        data = {...data, permissions: [...data.permissions, ...this.newPermissionIds]}
+      }
+
       await this.updateGroupPermission(data, permissionId)
 
       this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
       this.getGroupPermissions()
+      this.getSinglePermissions()
     } catch (error) {
       console.log(error)
       this.error = error

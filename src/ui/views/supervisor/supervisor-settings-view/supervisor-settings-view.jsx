@@ -22,7 +22,7 @@ import {styles} from './supervisor-settings-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').supervisorSettingsView
 
-const navbarActiveCategory = 3
+const navbarActiveCategory = 4
 
 @observer
 export class SupervisorSettingsViewRaw extends Component {

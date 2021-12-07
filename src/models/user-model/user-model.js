@@ -67,6 +67,48 @@ class UserModelStatic {
     })
     return response
   }
+
+  async changeUserInfo(data) {
+    const response = await restApiService.userApi.apiV1UsersMePatch(data)
+
+    return response
+  }
+
+  async linkSubUser(data) {
+    const response = await restApiService.userApi.apiV1UsersLinkSubUserPatch(data)
+
+    return response
+  }
+
+  async unlinkSubUser(data) {
+    const response = await restApiService.userApi.apiV1UsersUnlinkSubUserPatch(data)
+
+    return response
+  }
+
+  async getMySubUsers() {
+    const response = await restApiService.userApi.apiV1UsersMySubUsersGet()
+
+    return response
+  }
+
+  async getUserSettingsMy() {
+    const response = await restApiService.userApi.apiV1UsersUserSettingsMyGet()
+
+    return response
+  }
+
+  async createUserSettings(data) {
+    const response = await restApiService.userApi.apiV1UsersUserSettingsPost(data)
+
+    return response
+  }
+
+  async editUserSettings(id, data) {
+    const response = await restApiService.userApi.apiV1UsersUserSettingsMyPatch(id, data)
+
+    return response
+  }
 }
 
 export const UserModel = new UserModelStatic()

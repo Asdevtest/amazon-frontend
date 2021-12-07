@@ -23,10 +23,11 @@ class InlineObject41 {
      * Constructs a new <code>InlineObject41</code>.
      * @alias module:model/InlineObject41
      * @param email {String} 
+     * @param password {String} 
      */
-    constructor(email) { 
+    constructor(email, password) { 
         
-        InlineObject41.initialize(this, email);
+        InlineObject41.initialize(this, email, password);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject41 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email) { 
+    static initialize(obj, email, password) { 
         obj['email'] = email;
+        obj['password'] = password;
     }
 
     /**
@@ -52,6 +54,9 @@ class InlineObject41 {
             if (data.hasOwnProperty('email')) {
                 obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
+            if (data.hasOwnProperty('password')) {
+                obj['password'] = ApiClient.convertToType(data['password'], 'String');
+            }
         }
         return obj;
     }
@@ -63,6 +68,11 @@ class InlineObject41 {
  * @member {String} email
  */
 InlineObject41.prototype['email'] = undefined;
+
+/**
+ * @member {String} password
+ */
+InlineObject41.prototype['password'] = undefined;
 
 
 

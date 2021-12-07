@@ -12,7 +12,7 @@ class SupervisorModelStatic {
   }
 
   updateProduct = async (id, data) => {
-    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsGuidPatch(id, {InlineObject35: data})
+    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsGuidPatch(id, {InlineObject36: data})
     return response
   }
 
@@ -38,7 +38,7 @@ class SupervisorModelStatic {
 
   updateProductListing = async (id, data) => {
     const response = await restApiService.supervisorApi.apiV1SupervisorsProductsListingGuidPatch(id, {
-      InlineObject36: data,
+      InlineObject37: data,
     })
 
     return response

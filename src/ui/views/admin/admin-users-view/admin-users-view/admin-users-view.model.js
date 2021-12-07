@@ -1,15 +1,16 @@
-import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {AdministratorModel} from '@models/administrator-model'
+import {PermissionsModel} from '@models/permissions-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {adminUsersViewColumns} from '@components/table-columns/admin/users-columns'
 
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminUsersViewModel {
   history = undefined
@@ -17,6 +18,9 @@ export class AdminUsersViewModel {
   error = undefined
 
   users = []
+  groupPermissions = []
+  singlePermissions = []
+
   editUserFormFields = undefined
   selectionModel = undefined
   dataGridState = null
@@ -36,7 +40,6 @@ export class AdminUsersViewModel {
   drawerOpen = false
 
   showEditUserModal = false
-  showPermissionModal = false
 
   constructor({history}) {
     this.history = history
@@ -75,6 +78,24 @@ export class AdminUsersViewModel {
     }
   }
 
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await this.getUsers()
+
+      this.getDataGridState()
+
+      await this.getGroupPermissions()
+      await this.getSinglePermissions()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
   async getUsers() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -100,24 +121,43 @@ export class AdminUsersViewModel {
     }
   }
 
-  async submitEditUserForm() {
+  async getGroupPermissions() {
+    try {
+      const result = await PermissionsModel.getGroupPermissions()
+
+      runInAction(() => {
+        this.groupPermissions = result
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getSinglePermissions() {
+    try {
+      const result = await PermissionsModel.getSinglePermissions()
+
+      runInAction(() => {
+        this.singlePermissions = result
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async submitEditUserForm(data) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
-      const data = getObjectFilteredByKeyArrayBlackList(this.editUserFormFields, [
-        '_id',
-        'id',
-        'createdAt',
-        'tmpActive',
-        'tmpRole',
-      ])
-
-      console.log('this.selectionModel', this.selectionModel)
-      console.log('data', data)
 
       await AdministratorModel.updateUser(this.selectionModel, data)
-      await this.getUsers()
+
       this.setRequestStatus(loadingStatuses.success)
+
+      this.onTriggerOpenModal('showEditUserModal')
+      await this.getUsers()
+      await this.getGroupPermissions()
+      await this.getSinglePermissions()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
@@ -142,14 +182,6 @@ export class AdminUsersViewModel {
     this.history.push('/admin/user/user_id/balance', {user: userData})
   }
 
-  onTriggerEditUserModal() {
-    this.showEditUserModal = !this.showEditUserModal
-  }
-
-  onTriggerPermissionModal() {
-    this.showPermissionModal = !this.showPermissionModal
-  }
-
   onTriggerDrawer() {
     this.drawerOpen = !this.drawerOpen
   }
@@ -170,8 +202,7 @@ export class AdminUsersViewModel {
     this.requestStatus = requestStatus
   }
 
-  onChangeFormField = fieldName =>
-    action(e => {
-      this.editUserFormFields = {...this.editUserFormFields, [fieldName]: e.target.value}
-    })
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
+  }
 }

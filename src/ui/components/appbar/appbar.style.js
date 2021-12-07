@@ -94,4 +94,25 @@ export const useClassNames = makeStyles(theme => ({
     color: 'rgba(90, 97, 105, 1)',
     textAlign: 'center',
   },
+
+  roleWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    padding: '5px',
+  },
+
+  roleSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
+  roleSelect: {
+    width: '150px',
+  },
+
+  menuBtn: {
+    width: '80px',
+    height: '30px',
+  },
 }))

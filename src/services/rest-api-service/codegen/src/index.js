@@ -29,6 +29,7 @@ import ApiV1BoxesItems from './model/ApiV1BoxesItems';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
 import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
+import ApiV1UsersUserSettingsData from './model/ApiV1UsersUserSettingsData';
 import BadRequestError from './model/BadRequestError';
 import ConflictInTheState from './model/ConflictInTheState';
 import DefaultHeaders from './model/DefaultHeaders';
@@ -71,6 +72,10 @@ import InlineObject4 from './model/InlineObject4';
 import InlineObject40 from './model/InlineObject40';
 import InlineObject41 from './model/InlineObject41';
 import InlineObject42 from './model/InlineObject42';
+import InlineObject43 from './model/InlineObject43';
+import InlineObject44 from './model/InlineObject44';
+import InlineObject45 from './model/InlineObject45';
+import InlineObject46 from './model/InlineObject46';
 import InlineObject5 from './model/InlineObject5';
 import InlineObject6 from './model/InlineObject6';
 import InlineObject7 from './model/InlineObject7';
@@ -82,6 +87,7 @@ import InlineResponse20010 from './model/InlineResponse20010';
 import InlineResponse20011 from './model/InlineResponse20011';
 import InlineResponse20011Info from './model/InlineResponse20011Info';
 import InlineResponse20012 from './model/InlineResponse20012';
+import InlineResponse20013 from './model/InlineResponse20013';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
@@ -259,6 +265,12 @@ export {
      * @property {module:model/ApiV1BoxesSplitNewBoxesParams}
      */
     ApiV1BoxesSplitNewBoxesParams,
+
+    /**
+     * The ApiV1UsersUserSettingsData model constructor.
+     * @property {module:model/ApiV1UsersUserSettingsData}
+     */
+    ApiV1UsersUserSettingsData,
 
     /**
      * The BadRequestError model constructor.
@@ -513,6 +525,30 @@ export {
     InlineObject42,
 
     /**
+     * The InlineObject43 model constructor.
+     * @property {module:model/InlineObject43}
+     */
+    InlineObject43,
+
+    /**
+     * The InlineObject44 model constructor.
+     * @property {module:model/InlineObject44}
+     */
+    InlineObject44,
+
+    /**
+     * The InlineObject45 model constructor.
+     * @property {module:model/InlineObject45}
+     */
+    InlineObject45,
+
+    /**
+     * The InlineObject46 model constructor.
+     * @property {module:model/InlineObject46}
+     */
+    InlineObject46,
+
+    /**
      * The InlineObject5 model constructor.
      * @property {module:model/InlineObject5}
      */
@@ -577,6 +613,12 @@ export {
      * @property {module:model/InlineResponse20012}
      */
     InlineResponse20012,
+
+    /**
+     * The InlineResponse20013 model constructor.
+     * @property {module:model/InlineResponse20013}
+     */
+    InlineResponse20013,
 
     /**
      * The InlineResponse2002 model constructor.

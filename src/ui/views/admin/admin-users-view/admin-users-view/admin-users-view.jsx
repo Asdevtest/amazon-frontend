@@ -15,7 +15,6 @@ import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 import {AdminContentModal} from '@components/screens/users-views/sub-users-view/admin-content-modal'
-import {PermissionContentModal} from '@components/screens/users-views/sub-users-view/permission-modal'
 
 import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -32,12 +31,14 @@ class AdminUsersViewRaw extends Component {
   viewModel = new AdminUsersViewModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getUsers()
-    this.viewModel.getDataGridState()
+    this.viewModel.loadData()
   }
 
   render() {
     const {
+      groupPermissions,
+      singlePermissions,
+
       getCurrentData,
       sortModel,
       filterModel,
@@ -50,18 +51,16 @@ class AdminUsersViewRaw extends Component {
       rowsPerPage,
       editUserFormFields,
       showEditUserModal,
-      showPermissionModal,
       submitEditUserForm,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
-      onChangeFormField,
-      onTriggerEditUserModal,
-      onTriggerPermissionModal,
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+
+      onTriggerOpenModal,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -113,19 +112,16 @@ class AdminUsersViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={showEditUserModal} setOpenModal={onTriggerEditUserModal}>
+        <Modal openModal={showEditUserModal} setOpenModal={() => onTriggerOpenModal('showEditUserModal')}>
           <AdminContentModal
+            singlePermissions={singlePermissions}
+            groupPermissions={groupPermissions}
             editUserFormFields={editUserFormFields}
             title={textConsts.modalEditTitle}
             buttonLabel={textConsts.modalEditBtn}
-            onChangeFormField={onChangeFormField}
-            onTriggerEditUserModal={onTriggerEditUserModal}
-            onTriggerPermissionModal={onTriggerPermissionModal}
             onSubmit={submitEditUserForm}
+            onCloseModal={() => onTriggerOpenModal('showEditUserModal')}
           />
-        </Modal>
-        <Modal openModal={showPermissionModal} setOpenModal={onTriggerPermissionModal}>
-          <PermissionContentModal setModalPermission={onTriggerPermissionModal} />
         </Modal>
       </React.Fragment>
     )

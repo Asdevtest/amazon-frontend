@@ -14,8 +14,8 @@
 
 import ApiClient from "../ApiClient";
 import ApiV1AdminsGetProductsByStatusCurrentSupplier from '../model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
-import InlineObject37 from '../model/InlineObject37';
 import InlineObject38 from '../model/InlineObject38';
+import InlineObject39 from '../model/InlineObject39';
 import InlineResponse2013 from '../model/InlineResponse2013';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse404 from '../model/InlineResponse404';
@@ -202,12 +202,12 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject38} opts.InlineObject38 
+     * @param {module:model/InlineObject39} opts.InlineObject39 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SuppliersGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject38'];
+      let postBody = opts['InlineObject39'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1SuppliersGuidPatch");
@@ -241,7 +241,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject38} opts.InlineObject38 
+     * @param {module:model/InlineObject39} opts.InlineObject39 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SuppliersGuidPatch(guid, opts) {
@@ -255,17 +255,17 @@ export default class SupplierApi {
     /**
      * # Добавить нового поставщика.
      * ## Добавить нового поставщика.   
-     * @param {module:model/InlineObject37} InlineObject37 
+     * @param {module:model/InlineObject38} InlineObject38 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2013} and HTTP response
      */
-    apiV1SuppliersPostWithHttpInfo(InlineObject37, opts) {
+    apiV1SuppliersPostWithHttpInfo(InlineObject38, opts) {
       opts = opts || {};
-      let postBody = InlineObject37;
-      // verify the required parameter 'InlineObject37' is set
-      if (InlineObject37 === undefined || InlineObject37 === null) {
-        throw new Error("Missing the required parameter 'InlineObject37' when calling apiV1SuppliersPost");
+      let postBody = InlineObject38;
+      // verify the required parameter 'InlineObject38' is set
+      if (InlineObject38 === undefined || InlineObject38 === null) {
+        throw new Error("Missing the required parameter 'InlineObject38' when calling apiV1SuppliersPost");
       }
 
       let pathParams = {
@@ -292,13 +292,13 @@ export default class SupplierApi {
     /**
      * # Добавить нового поставщика.
      * ## Добавить нового поставщика.   
-     * @param {module:model/InlineObject37} InlineObject37 
+     * @param {module:model/InlineObject38} InlineObject38 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2013}
      */
-    apiV1SuppliersPost(InlineObject37, opts) {
-      return this.apiV1SuppliersPostWithHttpInfo(InlineObject37, opts)
+    apiV1SuppliersPost(InlineObject38, opts) {
+      return this.apiV1SuppliersPostWithHttpInfo(InlineObject38, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

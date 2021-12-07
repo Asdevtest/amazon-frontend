@@ -427,16 +427,16 @@ export const ScrollingCell = withStyles(styles)(({classes: classNames, value}) =
   </React.Fragment>
 ))
 
-export const EditOrRemoveBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
+export const EditOrRemoveBtnsCell = withStyles(styles)(({classes: classNames, row, handlers, isSubUsersTable}) => (
   <div>
     <Button variant="contained" color="primary" onClick={() => handlers.onClickEditBtn(row)}>
-      {textConsts.editBtn}
+      {isSubUsersTable ? textConsts.addPermissionsBtn : textConsts.editBtn}
     </Button>
 
     <ErrorButton
       className={classNames.rowCancelBtn}
       onClick={() => {
-        handlers.onClickRemoveBtn(row._id)
+        handlers.onClickRemoveBtn(isSubUsersTable ? row : row._id)
       }}
     >
       {textConsts.removeBtn}

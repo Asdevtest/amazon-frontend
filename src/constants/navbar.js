@@ -72,6 +72,12 @@ export const navbarConfig = {
     },
     {icon: AssignmentIcon, title: 'Мои товары', subtitles: null, route: '/researcher/products'},
     {icon: AssignmentIcon, title: 'Заявки на поиск товара/ниши', subtitles: null, route: '/researcher/requests'},
+    {
+      icon: PeopleIcon,
+      title: 'Пользователи',
+      route: '/researcher/users/sub-users',
+      subtitles: [{subtitle: 'Мои пользователи', subRoute: '/researcher/users/sub-users'}],
+    },
     {icon: SettingsIcon, title: 'Настройки', subtitles: null, route: '/researcher/settings'},
   ],
   [UserRole.SUPERVISOR]: [
@@ -92,6 +98,12 @@ export const navbarConfig = {
       title: 'Мои товары',
       subtitles: null,
       route: '/supervisor/products',
+    },
+    {
+      icon: PeopleIcon,
+      title: 'Пользователи',
+      route: '/supervisor/users/sub-users',
+      subtitles: [{subtitle: 'Мои пользователи', subRoute: '/supervisor/users/sub-users'}],
     },
     {icon: SettingsIcon, title: 'Настройки', subtitles: null, route: '/supervisor/settings'},
   ],
@@ -156,6 +168,12 @@ export const navbarConfig = {
       title: 'Склад',
       subtitles: null,
       route: '/warehouse/boxes',
+    },
+    {
+      icon: PeopleIcon,
+      title: 'Пользователи',
+      route: '/warehouse/users/sub-users',
+      subtitles: [{subtitle: 'Мои пользователи', subRoute: '/warehouse/users/sub-users'}],
     },
   ],
   [UserRole.ADMIN]: [

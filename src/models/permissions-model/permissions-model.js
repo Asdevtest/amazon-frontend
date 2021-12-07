@@ -6,20 +6,20 @@ class PermissionsModelStatic {
     return response
   }
 
-  getSinglePermissions = async () => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGet()
+  getSinglePermissions = async role => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsGet({role})
     return response
   }
 
   updateSinglePermission = async (id, data) => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsAdminsGuidPatch(id, {
+    const response = await restApiService.permissionsApi.apiV1PermissionsGuidPatch(id, {
       InlineObject23: data,
     })
     return response
   }
 
   removeSinglePermission = async id => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsAdminsGuidDelete(id)
+    const response = await restApiService.permissionsApi.apiV1PermissionsGuidDelete(id)
     return response
   }
 
@@ -28,20 +28,27 @@ class PermissionsModelStatic {
     return response
   }
 
-  getGroupPermissions = async () => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGet()
+  getGroupPermissions = async role => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGet({role})
     return response
   }
 
   updateGroupPermission = async (id, data) => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsAdminsGuidPatch(id, {
+    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGuidPatch(id, {
       InlineObject25: data,
     })
     return response
   }
 
   removeGroupPermission = async id => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsAdminsGuidDelete(id)
+    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGuidDelete(id)
+    return response
+  }
+
+  setPermissionsForUser = async (guid, data) => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsSetForUserGuidPatch(guid, {
+      InlineObject26: data,
+    })
     return response
   }
 }

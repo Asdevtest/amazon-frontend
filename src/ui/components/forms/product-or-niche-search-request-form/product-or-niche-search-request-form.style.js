@@ -6,7 +6,7 @@ export const useClassNames = makeStyles(() => ({
   },
   noteField: {
     width: '100%',
-    minHeight: '130px',
+    minHeight: '110px',
   },
 
   rangeField: {
@@ -21,5 +21,18 @@ export const useClassNames = makeStyles(() => ({
   },
   deadlineErrorText: {
     color: 'red',
+  },
+
+  chooseRequestTypeBtnsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '500px',
+    height: '300px',
+    gap: '20px',
+  },
+
+  title: {
+    marginBottom: '20px',
   },
 }))

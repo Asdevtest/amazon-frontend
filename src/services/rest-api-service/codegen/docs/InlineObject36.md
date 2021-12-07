@@ -4,7 +4,37 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**sku** | **String** | SKU - ставит склад - только для склада | [optional] 
+**material** | **String** | add to new functional | [optional] 
+**currentSupplierId** | **String** | GUID поставщика, если передать строку \&quot;clear\&quot; то поставщику будет сброшен (у байера и ресечера). | [optional] 
 **fbm** | **Boolean** | Признак fbm | [optional] 
+**category** | **String** | Категория | [optional] 
+**lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
+**lsupplier** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
+**bsr** | **Number** |  | [optional] 
+**fba** | **Boolean** | Признак fba | [optional] 
+**express** | **Boolean** |  уточнить  | [optional] 
+**amazon** | **Number** |  | [optional] 
+**height** | **Number** |  | [optional] 
+**width** | **Number** |  | [optional] 
+**length** | **Number** |  | [optional] 
+**weight** | **Number** |  | [optional] 
+**reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
+**fbafee** | **Number** | ФБА комиссия | [optional] 
+**fbaamount** | **Number** |  Общая сумма с фба. | [optional] 
+**fbalink** | **String** |  | [optional] 
+**delivery** | **Number** | Стоимость доставки. | [optional] 
+**status** | **Number** | См. описание статусов например в readMe.md | [optional] 
+**icomment** | **String** | Комментарии к товару. | [optional] 
+**images** | **[String]** | Массив изображений. | [optional] 
+**amazonDescription** | **String** |  | [optional] 
+**amazonDetail** | **String** |  | [optional] 
+**amazonTitle** | **String** |  | [optional] 
+**barCode** | **String** |  | [optional] 
+**minpurchase** | **Number** |  | [optional] 
+**profit** | **Number** | Прибыль | [optional] 
+**margin** | **Number** | Маржа | [optional] 
+**byboxprice** | **Number** | Цена | [optional] 
 **listingName** | **String** |  | [optional] 
 **listingBulletPoints** | **[String]** | Массив ... | [optional] 
 **listingProductDetails** | **String** |  | [optional] 
@@ -15,6 +45,26 @@ Name | Type | Description | Notes
 **listingSupplierImportantPoints** | **String** |  | [optional] 
 **listingExtraInfo** | **String** |  | [optional] 
 **listingSupplierCompetitors** | [**[ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]**](ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md) | Массив объектов: ссылки и комментарии к конкурентам | [optional] 
-**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] [default to 0]
+**checkednotes** | **String** | Комментарий к статусу проверки. | [optional] 
+
+
+
+## Enum: StatusEnum
+
+
+* `15` (value: `15`)
+
+* `20` (value: `20`)
+
+* `30` (value: `30`)
+
+* `70` (value: `70`)
+
+* `80` (value: `80`)
+
+* `90` (value: `90`)
+
+
 
 

@@ -90,7 +90,7 @@ let apiInstance = new Amazonapi.StorekeepersApi();
 let guid = "guid_example"; // String | GUID ордера, который мы хотим изменить
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject34': new Amazonapi.InlineObject34() // InlineObject34 | 
+  'InlineObject35': new Amazonapi.InlineObject35() // InlineObject35 | 
 };
 apiInstance.apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID ордера, который мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject34** | [**InlineObject34**](InlineObject34.md)|  | [optional] 
+ **InlineObject35** | [**InlineObject35**](InlineObject35.md)|  | [optional] 
 
 ### Return type
 
@@ -200,7 +200,7 @@ let apiInstance = new Amazonapi.StorekeepersApi();
 let guid = "guid_example"; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject32': new Amazonapi.InlineObject32() // InlineObject32 | 
+  'InlineObject33': new Amazonapi.InlineObject33() // InlineObject33 | 
 };
 apiInstance.apiV1StorekeepersTasksDoneGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject32** | [**InlineObject32**](InlineObject32.md)|  | [optional] 
+ **InlineObject33** | [**InlineObject33**](InlineObject33.md)|  | [optional] 
 
 ### Return type
 
@@ -256,7 +256,7 @@ let apiInstance = new Amazonapi.StorekeepersApi();
 let guid = "guid_example"; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject33': new Amazonapi.InlineObject33() // InlineObject33 | 
+  'InlineObject34': new Amazonapi.InlineObject34() // InlineObject34 | 
 };
 apiInstance.apiV1StorekeepersTasksGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject33** | [**InlineObject33**](InlineObject33.md)|  | [optional] 
+ **InlineObject34** | [**InlineObject34**](InlineObject34.md)|  | [optional] 
 
 ### Return type
 
@@ -310,6 +310,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new Amazonapi.StorekeepersApi();
 let opts = {
+  'status': 3.4, // Number | Статус задачи для фильтра.
   'Accept_Encoding': gzip, deflate // String | 
 };
 apiInstance.apiV1StorekeepersTasksMyGet(opts).then((data) => {
@@ -325,6 +326,7 @@ apiInstance.apiV1StorekeepersTasksMyGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **status** | **Number**| Статус задачи для фильтра. | [optional] 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type

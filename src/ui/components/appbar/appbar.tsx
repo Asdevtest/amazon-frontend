@@ -1,6 +1,8 @@
+import SettingsIcon from '@mui/icons-material/Settings'
+
 import React, {useRef, useState, FC} from 'react'
 
-import {Avatar, Divider, Paper, Typography, Hidden, IconButton} from '@material-ui/core'
+import {Avatar, Divider, Paper, Typography, Hidden, IconButton, NativeSelect} from '@material-ui/core'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
@@ -11,8 +13,13 @@ import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
 import {texts} from '@constants/texts'
+import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {Badge} from '@components/badge'
+import {Button} from '@components/buttons/button'
+import {AppbarSettingsForm} from '@components/forms/appbar-settings-form'
+import {Input} from '@components/input'
+import {Modal} from '@components/modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
@@ -33,6 +40,9 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
   const history = useHistory()
   const classNames = useClassNames()
   const componentModel = useRef(new AppbarModel({userRole: curUserRole}))
+
+  const [role, setRole] = useState(componentModel.current.role)
+  const [showAppbarSettingsForm, setShowshowAppbarSettingsForm] = useState(false)
 
   const renderNavbarButton = (
     <Hidden mdUp>
@@ -58,6 +68,15 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
     history.push('/auth')
   }
 
+  const onChangeUserInfo = () => {
+    componentModel.current.changeUserInfo({role})
+    history.push('/nonexistent-address') // для перехода на разрешенный роут другой роли
+  }
+
+  const onClickSettings = () => {
+    setShowshowAppbarSettingsForm(!showAppbarSettingsForm)
+  }
+
   return (
     <React.Fragment>
       <Paper className={classNames.appbar}>
@@ -65,6 +84,12 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
           {renderNavbarButton}
 
           <Typography className={classNames.title}>{title}</Typography>
+
+          <Typography className={classNames.userroleTitle}>{'role:'}</Typography>
+          <Typography className={classNames.userrole}>
+            {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
+          </Typography>
+
           <Divider orientation="vertical" />
           <Badge showZero badgeContent={2}>
             <NotificationsIcon color="action" />
@@ -94,12 +119,63 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
         <div>
           <Menu keepMounted id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
             <Typography className={classNames.menuTitle}>{textConsts.menuTitle}</Typography>
+
+            {componentModel.current.allowedRoles !== null && componentModel.current.allowedRoles && (
+              <div className={classNames.roleWrapper}>
+                <Typography className={classNames.menuTitle}>{textConsts.roleTitle}</Typography>
+
+                <div className={classNames.roleSubWrapper}>
+                  <NativeSelect
+                    input={<Input fullWidth />}
+                    variant="filled"
+                    className={classNames.roleSelect}
+                    value={role}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                      setRole((e.target as HTMLSelectElement).value)
+                    }
+                  >
+                    {componentModel.current.allowedRoles.map((roleCode: number) => (
+                      <option key={roleCode} value={roleCode}>
+                        {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
+                      </option>
+                    ))}
+                  </NativeSelect>
+
+                  <Button
+                    disableElevation
+                    variant="contained"
+                    className={classNames.menuBtn}
+                    color="primary"
+                    onClick={() => {
+                      onChangeUserInfo()
+                    }}
+                  >
+                    {textConsts.chooseBtn}
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role] === UserRole.CLIENT && (
+              <MenuItem className={classNames.menuWrapper} onClick={onClickSettings}>
+                <SettingsIcon color="primary" />
+                {textConsts.settingsBtn}
+              </MenuItem>
+            )}
+
             <MenuItem className={classNames.menuWrapper} onClick={onClickExit}>
               <ExitToAppIcon color="primary" />
               {textConsts.exit}
             </MenuItem>
           </Menu>
         </div>
+
+        <Modal
+          openModal={showAppbarSettingsForm}
+          setOpenModal={() => setShowshowAppbarSettingsForm(!showAppbarSettingsForm)}
+        >
+          <AppbarSettingsForm onCloseModal={() => setShowshowAppbarSettingsForm(!showAppbarSettingsForm)} />
+        </Modal>
       </Paper>
 
       {children}

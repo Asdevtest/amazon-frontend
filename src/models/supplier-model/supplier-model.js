@@ -18,7 +18,7 @@ class SupplierModelStatic {
 
   updateSupplier = async (id, data) => {
     const response = await restApiService.supplierApi.apiV1SuppliersGuidPatch(id, {
-      InlineObject38: data,
+      InlineObject39: data,
     })
     if (response && response.error) {
       throw new Error(response.message)

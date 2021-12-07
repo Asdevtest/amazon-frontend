@@ -13,8 +13,8 @@
 
 
 import ApiClient from "../ApiClient";
-import InlineObject28 from '../model/InlineObject28';
 import InlineObject29 from '../model/InlineObject29';
+import InlineObject30 from '../model/InlineObject30';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse500 from '../model/InlineResponse500';
 
@@ -44,12 +44,12 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject28} opts.InlineObject28 
+     * @param {module:model/InlineObject29} opts.InlineObject29 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductsAddSuppliersGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject28'];
+      let postBody = opts['InlineObject29'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1ProductsAddSuppliersGuidPost");
@@ -83,7 +83,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject28} opts.InlineObject28 
+     * @param {module:model/InlineObject29} opts.InlineObject29 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductsAddSuppliersGuidPost(guid, opts) {
@@ -100,12 +100,12 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject29} opts.InlineObject29 
+     * @param {module:model/InlineObject30} opts.InlineObject30 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductsRemoveSuppliersGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject29'];
+      let postBody = opts['InlineObject30'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1ProductsRemoveSuppliersGuidPost");
@@ -139,7 +139,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject29} opts.InlineObject29 
+     * @param {module:model/InlineObject30} opts.InlineObject30 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductsRemoveSuppliersGuidPost(guid, opts) {

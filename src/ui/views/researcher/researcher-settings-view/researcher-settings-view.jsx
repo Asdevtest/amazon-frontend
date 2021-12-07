@@ -23,7 +23,7 @@ import {styles} from './researcher-settings-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').researcherSettingsView
 
-const navbarActiveCategory = 3
+const navbarActiveCategory = 4
 
 @observer
 class ResearcherSettingsViewRaw extends Component {
