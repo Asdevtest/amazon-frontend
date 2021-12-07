@@ -53,6 +53,8 @@ export const AdminContentModal = observer(
 
     const [formFields, setFormFields] = useState(sourceFormFields)
 
+    console.log('formFields', formFields)
+
     const onChangeFormField = fieldName => event => {
       const newFormFields = {...formFields}
       newFormFields[fieldName] = event.target.value
