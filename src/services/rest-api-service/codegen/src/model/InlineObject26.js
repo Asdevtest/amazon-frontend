@@ -22,13 +22,10 @@ class InlineObject26 {
     /**
      * Constructs a new <code>InlineObject26</code>.
      * @alias module:model/InlineObject26
-     * @param budget {Number} бюджет заявки
-     * @param countOfProposals {Number} количество предложений заявке
-     * @param deadline {Date} дедлайн заявки в формате \"YYYY-MM-DD\"
      */
-    constructor(budget, countOfProposals, deadline) { 
+    constructor() { 
         
-        InlineObject26.initialize(this, budget, countOfProposals, deadline);
+        InlineObject26.initialize(this);
     }
 
     /**
@@ -36,10 +33,7 @@ class InlineObject26 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, budget, countOfProposals, deadline) { 
-        obj['budget'] = budget;
-        obj['countOfProposals'] = countOfProposals;
-        obj['deadline'] = deadline;
+    static initialize(obj) { 
     }
 
     /**
@@ -53,68 +47,11 @@ class InlineObject26 {
         if (data) {
             obj = obj || new InlineObject26();
 
-            if (data.hasOwnProperty('strategy')) {
-                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'Number');
+            if (data.hasOwnProperty('permissions')) {
+                obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
             }
-            if (data.hasOwnProperty('monthlySales')) {
-                obj['monthlySales'] = ApiClient.convertToType(data['monthlySales'], 'Number');
-            }
-            if (data.hasOwnProperty('budget')) {
-                obj['budget'] = ApiClient.convertToType(data['budget'], 'Number');
-            }
-            if (data.hasOwnProperty('size')) {
-                obj['size'] = ApiClient.convertToType(data['size'], 'String');
-            }
-            if (data.hasOwnProperty('searchVolume')) {
-                obj['searchVolume'] = ApiClient.convertToType(data['searchVolume'], 'Number');
-            }
-            if (data.hasOwnProperty('countOfProposals')) {
-                obj['countOfProposals'] = ApiClient.convertToType(data['countOfProposals'], 'Number');
-            }
-            if (data.hasOwnProperty('minProductInProposals')) {
-                obj['minProductInProposals'] = ApiClient.convertToType(data['minProductInProposals'], 'Number');
-            }
-            if (data.hasOwnProperty('minKeywords')) {
-                obj['minKeywords'] = ApiClient.convertToType(data['minKeywords'], 'Number');
-            }
-            if (data.hasOwnProperty('minAmazonPrice')) {
-                obj['minAmazonPrice'] = ApiClient.convertToType(data['minAmazonPrice'], 'Number');
-            }
-            if (data.hasOwnProperty('maxAmazonPrice')) {
-                obj['maxAmazonPrice'] = ApiClient.convertToType(data['maxAmazonPrice'], 'Number');
-            }
-            if (data.hasOwnProperty('minBSR')) {
-                obj['minBSR'] = ApiClient.convertToType(data['minBSR'], 'Number');
-            }
-            if (data.hasOwnProperty('maxBSR')) {
-                obj['maxBSR'] = ApiClient.convertToType(data['maxBSR'], 'Number');
-            }
-            if (data.hasOwnProperty('minReviews')) {
-                obj['minReviews'] = ApiClient.convertToType(data['minReviews'], 'Number');
-            }
-            if (data.hasOwnProperty('maxReviews')) {
-                obj['maxReviews'] = ApiClient.convertToType(data['maxReviews'], 'Number');
-            }
-            if (data.hasOwnProperty('minRevenue')) {
-                obj['minRevenue'] = ApiClient.convertToType(data['minRevenue'], 'Number');
-            }
-            if (data.hasOwnProperty('maxRevenue')) {
-                obj['maxRevenue'] = ApiClient.convertToType(data['maxRevenue'], 'Number');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('deadline')) {
-                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
-            }
-            if (data.hasOwnProperty('checkboxForbid')) {
-                obj['checkboxForbid'] = ApiClient.convertToType(data['checkboxForbid'], 'Boolean');
-            }
-            if (data.hasOwnProperty('checkboxNoCheck')) {
-                obj['checkboxNoCheck'] = ApiClient.convertToType(data['checkboxNoCheck'], 'Boolean');
-            }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            if (data.hasOwnProperty('permissionGroups')) {
+                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], ['String']);
             }
         }
         return obj;
@@ -124,130 +61,16 @@ class InlineObject26 {
 }
 
 /**
- * выбор стратегии
- * @member {Number} strategy
+ * Массив permission-ов.
+ * @member {Array.<String>} permissions
  */
-InlineObject26.prototype['strategy'] = undefined;
+InlineObject26.prototype['permissions'] = undefined;
 
 /**
- * количество продаж за месяц
- * @member {Number} monthlySales
+ * Массив групп permission-ов.
+ * @member {Array.<String>} permissionGroups
  */
-InlineObject26.prototype['monthlySales'] = undefined;
-
-/**
- * бюджет заявки
- * @member {Number} budget
- */
-InlineObject26.prototype['budget'] = undefined;
-
-/**
- * размерный ряд
- * @member {String} size
- */
-InlineObject26.prototype['size'] = undefined;
-
-/**
- * объём продаж данной категории
- * @member {Number} searchVolume
- */
-InlineObject26.prototype['searchVolume'] = undefined;
-
-/**
- * количество предложений заявке
- * @member {Number} countOfProposals
- */
-InlineObject26.prototype['countOfProposals'] = undefined;
-
-/**
- * Минимальное количество продуктов в предложении
- * @member {Number} minProductInProposals
- */
-InlineObject26.prototype['minProductInProposals'] = undefined;
-
-/**
- * Минимальное количество ниш в предложении
- * @member {Number} minKeywords
- */
-InlineObject26.prototype['minKeywords'] = undefined;
-
-/**
- * мин стоимость товара на Амазоне
- * @member {Number} minAmazonPrice
- */
-InlineObject26.prototype['minAmazonPrice'] = undefined;
-
-/**
- * макс стоимость товара на Амазоне
- * @member {Number} maxAmazonPrice
- */
-InlineObject26.prototype['maxAmazonPrice'] = undefined;
-
-/**
- * мин рейтинг BSR на Амазоне
- * @member {Number} minBSR
- */
-InlineObject26.prototype['minBSR'] = undefined;
-
-/**
- * макс рейтинг BSR на Амазоне
- * @member {Number} maxBSR
- */
-InlineObject26.prototype['maxBSR'] = undefined;
-
-/**
- * мин просмотры на Амазоне
- * @member {Number} minReviews
- */
-InlineObject26.prototype['minReviews'] = undefined;
-
-/**
- * макс просмотры на Амазоне
- * @member {Number} maxReviews
- */
-InlineObject26.prototype['maxReviews'] = undefined;
-
-/**
- * мин  доход по продукту на Амазоне
- * @member {Number} minRevenue
- */
-InlineObject26.prototype['minRevenue'] = undefined;
-
-/**
- * макс доход по продукту на Амазоне
- * @member {Number} maxRevenue
- */
-InlineObject26.prototype['maxRevenue'] = undefined;
-
-/**
- * комментарий к заявке
- * @member {String} clientComment
- */
-InlineObject26.prototype['clientComment'] = undefined;
-
-/**
- * дедлайн заявки в формате \"YYYY-MM-DD\"
- * @member {Date} deadline
- */
-InlineObject26.prototype['deadline'] = undefined;
-
-/**
- * Запретить товары, которые когда либо были проданы на площадке по данной стратегии 
- * @member {Boolean} checkboxForbid
- */
-InlineObject26.prototype['checkboxForbid'] = undefined;
-
-/**
- * Сотрудники платформы не будут участвовать в проверке качества найденного товара
- * @member {Boolean} checkboxNoCheck
- */
-InlineObject26.prototype['checkboxNoCheck'] = undefined;
-
-/**
- * GUID клиента, который создал запрос на поиск товара.
- * @member {String} createdById
- */
-InlineObject26.prototype['createdById'] = undefined;
+InlineObject26.prototype['permissionGroups'] = undefined;
 
 
 

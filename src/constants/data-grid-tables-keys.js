@@ -25,15 +25,19 @@ export const DataGridTablesKeys = {
   WAREHOUSE_COMPLETED_TASKS: 'warehouseCompletedTasksDataGridState',
   WAREHOUSE_CANCELED_TASKS: 'warehouseCanceledTasksDataGridState',
   WAREHOUSE_BOXES: 'warehouseBoxesDataGridState',
+  WAREHOUSE_SUB_USERS: 'warehouseSubUsersDataGridState',
 
   RESEARCHER_PRODUCTS: 'researcherProductsDataGridState',
   RESEARCHER_REQUESTS: 'researcherRequestsDataGridState',
+  RESEARCHER_SUB_USERS: 'researcherSubUsersDataGridState',
 
   SUPERVISOR_PRODUCTS: 'supervisorProductsDataGridState',
+  SUPERVISOR_SUB_USERS: 'supervisorSubUsersDataGridState',
 
   BUYER_PRODUCTS: 'buyerProductsDataGridState',
   BUYER_MY_ORDERS: 'buyerMyOrdersDataGridState',
   BUYER_FREE_ORDERS: 'buyerFreeOrdersDataGridState',
+  BUYER_SUB_USERS: 'buyerSubUsersDataGridState',
 
   CLIENT_EXCHANGE: 'clientExchangeCreatedDataGridState',
   CLIENT_INVENTORY: 'clientInventoryDataGridState',
@@ -41,4 +45,5 @@ export const DataGridTablesKeys = {
   CLIENT_ORDERS_NOTIFICATIONS: 'clientOrdersNotificationsDataGridState',
   CLIENT_WAREHOUSE: 'clientWarehouseDataGridState',
   CLIENT_SEARCH_REQUESTS: 'clientSearchRequestsDataGridState',
+  CLIENT_SUB_USERS: 'clientSubUsersDataGridState',
 }

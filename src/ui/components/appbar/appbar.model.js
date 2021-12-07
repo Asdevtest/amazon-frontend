@@ -7,6 +7,14 @@ export class AppbarModel {
   error = undefined
   userRole = undefined
 
+  get role() {
+    return UserModel.userInfo?.role
+  }
+
+  get allowedRoles() {
+    return UserModel.userInfo?.allowedRoles
+  }
+
   get balance() {
     return UserModel.userInfo?.balance
   }
@@ -22,5 +30,13 @@ export class AppbarModel {
 
   onExitFromRole() {
     UserModel.signOut()
+  }
+
+  async changeUserInfo(data) {
+    try {
+      await UserModel.changeUserInfo(data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

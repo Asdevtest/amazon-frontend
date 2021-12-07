@@ -362,7 +362,7 @@ let apiInstance = new Amazonapi.ResearcherApi();
 let guid = "guid_example"; // String | GUID продукта БД
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject31': new Amazonapi.InlineObject31() // InlineObject31 | 
+  'InlineObject32': new Amazonapi.InlineObject32() // InlineObject32 | 
 };
 apiInstance.apiV1ResearchersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -379,7 +379,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта БД | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject31** | [**InlineObject31**](InlineObject31.md)|  | [optional] 
+ **InlineObject32** | [**InlineObject32**](InlineObject32.md)|  | [optional] 
 
 ### Return type
 
@@ -397,7 +397,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsPost
 
-> InlineResponse2015 apiV1ResearchersProductsPost(InlineObject30, opts)
+> InlineResponse2015 apiV1ResearchersProductsPost(InlineObject31, opts)
 
 # Добавить новый продукт.
 
@@ -415,11 +415,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.ResearcherApi();
-let InlineObject30 = new Amazonapi.InlineObject30(); // InlineObject30 | 
+let InlineObject31 = new Amazonapi.InlineObject31(); // InlineObject31 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1ResearchersProductsPost(InlineObject30, opts).then((data) => {
+apiInstance.apiV1ResearchersProductsPost(InlineObject31, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -432,7 +432,7 @@ apiInstance.apiV1ResearchersProductsPost(InlineObject30, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject30** | [**InlineObject30**](InlineObject30.md)|  | 
+ **InlineObject31** | [**InlineObject31**](InlineObject31.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type

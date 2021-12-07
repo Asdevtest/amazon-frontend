@@ -20,4 +20,8 @@ export const useClassNames = makeStyles(() => ({
   cancelBtn: {
     marginLeft: '10px',
   },
+
+  titleWarning: {
+    color: 'red',
+  },
 }))

@@ -195,7 +195,7 @@ let apiInstance = new Amazonapi.SupplierApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject38': new Amazonapi.InlineObject38() // InlineObject38 | 
+  'InlineObject39': new Amazonapi.InlineObject39() // InlineObject39 | 
 };
 apiInstance.apiV1SuppliersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject38** | [**InlineObject38**](InlineObject38.md)|  | [optional] 
+ **InlineObject39** | [**InlineObject39**](InlineObject39.md)|  | [optional] 
 
 ### Return type
 
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersPost
 
-> InlineResponse2013 apiV1SuppliersPost(InlineObject37, opts)
+> InlineResponse2013 apiV1SuppliersPost(InlineObject38, opts)
 
 # Добавить нового поставщика.
 
@@ -248,11 +248,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.SupplierApi();
-let InlineObject37 = new Amazonapi.InlineObject37(); // InlineObject37 | 
+let InlineObject38 = new Amazonapi.InlineObject38(); // InlineObject38 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1SuppliersPost(InlineObject37, opts).then((data) => {
+apiInstance.apiV1SuppliersPost(InlineObject38, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -265,7 +265,7 @@ apiInstance.apiV1SuppliersPost(InlineObject37, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject37** | [**InlineObject37**](InlineObject37.md)|  | 
+ **InlineObject38** | [**InlineObject38**](InlineObject38.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type

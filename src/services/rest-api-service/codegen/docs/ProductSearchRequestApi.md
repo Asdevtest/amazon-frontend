@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## apiV1ProductSearchRequestsAddRequestPost
 
-> InlineResponse2015 apiV1ProductSearchRequestsAddRequestPost(InlineObject26, opts)
+> InlineResponse2015 apiV1ProductSearchRequestsAddRequestPost(InlineObject27, opts)
 
 # Создать заявку на поиск товара.
 
@@ -32,11 +32,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new Amazonapi.ProductSearchRequestApi();
-let InlineObject26 = new Amazonapi.InlineObject26(); // InlineObject26 | 
+let InlineObject27 = new Amazonapi.InlineObject27(); // InlineObject27 | 
 let opts = {
   'Accept_Encoding': gzip, deflate // String | 
 };
-apiInstance.apiV1ProductSearchRequestsAddRequestPost(InlineObject26, opts).then((data) => {
+apiInstance.apiV1ProductSearchRequestsAddRequestPost(InlineObject27, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -49,7 +49,7 @@ apiInstance.apiV1ProductSearchRequestsAddRequestPost(InlineObject26, opts).then(
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject26** | [**InlineObject26**](InlineObject26.md)|  | 
+ **InlineObject27** | [**InlineObject27**](InlineObject27.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
 
 ### Return type
@@ -249,7 +249,7 @@ let apiInstance = new Amazonapi.ProductSearchRequestApi();
 let guid = "guid_example"; // String | GUID продукта БД
 let opts = {
   'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject27': new Amazonapi.InlineObject27() // InlineObject27 | 
+  'InlineObject28': new Amazonapi.InlineObject28() // InlineObject28 | 
 };
 apiInstance.apiV1ProductSearchRequestsUpdateRequestGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -266,7 +266,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта БД | 
  **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject27** | [**InlineObject27**](InlineObject27.md)|  | [optional] 
+ **InlineObject28** | [**InlineObject28**](InlineObject28.md)|  | [optional] 
 
 ### Return type
 

@@ -5,7 +5,8 @@
       "react"
     ],
     "lib": [
-      "es2020"
+      "es2020",
+      "DOM"
     ],
     "module": "esnext",
     "sourceMap": true,

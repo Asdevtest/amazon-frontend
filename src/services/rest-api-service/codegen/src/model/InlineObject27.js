@@ -22,10 +22,13 @@ class InlineObject27 {
     /**
      * Constructs a new <code>InlineObject27</code>.
      * @alias module:model/InlineObject27
+     * @param budget {Number} бюджет заявки
+     * @param countOfProposals {Number} количество предложений заявке
+     * @param deadline {Date} дедлайн заявки в формате \"YYYY-MM-DD\"
      */
-    constructor() { 
+    constructor(budget, countOfProposals, deadline) { 
         
-        InlineObject27.initialize(this);
+        InlineObject27.initialize(this, budget, countOfProposals, deadline);
     }
 
     /**
@@ -33,7 +36,10 @@ class InlineObject27 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, budget, countOfProposals, deadline) { 
+        obj['budget'] = budget;
+        obj['countOfProposals'] = countOfProposals;
+        obj['deadline'] = deadline;
     }
 
     /**
@@ -49,9 +55,6 @@ class InlineObject27 {
 
             if (data.hasOwnProperty('strategy')) {
                 obj['strategy'] = ApiClient.convertToType(data['strategy'], 'Number');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
             if (data.hasOwnProperty('monthlySales')) {
                 obj['monthlySales'] = ApiClient.convertToType(data['monthlySales'], 'Number');
@@ -110,8 +113,8 @@ class InlineObject27 {
             if (data.hasOwnProperty('checkboxNoCheck')) {
                 obj['checkboxNoCheck'] = ApiClient.convertToType(data['checkboxNoCheck'], 'Boolean');
             }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
         }
         return obj;
@@ -125,12 +128,6 @@ class InlineObject27 {
  * @member {Number} strategy
  */
 InlineObject27.prototype['strategy'] = undefined;
-
-/**
- * выбор стратегии
- * @member {Number} status
- */
-InlineObject27.prototype['status'] = undefined;
 
 /**
  * количество продаж за месяц
@@ -247,10 +244,10 @@ InlineObject27.prototype['checkboxForbid'] = undefined;
 InlineObject27.prototype['checkboxNoCheck'] = undefined;
 
 /**
- * GUID клиента, который обновил запрос на поиск товара.
- * @member {String} lastModifiedById
+ * GUID клиента, который создал запрос на поиск товара.
+ * @member {String} createdById
  */
-InlineObject27.prototype['lastModifiedById'] = undefined;
+InlineObject27.prototype['createdById'] = undefined;
 
 
 

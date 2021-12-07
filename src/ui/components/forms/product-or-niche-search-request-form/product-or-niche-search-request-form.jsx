@@ -33,38 +33,30 @@ const numberFields = [
   'maxRevenue',
   'maxReviews',
   'countOfProposals',
-  'minProductInProposals',
-  'minKeywords',
   'searchVolume',
 ]
 
 export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit, requestToEdit}) => {
   const classNames = useClassNames()
 
-  const sourceFormFields = {
+  const [itIsRequestOfNiche, setItIsRequestOfNiche] = useState(false)
+  const [inChoosingRequestType, setInChoosingRequestType] = useState(!isEdit)
+
+  const sourceProductFormFields = {
     strategy: requestToEdit?.strategy || '',
     monthlySales: requestToEdit?.monthlySales || '',
     budget: requestToEdit?.budget || '',
 
     countOfProposals: requestToEdit?.countOfProposals || '',
-
-    minProductInProposals: requestToEdit?.minProductInProposals || '',
-    minKeywords: requestToEdit?.minKeywords || '',
-
     size: requestToEdit?.size || '',
-    searchVolume: requestToEdit?.searchVolume || '', // tmp
-    // minSearchVolume: '', //
-    // maxSearchVolume: '', //
+    searchVolume: requestToEdit?.searchVolume || '',
 
     minAmazonPrice: requestToEdit?.minAmazonPrice || '',
     maxAmazonPrice: requestToEdit?.maxAmazonPrice || '',
-
     minBSR: requestToEdit?.minBSR || '',
     maxBSR: requestToEdit?.maxBSR || '',
-
     minReviews: requestToEdit?.minReviews || '',
     maxReviews: requestToEdit?.maxReviews || '',
-
     minRevenue: requestToEdit?.minRevenue || '',
     maxRevenue: requestToEdit?.maxRevenue || '',
 
@@ -75,6 +67,32 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
     checkboxNoCheck: requestToEdit?.checkboxNoCheck || false,
   }
 
+  const sourceNicheFormFields = {
+    monthlySales: requestToEdit?.monthlySales || '',
+    budget: requestToEdit?.budget || '',
+
+    countOfProposals: requestToEdit?.countOfProposals || '',
+    size: requestToEdit?.size || '',
+    searchVolume: requestToEdit?.searchVolume || '',
+
+    minAmazonPrice: requestToEdit?.minAmazonPrice || '',
+    maxAmazonPrice: requestToEdit?.maxAmazonPrice || '',
+    minBSR: requestToEdit?.minBSR || '',
+    maxBSR: requestToEdit?.maxBSR || '',
+    minReviews: requestToEdit?.minReviews || '',
+    maxReviews: requestToEdit?.maxReviews || '',
+    minRevenue: requestToEdit?.minRevenue || '',
+    maxRevenue: requestToEdit?.maxRevenue || '',
+
+    clientComment: requestToEdit?.clientComment || '',
+    deadline: requestToEdit.deadline ? parseISO(requestToEdit?.deadline) : '',
+
+    checkboxForbid: requestToEdit?.checkboxForbid || false,
+    checkboxNoCheck: requestToEdit?.checkboxNoCheck || false,
+  }
+
+  const sourceFormFields = itIsRequestOfNiche ? sourceNicheFormFields : sourceProductFormFields
+
   const [formFields, setFormFields] = useState(sourceFormFields)
 
   const onChangeField = fieldName => event => {
@@ -84,8 +102,10 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
       return
     } else if (['checkboxForbid', 'checkboxNoPay', 'checkboxNoCheck'].includes(fieldName)) {
       newFormFields[fieldName] = event.target.checked
+    } else if (['minAmazonPrice', 'maxAmazonPrice', 'minRevenue', 'maxRevenue'].includes(fieldName)) {
+      newFormFields[fieldName] = event.target.value || ''
     } else if (['minBSR', 'maxBSR', 'minReviews', 'maxReviews'].includes(fieldName)) {
-      newFormFields[fieldName] = parseInt(event.target.value)
+      newFormFields[fieldName] = parseInt(event.target.value) || ''
     } else if (['deadline'].includes(fieldName)) {
       newFormFields[fieldName] = event
     } else {
@@ -102,13 +122,11 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
     formFields.minRevenue > formFields.maxRevenue
 
   const isOneOfFieldIsEmpty =
-    formFields.strategy === '' ||
+    (formFields.strategy === '' && !itIsRequestOfNiche) ||
     formFields.strategy === '0' ||
     formFields.monthlySales === '' ||
     formFields.budget === '' ||
     formFields.countOfProposals === '' ||
-    formFields.minProductInProposals === '' ||
-    formFields.minKeywords === '' ||
     formFields.size === '' ||
     formFields.size === 'None' ||
     formFields.searchVolume === '' ||
@@ -132,185 +150,226 @@ export const ProductOrNicheSearchRequestForm = ({onSubmit, setOpenModal, isEdit,
 
   return (
     <div className={classNames.root}>
-      <div className={classNames.form}>
-        <Field
-          containerClasses={classNames.field}
-          label={textConsts.formStrategyLabel}
-          inputComponent={
-            <NativeSelect
-              variant="filled"
-              value={formFields.strategy}
-              input={<Input fullWidth />}
-              onChange={onChangeField('strategy')}
-            >
-              {Object.keys(mapProductStrategyStatusEnum).map((option, index) => (
-                <option key={index} value={option}>
-                  {mapProductStrategyStatusEnum[option]}
-                </option>
-              ))}
-            </NativeSelect>
-          }
-        />
+      {inChoosingRequestType ? (
+        <div className={classNames.chooseRequestTypeBtnsWrapper}>
+          <Button
+            disableElevation
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              setItIsRequestOfNiche(false)
+              setInChoosingRequestType(false)
+            }}
+          >
+            {textConsts.requestProductBtn}
+          </Button>
 
-        <Field
-          containerClasses={classNames.field}
-          label={textConsts.formMonthlySalesLabel}
-          value={formFields.monthlySales}
-          onChange={onChangeField('monthlySales')}
-        />
-        <Field
-          containerClasses={classNames.field}
-          label={textConsts.formBudgetLabel}
-          value={formFields.budget}
-          onChange={onChangeField('budget')}
-        />
+          <Button
+            disableElevation
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              setItIsRequestOfNiche(true)
+              setInChoosingRequestType(false)
+            }}
+          >
+            {textConsts.requestNicheBtn}
+          </Button>
+        </div>
+      ) : (
+        <div className={classNames.form}>
+          <Typography variant="h3" className={classNames.title}>
+            {itIsRequestOfNiche ? textConsts.nicheTitle : textConsts.productTitle}
+          </Typography>
 
-        <Field
-          containerClasses={classNames.field}
-          label={textConsts.countOfProposals}
-          value={formFields.countOfProposals}
-          onChange={onChangeField('countOfProposals')}
-        />
-
-        <Field
-          disabled
-          containerClasses={classNames.field}
-          label={textConsts.countOfOneProposals}
-          value={formFields.budget / formFields.countOfProposals || 0}
-        />
-
-        <Field
-          containerClasses={classNames.field}
-          label={textConsts.minProductInProposals}
-          value={formFields.minProductInProposals}
-          onChange={onChangeField('minProductInProposals')}
-        />
-
-        <Field
-          containerClasses={classNames.field}
-          label={textConsts.minKeywords}
-          value={formFields.minKeywords}
-          onChange={onChangeField('minKeywords')}
-        />
-
-        <Field
-          containerClasses={classNames.field}
-          label={textConsts.size}
-          inputComponent={
-            <NativeSelect
-              variant="filled"
-              value={formFields.size}
-              input={<Input fullWidth />}
-              onChange={onChangeField('size')}
-            >
-              {Object.values(productSizeStatus).map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
-                </option>
-              ))}
-            </NativeSelect>
-          }
-        />
-
-        <Field // tmp
-          containerClasses={classNames.field}
-          label={textConsts.searchVolume}
-          value={formFields.searchVolume}
-          onChange={onChangeField('searchVolume')}
-        />
-
-        {/* <Field
-          containerClasses={classNames.rangeField}
-          label={'Search volume'}
-          inputComponent={
-            <RangeInput
-              start={formFields.minSearchVolume}
-              end={formFields.maxSearchVolume}
-              onChangeRangeStart={onChangeField('minSearchVolume')}
-              onChangeRangeEnd={onChangeField('maxSearchVolume')}
+          {!itIsRequestOfNiche && (
+            <Field
+              containerClasses={classNames.field}
+              label={textConsts.formStrategyLabel}
+              inputComponent={
+                <NativeSelect
+                  variant="filled"
+                  value={formFields.strategy}
+                  input={<Input fullWidth />}
+                  onChange={onChangeField('strategy')}
+                >
+                  {Object.keys(mapProductStrategyStatusEnum).map((option, index) => (
+                    <option key={index} value={option}>
+                      {mapProductStrategyStatusEnum[option]}
+                    </option>
+                  ))}
+                </NativeSelect>
+              }
             />
-          }
-        /> */}
+          )}
 
-        <Field
-          containerClasses={classNames.rangeField}
-          label={textConsts.formAmazonPriceLabel}
-          inputComponent={
-            <RangeInput
-              start={formFields.minAmazonPrice}
-              end={formFields.maxAmazonPrice}
-              onChangeRangeStart={onChangeField('minAmazonPrice')}
-              onChangeRangeEnd={onChangeField('maxAmazonPrice')}
-            />
-          }
-        />
-        <Field
-          containerClasses={classNames.rangeField}
-          label={textConsts.formAvgBSRLabel}
-          inputComponent={
-            <RangeInput
-              start={formFields.minBSR}
-              end={formFields.maxBSR}
-              onChangeRangeStart={onChangeField('minBSR')}
-              onChangeRangeEnd={onChangeField('maxBSR')}
-            />
-          }
-        />
-        <Field
-          containerClasses={classNames.rangeField}
-          label={textConsts.formAvgReviewsLabel}
-          inputComponent={
-            <RangeInput
-              start={formFields.minReviews}
-              end={formFields.maxReviews}
-              onChangeRangeStart={onChangeField('minReviews')}
-              onChangeRangeEnd={onChangeField('maxReviews')}
-            />
-          }
-        />
-        <Field
-          containerClasses={classNames.rangeField}
-          label={textConsts.formAvgRevenueLabel}
-          inputComponent={
-            <RangeInput
-              start={formFields.minRevenue}
-              end={formFields.maxRevenue}
-              onChangeRangeStart={onChangeField('minRevenue')}
-              onChangeRangeEnd={onChangeField('maxRevenue')}
-            />
-          }
-        />
-        <Field
-          multiline
-          rows={4}
-          rowsMax={6}
-          className={classNames.noteField}
-          label={textConsts.formNotesLabel}
-          value={formFields.clientComment}
-          onChange={onChangeField('clientComment')}
-        />
+          <Field
+            containerClasses={classNames.field}
+            label={textConsts.formMonthlySalesLabel}
+            value={formFields.monthlySales}
+            onChange={onChangeField('monthlySales')}
+          />
+          <Field
+            containerClasses={classNames.field}
+            label={textConsts.formBudgetLabel}
+            value={formFields.budget}
+            onChange={onChangeField('budget')}
+          />
 
-        <Field
-          containerClasses={classNames.field}
-          label={textConsts.formDeadlineLabel}
-          inputComponent={
-            <div className={clsx({[classNames.deadlineError]: isDeadlineError})}>
-              <DatePicker value={formFields.deadline} onChange={onChangeField('deadline')} />
-              {isDeadlineError && <p className={classNames.deadlineErrorText}>{textConsts.formDeadlineErrorText}</p>}
+          <Field
+            containerClasses={classNames.field}
+            label={textConsts.countOfProposals}
+            value={formFields.countOfProposals}
+            onChange={onChangeField('countOfProposals')}
+          />
+
+          <Field
+            disabled
+            containerClasses={classNames.field}
+            label={textConsts.countOfOneProposals}
+            value={formFields.budget / formFields.countOfProposals || 0}
+          />
+
+          <Field
+            containerClasses={classNames.field}
+            label={textConsts.size}
+            inputComponent={
+              <NativeSelect
+                variant="filled"
+                value={formFields.size}
+                input={<Input fullWidth />}
+                onChange={onChangeField('size')}
+              >
+                {Object.values(productSizeStatus).map((option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </NativeSelect>
+            }
+          />
+
+          <Field
+            containerClasses={classNames.field}
+            label={textConsts.searchVolume}
+            value={formFields.searchVolume}
+            onChange={onChangeField('searchVolume')}
+          />
+
+          <Field
+            containerClasses={classNames.rangeField}
+            label={textConsts.formAmazonPriceLabel}
+            inputComponent={
+              <RangeInput
+                start={formFields.minAmazonPrice}
+                end={formFields.maxAmazonPrice}
+                onChangeRangeStart={onChangeField('minAmazonPrice')}
+                onChangeRangeEnd={onChangeField('maxAmazonPrice')}
+              />
+            }
+          />
+          <Field
+            containerClasses={classNames.rangeField}
+            label={textConsts.formAvgBSRLabel}
+            inputComponent={
+              <RangeInput
+                start={formFields.minBSR}
+                end={formFields.maxBSR}
+                onChangeRangeStart={onChangeField('minBSR')}
+                onChangeRangeEnd={onChangeField('maxBSR')}
+              />
+            }
+          />
+          <Field
+            containerClasses={classNames.rangeField}
+            label={textConsts.formAvgReviewsLabel}
+            inputComponent={
+              <RangeInput
+                start={formFields.minReviews}
+                end={formFields.maxReviews}
+                onChangeRangeStart={onChangeField('minReviews')}
+                onChangeRangeEnd={onChangeField('maxReviews')}
+              />
+            }
+          />
+          <Field
+            containerClasses={classNames.rangeField}
+            label={textConsts.formAvgRevenueLabel}
+            inputComponent={
+              <RangeInput
+                start={formFields.minRevenue}
+                end={formFields.maxRevenue}
+                onChangeRangeStart={onChangeField('minRevenue')}
+                onChangeRangeEnd={onChangeField('maxRevenue')}
+              />
+            }
+          />
+          <Field
+            multiline
+            rows={4}
+            rowsMax={6}
+            className={classNames.noteField}
+            label={textConsts.formNotesLabel}
+            value={formFields.clientComment}
+            onChange={onChangeField('clientComment')}
+          />
+
+          <Field
+            containerClasses={classNames.field}
+            label={textConsts.formDeadlineLabel}
+            inputComponent={
+              <div className={clsx({[classNames.deadlineError]: isDeadlineError})}>
+                <DatePicker value={formFields.deadline} onChange={onChangeField('deadline')} />
+                {isDeadlineError && <p className={classNames.deadlineErrorText}>{textConsts.formDeadlineErrorText}</p>}
+              </div>
+            }
+          />
+
+          <div className={classNames.checkboxWrapper}>
+            <Checkbox
+              color="primary"
+              checked={formFields.checkboxForbid} /* onChange={onChangeField('checkboxForbid')} */
+            />
+            <Typography>
+              {itIsRequestOfNiche
+                ? textConsts.formCheckboxNoPurchasedNiches
+                : textConsts.formCheckboxNoPurchasedProducts}
+            </Typography>
+          </div>
+
+          {!itIsRequestOfNiche && (
+            <div className={classNames.checkboxWrapper}>
+              <Checkbox
+                color="primary"
+                checked={formFields.checkboxForbid}
+                onChange={onChangeField('checkboxForbid')}
+              />
+              <Typography>{textConsts.formCheckboxForbidLabel}</Typography>
             </div>
-          }
-        />
+          )}
 
-        <div className={classNames.checkboxWrapper}>
-          <Checkbox color="primary" checked={formFields.checkboxForbid} onChange={onChangeField('checkboxForbid')} />
-          <Typography>{textConsts.formCheckboxForbidLabel}</Typography>
-        </div>
+          {!itIsRequestOfNiche && (
+            <div className={classNames.checkboxWrapper}>
+              <Checkbox
+                color="primary"
+                checked={formFields.checkboxForbid} /* onChange={onChangeField('checkboxForbid')} */
+              />
+              <Typography>{textConsts.formCheckboxFindSupplier}</Typography>
+            </div>
+          )}
 
-        <div className={classNames.checkboxWrapper}>
-          <Checkbox color="primary" checked={formFields.checkboxNoCheck} onChange={onChangeField('checkboxNoCheck')} />
-          <Typography>{textConsts.formCheckboxNoCheckLabel}</Typography>
+          {!itIsRequestOfNiche && (
+            <div className={classNames.checkboxWrapper}>
+              <Checkbox
+                color="primary"
+                checked={formFields.checkboxNoCheck}
+                onChange={onChangeField('checkboxNoCheck')}
+              />
+              <Typography>{textConsts.formCheckboxNoCheckLabel}</Typography>
+            </div>
+          )}
         </div>
-      </div>
+      )}
 
       <Button
         disableElevation

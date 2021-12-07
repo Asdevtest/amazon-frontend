@@ -14,10 +14,16 @@
 
 import ApiClient from "../ApiClient";
 import ApiV1AdminsOrdersCreatedBy from '../model/ApiV1AdminsOrdersCreatedBy';
-import InlineObject39 from '../model/InlineObject39';
 import InlineObject40 from '../model/InlineObject40';
 import InlineObject41 from '../model/InlineObject41';
 import InlineObject42 from '../model/InlineObject42';
+import InlineObject43 from '../model/InlineObject43';
+import InlineObject44 from '../model/InlineObject44';
+import InlineObject45 from '../model/InlineObject45';
+import InlineObject46 from '../model/InlineObject46';
+import InlineResponse20013 from '../model/InlineResponse20013';
+import InlineResponse2002 from '../model/InlineResponse2002';
+import InlineResponse2015 from '../model/InlineResponse2015';
 import InlineResponse2016 from '../model/InlineResponse2016';
 import InlineResponse400 from '../model/InlineResponse400';
 import InlineResponse403 from '../model/InlineResponse403';
@@ -141,18 +147,18 @@ export default class UserApi {
 
     /**
      * # Привязка суб пользователя.
-     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## В поле должен передаваться email пользователя которого к себе хочет привязать мастер пользователь.  
-     * @param {module:model/InlineObject41} InlineObject41 
+     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## По email пользователя которого к себе хочет привязать мастер пользователь.  
+     * @param {module:model/InlineObject42} InlineObject42 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1UsersLinkSubUserPatchWithHttpInfo(InlineObject41, opts) {
+    apiV1UsersLinkSubUserPatchWithHttpInfo(InlineObject42, opts) {
       opts = opts || {};
-      let postBody = InlineObject41;
-      // verify the required parameter 'InlineObject41' is set
-      if (InlineObject41 === undefined || InlineObject41 === null) {
-        throw new Error("Missing the required parameter 'InlineObject41' when calling apiV1UsersLinkSubUserPatch");
+      let postBody = InlineObject42;
+      // verify the required parameter 'InlineObject42' is set
+      if (InlineObject42 === undefined || InlineObject42 === null) {
+        throw new Error("Missing the required parameter 'InlineObject42' when calling apiV1UsersLinkSubUserPatch");
       }
 
       let pathParams = {
@@ -165,7 +171,7 @@ export default class UserApi {
       let formParams = {
       };
 
-      let authNames = [];
+      let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
       let returnType = 'String';
@@ -178,14 +184,14 @@ export default class UserApi {
 
     /**
      * # Привязка суб пользователя.
-     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## В поле должен передаваться email пользователя которого к себе хочет привязать мастер пользователь.  
-     * @param {module:model/InlineObject41} InlineObject41 
+     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## По email пользователя которого к себе хочет привязать мастер пользователь.  
+     * @param {module:model/InlineObject42} InlineObject42 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1UsersLinkSubUserPatch(InlineObject41, opts) {
-      return this.apiV1UsersLinkSubUserPatchWithHttpInfo(InlineObject41, opts)
+    apiV1UsersLinkSubUserPatch(InlineObject42, opts) {
+      return this.apiV1UsersLinkSubUserPatchWithHttpInfo(InlineObject42, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -195,17 +201,17 @@ export default class UserApi {
     /**
      * # Обновления информации о себе самим пользователем.
      * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  
-     * @param {module:model/InlineObject42} InlineObject42 
+     * @param {module:model/InlineObject44} InlineObject44 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1UsersMePatchWithHttpInfo(InlineObject42, opts) {
+    apiV1UsersMePatchWithHttpInfo(InlineObject44, opts) {
       opts = opts || {};
-      let postBody = InlineObject42;
-      // verify the required parameter 'InlineObject42' is set
-      if (InlineObject42 === undefined || InlineObject42 === null) {
-        throw new Error("Missing the required parameter 'InlineObject42' when calling apiV1UsersMePatch");
+      let postBody = InlineObject44;
+      // verify the required parameter 'InlineObject44' is set
+      if (InlineObject44 === undefined || InlineObject44 === null) {
+        throw new Error("Missing the required parameter 'InlineObject44' when calling apiV1UsersMePatch");
       }
 
       let pathParams = {
@@ -218,7 +224,7 @@ export default class UserApi {
       let formParams = {
       };
 
-      let authNames = [];
+      let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
       let returnType = 'String';
@@ -232,13 +238,60 @@ export default class UserApi {
     /**
      * # Обновления информации о себе самим пользователем.
      * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  
-     * @param {module:model/InlineObject42} InlineObject42 
+     * @param {module:model/InlineObject44} InlineObject44 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1UsersMePatch(InlineObject42, opts) {
-      return this.apiV1UsersMePatchWithHttpInfo(InlineObject42, opts)
+    apiV1UsersMePatch(InlineObject44, opts) {
+      return this.apiV1UsersMePatchWithHttpInfo(InlineObject44, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Получить список сабюзеров мастер пользователя.
+     * ## Получить список сабюзеров мастер пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
+     */
+    apiV1UsersMySubUsersGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2002];
+      return this.apiClient.callApi(
+        '/api/v1/users/my_sub-users', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить список сабюзеров мастер пользователя.
+     * ## Получить список сабюзеров мастер пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
+     */
+    apiV1UsersMySubUsersGet(opts) {
+      return this.apiV1UsersMySubUsersGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -248,17 +301,17 @@ export default class UserApi {
     /**
      * Создание нового пользователя. Регистрация.
      * ## Создание нового пользователя. Регистрация.   
-     * @param {module:model/InlineObject39} InlineObject39 
+     * @param {module:model/InlineObject40} InlineObject40 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsOrdersCreatedBy} and HTTP response
      */
-    apiV1UsersPostWithHttpInfo(InlineObject39, opts) {
+    apiV1UsersPostWithHttpInfo(InlineObject40, opts) {
       opts = opts || {};
-      let postBody = InlineObject39;
-      // verify the required parameter 'InlineObject39' is set
-      if (InlineObject39 === undefined || InlineObject39 === null) {
-        throw new Error("Missing the required parameter 'InlineObject39' when calling apiV1UsersPost");
+      let postBody = InlineObject40;
+      // verify the required parameter 'InlineObject40' is set
+      if (InlineObject40 === undefined || InlineObject40 === null) {
+        throw new Error("Missing the required parameter 'InlineObject40' when calling apiV1UsersPost");
       }
 
       let pathParams = {
@@ -285,13 +338,13 @@ export default class UserApi {
     /**
      * Создание нового пользователя. Регистрация.
      * ## Создание нового пользователя. Регистрация.   
-     * @param {module:model/InlineObject39} InlineObject39 
+     * @param {module:model/InlineObject40} InlineObject40 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsOrdersCreatedBy}
      */
-    apiV1UsersPost(InlineObject39, opts) {
-      return this.apiV1UsersPostWithHttpInfo(InlineObject39, opts)
+    apiV1UsersPost(InlineObject40, opts) {
+      return this.apiV1UsersPostWithHttpInfo(InlineObject40, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -301,17 +354,17 @@ export default class UserApi {
     /**
      * # Получение токена авторизации.
      * ## Получение токена авторизации.   ## Время жизни токена 96 часов   
-     * @param {module:model/InlineObject40} InlineObject40 
+     * @param {module:model/InlineObject41} InlineObject41 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2016} and HTTP response
      */
-    apiV1UsersSignInPostWithHttpInfo(InlineObject40, opts) {
+    apiV1UsersSignInPostWithHttpInfo(InlineObject41, opts) {
       opts = opts || {};
-      let postBody = InlineObject40;
-      // verify the required parameter 'InlineObject40' is set
-      if (InlineObject40 === undefined || InlineObject40 === null) {
-        throw new Error("Missing the required parameter 'InlineObject40' when calling apiV1UsersSignInPost");
+      let postBody = InlineObject41;
+      // verify the required parameter 'InlineObject41' is set
+      if (InlineObject41 === undefined || InlineObject41 === null) {
+        throw new Error("Missing the required parameter 'InlineObject41' when calling apiV1UsersSignInPost");
       }
 
       let pathParams = {
@@ -338,13 +391,226 @@ export default class UserApi {
     /**
      * # Получение токена авторизации.
      * ## Получение токена авторизации.   ## Время жизни токена 96 часов   
-     * @param {module:model/InlineObject40} InlineObject40 
+     * @param {module:model/InlineObject41} InlineObject41 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2016}
      */
-    apiV1UsersSignInPost(InlineObject40, opts) {
-      return this.apiV1UsersSignInPostWithHttpInfo(InlineObject40, opts)
+    apiV1UsersSignInPost(InlineObject41, opts) {
+      return this.apiV1UsersSignInPostWithHttpInfo(InlineObject41, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Отвязка суб пользователя.
+     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## По email пользователя которого хочет отвязать мастер пользователь.  
+     * @param {module:model/InlineObject43} InlineObject43 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1UsersUnlinkSubUserPatchWithHttpInfo(InlineObject43, opts) {
+      opts = opts || {};
+      let postBody = InlineObject43;
+      // verify the required parameter 'InlineObject43' is set
+      if (InlineObject43 === undefined || InlineObject43 === null) {
+        throw new Error("Missing the required parameter 'InlineObject43' when calling apiV1UsersUnlinkSubUserPatch");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/users/unlink_sub-user', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Отвязка суб пользователя.
+     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## По email пользователя которого хочет отвязать мастер пользователь.  
+     * @param {module:model/InlineObject43} InlineObject43 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1UsersUnlinkSubUserPatch(InlineObject43, opts) {
+      return this.apiV1UsersUnlinkSubUserPatchWithHttpInfo(InlineObject43, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Получить настройки пользователя.
+     * ## Получить настройки пользователем.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20013} and HTTP response
+     */
+    apiV1UsersUserSettingsMyGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse20013;
+      return this.apiClient.callApi(
+        '/api/v1/users/user-settings/my', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить настройки пользователя.
+     * ## Получить настройки пользователем.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20013}
+     */
+    apiV1UsersUserSettingsMyGet(opts) {
+      return this.apiV1UsersUserSettingsMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Изменения пользователем своих настроек.
+     * ## Изменения пользователем своих настроек.   
+     * @param {String} guid GUID permission в БД
+     * @param {module:model/InlineObject46} InlineObject46 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1UsersUserSettingsMyPatchWithHttpInfo(guid, InlineObject46, opts) {
+      opts = opts || {};
+      let postBody = InlineObject46;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1UsersUserSettingsMyPatch");
+      }
+      // verify the required parameter 'InlineObject46' is set
+      if (InlineObject46 === undefined || InlineObject46 === null) {
+        throw new Error("Missing the required parameter 'InlineObject46' when calling apiV1UsersUserSettingsMyPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/users/user-settings/my', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Изменения пользователем своих настроек.
+     * ## Изменения пользователем своих настроек.   
+     * @param {String} guid GUID permission в БД
+     * @param {module:model/InlineObject46} InlineObject46 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1UsersUserSettingsMyPatch(guid, InlineObject46, opts) {
+      return this.apiV1UsersUserSettingsMyPatchWithHttpInfo(guid, InlineObject46, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Создание настроек пользователя.
+     * ## Создание настроек пользователя.   ## У одного пользователя может быть только одна таблица настроек.
+     * @param {module:model/InlineObject45} InlineObject45 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
+     */
+    apiV1UsersUserSettingsPostWithHttpInfo(InlineObject45, opts) {
+      opts = opts || {};
+      let postBody = InlineObject45;
+      // verify the required parameter 'InlineObject45' is set
+      if (InlineObject45 === undefined || InlineObject45 === null) {
+        throw new Error("Missing the required parameter 'InlineObject45' when calling apiV1UsersUserSettingsPost");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['text/html'];
+      let returnType = InlineResponse2015;
+      return this.apiClient.callApi(
+        '/api/v1/users/user-settings', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Создание настроек пользователя.
+     * ## Создание настроек пользователя.   ## У одного пользователя может быть только одна таблица настроек.
+     * @param {module:model/InlineObject45} InlineObject45 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
+     */
+    apiV1UsersUserSettingsPost(InlineObject45, opts) {
+      return this.apiV1UsersUserSettingsPostWithHttpInfo(InlineObject45, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

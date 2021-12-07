@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient'
-import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './ApiV1AdminsGetProductsByStatusListingSupplierCompetitors'
 
 /**
  * The InlineObject31 model module.
@@ -23,9 +22,11 @@ class InlineObject31 {
   /**
      * Constructs a new <code>InlineObject31</code>.
      * @alias module:model/InlineObject31
+     * @param id {String} ASIN продукта
+     * @param lamazon {String} Ссылка на этот продукт на амазоне.
      */
-  constructor() {
-    InlineObject31.initialize(this)
+  constructor(id, lamazon) {
+    InlineObject31.initialize(this, id, lamazon)
   }
 
   /**
@@ -33,7 +34,10 @@ class InlineObject31 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-  static initialize(obj) {}
+  static initialize(obj, id, lamazon) {
+    obj['id'] = id
+    obj['lamazon'] = lamazon
+  }
 
   /**
      * Constructs a <code>InlineObject31</code> from a plain JavaScript object, optionally creating a new instance.
@@ -46,20 +50,8 @@ class InlineObject31 {
     if (data) {
       obj = obj || new InlineObject31()
 
-      if (data.hasOwnProperty('sku')) {
-        obj['sku'] = ApiClient.convertToType(data['sku'], 'String')
-      }
-      if (data.hasOwnProperty('material')) {
-        obj['material'] = ApiClient.convertToType(data['material'], 'String')
-      }
-      if (data.hasOwnProperty('currentSupplierId')) {
-        obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String')
-      }
-      if (data.hasOwnProperty('fbm')) {
-        obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean')
-      }
-      if (data.hasOwnProperty('category')) {
-        obj['category'] = ApiClient.convertToType(data['category'], 'String')
+      if (data.hasOwnProperty('id')) {
+        obj['id'] = ApiClient.convertToType(data['id'], 'String')
       }
       if (data.hasOwnProperty('lamazon')) {
         obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String')
@@ -67,47 +59,35 @@ class InlineObject31 {
       if (data.hasOwnProperty('lsupplier')) {
         obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String')
       }
+      if (data.hasOwnProperty('currentSupplierId')) {
+        obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String')
+      }
+      if (data.hasOwnProperty('category')) {
+        obj['category'] = ApiClient.convertToType(data['category'], 'String')
+      }
       if (data.hasOwnProperty('bsr')) {
         obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number')
       }
       if (data.hasOwnProperty('fba')) {
         obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean')
       }
-      if (data.hasOwnProperty('express')) {
-        obj['express'] = ApiClient.convertToType(data['express'], 'Boolean')
+      if (data.hasOwnProperty('fbm')) {
+        obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean')
+      }
+      if (data.hasOwnProperty('status')) {
+        obj['status'] = ApiClient.convertToType(data['status'], 'Number')
       }
       if (data.hasOwnProperty('amazon')) {
         obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number')
       }
-      if (data.hasOwnProperty('height')) {
-        obj['height'] = ApiClient.convertToType(data['height'], 'Number')
-      }
-      if (data.hasOwnProperty('width')) {
-        obj['width'] = ApiClient.convertToType(data['width'], 'Number')
-      }
-      if (data.hasOwnProperty('length')) {
-        obj['length'] = ApiClient.convertToType(data['length'], 'Number')
-      }
-      if (data.hasOwnProperty('weight')) {
-        obj['weight'] = ApiClient.convertToType(data['weight'], 'Number')
-      }
-      if (data.hasOwnProperty('reffee')) {
-        obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number')
+      if (data.hasOwnProperty('suppliersIds')) {
+        obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], [ 'String' ])
       }
       if (data.hasOwnProperty('fbafee')) {
         obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number')
       }
-      if (data.hasOwnProperty('fbaamount')) {
-        obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number')
-      }
-      if (data.hasOwnProperty('fbalink')) {
-        obj['fbalink'] = ApiClient.convertToType(data['fbalink'], 'String')
-      }
       if (data.hasOwnProperty('delivery')) {
         obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number')
-      }
-      if (data.hasOwnProperty('status')) {
-        obj['status'] = ApiClient.convertToType(data['status'], 'Number')
       }
       if (data.hasOwnProperty('icomment')) {
         obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String')
@@ -115,64 +95,11 @@ class InlineObject31 {
       if (data.hasOwnProperty('images')) {
         obj['images'] = ApiClient.convertToType(data['images'], [ 'String' ])
       }
-      if (data.hasOwnProperty('amazonDescription')) {
-        obj['amazonDescription'] = ApiClient.convertToType(data['amazonDescription'], 'String')
-      }
-      if (data.hasOwnProperty('amazonDetail')) {
-        obj['amazonDetail'] = ApiClient.convertToType(data['amazonDetail'], 'String')
-      }
-      if (data.hasOwnProperty('amazonTitle')) {
-        obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String')
-      }
-      if (data.hasOwnProperty('barCode')) {
-        obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String')
-      }
-      if (data.hasOwnProperty('minpurchase')) {
-        obj['minpurchase'] = ApiClient.convertToType(data['minpurchase'], 'Number')
-      }
-      if (data.hasOwnProperty('profit')) {
-        obj['profit'] = ApiClient.convertToType(data['profit'], 'Number')
-      }
-      if (data.hasOwnProperty('margin')) {
-        obj['margin'] = ApiClient.convertToType(data['margin'], 'Number')
-      }
       if (data.hasOwnProperty('byboxprice')) {
         obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number')
       }
-      if (data.hasOwnProperty('listingName')) {
-        obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String')
-      }
-      if (data.hasOwnProperty('listingBulletPoints')) {
-        obj['listingBulletPoints'] = ApiClient.convertToType(data['listingBulletPoints'], [ 'String' ])
-      }
-      if (data.hasOwnProperty('listingProductDetails')) {
-        obj['listingProductDetails'] = ApiClient.convertToType(data['listingProductDetails'], 'String')
-      }
-      if (data.hasOwnProperty('listingSearchTerms')) {
-        obj['listingSearchTerms'] = ApiClient.convertToType(data['listingSearchTerms'], 'String')
-      }
-      if (data.hasOwnProperty('listingSubjectMatters')) {
-        obj['listingSubjectMatters'] = ApiClient.convertToType(data['listingSubjectMatters'], [ 'String' ])
-      }
-      if (data.hasOwnProperty('listingImages')) {
-        obj['listingImages'] = ApiClient.convertToType(data['listingImages'], [ 'String' ])
-      }
-      if (data.hasOwnProperty('listingTaskToFindSupplier')) {
-        obj['listingTaskToFindSupplier'] = ApiClient.convertToType(data['listingTaskToFindSupplier'], 'String')
-      }
-      if (data.hasOwnProperty('listingSupplierImportantPoints')) {
-        obj['listingSupplierImportantPoints'] = ApiClient.convertToType(
-          data['listingSupplierImportantPoints'],
-          'String'
-        )
-      }
-      if (data.hasOwnProperty('listingExtraInfo')) {
-        obj['listingExtraInfo'] = ApiClient.convertToType(data['listingExtraInfo'], 'String')
-      }
-      if (data.hasOwnProperty('listingSupplierCompetitors')) {
-        obj['listingSupplierCompetitors'] = ApiClient.convertToType(data['listingSupplierCompetitors'], [
-          ApiV1AdminsGetProductsByStatusListingSupplierCompetitors
-        ])
+      if (data.hasOwnProperty('reffee')) {
+        obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number')
       }
       if (data.hasOwnProperty('strategyStatus')) {
         obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number')
@@ -208,34 +135,10 @@ InlineObject31['StatusEnum'] = {
 }
 
 /**
- * SKU - ставит склад - только для склада
- * @member {String} sku
+ * ASIN продукта
+ * @member {String} id
  */
-InlineObject31.prototype['sku'] = undefined
-
-/**
- * add to new functional
- * @member {String} material
- */
-InlineObject31.prototype['material'] = undefined
-
-/**
- * GUID поставщика, если передать строку \"clear\" то поставщику будет сброшен (у байера и ресечера).
- * @member {String} currentSupplierId
- */
-InlineObject31.prototype['currentSupplierId'] = undefined
-
-/**
- * Признак fbm
- * @member {Boolean} fbm
- */
-InlineObject31.prototype['fbm'] = undefined
-
-/**
- * Категория
- * @member {String} category
- */
-InlineObject31.prototype['category'] = undefined
+InlineObject31.prototype['id'] = undefined
 
 /**
  * Ссылка на этот продукт на амазоне.
@@ -244,10 +147,22 @@ InlineObject31.prototype['category'] = undefined
 InlineObject31.prototype['lamazon'] = undefined
 
 /**
- * Ссылка на этот продукт на амазоне.
+ * Ссылка на этот продукт на поставщика.
  * @member {String} lsupplier
  */
 InlineObject31.prototype['lsupplier'] = undefined
+
+/**
+ * GUID поставщика
+ * @member {String} currentSupplierId
+ */
+InlineObject31.prototype['currentSupplierId'] = undefined
+
+/**
+ * Категория
+ * @member {String} category
+ */
+InlineObject31.prototype['category'] = undefined
 
 /**
  * @member {Number} bsr
@@ -261,10 +176,17 @@ InlineObject31.prototype['bsr'] = undefined
 InlineObject31.prototype['fba'] = undefined
 
 /**
- *  уточнить 
- * @member {Boolean} express
+ * Признак fbm
+ * @member {Boolean} fbm
  */
-InlineObject31.prototype['express'] = undefined
+InlineObject31.prototype['fbm'] = undefined
+
+/**
+ *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
+ * @member {module:model/InlineObject31.StatusEnum} status
+ * @default StatusEnum.0
+ */
+InlineObject31.prototype['status'] = InlineObject31.StatusEnum[0]
 
 /**
  * @member {Number} amazon
@@ -272,30 +194,10 @@ InlineObject31.prototype['express'] = undefined
 InlineObject31.prototype['amazon'] = undefined
 
 /**
- * @member {Number} height
+ * Массив поставщиков.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject31.prototype['height'] = undefined
-
-/**
- * @member {Number} width
- */
-InlineObject31.prototype['width'] = undefined
-
-/**
- * @member {Number} length
- */
-InlineObject31.prototype['length'] = undefined
-
-/**
- * @member {Number} weight
- */
-InlineObject31.prototype['weight'] = undefined
-
-/**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
- */
-InlineObject31.prototype['reffee'] = undefined
+InlineObject31.prototype['suppliersIds'] = undefined
 
 /**
  * ФБА комиссия
@@ -304,28 +206,10 @@ InlineObject31.prototype['reffee'] = undefined
 InlineObject31.prototype['fbafee'] = undefined
 
 /**
- *  Общая сумма с фба.
- * @member {Number} fbaamount
- */
-InlineObject31.prototype['fbaamount'] = undefined
-
-/**
- * @member {String} fbalink
- */
-InlineObject31.prototype['fbalink'] = undefined
-
-/**
  * Стоимость доставки.
  * @member {Number} delivery
  */
 InlineObject31.prototype['delivery'] = undefined
-
-/**
- *  Статус товара. У ресечера: 0 - новый товар. 5- готов к проверке супером. 10 - новый товар с поставщиком
- * @member {module:model/InlineObject31.StatusEnum} status
- * @default StatusEnum.0
- */
-InlineObject31.prototype['status'] = InlineObject31.StatusEnum[0]
 
 /**
  * Комментарии к товару.
@@ -340,101 +224,16 @@ InlineObject31.prototype['icomment'] = undefined
 InlineObject31.prototype['images'] = undefined
 
 /**
- * @member {String} amazonDescription
- */
-InlineObject31.prototype['amazonDescription'] = undefined
-
-/**
- * @member {String} amazonDetail
- */
-InlineObject31.prototype['amazonDetail'] = undefined
-
-/**
- * @member {String} amazonTitle
- */
-InlineObject31.prototype['amazonTitle'] = undefined
-
-/**
- * @member {String} barCode
- */
-InlineObject31.prototype['barCode'] = undefined
-
-/**
- * @member {Number} minpurchase
- */
-InlineObject31.prototype['minpurchase'] = undefined
-
-/**
- * Прибыль
- * @member {Number} profit
- */
-InlineObject31.prototype['profit'] = undefined
-
-/**
- * Маржа
- * @member {Number} margin
- */
-InlineObject31.prototype['margin'] = undefined
-
-/**
  * Цена
  * @member {Number} byboxprice
  */
 InlineObject31.prototype['byboxprice'] = undefined
 
 /**
- * @member {String} listingName
+ * комиссия которую берет амазон за любой заказ - 15%
+ * @member {Number} reffee
  */
-InlineObject31.prototype['listingName'] = undefined
-
-/**
- * Массив ...
- * @member {Array.<String>} listingBulletPoints
- */
-InlineObject31.prototype['listingBulletPoints'] = undefined
-
-/**
- * @member {String} listingProductDetails
- */
-InlineObject31.prototype['listingProductDetails'] = undefined
-
-/**
- * @member {String} listingSearchTerms
- */
-InlineObject31.prototype['listingSearchTerms'] = undefined
-
-/**
- * Массив ...
- * @member {Array.<String>} listingSubjectMatters
- */
-InlineObject31.prototype['listingSubjectMatters'] = undefined
-
-/**
- * массив картинок(в виде прямых ссылок).
- * @member {Array.<String>} listingImages
- */
-InlineObject31.prototype['listingImages'] = undefined
-
-/**
- * @member {String} listingTaskToFindSupplier
- */
-InlineObject31.prototype['listingTaskToFindSupplier'] = undefined
-
-/**
- * @member {String} listingSupplierImportantPoints
- */
-InlineObject31.prototype['listingSupplierImportantPoints'] = undefined
-
-/**
- * @member {String} listingExtraInfo
- */
-InlineObject31.prototype['listingExtraInfo'] = undefined
-
-/**
- * Массив объектов: ссылки и комментарии к конкурентам
- * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors>} listingSupplierCompetitors
- */
-InlineObject31.prototype['listingSupplierCompetitors'] = undefined
+InlineObject31.prototype['reffee'] = undefined
 
 /**
  * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40

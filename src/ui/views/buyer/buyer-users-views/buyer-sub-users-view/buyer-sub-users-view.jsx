@@ -1,25 +1,26 @@
 import React, {Component} from 'react'
 
 import {Typography, Box} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {BUYER_SUB_USERS_INITIAL_DATA, BUYER_SUB_USERS_TABLE_CELLS} from '@constants/mocks'
+import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-permissions-form'
+import {LinkSubUserForm} from '@components/forms/link-sub-user-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
-import {ContentModal} from '@components/screens/users-views/sub-users-view/content-modal'
-import {PermissionContentModal} from '@components/screens/users-views/sub-users-view/permission-modal'
-import {Table} from '@components/table'
-import {TableBodyRow} from '@components/table-rows/sub-users-view/table-body-row'
-import {TableHeadRow} from '@components/table-rows/sub-users-view/table-head-row'
 
+import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/buyerAvatar.jpg'
@@ -29,7 +30,6 @@ import {styles} from './buyer-sub-users-view.style'
 const textConsts = getLocalizedTexts(texts, 'en').buyerSubUsersView
 
 const navbarActiveCategory = 6
-const navbarActiveSubCategory = 1
 
 @observer
 class BuyerSubUsersViewRaw extends Component {
@@ -41,18 +41,39 @@ class BuyerSubUsersViewRaw extends Component {
 
   render() {
     const {
-      drawerOpen,
-      curPage,
-      rowsPerPage,
+      showConfirmModal,
       showAddSubUserModal,
-      showEditSubUserModal,
-      showPermissionsModal,
-      onTriggerShowPermissionsModal,
-      onTriggerAddSubUserModal,
-      onTriggerShowEditSubUserModal,
-      onChangePage,
+      showWarningModal,
+      showPermissionModal,
+      warningInfoModalSettings,
+      singlePermissions,
+      groupPermissions,
+      selectedSubUser,
+
+      requestStatus,
+      getCurrentData,
+      sortModel,
+      filterModel,
+      densityModel,
+      columnsModel,
+
+      drawerOpen,
+      rowsPerPage,
+      curPage,
+      activeSubCategory,
+      onChangeDrawerOpen,
+      onChangeCurPage,
       onChangeRowsPerPage,
-      onTriggerDrawerOpen,
+      onChangeSubCategory,
+
+      setDataGridState,
+      onChangeSortingModel,
+      onChangeFilterModel,
+
+      onTriggerOpenModal,
+      onSubmitlinkSubUser,
+      onSubmitUserPermissionsForm,
+      onSubmitUnlinkSubUser,
     } = this.viewModel
 
     return (
@@ -60,71 +81,97 @@ class BuyerSubUsersViewRaw extends Component {
         <Navbar
           curUserRole={UserRole.BUYER}
           activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
+          activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
+          setDrawerOpen={onChangeDrawerOpen}
+          onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            setDrawerOpen={onTriggerDrawerOpen}
+            setDrawerOpen={onChangeDrawerOpen}
             curUserRole={UserRole.BUYER}
           >
             <MainContent>
               <Typography>{textConsts.mainTitle}</Typography>
 
-              <Table
-                renderButtons={this.renderButtons}
-                currentPage={curPage}
-                data={BUYER_SUB_USERS_INITIAL_DATA}
-                handlerPageChange={onChangePage}
-                handlerRowsPerPage={onChangeRowsPerPage}
-                pageCount={Math.ceil(BUYER_SUB_USERS_INITIAL_DATA.length / rowsPerPage)}
-                BodyRow={TableBodyRow}
-                renderHeadRow={this.renderHeadRow}
-                rowsPerPage={rowsPerPage}
-                rowsHandlers={{onEdit: onTriggerShowEditSubUserModal}}
-              />
+              <Box className={this.props.classes.buttonBox}>
+                <Button color="secondary" onClick={() => onTriggerOpenModal('showAddSubUserModal')}>
+                  {textConsts.addUserBtn}
+                </Button>
+              </Box>
+
+              <div>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  autoHeight
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rows={getCurrentData()}
+                  rowHeight={200}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={showPermissionsModal} setOpenModal={onTriggerShowPermissionsModal}>
-          <PermissionContentModal setModalPermission={onTriggerShowPermissionsModal} />
-        </Modal>
-        <Modal openModal={showAddSubUserModal} setOpenModal={onTriggerAddSubUserModal}>
-          <ContentModal
-            title={textConsts.modalAddTitle}
-            buttonLabel={textConsts.modalAddBtn}
-            setModalSubUser={onTriggerAddSubUserModal}
-            setModalPermission={onTriggerShowPermissionsModal}
+        <Modal openModal={showAddSubUserModal} setOpenModal={() => onTriggerOpenModal('showAddSubUserModal')}>
+          <LinkSubUserForm
+            closeModal={() => onTriggerOpenModal('showAddSubUserModal')}
+            onSubmit={onSubmitlinkSubUser}
           />
         </Modal>
-        <Modal openModal={showEditSubUserModal} setOpenModal={onTriggerShowEditSubUserModal}>
-          <ContentModal
-            title={textConsts.modalEditTitle}
-            buttonLabel={textConsts.modalEditBtn}
-            setModalSubUser={onTriggerShowEditSubUserModal}
-            setModalPermission={onTriggerShowPermissionsModal}
+
+        <Modal openModal={showPermissionModal} setOpenModal={() => onTriggerOpenModal('showPermissionModal')}>
+          <AddOrEditUserPermissionsForm
+            permissionsToSelect={singlePermissions}
+            permissionGroupsToSelect={groupPermissions}
+            sourceData={selectedSubUser}
+            onCloseModal={() => onTriggerOpenModal('showPermissionModal')}
+            onSubmit={onSubmitUserPermissionsForm}
           />
         </Modal>
+
+        <WarningInfoModal
+          isWarning={warningInfoModalSettings.isWarning}
+          openModal={showWarningModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
+          title={warningInfoModalSettings.title}
+          btnText={textConsts.okBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningModal')
+          }}
+        />
+
+        <ConfirmationModal
+          isWarning
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={textConsts.confirmTitle}
+          message={textConsts.confirmRemoveMessage}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={onSubmitUnlinkSubUser}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
       </React.Fragment>
-    )
-  }
-
-  renderHeadRow = (<TableHeadRow headCells={BUYER_SUB_USERS_TABLE_CELLS} />)
-
-  renderButtons = () => {
-    const {classes: classNames} = this.props
-    return (
-      <Box className={classNames.buttonBox}>
-        <Button color="secondary" onClick={() => this.onChangeModalAddSubUser()}>
-          {textConsts.addUserBtn}
-        </Button>
-      </Box>
     )
   }
 }

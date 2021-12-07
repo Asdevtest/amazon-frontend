@@ -18,6 +18,9 @@ export const useClassNames = makeStyles(() => ({
   buttonWrapper: {
     textAlign: 'right',
   },
+  rightBtn: {
+    marginLeft: '10px',
+  },
   modalContainer: {
     minWidth: '460px',
   },
@@ -30,5 +33,9 @@ export const useClassNames = makeStyles(() => ({
   },
   checkboxLabel: {
     fontWeight: 600,
+  },
+  isWrongPermissionsSelectError: {
+    color: 'red',
+    marginBottom: '15px',
   },
 }))

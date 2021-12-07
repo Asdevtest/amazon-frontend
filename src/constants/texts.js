@@ -393,9 +393,17 @@ export const texts = {
       formCheckboxNoPayLabel: 'Не оплачиваю повторно купленные товары',
       formDeadlineLabel: 'Target date *',
       formDeadlineErrorText: 'The deadline date cannot be later than the current date',
-      formCheckboxNoCheckLabel: 'Сотрудники платформы не будут участвовать в проверке качества найденного товара.',
-
+      formCheckboxNoCheckLabel: 'Сотрудники платформы будут участвовать в проверке качества найденного товара.',
+      formCheckboxNoPurchasedNiches: 'Не предлагать ниши купленные мной',
+      formCheckboxNoPurchasedProducts: 'Не предлагать продукты купленные мной',
+      formCheckboxFindSupplier: 'Найти поставщика',
       formCloseReasonLabel: 'Describe the reason for closing request',
+
+      requestProductBtn: 'Заявка на поиск продукта',
+      requestNicheBtn: 'Заявка на поиск ниши',
+
+      productTitle: 'Поиск продукта',
+      nicheTitle: 'Поиск ниши',
 
       confirmTitle: 'Внимание',
       confirmMessage: 'Вы точно хотите отменить запрос на поиск?',
@@ -448,6 +456,35 @@ export const texts = {
       descriptionHolder: 'Доступ к редактированию товаров',
       allowUrlsLabel: 'Разрешенные эндпоинты',
       allowUrlsHolder: '/api/v1/permissions/...',
+      keyFieldError: 'Значение должно содержать "_"',
+
+      editBtn: 'Изменить',
+      createBtn: 'Создать разрешение',
+      cancelBtn: 'Отмена',
+    },
+
+    addOrEditUserPermissionsForm: {
+      mainTitle: 'Назначить разрешения',
+      roleLabel: 'Роль',
+      valueNone: 'None',
+      keyLabel: 'Ключ',
+      keyHolder: 'KEY_KEY_KEY...',
+      titleLabel: 'Название',
+      titleHolder: 'Разрешение №1 ',
+      descriptionLabel: 'Описание',
+      descriptionHolder: 'Доступ к редактированию товаров',
+      allowUrlsLabel: 'Разрешенные эндпоинты',
+      allowUrlsHolder: '/api/v1/permissions/...',
+
+      showBtn: 'Показать разрешения',
+      hideBtn: 'Скрыть разрешения',
+      permissionSubTitle: 'Разрешения:',
+
+      choosePermissionGroups: 'Выбрать группы разрешений:',
+      choosenPermissionGroups: 'Выбранные группы разрешений:',
+
+      choosePermissions: 'Выбрать одиночные разрешения:',
+      choosenPermission: 'Выбранные одиночные разрешения:',
 
       editBtn: 'Изменить',
       createBtn: 'Создать разрешение',
@@ -474,6 +511,7 @@ export const texts = {
       currentPermissions: 'Существующие разрешения:',
       selectChooseTitle: 'Выбрать доступные:',
       permissionsWillbeCreated: 'Разрешения будут созданы:',
+      keyFieldError: 'Значение должно содержать "_"',
 
       addNewPermBtn: 'Создать новое',
 
@@ -980,6 +1018,14 @@ export const texts = {
       superboxTypo: 'SB',
       confirmBtn: 'Подтвердить',
       rejectBtn: 'Отклонить',
+      addPermissionsBtn: 'Назначить разрешения',
+    },
+
+    linkSubUserForm: {
+      title: 'Добавить саб-юзера',
+      addBtn: 'Добавить',
+      cancelBtn: 'Отмена',
+      email: 'Email',
     },
 
     subUsersModalContent: {
@@ -988,19 +1034,24 @@ export const texts = {
       password: 'Password',
       rePassword: 'Re-type password',
       role: 'Role',
+      allowedRoles: 'Allowed Roles',
       fba: 'FBA',
       active: 'User status',
       rate: 'Rate',
 
       fieldSecurity: 'Security/Sharing options',
-      manageBtn: 'Manage Premission',
+      manageBtn: 'Manage Permissions',
       fieldBalance: 'Balance',
       balanceReplenishBtn: 'Replenish',
       balanceWithdrawBtn: 'Withdraw',
 
       activeOption: 'Active',
       bannedOption: 'Banned',
+      isWrongPermissionsSelect: 'Выбранные разрешения и текущая роль не совпадают!',
+
+      closeBtn: 'cancel',
     },
+
     subUsersModalPermission: {
       title: 'Subuser permissions',
       permissionTitle: 'Permission',
@@ -1019,7 +1070,81 @@ export const texts = {
       modalAddBtn: 'Add Subuser',
       modalEditTitle: 'Edit subuser',
       modalEditBtn: 'Save changes',
+
+      successTitle: 'Саб-юзер добавлен',
+      failTitle: 'Саб-юзер не добавлен!',
+
+      okBtn: 'Ок',
+
+      confirmTitle: 'Внимание',
+      confirmRemoveMessage: 'Вы точно хотите отвязать сабюзера?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
     },
+
+    warehouseSubUsersView: {
+      addUserBtn: 'Add User',
+      appBarTitle: 'SubUsers',
+      appBarUsername: 'Warehouse',
+      appUser: 'warehouse',
+      mainTitle: 'SubUsers',
+      modalAddTitle: 'Create new subuser',
+      modalAddBtn: 'Add Subuser',
+      modalEditTitle: 'Edit subuser',
+      modalEditBtn: 'Save changes',
+
+      okBtn: 'Ок',
+
+      confirmTitle: 'Внимание',
+      confirmRemoveMessage: 'Вы точно хотите отвязать сабюзера?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+    },
+
+    researcherSubUsersView: {
+      addUserBtn: 'Add User',
+      appBarTitle: 'SubUsers',
+      appBarUsername: 'Researcher',
+      appUser: 'researcher',
+      mainTitle: 'SubUsers',
+      modalAddTitle: 'Create new subuser',
+      modalAddBtn: 'Add Subuser',
+      modalEditTitle: 'Edit subuser',
+      modalEditBtn: 'Save changes',
+
+      successTitle: 'Саб-юзер добавлен',
+      failTitle: 'Саб-юзер не добавлен!',
+
+      okBtn: 'Ок',
+
+      confirmTitle: 'Внимание',
+      confirmRemoveMessage: 'Вы точно хотите отвязать сабюзера?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+    },
+
+    supervisorSubUsersView: {
+      addUserBtn: 'Add User',
+      appBarTitle: 'SubUsers',
+      appBarUsername: 'Supervisor',
+      appUser: 'supervisor',
+      mainTitle: 'SubUsers',
+      modalAddTitle: 'Create new subuser',
+      modalAddBtn: 'Add Subuser',
+      modalEditTitle: 'Edit subuser',
+      modalEditBtn: 'Save changes',
+
+      successTitle: 'Саб-юзер добавлен',
+      failTitle: 'Саб-юзер не добавлен!',
+
+      okBtn: 'Ок',
+
+      confirmTitle: 'Внимание',
+      confirmRemoveMessage: 'Вы точно хотите отвязать сабюзера?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+    },
+
     clientSubUsersView: {
       addUserBtn: 'Add User',
       appBarTitle: 'SubUsers',
@@ -1030,6 +1155,15 @@ export const texts = {
       modalAddBtn: 'Add Subuser',
       modalEditTitle: 'Edit subuser',
       modalEditBtn: 'Save changes',
+
+      successTitle: 'Саб-юзер добавлен',
+      failTitle: 'Саб-юзер не добавлен!',
+      okBtn: 'Ок',
+
+      confirmTitle: 'Внимание',
+      confirmRemoveMessage: 'Вы точно хотите отвязать сабюзера?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
     },
     buyerUserView: {
       timer: '14 минут',
@@ -1663,6 +1797,11 @@ export const texts = {
       statusField: 'Статус',
     },
 
+    subUsersTableColumns: {
+      emailField: 'Почта',
+      actionField: 'Действия',
+    },
+
     adminFinancesTableColumns: {
       createDateField: 'Создано',
       commentField: 'Комментарий',
@@ -2151,6 +2290,17 @@ export const texts = {
       warningTitle: 'Данная задача взята в работу и перенесена в раздел Мои задачи',
     },
 
+    appbarSettingsForm: {
+      mainTitle: 'Настройки пользователя',
+      noSettingsWarning: 'Настроек пользователя нет',
+      everyDayReport: 'Ссылка на ежедневный отчет:',
+      emptyPlaceholder: 'Ссылка',
+      last30DaysReport: 'Ссылка на отчет за последние 30 дней:',
+      editBtn: 'Изменить',
+      createBtn: 'Создать',
+      cancelBtn: 'Отмена',
+    },
+
     singlePermissions: {
       mainTitle: 'Единичные разрешения',
       okBtn: 'Ок',
@@ -2430,6 +2580,10 @@ export const texts = {
     appbarTexts: {
       menuTitle: 'Меню:',
       exit: 'Выйти',
+
+      roleTitle: 'Текущая роль',
+      chooseBtn: 'Выбрать',
+      settingsBtn: 'Настройки',
     },
     commentsLine: {
       commentLabel: 'Комментарий склада',

@@ -13,8 +13,8 @@
 
 
 import ApiClient from "../ApiClient";
-import InlineObject30 from '../model/InlineObject30';
 import InlineObject31 from '../model/InlineObject31';
+import InlineObject32 from '../model/InlineObject32';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse20010 from '../model/InlineResponse20010';
 import InlineResponse20011 from '../model/InlineResponse20011';
@@ -367,12 +367,12 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject31} opts.InlineObject31 
+     * @param {module:model/InlineObject32} opts.InlineObject32 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject31'];
+      let postBody = opts['InlineObject32'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1ResearchersProductsGuidPatch");
@@ -406,7 +406,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject31} opts.InlineObject31 
+     * @param {module:model/InlineObject32} opts.InlineObject32 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ResearchersProductsGuidPatch(guid, opts) {
@@ -420,17 +420,17 @@ export default class ResearcherApi {
     /**
      * # Добавить новый продукт.
      * ## Добавить новый продукт.   
-     * @param {module:model/InlineObject30} InlineObject30 
+     * @param {module:model/InlineObject31} InlineObject31 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
-    apiV1ResearchersProductsPostWithHttpInfo(InlineObject30, opts) {
+    apiV1ResearchersProductsPostWithHttpInfo(InlineObject31, opts) {
       opts = opts || {};
-      let postBody = InlineObject30;
-      // verify the required parameter 'InlineObject30' is set
-      if (InlineObject30 === undefined || InlineObject30 === null) {
-        throw new Error("Missing the required parameter 'InlineObject30' when calling apiV1ResearchersProductsPost");
+      let postBody = InlineObject31;
+      // verify the required parameter 'InlineObject31' is set
+      if (InlineObject31 === undefined || InlineObject31 === null) {
+        throw new Error("Missing the required parameter 'InlineObject31' when calling apiV1ResearchersProductsPost");
       }
 
       let pathParams = {
@@ -457,13 +457,13 @@ export default class ResearcherApi {
     /**
      * # Добавить новый продукт.
      * ## Добавить новый продукт.   
-     * @param {module:model/InlineObject30} InlineObject30 
+     * @param {module:model/InlineObject31} InlineObject31 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
-    apiV1ResearchersProductsPost(InlineObject30, opts) {
-      return this.apiV1ResearchersProductsPostWithHttpInfo(InlineObject30, opts)
+    apiV1ResearchersProductsPost(InlineObject31, opts) {
+      return this.apiV1ResearchersProductsPostWithHttpInfo(InlineObject31, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

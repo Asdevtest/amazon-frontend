@@ -22,12 +22,13 @@ class InlineObject40 {
     /**
      * Constructs a new <code>InlineObject40</code>.
      * @alias module:model/InlineObject40
-     * @param email {String} 
-     * @param password {String} 
+     * @param name {String} Имя пользователя.
+     * @param email {String} email
+     * @param password {String} Пароль
      */
-    constructor(email, password) { 
+    constructor(name, email, password) { 
         
-        InlineObject40.initialize(this, email, password);
+        InlineObject40.initialize(this, name, email, password);
     }
 
     /**
@@ -35,7 +36,8 @@ class InlineObject40 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email, password) { 
+    static initialize(obj, name, email, password) { 
+        obj['name'] = name;
         obj['email'] = email;
         obj['password'] = password;
     }
@@ -51,6 +53,9 @@ class InlineObject40 {
         if (data) {
             obj = obj || new InlineObject40();
 
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
             if (data.hasOwnProperty('email')) {
                 obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
@@ -65,11 +70,19 @@ class InlineObject40 {
 }
 
 /**
+ * Имя пользователя.
+ * @member {String} name
+ */
+InlineObject40.prototype['name'] = undefined;
+
+/**
+ * email
  * @member {String} email
  */
 InlineObject40.prototype['email'] = undefined;
 
 /**
+ * Пароль
  * @member {String} password
  */
 InlineObject40.prototype['password'] = undefined;

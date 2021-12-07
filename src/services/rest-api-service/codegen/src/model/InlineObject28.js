@@ -47,8 +47,71 @@ class InlineObject28 {
         if (data) {
             obj = obj || new InlineObject28();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('strategy')) {
+                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'Number');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('monthlySales')) {
+                obj['monthlySales'] = ApiClient.convertToType(data['monthlySales'], 'Number');
+            }
+            if (data.hasOwnProperty('budget')) {
+                obj['budget'] = ApiClient.convertToType(data['budget'], 'Number');
+            }
+            if (data.hasOwnProperty('size')) {
+                obj['size'] = ApiClient.convertToType(data['size'], 'String');
+            }
+            if (data.hasOwnProperty('searchVolume')) {
+                obj['searchVolume'] = ApiClient.convertToType(data['searchVolume'], 'Number');
+            }
+            if (data.hasOwnProperty('countOfProposals')) {
+                obj['countOfProposals'] = ApiClient.convertToType(data['countOfProposals'], 'Number');
+            }
+            if (data.hasOwnProperty('minProductInProposals')) {
+                obj['minProductInProposals'] = ApiClient.convertToType(data['minProductInProposals'], 'Number');
+            }
+            if (data.hasOwnProperty('minKeywords')) {
+                obj['minKeywords'] = ApiClient.convertToType(data['minKeywords'], 'Number');
+            }
+            if (data.hasOwnProperty('minAmazonPrice')) {
+                obj['minAmazonPrice'] = ApiClient.convertToType(data['minAmazonPrice'], 'Number');
+            }
+            if (data.hasOwnProperty('maxAmazonPrice')) {
+                obj['maxAmazonPrice'] = ApiClient.convertToType(data['maxAmazonPrice'], 'Number');
+            }
+            if (data.hasOwnProperty('minBSR')) {
+                obj['minBSR'] = ApiClient.convertToType(data['minBSR'], 'Number');
+            }
+            if (data.hasOwnProperty('maxBSR')) {
+                obj['maxBSR'] = ApiClient.convertToType(data['maxBSR'], 'Number');
+            }
+            if (data.hasOwnProperty('minReviews')) {
+                obj['minReviews'] = ApiClient.convertToType(data['minReviews'], 'Number');
+            }
+            if (data.hasOwnProperty('maxReviews')) {
+                obj['maxReviews'] = ApiClient.convertToType(data['maxReviews'], 'Number');
+            }
+            if (data.hasOwnProperty('minRevenue')) {
+                obj['minRevenue'] = ApiClient.convertToType(data['minRevenue'], 'Number');
+            }
+            if (data.hasOwnProperty('maxRevenue')) {
+                obj['maxRevenue'] = ApiClient.convertToType(data['maxRevenue'], 'Number');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('deadline')) {
+                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
+            }
+            if (data.hasOwnProperty('checkboxForbid')) {
+                obj['checkboxForbid'] = ApiClient.convertToType(data['checkboxForbid'], 'Boolean');
+            }
+            if (data.hasOwnProperty('checkboxNoCheck')) {
+                obj['checkboxNoCheck'] = ApiClient.convertToType(data['checkboxNoCheck'], 'Boolean');
+            }
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
         }
         return obj;
@@ -58,10 +121,136 @@ class InlineObject28 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * выбор стратегии
+ * @member {Number} strategy
  */
-InlineObject28.prototype['suppliersIds'] = undefined;
+InlineObject28.prototype['strategy'] = undefined;
+
+/**
+ * выбор стратегии
+ * @member {Number} status
+ */
+InlineObject28.prototype['status'] = undefined;
+
+/**
+ * количество продаж за месяц
+ * @member {Number} monthlySales
+ */
+InlineObject28.prototype['monthlySales'] = undefined;
+
+/**
+ * бюджет заявки
+ * @member {Number} budget
+ */
+InlineObject28.prototype['budget'] = undefined;
+
+/**
+ * размерный ряд
+ * @member {String} size
+ */
+InlineObject28.prototype['size'] = undefined;
+
+/**
+ * объём продаж данной категории
+ * @member {Number} searchVolume
+ */
+InlineObject28.prototype['searchVolume'] = undefined;
+
+/**
+ * количество предложений заявке
+ * @member {Number} countOfProposals
+ */
+InlineObject28.prototype['countOfProposals'] = undefined;
+
+/**
+ * Минимальное количество продуктов в предложении
+ * @member {Number} minProductInProposals
+ */
+InlineObject28.prototype['minProductInProposals'] = undefined;
+
+/**
+ * Минимальное количество ниш в предложении
+ * @member {Number} minKeywords
+ */
+InlineObject28.prototype['minKeywords'] = undefined;
+
+/**
+ * мин стоимость товара на Амазоне
+ * @member {Number} minAmazonPrice
+ */
+InlineObject28.prototype['minAmazonPrice'] = undefined;
+
+/**
+ * макс стоимость товара на Амазоне
+ * @member {Number} maxAmazonPrice
+ */
+InlineObject28.prototype['maxAmazonPrice'] = undefined;
+
+/**
+ * мин рейтинг BSR на Амазоне
+ * @member {Number} minBSR
+ */
+InlineObject28.prototype['minBSR'] = undefined;
+
+/**
+ * макс рейтинг BSR на Амазоне
+ * @member {Number} maxBSR
+ */
+InlineObject28.prototype['maxBSR'] = undefined;
+
+/**
+ * мин просмотры на Амазоне
+ * @member {Number} minReviews
+ */
+InlineObject28.prototype['minReviews'] = undefined;
+
+/**
+ * макс просмотры на Амазоне
+ * @member {Number} maxReviews
+ */
+InlineObject28.prototype['maxReviews'] = undefined;
+
+/**
+ * мин  доход по продукту на Амазоне
+ * @member {Number} minRevenue
+ */
+InlineObject28.prototype['minRevenue'] = undefined;
+
+/**
+ * макс доход по продукту на Амазоне
+ * @member {Number} maxRevenue
+ */
+InlineObject28.prototype['maxRevenue'] = undefined;
+
+/**
+ * комментарий к заявке
+ * @member {String} clientComment
+ */
+InlineObject28.prototype['clientComment'] = undefined;
+
+/**
+ * дедлайн заявки в формате \"YYYY-MM-DD\"
+ * @member {Date} deadline
+ */
+InlineObject28.prototype['deadline'] = undefined;
+
+/**
+ * Запретить товары, которые когда либо были проданы на площадке по данной стратегии 
+ * @member {Boolean} checkboxForbid
+ */
+InlineObject28.prototype['checkboxForbid'] = undefined;
+
+/**
+ * Сотрудники платформы не будут участвовать в проверке качества найденного товара
+ * @member {Boolean} checkboxNoCheck
+ */
+InlineObject28.prototype['checkboxNoCheck'] = undefined;
+
+/**
+ * GUID клиента, который обновил запрос на поиск товара.
+ * @member {String} lastModifiedById
+ */
+InlineObject28.prototype['lastModifiedById'] = undefined;
 
 
 

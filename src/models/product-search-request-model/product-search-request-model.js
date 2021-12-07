@@ -13,7 +13,7 @@ class ProductSearchRequestModelStatic {
 
   updateProductSearchRequest = async (id, data) => {
     const response = await restApiService.productSearchRequestApi.apiV1ProductSearchRequestsUpdateRequestGuidPatch(id, {
-      InlineObject27: data,
+      InlineObject28: data,
     })
     return response
   }

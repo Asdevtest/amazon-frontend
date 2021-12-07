@@ -199,14 +199,15 @@ Class | Method | HTTP request | Description
 *Amazonapi.OtherApi* | [**apiV1OtherPaymentsByUserGuidGet**](docs/OtherApi.md#apiV1OtherPaymentsByUserGuidGet) | **GET** /api/v1/other/payments/by_user/{guid} | # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
 *Amazonapi.OtherApi* | [**apiV1OtherPaymentsMyGet**](docs/OtherApi.md#apiV1OtherPaymentsMyGet) | **GET** /api/v1/other/payments/my | # Получить все оплаты, которые были начислены обратившемуся пользователю.
 *Amazonapi.OtherApi* | [**apiV1OtherUploadFilePost**](docs/OtherApi.md#apiV1OtherUploadFilePost) | **POST** /api/v1/other/upload_file | # Загрузить изображение.
-*Amazonapi.PermissionsApi* | [**apiV1PermissionsAdminsGuidDelete**](docs/PermissionsApi.md#apiV1PermissionsAdminsGuidDelete) | **DELETE** /api/v1/permissions/admins/{guid} | # Удалить permission по его GUID.
-*Amazonapi.PermissionsApi* | [**apiV1PermissionsAdminsGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsAdminsGuidPatch) | **PATCH** /api/v1/permissions/admins/{guid} | #  Изменить permission.
 *Amazonapi.PermissionsApi* | [**apiV1PermissionsGet**](docs/PermissionsApi.md#apiV1PermissionsGet) | **GET** /api/v1/permissions/ | Получить список permissions.
-*Amazonapi.PermissionsApi* | [**apiV1PermissionsGroupsAdminsGuidDelete**](docs/PermissionsApi.md#apiV1PermissionsGroupsAdminsGuidDelete) | **DELETE** /api/v1/permissions/groups/admins/{guid} | # Удалить группу permission по его GUID.
-*Amazonapi.PermissionsApi* | [**apiV1PermissionsGroupsAdminsGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsGroupsAdminsGuidPatch) | **PATCH** /api/v1/permissions/groups/admins/{guid} | #  Изменить группу permission.
 *Amazonapi.PermissionsApi* | [**apiV1PermissionsGroupsGet**](docs/PermissionsApi.md#apiV1PermissionsGroupsGet) | **GET** /api/v1/permissions/groups | Получить список групп permissions.
+*Amazonapi.PermissionsApi* | [**apiV1PermissionsGroupsGuidDelete**](docs/PermissionsApi.md#apiV1PermissionsGroupsGuidDelete) | **DELETE** /api/v1/permissions/groups/{guid} | # Удалить группу permission по его GUID.
+*Amazonapi.PermissionsApi* | [**apiV1PermissionsGroupsGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsGroupsGuidPatch) | **PATCH** /api/v1/permissions/groups/{guid} | #  Изменить группу permission.
 *Amazonapi.PermissionsApi* | [**apiV1PermissionsGroupsPost**](docs/PermissionsApi.md#apiV1PermissionsGroupsPost) | **POST** /api/v1/permissions/groups | # Создать группу permission.
+*Amazonapi.PermissionsApi* | [**apiV1PermissionsGuidDelete**](docs/PermissionsApi.md#apiV1PermissionsGuidDelete) | **DELETE** /api/v1/permissions/{guid} | # Удалить permission по его GUID.
+*Amazonapi.PermissionsApi* | [**apiV1PermissionsGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsGuidPatch) | **PATCH** /api/v1/permissions/{guid} | #  Изменить permission.
 *Amazonapi.PermissionsApi* | [**apiV1PermissionsPost**](docs/PermissionsApi.md#apiV1PermissionsPost) | **POST** /api/v1/permissions/ | # Создать permission.
+*Amazonapi.PermissionsApi* | [**apiV1PermissionsSetForUserGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsSetForUserGuidPatch) | **PATCH** /api/v1/permissions/set-for-user/{guid} | #   Мастер пользователь задает пермишены своим суб пользователям.
 *Amazonapi.ProductApi* | [**apiV1ProductsAddSuppliersGuidPost**](docs/ProductApi.md#apiV1ProductsAddSuppliersGuidPost) | **POST** /api/v1/products/add_suppliers/{guid} | Добавить поставщиков к продукту.
 *Amazonapi.ProductApi* | [**apiV1ProductsRemoveSuppliersGuidPost**](docs/ProductApi.md#apiV1ProductsRemoveSuppliersGuidPost) | **POST** /api/v1/products/remove_suppliers/{guid} | Удалить поставщиков из продукта.
 *Amazonapi.ProductSearchRequestApi* | [**apiV1ProductSearchRequestsAddRequestPost**](docs/ProductSearchRequestApi.md#apiV1ProductSearchRequestsAddRequestPost) | **POST** /api/v1/product_search_requests/add_request | # Создать заявку на поиск товара.
@@ -244,8 +245,13 @@ Class | Method | HTTP request | Description
 *Amazonapi.UserApi* | [**apiV1UsersInfoGet**](docs/UserApi.md#apiV1UsersInfoGet) | **GET** /api/v1/users/info | Получить информацию от текущем пользователе.
 *Amazonapi.UserApi* | [**apiV1UsersLinkSubUserPatch**](docs/UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка суб пользователя.
 *Amazonapi.UserApi* | [**apiV1UsersMePatch**](docs/UserApi.md#apiV1UsersMePatch) | **PATCH** /api/v1/users/me | # Обновления информации о себе самим пользователем.
+*Amazonapi.UserApi* | [**apiV1UsersMySubUsersGet**](docs/UserApi.md#apiV1UsersMySubUsersGet) | **GET** /api/v1/users/my_sub-users | Получить список сабюзеров мастер пользователя.
 *Amazonapi.UserApi* | [**apiV1UsersPost**](docs/UserApi.md#apiV1UsersPost) | **POST** /api/v1/users/ | Создание нового пользователя. Регистрация.
 *Amazonapi.UserApi* | [**apiV1UsersSignInPost**](docs/UserApi.md#apiV1UsersSignInPost) | **POST** /api/v1/users/sign_in | # Получение токена авторизации.
+*Amazonapi.UserApi* | [**apiV1UsersUnlinkSubUserPatch**](docs/UserApi.md#apiV1UsersUnlinkSubUserPatch) | **PATCH** /api/v1/users/unlink_sub-user | # Отвязка суб пользователя.
+*Amazonapi.UserApi* | [**apiV1UsersUserSettingsMyGet**](docs/UserApi.md#apiV1UsersUserSettingsMyGet) | **GET** /api/v1/users/user-settings/my | Получить настройки пользователя.
+*Amazonapi.UserApi* | [**apiV1UsersUserSettingsMyPatch**](docs/UserApi.md#apiV1UsersUserSettingsMyPatch) | **PATCH** /api/v1/users/user-settings/my | #  Изменения пользователем своих настроек.
+*Amazonapi.UserApi* | [**apiV1UsersUserSettingsPost**](docs/UserApi.md#apiV1UsersUserSettingsPost) | **POST** /api/v1/users/user-settings | Создание настроек пользователя.
 
 
 ## Documentation for Models
@@ -266,6 +272,7 @@ Class | Method | HTTP request | Description
  - [Amazonapi.ApiV1BoxesMergeBoxBody](docs/ApiV1BoxesMergeBoxBody.md)
  - [Amazonapi.ApiV1BoxesSplitBoxItems](docs/ApiV1BoxesSplitBoxItems.md)
  - [Amazonapi.ApiV1BoxesSplitNewBoxesParams](docs/ApiV1BoxesSplitNewBoxesParams.md)
+ - [Amazonapi.ApiV1UsersUserSettingsData](docs/ApiV1UsersUserSettingsData.md)
  - [Amazonapi.BadRequestError](docs/BadRequestError.md)
  - [Amazonapi.ConflictInTheState](docs/ConflictInTheState.md)
  - [Amazonapi.DefaultHeaders](docs/DefaultHeaders.md)
@@ -308,6 +315,10 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineObject40](docs/InlineObject40.md)
  - [Amazonapi.InlineObject41](docs/InlineObject41.md)
  - [Amazonapi.InlineObject42](docs/InlineObject42.md)
+ - [Amazonapi.InlineObject43](docs/InlineObject43.md)
+ - [Amazonapi.InlineObject44](docs/InlineObject44.md)
+ - [Amazonapi.InlineObject45](docs/InlineObject45.md)
+ - [Amazonapi.InlineObject46](docs/InlineObject46.md)
  - [Amazonapi.InlineObject5](docs/InlineObject5.md)
  - [Amazonapi.InlineObject6](docs/InlineObject6.md)
  - [Amazonapi.InlineObject7](docs/InlineObject7.md)
@@ -319,6 +330,7 @@ Class | Method | HTTP request | Description
  - [Amazonapi.InlineResponse20011](docs/InlineResponse20011.md)
  - [Amazonapi.InlineResponse20011Info](docs/InlineResponse20011Info.md)
  - [Amazonapi.InlineResponse20012](docs/InlineResponse20012.md)
+ - [Amazonapi.InlineResponse20013](docs/InlineResponse20013.md)
  - [Amazonapi.InlineResponse2002](docs/InlineResponse2002.md)
  - [Amazonapi.InlineResponse2003](docs/InlineResponse2003.md)
  - [Amazonapi.InlineResponse2004](docs/InlineResponse2004.md)

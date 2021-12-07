@@ -22,11 +22,11 @@ class InlineObject42 {
     /**
      * Constructs a new <code>InlineObject42</code>.
      * @alias module:model/InlineObject42
-     * @param role {Number} Роль на которую требуется переключиться.
+     * @param email {String} 
      */
-    constructor(role) { 
+    constructor(email) { 
         
-        InlineObject42.initialize(this, role);
+        InlineObject42.initialize(this, email);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject42 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, role) { 
-        obj['role'] = role;
+    static initialize(obj, email) { 
+        obj['email'] = email;
     }
 
     /**
@@ -49,8 +49,8 @@ class InlineObject42 {
         if (data) {
             obj = obj || new InlineObject42();
 
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
         }
         return obj;
@@ -60,10 +60,9 @@ class InlineObject42 {
 }
 
 /**
- * Роль на которую требуется переключиться.
- * @member {Number} role
+ * @member {String} email
  */
-InlineObject42.prototype['role'] = undefined;
+InlineObject42.prototype['email'] = undefined;
 
 
 

@@ -13,8 +13,8 @@
 
 
 import ApiClient from "../ApiClient";
-import InlineObject26 from '../model/InlineObject26';
 import InlineObject27 from '../model/InlineObject27';
+import InlineObject28 from '../model/InlineObject28';
 import InlineResponse2009 from '../model/InlineResponse2009';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InlineResponse400 from '../model/InlineResponse400';
@@ -45,17 +45,17 @@ export default class ProductSearchRequestApi {
     /**
      * # Создать заявку на поиск товара.
      * ## Добавление клиентом новой заявки на поиск товара. Рассчитывается исходя из формулы: бюджет Клиента деленный на количество необходимых предложений указанное Клиентом + стоимость работы Супервизора (в случае если в заявке указана необходимость проверки предложений от Ресерчеров Супервизором) – обратите внимание, что в списке выводится только стоимость подачи предложения для Ресерчера, без учета стоимости работы Супервизора!  
-     * @param {module:model/InlineObject26} InlineObject26 
+     * @param {module:model/InlineObject27} InlineObject27 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
-    apiV1ProductSearchRequestsAddRequestPostWithHttpInfo(InlineObject26, opts) {
+    apiV1ProductSearchRequestsAddRequestPostWithHttpInfo(InlineObject27, opts) {
       opts = opts || {};
-      let postBody = InlineObject26;
-      // verify the required parameter 'InlineObject26' is set
-      if (InlineObject26 === undefined || InlineObject26 === null) {
-        throw new Error("Missing the required parameter 'InlineObject26' when calling apiV1ProductSearchRequestsAddRequestPost");
+      let postBody = InlineObject27;
+      // verify the required parameter 'InlineObject27' is set
+      if (InlineObject27 === undefined || InlineObject27 === null) {
+        throw new Error("Missing the required parameter 'InlineObject27' when calling apiV1ProductSearchRequestsAddRequestPost");
       }
 
       let pathParams = {
@@ -82,13 +82,13 @@ export default class ProductSearchRequestApi {
     /**
      * # Создать заявку на поиск товара.
      * ## Добавление клиентом новой заявки на поиск товара. Рассчитывается исходя из формулы: бюджет Клиента деленный на количество необходимых предложений указанное Клиентом + стоимость работы Супервизора (в случае если в заявке указана необходимость проверки предложений от Ресерчеров Супервизором) – обратите внимание, что в списке выводится только стоимость подачи предложения для Ресерчера, без учета стоимости работы Супервизора!  
-     * @param {module:model/InlineObject26} InlineObject26 
+     * @param {module:model/InlineObject27} InlineObject27 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
-    apiV1ProductSearchRequestsAddRequestPost(InlineObject26, opts) {
-      return this.apiV1ProductSearchRequestsAddRequestPostWithHttpInfo(InlineObject26, opts)
+    apiV1ProductSearchRequestsAddRequestPost(InlineObject27, opts) {
+      return this.apiV1ProductSearchRequestsAddRequestPostWithHttpInfo(InlineObject27, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -251,12 +251,12 @@ export default class ProductSearchRequestApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject27} opts.InlineObject27 
+     * @param {module:model/InlineObject28} opts.InlineObject28 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductSearchRequestsUpdateRequestGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['InlineObject27'];
+      let postBody = opts['InlineObject28'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
         throw new Error("Missing the required parameter 'guid' when calling apiV1ProductSearchRequestsUpdateRequestGuidPatch");
@@ -290,7 +290,7 @@ export default class ProductSearchRequestApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
-     * @param {module:model/InlineObject27} opts.InlineObject27 
+     * @param {module:model/InlineObject28} opts.InlineObject28 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductSearchRequestsUpdateRequestGuidPatch(guid, opts) {

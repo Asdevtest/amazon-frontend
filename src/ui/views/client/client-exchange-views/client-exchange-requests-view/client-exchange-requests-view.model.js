@@ -29,7 +29,11 @@ export class ClientExchangeRequestsViewModel {
 
   searchRequests = []
 
-  requestFormSettings = {request: {}, isEdit: false, onSubmit: data => this.onSubmitCreateProductSearchRequest(data)}
+  requestFormSettings = {
+    request: {},
+    isEdit: false,
+    onSubmit: data => this.onSubmitCreateProductSearchRequest(data),
+  }
 
   rowHandlers = {
     onClickRemoveBtn: id => this.onClickRemoveBtn(id),
