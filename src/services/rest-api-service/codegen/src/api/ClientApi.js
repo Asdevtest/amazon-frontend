@@ -56,6 +56,7 @@ export default class ClientApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
      */
+
     apiV1ClientsBatchesGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
@@ -81,7 +82,7 @@ export default class ClientApi {
       );
     }
 
-    /**
+    /** 
      * # Получить партии.
      * ## Получить партии.  
      * @param {Object} opts Optional parameters

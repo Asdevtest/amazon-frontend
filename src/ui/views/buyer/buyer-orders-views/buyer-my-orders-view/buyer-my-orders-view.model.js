@@ -31,6 +31,7 @@ const updateOrderKeys = [
   'buyerComment',
   'totalPriceChanged',
   'images',
+  'yuanToDollarRate',
 ]
 
 const updateOrderKeysWithoutStatus = [
@@ -44,6 +45,7 @@ const updateOrderKeysWithoutStatus = [
   'buyerComment',
   'totalPriceChanged',
   'images',
+  'yuanToDollarRate',
 ]
 
 export class BuyerMyOrdersViewModel {

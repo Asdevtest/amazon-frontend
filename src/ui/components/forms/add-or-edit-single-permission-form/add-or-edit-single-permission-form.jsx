@@ -50,7 +50,8 @@ export const AddOrEditSinglePermissionForm = observer(({onCloseModal, onSubmit, 
 
   const addAllowUrl = () => {
     const newFormFields = {...formFields}
-    newFormFields.allowedUrl.push('')
+    const newArr = newFormFields.allowedUrl.concat('')
+    newFormFields.allowedUrl = newArr
     setFormFields(newFormFields)
   }
 
@@ -68,7 +69,6 @@ export const AddOrEditSinglePermissionForm = observer(({onCloseModal, onSubmit, 
     formFields.description === '' ||
     !formFields.allowedUrl[0] ||
     formFields.role === 'None'
-
   return (
     <div className={classNames.root}>
       <Typography variant="h5">{isEdit ? textConsts.editTitle : textConsts.addTitle}</Typography>

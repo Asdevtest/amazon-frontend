@@ -39,8 +39,8 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedBatchIndex}) =>
       <TableCell>{item.batch.scheduledDispatchDate}</TableCell>
       <TableCell>{box.items[0].amount}</TableCell>
       <TableCell>{box.status}</TableCell>
-      <TableCell>{box.createdBy}</TableCell>
-      <TableCell>{box.lastModifiedBy}</TableCell>
+      <TableCell>{box.createdBy?.name}</TableCell>
+      <TableCell>{box.lastModifiedBy?.name}</TableCell>
       {boxIndex === 0 && (
         <>
           <TableCell rowSpan={boxQty}>{warehouses[item.batch.warehouse]}</TableCell>

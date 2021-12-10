@@ -62,6 +62,7 @@ class ClientBatchesViewRaw extends Component {
       onClickTableRow,
       onDoubleClickTableRow,
     }
+
     return (
       <React.Fragment>
         <Navbar

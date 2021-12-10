@@ -765,6 +765,7 @@ export default class AdministratorApi {
      * @param {String} opts.Accept_Encoding  (default to 'gzip, deflate')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
      */
+
   apiV1AdminsUsersGetWithHttpInfo(opts) {
     opts = opts || {}
     let postBody = null
@@ -797,6 +798,7 @@ export default class AdministratorApi {
   }
 
   /**
+
      * Получить всех пользователей.
      * ## Получить всех пользователей.   
      * @param {Object} opts Optional parameters

@@ -10,7 +10,7 @@ import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervis
 import {SupplierModel} from '@models/supplier-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
-import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
+import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayWhiteList,
@@ -134,7 +134,10 @@ export class SupervisorProductViewModel {
       if (['checkednotes'].includes(fieldName)) {
         this.product[fieldName] = e.target.value
       } else {
-        if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+        if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
+          return
+        }
+        if (!['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 5)) {
           return
         }
 

@@ -91,12 +91,13 @@ export const EditOrderModal = ({
     trackingNumberChina: order?.trackingNumberChina,
     batchPrice: 0,
     totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
+    yuanToDollarRate: order?.yuanToDollarRate || 6.3,
   })
 
   const setOrderField = filedName => e => {
     const newOrderFieldsState = {...orderFields}
 
-    if (['totalPriceChanged', 'deliveryCostToTheWarehouse'].includes(filedName)) {
+    if (['totalPriceChanged', 'deliveryCostToTheWarehouse', 'yuanToDollarRate'].includes(filedName)) {
       if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
         return
       }

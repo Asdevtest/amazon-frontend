@@ -26,7 +26,9 @@ export const adminFinancesViewColumns = () => [
     field: 'comment',
     headerName: textConsts.commentField,
     width: 400,
-    renderCell: params => <ScrollingCell value={`${params.value} ${params.row.product?.id}`} />,
+    renderCell: params => (
+      <ScrollingCell value={`${params.value} ${params.row?.product ? params.row.product?.id : ''}`} />
+    ),
   },
 
   {

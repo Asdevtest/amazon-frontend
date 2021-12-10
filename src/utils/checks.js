@@ -24,5 +24,18 @@ export const checkIsMoreTwoCharactersAfterDot = str => {
   }
   return true
 }
+
+export const checkIsMoreNCharactersAfterDot = (str, max) => {
+  str += ''
+  const indexOfDot = str.indexOf('.')
+  const dotPositionFromEnd = indexOfDot - str.length
+  if (indexOfDot === -1 || dotPositionFromEnd >= -max) {
+    return false
+  }
+  return true
+}
 export const checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot = str =>
   checkIsPositiveNum(str) && !checkIsMoreTwoCharactersAfterDot(str)
+
+export const checkIsPositiveNummberAndNoMoreNCharactersAfterDot = (str, max) =>
+  checkIsPositiveNum(str) && !checkIsMoreNCharactersAfterDot(str, max)

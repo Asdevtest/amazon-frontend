@@ -97,7 +97,7 @@ export const AdminContentModal = observer(
               onChange={onChangeFormField('role')}
             >
               {Object.keys(UserRoleCodeMap)
-                .filter(role => UserRoleCodeMap[role] !== UserRole.CANDIDATE)
+                // .filter(role => UserRoleCodeMap[role] !== UserRole.CANDIDATE)
                 .map(userRoleCode => (
                   <option key={userRoleCode} value={userRoleCode}>
                     {UserRoleCodeMap[userRoleCode]}
@@ -116,12 +116,14 @@ export const AdminContentModal = observer(
               renderValue={selected => selected.map(el => UserRoleCodeMap[el]).join(', ')}
               onChange={onChangeFormField('allowedRoles')}
             >
-              {Object.keys(UserRoleCodeMap).map((role, index) => (
-                <MenuItem key={index} value={Number(role)}>
-                  <Checkbox color="primary" checked={formFields.allowedRoles.includes(Number(role))} />
-                  <ListItemText primary={UserRoleCodeMap[role]} />
-                </MenuItem>
-              ))}
+              {Object.keys(UserRoleCodeMap)
+                .filter(role => UserRoleCodeMap[role] !== UserRole.CANDIDATE)
+                .map((role, index) => (
+                  <MenuItem key={index} value={Number(role)}>
+                    <Checkbox color="primary" checked={formFields.allowedRoles.includes(Number(role))} />
+                    <ListItemText primary={UserRoleCodeMap[role]} />
+                  </MenuItem>
+                ))}
             </Select>
           }
         />

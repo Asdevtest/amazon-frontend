@@ -29,7 +29,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'totalPriceChanged',
     headerName: textConsts.neededToPayExtraField,
     width: 250,
-    renderCell: params => renderFieldValueCell(params.row.totalPriceChanged - params.row.totalPrice),
+    renderCell: params => renderFieldValueCell((params.row.totalPriceChanged - params.row.totalPrice).toFixed(2)),
   },
 
   {
