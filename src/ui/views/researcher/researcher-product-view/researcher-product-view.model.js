@@ -14,7 +14,7 @@ import {ResearcherUpdateProductContract} from '@models/researcher-model/research
 import {SupplierModel} from '@models/supplier-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
-import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
+import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {
   getObjectFilteredByKeyArrayWhiteList,
@@ -156,7 +156,10 @@ export class ResearcherProductViewModel {
       if (['icomment'].includes(fieldName)) {
         this.product[fieldName] = e.target.value
       } else {
-        if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+        if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
+          return
+        }
+        if (!['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 5)) {
           return
         }
         if (['fbaamount'].includes(fieldName)) {
@@ -165,6 +168,7 @@ export class ResearcherProductViewModel {
           this.product[fieldName] = e.target.value
         }
       }
+
       if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba'].includes(fieldName)) {
         updateProductAutoCalculatedFields.call(this)
       }

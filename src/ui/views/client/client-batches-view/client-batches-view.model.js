@@ -56,7 +56,7 @@ export class ClientBatchesViewModel {
   }
 
   onClickTableRow(batch, index) {
-    if (this.selectedBatchIndex === index) {
+    if (this.selectedBatchIndex !== index) {
       this.selectedBatchIndex = undefined
     } else {
       this.selectedBatchIndex = index

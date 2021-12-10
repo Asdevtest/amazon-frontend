@@ -1093,6 +1093,9 @@ export const texts = {
       modalEditTitle: 'Edit subuser',
       modalEditBtn: 'Save changes',
 
+      successTitle: 'Саб-юзер добавлен',
+      failTitle: 'Саб-юзер не добавлен!',
+
       okBtn: 'Ок',
 
       confirmTitle: 'Внимание',

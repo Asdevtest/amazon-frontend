@@ -136,6 +136,9 @@ class InlineResponse2001 {
       }
       if (data.hasOwnProperty('createdBy')) {
         obj['createdBy'] = ApiV1AdminsOrdersCreatedBy.constructFromObject(data['createdBy'])
+      }      
+      if (data.hasOwnProperty('yuanToDollarRate')) {
+        obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number')
       }
     }
     return obj

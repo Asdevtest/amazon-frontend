@@ -74,7 +74,7 @@ class WarehouseSubUsersViewRaw extends Component {
       onSubmitUserPermissionsForm,
       onSubmitUnlinkSubUser,
     } = this.viewModel
-
+    console.log(warningInfoModalSettings)
     return (
       <React.Fragment>
         <Navbar

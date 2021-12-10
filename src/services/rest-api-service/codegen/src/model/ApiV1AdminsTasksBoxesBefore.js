@@ -165,7 +165,7 @@ class ApiV1AdminsTasksBoxesBefore {
             }
             if (data.hasOwnProperty('sendToBatchComplete')) {
                 obj['sendToBatchComplete'] = ApiClient.convertToType(data['sendToBatchComplete'], 'Boolean');
-            }
+            }            
         }
         return obj;
     }

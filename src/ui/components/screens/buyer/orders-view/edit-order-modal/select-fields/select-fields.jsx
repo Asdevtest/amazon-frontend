@@ -22,7 +22,6 @@ import {toFixed, withDollarSign, withYuanSign} from '@utils/text'
 import {useClassNames} from './select-fields.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').ordersViewsModalSelectFields
-const defaultYuansToDollarRate = 6.3
 
 const allowOrderStatuses = [
   `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`,
@@ -48,14 +47,13 @@ export const SelectFields = ({
   const [priceYuansDeliveryCostToTheWarehouse, setPriceYuansDeliveryCostToTheWarehouse] = useState('')
 
   const [usePriceInDollars, setUsePriceInDollars] = useState(true)
-  const [yuansToDollarRate, setYuansToDollarRate] = useState(defaultYuansToDollarRate)
 
   const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(
     orderFields.totalPriceChanged === orderFields.totalPrice,
   )
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
-
+  console.log('orderFields', orderFields)
   return (
     <Grid container justify="space-around">
       <Grid item>
@@ -151,7 +149,7 @@ export const SelectFields = ({
                   inputProps={{maxLength: 24}}
                   value={
                     usePriceInDollars
-                      ? calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, yuansToDollarRate)
+                      ? calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, orderFields.yuanToDollarRate)
                       : priceYuansForBatch
                   }
                   className={classNames.input}
@@ -159,7 +157,9 @@ export const SelectFields = ({
                     if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
                       setPriceYuansForBatch(e.target.value)
                       setOrderField('totalPriceChanged')({
-                        target: {value: toFixed(Number(calcExchangePrice(e.target.value, yuansToDollarRate)), 2)},
+                        target: {
+                          value: toFixed(Number(calcExchangePrice(e.target.value, orderFields.yuanToDollarRate)), 2),
+                        },
                       })
                     }
                   }}
@@ -175,7 +175,10 @@ export const SelectFields = ({
                   inputProps={{maxLength: 24}}
                   value={
                     usePriceInDollars
-                      ? calcExchangeDollarsInYuansPrice(orderFields.deliveryCostToTheWarehouse, yuansToDollarRate)
+                      ? calcExchangeDollarsInYuansPrice(
+                          orderFields.deliveryCostToTheWarehouse,
+                          orderFields.yuanToDollarRate,
+                        )
                       : priceYuansDeliveryCostToTheWarehouse
                   }
                   className={classNames.input}
@@ -183,7 +186,9 @@ export const SelectFields = ({
                     if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
                       setPriceYuansDeliveryCostToTheWarehouse(e.target.value)
                       setOrderField('deliveryCostToTheWarehouse')({
-                        target: {value: toFixed(Number(calcExchangePrice(e.target.value, yuansToDollarRate)), 2)},
+                        target: {
+                          value: toFixed(Number(calcExchangePrice(e.target.value, orderFields.yuanToDollarRate)), 2),
+                        },
                       })
                     }
                   }}
@@ -197,10 +202,9 @@ export const SelectFields = ({
                 checked={usePriceInDollars}
                 color="primary"
                 onChange={() => {
-                  if (!usePriceInDollars) {
-                    setPriceYuansForBatch('')
-                    setYuansToDollarRate(defaultYuansToDollarRate)
-                  }
+                  setPriceYuansForBatch(
+                    calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, orderFields.yuanToDollarRate),
+                  )
                   setUsePriceInDollars(!usePriceInDollars)
                 }}
               />
@@ -210,15 +214,14 @@ export const SelectFields = ({
           <Box className={classNames.noFlexElement}>
             <Typography className={classNames.modalText}>{textConsts.yuansToDollarRateTypo}</Typography>
             <Input
-              disabled={usePriceInDollars || checkIsPlanningPrice}
+              disabled={checkIsPlanningPrice}
               inputProps={{maxLength: 24}}
-              value={yuansToDollarRate || 6.3}
+              value={orderFields.yuanToDollarRate}
               className={classNames.input}
               onChange={e => {
-                if (!isNaN(e.target.value) || Number(e.target.value) < 0) {
-                  setYuansToDollarRate(e.target.value)
-                  setOrderField('totalPriceChanged')({
-                    target: {value: calcExchangePrice(priceYuansForBatch, e.target.value)},
+                if (!isNaN(e.target.value) || (Number(e.target.value) < 0 && !checkIsPlanningPrice)) {
+                  setOrderField('yuanToDollarRate')({
+                    target: {value: e.target.value},
                   })
                 }
               }}
@@ -231,7 +234,11 @@ export const SelectFields = ({
                 <Input
                   disabled={!usePriceInDollars || checkIsPlanningPrice}
                   inputProps={{maxLength: 24}}
-                  value={orderFields.totalPriceChanged}
+                  value={
+                    !usePriceInDollars
+                      ? calcExchangePrice(priceYuansForBatch, orderFields.yuanToDollarRate)
+                      : orderFields.totalPriceChanged
+                  }
                   className={classNames.input}
                   onChange={setOrderField('totalPriceChanged')}
                 />
@@ -259,12 +266,14 @@ export const SelectFields = ({
           <Checkbox
             checked={checkIsPlanningPrice}
             color="primary"
-            onChange={() => {
+            onChange={e => {
               setCheckIsPlanningPrice(!checkIsPlanningPrice)
               setOrderField('totalPriceChanged')({
-                target: {value: orderFields.totalPrice},
+                target: {value: e},
               })
-              setPriceYuansForBatch(calcExchangeDollarsInYuansPrice(orderFields.totalPrice, yuansToDollarRate))
+              setPriceYuansForBatch(
+                calcExchangeDollarsInYuansPrice(orderFields.totalPrice, orderFields.yuanToDollarRate),
+              )
             }}
           />
           <Typography>{textConsts.checkIsPlanningPriceText}</Typography>
@@ -275,7 +284,9 @@ export const SelectFields = ({
             <Typography className={classNames.totalPrice}>{textConsts.totalPriceInYuans}</Typography>
             <Input
               disabled
-              value={withYuanSign(calcExchangeDollarsInYuansPrice(orderFields.totalPrice, yuansToDollarRate))}
+              value={withYuanSign(
+                calcExchangeDollarsInYuansPrice(orderFields.totalPrice, orderFields.yuanToDollarRate),
+              )}
               className={classNames.input}
             />
           </Box>

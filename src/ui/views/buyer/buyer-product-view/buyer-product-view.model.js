@@ -159,11 +159,13 @@ export class BuyerProductViewModel {
         break
       case 'accept':
         this.product.currentSupplierId = this.selectedSupplier._id
+        this.product.currentSupplier = this.selectedSupplier
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
         break
       case 'acceptRevoke':
         this.product.currentSupplierId = undefined
+        this.product.currentSupplier = undefined
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
         break
