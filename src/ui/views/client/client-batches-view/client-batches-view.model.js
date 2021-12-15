@@ -1,89 +1,157 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
+import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {warehouses} from '@constants/warehouses'
 
 import {ClientModel} from '@models/client-model'
+import {SettingsModel} from '@models/settings-model'
+
+import {batchesViewColumns} from '@components/table-columns/batches-columns'
+
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class ClientBatchesViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
-  rowsPerPage = 15
-  paginationPage = 1
+  batches = []
+  selectedBatches = []
+  curBatch = {}
 
-  batches = undefined
-  selectedBatchIndex = undefined
-  showEditBoxesModal = false
+  drawerOpen = false
+
+  showBatchInfoModal = false
+
+  rowHandlers = {
+    setCurrentOpenedBatch: row => this.setCurrentOpenedBatch(row),
+  }
+
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
+  rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = batchesViewColumns(this.rowHandlers)
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  async loadData() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getBatchesData()
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+  setDataGridState(state) {
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_BATCHES)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_BATCHES]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = batchesViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns?.lookup[el?.field]?.hide,
+      }))
     }
   }
 
-  async getBatchesData() {
-    try {
-      this.requestStatus = loadingStatuses.isLoading
-      this.error = undefined
-
-      const result = await ClientModel.getBatches()
-
-      runInAction(() => {
-        this.batches = result
-      })
-
-      this.requestStatus = loadingStatuses.success
-    } catch (error) {
-      this.requestStatus = loadingStatuses.failed
-      console.log(error)
-    }
-  }
-
-  onTriggerEditBoxesModal() {
-    this.showEditBoxesModal = !this.showEditBoxesModal
-  }
-
-  onClickTableRow(batch, index) {
-    if (this.selectedBatchIndex !== index) {
-      this.selectedBatchIndex = undefined
-    } else {
-      this.selectedBatchIndex = index
-    }
-  }
-
-  onDoubleClickTableRow(batch, index) {
-    if (this.selectedBatchIndex === index) {
-      this.selectedBatchIndex = undefined
-    } else {
-      this.selectedBatchIndex = index
-      this.onTriggerEditBoxesModal()
-    }
-  }
-
-  onChangePagination(e, value) {
-    this.paginationPage = value
+  onChangeFilterModel(model) {
+    this.filterModel = model
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = Number(e.target.value)
-    this.paginationPage = 1
+    this.rowsPerPage = e
   }
-  onChangeDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
-  }
+
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  onChangeDrawerOpen(e, value) {
+    this.drawerOpen = value
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onSelectionModel(model) {
+    this.selectedBatches = model
+  }
+
+  getCurrentData() {
+    return toJS(this.batches)
+  }
+
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      await this.getBatches()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  onTriggerDrawer() {
+    this.drawerOpen = !this.drawerOpen
+  }
+
+  onChangeCurPage(e) {
+    this.curPage = e
+  }
+
+  async getBatches() {
+    try {
+      const result = await ClientModel.getBatches()
+
+      runInAction(() => {
+        this.batches = result.map((item, i) => ({
+          ...item,
+          id: i,
+          tmpDelivery: DeliveryTypeByCode[item.batch.deliveryMethod],
+          tmpWarehouses: warehouses[item.batch.warehouse],
+          tmpFinalWeight: item.boxes.reduce(
+            (prev, box) =>
+              (prev =
+                prev +
+                Math.max(
+                  parseFloat(box.volumeWeightKgWarehouse ? box.volumeWeightKgWarehouse : box.volumeWeightKgSupplier) ||
+                    0,
+                  parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) || 0,
+                )),
+
+            0,
+          ),
+        }))
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  setCurrentOpenedBatch(row) {
+    this.curBatch = row
+    this.onTriggerOpenModal('showBatchInfoModal')
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }

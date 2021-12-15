@@ -13,7 +13,7 @@ class PermissionsModelStatic {
 
   updateSinglePermission = async (id, data) => {
     const response = await restApiService.permissionsApi.apiV1PermissionsGuidPatch(id, {
-      InlineObject23: data,
+      body: data,
     })
     return response
   }
@@ -35,7 +35,7 @@ class PermissionsModelStatic {
 
   updateGroupPermission = async (id, data) => {
     const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGuidPatch(id, {
-      InlineObject25: data,
+      body: data,
     })
     return response
   }
@@ -47,7 +47,7 @@ class PermissionsModelStatic {
 
   setPermissionsForUser = async (guid, data) => {
     const response = await restApiService.permissionsApi.apiV1PermissionsSetForUserGuidPatch(guid, {
-      InlineObject26: data,
+      body: data,
     })
     return response
   }

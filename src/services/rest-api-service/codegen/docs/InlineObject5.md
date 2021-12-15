@@ -1,4 +1,4 @@
-# Amazonapi.InlineObject5
+# TestSwagger.InlineObject5
 
 ## Properties
 

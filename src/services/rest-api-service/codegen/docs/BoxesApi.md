@@ -1,6 +1,6 @@
-# Amazonapi.BoxesApi
+# TestSwagger.BoxesApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**apiV1BoxesCancelSplitPost**](BoxesApi.md#apiV1BoxesCancelSplitPost) | **POST** /api/v1/boxes/cancel-split | # Отменить разделение коробок.
 [**apiV1BoxesClientsDraftsGet**](BoxesApi.md#apiV1BoxesClientsDraftsGet) | **GET** /api/v1/boxes/clients/drafts | # Получить черновики коробок и их строки по текущему клиенту.
 [**apiV1BoxesClientsGet**](BoxesApi.md#apiV1BoxesClientsGet) | **GET** /api/v1/boxes/clients | # Получить коробки и их строки по текущему клиенту.
+[**apiV1BoxesClientsSentToBatchGet**](BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # Получить коробки по текущему клиенту отправленные в партию.
 [**apiV1BoxesDraftsGet**](BoxesApi.md#apiV1BoxesDraftsGet) | **GET** /api/v1/boxes/drafts | # Получить черновики коробок и их строки.
 [**apiV1BoxesEditGuidPost**](BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку.
 [**apiV1BoxesGet**](BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
@@ -38,18 +39,18 @@ Method | HTTP request | Description
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject11': new Amazonapi.InlineObject11() // InlineObject11 | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject12() // InlineObject12 | 
 };
 apiInstance.apiV1BoxesApprovePost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -64,8 +65,8 @@ apiInstance.apiV1BoxesApprovePost(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject11** | [**InlineObject11**](InlineObject11.md)|  | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject12**](InlineObject12.md)|  | [optional] 
 
 ### Return type
 
@@ -92,18 +93,18 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let guid = "guid_example"; // String | GUID
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BoxesByOrderGuidGuidGet(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -119,7 +120,7 @@ apiInstance.apiV1BoxesByOrderGuidGuidGet(guid, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
@@ -146,18 +147,18 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let guid = "guid_example"; // String | GUID
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BoxesByProductGuidGuidGet(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -173,7 +174,7 @@ apiInstance.apiV1BoxesByProductGuidGuidGet(guid, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
@@ -191,7 +192,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesCalculateBoxDeliveryCostsInBatchPost
 
-> [Object] apiV1BoxesCalculateBoxDeliveryCostsInBatchPost(body, opts)
+> [Object] apiV1BoxesCalculateBoxDeliveryCostsInBatchPost(opts)
 
 # Рассчитать стоимость доставки коробов.
 
@@ -200,20 +201,20 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
-let body = null; // Object | 
+let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': null // Object | 
 };
-apiInstance.apiV1BoxesCalculateBoxDeliveryCostsInBatchPost(body, opts).then((data) => {
+apiInstance.apiV1BoxesCalculateBoxDeliveryCostsInBatchPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -226,8 +227,8 @@ apiInstance.apiV1BoxesCalculateBoxDeliveryCostsInBatchPost(body, opts).then((dat
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **Object**|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | **Object**|  | [optional] 
 
 ### Return type
 
@@ -254,18 +255,18 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject6': new Amazonapi.InlineObject6() // InlineObject6 | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject7() // InlineObject7 | 
 };
 apiInstance.apiV1BoxesCancelEditPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -280,8 +281,8 @@ apiInstance.apiV1BoxesCancelEditPost(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject6** | [**InlineObject6**](InlineObject6.md)|  | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject7**](InlineObject7.md)|  | [optional] 
 
 ### Return type
 
@@ -308,18 +309,18 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let guid = "guid_example"; // String | GUID коробки, объединение которой нужно отменить
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BoxesCancelEditWithDraftGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -335,7 +336,7 @@ apiInstance.apiV1BoxesCancelEditWithDraftGuidPost(guid, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID коробки, объединение которой нужно отменить | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
@@ -362,18 +363,18 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject8': new Amazonapi.InlineObject8() // InlineObject8 | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject9() // InlineObject9 | 
 };
 apiInstance.apiV1BoxesCancelMergePost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -388,8 +389,8 @@ apiInstance.apiV1BoxesCancelMergePost(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject8** | [**InlineObject8**](InlineObject8.md)|  | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject9**](InlineObject9.md)|  | [optional] 
 
 ### Return type
 
@@ -416,18 +417,18 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject10': new Amazonapi.InlineObject10() // InlineObject10 | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject11() // InlineObject11 | 
 };
 apiInstance.apiV1BoxesCancelSplitPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -442,8 +443,8 @@ apiInstance.apiV1BoxesCancelSplitPost(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject10** | [**InlineObject10**](InlineObject10.md)|  | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject11**](InlineObject11.md)|  | [optional] 
 
 ### Return type
 
@@ -470,17 +471,17 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BoxesClientsDraftsGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -495,7 +496,7 @@ apiInstance.apiV1BoxesClientsDraftsGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
@@ -517,22 +518,22 @@ Name | Type | Description  | Notes
 
 # Получить коробки и их строки по текущему клиенту.
 
-## Получить коробки(без черновиков) и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
+## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   
 
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BoxesClientsGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -547,7 +548,59 @@ apiInstance.apiV1BoxesClientsGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[ApiV1AdminsTasksBoxesBefore]**](ApiV1AdminsTasksBoxesBefore.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html
+
+
+## apiV1BoxesClientsSentToBatchGet
+
+> [ApiV1AdminsTasksBoxesBefore] apiV1BoxesClientsSentToBatchGet(opts)
+
+# Получить коробки по текущему клиенту отправленные в партию.
+
+## Получить коробки по текущему клиенту отправленные в партию.  ## GUID клиента получаем из токена.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BoxesApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BoxesClientsSentToBatchGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
@@ -574,17 +627,17 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BoxesDraftsGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -599,7 +652,7 @@ apiInstance.apiV1BoxesDraftsGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
@@ -617,7 +670,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesEditGuidPost
 
-> InlineResponse2011 apiV1BoxesEditGuidPost(guid, InlineObject5, opts)
+> InlineResponse2012 apiV1BoxesEditGuidPost(guid, opts)
 
 # Отредактировать коробку.
 
@@ -626,21 +679,21 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
-let InlineObject5 = new Amazonapi.InlineObject5(); // InlineObject5 | 
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject6() // InlineObject6 | 
 };
-apiInstance.apiV1BoxesEditGuidPost(guid, InlineObject5, opts).then((data) => {
+apiInstance.apiV1BoxesEditGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -654,12 +707,12 @@ apiInstance.apiV1BoxesEditGuidPost(guid, InlineObject5, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
- **InlineObject5** | [**InlineObject5**](InlineObject5.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject6**](InlineObject6.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2011**](InlineResponse2011.md)
+[**InlineResponse2012**](InlineResponse2012.md)
 
 ### Authorization
 
@@ -682,17 +735,17 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BoxesGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -707,7 +760,7 @@ apiInstance.apiV1BoxesGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
@@ -734,18 +787,18 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let guid = "guid_example"; // String | GUID для которой подтверждаем действие.
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BoxesGuidDelete(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -761,7 +814,7 @@ apiInstance.apiV1BoxesGuidDelete(guid, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID для которой подтверждаем действие. | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
@@ -779,7 +832,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesMergePost
 
-> InlineResponse2011 apiV1BoxesMergePost(opts)
+> InlineResponse2012 apiV1BoxesMergePost(opts)
 
 # Объединить две и более коробок.
 
@@ -788,18 +841,18 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject7': new Amazonapi.InlineObject7() // InlineObject7 | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject8() // InlineObject8 | 
 };
 apiInstance.apiV1BoxesMergePost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -814,8 +867,62 @@ apiInstance.apiV1BoxesMergePost(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject7** | [**InlineObject7**](InlineObject7.md)|  | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject8**](InlineObject8.md)|  | [optional] 
+
+### Return type
+
+[**InlineResponse2012**](InlineResponse2012.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: text/html
+
+
+## apiV1BoxesPost
+
+> InlineResponse2011 apiV1BoxesPost(opts)
+
+# Создать коробку и ее строки.
+
+## Создать коробку и ее строки.   ## Коробка состоит из шапки и строк (как накладная)   ## Коллекция Boxes содержит основные параметры коробки.   ## BoxesItems - коллекция которая содержит строки позиций в коробке.            У коробок есть еще такие параметры:            isActual - если false, то коробка удалена.            isDraft - если true, то коробка является черновиком. Его создал клиента при объеденении / разделении коробки            У клиента и у сотрудника склада их можно отфильтровать и обрабатывать в отдельном окне.         Сотрудник склада обработав позитивно изменение коробок от клиента просто ставит здесь (isDraft) false и коробка становится обычной.         Также у коробки созданной из других коробок заполнено поле parents. Это массив guid родительских коробок.         При отмене объединения коробок в базе по этим guid восстановим коробки isActual &#x3D; true. А новые будут удалены isActual &#x3D; false.         Также у коробки созданной при объединении/разделении будет заполнено поле brothers. Это guid других коробок которые были созданы вместе с этой из общих родителей.         Когда для любой из объединённых коробок будет запрошено удаление, восстановим старые коробки и кроме текущей коробки         будут удалены все ее братья.         
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BoxesApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject5() // InlineObject5 | 
+};
+apiInstance.apiV1BoxesPost(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject5**](InlineObject5.md)|  | [optional] 
 
 ### Return type
 
@@ -831,63 +938,9 @@ Name | Type | Description  | Notes
 - **Accept**: text/html
 
 
-## apiV1BoxesPost
-
-> InlineResponse201 apiV1BoxesPost(InlineObject4, opts)
-
-# Создать коробку и ее строки.
-
-## Создать коробку и ее строки.   ## Коробка состоит из шапки и строк (как накладная)   ## Коллекция Boxes содержит основные параметры коробки.   ## BoxesItems - коллекция которая содержит строки позиций в коробке.            У коробок есть еще такие параметры:            isActual - если false, то коробка удалена.            isDraft - если true, то коробка является черновиком. Его создал клиента при объеденении / разделении коробки            У клиента и у сотрудника склада их можно отфильтровать и обрабатывать в отдельном окне.         Сотрудник склада обработав позитивно изменение коробок от клиента просто ставит здесь (isDraft) false и коробка становится обычной.         Также у коробки созданной из других коробок заполнено поле parents. Это массив guid родительских коробок.         При отмене объединения коробок в базе по этим guid восстановим коробки isActual &#x3D; true. А новые будут удалены isActual &#x3D; false.         Также у коробки созданной при объединении/разделении будет заполнено поле brothers. Это guid других коробок которые были созданы вместе с этой из общих родителей.         Когда для любой из объединённых коробок будет запрошено удаление, восстановим старые коробки и кроме текущей коробки         будут удалены все ее братья.         
-
-### Example
-
-```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new Amazonapi.BoxesApi();
-let InlineObject4 = new Amazonapi.InlineObject4(); // InlineObject4 | 
-let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
-};
-apiInstance.apiV1BoxesPost(InlineObject4, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **InlineObject4** | [**InlineObject4**](InlineObject4.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
-
-### Return type
-
-[**InlineResponse201**](InlineResponse201.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: text/html
-
-
 ## apiV1BoxesRequestSendBoxesToBatchPost
 
-> String apiV1BoxesRequestSendBoxesToBatchPost(InlineObject14, opts)
+> String apiV1BoxesRequestSendBoxesToBatchPost(opts)
 
 # Запросить отправку набора коробок в партию.
 
@@ -896,20 +949,20 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
-let InlineObject14 = new Amazonapi.InlineObject14(); // InlineObject14 | 
+let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject15() // InlineObject15 | 
 };
-apiInstance.apiV1BoxesRequestSendBoxesToBatchPost(InlineObject14, opts).then((data) => {
+apiInstance.apiV1BoxesRequestSendBoxesToBatchPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -922,8 +975,8 @@ apiInstance.apiV1BoxesRequestSendBoxesToBatchPost(InlineObject14, opts).then((da
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject14** | [**InlineObject14**](InlineObject14.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject15**](InlineObject15.md)|  | [optional] 
 
 ### Return type
 
@@ -941,7 +994,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesSendBoxesToBatchPost
 
-> String apiV1BoxesSendBoxesToBatchPost(InlineObject13, opts)
+> String apiV1BoxesSendBoxesToBatchPost(opts)
 
 # Отправить набор коробок в партию.
 
@@ -950,20 +1003,20 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
-let InlineObject13 = new Amazonapi.InlineObject13(); // InlineObject13 | 
+let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject14() // InlineObject14 | 
 };
-apiInstance.apiV1BoxesSendBoxesToBatchPost(InlineObject13, opts).then((data) => {
+apiInstance.apiV1BoxesSendBoxesToBatchPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -976,8 +1029,8 @@ apiInstance.apiV1BoxesSendBoxesToBatchPost(InlineObject13, opts).then((data) => 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject13** | [**InlineObject13**](InlineObject13.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject14**](InlineObject14.md)|  | [optional] 
 
 ### Return type
 
@@ -1004,18 +1057,18 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject9': new Amazonapi.InlineObject9() // InlineObject9 | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject10() // InlineObject10 | 
 };
 apiInstance.apiV1BoxesSplitPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1030,8 +1083,8 @@ apiInstance.apiV1BoxesSplitPost(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject9** | [**InlineObject9**](InlineObject9.md)|  | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject10**](InlineObject10.md)|  | [optional] 
 
 ### Return type
 
@@ -1058,19 +1111,19 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BoxesApi();
+let apiInstance = new TestSwagger.BoxesApi();
 let guid = "guid_example"; // String | 
 let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject12': new Amazonapi.InlineObject12() // InlineObject12 | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject13() // InlineObject13 | 
 };
 apiInstance.apiV1BoxesStorekeepersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1086,8 +1139,8 @@ apiInstance.apiV1BoxesStorekeepersGuidPatch(guid, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject12** | [**InlineObject12**](InlineObject12.md)|  | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject13**](InlineObject13.md)|  | [optional] 
 
 ### Return type
 

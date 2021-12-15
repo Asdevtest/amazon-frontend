@@ -1,4 +1,4 @@
-# Amazonapi.PasteSuccessfully
+# TestSwagger.PasteSuccessfully
 
 ## Properties
 

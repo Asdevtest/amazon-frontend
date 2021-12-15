@@ -1,4 +1,4 @@
-# Amazonapi.ApiV1BoxesSplitBoxItems
+# TestSwagger.ApiV1BoxesSplitBoxItems
 
 ## Properties
 

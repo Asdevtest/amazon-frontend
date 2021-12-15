@@ -1,10 +1,12 @@
+import ListSubheader from '@mui/material/ListSubheader'
+
 import React, {useState} from 'react'
 
 import {Checkbox, Divider, ListItemText, MenuItem, Select, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
@@ -18,6 +20,14 @@ const textConsts = getLocalizedTexts(texts, 'en').addOrEditUserPermissionsForm
 export const AddOrEditUserPermissionsForm = observer(
   ({onCloseModal, onSubmit, permissionsToSelect, permissionGroupsToSelect, sourceData}) => {
     const classNames = useClassNames()
+    const objectSinglePermissions = permissionsToSelect.reduce(
+      (prev, item) => ({...prev, [item.role]: prev[item.role] ? [...prev[item.role], item] : [item]}),
+      {},
+    )
+    const objectGroupPermissions = permissionGroupsToSelect.reduce(
+      (prev, item) => ({...prev, [item.role]: prev[item.role] ? [...prev[item.role], item] : [item]}),
+      {},
+    )
 
     const sourceFormFields = {
       curPermissions: sourceData?.permissions || [],
@@ -25,6 +35,9 @@ export const AddOrEditUserPermissionsForm = observer(
     }
 
     const [formFields, setFormFields] = useState(sourceFormFields)
+
+    const [openSinglePermissions, setOpenSinglePermissions] = useState(false)
+    const [openGroupPermissions, setOpenGroupPermissions] = useState(false)
 
     const RenderGroupPermissionInfo = permGroup => {
       const [collapseInfo, setCollapseInfo] = useState(true)
@@ -74,8 +87,16 @@ export const AddOrEditUserPermissionsForm = observer(
       } = event
       const newFormFields = {...formFields}
       newFormFields[type] = typeof value === 'string' ? value.split(',') : value
-      setFormFields(newFormFields)
+
+      setFormFields(() => newFormFields)
     }
+
+    const renderMenuItem = (per, checkArr) => (
+      <MenuItem key={per._id} value={per._id}>
+        <Checkbox color="primary" checked={checkArr.includes(per._id)} />
+        <ListItemText primary={`${per.title} (ключ: ${per.key})`} />
+      </MenuItem>
+    )
 
     return (
       <div className={classNames.root}>
@@ -93,21 +114,93 @@ export const AddOrEditUserPermissionsForm = observer(
                   <Typography className={classNames.selectChoose}>{textConsts.selectChooseTitle}</Typography>
                   <Select
                     multiple
+                    open={openGroupPermissions}
                     className={classNames.permissionSelect}
                     value={formFields.curPermissionGroups}
-                    renderValue={selected => selected.join(', ')}
+                    renderValue={() => textConsts.choose}
+                    MenuProps={{
+                      PaperProps: {
+                        style: {
+                          maxHeight: 420,
+                        },
+                      },
+                    }}
+                    onClose={() => setOpenGroupPermissions(!openGroupPermissions)}
+                    onOpen={() => setOpenGroupPermissions(!openGroupPermissions)}
                     onChange={handleSelectPermissionChange('curPermissionGroups')}
                   >
-                    {permissionGroupsToSelect.map(perGroup => (
-                      <MenuItem key={perGroup._id} value={perGroup._id}>
-                        <Checkbox color="primary" checked={formFields.curPermissionGroups.includes(perGroup._id)} />
-                        <ListItemText
-                          primary={`${perGroup.title} (ключ: ${perGroup.key}) (роль: ${
-                            UserRoleCodeMap[perGroup.role]
-                          })`}
-                        />
-                      </MenuItem>
-                    ))}
+                    {objectGroupPermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] && (
+                      <ListSubheader>{UserRole.ADMIN}</ListSubheader>
+                    )}
+                    {objectGroupPermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] &&
+                      objectGroupPermissions[mapUserRoleEnumToKey[UserRole.ADMIN]].map(per =>
+                        renderMenuItem(per, formFields.curPermissionGroups),
+                      )}
+
+                    {objectGroupPermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] && (
+                      <ListSubheader>{UserRole.CLIENT}</ListSubheader>
+                    )}
+                    {objectGroupPermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] &&
+                      objectGroupPermissions[mapUserRoleEnumToKey[UserRole.CLIENT]].map(per =>
+                        renderMenuItem(per, formFields.curPermissionGroups),
+                      )}
+
+                    {objectGroupPermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] && (
+                      <ListSubheader>{UserRole.SUPERVISOR}</ListSubheader>
+                    )}
+                    {objectGroupPermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] &&
+                      objectGroupPermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]].map(per =>
+                        renderMenuItem(per, formFields.curPermissionGroups),
+                      )}
+
+                    {objectGroupPermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] && (
+                      <ListSubheader>{UserRole.RESEARCHER}</ListSubheader>
+                    )}
+                    {objectGroupPermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] &&
+                      objectGroupPermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]].map(per =>
+                        renderMenuItem(per, formFields.curPermissionGroups),
+                      )}
+
+                    {objectGroupPermissions[mapUserRoleEnumToKey[UserRole.BUYER]] && (
+                      <ListSubheader>{UserRole.BUYER}</ListSubheader>
+                    )}
+                    {objectGroupPermissions[mapUserRoleEnumToKey[UserRole.BUYER]] &&
+                      objectGroupPermissions[mapUserRoleEnumToKey[UserRole.BUYER]].map(per =>
+                        renderMenuItem(per, formFields.curPermissionGroups),
+                      )}
+
+                    {objectGroupPermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] && (
+                      <ListSubheader>{UserRole.STOREKEEPER}</ListSubheader>
+                    )}
+                    {objectGroupPermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] &&
+                      objectGroupPermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]].map(per =>
+                        renderMenuItem(per, formFields.curPermissionGroups),
+                      )}
+
+                    <div>
+                      <Button
+                        disableElevation
+                        className={classNames.button}
+                        color="primary"
+                        variant="contained"
+                        onClick={() => setOpenGroupPermissions(!openGroupPermissions)}
+                      >
+                        {textConsts.closeBtn}
+                      </Button>
+
+                      <Button
+                        disableElevation
+                        className={classNames.button}
+                        color="primary"
+                        variant="default"
+                        onClick={event => {
+                          event.stopPropagation()
+                          handleSelectPermissionChange('curPermissionGroups')({target: {value: []}})
+                        }}
+                      >
+                        {textConsts.clearBtn}
+                      </Button>
+                    </div>
                   </Select>
                 </div>
 
@@ -137,21 +230,93 @@ export const AddOrEditUserPermissionsForm = observer(
                   <Typography className={classNames.selectChoose}>{textConsts.selectChooseTitle}</Typography>
                   <Select
                     multiple
+                    open={openSinglePermissions}
                     className={classNames.permissionSelect}
                     value={formFields.curPermissions}
-                    renderValue={selected => selected.join(', ')}
+                    renderValue={() => textConsts.choose}
+                    MenuProps={{
+                      PaperProps: {
+                        style: {
+                          maxHeight: 420,
+                        },
+                      },
+                    }}
+                    onOpen={() => setOpenSinglePermissions(!openSinglePermissions)}
+                    onClose={() => setOpenSinglePermissions(!openSinglePermissions)}
                     onChange={handleSelectPermissionChange('curPermissions')}
                   >
-                    {permissionsToSelect.map(perGroup => (
-                      <MenuItem key={perGroup._id} value={perGroup._id}>
-                        <Checkbox color="primary" checked={formFields.curPermissions.includes(perGroup._id)} />
-                        <ListItemText
-                          primary={`${perGroup.title} (ключ: ${perGroup.key}) (роль: ${
-                            UserRoleCodeMap[perGroup.role]
-                          })`}
-                        />
-                      </MenuItem>
-                    ))}
+                    {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] && (
+                      <ListSubheader>{UserRole.ADMIN}</ListSubheader>
+                    )}
+                    {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] &&
+                      objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]].map(per =>
+                        renderMenuItem(per, formFields.curPermissions),
+                      )}
+
+                    {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] && (
+                      <ListSubheader>{UserRole.CLIENT}</ListSubheader>
+                    )}
+                    {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] &&
+                      objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]].map(per =>
+                        renderMenuItem(per, formFields.curPermissions),
+                      )}
+
+                    {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] && (
+                      <ListSubheader>{UserRole.SUPERVISOR}</ListSubheader>
+                    )}
+                    {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] &&
+                      objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]].map(per =>
+                        renderMenuItem(per, formFields.curPermissions),
+                      )}
+
+                    {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] && (
+                      <ListSubheader>{UserRole.RESEARCHER}</ListSubheader>
+                    )}
+                    {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] &&
+                      objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]].map(per =>
+                        renderMenuItem(per, formFields.curPermissions),
+                      )}
+
+                    {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]] && (
+                      <ListSubheader>{UserRole.BUYER}</ListSubheader>
+                    )}
+                    {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]] &&
+                      objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]].map(per =>
+                        renderMenuItem(per, formFields.curPermissions),
+                      )}
+
+                    {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] && (
+                      <ListSubheader>{UserRole.STOREKEEPER}</ListSubheader>
+                    )}
+                    {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] &&
+                      objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]].map(per =>
+                        renderMenuItem(per, formFields.curPermissions),
+                      )}
+
+                    <div>
+                      <Button
+                        disableElevation
+                        className={classNames.button}
+                        color="primary"
+                        variant="contained"
+                        onClick={() => setOpenSinglePermissions(!openSinglePermissions)}
+                      >
+                        {textConsts.closeBtn}
+                      </Button>
+
+                      <Button
+                        disableElevation
+                        className={classNames.button}
+                        color="primary"
+                        variant="default"
+                        onClick={event => {
+                          event.stopPropagation()
+                          handleSelectPermissionChange('curPermissions')({target: {value: []}})
+                        }}
+                      >
+                        {textConsts.clearBtn}
+                      </Button>
+                    </div>
                   </Select>
                 </div>
 

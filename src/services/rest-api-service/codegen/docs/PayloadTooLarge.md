@@ -1,4 +1,4 @@
-# Amazonapi.PayloadTooLarge
+# TestSwagger.PayloadTooLarge
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# Amazonapi.ApiV1BoxesItems
+# TestSwagger.ApiV1BoxesItems
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# Amazonapi.ApiV1AdminsGetProductsByStatusListingSupplierCompetitors
+# TestSwagger.ApiV1AdminsGetProductsByStatusListingSupplierCompetitors
 
 ## Properties
 

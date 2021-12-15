@@ -1,4 +1,4 @@
-# Amazonapi.InlineObject32
+# TestSwagger.InlineObject32
 
 ## Properties
 
@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **fbaamount** | **Number** |  Общая сумма с фба. | [optional] 
 **fbalink** | **String** |  | [optional] 
 **delivery** | **Number** | Стоимость доставки. | [optional] 
-**status** | **Number** |  Статус товара. У ресечера: 0 - новый товар. 5- готов к проверке супером. 10 - новый товар с поставщиком | [optional] [default to StatusEnum.0]
+**status** | **Number** |  Статус товара. У ресечера: 0 - новый товар. 5- готов к проверке супером. 10 - новый товар с поставщиком | [optional] 
 **icomment** | **String** | Комментарии к товару. | [optional] 
 **images** | **[String]** | Массив изображений. | [optional] 
 **amazonDescription** | **String** |  | [optional] 
@@ -45,19 +45,6 @@ Name | Type | Description | Notes
 **listingSupplierImportantPoints** | **String** |  | [optional] 
 **listingExtraInfo** | **String** |  | [optional] 
 **listingSupplierCompetitors** | [**[ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]**](ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md) | Массив объектов: ссылки и комментарии к конкурентам | [optional] 
-**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] [default to 0]
-
-
-
-## Enum: StatusEnum
-
-
-* `0` (value: `0`)
-
-* `5` (value: `5`)
-
-* `10` (value: `10`)
-
-
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
 
 

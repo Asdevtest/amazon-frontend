@@ -1,4 +1,4 @@
-# Amazonapi.ApiV1BatchesBatch
+# TestSwagger.ApiV1BatchesBatch
 
 ## Properties
 

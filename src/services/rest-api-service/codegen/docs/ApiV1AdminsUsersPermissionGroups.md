@@ -1,4 +1,4 @@
-# Amazonapi.ApiV1AdminsUsersPermissionGroups
+# TestSwagger.ApiV1AdminsUsersPermissionGroups
 
 ## Properties
 

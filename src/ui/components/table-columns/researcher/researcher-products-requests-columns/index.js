@@ -1,1 +1,1 @@
-export {researcherProductsRequestsViewColumns} from './researcher-products-requests-columns'
+export {researcherProductsRequestsViewColumns, typeOfRequests} from './researcher-products-requests-columns'

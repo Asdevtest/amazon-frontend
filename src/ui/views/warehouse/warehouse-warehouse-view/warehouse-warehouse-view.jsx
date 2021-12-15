@@ -10,8 +10,10 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {Navbar} from '@components/navbar'
 
 import {onStateChangeHandler} from '@utils/for-data-grid'
@@ -34,6 +36,11 @@ export class WarehouseWarehouseViewRaw extends Component {
 
   render() {
     const {
+      selectedBatches,
+      curBatch,
+      showBatchInfoModal,
+      onTriggerOpenModal,
+
       getCurrentData,
       sortModel,
       filterModel,
@@ -51,6 +58,9 @@ export class WarehouseWarehouseViewRaw extends Component {
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+
+      onClickConfirmSendToBatchBtn,
+      onChangeFilterModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -69,8 +79,18 @@ export class WarehouseWarehouseViewRaw extends Component {
               <Typography paragraph variant="h5">
                 {textConsts.mainTitle}
               </Typography>
+              <Button
+                disableElevation
+                disabled={!selectedBatches.length}
+                color="primary"
+                variant="contained"
+                onClick={onClickConfirmSendToBatchBtn}
+              >
+                {textConsts.confirmSendBatchBtn}
+              </Button>
               <div className={classNames.tableWrapper}>
                 <DataGrid
+                  checkboxSelection
                   pagination
                   useResizeContainer
                   autoHeight
@@ -91,35 +111,27 @@ export class WarehouseWarehouseViewRaw extends Component {
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection[0])
+                    onSelectionModel(newSelection)
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
                   onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>
           </Appbar>
         </Main>
+
+        <BatchInfoModal
+          openModal={showBatchInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showBatchInfoModal')}
+          batch={curBatch}
+        />
       </React.Fragment>
     )
   }
-
-  // renderButtons = () => { ЭТА КНОПКА ЕЩЕ ПОЯВИТСЯ?
-  //   const {selectedBoxes, onClickConfirmSendToBatchBtn} = this.viewModel
-  //   return (
-  //     <Button
-  //       disableElevation
-  //       disabled={!selectedBoxes.length}
-  //       color="primary"
-  //       variant="contained"
-  //       onClick={onClickConfirmSendToBatchBtn}
-  //     >
-  //       {textConsts.confirmSendBatchBtn}
-  //     </Button>
-  //   )
-  // }
 }
 
 export const WarehouseWarehouseView = withStyles(styles)(WarehouseWarehouseViewRaw)

@@ -17,7 +17,7 @@ class StorekeeperModelStatic {
   }
 
   updateTask = async (id, data) => {
-    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksGuidPatch(id, {InlineObject34: data})
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksGuidPatch(id, {body: data})
     return response
   }
 
@@ -39,7 +39,7 @@ class StorekeeperModelStatic {
   }
 
   resolveTask = async (id, data) => {
-    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksDoneGuidPost(id, {InlineObject33: data})
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksDoneGuidPost(id, {body: data})
     return response
   }
 }

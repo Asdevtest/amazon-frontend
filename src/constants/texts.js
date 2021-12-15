@@ -441,6 +441,17 @@ export const texts = {
       tableForbidNicheField:
         'Запрещено добавлять ниши которые когда либо были проданы либо опубликованы на площадке по данной стратегии',
       tableExaminationQualityField: 'Сотрудники платформы будут участвовать в проверке качества предложения',
+
+      formCheckboxForbidLabel:
+        'Запрещено добавлять товары, которые когда-либо были проданы, либо опубликованы на площадке по данной стратегии.',
+      formCheckboxNoPayLabel: 'Не оплачиваю повторно купленные товары',
+      formCheckboxNoCheckLabel: 'Сотрудники платформы будут участвовать в проверке качества найденного товара.',
+      formCheckboxNoPurchasedNiches: 'Не предлагать ниши купленные мной',
+      formCheckboxNoPurchasedProducts: 'Не предлагать продукты купленные мной',
+      formCheckboxFindSupplier: 'Найти поставщика',
+
+      productTitle: 'Заявка на поиск продукта',
+      nicheTitle: 'Заявка на поиск ниши',
     },
 
     addOrEditSinglePermissionForm: {
@@ -489,6 +500,10 @@ export const texts = {
       editBtn: 'Изменить',
       createBtn: 'Создать разрешение',
       cancelBtn: 'Отмена',
+      clearBtn: 'Сбросить',
+
+      choose: 'Выбор',
+      closeBtn: 'Закрыть',
     },
 
     addOrEditGroupPermissionForm: {
@@ -514,10 +529,14 @@ export const texts = {
       keyFieldError: 'Значение должно содержать "_"',
 
       addNewPermBtn: 'Создать новое',
+      choose: 'Выбор',
+      closeBtn: 'Закрыть',
+      clearBtn: 'Сбросить',
 
       keyPermInfo: 'Ключ:',
       descriptionPermInfo: 'Описание:',
       allowedUrlPermInfo: 'Разрешенные эндпоинты:',
+      isWrongPermissionsSelect: 'Выбранные разрешения и текущая роль не совпадают!',
     },
 
     exchangeInventoryColumns: {
@@ -583,6 +602,26 @@ export const texts = {
       setBarcodeChipLabel: 'Set barcode',
       fbaAmountField: 'Recommend amount',
       actionField: 'Actions',
+    },
+
+    clientDailySellerBoardColumns: {
+      asinField: 'ASIN',
+      commentField: 'Comment',
+      skuField: 'SKU',
+      titleField: 'Title',
+      stockValueField: 'Count',
+      reservedField: 'Reserved',
+      roiField: 'ROI',
+    },
+
+    clientLast30DaySellerBoardColumns: {
+      asinField: 'ASIN',
+      commentField: 'Comment',
+      skuField: 'SKU',
+      titleField: 'Title',
+      stockValueField: 'Count',
+      reservedField: 'Reserved',
+      roiField: 'ROI',
     },
 
     exchangeAllColumns: {
@@ -1019,6 +1058,8 @@ export const texts = {
       confirmBtn: 'Подтвердить',
       rejectBtn: 'Отклонить',
       addPermissionsBtn: 'Назначить разрешения',
+
+      id: 'ID: ',
     },
 
     linkSubUserForm: {
@@ -1050,6 +1091,7 @@ export const texts = {
       isWrongPermissionsSelect: 'Выбранные разрешения и текущая роль не совпадают!',
 
       closeBtn: 'cancel',
+      choose: 'Выбор',
     },
 
     subUsersModalPermission: {
@@ -1559,6 +1601,20 @@ export const texts = {
       appBarUsername: 'Client',
       appUser: 'client',
     },
+
+    clientLast30DaySellerBoardView: {
+      mainTitle: 'Отчет seller board за 30 дней',
+      appBarTitle: 'Last 30 Day SellerBoard ',
+      appBarUsername: 'Client',
+      appUser: 'client',
+    },
+
+    clientDailySellerBoardView: {
+      mainTitle: 'Ежедневный seller board',
+      appBarTitle: 'SellerBoard',
+      appBarUsername: 'Client',
+      appUser: 'client',
+    },
     adminBatchesView: {
       editBatch: 'Редактировать партию',
       mainTitle: 'Мои отправления',
@@ -1929,7 +1985,7 @@ export const texts = {
       grossWeightField: 'Общий вес',
     },
 
-    warehouseBoxesTableColumns: {
+    batchesTableColumns: {
       createdAtField: 'Дата создания',
       ordersField: 'Продукт',
       ordersId: 'id Заказа',
@@ -1943,6 +1999,10 @@ export const texts = {
       trackIdField: 'Трек id',
       weightField: 'Финальный Вес',
       grossWeightField: 'Общий вес',
+      deliveryField: 'Доставка',
+
+      showBtn: 'Смотреть',
+      actionField: 'Действия',
     },
 
     adminTasksTableColumns: {
@@ -1976,6 +2036,7 @@ export const texts = {
       deadline: 'Deadline',
       costOfOneProposal: 'Cost of proposal',
       countOfProposals: 'Count of proposals',
+      limitOfProposals: 'Limit of proposals',
     },
 
     supervisorProductsTableColumns: {
@@ -2104,6 +2165,12 @@ export const texts = {
     clientOrderView: {
       mainTitle: 'Заказ',
       appBarTitle: 'Страница заказов',
+    },
+
+    orderContent: {
+      backBtn: 'Назад',
+      boxesAtOrder: 'Коробки к заказу:',
+      noBoxes: 'Коробок пока нет...',
     },
 
     ResearcherRequestView: {
@@ -2612,6 +2679,23 @@ export const texts = {
       warehouseLabel: 'Комментарий склада',
       clientPlaceholder: 'Комментарий клиента к задаче',
       warehousePlaceholder: 'Комментарий склада к задаче для клиента',
+    },
+
+    batchInfoModal: {
+      divideBox: 'Разделить коробки',
+      mergeBoxes: 'Соединить коробки',
+      receiveBoxes: 'Принять коробку',
+      editBox: 'Изменить коробку',
+      closeBtn: 'Закрыть',
+
+      clientLabel: 'Комментарий клиента',
+      warehouseLabel: 'Комментарий склада',
+      clientPlaceholder: 'Комментарий клиента к задаче',
+      warehousePlaceholder: 'Комментарий склада к задаче для клиента',
+
+      countTypo: 'Кол-во:',
+      photos: 'Фотографии',
+      mainTitle: 'Поставка',
     },
 
     supervisorReadyToCheckBodyRow: {

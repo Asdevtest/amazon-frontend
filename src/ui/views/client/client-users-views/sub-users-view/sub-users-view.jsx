@@ -29,7 +29,7 @@ import {styles} from './sub-users-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientSubUsersView
 
-const navbarActiveCategory = 6
+const navbarActiveCategory = 7
 
 @observer
 class ClientSubUsersViewRaw extends Component {

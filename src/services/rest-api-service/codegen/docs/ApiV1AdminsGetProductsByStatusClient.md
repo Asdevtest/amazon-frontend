@@ -1,4 +1,4 @@
-# Amazonapi.ApiV1AdminsGetProductsByStatusClient
+# TestSwagger.ApiV1AdminsGetProductsByStatusClient
 
 ## Properties
 

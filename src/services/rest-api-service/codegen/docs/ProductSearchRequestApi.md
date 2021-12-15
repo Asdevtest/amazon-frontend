@@ -1,42 +1,41 @@
-# Amazonapi.ProductSearchRequestApi
+# TestSwagger.ProductSearchRequestApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV1ProductSearchRequestsAddRequestPost**](ProductSearchRequestApi.md#apiV1ProductSearchRequestsAddRequestPost) | **POST** /api/v1/product_search_requests/add_request | # Создать заявку на поиск товара.
-[**apiV1ProductSearchRequestsClientsGet**](ProductSearchRequestApi.md#apiV1ProductSearchRequestsClientsGet) | **GET** /api/v1/product_search_requests/clients | Получить список заявок созданных данным клиентом.
-[**apiV1ProductSearchRequestsRemoveRequestGuidPatch**](ProductSearchRequestApi.md#apiV1ProductSearchRequestsRemoveRequestGuidPatch) | **PATCH** /api/v1/product_search_requests/remove_request/{guid} | # Удалить заявку по его GUID.
-[**apiV1ProductSearchRequestsResearchersGet**](ProductSearchRequestApi.md#apiV1ProductSearchRequestsResearchersGet) | **GET** /api/v1/product_search_requests/researchers | Получить список всех доступных заявок.
-[**apiV1ProductSearchRequestsUpdateRequestGuidPatch**](ProductSearchRequestApi.md#apiV1ProductSearchRequestsUpdateRequestGuidPatch) | **PATCH** /api/v1/product_search_requests/update_request/{guid} | #  Изменить заявку на поиск товара.
+[**apiV1RequestsSearchProductsAddRequestDetailsSearchProductPost**](ProductSearchRequestApi.md#apiV1RequestsSearchProductsAddRequestDetailsSearchProductPost) | **POST** /api/v1/requests/search_products/add_request_details_search_product | # Создать детали заявки на поиск товара.
+[**apiV1RequestsSearchProductsClientsGet**](ProductSearchRequestApi.md#apiV1RequestsSearchProductsClientsGet) | **GET** /api/v1/requests/search_products/clients | Получить список деталей заявок созданных данным клиентом.
+[**apiV1RequestsSearchProductsRemoveRequestDetailsSearchProductGuidPatch**](ProductSearchRequestApi.md#apiV1RequestsSearchProductsRemoveRequestDetailsSearchProductGuidPatch) | **PATCH** /api/v1/requests/search_products/remove_request_details_search_product/{guid} | # Удалить детали заявки на поиск товара по его GUID.
+[**apiV1RequestsSearchProductsUpdateRequestDetailsSearchProductGuidPatch**](ProductSearchRequestApi.md#apiV1RequestsSearchProductsUpdateRequestDetailsSearchProductGuidPatch) | **PATCH** /api/v1/requests/search_products/update_request_details_search_product/{guid} | #  Изменить детали заявки на поиск товара.
 
 
 
-## apiV1ProductSearchRequestsAddRequestPost
+## apiV1RequestsSearchProductsAddRequestDetailsSearchProductPost
 
-> InlineResponse2015 apiV1ProductSearchRequestsAddRequestPost(InlineObject27, opts)
+> InlineResponse2016 apiV1RequestsSearchProductsAddRequestDetailsSearchProductPost(opts)
 
-# Создать заявку на поиск товара.
+# Создать детали заявки на поиск товара.
 
-## Добавление клиентом новой заявки на поиск товара. Рассчитывается исходя из формулы: бюджет Клиента деленный на количество необходимых предложений указанное Клиентом + стоимость работы Супервизора (в случае если в заявке указана необходимость проверки предложений от Ресерчеров Супервизором) – обратите внимание, что в списке выводится только стоимость подачи предложения для Ресерчера, без учета стоимости работы Супервизора!  
+## Создать детали заявки на поиск товара. 
 
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.ProductSearchRequestApi();
-let InlineObject27 = new Amazonapi.InlineObject27(); // InlineObject27 | 
+let apiInstance = new TestSwagger.ProductSearchRequestApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject44() // InlineObject44 | 
 };
-apiInstance.apiV1ProductSearchRequestsAddRequestPost(InlineObject27, opts).then((data) => {
+apiInstance.apiV1RequestsSearchProductsAddRequestDetailsSearchProductPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -49,12 +48,12 @@ apiInstance.apiV1ProductSearchRequestsAddRequestPost(InlineObject27, opts).then(
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject27** | [**InlineObject27**](InlineObject27.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject44**](InlineObject44.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2015**](InlineResponse2015.md)
+[**InlineResponse2016**](InlineResponse2016.md)
 
 ### Authorization
 
@@ -66,30 +65,30 @@ Name | Type | Description  | Notes
 - **Accept**: text/html
 
 
-## apiV1ProductSearchRequestsClientsGet
+## apiV1RequestsSearchProductsClientsGet
 
-> [InlineResponse2009] apiV1ProductSearchRequestsClientsGet(opts)
+> [InlineObject45] apiV1RequestsSearchProductsClientsGet(opts)
 
-Получить список заявок созданных данным клиентом.
+Получить список деталей заявок созданных данным клиентом.
 
-Получить список заявок созданных данным клиентом.   
+Получить список деталей заявок созданных данным клиентом.   
 
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.ProductSearchRequestApi();
+let apiInstance = new TestSwagger.ProductSearchRequestApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1ProductSearchRequestsClientsGet(opts).then((data) => {
+apiInstance.apiV1RequestsSearchProductsClientsGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -102,11 +101,11 @@ apiInstance.apiV1ProductSearchRequestsClientsGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-[**[InlineResponse2009]**](InlineResponse2009.md)
+[**[InlineObject45]**](InlineObject45.md)
 
 ### Authorization
 
@@ -118,32 +117,32 @@ Name | Type | Description  | Notes
 - **Accept**: text/html
 
 
-## apiV1ProductSearchRequestsRemoveRequestGuidPatch
+## apiV1RequestsSearchProductsRemoveRequestDetailsSearchProductGuidPatch
 
-> String apiV1ProductSearchRequestsRemoveRequestGuidPatch(guid, opts)
+> String apiV1RequestsSearchProductsRemoveRequestDetailsSearchProductGuidPatch(guid, opts)
 
-# Удалить заявку по его GUID.
+# Удалить детали заявки на поиск товара по его GUID.
 
-## Удалить заявку по его GUID.   
+## Удалить детали заявки по его GUID, возможно только после проверки статуса.    
 
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.ProductSearchRequestApi();
+let apiInstance = new TestSwagger.ProductSearchRequestApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': null // Object | 
 };
-apiInstance.apiV1ProductSearchRequestsRemoveRequestGuidPatch(guid, opts).then((data) => {
+apiInstance.apiV1RequestsSearchProductsRemoveRequestDetailsSearchProductGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -157,7 +156,7 @@ apiInstance.apiV1ProductSearchRequestsRemoveRequestGuidPatch(guid, opts).then((d
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
  **body** | **Object**|  | [optional] 
 
 ### Return type
@@ -174,84 +173,32 @@ Name | Type | Description  | Notes
 - **Accept**: text/html
 
 
-## apiV1ProductSearchRequestsResearchersGet
+## apiV1RequestsSearchProductsUpdateRequestDetailsSearchProductGuidPatch
 
-> [InlineResponse2009] apiV1ProductSearchRequestsResearchersGet(opts)
+> String apiV1RequestsSearchProductsUpdateRequestDetailsSearchProductGuidPatch(guid, opts)
 
-Получить список всех доступных заявок.
+#  Изменить детали заявки на поиск товара.
 
-Получить список всех доступных заявок.   
+## Изменить детали заявки на поиск товара.   
 
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.ProductSearchRequestApi();
-let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
-};
-apiInstance.apiV1ProductSearchRequestsResearchersGet(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
-
-### Return type
-
-[**[InlineResponse2009]**](InlineResponse2009.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/html
-
-
-## apiV1ProductSearchRequestsUpdateRequestGuidPatch
-
-> String apiV1ProductSearchRequestsUpdateRequestGuidPatch(guid, opts)
-
-#  Изменить заявку на поиск товара.
-
-## Изменить заявку на поиск товара.   ## Нельзя менять после того как получены предложения.   
-
-### Example
-
-```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new Amazonapi.ProductSearchRequestApi();
+let apiInstance = new TestSwagger.ProductSearchRequestApi();
 let guid = "guid_example"; // String | GUID продукта БД
 let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject28': new Amazonapi.InlineObject28() // InlineObject28 | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject45() // InlineObject45 | 
 };
-apiInstance.apiV1ProductSearchRequestsUpdateRequestGuidPatch(guid, opts).then((data) => {
+apiInstance.apiV1RequestsSearchProductsUpdateRequestDetailsSearchProductGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -265,8 +212,8 @@ apiInstance.apiV1ProductSearchRequestsUpdateRequestGuidPatch(guid, opts).then((d
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта БД | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject28** | [**InlineObject28**](InlineObject28.md)|  | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject45**](InlineObject45.md)|  | [optional] 
 
 ### Return type
 

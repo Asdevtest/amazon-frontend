@@ -1,4 +1,4 @@
-# Amazonapi.NotFoundError
+# TestSwagger.NotFoundError
 
 ## Properties
 

@@ -5,13 +5,19 @@ import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow
 import {DELIVERY_OPTIONS} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
+import {texts} from '@constants/texts'
 
+import {Button} from '@components/buttons/button'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
+
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {LeftPanel} from './left-panel'
 import {useClassNames} from './order-content.style'
 import {RightPanel} from './right-panel'
+
+const textConsts = getLocalizedTexts(texts, 'ru').orderContent
 
 const MEDIA_SCALE_POINTS = '1812'
 
@@ -23,13 +29,17 @@ const renderHeadRow = (
   </TableRow>
 )
 
-export const OrderContent = ({order, boxes}) => {
+export const OrderContent = ({order, boxes, history}) => {
   const classNames = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)
   const [deliveryType, setDeliveryType] = useState(false)
   const theme = useTheme()
   const narrow = useMediaQuery(theme.breakpoints.down(MEDIA_SCALE_POINTS))
+
+  const goBack = () => {
+    history.goBack()
+  }
 
   return (
     <Paper>
@@ -56,12 +66,24 @@ export const OrderContent = ({order, boxes}) => {
 
           <Divider orientation={'horizontal'} />
 
+          <div className={classNames.btnsWrapper}>
+            <Button
+              disableElevation
+              className={classNames.goBackBtn}
+              color="primary"
+              variant="contained"
+              onClick={() => goBack()}
+            >
+              {textConsts.backBtn}
+            </Button>
+          </div>
+
           <div className={classNames.tableWrapper}>
-            <Typography className={classNames.tableText}>{'Коробки к заказу:'}</Typography>
+            <Typography className={classNames.tableText}>{textConsts.boxesAtOrder}</Typography>
             {boxes.length > 0 ? (
               <Table rowsOnly data={boxes} BodyRow={WarehouseBodyRow} renderHeadRow={renderHeadRow} />
             ) : (
-              <Typography className={classNames.noBoxesText}>{'Коробок пока нет...'}</Typography>
+              <Typography className={classNames.noBoxesText}>{textConsts.noBoxes}</Typography>
             )}
           </div>
         </div>

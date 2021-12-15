@@ -1,10 +1,10 @@
-# Amazonapi.InlineObject14
+# TestSwagger.InlineObject14
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**cancel** | **Boolean** | Флаг отмены. Если он true - то все списания будут сделаны с обратным знаком. | [optional] [default to false]
+**scheduledDispatchDate** | **Date** | Запланированная дата отправки. | [optional] 
 **boxesIds** | **[String]** |  | 
 
 

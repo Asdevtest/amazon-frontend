@@ -5,6 +5,7 @@ export const DataGridTablesKeys = {
   ADMIN_TASKS: 'adminTasksDataGridState',
   ADMIN_BOXES: 'adminBoxesDataGridState',
   ADMIN_FINANCES: 'adminFinancesDataGridState',
+  ADMIN_BATCHES: 'adminBatchesDataGridState',
 
   ADMIN_SINGLE_PERMISSIONS: 'adminSinglePermissionsDataGridState',
   ADMIN_GROUP_PERMISSIONS: 'adminGroupPermissionsDataGridState',
@@ -24,11 +25,14 @@ export const DataGridTablesKeys = {
   WAREHOUSE_MY_TASKS: 'warehouseMyTasksDataGridState',
   WAREHOUSE_COMPLETED_TASKS: 'warehouseCompletedTasksDataGridState',
   WAREHOUSE_CANCELED_TASKS: 'warehouseCanceledTasksDataGridState',
-  WAREHOUSE_BOXES: 'warehouseBoxesDataGridState',
+  WAREHOUSE_BATCHES: 'warehouseBatchesDataGridState',
   WAREHOUSE_SUB_USERS: 'warehouseSubUsersDataGridState',
 
   RESEARCHER_PRODUCTS: 'researcherProductsDataGridState',
-  RESEARCHER_REQUESTS: 'researcherRequestsDataGridState',
+  RESEARCHER_PRODUCT_VACANT_REQUESTS: 'researcherProductVacantRequestsDataGridState',
+  RESEARCHER_NICHE_VACANT_REQUESTS: 'researcherNicheVacantRequestsDataGridState',
+  RESEARCHER_PRODUCT_MY_REQUESTS: 'researcherProductMyRequestsDataGridState',
+  RESEARCHER_NICHE_MY_REQUESTS: 'researcherNicheMyRequestsDataGridState',
   RESEARCHER_SUB_USERS: 'researcherSubUsersDataGridState',
 
   SUPERVISOR_PRODUCTS: 'supervisorProductsDataGridState',
@@ -38,12 +42,17 @@ export const DataGridTablesKeys = {
   BUYER_MY_ORDERS: 'buyerMyOrdersDataGridState',
   BUYER_FREE_ORDERS: 'buyerFreeOrdersDataGridState',
   BUYER_SUB_USERS: 'buyerSubUsersDataGridState',
+  BUYER_BATCHES: 'buyerBatchesDataGridState',
 
   CLIENT_EXCHANGE: 'clientExchangeCreatedDataGridState',
   CLIENT_INVENTORY: 'clientInventoryDataGridState',
   CLIENT_ORDERS: 'clientOrdersDataGridState',
   CLIENT_ORDERS_NOTIFICATIONS: 'clientOrdersNotificationsDataGridState',
   CLIENT_WAREHOUSE: 'clientWarehouseDataGridState',
-  CLIENT_SEARCH_REQUESTS: 'clientSearchRequestsDataGridState',
+  CLIENT_PRODUCT_SEARCH_REQUESTS: 'clientProductSearchRequestsDataGridState',
+  CLIENT_NICHE_SEARCH_REQUESTS: 'clientNicheSearchRequestsDataGridState',
   CLIENT_SUB_USERS: 'clientSubUsersDataGridState',
+  CLIENT_BATCHES: 'clientBatchesDataGridState',
+  CLIENT_DAILY_SELLER_BOARD: 'clientDailySellerBoardDataGridState',
+  CLIENT_LAST_30_DAY_SELLER_BOARD: 'clientLast30DaySellerBoardDataGridState',
 }

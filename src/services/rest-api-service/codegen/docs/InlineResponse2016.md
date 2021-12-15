@@ -1,9 +1,9 @@
-# Amazonapi.InlineResponse2016
+# TestSwagger.InlineResponse2016
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**token** | **String** | Токен для авторизации. | [optional] 
+**guid** | **String** | guid созданного объекта | [optional] 
 
 

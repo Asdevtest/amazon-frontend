@@ -1,27 +1,21 @@
 import React, {Component} from 'react'
 
-import {Box, Typography} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {DELIVERY_OPTIONS} from '@constants/delivery-options'
-import {BATCHES_HEAD_CELLS} from '@constants/table-head-cells'
+import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
-import {warehouses} from '@constants/warehouses'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
+import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {Navbar} from '@components/navbar'
-import {EditBatchModal} from '@components/screens/batches-view/edit-batch-modal'
-import {Table} from '@components/table'
-import {TableBodyRow} from '@components/table-rows/batches-view/table-body-row'
-import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
-import {isNotUndefined, isUndefined} from '@utils/checks'
+import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/adminAvatar.jpg'
@@ -43,24 +37,30 @@ class AdminWarehouseBatchesViewRaw extends Component {
 
   render() {
     const {
-      batches,
+      curBatch,
+      showBatchInfoModal,
+      onTriggerOpenModal,
+
+      getCurrentData,
+      sortModel,
+      filterModel,
+      requestStatus,
+      densityModel,
+      columnsModel,
+
       drawerOpen,
       curPage,
       rowsPerPage,
-      selectedBatchIndex,
-      showEditBoxesModal,
-      onChangePage,
+      onTriggerDrawer,
+      onChangeCurPage,
       onChangeRowsPerPage,
-      onClickTableRow,
-      onTriggerDrawerOpen,
-      onTriggerEditBoxesModal,
-      onDoubleClickTableRow,
+
+      onSelectionModel,
+      setDataGridState,
+      onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
     const {classes: className} = this.props
-    const rowsHandlers = {
-      onClickTableRow,
-      onDoubleClickTableRow,
-    }
     return (
       <React.Fragment>
         <Navbar
@@ -68,7 +68,7 @@ class AdminWarehouseBatchesViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
+          setDrawerOpen={onTriggerDrawer}
         />
 
         <Main>
@@ -78,54 +78,52 @@ class AdminWarehouseBatchesViewRaw extends Component {
             avatarSrc={avatar}
             curUserRole={UserRole.ADMIN}
             user={textConsts.appUser}
-            setDrawerOpen={onTriggerDrawerOpen}
+            setDrawerOpen={onTriggerDrawer}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
 
               <div className={className.tableWrapper}>
-                <Table
-                  currentPage={curPage}
-                  data={batches}
-                  handlerPageChange={onChangePage}
-                  handlerRowsPerPage={onChangeRowsPerPage}
-                  pageCount={Math.ceil(batches.length / rowsPerPage)}
-                  BodyRow={TableBodyRow}
-                  renderHeadRow={this.renderHeadRow()}
-                  rowsPerPage={rowsPerPage}
-                  rowsHandlers={rowsHandlers}
-                  renderButtons={this.renderButtons}
-                  selectedBatchIndex={selectedBatchIndex}
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  autoHeight
+                  classes={{
+                    row: className.row,
+                  }}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rows={getCurrentData()}
+                  rowHeight={200}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection)
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={showEditBoxesModal} setOpenModal={onTriggerEditBoxesModal}>
-          <EditBatchModal
-            batch={isNotUndefined(selectedBatchIndex) ? batches[selectedBatchIndex] : undefined}
-            setModal={onTriggerEditBoxesModal}
-            warehouses={warehouses}
-            deliveryOptions={DELIVERY_OPTIONS}
-            curUserRole={UserRole.CLIENT}
-          />
-        </Modal>
+        <BatchInfoModal
+          openModal={showBatchInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showBatchInfoModal')}
+          batch={curBatch}
+        />
       </React.Fragment>
-    )
-  }
-
-  renderHeadRow = () => <TableHeadRow headCells={BATCHES_HEAD_CELLS} />
-
-  renderButtons = () => {
-    const {selectedBatchIndex, onTriggerEditBoxesModal} = this.viewModel
-    const {classes: classNames} = this.props
-    return (
-      <Box p={2} mr={0} className={classNames.buttonsWrapper}>
-        <Button disabled={isUndefined(selectedBatchIndex)} color="secondary" onClick={onTriggerEditBoxesModal}>
-          {textConsts.editBatch}
-        </Button>
-      </Box>
     )
   }
 }

@@ -52,7 +52,7 @@ export class AdminOrderView extends Component {
           >
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
-              <OrderContent order={order} boxes={orderBoxes} />
+              <OrderContent order={order} boxes={orderBoxes} history={history} />
             </MainContent>
           </Appbar>
         </Main>

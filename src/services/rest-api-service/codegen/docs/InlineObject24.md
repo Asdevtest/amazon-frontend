@@ -1,13 +1,13 @@
-# Amazonapi.InlineObject24
+# TestSwagger.InlineObject24
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **String** | Ключ группы permission | 
-**title** | **String** | Простое название | 
-**description** | **String** | Описание permission | 
-**permissions** | **[String]** |  | [optional] 
-**role** | **Number** | Роль для которого данной группы permission-ов | 
+**key** | **String** | permission ключ | 
+**title** | **String** | простое название | 
+**description** | **String** | описание permission | 
+**allowedUrl** | **[String]** | Массив доступных url | 
+**role** | **Number** | Роль для которого данный permission | 
 
 

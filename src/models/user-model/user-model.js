@@ -41,8 +41,10 @@ class UserModelStatic {
 
   async signIn(email, password) {
     const response = await restApiService.userApi.apiV1UsersSignInPost({
-      email,
-      password,
+      body: {
+        email,
+        password,
+      },
     })
     const accessToken = response.token
     runInAction(() => {
@@ -53,9 +55,11 @@ class UserModelStatic {
 
   async signUp({name, email, password}) {
     const response = await restApiService.userApi.apiV1UsersPost({
-      name,
-      email,
-      password,
+      body: {
+        name,
+        email,
+        password,
+      },
     })
     this.userInfo = ApiClient.convertToType(response, UserInfoContract)
   }

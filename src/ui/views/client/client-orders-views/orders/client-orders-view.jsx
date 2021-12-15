@@ -23,7 +23,7 @@ import {styles} from './client-orders-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersView
 
-const navbarActiveCategory = 3
+const navbarActiveCategory = 4
 
 @observer
 class ClientOrdersViewRaw extends Component {

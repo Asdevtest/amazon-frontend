@@ -29,7 +29,7 @@ import {styles} from './researcher-sub-users-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').researcherSubUsersView
 
-const navbarActiveCategory = 3
+const navbarActiveCategory = 4
 
 @observer
 class ResearcherSubUsersViewRaw extends Component {

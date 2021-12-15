@@ -1,6 +1,6 @@
-# Amazonapi.UserApi
+# TestSwagger.UserApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**apiV1UsersPost**](UserApi.md#apiV1UsersPost) | **POST** /api/v1/users/ | Создание нового пользователя. Регистрация.
 [**apiV1UsersSignInPost**](UserApi.md#apiV1UsersSignInPost) | **POST** /api/v1/users/sign_in | # Получение токена авторизации.
 [**apiV1UsersUnlinkSubUserPatch**](UserApi.md#apiV1UsersUnlinkSubUserPatch) | **PATCH** /api/v1/users/unlink_sub-user | # Отвязка суб пользователя.
+[**apiV1UsersUserSettingsAvailableGet**](UserApi.md#apiV1UsersUserSettingsAvailableGet) | **GET** /api/v1/users/user-settings/available | Выдача массива доступных настроек пользователя.
 [**apiV1UsersUserSettingsMyGet**](UserApi.md#apiV1UsersUserSettingsMyGet) | **GET** /api/v1/users/user-settings/my | Получить настройки пользователя.
 [**apiV1UsersUserSettingsMyPatch**](UserApi.md#apiV1UsersUserSettingsMyPatch) | **PATCH** /api/v1/users/user-settings/my | #  Изменения пользователем своих настроек.
 [**apiV1UsersUserSettingsPost**](UserApi.md#apiV1UsersUserSettingsPost) | **POST** /api/v1/users/user-settings | Создание настроек пользователя.
@@ -29,17 +30,17 @@ Method | HTTP request | Description
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.UserApi();
+let apiInstance = new TestSwagger.UserApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1TechClearAllSchemasPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -54,7 +55,7 @@ apiInstance.apiV1TechClearAllSchemasPost(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
@@ -72,7 +73,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersInfoGet
 
-> ApiV1AdminsOrdersCreatedBy apiV1UsersInfoGet(opts)
+> UserFullSchema apiV1UsersInfoGet(opts)
 
 Получить информацию от текущем пользователе.
 
@@ -81,17 +82,17 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.UserApi();
+let apiInstance = new TestSwagger.UserApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1UsersInfoGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -106,11 +107,11 @@ apiInstance.apiV1UsersInfoGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-[**ApiV1AdminsOrdersCreatedBy**](ApiV1AdminsOrdersCreatedBy.md)
+[**UserFullSchema**](UserFullSchema.md)
 
 ### Authorization
 
@@ -124,7 +125,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersLinkSubUserPatch
 
-> String apiV1UsersLinkSubUserPatch(InlineObject42, opts)
+> String apiV1UsersLinkSubUserPatch(opts)
 
 # Привязка суб пользователя.
 
@@ -133,20 +134,20 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.UserApi();
-let InlineObject42 = new Amazonapi.InlineObject42(); // InlineObject42 | 
+let apiInstance = new TestSwagger.UserApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.LinkSubuserInputSchema() // LinkSubuserInputSchema | 
 };
-apiInstance.apiV1UsersLinkSubUserPatch(InlineObject42, opts).then((data) => {
+apiInstance.apiV1UsersLinkSubUserPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -159,8 +160,8 @@ apiInstance.apiV1UsersLinkSubUserPatch(InlineObject42, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject42** | [**InlineObject42**](InlineObject42.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**LinkSubuserInputSchema**](LinkSubuserInputSchema.md)|  | [optional] 
 
 ### Return type
 
@@ -178,7 +179,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersMePatch
 
-> String apiV1UsersMePatch(InlineObject44, opts)
+> String apiV1UsersMePatch(opts)
 
 # Обновления информации о себе самим пользователем.
 
@@ -187,20 +188,20 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.UserApi();
-let InlineObject44 = new Amazonapi.InlineObject44(); // InlineObject44 | 
+let apiInstance = new TestSwagger.UserApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.MePatchInputSchema() // MePatchInputSchema | 
 };
-apiInstance.apiV1UsersMePatch(InlineObject44, opts).then((data) => {
+apiInstance.apiV1UsersMePatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -213,8 +214,8 @@ apiInstance.apiV1UsersMePatch(InlineObject44, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject44** | [**InlineObject44**](InlineObject44.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**MePatchInputSchema**](MePatchInputSchema.md)|  | [optional] 
 
 ### Return type
 
@@ -232,7 +233,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersMySubUsersGet
 
-> [InlineResponse2002] apiV1UsersMySubUsersGet(opts)
+> [UserFullSchema] apiV1UsersMySubUsersGet(opts)
 
 Получить список сабюзеров мастер пользователя.
 
@@ -241,17 +242,17 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.UserApi();
+let apiInstance = new TestSwagger.UserApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1UsersMySubUsersGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -266,11 +267,11 @@ apiInstance.apiV1UsersMySubUsersGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+[**[UserFullSchema]**](UserFullSchema.md)
 
 ### Authorization
 
@@ -284,7 +285,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersPost
 
-> ApiV1AdminsOrdersCreatedBy apiV1UsersPost(InlineObject40, opts)
+> UserFullSchema apiV1UsersPost(opts)
 
 Создание нового пользователя. Регистрация.
 
@@ -293,14 +294,14 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
+import TestSwagger from 'test_swagger';
 
-let apiInstance = new Amazonapi.UserApi();
-let InlineObject40 = new Amazonapi.InlineObject40(); // InlineObject40 | 
+let apiInstance = new TestSwagger.UserApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.UserRegisterSchema() // UserRegisterSchema | 
 };
-apiInstance.apiV1UsersPost(InlineObject40, opts).then((data) => {
+apiInstance.apiV1UsersPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -313,12 +314,12 @@ apiInstance.apiV1UsersPost(InlineObject40, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject40** | [**InlineObject40**](InlineObject40.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**UserRegisterSchema**](UserRegisterSchema.md)|  | [optional] 
 
 ### Return type
 
-[**ApiV1AdminsOrdersCreatedBy**](ApiV1AdminsOrdersCreatedBy.md)
+[**UserFullSchema**](UserFullSchema.md)
 
 ### Authorization
 
@@ -332,7 +333,7 @@ No authorization required
 
 ## apiV1UsersSignInPost
 
-> InlineResponse2016 apiV1UsersSignInPost(InlineObject41, opts)
+> SignInResponseSchema apiV1UsersSignInPost(opts)
 
 # Получение токена авторизации.
 
@@ -341,14 +342,14 @@ No authorization required
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
+import TestSwagger from 'test_swagger';
 
-let apiInstance = new Amazonapi.UserApi();
-let InlineObject41 = new Amazonapi.InlineObject41(); // InlineObject41 | 
+let apiInstance = new TestSwagger.UserApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.SigninInputSchema() // SigninInputSchema | 
 };
-apiInstance.apiV1UsersSignInPost(InlineObject41, opts).then((data) => {
+apiInstance.apiV1UsersSignInPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -361,12 +362,12 @@ apiInstance.apiV1UsersSignInPost(InlineObject41, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject41** | [**InlineObject41**](InlineObject41.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**SigninInputSchema**](SigninInputSchema.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2016**](InlineResponse2016.md)
+[**SignInResponseSchema**](SignInResponseSchema.md)
 
 ### Authorization
 
@@ -380,7 +381,7 @@ No authorization required
 
 ## apiV1UsersUnlinkSubUserPatch
 
-> String apiV1UsersUnlinkSubUserPatch(InlineObject43, opts)
+> String apiV1UsersUnlinkSubUserPatch(opts)
 
 # Отвязка суб пользователя.
 
@@ -389,20 +390,20 @@ No authorization required
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.UserApi();
-let InlineObject43 = new Amazonapi.InlineObject43(); // InlineObject43 | 
+let apiInstance = new TestSwagger.UserApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.LinkSubuserInputSchema() // LinkSubuserInputSchema | 
 };
-apiInstance.apiV1UsersUnlinkSubUserPatch(InlineObject43, opts).then((data) => {
+apiInstance.apiV1UsersUnlinkSubUserPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -415,8 +416,8 @@ apiInstance.apiV1UsersUnlinkSubUserPatch(InlineObject43, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject43** | [**InlineObject43**](InlineObject43.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**LinkSubuserInputSchema**](LinkSubuserInputSchema.md)|  | [optional] 
 
 ### Return type
 
@@ -432,9 +433,61 @@ Name | Type | Description  | Notes
 - **Accept**: text/html
 
 
+## apiV1UsersUserSettingsAvailableGet
+
+> [Object] apiV1UsersUserSettingsAvailableGet(opts)
+
+Выдача массива доступных настроек пользователя.
+
+## Выдача массива доступных настроек пользователя..   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.UserApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1UsersUserSettingsAvailableGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**[Object]**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html
+
+
 ## apiV1UsersUserSettingsMyGet
 
-> InlineResponse20013 apiV1UsersUserSettingsMyGet(opts)
+> UserSettingResponseSchema apiV1UsersUserSettingsMyGet(opts)
 
 Получить настройки пользователя.
 
@@ -443,17 +496,17 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.UserApi();
+let apiInstance = new TestSwagger.UserApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1UsersUserSettingsMyGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -468,11 +521,11 @@ apiInstance.apiV1UsersUserSettingsMyGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-[**InlineResponse20013**](InlineResponse20013.md)
+[**UserSettingResponseSchema**](UserSettingResponseSchema.md)
 
 ### Authorization
 
@@ -486,7 +539,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersUserSettingsMyPatch
 
-> String apiV1UsersUserSettingsMyPatch(guid, InlineObject46, opts)
+> String apiV1UsersUserSettingsMyPatch(guid, opts)
 
 #  Изменения пользователем своих настроек.
 
@@ -495,21 +548,21 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.UserApi();
+let apiInstance = new TestSwagger.UserApi();
 let guid = "guid_example"; // String | GUID permission в БД
-let InlineObject46 = new Amazonapi.InlineObject46(); // InlineObject46 | 
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.UserSettingPatchSchema() // UserSettingPatchSchema | 
 };
-apiInstance.apiV1UsersUserSettingsMyPatch(guid, InlineObject46, opts).then((data) => {
+apiInstance.apiV1UsersUserSettingsMyPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -523,8 +576,8 @@ apiInstance.apiV1UsersUserSettingsMyPatch(guid, InlineObject46, opts).then((data
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID permission в БД | 
- **InlineObject46** | [**InlineObject46**](InlineObject46.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**UserSettingPatchSchema**](UserSettingPatchSchema.md)|  | [optional] 
 
 ### Return type
 
@@ -542,7 +595,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersUserSettingsPost
 
-> InlineResponse2015 apiV1UsersUserSettingsPost(InlineObject45, opts)
+> UserSettingPostResponseSchema apiV1UsersUserSettingsPost(opts)
 
 Создание настроек пользователя.
 
@@ -551,20 +604,20 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.UserApi();
-let InlineObject45 = new Amazonapi.InlineObject45(); // InlineObject45 | 
+let apiInstance = new TestSwagger.UserApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.UserSettingInputSchema() // UserSettingInputSchema | 
 };
-apiInstance.apiV1UsersUserSettingsPost(InlineObject45, opts).then((data) => {
+apiInstance.apiV1UsersUserSettingsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -577,12 +630,12 @@ apiInstance.apiV1UsersUserSettingsPost(InlineObject45, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject45** | [**InlineObject45**](InlineObject45.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**UserSettingInputSchema**](UserSettingInputSchema.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2015**](InlineResponse2015.md)
+[**UserSettingPostResponseSchema**](UserSettingPostResponseSchema.md)
 
 ### Authorization
 

@@ -155,7 +155,7 @@ export class WarehouseSubUsersViewModel {
       const result = await PermissionsModel.getGroupPermissions(mapUserRoleEnumToKey[UserRole.STOREKEEPER])
 
       runInAction(() => {
-        this.groupPermissions = result
+        this.groupPermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
       console.log(error)
@@ -167,7 +167,7 @@ export class WarehouseSubUsersViewModel {
       const result = await PermissionsModel.getSinglePermissions(mapUserRoleEnumToKey[UserRole.STOREKEEPER])
 
       runInAction(() => {
-        this.singlePermissions = result
+        this.singlePermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
       console.log(error)

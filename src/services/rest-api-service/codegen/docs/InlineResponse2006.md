@@ -1,4 +1,4 @@
-# Amazonapi.InlineResponse2006
+# TestSwagger.InlineResponse2006
 
 ## Properties
 

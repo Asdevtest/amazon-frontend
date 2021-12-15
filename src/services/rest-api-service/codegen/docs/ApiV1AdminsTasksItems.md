@@ -1,4 +1,4 @@
-# Amazonapi.ApiV1AdminsTasksItems
+# TestSwagger.ApiV1AdminsTasksItems
 
 ## Properties
 

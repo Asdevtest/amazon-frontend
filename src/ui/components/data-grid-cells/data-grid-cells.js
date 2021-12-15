@@ -443,3 +443,36 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(({classes: classNames, ro
     </ErrorButton>
   </div>
 ))
+
+export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) => {
+  const renderProductInfo = box => (
+    <div className={classNames.batchProductsWrapper}>
+      {box.items.map((item, itemIndex) => (
+        <div key={itemIndex} className={classNames.order}>
+          <img
+            alt=""
+            src={item.product.images[0] && getAmazonImageUrl(item.product.images[0])}
+            className={classNames.orderImg}
+          />
+          <div>
+            <Typography className={classNames.batchProductTitle}>{item.product.amazonTitle}</Typography>
+            <Typography className={classNames.orderText}>
+              <span className={classNames.orderTextSpan}>{textConsts.id}</span>
+              {item.product.id}
+              {box.sendToBatchComplete && <span className={classNames.sendSuccess}>{' Отправлено'}</span>}
+            </Typography>
+            <Typography className={classNames.imgNum}>{`x ${item.amount}`}</Typography>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+
+  return (
+    <div className={classNames.batchBoxesWrapper}>
+      {boxes.map(box => (
+        <div key={box._id}>{renderProductInfo(box)}</div>
+      ))}
+    </div>
+  )
+})

@@ -126,7 +126,7 @@ export const useClassNames = makeStyles(theme => ({
   imgBox: {
     width: '200px',
     height: '200px',
-    objectFit: 'center',
+    objectFit: 'contain',
     transition: '.2s ease',
     cursor: 'pointer',
     '&:hover': {

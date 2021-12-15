@@ -1,4 +1,4 @@
-# Amazonapi.ApiV1AdminsPaymentsCreatedBy
+# TestSwagger.ApiV1AdminsPaymentsCreatedBy
 
 ## Properties
 

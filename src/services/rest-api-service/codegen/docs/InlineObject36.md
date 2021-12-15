@@ -1,4 +1,4 @@
-# Amazonapi.InlineObject36
+# TestSwagger.InlineObject36
 
 ## Properties
 
@@ -45,26 +45,7 @@ Name | Type | Description | Notes
 **listingSupplierImportantPoints** | **String** |  | [optional] 
 **listingExtraInfo** | **String** |  | [optional] 
 **listingSupplierCompetitors** | [**[ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]**](ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md) | Массив объектов: ссылки и комментарии к конкурентам | [optional] 
-**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] [default to 0]
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
 **checkednotes** | **String** | Комментарий к статусу проверки. | [optional] 
-
-
-
-## Enum: StatusEnum
-
-
-* `15` (value: `15`)
-
-* `20` (value: `20`)
-
-* `30` (value: `30`)
-
-* `70` (value: `70`)
-
-* `80` (value: `80`)
-
-* `90` (value: `90`)
-
-
 
 

@@ -1,4 +1,4 @@
-# Amazonapi.UnauthorizedError
+# TestSwagger.UnauthorizedError
 
 ## Properties
 
