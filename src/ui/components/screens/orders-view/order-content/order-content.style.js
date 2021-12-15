@@ -31,4 +31,14 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '22px',
     marginBottom: '24px',
   },
+
+  btnsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+
+  goBackBtn: {
+    margin: '16px 32px',
+    // alignSelf: 'flex-end'
+  },
 }))

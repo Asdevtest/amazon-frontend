@@ -1,4 +1,4 @@
-# Amazonapi.UpdatedSuccessfully
+# TestSwagger.UpdatedSuccessfully
 
 ## Properties
 

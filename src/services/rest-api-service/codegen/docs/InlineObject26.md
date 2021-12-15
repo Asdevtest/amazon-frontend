@@ -1,10 +1,13 @@
-# Amazonapi.InlineObject26
+# TestSwagger.InlineObject26
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**permissions** | **[String]** | Массив permission-ов. | [optional] 
-**permissionGroups** | **[String]** | Массив групп permission-ов. | [optional] 
+**key** | **String** | Ключ группы permission | 
+**title** | **String** | Простое название | 
+**description** | **String** | Описание permission | 
+**permissions** | **[String]** |  | [optional] 
+**role** | **Number** | Роль для которого данной группы permission-ов | 
 
 

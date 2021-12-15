@@ -154,9 +154,8 @@ export class GroupPermissionsModel {
   async getSinglePermissions() {
     try {
       const result = await PermissionsModel.getSinglePermissions()
-
       runInAction(() => {
-        this.singlePermissions = result.map(per => ({...per, id: per._id}))
+        this.singlePermissions = result.map(per => ({...per, id: per._id})).sort((a, b) => a.role - b.role)
       })
     } catch (error) {
       this.payments = []

@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 
-import {Button, Typography} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
+import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'

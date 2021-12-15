@@ -3,8 +3,6 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
-  IdCell,
-  NoActiveBarcodeCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
@@ -38,8 +36,8 @@ export const clientBoxesViewColumns = () => [
   {
     field: 'id',
     headerName: textConsts.boxIdField,
-    renderCell: params => <IdCell id={params.row.id} />,
-    width: 130,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 300,
   },
 
   {
@@ -61,19 +59,6 @@ export const clientBoxesViewColumns = () => [
     renderCell: params => <NormDateCell params={params} />,
     width: 100,
     type: 'date',
-  },
-  {
-    field: '_id',
-    headerName: textConsts.ordersId,
-    renderCell: params => <IdCell id={params.row._id} />,
-    width: 300,
-  },
-
-  {
-    field: 'tmpBarCode',
-    headerName: textConsts.barCode,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.row.tmpBarCode} />,
-    width: 200,
   },
 
   {

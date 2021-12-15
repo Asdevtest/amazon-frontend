@@ -2,8 +2,8 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    minWidth: '900px',
-    minHeight: '400px',
+    width: '900px',
+    height: '500px',
     display: 'flex',
     flexDirection: 'column',
   },

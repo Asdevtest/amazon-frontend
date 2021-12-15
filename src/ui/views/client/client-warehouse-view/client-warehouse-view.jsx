@@ -37,7 +37,7 @@ import {styles} from './client-warehouse-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientWarehouseView
 
-const activeCategory = 4
+const activeCategory = 5
 const activeSubCategory = null
 @observer
 export class ClientWarehouseViewRaw extends Component {

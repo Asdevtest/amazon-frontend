@@ -1,27 +1,21 @@
 import React, {Component} from 'react'
 
-import {Box, Typography} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
+import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {DELIVERY_OPTIONS} from '@constants/delivery-options'
-import {BATCHES_HEAD_CELLS} from '@constants/table-head-cells'
+import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
-import {warehouses} from '@constants/warehouses'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
+import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {Navbar} from '@components/navbar'
-import {EditBatchModal} from '@components/screens/batches-view/edit-batch-modal'
-import {Table} from '@components/table'
-import {TableBodyRow} from '@components/table-rows/batches-view/table-body-row'
-import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
-import {isNotUndefined} from '@utils/checks'
+import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/clientAvatar.jpg'
@@ -30,7 +24,7 @@ import {styles} from './client-batches-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientBatchesView
 
-const navbarActiveCategory = 5
+const navbarActiveCategory = 6
 
 @observer
 class ClientBatchesViewRaw extends Component {
@@ -42,26 +36,30 @@ class ClientBatchesViewRaw extends Component {
 
   render() {
     const {
+      curBatch,
+      showBatchInfoModal,
+      onTriggerOpenModal,
+
+      getCurrentData,
+      sortModel,
+      filterModel,
+      requestStatus,
+      densityModel,
+      columnsModel,
+
       drawerOpen,
+      curPage,
       rowsPerPage,
-      paginationPage,
-      batches,
-      selectedBatchIndex,
-      showEditBoxesModal,
-
-      onChangeDrawerOpen,
+      onTriggerDrawer,
+      onChangeCurPage,
       onChangeRowsPerPage,
-      onChangePagination,
 
-      onClickTableRow,
-      onDoubleClickTableRow,
-      onTriggerEditBoxesModal,
+      onSelectionModel,
+      setDataGridState,
+      onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
     const {classes: className} = this.props
-    const rowsHandlers = {
-      onClickTableRow,
-      onDoubleClickTableRow,
-    }
 
     return (
       <React.Fragment>
@@ -69,7 +67,7 @@ class ClientBatchesViewRaw extends Component {
           curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={onChangeDrawerOpen}
+          setDrawerOpen={onTriggerDrawer}
           user={textConsts.appUser}
         />
 
@@ -79,61 +77,55 @@ class ClientBatchesViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             user={textConsts.appUser}
-            setDrawerOpen={onChangeDrawerOpen}
+            setDrawerOpen={onTriggerDrawer}
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
 
-              {batches !== undefined && (
-                <div className={className.tableWrapper}>
-                  <Table
-                    renderButtons={this.renderButtons}
-                    currentPage={paginationPage}
-                    data={batches}
-                    handlerPageChange={onChangePagination}
-                    handlerRowsPerPage={onChangeRowsPerPage}
-                    pageCount={Math.ceil(batches.length / rowsPerPage)}
-                    BodyRow={TableBodyRow}
-                    renderHeadRow={this.renderHeadRow()}
-                    selectedBatchIndex={selectedBatchIndex}
-                    rowsPerPage={rowsPerPage}
-                    rowsHandlers={rowsHandlers}
-                  />
-                </div>
-              )}
+              <div className={className.tableWrapper}>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  autoHeight
+                  classes={{
+                    row: className.row,
+                  }}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rows={getCurrentData()}
+                  rowHeight={200}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection)
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>
 
-        <Modal openModal={showEditBoxesModal} setOpenModal={onTriggerEditBoxesModal}>
-          <EditBatchModal
-            batch={isNotUndefined(selectedBatchIndex) ? batches[selectedBatchIndex] : undefined}
-            setModal={onTriggerEditBoxesModal}
-            warehouses={warehouses}
-            deliveryOptions={DELIVERY_OPTIONS}
-            curUserRole={UserRole.CLIENT}
-          />
-        </Modal>
+        <BatchInfoModal
+          openModal={showBatchInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showBatchInfoModal')}
+          batch={curBatch}
+        />
       </React.Fragment>
     )
   }
-
-  renderHeadRow = () => <TableHeadRow headCells={BATCHES_HEAD_CELLS} />
-
-  renderButtons = () => (
-    <Box p={2} mr={0} className={this.props.classes.buttonsWrapper}>
-      <Button
-        disabled={this.viewModel.selectedBatchIndex === undefined}
-        color="secondary"
-        onClick={() => this.viewModel.onTriggerEditBoxesModal()}
-      >
-        {textConsts.editBatch}
-      </Button>
-    </Box>
-  )
 }
 
-const ClientBatchesView = withStyles(styles)(ClientBatchesViewRaw)
-
-export {ClientBatchesView}
+export const ClientBatchesView = withStyles(styles)(ClientBatchesViewRaw)

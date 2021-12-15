@@ -1,4 +1,4 @@
-# Amazonapi.ApiV1BoxesSplitNewBoxesParams
+# TestSwagger.ApiV1BoxesSplitNewBoxesParams
 
 ## Properties
 

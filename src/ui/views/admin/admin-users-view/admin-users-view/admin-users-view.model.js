@@ -126,7 +126,7 @@ export class AdminUsersViewModel {
       const result = await PermissionsModel.getGroupPermissions()
 
       runInAction(() => {
-        this.groupPermissions = result
+        this.groupPermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
       console.log(error)
@@ -138,7 +138,7 @@ export class AdminUsersViewModel {
       const result = await PermissionsModel.getSinglePermissions()
 
       runInAction(() => {
-        this.singlePermissions = result
+        this.singlePermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
       console.log(error)

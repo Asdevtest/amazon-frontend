@@ -1,4 +1,4 @@
-# Amazonapi.ApiV1BoxesMergeBoxBody
+# TestSwagger.ApiV1BoxesMergeBoxBody
 
 ## Properties
 

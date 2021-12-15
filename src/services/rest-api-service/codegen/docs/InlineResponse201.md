@@ -1,9 +1,9 @@
-# Amazonapi.InlineResponse201
+# TestSwagger.InlineResponse201
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** |  | [optional] 
+**guid** | **String** | guid созданной настройки. | [optional] 
 
 

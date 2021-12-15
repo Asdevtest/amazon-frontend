@@ -1,6 +1,6 @@
-# Amazonapi.SupplierApi
+# TestSwagger.SupplierApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -23,17 +23,17 @@ Method | HTTP request | Description
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.SupplierApi();
+let apiInstance = new TestSwagger.SupplierApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1SuppliersGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -48,7 +48,7 @@ apiInstance.apiV1SuppliersGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
@@ -75,18 +75,18 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.SupplierApi();
+let apiInstance = new TestSwagger.SupplierApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1SuppliersGuidDelete(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -102,7 +102,7 @@ apiInstance.apiV1SuppliersGuidDelete(guid, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersGuidGet
 
-> ApiV1AdminsGetProductsByStatusCurrentSupplier apiV1SuppliersGuidGet(guid, opts)
+> {String: Object} apiV1SuppliersGuidGet(guid, opts)
 
 # Получить одного поставщика.
 
@@ -129,18 +129,18 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.SupplierApi();
+let apiInstance = new TestSwagger.SupplierApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1SuppliersGuidGet(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -156,11 +156,11 @@ apiInstance.apiV1SuppliersGuidGet(guid, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-[**ApiV1AdminsGetProductsByStatusCurrentSupplier**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md)
+**{String: Object}**
 
 ### Authorization
 
@@ -183,19 +183,19 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.SupplierApi();
+let apiInstance = new TestSwagger.SupplierApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
-  'Accept_Encoding': gzip, deflate, // String | 
-  'InlineObject39': new Amazonapi.InlineObject39() // InlineObject39 | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject39() // InlineObject39 | 
 };
 apiInstance.apiV1SuppliersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -211,8 +211,8 @@ apiInstance.apiV1SuppliersGuidPatch(guid, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
- **InlineObject39** | [**InlineObject39**](InlineObject39.md)|  | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject39**](InlineObject39.md)|  | [optional] 
 
 ### Return type
 
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersPost
 
-> InlineResponse2013 apiV1SuppliersPost(InlineObject38, opts)
+> InlineResponse2014 apiV1SuppliersPost(opts)
 
 # Добавить нового поставщика.
 
@@ -239,20 +239,20 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.SupplierApi();
-let InlineObject38 = new Amazonapi.InlineObject38(); // InlineObject38 | 
+let apiInstance = new TestSwagger.SupplierApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject38() // InlineObject38 | 
 };
-apiInstance.apiV1SuppliersPost(InlineObject38, opts).then((data) => {
+apiInstance.apiV1SuppliersPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -265,12 +265,12 @@ apiInstance.apiV1SuppliersPost(InlineObject38, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **InlineObject38** | [**InlineObject38**](InlineObject38.md)|  | 
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject38**](InlineObject38.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2013**](InlineResponse2013.md)
+[**InlineResponse2014**](InlineResponse2014.md)
 
 ### Authorization
 

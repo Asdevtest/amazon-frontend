@@ -1,9 +1,9 @@
-# Amazonapi.InlineResponse2015
+# TestSwagger.InlineResponse2015
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | guid созданного объекта | [optional] 
+**fileName** | **String** | Имя файла для доступа к нему. | [optional] 
 
 

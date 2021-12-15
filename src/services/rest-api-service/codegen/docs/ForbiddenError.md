@@ -1,4 +1,4 @@
-# Amazonapi.ForbiddenError
+# TestSwagger.ForbiddenError
 
 ## Properties
 

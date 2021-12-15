@@ -331,4 +331,39 @@ export const styles = createStyles(() => ({
     display: 'flex',
     alignItems: 'center',
   },
+
+  batchBoxesWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    overflowY: 'scroll',
+    height: '100%',
+    width: '100%',
+    padding: '5px',
+  },
+
+  batchProductsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+
+    border: '1px solid rgba(0, 123, 255, 0.5)',
+    borderRadius: '10px',
+    padding: '3px',
+    marginBottom: '5px',
+  },
+
+  batchProductTitle: {
+    whiteSpace: 'nowrap',
+    maxWidth: '400px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
+  sendSuccess: {
+    color: 'green',
+    fontWeight: 'bold',
+  },
 }))

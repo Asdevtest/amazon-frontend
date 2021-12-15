@@ -27,10 +27,18 @@ export const navbarConfig = {
       subtitles: [
         {subtitle: 'Биржа вилок', subRoute: '/client/exchange'},
         {subtitle: 'Private Label', subRoute: '/client/exchange/private-label'},
-        {subtitle: 'Мои заявки', subRoute: '/client/exchange/requests'},
       ],
     },
     {icon: InboxOutlinedIcon, title: 'Инвентарь', route: '/client/inventory', subtitles: null},
+    {
+      icon: Work,
+      title: 'Мои заявки',
+      route: '/client/exchange/requests/products',
+      subtitles: [
+        {subtitle: 'На поиск продукта', subRoute: '/client/exchange/requests/products'},
+        {subtitle: 'На поиск ниши', subRoute: '/client/exchange/requests/niches'},
+      ],
+    },
     {icon: AssignmentIcon, title: 'Мои заказы', route: '/client/orders', subtitles: null},
     {icon: ArchiveOutlinedIcon, title: 'Мой склад', route: '/client/warehouse', subtitles: null},
     {icon: AllInboxIcon, title: 'Мои отправления', route: '/client/batches', subtitles: null},
@@ -41,6 +49,15 @@ export const navbarConfig = {
       subtitles: [
         {subtitle: 'Мой профиль', subRoute: '/client/users/user-profile'},
         {subtitle: 'Мои пользователи', subRoute: '/client/users/sub-users'},
+      ],
+    },
+    {
+      icon: SettingsIcon,
+      title: 'Интеграции',
+      route: '/client/integrations/daily',
+      subtitles: [
+        {subtitle: 'Отчет со склада', subRoute: '/client/integrations/daily'},
+        {subtitle: 'Дашборд по товарам/дням', subRoute: '/client/integrations/last-30-day'},
       ],
     },
     {icon: SettingsIcon, title: 'Настройки', route: '/client/settings', subtitles: null},
@@ -71,7 +88,24 @@ export const navbarConfig = {
       route: '/researcher/dashboard',
     },
     {icon: AssignmentIcon, title: 'Мои товары', subtitles: null, route: '/researcher/products'},
-    {icon: AssignmentIcon, title: 'Заявки на поиск товара/ниши', subtitles: null, route: '/researcher/requests'},
+    {
+      icon: AssignmentIcon,
+      title: 'Заявки в работе',
+      route: '/researcher/my-requests/products',
+      subtitles: [
+        {subtitle: 'На поиск продукта', subRoute: '/researcher/my-requests/products'},
+        {subtitle: 'На поиск ниши', subRoute: '/researcher/my-requests/niches'},
+      ],
+    },
+    {
+      icon: AssignmentIcon,
+      title: 'Вакантные заявки',
+      route: '/researcher/requests/products',
+      subtitles: [
+        {subtitle: 'На поиск продукта', subRoute: '/researcher/requests/products'},
+        {subtitle: 'На поиск ниши', subRoute: '/researcher/requests/niches'},
+      ],
+    },
     {
       icon: PeopleIcon,
       title: 'Пользователи',
@@ -120,8 +154,6 @@ export const navbarConfig = {
 
     {icon: Work, title: 'Мои заказы', route: '/buyer/my-orders', subtitles: null},
     {icon: AssignmentIcon, title: 'Свободные заказы', route: '/buyer/free-orders', subtitles: null},
-
-    {icon: AllInboxIcon, title: 'Партии товаров', route: '/buyer/batches', subtitles: null},
     {
       icon: PeopleIcon,
       title: 'Пользователи',
@@ -165,7 +197,7 @@ export const navbarConfig = {
     },
     {
       icon: LocalConvenienceStore,
-      title: 'Склад',
+      title: 'Отправления',
       subtitles: null,
       route: '/warehouse/boxes',
     },

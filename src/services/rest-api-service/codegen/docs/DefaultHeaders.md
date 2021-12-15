@@ -1,4 +1,4 @@
-# Amazonapi.DefaultHeaders
+# TestSwagger.DefaultHeaders
 
 ## Properties
 

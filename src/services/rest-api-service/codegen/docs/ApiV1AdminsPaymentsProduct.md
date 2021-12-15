@@ -1,4 +1,4 @@
-# Amazonapi.ApiV1AdminsPaymentsProduct
+# TestSwagger.ApiV1AdminsPaymentsProduct
 
 ## Properties
 

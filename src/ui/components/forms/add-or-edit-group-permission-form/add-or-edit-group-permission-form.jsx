@@ -1,5 +1,6 @@
 import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
+import ListSubheader from '@mui/material/ListSubheader'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 
@@ -10,7 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
@@ -27,7 +28,13 @@ export const AddOrEditGroupPermissionForm = observer(
   ({onCloseModal, onSubmit, isEdit, permissionToEdit, singlePermissions}) => {
     const classNames = useClassNames()
 
+    const objectSinglePermissions = singlePermissions.reduce(
+      (prev, item) => ({...prev, [item.role]: prev[item.role] ? [...prev[item.role], item] : [item]}),
+      {},
+    )
+
     const [onKeyFieldEditing, setOnKeyFieldEditing] = useState(false)
+    const [openSinglePermissions, setOpenSinglePermissions] = useState(false)
 
     const sourceFormFields = {
       key: permissionToEdit?.key || '',
@@ -93,13 +100,27 @@ export const AddOrEditGroupPermissionForm = observer(
       </div>
     )
 
+    const selectedPermissions = singlePermissions.filter(per => formFields.permissions.includes(per._id))
+
+    const isWrongPermissionsSelect =
+      selectedPermissions.find(per => Number(per.role) !== Number(formFields.role)) ||
+      newSinglePermission.find(perGroup => Number(perGroup.role) !== Number(formFields.role))
+
     const disableSubmitBtn =
       (JSON.stringify(sourceFormFields) === JSON.stringify(formFields) && !newSinglePermission[0]) ||
       formFields.key === '' ||
       formFields.key.match(/[_]/) === null ||
       formFields.title === '' ||
       formFields.description === '' ||
-      formFields.role === 'None'
+      formFields.role === 'None' ||
+      isWrongPermissionsSelect
+
+    const renderMenuItem = per => (
+      <MenuItem key={per._id} value={per._id}>
+        <Checkbox checked={formFields.permissions.includes(per._id)} />
+        <ListItemText primary={`${per.title} (ключ: ${per.key})`} />
+      </MenuItem>
+    )
 
     return (
       <div className={classNames.root}>
@@ -108,6 +129,7 @@ export const AddOrEditGroupPermissionForm = observer(
         <div className={classNames.form}>
           <Field
             label={textConsts.roleLabel}
+            error={isWrongPermissionsSelect && textConsts.isWrongPermissionsSelect}
             inputComponent={
               <NativeSelect
                 variant="filled"
@@ -155,6 +177,7 @@ export const AddOrEditGroupPermissionForm = observer(
           <Field
             containerClasses={classNames.field}
             label={textConsts.allowPermissions}
+            error={isWrongPermissionsSelect && textConsts.isWrongPermissionsSelect}
             inputComponent={
               <div className={classNames.allowPermissions}>
                 <div>
@@ -162,9 +185,7 @@ export const AddOrEditGroupPermissionForm = observer(
 
                   {curPermissions.map((el, index) => (
                     <Tooltip key={index} title={renderPermissionInfo(el)}>
-                      <Typography className={classNames.singlePermission}>{`${el.title} (ключ: ${el.key}) (роль: ${
-                        UserRoleCodeMap[el.role]
-                      })`}</Typography>
+                      <Typography className={classNames.singlePermission}>{`${el.title} (ключ: ${el.key})`}</Typography>
                     </Tooltip>
                   ))}
 
@@ -172,19 +193,83 @@ export const AddOrEditGroupPermissionForm = observer(
                     <Typography className={classNames.selectChoose}>{textConsts.selectChooseTitle}</Typography>
                     <Select
                       multiple
+                      open={openSinglePermissions}
                       className={classNames.permissionSelect}
                       value={formFields.permissions}
-                      renderValue={selected => selected.join(', ')}
+                      renderValue={() => textConsts.choose}
+                      MenuProps={{
+                        PaperProps: {
+                          style: {
+                            maxHeight: 420,
+                          },
+                        },
+                      }}
+                      onOpen={() => setOpenSinglePermissions(!openSinglePermissions)}
+                      onClose={() => setOpenSinglePermissions(!openSinglePermissions)}
                       onChange={handleSelectPermissionChange}
                     >
-                      {singlePermissions.map((per, index) => (
-                        <MenuItem key={index} value={per._id}>
-                          <Checkbox checked={formFields.permissions.includes(per._id)} />
-                          <ListItemText
-                            primary={`${per.title} (ключ: ${per.key})  (роль: ${UserRoleCodeMap[per.role]})`}
-                          />
-                        </MenuItem>
-                      ))}
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] && (
+                        <ListSubheader>{UserRole.ADMIN}</ListSubheader>
+                      )}
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] &&
+                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]].map(per => renderMenuItem(per))}
+
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] && (
+                        <ListSubheader>{UserRole.CLIENT}</ListSubheader>
+                      )}
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] &&
+                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]].map(per => renderMenuItem(per))}
+
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] && (
+                        <ListSubheader>{UserRole.SUPERVISOR}</ListSubheader>
+                      )}
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] &&
+                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]].map(per =>
+                          renderMenuItem(per),
+                        )}
+
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] && (
+                        <ListSubheader>{UserRole.RESEARCHER}</ListSubheader>
+                      )}
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] &&
+                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]].map(per =>
+                          renderMenuItem(per),
+                        )}
+
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]] && (
+                        <ListSubheader>{UserRole.BUYER}</ListSubheader>
+                      )}
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]] &&
+                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]].map(per => renderMenuItem(per))}
+
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] && (
+                        <ListSubheader>{UserRole.STOREKEEPER}</ListSubheader>
+                      )}
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] &&
+                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]].map(per =>
+                          renderMenuItem(per),
+                        )}
+                      <div>
+                        <Button
+                          disableElevation
+                          className={classNames.button}
+                          color="primary"
+                          variant="contained"
+                          onClick={() => setOpenSinglePermissions(!openSinglePermissions)}
+                        >
+                          {textConsts.closeBtn}
+                        </Button>
+
+                        <Button
+                          disableElevation
+                          className={classNames.button}
+                          color="primary"
+                          variant="default"
+                          onClick={() => onChangeField('permissions')({target: {value: []}})}
+                        >
+                          {textConsts.clearBtn}
+                        </Button>
+                      </div>
                     </Select>
                   </div>
                 </div>

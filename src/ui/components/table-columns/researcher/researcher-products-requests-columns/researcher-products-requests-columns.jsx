@@ -12,7 +12,12 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'ru').researcherProductsRequestsTableColumns
 
-export const researcherProductsRequestsViewColumns = () => [
+export const typeOfRequests = {
+  NICHE: 'NICHE',
+  PRODUCT: 'PRODUCT',
+}
+
+const standartColumns = [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
@@ -30,27 +35,45 @@ export const researcherProductsRequestsViewColumns = () => [
   },
 
   {
-    field: 'tmpStrategyStatus',
-    headerName: textConsts.strategyStatusField,
-    renderCell: params => renderFieldValueCell(params.value),
-    width: 250,
-  },
-
-  {
     field: 'tmpCostOfOneProposal',
     headerName: textConsts.costOfOneProposal,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
-    minWidth: 150,
+    minWidth: 250,
     type: 'number',
-    flex: 1,
   },
 
   {
     field: 'countOfProposals',
     headerName: textConsts.countOfProposals,
     renderCell: params => renderFieldValueCell(params.value),
-    minWidth: 150,
+    minWidth: 250,
     type: 'number',
+  },
+
+  {
+    field: 'limitOfProposals',
+    headerName: textConsts.limitOfProposals,
+    renderCell: params => renderFieldValueCell(params.value),
+    minWidth: 250,
+    type: 'number',
+  },
+]
+
+const extraProductColumns = [
+  {
+    field: 'tmpStrategyStatus',
+    headerName: textConsts.strategyStatusField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 250,
     flex: 1,
   },
 ]
+
+export const researcherProductsRequestsViewColumns = type => {
+  switch (type) {
+    case typeOfRequests.NICHE:
+      return standartColumns
+    case typeOfRequests.PRODUCT:
+      return standartColumns.concat(extraProductColumns)
+  }
+}

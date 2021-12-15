@@ -1,4 +1,4 @@
-# Amazonapi.BadRequestError
+# TestSwagger.BadRequestError
 
 ## Properties
 

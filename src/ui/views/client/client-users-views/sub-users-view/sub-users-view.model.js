@@ -156,7 +156,7 @@ export class ClientSubUsersViewModel {
       const result = await PermissionsModel.getGroupPermissions(mapUserRoleEnumToKey[UserRole.CLIENT])
 
       runInAction(() => {
-        this.groupPermissions = result
+        this.groupPermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
       console.log(error)
@@ -168,7 +168,7 @@ export class ClientSubUsersViewModel {
       const result = await PermissionsModel.getSinglePermissions(mapUserRoleEnumToKey[UserRole.CLIENT])
 
       runInAction(() => {
-        this.singlePermissions = result
+        this.singlePermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
       console.log(error)

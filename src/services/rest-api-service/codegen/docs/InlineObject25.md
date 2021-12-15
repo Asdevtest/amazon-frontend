@@ -1,11 +1,12 @@
-# Amazonapi.InlineObject25
+# TestSwagger.InlineObject25
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** | Простое название | [optional] 
-**description** | **String** | Описание permission | [optional] 
-**permissions** | **[String]** |  | [optional] 
+**title** | **String** | простое название | [optional] 
+**description** | **String** | описание permission | [optional] 
+**allowedUrl** | **[String]** | Массив доступных url. | [optional] 
+**role** | **Number** | Роль для которого данный permission | [optional] 
 
 

@@ -13,7 +13,6 @@ import {AdminWarehouseBatchesView} from '@views/admin/admin-warehouse-views/admi
 import {AdminWarehouseBoxesView} from '@views/admin/admin-warehouse-views/admin-warehouse-boxes-view'
 import {AdminWarehouseTasksView} from '@views/admin/admin-warehouse-views/admin-warehouse-tasks-view'
 import {AuthView} from '@views/auth'
-import {BuyerBatchesView} from '@views/buyer/buyer-batches-view'
 import {BuyerDashboardView} from '@views/buyer/buyer-dashboard-view'
 import {BuyerMyProductsView} from '@views/buyer/buyer-my-products-view'
 import {BuyerFreeOrdersView} from '@views/buyer/buyer-orders-views/buyer-free-orders-view'
@@ -25,26 +24,34 @@ import {BuyerUserProfileView} from '@views/buyer/buyer-users-views/buyer-user-pr
 import {ClientBatchesView} from '@views/client/client-batches-view'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
-import {ClientExchangeRequestsView} from '@views/client/client-exchange-views/client-exchange-requests-view'
 import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
+import {ClientDailySellerBoardView} from '@views/client/client-integrations-views/client-daily-seller-board-view'
+import {ClientLast30DaySellerBoardView} from '@views/client/client-integrations-views/client-last-30-day-seller-board-view'
 import {ClientInventoryView} from '@views/client/client-inventory-view'
 import {ClientOrdersNotificationsView} from '@views/client/client-orders-notifications-view'
 import {ClientOrderView} from '@views/client/client-orders-views/order'
 import {ClientOrdersView} from '@views/client/client-orders-views/orders'
 import {ClientProductView} from '@views/client/client-product-view/'
-import {ClientRequestView} from '@views/client/client-request-view'
+import {ClientRequestDetailNicheView} from '@views/client/client-requests-details-views/client-requests-detail-niche-view'
+import {ClientRequestDetailProductView} from '@views/client/client-requests-details-views/client-requests-detail-product-view'
+import {ClientRequestsNichesView} from '@views/client/client-requests-views/client-requests-niches-view'
+import {ClientRequestsProductsView} from '@views/client/client-requests-views/client-requests-products-view/client-requests-products-view'
 import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
 import {ClientUserProfileView} from '@views/client/client-users-views/user-profile-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
 import {DocumentationView} from '@views/documentation'
 import {RegistrationView} from '@views/registration'
 import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
+import {ResearcherMyNichesRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-niches-requests-view'
+import {ResearcherMyProductsRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-products-requests-view'
 import {ResearcherProductView} from '@views/researcher/researcher-product-view/researcher-product-view'
-import {ResearcherProductsRequestsView} from '@views/researcher/researcher-products-requests-view'
 import {ResearcherProductsView} from '@views/researcher/researcher-products-view'
-import {ResearcherRequestView} from '@views/researcher/researcher-request-view'
+import {ResearcherRequestDetailNicheView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-niche-view'
+import {ResearcherRequestDetailProductView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-product-view'
 import {ResearcherSettingsView} from '@views/researcher/researcher-settings-view'
 import {ResearcherSubUsersView} from '@views/researcher/researcher-users-views/researcher-sub-users-view'
+import {ResearcherVacantNichesRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-niches-requests-view'
+import {ResearcherVacantProductsRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-products-requests-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
 import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
 import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view/'
@@ -136,12 +143,6 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
   },
-  {
-    routePath: '/buyer/batches',
-    component: BuyerBatchesView,
-    exact: false,
-    permission: [UserRole.BUYER],
-  },
 
   {
     routePath: '/researcher/dashboard',
@@ -157,11 +158,33 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/researcher/requests',
-    component: ResearcherProductsRequestsView,
+    routePath: '/researcher/my-requests/products',
+    component: ResearcherMyProductsRequestsView,
     exact: true,
     permission: [UserRole.RESEARCHER],
   },
+
+  {
+    routePath: '/researcher/my-requests/niches',
+    component: ResearcherMyNichesRequestsView,
+    exact: true,
+    permission: [UserRole.RESEARCHER],
+  },
+
+  {
+    routePath: '/researcher/requests/products',
+    component: ResearcherVacantProductsRequestsView,
+    exact: true,
+    permission: [UserRole.RESEARCHER],
+  },
+
+  {
+    routePath: '/researcher/requests/niches',
+    component: ResearcherVacantNichesRequestsView,
+    exact: true,
+    permission: [UserRole.RESEARCHER],
+  },
+
   {
     routePath: '/researcher/product',
     component: ResearcherProductView,
@@ -170,8 +193,15 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/researcher/request',
-    component: ResearcherRequestView,
+    routePath: '/researcher/product-search-request',
+    component: ResearcherRequestDetailProductView,
+    exact: true,
+    permission: [UserRole.RESEARCHER],
+  },
+
+  {
+    routePath: '/researcher/niche-search-request',
+    component: ResearcherRequestDetailNicheView,
     exact: true,
     permission: [UserRole.RESEARCHER],
   },
@@ -223,17 +253,40 @@ export const privateRoutesConfigs = [
     permission: [UserRole.CLIENT],
   },
   {
-    routePath: '/client/exchange/requests',
-    component: ClientExchangeRequestsView,
+    routePath: '/client/exchange/requests/products',
+    component: ClientRequestsProductsView,
     exact: false,
     permission: [UserRole.CLIENT],
   },
+
+  {
+    routePath: '/client/exchange/requests/niches',
+    component: ClientRequestsNichesView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
   {
     routePath: '/client/batches',
     component: ClientBatchesView,
     exact: false,
     permission: [UserRole.CLIENT],
   },
+
+  {
+    routePath: '/client/integrations/daily',
+    component: ClientDailySellerBoardView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
+    routePath: '/client/integrations/last-30-day',
+    component: ClientLast30DaySellerBoardView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
   {
     routePath: '/client/warehouse',
     component: ClientWarehouseView,
@@ -254,8 +307,15 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/request',
-    component: ClientRequestView,
+    routePath: '/client/product-search-request',
+    component: ClientRequestDetailProductView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
+    routePath: '/client/niche-search-request',
+    component: ClientRequestDetailNicheView,
     exact: true,
     permission: [UserRole.CLIENT],
   },

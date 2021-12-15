@@ -1,4 +1,4 @@
-# Amazonapi.ConflictInTheState
+# TestSwagger.ConflictInTheState
 
 ## Properties
 

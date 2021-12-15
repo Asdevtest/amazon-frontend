@@ -40,8 +40,7 @@ const Box = ({
   const onChangeField = (value, field) => {
     const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
     const updatedTargetBox = {...targetBox, [field]: value}
-
-    const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? updatedTargetBox : box))
+    const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? updatedTargetBox : newBox))
     setNewBoxes(updatedNewBoxes)
   }
 

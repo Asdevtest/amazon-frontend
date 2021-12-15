@@ -53,8 +53,6 @@ export const AdminContentModal = observer(
 
     const [formFields, setFormFields] = useState(sourceFormFields)
 
-    console.log('formFields', formFields)
-
     const onChangeFormField = fieldName => event => {
       const newFormFields = {...formFields}
       newFormFields[fieldName] = event.target.value
@@ -96,13 +94,11 @@ export const AdminContentModal = observer(
               value={formFields.role}
               onChange={onChangeFormField('role')}
             >
-              {Object.keys(UserRoleCodeMap)
-                // .filter(role => UserRoleCodeMap[role] !== UserRole.CANDIDATE)
-                .map(userRoleCode => (
-                  <option key={userRoleCode} value={userRoleCode}>
-                    {UserRoleCodeMap[userRoleCode]}
-                  </option>
-                ))}
+              {Object.keys(UserRoleCodeMap).map(userRoleCode => (
+                <option key={userRoleCode} value={userRoleCode}>
+                  {UserRoleCodeMap[userRoleCode]}
+                </option>
+              ))}
             </NativeSelect>
           }
         />

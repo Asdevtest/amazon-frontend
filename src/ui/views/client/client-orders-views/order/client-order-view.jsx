@@ -31,7 +31,7 @@ export class ClientOrderView extends Component {
   }
 
   render() {
-    const {orderBoxes, drawerOpen, order, onTriggerDrawerOpen} = this.viewModel
+    const {orderBoxes, drawerOpen, order, history, onTriggerDrawerOpen} = this.viewModel
 
     return (
       <React.Fragment>
@@ -51,7 +51,7 @@ export class ClientOrderView extends Component {
           >
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
-              <OrderContent order={order} boxes={orderBoxes} />
+              <OrderContent order={order} boxes={orderBoxes} history={history} />
             </MainContent>
           </Appbar>
         </Main>

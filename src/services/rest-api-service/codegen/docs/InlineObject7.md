@@ -1,10 +1,9 @@
-# Amazonapi.InlineObject7
+# TestSwagger.InlineObject7
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guids** | **[String]** | Массив коробок. | [optional] 
-**boxBody** | [**ApiV1BoxesMergeBoxBody**](ApiV1BoxesMergeBoxBody.md) |  | [optional] 
+**guid** | **String** | GUID коробки, объединение которой нужно отменить | [optional] 
 
 

@@ -1,6 +1,6 @@
-# Amazonapi.BatchesApi
+# TestSwagger.BatchesApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -19,17 +19,17 @@ Method | HTTP request | Description
 ### Example
 
 ```javascript
-import Amazonapi from 'amazonapi';
-let defaultClient = Amazonapi.ApiClient.instance;
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
 // Configure API key authorization: AccessTokenBearer
 let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
 AccessTokenBearer.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
-let apiInstance = new Amazonapi.BatchesApi();
+let apiInstance = new TestSwagger.BatchesApi();
 let opts = {
-  'Accept_Encoding': gzip, deflate // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BatchesGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -44,7 +44,7 @@ apiInstance.apiV1BatchesGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] [default to &#39;gzip, deflate&#39;]
+ **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 

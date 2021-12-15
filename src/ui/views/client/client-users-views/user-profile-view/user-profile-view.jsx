@@ -24,7 +24,7 @@ import {ClientProfileViewModel} from './user-profile-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientUserView
 
-const navbarActiveCategory = 6
+const navbarActiveCategory = 7
 const navBarActiveSubCategory = 0
 
 @observer
