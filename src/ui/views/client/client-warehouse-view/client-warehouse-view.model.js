@@ -398,11 +398,7 @@ export class ClientWarehouseViewModel {
           tmpTrackingNumberChina: item.items[0].order.trackingNumberChina,
           tmpFinalWeight: Math.max(
             parseFloat(item.volumeWeightKgWarehouse ? item.volumeWeightKgWarehouse : item.volumeWeightKgSupplier) || 0,
-            parseFloat(
-              item.weightFinalAccountingKgWarehouse
-                ? item.weightFinalAccountingKgWarehouse
-                : item.weightFinalAccountingKgSupplier,
-            ) || 0,
+            parseFloat(item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier) || 0,
           ),
           tmpGrossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
           tmpWarehouses: warehouses[item.warehouse],

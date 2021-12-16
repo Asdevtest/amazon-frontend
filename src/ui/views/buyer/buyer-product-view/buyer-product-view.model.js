@@ -364,6 +364,11 @@ export class BuyerProductViewModel {
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
         const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === supplier._id)
         this.suppliers[findSupplierIndex] = supplier
+
+        if (supplier._id === this.product.currentSupplierId) {
+          this.product.currentSupplier = supplier
+          updateProductAutoCalculatedFields.call(this)
+        }
       } else {
         const createSupplierResult = await SupplierModel.createSupplier(supplier)
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
@@ -372,6 +377,7 @@ export class BuyerProductViewModel {
           this.suppliers.push({...supplier, _id: createSupplierResult.guid})
         })
       }
+
       this.setActionStatus(loadingStatuses.success)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {

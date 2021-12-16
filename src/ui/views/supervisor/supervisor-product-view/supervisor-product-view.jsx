@@ -20,7 +20,7 @@ import {SupervisorProductViewModel} from './supervisor-product-view.model'
 const curUserRole = UserRole.SUPERVISOR
 const textConsts = getLocalizedTexts(texts, 'en').supervisorProductView
 
-const navbarActiveCategory = 4
+const navbarActiveCategory = 2
 
 @observer
 export class SupervisorProductView extends Component {

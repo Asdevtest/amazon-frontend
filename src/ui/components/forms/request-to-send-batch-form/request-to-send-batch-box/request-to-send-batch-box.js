@@ -8,16 +8,13 @@ import {warehouses} from '@constants/warehouses'
 
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 
+import {getShortenStringIfLongerThanCount} from '@utils/change-string-length'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 
 import {useClassNames} from './request-to-send-batch-box.styles'
 
 export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBatch}) => {
   const classNames = useClassNames()
-  const amazonTitleShort =
-    box.items[0].product.amazonTitle.length > 30
-      ? `${box.items[0].product.amazonTitle.slice(0, 30)}...`
-      : box.items[0].product.amazonTitle
   const tableCellClsx = clsx(classNames.tableCell, {[classNames.boxNoPrice]: !price})
 
   return (
@@ -27,17 +24,25 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
       </td>
       <td className={tableCellClsx}>
         <div className={classNames.imgWrapper}>
-          <img
-            src={box.items[0].product.images[0] && getAmazonImageUrl(box.items[0].product.images[0])}
-            className={classNames.img}
-          />
+          {box.items.map((item, idx) => (
+            <img
+              key={idx}
+              src={item.product.images && getAmazonImageUrl(item.product.images[0])}
+              className={classNames.img}
+            />
+          ))}
         </div>
       </td>
       <td className={tableCellClsx}>
-        <Typography variant="h5">{amazonTitleShort}</Typography>
+        {box.items.map((item, idx) => (
+          <Typography key={idx} variant="h5">{`${idx + 1}: ${getShortenStringIfLongerThanCount(
+            item.product.amazonTitle,
+            30,
+          )}`}</Typography>
+        ))}
       </td>
       <td className={tableCellClsx}>
-        <Typography variant="subtitle1">{`BoxId: ${box._id}`}</Typography>
+        <Typography variant="subtitle1">{`Реальный вес: ${box.tmpGrossWeight}кг; Объемный вес: ${box.volumeWeightKgWarehouse}кг; Финальный вес: ${box.tmpFinalWeight}кг`}</Typography>
       </td>
       <td className={tableCellClsx}>
         <Typography variant="subtitle1">{warehouses[box.warehouse]}</Typography>
@@ -46,7 +51,9 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
         <Typography variant="subtitle1">{DeliveryTypeByCode[box.deliveryMethod]}</Typography>
       </td>
       <td className={tableCellClsx}>
-        <Typography variant="subtitle1">{`${box.items[0].amount}шт.`}</Typography>
+        {box.items.map((item, idx) => (
+          <Typography key={idx} variant="subtitle1">{`${item.amount}шт.`}</Typography>
+        ))}
       </td>
       <td className={clsx(tableCellClsx, classNames.tableCellRight)}>
         {price ? <Typography variant="h5">{`${price} $`}</Typography> : null}

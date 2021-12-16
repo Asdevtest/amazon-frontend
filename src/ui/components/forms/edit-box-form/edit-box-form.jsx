@@ -238,7 +238,7 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
             <WarehouseDemensions orderBox={boxFields} />
 
             <div className={classNames.photoWrapper}>
-              <Typography className={classNames.subTitle}>{'Фотографии коробки сделанные на складе:'}</Typography>
+              <Typography className={classNames.subTitle}>{'Фотографии коробки, сделанные на складе:'}</Typography>
 
               {boxFields.images.length > 0 ? (
                 <Carousel autoPlay timeout={100} animation="fade">

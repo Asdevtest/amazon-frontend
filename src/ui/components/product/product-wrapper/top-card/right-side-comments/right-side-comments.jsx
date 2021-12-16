@@ -92,7 +92,7 @@ export const RightSideComments = observer(
           {(checkIsResearcher(curUserRole) &&
             product.status < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) ||
           (checkIsBuyer(curUserRole) && product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
-          checkIsSupervisor(curUserRole) ? (
+          (checkIsSupervisor(curUserRole) && product.status < ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]) ? (
             <div className={classNames.buttonsWrapper}>
               <Button
                 className={classNames.buttonNormal}
@@ -122,7 +122,19 @@ export const RightSideComments = observer(
                 </ErrorButton>
               ) : undefined}
             </div>
-          ) : undefined}
+          ) : (
+            <div className={classNames.buttonsWrapper}>
+              <ErrorButton
+                className={clsx(classNames.buttonNormal, {
+                  [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
+                })}
+                variant="contained"
+                onClick={() => handleProductActionButtons('cancel')}
+              >
+                {textConsts.buttonCancel}
+              </ErrorButton>
+            </div>
+          )}
         </Box>
       </Grid>
     )

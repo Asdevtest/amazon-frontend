@@ -32,7 +32,11 @@ export const MergeBoxesModal = ({
   const [boxBody, setBoxBody] = useState({shippingLabel: '', warehouse: '', deliveryMethod: ''})
 
   const [comment, setComment] = useState('')
-
+  const onSubmitBoxesModal = () => {
+    onSubmit(boxBody, comment)
+    setBoxBody({shippingLabel: '', warehouse: '', deliveryMethod: ''})
+    setComment('')
+  }
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <Typography variant="h5">{textConsts.mainTitle}</Typography>
@@ -111,7 +115,9 @@ export const MergeBoxesModal = ({
           color="primary"
           variant="contained"
           className={classNames.button}
-          onClick={() => onSubmit(boxBody, comment)}
+          onClick={() => {
+            onSubmitBoxesModal()
+          }}
         >
           {textConsts.saveBtn}
         </Button>

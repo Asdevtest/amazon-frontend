@@ -43,7 +43,6 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
 
   const [role, setRole] = useState(componentModel.current.role)
   const [showAppbarSettingsForm, setShowshowAppbarSettingsForm] = useState(false)
-
   const renderNavbarButton = (
     <Hidden mdUp>
       <IconButton onClick={setDrawerOpen}>
@@ -120,7 +119,7 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
           <Menu keepMounted id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
             <Typography className={classNames.menuTitle}>{textConsts.menuTitle}</Typography>
 
-            {componentModel.current.allowedRoles !== null && componentModel.current.allowedRoles && (
+            {componentModel.current.allowedRoles !== null && componentModel.current.allowedRoles.length !== 0 && (
               <div className={classNames.roleWrapper}>
                 <Typography className={classNames.menuTitle}>{textConsts.roleTitle}</Typography>
 
