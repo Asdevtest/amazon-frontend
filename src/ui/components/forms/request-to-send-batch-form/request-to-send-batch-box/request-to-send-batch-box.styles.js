@@ -17,7 +17,7 @@ export const useClassNames = makeStyles(() => ({
     textAlign: 'right',
   },
   imgWrapper: {
-    height: '50px',
+    minHeight: '50px',
     width: '50px',
   },
   img: {
@@ -34,5 +34,6 @@ export const useClassNames = makeStyles(() => ({
   tableCellCrossBtn: {
     border: 0,
     padding: '0 10px',
+    verticalAlign: 'middle',
   },
 }))

@@ -14,13 +14,13 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {EditBoxForm} from '@components/forms/edit-box-form'
+import {RequestToSendBatchForm} from '@components/forms/request-to-send-batch-form'
 import {SendOwnProductForm} from '@components/forms/send-own-product-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
-import {RequestToSendBatchModal} from '@components/modals/request-to-send-batch-modal/request-to-send-batch-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -246,15 +246,17 @@ export class ClientWarehouseViewRaw extends Component {
             onTriggerOpenModal('showRedistributeBoxFailModal')
           }}
         />
-        <RequestToSendBatchModal
-          openModal={showRequestToSendBatchModal}
-          setOpenModal={triggerRequestToSendBatchModal}
-          boxesDeliveryCosts={boxesDeliveryCosts}
-          selectedBoxes={selectedBoxes}
-          boxesMy={boxesMy}
-          onClickRemoveBoxFromBatch={onTriggerCheckbox}
-          onClickSendBoxesToBatch={onClickSendBoxesToBatch}
-        />
+
+        <Modal openModal={showRequestToSendBatchModal} setOpenModal={triggerRequestToSendBatchModal}>
+          <RequestToSendBatchForm
+            closeModal={triggerRequestToSendBatchModal}
+            boxesDeliveryCosts={boxesDeliveryCosts}
+            selectedBoxes={selectedBoxes}
+            boxesMy={boxesMy}
+            onClickRemoveBoxFromBatch={onTriggerCheckbox}
+            onClickSendBoxesToBatch={onClickSendBoxesToBatch}
+          />
+        </Modal>
 
         <ConfirmationModal
           isWarning

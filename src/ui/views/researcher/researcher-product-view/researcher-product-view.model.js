@@ -14,7 +14,10 @@ import {ResearcherUpdateProductContract} from '@models/researcher-model/research
 import {SupplierModel} from '@models/supplier-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {
+  checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
+  checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
+} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {
   getObjectFilteredByKeyArrayWhiteList,
@@ -160,6 +163,12 @@ export class ResearcherProductViewModel {
           return
         }
         if (!['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 5)) {
+          return
+        }
+        if (
+          ['amazon', 'fbafee'].includes(fieldName) &&
+          !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
+        ) {
           return
         }
         if (['fbaamount'].includes(fieldName)) {

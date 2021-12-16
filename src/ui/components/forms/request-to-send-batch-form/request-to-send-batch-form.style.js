@@ -6,10 +6,9 @@ export const useClassNames = makeStyles(() => ({
   modalTitle: {},
   boxesWrapper: {
     marginTop: '40px',
-  },
-  table: {
-    borderCollapse: 'collapse',
-    border: 0,
+    overflowY: 'auto',
+    maxHeight: '400px',
+    width: '100%',
   },
   warningWrapper: {
     marginTop: '20px',
@@ -23,5 +22,12 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'flex-end',
     flexDirection: 'row',
     display: 'flex',
+  },
+  btnClose: {
+    marginLeft: '10px',
+  },
+  block: {
+    height: '50px',
+    backgroundColor: 'f6b2b3a4',
   },
 }))

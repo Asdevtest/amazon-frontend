@@ -346,7 +346,7 @@ export const ClientOrdersNotificationsBtnsCell = withStyles(styles)(({classes: c
     <ErrorButton
       className={classNames.rowCancelBtn}
       onClick={() => {
-        handlers.onClickRejectBtn(row)
+        handlers.onTriggerOpenModal('showConfirmModal', row)
       }}
     >
       {textConsts.rejectBtn}

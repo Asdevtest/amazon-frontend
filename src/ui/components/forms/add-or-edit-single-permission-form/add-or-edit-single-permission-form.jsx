@@ -50,14 +50,15 @@ export const AddOrEditSinglePermissionForm = observer(({onCloseModal, onSubmit, 
 
   const addAllowUrl = () => {
     const newFormFields = {...formFields}
-    const newArr = newFormFields.allowedUrl.concat('')
-    newFormFields.allowedUrl = newArr
+    const addUrlToArray = newFormFields.allowedUrl.concat('')
+    newFormFields.allowedUrl = addUrlToArray
     setFormFields(newFormFields)
   }
 
   const onRemovePermission = index => {
     const newFormFields = {...formFields}
-    newFormFields.allowedUrl.splice(index, 1)
+    const removeUrlFromArray = newFormFields.allowedUrl.filter(url => url !== newFormFields.allowedUrl[index])
+    newFormFields.allowedUrl = removeUrlFromArray
     setFormFields(newFormFields)
   }
 

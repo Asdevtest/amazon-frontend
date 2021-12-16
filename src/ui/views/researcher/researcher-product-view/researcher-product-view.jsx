@@ -22,7 +22,7 @@ import {ResearcherProductViewModel} from './researcher-product-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').researcherProductView
 
-const navbarActiveCategory = 4
+const navbarActiveCategory = 1
 
 @observer
 export class ResearcherProductView extends Component {

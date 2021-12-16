@@ -394,8 +394,8 @@ export const texts = {
       formDeadlineLabel: 'Target date *',
       formDeadlineErrorText: 'The deadline date cannot be later than the current date',
       formCheckboxNoCheckLabel: 'Сотрудники платформы будут участвовать в проверке качества найденного товара.',
-      formCheckboxNoPurchasedNiches: 'Не предлагать ниши купленные мной',
-      formCheckboxNoPurchasedProducts: 'Не предлагать продукты купленные мной',
+      formCheckboxNoPurchasedNiches: 'Не предлагать ниши, купленные мной',
+      formCheckboxNoPurchasedProducts: 'Не предлагать продукты, купленные мной',
       formCheckboxFindSupplier: 'Найти поставщика',
       formCloseReasonLabel: 'Describe the reason for closing request',
 
@@ -543,7 +543,7 @@ export const texts = {
       strategyStatusField: 'Strategy',
       createDateField: 'Created',
       updateDateField: 'Updated',
-      asinField: 'ASIN',
+      asinField: 'PRODUCT',
       asinTypo: 'ASIN ',
       asinUpdateToday: ' | updated today',
       careChip: 'Beauty & Personal Care',
@@ -1531,7 +1531,7 @@ export const texts = {
       buttonParseAmazon: ' Parse Amazon ',
       buttonParseSellcentrall: 'Parse Seller central',
       alertSuccess: 'Запрос обработан',
-      alertFailed: 'Запрос не был обработан',
+      alertFailed: 'Не заполнены поля',
 
       fieldAsin: 'ASIN*',
       fieldLinkAmazon: 'Ссылка на товар Amazon',
@@ -1680,7 +1680,7 @@ export const texts = {
     },
 
     mergeBoxModal: {
-      mainTitle: 'Соедиение коробок:',
+      mainTitle: 'Соединение коробок:',
       deliveryMethod: 'Метод доставки',
       warehouse: 'Склад',
       valueNone: 'none',
@@ -1767,7 +1767,7 @@ export const texts = {
 
       product: 'Товар',
       price: 'Цена',
-      avgDeliveryPrice: 'Ср. стоимость доставки за 1 шт.',
+      avgDeliveryPrice: 'Стоимость доставки за 1 шт.',
       amount: 'Кол-во',
       total: 'Итого',
       barCode: 'Баркод',
@@ -1806,6 +1806,10 @@ export const texts = {
       appBarTitle: 'Страница уведомлений по заказам',
       appBarUsername: 'Client',
       appUser: 'client',
+      confirmTitle: 'Внимание',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      message: 'Вы хотите отменить?',
     },
     adminOrdersView: {
       mainTitle: 'Мои заказы',
@@ -2041,7 +2045,7 @@ export const texts = {
 
     supervisorProductsTableColumns: {
       strategyStatusField: 'Strategy',
-      asinField: 'ASIN',
+      asinField: 'PRODUCT',
       statusField: 'STATUS',
       createDateField: 'Created',
       amazonPriceField: 'Amazon price',
@@ -2056,7 +2060,7 @@ export const texts = {
 
     buyerProductsTableColumns: {
       strategyStatusField: 'Strategy',
-      asinField: 'ASIN',
+      asinField: 'PRODUCT',
       statusField: 'STATUS',
       createDateField: 'Created',
       amazonPriceField: 'Amazon price',
@@ -2357,7 +2361,7 @@ export const texts = {
       mainTitle: 'Вакантные задачи',
       okBtn: 'Ок',
       pickUp: 'Взять в работу',
-      warningTitle: 'Данная задача взята в работу и перенесена в раздел Мои задачи',
+      warningTitle: 'Данная задача взята в работу и перенесена в раздел "Мои задачи"',
     },
 
     appbarSettingsForm: {
@@ -2725,6 +2729,12 @@ export const texts = {
     },
     requestToSendBatchModal: {
       modalTitle: 'Отправка коробок',
+      totalPrice: 'Общая стоимость отправки:',
+      totalWeight: 'Общий финальный вес:',
+      noPrice:
+        '* Коробки помеченные красным не будут отправлены потому что у них нет размеров или не достаточно данных',
+      btnSend: 'Отправить',
+      btnClose: 'Закрыть',
     },
   },
 }

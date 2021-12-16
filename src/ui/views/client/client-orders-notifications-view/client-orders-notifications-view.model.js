@@ -22,7 +22,11 @@ export class ClientOrdersNotificationsViewModel {
 
   orders = []
   drawerOpen = false
-
+  showConfirmModal = false
+  confirmModalSettings = {
+    isWarning: false,
+    onClickOkBtn: () => this.onSaveProductData(),
+  }
   sortModel = []
   filterModel = {items: []}
   curPage = 0
@@ -30,7 +34,7 @@ export class ClientOrdersNotificationsViewModel {
   densityModel = 'standart'
   rowHandlers = {
     onClickConfirmBtn: order => this.onClickConfirmOrderPriceChangeBtn(order),
-    onClickRejectBtn: order => this.onClickRejectOrderPriceChangeBtn(order),
+    onTriggerOpenModal: (type, row) => this.onTriggerOpenModal(type, row),
   }
   columnsModel = clientOrdersNotificationsViewColumns(this.rowHandlers)
 
@@ -72,6 +76,14 @@ export class ClientOrdersNotificationsViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
+  }
+
+  onTriggerOpenModal(modal, row) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
+    }
+    this[modal] = !this[modal]
   }
 
   setRequestStatus(requestStatus) {

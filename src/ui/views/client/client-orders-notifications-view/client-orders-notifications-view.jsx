@@ -12,6 +12,7 @@ import {UserRole} from '@constants/user-roles'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
 import {onStateChangeHandler} from '@utils/for-data-grid'
@@ -50,7 +51,9 @@ class ClientOrdersNotificationsViewRaw extends Component {
       onChangeCurPage,
       onChangeRowsPerPage,
       onClickTableRow,
-
+      showConfirmModal,
+      confirmModalSettings,
+      onTriggerOpenModal,
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
@@ -111,6 +114,21 @@ class ClientOrdersNotificationsViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+
+        <ConfirmationModal
+          isWarning={confirmModalSettings.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={textConsts.confirmTitle}
+          message={textConsts.message}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={() => {
+            confirmModalSettings.onClickOkBtn()
+            onTriggerOpenModal('showConfirmModal')
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
       </React.Fragment>
     )
   }
