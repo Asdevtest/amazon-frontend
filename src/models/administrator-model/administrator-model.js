@@ -29,12 +29,12 @@ class AdministratorModelStatic {
   }
 
   updateProduct = async (id, data) => {
-    const response = await restApiService.administratorApi.apiV1AdminsPatchProductsGuidPatch(id, data)
+    const response = await restApiService.administratorApi.apiV1AdminsPatchProductsGuidPatch(id, {body: data})
     return response
   }
 
   makePayment = async data => {
-    const response = await restApiService.administratorApi.apiV1AdminsMakePaymentPost(data)
+    const response = await restApiService.administratorApi.apiV1AdminsMakePaymentPost({body: data})
     return response
   }
 

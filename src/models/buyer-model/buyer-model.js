@@ -67,7 +67,7 @@ class BuyerModelStatic {
   }
 
   postTask = async data => {
-    const response = await restApiService.buyerApi.apiV1BuyersTasksPost(data)
+    const response = await restApiService.buyerApi.apiV1BuyersTasksPost({body: data})
     return response
   }
 

@@ -2,7 +2,7 @@ import {restApiService} from '@services/rest-api-service/rest-api-service'
 
 class PermissionsModelStatic {
   createSinglePermission = async data => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsPost(data)
+    const response = await restApiService.permissionsApi.apiV1PermissionsPost({body: data})
     return response
   }
 
@@ -24,7 +24,7 @@ class PermissionsModelStatic {
   }
 
   createGroupPermission = async data => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsPost(data)
+    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsPost({body: data})
     return response
   }
 

@@ -73,19 +73,19 @@ class UserModelStatic {
   }
 
   async changeUserInfo(data) {
-    const response = await restApiService.userApi.apiV1UsersMePatch(data)
+    const response = await restApiService.userApi.apiV1UsersMePatch({body: data})
 
     return response
   }
 
   async linkSubUser(data) {
-    const response = await restApiService.userApi.apiV1UsersLinkSubUserPatch(data)
+    const response = await restApiService.userApi.apiV1UsersLinkSubUserPatch({body: data})
 
     return response
   }
 
   async unlinkSubUser(data) {
-    const response = await restApiService.userApi.apiV1UsersUnlinkSubUserPatch(data)
+    const response = await restApiService.userApi.apiV1UsersUnlinkSubUserPatch({body: data})
 
     return response
   }
@@ -103,13 +103,13 @@ class UserModelStatic {
   }
 
   async createUserSettings(data) {
-    const response = await restApiService.userApi.apiV1UsersUserSettingsPost(data)
+    const response = await restApiService.userApi.apiV1UsersUserSettingsPost({body: data})
 
     return response
   }
 
   async editUserSettings(id, data) {
-    const response = await restApiService.userApi.apiV1UsersUserSettingsMyPatch(id, data)
+    const response = await restApiService.userApi.apiV1UsersUserSettingsMyPatch(id, {body: data})
 
     return response
   }

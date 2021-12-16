@@ -36,7 +36,7 @@ class ClientModelStatic {
   }
 
   createOrder = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersPost(data)
+    const response = await restApiService.clientApi.apiV1ClientsOrdersPost({body: data})
     return response
   }
 
@@ -63,7 +63,7 @@ class ClientModelStatic {
   }
 
   createTask = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsTasksPost(data)
+    const response = await restApiService.clientApi.apiV1ClientsTasksPost({body: data})
     return response
   }
 

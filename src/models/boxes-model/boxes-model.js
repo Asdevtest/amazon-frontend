@@ -2,7 +2,7 @@ import {restApiService} from '@services/rest-api-service/rest-api-service'
 
 class BoxesModelStatic {
   createBox = async data => {
-    const response = await restApiService.boxesApi.apiV1BoxesPost(data)
+    const response = await restApiService.boxesApi.apiV1BoxesPost({body: data})
     return response
   }
 
@@ -45,7 +45,7 @@ class BoxesModelStatic {
   }
 
   editBox = async ({id, data}) => {
-    const response = await restApiService.boxesApi.apiV1BoxesEditGuidPost(id, data)
+    const response = await restApiService.boxesApi.apiV1BoxesEditGuidPost(id, {body: data})
     return response
   }
 
@@ -107,17 +107,19 @@ class BoxesModelStatic {
   }
 
   calculateBoxDeliveryCostsInBatch = async boxesIds => {
-    const response = await restApiService.boxesApi.apiV1BoxesCalculateBoxDeliveryCostsInBatchPost({boxesIds})
+    const response = await restApiService.boxesApi.apiV1BoxesCalculateBoxDeliveryCostsInBatchPost({body: boxesIds})
     return response
   }
 
   sendBoxesToBatch = async boxesIds => {
-    const response = await restApiService.boxesApi.apiV1BoxesSendBoxesToBatchPost({boxesIds})
+    const response = await restApiService.boxesApi.apiV1BoxesSendBoxesToBatchPost({body: boxesIds})
     return response
   }
 
   requestSendBoxToBatch = async boxesIds => {
-    const response = await restApiService.boxesApi.apiV1BoxesRequestSendBoxesToBatchPost({cancel: false, boxesIds})
+    const response = await restApiService.boxesApi.apiV1BoxesRequestSendBoxesToBatchPost({
+      body: {cancel: false, boxesIds},
+    })
     return response
   }
 }

@@ -10,7 +10,7 @@ class ResearcherModelStatic {
     if (validationErrors.length) {
       throw validationErrors
     }
-    const response = await restApiService.researcherApi.apiV1ResearchersProductsPost(data)
+    const response = await restApiService.researcherApi.apiV1ResearchersProductsPost({body: data})
     return response
   }
 

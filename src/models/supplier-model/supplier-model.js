@@ -7,7 +7,7 @@ class SupplierModelStatic {
   }
 
   createSupplier = async data => {
-    const response = await restApiService.supplierApi.apiV1SuppliersPost(data)
+    const response = await restApiService.supplierApi.apiV1SuppliersPost({body: data})
     return response
   }
 
