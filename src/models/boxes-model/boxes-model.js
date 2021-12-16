@@ -107,7 +107,7 @@ class BoxesModelStatic {
   }
 
   calculateBoxDeliveryCostsInBatch = async boxesIds => {
-    const response = await restApiService.boxesApi.apiV1BoxesCalculateBoxDeliveryCostsInBatchPost({body: boxesIds})
+    const response = await restApiService.boxesApi.apiV1BoxesCalculateBoxDeliveryCostsInBatchPost({body: {boxesIds}})
     return response
   }
 
