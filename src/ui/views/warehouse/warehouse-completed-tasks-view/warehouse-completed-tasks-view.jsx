@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -22,7 +23,7 @@ import {WarehouseCompletedViewModel} from './warehouse-completed-tasks-view.mode
 import {styles} from './warehouse-completed-tasks-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseCompletedTasksView
-const navbarActiveCategory = 3
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_COMPLETED_TASKS
 
 @observer
 export class WarehouseCompletedTasksViewRaw extends Component {

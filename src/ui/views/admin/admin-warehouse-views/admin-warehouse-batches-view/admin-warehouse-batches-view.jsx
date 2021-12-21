@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -24,7 +25,7 @@ import {styles} from './admin-warehouse-batches-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').adminBatchesView
 
-const navbarActiveCategory = 4
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
 const navbarActiveSubCategory = 2
 
 @observer

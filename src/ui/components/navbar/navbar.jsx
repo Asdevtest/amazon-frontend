@@ -15,7 +15,6 @@ export const Navbar = observer(
   ({activeCategory, activeSubCategory, curUserRole, drawerOpen, setDrawerOpen, onChangeSubCategory}) => {
     const classNames = useClassNames()
     const viewModel = useRef(new NavbarModel({curUserRole}))
-
     const drawerContent = (
       <React.Fragment>
         <div className={classNames.logoWrapper}>
@@ -24,26 +23,30 @@ export const Navbar = observer(
         <Divider />
 
         <List className={classNames.categoriesWrapper}>
-          {navbarConfig[curUserRole].map((category, index) => (
-            <React.Fragment key={index}>
-              <NavbarCategory
-                button
-                isSelected={index === activeCategory}
-                to={category.route}
-                icon={category.icon}
-                title={category.title}
-                badge={category.route === '/client/orders-notifications' && viewModel.current.ordersNotificationsAmount}
-              />
+          {navbarConfig[curUserRole].map((category, index) =>
+            category.checkHideBlock(viewModel.current.userInfo) ? (
+              <React.Fragment key={index}>
+                <NavbarCategory
+                  button
+                  isSelected={category.key === activeCategory}
+                  to={category.route}
+                  icon={category.icon}
+                  title={category.title}
+                  badge={
+                    category.route === '/client/orders-notifications' && viewModel.current.ordersNotificationsAmount
+                  }
+                />
 
-              <NavbarCollapse
-                activeCategory={activeCategory}
-                activeSubCategory={activeSubCategory}
-                category={category}
-                index={index}
-                onChangeSubCategory={onChangeSubCategory}
-              />
-            </React.Fragment>
-          ))}
+                <NavbarCollapse
+                  activeCategory={activeCategory}
+                  activeSubCategory={activeSubCategory}
+                  category={category}
+                  index={category.key}
+                  onChangeSubCategory={onChangeSubCategory}
+                />
+              </React.Fragment>
+            ) : null,
+          )}
         </List>
       </React.Fragment>
     )

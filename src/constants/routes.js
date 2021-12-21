@@ -14,6 +14,7 @@ import {AdminWarehouseBoxesView} from '@views/admin/admin-warehouse-views/admin-
 import {AdminWarehouseTasksView} from '@views/admin/admin-warehouse-views/admin-warehouse-tasks-view'
 import {AuthView} from '@views/auth'
 import {BuyerDashboardView} from '@views/buyer/buyer-dashboard-view'
+import {BuyerFinancesViews} from '@views/buyer/buyer-finances-views'
 import {BuyerMyProductsView} from '@views/buyer/buyer-my-products-view'
 import {BuyerFreeOrdersView} from '@views/buyer/buyer-orders-views/buyer-free-orders-view'
 import {BuyerMyOrdersView} from '@views/buyer/buyer-orders-views/buyer-my-orders-view'
@@ -25,6 +26,7 @@ import {ClientBatchesView} from '@views/client/client-batches-view'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
 import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
+import {ClientFinancesViews} from '@views/client/client-finances-views'
 import {ClientDailySellerBoardView} from '@views/client/client-integrations-views/client-daily-seller-board-view'
 import {ClientLast30DaySellerBoardView} from '@views/client/client-integrations-views/client-last-30-day-seller-board-view'
 import {ClientInventoryView} from '@views/client/client-inventory-view'
@@ -40,8 +42,15 @@ import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-vie
 import {ClientUserProfileView} from '@views/client/client-users-views/user-profile-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
 import {DocumentationView} from '@views/documentation'
+import {FreelancerDashboardView} from '@views/freelancer/freelancer-dashboard-view'
+import {FreelancerFinancesViews} from '@views/freelancer/freelancer-finances-views'
+import {FreelancerMyNichesRequestsView} from '@views/freelancer/freelancer-my-requests-views/freelancer-my-niches-requests-view'
+import {FreelancerMyProductsRequestsView} from '@views/freelancer/freelancer-my-requests-views/freelancer-my-products-requests-view'
+import {FreelancerVacantNichesRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-niches-requests-view'
+import {FreelancerVacantProductsRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-products-requests-view'
 import {RegistrationView} from '@views/registration'
 import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
+import {ResearcherFinancesViews} from '@views/researcher/researcher-finances-views'
 import {ResearcherMyNichesRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-niches-requests-view'
 import {ResearcherMyProductsRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-products-requests-view'
 import {ResearcherProductView} from '@views/researcher/researcher-product-view/researcher-product-view'
@@ -53,6 +62,7 @@ import {ResearcherSubUsersView} from '@views/researcher/researcher-users-views/r
 import {ResearcherVacantNichesRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-niches-requests-view'
 import {ResearcherVacantProductsRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-products-requests-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
+import {SupervisorFinancesViews} from '@views/supervisor/supervisor-finances-views'
 import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
 import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view/'
 import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-view'
@@ -62,6 +72,7 @@ import {TermsView} from '@views/terms'
 import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-canceled-tasks-view'
 import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-completed-tasks-view'
 import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
+import {WarehouseFinancesViews} from '@views/warehouse/warehouse-finances-views'
 import {WarehouseMyTasksView} from '@views/warehouse/warehouse-my-tasks-view'
 import {WarehouseSubUsersView} from '@views/warehouse/warehouse-users-views/warehouse-sub-users-view'
 import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-vacant-tasks-view'
@@ -143,6 +154,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
   },
+  {
+    routePath: '/buyer/finances',
+    component: BuyerFinancesViews,
+    exact: false,
+    permission: [UserRole.BUYER],
+  },
 
   {
     routePath: '/researcher/dashboard',
@@ -216,6 +233,12 @@ export const privateRoutesConfigs = [
   {
     routePath: '/researcher/settings',
     component: ResearcherSettingsView,
+    exact: false,
+    permission: [UserRole.RESEARCHER],
+  },
+  {
+    routePath: '/researcher/finances',
+    component: ResearcherFinancesViews,
     exact: false,
     permission: [UserRole.RESEARCHER],
   },
@@ -340,6 +363,12 @@ export const privateRoutesConfigs = [
     permission: [UserRole.CLIENT],
   },
   {
+    routePath: '/client/finances',
+    component: ClientFinancesViews,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+  {
     routePath: '/supervisor/dashboard',
     component: SupervisorDashboardView,
     exact: false,
@@ -373,6 +402,12 @@ export const privateRoutesConfigs = [
   {
     routePath: '/supervisor/users/sub-users',
     component: SupervisorSubUsersView,
+    exact: false,
+    permission: [UserRole.SUPERVISOR],
+  },
+  {
+    routePath: '/supervisor/finances',
+    component: SupervisorFinancesViews,
     exact: false,
     permission: [UserRole.SUPERVISOR],
   },
@@ -424,6 +459,12 @@ export const privateRoutesConfigs = [
   {
     routePath: '/warehouse/warehouse',
     component: WarehouseWarehouseView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+  },
+  {
+    routePath: '/warehouse/finances',
+    component: WarehouseFinancesViews,
     exact: false,
     permission: [UserRole.STOREKEEPER],
   },
@@ -510,5 +551,45 @@ export const privateRoutesConfigs = [
     component: AdminSettingsView,
     exact: false,
     permission: [UserRole.ADMIN],
+  },
+
+  {
+    routePath: '/freelancer/dashboard',
+    component: FreelancerDashboardView,
+    exact: false,
+    permission: [UserRole.FREELANCER],
+  },
+  {
+    routePath: '/freelancer/my-requests/products',
+    component: FreelancerMyProductsRequestsView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+  },
+
+  {
+    routePath: '/freelancer/my-requests/niches',
+    component: FreelancerMyNichesRequestsView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+  },
+
+  {
+    routePath: '/freelancer/requests/products',
+    component: FreelancerVacantProductsRequestsView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+  },
+
+  {
+    routePath: '/freelancer/requests/niches',
+    component: FreelancerVacantNichesRequestsView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+  },
+  {
+    routePath: '/freelancer/finances',
+    component: FreelancerFinancesViews,
+    exact: false,
+    permission: [UserRole.FREELANCER],
   },
 ]

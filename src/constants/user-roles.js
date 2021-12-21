@@ -8,6 +8,7 @@ export const UserRole = {
   BUYER: 'BUYER',
   STOREKEEPER: 'STOREKEEPER',
   CANDIDATE: `CANDIDATE`,
+  FREELANCER: `FREELANCER`,
 }
 
 export const UserRoleCodeMap = {
@@ -15,6 +16,7 @@ export const UserRoleCodeMap = {
   10: UserRole.CLIENT,
   20: UserRole.SUPERVISOR,
   30: UserRole.RESEARCHER,
+  35: UserRole.FREELANCER,
   40: UserRole.BUYER,
   45: UserRole.STOREKEEPER,
   50: UserRole.CANDIDATE,

@@ -26,8 +26,15 @@ export class ClientProductView extends Component {
   })
 
   render() {
-    const {product, drawerOpen, suppliers, formFieldsValidationErrors, onTriggerDrawerOpen, onChangeProductFields} =
-      this.viewModel
+    const {
+      product,
+      drawerOpen,
+      suppliers,
+      formFieldsValidationErrors,
+      onTriggerDrawerOpen,
+      onChangeProductFields,
+      handleProductActionButtons,
+    } = this.viewModel
 
     return (
       <React.Fragment>
@@ -52,6 +59,7 @@ export class ClientProductView extends Component {
                   curUserRole={UserRole.CLIENT}
                   product={product}
                   suppliers={suppliers}
+                  handleProductActionButtons={handleProductActionButtons}
                   formFieldsValidationErrors={formFieldsValidationErrors}
                   onChangeField={onChangeProductFields}
                 />

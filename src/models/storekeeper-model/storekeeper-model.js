@@ -16,6 +16,11 @@ class StorekeeperModelStatic {
     return response
   }
 
+  getPaymentsMy = async () => {
+    const response = await restApiService.strokeepersApi.apiV1StorekeeperPaymentsGet()
+    return response
+  }
+
   updateTask = async (id, data) => {
     const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksGuidPatch(id, {body: data})
     return response

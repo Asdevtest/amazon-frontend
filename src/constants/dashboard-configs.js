@@ -22,6 +22,30 @@ export const getResearcherDashboardCardConfig = textConsts => [
   },
 ]
 
+export const FreelancerDashboardCardDataKey = {
+  PRODUCTS: 'PRODUCTS',
+  CUR_BALANCE: 'CUR_BALANCE',
+  FINES: 'FINES',
+}
+export const getFreelancerDashboardCardConfig = textConsts => [
+  {
+    dataKey: FreelancerDashboardCardDataKey.PRODUCTS,
+    title: textConsts.myProductsCardTitle,
+    color: '#63c2de',
+    route: '/researcher/products',
+  },
+  {
+    dataKey: FreelancerDashboardCardDataKey.CUR_BALANCE,
+    title: textConsts.curBalanceCardTitle,
+    color: '#4dbd74',
+  },
+  {
+    dataKey: FreelancerDashboardCardDataKey.FINES,
+    title: textConsts.finesCardTitle,
+    color: '#f86c6b',
+  },
+]
+
 export const SupervisorDashboardCardDataKey = {
   NEW_PRODUCTS: 'NEW_PRODUCTS',
   ME_CHECKING: 'ME_CHECKING',

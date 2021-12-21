@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -28,7 +29,7 @@ import {styles} from './client-requests-niches-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientExchangeRequestsView
 
-const navbarActiveCategory = 3
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = 1
 
 @observer

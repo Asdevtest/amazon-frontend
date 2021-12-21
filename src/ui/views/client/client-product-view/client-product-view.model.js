@@ -89,6 +89,14 @@ export class ClientProductViewModel {
     this[modal] = !this[modal]
   }
 
+  async handleProductActionButtons(actionType) {
+    switch (actionType) {
+      case 'cancel':
+        this.history.push('/client/inventory')
+        break
+    }
+  }
+
   onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
   }

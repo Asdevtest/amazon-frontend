@@ -4,6 +4,7 @@ import {ApiClient, BatchesApi, BoxesApi, PermissionsApi, SellerBoardApi} from '.
 import AdministratorApi from './codegen/src/api/AdministratorApi'
 import BuyerApi from './codegen/src/api/BuyerApi'
 import ClientApi from './codegen/src/api/ClientApi'
+import FreelancerApi from './codegen/src/api/FreelancerApi'
 import OtherApi from './codegen/src/api/OtherApi'
 import Product from './codegen/src/api/ProductApi'
 import ProductSearchRequestApi from './codegen/src/api/ProductSearchRequestApi'
@@ -30,6 +31,7 @@ class RestApiService {
     this.product = new Product(this.apiClient)
     this.researcherApi = new ResearcherApi(this.apiClient)
     this.strokeepersApi = new StorekeepersApi(this.apiClient)
+    this.freelancerApi = new FreelancerApi(this.apiClient)
     this.supervisorApi = new SupervisorApi(this.apiClient)
     this.supplierApi = new SupplierApi(this.apiClient)
     this.userApi = new UserApi(this.apiClient)

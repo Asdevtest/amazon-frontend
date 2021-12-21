@@ -3,6 +3,7 @@ import {Component} from 'react'
 import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -16,7 +17,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {styles} from './admin-settings-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').adminSettingsView
-const navbarActiveCategory = 8
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_SETTINGS
 export class AdminSettingsViewRaw extends Component {
   state = {
     drawerOpen: false,

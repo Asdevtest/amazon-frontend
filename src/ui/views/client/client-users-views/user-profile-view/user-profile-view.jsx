@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import {CLIENT_USER_MANAGERS_LIST, CLIENT_USER_INITIAL_LIST} from '@constants/mocks'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -24,7 +25,7 @@ import {ClientProfileViewModel} from './user-profile-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientUserView
 
-const navbarActiveCategory = 7
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_USERS
 const navBarActiveSubCategory = 0
 
 @observer

@@ -5,6 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {getWarehouseDashboardCardConfig, WarehouseDashboardCardDataKey} from '@constants/dashboard-configs'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -23,7 +24,7 @@ import {styles} from './warehouse-dashboard-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseDashboardView
 const dashboardCardConfig = getWarehouseDashboardCardConfig(textConsts)
-const navbarActiveCategory = 0
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
 @observer
 export class WarehouseDashboardViewRaw extends Component {

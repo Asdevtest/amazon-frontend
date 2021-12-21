@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -24,7 +25,7 @@ import {styles} from './researcher-vacant-products-requests-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').researcherProductsRequestsView
 
-const navbarActiveCategory = 3
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_VACANT_REQUESTS
 const navbarActiveSubCategory = 0
 
 @observer
@@ -71,7 +72,7 @@ class ResearcherVacantProductsRequestsViewRaw extends Component {
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
+          // user={textConsts.appUser}
         />
         <Main>
           <Appbar

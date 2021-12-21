@@ -37,4 +37,22 @@ export const clientLast30DaySellerBoardColumns = () => [
     renderCell: params => <ScrollingCell value={params.value} />,
     width: 250,
   },
+  {
+    field: 'unitsorganic',
+    headerName: textConsts.unitsorganicField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 250,
+  },
+  {
+    field: 'unitsppc',
+    headerName: textConsts.unitsppcField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 250,
+  },
+  {
+    field: 'netprofit',
+    headerName: textConsts.netprofitField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 250,
+  },
 ]

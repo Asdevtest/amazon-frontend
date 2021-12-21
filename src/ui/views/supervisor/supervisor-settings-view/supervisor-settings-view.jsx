@@ -4,6 +4,7 @@ import {Box, Typography, Paper, Checkbox} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
@@ -22,7 +23,7 @@ import {styles} from './supervisor-settings-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').supervisorSettingsView
 
-const navbarActiveCategory = 4
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_SETTINGS
 
 @observer
 export class SupervisorSettingsViewRaw extends Component {

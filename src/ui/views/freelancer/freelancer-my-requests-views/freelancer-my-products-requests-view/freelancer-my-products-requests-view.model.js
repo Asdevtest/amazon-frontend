@@ -1,0 +1,150 @@
+import {makeAutoObservable, toJS} from 'mobx'
+
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
+import {loadingStatuses} from '@constants/loading-statuses'
+
+import {SettingsModel} from '@models/settings-model'
+
+import {
+  freelancerProductsRequestsViewColumns,
+  typeOfRequests,
+} from '@components/table-columns/freelancer/freelancer-products-requests-columns'
+
+import {getObjectFilteredByKeyArrayWhiteList, getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+
+const formFieldsDefault = {
+  amazonLink: '',
+  productCode: '',
+  strategyStatus: '',
+}
+
+export class FreelancerMyProductsRequestsViewModel {
+  history = undefined
+  requestStatus = undefined
+  error = undefined
+  actionStatus = undefined
+
+  drawerOpen = false
+
+  formFields = {...formFieldsDefault}
+  newProductId = undefined
+
+  requests = []
+  tmpSelectedRow = {}
+
+  showConfirmModal = false
+
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
+  rowsPerPage = 15
+  densityModel = 'standart'
+  columnsModel = freelancerProductsRequestsViewColumns(typeOfRequests.PRODUCT)
+
+  constructor({history}) {
+    this.history = history
+    makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
+  setDataGridState(state) {
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.FREELANCER_PRODUCT_MY_REQUESTS)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.FREELANCER_PRODUCT_MY_REQUESTS]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter
+      this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = freelancerProductsRequestsViewColumns(typeOfRequests.PRODUCT).map(el => ({
+        ...el,
+        hide: state.columns?.lookup[el?.field]?.hide,
+      }))
+    }
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
+  onChangeDrawerOpen(e, value) {
+    this.drawerOpen = value
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onSelectionModel(model) {
+    this.selectionModel = model
+  }
+
+  getCurrentData() {
+    return toJS(this.requests)
+  }
+
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  onClickTableRow(item) {
+    this.tmpSelectedRow = item
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  pushToRequestContent() {
+    this.onTriggerOpenModal('showConfirmModal')
+
+    const requestItem = getObjectFilteredByKeyArrayBlackList(
+      {
+        ...this.tmpSelectedRow,
+      },
+      ['tmpStrategyStatus', 'tmpCostOfOneProposal'],
+    )
+
+    this.history.push('/freelancer/product-search-request', {request: toJS(requestItem)})
+  }
+
+  onChangeCurPage(e) {
+    this.curPage = e
+  }
+
+  onTriggerDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
+  }
+
+  setActionStatus(actionStatus) {
+    this.actionStatus = actionStatus
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
+  }
+}

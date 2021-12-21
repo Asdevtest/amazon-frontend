@@ -340,7 +340,11 @@ export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames
 
 export const ClientOrdersNotificationsBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
   <div>
-    <Button variant="contained" color="primary" onClick={() => handlers.onClickConfirmBtn(row)}>
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={() => handlers.onTriggerOpenConfirmModal('showConfirmModal', row)}
+    >
       {textConsts.confirmBtn}
     </Button>
     <ErrorButton

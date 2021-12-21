@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -14,6 +15,7 @@ import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
 import {onStateChangeHandler} from '@utils/for-data-grid'
@@ -24,7 +26,7 @@ import {styles} from './warehouse-warehouse-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseWarehouseView
 
-const activeCategory = 5
+const activeCategory = navBarActiveCategory.NAVBAR_BATCHES
 @observer
 export class WarehouseWarehouseViewRaw extends Component {
   viewModel = new WarehouseWarehouseViewModel({history: this.props.history})
@@ -40,14 +42,14 @@ export class WarehouseWarehouseViewRaw extends Component {
       curBatch,
       showBatchInfoModal,
       onTriggerOpenModal,
-
+      showConfirmModal,
       getCurrentData,
       sortModel,
       filterModel,
       requestStatus,
       densityModel,
       columnsModel,
-
+      isWarning,
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -84,7 +86,7 @@ export class WarehouseWarehouseViewRaw extends Component {
                 disabled={!selectedBatches.length}
                 color="primary"
                 variant="contained"
-                onClick={onClickConfirmSendToBatchBtn}
+                onClick={() => onTriggerOpenModal('showConfirmModal')}
               >
                 {textConsts.confirmSendBatchBtn}
               </Button>
@@ -123,6 +125,18 @@ export class WarehouseWarehouseViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+
+        <ConfirmationModal
+          isWarning={isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={textConsts.confirmTitle}
+          message={textConsts.confirmMessage}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={onClickConfirmSendToBatchBtn}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
 
         <BatchInfoModal
           openModal={showBatchInfoModal}

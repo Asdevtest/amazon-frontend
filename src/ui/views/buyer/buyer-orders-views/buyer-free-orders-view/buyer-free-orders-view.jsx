@@ -7,6 +7,7 @@ import {observer} from 'mobx-react'
 
 import {DELIVERY_OPTIONS} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {BUYER_FREE_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -29,7 +30,7 @@ import {styles} from './buyer-free-orders-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').freeOrdersView
 
-const navbarActiveCategory = 4
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_FREE_ORDERS
 
 @observer
 class BuyerFreeOrdersViewRaw extends Component {

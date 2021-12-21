@@ -9,7 +9,6 @@ import {texts} from '@constants/texts'
 
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
-import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './info.style'
@@ -37,9 +36,7 @@ export const Info = ({order}) => {
         </div>
         <div className={classNames.typoFlexWrapper}>
           <Typography className={(classNames.label, classNames.dividerTypo)}>{textConsts.orderSum}</Typography>
-          <Typography className={classNames.orderPrice}>
-            {calcProductsPriceWithDelivery(order.product, order)}
-          </Typography>
+          <Typography className={classNames.orderPrice}>{order.totalPrice}</Typography>
         </div>
       </div>
 

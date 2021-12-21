@@ -59,7 +59,7 @@ export const exchangeSupplierFoundedColumns = () => [
 
   {
     field: 'barCode',
-    headerName: textConsts.barCodeField,
+    headerName: textConsts.barcodeField,
     width: 150,
     renderCell: params => <NoActiveBarcodeCell barCode={params.row.barCode} />,
   },

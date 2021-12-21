@@ -3,10 +3,14 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {UserRole} from '@constants/user-roles'
 
 import {ClientModel} from '@models/client-model'
+import {UserModel} from '@models/user-model'
 
 export class NavbarModel {
   ordersNotificationsAmount = undefined
   curUserRole = undefined
+  get userInfo() {
+    return UserModel.userInfo
+  }
   constructor({curUserRole}) {
     makeAutoObservable(this, undefined, {autoBind: true})
     this.curUserRole = curUserRole

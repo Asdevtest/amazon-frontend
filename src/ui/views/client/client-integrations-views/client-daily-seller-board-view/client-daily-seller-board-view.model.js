@@ -18,12 +18,23 @@ export class ClientDailySellerBoardViewModel {
   sellerBoardDailyData = []
   drawerOpen = false
 
+  showAddProductSellerboardModal = false
+
+  addProductSettings = {
+    product: {},
+    onSubmit: data => this.onSubmitCreateSinglePermission(data),
+  }
+
+  rowHandlers = {
+    selectedRow: item => this.onClickRowRadioBtn(item),
+  }
+  selectedRow = {}
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'standart'
-  columnsModel = clientDailySellerBoardColumns()
+  columnsModel = clientDailySellerBoardColumns(this.selectedRow, this.rowHandlers)
 
   constructor({history}) {
     this.history = history
@@ -51,7 +62,7 @@ export class ClientDailySellerBoardViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = clientDailySellerBoardColumns().map(el => ({
+      this.columnsModel = clientDailySellerBoardColumns(this.selectedRow, this.rowHandlers).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -80,6 +91,11 @@ export class ClientDailySellerBoardViewModel {
 
   getCurrentData() {
     return toJS(this.sellerBoardDailyData)
+  }
+
+  onClickRowRadioBtn = item => {
+    this.selectedRow = item
+    this.getDataGridState()
   }
 
   async loadData() {
@@ -115,6 +131,14 @@ export class ClientDailySellerBoardViewModel {
       console.log(error)
       this.error = error
     }
+  }
+
+  onClickAddBtn() {
+    this.onTriggerOpenModal('showAddProductSellerboardModal')
+  }
+
+  onClickCancelBtn() {
+    this.onTriggerOpenModal('showAddProductSellerboardModal')
   }
 
   onTriggerOpenModal(modal) {

@@ -30,3 +30,7 @@ export const plainValidationErrorAndApplyFuncForEachError = (error, func) => {
     }
   })
 }
+
+export const disallowsSpecialCharInFirstCharEmail = field =>
+  field.charAt(0).replace(/[{}@"!#$%^&*()+=;:`~|'?/><, ]/, '')
+export const disallowsSpecialCharInEmailField = field => field.replace(/[{}"!#$%^&*()+=;:`~|'?/><, ]/, '')

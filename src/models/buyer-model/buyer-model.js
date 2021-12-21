@@ -56,7 +56,7 @@ class BuyerModelStatic {
   }
 
   getPaymentsMy = async () => {
-    const response = await restApiService.buyerApi.apiV1BuyersPaymentsMyGet()
+    const response = await restApiService.buyerApi.apiV1BuyerPaymentsGet()
     return response
   }
 

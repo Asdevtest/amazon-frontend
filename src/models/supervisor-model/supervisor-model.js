@@ -22,7 +22,7 @@ class SupervisorModelStatic {
   }
 
   getPaymentsMy = async () => {
-    const response = await restApiService.supervisorApi.apiV1SupervisorsPaymentsMyGet()
+    const response = await restApiService.supervisorApi.apiV1SupervisorPaymentsGet()
     return response
   }
 

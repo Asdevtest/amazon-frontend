@@ -27,6 +27,7 @@ export const DataGridTablesKeys = {
   WAREHOUSE_CANCELED_TASKS: 'warehouseCanceledTasksDataGridState',
   WAREHOUSE_BATCHES: 'warehouseBatchesDataGridState',
   WAREHOUSE_SUB_USERS: 'warehouseSubUsersDataGridState',
+  WAREHOUSE_FINANCES: 'warehouseFinancesDataGridState',
 
   RESEARCHER_PRODUCTS: 'researcherProductsDataGridState',
   RESEARCHER_PRODUCT_VACANT_REQUESTS: 'researcherProductVacantRequestsDataGridState',
@@ -34,15 +35,18 @@ export const DataGridTablesKeys = {
   RESEARCHER_PRODUCT_MY_REQUESTS: 'researcherProductMyRequestsDataGridState',
   RESEARCHER_NICHE_MY_REQUESTS: 'researcherNicheMyRequestsDataGridState',
   RESEARCHER_SUB_USERS: 'researcherSubUsersDataGridState',
+  RESEARCHER_FINANCES: 'researcherFinancesDataGridState',
 
   SUPERVISOR_PRODUCTS: 'supervisorProductsDataGridState',
   SUPERVISOR_SUB_USERS: 'supervisorSubUsersDataGridState',
+  SUPERVISOR_FINANCES: 'supervisorFinancesDataGridState',
 
   BUYER_PRODUCTS: 'buyerProductsDataGridState',
   BUYER_MY_ORDERS: 'buyerMyOrdersDataGridState',
   BUYER_FREE_ORDERS: 'buyerFreeOrdersDataGridState',
   BUYER_SUB_USERS: 'buyerSubUsersDataGridState',
   BUYER_BATCHES: 'buyerBatchesDataGridState',
+  BUYER_FINANCES: 'buyerFinancesDataGridState',
 
   CLIENT_EXCHANGE: 'clientExchangeCreatedDataGridState',
   CLIENT_INVENTORY: 'clientInventoryDataGridState',
@@ -55,4 +59,7 @@ export const DataGridTablesKeys = {
   CLIENT_BATCHES: 'clientBatchesDataGridState',
   CLIENT_DAILY_SELLER_BOARD: 'clientDailySellerBoardDataGridState',
   CLIENT_LAST_30_DAY_SELLER_BOARD: 'clientLast30DaySellerBoardDataGridState',
+  CLIENT_FINANCES: 'clientFinancesDataGridState',
+
+  FREELANCER_FINANCES: 'freelancerFinancesDataGridState',
 }

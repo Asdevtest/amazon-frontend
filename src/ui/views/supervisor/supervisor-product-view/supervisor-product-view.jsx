@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -20,7 +21,7 @@ import {SupervisorProductViewModel} from './supervisor-product-view.model'
 const curUserRole = UserRole.SUPERVISOR
 const textConsts = getLocalizedTexts(texts, 'en').supervisorProductView
 
-const navbarActiveCategory = 2
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 
 @observer
 export class SupervisorProductView extends Component {

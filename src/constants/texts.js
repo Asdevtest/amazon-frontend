@@ -539,6 +539,18 @@ export const texts = {
       isWrongPermissionsSelect: 'Выбранные разрешения и текущая роль не совпадают!',
     },
 
+    addProductSellerboardForm: {
+      formTitle: 'Добавить товар',
+      asin: 'Asin',
+      sku: 'Sku',
+      title: 'Title',
+      stockValue: 'Доступно',
+      reserved: 'Резерв',
+      sentToFba: 'Доставляется в Amazon',
+      addBtn: 'Добавить',
+      closeBtn: 'Отмена',
+    },
+
     exchangeInventoryColumns: {
       strategyStatusField: 'Strategy',
       createDateField: 'Created',
@@ -612,6 +624,13 @@ export const texts = {
       stockValueField: 'Count',
       reservedField: 'Reserved',
       roiField: 'ROI',
+      daysOfStockLeftField: 'DaysOfStockLeft',
+      sentToFbaField: 'SentToFba',
+      fbaPrepStockField: 'FbaPrepStock',
+      orderedField: 'Ordered',
+      unitsorganicField: 'Unitsorganic',
+      unitsppcField: 'Unitsppc',
+      netprofitField: 'Netprofit',
     },
 
     clientLast30DaySellerBoardColumns: {
@@ -646,6 +665,7 @@ export const texts = {
       bsrField: 'BSR',
       fbaField: 'FBA',
       barcodeField: 'Barcode',
+      createDateField: 'Create date',
     },
 
     exchangeWaitingColumns: {
@@ -670,10 +690,13 @@ export const texts = {
       bsrField: 'BSR',
       fbaField: 'FBA',
       barcodeField: 'Barcode',
+      createDateField: 'Create date',
+      profitField: 'Profit',
+      marginField: 'Margin',
     },
     exchangeCheckingColumns: {
       strategyStatusField: 'Strategy',
-      asinField: 'ASIN',
+      asinField: 'Product',
       priceField: 'Price',
       feesAndNetField: 'Fees & Net',
       supplierField: 'Supplier',
@@ -702,7 +725,7 @@ export const texts = {
     },
     exchangeSupplierSearchColumns: {
       strategyStatusField: 'Strategy',
-      asinField: 'ASIN',
+      asinField: 'Product',
       priceField: 'Price',
       feesAndNetField: 'Fees & Net',
       supplierField: 'Supplier',
@@ -723,11 +746,16 @@ export const texts = {
       bsrField: 'BSR',
       fbaField: 'FBA',
       barcodeField: 'Barcode',
+      createDateField: 'Create date',
+      updateDateField: 'Update date',
+      profitField: 'Profit',
+      marginField: 'Margin',
+      fbaAmountField: 'FBA amount',
     },
 
     exchangeBuyerWorkColumns: {
       strategyStatusField: 'Strategy',
-      asinField: 'ASIN',
+      asinField: 'Product',
       priceField: 'Price',
       feesAndNetField: 'Fees & Net',
       supplierField: 'Supplier',
@@ -748,12 +776,17 @@ export const texts = {
       bsrField: 'BSR',
       fbaField: 'FBA',
       barcodeField: 'Barcode',
+      createDateField: 'Create date',
+      updateDateField: 'Update date',
+      profitField: 'Profit',
+      marginField: 'Margin',
+      fbaAmountField: 'FBA amount',
     },
 
     exchangeSupplierFoundedColumns: {
       strategyStatusField: 'Strategy',
 
-      asinField: 'ASIN',
+      asinField: 'Product',
       priceField: 'Price',
       feesAndNetField: 'Fees & Net',
       supplierField: 'Supplier',
@@ -774,6 +807,11 @@ export const texts = {
       bsrField: 'BSR',
       fbaField: 'FBA',
       barcodeField: 'Barcode',
+      createDateField: 'Create date',
+      updateDateField: 'Update date',
+      profitField: 'Profit',
+      marginField: 'Margin',
+      fbaAmountField: 'FBA amount',
     },
     exchangeRequestsBodyRow: {
       editBtn: 'Edit',
@@ -1059,7 +1097,7 @@ export const texts = {
       rejectBtn: 'Отклонить',
       addPermissionsBtn: 'Назначить разрешения',
 
-      id: 'ID: ',
+      id: 'ASIN: ',
     },
 
     linkSubUserForm: {
@@ -1555,6 +1593,7 @@ export const texts = {
       buttonAccept: 'Принять',
       buttonCancel: 'Отменить',
       buttonDelete: 'Удалить',
+      buttonClose: 'Закрыть',
 
       supplierTitle: 'Список поставщиков',
       supplierActionsTitle: 'Действия: ',
@@ -1677,6 +1716,9 @@ export const texts = {
       ordersBtn: 'Мои заказы',
       dimensionsMessage: 'Для создания коробки поля должны быть заполнены!',
       okBtn: 'Ок',
+      warningMessage:
+        'Статус "Оплачено" станет доступным после подтверждения изменения стоимости заказа клиентом. Текущий статус не будет изменен! Коробки не будут созданы',
+      successMessage: 'Создана задача складу: "Принять коробку" ',
     },
 
     mergeBoxModal: {
@@ -1809,7 +1851,8 @@ export const texts = {
       confirmTitle: 'Внимание',
       yesBtn: 'Да',
       noBtn: 'Нет',
-      message: 'Вы хотите отменить?',
+      errorMessage: 'Вы хотите отменить?',
+      confirmMessage: 'Вы подтверждаете доплату?',
     },
     adminOrdersView: {
       mainTitle: 'Мои заказы',
@@ -1824,6 +1867,48 @@ export const texts = {
       appBarTitle: 'Страница финансов',
       appBarUsername: 'Admin',
       appUser: 'admin',
+    },
+
+    clientFinancesView: {
+      mainTitle: 'Финансы',
+      appBarTitle: 'Страница финансов',
+      appBarUsername: 'Client',
+      appUser: 'client',
+    },
+
+    buyerFinancesView: {
+      mainTitle: 'Финансы',
+      appBarTitle: 'Страница финансов',
+      appBarUsername: 'Buyer',
+      appUser: 'buyer',
+    },
+
+    researcherFinancesView: {
+      mainTitle: 'Финансы',
+      appBarTitle: 'Страница финансов',
+      appBarUsername: 'Researcher',
+      appUser: 'researcher',
+    },
+
+    supervisorFinancesView: {
+      mainTitle: 'Финансы',
+      appBarTitle: 'Страница финансов',
+      appBarUsername: 'Supervisor',
+      appUser: 'supervisor',
+    },
+
+    freelancerFinancesView: {
+      mainTitle: 'Финансы',
+      appBarTitle: 'Страница финансов',
+      appBarUsername: 'Freelancer',
+      appUser: 'freelancer',
+    },
+
+    warehouseFinancesView: {
+      mainTitle: 'Финансы',
+      appBarTitle: 'Страница финансов',
+      appBarUsername: 'Warehouse',
+      appUser: 'warehouse',
     },
 
     adminTasksView: {
@@ -1866,6 +1951,54 @@ export const texts = {
     },
 
     adminFinancesTableColumns: {
+      createDateField: 'Создано',
+      commentField: 'Комментарий',
+      sumField: 'Сумма',
+      creatorNameField: 'Инициатор',
+      recipientNameField: 'Реципиент ',
+    },
+
+    buyerFinancesTableColumns: {
+      createDateField: 'Создано',
+      commentField: 'Комментарий',
+      sumField: 'Сумма',
+      creatorNameField: 'Инициатор',
+      recipientNameField: 'Реципиент ',
+    },
+
+    clientFinancesTableColumns: {
+      createDateField: 'Создано',
+      commentField: 'Комментарий',
+      sumField: 'Сумма',
+      creatorNameField: 'Инициатор',
+      recipientNameField: 'Реципиент ',
+    },
+
+    researcherFinancesTableColumns: {
+      createDateField: 'Создано',
+      commentField: 'Комментарий',
+      sumField: 'Сумма',
+      creatorNameField: 'Инициатор',
+      recipientNameField: 'Реципиент ',
+    },
+
+    supervisorFinancesTableColumns: {
+      createDateField: 'Создано',
+      commentField: 'Комментарий',
+      sumField: 'Сумма',
+      creatorNameField: 'Инициатор',
+      recipientNameField: 'Реципиент ',
+    },
+
+    warehouseFinancesTableColumns: {
+      createDateField: 'Создано',
+      commentField: 'Комментарий',
+      sumField: 'Сумма',
+      creatorNameField: 'Инициатор',
+      recipientNameField: 'Реципиент ',
+    },
+
+    freelancerFinancesTableColumns: {
       createDateField: 'Создано',
       commentField: 'Комментарий',
       sumField: 'Сумма',
@@ -2035,6 +2168,15 @@ export const texts = {
     },
 
     researcherProductsRequestsTableColumns: {
+      strategyStatusField: 'Strategy',
+      createDateField: 'Created',
+      deadline: 'Deadline',
+      costOfOneProposal: 'Cost of proposal',
+      countOfProposals: 'Count of proposals',
+      limitOfProposals: 'Limit of proposals',
+    },
+
+    freelancerProductsRequestsTableColumns: {
       strategyStatusField: 'Strategy',
       createDateField: 'Created',
       deadline: 'Deadline',
@@ -2650,6 +2792,10 @@ export const texts = {
       appbarTitle: 'Warehouse',
       mainTitle: 'Boxes for batches',
       confirmSendBatchBtn: 'Confirm send to batch',
+      confirmMessage: 'Отправить?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      confirmTitle: 'Внимание',
     },
     appbarTexts: {
       menuTitle: 'Меню:',

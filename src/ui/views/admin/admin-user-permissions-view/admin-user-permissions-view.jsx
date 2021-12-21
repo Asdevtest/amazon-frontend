@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -19,7 +20,7 @@ import {AdminUserPermissionsViewModel} from './admin-user-permissions-view.model
 
 const textConsts = getLocalizedTexts(texts, 'ru').adminUserPermissionsView
 
-const navbarActiveCategory = 7
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_PERMISSIONS
 
 @observer
 export class AdminUserPermissionsView extends Component {

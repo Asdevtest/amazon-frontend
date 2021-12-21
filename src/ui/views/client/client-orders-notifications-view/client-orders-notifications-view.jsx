@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -24,7 +25,7 @@ import {styles} from './client-orders-notifications-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersNotificationsView
 
-const navbarActiveCategory = 12
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS
 
 @observer
 class ClientOrdersNotificationsViewRaw extends Component {
@@ -120,7 +121,7 @@ class ClientOrdersNotificationsViewRaw extends Component {
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
           title={textConsts.confirmTitle}
-          message={textConsts.message}
+          message={confirmModalSettings.message}
           successBtnText={textConsts.yesBtn}
           cancelBtnText={textConsts.noBtn}
           onClickSuccessBtn={() => {

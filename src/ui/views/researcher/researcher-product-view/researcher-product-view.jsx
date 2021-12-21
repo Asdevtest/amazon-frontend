@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -22,7 +23,7 @@ import {ResearcherProductViewModel} from './researcher-product-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').researcherProductView
 
-const navbarActiveCategory = 1
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 
 @observer
 export class ResearcherProductView extends Component {
@@ -67,7 +68,7 @@ export class ResearcherProductView extends Component {
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
+          // user={textConsts.appUser}
         />
         <Main>
           <Appbar

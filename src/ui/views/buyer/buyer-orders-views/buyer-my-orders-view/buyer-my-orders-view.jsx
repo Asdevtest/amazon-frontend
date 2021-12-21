@@ -7,6 +7,7 @@ import {observer} from 'mobx-react'
 
 import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {BUYER_MY_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
@@ -31,7 +32,7 @@ import {styles} from './buyer-my-orders-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').myOrdersView
 
-const navbarActiveCategory = 3
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_ORDERS
 
 const attentionStatuses = [OrderStatusByKey[OrderStatus.AT_PROCESS], OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]]
 
@@ -188,7 +189,7 @@ class BuyerMyOrdersViewRaw extends Component {
         <WarningInfoModal
           openModal={showOrderPriceMismatchModal}
           setOpenModal={() => onTriggerOpenModal('showOrderPriceMismatchModal')}
-          title={`Статус "оплачено" станет доступным после подтверждения изменения стоимости заказа клиентом. Текущий статус не будет изменен! Коробки не будут созданы`}
+          title={textConsts.warningMessage}
           btnText={textConsts.okBtn}
           onClickBtn={() => {
             onTriggerOpenModal('showOrderPriceMismatchModal')
@@ -198,7 +199,7 @@ class BuyerMyOrdersViewRaw extends Component {
         <SuccessInfoModal
           openModal={showSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={"Создана задача складу: 'создание коробок'"}
+          title={textConsts.successMessage}
           successBtnText={textConsts.okBtn}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showSuccessModal')

@@ -131,7 +131,7 @@ export const RightSideComments = observer(
                 variant="contained"
                 onClick={() => handleProductActionButtons('cancel')}
               >
-                {textConsts.buttonCancel}
+                {textConsts.buttonClose}
               </ErrorButton>
             </div>
           )}

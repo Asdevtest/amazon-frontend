@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -24,7 +25,7 @@ import {AdminUsersViewModel} from './admin-users-view.model'
 import {styles} from './admin-users-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').adminUsersView
-const navbarActiveCategory = 6
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_USERS
 
 @observer
 class AdminUsersViewRaw extends Component {

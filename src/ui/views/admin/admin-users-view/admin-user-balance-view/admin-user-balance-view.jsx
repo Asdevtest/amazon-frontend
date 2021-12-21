@@ -4,6 +4,7 @@ import {Button, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -23,7 +24,7 @@ import {AdminUserBalanceViewModel} from './admin-user-balance-view.model'
 import {styles} from './admin-user-balance-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').adminUserBalanceView
-const navbarActiveCategory = 6
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_USERS
 
 @observer
 class AdminUserBalanceViewRaw extends Component {

@@ -55,7 +55,12 @@ export const AdminContentModal = observer(
 
     const onChangeFormField = fieldName => event => {
       const newFormFields = {...formFields}
-      newFormFields[fieldName] = event.target.value
+      if (fieldName === 'rate') {
+        newFormFields[fieldName] = event.target.value.replace(/[-]/, '')
+      } else {
+        newFormFields[fieldName] = event.target.value
+      }
+
       setFormFields(newFormFields)
     }
 
@@ -74,6 +79,8 @@ export const AdminContentModal = observer(
     const isWrongPermissionsSelect =
       selectedPermissions.find(per => per.role !== Number(formFields.role)) ||
       selectedGroupPermissions.find(perGroup => perGroup.role !== Number(formFields.role))
+
+    const disabledSubmitButton = formFields.name === '' || formFields.email === '' || formFields.rate === ''
 
     return (
       <Container disableGutters className={classNames.modalContainer}>
@@ -156,7 +163,7 @@ export const AdminContentModal = observer(
         <div className={classNames.buttonWrapper}>
           <Button
             disableElevation
-            disabled={isWrongPermissionsSelect}
+            disabled={isWrongPermissionsSelect || disabledSubmitButton}
             variant="contained"
             color="primary"
             onClick={() => {
