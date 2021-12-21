@@ -13,6 +13,7 @@ import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {disallowsSpecialCharInEmailField, disallowsSpecialCharInFirstCharEmail} from '@utils/validation'
 
 import {RegistrationViewModel} from './registration-view.model'
 import {styles} from './registration-view.style'
@@ -48,7 +49,7 @@ class RegistrationViewRaw extends Component {
           <RegistrationForm
             formFields={{
               name,
-              email,
+              email: disallowsSpecialCharInFirstCharEmail(email) && disallowsSpecialCharInEmailField(email),
               password,
               confirmPassword,
               acceptTerms,

@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -23,7 +24,7 @@ import {styles} from './client-last-30-day-seller-board-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientLast30DaySellerBoardView
 
-const navbarActiveCategory = 8
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_INTEGRATIONS
 const navbarActiveSubCategory = 1
 
 @observer

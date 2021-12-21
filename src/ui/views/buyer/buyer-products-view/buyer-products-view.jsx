@@ -4,6 +4,7 @@ import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {BUYER_PRODUCTS_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -25,7 +26,7 @@ import {styles} from './buyer-products-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerProductsView
 
-const navbarActiveCategory = 1
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_NEW_PRODUCTS
 
 @observer
 export class BuyerProductsViewRaw extends Component {

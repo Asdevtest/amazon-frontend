@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -54,7 +55,7 @@ export class AdminInventoryViewRaw extends Component {
       onChangeFilterModel,
     } = this.viewModel
 
-    const activeCategory = 2
+    const activeCategory = navBarActiveCategory.NAVBAR_INVENTORY
     const {classes: classNames} = this.props
 
     return (

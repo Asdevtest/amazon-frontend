@@ -11,7 +11,6 @@ export const Modal = props => {
     <Dialog
       maxWidth={false}
       classes={{
-        root: clsx({[classNames.warningBackground]: props.isWarning}),
         paperScrollBody: clsx({[classNames.warningPaper]: props.isWarning}),
       }}
       open={props.openModal}

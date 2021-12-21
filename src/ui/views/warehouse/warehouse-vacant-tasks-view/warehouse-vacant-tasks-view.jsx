@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -22,7 +23,7 @@ import {WarehouseVacantViewModel} from './warehouse-vacant-tasks-view.model'
 import {styles} from './warehouse-vacant-tasks-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseVacantTasksView
-const navbarActiveCategory = 1
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_VACANT_TASKS
 
 @observer
 export class WarehouseVacantTasksViewRaw extends Component {

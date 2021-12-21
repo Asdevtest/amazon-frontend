@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import {BUYER_USER_MANAGERS_LIST, BUYER_USER_INITIAL_LIST, BUYER_USER_INITIAL_USER} from '@constants/mocks'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -24,7 +25,7 @@ import {BuyerUserProfileViewModel} from './buyer-user-profile-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerUserView
 
-const navbarActiveCategory = 5
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_USERS
 const navbarActiveSubCategory = 0
 
 @observer

@@ -34,7 +34,7 @@ export class ResearcherRequestDetailNicheView extends Component {
           curUserRole={UserRole.RESEARCHER}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
+          // user={textConsts.appUser}
         />
         <Main>
           <Appbar

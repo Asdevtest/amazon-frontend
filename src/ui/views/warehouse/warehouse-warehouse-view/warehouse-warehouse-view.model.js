@@ -21,9 +21,9 @@ export class WarehouseWarehouseViewModel {
   batches = []
   selectedBatches = []
   curBatch = {}
-
+  showConfirmModal = false
   drawerOpen = false
-
+  isWarning = false
   showBatchInfoModal = false
 
   rowHandlers = {
@@ -165,6 +165,7 @@ export class WarehouseWarehouseViewModel {
         this.selectedBatches = []
       })
       this.loadData()
+      this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
     }

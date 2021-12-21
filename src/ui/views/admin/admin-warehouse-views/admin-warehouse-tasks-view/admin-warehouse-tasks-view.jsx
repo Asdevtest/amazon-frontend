@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -24,7 +25,7 @@ import {styles} from './admin-warehouse-tasks-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').adminTasksView
 
-const activeCategory = 4
+const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
 const activeSubCategory = 0
 
 @observer

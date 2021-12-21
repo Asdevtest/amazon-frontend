@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -18,6 +19,8 @@ import avatar from '../../assets/clientAvatar.jpg'
 import {ClientOrderViewModel} from './client-order-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrderView
+
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_ORDERS
 
 @observer
 export class ClientOrderView extends Component {
@@ -37,6 +40,7 @@ export class ClientOrderView extends Component {
       <React.Fragment>
         <Navbar
           curUserRole={UserRole.CLIENT}
+          activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}

@@ -12,6 +12,12 @@ export const styles = createStyles(() => ({
     textAlign: 'right',
   },
   tableWrapper: {
-    marginTop: '24px',
+    marginTop: '10px',
+  },
+  mainTitle: {
+    marginBottom: '20px',
+  },
+  errorMessage: {
+    color: 'red',
   },
 }))

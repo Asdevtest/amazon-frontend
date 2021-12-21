@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -23,7 +24,7 @@ import {styles} from './admin-orders-views.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').adminOrdersView
 
-const navbarActiveCategory = 3
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_ORDERS
 
 @observer
 class AdminOrdersViewsRaw extends Component {

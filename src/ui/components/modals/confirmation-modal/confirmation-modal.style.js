@@ -26,9 +26,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   warningModalMessageWrapper: {
-    // background: 'rgb(159, 159, 166)',
     background: 'rgb(0, 0, 0)',
-    borderRadius: '20px 20px',
+    borderRadius: '10px 10px',
   },
 
   modalMessage: {
@@ -51,7 +50,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   warningButtonsWrapper: {
-    borderRadius: '0 0 20px 20px',
+    borderRadius: '0 0 10px 10px',
     background: 'rgb(71, 71, 77)',
   },
 
@@ -60,12 +59,13 @@ export const useClassNames = makeStyles(() => ({
   },
 
   title: {
+    color: 'white',
     width: '100%',
     textAlign: 'center',
     height: '72px',
     lineHeight: '72px',
-    borderRadius: '20px',
-    background: 'linear-gradient(-90deg, rgba(227, 0, 0, .7), rgb(159, 159, 166))',
+    borderRadius: '10px',
+    background: 'tomato',
     backgroundSize: '400% 400%',
     animation: 'animate_gradient 1.5s ease infinite',
   },

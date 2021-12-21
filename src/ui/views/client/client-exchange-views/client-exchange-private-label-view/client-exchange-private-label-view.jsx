@@ -4,6 +4,7 @@ import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -25,7 +26,7 @@ import {styles} from './client-exchange-private-label-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientExchangePrivateLabelView
 
-const navbarActiveCategory = 1
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_EXCHANGE
 const navbarActiveSubCategory = 1
 
 @observer

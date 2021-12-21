@@ -415,6 +415,10 @@ export class ResearcherProductViewModel {
         runInAction(() => {
           this.suppliers[findSupplierIndex] = supplier
         })
+        if (supplier._id === this.product.currentSupplierId) {
+          this.product.currentSupplier = supplier
+          updateProductAutoCalculatedFields.call(this)
+        }
       } else {
         const createSupplierResult = await SupplierModel.createSupplier(supplier)
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])

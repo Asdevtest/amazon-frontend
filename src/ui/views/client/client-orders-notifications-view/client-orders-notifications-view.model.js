@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatusByCode} from '@constants/order-status'
+import {texts} from '@constants/texts'
 import {warehouses} from '@constants/warehouses'
 
 import {ClientModel} from '@models/client-model'
@@ -11,7 +12,10 @@ import {SettingsModel} from '@models/settings-model'
 import {clientOrdersNotificationsViewColumns} from '@components/table-columns/client/client-orders-notifications-columns'
 
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+
+const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersNotificationsView
 
 export class ClientOrdersNotificationsViewModel {
   history = undefined
@@ -33,7 +37,7 @@ export class ClientOrdersNotificationsViewModel {
   rowsPerPage = 15
   densityModel = 'standart'
   rowHandlers = {
-    onClickConfirmBtn: order => this.onClickConfirmOrderPriceChangeBtn(order),
+    onTriggerOpenConfirmModal: (type, row) => this.onTriggerOpenConfirmModal(type, row),
     onTriggerOpenModal: (type, row) => this.onTriggerOpenModal(type, row),
   }
   columnsModel = clientOrdersNotificationsViewColumns(this.rowHandlers)
@@ -78,9 +82,19 @@ export class ClientOrdersNotificationsViewModel {
     this.rowsPerPage = e
   }
 
+  onTriggerOpenConfirmModal(modal, row) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: textConsts.confirmMessage,
+      onClickOkBtn: () => this.onClickConfirmOrderPriceChangeBtn(row),
+    }
+    this[modal] = !this[modal]
+  }
+
   onTriggerOpenModal(modal, row) {
     this.confirmModalSettings = {
       isWarning: true,
+      message: textConsts.errorMessage,
       onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
     }
     this[modal] = !this[modal]

@@ -5,6 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {getResearcherDashboardCardConfig, ResearcherDashboardCardDataKey} from '@constants/dashboard-configs'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -23,7 +24,7 @@ import {styles} from './researcher-dashboard-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').researcherDashboardView
 const dashboardCardConfig = getResearcherDashboardCardConfig(textConsts)
-const navbarActiveCategory = 0
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
 @observer
 export class ResearcherDashboardViewRaw extends Component {
@@ -44,7 +45,7 @@ export class ResearcherDashboardViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
+          // user={textConsts.appUser}
         />
         <Main>
           <Appbar

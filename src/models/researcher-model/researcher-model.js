@@ -29,6 +29,11 @@ class ResearcherModelStatic {
     return response
   }
 
+  getPaymentsMy = async () => {
+    const response = await restApiService.researcherApi.apiV1ResearcherPaymentsGet()
+    return response
+  }
+
   updateProduct = async (id, data) => {
     const response = await restApiService.researcherApi.apiV1ResearchersProductsGuidPatch(id, {
       body: data,

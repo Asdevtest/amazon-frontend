@@ -5,6 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {getSupervisorDashboardCardConfig, SupervisorDashboardCardDataKey} from '@constants/dashboard-configs'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -24,7 +25,7 @@ import {styles} from './supervisor-dashboard-view.style'
 const textConsts = getLocalizedTexts(texts, 'en').supervisorDashboardView
 const dashboardCardConfig = getSupervisorDashboardCardConfig(textConsts)
 
-const navbarActiveCategory = 0
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
 @observer
 export class SupervisorDashboardViewRaw extends Component {

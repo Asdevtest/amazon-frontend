@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -23,7 +24,7 @@ import {styles} from './supervisor-products-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').supervisorProductsView
 
-const navbarActiveCategory = 2
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 
 const attentionStatuses = [
   ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],

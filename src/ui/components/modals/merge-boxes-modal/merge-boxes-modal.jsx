@@ -37,6 +37,13 @@ export const MergeBoxesModal = ({
     setBoxBody({shippingLabel: '', warehouse: '', deliveryMethod: ''})
     setComment('')
   }
+
+  const onCloseBoxesModal = () => {
+    setOpenModal()
+    setBoxBody({shippingLabel: '', warehouse: '', deliveryMethod: ''})
+    setComment('')
+  }
+
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <Typography variant="h5">{textConsts.mainTitle}</Typography>
@@ -126,7 +133,9 @@ export const MergeBoxesModal = ({
           color="primary"
           variant="contained"
           className={classNames.button}
-          onClick={setOpenModal}
+          onClick={() => {
+            onCloseBoxesModal()
+          }}
         >
           {textConsts.cancelBtn}
         </Button>

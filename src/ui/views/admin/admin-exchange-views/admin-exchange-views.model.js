@@ -11,6 +11,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {exchangeProductsColumns} from '@components/table-columns/admin/exchange-columns'
 
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const productsStatusBySubCategory = {
@@ -173,7 +174,7 @@ export class AdminExchangeViewModel {
       }))
 
       runInAction(() => {
-        this.currentProductsData = productsData
+        this.currentProductsData = productsData.sort(sortObjectsArrayByFiledDate('updatedAt'))
       })
     } catch (error) {
       console.log(error)

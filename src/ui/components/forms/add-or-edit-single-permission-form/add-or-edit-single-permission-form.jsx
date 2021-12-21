@@ -69,7 +69,8 @@ export const AddOrEditSinglePermissionForm = observer(({onCloseModal, onSubmit, 
     formFields.title === '' ||
     formFields.description === '' ||
     !formFields.allowedUrl[0] ||
-    formFields.role === 'None'
+    formFields.allowedUrl.includes('')
+  formFields.role === 'None'
   return (
     <div className={classNames.root}>
       <Typography variant="h5">{isEdit ? textConsts.editTitle : textConsts.addTitle}</Typography>

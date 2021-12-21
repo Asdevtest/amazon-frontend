@@ -5,6 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {getBuyerDashboardCardConfig, BuyerDashboardCardDataKey} from '@constants/dashboard-configs'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -24,7 +25,7 @@ import {styles} from './buyer-dashboard-view.style'
 const textConsts = getLocalizedTexts(texts, 'en').buyerDashboardView
 const dashboardCardConfig = getBuyerDashboardCardConfig(textConsts)
 
-const navbarActiveCategory = 0
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
 @observer
 export class BuyerDashboardViewRaw extends Component {

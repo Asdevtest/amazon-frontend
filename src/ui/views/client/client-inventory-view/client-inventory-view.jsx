@@ -7,6 +7,7 @@ import {observer} from 'mobx-react'
 
 import {ClientInventoryDashboardCardDataKey, getClientInventoryDashboardCardConfig} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -33,7 +34,7 @@ import {styles} from './client-inventory-view.style'
 const textConsts = getLocalizedTexts(texts, 'en').inventoryView
 const inventoryDashboardCardConfig = getClientInventoryDashboardCardConfig(textConsts)
 
-const navbarActiveCategory = 2
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_INVENTORY
 
 @observer
 export class ClientInventoryViewRaw extends Component {
