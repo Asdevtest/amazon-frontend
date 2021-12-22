@@ -113,6 +113,12 @@ class UserModelStatic {
 
     return response
   }
+
+  async getUserSettingsAvailable() {
+    const response = await restApiService.userApi.apiV1UsersUserSettingsAvailableGet()
+
+    return response
+  }
 }
 
 export const UserModel = new UserModelStatic()

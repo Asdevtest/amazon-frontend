@@ -47,12 +47,6 @@ class InlineObject44 {
         if (data) {
             obj = obj || new InlineObject44();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
             if (data.hasOwnProperty('strategy')) {
                 obj['strategy'] = ApiClient.convertToType(data['strategy'], 'Number');
             }
@@ -104,30 +98,12 @@ class InlineObject44 {
             if (data.hasOwnProperty('checkedByService')) {
                 obj['checkedByService'] = ApiClient.convertToType(data['checkedByService'], 'Boolean');
             }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
-            }
         }
         return obj;
     }
 
 
 }
-
-/**
- * GUID
- * @member {String} _id
- */
-InlineObject44.prototype['_id'] = undefined;
-
-/**
- * GUID заявки к торой относится данное дополнение.
- * @member {String} link
- */
-InlineObject44.prototype['link'] = undefined;
 
 /**
  * Стратегия.
@@ -230,18 +206,6 @@ InlineObject44.prototype['findSupplier'] = undefined;
  * @member {Boolean} checkedByService
  */
 InlineObject44.prototype['checkedByService'] = undefined;
-
-/**
- * ID создателя заявки.
- * @member {String} createdById
- */
-InlineObject44.prototype['createdById'] = undefined;
-
-/**
- * ID кто последний изменял заявку.
- * @member {String} lastModifiedById
- */
-InlineObject44.prototype['lastModifiedById'] = undefined;
 
 
 

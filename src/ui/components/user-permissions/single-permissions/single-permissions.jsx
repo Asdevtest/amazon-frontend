@@ -31,6 +31,7 @@ export const SinglePermissions = observer(() => {
   }, [])
 
   const {
+    singlePermissions,
     requestStatus,
     getCurrentData,
     sortModel,
@@ -94,6 +95,7 @@ export const SinglePermissions = observer(() => {
         setOpenModal={() => onTriggerOpenModal('showAddOrEditSinglePermissionModal')}
       >
         <AddOrEditSinglePermissionForm
+          existingSinglePermissions={singlePermissions}
           permissionToEdit={addOrEditSinglePermissionSettings.permission}
           isEdit={addOrEditSinglePermissionSettings.isEdit}
           onCloseModal={() => onClickCancelBtn()}

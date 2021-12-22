@@ -18,7 +18,7 @@ import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
-import {ProductSearchRequestForm} from '@components/requests/create-or-edit-forms/product-search-request-form'
+import {ProductSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/product-search-request-form'
 
 import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'

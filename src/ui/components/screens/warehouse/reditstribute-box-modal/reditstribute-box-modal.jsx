@@ -264,6 +264,9 @@ export const RedistributeBox = ({
     </div>
   )
 
+  const disabledSubmitBtn =
+    totalProductsAmount !== 0 || requestStatus === loadingStatuses.isLoading || filterEmptyBoxes(newBoxes).length < 2
+
   return (
     <React.Fragment>
       <div className={classNames.boxesWrapper}>
@@ -292,7 +295,7 @@ export const RedistributeBox = ({
       <div className={classNames.buttonsWrapper}>
         <Button
           variant="text"
-          disabled={totalProductsAmount !== 0 || requestStatus === loadingStatuses.isLoading}
+          disabled={disabledSubmitBtn}
           onClick={() => {
             onClickRedistributeBtn()
           }}

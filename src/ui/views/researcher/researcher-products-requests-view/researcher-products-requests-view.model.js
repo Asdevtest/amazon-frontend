@@ -4,7 +4,7 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
-import {ProductSearchRequestModel} from '@models/product-search-request-model'
+import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {researcherProductsRequestsViewColumns} from '@components/table-columns/researcher/researcher-products-requests-columns'
@@ -117,7 +117,7 @@ export class ResearcherProductsRequestsViewModel {
 
   async getRequestsVacant() {
     try {
-      const result = await ProductSearchRequestModel.getProductSearchRequestsForResearcher()
+      const result = await RequestModel.getProductSearchRequestsForResearcher()
       runInAction(() => {
         this.requests = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
           ...item,

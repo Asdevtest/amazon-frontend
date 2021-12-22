@@ -18,7 +18,7 @@ import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
-import {NicheSearchRequestForm} from '@components/requests/create-or-edit-forms/niche-search-request-form'
+import {NicheSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/niche-search-request-form'
 
 import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -65,7 +65,7 @@ class ClientRequestsNichesViewRaw extends Component {
       onChangeRowsPerPage,
       onTriggerOpenModal,
       onClickTableRow,
-      removeProductSearchRequest,
+      removeNicheSearchRequest,
 
       setDataGridState,
       onChangeSortingModel,
@@ -150,7 +150,7 @@ class ClientRequestsNichesViewRaw extends Component {
           successBtnText={textConsts.yesBtn}
           cancelBtnText={textConsts.noBtn}
           onClickSuccessBtn={() => {
-            removeProductSearchRequest()
+            removeNicheSearchRequest()
           }}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />

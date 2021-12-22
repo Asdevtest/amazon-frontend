@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineObject25 {
     /**
      * Constructs a new <code>InlineObject25</code>.
-     * Редактировать permission
      * @alias module:model/InlineObject25
      */
     constructor() { 
@@ -48,17 +47,8 @@ class InlineObject25 {
         if (data) {
             obj = obj || new InlineObject25();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('allowedUrl')) {
-                obj['allowedUrl'] = ApiClient.convertToType(data['allowedUrl'], ['String']);
-            }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -68,28 +58,10 @@ class InlineObject25 {
 }
 
 /**
- * простое название
- * @member {String} title
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject25.prototype['title'] = undefined;
-
-/**
- * описание permission
- * @member {String} description
- */
-InlineObject25.prototype['description'] = undefined;
-
-/**
- * Массив доступных url.
- * @member {Array.<String>} allowedUrl
- */
-InlineObject25.prototype['allowedUrl'] = undefined;
-
-/**
- * Роль для которого данный permission
- * @member {Number} role
- */
-InlineObject25.prototype['role'] = undefined;
+InlineObject25.prototype['suppliersIds'] = undefined;
 
 
 

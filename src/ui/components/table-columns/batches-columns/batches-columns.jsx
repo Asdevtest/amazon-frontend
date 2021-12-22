@@ -6,6 +6,7 @@ import {
   BatchBoxesCell,
   NormalActionBtnCell,
   renderFieldValueCell,
+  ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
@@ -40,9 +41,17 @@ export const batchesViewColumns = handlers => [
   {
     field: 'tmpFinalWeight',
     headerName: textConsts.weightField,
-    renderCell: params => <ToFixedWithKgSignCell value={params.row.tmpFinalWeight} fix={2} />,
+    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 200,
+  },
+
+  {
+    field: 'tmpTotalPrice',
+    headerName: textConsts.toralPriceField,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
+    type: 'number',
+    width: 250,
   },
 
   {

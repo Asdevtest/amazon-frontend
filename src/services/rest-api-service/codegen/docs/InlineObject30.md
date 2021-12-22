@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersIds** | **[String]** | GUIDы поставщиков, которые нужно добавить в БД. | [optional] 
+**additionalBoxes** | [**[InlineObject6]**](InlineObject6.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

@@ -13,6 +13,7 @@
 
 
 import ApiClient from './ApiClient';
+import ApiV1AdminsBatchesBatch from './model/ApiV1AdminsBatchesBatch';
 import ApiV1AdminsGetProductsByStatusClient from './model/ApiV1AdminsGetProductsByStatusClient';
 import ApiV1AdminsGetProductsByStatusCurrentSupplier from './model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
 import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
@@ -23,11 +24,17 @@ import ApiV1AdminsTasksBoxesBefore from './model/ApiV1AdminsTasksBoxesBefore';
 import ApiV1AdminsTasksItems from './model/ApiV1AdminsTasksItems';
 import ApiV1AdminsUsersPermissionGroups from './model/ApiV1AdminsUsersPermissionGroups';
 import ApiV1AdminsUsersPermissions from './model/ApiV1AdminsUsersPermissions';
-import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
 import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
+import ApiV1RequestProposalsCustomDetails from './model/ApiV1RequestProposalsCustomDetails';
+import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
+import ApiV1RequestsCustomGuidProposalsProposal from './model/ApiV1RequestsCustomGuidProposalsProposal';
+import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
+import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
+import ApiV1RequestsDetails from './model/ApiV1RequestsDetails';
+import ApiV1RequestsRequest from './model/ApiV1RequestsRequest';
 import BadRequestError from './model/BadRequestError';
 import ConflictInTheState from './model/ConflictInTheState';
 import DefaultHeaders from './model/DefaultHeaders';
@@ -72,7 +79,6 @@ import InlineObject41 from './model/InlineObject41';
 import InlineObject42 from './model/InlineObject42';
 import InlineObject43 from './model/InlineObject43';
 import InlineObject44 from './model/InlineObject44';
-import InlineObject45 from './model/InlineObject45';
 import InlineObject5 from './model/InlineObject5';
 import InlineObject6 from './model/InlineObject6';
 import InlineObject7 from './model/InlineObject7';
@@ -82,6 +88,10 @@ import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
 import InlineResponse20010 from './model/InlineResponse20010';
 import InlineResponse20011 from './model/InlineResponse20011';
+import InlineResponse20012 from './model/InlineResponse20012';
+import InlineResponse20013 from './model/InlineResponse20013';
+import InlineResponse20014 from './model/InlineResponse20014';
+import InlineResponse20015 from './model/InlineResponse20015';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
@@ -97,14 +107,25 @@ import InlineResponse2013 from './model/InlineResponse2013';
 import InlineResponse2014 from './model/InlineResponse2014';
 import InlineResponse2015 from './model/InlineResponse2015';
 import InlineResponse2016 from './model/InlineResponse2016';
+import InlineResponse2017 from './model/InlineResponse2017';
 import InternalServerError from './model/InternalServerError';
 import LinkSubuserInputSchema from './model/LinkSubuserInputSchema';
 import MePatchInputSchema from './model/MePatchInputSchema';
 import NotFoundError from './model/NotFoundError';
+import ParamsGuid from './model/ParamsGuid';
 import PasteSuccessfully from './model/PasteSuccessfully';
 import PayloadTooLarge from './model/PayloadTooLarge';
+import PermissionGetDtoSchema from './model/PermissionGetDtoSchema';
+import PermissionGroupGetDtoSchema from './model/PermissionGroupGetDtoSchema';
+import PermissionGroupPatchDtoSchema from './model/PermissionGroupPatchDtoSchema';
+import PermissionGroupPostDtoSchema from './model/PermissionGroupPostDtoSchema';
+import PermissionPatchDtoSchema from './model/PermissionPatchDtoSchema';
+import PermissionPostDtoSchema from './model/PermissionPostDtoSchema';
+import QuerystringGetDTOSchema from './model/QuerystringGetDTOSchema';
+import SetPermissionsForUsersPathDTOSchema from './model/SetPermissionsForUsersPathDTOSchema';
 import SignInResponseSchema from './model/SignInResponseSchema';
 import SigninInputSchema from './model/SigninInputSchema';
+import SuccessResponseBodyWithGuid from './model/SuccessResponseBodyWithGuid';
 import UnauthorizedError from './model/UnauthorizedError';
 import UpdatedSuccessfully from './model/UpdatedSuccessfully';
 import UserFullSchema from './model/UserFullSchema';
@@ -115,15 +136,14 @@ import UserSettingPatchSchema from './model/UserSettingPatchSchema';
 import UserSettingPostResponseSchema from './model/UserSettingPostResponseSchema';
 import UserSettingResponseSchema from './model/UserSettingResponseSchema';
 import AdministratorApi from './api/AdministratorApi';
-import BatchesApi from './api/BatchesApi';
 import BoxesApi from './api/BoxesApi';
 import BuyerApi from './api/BuyerApi';
 import ClientApi from './api/ClientApi';
-import NicheSearchRequestApi from './api/NicheSearchRequestApi';
 import OtherApi from './api/OtherApi';
 import PermissionsApi from './api/PermissionsApi';
 import ProductApi from './api/ProductApi';
-import ProductSearchRequestApi from './api/ProductSearchRequestApi';
+import RequestProposalsApi from './api/RequestProposalsApi';
+import RequestsApi from './api/RequestsApi';
 import ResearcherApi from './api/ResearcherApi';
 import SellerBoardApi from './api/SellerBoardApi';
 import StorekeepersApi from './api/StorekeepersApi';
@@ -169,6 +189,12 @@ export {
      * @property {module:ApiClient}
      */
     ApiClient,
+
+    /**
+     * The ApiV1AdminsBatchesBatch model constructor.
+     * @property {module:model/ApiV1AdminsBatchesBatch}
+     */
+    ApiV1AdminsBatchesBatch,
 
     /**
      * The ApiV1AdminsGetProductsByStatusClient model constructor.
@@ -231,12 +257,6 @@ export {
     ApiV1AdminsUsersPermissions,
 
     /**
-     * The ApiV1BatchesBatch model constructor.
-     * @property {module:model/ApiV1BatchesBatch}
-     */
-    ApiV1BatchesBatch,
-
-    /**
      * The ApiV1BoxesItems model constructor.
      * @property {module:model/ApiV1BoxesItems}
      */
@@ -259,6 +279,48 @@ export {
      * @property {module:model/ApiV1BoxesSplitNewBoxesParams}
      */
     ApiV1BoxesSplitNewBoxesParams,
+
+    /**
+     * The ApiV1RequestProposalsCustomDetails model constructor.
+     * @property {module:model/ApiV1RequestProposalsCustomDetails}
+     */
+    ApiV1RequestProposalsCustomDetails,
+
+    /**
+     * The ApiV1RequestsCustomDetails model constructor.
+     * @property {module:model/ApiV1RequestsCustomDetails}
+     */
+    ApiV1RequestsCustomDetails,
+
+    /**
+     * The ApiV1RequestsCustomGuidProposalsProposal model constructor.
+     * @property {module:model/ApiV1RequestsCustomGuidProposalsProposal}
+     */
+    ApiV1RequestsCustomGuidProposalsProposal,
+
+    /**
+     * The ApiV1RequestsCustomGuidRequest model constructor.
+     * @property {module:model/ApiV1RequestsCustomGuidRequest}
+     */
+    ApiV1RequestsCustomGuidRequest,
+
+    /**
+     * The ApiV1RequestsCustomRequest model constructor.
+     * @property {module:model/ApiV1RequestsCustomRequest}
+     */
+    ApiV1RequestsCustomRequest,
+
+    /**
+     * The ApiV1RequestsDetails model constructor.
+     * @property {module:model/ApiV1RequestsDetails}
+     */
+    ApiV1RequestsDetails,
+
+    /**
+     * The ApiV1RequestsRequest model constructor.
+     * @property {module:model/ApiV1RequestsRequest}
+     */
+    ApiV1RequestsRequest,
 
     /**
      * The BadRequestError model constructor.
@@ -525,12 +587,6 @@ export {
     InlineObject44,
 
     /**
-     * The InlineObject45 model constructor.
-     * @property {module:model/InlineObject45}
-     */
-    InlineObject45,
-
-    /**
      * The InlineObject5 model constructor.
      * @property {module:model/InlineObject5}
      */
@@ -583,6 +639,30 @@ export {
      * @property {module:model/InlineResponse20011}
      */
     InlineResponse20011,
+
+    /**
+     * The InlineResponse20012 model constructor.
+     * @property {module:model/InlineResponse20012}
+     */
+    InlineResponse20012,
+
+    /**
+     * The InlineResponse20013 model constructor.
+     * @property {module:model/InlineResponse20013}
+     */
+    InlineResponse20013,
+
+    /**
+     * The InlineResponse20014 model constructor.
+     * @property {module:model/InlineResponse20014}
+     */
+    InlineResponse20014,
+
+    /**
+     * The InlineResponse20015 model constructor.
+     * @property {module:model/InlineResponse20015}
+     */
+    InlineResponse20015,
 
     /**
      * The InlineResponse2002 model constructor.
@@ -675,6 +755,12 @@ export {
     InlineResponse2016,
 
     /**
+     * The InlineResponse2017 model constructor.
+     * @property {module:model/InlineResponse2017}
+     */
+    InlineResponse2017,
+
+    /**
      * The InternalServerError model constructor.
      * @property {module:model/InternalServerError}
      */
@@ -699,6 +785,12 @@ export {
     NotFoundError,
 
     /**
+     * The ParamsGuid model constructor.
+     * @property {module:model/ParamsGuid}
+     */
+    ParamsGuid,
+
+    /**
      * The PasteSuccessfully model constructor.
      * @property {module:model/PasteSuccessfully}
      */
@@ -711,6 +803,54 @@ export {
     PayloadTooLarge,
 
     /**
+     * The PermissionGetDtoSchema model constructor.
+     * @property {module:model/PermissionGetDtoSchema}
+     */
+    PermissionGetDtoSchema,
+
+    /**
+     * The PermissionGroupGetDtoSchema model constructor.
+     * @property {module:model/PermissionGroupGetDtoSchema}
+     */
+    PermissionGroupGetDtoSchema,
+
+    /**
+     * The PermissionGroupPatchDtoSchema model constructor.
+     * @property {module:model/PermissionGroupPatchDtoSchema}
+     */
+    PermissionGroupPatchDtoSchema,
+
+    /**
+     * The PermissionGroupPostDtoSchema model constructor.
+     * @property {module:model/PermissionGroupPostDtoSchema}
+     */
+    PermissionGroupPostDtoSchema,
+
+    /**
+     * The PermissionPatchDtoSchema model constructor.
+     * @property {module:model/PermissionPatchDtoSchema}
+     */
+    PermissionPatchDtoSchema,
+
+    /**
+     * The PermissionPostDtoSchema model constructor.
+     * @property {module:model/PermissionPostDtoSchema}
+     */
+    PermissionPostDtoSchema,
+
+    /**
+     * The QuerystringGetDTOSchema model constructor.
+     * @property {module:model/QuerystringGetDTOSchema}
+     */
+    QuerystringGetDTOSchema,
+
+    /**
+     * The SetPermissionsForUsersPathDTOSchema model constructor.
+     * @property {module:model/SetPermissionsForUsersPathDTOSchema}
+     */
+    SetPermissionsForUsersPathDTOSchema,
+
+    /**
      * The SignInResponseSchema model constructor.
      * @property {module:model/SignInResponseSchema}
      */
@@ -721,6 +861,12 @@ export {
      * @property {module:model/SigninInputSchema}
      */
     SigninInputSchema,
+
+    /**
+     * The SuccessResponseBodyWithGuid model constructor.
+     * @property {module:model/SuccessResponseBodyWithGuid}
+     */
+    SuccessResponseBodyWithGuid,
 
     /**
      * The UnauthorizedError model constructor.
@@ -783,12 +929,6 @@ export {
     AdministratorApi,
 
     /**
-    * The BatchesApi service constructor.
-    * @property {module:api/BatchesApi}
-    */
-    BatchesApi,
-
-    /**
     * The BoxesApi service constructor.
     * @property {module:api/BoxesApi}
     */
@@ -805,12 +945,6 @@ export {
     * @property {module:api/ClientApi}
     */
     ClientApi,
-
-    /**
-    * The NicheSearchRequestApi service constructor.
-    * @property {module:api/NicheSearchRequestApi}
-    */
-    NicheSearchRequestApi,
 
     /**
     * The OtherApi service constructor.
@@ -831,10 +965,16 @@ export {
     ProductApi,
 
     /**
-    * The ProductSearchRequestApi service constructor.
-    * @property {module:api/ProductSearchRequestApi}
+    * The RequestProposalsApi service constructor.
+    * @property {module:api/RequestProposalsApi}
     */
-    ProductSearchRequestApi,
+    RequestProposalsApi,
+
+    /**
+    * The RequestsApi service constructor.
+    * @property {module:api/RequestsApi}
+    */
+    RequestsApi,
 
     /**
     * The ResearcherApi service constructor.

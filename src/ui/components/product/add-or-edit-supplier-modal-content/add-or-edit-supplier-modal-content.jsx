@@ -24,6 +24,8 @@ export const AddOrEditSupplierModalContent = observer(
   ({title, onTriggerShowModal, supplier, onClickSaveBtn, showProgress, progressValue, requestStatus}) => {
     const classNames = useClassNames()
 
+    const [isSubmitBtnClicked, setIsSubmitBtnClicked] = useState(false)
+
     const [tmpSupplier, setTmpSupplier] = useState({
       amount: (supplier && supplier.amount) || '',
       comment: (supplier && supplier.comment) || '',
@@ -54,6 +56,16 @@ export const AddOrEditSupplierModalContent = observer(
         setTmpSupplier({...tmpSupplier, [fieldName]: event.target.value})
       }
     }
+
+    const diasabledSubmit =
+      '' === tmpSupplier.price ||
+      '' === tmpSupplier.link ||
+      '' === tmpSupplier.amount ||
+      '' === tmpSupplier.delivery ||
+      '' === tmpSupplier.lotcost ||
+      '' === tmpSupplier.minlot ||
+      requestStatus === loadingStatuses.isLoading ||
+      isSubmitBtnClicked
 
     return (
       <Container disableGutters className={classNames.modalContainer}>
@@ -148,18 +160,11 @@ export const AddOrEditSupplierModalContent = observer(
         <div className={classNames.buttonsWrapper}>
           <Button
             disableElevation
-            disabled={
-              '' === tmpSupplier.price ||
-              '' === tmpSupplier.link ||
-              '' === tmpSupplier.amount ||
-              '' === tmpSupplier.delivery ||
-              '' === tmpSupplier.lotcost ||
-              '' === tmpSupplier.minlot ||
-              requestStatus === loadingStatuses.isLoading
-            }
+            disabled={diasabledSubmit}
             className={classNames.saveBtn}
             variant="contained"
             onClick={() => {
+              setIsSubmitBtnClicked(true)
               onClickSaveBtn({...tmpSupplier, _id: supplier && supplier._id}, photosOfSupplier)
             }}
           >

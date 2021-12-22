@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineObject43 {
     /**
      * Constructs a new <code>InlineObject43</code>.
-     * Схема детали на поиск ниш.
      * @alias module:model/InlineObject43
      */
     constructor() { 
@@ -48,14 +47,8 @@ class InlineObject43 {
         if (data) {
             obj = obj || new InlineObject43();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('keyword')) {
-                obj['keyword'] = ApiClient.convertToType(data['keyword'], 'String');
+            if (data.hasOwnProperty('strategy')) {
+                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'Number');
             }
             if (data.hasOwnProperty('monthlySales')) {
                 obj['monthlySales'] = ApiClient.convertToType(data['monthlySales'], 'Number');
@@ -93,20 +86,17 @@ class InlineObject43 {
             if (data.hasOwnProperty('notes')) {
                 obj['notes'] = ApiClient.convertToType(data['notes'], 'String');
             }
-            if (data.hasOwnProperty('denyNichesBoughtByMe')) {
-                obj['denyNichesBoughtByMe'] = ApiClient.convertToType(data['denyNichesBoughtByMe'], 'Boolean');
+            if (data.hasOwnProperty('denyProductsBoughtByMe')) {
+                obj['denyProductsBoughtByMe'] = ApiClient.convertToType(data['denyProductsBoughtByMe'], 'Boolean');
             }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            if (data.hasOwnProperty('denyProductsExistInServiceByCurStrategy')) {
+                obj['denyProductsExistInServiceByCurStrategy'] = ApiClient.convertToType(data['denyProductsExistInServiceByCurStrategy'], 'Boolean');
             }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            if (data.hasOwnProperty('findSupplier')) {
+                obj['findSupplier'] = ApiClient.convertToType(data['findSupplier'], 'Boolean');
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('checkedByService')) {
+                obj['checkedByService'] = ApiClient.convertToType(data['checkedByService'], 'Boolean');
             }
         }
         return obj;
@@ -116,31 +106,19 @@ class InlineObject43 {
 }
 
 /**
- * GUID продукта в базе данных.
- * @member {String} _id
+ * Стратегия.
+ * @member {Number} strategy
  */
-InlineObject43.prototype['_id'] = undefined;
+InlineObject43.prototype['strategy'] = undefined;
 
 /**
- * GUID заявки к торой относится данное дополнение.
- * @member {String} link
- */
-InlineObject43.prototype['link'] = undefined;
-
-/**
- * Ключевые слова ниши.
- * @member {String} keyword
- */
-InlineObject43.prototype['keyword'] = undefined;
-
-/**
- * Количество продаж за месяц.
+ * Продажи за месяц.
  * @member {Number} monthlySales
  */
 InlineObject43.prototype['monthlySales'] = undefined;
 
 /**
- * Размерный ряд.
+ * Размер.
  * @member {module:model/InlineObject43.SizeEnum} size
  */
 InlineObject43.prototype['size'] = undefined;
@@ -152,43 +130,43 @@ InlineObject43.prototype['size'] = undefined;
 InlineObject43.prototype['searchVolume'] = undefined;
 
 /**
- * Мин стоимость товара на Амазоне
+ * Мин стоимость товара на Амазоне.
  * @member {Number} minAmazonPrice
  */
 InlineObject43.prototype['minAmazonPrice'] = undefined;
 
 /**
- * Макс стоимость товара на Амазоне
+ * Макс стоимость товара на Амазоне.
  * @member {Number} maxAmazonPrice
  */
 InlineObject43.prototype['maxAmazonPrice'] = undefined;
 
 /**
- * Мин рейтинг BSR на Амазоне
+ * Мин рейтинг BSR на амазоне.
  * @member {Number} minBSR
  */
 InlineObject43.prototype['minBSR'] = undefined;
 
 /**
- * Макс рейтинг BSR на Амазоне
+ * Макс рейтинг BSR на амазоне
  * @member {Number} maxBSR
  */
 InlineObject43.prototype['maxBSR'] = undefined;
 
 /**
- * Мин просмотры на Амазоне
+ * Мин просмотры на амазоне
  * @member {Number} minReviews
  */
 InlineObject43.prototype['minReviews'] = undefined;
 
 /**
- * Макс просмотры на Амазоне
+ * Макс просмотры на амазоне
  * @member {Number} maxReviews
  */
 InlineObject43.prototype['maxReviews'] = undefined;
 
 /**
- * Мин  доход по продукту на Амазоне
+ * Мин доход по продукту на Амазоне
  * @member {Number} minRevenue
  */
 InlineObject43.prototype['minRevenue'] = undefined;
@@ -200,40 +178,34 @@ InlineObject43.prototype['minRevenue'] = undefined;
 InlineObject43.prototype['maxRevenue'] = undefined;
 
 /**
- * Комментарий к заявке
+ * Коментарий.
  * @member {String} notes
  */
 InlineObject43.prototype['notes'] = undefined;
 
 /**
- * Запретить ниши которые когда либо куплены клиентом.
- * @member {Boolean} denyNichesBoughtByMe
+ * Запретить товары ранее купленные.
+ * @member {Boolean} denyProductsBoughtByMe
  */
-InlineObject43.prototype['denyNichesBoughtByMe'] = undefined;
+InlineObject43.prototype['denyProductsBoughtByMe'] = undefined;
 
 /**
- * GUID клиента, который создал запрос на поиск товара.
- * @member {String} createdById
+ * Запретить товары которые есть в системе под данную статегию.
+ * @member {Boolean} denyProductsExistInServiceByCurStrategy
  */
-InlineObject43.prototype['createdById'] = undefined;
+InlineObject43.prototype['denyProductsExistInServiceByCurStrategy'] = undefined;
 
 /**
- * GUID клиента, который обновил запрос на поиск товара.
- * @member {String} lastModifiedById
+ * Найти поставщика.
+ * @member {Boolean} findSupplier
  */
-InlineObject43.prototype['lastModifiedById'] = undefined;
+InlineObject43.prototype['findSupplier'] = undefined;
 
 /**
- * Дата создания
- * @member {Date} createdAt
+ * Проверить сепервайзером.
+ * @member {Boolean} checkedByService
  */
-InlineObject43.prototype['createdAt'] = undefined;
-
-/**
- * Дата изменения
- * @member {Date} updatedAt
- */
-InlineObject43.prototype['updatedAt'] = undefined;
+InlineObject43.prototype['checkedByService'] = undefined;
 
 
 
@@ -253,10 +225,10 @@ InlineObject43['SizeEnum'] = {
     "SMALL": "SMALL",
 
     /**
-     * value: "MIDDLE"
+     * value: "MEDIUM"
      * @const
      */
-    "MIDDLE": "MIDDLE",
+    "MEDIUM": "MEDIUM",
 
     /**
      * value: "LARGE"

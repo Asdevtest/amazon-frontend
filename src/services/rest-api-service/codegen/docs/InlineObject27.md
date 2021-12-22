@@ -4,8 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** | Простое название | [optional] 
-**description** | **String** | Описание permission | [optional] 
-**permissions** | **[String]** |  | [optional] 
+**requestProposalIds** | **[String]** | Массив id предложений. | [optional] 
 
 

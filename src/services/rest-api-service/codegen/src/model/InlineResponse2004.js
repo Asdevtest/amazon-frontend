@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
 import ApiV1AdminsTasksBoxesBefore from './ApiV1AdminsTasksBoxesBefore';
 
 /**
@@ -74,6 +75,9 @@ class InlineResponse2004 {
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['storekeeper']);
+            }
             if (data.hasOwnProperty('storekeeperComment')) {
                 obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
@@ -131,6 +135,11 @@ InlineResponse2004.prototype['boxes'] = undefined;
  * @member {Number} status
  */
 InlineResponse2004.prototype['status'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} storekeeper
+ */
+InlineResponse2004.prototype['storekeeper'] = undefined;
 
 /**
  * Комментарий работника склада.

@@ -48,29 +48,47 @@ class InlineObject41 {
         if (data) {
             obj = obj || new InlineObject41();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('keyword')) {
+                obj['keyword'] = ApiClient.convertToType(data['keyword'], 'String');
             }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            if (data.hasOwnProperty('monthlySales')) {
+                obj['monthlySales'] = ApiClient.convertToType(data['monthlySales'], 'Number');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('size')) {
+                obj['size'] = ApiClient.convertToType(data['size'], 'String');
             }
-            if (data.hasOwnProperty('conditions')) {
-                obj['conditions'] = ApiClient.convertToType(data['conditions'], 'String');
+            if (data.hasOwnProperty('searchVolume')) {
+                obj['searchVolume'] = ApiClient.convertToType(data['searchVolume'], 'Number');
             }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            if (data.hasOwnProperty('minAmazonPrice')) {
+                obj['minAmazonPrice'] = ApiClient.convertToType(data['minAmazonPrice'], 'Number');
             }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            if (data.hasOwnProperty('maxAmazonPrice')) {
+                obj['maxAmazonPrice'] = ApiClient.convertToType(data['maxAmazonPrice'], 'Number');
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            if (data.hasOwnProperty('minBSR')) {
+                obj['minBSR'] = ApiClient.convertToType(data['minBSR'], 'Number');
             }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('maxBSR')) {
+                obj['maxBSR'] = ApiClient.convertToType(data['maxBSR'], 'Number');
+            }
+            if (data.hasOwnProperty('minReviews')) {
+                obj['minReviews'] = ApiClient.convertToType(data['minReviews'], 'Number');
+            }
+            if (data.hasOwnProperty('maxReviews')) {
+                obj['maxReviews'] = ApiClient.convertToType(data['maxReviews'], 'Number');
+            }
+            if (data.hasOwnProperty('minRevenue')) {
+                obj['minRevenue'] = ApiClient.convertToType(data['minRevenue'], 'Number');
+            }
+            if (data.hasOwnProperty('maxRevenue')) {
+                obj['maxRevenue'] = ApiClient.convertToType(data['maxRevenue'], 'Number');
+            }
+            if (data.hasOwnProperty('notes')) {
+                obj['notes'] = ApiClient.convertToType(data['notes'], 'String');
+            }
+            if (data.hasOwnProperty('denyNichesBoughtByMe')) {
+                obj['denyNichesBoughtByMe'] = ApiClient.convertToType(data['denyNichesBoughtByMe'], 'Boolean');
             }
         }
         return obj;
@@ -80,55 +98,118 @@ class InlineObject41 {
 }
 
 /**
- * GUID деталей кастомной заявки в базе данных.
- * @member {String} _id
+ * Ключевые слова ниши.
+ * @member {String} keyword
  */
-InlineObject41.prototype['_id'] = undefined;
+InlineObject41.prototype['keyword'] = undefined;
 
 /**
- * GUID заявки к торой относится данное дополнение.
- * @member {String} link
+ * Количество продаж за месяц.
+ * @member {Number} monthlySales
  */
-InlineObject41.prototype['link'] = undefined;
+InlineObject41.prototype['monthlySales'] = undefined;
 
 /**
- * Имя кастомной заявки.
- * @member {String} name
+ * Размерный ряд.
+ * @member {module:model/InlineObject41.SizeEnum} size
  */
-InlineObject41.prototype['name'] = undefined;
+InlineObject41.prototype['size'] = undefined;
 
 /**
- * Условия кастомной заявки.
- * @member {String} conditions
+ * Объём продаж данной категории.
+ * @member {Number} searchVolume
  */
-InlineObject41.prototype['conditions'] = undefined;
+InlineObject41.prototype['searchVolume'] = undefined;
 
 /**
- * GUID клиента, который создал запрос на поиск товара.
- * @member {String} createdById
+ * Мин стоимость товара на Амазоне
+ * @member {Number} minAmazonPrice
  */
-InlineObject41.prototype['createdById'] = undefined;
+InlineObject41.prototype['minAmazonPrice'] = undefined;
 
 /**
- * GUID клиента, который обновил запрос на поиск товара.
- * @member {String} lastModifiedById
+ * Макс стоимость товара на Амазоне
+ * @member {Number} maxAmazonPrice
  */
-InlineObject41.prototype['lastModifiedById'] = undefined;
+InlineObject41.prototype['maxAmazonPrice'] = undefined;
 
 /**
- * Дата создания
- * @member {Date} createdAt
+ * Мин рейтинг BSR на Амазоне
+ * @member {Number} minBSR
  */
-InlineObject41.prototype['createdAt'] = undefined;
+InlineObject41.prototype['minBSR'] = undefined;
 
 /**
- * Дата изменения
- * @member {Date} updatedAt
+ * Макс рейтинг BSR на Амазоне
+ * @member {Number} maxBSR
  */
-InlineObject41.prototype['updatedAt'] = undefined;
+InlineObject41.prototype['maxBSR'] = undefined;
+
+/**
+ * Мин просмотры на Амазоне
+ * @member {Number} minReviews
+ */
+InlineObject41.prototype['minReviews'] = undefined;
+
+/**
+ * Макс просмотры на Амазоне
+ * @member {Number} maxReviews
+ */
+InlineObject41.prototype['maxReviews'] = undefined;
+
+/**
+ * Мин  доход по продукту на Амазоне
+ * @member {Number} minRevenue
+ */
+InlineObject41.prototype['minRevenue'] = undefined;
+
+/**
+ * Макс доход по продукту на Амазоне
+ * @member {Number} maxRevenue
+ */
+InlineObject41.prototype['maxRevenue'] = undefined;
+
+/**
+ * Комментарий к заявке
+ * @member {String} notes
+ */
+InlineObject41.prototype['notes'] = undefined;
+
+/**
+ * Запретить ниши которые когда либо куплены клиентом.
+ * @member {Boolean} denyNichesBoughtByMe
+ */
+InlineObject41.prototype['denyNichesBoughtByMe'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>size</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject41['SizeEnum'] = {
+
+    /**
+     * value: "SMALL"
+     * @const
+     */
+    "SMALL": "SMALL",
+
+    /**
+     * value: "MEDIUM"
+     * @const
+     */
+    "MEDIUM": "MEDIUM",
+
+    /**
+     * value: "LARGE"
+     * @const
+     */
+    "LARGE": "LARGE"
+};
 
 
 

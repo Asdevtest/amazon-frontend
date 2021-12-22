@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiV1AdminsBatchesGet**](AdministratorApi.md#apiV1AdminsBatchesGet) | **GET** /api/v1/admins/batches | # Получить все партии.
 [**apiV1AdminsGetCheckingProductsGet**](AdministratorApi.md#apiV1AdminsGetCheckingProductsGet) | **GET** /api/v1/admins/get_checking_products | # Получить список товаров, которые находятся на проверке. 
 [**apiV1AdminsGetNotPaidProductsGet**](AdministratorApi.md#apiV1AdminsGetNotPaidProductsGet) | **GET** /api/v1/admins/get_not_paid_products | # Получить список не оплаченных товаров.
 [**apiV1AdminsGetPaidProductsGet**](AdministratorApi.md#apiV1AdminsGetPaidProductsGet) | **GET** /api/v1/admins/get_paid_products | # Получить список оплаченных товаров.
@@ -24,6 +25,64 @@ Method | HTTP request | Description
 [**apiV1AdminsUsersGuidGet**](AdministratorApi.md#apiV1AdminsUsersGuidGet) | **GET** /api/v1/admins/users/{guid} | Получить пользователя по GUID.
 [**apiV1AdminsUsersGuidPatch**](AdministratorApi.md#apiV1AdminsUsersGuidPatch) | **PATCH** /api/v1/admins/users/{guid} | Изменить пользователя.
 
+
+
+## apiV1AdminsBatchesGet
+
+> [InlineResponse2005] apiV1AdminsBatchesGet(opts)
+
+# Получить все партии.
+
+## Получить все партии.  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.AdministratorApi();
+let opts = {
+  'isActual': true, // Boolean | Только актуальные. По умолчанию False
+  'sendToBatchRequest': true, // Boolean | Только сделаны запрос на отправку коробки в партию. По умолчанию False
+  'clientId': "clientId_example", // String | Id клиента. По умолчанию все.
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1AdminsBatchesGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **isActual** | **Boolean**| Только актуальные. По умолчанию False | [optional] 
+ **sendToBatchRequest** | **Boolean**| Только сделаны запрос на отправку коробки в партию. По умолчанию False | [optional] 
+ **clientId** | **String**| Id клиента. По умолчанию все. | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse2005]**](InlineResponse2005.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html
 
 
 ## apiV1AdminsGetCheckingProductsGet

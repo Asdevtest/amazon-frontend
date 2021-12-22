@@ -26,3 +26,5 @@ export const withAmount = str => (str && str !== '0' ? `${str} шт` : str)
 export const withText = (str, text) => (str && str !== 0 ? `${str}${text}` : str)
 
 export const checkAndMakeAbsoluteUrl = urlStr => (checkIsAbsoluteUrl(urlStr) ? urlStr : `https://${urlStr}`)
+
+export const clearSpecialCharacters = str => str.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '')

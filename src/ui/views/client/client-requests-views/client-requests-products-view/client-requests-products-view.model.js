@@ -4,7 +4,7 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
-import {ProductSearchRequestModel} from '@models/product-search-request-model'
+import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {clientSearchRequestsViewColumns} from '@components/table-columns/client/client-search-requests-columns'
@@ -158,7 +158,7 @@ export class ClientRequestsProductsViewModel {
         ...data,
         deadline: data.deadline instanceof String ? data.deadline : formatDateForBackendWithoutParseISO(data.deadline),
       }
-      await ProductSearchRequestModel.updateProductSearchRequest(requestId, newData)
+      await RequestModel.updateProductSearchRequest(requestId, newData)
     } catch (error) {
       console.log(error)
       this.error = error
@@ -168,7 +168,7 @@ export class ClientRequestsProductsViewModel {
   async createProductSearchRequest(data) {
     try {
       const newData = {...data, deadline: formatDateForBackendWithoutParseISO(data.deadline)}
-      await ProductSearchRequestModel.createProductSearchRequest(newData)
+      await RequestModel.createProductSearchRequest(newData)
     } catch (error) {
       console.log(error)
       this.error = error
@@ -183,7 +183,7 @@ export class ClientRequestsProductsViewModel {
 
   async removeProductSearchRequest() {
     try {
-      await ProductSearchRequestModel.removeProductSearchRequests(this.researchIdToRemove)
+      await RequestModel.removeProductSearchRequests(this.researchIdToRemove)
 
       this.onTriggerOpenModal('showConfirmModal')
 
@@ -196,7 +196,7 @@ export class ClientRequestsProductsViewModel {
 
   async getProductSearchRequests() {
     try {
-      const result = await ProductSearchRequestModel.getProductSearchRequests()
+      const result = await RequestModel.getProductSearchRequests()
 
       runInAction(() => {
         this.searchRequests = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(request => ({

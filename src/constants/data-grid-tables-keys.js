@@ -32,8 +32,10 @@ export const DataGridTablesKeys = {
   RESEARCHER_PRODUCTS: 'researcherProductsDataGridState',
   RESEARCHER_PRODUCT_VACANT_REQUESTS: 'researcherProductVacantRequestsDataGridState',
   RESEARCHER_NICHE_VACANT_REQUESTS: 'researcherNicheVacantRequestsDataGridState',
+  RESEARCHER_CUSTOM_VACANT_REQUESTS: 'researcherCustomVacantRequestsDataGridState',
   RESEARCHER_PRODUCT_MY_REQUESTS: 'researcherProductMyRequestsDataGridState',
   RESEARCHER_NICHE_MY_REQUESTS: 'researcherNicheMyRequestsDataGridState',
+  RESEARCHER_CUSTOM_MY_REQUESTS: 'researcherCustomMyRequestsDataGridState',
   RESEARCHER_SUB_USERS: 'researcherSubUsersDataGridState',
   RESEARCHER_FINANCES: 'researcherFinancesDataGridState',
 
@@ -55,6 +57,7 @@ export const DataGridTablesKeys = {
   CLIENT_WAREHOUSE: 'clientWarehouseDataGridState',
   CLIENT_PRODUCT_SEARCH_REQUESTS: 'clientProductSearchRequestsDataGridState',
   CLIENT_NICHE_SEARCH_REQUESTS: 'clientNicheSearchRequestsDataGridState',
+  CLIENT_CUSTOM_SEARCH_REQUESTS: 'clientCustomSearchRequestsDataGridState',
   CLIENT_SUB_USERS: 'clientSubUsersDataGridState',
   CLIENT_BATCHES: 'clientBatchesDataGridState',
   CLIENT_DAILY_SELLER_BOARD: 'clientDailySellerBoardDataGridState',

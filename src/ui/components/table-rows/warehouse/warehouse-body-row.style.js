@@ -13,6 +13,8 @@ export const styles = createStyles({
     height: '64px',
     width: '64px',
     marginRight: '8px',
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
   boxLastRow: {
     borderBottom: '1px solid rgba(217, 222, 229, 1)',

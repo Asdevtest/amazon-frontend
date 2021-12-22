@@ -42,6 +42,7 @@ const updateBoxBlackList = [
   'updatedAt',
   'sendToBatchRequest',
   'sendToBatchComplete',
+  'storekeeperId',
 ]
 
 export class ClientWarehouseViewModel {
@@ -243,8 +244,6 @@ export class ClientWarehouseViewModel {
         orderId: el.order._id,
         productId: el.product._id,
       }))
-
-      console.log('newItems', newItems)
 
       const requestBox = getObjectFilteredByKeyArrayBlackList(
         {

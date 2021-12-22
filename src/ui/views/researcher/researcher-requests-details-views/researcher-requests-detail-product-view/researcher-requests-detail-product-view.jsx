@@ -9,7 +9,7 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
-import {ProductSearchRequestDetails} from '@components/requests/requests-details/product-request-details'
+import {ProductSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/product-request-details'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 

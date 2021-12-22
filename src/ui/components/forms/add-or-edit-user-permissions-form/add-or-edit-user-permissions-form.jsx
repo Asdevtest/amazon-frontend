@@ -82,9 +82,14 @@ export const AddOrEditUserPermissionsForm = observer(
     }
 
     const handleSelectPermissionChange = type => event => {
+      if (!event.target.value[event.target.value.length - 1] && event.target.value.length > 0) {
+        return
+      }
+
       const {
         target: {value},
       } = event
+
       const newFormFields = {...formFields}
       newFormFields[type] = typeof value === 'string' ? value.split(',') : value
 
@@ -177,7 +182,7 @@ export const AddOrEditUserPermissionsForm = observer(
                         renderMenuItem(per, formFields.curPermissionGroups),
                       )}
 
-                    <div>
+                    <div className={classNames.selectModalBtnsWrapper}>
                       <Button
                         disableElevation
                         className={classNames.button}
@@ -293,7 +298,7 @@ export const AddOrEditUserPermissionsForm = observer(
                         renderMenuItem(per, formFields.curPermissions),
                       )}
 
-                    <div>
+                    <div className={classNames.selectModalBtnsWrapper}>
                       <Button
                         disableElevation
                         className={classNames.button}

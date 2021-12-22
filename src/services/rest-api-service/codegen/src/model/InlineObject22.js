@@ -22,10 +22,15 @@ class InlineObject22 {
     /**
      * Constructs a new <code>InlineObject22</code>.
      * @alias module:model/InlineObject22
+     * @param amount {Number} Кол-во продукта по этой позиции.
+     * @param deliveryMethod {Number} Код метода доставки.
+     * @param warehouse {Number} Номер склада.
+     * @param clientComment {String} Комментарии клиента.
+     * @param productId {String} GUID заказанного продукта
      */
-    constructor() { 
+    constructor(amount, deliveryMethod, warehouse, clientComment, productId) { 
         
-        InlineObject22.initialize(this);
+        InlineObject22.initialize(this, amount, deliveryMethod, warehouse, clientComment, productId);
     }
 
     /**
@@ -33,7 +38,12 @@ class InlineObject22 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, productId) { 
+        obj['amount'] = amount;
+        obj['deliveryMethod'] = deliveryMethod;
+        obj['warehouse'] = warehouse;
+        obj['clientComment'] = clientComment;
+        obj['productId'] = productId;
     }
 
     /**

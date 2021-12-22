@@ -63,22 +63,6 @@ export const clientSearchRequestsViewColumns = handlers => [
   },
 
   {
-    field: 'minKeywords',
-    headerName: textConsts.minKeywords,
-    renderCell: params => renderFieldValueCell(params.value),
-    width: 130,
-    type: 'number',
-  },
-
-  {
-    field: 'minProductInProposals',
-    headerName: textConsts.minProductInProposals,
-    renderCell: params => renderFieldValueCell(params.value),
-    width: 130,
-    type: 'number',
-  },
-
-  {
     field: 'monthlySales',
     headerName: textConsts.monthlySales,
     renderCell: params => renderFieldValueCell(params.value),

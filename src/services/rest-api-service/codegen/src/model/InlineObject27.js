@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineObject27 {
     /**
      * Constructs a new <code>InlineObject27</code>.
-     * Редактировать группу permission
      * @alias module:model/InlineObject27
      */
     constructor() { 
@@ -48,14 +47,8 @@ class InlineObject27 {
         if (data) {
             obj = obj || new InlineObject27();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('permissions')) {
-                obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
+            if (data.hasOwnProperty('requestProposalIds')) {
+                obj['requestProposalIds'] = ApiClient.convertToType(data['requestProposalIds'], ['String']);
             }
         }
         return obj;
@@ -65,21 +58,10 @@ class InlineObject27 {
 }
 
 /**
- * Простое название
- * @member {String} title
+ * Массив id предложений.
+ * @member {Array.<String>} requestProposalIds
  */
-InlineObject27.prototype['title'] = undefined;
-
-/**
- * Описание permission
- * @member {String} description
- */
-InlineObject27.prototype['description'] = undefined;
-
-/**
- * @member {Array.<String>} permissions
- */
-InlineObject27.prototype['permissions'] = undefined;
+InlineObject27.prototype['requestProposalIds'] = undefined;
 
 
 

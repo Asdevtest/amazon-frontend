@@ -25,6 +25,7 @@ import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse2002 from '../model/InlineResponse2002';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2004 from '../model/InlineResponse2004';
+import InlineResponse2005 from '../model/InlineResponse2005';
 import InlineResponse201 from '../model/InlineResponse201';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -47,6 +48,62 @@ export default class AdministratorApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
+
+
+    /**
+     * # Получить все партии.
+     * ## Получить все партии.  
+     * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.isActual Только актуальные. По умолчанию False
+     * @param {Boolean} opts.sendToBatchRequest Только сделаны запрос на отправку коробки в партию. По умолчанию False
+     * @param {String} opts.clientId Id клиента. По умолчанию все.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
+     */
+    apiV1AdminsBatchesGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'isActual': opts['isActual'],
+        'sendToBatchRequest': opts['sendToBatchRequest'],
+        'clientId': opts['clientId']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['text/html'];
+      let returnType = [InlineResponse2005];
+      return this.apiClient.callApi(
+        '/api/v1/admins/batches', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить все партии.
+     * ## Получить все партии.  
+     * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.isActual Только актуальные. По умолчанию False
+     * @param {Boolean} opts.sendToBatchRequest Только сделаны запрос на отправку коробки в партию. По умолчанию False
+     * @param {String} opts.clientId Id клиента. По умолчанию все.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
+     */
+    apiV1AdminsBatchesGet(opts) {
+      return this.apiV1AdminsBatchesGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
 
     /**

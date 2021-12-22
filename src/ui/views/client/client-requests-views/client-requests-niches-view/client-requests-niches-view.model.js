@@ -2,12 +2,11 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
-import {ProductSearchRequestModel} from '@models/product-search-request-model'
+import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 
-import {clientSearchRequestsViewColumns} from '@components/table-columns/client/client-search-requests-columns'
+import {clientNicheSearchRequestsViewColumns} from '@components/table-columns/client/client-niche-search-requests-columns/client-niche-search-requests-columns'
 
 import {formatDateForBackendWithoutParseISO, sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
@@ -32,7 +31,7 @@ export class ClientRequestsNichesViewModel {
   requestFormSettings = {
     request: {},
     isEdit: false,
-    onSubmit: data => this.onSubmitCreateProductSearchRequest(data),
+    onSubmit: data => this.onSubmitCreateNicheSearchRequest(data),
   }
 
   rowHandlers = {
@@ -45,7 +44,7 @@ export class ClientRequestsNichesViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'standart'
-  columnsModel = clientSearchRequestsViewColumns(this.rowHandlers)
+  columnsModel = clientNicheSearchRequestsViewColumns(this.rowHandlers)
 
   constructor({history}) {
     this.history = history
@@ -70,7 +69,7 @@ export class ClientRequestsNichesViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = clientSearchRequestsViewColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = clientNicheSearchRequestsViewColumns(this.rowHandlers).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -101,7 +100,7 @@ export class ClientRequestsNichesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      this.getProductSearchRequests()
+      this.getNicheSearchRequests()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -114,7 +113,7 @@ export class ClientRequestsNichesViewModel {
     this.requestFormSettings = {
       request: {},
       isEdit: false,
-      onSubmit: data => this.onSubmitCreateProductSearchRequest(data),
+      onSubmit: data => this.onSubmitCreateNicheSearchRequest(data),
     }
     this.onTriggerOpenModal('showRequestForm')
   }
@@ -123,52 +122,52 @@ export class ClientRequestsNichesViewModel {
     this.requestFormSettings = {
       request: row,
       isEdit: true,
-      onSubmit: (data, requestId) => this.onSubmitEditProductSearchRequest(data, requestId),
+      onSubmit: (data, requestId) => this.onSubmitEditNicheSearchRequest(data, requestId),
     }
     this.onTriggerOpenModal('showRequestForm')
   }
 
-  async onSubmitEditProductSearchRequest(data, requestId) {
+  async onSubmitEditNicheSearchRequest(data, requestId) {
     try {
-      await this.editProductSearchRequest(data, requestId)
+      await this.editNicheSearchRequest(data, requestId)
 
       this.onTriggerOpenModal('showRequestForm')
-      this.getProductSearchRequests()
+      this.getNicheSearchRequests()
     } catch (error) {
       console.log(error)
       this.error = error
     }
   }
 
-  async onSubmitCreateProductSearchRequest(data) {
+  async onSubmitCreateNicheSearchRequest(data) {
     try {
-      await this.createProductSearchRequest(data)
+      await this.createNicheSearchRequest(data)
 
       this.onTriggerOpenModal('showRequestForm')
-      this.getProductSearchRequests()
+      this.getNicheSearchRequests()
     } catch (error) {
       console.log(error)
       this.error = error
     }
   }
 
-  async editProductSearchRequest(data, requestId) {
+  async editNicheSearchRequest(data, requestId) {
     try {
       const newData = {
         ...data,
         deadline: data.deadline instanceof String ? data.deadline : formatDateForBackendWithoutParseISO(data.deadline),
       }
-      await ProductSearchRequestModel.updateProductSearchRequest(requestId, newData)
+      await RequestModel.updateNicheSearchRequest(requestId, newData)
     } catch (error) {
       console.log(error)
       this.error = error
     }
   }
 
-  async createProductSearchRequest(data) {
+  async createNicheSearchRequest(data) {
     try {
       const newData = {...data, deadline: formatDateForBackendWithoutParseISO(data.deadline)}
-      await ProductSearchRequestModel.createProductSearchRequest(newData)
+      await RequestModel.createNicheSearchRequest(newData)
     } catch (error) {
       console.log(error)
       this.error = error
@@ -181,28 +180,27 @@ export class ClientRequestsNichesViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async removeProductSearchRequest() {
+  async removeNicheSearchRequest() {
     try {
-      await ProductSearchRequestModel.removeProductSearchRequests(this.researchIdToRemove)
+      await RequestModel.removeNicheSearchRequests(this.researchIdToRemove)
 
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.getProductSearchRequests()
+      this.getNicheSearchRequests()
     } catch (error) {
       console.log(error)
       this.error = error
     }
   }
 
-  async getProductSearchRequests() {
+  async getNicheSearchRequests() {
     try {
-      const result = await ProductSearchRequestModel.getProductSearchRequests()
+      const result = await RequestModel.getNicheSearchRequests()
 
       runInAction(() => {
         this.searchRequests = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(request => ({
           ...request,
           id: request._id,
-          tmpStrategyStatus: mapProductStrategyStatusEnum[request.strategy],
         }))
       })
     } catch (error) {

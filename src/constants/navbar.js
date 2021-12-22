@@ -51,6 +51,7 @@ export const navbarConfig = {
       subtitles: [
         {subtitle: 'На поиск продукта', subRoute: '/client/exchange/requests/products'},
         {subtitle: 'На поиск ниши', subRoute: '/client/exchange/requests/niches'},
+        {subtitle: 'Универсальные', subRoute: '/client/exchange/requests/custom'},
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: () => true,
@@ -162,6 +163,7 @@ export const navbarConfig = {
       subtitles: [
         {subtitle: 'На поиск продукта', subRoute: '/researcher/my-requests/products'},
         {subtitle: 'На поиск ниши', subRoute: '/researcher/my-requests/niches'},
+        {subtitle: 'Универсальные', subRoute: '/researcher/my-requests/custom'},
       ],
       key: navBarActiveCategory.NAVBAR_MY_REQUESTS,
       checkHideBlock: () => true,
@@ -173,6 +175,7 @@ export const navbarConfig = {
       subtitles: [
         {subtitle: 'На поиск продукта', subRoute: '/researcher/requests/products'},
         {subtitle: 'На поиск ниши', subRoute: '/researcher/requests/niches'},
+        {subtitle: 'Универсальные', subRoute: '/researcher/requests/custom'},
       ],
       key: navBarActiveCategory.NAVBAR_VACANT_REQUESTS,
       checkHideBlock: () => true,

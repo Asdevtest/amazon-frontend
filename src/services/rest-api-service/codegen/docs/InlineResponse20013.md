@@ -1,10 +1,10 @@
-# Amazonapi.InlineResponse20013
+# TestSwagger.InlineResponse20013
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**settingOwnerId** | **String** | GUID пользователя | 
-**data** | [**ApiV1UsersUserSettingsData**](ApiV1UsersUserSettingsData.md) |  | 
+**proposal** | [**ApiV1RequestsCustomGuidProposalsProposal**](ApiV1RequestsCustomGuidProposalsProposal.md) |  | [optional] 
+**details** | [**InlineObject38**](InlineObject38.md) |  | [optional] 
 
 

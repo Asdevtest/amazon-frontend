@@ -309,6 +309,7 @@ export class WarehouseVacantViewModel {
               'updatedAt',
               'sendToBatchRequest',
               'sendToBatchComplete',
+              'storekeeperId',
             ],
           ),
         )

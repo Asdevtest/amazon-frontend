@@ -75,7 +75,7 @@ export const clientBoxesViewColumns = () => [
       params.row.amount > 1 ? (
         <SuperboxQtyCell qty={params.row.tmpQty} superbox={params.row.amount} />
       ) : params.row.items.length > 1 ? (
-        'X'
+        params.row.items.reduce((acc, cur) => (acc += cur.amount), 0)
       ) : (
         renderFieldValueCell(params.value)
       ),

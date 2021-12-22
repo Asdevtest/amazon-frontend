@@ -13,18 +13,18 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiV1AdminsUsersPermissionGroups from '../model/ApiV1AdminsUsersPermissionGroups';
-import ApiV1AdminsUsersPermissions from '../model/ApiV1AdminsUsersPermissions';
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject24 from '../model/InlineObject24';
-import InlineObject25 from '../model/InlineObject25';
-import InlineObject26 from '../model/InlineObject26';
-import InlineObject27 from '../model/InlineObject27';
-import InlineObject28 from '../model/InlineObject28';
-import InlineResponse2016 from '../model/InlineResponse2016';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
+import PermissionGetDtoSchema from '../model/PermissionGetDtoSchema';
+import PermissionGroupGetDtoSchema from '../model/PermissionGroupGetDtoSchema';
+import PermissionGroupPatchDtoSchema from '../model/PermissionGroupPatchDtoSchema';
+import PermissionGroupPostDtoSchema from '../model/PermissionGroupPostDtoSchema';
+import PermissionPatchDtoSchema from '../model/PermissionPatchDtoSchema';
+import PermissionPostDtoSchema from '../model/PermissionPostDtoSchema';
+import SetPermissionsForUsersPathDTOSchema from '../model/SetPermissionsForUsersPathDTOSchema';
+import SuccessResponseBodyWithGuid from '../model/SuccessResponseBodyWithGuid';
 
 /**
 * Permissions service.
@@ -52,7 +52,7 @@ export default class PermissionsApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Если указать role - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsUsersPermissions>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PermissionGetDtoSchema>} and HTTP response
      */
     apiV1PermissionsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -71,8 +71,8 @@ export default class PermissionsApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [ApiV1AdminsUsersPermissions];
+      let accepts = ['application/json'];
+      let returnType = [PermissionGetDtoSchema];
       return this.apiClient.callApi(
         '/api/v1/permissions/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -86,7 +86,7 @@ export default class PermissionsApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Если указать role - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsUsersPermissions>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PermissionGetDtoSchema>}
      */
     apiV1PermissionsGet(opts) {
       return this.apiV1PermissionsGetWithHttpInfo(opts)
@@ -98,11 +98,11 @@ export default class PermissionsApi {
 
     /**
      * Получить список групп permissions.
-     * Получить список групп permissions.   
+     * ## Получить список групп permissions.   
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Если указать role - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsUsersPermissionGroups>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PermissionGroupGetDtoSchema>} and HTTP response
      */
     apiV1PermissionsGroupsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -121,8 +121,8 @@ export default class PermissionsApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [ApiV1AdminsUsersPermissionGroups];
+      let accepts = ['application/json'];
+      let returnType = [PermissionGroupGetDtoSchema];
       return this.apiClient.callApi(
         '/api/v1/permissions/groups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -132,11 +132,11 @@ export default class PermissionsApi {
 
     /**
      * Получить список групп permissions.
-     * Получить список групп permissions.   
+     * ## Получить список групп permissions.   
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Если указать role - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsUsersPermissionGroups>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PermissionGroupGetDtoSchema>}
      */
     apiV1PermissionsGroupsGet(opts) {
       return this.apiV1PermissionsGroupsGetWithHttpInfo(opts)
@@ -149,7 +149,7 @@ export default class PermissionsApi {
     /**
      * # Удалить группу permission по его GUID.
      * ## Удалить группу permission по его GUID.   
-     * @param {String} guid GUID в сущности в БД
+     * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
@@ -175,7 +175,7 @@ export default class PermissionsApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/permissions/groups/{guid}', 'DELETE',
@@ -187,7 +187,7 @@ export default class PermissionsApi {
     /**
      * # Удалить группу permission по его GUID.
      * ## Удалить группу permission по его GUID.   
-     * @param {String} guid GUID в сущности в БД
+     * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
@@ -203,10 +203,10 @@ export default class PermissionsApi {
     /**
      * #  Изменить группу permission.
      * ## Изменить группу permission.   ## Нельзя изменять поле key и role.   ## При изменении массива permission-ов, старый массив затирается
-     * @param {String} guid GUID permission БД
+     * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject27} opts.body 
+     * @param {module:model/PermissionGroupPatchDtoSchema} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1PermissionsGroupsGuidPatchWithHttpInfo(guid, opts) {
@@ -230,7 +230,7 @@ export default class PermissionsApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/permissions/groups/{guid}', 'PATCH',
@@ -242,10 +242,10 @@ export default class PermissionsApi {
     /**
      * #  Изменить группу permission.
      * ## Изменить группу permission.   ## Нельзя изменять поле key и role.   ## При изменении массива permission-ов, старый массив затирается
-     * @param {String} guid GUID permission БД
+     * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject27} opts.body 
+     * @param {module:model/PermissionGroupPatchDtoSchema} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1PermissionsGroupsGuidPatch(guid, opts) {
@@ -261,8 +261,8 @@ export default class PermissionsApi {
      * ## Создать группу permission.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject26} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2016} and HTTP response
+     * @param {module:model/PermissionGroupPostDtoSchema} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/SuccessResponseBodyWithGuid} and HTTP response
      */
     apiV1PermissionsGroupsPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -280,8 +280,8 @@ export default class PermissionsApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
-      let returnType = InlineResponse2016;
+      let accepts = ['application/json'];
+      let returnType = SuccessResponseBodyWithGuid;
       return this.apiClient.callApi(
         '/api/v1/permissions/groups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -294,8 +294,8 @@ export default class PermissionsApi {
      * ## Создать группу permission.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject26} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2016}
+     * @param {module:model/PermissionGroupPostDtoSchema} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SuccessResponseBodyWithGuid}
      */
     apiV1PermissionsGroupsPost(opts) {
       return this.apiV1PermissionsGroupsPostWithHttpInfo(opts)
@@ -308,7 +308,7 @@ export default class PermissionsApi {
     /**
      * # Удалить permission по его GUID.
      * ## Удалить permission по его GUID.   
-     * @param {String} guid GUID в сущности в БД
+     * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
@@ -334,7 +334,7 @@ export default class PermissionsApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/permissions/{guid}', 'DELETE',
@@ -346,7 +346,7 @@ export default class PermissionsApi {
     /**
      * # Удалить permission по его GUID.
      * ## Удалить permission по его GUID.   
-     * @param {String} guid GUID в сущности в БД
+     * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
@@ -365,7 +365,7 @@ export default class PermissionsApi {
      * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject25} opts.body 
+     * @param {module:model/PermissionPatchDtoSchema} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1PermissionsGuidPatchWithHttpInfo(guid, opts) {
@@ -389,7 +389,7 @@ export default class PermissionsApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/permissions/{guid}', 'PATCH',
@@ -404,7 +404,7 @@ export default class PermissionsApi {
      * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject25} opts.body 
+     * @param {module:model/PermissionPatchDtoSchema} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1PermissionsGuidPatch(guid, opts) {
@@ -420,8 +420,8 @@ export default class PermissionsApi {
      * ## Создать permission.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject24} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2016} and HTTP response
+     * @param {module:model/PermissionPostDtoSchema} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/SuccessResponseBodyWithGuid} and HTTP response
      */
     apiV1PermissionsPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -439,8 +439,8 @@ export default class PermissionsApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
-      let returnType = InlineResponse2016;
+      let accepts = ['application/json'];
+      let returnType = SuccessResponseBodyWithGuid;
       return this.apiClient.callApi(
         '/api/v1/permissions/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -453,8 +453,8 @@ export default class PermissionsApi {
      * ## Создать permission.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject24} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2016}
+     * @param {module:model/PermissionPostDtoSchema} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SuccessResponseBodyWithGuid}
      */
     apiV1PermissionsPost(opts) {
       return this.apiV1PermissionsPostWithHttpInfo(opts)
@@ -467,10 +467,10 @@ export default class PermissionsApi {
     /**
      * #   Мастер пользователь задает пермишены своим суб пользователям.
      * ## Мастер пользователь задает пермишены своим суб пользователям.   
-     * @param {String} guid GUID суб пользователя в БД.
+     * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject28} opts.body 
+     * @param {module:model/SetPermissionsForUsersPathDTOSchema} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1PermissionsSetForUserGuidPatchWithHttpInfo(guid, opts) {
@@ -494,7 +494,7 @@ export default class PermissionsApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/permissions/set-for-user/{guid}', 'PATCH',
@@ -506,10 +506,10 @@ export default class PermissionsApi {
     /**
      * #   Мастер пользователь задает пермишены своим суб пользователям.
      * ## Мастер пользователь задает пермишены своим суб пользователям.   
-     * @param {String} guid GUID суб пользователя в БД.
+     * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject28} opts.body 
+     * @param {module:model/SetPermissionsForUsersPathDTOSchema} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1PermissionsSetForUserGuidPatch(guid, opts) {

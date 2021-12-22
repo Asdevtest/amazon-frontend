@@ -25,7 +25,7 @@ import {useClassNames} from './add-or-edit-group-permission-form.style'
 const textConsts = getLocalizedTexts(texts, 'en').addOrEditGroupPermissionForm
 
 export const AddOrEditGroupPermissionForm = observer(
-  ({onCloseModal, onSubmit, isEdit, permissionToEdit, singlePermissions}) => {
+  ({onCloseModal, onSubmit, isEdit, permissionToEdit, singlePermissions, existingGroupPermissions}) => {
     const classNames = useClassNames()
 
     const objectSinglePermissions = singlePermissions.reduce(
@@ -75,6 +75,10 @@ export const AddOrEditGroupPermissionForm = observer(
     const curPermissions = singlePermissions.filter(el => formFields.permissions.includes(el._id))
 
     const handleSelectPermissionChange = event => {
+      if (!event.target.value[event.target.value.length - 1] && event.target.value.length > 0) {
+        return
+      }
+
       const {
         target: {value},
       } = event
@@ -100,6 +104,12 @@ export const AddOrEditGroupPermissionForm = observer(
       </div>
     )
 
+    const existingSinglePermissionsKeys = permissionToEdit
+      ? existingGroupPermissions.map(per => per.key).filter(key => key !== permissionToEdit.key)
+      : existingGroupPermissions.map(per => per.key)
+
+    const isDoubleKey = existingSinglePermissionsKeys.includes(formFields.key)
+
     const selectedPermissions = singlePermissions.filter(per => formFields.permissions.includes(per._id))
 
     const isWrongPermissionsSelect =
@@ -113,7 +123,8 @@ export const AddOrEditGroupPermissionForm = observer(
       formFields.title === '' ||
       formFields.description === '' ||
       formFields.role === 'None' ||
-      isWrongPermissionsSelect
+      isWrongPermissionsSelect ||
+      isDoubleKey
 
     const renderMenuItem = per => (
       <MenuItem key={per._id} value={per._id}>
@@ -152,7 +163,10 @@ export const AddOrEditGroupPermissionForm = observer(
             label={textConsts.keyLabel}
             value={formFields.key}
             placeholder={textConsts.keyHolder}
-            error={formFields.key.match(/[_]/) === null && onKeyFieldEditing && textConsts.keyFieldError}
+            error={
+              (formFields.key.match(/[_]/) === null && onKeyFieldEditing && textConsts.keyFieldError) ||
+              (isDoubleKey && textConsts.doubleKeyError)
+            }
             onChange={onChangeField('key')}
           />
 
@@ -249,7 +263,7 @@ export const AddOrEditGroupPermissionForm = observer(
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]].map(per =>
                           renderMenuItem(per),
                         )}
-                      <div>
+                      <div className={classNames.selectModalBtnsWrapper}>
                         <Button
                           disableElevation
                           className={classNames.button}
@@ -332,7 +346,7 @@ export const AddOrEditGroupPermissionForm = observer(
           setOpenModal={() => setShowAddOrEditSinglePermissionModal(!showAddOrEditSinglePermissionModal)}
         >
           <AddOrEditSinglePermissionForm
-            singlePermissions={singlePermissions}
+            existingSinglePermissions={singlePermissions}
             onCloseModal={() => setShowAddOrEditSinglePermissionModal(!showAddOrEditSinglePermissionModal)}
             onSubmit={onAddNewSinglePermissionSubmit}
           />

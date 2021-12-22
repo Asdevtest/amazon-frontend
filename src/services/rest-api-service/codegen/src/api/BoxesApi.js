@@ -22,6 +22,7 @@ import InlineObject12 from '../model/InlineObject12';
 import InlineObject13 from '../model/InlineObject13';
 import InlineObject14 from '../model/InlineObject14';
 import InlineObject15 from '../model/InlineObject15';
+import InlineObject16 from '../model/InlineObject16';
 import InlineObject5 from '../model/InlineObject5';
 import InlineObject6 from '../model/InlineObject6';
 import InlineObject7 from '../model/InlineObject7';
@@ -214,7 +215,7 @@ export default class BoxesApi {
      * ## Рассчитать стоимость доставки коробов.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {Object} opts.body 
+     * @param {module:model/InlineObject14} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1BoxesCalculateBoxDeliveryCostsInBatchPostWithHttpInfo(opts) {
@@ -233,7 +234,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/boxes/calculate_box_delivery_costs_in_batch', 'POST',
@@ -247,7 +248,7 @@ export default class BoxesApi {
      * ## Рассчитать стоимость доставки коробов.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {Object} opts.body 
+     * @param {module:model/InlineObject14} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1BoxesCalculateBoxDeliveryCostsInBatchPost(opts) {
@@ -907,7 +908,7 @@ export default class BoxesApi {
      * ## Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле sendToBatch должно выставиться в true. Так же с клиента должны списаться деньги (и генерироваться оплаты) 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject15} opts.body 
+     * @param {module:model/InlineObject16} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesRequestSendBoxesToBatchPostWithHttpInfo(opts) {
@@ -940,7 +941,7 @@ export default class BoxesApi {
      * ## Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле sendToBatch должно выставиться в true. Так же с клиента должны списаться деньги (и генерироваться оплаты) 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject15} opts.body 
+     * @param {module:model/InlineObject16} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesRequestSendBoxesToBatchPost(opts) {
@@ -956,7 +957,7 @@ export default class BoxesApi {
      * ## Отправить набор коробок в партию.   Этот метод будет дергать склад и передавать в него массив id коробок, после этого метода у коробок sendToBatchComplete должен измениться на true
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject14} opts.body 
+     * @param {module:model/InlineObject15} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesSendBoxesToBatchPostWithHttpInfo(opts) {
@@ -989,7 +990,7 @@ export default class BoxesApi {
      * ## Отправить набор коробок в партию.   Этот метод будет дергать склад и передавать в него массив id коробок, после этого метода у коробок sendToBatchComplete должен измениться на true
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject14} opts.body 
+     * @param {module:model/InlineObject15} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesSendBoxesToBatchPost(opts) {

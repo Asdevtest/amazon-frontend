@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
+import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 
 /**
  * The InlineObject40 model module.
@@ -21,7 +23,7 @@ import ApiClient from '../ApiClient';
 class InlineObject40 {
     /**
      * Constructs a new <code>InlineObject40</code>.
-     * Схема детали на поиск ниш.
+     * Схема кастомной заявки.
      * @alias module:model/InlineObject40
      */
     constructor() { 
@@ -48,29 +50,11 @@ class InlineObject40 {
         if (data) {
             obj = obj || new InlineObject40();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('request')) {
+                obj['request'] = ApiV1RequestsCustomGuidRequest.constructFromObject(data['request']);
             }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('conditions')) {
-                obj['conditions'] = ApiClient.convertToType(data['conditions'], 'String');
-            }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('details')) {
+                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
             }
         }
         return obj;
@@ -80,52 +64,14 @@ class InlineObject40 {
 }
 
 /**
- * GUID деталей кастомной заявки в базе данных.
- * @member {String} _id
+ * @member {module:model/ApiV1RequestsCustomGuidRequest} request
  */
-InlineObject40.prototype['_id'] = undefined;
+InlineObject40.prototype['request'] = undefined;
 
 /**
- * GUID заявки к торой относится данное дополнение.
- * @member {String} link
+ * @member {module:model/ApiV1RequestsCustomDetails} details
  */
-InlineObject40.prototype['link'] = undefined;
-
-/**
- * Имя кастомной заявки.
- * @member {String} name
- */
-InlineObject40.prototype['name'] = undefined;
-
-/**
- * Условия кастомной заявки.
- * @member {String} conditions
- */
-InlineObject40.prototype['conditions'] = undefined;
-
-/**
- * GUID клиента, который создал запрос на поиск товара.
- * @member {String} createdById
- */
-InlineObject40.prototype['createdById'] = undefined;
-
-/**
- * GUID клиента, который обновил запрос на поиск товара.
- * @member {String} lastModifiedById
- */
-InlineObject40.prototype['lastModifiedById'] = undefined;
-
-/**
- * Дата создания
- * @member {Date} createdAt
- */
-InlineObject40.prototype['createdAt'] = undefined;
-
-/**
- * Дата изменения
- * @member {Date} updatedAt
- */
-InlineObject40.prototype['updatedAt'] = undefined;
+InlineObject40.prototype['details'] = undefined;
 
 
 
