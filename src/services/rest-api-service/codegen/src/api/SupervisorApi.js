@@ -15,8 +15,8 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject36 from '../model/InlineObject36';
-import InlineObject37 from '../model/InlineObject37';
+import InlineObject33 from '../model/InlineObject33';
+import InlineObject34 from '../model/InlineObject34';
 import InlineResponse200 from '../model/InlineResponse200';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -47,7 +47,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject36} opts.body 
+     * @param {module:model/InlineObject33} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -86,7 +86,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject36} opts.body 
+     * @param {module:model/InlineObject33} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsGuidPatch(guid, opts) {
@@ -103,7 +103,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject37} opts.body 
+     * @param {module:model/InlineObject34} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsListingGuidPatchWithHttpInfo(guid, opts) {
@@ -142,7 +142,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject37} opts.body 
+     * @param {module:model/InlineObject34} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsListingGuidPatch(guid, opts) {
@@ -299,56 +299,6 @@ export default class SupervisorApi {
           return response_and_data.data;
         });
     }
-
-
-    /**
-     * # Получить все оплаты, которые были начислены обратившемуся пользователю..
-     * ## Получить все оплаты, которые были начислены обратившемуся пользователю..  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
-     */
-     apiV1SupervisorPaymentsGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [Object];
-      return this.apiClient.callApi(
-        '/api/v1/other/payments/my', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-
-
-     /**
-     * # Получить все оплаты, которые были начислены обратившемуся пользователю..
-     * ## Получить все оплаты, которые были начислены обратившемуся пользователю..  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
-     */
-      apiV1SupervisorPaymentsGet(opts) {
-        return this.apiV1SupervisorPaymentsGetWithHttpInfo(opts)
-          .then(function(response_and_data) {
-            return response_and_data.data;
-          });
-      }
-
 
 
 }

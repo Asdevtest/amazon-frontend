@@ -21,17 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject24 {
     /**
      * Constructs a new <code>InlineObject24</code>.
-     * Создать permission
      * @alias module:model/InlineObject24
-     * @param key {String} permission ключ
-     * @param title {String} простое название
-     * @param description {String} описание permission
-     * @param allowedUrl {Array.<String>} Массив доступных url
-     * @param role {Number} Роль для которого данный permission
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param operationType {module:model/InlineObject24.OperationTypeEnum} Тип операции
      */
-    constructor(key, title, description, allowedUrl, role) { 
+    constructor(taskId, operationType) { 
         
-        InlineObject24.initialize(this, key, title, description, allowedUrl, role);
+        InlineObject24.initialize(this, taskId, operationType);
     }
 
     /**
@@ -39,12 +35,9 @@ class InlineObject24 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, key, title, description, allowedUrl, role) { 
-        obj['key'] = key;
-        obj['title'] = title;
-        obj['description'] = description;
-        obj['allowedUrl'] = allowedUrl;
-        obj['role'] = role;
+    static initialize(obj, taskId, operationType) { 
+        obj['taskId'] = taskId;
+        obj['operationType'] = operationType;
     }
 
     /**
@@ -58,20 +51,26 @@ class InlineObject24 {
         if (data) {
             obj = obj || new InlineObject24();
 
-            if (data.hasOwnProperty('key')) {
-                obj['key'] = ApiClient.convertToType(data['key'], 'String');
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
             }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
             }
-            if (data.hasOwnProperty('allowedUrl')) {
-                obj['allowedUrl'] = ApiClient.convertToType(data['allowedUrl'], ['String']);
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
             }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -81,37 +80,81 @@ class InlineObject24 {
 }
 
 /**
- * permission ключ
- * @member {String} key
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
  */
-InlineObject24.prototype['key'] = undefined;
+InlineObject24.prototype['taskId'] = undefined;
 
 /**
- * простое название
- * @member {String} title
+ * @member {Array.<String>} boxesBefore
  */
-InlineObject24.prototype['title'] = undefined;
+InlineObject24.prototype['boxesBefore'] = undefined;
 
 /**
- * описание permission
- * @member {String} description
+ * @member {Array.<String>} boxes
  */
-InlineObject24.prototype['description'] = undefined;
+InlineObject24.prototype['boxes'] = undefined;
 
 /**
- * Массив доступных url
- * @member {Array.<String>} allowedUrl
+ * Тип операции
+ * @member {module:model/InlineObject24.OperationTypeEnum} operationType
  */
-InlineObject24.prototype['allowedUrl'] = undefined;
+InlineObject24.prototype['operationType'] = undefined;
 
 /**
- * Роль для которого данный permission
- * @member {Number} role
+ * Комментарий клиента.
+ * @member {String} clientComment
+ * @default ''
  */
-InlineObject24.prototype['role'] = undefined;
+InlineObject24.prototype['clientComment'] = '';
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject24.prototype['images'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineObject24.prototype['storekeeperComment'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject24['OperationTypeEnum'] = {
+
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
+
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
+
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive",
+
+    /**
+     * value: "edit"
+     * @const
+     */
+    "edit": "edit"
+};
 
 
 

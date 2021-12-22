@@ -96,7 +96,7 @@ let apiInstance = new TestSwagger.BuyerApi();
 let guid = "guid_example"; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject17() // InlineObject17 | 
+  'body': new TestSwagger.InlineObject18() // InlineObject18 | 
 };
 apiInstance.apiV1BuyersOrdersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject17**](InlineObject17.md)|  | [optional] 
+ **body** | [**InlineObject18**](InlineObject18.md)|  | [optional] 
 
 ### Return type
 
@@ -310,7 +310,7 @@ let apiInstance = new TestSwagger.BuyerApi();
 let guid = "guid_example"; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject16() // InlineObject16 | 
+  'body': new TestSwagger.InlineObject17() // InlineObject17 | 
 };
 apiInstance.apiV1BuyersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -327,7 +327,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject16**](InlineObject16.md)|  | [optional] 
+ **body** | [**InlineObject17**](InlineObject17.md)|  | [optional] 
 
 ### Return type
 
@@ -629,7 +629,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BuyerApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject18() // InlineObject18 | 
+  'body': new TestSwagger.InlineObject19() // InlineObject19 | 
 };
 apiInstance.apiV1BuyersTasksPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -645,7 +645,7 @@ apiInstance.apiV1BuyersTasksPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject18**](InlineObject18.md)|  | [optional] 
+ **body** | [**InlineObject19**](InlineObject19.md)|  | [optional] 
 
 ### Return type
 

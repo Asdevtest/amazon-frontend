@@ -4,8 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID | [optional] 
-**link** | **String** | GUID заявки к торой относится данное дополнение. | [optional] 
 **strategy** | **Number** | Стратегия. | [optional] 
 **monthlySales** | **Number** | Продажи за месяц. | [optional] 
 **size** | **String** | Размер. | [optional] 
@@ -23,8 +21,6 @@ Name | Type | Description | Notes
 **denyProductsExistInServiceByCurStrategy** | **Boolean** | Запретить товары которые есть в системе под данную статегию. | [optional] 
 **findSupplier** | **Boolean** | Найти поставщика. | [optional] 
 **checkedByService** | **Boolean** | Проверить сепервайзером. | [optional] 
-**createdById** | **String** | ID создателя заявки. | [optional] 
-**lastModifiedById** | **String** | ID кто последний изменял заявку. | [optional] 
 
 
 

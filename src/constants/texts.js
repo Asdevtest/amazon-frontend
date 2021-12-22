@@ -365,6 +365,31 @@ export const texts = {
       successTitle: 'Товар оплачен',
       successBtn: 'Ок!',
     },
+
+    clientCustomRequestsView: {
+      title: 'Универсальная заявка',
+      requestName: 'Имя заявки',
+      conditionsRequest: 'Описание',
+      editBtn: 'Изменить',
+      createBtn: 'Создать заявку',
+      cancelBtn: 'Отмена',
+
+      maxAmountOfProposals: 'Максимальное количество предложений:',
+      priceOfProposal: 'Цена предложения:',
+      timeoutAt: 'Дед-лайн:',
+      rolesSee: 'Могут видеть роли:',
+      deadlineError: 'The deadline date cannot be later than the current date',
+    },
+
+    researcherRequestProposalCustomForm: {
+      title: 'Предложение',
+      result: 'Результат',
+      comment: 'Комментарий',
+
+      editBtn: 'Изменить',
+      createBtn: 'Создать предложение',
+    },
+
     clientExchangeRequestsView: {
       appbarTitle: 'Exchange - Requests',
       mainTitle: 'My requests on exchange',
@@ -423,6 +448,7 @@ export const texts = {
     },
 
     productSearchRequestContent: {
+      customTitle: 'Универсальная заявка',
       parameterFieldTypo: 'Параметр',
       valueFieldTypo: 'Значение',
       tableStrategyField: 'Strategy',
@@ -452,6 +478,16 @@ export const texts = {
 
       productTitle: 'Заявка на поиск продукта',
       nicheTitle: 'Заявка на поиск ниши',
+
+      nameRequest: 'Имя заявки:',
+      conditionsRequest: 'Описание:',
+
+      deadline: 'Дедлайн',
+      requestType: 'Тип заявки',
+      proposalPrice: 'Цена предложения',
+      maxProposalCount: 'Макс. кол-во предложений',
+      status: 'Статус',
+      direction: 'Направление',
     },
 
     addOrEditSinglePermissionForm: {
@@ -468,6 +504,7 @@ export const texts = {
       allowUrlsLabel: 'Разрешенные эндпоинты',
       allowUrlsHolder: '/api/v1/permissions/...',
       keyFieldError: 'Значение должно содержать "_"',
+      doubleKeyError: 'Ключ уже существует',
 
       editBtn: 'Изменить',
       createBtn: 'Создать разрешение',
@@ -533,6 +570,7 @@ export const texts = {
       closeBtn: 'Закрыть',
       clearBtn: 'Сбросить',
 
+      doubleKeyError: 'Ключ уже существует',
       keyPermInfo: 'Ключ:',
       descriptionPermInfo: 'Описание:',
       allowedUrlPermInfo: 'Разрешенные эндпоинты:',
@@ -911,6 +949,8 @@ export const texts = {
         назначен штраф в сумме N $`,
       yesBtn: 'Да',
       noBtn: 'Нет',
+      okBtn: 'Ок',
+      errorTitle: 'Ошибка!',
     },
 
     researcherSettingsView: {
@@ -1254,12 +1294,21 @@ export const texts = {
       appBarUsername: 'Buyer',
       appUser: 'buyer',
     },
+
     clientUserView: {
       timer: '14 минут',
       appBarTitle: 'User page',
       appBarUsername: 'Client',
       appUser: 'client',
     },
+
+    userProfileView: {
+      timer: '14 минут',
+      appBarTitle: 'User page',
+      appBarUsername: 'Client',
+      appUser: 'client',
+    },
+
     buyerSubUsersBodyRow: {
       bussinesUnit: 'N/A',
       editBtn: 'Edit User',
@@ -1700,7 +1749,7 @@ export const texts = {
       pickUp: 'Взять в работу',
 
       okBtn: 'ок',
-      warningTitle: 'Заказ взят в работу и перенесен в раздел Мои заказы',
+      warningTitle: 'Заказ взят в работу и перенесен в раздел "Мои заказы"',
     },
     myProductsView: {
       mainTitle: 'Мои товары',
@@ -1855,7 +1904,7 @@ export const texts = {
       confirmMessage: 'Вы подтверждаете доплату?',
     },
     adminOrdersView: {
-      mainTitle: 'Мои заказы',
+      mainTitle: 'Заказы',
       appBarTitle: 'Страница заказов',
       appBarUsername: 'Admin',
       appUser: 'admin',
@@ -2134,9 +2183,10 @@ export const texts = {
       boxIdField: 'id Коробки',
       priceField: 'Цена',
       trackIdField: 'Трек id',
-      weightField: 'Финальный Вес',
+      weightField: 'Общий финальный Вес',
       grossWeightField: 'Общий вес',
       deliveryField: 'Доставка',
+      toralPriceField: 'Общая стоимость',
 
       showBtn: 'Смотреть',
       actionField: 'Действия',
@@ -2246,6 +2296,7 @@ export const texts = {
     clientSearchRequestsTableColumns: {
       actionField: 'Действия',
       createDateField: 'Создана',
+      timeoutDateField: 'Дедлайн',
       budget: 'Бюджет',
       countOfProposals: 'Необходимо предложений',
       deadline: 'Дедлайн',
@@ -2262,6 +2313,12 @@ export const texts = {
       maxRevenue: 'Макс. доход',
       minReviews: 'Мин. отзывы',
       maxReviews: 'Макс. отзывы',
+      nameRequestField: 'Имя заявки',
+
+      directionField: 'Направление',
+      statusField: 'Статус',
+      maxAmountOfProposalsField: 'Макс. кол-во предложений',
+      priceField: 'Цена заявки',
     },
 
     warehouseMyTasksTableColumns: {
@@ -2327,6 +2384,27 @@ export const texts = {
     ClientRequestView: {
       mainTitle: 'Запрос на поск товаров/ниш',
       appBarTitle: 'Страница запросов на поиск',
+      customTitle: 'Универсальная заявка',
+    },
+
+    CustomRequestView: {
+      mainTitle: 'Универсальная запрос',
+      appBarTitle: 'Страница запросов на поиск',
+      customTitle: 'Универсальная заявка',
+
+      confirmTitle: 'Внимание',
+      confirmMessage: 'Вы точно хотите отменить запрос на поиск?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      okBtn: 'Ок',
+
+      editBtn: 'Изменить',
+      removeBtn: 'Удалить',
+      backBtn: 'Назад',
+      acceptProposal: 'Принять предложенние',
+
+      successTitle: 'Предложение принято.',
+      failTitle: 'Предложение не принято.',
     },
 
     adminOrderView: {
@@ -2507,6 +2585,17 @@ export const texts = {
     },
 
     appbarSettingsForm: {
+      mainTitle: 'Настройки пользователя',
+      noSettingsWarning: 'Настроек пользователя нет',
+      everyDayReport: 'Ссылка на ежедневный отчет:',
+      emptyPlaceholder: 'Ссылка',
+      last30DaysReport: 'Ссылка на отчет за последние 30 дней:',
+      editBtn: 'Изменить',
+      createBtn: 'Создать',
+      cancelBtn: 'Отмена',
+    },
+
+    userSettingsForm: {
       mainTitle: 'Настройки пользователя',
       noSettingsWarning: 'Настроек пользователя нет',
       everyDayReport: 'Ссылка на ежедневный отчет:',
@@ -2803,7 +2892,7 @@ export const texts = {
 
       roleTitle: 'Текущая роль',
       chooseBtn: 'Выбрать',
-      settingsBtn: 'Настройки',
+      profileBtn: 'Профиль',
     },
     commentsLine: {
       commentLabel: 'Комментарий склада',

@@ -21,16 +21,11 @@ import ApiClient from '../ApiClient';
 class InlineObject26 {
     /**
      * Constructs a new <code>InlineObject26</code>.
-     * Создать группу permission
      * @alias module:model/InlineObject26
-     * @param key {String} Ключ группы permission
-     * @param title {String} Простое название
-     * @param description {String} Описание permission
-     * @param role {Number} Роль для которого данной группы permission-ов
      */
-    constructor(key, title, description, role) { 
+    constructor() { 
         
-        InlineObject26.initialize(this, key, title, description, role);
+        InlineObject26.initialize(this);
     }
 
     /**
@@ -38,11 +33,7 @@ class InlineObject26 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, key, title, description, role) { 
-        obj['key'] = key;
-        obj['title'] = title;
-        obj['description'] = description;
-        obj['role'] = role;
+    static initialize(obj) { 
     }
 
     /**
@@ -56,20 +47,8 @@ class InlineObject26 {
         if (data) {
             obj = obj || new InlineObject26();
 
-            if (data.hasOwnProperty('key')) {
-                obj['key'] = ApiClient.convertToType(data['key'], 'String');
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('permissions')) {
-                obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
-            }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -79,33 +58,10 @@ class InlineObject26 {
 }
 
 /**
- * Ключ группы permission
- * @member {String} key
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject26.prototype['key'] = undefined;
-
-/**
- * Простое название
- * @member {String} title
- */
-InlineObject26.prototype['title'] = undefined;
-
-/**
- * Описание permission
- * @member {String} description
- */
-InlineObject26.prototype['description'] = undefined;
-
-/**
- * @member {Array.<String>} permissions
- */
-InlineObject26.prototype['permissions'] = undefined;
-
-/**
- * Роль для которого данной группы permission-ов
- * @member {Number} role
- */
-InlineObject26.prototype['role'] = undefined;
+InlineObject26.prototype['suppliersIds'] = undefined;
 
 
 

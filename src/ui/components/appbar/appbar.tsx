@@ -13,13 +13,11 @@ import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
 import {texts} from '@constants/texts'
-import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Badge} from '@components/badge'
 import {Button} from '@components/buttons/button'
-import {AppbarSettingsForm} from '@components/forms/appbar-settings-form'
 import {Input} from '@components/input'
-import {Modal} from '@components/modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
@@ -42,7 +40,6 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
   const componentModel = useRef(new AppbarModel({userRole: curUserRole}))
 
   const [role, setRole] = useState(componentModel.current.role)
-  const [showAppbarSettingsForm, setShowshowAppbarSettingsForm] = useState(false)
   const renderNavbarButton = (
     <Hidden mdUp>
       <IconButton onClick={setDrawerOpen}>
@@ -72,8 +69,8 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
     history.push('/nonexistent-address') // для перехода на разрешенный роут другой роли
   }
 
-  const onClickSettings = () => {
-    setShowshowAppbarSettingsForm(!showAppbarSettingsForm)
+  const onClickProfile = () => {
+    history.push('/profile')
   }
 
   return (
@@ -119,7 +116,7 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
           <Menu keepMounted id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
             <Typography className={classNames.menuTitle}>{textConsts.menuTitle}</Typography>
 
-            {componentModel.current.allowedRoles !== null && componentModel.current.allowedRoles.length !== 0 && (
+            {componentModel.current.allowedRoles?.length && (
               <div className={classNames.roleWrapper}>
                 <Typography className={classNames.menuTitle}>{textConsts.roleTitle}</Typography>
 
@@ -155,12 +152,12 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
               </div>
             )}
 
-            {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role] === UserRole.CLIENT && (
-              <MenuItem className={classNames.menuWrapper} onClick={onClickSettings}>
+            {
+              <MenuItem className={classNames.menuWrapper} onClick={onClickProfile}>
                 <SettingsIcon color="primary" />
-                {textConsts.settingsBtn}
+                {textConsts.profileBtn}
               </MenuItem>
-            )}
+            }
 
             <MenuItem className={classNames.menuWrapper} onClick={onClickExit}>
               <ExitToAppIcon color="primary" />
@@ -168,13 +165,6 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
             </MenuItem>
           </Menu>
         </div>
-
-        <Modal
-          openModal={showAppbarSettingsForm}
-          setOpenModal={() => setShowshowAppbarSettingsForm(!showAppbarSettingsForm)}
-        >
-          <AppbarSettingsForm onCloseModal={() => setShowshowAppbarSettingsForm(!showAppbarSettingsForm)} />
-        </Modal>
       </Paper>
 
       {children}

@@ -346,7 +346,7 @@ export class BuyerProductViewModel {
 
   async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.isLoading)
       await this.onSubmitPostImages({images: photosOfSupplier, type: 'readyImages'})
 
       supplier = {
@@ -378,11 +378,11 @@ export class BuyerProductViewModel {
         })
       }
 
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.success)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
       console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
         this.error = error.body.message
       }

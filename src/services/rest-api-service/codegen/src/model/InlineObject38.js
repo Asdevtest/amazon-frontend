@@ -21,20 +21,11 @@ import ApiClient from '../ApiClient';
 class InlineObject38 {
     /**
      * Constructs a new <code>InlineObject38</code>.
-     * Новый поставщик.
      * @alias module:model/InlineObject38
-     * @param name {String} Название поставщика.
-     * @param link {String} Ссылка на поставщика.
-     * @param price {Number} Цена
-     * @param delivery {Number} Тип доставки
-     * @param amount {Number} кол-во
-     * @param minlot {Number} Минимальный лот.
-     * @param lotcost {Number} Стоимость лота.
-     * @param comment {String} Комментарий
      */
-    constructor(name, link, price, delivery, amount, minlot, lotcost, comment) { 
+    constructor() { 
         
-        InlineObject38.initialize(this, name, link, price, delivery, amount, minlot, lotcost, comment);
+        InlineObject38.initialize(this);
     }
 
     /**
@@ -42,15 +33,7 @@ class InlineObject38 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, link, price, delivery, amount, minlot, lotcost, comment) { 
-        obj['name'] = name;
-        obj['link'] = link;
-        obj['price'] = price;
-        obj['delivery'] = delivery;
-        obj['amount'] = amount;
-        obj['minlot'] = minlot;
-        obj['lotcost'] = lotcost;
-        obj['comment'] = comment;
+    static initialize(obj) { 
     }
 
     /**
@@ -64,29 +47,8 @@ class InlineObject38 {
         if (data) {
             obj = obj || new InlineObject38();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
-            }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('result')) {
+                obj['result'] = ApiClient.convertToType(data['result'], 'String');
             }
             if (data.hasOwnProperty('comment')) {
                 obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
@@ -99,55 +61,13 @@ class InlineObject38 {
 }
 
 /**
- * Название поставщика.
- * @member {String} name
+ * Результат рабоботы ресерчера.
+ * @member {String} result
  */
-InlineObject38.prototype['name'] = undefined;
+InlineObject38.prototype['result'] = undefined;
 
 /**
- * Ссылка на поставщика.
- * @member {String} link
- */
-InlineObject38.prototype['link'] = undefined;
-
-/**
- * Цена
- * @member {Number} price
- */
-InlineObject38.prototype['price'] = undefined;
-
-/**
- * Тип доставки
- * @member {Number} delivery
- */
-InlineObject38.prototype['delivery'] = undefined;
-
-/**
- * кол-во
- * @member {Number} amount
- */
-InlineObject38.prototype['amount'] = undefined;
-
-/**
- * Минимальный лот.
- * @member {Number} minlot
- */
-InlineObject38.prototype['minlot'] = undefined;
-
-/**
- * Стоимость лота.
- * @member {Number} lotcost
- */
-InlineObject38.prototype['lotcost'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject38.prototype['images'] = undefined;
-
-/**
- * Комментарий
+ * Комментарии ресерчера.
  * @member {String} comment
  */
 InlineObject38.prototype['comment'] = undefined;

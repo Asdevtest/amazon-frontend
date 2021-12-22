@@ -212,7 +212,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': null // Object | 
+  'body': new TestSwagger.InlineObject14() // InlineObject14 | 
 };
 apiInstance.apiV1BoxesCalculateBoxDeliveryCostsInBatchPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -228,7 +228,7 @@ apiInstance.apiV1BoxesCalculateBoxDeliveryCostsInBatchPost(opts).then((data) => 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | **Object**|  | [optional] 
+ **body** | [**InlineObject14**](InlineObject14.md)|  | [optional] 
 
 ### Return type
 
@@ -241,7 +241,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesCancelEditPost
@@ -960,7 +960,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject15() // InlineObject15 | 
+  'body': new TestSwagger.InlineObject16() // InlineObject16 | 
 };
 apiInstance.apiV1BoxesRequestSendBoxesToBatchPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -976,7 +976,7 @@ apiInstance.apiV1BoxesRequestSendBoxesToBatchPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject15**](InlineObject15.md)|  | [optional] 
+ **body** | [**InlineObject16**](InlineObject16.md)|  | [optional] 
 
 ### Return type
 
@@ -1014,7 +1014,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject14() // InlineObject14 | 
+  'body': new TestSwagger.InlineObject15() // InlineObject15 | 
 };
 apiInstance.apiV1BoxesSendBoxesToBatchPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1030,7 +1030,7 @@ apiInstance.apiV1BoxesSendBoxesToBatchPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject14**](InlineObject14.md)|  | [optional] 
+ **body** | [**InlineObject15**](InlineObject15.md)|  | [optional] 
 
 ### Return type
 

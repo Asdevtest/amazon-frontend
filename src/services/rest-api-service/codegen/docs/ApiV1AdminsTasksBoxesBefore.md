@@ -34,6 +34,7 @@ Name | Type | Description | Notes
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата обновления | [optional] 
 **clientId** | **String** | Клиент кто или для кого создана коробка. | [optional] 
+**storekeeperId** | **String** | id сторкипера. | [optional] 
 **buyerId** | **String** | Байер взявший коробку в работу. | [optional] 
 **lastModifiedBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
 **scheduledDispatchDate** | **Date** | Запланированная дата отправки. | [optional] 

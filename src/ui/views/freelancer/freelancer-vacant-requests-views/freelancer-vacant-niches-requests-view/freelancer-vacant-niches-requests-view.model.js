@@ -3,8 +3,9 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {RequestSubType, RequestType} from '@constants/request-type'
 
-import {ProductSearchRequestModel} from '@models/product-search-request-model'
+import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {
@@ -120,7 +121,7 @@ export class FreelancerVacantNichesRequestsViewModel {
 
   async getRequestsVacant() {
     try {
-      const result = await ProductSearchRequestModel.getProductSearchRequestsForResearcher()
+      const result = await RequestModel.getRequests(RequestType.SEARCH_NICHE, RequestSubType.VACANT)
       runInAction(() => {
         this.requests = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
           ...item,

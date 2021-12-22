@@ -256,13 +256,15 @@ export const styles = createStyles(() => ({
   },
   blockProductsImagesWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
     gap: '3px',
   },
   taskTableCell: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
 
   rowCancelBtn: {
@@ -321,7 +323,7 @@ export const styles = createStyles(() => ({
   taskDescriptionScrollWrapper: {
     display: 'flex',
     alignItems: 'flex-start',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     maxWidth: '400px',
     maxHeight: '140px',
     overflowY: 'scroll',

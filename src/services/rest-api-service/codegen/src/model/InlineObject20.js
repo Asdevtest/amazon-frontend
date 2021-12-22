@@ -47,8 +47,8 @@ class InlineObject20 {
         if (data) {
             obj = obj || new InlineObject20();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
         }
         return obj;
@@ -58,10 +58,10 @@ class InlineObject20 {
 }
 
 /**
- * массив GUIDов оплаченных товаров
- * @member {Array.<String>} guids
+ * Баркод
+ * @member {String} barCode
  */
-InlineObject20.prototype['guids'] = undefined;
+InlineObject20.prototype['barCode'] = undefined;
 
 
 

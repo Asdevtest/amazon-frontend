@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineObject6 from './InlineObject6';
 
 /**
  * The InlineObject30 model module.
@@ -47,8 +48,8 @@ class InlineObject30 {
         if (data) {
             obj = obj || new InlineObject30();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject6]);
             }
         }
         return obj;
@@ -58,10 +59,10 @@ class InlineObject30 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject6>} additionalBoxes
  */
-InlineObject30.prototype['suppliersIds'] = undefined;
+InlineObject30.prototype['additionalBoxes'] = undefined;
 
 
 

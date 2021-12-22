@@ -15,9 +15,9 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject33 from '../model/InlineObject33';
-import InlineObject34 from '../model/InlineObject34';
-import InlineObject35 from '../model/InlineObject35';
+import InlineObject30 from '../model/InlineObject30';
+import InlineObject31 from '../model/InlineObject31';
+import InlineObject32 from '../model/InlineObject32';
 import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2005 from '../model/InlineResponse2005';
 import InternalServerError from '../model/InternalServerError';
@@ -96,7 +96,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID ордера, который мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject35} opts.body 
+     * @param {module:model/InlineObject32} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatchWithHttpInfo(guid, opts) {
@@ -135,7 +135,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID ордера, который мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject35} opts.body 
+     * @param {module:model/InlineObject32} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch(guid, opts) {
@@ -206,7 +206,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject33} opts.body 
+     * @param {module:model/InlineObject30} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersTasksDoneGuidPostWithHttpInfo(guid, opts) {
@@ -245,7 +245,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject33} opts.body 
+     * @param {module:model/InlineObject30} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersTasksDoneGuidPost(guid, opts) {
@@ -262,7 +262,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject34} opts.body 
+     * @param {module:model/InlineObject31} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersTasksGuidPatchWithHttpInfo(guid, opts) {
@@ -301,7 +301,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject34} opts.body 
+     * @param {module:model/InlineObject31} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersTasksGuidPatch(guid, opts) {
@@ -461,55 +461,6 @@ export default class StorekeepersApi {
           return response_and_data.data;
         });
     }
-
-
-    /**
-     * # Получить все оплаты, которые были начислены обратившемуся пользователю..
-     * ## Получить все оплаты, которые были начислены обратившемуся пользователю..  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
-     */
-     apiV1StorekeeperPaymentsGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [Object];
-      return this.apiClient.callApi(
-        '/api/v1/other/payments/my', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-
-
-     /**
-     * # Получить все оплаты, которые были начислены обратившемуся пользователю..
-     * ## Получить все оплаты, которые были начислены обратившемуся пользователю..  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
-     */
-      apiV1StorekeeperPaymentsGet(opts) {
-        return this.apiV1StorekeeperPaymentsGetWithHttpInfo(opts)
-          .then(function(response_and_data) {
-            return response_and_data.data;
-          });
-      }
 
 
 }

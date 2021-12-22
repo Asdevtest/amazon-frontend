@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **boxesBefore** | [**[ApiV1AdminsTasksBoxesBefore]**](ApiV1AdminsTasksBoxesBefore.md) | Массив коробок которые были до переформирования коробок. | [optional] 
 **boxes** | [**[ApiV1AdminsTasksBoxesBefore]**](ApiV1AdminsTasksBoxesBefore.md) | Массив коробок. | 
 **status** | **Number** | Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено. | 
+**storekeeper** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
 **storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
 **clientComment** | **String** | Комментарий клиента. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 

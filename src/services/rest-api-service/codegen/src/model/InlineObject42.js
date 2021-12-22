@@ -48,12 +48,6 @@ class InlineObject42 {
         if (data) {
             obj = obj || new InlineObject42();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
             if (data.hasOwnProperty('keyword')) {
                 obj['keyword'] = ApiClient.convertToType(data['keyword'], 'String');
             }
@@ -96,36 +90,12 @@ class InlineObject42 {
             if (data.hasOwnProperty('denyNichesBoughtByMe')) {
                 obj['denyNichesBoughtByMe'] = ApiClient.convertToType(data['denyNichesBoughtByMe'], 'Boolean');
             }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
-            }
         }
         return obj;
     }
 
 
 }
-
-/**
- * GUID продукта в базе данных.
- * @member {String} _id
- */
-InlineObject42.prototype['_id'] = undefined;
-
-/**
- * GUID заявки к торой относится данное дополнение.
- * @member {String} link
- */
-InlineObject42.prototype['link'] = undefined;
 
 /**
  * Ключевые слова ниши.
@@ -211,30 +181,6 @@ InlineObject42.prototype['notes'] = undefined;
  */
 InlineObject42.prototype['denyNichesBoughtByMe'] = undefined;
 
-/**
- * GUID клиента, который создал запрос на поиск товара.
- * @member {String} createdById
- */
-InlineObject42.prototype['createdById'] = undefined;
-
-/**
- * GUID клиента, который обновил запрос на поиск товара.
- * @member {String} lastModifiedById
- */
-InlineObject42.prototype['lastModifiedById'] = undefined;
-
-/**
- * Дата создания
- * @member {Date} createdAt
- */
-InlineObject42.prototype['createdAt'] = undefined;
-
-/**
- * Дата изменения
- * @member {Date} updatedAt
- */
-InlineObject42.prototype['updatedAt'] = undefined;
-
 
 
 
@@ -253,10 +199,10 @@ InlineObject42['SizeEnum'] = {
     "SMALL": "SMALL",
 
     /**
-     * value: "MIDDLE"
+     * value: "MEDIUM"
      * @const
      */
-    "MIDDLE": "MIDDLE",
+    "MEDIUM": "MEDIUM",
 
     /**
      * value: "LARGE"

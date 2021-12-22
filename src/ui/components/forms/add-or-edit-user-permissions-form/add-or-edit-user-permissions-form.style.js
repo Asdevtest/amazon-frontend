@@ -14,6 +14,9 @@ export const useClassNames = makeStyles(() => ({
 
   buttonsWrapper: {
     margin: 'auto 0 0 ',
+    position: 'sticky',
+    bottom: '0',
+    left: '0',
   },
 
   divider: {
@@ -90,5 +93,13 @@ export const useClassNames = makeStyles(() => ({
 
   permissionsSubTitle: {
     fontWeight: 'bold',
+  },
+
+  selectModalBtnsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    position: 'sticky',
+    bottom: '0',
+    right: '0',
   },
 }))

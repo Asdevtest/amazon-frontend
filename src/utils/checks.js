@@ -28,7 +28,7 @@ export const checkIsMoreTwoCharactersAfterDot = str => {
 export const checkIsMoreNCharactersAfterDot = (str, max) => {
   str += ''
   const indexOfDot = str.indexOf('.')
-  const dotPositionFromEnd = indexOfDot - str.length
+  const dotPositionFromEnd = indexOfDot - str.length + 1
   if (indexOfDot === -1 || dotPositionFromEnd >= -max) {
     return false
   }

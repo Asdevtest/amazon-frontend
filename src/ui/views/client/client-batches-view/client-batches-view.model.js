@@ -138,6 +138,7 @@ export class ClientBatchesViewModel {
 
             0,
           ),
+          tmpTotalPrice: item.boxes.reduce((acc, cur) => acc + cur.items[0].product.currentSupplier.lotcost, 0),
         }))
       })
     } catch (error) {

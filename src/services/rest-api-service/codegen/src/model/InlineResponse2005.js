@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsBatchesBatch from './ApiV1AdminsBatchesBatch';
 import ApiV1AdminsTasksBoxesBefore from './ApiV1AdminsTasksBoxesBefore';
-import ApiV1BatchesBatch from './ApiV1BatchesBatch';
 
 /**
  * The InlineResponse2005 model module.
@@ -24,7 +24,7 @@ class InlineResponse2005 {
     /**
      * Constructs a new <code>InlineResponse2005</code>.
      * @alias module:model/InlineResponse2005
-     * @param batch {module:model/ApiV1BatchesBatch} 
+     * @param batch {module:model/ApiV1AdminsBatchesBatch} 
      * @param boxes {Array.<module:model/ApiV1AdminsTasksBoxesBefore>} Массив коробок.
      */
     constructor(batch, boxes) { 
@@ -54,7 +54,7 @@ class InlineResponse2005 {
             obj = obj || new InlineResponse2005();
 
             if (data.hasOwnProperty('batch')) {
-                obj['batch'] = ApiV1BatchesBatch.constructFromObject(data['batch']);
+                obj['batch'] = ApiV1AdminsBatchesBatch.constructFromObject(data['batch']);
             }
             if (data.hasOwnProperty('boxes')) {
                 obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsTasksBoxesBefore]);
@@ -67,7 +67,7 @@ class InlineResponse2005 {
 }
 
 /**
- * @member {module:model/ApiV1BatchesBatch} batch
+ * @member {module:model/ApiV1AdminsBatchesBatch} batch
  */
 InlineResponse2005.prototype['batch'] = undefined;
 

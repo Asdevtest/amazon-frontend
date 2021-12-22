@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## apiV1TestsGetMyDailyReportsGet
 
-> [InlineResponse20010] apiV1TestsGetMyDailyReportsGet(opts)
+> [InlineResponse20011] apiV1TestsGetMyDailyReportsGet(opts)
 
 Получить дневной отчет селерборда.
 
@@ -49,7 +49,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20010]**](InlineResponse20010.md)
+[**[InlineResponse20011]**](InlineResponse20011.md)
 
 ### Authorization
 
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ## apiV1TestsGetMyReportsLast30DaysGet
 
-> [InlineResponse20011] apiV1TestsGetMyReportsLast30DaysGet(opts)
+> [InlineResponse20012] apiV1TestsGetMyReportsLast30DaysGet(opts)
 
 Получить месячный отчет селерборда.
 
@@ -101,7 +101,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20011]**](InlineResponse20011.md)
+[**[InlineResponse20012]**](InlineResponse20012.md)
 
 ### Authorization
 

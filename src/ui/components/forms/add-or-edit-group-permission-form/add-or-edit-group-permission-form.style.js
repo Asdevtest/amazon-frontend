@@ -66,4 +66,12 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
   },
+
+  selectModalBtnsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    position: 'sticky',
+    bottom: '0',
+    right: '0',
+  },
 }))

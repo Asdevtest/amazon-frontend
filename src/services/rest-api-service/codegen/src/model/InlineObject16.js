@@ -22,10 +22,11 @@ class InlineObject16 {
     /**
      * Constructs a new <code>InlineObject16</code>.
      * @alias module:model/InlineObject16
+     * @param boxesIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(boxesIds) { 
         
-        InlineObject16.initialize(this);
+        InlineObject16.initialize(this, boxesIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject16 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -47,38 +49,11 @@ class InlineObject16 {
         if (data) {
             obj = obj || new InlineObject16();
 
-            if (data.hasOwnProperty('currentSupplierId')) {
-                obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
+            if (data.hasOwnProperty('cancel')) {
+                obj['cancel'] = ApiClient.convertToType(data['cancel'], 'Boolean');
             }
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
-            }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbalink')) {
-                obj['fbalink'] = ApiClient.convertToType(data['fbalink'], 'String');
-            }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('buyerscomment')) {
-                obj['buyerscomment'] = ApiClient.convertToType(data['buyerscomment'], 'String');
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -88,70 +63,16 @@ class InlineObject16 {
 }
 
 /**
- * GUID поставщика, если передать строку \"clear\" то поставщику будет сброшен (у байера и ресечера).
- * @member {String} currentSupplierId
+ * Флаг отмены. Если он true - то все списания будут сделаны с обратным знаком.
+ * @member {Boolean} cancel
+ * @default false
  */
-InlineObject16.prototype['currentSupplierId'] = undefined;
+InlineObject16.prototype['cancel'] = false;
 
 /**
- * 
- * @member {Number} amazon
+ * @member {Array.<String>} boxesIds
  */
-InlineObject16.prototype['amazon'] = undefined;
-
-/**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
- */
-InlineObject16.prototype['reffee'] = undefined;
-
-/**
- * ФБА ссылка
- * @member {String} fbalink
- */
-InlineObject16.prototype['fbalink'] = undefined;
-
-/**
- * ФБА комиссия
- * @member {Number} fbafee
- */
-InlineObject16.prototype['fbafee'] = undefined;
-
-/**
- * ФБА кол-во
- * @member {Number} fbaamount
- */
-InlineObject16.prototype['fbaamount'] = undefined;
-
-/**
- * Стоимость доставки.
- * @member {Number} delivery
- */
-InlineObject16.prototype['delivery'] = undefined;
-
-/**
- * Код текущего статуса
- * @member {Number} status
- */
-InlineObject16.prototype['status'] = undefined;
-
-/**
- * Прибыль
- * @member {Number} profit
- */
-InlineObject16.prototype['profit'] = undefined;
-
-/**
- * Маржа
- * @member {Number} margin
- */
-InlineObject16.prototype['margin'] = undefined;
-
-/**
- * Примечания байера.
- * @member {String} buyerscomment
- */
-InlineObject16.prototype['buyerscomment'] = undefined;
+InlineObject16.prototype['boxesIds'] = undefined;
 
 
 

@@ -431,22 +431,29 @@ export const ScrollingCell = withStyles(styles)(({classes: classNames, value}) =
   </React.Fragment>
 ))
 
-export const EditOrRemoveBtnsCell = withStyles(styles)(({classes: classNames, row, handlers, isSubUsersTable}) => (
-  <div>
-    <Button variant="contained" color="primary" onClick={() => handlers.onClickEditBtn(row)}>
-      {isSubUsersTable ? textConsts.addPermissionsBtn : textConsts.editBtn}
-    </Button>
+export const EditOrRemoveBtnsCell = withStyles(styles)(
+  ({classes: classNames, row, handlers, isSubUsersTable, disableEditBtn}) => (
+    <div>
+      <Button
+        variant="contained"
+        color="primary"
+        disabled={disableEditBtn}
+        onClick={() => handlers.onClickEditBtn(row)}
+      >
+        {isSubUsersTable ? textConsts.addPermissionsBtn : textConsts.editBtn}
+      </Button>
 
-    <ErrorButton
-      className={classNames.rowCancelBtn}
-      onClick={() => {
-        handlers.onClickRemoveBtn(isSubUsersTable ? row : row._id)
-      }}
-    >
-      {textConsts.removeBtn}
-    </ErrorButton>
-  </div>
-))
+      <ErrorButton
+        className={classNames.rowCancelBtn}
+        onClick={() => {
+          handlers.onClickRemoveBtn(row)
+        }}
+      >
+        {textConsts.removeBtn}
+      </ErrorButton>
+    </div>
+  ),
+)
 
 export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) => {
   const renderProductInfo = box => (

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**batch** | [**ApiV1BatchesBatch**](ApiV1BatchesBatch.md) |  | 
+**batch** | [**ApiV1AdminsBatchesBatch**](ApiV1AdminsBatchesBatch.md) |  | 
 **boxes** | [**[ApiV1AdminsTasksBoxesBefore]**](ApiV1AdminsTasksBoxesBefore.md) | Массив коробок. | 
 
 

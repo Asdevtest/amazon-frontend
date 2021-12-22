@@ -49,9 +49,6 @@ class InlineObject14 {
         if (data) {
             obj = obj || new InlineObject14();
 
-            if (data.hasOwnProperty('scheduledDispatchDate')) {
-                obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'Date');
-            }
             if (data.hasOwnProperty('boxesIds')) {
                 obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
@@ -61,12 +58,6 @@ class InlineObject14 {
 
 
 }
-
-/**
- * Запланированная дата отправки.
- * @member {Date} scheduledDispatchDate
- */
-InlineObject14.prototype['scheduledDispatchDate'] = undefined;
 
 /**
  * @member {Array.<String>} boxesIds

@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## apiV1PermissionsGet
 
-> [ApiV1AdminsUsersPermissions] apiV1PermissionsGet(opts)
+> [PermissionGetDtoSchema] apiV1PermissionsGet(opts)
 
 Получить список permissions.
 
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1AdminsUsersPermissions]**](ApiV1AdminsUsersPermissions.md)
+[**[PermissionGetDtoSchema]**](PermissionGetDtoSchema.md)
 
 ### Authorization
 
@@ -67,16 +67,16 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1PermissionsGroupsGet
 
-> [ApiV1AdminsUsersPermissionGroups] apiV1PermissionsGroupsGet(opts)
+> [PermissionGroupGetDtoSchema] apiV1PermissionsGroupsGet(opts)
 
 Получить список групп permissions.
 
-Получить список групп permissions.   
+## Получить список групп permissions.   
 
 ### Example
 
@@ -112,7 +112,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1AdminsUsersPermissionGroups]**](ApiV1AdminsUsersPermissionGroups.md)
+[**[PermissionGroupGetDtoSchema]**](PermissionGroupGetDtoSchema.md)
 
 ### Authorization
 
@@ -121,7 +121,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1PermissionsGroupsGuidDelete
@@ -144,7 +144,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.PermissionsApi();
-let guid = "guid_example"; // String | GUID в сущности в БД
+let guid = "guid_example"; // String | GUID permission в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -161,7 +161,7 @@ apiInstance.apiV1PermissionsGroupsGuidDelete(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID в сущности в БД | 
+ **guid** | **String**| GUID permission в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -175,7 +175,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1PermissionsGroupsGuidPatch
@@ -198,10 +198,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.PermissionsApi();
-let guid = "guid_example"; // String | GUID permission БД
+let guid = "guid_example"; // String | GUID permission в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject27() // InlineObject27 | 
+  'body': new TestSwagger.PermissionGroupPatchDtoSchema() // PermissionGroupPatchDtoSchema | 
 };
 apiInstance.apiV1PermissionsGroupsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -216,9 +216,9 @@ apiInstance.apiV1PermissionsGroupsGuidPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID permission БД | 
+ **guid** | **String**| GUID permission в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject27**](InlineObject27.md)|  | [optional] 
+ **body** | [**PermissionGroupPatchDtoSchema**](PermissionGroupPatchDtoSchema.md)|  | [optional] 
 
 ### Return type
 
@@ -231,12 +231,12 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1PermissionsGroupsPost
 
-> InlineResponse2016 apiV1PermissionsGroupsPost(opts)
+> SuccessResponseBodyWithGuid apiV1PermissionsGroupsPost(opts)
 
 # Создать группу permission.
 
@@ -256,7 +256,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.PermissionsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject26() // InlineObject26 | 
+  'body': new TestSwagger.PermissionGroupPostDtoSchema() // PermissionGroupPostDtoSchema | 
 };
 apiInstance.apiV1PermissionsGroupsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -272,11 +272,11 @@ apiInstance.apiV1PermissionsGroupsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject26**](InlineObject26.md)|  | [optional] 
+ **body** | [**PermissionGroupPostDtoSchema**](PermissionGroupPostDtoSchema.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2016**](InlineResponse2016.md)
+[**SuccessResponseBodyWithGuid**](SuccessResponseBodyWithGuid.md)
 
 ### Authorization
 
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1PermissionsGuidDelete
@@ -308,7 +308,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.PermissionsApi();
-let guid = "guid_example"; // String | GUID в сущности в БД
+let guid = "guid_example"; // String | GUID permission в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -325,7 +325,7 @@ apiInstance.apiV1PermissionsGuidDelete(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID в сущности в БД | 
+ **guid** | **String**| GUID permission в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -339,7 +339,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1PermissionsGuidPatch
@@ -365,7 +365,7 @@ let apiInstance = new TestSwagger.PermissionsApi();
 let guid = "guid_example"; // String | GUID permission в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject25() // InlineObject25 | 
+  'body': new TestSwagger.PermissionPatchDtoSchema() // PermissionPatchDtoSchema | 
 };
 apiInstance.apiV1PermissionsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -382,7 +382,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID permission в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject25**](InlineObject25.md)|  | [optional] 
+ **body** | [**PermissionPatchDtoSchema**](PermissionPatchDtoSchema.md)|  | [optional] 
 
 ### Return type
 
@@ -395,12 +395,12 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1PermissionsPost
 
-> InlineResponse2016 apiV1PermissionsPost(opts)
+> SuccessResponseBodyWithGuid apiV1PermissionsPost(opts)
 
 # Создать permission.
 
@@ -420,7 +420,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.PermissionsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject24() // InlineObject24 | 
+  'body': new TestSwagger.PermissionPostDtoSchema() // PermissionPostDtoSchema | 
 };
 apiInstance.apiV1PermissionsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -436,11 +436,11 @@ apiInstance.apiV1PermissionsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject24**](InlineObject24.md)|  | [optional] 
+ **body** | [**PermissionPostDtoSchema**](PermissionPostDtoSchema.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2016**](InlineResponse2016.md)
+[**SuccessResponseBodyWithGuid**](SuccessResponseBodyWithGuid.md)
 
 ### Authorization
 
@@ -449,7 +449,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1PermissionsSetForUserGuidPatch
@@ -472,10 +472,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.PermissionsApi();
-let guid = "guid_example"; // String | GUID суб пользователя в БД.
+let guid = "guid_example"; // String | GUID permission в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject28() // InlineObject28 | 
+  'body': new TestSwagger.SetPermissionsForUsersPathDTOSchema() // SetPermissionsForUsersPathDTOSchema | 
 };
 apiInstance.apiV1PermissionsSetForUserGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -490,9 +490,9 @@ apiInstance.apiV1PermissionsSetForUserGuidPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID суб пользователя в БД. | 
+ **guid** | **String**| GUID permission в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject28**](InlineObject28.md)|  | [optional] 
+ **body** | [**SetPermissionsForUsersPathDTOSchema**](SetPermissionsForUsersPathDTOSchema.md)|  | [optional] 
 
 ### Return type
 
@@ -505,5 +505,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 

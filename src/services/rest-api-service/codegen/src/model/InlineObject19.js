@@ -22,10 +22,12 @@ class InlineObject19 {
     /**
      * Constructs a new <code>InlineObject19</code>.
      * @alias module:model/InlineObject19
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param operationType {module:model/InlineObject19.OperationTypeEnum} Тип операции
      */
-    constructor() { 
+    constructor(taskId, operationType) { 
         
-        InlineObject19.initialize(this);
+        InlineObject19.initialize(this, taskId, operationType);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject19 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, taskId, operationType) { 
+        obj['taskId'] = taskId;
+        obj['operationType'] = operationType;
     }
 
     /**
@@ -47,8 +51,26 @@ class InlineObject19 {
         if (data) {
             obj = obj || new InlineObject19();
 
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            }
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
+            }
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -58,13 +80,81 @@ class InlineObject19 {
 }
 
 /**
- * Баркод
- * @member {String} barCode
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
  */
-InlineObject19.prototype['barCode'] = undefined;
+InlineObject19.prototype['taskId'] = undefined;
+
+/**
+ * @member {Array.<String>} boxesBefore
+ */
+InlineObject19.prototype['boxesBefore'] = undefined;
+
+/**
+ * @member {Array.<String>} boxes
+ */
+InlineObject19.prototype['boxes'] = undefined;
+
+/**
+ * Тип операции
+ * @member {module:model/InlineObject19.OperationTypeEnum} operationType
+ */
+InlineObject19.prototype['operationType'] = undefined;
+
+/**
+ * Комментарий клиента.
+ * @member {String} clientComment
+ * @default ''
+ */
+InlineObject19.prototype['clientComment'] = '';
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject19.prototype['images'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineObject19.prototype['storekeeperComment'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject19['OperationTypeEnum'] = {
+
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
+
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
+
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive",
+
+    /**
+     * value: "edit"
+     * @const
+     */
+    "edit": "edit"
+};
 
 
 

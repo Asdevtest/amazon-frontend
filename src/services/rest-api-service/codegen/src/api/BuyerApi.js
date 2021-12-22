@@ -15,9 +15,9 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject16 from '../model/InlineObject16';
 import InlineObject17 from '../model/InlineObject17';
 import InlineObject18 from '../model/InlineObject18';
+import InlineObject19 from '../model/InlineObject19';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse2006 from '../model/InlineResponse2006';
@@ -105,7 +105,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject17} opts.body 
+     * @param {module:model/InlineObject18} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersOrdersGuidPatchWithHttpInfo(guid, opts) {
@@ -144,7 +144,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject17} opts.body 
+     * @param {module:model/InlineObject18} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersOrdersGuidPatch(guid, opts) {
@@ -309,7 +309,7 @@ export default class BuyerApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject16} opts.body 
+     * @param {module:model/InlineObject17} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -348,7 +348,7 @@ export default class BuyerApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject16} opts.body 
+     * @param {module:model/InlineObject17} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersProductsGuidPatch(guid, opts) {
@@ -613,7 +613,7 @@ export default class BuyerApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject18} opts.body 
+     * @param {module:model/InlineObject19} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2013} and HTTP response
      */
     apiV1BuyersTasksPostWithHttpInfo(opts) {
@@ -646,7 +646,7 @@ export default class BuyerApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject18} opts.body 
+     * @param {module:model/InlineObject19} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2013}
      */
     apiV1BuyersTasksPost(opts) {
@@ -655,54 +655,6 @@ export default class BuyerApi {
           return response_and_data.data;
         });
     }
-
-     /**
-     * # Получить все оплаты, которые были начислены обратившемуся пользователю..
-     * ## Получить все оплаты, которые были начислены обратившемуся пользователю..  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
-     */
-      apiV1BuyerPaymentsGetWithHttpInfo(opts) {
-        opts = opts || {};
-        let postBody = null;
-  
-        let pathParams = {
-        };
-        let queryParams = {
-        };
-        let headerParams = {
-          'Accept-Encoding': opts['Accept_Encoding']
-        };
-        let formParams = {
-        };
-  
-        let authNames = ['AccessTokenBearer'];
-        let contentTypes = [];
-        let accepts = ['text/html'];
-        let returnType = [Object];
-        return this.apiClient.callApi(
-          '/api/v1/other/payments/my', 'GET',
-          pathParams, queryParams, headerParams, formParams, postBody,
-          authNames, contentTypes, accepts, returnType, null
-        );
-      }
-  
-  
-  
-       /**
-       * # Получить все оплаты, которые были начислены обратившемуся пользователю..
-       * ## Получить все оплаты, которые были начислены обратившемуся пользователю..  
-       * @param {Object} opts Optional parameters
-       * @param {String} opts.Accept_Encoding 
-       * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
-       */
-        apiV1BuyerPaymentsGet(opts) {
-          return this.apiV1BuyerPaymentsGetWithHttpInfo(opts)
-            .then(function(response_and_data) {
-              return response_and_data.data;
-            });
-        }
 
 
 }

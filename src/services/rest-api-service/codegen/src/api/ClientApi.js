@@ -15,11 +15,11 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject19 from '../model/InlineObject19';
 import InlineObject20 from '../model/InlineObject20';
 import InlineObject21 from '../model/InlineObject21';
 import InlineObject22 from '../model/InlineObject22';
 import InlineObject23 from '../model/InlineObject23';
+import InlineObject24 from '../model/InlineObject24';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse2005 from '../model/InlineResponse2005';
 import InlineResponse2007 from '../model/InlineResponse2007';
@@ -100,7 +100,7 @@ export default class ClientApi {
      * ## Оплатить товары.   ## ВНИМАНИЕ: Данный эндпоинт не выбросит ошибку если один из GUID будет валидным но товара с таким GUID    ## ВНИМАНИЕ: не будет найден в базе.    ## ВНИМАНИЕ: Эта оплата товара не имеет ничего общего с оплатой в блоке байер.    ## ВНИМАНИЕ: Здесь оплата заполняет значения полей paidById, paidAt в Продукте.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject20} opts.body 
+     * @param {module:model/InlineObject21} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsMakePaymentsPostWithHttpInfo(opts) {
@@ -133,7 +133,7 @@ export default class ClientApi {
      * ## Оплатить товары.   ## ВНИМАНИЕ: Данный эндпоинт не выбросит ошибку если один из GUID будет валидным но товара с таким GUID    ## ВНИМАНИЕ: не будет найден в базе.    ## ВНИМАНИЕ: Эта оплата товара не имеет ничего общего с оплатой в блоке байер.    ## ВНИМАНИЕ: Здесь оплата заполняет значения полей paidById, paidAt в Продукте.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject20} opts.body 
+     * @param {module:model/InlineObject21} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsMakePaymentsPost(opts) {
@@ -361,7 +361,7 @@ export default class ClientApi {
      * @param {String} guid GUID заказа, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject22} opts.body 
+     * @param {module:model/InlineObject23} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsOrdersGuidPatchWithHttpInfo(guid, opts) {
@@ -400,7 +400,7 @@ export default class ClientApi {
      * @param {String} guid GUID заказа, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject22} opts.body 
+     * @param {module:model/InlineObject23} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsOrdersGuidPatch(guid, opts) {
@@ -472,7 +472,7 @@ export default class ClientApi {
      * ## Создать заказ.   ### описание поля status:       formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      returnOrder: 35 Если Заказ пришёл не кондиционный - \"возврат заказа\"    
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject21} opts.body 
+     * @param {module:model/InlineObject22} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
      */
     apiV1ClientsOrdersPostWithHttpInfo(opts) {
@@ -505,7 +505,7 @@ export default class ClientApi {
      * ## Создать заказ.   ### описание поля status:       formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      returnOrder: 35 Если Заказ пришёл не кондиционный - \"возврат заказа\"    
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject21} opts.body 
+     * @param {module:model/InlineObject22} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
      */
     apiV1ClientsOrdersPost(opts) {
@@ -522,7 +522,7 @@ export default class ClientApi {
      * @param {String} guid GUID заказа, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject19} opts.body 
+     * @param {module:model/InlineObject20} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -561,7 +561,7 @@ export default class ClientApi {
      * @param {String} guid GUID заказа, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject19} opts.body 
+     * @param {module:model/InlineObject20} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsProductsGuidPatch(guid, opts) {
@@ -939,7 +939,7 @@ export default class ClientApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject23} opts.body 
+     * @param {module:model/InlineObject24} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2013} and HTTP response
      */
     apiV1ClientsTasksPostWithHttpInfo(opts) {
@@ -972,7 +972,7 @@ export default class ClientApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject23} opts.body 
+     * @param {module:model/InlineObject24} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2013}
      */
     apiV1ClientsTasksPost(opts) {
@@ -981,54 +981,6 @@ export default class ClientApi {
           return response_and_data.data;
         });
     }
-
-    /**
-     * # Получить все оплаты, которые были начислены обратившемуся пользователю..
-     * ## Получить все оплаты, которые были начислены обратившемуся пользователю..  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
-     */
-     apiV1ClientPaymentsGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [Object];
-      return this.apiClient.callApi(
-        '/api/v1/other/payments/my', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-
-
-     /**
-     * # Получить все оплаты, которые были начислены обратившемуся пользователю..
-     * ## Получить все оплаты, которые были начислены обратившемуся пользователю..  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
-     */
-      apiV1ClientPaymentsGet(opts) {
-        return this.apiV1ClientPaymentsGetWithHttpInfo(opts)
-          .then(function(response_and_data) {
-            return response_and_data.data;
-          });
-      }
 
 
 }

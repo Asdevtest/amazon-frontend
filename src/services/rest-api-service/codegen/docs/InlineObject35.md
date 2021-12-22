@@ -4,8 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Статус | [optional] 
-**isBarCodeAlreadyAttachedByTheSupplier** | **Boolean** | Признак того, что баркод поклеен у поставщика. | [optional] 
-**isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper** | **Boolean** | ???&#x3D;&#x3D;&#x3D;нет описания&#x3D;&#x3D;&#x3D; | [optional] 
+**name** | **String** | Название поставщика. | 
+**link** | **String** | Ссылка на поставщика. | 
+**price** | **Number** | Цена | 
+**delivery** | **Number** | Тип доставки | 
+**amount** | **Number** | кол-во | 
+**minlot** | **Number** | Минимальный лот. | 
+**lotcost** | **Number** | Стоимость лота. | 
+**images** | **[String]** | Массив картинок. | [optional] 
+**comment** | **String** | Комментарий | 
 
 

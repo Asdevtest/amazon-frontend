@@ -31,6 +31,7 @@ export const GroupPermissions = observer(() => {
   }, [])
 
   const {
+    groupPermissions,
     requestStatus,
     getCurrentData,
     sortModel,
@@ -95,6 +96,7 @@ export const GroupPermissions = observer(() => {
         setOpenModal={() => onTriggerOpenModal('showAddOrEditGroupPermissionModal')}
       >
         <AddOrEditGroupPermissionForm
+          existingGroupPermissions={groupPermissions}
           singlePermissions={singlePermissions}
           permissionToEdit={addOrEditGroupPermissionSettings.permission}
           isEdit={addOrEditGroupPermissionSettings.isEdit}

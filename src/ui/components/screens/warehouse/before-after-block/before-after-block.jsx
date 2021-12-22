@@ -203,7 +203,7 @@ const Box = ({
 
       {isNewBox && (
         <Paper className={classNames.bottomBlockWrapper}>
-          {taskType === TaskOperationType.RECEIVE && (
+          {taskType === TaskOperationType.RECEIVE && box.items?.[0].product.barCode && (
             <div className={classNames.barCodeActionsWrapper}>
               {box.isBarCodeAttachedByTheStorekeeper === false && (
                 <Field

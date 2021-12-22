@@ -34,10 +34,13 @@ import {ClientOrdersNotificationsView} from '@views/client/client-orders-notific
 import {ClientOrderView} from '@views/client/client-orders-views/order'
 import {ClientOrdersView} from '@views/client/client-orders-views/orders'
 import {ClientProductView} from '@views/client/client-product-view/'
+import {ClientRequestDetailCustomView} from '@views/client/client-requests-details-views/client-requests-detail-custom-view'
 import {ClientRequestDetailNicheView} from '@views/client/client-requests-details-views/client-requests-detail-niche-view'
 import {ClientRequestDetailProductView} from '@views/client/client-requests-details-views/client-requests-detail-product-view'
+import {ClientСustomRequestsView} from '@views/client/client-requests-views/client-custom-requests-view'
 import {ClientRequestsNichesView} from '@views/client/client-requests-views/client-requests-niches-view'
 import {ClientRequestsProductsView} from '@views/client/client-requests-views/client-requests-products-view/client-requests-products-view'
+import {ClientSettingsView} from '@views/client/client-settings-view'
 import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
 import {ClientUserProfileView} from '@views/client/client-users-views/user-profile-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
@@ -48,17 +51,21 @@ import {FreelancerMyNichesRequestsView} from '@views/freelancer/freelancer-my-re
 import {FreelancerMyProductsRequestsView} from '@views/freelancer/freelancer-my-requests-views/freelancer-my-products-requests-view'
 import {FreelancerVacantNichesRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-niches-requests-view'
 import {FreelancerVacantProductsRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-products-requests-view'
+import {UserProfileView} from '@views/overall/user-profile-view/user-profile-view'
 import {RegistrationView} from '@views/registration'
 import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
 import {ResearcherFinancesViews} from '@views/researcher/researcher-finances-views'
+import {ResearcherMyCustomRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-custom-requests-view/researcher-my-custom-requests-view'
 import {ResearcherMyNichesRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-niches-requests-view'
 import {ResearcherMyProductsRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-products-requests-view'
 import {ResearcherProductView} from '@views/researcher/researcher-product-view/researcher-product-view'
 import {ResearcherProductsView} from '@views/researcher/researcher-products-view'
+import {ResearcherRequestDetailCustomView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-custom-view'
 import {ResearcherRequestDetailNicheView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-niche-view'
 import {ResearcherRequestDetailProductView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-product-view'
 import {ResearcherSettingsView} from '@views/researcher/researcher-settings-view'
 import {ResearcherSubUsersView} from '@views/researcher/researcher-users-views/researcher-sub-users-view'
+import {ResearcherVacantCustomRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-custom-requests-view'
 import {ResearcherVacantNichesRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-niches-requests-view'
 import {ResearcherVacantProductsRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-products-requests-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
@@ -100,6 +107,14 @@ export const publicRoutesConfigs = [
   {
     routePath: '/terms',
     component: TermsView,
+    exact: false,
+  },
+]
+
+export const overallRoutesConfigs = [
+  {
+    routePath: '/profile',
+    component: UserProfileView,
     exact: false,
   },
 ]
@@ -189,8 +204,22 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/researcher/my-requests/custom',
+    component: ResearcherMyCustomRequestsView,
+    exact: true,
+    permission: [UserRole.RESEARCHER],
+  },
+
+  {
     routePath: '/researcher/requests/products',
     component: ResearcherVacantProductsRequestsView,
+    exact: true,
+    permission: [UserRole.RESEARCHER],
+  },
+
+  {
+    routePath: '/researcher/requests/custom',
+    component: ResearcherVacantCustomRequestsView,
     exact: true,
     permission: [UserRole.RESEARCHER],
   },
@@ -219,6 +248,13 @@ export const privateRoutesConfigs = [
   {
     routePath: '/researcher/niche-search-request',
     component: ResearcherRequestDetailNicheView,
+    exact: true,
+    permission: [UserRole.RESEARCHER],
+  },
+
+  {
+    routePath: '/researcher/custom-search-request',
+    component: ResearcherRequestDetailCustomView,
     exact: true,
     permission: [UserRole.RESEARCHER],
   },
@@ -290,6 +326,13 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/client/exchange/requests/custom',
+    component: ClientСustomRequestsView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
     routePath: '/client/batches',
     component: ClientBatchesView,
     exact: false,
@@ -322,6 +365,13 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.CLIENT],
   },
+
+  {
+    routePath: '/client/settings',
+    component: ClientSettingsView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+  },
   {
     routePath: '/client/orders/order',
     component: ClientOrderView,
@@ -339,6 +389,13 @@ export const privateRoutesConfigs = [
   {
     routePath: '/client/niche-search-request',
     component: ClientRequestDetailNicheView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
+    routePath: '/client/custom-search-request',
+    component: ClientRequestDetailCustomView,
     exact: true,
     permission: [UserRole.CLIENT],
   },

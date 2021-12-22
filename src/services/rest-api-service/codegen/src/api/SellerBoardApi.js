@@ -14,8 +14,8 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineResponse20010 from '../model/InlineResponse20010';
 import InlineResponse20011 from '../model/InlineResponse20011';
+import InlineResponse20012 from '../model/InlineResponse20012';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -44,7 +44,7 @@ export default class SellerBoardApi {
      * ## Получить дневной отчет селерборда   ## Это эндпоинт отдает последние записи клиента.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20010>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20011>} and HTTP response
      */
     apiV1TestsGetMyDailyReportsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -63,7 +63,7 @@ export default class SellerBoardApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse20010];
+      let returnType = [InlineResponse20011];
       return this.apiClient.callApi(
         '/api/v1/tests/get_my_daily_reports', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -76,7 +76,7 @@ export default class SellerBoardApi {
      * ## Получить дневной отчет селерборда   ## Это эндпоинт отдает последние записи клиента.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20010>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20011>}
      */
     apiV1TestsGetMyDailyReportsGet(opts) {
       return this.apiV1TestsGetMyDailyReportsGetWithHttpInfo(opts)
@@ -91,7 +91,7 @@ export default class SellerBoardApi {
      * ## Получить месячный отчет селерборда   ## Это эндпоинт отдает последние записи клиента.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20011>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20012>} and HTTP response
      */
     apiV1TestsGetMyReportsLast30DaysGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -110,7 +110,7 @@ export default class SellerBoardApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse20011];
+      let returnType = [InlineResponse20012];
       return this.apiClient.callApi(
         '/api/v1/tests/get_my_reports_last_30_days', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -123,7 +123,7 @@ export default class SellerBoardApi {
      * ## Получить месячный отчет селерборда   ## Это эндпоинт отдает последние записи клиента.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20011>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20012>}
      */
     apiV1TestsGetMyReportsLast30DaysGet(opts) {
       return this.apiV1TestsGetMyReportsLast30DaysGetWithHttpInfo(opts)
