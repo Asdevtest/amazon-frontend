@@ -65,4 +65,7 @@ export const DataGridTablesKeys = {
   CLIENT_FINANCES: 'clientFinancesDataGridState',
 
   FREELANCER_FINANCES: 'freelancerFinancesDataGridState',
+  FREELANCER_CUSTOM_MY_REQUESTS: 'freelancerCustomMyRequestsDataGridState',
+  FREELANCER_CUSTOM_VACANT_REQUESTS: 'freelancerCustomVacantRequestsDataGridState',
+  FREELANCER_CUSTOM_SEARCH_REQUESTS: 'freelancerCustomSearchRequestsDataGridState',
 }

@@ -2,11 +2,8 @@ import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {BACKEND_API_URL} from '@constants/env'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatusByCode} from '@constants/order-status'
-import {warehouses} from '@constants/warehouses'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
@@ -16,6 +13,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
 
+import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -195,7 +193,7 @@ export class BuyerMyOrdersViewModel {
   }
 
   onClickOrder(order) {
-    this.selectedOrder = order
+    this.selectedOrder = order.originalData
     this.getBoxesOfOrder(order._id)
     this.onTriggerOpenModal('showOrderModal')
   }
@@ -325,13 +323,7 @@ export class BuyerMyOrdersViewModel {
     try {
       const result = await BuyerModel.getOrdersMy()
       runInAction(() => {
-        this.ordersMy = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(order => ({
-          ...order,
-          tmpBarCode: order.product.barCode,
-          tmpWarehouses: warehouses[order.warehouse],
-          tmpDeliveryMethod: DeliveryTypeByCode[order.deliveryMethod],
-          tmpStatus: OrderStatusByCode[order.status],
-        }))
+        this.ordersMy = buyerMyOrdersDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
       })
     } catch (error) {
       this.ordersMy = []

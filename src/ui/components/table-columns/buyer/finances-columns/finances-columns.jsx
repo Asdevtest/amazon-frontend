@@ -27,7 +27,9 @@ export const buyerFinancesViewColumns = () => [
     headerName: textConsts.commentField,
     width: 400,
     renderCell: params => (
-      <ScrollingCell value={`${params.value} ${params.row?.product ? params.row.product?.id : ''}`} />
+      <ScrollingCell
+        value={`${params.value} ${params.row?.originalData?.product ? params.row.originalData.product?.id : ''}`}
+      />
     ),
   },
 
@@ -40,14 +42,14 @@ export const buyerFinancesViewColumns = () => [
   },
 
   {
-    field: 'tmpCreatorName',
+    field: 'creatorName',
     headerName: textConsts.creatorNameField,
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
-    field: 'tmpRecipientName',
+    field: 'recipientName',
     headerName: textConsts.recipientNameField,
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),

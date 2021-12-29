@@ -37,14 +37,14 @@ export const exchangeSupplierFoundedColumns = () => [
   {
     field: 'asinCell',
     headerName: textConsts.asinField,
-    renderCell: params => <AsinCell params={params} />,
+    renderCell: params => <AsinCell product={params.row.originalData} />,
     width: 300,
     filterable: false,
     sortable: false,
   },
 
   {
-    field: 'tmpStrategyStatus',
+    field: 'strategyStatus',
     headerName: textConsts.strategyStatusField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
@@ -61,31 +61,31 @@ export const exchangeSupplierFoundedColumns = () => [
     field: 'barCode',
     headerName: textConsts.barcodeField,
     width: 150,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.row.barCode} />,
+    renderCell: params => <NoActiveBarcodeCell barCode={params.value} />,
   },
 
   {
     field: 'createdBy',
     headerName: textConsts.researcherField,
-    renderCell: params => <ResearcherCell params={params} />,
+    renderCell: params => <ResearcherCell product={params.row.originalData} />,
     width: 200,
   },
   {
     field: 'supervisor',
     headerName: textConsts.supervisorField,
-    renderCell: params => <SupervisorCell params={params} />,
+    renderCell: params => <SupervisorCell product={params.row.originalData} />,
     width: 200,
   },
   {
     field: 'buyer',
     headerName: textConsts.buyerField,
-    renderCell: params => <BuyerCell params={params} />,
+    renderCell: params => <BuyerCell product={params.row.originalData} />,
     width: 200,
   },
   {
     field: 'currentSupplier',
     headerName: textConsts.supplierField,
-    renderCell: params => <SupplierCell params={params} />,
+    renderCell: params => <SupplierCell product={params.row.originalData} />,
     width: 150,
   },
 

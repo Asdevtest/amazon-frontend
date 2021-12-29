@@ -31,7 +31,7 @@ export const adminTasksViewColumns = handlers => [
   },
 
   {
-    field: 'tmpOperationType',
+    field: 'operationType',
     headerName: textConsts.typeField,
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
@@ -40,7 +40,7 @@ export const adminTasksViewColumns = handlers => [
     field: 'description',
     headerName: textConsts.descriptionField,
     width: 400,
-    renderCell: params => <TaskDescriptionCell params={params} />,
+    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },
@@ -52,14 +52,14 @@ export const adminTasksViewColumns = handlers => [
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={textConsts.actionBtn}
-        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row)}
+        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
       />
     ),
     filterable: false,
     sortable: false,
   },
   {
-    field: 'tmpStatus',
+    field: 'status',
     headerName: textConsts.statusField,
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),

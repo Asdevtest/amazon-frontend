@@ -3,7 +3,6 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {RequestModel} from '@models/request-model'
-import {RequestProposalModel} from '@models/request-proposal'
 
 export class ClientRequestDetailCustomViewModel {
   history = undefined
@@ -54,7 +53,7 @@ export class ClientRequestDetailCustomViewModel {
 
   async getCustomRequestProposalsByRequestId() {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.request.request._id)
+      const result = await RequestModel.getRequestProposalsCustomByRequestId(this.request.request._id)
 
       runInAction(() => {
         this.requestProposals = result

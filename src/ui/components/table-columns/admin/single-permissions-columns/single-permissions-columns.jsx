@@ -38,7 +38,7 @@ export const adminSinglePermissionsColumns = handlers => [
   },
 
   {
-    field: 'tmpRole',
+    field: 'role',
     headerName: 'Роль',
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
@@ -62,7 +62,7 @@ export const adminSinglePermissionsColumns = handlers => [
     field: 'action',
     headerName: textConsts.actionField,
     width: 250,
-    renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
+    renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },

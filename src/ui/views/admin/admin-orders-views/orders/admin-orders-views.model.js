@@ -3,14 +3,14 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables-keys'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByCode, OrderStatusByKey} from '@constants/order-status'
-import {warehouses} from '@constants/warehouses'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {adminOrdersViewColumns} from '@components/table-columns/admin/orders-columns'
 
+import {adminOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -87,7 +87,7 @@ export class AdminOrdersAllViewModel {
   }
 
   onClickTableRow(order) {
-    this.history.push('/admin/orders/order', {order: toJS(order)})
+    this.history.push('/admin/orders/order', {order: toJS(order.originalData)})
   }
 
   onChangeSubCategory(value) {
@@ -106,17 +106,7 @@ export class AdminOrdersAllViewModel {
       this.error = undefined
       const result = await AdministratorModel.getOrdersByStatus(ordersStatusBySubCategory[activeSubCategory])
 
-      const ordersData = result.map(item => ({
-        ...item,
-        tmpBarCode: item.product.barCode,
-        tmpTotalPrice:
-          ((parseFloat(item.product.currentSupplier?.price) || 0) +
-            (parseFloat(item.product.currentSupplier?.delivery) || 0)) *
-          (parseInt(item.amount) || 0),
-        tmpGrossWeightKg: item.product.weight * item.amount,
-        tmpWarehouses: warehouses[item.warehouse],
-        tmpStatus: OrderStatusByCode[item.status],
-      }))
+      const ordersData = adminOrdersDataConverter(result)
 
       runInAction(() => {
         this.currentOrdersData = ordersData.sort(sortObjectsArrayByFiledDate('updatedAt'))

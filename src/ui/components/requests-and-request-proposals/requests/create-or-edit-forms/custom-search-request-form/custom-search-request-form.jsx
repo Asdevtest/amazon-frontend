@@ -39,8 +39,6 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
 
-  console.log('formFields', formFields)
-
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
     if (['maxAmountOfProposals'].includes(fieldName)) {
@@ -59,7 +57,14 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
     setFormFields(newFormFields)
   }
 
-  const isOneOfFieldIsEmpty = formFields.name === '' || formFields.conditions === ''
+  const isOneOfFieldIsEmpty =
+    formFields.details.name === '' ||
+    formFields.details.conditions === '' ||
+    formFields.request.maxAmountOfProposals === '' ||
+    formFields.request.price === '' ||
+    formFields.request.timeoutAt === '' ||
+    formFields.request.roles.length < 1
+
   const isDeadlineError = formFields.request.timeoutAt < new Date()
 
   const disableSubmitBtn = JSON.stringify(sourceFormFields) === JSON.stringify(formFields) || isOneOfFieldIsEmpty
@@ -119,10 +124,14 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
 
         <Field
           multiline
-          className={classNames.nameField}
           label={textConsts.requestName}
-          value={formFields.details.name}
-          onChange={onChangeField('details')('name')}
+          inputComponent={
+            <TextareaAutosize
+              className={classNames.nameField}
+              value={formFields.details.name}
+              onChange={onChangeField('details')('name')}
+            />
+          }
         />
 
         <Field

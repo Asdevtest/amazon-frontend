@@ -2,16 +2,15 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatusByCode} from '@constants/product-status'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
 import {SettingsModel} from '@models/settings-model'
 import {SupervisorModel} from '@models/supervisor-model'
 
 import {supervisorProductsViewColumns} from '@components/table-columns/supervisor/supervisor-products-columns'
 
+import {supervisorProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class SupervisorProductsViewModel {
   history = undefined
@@ -106,13 +105,7 @@ export class SupervisorProductsViewModel {
       const result = await SupervisorModel.getProductsMy()
 
       runInAction(() => {
-        this.productsMy = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
-          ...item,
-          tmpStatus: ProductStatusByCode[item.status],
-          tmpResearcherName: item.createdBy?.name || '',
-          tmpBuyerName: item.buyer?.name || '',
-          tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
-        }))
+        this.productsMy = supervisorProductsDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
       })
     } catch (error) {
       console.log(error)
@@ -123,14 +116,7 @@ export class SupervisorProductsViewModel {
   }
 
   onClickTableRow(item) {
-    const requestItem = getObjectFilteredByKeyArrayBlackList(
-      {
-        ...item,
-      },
-      ['tmpStatus', 'tmpResearcherName', 'tmpBuyerName', 'tmpStrategyStatus'],
-    )
-
-    this.history.push('/supervisor/product', {product: toJS(requestItem)})
+    this.history.push('/supervisor/product', {product: toJS(item.originalData)})
   }
 
   onTriggerDrawerOpen() {

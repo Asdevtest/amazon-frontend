@@ -8,6 +8,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {clientLast30DaySellerBoardColumns} from '@components/table-columns/client/client-last-30-day-seller-board-columns copy'
 
+import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class ClientLast30DaySellerBoardViewModel {
@@ -105,10 +106,7 @@ export class ClientLast30DaySellerBoardViewModel {
       const result = await SellerBoardModel.getMyDailyReportsLast30Days()
 
       runInAction(() => {
-        this.sellerBoardLast30DayData = result.map((item, i) => ({
-          ...item,
-          id: i,
-        }))
+        this.sellerBoardLast30DayData = addIdDataConverter(result)
       })
     } catch (error) {
       console.log(error)

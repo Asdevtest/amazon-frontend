@@ -15,7 +15,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {onStateChangeHandler} from '@utils/for-data-grid'
+import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/adminAvatar.jpg'
@@ -52,7 +52,6 @@ export class AdminWarehouseBoxesViewRaw extends Component {
       onChangeCurPage,
       onChangeRowsPerPage,
 
-      onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
@@ -95,9 +94,6 @@ export class AdminWarehouseBoxesViewRaw extends Component {
                 loading={requestStatus === loadingStatuses.isLoading}
                 components={{
                   Toolbar: GridToolbar,
-                }}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection)
                 }}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}

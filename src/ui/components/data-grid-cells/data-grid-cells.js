@@ -5,7 +5,6 @@ import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
 import {TaskOperationType} from '@constants/task-operation-type'
-import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 import {texts} from '@constants/texts'
 
 import {ErrorButton} from '@components/buttons/error-button/error-button'
@@ -25,46 +24,46 @@ import {styles} from './data-grid-cells.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').dataGridCells
 
-export const AsinCell = withStyles(styles)(({classes: classNames, params}) => (
+export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
   <div className={classNames.asinCell}>
     <div className={classNames.asinCellContainer}>
       <img
         alt="placeholder"
         className={classNames.img}
-        src={params.row.images && params.row.images[0] && getAmazonImageUrl(params.row.images[0])}
+        src={product.images && product.images[0] && getAmazonImageUrl(product.images[0])}
       />
 
       <div>
-        <Typography className={classNames.csCodeTypo}>{params.row.amazonTitle}</Typography>
+        <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
         <Typography className={classNames.typoCell}>
           {textConsts.asinTypo}
-          <span className={classNames.typoSpan}>{params.row.id}</span>
-          {` | ${formatDateDistanceFromNow(params.row.createdAt)}`}
+          <span className={classNames.typoSpan}>{product.id}</span>
+          {` | ${formatDateDistanceFromNow(product.createdAt)}`}
         </Typography>
-        <Typography className={classNames.csCodeTypo}>{params.row.category}</Typography>
+        <Typography className={classNames.csCodeTypo}>{product.category}</Typography>
       </div>
     </div>
   </div>
 ))
 
 export const FeesValuesWithCalculateBtnCell = withStyles(styles)(
-  ({classes: classNames, params, noCalculate, onClickCalculate}) => (
+  ({classes: classNames, product, noCalculate, onClickCalculate}) => (
     <div className={classNames.feesTableCell}>
       <div className={classNames.feesTableWrapper}>
         <Typography className={classNames.typoCell}>
           {textConsts.feesTypo}
-          <span className={classNames.typoSpan}>{toFixedWithDollarSign(params.row.fbafee, 2)}</span>
+          <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.fbafee, 2)}</span>
         </Typography>
         <Typography className={classNames.typoCell}>
           {textConsts.netTypo}
-          <span className={classNames.typoSpan}>{toFixedWithDollarSign(params.row.reffee, 2)}</span>
+          <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.reffee, 2)}</span>
         </Typography>
         {!noCalculate && (
           <Button
             disableElevation
             className={classNames.cellBtn}
             startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
-            onClick={() => onClickCalculate(params.row)}
+            onClick={() => onClickCalculate(product)}
           >
             {textConsts.calculateBtn}
           </Button>
@@ -74,65 +73,65 @@ export const FeesValuesWithCalculateBtnCell = withStyles(styles)(
   ),
 )
 
-export const SupplierCell = withStyles(styles)(({classes: classNames, params}) => (
+export const SupplierCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
     <Typography className={classNames.researcherCell}>
-      {!params.row.currentSupplier ? 'N/A' : params.row.currentSupplier.name}
+      {!product.currentSupplier ? 'N/A' : product.currentSupplier.name}
     </Typography>
 
     <Typography className={classNames.noActiveLink}>{`link: ${
-      !params.row.currentSupplier ? 'N/A' : params.row.currentSupplier.link
+      !product.currentSupplier ? 'N/A' : product.currentSupplier.link
     }`}</Typography>
   </div>
 ))
 
-export const SupervisorCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
-  <div>
-    <Typography className={classNames.researcherCell}>{!params.value ? 'N/A' : params.value.name}</Typography>
-    {!onlyName && (
-      <Typography className={classNames.researcherCell}>{`rate: ${
-        !params.value ? 'N/A' : params.value.rate
-      }`}</Typography>
-    )}
-  </div>
-))
-
-export const ResearcherCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
+export const SupervisorCell = withStyles(styles)(({classes: classNames, product, onlyName}) => (
   <div>
     <Typography className={classNames.researcherCell}>
-      {!params.row.createdBy ? 'N/A' : params.row.createdBy.name}
+      {!product.supervisor ? 'N/A' : product.supervisor.name}
     </Typography>
     {!onlyName && (
       <Typography className={classNames.researcherCell}>{`rate: ${
-        !params.row.createdBy ? 'N/A' : params.row.createdBy.rate
+        !product.supervisor ? 'N/A' : product.supervisor.rate
       }`}</Typography>
     )}
   </div>
 ))
 
-export const ClientCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
+export const ResearcherCell = withStyles(styles)(({classes: classNames, product, onlyName}) => (
   <div>
-    <Typography className={classNames.researcherCell}>{!params.row.client ? 'N/A' : params.row.client.name}</Typography>
+    <Typography className={classNames.researcherCell}>{!product.createdBy ? 'N/A' : product.createdBy.name}</Typography>
     {!onlyName && (
       <Typography className={classNames.researcherCell}>{`rate: ${
-        !params.row.client ? 'N/A' : params.row.client.rate
+        !product.createdBy ? 'N/A' : product.createdBy.rate
       }`}</Typography>
     )}
   </div>
 ))
 
-export const BuyerCell = withStyles(styles)(({classes: classNames, params, onlyName}) => (
+export const ClientCell = withStyles(styles)(({classes: classNames, product, onlyName}) => (
   <div>
-    <Typography className={classNames.researcherCell}>{!params.row.buyer ? 'N/A' : params.row.buyer.name}</Typography>
+    <Typography className={classNames.researcherCell}>{!product.client ? 'N/A' : product.client.name}</Typography>
     {!onlyName && (
       <Typography className={classNames.researcherCell}>{`rate: ${
-        !params.row.buyer ? 'N/A' : params.row.buyer.rate
+        !product.client ? 'N/A' : product.client.rate
       }`}</Typography>
     )}
   </div>
 ))
 
-export const BarcodeCell = withStyles(styles)(({classes: classNames, params, handlers}) => (
+export const BuyerCell = withStyles(styles)(({classes: classNames, product, onlyName}) => (
+  <div>
+    <Typography className={classNames.researcherCell}>{!product.buyer ? 'N/A' : product.buyer.name}</Typography>
+    {!onlyName && (
+      <Typography className={classNames.researcherCell}>{`rate: ${
+        !product.buyer ? 'N/A' : product.buyer.rate
+      }`}</Typography>
+    )}
+  </div>
+))
+
+export const BarcodeCell = withStyles(styles)(({classes: classNames, product, handlers}) => (
   <React.Fragment>
     <Chip
       classes={{
@@ -141,12 +140,12 @@ export const BarcodeCell = withStyles(styles)(({classes: classNames, params, han
         deletable: classNames.barcodeChipHover,
         deleteIcon: classNames.barcodeChipIcon,
       }}
-      className={clsx({[classNames.barcodeChipExists]: params.row.barCode})}
+      className={clsx({[classNames.barcodeChipExists]: product.barCode})}
       size="small"
-      label={params.row.barCode ? trimBarcode(params.row.barCode) : textConsts.setBarcodeChipLabel}
-      onClick={() => handlers.onClickBarcode(params.row)}
-      onDoubleClick={() => handlers.onDoubleClickBarcode(params.row)}
-      onDelete={!params.row.barCode ? undefined : () => handlers.onDeleteBarcode(params.row)}
+      label={product.barCode ? trimBarcode(product.barCode) : textConsts.setBarcodeChipLabel}
+      onClick={() => handlers.onClickBarcode(product)}
+      onDoubleClick={() => handlers.onDoubleClickBarcode(product)}
+      onDelete={!product.barCode ? undefined : () => handlers.onDeleteBarcode(product)}
     />
   </React.Fragment>
 ))
@@ -183,7 +182,7 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
 
 export const renderFieldValueCell = value => (!value && value !== 0 ? 'N/A' : value)
 
-export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, params, hideImage}) => {
+export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, task, hideImage}) => {
   const renderProductImage = (box, key) => {
     if (hideImage) {
       return
@@ -210,11 +209,11 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, par
   const renderBlockProductsImages = (
     <div className={classNames.blockProductsImagesWrapper}>
       <>
-        {params.row.boxesBefore && params.row.boxesBefore.map((box, index) => renderProductImage(box, index))}
+        {task.boxesBefore && task.boxesBefore.map((box, index) => renderProductImage(box, index))}
         {!hideImage && <Typography>{'=>'}</Typography>}
       </>
 
-      {params.row.boxes.map((box, index) => renderProductImage(box, index))}
+      {task.boxes.map((box, index) => renderProductImage(box, index))}
     </div>
   )
 
@@ -237,7 +236,7 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, par
       <div className={classNames.taskTableCell}>
         <Typography className={classNames.descriptionWrapper}>{textConsts.receive}</Typography>
 
-        {params.row.boxesBefore && params.row.boxesBefore.map((box, index) => renderProductImage(box, index))}
+        {task.boxesBefore && task.boxesBefore.map((box, index) => renderProductImage(box, index))}
       </div>
     </div>
   )
@@ -247,7 +246,7 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, par
       <div className={classNames.taskTableCell}>
         <Typography className={classNames.descriptionWrapper}>{textConsts.edit}</Typography>
 
-        {params.row.boxesBefore && params.row.boxesBefore.map((box, index) => renderProductImage(box, index))}
+        {task.boxesBefore && task.boxesBefore.map((box, index) => renderProductImage(box, index))}
       </div>
     </div>
   )
@@ -266,16 +265,8 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, par
     }
   }
 
-  return (
-    <div className={classNames.taskDescriptionScrollWrapper}>{renderTaskDescription(params.row.operationType)}</div>
-  )
+  return <div className={classNames.taskDescriptionScrollWrapper}>{renderTaskDescription(task.operationType)}</div>
 })
-
-export const TaskStatusCell = withStyles(styles)(({params}) => (
-  <React.Fragment>
-    <Typography>{mapTaskStatusKeyToEnum[params.row.status]}</Typography>
-  </React.Fragment>
-))
 
 export const IdCell = withStyles(styles)(({id}) => (
   <React.Fragment>
@@ -329,7 +320,7 @@ export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames
       <ErrorButton
         className={classNames.rowCancelBtn}
         onClick={() => {
-          handlers.onClickCancelTask(row.boxes[0]._id, row.id, row.operationType)
+          handlers.onClickCancelTask(row.boxes[0]._id, row._id, row.operationType)
         }}
       >
         {textConsts.cancelBtn}
@@ -432,18 +423,19 @@ export const ScrollingCell = withStyles(styles)(({classes: classNames, value}) =
 ))
 
 export const EditOrRemoveBtnsCell = withStyles(styles)(
-  ({classes: classNames, row, handlers, isSubUsersTable, disableEditBtn}) => (
+  ({classes: classNames, row, handlers, isSubUsersTable, disableActionBtn}) => (
     <div>
       <Button
         variant="contained"
         color="primary"
-        disabled={disableEditBtn}
+        disabled={disableActionBtn}
         onClick={() => handlers.onClickEditBtn(row)}
       >
         {isSubUsersTable ? textConsts.addPermissionsBtn : textConsts.editBtn}
       </Button>
 
       <ErrorButton
+        disabled={disableActionBtn}
         className={classNames.rowCancelBtn}
         onClick={() => {
           handlers.onClickRemoveBtn(row)

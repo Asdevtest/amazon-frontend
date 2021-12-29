@@ -68,6 +68,11 @@ class RequestModelStatic {
     return response
   }
 
+  getRequestProposalsCustomByRequestId = async requestId => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidProposalsGet(requestId)
+    return response
+  }
+
   pickupRequestById = async id => {
     const response = await restApiService.SearchRequestApi.apiV1RequestsGuidPickupPost(id, {body: {}})
     return response

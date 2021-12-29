@@ -2,6 +2,8 @@ import {Typography} from '@mui/material'
 
 import {observer} from 'mobx-react'
 
+import {Button} from '@components/buttons/button'
+
 import {formatDateTime} from '@utils/date-time'
 
 import {useClassNames} from './request-proposals-details-custom-item.style'
@@ -25,6 +27,10 @@ export const RequestProposalsDetailsCustomItem = observer(({requestProposal}) =>
       <div className={classNames.commentWrapper}>
         <Typography className={classNames.text}>{comment}</Typography>
       </div>
+
+      <Button disabled variant="contained" color="primary" className={classNames.button}>
+        {'Открыть'}
+      </Button>
     </div>
   )
 })

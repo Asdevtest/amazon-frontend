@@ -4,6 +4,7 @@ import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -14,6 +15,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {GeneralRequestInfo} from '@components/requests-and-request-proposals/general-request-info'
 import {RequestProposalCustomForm} from '@components/requests-and-request-proposals/request-proposals/forms/request-proposal-custom-from'
+import {RequestProposalsDetailsCustom} from '@components/requests-and-request-proposals/request-proposals/request-proposals-details/request-proposals-details-custom'
 import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -23,6 +25,9 @@ import {ResearcherRequestDetailCustomViewModel} from './researcher-requests-deta
 import {styles} from './researcher-requests-detail-custom-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').CustomRequestView
+
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_REQUESTS
+const navbarActiveSubCategory = 2
 
 @observer
 export class ResearcherRequestDetailCustomViewRaw extends Component {
@@ -40,7 +45,7 @@ export class ResearcherRequestDetailCustomViewRaw extends Component {
     const {
       drawerOpen,
       request,
-      requestProposal,
+      requestProposals,
       showWarningModal,
       warningInfoModalSettings,
       onTriggerDrawerOpen,
@@ -53,6 +58,8 @@ export class ResearcherRequestDetailCustomViewRaw extends Component {
         <Navbar
           curUserRole={UserRole.RESEARCHER}
           drawerOpen={drawerOpen}
+          activeCategory={navbarActiveCategory}
+          activeSubCategory={navbarActiveSubCategory}
           setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
@@ -69,12 +76,14 @@ export class ResearcherRequestDetailCustomViewRaw extends Component {
               <Typography variant="h5">{`Заявка # ${request.request._id}`}</Typography>
               <GeneralRequestInfo request={request.request} />
               <CustomSearchRequestDetails request={request.details} />
+
+              <div className={classNames.requestProposalsWrapper}>
+                <RequestProposalsDetailsCustom requestProposals={requestProposals} />
+              </div>
+
               <div className={classNames.proposalFormWrapper}>
-                <RequestProposalCustomForm
-                  isEdit={requestProposal}
-                  details={requestProposal?.details}
-                  onSubmit={onSubmitRequestProposalForm}
-                />
+                <Typography variant="h5">{'Добавить предложение'}</Typography>
+                <RequestProposalCustomForm onSubmit={onSubmitRequestProposalForm} />
               </div>
             </MainContent>
           </Appbar>

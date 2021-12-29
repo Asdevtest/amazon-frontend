@@ -29,7 +29,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'totalPriceChanged',
     headerName: textConsts.neededToPayExtraField,
     width: 250,
-    renderCell: params => renderFieldValueCell((params.row.totalPriceChanged - params.row.totalPrice).toFixed(2)),
+    renderCell: params => renderFieldValueCell((params.value - params.row.originalData.totalPrice).toFixed(2)),
   },
 
   {
@@ -43,23 +43,23 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'orders',
     headerName: textConsts.ordersField,
     width: 400,
-    renderCell: params => <OrderCell product={params.row.product} />,
+    renderCell: params => <OrderCell product={params.row.originalData.product} />,
     filterable: false,
     sortable: false,
   },
 
   {
-    field: 'tmpStatus',
+    field: 'status',
     headerName: textConsts.statusField,
     width: 150,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
-    field: 'tmpBarCode',
+    field: 'barCode',
     headerName: textConsts.barCodeField,
     width: 150,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.row.tmpBarCode} />,
+    renderCell: params => <NoActiveBarcodeCell barCode={params.value} />,
   },
 
   {
@@ -71,14 +71,14 @@ export const clientOrdersNotificationsViewColumns = handlers => [
   },
 
   {
-    field: 'tmpWarehouses',
+    field: 'warehouses',
     headerName: textConsts.warehouseField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
-    field: 'tmpTotalPrice',
+    field: 'totalPrice',
     headerName: textConsts.sumField,
     width: 160,
     type: 'number',
@@ -86,10 +86,10 @@ export const clientOrdersNotificationsViewColumns = handlers => [
   },
 
   {
-    field: 'tmpGrossWeightKg',
+    field: 'grossWeightKg',
     headerName: textConsts.grossWeightField,
     width: 160,
-    renderCell: params => <ToFixedWithKgSignCell value={params.row.tmpGrossWeightKg} fix={2} />,
+    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
   },
   {
     field: 'trackingNumberChina',
@@ -101,7 +101,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'action',
     headerName: textConsts.actionField,
     width: 250,
-    renderCell: params => <ClientOrdersNotificationsBtnsCell handlers={handlers} row={params.row} />,
+    renderCell: params => <ClientOrdersNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },

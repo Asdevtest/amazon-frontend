@@ -31,7 +31,7 @@ import {styles} from './client-requests-detail-custom-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').CustomRequestView
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_REQUESTS
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = 2
 @observer
 export class ClientRequestDetailCustomViewRaw extends Component {
@@ -109,13 +109,18 @@ export class ClientRequestDetailCustomViewRaw extends Component {
                       <Button
                         variant="contained"
                         color="primary"
+                        disabled={request.request.status !== RequestStatus.CREATED}
                         className={classNames.button}
                         onClick={() => onTriggerOpenModal('showRequestForm')}
                       >
                         {textConsts.editBtn}
                       </Button>
 
-                      <ErrorButton className={classNames.button} onClick={() => onTriggerOpenModal('showConfirmModal')}>
+                      <ErrorButton
+                        disabled={request.request.status !== RequestStatus.CREATED}
+                        className={classNames.button}
+                        onClick={() => onTriggerOpenModal('showConfirmModal')}
+                      >
                         {textConsts.removeBtn}
                       </ErrorButton>
                     </>

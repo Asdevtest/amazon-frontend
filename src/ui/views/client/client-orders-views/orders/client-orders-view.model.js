@@ -2,14 +2,13 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatusByCode} from '@constants/order-status'
-import {warehouses} from '@constants/warehouses'
 
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {clientOrdersViewColumns} from '@components/table-columns/client/client-orders-columns'
 
+import {clientOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -106,17 +105,7 @@ export class ClientOrdersViewModel {
       const result = await ClientModel.getOrders()
 
       runInAction(() => {
-        this.orders = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
-          ...item,
-          tmpBarCode: item.product.barCode,
-          tmpTotalPrice:
-            ((parseFloat(item.product.currentSupplier?.price) || 0) +
-              (parseFloat(item.product.currentSupplier?.delivery) || 0)) *
-            (parseInt(item.amount) || 0),
-          tmpGrossWeightKg: item.product.weight * item.amount,
-          tmpWarehouses: warehouses[item.warehouse],
-          tmpStatus: OrderStatusByCode[item.status],
-        }))
+        this.orders = clientOrdersDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
       })
     } catch (error) {
       console.log(error)
@@ -127,7 +116,7 @@ export class ClientOrdersViewModel {
   }
 
   onClickTableRow(order) {
-    this.history.push('/client/orders/order', {order: toJS(order)})
+    this.history.push('/client/orders/order', {order: toJS(order.originalData)})
   }
 
   onTriggerDrawerOpen() {

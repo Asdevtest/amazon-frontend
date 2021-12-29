@@ -4,7 +4,6 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {TaskOperationType} from '@constants/task-operation-type'
-import {warehouses} from '@constants/warehouses'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
@@ -13,6 +12,7 @@ import {UserModel} from '@models/user-model'
 
 import {clientBoxesViewColumns} from '@components/table-columns/client/client-boxes-columns'
 
+import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -385,22 +385,7 @@ export class ClientWarehouseViewModel {
       const result = await BoxesModel.getBoxesForCurClient()
 
       runInAction(() => {
-        this.boxesMy = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
-          ...item,
-          id: item._id,
-          tmpBarCode: item.items[0].product.barCode,
-          tmpAsin: item.items[0].product.id,
-          tmpQty: item.items[0].amount,
-          tmpMaterial: item.items[0].product.material,
-          tmpAmazonPrice: item.items[0].product.amazon,
-          tmpTrackingNumberChina: item.items[0].order.trackingNumberChina,
-          tmpFinalWeight: Math.max(
-            parseFloat(item.volumeWeightKgWarehouse ? item.volumeWeightKgWarehouse : item.volumeWeightKgSupplier) || 0,
-            parseFloat(item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier) || 0,
-          ),
-          tmpGrossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
-          tmpWarehouses: warehouses[item.warehouse],
-        }))
+        this.boxesMy = clientWarehouseDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
       })
     } catch (error) {
       console.log(error)

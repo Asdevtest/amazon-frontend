@@ -8,6 +8,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {clientDailySellerBoardColumns} from '@components/table-columns/client/client-daily-seller-board-columns'
 
+import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class ClientDailySellerBoardViewModel {
@@ -122,10 +123,7 @@ export class ClientDailySellerBoardViewModel {
       const result = await SellerBoardModel.getMyDailyReports()
 
       runInAction(() => {
-        this.sellerBoardDailyData = result.map((item, i) => ({
-          ...item,
-          id: i,
-        }))
+        this.sellerBoardDailyData = addIdDataConverter(result)
       })
     } catch (error) {
       console.log(error)

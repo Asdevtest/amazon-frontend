@@ -11,6 +11,7 @@ import {UserModel} from '@models/user-model'
 
 import {subUsersColumns} from '@components/table-columns/sub-users-columns/sub-users-columns'
 
+import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -33,7 +34,7 @@ export class ClientSubUsersViewModel {
 
   selectionModel = undefined
 
-  activeSubCategory = 1
+  activeSubCategory = 0
   drawerOpen = false
 
   rowHandlers = {
@@ -143,7 +144,7 @@ export class ClientSubUsersViewModel {
     try {
       const result = await UserModel.getMySubUsers()
       runInAction(() => {
-        this.subUsersData = result.map(el => ({...el, id: el._id}))
+        this.subUsersData = addIdDataConverter(result)
       })
     } catch (error) {
       console.log(error)

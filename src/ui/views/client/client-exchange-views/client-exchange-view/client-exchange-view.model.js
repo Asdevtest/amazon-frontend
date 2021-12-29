@@ -2,7 +2,6 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
@@ -10,7 +9,7 @@ import {UserModel} from '@models/user-model'
 
 import {clientExchangeViewColumns} from '@components/table-columns/client/client-exchange-columns'
 
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {clientProductsDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const fieldsOfProductAllowedToUpdate = ['barCode']
@@ -147,12 +146,7 @@ export class ClientExchangeViewModel {
     try {
       const result = await ClientModel.getProductsVacant()
       runInAction(() => {
-        this.productsVacant = result.sort(sortObjectsArrayByFiledDate('checkedAt')).map(item => ({
-          ...item,
-          tmpResearcherName: item.createdBy?.name,
-          tmpBuyerName: item.buyer?.name,
-          tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
-        }))
+        this.productsVacant = clientProductsDataConverter(result)
       })
     } catch (error) {
       console.log(error)

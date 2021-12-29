@@ -10,14 +10,18 @@ export const useClassNames = makeStyles(theme => ({
   infoWrapper: {
     flex: 2,
     display: 'flex',
+    minWidth: '130px',
   },
   resultWrapper: {
     flex: 5,
     display: 'flex',
+    minWidth: '250px',
   },
   commentWrapper: {
     flex: 3,
     display: 'flex',
+    minWidth: '350px',
+    overflow: 'hidden',
   },
   text: {
     color: theme.palette.text.primary,

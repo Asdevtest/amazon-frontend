@@ -953,6 +953,21 @@ export const texts = {
       errorTitle: 'Ошибка!',
     },
 
+    freelancerProductsRequestsView: {
+      appBarTitle: 'Requests',
+      mainTitle: 'Мои товары',
+      cardMainTitle: 'Проверка товара на наличие в базе',
+
+      confirmTitle: 'Вы готовы начать работу по формированию предложения?',
+      confirmMessage: `На обработку заявки потребуется N часов. При 
+        невыполнении заявки в установленное время, будет произведена автоотмена задачи и 
+        назначен штраф в сумме N $`,
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      okBtn: 'Ок',
+      errorTitle: 'Ошибка!',
+    },
+
     researcherSettingsView: {
       appBarTitle: 'Settings',
       appBarUsername: 'Researcher',
@@ -1522,6 +1537,54 @@ export const texts = {
       createBtn: 'Создать заявку',
       cancelBtn: 'Отмена',
     },
+
+    freelancerExchangeRequestsView: {
+      appbarTitle: 'Exchange - Requests',
+      mainTitle: 'My requests on exchange',
+      newRequest: 'New request',
+      myRequests: 'Мои заявки',
+      placeOrderBtn: 'Разместить заявку',
+
+      modalNewRequestTitle: 'New request',
+      modalEditRequestTitle: 'Edit request',
+      modalCloseRequestTitle: 'Close request',
+
+      modalBtnSendRequest: 'Send request',
+      modalBtnSaveRequest: 'Save request',
+      modalBtnCloseRequest: 'Send',
+
+      formStrategyLabel: 'Strategy',
+      formMonthlySalesLabel: 'Monthly sales',
+      formBudgetLabel: 'Budget',
+      formAmazonPriceLabel: 'Amazon price',
+      formAvgBSRLabel: 'Average BSR',
+      formAvgReviewsLabel: 'Average Reviews',
+      formAvgRevenueLabel: 'Average Revenue',
+      formNotesLabel: 'Notes',
+      formCheckboxForbidLabel: 'Запрещать добавлять товары которые когда либо были проданы на площадке',
+      formCheckboxNoPayLabel: 'Не оплачиваю повторно купленные товары',
+      formDeadlineLabel: 'Target date',
+      formCheckboxNoCheckLabel: 'Сотрудники платформы не будут участвовать в проверке качества найденого товара',
+
+      formCloseReasonLabel: 'Describe the reason for closing request',
+
+      selectOptionFlipping: 'Flipping',
+      selectOptionDropshipping: 'Dropshipping',
+      selectOptionOnlineArbitrage: 'OnlineArbitrage',
+      selectOptionPrivateLabel: 'PrivateLabel',
+
+      countOfProposals: 'Count of proposals *',
+      countOfOneProposals: 'Cost of one proposal *',
+      minProductInProposals: 'Count of min product in proposals *',
+      minKeywords: 'Count of min key words in proposals *',
+      size: 'Size tier *',
+      searchVolume: 'Search volume *',
+
+      editBtn: 'Изменить',
+      createBtn: 'Создать заявку',
+      cancelBtn: 'Отмена',
+    },
+
     clientComponent: {
       mainPage: 'Клиент - Главная страница',
       nextPages: 'Возможно перейти на следующие страницы:',
@@ -2125,7 +2188,8 @@ export const texts = {
     },
 
     adminBoxesTableColumns: {
-      createdAtField: 'Дата создания',
+      createdAtField: 'Создания',
+      updatedAtField: 'Обновление',
       ordersField: 'Продукт',
       ordersId: 'id Заказа',
       barCode: 'Баркод',
@@ -2134,7 +2198,7 @@ export const texts = {
       materialField: 'Материал',
       warehouseField: 'Склад',
       boxIdField: 'id Коробки',
-      priceField: 'Цена',
+      priceField: 'Общая цена',
       trackIdField: 'Трек id',
       weightField: 'Финальный Вес',
       grossWeightField: 'Общий вес',
@@ -2165,7 +2229,7 @@ export const texts = {
       materialField: 'Материал',
       warehouseField: 'Склад',
       boxIdField: 'id Коробки',
-      priceField: 'Цена',
+      priceField: 'Общая цена',
       trackIdField: 'Трек id',
       weightField: 'Финальный Вес',
       grossWeightField: 'Общий вес',

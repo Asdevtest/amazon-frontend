@@ -52,13 +52,13 @@ export const RequestToSendBatchForm = observer(
     const boxesGroupedByWarehouseAndDeliveryMethod = boxesWithPriceRequest
       .reduce((acc, cur) => {
         const findGroupIndex = acc.findIndex(
-          group => group.tmpWarehouses === cur.tmpWarehouses && group.deliveryMethod === cur.deliveryMethod,
+          group => group.warehouse === cur.warehouse && group.deliveryMethod === cur.deliveryMethod,
         )
         if (findGroupIndex !== -1) {
           acc[findGroupIndex].boxes.push(cur)
         } else {
           acc.push({
-            tmpWarehouses: cur.tmpWarehouses,
+            warehouse: cur.warehouse,
             deliveryMethod: cur.deliveryMethod,
             boxes: [cur],
           })
@@ -66,7 +66,7 @@ export const RequestToSendBatchForm = observer(
         return acc
       }, [])
       .concat(boxesWithoutPrice)
-
+      .filter(obj => obj.boxes.length !== 0)
     return (
       <div className={classNames.content}>
         <Typography className={classNames.modalTitle} variant="h4">
@@ -90,7 +90,13 @@ export const RequestToSendBatchForm = observer(
           </Typography>
         </div>
         <div className={classNames.btnsWrapper}>
-          <Button disableElevation color="primary" variant="contained" onClick={onClickSendBoxesToBatch}>
+          <Button
+            disableElevation
+            disabled={boxesWithPriceRequest.length < 1}
+            color="primary"
+            variant="contained"
+            onClick={onClickSendBoxesToBatch}
+          >
             {textConsts.btnSend}
           </Button>
           <ErrorButton

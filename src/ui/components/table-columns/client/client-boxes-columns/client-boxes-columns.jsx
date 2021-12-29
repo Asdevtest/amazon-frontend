@@ -20,7 +20,7 @@ export const clientBoxesViewColumns = () => [
   {
     field: 'isDraft',
     headerName: '',
-    renderCell: params => (params.row.isDraft ? 'isDraft' : 'OK'),
+    renderCell: params => (params.value ? 'isDraft' : 'OK'),
     width: 60,
     type: 'boolean',
   },
@@ -45,10 +45,13 @@ export const clientBoxesViewColumns = () => [
     headerName: textConsts.ordersField,
     width: 350,
     renderCell: params =>
-      params.row.items.length > 1 ? (
-        <OrderManyItemsCell box={params.row} />
+      params.row.originalData.items.length > 1 ? (
+        <OrderManyItemsCell box={params.row.originalData} />
       ) : (
-        <OrderCell product={params.row.items[0].product} superbox={params.row.amount > 1 && params.row.amount} />
+        <OrderCell
+          product={params.row.originalData.items[0].product}
+          superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
+        />
       ),
     filterable: false,
     sortable: false,
@@ -62,20 +65,11 @@ export const clientBoxesViewColumns = () => [
   },
 
   {
-    field: 'tmpAsin',
-    headerName: textConsts.asinField,
-    renderCell: params => renderFieldValueCell(params.value),
-    width: 150,
-  },
-
-  {
-    field: 'tmpQty',
+    field: 'qty',
     headerName: textConsts.qtyField,
     renderCell: params =>
-      params.row.amount > 1 ? (
-        <SuperboxQtyCell qty={params.row.tmpQty} superbox={params.row.amount} />
-      ) : params.row.items.length > 1 ? (
-        params.row.items.reduce((acc, cur) => (acc += cur.amount), 0)
+      params.row.originalData.amount > 1 ? (
+        <SuperboxQtyCell qty={params.row.qty} superbox={params.row.amount} />
       ) : (
         renderFieldValueCell(params.value)
       ),
@@ -84,45 +78,38 @@ export const clientBoxesViewColumns = () => [
   },
 
   {
-    field: 'tmpMaterial',
-    headerName: textConsts.materialField,
-    renderCell: params => renderFieldValueCell(params.value),
-    width: 150,
-  },
-
-  {
-    field: 'tmpWarehouses',
+    field: 'warehouses',
     headerName: textConsts.warehouseField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
-    field: 'tmpAmazonPrice',
+    field: 'amazonPrice',
     headerName: textConsts.priceField,
-    renderCell: params => <ToFixedWithDollarSignCell value={params.row.tmpAmazonPrice} fix={2} />,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 200,
     type: 'number',
   },
 
   {
-    field: 'tmpFinalWeight',
+    field: 'finalWeight',
     headerName: textConsts.weightField,
-    renderCell: params => <ToFixedWithKgSignCell value={params.row.tmpFinalWeight} fix={2} />,
+    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 200,
   },
 
   {
-    field: 'tmpGrossWeight',
+    field: 'grossWeight',
     headerName: textConsts.grossWeightField,
-    renderCell: params => <ToFixedWithKgSignCell value={params.row.tmpGrossWeight} fix={2} />,
+    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 200,
   },
 
   {
-    field: 'tmpTrackingNumberChina',
+    field: 'trackingNumberChina',
     headerName: textConsts.trackIdField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,

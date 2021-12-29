@@ -23,7 +23,7 @@ export const buyerMyOrdersViewColumns = () => [
   },
 
   {
-    field: 'tmpStatus',
+    field: 'status',
     headerName: textConsts.statusField,
     width: 200,
     renderCell: params => renderFieldValueCell(params.value),
@@ -33,7 +33,7 @@ export const buyerMyOrdersViewColumns = () => [
     field: 'orders',
     headerName: textConsts.ordersField,
     width: 300,
-    renderCell: params => <OrderCell product={params.row.product} />,
+    renderCell: params => <OrderCell product={params.row.originalData.product} />,
     filterable: false,
     sortable: false,
   },
@@ -49,21 +49,21 @@ export const buyerMyOrdersViewColumns = () => [
   },
 
   {
-    field: 'tmpBarCode',
+    field: 'barCode',
     headerName: textConsts.barcodeField,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.row.tmpBarCode} />,
+    renderCell: params => <NoActiveBarcodeCell barCode={params.value} />,
     width: 200,
   },
 
   {
-    field: 'tmpWarehouses',
+    field: 'warehouses',
     headerName: textConsts.warehouseField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
-    field: 'tmpDeliveryMethod',
+    field: 'deliveryMethod',
     headerName: textConsts.deliveryField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,

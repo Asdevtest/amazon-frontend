@@ -38,36 +38,36 @@ export const adminOrdersViewColumns = () => [
     field: 'orders',
     headerName: textConsts.ordersField,
     width: 350,
-    renderCell: params => <OrderCell product={params.row.product} />,
+    renderCell: params => <OrderCell product={params.row.originalData.product} />,
     filterable: false,
     sortable: false,
   },
 
   {
-    field: 'tmpStatus',
+    field: 'status',
     headerName: textConsts.statusField,
     width: 150,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
-    field: 'tmpBarCode',
+    field: 'barCode',
     headerName: textConsts.barCodeField,
     width: 200,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.row.tmpBarCode} />,
+    renderCell: params => <NoActiveBarcodeCell barCode={params.value} />,
   },
 
   {field: 'amount', headerName: textConsts.amountField, type: 'number', width: 130},
 
   {
-    field: 'tmpWarehouses',
+    field: 'warehouses',
     headerName: textConsts.warehouseField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
-    field: 'tmpTotalPrice',
+    field: 'totalPrice',
     headerName: textConsts.sumField,
     width: 160,
     type: 'number',
@@ -75,10 +75,10 @@ export const adminOrdersViewColumns = () => [
   },
 
   {
-    field: 'tmpGrossWeightKg',
+    field: 'grossWeightKg',
     headerName: textConsts.grossWeightField,
     width: 160,
-    renderCell: params => <ToFixedWithKgSignCell value={params.row.tmpGrossWeightKg} fix={2} />,
+    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
   },
   {
     field: 'trackingNumberChina',

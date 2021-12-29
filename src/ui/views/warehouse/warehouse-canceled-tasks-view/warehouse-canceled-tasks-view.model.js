@@ -2,7 +2,6 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {SettingsModel} from '@models/settings-model'
@@ -10,6 +9,7 @@ import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {warehouseCanceledTasksViewColumns} from '@components/table-columns/warehouse/canceled-tasks-columns'
 
+import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -128,14 +128,9 @@ export class WarehouseCanceledTasksViewModel {
       })
 
       runInAction(() => {
-        this.tasksMy = result
-          .sort(sortObjectsArrayByFiledDate('updatedAt'))
-          .map(el => ({...el, beforeBoxes: el.boxesBefore}))
-          .map(order => ({
-            ...order,
-            id: order._id,
-            tmpOperationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[order.operationType]],
-          }))
+        this.tasksMy = warehouseTasksDataConverter(
+          result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
+        )
       })
     } catch (error) {
       console.log(error)

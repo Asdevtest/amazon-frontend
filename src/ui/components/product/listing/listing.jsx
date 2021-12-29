@@ -23,7 +23,7 @@ import {Button} from '../../buttons/button'
 import {ListingModel} from './listing.model'
 import {useClassNames} from './listing.style'
 
-export const Listing = observer(({product}) => {
+export const Listing = observer(({product, onClickBack}) => {
   const classNames = useClassNames()
   const history = useHistory()
   const listingModel = useRef(new ListingModel({history, product}))
@@ -279,7 +279,13 @@ export const Listing = observer(({product}) => {
         </div>
       ) : (
         <div className={classNames.buttonsWrapper}>
-          <Button disableElevation className={classNames.button} color="primary" variant="contained" onClick={onCancel}>
+          <Button
+            disableElevation
+            className={classNames.button}
+            color="primary"
+            variant="contained"
+            onClick={onClickBack ? onClickBack : onCancel}
+          >
             {'Назад'}
           </Button>
         </div>

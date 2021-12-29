@@ -83,11 +83,8 @@ export const navbarConfig = {
     {
       icon: PeopleIcon,
       title: 'Пользователи',
-      route: '/client/users/user-profile',
-      subtitles: [
-        {subtitle: 'Мой профиль', subRoute: '/client/users/user-profile'},
-        {subtitle: 'Мои пользователи', subRoute: '/client/users/sub-users'},
-      ],
+      route: '/client/users/sub-users',
+      subtitles: [{subtitle: 'Мои пользователи', subRoute: '/client/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: () => true,
     },
@@ -124,7 +121,6 @@ export const navbarConfig = {
       route: '/client/finances',
       subtitles: [
         {subtitle: 'Пополнения', subRoute: '/client/finances'},
-        // {subtitle: 'Начисления', subRoute: '/admin/finances'}, // пока можно убрать
         {subtitle: 'Списания', subRoute: '/client/finances'},
       ],
       key: navBarActiveCategory.NAVBAR_FINANCES,
@@ -202,7 +198,6 @@ export const navbarConfig = {
       route: '/researcher/finances',
       subtitles: [
         {subtitle: 'Пополнения', subRoute: '/researcher/finances'},
-        // {subtitle: 'Начисления', subRoute: '/admin/finances'}, // пока можно убрать
         {subtitle: 'Списания', subRoute: '/researcher/finances'},
       ],
       key: navBarActiveCategory.NAVBAR_FINANCES,
@@ -225,6 +220,7 @@ export const navbarConfig = {
       subtitles: [
         {subtitle: 'На поиск продукта', subRoute: '/freelancer/my-requests/products'},
         {subtitle: 'На поиск ниши', subRoute: '/freelancer/my-requests/niches'},
+        {subtitle: 'Универсальные', subRoute: '/freelancer/my-requests/custom'},
       ],
       key: navBarActiveCategory.NAVBAR_MY_REQUESTS,
       checkHideBlock: user => !isMasterUser(user),
@@ -236,9 +232,19 @@ export const navbarConfig = {
       subtitles: [
         {subtitle: 'На поиск продукта', subRoute: '/freelancer/requests/products'},
         {subtitle: 'На поиск ниши', subRoute: '/freelancer/requests/niches'},
+        {subtitle: 'Универсальные', subRoute: '/freelancer/requests/custom'},
       ],
       key: navBarActiveCategory.NAVBAR_VACANT_REQUESTS,
       checkHideBlock: () => true,
+    },
+
+    {
+      icon: Work,
+      title: 'Мои заявки',
+      route: '/freelancer/exchange/requests/custom',
+      subtitles: [{subtitle: 'Универсальные', subRoute: '/client/exchange/requests/custom'}],
+      key: navBarActiveCategory.NAVBAR_REQUESTS,
+      checkHideBlock: user => !isMasterUser(user),
     },
     {
       icon: MonetizationOnOutlinedIcon,
@@ -351,11 +357,8 @@ export const navbarConfig = {
     {
       icon: PeopleIcon,
       title: 'Пользователи',
-      route: '/buyer/users/user-profile',
-      subtitles: [
-        {subtitle: 'Мой профиль', subRoute: '/buyer/users/user-profile'},
-        {subtitle: 'Мои пользователи', subRoute: '/buyer/users/sub-users'},
-      ],
+      route: '/buyer/users/sub-users',
+      subtitles: [{subtitle: 'Мои пользователи', subRoute: '/buyer/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: () => true,
     },

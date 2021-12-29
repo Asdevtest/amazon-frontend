@@ -19,7 +19,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {CustomSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 
-import {onStateChangeHandler} from '@utils/for-data-grid'
+import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/clientAvatar.jpg'
@@ -28,7 +28,7 @@ import {styles} from './client-custom-requests-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientExchangeRequestsView
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_REQUESTS
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = 2
 
 @observer

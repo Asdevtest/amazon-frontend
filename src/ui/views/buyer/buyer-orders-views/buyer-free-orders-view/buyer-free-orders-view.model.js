@@ -1,15 +1,14 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {warehouses} from '@constants/warehouses'
 
 import {BuyerModel} from '@models/buyer-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {buyerFreeOrdersViewColumns} from '@components/table-columns/buyer/buyer-fre-orders-columns'
 
+import {buyerVacantOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -116,12 +115,7 @@ export class BuyerFreeOrdersViewModel {
     try {
       const result = await BuyerModel.getOrdersVacant()
       runInAction(() => {
-        this.ordersVacant = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(order => ({
-          ...order,
-          tmpBarCode: order.product.barCode,
-          tmpWarehouses: warehouses[order.warehouse],
-          tmpDeliveryMethod: DeliveryTypeByCode[order.deliveryMethod],
-        }))
+        this.ordersVacant = buyerVacantOrdersDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
       })
     } catch (error) {
       this.ordersVacant = []
@@ -135,7 +129,7 @@ export class BuyerFreeOrdersViewModel {
   async onClickTableRowBtn(order) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
-      await BuyerModel.pickupOrder(order._id)
+      await BuyerModel.pickupOrder(order.originalData._id)
       this.onTriggerOpenModal('showWarningModal')
       this.setActionStatus(loadingStatuses.success)
       this.loadData()

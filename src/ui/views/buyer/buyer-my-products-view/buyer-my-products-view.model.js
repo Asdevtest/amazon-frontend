@@ -2,8 +2,6 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatusByCode} from '@constants/product-status'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
 import {BuyerModel} from '@models/buyer-model'
 import {ResearcherModel} from '@models/researcher-model'
@@ -11,8 +9,9 @@ import {SettingsModel} from '@models/settings-model'
 
 import {buyerProductsViewColumns} from '@components/table-columns/buyer/buyer-products-columns'
 
+import {buyerProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class BuyerMyProductsViewModel {
   history = undefined
@@ -123,11 +122,7 @@ export class BuyerMyProductsViewModel {
       this.error = undefined
       const result = await BuyerModel.getProductsMy()
       runInAction(() => {
-        this.productsMy = result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(item => ({
-          ...item,
-          tmpStatus: ProductStatusByCode[item.status],
-          tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
-        }))
+        this.productsMy = buyerProductsDataConverter(result).sort(sortObjectsArrayByFiledDate('updatedAt'))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -140,14 +135,7 @@ export class BuyerMyProductsViewModel {
   }
 
   onClickTableRow(item) {
-    const requestItem = getObjectFilteredByKeyArrayBlackList(
-      {
-        ...item,
-      },
-      ['tmpStatus', 'tmpStrategyStatus'],
-    )
-
-    this.history.push('/buyer/product', {product: toJS(requestItem)})
+    this.history.push('/buyer/product', {product: toJS(item.originalData)})
   }
 
   onTriggerDrawerOpen() {

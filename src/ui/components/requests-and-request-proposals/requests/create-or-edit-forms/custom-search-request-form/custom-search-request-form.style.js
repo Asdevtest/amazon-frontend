@@ -6,7 +6,7 @@ export const useClassNames = makeStyles(() => ({
   },
   conditionsField: {
     width: '100%',
-    minHeight: '40vh',
+    minHeight: '300px',
     color: 'rgba(61, 81, 112, 1)',
     padding: '8px',
     fontSize: '16px',
@@ -21,6 +21,17 @@ export const useClassNames = makeStyles(() => ({
 
   nameField: {
     width: '100%',
+    minHeight: '60px',
+    color: 'rgba(61, 81, 112, 1)',
+    padding: '8px',
+    fontSize: '16px',
+    outline: 'none',
+    border: '1px solid rgba(217, 222, 229, 1)',
+    borderRadius: '10px',
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+    fontWeight: '400',
+    lineHeight: '1.5',
   },
 
   rangeField: {

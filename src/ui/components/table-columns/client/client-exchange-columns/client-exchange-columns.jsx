@@ -27,7 +27,7 @@ export const clientExchangeViewColumns = handlers => [
   },
 
   {
-    field: 'tmpStrategyStatus',
+    field: 'strategyStatus',
     headerName: textConsts.strategyStatusField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
@@ -43,7 +43,7 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'amazon',
     headerName: textConsts.priceField,
-    renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 130,
     type: 'number',
   },
@@ -51,7 +51,7 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'weight',
     headerName: textConsts.weightField,
-    renderCell: params => <ToFixedWithKgSignCell value={params.row.weight} fix={2} />,
+    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     width: 130,
     type: 'number',
   },
@@ -73,14 +73,14 @@ export const clientExchangeViewColumns = handlers => [
   },
 
   {
-    field: 'tmpResearcherName',
+    field: 'researcherName',
     headerName: textConsts.researcherField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
-    field: 'tmpBuyerName',
+    field: 'buyerName',
     headerName: textConsts.buyerField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
@@ -92,8 +92,8 @@ export const clientExchangeViewColumns = handlers => [
     width: 250,
     renderCell: params => (
       <SuccessActionBtnCell
-        bTnText={`${textConsts.byForBtn} ${toFixedWithDollarSign(calcProductPrice(params.row), 2)}`}
-        onClickOkBtn={() => handlers.onClickLaunchPrivateLabelBtn(params.row)}
+        bTnText={`${textConsts.byForBtn} ${toFixedWithDollarSign(calcProductPrice(params.row.originalData), 2)}`}
+        onClickOkBtn={() => handlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}
       />
     ),
     filterable: false,

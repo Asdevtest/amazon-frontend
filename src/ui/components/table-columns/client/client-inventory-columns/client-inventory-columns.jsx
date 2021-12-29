@@ -34,14 +34,14 @@ export const clientInventoryColumns = barCodeHandlers => [
   {
     field: 'asinCell',
     headerName: textConsts.asinField,
-    renderCell: params => <AsinCell params={params} />,
+    renderCell: params => <AsinCell product={params.row.originalData} />,
     minWidth: 300,
     filterable: false,
     sortable: false,
   },
 
   {
-    field: 'tmpStrategyStatus',
+    field: 'strategyStatus',
     headerName: textConsts.strategyStatusField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
@@ -50,7 +50,7 @@ export const clientInventoryColumns = barCodeHandlers => [
   {
     field: 'amazon',
     headerName: textConsts.priceField,
-    renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     minWidth: 110,
     headerAlign: 'center',
   },
@@ -58,7 +58,7 @@ export const clientInventoryColumns = barCodeHandlers => [
   {
     field: 'profit',
     headerName: textConsts.profitField,
-    renderCell: params => <ToFixedWithDollarSignCell value={params.row.profit} fix={2} />,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     minWidth: 110,
     type: 'number',
     headerAlign: 'center',
@@ -67,7 +67,7 @@ export const clientInventoryColumns = barCodeHandlers => [
   {
     field: 'margin',
     headerName: textConsts.marginField,
-    renderCell: params => <ToFixedWithDollarSignCell value={params.row.margin} fix={2} />,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     minWidth: 110,
     type: 'number',
     headerAlign: 'center',
@@ -84,7 +84,7 @@ export const clientInventoryColumns = barCodeHandlers => [
   {
     field: 'fbafee',
     headerName: textConsts.fbaField,
-    renderCell: params => <ToFixedWithDollarSignCell value={params.row.fbafee} fix={2} />,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     minWidth: 110,
     type: 'number',
     headerAlign: 'center',
@@ -102,7 +102,7 @@ export const clientInventoryColumns = barCodeHandlers => [
   {
     field: 'barCode',
     headerName: textConsts.barcodeField,
-    renderCell: params => <BarcodeCell params={params} handlers={barCodeHandlers} />,
+    renderCell: params => <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />,
     minWidth: 110,
     headerAlign: 'center',
   },

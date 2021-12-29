@@ -5,7 +5,6 @@ import {texts} from '@constants/texts'
 import {
   NormDateCell,
   TaskDescriptionCell,
-  TaskStatusCell,
   renderFieldValueCell,
   NormalActionBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -32,7 +31,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
   },
 
   {
-    field: 'tmpOperationType',
+    field: 'operationType',
     headerName: textConsts.typeField,
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
@@ -41,7 +40,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     field: 'description',
     headerName: textConsts.descriptionField,
     width: 400,
-    renderCell: params => <TaskDescriptionCell params={params} />,
+    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },
@@ -53,7 +52,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={textConsts.showBtn}
-        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row)}
+        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
       />
     ),
     filterable: false,
@@ -63,7 +62,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     field: 'status',
     headerName: textConsts.statusField,
     width: 250,
-    renderCell: params => <TaskStatusCell params={params} />,
+    renderCell: params => renderFieldValueCell(params.value),
     filterable: false,
     sortable: false,
   },

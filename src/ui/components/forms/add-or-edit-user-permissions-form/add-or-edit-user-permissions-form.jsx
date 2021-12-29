@@ -20,14 +20,17 @@ const textConsts = getLocalizedTexts(texts, 'en').addOrEditUserPermissionsForm
 export const AddOrEditUserPermissionsForm = observer(
   ({onCloseModal, onSubmit, permissionsToSelect, permissionGroupsToSelect, sourceData}) => {
     const classNames = useClassNames()
-    const objectSinglePermissions = permissionsToSelect.reduce(
-      (prev, item) => ({...prev, [item.role]: prev[item.role] ? [...prev[item.role], item] : [item]}),
-      {},
-    )
-    const objectGroupPermissions = permissionGroupsToSelect.reduce(
-      (prev, item) => ({...prev, [item.role]: prev[item.role] ? [...prev[item.role], item] : [item]}),
-      {},
-    )
+
+    const objectSinglePermissions =
+      permissionsToSelect?.reduce(
+        (prev, item) => ({...prev, [item.role]: prev[item.role] ? [...prev[item.role], item] : [item]}),
+        {},
+      ) || []
+    const objectGroupPermissions =
+      permissionGroupsToSelect?.reduce(
+        (prev, item) => ({...prev, [item.role]: prev[item.role] ? [...prev[item.role], item] : [item]}),
+        {},
+      ) || []
 
     const sourceFormFields = {
       curPermissions: sourceData?.permissions || [],
@@ -213,7 +216,7 @@ export const AddOrEditUserPermissionsForm = observer(
 
                 <div className={classNames.permissionsGroupWrapper}>
                   {permissionGroupsToSelect
-                    .filter(group => formFields.curPermissionGroups.includes(group._id))
+                    ?.filter(group => formFields.curPermissionGroups.includes(group._id))
                     .map((el, index) => (
                       <RenderGroupPermissionInfo key={index} permGroup={el} />
                     ))}
@@ -329,7 +332,7 @@ export const AddOrEditUserPermissionsForm = observer(
 
                 <div className={classNames.permissionsGroupWrapper}>
                   {permissionsToSelect
-                    .filter(group => formFields.curPermissions.includes(group._id))
+                    ?.filter(group => formFields.curPermissions.includes(group._id))
                     .map(el => (
                       <div key={el._id} className={classNames.permissionWrapper}>
                         <Checkbox checked disabled color="primary" />

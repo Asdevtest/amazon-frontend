@@ -13,7 +13,7 @@ import {AddOrEditGroupPermissionForm} from '@components/forms/add-or-edit-group-
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 
-import {onStateChangeHandler} from '@utils/for-data-grid'
+import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {GroupPermissionsModel} from './group-permissions.model'

@@ -3,13 +3,13 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {PermissionsModel} from '@models/permissions-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {adminGroupPermissionsColumns} from '@components/table-columns/admin/group-permissions-columns copy'
 
+import {adminGroupPermissionsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
@@ -41,7 +41,7 @@ export class GroupPermissionsModel {
   }
 
   rowHandlers = {
-    onClickRemoveBtn: id => this.onClickRemoveBtn(id),
+    onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
@@ -139,11 +139,9 @@ export class GroupPermissionsModel {
       const result = await PermissionsModel.getGroupPermissions()
 
       runInAction(() => {
-        this.groupPermissions = result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(per => ({
-          ...per,
-          id: per._id,
-          tmpRole: UserRoleCodeMap[per.role],
-        }))
+        this.groupPermissions = adminGroupPermissionsDataConverter(result).sort(
+          sortObjectsArrayByFiledDate('updatedAt'),
+        )
       })
     } catch (error) {
       this.payments = []
@@ -277,8 +275,8 @@ export class GroupPermissionsModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  onClickRemoveBtn(id) {
-    this.permissionIdToRemove = id
+  onClickRemoveBtn(row) {
+    this.permissionIdToRemove = row._id
 
     this.confirmModalSettings = {
       isWarning: true,

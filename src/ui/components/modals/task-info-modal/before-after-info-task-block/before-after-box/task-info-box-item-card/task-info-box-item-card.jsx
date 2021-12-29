@@ -8,6 +8,7 @@ import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 
+import {calcMaxDeliveryForProduct, calcTotalFbaForProduct} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -45,10 +46,10 @@ export const TaskInfoBoxItemCard = ({item, superCount, box}) => {
               </div>
               <div>
                 <Field disabled label={textConsts.minpurchase} value={item.product.minpurchase || ''} />
-                <Field disabled label={textConsts.maxDeliveryPrice} value={item.product.maxDelivery || 0} />
+                <Field disabled label={textConsts.maxDeliveryPrice} value={calcMaxDeliveryForProduct(item.product)} />
                 <Field disabled label={textConsts.refferalFee} value={item.product.reffee || ''} />
                 <Field disabled label={textConsts.fbaFee} value={item.product.fbafee || ''} />
-                <Field disabled label={textConsts.totalFba} value={item.product.totalFba || ''} />
+                <Field disabled label={textConsts.totalFba} value={calcTotalFbaForProduct(item.product)} />
                 <Field disabled label={textConsts.recommendedBatch} value={item.product.fbaamount || ''} />
                 <Field disabled label={textConsts.revenue} value={item.product.profit || 0} />
                 <Field disabled label={textConsts.fieldMargin} value={item.product.margin || 0} />

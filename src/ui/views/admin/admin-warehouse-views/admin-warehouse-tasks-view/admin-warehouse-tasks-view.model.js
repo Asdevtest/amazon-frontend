@@ -2,14 +2,13 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
-import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {adminTasksViewColumns} from '@components/table-columns/admin/tasks-columns'
 
+import {adminTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -107,18 +106,12 @@ export class AdminWarehouseTasksViewModel {
 
   async getTasks() {
     try {
-      const result = await AdministratorModel.getTasks() // необходим отдельный запрос для админа
+      const result = await AdministratorModel.getTasks()
 
       runInAction(() => {
-        this.tasksData = result
-          .sort(sortObjectsArrayByFiledDate('updatedAt'))
-          .map(el => ({...el, beforeBoxes: el.boxesBefore}))
-          .map(order => ({
-            ...order,
-            id: order._id,
-            tmpOperationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[order.operationType]],
-            tmpStatus: mapTaskStatusKeyToEnum[order.status],
-          }))
+        this.tasksData = adminTasksDataConverter(
+          result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
+        )
       })
     } catch (error) {
       console.log(error)

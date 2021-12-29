@@ -5,11 +5,7 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {BACKEND_API_URL} from '@constants/env'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatusByKey, OrderStatus} from '@constants/order-status'
-import {
-  mapTaskOperationTypeKeyToEnum,
-  mapTaskOperationTypeToLabel,
-  TaskOperationType,
-} from '@constants/task-operation-type'
+import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {BoxesModel} from '@models/boxes-model'
@@ -20,6 +16,7 @@ import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {warehouseMyTasksViewColumns} from '@components/table-columns/warehouse/my-tasks-columns'
 
+import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -156,14 +153,9 @@ export class WarehouseVacantViewModel {
       })
 
       runInAction(() => {
-        this.tasksMy = result
-          .sort(sortObjectsArrayByFiledDate('updatedAt'))
-          .map(el => ({...el, beforeBoxes: el.boxesBefore}))
-          .map(task => ({
-            ...getObjectFilteredByKeyArrayBlackList(task, ['_id']),
-            id: task._id,
-            tmpOperationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[task.operationType]],
-          }))
+        this.tasksMy = warehouseTasksDataConverter(
+          result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
+        )
       })
     } catch (error) {
       console.log(error)
@@ -313,14 +305,14 @@ export class WarehouseVacantViewModel {
             ],
           ),
         )
-        await this.resolveTask(task.id, requestBoxes)
+        await this.resolveTask(task._id, requestBoxes)
 
         await this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
           status: OrderStatusByKey[OrderStatus.IN_STOCK],
         })
       } else {
         await this.onSubmitUpdateBoxes(newBoxes)
-        await this.resolveTask(task.id)
+        await this.resolveTask(task._id)
       }
 
       if (photos.length > 0) {
@@ -329,7 +321,7 @@ export class WarehouseVacantViewModel {
         this.imagesOfTask = []
       }
 
-      await this.updateTask(this.selectedTask.id, comment)
+      await this.updateTask(this.selectedTask._id, comment)
       this.setRequestStatus(loadingStatuses.success)
 
       this.onTriggerEditTaskModal()

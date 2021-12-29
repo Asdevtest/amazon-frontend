@@ -3,13 +3,13 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {PermissionsModel} from '@models/permissions-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {adminSinglePermissionsColumns} from '@components/table-columns/admin/single-permissions-columns'
 
+import {adminSinglePermissionsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
@@ -39,7 +39,7 @@ export class SinglePermissionsModel {
   }
 
   rowHandlers = {
-    onClickRemoveBtn: id => this.onClickRemoveBtn(id),
+    onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
@@ -135,11 +135,9 @@ export class SinglePermissionsModel {
       const result = await PermissionsModel.getSinglePermissions()
 
       runInAction(() => {
-        this.singlePermissions = result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(per => ({
-          ...per,
-          id: per._id,
-          tmpRole: UserRoleCodeMap[per.role],
-        }))
+        this.singlePermissions = adminSinglePermissionsDataConverter(result).sort(
+          sortObjectsArrayByFiledDate('updatedAt'),
+        )
       })
     } catch (error) {
       this.payments = []
@@ -224,8 +222,8 @@ export class SinglePermissionsModel {
     this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
   }
 
-  onClickRemoveBtn(id) {
-    this.permissionIdToRemove = id
+  onClickRemoveBtn(row) {
+    this.permissionIdToRemove = row._id
 
     this.confirmModalSettings = {
       isWarning: true,

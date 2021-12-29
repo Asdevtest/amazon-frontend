@@ -45,14 +45,14 @@ export const adminUsersViewColumns = handlers => [
   },
 
   {
-    field: 'tmpRole',
+    field: 'role',
     headerName: textConsts.roleField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 
   {
-    field: 'tmpActive',
+    field: 'active',
     headerName: textConsts.statusField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
@@ -66,7 +66,7 @@ export const adminUsersViewColumns = handlers => [
         editBtnText={textConsts.editBtnText}
         balanceBtnText={textConsts.balanceBtnText}
         handlers={handlers}
-        row={params.row}
+        row={params.row.originalData}
       />
     ),
     width: 300,

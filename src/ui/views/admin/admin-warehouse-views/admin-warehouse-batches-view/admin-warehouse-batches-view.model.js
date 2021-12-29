@@ -1,15 +1,14 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {warehouses} from '@constants/warehouses'
 
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
 
+import {adminBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminWarehouseBatchesViewModel {
@@ -121,25 +120,7 @@ export class AdminWarehouseBatchesViewModel {
       const result = await StorekeeperModel.getBatches()
 
       runInAction(() => {
-        this.batches = result.map((item, i) => ({
-          ...item,
-          id: i,
-          tmpDelivery: DeliveryTypeByCode[item.batch.deliveryMethod],
-          tmpWarehouses: warehouses[item.batch.warehouse],
-          tmpFinalWeight: item.boxes.reduce(
-            (prev, box) =>
-              (prev =
-                prev +
-                Math.max(
-                  parseFloat(box.volumeWeightKgWarehouse ? box.volumeWeightKgWarehouse : box.volumeWeightKgSupplier) ||
-                    0,
-                  parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) || 0,
-                )),
-
-            0,
-          ),
-          tmpTotalPrice: item.boxes.reduce((acc, cur) => acc + cur.items[0].product.currentSupplier.lotcost, 0),
-        }))
+        this.batches = adminBatchesDataConverter(result)
       })
     } catch (error) {
       console.log(error)
