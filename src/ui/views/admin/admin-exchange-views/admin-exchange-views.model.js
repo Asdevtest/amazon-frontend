@@ -4,13 +4,13 @@ import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {exchangeProductsColumns} from '@components/table-columns/admin/exchange-columns'
 
+import {adminProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -65,7 +65,7 @@ export class AdminExchangeViewModel {
   }
 
   onClickTableRow(product) {
-    this.history.push('/admin/product', {product: toJS(product)})
+    this.history.push('/admin/product', {product: toJS(product.originalData)})
   }
 
   dataGridTableKeyDependingOnActiveSubCategory() {
@@ -164,14 +164,7 @@ export class AdminExchangeViewModel {
         status: productsStatusBySubCategory[this.activeSubCategory],
       })
 
-      const productsData = result.map(item => ({
-        ...item,
-        tmpResearcherName: item.createdBy?.name,
-        tmpBuyerName: item.buyer?.name,
-        tmpClientName: item.clientId?.name,
-        tmpCurrentSupplierName: item.currentSupplier?.name,
-        tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
-      }))
+      const productsData = adminProductsDataConverter(result)
 
       runInAction(() => {
         this.currentProductsData = productsData.sort(sortObjectsArrayByFiledDate('updatedAt'))

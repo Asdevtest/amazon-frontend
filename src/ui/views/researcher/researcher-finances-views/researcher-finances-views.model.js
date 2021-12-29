@@ -4,11 +4,12 @@ import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
-import {ResearcherModel} from '@models/researcher-model'
+import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {researcherFinancesViewColumns} from '@components/table-columns/researcher/researcher-finances-columns'
 
+import {researcherFinancesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -86,19 +87,12 @@ export class ResearcherFinancesViewsModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
-      const result = await ResearcherModel.getPaymentsMy()
-
-      const paymentsData = result.map(item => ({
-        ...item,
-        id: item._id,
-        tmpCreatorName: item.createdBy?.name,
-        tmpRecipientName: item.recipient?.name,
-      }))
+      const result = await OtherModel.getMyPayments()
 
       runInAction(() => {
-        this.currentFinancesData = paymentsData
-          .filter(el => (activeSubCategory < 1 ? el.sum >= 0 : el.sum < 0))
-          .sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.currentFinancesData = researcherFinancesDataConverter(
+          result.filter(el => (activeSubCategory < 1 ? el.sum >= 0 : el.sum < 0)),
+        ).sort(sortObjectsArrayByFiledDate('createdAt'))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

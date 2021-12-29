@@ -21,7 +21,6 @@ import {BuyerMyOrdersView} from '@views/buyer/buyer-orders-views/buyer-my-orders
 import {BuyerProductView} from '@views/buyer/buyer-product-view/'
 import {BuyerProductsView} from '@views/buyer/buyer-products-view/'
 import {BuyerSubUsersView} from '@views/buyer/buyer-users-views/buyer-sub-users-view'
-import {BuyerUserProfileView} from '@views/buyer/buyer-users-views/buyer-user-profile-view'
 import {ClientBatchesView} from '@views/client/client-batches-view'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
@@ -42,13 +41,16 @@ import {ClientRequestsNichesView} from '@views/client/client-requests-views/clie
 import {ClientRequestsProductsView} from '@views/client/client-requests-views/client-requests-products-view/client-requests-products-view'
 import {ClientSettingsView} from '@views/client/client-settings-view'
 import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
-import {ClientUserProfileView} from '@views/client/client-users-views/user-profile-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
 import {DocumentationView} from '@views/documentation'
 import {FreelancerDashboardView} from '@views/freelancer/freelancer-dashboard-view'
 import {FreelancerFinancesViews} from '@views/freelancer/freelancer-finances-views'
+import {FreelancerMyCustomRequestsView} from '@views/freelancer/freelancer-my-requests-views/freelancer-my-custom-requests-view/freelancer-my-custom-requests-view'
 import {FreelancerMyNichesRequestsView} from '@views/freelancer/freelancer-my-requests-views/freelancer-my-niches-requests-view'
 import {FreelancerMyProductsRequestsView} from '@views/freelancer/freelancer-my-requests-views/freelancer-my-products-requests-view'
+import {FreelancerRequestDetailCustomView} from '@views/freelancer/freelancer-requests-details-views/freelancer-requests-detail-custom-view'
+import {FreelancerСustomRequestsView} from '@views/freelancer/freelancer-requests-views/freelancer-custom-requests-view'
+import {FreelancerVacantCustomRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-custom-requests-view'
 import {FreelancerVacantNichesRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-niches-requests-view'
 import {FreelancerVacantProductsRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-products-requests-view'
 import {UserProfileView} from '@views/overall/user-profile-view/user-profile-view'
@@ -130,12 +132,6 @@ export const privateRoutesConfigs = [
   {
     routePath: '/buyer/products',
     component: BuyerProductsView,
-    exact: false,
-    permission: [UserRole.BUYER],
-  },
-  {
-    routePath: '/buyer/users/user-profile',
-    component: BuyerUserProfileView,
     exact: false,
     permission: [UserRole.BUYER],
   },
@@ -401,13 +397,6 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/users/user-profile',
-    component: ClientUserProfileView,
-    exact: false,
-    permission: [UserRole.CLIENT],
-  },
-
-  {
     routePath: '/client/users/sub-users',
     component: ClientSubUsersView,
     exact: false,
@@ -638,11 +627,40 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/freelancer/exchange/requests/custom',
+    component: FreelancerСustomRequestsView,
+    exact: false,
+    permission: [UserRole.FREELANCER],
+  },
+
+  {
     routePath: '/freelancer/requests/niches',
     component: FreelancerVacantNichesRequestsView,
     exact: true,
     permission: [UserRole.FREELANCER],
   },
+
+  {
+    routePath: '/freelancer/requests/custom',
+    component: FreelancerVacantCustomRequestsView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+  },
+
+  {
+    routePath: '/freelancer/custom-search-request',
+    component: FreelancerRequestDetailCustomView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+  },
+
+  {
+    routePath: '/freelancer/my-requests/custom',
+    component: FreelancerMyCustomRequestsView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+  },
+
   {
     routePath: '/freelancer/finances',
     component: FreelancerFinancesViews,

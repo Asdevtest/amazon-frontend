@@ -29,7 +29,7 @@ import {Navbar} from '@components/navbar'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 import {WarehouseHistory} from '@components/screens/warehouse/warehouse-history'
 
-import {onStateChangeHandler} from '@utils/for-data-grid'
+import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/clientAvatar.jpg'
@@ -181,7 +181,7 @@ export class ClientWarehouseViewRaw extends Component {
 
           <EditBoxForm
             requestStatus={requestStatus}
-            formItem={boxesMy.find(box => box._id === selectedBoxes[0])}
+            formItem={boxesMy.find(box => box._id === selectedBoxes[0])?.originalData}
             onSubmit={onEditBoxSubmit}
             onTriggerOpenModal={() => onTriggerOpenModal('showEditBoxModal')}
           />
@@ -196,7 +196,7 @@ export class ClientWarehouseViewRaw extends Component {
               requestStatus={requestStatus}
               addNewBoxModal={showRedistributeBoxAddNewBoxModal}
               setAddNewBoxModal={value => onModalRedistributeBoxAddNewBox(value)}
-              selectedBox={selectedBoxes.length && boxesMy.find(box => box._id === selectedBoxes[0])}
+              selectedBox={selectedBoxes.length && boxesMy.find(box => box._id === selectedBoxes[0])?.originalData}
               onRedistribute={onRedistribute}
               onTriggerOpenModal={onTriggerOpenModal}
             />
@@ -204,7 +204,11 @@ export class ClientWarehouseViewRaw extends Component {
         </Modal>
 
         <MergeBoxesModal
-          selectedBoxes={(selectedBoxes.length && toJS(boxesMy.filter(box => selectedBoxes.includes(box._id)))) || []}
+          selectedBoxes={
+            (selectedBoxes.length &&
+              toJS(boxesMy.filter(box => selectedBoxes.includes(box._id)))?.map(box => box.originalData)) ||
+            []
+          }
           requestStatus={requestStatus}
           openModal={showMergeBoxModal}
           setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
@@ -253,7 +257,7 @@ export class ClientWarehouseViewRaw extends Component {
             closeModal={triggerRequestToSendBatchModal}
             boxesDeliveryCosts={boxesDeliveryCosts}
             selectedBoxes={selectedBoxes}
-            boxesMy={boxesMy}
+            boxesMy={boxesMy.map(box => box.originalData)}
             onClickRemoveBoxFromBatch={onTriggerCheckbox}
             onClickSendBoxesToBatch={onClickSendBoxesToBatch}
           />

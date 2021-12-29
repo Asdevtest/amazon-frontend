@@ -2,13 +2,13 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {exchangeInventoryColumns} from '@components/table-columns/admin/inventory-columns'
 
+import {adminProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -69,7 +69,7 @@ export class AdminInventoryViewModel {
   }
 
   onClickTableRow(product) {
-    this.history.push('/admin/product', {product: toJS(product)})
+    this.history.push('/admin/product', {product: toJS(product.originalData)})
   }
 
   onChangeSortingModel(e) {
@@ -89,14 +89,7 @@ export class AdminInventoryViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       const result = await AdministratorModel.getProductsPaid()
 
-      const productsData = result.map(item => ({
-        ...item,
-        tmpResearcherName: item.createdBy?.name,
-        tmpBuyerName: item.buyer?.name,
-        tmpClientName: item.client?.name,
-        tmpCurrentSupplierName: item.currentSupplier?.name,
-        tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
-      }))
+      const productsData = adminProductsDataConverter(result)
 
       runInAction(() => {
         this.products = productsData.sort(sortObjectsArrayByFiledDate('updatedAt'))

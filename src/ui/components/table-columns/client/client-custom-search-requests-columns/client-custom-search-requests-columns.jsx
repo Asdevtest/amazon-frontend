@@ -14,39 +14,39 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientSearchRequestsTableColumns
 
-const allowEditStatuses = [RequestStatus.CREATED, RequestStatus.TO_CORRECT]
+const allowActionStatuses = [RequestStatus.CREATED, RequestStatus.TO_CORRECT]
 
 export const clientCustomSearchRequestsViewColumns = handlers => [
   {
-    field: 'tmpCreatedAt',
+    field: 'createdAt',
     headerName: textConsts.createDateField,
     renderCell: params => <NormDateCell params={params} />,
     width: 130,
     type: 'date',
   },
   {
-    field: 'tmpDirection',
+    field: 'direction',
     headerName: textConsts.directionField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
   },
 
   {
-    field: 'tmpStatus',
+    field: 'status',
     headerName: textConsts.statusField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 
   {
-    field: 'tmpName',
+    field: 'name',
     headerName: textConsts.nameRequestField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
-    field: 'tmpMaxAmountOfProposals',
+    field: 'maxAmountOfProposals',
     headerName: textConsts.maxAmountOfProposalsField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
@@ -54,7 +54,7 @@ export const clientCustomSearchRequestsViewColumns = handlers => [
   },
 
   {
-    field: 'tmpPrice',
+    field: 'price',
     headerName: textConsts.priceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
@@ -68,8 +68,8 @@ export const clientCustomSearchRequestsViewColumns = handlers => [
     renderCell: params => (
       <EditOrRemoveBtnsCell
         handlers={handlers}
-        row={params.row}
-        disableEditBtn={!allowEditStatuses.includes(params.row.request.status)}
+        row={params.row.originalData}
+        disableActionBtn={!allowActionStatuses.includes(params.row.status)}
       />
     ),
     filterable: false,

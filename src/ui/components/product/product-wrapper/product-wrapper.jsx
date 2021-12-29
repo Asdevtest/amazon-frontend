@@ -85,7 +85,7 @@ export const ProductWrapper = observer(
           />
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
-          <Listing product={product} />
+          <Listing product={product} onClickBack={() => setTabIndex(0)} />
         </TabPanel>
       </React.Fragment>
     )

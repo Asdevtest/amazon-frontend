@@ -40,14 +40,14 @@ export const exchangeInventoryColumns = () => [
   {
     field: 'asinCell',
     headerName: textConsts.asinField,
-    renderCell: params => <AsinCell params={params} />,
+    renderCell: params => <AsinCell product={params.row.originalData} />,
     width: 300,
     filterable: false,
     sortable: false,
   },
 
   {
-    field: 'tmpStrategyStatus',
+    field: 'strategyStatus',
     headerName: textConsts.strategyStatusField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
@@ -56,7 +56,7 @@ export const exchangeInventoryColumns = () => [
   {
     field: 'fees-net',
     headerName: textConsts.feesAndNetField,
-    renderCell: params => <FeesValuesWithCalculateBtnCell noCalculate params={params} />,
+    renderCell: params => <FeesValuesWithCalculateBtnCell noCalculate product={params.row.originalData} />,
     width: 150,
     filterable: false,
     sortable: false,
@@ -72,61 +72,40 @@ export const exchangeInventoryColumns = () => [
     field: 'barCode',
     headerName: textConsts.barCodeField,
     width: 150,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.row.barCode} />,
+    renderCell: params => <NoActiveBarcodeCell barCode={params.value} />,
   },
 
   {
-    field: 'tmpClientName',
+    field: 'clientName',
     headerName: 'Client',
-    renderCell: params => <ClientCell params={params} />,
+    renderCell: params => <ClientCell product={params.row.originalData} />,
     width: 200,
   },
 
   {
-    field: 'tmpResearcherName',
+    field: 'researcherName',
     headerName: textConsts.researcherField,
-    renderCell: params => <ResearcherCell params={params} />,
+    renderCell: params => <ResearcherCell product={params.row.originalData} />,
     width: 250,
   },
   {
     field: 'supervisor',
     headerName: textConsts.supervisorField,
-    renderCell: params => <SupervisorCell params={params} />,
+    renderCell: params => <SupervisorCell product={params.row.originalData} />,
     width: 250,
   },
   {
-    field: 'tmpBuyerName',
+    field: 'buyerName',
     headerName: textConsts.buyerField,
-    renderCell: params => <BuyerCell params={params} />,
+    renderCell: params => <BuyerCell product={params.row.originalData} />,
     width: 250,
   },
   {
-    field: 'tmpCurrentSupplierName',
+    field: 'currentSupplierName',
     headerName: textConsts.supplierField,
-    renderCell: params => <SupplierCell params={params} />,
+    renderCell: params => <SupplierCell product={params.row.originalData} />,
     width: 170,
     filterable: false,
-  },
-  {
-    field: 'createdAt',
-    headerName: textConsts.createDateField,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 100,
-    type: 'date',
-  },
-  {
-    field: 'checkedAt',
-    headerName: textConsts.checkDateField,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 100,
-    type: 'date',
-  },
-  {
-    field: 'updaupdatedAtteDate',
-    headerName: textConsts.updateDateField,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 100,
-    type: 'date',
   },
 
   {

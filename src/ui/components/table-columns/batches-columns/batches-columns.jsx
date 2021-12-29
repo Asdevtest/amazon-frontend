@@ -19,27 +19,27 @@ export const batchesViewColumns = handlers => [
     field: 'orders',
     headerName: textConsts.ordersField,
     width: 600,
-    renderCell: params => <BatchBoxesCell boxes={params.row.boxes} />,
+    renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
     filterable: false,
     sortable: false,
   },
 
   {
-    field: 'tmpWarehouses',
+    field: 'warehouses',
     headerName: textConsts.warehouseField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
-    field: 'tmpDelivery',
+    field: 'delivery',
     headerName: textConsts.deliveryField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
-    field: 'tmpFinalWeight',
+    field: 'finalWeight',
     headerName: textConsts.weightField,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
@@ -47,7 +47,7 @@ export const batchesViewColumns = handlers => [
   },
 
   {
-    field: 'tmpTotalPrice',
+    field: 'totalPrice',
     headerName: textConsts.toralPriceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     type: 'number',
@@ -61,7 +61,7 @@ export const batchesViewColumns = handlers => [
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={textConsts.showBtn}
-        onClickOkBtn={() => handlers.setCurrentOpenedBatch(params.row)}
+        onClickOkBtn={() => handlers.setCurrentOpenedBatch(params.row.originalData)}
       />
     ),
     filterable: false,

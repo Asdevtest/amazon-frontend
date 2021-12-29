@@ -24,7 +24,7 @@ import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 
-import {onStateChangeHandler} from '@utils/for-data-grid'
+import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/clientAvatar.jpg'
@@ -174,7 +174,9 @@ export class ClientInventoryViewRaw extends Component {
         <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
           <OrderProductModal
             requestStatus={requestStatus}
-            selectedProductsData={productsMy.filter(product => selectedRowIds.includes(product.id))}
+            selectedProductsData={productsMy
+              .filter(product => selectedRowIds.includes(product.id))
+              .map(prod => prod.originalData)}
             onTriggerOpenModal={onTriggerOpenModal}
             onDoubleClickBarcode={onDoubleClickBarcode}
             onSubmit={onSubmitOrderProductModal}

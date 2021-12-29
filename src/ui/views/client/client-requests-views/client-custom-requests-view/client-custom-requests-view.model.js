@@ -9,7 +9,8 @@ import {SettingsModel} from '@models/settings-model'
 
 import {clientCustomSearchRequestsViewColumns} from '@components/table-columns/client/client-custom-search-requests-columns/client-custom-search-requests-columns'
 
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import {clientCustomRequestsDataConverter} from '@utils/data-grid-data-converters'
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 
 export class ClientСustomRequestsViewModel {
   history = undefined
@@ -191,16 +192,7 @@ export class ClientСustomRequestsViewModel {
       const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY)
 
       runInAction(() => {
-        this.searchRequests = result.map((request, i) => ({
-          ...request,
-          id: i,
-          tmpCreatedAt: request.request.createdAt,
-          tmpName: request.details.name,
-          tmpStatus: request.request.status,
-          tmpMaxAmountOfProposals: request.request.maxAmountOfProposals,
-          tmpPrice: request.request.price,
-          tmpDirection: request.request.direction,
-        }))
+        this.searchRequests = clientCustomRequestsDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
       })
     } catch (error) {
       console.log(error)
@@ -220,14 +212,7 @@ export class ClientСustomRequestsViewModel {
   }
 
   onClickTableRow(item) {
-    const requestItem = getObjectFilteredByKeyArrayBlackList(
-      {
-        ...item,
-      },
-      ['tmpStrategyStatus'],
-    )
-
-    this.history.push('/client/custom-search-request', {request: toJS(requestItem)})
+    this.history.push('/client/custom-search-request', {request: toJS(item.originalData)})
   }
 
   onTriggerDrawer() {

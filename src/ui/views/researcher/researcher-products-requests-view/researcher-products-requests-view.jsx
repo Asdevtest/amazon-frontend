@@ -16,7 +16,7 @@ import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
-import {onStateChangeHandler} from '@utils/for-data-grid'
+import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/researcherAvatar.jpg'

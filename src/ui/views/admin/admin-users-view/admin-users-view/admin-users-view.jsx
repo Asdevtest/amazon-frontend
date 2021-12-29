@@ -17,7 +17,7 @@ import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 import {AdminContentModal} from '@components/screens/users-views/sub-users-view/admin-content-modal'
 
-import {onStateChangeHandler} from '@utils/for-data-grid'
+import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/adminAvatar.jpg'

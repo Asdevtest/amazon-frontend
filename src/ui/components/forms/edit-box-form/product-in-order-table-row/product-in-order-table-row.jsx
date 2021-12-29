@@ -33,7 +33,7 @@ export const ProductInOrderTableRow = observer(({item, handlers}) => {
       </TableCell>
 
       <TableCell>
-        <Typography>{item.order.amount}</Typography>
+        <Typography>{item.amount}</Typography>
       </TableCell>
 
       <TableCell className={classNames.buyerComment}>

@@ -34,7 +34,7 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'asinCell',
     headerName: textConsts.asinField,
-    renderCell: params => <AsinCell params={params} />,
+    renderCell: params => <AsinCell product={params.row.originalData} />,
     minWidth: 350,
     filterable: false,
     sortable: false,
@@ -42,14 +42,14 @@ export const buyerProductsViewColumns = handlers => [
   },
 
   {
-    field: 'tmpStatus',
+    field: 'status',
     headerName: textConsts.statusField,
     width: 300,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
-    field: 'tmpStrategyStatus',
+    field: 'strategyStatus',
     headerName: textConsts.strategyStatusField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
@@ -61,7 +61,7 @@ export const buyerProductsViewColumns = handlers => [
     renderCell: params => (
       <FeesValuesWithCalculateBtnCell
         noCalculate={!['30', '40', '50', '60'].includes(params.row.status)}
-        params={params}
+        product={params.row.originalData}
         onClickCalculate={handlers.onClickFeesCalculate}
       />
     ),
@@ -74,7 +74,7 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'amazon',
     headerName: textConsts.amazonPriceField,
-    renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     minWidth: 130,
     type: 'number',
     flex: 1,
@@ -83,7 +83,7 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'profit',
     headerName: textConsts.profitField,
-    renderCell: params => <ToFixedWithDollarSignCell value={params.row.profit} fix={2} />,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     minWidth: 130,
     type: 'number',
     flex: 1,

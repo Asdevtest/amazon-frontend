@@ -23,7 +23,7 @@ export class AdminUserBalanceViewModel {
   constructor({history, location}) {
     this.history = history
     if (location.state) {
-      this.userId = location.state.user.id
+      this.userId = location.state.user._id
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }

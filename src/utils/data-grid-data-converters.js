@@ -1,0 +1,466 @@
+import {DeliveryTypeByCode} from '@constants/delivery-options'
+import {OrderStatusByCode} from '@constants/order-status'
+import {ProductStatusByCode} from '@constants/product-status'
+import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
+import {mapTaskStatusKeyToEnum} from '@constants/task-status'
+import {UserRoleCodeMap} from '@constants/user-roles'
+import {warehouses} from '@constants/warehouses'
+
+import {
+  calcAmazonPriceForBox,
+  calcFinalWeightForBox,
+  calcTotalPriceForBatch,
+  calcTotalPriceForOrder,
+} from './calculation'
+
+export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
+
+export const researcherCustomRequestsDataConverter = data =>
+  data.map((item, i) => ({
+    originalData: item,
+    id: i,
+    createdAt: item.request.createdAt,
+    timeoutAt: item.request.timeoutAt,
+    name: item.details.name,
+    maxAmountOfProposals: item.request.maxAmountOfProposals,
+    price: item.request.price,
+  }))
+
+export const researcherProductsDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    status: ProductStatusByCode[item.status],
+    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    createdAt: item.createdAt,
+    amazon: item.amazon,
+    bsr: item.bsr,
+    id: item.id,
+  }))
+
+export const researcherFinancesDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    creatorName: item.createdBy?.name,
+    recipientName: item.recipient?.name,
+    createdAt: item.createdAt,
+    comment: item.comment,
+    sum: item.sum,
+  }))
+
+export const supervisorFinancesDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    creatorName: item.createdBy?.name,
+    recipientName: item.recipient?.name,
+    createdAt: item.createdAt,
+    comment: item.comment,
+    sum: item.sum,
+  }))
+
+export const supervisorProductsDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+
+    status: ProductStatusByCode[item.status],
+    researcherName: item.createdBy?.name,
+    buyerName: item.buyer?.name,
+    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    amazon: item.amazon,
+    bsr: item.bsr,
+    id: item.id,
+    fbafee: item.fbafee,
+  }))
+
+export const buyerFinancesDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    creatorName: item.createdBy?.name,
+    recipientName: item.recipient?.name,
+    createdAt: item.createdAt,
+    comment: item.comment,
+    sum: item.sum,
+  }))
+
+export const buyerProductsDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+
+    status: ProductStatusByCode[item.status],
+    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    amazon: item.amazon,
+    profit: item.profit,
+    bsr: item.bsr,
+    id: item.id,
+    fbaamount: item.fbaamount,
+  }))
+
+export const buyerMyOrdersDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+
+    barCode: item.product.barCode,
+    warehouses: warehouses[item.warehouse],
+    deliveryMethod: DeliveryTypeByCode[item.deliveryMethod],
+    status: OrderStatusByCode[item.status],
+
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    amount: item.amount,
+    clientComment: item.clientComment,
+    buyerComment: item.buyerComment,
+
+    id: item.id,
+  }))
+
+export const buyerVacantOrdersDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+
+    barCode: item.product.barCode,
+    warehouses: warehouses[item.warehouse],
+    deliveryMethod: DeliveryTypeByCode[item.deliveryMethod],
+
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    amount: item.amount,
+    clientComment: item.clientComment,
+    buyerComment: item.buyerComment,
+
+    id: item._id,
+  }))
+
+export const clientProductsDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+
+    researcherName: item.createdBy?.name,
+    buyerName: item.buyer?.name,
+    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+
+    images: item.images,
+    category: item.category,
+    weight: item.weight,
+    fbaamount: item.fbaamount,
+
+    amazon: item.amazon,
+    bsr: item.bsr,
+
+    id: item.id,
+  }))
+
+export const clientInventoryDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+
+    researcherName: item.createdBy?.name,
+    buyerName: item.buyer?.name,
+    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+
+    category: item.category,
+    weight: item.weight,
+    fbaamount: item.fbaamount,
+
+    amazon: item.amazon,
+    profit: item.profit,
+    margin: item.margin,
+    bsr: item.bsr,
+    fbafee: item.fbafee,
+
+    id: item.id,
+  }))
+
+export const clientCustomRequestsDataConverter = data =>
+  data.map((item, i) => ({
+    originalData: item,
+    id: i,
+    status: item.request.status,
+    createdAt: item.request.createdAt,
+    timeoutAt: item.request.timeoutAt,
+    name: item.details.name,
+    maxAmountOfProposals: item.request.maxAmountOfProposals,
+    price: item.request.price,
+    direction: item.request.direction,
+  }))
+
+export const freelancerCustomRequestsDataConverter = data =>
+  data.map((item, i) => ({
+    originalData: item,
+    id: i,
+    status: item.request.status,
+    createdAt: item.request.createdAt,
+    timeoutAt: item.request.timeoutAt,
+    name: item.details.name,
+    maxAmountOfProposals: item.request.maxAmountOfProposals,
+    price: item.request.price,
+    direction: item.request.direction,
+  }))
+
+export const clientOrdersDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item.id,
+
+    barCode: item.product.barCode,
+    totalPrice: calcTotalPriceForOrder(item),
+    grossWeightKg: item.product.weight * item.amount,
+    warehouses: warehouses[item.warehouse],
+    status: OrderStatusByCode[item.status],
+
+    createdAt: item.createdAt,
+    amount: item.amount,
+    trackingNumberChina: item.trackingNumberChina,
+  }))
+
+export const clientWarehouseDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    _id: item._id,
+
+    qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
+
+    amazonPrice: item.items.reduce((acc, cur) => acc + cur.product.amazon * cur.amount, 0),
+
+    trackingNumberChina: item.items[0].order.trackingNumberChina,
+    finalWeight: Math.max(
+      parseFloat(item.volumeWeightKgWarehouse ? item.volumeWeightKgWarehouse : item.volumeWeightKgSupplier) || 0,
+      parseFloat(item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier) || 0,
+    ),
+    grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
+    warehouses: warehouses[item.warehouse],
+
+    isDraft: item.isDraft,
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+  }))
+
+export const clientBatchesDataConverter = data =>
+  data.map((item, i) => ({
+    originalData: item,
+    id: i,
+
+    delivery: DeliveryTypeByCode[item.batch.deliveryMethod],
+    warehouses: warehouses[item.batch.warehouse],
+    finalWeight: item.boxes.reduce(
+      (prev, box) => (prev = prev + calcFinalWeightForBox(box)),
+
+      0,
+    ),
+    totalPrice: calcTotalPriceForBatch(item),
+  }))
+
+export const clientFinancesDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    creatorName: item.createdBy?.name,
+    recipientName: item.recipient?.name,
+    createdAt: item.createdAt,
+    comment: item.comment,
+    sum: item.sum,
+  }))
+
+export const clientOrdersNotificationsDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item.id,
+
+    barCode: item.product.barCode,
+    totalPrice: calcTotalPriceForOrder(item),
+    grossWeightKg: item.product.weight * item.amount,
+    warehouses: warehouses[item.warehouse],
+    status: OrderStatusByCode[item.status],
+
+    createdAt: item.createdAt,
+    amount: item.amount,
+    trackingNumberChina: item.trackingNumberChina,
+    totalPriceChanged: item.totalPriceChanged,
+    deliveryCostToTheWarehouse: item.deliveryCostToTheWarehouse,
+  }))
+
+export const warehouseFinancesDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    creatorName: item.createdBy?.name,
+    recipientName: item.recipient?.name,
+    createdAt: item.createdAt,
+    comment: item.comment,
+    sum: item.sum,
+  }))
+
+export const warehouseBatchesDataConverter = data =>
+  data.map((item, i) => ({
+    originalData: item,
+    id: i,
+
+    delivery: DeliveryTypeByCode[item.batch.deliveryMethod],
+    warehouses: warehouses[item.batch.warehouse],
+    finalWeight: item.boxes.reduce(
+      (prev, box) => (prev = prev + calcFinalWeightForBox(box)),
+
+      0,
+    ),
+    totalPrice: calcTotalPriceForBatch(item),
+  }))
+
+export const warehouseTasksDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+
+    id: item._id,
+    operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]],
+    status: mapTaskStatusKeyToEnum[item.status],
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    description: item.description,
+  }))
+
+export const adminProductsDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+
+    status: ProductStatusByCode[item.status],
+    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    amazon: item.amazon,
+    profit: item.profit,
+    margin: item.margin,
+    bsr: item.bsr,
+    id: item.id,
+    fbafee: item.fbafee,
+    fbaamount: item.fbaamount,
+    barCode: item.barCode,
+  }))
+
+export const adminOrdersDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item.id,
+
+    barCode: item.product.barCode,
+    totalPrice: calcTotalPriceForOrder(item),
+    grossWeightKg: item.product.weight * item.amount,
+    warehouses: warehouses[item.warehouse],
+    status: OrderStatusByCode[item.status],
+
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    amount: item.amount,
+    trackingNumberChina: item.trackingNumberChina,
+  }))
+
+export const adminTasksDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+
+    id: item._id,
+    operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]],
+    status: mapTaskStatusKeyToEnum[item.status],
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    description: item.description,
+  }))
+
+export const adminBoxesDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    _id: item._id,
+
+    qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
+
+    amazonPrice: calcAmazonPriceForBox(item),
+
+    trackingNumberChina: item.items[0].order.trackingNumberChina,
+    finalWeight: calcFinalWeightForBox(item),
+    grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
+    warehouses: warehouses[item.warehouse],
+
+    isDraft: item.isDraft,
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+  }))
+
+export const adminBatchesDataConverter = data =>
+  data.map((item, i) => ({
+    originalData: item,
+    id: i,
+
+    delivery: DeliveryTypeByCode[item.batch.deliveryMethod],
+    warehouses: warehouses[item.batch.warehouse],
+    finalWeight: item.boxes.reduce(
+      (prev, box) => (prev = prev + calcFinalWeightForBox(box)),
+
+      0,
+    ),
+    totalPrice: calcTotalPriceForBatch(item),
+  }))
+
+export const adminFinancesDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    creatorName: item.createdBy?.name,
+    recipientName: item.recipient?.name,
+    createdAt: item.createdAt,
+    comment: item.comment,
+    sum: item.sum,
+  }))
+
+export const adminUsersDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+
+    id: item._id,
+    role: UserRoleCodeMap[item.role],
+    active: item.active === true ? 'Active' : 'Banned',
+
+    createdAt: item.createdAt,
+    name: item.name,
+    balance: item.balance,
+    balanceFreeze: item.balanceFreeze,
+    email: item.email,
+    rate: item.rate,
+  }))
+
+export const adminSinglePermissionsDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    role: UserRoleCodeMap[item.role],
+
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    key: item.key,
+    title: item.title,
+    description: item.description,
+  }))
+
+export const adminGroupPermissionsDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    role: UserRoleCodeMap[item.role],
+
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    key: item.key,
+    title: item.title,
+    description: item.description,
+  }))

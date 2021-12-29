@@ -2,7 +2,6 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {PermissionsModel} from '@models/permissions-model'
@@ -10,6 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {adminUsersViewColumns} from '@components/table-columns/admin/users-columns'
 
+import {adminUsersDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminUsersViewModel {
@@ -102,12 +102,7 @@ export class AdminUsersViewModel {
       this.error = undefined
       const result = await AdministratorModel.getUsers()
 
-      const usersData = await result.map(user => ({
-        ...user,
-        id: user._id,
-        tmpRole: UserRoleCodeMap[user.role],
-        tmpActive: user.active === true ? 'Active' : 'Banned',
-      }))
+      const usersData = adminUsersDataConverter(result)
 
       runInAction(() => {
         this.users = usersData
@@ -170,7 +165,7 @@ export class AdminUsersViewModel {
   }
 
   onSelectionModel(model) {
-    this.editUserFormFields = this.users.find(el => el.id === model)
+    this.editUserFormFields = this.users.find(el => el.id === model).originalData
     this.selectionModel = model
   }
 

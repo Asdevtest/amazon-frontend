@@ -4,11 +4,12 @@ import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
-import {ClientModel} from '@models/client-model'
+import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {clientFinancesViewColumns} from '@components/table-columns/client/client-finances-columns'
 
+import {clientFinancesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -86,17 +87,10 @@ export class ClientFinancesViewsModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
-      const result = await ClientModel.getMyPayments()
-
-      const paymentsData = result.map(item => ({
-        ...item,
-        id: item._id,
-        tmpCreatorName: item.createdBy?.name,
-        tmpRecipientName: item.recipient?.name,
-      }))
+      const result = await OtherModel.getMyPayments()
 
       runInAction(() => {
-        this.currentFinancesData = paymentsData
+        this.currentFinancesData = clientFinancesDataConverter(result)
           .filter(el => (activeSubCategory < 1 ? el.sum >= 0 : el.sum < 0))
           .sort(sortObjectsArrayByFiledDate('createdAt'))
       })

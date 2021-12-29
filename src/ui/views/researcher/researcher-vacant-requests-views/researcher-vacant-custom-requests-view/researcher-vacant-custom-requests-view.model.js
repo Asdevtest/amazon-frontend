@@ -9,7 +9,8 @@ import {SettingsModel} from '@models/settings-model'
 
 import {researcherCustomSearchRequestsViewColumns} from '@components/table-columns/researcher/researcher-custom-search-requests-columns'
 
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {researcherCustomRequestsDataConverter} from '@utils/data-grid-data-converters'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const formFieldsDefault = {
   amazonLink: '',
@@ -134,17 +135,9 @@ export class ResearcherVacantCustomRequestsViewModel {
       const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT)
 
       runInAction(() => {
-        this.searchRequests = result
-          .filter(item => !this.searchMyRequestsIds.includes(item.request._id))
-          .map((request, i) => ({
-            ...request,
-            id: i,
-            tmpCreatedAt: request.request.createdAt,
-            tmpTimeoutAt: request.request.timeoutAt,
-            tmpName: request.details.name,
-            tmpMaxAmountOfProposals: request.request.maxAmountOfProposals,
-            tmpPrice: request.request.price,
-          }))
+        this.searchRequests = researcherCustomRequestsDataConverter(
+          result.filter(item => !this.searchMyRequestsIds.includes(item.request._id)),
+        )
       })
     } catch (error) {
       console.log(error)
@@ -152,22 +145,13 @@ export class ResearcherVacantCustomRequestsViewModel {
   }
 
   onClickTableRow(item) {
-    this.tmpSelectedRow = item
+    this.tmpSelectedRow = item.originalData
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   pushToRequestContent() {
     this.onTriggerOpenModal('showConfirmModal')
-
-    // const requestItem = getObjectFilteredByKeyArrayBlackList(
-    //   {
-    //     ...this.tmpSelectedRow,
-    //   },
-    //   ['tmpStrategyStatus', 'tmpCostOfOneProposal'],
-    // )
-
-    // this.history.push('/researcher/custom-search-request', {request: toJS(requestItem)})
 
     this.pickupRequestById(this.tmpSelectedRow.request._id)
   }
@@ -176,14 +160,7 @@ export class ResearcherVacantCustomRequestsViewModel {
     try {
       await RequestModel.pickupRequestById(id)
 
-      const requestItem = getObjectFilteredByKeyArrayBlackList(
-        {
-          ...this.tmpSelectedRow,
-        },
-        ['tmpStrategyStatus', 'tmpCostOfOneProposal'],
-      )
-
-      this.history.push('/researcher/custom-search-request', {request: toJS(requestItem)})
+      this.history.push('/researcher/custom-search-request', {request: toJS(this.tmpSelectedRow)})
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
       console.log(error)

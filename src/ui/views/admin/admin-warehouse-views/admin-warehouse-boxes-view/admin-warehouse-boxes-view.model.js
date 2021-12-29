@@ -2,13 +2,13 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {warehouses} from '@constants/warehouses'
 
 import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {adminBoxesViewColumns} from '@components/table-columns/admin/boxes-columns'
 
+import {adminBoxesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -105,26 +105,7 @@ export class AdminWarehouseBoxesViewModel {
       const result = await BoxesModel.getBoxes()
 
       runInAction(() => {
-        this.boxes = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
-          ...item,
-          id: item._id,
-          tmpBarCode: item.items[0].product.barCode,
-          tmpAsin: item.items[0].product.id,
-          tmpQty: item.items[0].amount,
-          tmpMaterial: item.items[0].product.material,
-          tmpAmazonPrice: item.items[0].product.amazon,
-          tmpTrackingNumberChina: item.items[0].order.trackingNumberChina,
-          tmpFinalWeight: Math.max(
-            parseFloat(item.volumeWeightKgWarehouse ? item.volumeWeightKgWarehouse : item.volumeWeightKgSupplier) || 0,
-            parseFloat(
-              item.weightFinalAccountingKgWarehouse
-                ? item.weightFinalAccountingKgWarehouse
-                : item.weightFinalAccountingKgSupplier,
-            ) || 0,
-          ),
-          tmpGrossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
-          tmpWarehouses: warehouses[item.warehouse],
-        }))
+        this.boxes = adminBoxesDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
       })
     } catch (error) {
       console.log(error)

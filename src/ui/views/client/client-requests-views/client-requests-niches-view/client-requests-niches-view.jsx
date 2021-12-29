@@ -20,7 +20,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {NicheSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/niche-search-request-form'
 
-import {onStateChangeHandler} from '@utils/for-data-grid'
+import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/clientAvatar.jpg'

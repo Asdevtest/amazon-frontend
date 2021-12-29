@@ -8,8 +8,10 @@ import {warehouses} from '@constants/warehouses'
 
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 
+import {calcFinalWeightForBox} from '@utils/calculation'
 import {getShortenStringIfLongerThanCount} from '@utils/change-string-length'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {toFixedWithKg} from '@utils/text'
 
 import {useClassNames} from './request-to-send-batch-box.styles'
 
@@ -22,27 +24,30 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
       <td className={tableCellClsx}>
         <Typography variant="subtitle2">{index + 1}</Typography>
       </td>
+
       <td className={tableCellClsx}>
-        <div className={classNames.imgWrapper}>
+        <div className={classNames.boxWrapper}>
           {box.items.map((item, idx) => (
-            <img
-              key={idx}
-              src={item.product.images && getAmazonImageUrl(item.product.images[0])}
-              className={classNames.img}
-            />
+            <td key={idx} className={classNames.boxItemWrapper}>
+              <img src={item.product.images && getAmazonImageUrl(item.product.images[0])} className={classNames.img} />
+
+              <Typography key={idx} variant="h5">{`${idx + 1}: ${getShortenStringIfLongerThanCount(
+                item.product.amazonTitle,
+                30,
+              )}`}</Typography>
+
+              <Typography variant="subtitle1">{`${item.amount}шт.`}</Typography>
+
+              <Typography variant="subtitle1">{toFixedWithKg(item.product.weight, 2)}</Typography>
+            </td>
           ))}
         </div>
       </td>
+
       <td className={tableCellClsx}>
-        {box.items.map((item, idx) => (
-          <Typography key={idx} variant="h5">{`${idx + 1}: ${getShortenStringIfLongerThanCount(
-            item.product.amazonTitle,
-            30,
-          )}`}</Typography>
-        ))}
-      </td>
-      <td className={tableCellClsx}>
-        <Typography variant="subtitle1">{`Реальный вес: ${box.tmpGrossWeight}кг; Объемный вес: ${box.volumeWeightKgWarehouse}кг; Финальный вес: ${box.tmpFinalWeight}кг`}</Typography>
+        <Typography variant="subtitle1">{`Реальный вес: ${box.weighGrossKgWarehouse}кг; Объемный вес: ${
+          box.volumeWeightKgWarehouse
+        }кг; Финальный вес: ${calcFinalWeightForBox(box)}кг`}</Typography>
       </td>
       <td className={tableCellClsx}>
         <Typography variant="subtitle1">{warehouses[box.warehouse]}</Typography>
@@ -50,12 +55,7 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
       <td className={tableCellClsx}>
         <Typography variant="subtitle1">{DeliveryTypeByCode[box.deliveryMethod]}</Typography>
       </td>
-      <td className={tableCellClsx}>
-        {box.items.map((item, idx) => (
-          <Typography key={idx} variant="subtitle1">{`${item.amount}шт.`}</Typography>
-        ))}
-      </td>
-      <td className={clsx(tableCellClsx, classNames.tableCellRight)}>
+      <td className={clsx(tableCellClsx, classNames.priceCellRight)}>
         {price ? <Typography variant="h5">{`${price} $`}</Typography> : null}
       </td>
       <td className={classNames.tableCellCrossBtn}>

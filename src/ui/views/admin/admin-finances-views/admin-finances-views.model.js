@@ -9,6 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {adminFinancesViewColumns} from '@components/table-columns/admin/finances-columns'
 
+import {adminFinancesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -88,15 +89,8 @@ export class AdminFinancesViewsModel {
       this.error = undefined
       const result = await AdministratorModel.getAllPayments()
 
-      const paymentsData = result.map(item => ({
-        ...item,
-        id: item._id,
-        tmpCreatorName: item.createdBy?.name,
-        tmpRecipientName: item.recipient?.name,
-      }))
-
       runInAction(() => {
-        this.currentFinancesData = paymentsData
+        this.currentFinancesData = adminFinancesDataConverter(result)
           .filter(el => (activeSubCategory < 1 ? el.sum >= 0 : el.sum < 0))
           .sort(sortObjectsArrayByFiledDate('createdAt'))
       })

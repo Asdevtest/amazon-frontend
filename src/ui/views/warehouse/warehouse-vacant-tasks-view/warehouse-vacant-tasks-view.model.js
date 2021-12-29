@@ -2,7 +2,6 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {SettingsModel} from '@models/settings-model'
@@ -10,6 +9,7 @@ import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {warehouseVacantTasksViewColumns} from '@components/table-columns/warehouse/vacant-tasks-columns'
 
+import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -109,7 +109,7 @@ export class WarehouseVacantViewModel {
 
   async onClickPickupBtn(item) {
     try {
-      await StorekeeperModel.pickupTask(item.id)
+      await StorekeeperModel.pickupTask(item._id)
       this.onTriggerOpenModal('showWarningModal')
       await this.getTasksVacant()
     } catch (error) {
@@ -131,15 +131,12 @@ export class WarehouseVacantViewModel {
       const result = await StorekeeperModel.getTasksVacant()
 
       runInAction(() => {
-        this.tasksVacant = result
-          .sort(sortObjectsArrayByFiledDate('updatedAt'))
-          .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.NEW])
-          .map(el => ({...el, beforeBoxes: el.boxesBefore}))
-          .map(order => ({
-            ...order,
-            id: order._id,
-            tmpOperationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[order.operationType]],
-          }))
+        this.tasksVacant = warehouseTasksDataConverter(
+          result
+            .sort(sortObjectsArrayByFiledDate('updatedAt'))
+            .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.NEW])
+            .map(el => ({...el, beforeBoxes: el.boxesBefore})),
+        )
       })
     } catch (error) {
       console.log(error)
@@ -150,15 +147,6 @@ export class WarehouseVacantViewModel {
           this.tasksVacant = []
         })
       }
-    }
-  }
-
-  async pickupTask(taskId) {
-    try {
-      await StorekeeperModel.pickupTask(taskId)
-    } catch (error) {
-      console.log(error)
-      this.error = error
     }
   }
 

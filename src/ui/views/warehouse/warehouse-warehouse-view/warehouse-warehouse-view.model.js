@@ -1,9 +1,7 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {warehouses} from '@constants/warehouses'
 
 import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
@@ -11,6 +9,7 @@ import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
 
+import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class WarehouseWarehouseViewModel {
@@ -122,25 +121,7 @@ export class WarehouseWarehouseViewModel {
       const result = await StorekeeperModel.getBatches()
 
       runInAction(() => {
-        this.batches = result.map((item, i) => ({
-          ...item,
-          id: i,
-          tmpDelivery: DeliveryTypeByCode[item.batch.deliveryMethod],
-          tmpWarehouses: warehouses[item.batch.warehouse],
-          tmpFinalWeight: item.boxes.reduce(
-            (prev, box) =>
-              (prev =
-                prev +
-                Math.max(
-                  parseFloat(box.volumeWeightKgWarehouse ? box.volumeWeightKgWarehouse : box.volumeWeightKgSupplier) ||
-                    0,
-                  parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) || 0,
-                )),
-
-            0,
-          ),
-          tmpTotalPrice: item.boxes.reduce((acc, cur) => acc + cur.items[0].product.currentSupplier.lotcost, 0),
-        }))
+        this.batches = warehouseBatchesDataConverter(result)
       })
     } catch (error) {
       console.log(error)
@@ -156,9 +137,13 @@ export class WarehouseWarehouseViewModel {
   async onClickConfirmSendToBatchBtn() {
     try {
       const boxesIds = []
+      console.log('this.batches', this.batches)
+
+      console.log('this.selectedBatches', this.selectedBatches)
 
       this.batches
         .filter(batch => this.selectedBatches.includes(batch.id))
+        .map(batch => batch.originalData)
         .forEach(batch => batch.boxes.forEach(box => boxesIds.push(box._id)))
 
       await BoxesModel.sendBoxesToBatch(boxesIds)

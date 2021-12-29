@@ -4,7 +4,9 @@ import {Typography} from '@material-ui/core'
 
 import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {texts} from '@constants/texts'
+import {warehouses} from '@constants/warehouses'
 
+import {calcFinalWeightForBox} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {RequestToSendBatchBox} from '../request-to-send-batch-box'
@@ -20,16 +22,20 @@ export const RequestToSendBatchesGroupBoxes = ({
 }) => {
   const classNames = useClassNames()
 
-  const totalPrice = selectedGroup.boxes.reduce((acc, cur) => acc + cur.items[0].product.currentSupplier.lotcost, 0)
-  const totalWeight = selectedGroup.boxes.reduce((acc, cur) => acc + cur.tmpGrossWeight, 0)
-  const tmpWarehouses = selectedGroup.tmpWarehouses
+  const totalPrice = selectedGroup.boxes.reduce(
+    (acc, cur) => (acc += boxesDeliveryCosts.find(priceObj => priceObj.guid === cur._id).deliveryCost),
+    0,
+  )
+
+  const totalWeight = selectedGroup.boxes.reduce((acc, cur) => acc + calcFinalWeightForBox(cur), 0)
+  const warehousesBox = selectedGroup.warehouse
   const deliveryMethod = selectedGroup.deliveryMethod
 
   return (
     <div className={classNames.tableWrapper}>
       {selectedGroup.price !== 0 && (
         <Typography className={classNames.tableWrapperInfo}>
-          {`Склад: ${tmpWarehouses} , Способ доставки: ${DeliveryTypeByCode[deliveryMethod]}`}
+          {`Склад: ${warehouses[warehousesBox]} , Способ доставки: ${DeliveryTypeByCode[deliveryMethod]}`}
         </Typography>
       )}
 

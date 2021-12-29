@@ -9,7 +9,8 @@ import {SettingsModel} from '@models/settings-model'
 
 import {researcherCustomSearchRequestsViewColumns} from '@components/table-columns/researcher/researcher-custom-search-requests-columns'
 
-import {getObjectFilteredByKeyArrayWhiteList, getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import {researcherCustomRequestsDataConverter} from '@utils/data-grid-data-converters'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const formFieldsDefault = {
   amazonLink: '',
@@ -119,15 +120,7 @@ export class ResearcherMyCustomRequestsViewModel {
       const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.ASSIGNEES)
 
       runInAction(() => {
-        this.searchRequests = result.map((request, i) => ({
-          ...request,
-          id: i,
-          tmpCreatedAt: request.request.createdAt,
-          tmpTimeoutAt: request.request.timeoutAt,
-          tmpName: request.details.name,
-          tmpMaxAmountOfProposals: request.request.maxAmountOfProposals,
-          tmpPrice: request.request.price,
-        }))
+        this.searchRequests = researcherCustomRequestsDataConverter(result)
       })
     } catch (error) {
       console.log(error)
@@ -137,14 +130,7 @@ export class ResearcherMyCustomRequestsViewModel {
   onClickTableRow(item) {
     this.tmpSelectedRow = item
 
-    const requestItem = getObjectFilteredByKeyArrayBlackList(
-      {
-        ...this.tmpSelectedRow,
-      },
-      ['tmpStrategyStatus', 'tmpCostOfOneProposal'],
-    )
-
-    this.history.push('/researcher/custom-search-request', {request: toJS(requestItem)})
+    this.history.push('/researcher/custom-search-request', {request: toJS(this.tmpSelectedRow.originalData)})
 
     this.onTriggerOpenModal('showConfirmModal')
   }

@@ -18,7 +18,7 @@ export class ResearcherRequestDetailCustomViewModel {
 
   drawerOpen = false
   request = undefined
-  requestProposal = undefined
+  requestProposals = []
   showWarningModal = false
 
   warningInfoModalSettings = {
@@ -63,31 +63,16 @@ export class ResearcherRequestDetailCustomViewModel {
 
   async getCustomRequestProposalsByRequestId() {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.request.request._id)
+      const result = await RequestModel.getRequestProposalsCustomByRequestId(this.request.request._id)
 
       runInAction(() => {
-        this.requestProposal = result.find(
+        this.requestProposals = result.filter(
           requestProposal => requestProposal.proposal.createdById === UserModel.userInfo._id,
         )
       })
     } catch (error) {
       console.log(error)
       this.error = error
-    }
-  }
-
-  async getCustomRequestProposalsById(id) {
-    if (!this.requestProposal) {
-      return
-    }
-    try {
-      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(id)
-
-      runInAction(() => {
-        this.requestProposal = result
-      })
-    } catch (error) {
-      console.log(error)
     }
   }
 
@@ -104,7 +89,7 @@ export class ResearcherRequestDetailCustomViewModel {
         ? await RequestProposalModel.updateRequestProposalCustom(this.requestProposal.proposal._id, formFields)
         : await RequestProposalModel.createRequestProposalCustom(this.request.request._id, formFields)
 
-      this.getCustomRequestProposalsById(result?.guid || this.requestProposal.proposal._id)
+      this.getCustomRequestProposalsByRequestId(result?.guid || this.requestProposal.proposal._id)
 
       this.warningInfoModalSettings = {
         isWarning: false,
@@ -112,7 +97,7 @@ export class ResearcherRequestDetailCustomViewModel {
       }
 
       this.onTriggerOpenModal('showWarningModal')
-      this.history.goBack()
+      // this.history.goBack()
     } catch (error) {
       console.log(error)
       this.error = error

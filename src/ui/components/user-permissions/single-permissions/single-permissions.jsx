@@ -13,7 +13,7 @@ import {AddOrEditSinglePermissionForm} from '@components/forms/add-or-edit-singl
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 
-import {onStateChangeHandler} from '@utils/for-data-grid'
+import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {SinglePermissionsModel} from './single-permissions.model'

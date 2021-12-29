@@ -2,21 +2,17 @@ import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 
 import {ResearcherModel} from '@models/researcher-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {researcherProductsViewColumns} from '@components/table-columns/researcher/researcher-products-columns'
 
+import {researcherProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
-import {
-  getNewObjectWithDefaultValue,
-  getObjectFilteredByKeyArrayBlackList,
-  getObjectFilteredByKeyArrayWhiteList,
-} from '@utils/object'
+import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
 const formFieldsDefault = {
@@ -152,9 +148,9 @@ export class ResearcherProductsViewModel {
       }
       await this.createProduct(product)
 
-      const foundedProd = this.products.find(prod => prod._id === this.newProductId)
+      const foundedProd = this.products.find(prod => prod.originalData._id === this.newProductId)
 
-      this.history.push('/researcher/product', {product: toJS(foundedProd)})
+      this.history.push('/researcher/product', {product: toJS(foundedProd.originalData)})
     } catch (error) {
       console.warn(error)
     }
@@ -197,11 +193,7 @@ export class ResearcherProductsViewModel {
     try {
       const result = await ResearcherModel.getProductsVacant()
       runInAction(() => {
-        this.products = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
-          ...item,
-          tmpStatus: ProductStatusByCode[item.status],
-          tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
-        }))
+        this.products = researcherProductsDataConverter(result.sort(sortObjectsArrayByFiledDate('createdAt')))
       })
     } catch (error) {
       console.log(error)
@@ -228,15 +220,8 @@ export class ResearcherProductsViewModel {
   }
 
   onClickTableRow(item) {
-    if (item.status < ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
-      const requestItem = getObjectFilteredByKeyArrayBlackList(
-        {
-          ...item,
-        },
-        ['tmpStatus'],
-      )
-
-      this.history.push('/researcher/product', {product: toJS(requestItem)})
+    if (item.originalData.status < ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
+      this.history.push('/researcher/product', {product: toJS(item.originalData)})
     }
   }
 

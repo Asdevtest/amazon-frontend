@@ -14,7 +14,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').clientSearchRequestsTableColum
 
 export const researcherCustomSearchRequestsViewColumns = () => [
   {
-    field: 'tmpCreatedAt',
+    field: 'createdAt',
     headerName: textConsts.createDateField,
     renderCell: params => <NormDateCell params={params} />,
     width: 200,
@@ -22,7 +22,7 @@ export const researcherCustomSearchRequestsViewColumns = () => [
   },
 
   {
-    field: 'tmpTimeoutAt',
+    field: 'timeoutAt',
     headerName: textConsts.timeoutDateField,
     renderCell: params => <NormDateCell params={params} />,
     width: 200,
@@ -30,14 +30,14 @@ export const researcherCustomSearchRequestsViewColumns = () => [
   },
 
   {
-    field: 'tmpName',
+    field: 'name',
     headerName: textConsts.nameRequestField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
-    field: 'tmpMaxAmountOfProposals',
+    field: 'maxAmountOfProposals',
     headerName: textConsts.maxAmountOfProposalsField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
@@ -45,19 +45,10 @@ export const researcherCustomSearchRequestsViewColumns = () => [
   },
 
   {
-    field: 'tmpPrice',
+    field: 'price',
     headerName: textConsts.priceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 200,
     type: 'number',
   },
-
-  // {
-  //   field: 'action',
-  //   headerName: textConsts.actionField,
-  //   width: 250,
-  //   renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
-  //   filterable: false,
-  //   sortable: false,
-  // },
 ]

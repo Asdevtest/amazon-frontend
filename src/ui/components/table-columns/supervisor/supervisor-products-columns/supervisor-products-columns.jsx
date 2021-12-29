@@ -24,7 +24,7 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'asinCell',
     headerName: textConsts.asinField,
-    renderCell: params => <AsinCell params={params} />,
+    renderCell: params => <AsinCell product={params.row.originalData} />,
     minWidth: 350,
     filterable: false,
     flex: 3,
@@ -39,14 +39,14 @@ export const supervisorProductsViewColumns = () => [
   },
 
   {
-    field: 'tmpStatus',
+    field: 'status',
     headerName: textConsts.statusField,
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
-    field: 'tmpStrategyStatus',
+    field: 'strategyStatus',
     headerName: textConsts.strategyStatusField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
@@ -62,14 +62,14 @@ export const supervisorProductsViewColumns = () => [
   },
 
   {
-    field: 'tmpResearcherName',
+    field: 'researcherName',
     headerName: textConsts.researcherField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
-    field: 'tmpBuyerName',
+    field: 'buyerName',
     headerName: textConsts.buyerField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,

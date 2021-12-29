@@ -26,7 +26,9 @@ export const freelancerFinancesViewColumns = () => [
     headerName: textConsts.commentField,
     width: 400,
     renderCell: params => (
-      <ScrollingCell value={`${params.value} ${params.row?.product ? params.row.product?.id : ''}`} />
+      <ScrollingCell
+        value={`${params.value} ${params.row?.originalData?.product ? params.row.originalData.product?.id : ''}`}
+      />
     ),
   },
 

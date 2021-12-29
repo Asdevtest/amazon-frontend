@@ -13,16 +13,17 @@ export const useClassNames = makeStyles(() => ({
     display: 'table-cell',
     verticalAlign: 'middle',
   },
-  tableCellRight: {
-    textAlign: 'right',
+  priceCellRight: {
+    textAlign: 'center',
+    minWidth: '150px',
   },
   imgWrapper: {
     minHeight: '50px',
     width: '50px',
   },
   img: {
-    height: '100%',
-    width: '100%',
+    height: '60px',
+    width: '60px',
     objectFit: 'contain',
     objectPosition: 'center',
   },
@@ -35,5 +36,18 @@ export const useClassNames = makeStyles(() => ({
     border: 0,
     padding: '0 10px',
     verticalAlign: 'middle',
+  },
+
+  boxWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '500px',
+  },
+
+  boxItemWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '500px',
+    gap: '5px',
   },
 }))
