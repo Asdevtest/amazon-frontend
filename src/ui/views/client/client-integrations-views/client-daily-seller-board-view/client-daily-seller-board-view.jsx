@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Button, Typography} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
@@ -11,7 +11,9 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {AddProductSellerboardForm} from '@components/forms/add-product-to-sellerbord-form/add-product-to-sellerbord-form'
+import {Button} from '@components/buttons/button'
+import {AddProductSellerboardForm} from '@components/forms/add-product-to-sellerbord-form'
+import {BindStockGoodsToInventoryForm} from '@components/forms/bind-stock-goods-to-inventory-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -49,9 +51,14 @@ class ClientDailySellerBoardViewRaw extends Component {
       selectedRow,
       drawerOpen,
       showAddProductSellerboardModal,
+      showBindStockGoodsToInventoryModal,
       curPage,
       rowsPerPage,
-      onClickCancelBtn,
+      selectedRows,
+      inventoryProducts,
+      getProductsMy,
+      // getInventoryData,
+      onClickBindStockGoodsToInventoryBtn,
       onTriggerDrawer,
       onTriggerOpenModal,
       onChangeCurPage,
@@ -59,6 +66,7 @@ class ClientDailySellerBoardViewRaw extends Component {
       onChangeFilterModel,
       setDataGridState,
       onChangeSortingModel,
+      onSelectionModel,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -88,22 +96,38 @@ class ClientDailySellerBoardViewRaw extends Component {
               </Typography>
 
               <Button
-                disabled={!selectedRow.asin}
+                disableElevation
+                tooltipContent="Пример тултипа"
+                disabled={selectedRows.length === 0}
                 variant="contained"
                 color="primary"
                 onClick={() => onTriggerOpenModal('showAddProductSellerboardModal')}
               >
-                {'Add product'}
+                {textConsts.moveToInventoryBtn}
+              </Button>
+
+              <Button
+                disableElevation
+                tooltipContent="Пример тултипа"
+                disabled={selectedRows.length === 0}
+                className={className.button}
+                variant="contained"
+                color="primary"
+                onClick={onClickBindStockGoodsToInventoryBtn}
+              >
+                {textConsts.bindBtn}
               </Button>
               <div className={className.tableWrapper}>
                 <DataGrid
                   pagination
                   useResizeContainer
                   autoHeight
+                  checkboxSelection
                   classes={{
                     row: className.row,
                   }}
                   sortModel={sortModel}
+                  selectionModel={selectedRows}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
@@ -116,6 +140,7 @@ class ClientDailySellerBoardViewRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
@@ -132,9 +157,20 @@ class ClientDailySellerBoardViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showAddProductSellerboardModal')}
         >
           <AddProductSellerboardForm
+            goodsToSelect={getCurrentData().filter(item => selectedRows.includes(item.id))}
             selectedProduct={selectedRow}
             productToEdit={addProductSettings.product}
-            onCloseModal={() => onClickCancelBtn()}
+          />
+        </Modal>
+
+        <Modal
+          openModal={showBindStockGoodsToInventoryModal}
+          setOpenModal={() => onTriggerOpenModal('showBindStockGoodsToInventoryModal')}
+        >
+          <BindStockGoodsToInventoryForm
+            goodsToSelect={getCurrentData().filter(item => selectedRows.includes(item.id))}
+            inventoryData={inventoryProducts}
+            updateInventoryData={getProductsMy}
           />
         </Modal>
       </React.Fragment>

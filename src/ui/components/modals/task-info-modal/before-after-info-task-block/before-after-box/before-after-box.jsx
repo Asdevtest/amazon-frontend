@@ -11,6 +11,7 @@ import {getWarehousesOptionByCode} from '@constants/warehouses'
 import {Field} from '@components/field'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixedWithCm, toFixedWithKg} from '@utils/text'
 
 import {useClassNames} from './before-after-box.style'
 import {TaskInfoBoxItemCard} from './task-info-box-item-card'
@@ -78,30 +79,33 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType}) => {
             <Typography className={classNames.categoryTitle}>{textConsts.demensionsSupplier}</Typography>
             <Typography>
               {textConsts.length}
-              {box.lengthCmSupplier}
+              {toFixedWithCm(box.lengthCmSupplier, 2)}
             </Typography>
             <Typography>
               {textConsts.width}
-              {box.widthCmSupplier}
+              {toFixedWithCm(box.widthCmSupplier, 2)}
             </Typography>
             <Typography>
               {textConsts.height}
-              {box.heightCmSupplier}
+              {toFixedWithCm(box.heightCmSupplier, 2)}
             </Typography>
 
             <Typography>
               {textConsts.weight}
-              {box.weighGrossKgSupplier}
+              {toFixedWithKg(box.weighGrossKgSupplier, 2)}
             </Typography>
             <Typography>
               {textConsts.volumeWeigh}
-              {box.volumeWeightKgSupplier}
+              {toFixedWithKg(box.volumeWeightKgSupplier, 2)}
             </Typography>
             <Typography>
               {textConsts.finalWeight}
-              {box.weighGrossKgSupplier > box.volumeWeightKgSupplier
-                ? box.weighGrossKgSupplier
-                : box.volumeWeightKgSupplier}
+              {toFixedWithKg(
+                box.weighGrossKgSupplier > box.volumeWeightKgSupplier
+                  ? box.weighGrossKgSupplier
+                  : box.volumeWeightKgSupplier,
+                2,
+              )}
             </Typography>
           </Paper>
         ) : (
@@ -109,30 +113,33 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType}) => {
             <Typography className={classNames.categoryTitle}>{textConsts.demensionsWarehouse}</Typography>
             <Typography>
               {textConsts.length}
-              {box.lengthCmWarehouse}
+              {toFixedWithCm(box.lengthCmWarehouse, 2)}
             </Typography>
             <Typography>
               {textConsts.width}
-              {box.widthCmWarehouse}
+              {toFixedWithCm(box.widthCmWarehouse, 2)}
             </Typography>
             <Typography>
               {textConsts.height}
-              {box.heightCmWarehouse}
+              {toFixedWithCm(box.heightCmWarehouse, 2)}
             </Typography>
 
             <Typography>
               {textConsts.weight}
-              {box.weighGrossKgWarehouse}
+              {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
             </Typography>
             <Typography>
               {textConsts.volumeWeigh}
-              {box.volumeWeightKgWarehouse}
+              {toFixedWithKg(box.volumeWeightKgWarehouse, 2)}
             </Typography>
             <Typography>
               {textConsts.finalWeight}
-              {box.weighGrossKgWarehouse > box.volumeWeightKgWarehouse
-                ? box.weighGrossKgWarehouse
-                : box.volumeWeightKgWarehouse}
+              {toFixedWithKg(
+                box.weighGrossKgWarehouse > box.volumeWeightKgWarehouse
+                  ? box.weighGrossKgWarehouse
+                  : box.volumeWeightKgWarehouse,
+                2,
+              )}
             </Typography>
           </Paper>
         )}

@@ -21,12 +21,12 @@ import ApiClient from '../ApiClient';
 class LinkSubuserInputSchema {
     /**
      * Constructs a new <code>LinkSubuserInputSchema</code>.
+     * Привязать саб юзера по email.
      * @alias module:model/LinkSubuserInputSchema
-     * @param email {String} 
      */
-    constructor(email) { 
+    constructor() { 
         
-        LinkSubuserInputSchema.initialize(this, email);
+        LinkSubuserInputSchema.initialize(this);
     }
 
     /**
@@ -34,8 +34,7 @@ class LinkSubuserInputSchema {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email) { 
-        obj['email'] = email;
+    static initialize(obj) { 
     }
 
     /**
@@ -60,6 +59,7 @@ class LinkSubuserInputSchema {
 }
 
 /**
+ * email пользователя.
  * @member {String} email
  */
 LinkSubuserInputSchema.prototype['email'] = undefined;

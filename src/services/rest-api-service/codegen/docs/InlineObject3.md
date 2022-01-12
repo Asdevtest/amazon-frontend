@@ -16,5 +16,6 @@ Name | Type | Description | Notes
 **permissions** | **[String]** | Массив permission-ов. | [optional] 
 **permissionGroups** | **[String]** | Массив групп permission-ов. | [optional] 
 **allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
+**canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 
 
 

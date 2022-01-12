@@ -12,8 +12,11 @@
  */
 
 import ApiClient from '../ApiClient';
+<<<<<<< HEAD
 import ApiV1RequestsDetails from './ApiV1RequestsDetails';
 import ApiV1RequestsRequest from './ApiV1RequestsRequest';
+=======
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 /**
  * The InlineResponse2007 model module.
@@ -23,12 +26,22 @@ import ApiV1RequestsRequest from './ApiV1RequestsRequest';
 class InlineResponse2007 {
     /**
      * Constructs a new <code>InlineResponse2007</code>.
+<<<<<<< HEAD
      * Схема детали на поиск ниш.
      * @alias module:model/InlineResponse2007
      */
     constructor() { 
         
         InlineResponse2007.initialize(this);
+=======
+     * Схема репорта за 30 дней с Seller-board
+     * @alias module:model/InlineResponse2007
+     * @param sku {String} SKU
+     */
+    constructor(sku) { 
+        
+        InlineResponse2007.initialize(this, sku);
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
     }
 
     /**
@@ -36,7 +49,12 @@ class InlineResponse2007 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
+<<<<<<< HEAD
     static initialize(obj) { 
+=======
+    static initialize(obj, sku) { 
+        obj['sku'] = sku;
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
     }
 
     /**
@@ -50,11 +68,82 @@ class InlineResponse2007 {
         if (data) {
             obj = obj || new InlineResponse2007();
 
+<<<<<<< HEAD
             if (data.hasOwnProperty('request')) {
                 obj['request'] = ApiV1RequestsRequest.constructFromObject(data['request']);
             }
             if (data.hasOwnProperty('details')) {
                 obj['details'] = ApiV1RequestsDetails.constructFromObject(data['details']);
+=======
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
+            if (data.hasOwnProperty('sku')) {
+                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('roi')) {
+                obj['roi'] = ApiClient.convertToType(data['roi'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaFbmStock')) {
+                obj['fbaFbmStock'] = ApiClient.convertToType(data['fbaFbmStock'], 'Number');
+            }
+            if (data.hasOwnProperty('stockValue')) {
+                obj['stockValue'] = ApiClient.convertToType(data['stockValue'], 'Number');
+            }
+            if (data.hasOwnProperty('estimatedSalesVelocity')) {
+                obj['estimatedSalesVelocity'] = ApiClient.convertToType(data['estimatedSalesVelocity'], 'Number');
+            }
+            if (data.hasOwnProperty('daysOfStockLeft')) {
+                obj['daysOfStockLeft'] = ApiClient.convertToType(data['daysOfStockLeft'], 'Number');
+            }
+            if (data.hasOwnProperty('recommendedQuantityForReordering')) {
+                obj['recommendedQuantityForReordering'] = ApiClient.convertToType(data['recommendedQuantityForReordering'], 'Number');
+            }
+            if (data.hasOwnProperty('runningOutOfStock')) {
+                obj['runningOutOfStock'] = ApiClient.convertToType(data['runningOutOfStock'], 'String');
+            }
+            if (data.hasOwnProperty('reserved')) {
+                obj['reserved'] = ApiClient.convertToType(data['reserved'], 'Number');
+            }
+            if (data.hasOwnProperty('sentToFba')) {
+                obj['sentToFba'] = ApiClient.convertToType(data['sentToFba'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaPrepStock')) {
+                obj['fbaPrepStock'] = ApiClient.convertToType(data['fbaPrepStock'], 'Number');
+            }
+            if (data.hasOwnProperty('ordered')) {
+                obj['ordered'] = ApiClient.convertToType(data['ordered'], 'String');
+            }
+            if (data.hasOwnProperty('timeToReorder')) {
+                obj['timeToReorder'] = ApiClient.convertToType(data['timeToReorder'], 'String');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('marketplace')) {
+                obj['marketplace'] = ApiClient.convertToType(data['marketplace'], 'String');
+            }
+            if (data.hasOwnProperty('targetStockRangeAfterNewOrderDays')) {
+                obj['targetStockRangeAfterNewOrderDays'] = ApiClient.convertToType(data['targetStockRangeAfterNewOrderDays'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaBufferDays')) {
+                obj['fbaBufferDays'] = ApiClient.convertToType(data['fbaBufferDays'], 'Number');
+            }
+            if (data.hasOwnProperty('manufTimeDays')) {
+                obj['manufTimeDays'] = ApiClient.convertToType(data['manufTimeDays'], 'Number');
+            }
+            if (data.hasOwnProperty('useAPrepCenter')) {
+                obj['useAPrepCenter'] = ApiClient.convertToType(data['useAPrepCenter'], 'String');
+            }
+            if (data.hasOwnProperty('shippingToPrepCenterDays')) {
+                obj['shippingToPrepCenterDays'] = ApiClient.convertToType(data['shippingToPrepCenterDays'], 'Number');
+            }
+            if (data.hasOwnProperty('shippingToFbaDays')) {
+                obj['shippingToFbaDays'] = ApiClient.convertToType(data['shippingToFbaDays'], 'Number');
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
             }
         }
         return obj;
@@ -64,6 +153,7 @@ class InlineResponse2007 {
 }
 
 /**
+<<<<<<< HEAD
  * @member {module:model/ApiV1RequestsRequest} request
  */
 InlineResponse2007.prototype['request'] = undefined;
@@ -72,6 +162,144 @@ InlineResponse2007.prototype['request'] = undefined;
  * @member {module:model/ApiV1RequestsDetails} details
  */
 InlineResponse2007.prototype['details'] = undefined;
+=======
+ * \"ASIN\"
+ * @member {String} asin
+ */
+InlineResponse2007.prototype['asin'] = undefined;
+
+/**
+ * SKU
+ * @member {String} sku
+ */
+InlineResponse2007.prototype['sku'] = undefined;
+
+/**
+ * Title
+ * @member {String} title
+ */
+InlineResponse2007.prototype['title'] = undefined;
+
+/**
+ * ROI, %
+ * @member {Number} roi
+ */
+InlineResponse2007.prototype['roi'] = undefined;
+
+/**
+ * FBA/FBM Stock
+ * @member {Number} fbaFbmStock
+ */
+InlineResponse2007.prototype['fbaFbmStock'] = undefined;
+
+/**
+ * Stock value
+ * @member {Number} stockValue
+ */
+InlineResponse2007.prototype['stockValue'] = undefined;
+
+/**
+ * Estimated Sales Velocity
+ * @member {Number} estimatedSalesVelocity
+ */
+InlineResponse2007.prototype['estimatedSalesVelocity'] = undefined;
+
+/**
+ * Days  of stock  left
+ * @member {Number} daysOfStockLeft
+ */
+InlineResponse2007.prototype['daysOfStockLeft'] = undefined;
+
+/**
+ * Recommended quantity for  reordering
+ * @member {Number} recommendedQuantityForReordering
+ */
+InlineResponse2007.prototype['recommendedQuantityForReordering'] = undefined;
+
+/**
+ * Running  out of stock
+ * @member {String} runningOutOfStock
+ */
+InlineResponse2007.prototype['runningOutOfStock'] = undefined;
+
+/**
+ * Reserved
+ * @member {Number} reserved
+ */
+InlineResponse2007.prototype['reserved'] = undefined;
+
+/**
+ * Sent  to FBA
+ * @member {Number} sentToFba
+ */
+InlineResponse2007.prototype['sentToFba'] = undefined;
+
+/**
+ * FBA  Prep. Stock
+ * @member {Number} fbaPrepStock
+ */
+InlineResponse2007.prototype['fbaPrepStock'] = undefined;
+
+/**
+ * Ordered
+ * @member {String} ordered
+ */
+InlineResponse2007.prototype['ordered'] = undefined;
+
+/**
+ * Time to  reorder
+ * @member {String} timeToReorder
+ */
+InlineResponse2007.prototype['timeToReorder'] = undefined;
+
+/**
+ * Comment
+ * @member {String} comment
+ */
+InlineResponse2007.prototype['comment'] = undefined;
+
+/**
+ * Marketplace
+ * @member {String} marketplace
+ */
+InlineResponse2007.prototype['marketplace'] = undefined;
+
+/**
+ * Target stock range after new order days
+ * @member {Number} targetStockRangeAfterNewOrderDays
+ */
+InlineResponse2007.prototype['targetStockRangeAfterNewOrderDays'] = undefined;
+
+/**
+ * FBA buffer days
+ * @member {Number} fbaBufferDays
+ */
+InlineResponse2007.prototype['fbaBufferDays'] = undefined;
+
+/**
+ * Manuf. time days
+ * @member {Number} manufTimeDays
+ */
+InlineResponse2007.prototype['manufTimeDays'] = undefined;
+
+/**
+ * Use a Prep Center
+ * @member {String} useAPrepCenter
+ */
+InlineResponse2007.prototype['useAPrepCenter'] = undefined;
+
+/**
+ * Shipping to Prep Center days
+ * @member {Number} shippingToPrepCenterDays
+ */
+InlineResponse2007.prototype['shippingToPrepCenterDays'] = undefined;
+
+/**
+ * Shipping to FBA days
+ * @member {Number} shippingToFbaDays
+ */
+InlineResponse2007.prototype['shippingToFbaDays'] = undefined;
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 
 

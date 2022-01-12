@@ -174,9 +174,6 @@ class InlineObject33 {
             if (data.hasOwnProperty('strategyStatus')) {
                 obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
             }
-            if (data.hasOwnProperty('checkednotes')) {
-                obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
-            }
         }
         return obj;
     }
@@ -300,7 +297,7 @@ InlineObject33.prototype['fbalink'] = undefined;
 InlineObject33.prototype['delivery'] = undefined;
 
 /**
- * См. описание статусов например в readMe.md
+ *  Статус товара. У ресечера: 0 - новый товар. 5- готов к проверке супером. 10 - новый товар с поставщиком
  * @member {Number} status
  */
 InlineObject33.prototype['status'] = undefined;
@@ -425,12 +422,6 @@ InlineObject33.prototype['listingSupplierCompetitors'] = undefined;
  * @member {Number} strategyStatus
  */
 InlineObject33.prototype['strategyStatus'] = undefined;
-
-/**
- * Комментарий к статусу проверки.
- * @member {String} checkednotes
- */
-InlineObject33.prototype['checkednotes'] = undefined;
 
 
 

@@ -18,7 +18,7 @@ Method | HTTP request | Description
 [**apiV1AdminsPatchProductsGuidPatch**](AdministratorApi.md#apiV1AdminsPatchProductsGuidPatch) | **PATCH** /api/v1/admins/patch_products/{guid} | # Внести изменения в продукт (снять с биржи).
 [**apiV1AdminsPaymentsGet**](AdministratorApi.md#apiV1AdminsPaymentsGet) | **GET** /api/v1/admins/payments | # Получить все оплаты, которые были начислены всем ролям.
 [**apiV1AdminsPickupProductGuidPost**](AdministratorApi.md#apiV1AdminsPickupProductGuidPost) | **POST** /api/v1/admins/pickup_product/{guid} | # Взять продукт на проверку.
-[**apiV1AdminsSetSettingPost**](AdministratorApi.md#apiV1AdminsSetSettingPost) | **POST** /api/v1/admins/set_setting | # Задать настройку.
+[**apiV1AdminsSetSettingPatch**](AdministratorApi.md#apiV1AdminsSetSettingPatch) | **PATCH** /api/v1/admins/set_setting | # Установить динамические настройки.
 [**apiV1AdminsTasksGet**](AdministratorApi.md#apiV1AdminsTasksGet) | **GET** /api/v1/admins/tasks | # Получить задачи.
 [**apiV1AdminsUsersGet**](AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
 [**apiV1AdminsUsersGuidDelete**](AdministratorApi.md#apiV1AdminsUsersGuidDelete) | **DELETE** /api/v1/admins/users/{guid} | Изменить пользователя.
@@ -777,13 +777,13 @@ Name | Type | Description  | Notes
 - **Accept**: text/html
 
 
-## apiV1AdminsSetSettingPost
+## apiV1AdminsSetSettingPatch
 
-> InlineResponse201 apiV1AdminsSetSettingPost(opts)
+> InlineResponse201 apiV1AdminsSetSettingPatch(opts)
 
-# Задать настройку.
+# Установить динамические настройки.
 
-## Задается имя параметра и новое значение.   
+## Установить динамические настройки.   
 
 ### Example
 
@@ -801,7 +801,7 @@ let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject4() // InlineObject4 | 
 };
-apiInstance.apiV1AdminsSetSettingPost(opts).then((data) => {
+apiInstance.apiV1AdminsSetSettingPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);

@@ -29,7 +29,9 @@ class BuyerModelStatic {
   }
 
   getOrdersVacant = async () => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersVacGet()
+    const createdWithOutBuyersProducts = true // Добавить ордеры с продуктами в которых не участвовали байеры
+
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersVacGet(createdWithOutBuyersProducts)
     return response
   }
 

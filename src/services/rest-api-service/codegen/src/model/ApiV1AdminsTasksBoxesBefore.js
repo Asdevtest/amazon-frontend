@@ -139,8 +139,8 @@ class ApiV1AdminsTasksBoxesBefore {
             if (data.hasOwnProperty('clientId')) {
                 obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['storekeeper']);
             }
             if (data.hasOwnProperty('buyerId')) {
                 obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
@@ -356,10 +356,9 @@ ApiV1AdminsTasksBoxesBefore.prototype['updatedAt'] = undefined;
 ApiV1AdminsTasksBoxesBefore.prototype['clientId'] = undefined;
 
 /**
- * id сторкипера.
- * @member {String} storekeeperId
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} storekeeper
  */
-ApiV1AdminsTasksBoxesBefore.prototype['storekeeperId'] = undefined;
+ApiV1AdminsTasksBoxesBefore.prototype['storekeeper'] = undefined;
 
 /**
  * Байер взявший коробку в работу.

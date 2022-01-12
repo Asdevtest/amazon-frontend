@@ -751,14 +751,14 @@ export default class AdministratorApi {
 
 
     /**
-     * # Задать настройку.
-     * ## Задается имя параметра и новое значение.   
+     * # Установить динамические настройки.
+     * ## Установить динамические настройки.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject4} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
      */
-    apiV1AdminsSetSettingPostWithHttpInfo(opts) {
+    apiV1AdminsSetSettingPatchWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['body'];
 
@@ -777,22 +777,22 @@ export default class AdministratorApi {
       let accepts = ['text/html'];
       let returnType = InlineResponse201;
       return this.apiClient.callApi(
-        '/api/v1/admins/set_setting', 'POST',
+        '/api/v1/admins/set_setting', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * # Задать настройку.
-     * ## Задается имя параметра и новое значение.   
+     * # Установить динамические настройки.
+     * ## Установить динамические настройки.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject4} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
      */
-    apiV1AdminsSetSettingPost(opts) {
-      return this.apiV1AdminsSetSettingPostWithHttpInfo(opts)
+    apiV1AdminsSetSettingPatch(opts) {
+      return this.apiV1AdminsSetSettingPatchWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

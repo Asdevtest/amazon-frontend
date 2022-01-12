@@ -101,8 +101,17 @@ class UserFullSchema {
             if (data.hasOwnProperty('masterUser')) {
                 obj['masterUser'] = ApiClient.convertToType(data['masterUser'], 'String');
             }
+            if (data.hasOwnProperty('canByMasterUser')) {
+                obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
+            }
             if (data.hasOwnProperty('allowedRoles')) {
                 obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -190,10 +199,28 @@ UserFullSchema.prototype['permissionGroups'] = undefined;
 UserFullSchema.prototype['masterUser'] = undefined;
 
 /**
+ * Флаг fba.
+ * @member {Boolean} canByMasterUser
+ */
+UserFullSchema.prototype['canByMasterUser'] = undefined;
+
+/**
  * Массив массив ролей.
  * @member {Array.<Number>} allowedRoles
  */
 UserFullSchema.prototype['allowedRoles'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+UserFullSchema.prototype['createdAt'] = undefined;
+
+/**
+ * Дата изменения
+ * @member {Date} updatedAt
+ */
+UserFullSchema.prototype['updatedAt'] = undefined;
 
 
 

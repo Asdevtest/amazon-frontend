@@ -6,9 +6,9 @@ import {useHistory} from 'react-router-dom'
 
 import {texts} from '@constants/texts'
 
-import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Field} from '@components/field/field'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -17,7 +17,7 @@ import {useClassNames} from './user-settings-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').userSettingsForm
 
-export const UserSettingsForm = observer(({onCloseModal}) => {
+export const UserSettingsForm = observer(() => {
   const classNames = useClassNames()
   const history = useHistory()
   const asModel = useRef(new UserSettingsModel({history}))
@@ -26,23 +26,30 @@ export const UserSettingsForm = observer(({onCloseModal}) => {
     asModel.current.loadData()
   }, [])
 
-  const {userSettings, userSettingsAvailable, createUserSettings, onChangeField, editUserSettings} = asModel.current
+  const {
+    userSettings,
+    sourceUserSettings,
+    userSettingsAvailable,
+    showSuccessModal,
+    createUserSettings,
+    onChangeField,
+    editUserSettings,
+    onTriggerOpenModal,
+  } = asModel.current
 
   const onCreateSubmit = () => {
     createUserSettings(userSettings)
-    onCloseModal()
   }
 
   const onEditSubmit = () => {
     editUserSettings(userSettings)
-    onCloseModal()
   }
 
   return (
     <div className={classNames.mainWrapper}>
       <Typography variant="h5">{textConsts.mainTitle}</Typography>
 
-      {!userSettings && (
+      {!sourceUserSettings && (
         <Typography className={classNames.noSettingsWarning}>{textConsts.noSettingsWarning}</Typography>
       )}
 
@@ -61,14 +68,23 @@ export const UserSettingsForm = observer(({onCloseModal}) => {
       ))}
 
       <div className={classNames.placeAddBtnWrapper}>
-        <SuccessButton onClick={() => (userSettings ? onEditSubmit() : onCreateSubmit())}>
-          {userSettings ? textConsts.editBtn : textConsts.createBtn}
+        <SuccessButton
+          disabled={JSON.stringify(sourceUserSettings) === JSON.stringify(userSettings)}
+          onClick={() => (sourceUserSettings ? onEditSubmit() : onCreateSubmit())}
+        >
+          {sourceUserSettings ? textConsts.editBtn : textConsts.createBtn}
         </SuccessButton>
-
-        <Button color="primary" className={classNames.cancelButton} variant="contained" onClick={onCloseModal}>
-          {textConsts.cancelBtn}
-        </Button>
       </div>
+
+      <SuccessInfoModal
+        openModal={showSuccessModal}
+        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+        title={textConsts.success}
+        successBtnText={textConsts.okBtn}
+        onClickSuccessBtn={() => {
+          onTriggerOpenModal('showSuccessModal')
+        }}
+      />
     </div>
   )
 })

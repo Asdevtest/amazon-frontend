@@ -47,6 +47,9 @@ class ApiV1RequestsCustomGuidRequest {
         if (data) {
             obj = obj || new ApiV1RequestsCustomGuidRequest();
 
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
             if (data.hasOwnProperty('maxAmountOfProposals')) {
                 obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
@@ -56,11 +59,20 @@ class ApiV1RequestsCustomGuidRequest {
             if (data.hasOwnProperty('timeoutAt')) {
                 obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
             }
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            }
             if (data.hasOwnProperty('assignees')) {
                 obj['assignees'] = ApiClient.convertToType(data['assignees'], ['String']);
             }
             if (data.hasOwnProperty('direction')) {
                 obj['direction'] = ApiClient.convertToType(data['direction'], 'String');
+            }
+            if (data.hasOwnProperty('needCheckBySupervisor')) {
+                obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
+            }
+            if (data.hasOwnProperty('restrictMoreThanOneProposalFromOneAssignee')) {
+                obj['restrictMoreThanOneProposalFromOneAssignee'] = ApiClient.convertToType(data['restrictMoreThanOneProposalFromOneAssignee'], 'Boolean');
             }
             if (data.hasOwnProperty('roles')) {
                 obj['roles'] = ApiClient.convertToType(data['roles'], ['Number']);
@@ -73,7 +85,13 @@ class ApiV1RequestsCustomGuidRequest {
 }
 
 /**
- * Количество предложений.
+ * Title заявки.
+ * @member {String} title
+ */
+ApiV1RequestsCustomGuidRequest.prototype['title'] = undefined;
+
+/**
+ * Количество предложений, не менее.
  * @member {Number} maxAmountOfProposals
  */
 ApiV1RequestsCustomGuidRequest.prototype['maxAmountOfProposals'] = undefined;
@@ -85,10 +103,16 @@ ApiV1RequestsCustomGuidRequest.prototype['maxAmountOfProposals'] = undefined;
 ApiV1RequestsCustomGuidRequest.prototype['price'] = undefined;
 
 /**
- * Время закрытия предложения.
+ * Время закрытия заявки.
  * @member {Date} timeoutAt
  */
 ApiV1RequestsCustomGuidRequest.prototype['timeoutAt'] = undefined;
+
+/**
+ * Время за которое должен отправить предложение после бронирования. В минутах, не менее 10.
+ * @member {Number} timeLimitInMinutes
+ */
+ApiV1RequestsCustomGuidRequest.prototype['timeLimitInMinutes'] = undefined;
 
 /**
  * Массив id пользователей.
@@ -101,6 +125,18 @@ ApiV1RequestsCustomGuidRequest.prototype['assignees'] = undefined;
  * @member {module:model/ApiV1RequestsCustomGuidRequest.DirectionEnum} direction
  */
 ApiV1RequestsCustomGuidRequest.prototype['direction'] = undefined;
+
+/**
+ * Нуждается в проверке супервайзером.
+ * @member {Boolean} needCheckBySupervisor
+ */
+ApiV1RequestsCustomGuidRequest.prototype['needCheckBySupervisor'] = undefined;
+
+/**
+ * Запретить фрилансеру повторное отправление предложений.
+ * @member {Boolean} restrictMoreThanOneProposalFromOneAssignee
+ */
+ApiV1RequestsCustomGuidRequest.prototype['restrictMoreThanOneProposalFromOneAssignee'] = undefined;
 
 /**
  * Массив массив ролей.

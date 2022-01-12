@@ -16,7 +16,6 @@ import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {EditBoxForm} from '@components/forms/edit-box-form'
 import {RequestToSendBatchForm} from '@components/forms/request-to-send-batch-form'
-import {SendOwnProductForm} from '@components/forms/send-own-product-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -68,7 +67,6 @@ export class ClientWarehouseViewRaw extends Component {
       showMergeBoxModal,
       showConfirmModal,
       showTaskInfoModal,
-      showSendOwnProductModal,
       showEditBoxModal,
       showRedistributeBoxModal,
       showRedistributeBoxAddNewBoxModal,
@@ -173,10 +171,6 @@ export class ClientWarehouseViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={showSendOwnProductModal} setOpenModal={() => onTriggerOpenModal('showSendOwnProductModal')}>
-          <Typography variant="h5">{textConsts.modalSendOwnProductTitle}</Typography>
-          <SendOwnProductForm />
-        </Modal>
 
         <Modal openModal={showEditBoxModal} setOpenModal={() => onTriggerOpenModal('showEditBoxModal')}>
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>

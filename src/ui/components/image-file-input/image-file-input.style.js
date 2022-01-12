@@ -132,4 +132,23 @@ export const useClassNames = makeStyles(() => ({
       transform: 'scale(1.1)',
     },
   },
+
+  amazonLinkWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+  },
+
+  loadImageInput: {
+    height: '26px',
+    borderRadius: '8px',
+    width: 'calc(100% - 182px)',
+  },
+
+  loadBtn: {
+    marginLeft: '10px',
+    borderRadius: '8px',
+    height: '26px',
+    width: '172px',
+  },
 }))

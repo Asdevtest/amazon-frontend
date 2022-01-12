@@ -50,4 +50,10 @@ export const useClassNames = makeStyles(() => ({
     width: '500px',
     gap: '5px',
   },
+
+  superBoxTypo: {
+    minWidth: '40px',
+    color: 'blue',
+    fontWeight: 'bold',
+  },
 }))

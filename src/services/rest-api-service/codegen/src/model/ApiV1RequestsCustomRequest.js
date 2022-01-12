@@ -22,14 +22,15 @@ class ApiV1RequestsCustomRequest {
     /**
      * Constructs a new <code>ApiV1RequestsCustomRequest</code>.
      * @alias module:model/ApiV1RequestsCustomRequest
-     * @param maxAmountOfProposals {Number} Количество предложений.
+     * @param title {String} Title заявки.
+     * @param maxAmountOfProposals {Number} Количество предложений, не менее.
      * @param price {Number} Цена за каждое предложение.
-     * @param timeoutAt {Date} Время закрытия предложения.
+     * @param timeoutAt {Date} Время закрытия заявки.
      * @param direction {module:model/ApiV1RequestsCustomRequest.DirectionEnum} Направление заявки, исходящая или входящая.
      */
-    constructor(maxAmountOfProposals, price, timeoutAt, direction) { 
+    constructor(title, maxAmountOfProposals, price, timeoutAt, direction) { 
         
-        ApiV1RequestsCustomRequest.initialize(this, maxAmountOfProposals, price, timeoutAt, direction);
+        ApiV1RequestsCustomRequest.initialize(this, title, maxAmountOfProposals, price, timeoutAt, direction);
     }
 
     /**
@@ -37,7 +38,8 @@ class ApiV1RequestsCustomRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, maxAmountOfProposals, price, timeoutAt, direction) { 
+    static initialize(obj, title, maxAmountOfProposals, price, timeoutAt, direction) { 
+        obj['title'] = title;
         obj['maxAmountOfProposals'] = maxAmountOfProposals;
         obj['price'] = price;
         obj['timeoutAt'] = timeoutAt;
@@ -55,6 +57,9 @@ class ApiV1RequestsCustomRequest {
         if (data) {
             obj = obj || new ApiV1RequestsCustomRequest();
 
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
             if (data.hasOwnProperty('maxAmountOfProposals')) {
                 obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
@@ -64,11 +69,20 @@ class ApiV1RequestsCustomRequest {
             if (data.hasOwnProperty('timeoutAt')) {
                 obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
             }
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            }
             if (data.hasOwnProperty('assignees')) {
                 obj['assignees'] = ApiClient.convertToType(data['assignees'], ['String']);
             }
             if (data.hasOwnProperty('direction')) {
                 obj['direction'] = ApiClient.convertToType(data['direction'], 'String');
+            }
+            if (data.hasOwnProperty('needCheckBySupervisor')) {
+                obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
+            }
+            if (data.hasOwnProperty('restrictMoreThanOneProposalFromOneAssignee')) {
+                obj['restrictMoreThanOneProposalFromOneAssignee'] = ApiClient.convertToType(data['restrictMoreThanOneProposalFromOneAssignee'], 'Boolean');
             }
             if (data.hasOwnProperty('roles')) {
                 obj['roles'] = ApiClient.convertToType(data['roles'], ['Number']);
@@ -81,7 +95,13 @@ class ApiV1RequestsCustomRequest {
 }
 
 /**
- * Количество предложений.
+ * Title заявки.
+ * @member {String} title
+ */
+ApiV1RequestsCustomRequest.prototype['title'] = undefined;
+
+/**
+ * Количество предложений, не менее.
  * @member {Number} maxAmountOfProposals
  */
 ApiV1RequestsCustomRequest.prototype['maxAmountOfProposals'] = undefined;
@@ -93,10 +113,16 @@ ApiV1RequestsCustomRequest.prototype['maxAmountOfProposals'] = undefined;
 ApiV1RequestsCustomRequest.prototype['price'] = undefined;
 
 /**
- * Время закрытия предложения.
+ * Время закрытия заявки.
  * @member {Date} timeoutAt
  */
 ApiV1RequestsCustomRequest.prototype['timeoutAt'] = undefined;
+
+/**
+ * Время за которое должен отправить предложение после бронирования. В минутах, не менее 10.
+ * @member {Number} timeLimitInMinutes
+ */
+ApiV1RequestsCustomRequest.prototype['timeLimitInMinutes'] = undefined;
 
 /**
  * Массив id пользователей.
@@ -109,6 +135,18 @@ ApiV1RequestsCustomRequest.prototype['assignees'] = undefined;
  * @member {module:model/ApiV1RequestsCustomRequest.DirectionEnum} direction
  */
 ApiV1RequestsCustomRequest.prototype['direction'] = undefined;
+
+/**
+ * Нуждается в проверке супервайзером.
+ * @member {Boolean} needCheckBySupervisor
+ */
+ApiV1RequestsCustomRequest.prototype['needCheckBySupervisor'] = undefined;
+
+/**
+ * Запретить фрилансеру повторное отправление предложений.
+ * @member {Boolean} restrictMoreThanOneProposalFromOneAssignee
+ */
+ApiV1RequestsCustomRequest.prototype['restrictMoreThanOneProposalFromOneAssignee'] = undefined;
 
 /**
  * Массив массив ролей.

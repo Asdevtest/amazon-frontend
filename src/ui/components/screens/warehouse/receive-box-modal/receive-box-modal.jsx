@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Container, Divider, IconButton, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Divider, IconButton, TableCell, TableRow, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {transformAndValidate} from 'class-transformer-validator'
 
@@ -9,13 +9,17 @@ import {texts} from '@constants/texts'
 import {BoxesWarehouseReceiveBoxModalContract} from '@models/boxes-model/boxes-model.contracts'
 
 import {Button} from '@components/buttons/button'
+import {AddImagesForm} from '@components/forms/add-images-form'
 import {Input} from '@components/input'
+import {Modal} from '@components/modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Table} from '@components/table'
 import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import {toFixed} from '@utils/text'
 
 import {CommentsLine} from './comments-line'
 import {useClassNames} from './receive-box-modal.style'
@@ -40,7 +44,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
 
   return (
     <TableRow className={classNames.row}>
-      <TableCell>
+      <TableCell className={classNames.standartCell}>
         <Typography className={classNames.boxTitle}>{item._id}</Typography>
         <div className={classNames.descriptionWrapper}>
           <img
@@ -65,7 +69,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
         />
       </TableCell>
 
-      <TableCell>
+      <TableCell className={classNames.standartCell}>
         <Input
           classes={{root: classNames.inputWrapper, input: classNames.input}}
           value={item.amount}
@@ -73,7 +77,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
         />
       </TableCell>
 
-      <TableCell>
+      <TableCell className={classNames.standartCell}>
         <Input
           disabled
           classes={{root: classNames.inputWrapper, input: classNames.input}}
@@ -107,27 +111,32 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           />
         </div>
       </TableCell>
-      <TableCell>
+      <TableCell className={classNames.standartCell}>
         <Input
           classes={{root: classNames.inputWrapper, input: classNames.input}}
           value={item.weighGrossKgWarehouse}
           onChange={e => handlers.onChangeFieldInput(e, item._id, 'weighGrossKgWarehouse')}
         />
       </TableCell>
-      <TableCell>
+      <TableCell className={classNames.standartCell}>
         <Input
           disabled
           classes={{root: classNames.inputWrapper, input: classNames.input}}
-          value={item.volumeWeightKgWarehouse}
+          value={toFixed(item.volumeWeightKgWarehouse, 3)}
         />
       </TableCell>
-      <TableCell>
+      <TableCell className={classNames.standartCell}>
         <Input
           disabled
           classes={{root: classNames.inputWrapper, input: classNames.input}}
-          value={item.weightFinalAccountingKgWarehouse}
+          value={toFixed(item.weightFinalAccountingKgWarehouse, 3)}
         />
       </TableCell>
+
+      <TableCell>
+        <Button onClick={() => handlers.onAddImages(item._id)}>{'Фотографии'}</Button>
+      </TableCell>
+
       <TableCell>
         <IconButton onClick={() => handlers.onRemoveBox(item._id)}>
           <DeleteIcon className={classNames.deleteBtn} />
@@ -137,7 +146,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
   )
 }
 
-const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox}) => {
+const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.newBoxes}>
@@ -148,7 +157,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox})
         data={newBoxes}
         BodyRow={TableBodyBoxRow}
         renderHeadRow={renderHeadRow}
-        rowsHandlers={{onChangeQtyInput, onChangeFieldInput, onRemoveBox}}
+        rowsHandlers={{onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages}}
       />
     </div>
   )
@@ -157,6 +166,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox})
 export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => {
   const classNames = useClassNames()
   const [showNoDimensionsErrorModal, setShowNoDimensionsErrorModal] = useState(false)
+  const [showAddImagesModal, setShowAddImagesModal] = useState(false)
 
   const emptyProducts = selectedBox.items.map(product => ({...product, amount: ''}))
   const getEmptyBox = () => {
@@ -227,6 +237,14 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
     setNewBoxes(updatedNewBoxes)
   }
 
+  const [boxForImageEdit, setBoxForImageEdit] = useState({})
+
+  const onAddImages = boxId => {
+    setShowAddImagesModal(!showAddImagesModal)
+    const editingBox = newBoxes.find(box => box._id === boxId)
+    setBoxForImageEdit(editingBox)
+  }
+
   const onClickRedistributeBtn = async () => {
     try {
       const newBoxesWithoutEmptyBoxes = newBoxes.filter(el => el.items[0].amount !== (0 || ''))
@@ -242,7 +260,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
       }))
 
       for (let i = 0; i < newBoxesWithoutNumberFields.length; i++) {
-        const box = newBoxesWithoutNumberFields[i]
+        const box = getObjectFilteredByKeyArrayBlackList(newBoxesWithoutNumberFields[i], ['tmpImages'])
 
         await transformAndValidate(BoxesWarehouseReceiveBoxModalContract, box)
       }
@@ -289,7 +307,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
   )
 
   return (
-    <Container disableGutters>
+    <div className={classNames.root}>
       <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
 
       <CommentsLine />
@@ -304,6 +322,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
           onChangeQtyInput={onChangeQtyInput}
           onChangeFieldInput={onChangeFieldInput}
           onRemoveBox={onRemoveBox}
+          onAddImages={onAddImages}
         />
       </div>
 
@@ -342,6 +361,19 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
           setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)
         }}
       />
-    </Container>
+
+      <Modal
+        openModal={showAddImagesModal}
+        setOpenModal={() => setShowAddImagesModal(!showAddImagesModal)}
+        onCloseModal={() => setShowAddImagesModal(!showAddImagesModal)}
+      >
+        <AddImagesForm
+          item={boxForImageEdit}
+          allItemsArray={newBoxes}
+          setAllItemsArray={setNewBoxes}
+          onCloseModal={() => setShowAddImagesModal(!showAddImagesModal)}
+        />
+      </Modal>
+    </div>
   )
 }

@@ -230,7 +230,7 @@ export class WarehouseSubUsersViewModel {
 
   async unlinkSubUser() {
     try {
-      await UserModel.unlinkSubUser({email: this.selectedSubUser.email})
+      await UserModel.unlinkSubUser({userId: this.selectedSubUser._id})
     } catch (error) {
       console.log(error)
       this.error = error

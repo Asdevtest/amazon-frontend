@@ -353,8 +353,6 @@ export const SelectFields = ({
         </Box>
 
         <div>
-          <Typography className={classNames.loadTitle}>{textConsts.loadTitle}</Typography>
-
           <div className={classNames.imageFileInputWrapper}>
             <ImageFileInput images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
           </div>

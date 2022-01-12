@@ -21,12 +21,17 @@ import ApiClient from '../ApiClient';
 class InlineResponse2008 {
     /**
      * Constructs a new <code>InlineResponse2008</code>.
+<<<<<<< HEAD
      * Успешный ответ.
+=======
+     * Схема репорта за 30 дней с Seller-board
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
      * @alias module:model/InlineResponse2008
+     * @param sku {String} SKU
      */
-    constructor() { 
+    constructor(sku) { 
         
-        InlineResponse2008.initialize(this);
+        InlineResponse2008.initialize(this, sku);
     }
 
     /**
@@ -34,7 +39,8 @@ class InlineResponse2008 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, sku) { 
+        obj['sku'] = sku;
     }
 
     /**
@@ -48,8 +54,118 @@ class InlineResponse2008 {
         if (data) {
             obj = obj || new InlineResponse2008();
 
+<<<<<<< HEAD
             if (data.hasOwnProperty('isExist')) {
                 obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
+=======
+            if (data.hasOwnProperty('date')) {
+                obj['date'] = ApiClient.convertToType(data['date'], 'String');
+            }
+            if (data.hasOwnProperty('marketplace')) {
+                obj['marketplace'] = ApiClient.convertToType(data['marketplace'], 'String');
+            }
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
+            if (data.hasOwnProperty('sku')) {
+                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
+            }
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('salesorganic')) {
+                obj['salesorganic'] = ApiClient.convertToType(data['salesorganic'], 'Number');
+            }
+            if (data.hasOwnProperty('salesppc')) {
+                obj['salesppc'] = ApiClient.convertToType(data['salesppc'], 'Number');
+            }
+            if (data.hasOwnProperty('unitsorganic')) {
+                obj['unitsorganic'] = ApiClient.convertToType(data['unitsorganic'], 'Number');
+            }
+            if (data.hasOwnProperty('unitsppc')) {
+                obj['unitsppc'] = ApiClient.convertToType(data['unitsppc'], 'Number');
+            }
+            if (data.hasOwnProperty('refunds')) {
+                obj['refunds'] = ApiClient.convertToType(data['refunds'], 'Number');
+            }
+            if (data.hasOwnProperty('promovalue')) {
+                obj['promovalue'] = ApiClient.convertToType(data['promovalue'], 'Number');
+            }
+            if (data.hasOwnProperty('sponsoredproducts')) {
+                obj['sponsoredproducts'] = ApiClient.convertToType(data['sponsoredproducts'], 'Number');
+            }
+            if (data.hasOwnProperty('sponsoreddisplay')) {
+                obj['sponsoreddisplay'] = ApiClient.convertToType(data['sponsoreddisplay'], 'Number');
+            }
+            if (data.hasOwnProperty('sponsoredRands')) {
+                obj['sponsoredRands'] = ApiClient.convertToType(data['sponsoredRands'], 'Number');
+            }
+            if (data.hasOwnProperty('sponsoredbrandsvideo')) {
+                obj['sponsoredbrandsvideo'] = ApiClient.convertToType(data['sponsoredbrandsvideo'], 'Number');
+            }
+            if (data.hasOwnProperty('giftwrap')) {
+                obj['giftwrap'] = ApiClient.convertToType(data['giftwrap'], 'Number');
+            }
+            if (data.hasOwnProperty('shipping')) {
+                obj['shipping'] = ApiClient.convertToType(data['shipping'], 'Number');
+            }
+            if (data.hasOwnProperty('refundcost')) {
+                obj['refundcost'] = ApiClient.convertToType(data['refundcost'], 'Number');
+            }
+            if (data.hasOwnProperty('valueOfReturnedItems')) {
+                obj['valueOfReturnedItems'] = ApiClient.convertToType(data['valueOfReturnedItems'], 'Number');
+            }
+            if (data.hasOwnProperty('productcostUnsellableRefunds')) {
+                obj['productcostUnsellableRefunds'] = ApiClient.convertToType(data['productcostUnsellableRefunds'], 'Number');
+            }
+            if (data.hasOwnProperty('commission')) {
+                obj['commission'] = ApiClient.convertToType(data['commission'], 'Number');
+            }
+            if (data.hasOwnProperty('fbadisposalfee')) {
+                obj['fbadisposalfee'] = ApiClient.convertToType(data['fbadisposalfee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaperunitfulfillmentfee')) {
+                obj['fbaperunitfulfillmentfee'] = ApiClient.convertToType(data['fbaperunitfulfillmentfee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbastoragefee')) {
+                obj['fbastoragefee'] = ApiClient.convertToType(data['fbastoragefee'], 'Number');
+            }
+            if (data.hasOwnProperty('subscription')) {
+                obj['subscription'] = ApiClient.convertToType(data['subscription'], 'Number');
+            }
+            if (data.hasOwnProperty('estimatedpayout')) {
+                obj['estimatedpayout'] = ApiClient.convertToType(data['estimatedpayout'], 'Number');
+            }
+            if (data.hasOwnProperty('productcostSales')) {
+                obj['productcostSales'] = ApiClient.convertToType(data['productcostSales'], 'Number');
+            }
+            if (data.hasOwnProperty('productcostNonAmazon')) {
+                obj['productcostNonAmazon'] = ApiClient.convertToType(data['productcostNonAmazon'], 'Number');
+            }
+            if (data.hasOwnProperty('productcostMultichannelcosts')) {
+                obj['productcostMultichannelcosts'] = ApiClient.convertToType(data['productcostMultichannelcosts'], 'Number');
+            }
+            if (data.hasOwnProperty('productcostMissingfrominbound')) {
+                obj['productcostMissingfrominbound'] = ApiClient.convertToType(data['productcostMissingfrominbound'], 'Number');
+            }
+            if (data.hasOwnProperty('productcostCostofmissingreturns')) {
+                obj['productcostCostofmissingreturns'] = ApiClient.convertToType(data['productcostCostofmissingreturns'], 'Number');
+            }
+            if (data.hasOwnProperty('vat')) {
+                obj['vat'] = ApiClient.convertToType(data['vat'], 'Number');
+            }
+            if (data.hasOwnProperty('grossprofit')) {
+                obj['grossprofit'] = ApiClient.convertToType(data['grossprofit'], 'Number');
+            }
+            if (data.hasOwnProperty('netprofit')) {
+                obj['netprofit'] = ApiClient.convertToType(data['netprofit'], 'Number');
+            }
+            if (data.hasOwnProperty('margin')) {
+                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
+            }
+            if (data.hasOwnProperty('realAcos')) {
+                obj['realAcos'] = ApiClient.convertToType(data['realAcos'], 'Number');
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
             }
         }
         return obj;
@@ -59,10 +175,227 @@ class InlineResponse2008 {
 }
 
 /**
+<<<<<<< HEAD
  * Флаг, показывает есть ли такой id в базе или нет
  * @member {Boolean} isExist
  */
 InlineResponse2008.prototype['isExist'] = undefined;
+=======
+ * \"Date\"
+ * @member {String} date
+ */
+InlineResponse2008.prototype['date'] = undefined;
+
+/**
+ * Marketplace
+ * @member {String} marketplace
+ */
+InlineResponse2008.prototype['marketplace'] = undefined;
+
+/**
+ * ASIN
+ * @member {String} asin
+ */
+InlineResponse2008.prototype['asin'] = undefined;
+
+/**
+ * SKU
+ * @member {String} sku
+ */
+InlineResponse2008.prototype['sku'] = undefined;
+
+/**
+ * Name
+ * @member {String} name
+ */
+InlineResponse2008.prototype['name'] = undefined;
+
+/**
+ * SalesOrganic
+ * @member {Number} salesorganic
+ */
+InlineResponse2008.prototype['salesorganic'] = undefined;
+
+/**
+ * SalesPPC
+ * @member {Number} salesppc
+ */
+InlineResponse2008.prototype['salesppc'] = undefined;
+
+/**
+ * UnitsOrganic
+ * @member {Number} unitsorganic
+ */
+InlineResponse2008.prototype['unitsorganic'] = undefined;
+
+/**
+ * UnitsPPC
+ * @member {Number} unitsppc
+ */
+InlineResponse2008.prototype['unitsppc'] = undefined;
+
+/**
+ * Refunds
+ * @member {Number} refunds
+ */
+InlineResponse2008.prototype['refunds'] = undefined;
+
+/**
+ * PromoValue
+ * @member {Number} promovalue
+ */
+InlineResponse2008.prototype['promovalue'] = undefined;
+
+/**
+ * SponsoredProducts
+ * @member {Number} sponsoredproducts
+ */
+InlineResponse2008.prototype['sponsoredproducts'] = undefined;
+
+/**
+ * SponsoredDisplay
+ * @member {Number} sponsoreddisplay
+ */
+InlineResponse2008.prototype['sponsoreddisplay'] = undefined;
+
+/**
+ * SponsoredВrands
+ * @member {Number} sponsoredRands
+ */
+InlineResponse2008.prototype['sponsoredRands'] = undefined;
+
+/**
+ * SponsoredBrandsVideo
+ * @member {Number} sponsoredbrandsvideo
+ */
+InlineResponse2008.prototype['sponsoredbrandsvideo'] = undefined;
+
+/**
+ * GiftWrap
+ * @member {Number} giftwrap
+ */
+InlineResponse2008.prototype['giftwrap'] = undefined;
+
+/**
+ * Shipping
+ * @member {Number} shipping
+ */
+InlineResponse2008.prototype['shipping'] = undefined;
+
+/**
+ * RefundCost
+ * @member {Number} refundcost
+ */
+InlineResponse2008.prototype['refundcost'] = undefined;
+
+/**
+ * Value of returned items
+ * @member {Number} valueOfReturnedItems
+ */
+InlineResponse2008.prototype['valueOfReturnedItems'] = undefined;
+
+/**
+ * ProductCost Unsellable Refunds
+ * @member {Number} productcostUnsellableRefunds
+ */
+InlineResponse2008.prototype['productcostUnsellableRefunds'] = undefined;
+
+/**
+ * Commission
+ * @member {Number} commission
+ */
+InlineResponse2008.prototype['commission'] = undefined;
+
+/**
+ * FBADisposalFee
+ * @member {Number} fbadisposalfee
+ */
+InlineResponse2008.prototype['fbadisposalfee'] = undefined;
+
+/**
+ * FBAPerUnitFulfillmentFee
+ * @member {Number} fbaperunitfulfillmentfee
+ */
+InlineResponse2008.prototype['fbaperunitfulfillmentfee'] = undefined;
+
+/**
+ * FBAStorageFee
+ * @member {Number} fbastoragefee
+ */
+InlineResponse2008.prototype['fbastoragefee'] = undefined;
+
+/**
+ * Subscription
+ * @member {Number} subscription
+ */
+InlineResponse2008.prototype['subscription'] = undefined;
+
+/**
+ * EstimatedPayout
+ * @member {Number} estimatedpayout
+ */
+InlineResponse2008.prototype['estimatedpayout'] = undefined;
+
+/**
+ * ProductCost Sales
+ * @member {Number} productcostSales
+ */
+InlineResponse2008.prototype['productcostSales'] = undefined;
+
+/**
+ * ProductCost Non-Amazon
+ * @member {Number} productcostNonAmazon
+ */
+InlineResponse2008.prototype['productcostNonAmazon'] = undefined;
+
+/**
+ * ProductCost MultichannelCosts
+ * @member {Number} productcostMultichannelcosts
+ */
+InlineResponse2008.prototype['productcostMultichannelcosts'] = undefined;
+
+/**
+ * ProductCost MissingFromInbound
+ * @member {Number} productcostMissingfrominbound
+ */
+InlineResponse2008.prototype['productcostMissingfrominbound'] = undefined;
+
+/**
+ * ProductCost CostOfMissingReturns
+ * @member {Number} productcostCostofmissingreturns
+ */
+InlineResponse2008.prototype['productcostCostofmissingreturns'] = undefined;
+
+/**
+ * VAT
+ * @member {Number} vat
+ */
+InlineResponse2008.prototype['vat'] = undefined;
+
+/**
+ * GrossProfit
+ * @member {Number} grossprofit
+ */
+InlineResponse2008.prototype['grossprofit'] = undefined;
+
+/**
+ * NetProfit
+ * @member {Number} netprofit
+ */
+InlineResponse2008.prototype['netprofit'] = undefined;
+
+/**
+ * Margin
+ * @member {Number} margin
+ */
+InlineResponse2008.prototype['margin'] = undefined;
+
+/**
+ * Real ACOS
+ * @member {Number} realAcos
+ */
+InlineResponse2008.prototype['realAcos'] = undefined;
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 
 

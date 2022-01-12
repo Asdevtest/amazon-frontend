@@ -1,6 +1,6 @@
 import {BACKEND_API_URL} from '@constants/env'
 
-import {ApiClient, BoxesApi, PermissionsApi, RequestProposalsApi, RequestsApi, SellerBoardApi} from './codegen/src'
+import {ApiClient, BoxesApi, IntegrationsApi, PermissionsApi, RequestProposalsApi, RequestsApi} from './codegen/src'
 import AdministratorApi from './codegen/src/api/AdministratorApi'
 import BatchesApi from './codegen/src/api/BatchesApi'
 import BuyerApi from './codegen/src/api/BuyerApi'
@@ -39,7 +39,7 @@ class RestApiService {
     this.batchesApi = new BatchesApi(this.apiClient)
     this.otherApi = new OtherApi(this.apiClient)
     this.permissionsApi = new PermissionsApi(this.apiClient)
-    this.sellerBoardApi = new SellerBoardApi(this.apiClient)
+    this.integrationsApi = new IntegrationsApi(this.apiClient)
 
     this.SearchRequestApi = new RequestsApi(this.apiClient)
     this.SearchRequestProposalApi = new RequestProposalsApi(this.apiClient)

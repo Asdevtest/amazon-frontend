@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject6 from './InlineObject6';
 
 /**
  * The InlineObject30 model module.
@@ -23,10 +22,11 @@ class InlineObject30 {
     /**
      * Constructs a new <code>InlineObject30</code>.
      * @alias module:model/InlineObject30
+     * @param action {module:model/InlineObject30.ActionEnum} 
      */
-    constructor() { 
+    constructor(action) { 
         
-        InlineObject30.initialize(this);
+        InlineObject30.initialize(this, action);
     }
 
     /**
@@ -34,7 +34,8 @@ class InlineObject30 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, action) { 
+        obj['action'] = action;
     }
 
     /**
@@ -48,8 +49,11 @@ class InlineObject30 {
         if (data) {
             obj = obj || new InlineObject30();
 
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject6]);
+            if (data.hasOwnProperty('action')) {
+                obj['action'] = ApiClient.convertToType(data['action'], 'String');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -59,13 +63,39 @@ class InlineObject30 {
 }
 
 /**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject6>} additionalBoxes
+ * @member {module:model/InlineObject30.ActionEnum} action
  */
-InlineObject30.prototype['additionalBoxes'] = undefined;
+InlineObject30.prototype['action'] = undefined;
+
+/**
+ * Причина смены статуса.
+ * @member {String} reason
+ */
+InlineObject30.prototype['reason'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>action</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject30['ActionEnum'] = {
+
+    /**
+     * value: "LINK"
+     * @const
+     */
+    "LINK": "LINK",
+
+    /**
+     * value: "UNLINK"
+     * @const
+     */
+    "UNLINK": "UNLINK"
+};
 
 
 

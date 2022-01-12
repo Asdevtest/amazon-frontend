@@ -1,6 +1,5 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {BACKEND_API_URL} from '@constants/env'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
@@ -11,6 +10,7 @@ import {UserModel} from '@models/user-model'
 
 import {checkIsBuyer} from '@utils/checks'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 const fieldsOfProductAllowedToUpdate = [
   'listingName',
@@ -82,42 +82,11 @@ export class ListingModel {
 
   async onSaveSubmit() {
     try {
-      await this.onSubmitPostImages({images: this.tmpListingImages})
+      await onSubmitPostImages.call(this, {images: this.tmpListingImages, type: 'imagesToLoad'})
 
       await this.onSaveProductData()
 
       this.onTriggerOpenModal('showSuccessModal')
-    } catch (error) {
-      this.error = error
-    }
-  }
-
-  async onSubmitPostImages({images}) {
-    this.tmpListingImages = []
-    const loadingStep = 100 / images.length
-
-    this.showProgress = true
-
-    for (let i = 0; i < images.length; i++) {
-      const image = images[i]
-
-      await this.onPostImage(image)
-
-      this.progressValue = this.progressValue + loadingStep
-    }
-
-    this.showProgress = false
-    this.progressValue = 0
-  }
-
-  async onPostImage(imageData) {
-    const formData = new FormData()
-    formData.append('filename', imageData.file)
-
-    try {
-      const imageFile = await OtherModel.postImage(formData)
-
-      this.imagesToLoad.push(BACKEND_API_URL + '/uploads/' + imageFile.data.fileName)
     } catch (error) {
       this.error = error
     }

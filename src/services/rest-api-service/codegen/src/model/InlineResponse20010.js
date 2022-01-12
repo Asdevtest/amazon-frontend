@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20010 {
     /**
      * Constructs a new <code>InlineResponse20010</code>.
+<<<<<<< HEAD
      * Схема репорта за 30 дней с Seller-board
      * @alias module:model/InlineResponse20010
      * @param sku {String} SKU
@@ -28,6 +29,19 @@ class InlineResponse20010 {
     constructor(sku) { 
         
         InlineResponse20010.initialize(this, sku);
+=======
+     * @alias module:model/InlineResponse20010
+     * @param _id {String} GUID заявки в базе данных.
+     * @param type {String} Тип заявки.
+     * @param maxAmountOfProposals {Number} Количество предложений.
+     * @param price {Number} Цена за каждое предложение.
+     * @param status {module:model/InlineResponse20010.StatusEnum} Статус заявки.
+     * @param direction {module:model/InlineResponse20010.DirectionEnum} Направление заявки, исходящая или входящая.
+     */
+    constructor(_id, type, maxAmountOfProposals, price, status, direction) { 
+        
+        InlineResponse20010.initialize(this, _id, type, maxAmountOfProposals, price, status, direction);
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
     }
 
     /**
@@ -35,8 +49,18 @@ class InlineResponse20010 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
+<<<<<<< HEAD
     static initialize(obj, sku) { 
         obj['sku'] = sku;
+=======
+    static initialize(obj, _id, type, maxAmountOfProposals, price, status, direction) { 
+        obj['_id'] = _id;
+        obj['type'] = type;
+        obj['maxAmountOfProposals'] = maxAmountOfProposals;
+        obj['price'] = price;
+        obj['status'] = status;
+        obj['direction'] = direction;
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
     }
 
     /**
@@ -50,6 +74,7 @@ class InlineResponse20010 {
         if (data) {
             obj = obj || new InlineResponse20010();
 
+<<<<<<< HEAD
             if (data.hasOwnProperty('asin')) {
                 obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
@@ -88,10 +113,24 @@ class InlineResponse20010 {
             }
             if (data.hasOwnProperty('fbaPrepStock')) {
                 obj['fbaPrepStock'] = ApiClient.convertToType(data['fbaPrepStock'], 'Number');
+=======
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'String');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
             }
             if (data.hasOwnProperty('ordered')) {
                 obj['ordered'] = ApiClient.convertToType(data['ordered'], 'String');
             }
+<<<<<<< HEAD
             if (data.hasOwnProperty('timeToReorder')) {
                 obj['timeToReorder'] = ApiClient.convertToType(data['timeToReorder'], 'String');
             }
@@ -118,6 +157,43 @@ class InlineResponse20010 {
             }
             if (data.hasOwnProperty('shippingToFbaDays')) {
                 obj['shippingToFbaDays'] = ApiClient.convertToType(data['shippingToFbaDays'], 'Number');
+=======
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            }
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
+            }
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            }
+            if (data.hasOwnProperty('assignees')) {
+                obj['assignees'] = ApiClient.convertToType(data['assignees'], ['String']);
+            }
+            if (data.hasOwnProperty('direction')) {
+                obj['direction'] = ApiClient.convertToType(data['direction'], 'String');
+            }
+            if (data.hasOwnProperty('roles')) {
+                obj['roles'] = ApiClient.convertToType(data['roles'], ['Number']);
+            }
+            if (data.hasOwnProperty('needCheckBySupervisor')) {
+                obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
+            }
+            if (data.hasOwnProperty('restrictMoreThanOneProposalFromOneAssignee')) {
+                obj['restrictMoreThanOneProposalFromOneAssignee'] = ApiClient.convertToType(data['restrictMoreThanOneProposalFromOneAssignee'], 'Boolean');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
             }
         }
         return obj;
@@ -127,6 +203,7 @@ class InlineResponse20010 {
 }
 
 /**
+<<<<<<< HEAD
  * \"ASIN\"
  * @member {String} asin
  */
@@ -264,8 +341,183 @@ InlineResponse20010.prototype['shippingToPrepCenterDays'] = undefined;
  */
 InlineResponse20010.prototype['shippingToFbaDays'] = undefined;
 
+=======
+ * GUID заявки в базе данных.
+ * @member {String} _id
+ */
+InlineResponse20010.prototype['_id'] = undefined;
+
+/**
+ * Тип заявки.
+ * @member {String} type
+ */
+InlineResponse20010.prototype['type'] = undefined;
+
+/**
+ * Title заявки.
+ * @member {String} title
+ */
+InlineResponse20010.prototype['title'] = undefined;
+
+/**
+ * Количество предложений.
+ * @member {Number} maxAmountOfProposals
+ */
+InlineResponse20010.prototype['maxAmountOfProposals'] = undefined;
+
+/**
+ * Цена за каждое предложение.
+ * @member {Number} price
+ */
+InlineResponse20010.prototype['price'] = undefined;
+
+/**
+ * Статус заявки.
+ * @member {module:model/InlineResponse20010.StatusEnum} status
+ */
+InlineResponse20010.prototype['status'] = undefined;
+
+/**
+ * Время закрытия заявки.
+ * @member {Date} timeoutAt
+ */
+InlineResponse20010.prototype['timeoutAt'] = undefined;
+
+/**
+ * Время за которое должен отправить предложение после бронирования. В минутах.
+ * @member {Number} timeLimitInMinutes
+ */
+InlineResponse20010.prototype['timeLimitInMinutes'] = undefined;
+
+/**
+ * Массив id пользователей.
+ * @member {Array.<String>} assignees
+ */
+InlineResponse20010.prototype['assignees'] = undefined;
+
+/**
+ * Направление заявки, исходящая или входящая.
+ * @member {module:model/InlineResponse20010.DirectionEnum} direction
+ */
+InlineResponse20010.prototype['direction'] = undefined;
+
+/**
+ * Массив массив ролей.
+ * @member {Array.<Number>} roles
+ */
+InlineResponse20010.prototype['roles'] = undefined;
+
+/**
+ * Если требуется проверка супервайзером.
+ * @member {Boolean} needCheckBySupervisor
+ */
+InlineResponse20010.prototype['needCheckBySupervisor'] = undefined;
+
+/**
+ * Запретить фрилансеру повторное отправление предложений.
+ * @member {Boolean} restrictMoreThanOneProposalFromOneAssignee
+ */
+InlineResponse20010.prototype['restrictMoreThanOneProposalFromOneAssignee'] = undefined;
+
+/**
+ * GUID клиента, который создал заявку.
+ * @member {String} createdById
+ */
+InlineResponse20010.prototype['createdById'] = undefined;
+
+/**
+ * GUID клиента, который обновил запрос на поиск товара.
+ * @member {String} lastModifiedById
+ */
+InlineResponse20010.prototype['lastModifiedById'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+InlineResponse20010.prototype['createdAt'] = undefined;
+
+/**
+ * Дата изменения
+ * @member {Date} updatedAt
+ */
+InlineResponse20010.prototype['updatedAt'] = undefined;
 
 
+
+
+
+/**
+ * Allowed values for the <code>status</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse20010['StatusEnum'] = {
+
+    /**
+     * value: "CREATED"
+     * @const
+     */
+    "CREATED": "CREATED",
+
+    /**
+     * value: "IN_PROCESS"
+     * @const
+     */
+    "IN_PROCESS": "IN_PROCESS",
+
+    /**
+     * value: "READY_TO_VERIFY"
+     * @const
+     */
+    "READY_TO_VERIFY": "READY_TO_VERIFY",
+
+    /**
+     * value: "VERIFYING"
+     * @const
+     */
+    "VERIFYING": "VERIFYING",
+
+    /**
+     * value: "TO_CORRECT"
+     * @const
+     */
+    "TO_CORRECT": "TO_CORRECT",
+
+    /**
+     * value: "CANCELED"
+     * @const
+     */
+    "CANCELED": "CANCELED",
+
+    /**
+     * value: "EXPIRED"
+     * @const
+     */
+    "EXPIRED": "EXPIRED"
+};
+
+
+/**
+ * Allowed values for the <code>direction</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse20010['DirectionEnum'] = {
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+
+    /**
+     * value: "IN"
+     * @const
+     */
+    "IN": "IN",
+
+    /**
+     * value: "OUT"
+     * @const
+     */
+    "OUT": "OUT"
+};
 
 
 

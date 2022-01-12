@@ -12,6 +12,11 @@
  */
 
 import ApiClient from '../ApiClient';
+<<<<<<< HEAD
+=======
+import InlineResponse20010 from './InlineResponse20010';
+import InlineResponse20013Details from './InlineResponse20013Details';
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 /**
  * The InlineResponse20013 model module.
@@ -48,6 +53,7 @@ class InlineResponse20013 {
         if (data) {
             obj = obj || new InlineResponse20013();
 
+<<<<<<< HEAD
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
@@ -107,6 +113,13 @@ class InlineResponse20013 {
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+=======
+            if (data.hasOwnProperty('request')) {
+                obj['request'] = InlineResponse20010.constructFromObject(data['request']);
+            }
+            if (data.hasOwnProperty('details')) {
+                obj['details'] = InlineResponse20013Details.constructFromObject(data['details']);
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
             }
         }
         return obj;
@@ -116,6 +129,7 @@ class InlineResponse20013 {
 }
 
 /**
+<<<<<<< HEAD
  * GUID продукта в базе данных.
  * @member {String} _id
  */
@@ -124,6 +138,14 @@ InlineResponse20013.prototype['_id'] = undefined;
 /**
  * GUID заявки к торой относится данное дополнение.
  * @member {String} link
+=======
+ * @member {module:model/InlineResponse20010} request
+ */
+InlineResponse20013.prototype['request'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20013Details} details
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
  */
 InlineResponse20013.prototype['link'] = undefined;
 

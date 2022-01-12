@@ -25,7 +25,13 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
       <Field label={textConsts.email} type="email" onChange={e => setEmail(e.target.value)} />
 
       <div className={classNames.buttonWrapper}>
-        <Button disableElevation variant="contained" className={classNames.button} onClick={() => onSubmit({email})}>
+        <Button
+          disableElevation
+          disabled={email === ''}
+          variant="contained"
+          className={classNames.button}
+          onClick={() => onSubmit({email})}
+        >
           {textConsts.addBtn}
         </Button>
 

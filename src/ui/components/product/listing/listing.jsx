@@ -131,8 +131,6 @@ export const Listing = observer(({product, onClickBack}) => {
 
           {userIsSupervisor && (
             <div>
-              <Typography className={classNames.subTitle}>{'Добавить фотографии:'}</Typography>
-
               <div className={classNames.imageFileInputWrapper}>
                 <ImageFileInput images={tmpListingImages} setImages={setTmpListingImages} maxNumber={50} />
               </div>

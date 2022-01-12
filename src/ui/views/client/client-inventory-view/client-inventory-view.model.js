@@ -4,13 +4,14 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {ClientModel} from '@models/client-model'
+import {SellerBoardModel} from '@models/seller-board-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {clientInventoryColumns} from '@components/table-columns/client/client-inventory-columns'
 
 import {copyToClipBoard} from '@utils/clipboard'
-import {clientInventoryDataConverter} from '@utils/data-grid-data-converters'
+import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -41,6 +42,7 @@ export class ClientInventoryViewModel {
   showAddOrEditSupplierModal = false
   selectedProduct = undefined
   showSendOwnProductModal = false
+  showBindInventoryGoodsToStockModal = false
 
   barCodeHandlers = {
     onClickBarcode: item => this.onClickBarcode(item),
@@ -125,7 +127,7 @@ export class ClientInventoryViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getProductsPaid()
+      await this.getProductsMy()
       await this.getOrders()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -149,9 +151,9 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async getProductsPaid() {
+  async getProductsMy() {
     try {
-      const result = await ClientModel.getProductsPaid()
+      const result = await ClientModel.getProductsMy()
       runInAction(() => {
         this.productsMy = clientInventoryDataConverter(result).sort(sortObjectsArrayByFiledDate('updatedAt'))
       })
@@ -244,6 +246,37 @@ export class ClientInventoryViewModel {
 
   async onDeleteBarcode(product) {
     await this.onSaveProductData(product._id, {barCode: ''})
+  }
+
+  async onClickBindInventoryGoodsToStockBtn() {
+    try {
+      await this.getMyDailyReports()
+      this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  getStockData() {
+    return toJS(this.sellerBoardDailyData)
+  }
+
+  async getMyDailyReports() {
+    try {
+      const result = await SellerBoardModel.getMyDailyReports()
+
+      runInAction(() => {
+        this.sellerBoardDailyData = addIdDataConverter(result)
+      })
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
   }
 
   onChangeCurPage(e) {

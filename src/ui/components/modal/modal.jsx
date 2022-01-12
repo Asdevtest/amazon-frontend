@@ -1,3 +1,5 @@
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
+
 import React from 'react'
 
 import {Dialog, DialogContent} from '@material-ui/core'
@@ -11,7 +13,7 @@ export const Modal = props => {
     <Dialog
       maxWidth={false}
       classes={{
-        paperScrollBody: clsx({[classNames.warningPaper]: props.isWarning}),
+        paperScrollBody: clsx(classNames.dialogContent, {[classNames.warningPaper]: props.isWarning}),
       }}
       open={props.openModal}
       scroll="body"
@@ -19,6 +21,8 @@ export const Modal = props => {
         ;(event.detail !== 0 || event.code === 'Escape') && props.setOpenModal(false) // event.detail!==0 чтобы модалка не закрывалась при клике на внешний скролл
       }}
     >
+      <CloseRoundedIcon className={classNames.closeIcon} fontSize="large" onClick={() => props.setOpenModal()} />
+
       <DialogContent
         className={clsx(
           classNames.dialogPadding,

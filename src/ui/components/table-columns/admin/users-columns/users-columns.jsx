@@ -17,6 +17,14 @@ export const adminUsersViewColumns = handlers => [
     type: 'date',
   },
 
+  {
+    field: 'updatedAt',
+    headerName: textConsts.updatedAtField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 100,
+    type: 'date',
+  },
+
   {field: 'name', headerName: 'Name', width: 150},
   {
     field: 'balance',

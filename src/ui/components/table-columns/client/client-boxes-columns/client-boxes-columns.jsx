@@ -69,7 +69,7 @@ export const clientBoxesViewColumns = () => [
     headerName: textConsts.qtyField,
     renderCell: params =>
       params.row.originalData.amount > 1 ? (
-        <SuperboxQtyCell qty={params.row.qty} superbox={params.row.amount} />
+        <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
       ) : (
         renderFieldValueCell(params.value)
       ),

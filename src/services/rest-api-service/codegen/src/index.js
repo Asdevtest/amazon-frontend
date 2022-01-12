@@ -13,6 +13,7 @@
 
 
 import ApiClient from './ApiClient';
+import AdminUserPatchDtoSchema from './model/AdminUserPatchDtoSchema';
 import ApiV1AdminsBatchesBatch from './model/ApiV1AdminsBatchesBatch';
 import ApiV1AdminsGetProductsByStatusClient from './model/ApiV1AdminsGetProductsByStatusClient';
 import ApiV1AdminsGetProductsByStatusCurrentSupplier from './model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
@@ -26,14 +27,14 @@ import ApiV1BoxesItems from './model/ApiV1BoxesItems';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
 import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
-import ApiV1RequestProposalsCustomDetails from './model/ApiV1RequestProposalsCustomDetails';
 import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetails';
+<<<<<<< HEAD
 import ApiV1RequestsCustomGuidProposalsProposal from './model/ApiV1RequestsCustomGuidProposalsProposal';
+=======
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
-import ApiV1RequestsDetails from './model/ApiV1RequestsDetails';
-import ApiV1RequestsRequest from './model/ApiV1RequestsRequest';
 import BadRequestError from './model/BadRequestError';
 import CheckIsUniqueNameOrEmailReqSchema from './model/CheckIsUniqueNameOrEmailReqSchema';
 import CheckIsUniqueNameOrEmailSchema from './model/CheckIsUniqueNameOrEmailSchema';
@@ -79,7 +80,6 @@ import InlineObject40 from './model/InlineObject40';
 import InlineObject41 from './model/InlineObject41';
 import InlineObject42 from './model/InlineObject42';
 import InlineObject43 from './model/InlineObject43';
-import InlineObject44 from './model/InlineObject44';
 import InlineObject5 from './model/InlineObject5';
 import InlineObject6 from './model/InlineObject6';
 import InlineObject7 from './model/InlineObject7';
@@ -91,7 +91,11 @@ import InlineResponse20010 from './model/InlineResponse20010';
 import InlineResponse20011 from './model/InlineResponse20011';
 import InlineResponse20012 from './model/InlineResponse20012';
 import InlineResponse20013 from './model/InlineResponse20013';
+<<<<<<< HEAD
 import InlineResponse20014 from './model/InlineResponse20014';
+=======
+import InlineResponse20013Details from './model/InlineResponse20013Details';
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
@@ -128,6 +132,7 @@ import SignInResponseSchema from './model/SignInResponseSchema';
 import SigninInputSchema from './model/SigninInputSchema';
 import SubUserPatchDtoSchema from './model/SubUserPatchDtoSchema';
 import SuccessResponseBodyWithGuid from './model/SuccessResponseBodyWithGuid';
+import UnLinkSubuserInputSchema from './model/UnLinkSubuserInputSchema';
 import UnauthorizedError from './model/UnauthorizedError';
 import UpdatedSuccessfully from './model/UpdatedSuccessfully';
 import UserAdminFullSchema from './model/UserAdminFullSchema';
@@ -145,13 +150,13 @@ import AdministratorApi from './api/AdministratorApi';
 import BoxesApi from './api/BoxesApi';
 import BuyerApi from './api/BuyerApi';
 import ClientApi from './api/ClientApi';
+import IntegrationsApi from './api/IntegrationsApi';
 import OtherApi from './api/OtherApi';
 import PermissionsApi from './api/PermissionsApi';
 import ProductApi from './api/ProductApi';
 import RequestProposalsApi from './api/RequestProposalsApi';
 import RequestsApi from './api/RequestsApi';
 import ResearcherApi from './api/ResearcherApi';
-import SellerBoardApi from './api/SellerBoardApi';
 import StorekeepersApi from './api/StorekeepersApi';
 import SupervisorApi from './api/SupervisorApi';
 import SupplierApi from './api/SupplierApi';
@@ -195,6 +200,12 @@ export {
      * @property {module:ApiClient}
      */
     ApiClient,
+
+    /**
+     * The AdminUserPatchDtoSchema model constructor.
+     * @property {module:model/AdminUserPatchDtoSchema}
+     */
+    AdminUserPatchDtoSchema,
 
     /**
      * The ApiV1AdminsBatchesBatch model constructor.
@@ -275,12 +286,6 @@ export {
     ApiV1BoxesSplitNewBoxesParams,
 
     /**
-     * The ApiV1RequestProposalsCustomDetails model constructor.
-     * @property {module:model/ApiV1RequestProposalsCustomDetails}
-     */
-    ApiV1RequestProposalsCustomDetails,
-
-    /**
      * The ApiV1RequestsCustomDetails model constructor.
      * @property {module:model/ApiV1RequestsCustomDetails}
      */
@@ -289,14 +294,17 @@ export {
     /**
      * The ApiV1RequestsCustomGuidDetails model constructor.
      * @property {module:model/ApiV1RequestsCustomGuidDetails}
+<<<<<<< HEAD
      */
     ApiV1RequestsCustomGuidDetails,
 
     /**
      * The ApiV1RequestsCustomGuidProposalsProposal model constructor.
      * @property {module:model/ApiV1RequestsCustomGuidProposalsProposal}
+=======
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
      */
-    ApiV1RequestsCustomGuidProposalsProposal,
+    ApiV1RequestsCustomGuidDetails,
 
     /**
      * The ApiV1RequestsCustomGuidRequest model constructor.
@@ -311,22 +319,22 @@ export {
     ApiV1RequestsCustomRequest,
 
     /**
-     * The ApiV1RequestsDetails model constructor.
-     * @property {module:model/ApiV1RequestsDetails}
-     */
-    ApiV1RequestsDetails,
-
-    /**
-     * The ApiV1RequestsRequest model constructor.
-     * @property {module:model/ApiV1RequestsRequest}
-     */
-    ApiV1RequestsRequest,
-
-    /**
      * The BadRequestError model constructor.
      * @property {module:model/BadRequestError}
      */
     BadRequestError,
+
+    /**
+     * The CheckIsUniqueNameOrEmailReqSchema model constructor.
+     * @property {module:model/CheckIsUniqueNameOrEmailReqSchema}
+     */
+    CheckIsUniqueNameOrEmailReqSchema,
+
+    /**
+     * The CheckIsUniqueNameOrEmailSchema model constructor.
+     * @property {module:model/CheckIsUniqueNameOrEmailSchema}
+     */
+    CheckIsUniqueNameOrEmailSchema,
 
     /**
      * The CheckIsUniqueNameOrEmailReqSchema model constructor.
@@ -593,12 +601,6 @@ export {
     InlineObject43,
 
     /**
-     * The InlineObject44 model constructor.
-     * @property {module:model/InlineObject44}
-     */
-    InlineObject44,
-
-    /**
      * The InlineObject5 model constructor.
      * @property {module:model/InlineObject5}
      */
@@ -665,10 +667,17 @@ export {
     InlineResponse20013,
 
     /**
+<<<<<<< HEAD
      * The InlineResponse20014 model constructor.
      * @property {module:model/InlineResponse20014}
      */
     InlineResponse20014,
+=======
+     * The InlineResponse20013Details model constructor.
+     * @property {module:model/InlineResponse20013Details}
+     */
+    InlineResponse20013Details,
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
     /**
      * The InlineResponse2002 model constructor.
@@ -887,6 +896,12 @@ export {
     SuccessResponseBodyWithGuid,
 
     /**
+     * The UnLinkSubuserInputSchema model constructor.
+     * @property {module:model/UnLinkSubuserInputSchema}
+     */
+    UnLinkSubuserInputSchema,
+
+    /**
      * The UnauthorizedError model constructor.
      * @property {module:model/UnauthorizedError}
      */
@@ -989,6 +1004,12 @@ export {
     ClientApi,
 
     /**
+    * The IntegrationsApi service constructor.
+    * @property {module:api/IntegrationsApi}
+    */
+    IntegrationsApi,
+
+    /**
     * The OtherApi service constructor.
     * @property {module:api/OtherApi}
     */
@@ -1023,12 +1044,6 @@ export {
     * @property {module:api/ResearcherApi}
     */
     ResearcherApi,
-
-    /**
-    * The SellerBoardApi service constructor.
-    * @property {module:api/SellerBoardApi}
-    */
-    SellerBoardApi,
 
     /**
     * The StorekeepersApi service constructor.

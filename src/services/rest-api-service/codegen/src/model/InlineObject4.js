@@ -21,7 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineObject4 {
     /**
      * Constructs a new <code>InlineObject4</code>.
-     * Объект с именем и новым значением параметра.
+     * Схема динамических настроек.
      * @alias module:model/InlineObject4
      */
     constructor() { 
@@ -48,11 +48,23 @@ class InlineObject4 {
         if (data) {
             obj = obj || new InlineObject4();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
-            if (data.hasOwnProperty('value')) {
-                obj['value'] = ApiClient.convertToType(data['value'], 'Number');
+            if (data.hasOwnProperty('airDeliveryPrice')) {
+                obj['airDeliveryPrice'] = ApiClient.convertToType(data['airDeliveryPrice'], 'Number');
+            }
+            if (data.hasOwnProperty('seaDeliveryPrice')) {
+                obj['seaDeliveryPrice'] = ApiClient.convertToType(data['seaDeliveryPrice'], 'Number');
+            }
+            if (data.hasOwnProperty('costOfFindingSupplier')) {
+                obj['costOfFindingSupplier'] = ApiClient.convertToType(data['costOfFindingSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('timeLimitInHourForCancelingProposalsByClient')) {
+                obj['timeLimitInHourForCancelingProposalsByClient'] = ApiClient.convertToType(data['timeLimitInHourForCancelingProposalsByClient'], 'Number');
+            }
+            if (data.hasOwnProperty('timeLimitInHourForCheckingProposalBySuper')) {
+                obj['timeLimitInHourForCheckingProposalBySuper'] = ApiClient.convertToType(data['timeLimitInHourForCheckingProposalBySuper'], 'Number');
             }
         }
         return obj;
@@ -62,70 +74,43 @@ class InlineObject4 {
 }
 
 /**
- * Имя параметра.
- * @member {module:model/InlineObject4.NameEnum} name
+ * Курс юаня к доллару.
+ * @member {Number} yuanToDollarRate
  */
-InlineObject4.prototype['name'] = undefined;
+InlineObject4.prototype['yuanToDollarRate'] = undefined;
 
 /**
- * Значение параметра.
- * @member {Number} value
+ * Цена за авиа доставку, доллар/кг.
+ * @member {Number} airDeliveryPrice
  */
-InlineObject4.prototype['value'] = undefined;
-
-
-
-
+InlineObject4.prototype['airDeliveryPrice'] = undefined;
 
 /**
- * Allowed values for the <code>name</code> property.
- * @enum {String}
- * @readonly
+ * Цена за доставку морем, доллар/кг.
+ * @member {Number} seaDeliveryPrice
  */
-InlineObject4['NameEnum'] = {
+InlineObject4.prototype['seaDeliveryPrice'] = undefined;
 
-    /**
-     * value: "dollarYuanRate"
-     * @const
-     */
-    "dollarYuanRate": "dollarYuanRate",
+/**
+ * Цена за поиск поставщика, в долларах.
+ * @member {Number} costOfFindingSupplier
+ */
+InlineObject4.prototype['costOfFindingSupplier'] = undefined;
 
-    /**
-     * value: "airDeliveryPrice"
-     * @const
-     */
-    "airDeliveryPrice": "airDeliveryPrice",
+/**
+ * Время после которого будет автоматом принято предложение клиентом, в часах.
+ * @member {Number} timeLimitInHourForCancelingProposalsByClient
+ */
+InlineObject4.prototype['timeLimitInHourForCancelingProposalsByClient'] = undefined;
 
-    /**
-     * value: "seaDeliveryPrice"
-     * @const
-     */
-    "seaDeliveryPrice": "seaDeliveryPrice",
+/**
+ * Время после которого будет автоматом снят супервизор с проверки предложения, в часах.
+ * @member {Number} timeLimitInHourForCheckingProposalBySuper
+ */
+InlineObject4.prototype['timeLimitInHourForCheckingProposalBySuper'] = undefined;
 
-    /**
-     * value: "timeLimitForProductResearchInMinutes"
-     * @const
-     */
-    "timeLimitForProductResearchInMinutes": "timeLimitForProductResearchInMinutes",
 
-    /**
-     * value: "penaltyFeeForProductResearch"
-     * @const
-     */
-    "penaltyFeeForProductResearch": "penaltyFeeForProductResearch",
 
-    /**
-     * value: "platformCommissionForProductResearch"
-     * @const
-     */
-    "platformCommissionForProductResearch": "platformCommissionForProductResearch",
-
-    /**
-     * value: "supervisorCommissionForProductResearch"
-     * @const
-     */
-    "supervisorCommissionForProductResearch": "supervisorCommissionForProductResearch"
-};
 
 
 

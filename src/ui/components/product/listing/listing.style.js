@@ -62,7 +62,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   competitorWrapper: {
-    width: '100%',
+    width: '90%',
   },
 
   detailDescriptionWrapper: {

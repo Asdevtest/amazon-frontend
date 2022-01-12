@@ -1,16 +1,6 @@
 export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
   {id: 'asin', align: 'center', disablePadding: true, label: '#'},
-  {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},
-  {id: 'status', align: 'center', disablePadding: true, label: 'Status'},
-  {id: 'createDate', align: 'center', disablePadding: true, label: 'Create date'},
-  {id: 'updateDate', align: 'center', disablePadding: true, label: 'Update date'},
-  {id: 'price', align: 'right', disablePadding: false, label: 'Amazon $'},
-  {id: 'researcher', align: 'left', disablePadding: false, label: 'Researcher'},
-  {id: 'buyer', align: 'left', disablePadding: false, label: 'Buyer'},
-  {id: 'bsr', align: 'right', disablePadding: false, label: 'BSR'},
-  {id: 'type', align: 'right', disablePadding: false, label: 'Type'},
-  {id: 'fbaFee', align: 'center', disablePadding: false, label: 'Fba fee'},
-  {id: 'fbaFee', align: 'center', disablePadding: false, label: 'Action'},
+  {id: 'action', align: 'center', disablePadding: true, label: 'Действие'},
 ]
 
 export const CLIENT_ORDERS_HEAD_CELL = [
@@ -130,16 +120,6 @@ export const ADMIN_ORDERS_HEAD_CELL = [
 ]
 
 export const BUYER_PRODUCTS_HEAD_CELLS = [
-  {id: 'asin', align: 'center', disablePadding: true, label: 'ASIN'},
-  {id: 'price', align: 'right', disablePadding: false, label: 'Price'},
-  {id: 'fees', align: 'left', disablePadding: false, label: 'Fees & Net'},
-  {id: 'rank', align: 'right', disablePadding: false, label: 'Rank'},
-  {id: 'rating', align: 'center', disablePadding: false, label: 'Rating'},
-  {id: 'sales', align: 'right', disablePadding: false, label: 'Sales'},
-  {id: 'salersTotal', align: 'center', disablePadding: false, label: 'Salers total'},
-  {id: 'type', align: 'right', disablePadding: false, label: 'Type'},
-  {id: 'revenue', align: 'right', disablePadding: false, label: 'Revenue'},
-  {id: 'amazonPrice', align: 'right', disablePadding: false, label: 'Amazon $'},
-  {id: 'bsr', align: 'right', disablePadding: false, label: 'BSR'},
-  {id: 'fba', align: 'right', disablePadding: false, label: 'FBA'},
+  {id: 'asin', align: 'center', disablePadding: true, label: '#'},
+  {id: 'action', align: 'center', disablePadding: true, label: 'Действие'},
 ]
