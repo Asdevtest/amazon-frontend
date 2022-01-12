@@ -10,14 +10,27 @@ import ImageUploading from 'react-images-uploading'
 
 import {texts} from '@constants/texts'
 
+import {Button} from '@components/buttons/button'
+import {Field} from '@components/field/field'
+import {Input} from '@components/input'
+
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './image-file-input.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').imageFileInput
 
+const maxSizeInBytes = 15728640
+
 export const ImageFileInput = observer(({images, setImages, maxNumber}) => {
   const classNames = useClassNames()
+
+  const [linkInput, setLinkInput] = useState('')
+
+  const onClickLoadBtn = () => {
+    setImages([...images, linkInput])
+    setLinkInput('')
+  }
 
   const onChange = (imageList /* , addUpdateIndex тут можно индекс получить*/) => {
     setImages(imageList)
@@ -26,7 +39,7 @@ export const ImageFileInput = observer(({images, setImages, maxNumber}) => {
   const renderImageInfo = (img, imgName) => (
     <div className={classNames.tooltipWrapper}>
       <img alt={imgName} src={img} className={classNames.tooltipImg} />
-      <Typography className={classNames.tooltipText}>{imgName}</Typography>
+      {imgName && <Typography className={classNames.tooltipText}>{imgName}</Typography>}
     </div>
   )
 
@@ -34,7 +47,39 @@ export const ImageFileInput = observer(({images, setImages, maxNumber}) => {
 
   return (
     <div>
-      <ImageUploading multiple value={images} maxNumber={maxNumber} dataURLKey="data_url" onChange={onChange}>
+      <Field
+        label={textConsts.addPhoto}
+        inputComponent={
+          <div className={classNames.amazonLinkWrapper}>
+            <Input
+              placeholder={textConsts.link}
+              className={classNames.loadImageInput}
+              value={linkInput}
+              onChange={e => setLinkInput(e.target.value)}
+            />
+
+            <Button
+              disableElevation
+              disabled={linkInput === ''}
+              className={classNames.loadBtn}
+              variant="contained"
+              color="primary"
+              onClick={() => onClickLoadBtn()}
+            >
+              {textConsts.loadBtn}
+            </Button>
+          </div>
+        }
+      />
+
+      <ImageUploading
+        multiple
+        value={images}
+        maxNumber={maxNumber}
+        dataURLKey="data_url"
+        maxFileSize={maxSizeInBytes}
+        onChange={onChange}
+      >
         {({imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps}) => (
           <div className={classNames.mainWrapper}>
             <button
@@ -64,25 +109,39 @@ export const ImageFileInput = observer(({images, setImages, maxNumber}) => {
 
             {showImages && (
               <Grid container className={classNames.imageListWrapper} justify="start" spacing={2} md={12}>
-                {imageList.map((image, index) => (
-                  <Grid key={index} item>
-                    <div className={classNames.imageListItem}>
-                      <Tooltip
-                        title={renderImageInfo(image.data_url, image.file.name)}
-                        classes={{popper: classNames.imgTooltip}}
-                      >
-                        <img className={classNames.image} src={image.data_url} alt={image.file.name} />
-                      </Tooltip>
+                {imageList.map((image, index) =>
+                  typeof image === 'string' ? (
+                    <Grid key={index} item>
+                      <div className={classNames.imageListItem}>
+                        <Tooltip title={renderImageInfo(image)} classes={{popper: classNames.imgTooltip}}>
+                          <img className={classNames.image} src={image} />
+                        </Tooltip>
 
-                      <Typography className={classNames.fileName}>{image.file.name} </Typography>
-
-                      <div className={classNames.actionIconsWrapper}>
-                        <AutorenewIcon className={classNames.actionIcon} onClick={() => onImageUpdate(index)} />
-                        <HighlightOffIcon className={classNames.actionIcon} onClick={() => onImageRemove(index)} />
+                        <div className={classNames.actionIconsWrapper}>
+                          <HighlightOffIcon className={classNames.actionIcon} onClick={() => onImageRemove(index)} />
+                        </div>
                       </div>
-                    </div>
-                  </Grid>
-                ))}
+                    </Grid>
+                  ) : (
+                    <Grid key={index} item>
+                      <div className={classNames.imageListItem}>
+                        <Tooltip
+                          title={renderImageInfo(image.data_url, image.file.name)}
+                          classes={{popper: classNames.imgTooltip}}
+                        >
+                          <img className={classNames.image} src={image.data_url} alt={image.file.name} />
+                        </Tooltip>
+
+                        <Typography className={classNames.fileName}>{image.file.name} </Typography>
+
+                        <div className={classNames.actionIconsWrapper}>
+                          <AutorenewIcon className={classNames.actionIcon} onClick={() => onImageUpdate(index)} />
+                          <HighlightOffIcon className={classNames.actionIcon} onClick={() => onImageRemove(index)} />
+                        </div>
+                      </div>
+                    </Grid>
+                  ),
+                )}
               </Grid>
             )}
           </div>

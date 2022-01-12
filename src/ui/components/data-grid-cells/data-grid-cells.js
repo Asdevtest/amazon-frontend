@@ -481,3 +481,9 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
     </div>
   )
 })
+
+export const TrashCell = withStyles(styles)(({classes: classNames, onClick}) => (
+  <div className={classNames.trashWrapper}>
+    <img className={classNames.trashImg} src="/assets/icons/trash.svg" alt="" onClick={onClick} />
+  </div>
+))

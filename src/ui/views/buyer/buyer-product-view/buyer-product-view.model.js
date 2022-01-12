@@ -1,14 +1,12 @@
 import {transformAndValidate} from 'class-transformer-validator'
 import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
-import {BACKEND_API_URL} from '@constants/env'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
 import {texts} from '@constants/texts'
 
 import {BuyerModel} from '@models/buyer-model'
 import {BuyerUpdateProductContract} from '@models/buyer-model/buyer-model.contracts'
-import {OtherModel} from '@models/other-model'
 import {ProductModel} from '@models/product-model'
 import {SupplierModel} from '@models/supplier-model'
 
@@ -20,6 +18,7 @@ import {
   getObjectFilteredByKeyArrayBlackList,
   getObjectFilteredByKeyArrayWhiteList,
 } from '@utils/object'
+import {onSubmitPostImages} from '@utils/upload-files'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
 const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
@@ -306,35 +305,6 @@ export class BuyerProductViewModel {
     }
   }
 
-  async onSubmitPostImages({images, type}) {
-    const loadingStep = 100 / images.length
-
-    this[type] = []
-    this.showProgress = true
-
-    for (let i = 0; i < images.length; i++) {
-      const image = images[i]
-      await this.onPostImage(image, type)
-      this.progressValue = this.progressValue + loadingStep
-    }
-
-    this.showProgress = false
-    this.progressValue = 0
-  }
-
-  async onPostImage(imageData, imagesType) {
-    const formData = new FormData()
-    formData.append('filename', imageData.file)
-
-    try {
-      const imageFile = await OtherModel.postImage(formData)
-
-      this[imagesType].push(BACKEND_API_URL + '/uploads/' + imageFile.data.fileName)
-    } catch (error) {
-      this.error = error
-    }
-  }
-
   // async onForcedSaveSelectedFields(selectedFieldsObj) {  МОЖЕТ ПРИГОДИТЬСЯ
   //   try {
   //     await BuyerModel.updateProduct(this.product._id, selectedFieldsObj)
@@ -347,7 +317,8 @@ export class BuyerProductViewModel {
   async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.onSubmitPostImages({images: photosOfSupplier, type: 'readyImages'})
+
+      await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
 
       supplier = {
         ...supplier,

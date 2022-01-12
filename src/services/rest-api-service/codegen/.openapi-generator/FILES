@@ -2,6 +2,7 @@
 .gitignore
 .travis.yml
 README.md
+docs/AdminUserPatchDtoSchema.md
 docs/AdministratorApi.md
 docs/ApiV1AdminsBatchesBatch.md
 docs/ApiV1AdminsGetProductsByStatusClient.md
@@ -16,14 +17,10 @@ docs/ApiV1BoxesItems.md
 docs/ApiV1BoxesMergeBoxBody.md
 docs/ApiV1BoxesSplitBoxItems.md
 docs/ApiV1BoxesSplitNewBoxesParams.md
-docs/ApiV1RequestProposalsCustomDetails.md
 docs/ApiV1RequestsCustomDetails.md
 docs/ApiV1RequestsCustomGuidDetails.md
-docs/ApiV1RequestsCustomGuidProposalsProposal.md
 docs/ApiV1RequestsCustomGuidRequest.md
 docs/ApiV1RequestsCustomRequest.md
-docs/ApiV1RequestsDetails.md
-docs/ApiV1RequestsRequest.md
 docs/BadRequestError.md
 docs/BoxesApi.md
 docs/BuyerApi.md
@@ -72,7 +69,6 @@ docs/InlineObject40.md
 docs/InlineObject41.md
 docs/InlineObject42.md
 docs/InlineObject43.md
-docs/InlineObject44.md
 docs/InlineObject5.md
 docs/InlineObject6.md
 docs/InlineObject7.md
@@ -84,7 +80,7 @@ docs/InlineResponse20010.md
 docs/InlineResponse20011.md
 docs/InlineResponse20012.md
 docs/InlineResponse20013.md
-docs/InlineResponse20014.md
+docs/InlineResponse20013Details.md
 docs/InlineResponse2002.md
 docs/InlineResponse2003.md
 docs/InlineResponse2004.md
@@ -101,6 +97,7 @@ docs/InlineResponse2014.md
 docs/InlineResponse2015.md
 docs/InlineResponse2016.md
 docs/InlineResponse2017.md
+docs/IntegrationsApi.md
 docs/InternalServerError.md
 docs/LinkSubuserInputSchema.md
 docs/MePatchInputSchema.md
@@ -122,7 +119,6 @@ docs/QuerystringGetDTOSchema.md
 docs/RequestProposalsApi.md
 docs/RequestsApi.md
 docs/ResearcherApi.md
-docs/SellerBoardApi.md
 docs/SetPermissionsForUsersPathDTOSchema.md
 docs/SignInResponseSchema.md
 docs/SigninInputSchema.md
@@ -131,6 +127,7 @@ docs/SubUserPatchDtoSchema.md
 docs/SuccessResponseBodyWithGuid.md
 docs/SupervisorApi.md
 docs/SupplierApi.md
+docs/UnLinkSubuserInputSchema.md
 docs/UnauthorizedError.md
 docs/UpdatedSuccessfully.md
 docs/UserAdminFullSchema.md
@@ -153,18 +150,19 @@ src/api/AdministratorApi.js
 src/api/BoxesApi.js
 src/api/BuyerApi.js
 src/api/ClientApi.js
+src/api/IntegrationsApi.js
 src/api/OtherApi.js
 src/api/PermissionsApi.js
 src/api/ProductApi.js
 src/api/RequestProposalsApi.js
 src/api/RequestsApi.js
 src/api/ResearcherApi.js
-src/api/SellerBoardApi.js
 src/api/StorekeepersApi.js
 src/api/SupervisorApi.js
 src/api/SupplierApi.js
 src/api/UserApi.js
 src/index.js
+src/model/AdminUserPatchDtoSchema.js
 src/model/ApiV1AdminsBatchesBatch.js
 src/model/ApiV1AdminsGetProductsByStatusClient.js
 src/model/ApiV1AdminsGetProductsByStatusCurrentSupplier.js
@@ -178,14 +176,10 @@ src/model/ApiV1BoxesItems.js
 src/model/ApiV1BoxesMergeBoxBody.js
 src/model/ApiV1BoxesSplitBoxItems.js
 src/model/ApiV1BoxesSplitNewBoxesParams.js
-src/model/ApiV1RequestProposalsCustomDetails.js
 src/model/ApiV1RequestsCustomDetails.js
 src/model/ApiV1RequestsCustomGuidDetails.js
-src/model/ApiV1RequestsCustomGuidProposalsProposal.js
 src/model/ApiV1RequestsCustomGuidRequest.js
 src/model/ApiV1RequestsCustomRequest.js
-src/model/ApiV1RequestsDetails.js
-src/model/ApiV1RequestsRequest.js
 src/model/BadRequestError.js
 src/model/CheckIsUniqueNameOrEmailReqSchema.js
 src/model/CheckIsUniqueNameOrEmailSchema.js
@@ -231,7 +225,6 @@ src/model/InlineObject40.js
 src/model/InlineObject41.js
 src/model/InlineObject42.js
 src/model/InlineObject43.js
-src/model/InlineObject44.js
 src/model/InlineObject5.js
 src/model/InlineObject6.js
 src/model/InlineObject7.js
@@ -243,7 +236,7 @@ src/model/InlineResponse20010.js
 src/model/InlineResponse20011.js
 src/model/InlineResponse20012.js
 src/model/InlineResponse20013.js
-src/model/InlineResponse20014.js
+src/model/InlineResponse20013Details.js
 src/model/InlineResponse2002.js
 src/model/InlineResponse2003.js
 src/model/InlineResponse2004.js
@@ -280,6 +273,7 @@ src/model/SignInResponseSchema.js
 src/model/SigninInputSchema.js
 src/model/SubUserPatchDtoSchema.js
 src/model/SuccessResponseBodyWithGuid.js
+src/model/UnLinkSubuserInputSchema.js
 src/model/UnauthorizedError.js
 src/model/UpdatedSuccessfully.js
 src/model/UserAdminFullSchema.js
@@ -293,9 +287,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/PermissionPatchDtoSchemaAllowedUrls.spec.js
-test/model/SubUserPatchDtoSchema.spec.js
-test/model/UserAdminFullSchema.spec.js
-test/model/UserAdminFullSchemaAllowedUrls.spec.js
-test/model/UserAdminFullSchemaPermissionGroups.spec.js
-test/model/UserAdminFullSchemaPermissions.spec.js

@@ -4,11 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**maxAmountOfProposals** | **Number** | Количество предложений. | [optional] 
+**title** | **String** | Title заявки. | [optional] 
+**maxAmountOfProposals** | **Number** | Количество предложений, не менее. | [optional] 
 **price** | **Number** | Цена за каждое предложение. | [optional] 
-**timeoutAt** | **Date** | Время закрытия предложения. | [optional] 
+**timeoutAt** | **Date** | Время закрытия заявки. | [optional] 
+**timeLimitInMinutes** | **Number** | Время за которое должен отправить предложение после бронирования. В минутах, не менее 10. | [optional] 
 **assignees** | **[String]** | Массив id пользователей. | [optional] 
 **direction** | **String** | Направление заявки, исходящая или входящая. | [optional] 
+**needCheckBySupervisor** | **Boolean** | Нуждается в проверке супервайзером. | [optional] 
+**restrictMoreThanOneProposalFromOneAssignee** | **Boolean** | Запретить фрилансеру повторное отправление предложений. | [optional] 
 **roles** | **[Number]** | Массив массив ролей. | [optional] 
 
 

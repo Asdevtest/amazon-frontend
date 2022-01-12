@@ -138,6 +138,21 @@
       //expect(instance).to.be();
     });
 
+<<<<<<< HEAD
+=======
+    it('should have the property createdAt (base name: "createdAt")', function() {
+      // uncomment below and update the code to test the property createdAt
+      //var instance = new TestSwagger.UserAdminFullSchema();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property updatedAt (base name: "updatedAt")', function() {
+      // uncomment below and update the code to test the property updatedAt
+      //var instance = new TestSwagger.UserAdminFullSchema();
+      //expect(instance).to.be();
+    });
+
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
   });
 
 }));

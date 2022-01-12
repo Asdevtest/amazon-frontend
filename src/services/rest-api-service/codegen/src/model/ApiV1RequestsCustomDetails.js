@@ -57,6 +57,9 @@ class ApiV1RequestsCustomDetails {
             if (data.hasOwnProperty('conditions')) {
                 obj['conditions'] = ApiClient.convertToType(data['conditions'], 'String');
             }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
         }
         return obj;
     }
@@ -75,6 +78,12 @@ ApiV1RequestsCustomDetails.prototype['name'] = undefined;
  * @member {String} conditions
  */
 ApiV1RequestsCustomDetails.prototype['conditions'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+ApiV1RequestsCustomDetails.prototype['linksToMediaFiles'] = undefined;
 
 
 

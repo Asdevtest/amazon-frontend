@@ -133,7 +133,11 @@ Name | Type | Description  | Notes
 
 Редактирование сабюзера мастер юзером.
 
+<<<<<<< HEAD
 ##  Редактирование сабюзера мастер юзером.  Только мастер пользователь может редактировать
+=======
+##  Редактирование сабюзера мастер юзером.  Только мастер пользователь может редактировать Запрешено редактировать мастер юзера Мастер может редактировать только своих сабов Пермишены должны принадлежать роли сабюзера
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 ### Example
 
@@ -185,7 +189,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersInfoGet
 
-> UserFullSchema apiV1UsersInfoGet(opts)
+> UserAdminFullSchema apiV1UsersInfoGet(opts)
 
 Получить информацию от текущем пользователе.
 
@@ -223,7 +227,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UserFullSchema**](UserFullSchema.md)
+[**UserAdminFullSchema**](UserAdminFullSchema.md)
 
 ### Authorization
 
@@ -241,7 +245,11 @@ Name | Type | Description  | Notes
 
 # Привязка субпользователя.
 
+<<<<<<< HEAD
 ## Этот эндпоинт может быть вызван из любой роли кроме админа.  По email пользователя которого к себе хочет привязать мастер пользователь.  Проверки: у админа не может быть субпользователя, субпользователя не может иметь субпользователя,  только кандидата можно привязать к качестве субпользователя
+=======
+## Этот эндпоинт может быть вызван из любой роли кроме админа.  По email пользователя которого к себе хочет привязать мастер пользователь.  Проверки: у админа не может быть сабюзера, сабюзер не может иметь сабюзера,  Может ли данный пользователь быть мастер юзером, такую возможность дает только администратор. только кандидата можно привязать к качестве субпользователя
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 ### Example
 
@@ -497,7 +505,11 @@ No authorization required
 
 # Отвязка суб пользователя.
 
+<<<<<<< HEAD
 ## Этот эндпоинт может быть вызван из любой роли кроме админа.   По email пользователя которого хочет отвязать мастер пользователь. Проверки: по email должен существовать пользователь,    У субпользователя поле masterUser должно совпадает с id мастер пользователя. 
+=======
+##  По guid саб пользователя которого хочет отвязать мастер пользователь.  Саб пользователь просто блокируется. Проверки: по guid должен существовать пользователь,    У суб пользователя поле masterUser должно совпадать с id мастер пользователя.
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 ### Example
 
@@ -513,7 +525,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.LinkSubuserInputSchema() // LinkSubuserInputSchema | 
+  'body': new TestSwagger.UnLinkSubuserInputSchema() // UnLinkSubuserInputSchema | 
 };
 apiInstance.apiV1UsersUnlinkSubUserPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -529,7 +541,7 @@ apiInstance.apiV1UsersUnlinkSubUserPatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**LinkSubuserInputSchema**](LinkSubuserInputSchema.md)|  | [optional] 
+ **body** | [**UnLinkSubuserInputSchema**](UnLinkSubuserInputSchema.md)|  | [optional] 
 
 ### Return type
 

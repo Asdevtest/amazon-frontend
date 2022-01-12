@@ -2,13 +2,11 @@ import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {BACKEND_API_URL} from '@constants/env'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
 import {BuyerModel} from '@models/buyer-model'
-import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
@@ -16,6 +14,7 @@ import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 const updateOrderKeys = [
   'status',
@@ -79,35 +78,6 @@ export class BuyerMyOrdersViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  async onSubmitPostImages({images}) {
-    const loadingStep = 100 / images.length
-
-    this.readyImages = []
-    this.showProgress = true
-
-    for (let i = 0; i < images.length; i++) {
-      const image = images[i]
-      await this.onPostImage(image)
-      this.progressValue = this.progressValue + loadingStep
-    }
-
-    this.showProgress = false
-    this.progressValue = 0
-  }
-
-  async onPostImage(imageData) {
-    const formData = new FormData()
-    formData.append('filename', imageData.file)
-
-    try {
-      const imageFile = await OtherModel.postImage(formData)
-
-      this.readyImages.push(BACKEND_API_URL + '/uploads/' + imageFile.data.fileName)
-    } catch (error) {
-      this.error = error
-    }
   }
 
   onChangeFilterModel(model) {
@@ -194,7 +164,7 @@ export class BuyerMyOrdersViewModel {
 
   onClickOrder(order) {
     this.selectedOrder = order.originalData
-    this.getBoxesOfOrder(order._id)
+    this.getBoxesOfOrder(order.originalData._id)
     this.onTriggerOpenModal('showOrderModal')
   }
 
@@ -204,7 +174,7 @@ export class BuyerMyOrdersViewModel {
 
       const isMismatchOrderPrice = orderFields.totalPriceChanged - orderFields.totalPrice > 0
 
-      await this.onSubmitPostImages({images: photosToLoad})
+      await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
 
       orderFields = {
         ...orderFields,

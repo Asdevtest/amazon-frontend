@@ -7,19 +7,11 @@ Method | HTTP request | Description
 [**apiV1RequestsCustomGuidDelete**](RequestsApi.md#apiV1RequestsCustomGuidDelete) | **DELETE** /api/v1/requests/custom/{guid} | # Удалить кастомную заявку по его GUID.
 [**apiV1RequestsCustomGuidGet**](RequestsApi.md#apiV1RequestsCustomGuidGet) | **GET** /api/v1/requests/custom/{guid} | Получить кастомную заявку по его guid.
 [**apiV1RequestsCustomGuidPatch**](RequestsApi.md#apiV1RequestsCustomGuidPatch) | **PATCH** /api/v1/requests/custom/{guid} | #  Изменить кастомую заявку.
-[**apiV1RequestsCustomGuidProposalsGet**](RequestsApi.md#apiV1RequestsCustomGuidProposalsGet) | **GET** /api/v1/requests/custom/{guid}/proposals | Получить список предложений к заявке.
 [**apiV1RequestsCustomPost**](RequestsApi.md#apiV1RequestsCustomPost) | **POST** /api/v1/requests/custom/ | # Создать кастомную заявку.
 [**apiV1RequestsGet**](RequestsApi.md#apiV1RequestsGet) | **GET** /api/v1/requests/ | Получить список заявок
-[**apiV1RequestsGuidCompletePost**](RequestsApi.md#apiV1RequestsGuidCompletePost) | **POST** /api/v1/requests/{guid}/complete | # Отметить заявку как выполнена.
+[**apiV1RequestsGuidCompletePost**](RequestsApi.md#apiV1RequestsGuidCompletePost) | **POST** /api/v1/requests/{guid}/complete | # (ВОЗМОЖНО НЕ АКТУАЛЬНЫЙ ЭНДПОИНТ!!!) Отметить заявку как выполнена.
 [**apiV1RequestsGuidPickupPost**](RequestsApi.md#apiV1RequestsGuidPickupPost) | **POST** /api/v1/requests/{guid}/pickup | # Этот метод вызывает тот кто бронирует место в заявке.
-[**apiV1RequestsSearchNicheGet**](RequestsApi.md#apiV1RequestsSearchNicheGet) | **GET** /api/v1/requests/search_niche/ | Получить список деталей заявок созданных данным клиентом.
-[**apiV1RequestsSearchNicheGuidDelete**](RequestsApi.md#apiV1RequestsSearchNicheGuidDelete) | **DELETE** /api/v1/requests/search_niche/{guid} | # Удалить детали заявки на поиск ниш по его GUID.
-[**apiV1RequestsSearchNicheGuidPatch**](RequestsApi.md#apiV1RequestsSearchNicheGuidPatch) | **PATCH** /api/v1/requests/search_niche/{guid} | #  Изменить детали заявки на поиск ниш.
-[**apiV1RequestsSearchNichePost**](RequestsApi.md#apiV1RequestsSearchNichePost) | **POST** /api/v1/requests/search_niche/ | # Создать детали заявки на поиск ниш.
-[**apiV1RequestsSearchProductsGet**](RequestsApi.md#apiV1RequestsSearchProductsGet) | **GET** /api/v1/requests/search_products/ | Получить список деталей заявок созданных данным клиентом.
-[**apiV1RequestsSearchProductsGuidDelete**](RequestsApi.md#apiV1RequestsSearchProductsGuidDelete) | **DELETE** /api/v1/requests/search_products/{guid} | # Удалить детали заявки на поиск товара по его GUID.
-[**apiV1RequestsSearchProductsGuidPatch**](RequestsApi.md#apiV1RequestsSearchProductsGuidPatch) | **PATCH** /api/v1/requests/search_products/{guid} | #  Изменить детали заявки на поиск товара.
-[**apiV1RequestsSearchProductsPost**](RequestsApi.md#apiV1RequestsSearchProductsPost) | **POST** /api/v1/requests/search_products/ | # Создать детали заявки на поиск товара.
+[**apiV1RequestsGuidToPublishPatch**](RequestsApi.md#apiV1RequestsGuidToPublishPatch) | **PATCH** /api/v1/requests/{guid}/to_publish | #  Опубликовать заявку.
 
 
 
@@ -29,7 +21,7 @@ Method | HTTP request | Description
 
 # Удалить кастомную заявку по его GUID.
 
-## Удалить кастомную заявку по его GUIDD, возможно только после проверки статуса.    Заявку можно удалить только если статус еще CREATED. Удаление заявки приведет к удалению всех предложений относящихся к ней!!! Только владелец, админ или супервайзер могут удалять заявку  
+## Удалить кастомную заявку по его GUIDD.    Заявку можно удалить только если статус TO_PUBLISH или CREATED.. Удаление заявки приведет к удалению всех предложений относящихся к ней!!! Только владелец может удалить заявку  
 
 ### Example
 
@@ -79,7 +71,11 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGuidGet
 
+<<<<<<< HEAD
 > InlineResponse2007 apiV1RequestsCustomGuidGet(guid, opts)
+=======
+> InlineResponse20013 apiV1RequestsCustomGuidGet(guid, opts)
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 Получить кастомную заявку по его guid.
 
@@ -119,7 +115,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
+<<<<<<< HEAD
 [**InlineResponse2007**](InlineResponse2007.md)
+=======
+[**InlineResponse20013**](InlineResponse20013.md)
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 ### Authorization
 
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 
 #  Изменить кастомую заявку.
 
-## Изменить кастомую заявку.   Проверка на статус, если статус уже не CREATED, то нельзя изменять. Только владелец, админ или супервайзер могут редактировать заявку  
+## Изменить кастомую заявку.   Проверка на статус, статус должен быть CREATED или TO_PUBLISH. Только владелец может редактировать заявку  
 
 ### Example
 
@@ -154,7 +154,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = "guid_example"; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject40() // InlineObject40 | 
+  'body': new TestSwagger.InlineObject43() // InlineObject43 | 
 };
 apiInstance.apiV1RequestsCustomGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -171,7 +171,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject40**](InlineObject40.md)|  | [optional] 
+ **body** | [**InlineObject43**](InlineObject43.md)|  | [optional] 
 
 ### Return type
 
@@ -187,6 +187,7 @@ Name | Type | Description  | Notes
 - **Accept**: text/html
 
 
+<<<<<<< HEAD
 ## apiV1RequestsCustomGuidProposalsGet
 
 > [InlineResponse20012] apiV1RequestsCustomGuidProposalsGet(guid, opts)
@@ -241,9 +242,11 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+=======
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 ## apiV1RequestsCustomPost
 
-> InlineResponse2016 apiV1RequestsCustomPost(opts)
+> InlineResponse2017 apiV1RequestsCustomPost(opts)
 
 # Создать кастомную заявку.
 
@@ -263,7 +266,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.RequestsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject39() // InlineObject39 | 
+  'body': new TestSwagger.InlineObject42() // InlineObject42 | 
 };
 apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -279,11 +282,11 @@ apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject39**](InlineObject39.md)|  | [optional] 
+ **body** | [**InlineObject42**](InlineObject42.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2016**](InlineResponse2016.md)
+[**InlineResponse2017**](InlineResponse2017.md)
 
 ### Authorization
 
@@ -297,7 +300,11 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsGet
 
+<<<<<<< HEAD
 > [InlineResponse2007] apiV1RequestsGet(type, opts)
+=======
+> [InlineResponse20010] apiV1RequestsGet(type, kind, opts)
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 Получить список заявок
 
@@ -316,11 +323,15 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.RequestsApi();
 let type = "type_example"; // String | Тип заявки
+let kind = "kind_example"; // String | Виды заявок:             VACANT - все заявки со статусом TO_PUBLISH и IN_PROCESS, + должны быть свободные слоты для предложений.             MY - все заявки созданные тем кто вызывает метод,             PICKUPED_BY_ME - все заявки где числится как исполнитель тот кто вызывает метод,             ALL - абсолютно все заявки, без исключения,             ASSIGNED_TO_ME - пока не реализовано.
 let opts = {
+<<<<<<< HEAD
   'kind': "kind_example", // String | Виды заявок:             VACANT - все заявки со статусом CREATED и IN_PROCESS,             MY - все заявки созданные тем кто вызывает метод,             ASSIGNEES - все заявки где числится как исполнитель,             ALL - абсолютно все заявки, без исключения.
+=======
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1RequestsGet(type, opts).then((data) => {
+apiInstance.apiV1RequestsGet(type, kind, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -334,12 +345,20 @@ apiInstance.apiV1RequestsGet(type, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **type** | **String**| Тип заявки | 
+<<<<<<< HEAD
  **kind** | **String**| Виды заявок:             VACANT - все заявки со статусом CREATED и IN_PROCESS,             MY - все заявки созданные тем кто вызывает метод,             ASSIGNEES - все заявки где числится как исполнитель,             ALL - абсолютно все заявки, без исключения. | [optional] 
+=======
+ **kind** | **String**| Виды заявок:             VACANT - все заявки со статусом TO_PUBLISH и IN_PROCESS, + должны быть свободные слоты для предложений.             MY - все заявки созданные тем кто вызывает метод,             PICKUPED_BY_ME - все заявки где числится как исполнитель тот кто вызывает метод,             ALL - абсолютно все заявки, без исключения,             ASSIGNED_TO_ME - пока не реализовано. | 
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
+<<<<<<< HEAD
 [**[InlineResponse2007]**](InlineResponse2007.md)
+=======
+[**[InlineResponse20010]**](InlineResponse20010.md)
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 ### Authorization
 
@@ -353,11 +372,11 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsGuidCompletePost
 
-> InlineResponse2016 apiV1RequestsGuidCompletePost(guid, opts)
+> InlineResponse2017 apiV1RequestsGuidCompletePost(guid, opts)
 
-# Отметить заявку как выполнена.
+# (ВОЗМОЖНО НЕ АКТУАЛЬНЫЙ ЭНДПОИНТ!!!) Отметить заявку как выполнена.
 
-## Отметить заявку как выполнена.  При вызове этого метода нужно делать проверку если статус request еще не COMPLETE.  Проверяет принадлежит ли предложения к данной заявке.   При вызове этого эндпоинта предложения из массива будут считаться принятыми (устанавливать accepted &#x3D;&#x3D;&#x3D; true) далее ресерчер не может редактировать предложение.
+## Отметить заявку как выполнена.  При вызове этого метода нужно делать проверку если статус request еще не COMPLETE.  Проверяет принадлежит ли предложения к данной заявке.   При вызове этого эндпоинта предложения из массива будут считаться принятыми  (устанавливать accepted &#x3D;&#x3D;&#x3D; true) далее ресерчер не может редактировать предложение.
 
 ### Example
 
@@ -374,7 +393,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject27() // InlineObject27 | 
+  'body': new TestSwagger.InlineObject31() // InlineObject31 | 
 };
 apiInstance.apiV1RequestsGuidCompletePost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -391,11 +410,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject27**](InlineObject27.md)|  | [optional] 
+ **body** | [**InlineObject31**](InlineObject31.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2016**](InlineResponse2016.md)
+[**InlineResponse2017**](InlineResponse2017.md)
 
 ### Authorization
 
@@ -409,11 +428,11 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsGuidPickupPost
 
-> InlineResponse2017 apiV1RequestsGuidPickupPost(guid, opts)
+> InlineResponse2016 apiV1RequestsGuidPickupPost(guid, opts)
 
 # Этот метод вызывает тот кто бронирует место в заявке.
 
-## Этот метод вызывает тот кто бронирует место в заявке.  Проверка что количество пользователей, которые уже выполняют заявку (поле assignee) меньше maxAmountOfProposals Проверка если в assignee еще нет этого пользователя, который вызывает метод Добавляет id пользователя который вызывает метод в массив assignee заявки. Если хотя бы один пользователь добавлен, то статус заявки должен смениться на IN_PROCESS.
+## Этот метод вызывает тот кто бронирует место в заявке.  При первом бронировании статус меняется с TO_PUBLISH на IN_PROGRESS. В зависимости от типа заявки создается предложение и его детали, статуc предложения EMPTY Проверки: Владелец заявки не может отправлять себе предложения. Количество активных предложений меньше чем ограничение клиента на эту заявку. Активные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR, ACCEPTED_BY_CLIENT, ACCEPTED_BY_SUPERVISOR Если у данной заявки есть незавершенные предложения от данного пользователя Незавершенные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR
 
 ### Example
 
@@ -451,6 +470,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
+<<<<<<< HEAD
 [**InlineResponse2017**](InlineResponse2017.md)
 
 ### Authorization
@@ -667,6 +687,8 @@ Name | Type | Description  | Notes
 
 ### Return type
 
+=======
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 [**InlineResponse2016**](InlineResponse2016.md)
 
 ### Authorization
@@ -676,6 +698,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+<<<<<<< HEAD
 - **Accept**: text/html
 
 
@@ -783,15 +806,18 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: text/html
+=======
+- **Accept**: application/json
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 
-## apiV1RequestsSearchProductsGuidPatch
+## apiV1RequestsGuidToPublishPatch
 
-> String apiV1RequestsSearchProductsGuidPatch(guid, opts)
+> String apiV1RequestsGuidToPublishPatch(guid, opts)
 
-#  Изменить детали заявки на поиск товара.
+#  Опубликовать заявку.
 
-## Изменить детали заявки на поиск товара.   ## Только владелец, админ или супервайзер могут редактировать заявку   
+## Опубликовать заявку.   Статус поменяется на TO_PUBLISH. Проверки:  Публиковать можно только заявки со статусом CREATED. Только владелец может опубликовать.
 
 ### Example
 
@@ -805,12 +831,12 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.RequestsApi();
-let guid = "guid_example"; // String | GUID продукта БД
+let guid = "guid_example"; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject44() // InlineObject44 | 
+  'body': null // Object | 
 };
-apiInstance.apiV1RequestsSearchProductsGuidPatch(guid, opts).then((data) => {
+apiInstance.apiV1RequestsGuidToPublishPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -823,67 +849,13 @@ apiInstance.apiV1RequestsSearchProductsGuidPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID продукта БД | 
+ **guid** | **String**| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject44**](InlineObject44.md)|  | [optional] 
+ **body** | **Object**|  | [optional] 
 
 ### Return type
 
 **String**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: text/html
-
-
-## apiV1RequestsSearchProductsPost
-
-> InlineResponse2016 apiV1RequestsSearchProductsPost(opts)
-
-# Создать детали заявки на поиск товара.
-
-## Создать детали заявки на поиск товара. 
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.RequestsApi();
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject43() // InlineObject43 | 
-};
-apiInstance.apiV1RequestsSearchProductsPost(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject43**](InlineObject43.md)|  | [optional] 
-
-### Return type
-
-[**InlineResponse2016**](InlineResponse2016.md)
 
 ### Authorization
 

@@ -83,6 +83,9 @@ class InlineObject3 {
             if (data.hasOwnProperty('allowedRoles')) {
                 obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
             }
+            if (data.hasOwnProperty('canByMasterUser')) {
+                obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
+            }
         }
         return obj;
     }
@@ -161,6 +164,12 @@ InlineObject3.prototype['permissionGroups'] = undefined;
  * @member {Array.<Number>} allowedRoles
  */
 InlineObject3.prototype['allowedRoles'] = undefined;
+
+/**
+ * Может ли данный пользователь быть мастер юзером.
+ * @member {Boolean} canByMasterUser
+ */
+InlineObject3.prototype['canByMasterUser'] = undefined;
 
 
 

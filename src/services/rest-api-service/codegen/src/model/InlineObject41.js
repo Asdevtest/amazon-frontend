@@ -21,12 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineObject41 {
     /**
      * Constructs a new <code>InlineObject41</code>.
-     * Схема детали на поиск ниш.
      * @alias module:model/InlineObject41
+     * @param result {String} Результат рабоботы ресерчера.
      */
-    constructor() { 
+    constructor(result) { 
         
-        InlineObject41.initialize(this);
+        InlineObject41.initialize(this, result);
     }
 
     /**
@@ -34,7 +34,8 @@ class InlineObject41 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, result) { 
+        obj['result'] = result;
     }
 
     /**
@@ -48,47 +49,14 @@ class InlineObject41 {
         if (data) {
             obj = obj || new InlineObject41();
 
-            if (data.hasOwnProperty('keyword')) {
-                obj['keyword'] = ApiClient.convertToType(data['keyword'], 'String');
+            if (data.hasOwnProperty('result')) {
+                obj['result'] = ApiClient.convertToType(data['result'], 'String');
             }
-            if (data.hasOwnProperty('monthlySales')) {
-                obj['monthlySales'] = ApiClient.convertToType(data['monthlySales'], 'Number');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
-            if (data.hasOwnProperty('size')) {
-                obj['size'] = ApiClient.convertToType(data['size'], 'String');
-            }
-            if (data.hasOwnProperty('searchVolume')) {
-                obj['searchVolume'] = ApiClient.convertToType(data['searchVolume'], 'Number');
-            }
-            if (data.hasOwnProperty('minAmazonPrice')) {
-                obj['minAmazonPrice'] = ApiClient.convertToType(data['minAmazonPrice'], 'Number');
-            }
-            if (data.hasOwnProperty('maxAmazonPrice')) {
-                obj['maxAmazonPrice'] = ApiClient.convertToType(data['maxAmazonPrice'], 'Number');
-            }
-            if (data.hasOwnProperty('minBSR')) {
-                obj['minBSR'] = ApiClient.convertToType(data['minBSR'], 'Number');
-            }
-            if (data.hasOwnProperty('maxBSR')) {
-                obj['maxBSR'] = ApiClient.convertToType(data['maxBSR'], 'Number');
-            }
-            if (data.hasOwnProperty('minReviews')) {
-                obj['minReviews'] = ApiClient.convertToType(data['minReviews'], 'Number');
-            }
-            if (data.hasOwnProperty('maxReviews')) {
-                obj['maxReviews'] = ApiClient.convertToType(data['maxReviews'], 'Number');
-            }
-            if (data.hasOwnProperty('minRevenue')) {
-                obj['minRevenue'] = ApiClient.convertToType(data['minRevenue'], 'Number');
-            }
-            if (data.hasOwnProperty('maxRevenue')) {
-                obj['maxRevenue'] = ApiClient.convertToType(data['maxRevenue'], 'Number');
-            }
-            if (data.hasOwnProperty('notes')) {
-                obj['notes'] = ApiClient.convertToType(data['notes'], 'String');
-            }
-            if (data.hasOwnProperty('denyNichesBoughtByMe')) {
-                obj['denyNichesBoughtByMe'] = ApiClient.convertToType(data['denyNichesBoughtByMe'], 'Boolean');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -98,118 +66,25 @@ class InlineObject41 {
 }
 
 /**
- * Ключевые слова ниши.
- * @member {String} keyword
+ * Результат рабоботы ресерчера.
+ * @member {String} result
  */
-InlineObject41.prototype['keyword'] = undefined;
+InlineObject41.prototype['result'] = undefined;
 
 /**
- * Количество продаж за месяц.
- * @member {Number} monthlySales
+ * Комментарии ресерчера.
+ * @member {String} comment
  */
-InlineObject41.prototype['monthlySales'] = undefined;
+InlineObject41.prototype['comment'] = undefined;
 
 /**
- * Размерный ряд.
- * @member {module:model/InlineObject41.SizeEnum} size
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject41.prototype['size'] = undefined;
-
-/**
- * Объём продаж данной категории.
- * @member {Number} searchVolume
- */
-InlineObject41.prototype['searchVolume'] = undefined;
-
-/**
- * Мин стоимость товара на Амазоне
- * @member {Number} minAmazonPrice
- */
-InlineObject41.prototype['minAmazonPrice'] = undefined;
-
-/**
- * Макс стоимость товара на Амазоне
- * @member {Number} maxAmazonPrice
- */
-InlineObject41.prototype['maxAmazonPrice'] = undefined;
-
-/**
- * Мин рейтинг BSR на Амазоне
- * @member {Number} minBSR
- */
-InlineObject41.prototype['minBSR'] = undefined;
-
-/**
- * Макс рейтинг BSR на Амазоне
- * @member {Number} maxBSR
- */
-InlineObject41.prototype['maxBSR'] = undefined;
-
-/**
- * Мин просмотры на Амазоне
- * @member {Number} minReviews
- */
-InlineObject41.prototype['minReviews'] = undefined;
-
-/**
- * Макс просмотры на Амазоне
- * @member {Number} maxReviews
- */
-InlineObject41.prototype['maxReviews'] = undefined;
-
-/**
- * Мин  доход по продукту на Амазоне
- * @member {Number} minRevenue
- */
-InlineObject41.prototype['minRevenue'] = undefined;
-
-/**
- * Макс доход по продукту на Амазоне
- * @member {Number} maxRevenue
- */
-InlineObject41.prototype['maxRevenue'] = undefined;
-
-/**
- * Комментарий к заявке
- * @member {String} notes
- */
-InlineObject41.prototype['notes'] = undefined;
-
-/**
- * Запретить ниши которые когда либо куплены клиентом.
- * @member {Boolean} denyNichesBoughtByMe
- */
-InlineObject41.prototype['denyNichesBoughtByMe'] = undefined;
+InlineObject41.prototype['linksToMediaFiles'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>size</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject41['SizeEnum'] = {
-
-    /**
-     * value: "SMALL"
-     * @const
-     */
-    "SMALL": "SMALL",
-
-    /**
-     * value: "MEDIUM"
-     * @const
-     */
-    "MEDIUM": "MEDIUM",
-
-    /**
-     * value: "LARGE"
-     * @const
-     */
-    "LARGE": "LARGE"
-};
 
 
 

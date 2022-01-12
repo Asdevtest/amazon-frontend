@@ -4,6 +4,7 @@ import {Container, Button, Typography, NativeSelect} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
+import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
@@ -128,9 +129,9 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
             <Button disableElevation color="primary" variant="contained" onClick={onConfirm}>
               {textConsts.confirmBtn}
             </Button>
-            <Button disableElevation color="secondary" variant="contained" onClick={onDecline}>
+            <ErrorButton disableElevation onClick={onDecline}>
               {textConsts.declineBtn}
-            </Button>
+            </ErrorButton>
           </div>
         </div>
       </Modal>

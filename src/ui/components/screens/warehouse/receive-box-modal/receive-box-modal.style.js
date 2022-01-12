@@ -1,6 +1,10 @@
 import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(theme => ({
+  root: {
+    minWidth: '1500px',
+  },
+
   boxesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -66,12 +70,13 @@ export const useClassNames = makeStyles(theme => ({
   inputWrapper: {
     border: '1px solid rgba(143, 152, 165, 1)',
     borderRadius: '4px',
-    maxWidth: '60px',
+    maxWidth: '90px',
     height: '30px',
   },
   input: {
-    fontSize: '14px',
+    fontSize: '12px',
     textAlign: 'center',
+    padding: '2px',
   },
   row: {
     minWidth: '300px',
@@ -79,13 +84,18 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   sizesCell: {
-    minWidth: '110px',
+    minWidth: '130px',
     display: 'flex',
     gap: '5px',
     flexDirection: 'column',
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
+
+  standartCell: {
+    minWidth: '100px',
+  },
+
   sizeWrapper: {
     display: 'flex',
     gap: '5px',

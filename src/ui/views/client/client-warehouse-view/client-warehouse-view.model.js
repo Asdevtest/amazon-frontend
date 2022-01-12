@@ -43,6 +43,7 @@ const updateBoxBlackList = [
   'sendToBatchRequest',
   'sendToBatchComplete',
   'storekeeperId',
+  'storekeeper',
 ]
 
 export class ClientWarehouseViewModel {
@@ -82,7 +83,7 @@ export class ClientWarehouseViewModel {
   get isMasterBoxSelected() {
     return this.selectedBoxes.some(boxId => {
       const findBox = this.boxesMy.find(box => box._id === boxId)
-      return findBox?.amount && findBox?.amount > 1
+      return findBox.originalData?.amount && findBox.originalData?.amount > 1
     })
   }
 

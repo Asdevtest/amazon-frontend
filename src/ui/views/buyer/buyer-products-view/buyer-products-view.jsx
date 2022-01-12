@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
+import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -15,7 +15,6 @@ import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/buyer/products-view/table-body-row'
-import {TableHeadRow} from '@components/table-rows/buyer/products-view/table-head-row'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -72,6 +71,7 @@ export class BuyerProductsViewRaw extends Component {
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
                 <Table
+                  rowsOnly
                   currentPage={curPage}
                   data={productsVacant}
                   handlerPageChange={onChangeCurPage}
@@ -90,7 +90,15 @@ export class BuyerProductsViewRaw extends Component {
     )
   }
 
-  renderHeadRow = (<TableHeadRow headCells={BUYER_PRODUCTS_HEAD_CELLS} />)
+  renderHeadRow = (
+    <TableRow>
+      {BUYER_PRODUCTS_HEAD_CELLS.map((el, i) => (
+        <TableCell key={i} align={el.align}>
+          {el.label}
+        </TableCell>
+      ))}
+    </TableRow>
+  )
 }
 
 export const BuyerProductsView = withStyles(styles)(BuyerProductsViewRaw)

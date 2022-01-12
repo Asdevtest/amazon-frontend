@@ -21,7 +21,10 @@ import ApiClient from '../ApiClient';
 class InlineResponse2009 {
     /**
      * Constructs a new <code>InlineResponse2009</code>.
+<<<<<<< HEAD
      * Схема парсинга.
+=======
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
      * @alias module:model/InlineResponse2009
      */
     constructor() { 
@@ -48,6 +51,7 @@ class InlineResponse2009 {
         if (data) {
             obj = obj || new InlineResponse2009();
 
+<<<<<<< HEAD
             if (data.hasOwnProperty('amazonFee')) {
                 obj['amazonFee'] = ApiClient.convertToType(data['amazonFee'], 'Number');
             }
@@ -125,6 +129,40 @@ class InlineResponse2009 {
             }
             if (data.hasOwnProperty('weightUnit')) {
                 obj['weightUnit'] = ApiClient.convertToType(data['weightUnit'], 'String');
+=======
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            }
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'String');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            }
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
+            }
+            if (data.hasOwnProperty('clientId')) {
+                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
+            }
+            if (data.hasOwnProperty('supervisorId')) {
+                obj['supervisorId'] = ApiClient.convertToType(data['supervisorId'], 'String');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
             }
         }
         return obj;
@@ -134,6 +172,7 @@ class InlineResponse2009 {
 }
 
 /**
+<<<<<<< HEAD
  * 
  * @member {Number} amazonFee
  */
@@ -267,9 +306,156 @@ InlineResponse2009.prototype['encryptedMarketplaceId'] = undefined;
  * @member {String} weightUnit
  */
 InlineResponse2009.prototype['weightUnit'] = undefined;
+=======
+ * Guid продожения к заявке.
+ * @member {String} _id
+ */
+InlineResponse2009.prototype['_id'] = undefined;
+
+/**
+ * Guid заявки к которой относится данное предложение.
+ * @member {String} requestId
+ */
+InlineResponse2009.prototype['requestId'] = undefined;
+
+/**
+ * Тип предложения.
+ * @member {String} type
+ */
+InlineResponse2009.prototype['type'] = undefined;
+
+/**
+ * Статус предложения предложения.
+ * @member {module:model/InlineResponse2009.StatusEnum} status
+ */
+InlineResponse2009.prototype['status'] = undefined;
+
+/**
+ * Время закрытия предложения.
+ * @member {Date} timeoutAt
+ */
+InlineResponse2009.prototype['timeoutAt'] = undefined;
+
+/**
+ * GUID клиента .
+ * @member {String} clientId
+ */
+InlineResponse2009.prototype['clientId'] = undefined;
+
+/**
+ * GUID супервизора.
+ * @member {String} supervisorId
+ */
+InlineResponse2009.prototype['supervisorId'] = undefined;
+
+/**
+ * GUID любого, кто создал предложение.
+ * @member {String} createdById
+ */
+InlineResponse2009.prototype['createdById'] = undefined;
+
+/**
+ * GUID любого, кто последний редактировал предложение.
+ * @member {String} lastModifiedById
+ */
+InlineResponse2009.prototype['lastModifiedById'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+InlineResponse2009.prototype['createdAt'] = undefined;
+
+/**
+ * Дата изменения
+ * @member {Date} updatedAt
+ */
+InlineResponse2009.prototype['updatedAt'] = undefined;
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 
 
+
+
+/**
+ * Allowed values for the <code>status</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse2009['StatusEnum'] = {
+
+    /**
+     * value: "EMPTY"
+     * @const
+     */
+    "EMPTY": "EMPTY",
+
+    /**
+     * value: "CREATED"
+     * @const
+     */
+    "CREATED": "CREATED",
+
+    /**
+     * value: "READY_TO_VERIFY"
+     * @const
+     */
+    "READY_TO_VERIFY": "READY_TO_VERIFY",
+
+    /**
+     * value: "VERIFYING_BY_SUPERVISOR"
+     * @const
+     */
+    "VERIFYING_BY_SUPERVISOR": "VERIFYING_BY_SUPERVISOR",
+
+    /**
+     * value: "TO_CORRECT"
+     * @const
+     */
+    "TO_CORRECT": "TO_CORRECT",
+
+    /**
+     * value: "CORRECTED"
+     * @const
+     */
+    "CORRECTED": "CORRECTED",
+
+    /**
+     * value: "CANCELED_BY_CLIENT"
+     * @const
+     */
+    "CANCELED_BY_CLIENT": "CANCELED_BY_CLIENT",
+
+    /**
+     * value: "CANCELED_BY_SUPERVISOR"
+     * @const
+     */
+    "CANCELED_BY_SUPERVISOR": "CANCELED_BY_SUPERVISOR",
+
+    /**
+     * value: "CANCELED_BY_EXECUTOR"
+     * @const
+     */
+    "CANCELED_BY_EXECUTOR": "CANCELED_BY_EXECUTOR",
+
+    /**
+     * value: "ACCEPTED_BY_CLIENT"
+     * @const
+     */
+    "ACCEPTED_BY_CLIENT": "ACCEPTED_BY_CLIENT",
+
+    /**
+     * value: "ACCEPTED_BY_SUPERVISOR"
+     * @const
+     */
+    "ACCEPTED_BY_SUPERVISOR": "ACCEPTED_BY_SUPERVISOR",
+
+    /**
+     * value: "EXPIRED"
+     * @const
+     */
+    "EXPIRED": "EXPIRED"
+};
 
 
 

@@ -21,13 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineResponse20011 {
     /**
      * Constructs a new <code>InlineResponse20011</code>.
-     * Схема репорта за 30 дней с Seller-board
+     * Успешный ответ.
      * @alias module:model/InlineResponse20011
-     * @param sku {String} SKU
      */
-    constructor(sku) { 
+    constructor() { 
         
-        InlineResponse20011.initialize(this, sku);
+        InlineResponse20011.initialize(this);
     }
 
     /**
@@ -35,8 +34,7 @@ class InlineResponse20011 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, sku) { 
-        obj['sku'] = sku;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,6 +48,7 @@ class InlineResponse20011 {
         if (data) {
             obj = obj || new InlineResponse20011();
 
+<<<<<<< HEAD
             if (data.hasOwnProperty('date')) {
                 obj['date'] = ApiClient.convertToType(data['date'], 'String');
             }
@@ -157,6 +156,10 @@ class InlineResponse20011 {
             }
             if (data.hasOwnProperty('realAcos')) {
                 obj['realAcos'] = ApiClient.convertToType(data['realAcos'], 'Number');
+=======
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
             }
         }
         return obj;
@@ -166,6 +169,7 @@ class InlineResponse20011 {
 }
 
 /**
+<<<<<<< HEAD
  * \"Date\"
  * @member {String} date
  */
@@ -380,6 +384,12 @@ InlineResponse20011.prototype['margin'] = undefined;
  * @member {Number} realAcos
  */
 InlineResponse20011.prototype['realAcos'] = undefined;
+=======
+ * Флаг, показывает есть ли такой id в базе или нет
+ * @member {Boolean} isExist
+ */
+InlineResponse20011.prototype['isExist'] = undefined;
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 
 

@@ -15,6 +15,10 @@ export const styles = () =>
       paddingLeft: '8px',
       paddingRight: '8px',
       color: 'rgba(61, 81, 112, 1)',
+
+      '&:-webkit-autofill': {
+        borderRadius: '8px',
+      },
     },
     focused: {
       border: '1px solid rgba(0, 123, 255, 1)',

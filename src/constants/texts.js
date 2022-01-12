@@ -1,17 +1,17 @@
 export const texts = {
   en: {
     dashboardBalance: {
-      balance: 'My balance',
+      balance: 'My balance'
     },
     entryLeftPanel: {
       companyName: 'Amazontop',
       greetingTitle: 'Hello, nice to meet you',
       greetingSubtitle: 'Just register to join with us',
-      footer: 'Footer',
+      footer: 'Footer'
     },
     rangeInput: {
       start: 'from',
-      end: 'to',
+      end: 'to'
     },
     privateLabelCard: {
       price: 'Price',
@@ -23,7 +23,7 @@ export const texts = {
       avgReviews: 'Average Reviews',
       avgRevenue: 'Average Revenue',
       launchBtn: 'Запустить Private Label',
-      addBtnPrefix: 'Добавить за',
+      addBtnPrefix: 'Добавить за'
     },
     authView: {
       title: 'Sign in',
@@ -35,7 +35,7 @@ export const texts = {
       passwordPlaceholder: 'password',
       checkboxLabel: 'Remember me',
       forgotPassword: 'Forgot password',
-      button: 'Login',
+      button: 'Login'
     },
     registerScreen: {
       title: 'Register',
@@ -53,11 +53,11 @@ export const texts = {
 
       successRegistration: 'Успешная регистрация',
       errorRegistration: 'Ошибка регистрации',
-      okBtn: 'Ок',
+      okBtn: 'Ок'
     },
 
     termsScreen: {
-      soon: 'Coming soon...',
+      soon: 'Coming soon...'
     },
 
     clientDashboardView: {
@@ -78,7 +78,7 @@ export const texts = {
       canceledOrdersSectionItemTitle: 'Отмененные заказы',
       soldItemsOnExchangeSectionItemTitle: 'Продано товаров на бирже',
       accuredToReserchersSectionItemTitle: 'Начислено ресерчерам',
-      disputsForProductsSectionItemTitle: 'Споров по товарам',
+      disputsForProductsSectionItemTitle: 'Споров по товарам'
     },
 
     clientWarehouseView: {
@@ -114,12 +114,12 @@ export const texts = {
       confirmTitle: 'Внимание',
       confirmMessage: 'Вы точно хотите отменить задачу?',
       yesBtn: 'Да',
-      noBtn: 'Нет',
+      noBtn: 'Нет'
     },
 
     warehouseMyWarehouseView: {
       appbarTitle: 'Warehouse',
-      mainTitle: 'My warehouse',
+      mainTitle: 'My warehouse'
     },
 
     adminWarehouseView: {
@@ -139,7 +139,7 @@ export const texts = {
       modalRedistributionAddNewBoxMessage:
         'Увеличение количества коробок будет требовать дополнительной оплаты в зависимости от тарифов склада на котором находиться товар',
       modalRedistributionSuccessTitle: 'Success!',
-      modalRedistributionSuccessMessage: 'Box redistribution was successful',
+      modalRedistributionSuccessMessage: 'Box redistribution was successful'
     },
     clientBoxRedistribution: {
       redistributionTitle: 'Redistribution',
@@ -153,7 +153,7 @@ export const texts = {
       warehouse: 'Склад',
       valueNone: 'none',
       deliveryMethod: 'Доставка',
-      shippingLabel: 'Шиппинг лейбл',
+      shippingLabel: 'Шиппинг лейбл'
     },
     clientSendOwnProductForm: {
       productNameLabel: 'Product name',
@@ -167,7 +167,7 @@ export const texts = {
 
       parseBtn: 'Parse',
       downloadBtn: 'Download',
-      addProductBtn: 'Add product',
+      addProductBtn: 'Add product'
     },
     clientEditBoxForm: {
       newBoxTitle: 'Создание новых коробок!',
@@ -203,7 +203,7 @@ export const texts = {
       removeBtn: 'Убрать коробку',
 
       showBoxes: 'Показать коробки связанные с заказом...',
-      hideBoxes: 'Скрыть коробки связанные с заказом...',
+      hideBoxes: 'Скрыть коробки связанные с заказом...'
     },
 
     buyerCreateBoxForm: {
@@ -240,7 +240,7 @@ export const texts = {
       removeBtn: 'Убрать коробку',
 
       showBoxes: 'Показать коробки связанные с заказом...',
-      hideBoxes: 'Скрыть коробки связанные с заказом...',
+      hideBoxes: 'Скрыть коробки связанные с заказом...'
     },
 
     warehouseEditBoxForm: {
@@ -248,7 +248,7 @@ export const texts = {
       materialLabel: 'Material',
       shippingLabel: 'shippingLabel:',
       setShippingLabel: 'Set shipping label',
-      deleteAlert: 'delete',
+      deleteAlert: 'delete'
     },
 
     adminDashboardView: {
@@ -263,28 +263,28 @@ export const texts = {
       accruedToManagersTitle: 'Начислено менеджерам',
       accruedToSupervisorsTitle: 'Начислено супервайзерам',
       supervisorsFinesTitle: 'Штрафы супервайзеров',
-      managersFinesTitle: 'Штрафы менеджеров',
+      managersFinesTitle: 'Штрафы менеджеров'
     },
 
     adminProductsWaitingView: {
       appbarTitle: 'Exchange',
-      mainTitle: 'Products',
+      mainTitle: 'Products'
     },
     adminInventoryView: {
       appbarTitle: 'Inventory',
-      mainTitle: 'Inventory',
+      mainTitle: 'Inventory'
     },
     adminOrdersAllView: {
       appbarTitle: 'Orders - All',
-      mainTitle: 'Заказы всех клиентов',
+      mainTitle: 'Заказы всех клиентов'
     },
     adminWarehouseOrdersView: {
       appbarTitle: 'Warehouse - Orders',
-      mainTitle: 'Все поступившие на склад заказы',
+      mainTitle: 'Все поступившие на склад заказы'
     },
     adminFinancesReplenishmentsView: {
       appbarTitle: 'Replenish balance',
-      mainTitle: 'Replenish balance',
+      mainTitle: 'Replenish balance'
     },
     adminUsersView: {
       appbarTitle: 'Users',
@@ -292,7 +292,7 @@ export const texts = {
       modalEditTitle: 'Edit user',
       modalEditBtn: 'Save',
       editBtn: 'Edit User',
-      balanceBtn: 'Balance',
+      balanceBtn: 'Balance'
     },
     adminUserBalanceView: {
       balance: 'Balance',
@@ -304,11 +304,11 @@ export const texts = {
       modalEditTitle: 'Edit user',
       modalEditBtn: 'Save',
 
-      balanceHistoryTitle: 'Изменения баланса',
+      balanceHistoryTitle: 'Изменения баланса'
     },
     adminSettingsView: {
       appbarTitle: 'Settings',
-      mainTitle: 'Settings',
+      mainTitle: 'Settings'
     },
     adminBalanceModal: {
       titleReplenish: 'Replenish balance',
@@ -320,30 +320,30 @@ export const texts = {
       msgPosPredicate: 'will be replenish by',
       msgNegPredicate: 'will be debited by',
       executeBtn: 'Execute',
-      confirmBtn: 'Confirm',
-      declineBtn: 'Decline',
-      confirmMsgAreYouSureYouWantTo: 'Are you sure you want to',
-      confirmMsgIncrease: 'increase',
-      confirmMsgDecrease: 'decrease',
-      confirmMsgTheBalanceOfTheUser: 'the balance of the user',
-      confirmMsgBy: 'by',
+      confirmBtn: 'Да',
+      declineBtn: 'Отмена',
+      confirmMsgAreYouSureYouWantTo: 'Вы уверены, что хотите',
+      confirmMsgIncrease: 'увеличить',
+      confirmMsgDecrease: 'уменьшить',
+      confirmMsgTheBalanceOfTheUser: 'баланс пользователя',
+      confirmMsgBy: 'на',
       widthdrawOptionFine: 'Штраф',
       widthdrawOptionWithdraw: 'Вывод средств',
       replenishOptionReplenish: 'Пополнение',
-      replenishOptionServicePayment: 'Оплата услуг',
+      replenishOptionServicePayment: 'Оплата услуг'
     },
 
     userMoneyTransferModal: {
       titleAdd: 'Add money',
       titleWithdraw: 'Withdraw money',
 
-      okBtn: 'Ок',
+      okBtn: 'Ок'
     },
 
     tableToolbar: {
       filter: 'Filter',
       searchPlaceholder: 'Search...',
-      rowsPerPage: 'Rows per page',
+      rowsPerPage: 'Rows per page'
     },
     clientExchangeView: {
       appbarTitle: 'Exchange',
@@ -356,10 +356,10 @@ export const texts = {
       successBtn: 'Ок!',
       warningModalTitle: 'Этот товар перемещён в Инвентарь',
       okBtn: 'Ок',
-      byForBtn: 'Купить за',
+      byForBtn: 'Купить за'
     },
     exchangeBodyRow: {
-      byForBtn: 'Купить за',
+      byForBtn: 'Купить за'
     },
     clientExchangePrivateLabelView: {
       appbarTitle: 'Exchange - PrivateLabel',
@@ -370,7 +370,7 @@ export const texts = {
       confirmBtn: 'Да',
       cancelBtn: 'Отмена',
       successTitle: 'Товар оплачен',
-      successBtn: 'Ок!',
+      successBtn: 'Ок!'
     },
 
     clientCustomRequestsView: {
@@ -385,7 +385,7 @@ export const texts = {
       priceOfProposal: 'Цена предложения:',
       timeoutAt: 'Дед-лайн:',
       rolesSee: 'Могут видеть роли:',
-      deadlineError: 'The deadline date cannot be later than the current date',
+      deadlineError: 'The deadline date cannot be later than the current date'
     },
 
     researcherRequestProposalCustomForm: {
@@ -394,7 +394,7 @@ export const texts = {
       comment: 'Комментарий',
 
       editBtn: 'Изменить',
-      createBtn: 'Создать предложение',
+      createBtn: 'Создать предложение'
     },
 
     clientExchangeRequestsView: {
@@ -451,7 +451,7 @@ export const texts = {
 
       editBtn: 'Изменить',
       createBtn: 'Создать заявку',
-      cancelBtn: 'Отмена',
+      cancelBtn: 'Отмена'
     },
 
     productSearchRequestContent: {
@@ -494,7 +494,7 @@ export const texts = {
       proposalPrice: 'Цена предложения',
       maxProposalCount: 'Макс. кол-во предложений',
       status: 'Статус',
-      direction: 'Направление',
+      direction: 'Направление'
     },
 
     addOrEditSinglePermissionForm: {
@@ -515,7 +515,7 @@ export const texts = {
 
       editBtn: 'Изменить',
       createBtn: 'Создать разрешение',
-      cancelBtn: 'Отмена',
+      cancelBtn: 'Отмена'
     },
 
     addOrEditUserPermissionsForm: {
@@ -541,13 +541,39 @@ export const texts = {
       choosePermissions: 'Выбрать одиночные разрешения:',
       choosenPermission: 'Выбранные одиночные разрешения:',
 
-      editBtn: 'Изменить',
+      editBtn: 'Сохранить',
       createBtn: 'Создать разрешение',
       cancelBtn: 'Отмена',
       clearBtn: 'Сбросить',
 
       choose: 'Выбор',
-      closeBtn: 'Закрыть',
+      closeBtn: 'Закрыть'
+    },
+
+    bindStockGoodsToInventoryForm: {
+      mainTitle: 'Привязать к товару из инвентаря',
+      recommend: 'Рекомендованные',
+      asin: 'ASIN',
+      sku: 'SKU',
+      name: 'названию',
+      betweenChipsText: 'или поиск по',
+      searchHolder: `поиск...`,
+      searchBtn: 'Поиск',
+      chosenGoods: 'Выбранные товары со склада:',
+      bindBtn: 'Привязать'
+    },
+
+    bindInventoryGoodsToStockForm: {
+      mainTitle: 'Привязать товар со склада',
+      recommend: 'Рекомендованные',
+      asin: 'ASIN',
+      sku: 'SKU',
+      name: 'названию',
+      betweenChipsText: 'или поиск по',
+      searchHolder: `поиск...`,
+      searchBtn: 'Поиск',
+      chosenGoods: 'Выбранные товары со склада:',
+      bindBtn: 'Привязать'
     },
 
     addOrEditGroupPermissionForm: {
@@ -581,11 +607,33 @@ export const texts = {
       keyPermInfo: 'Ключ:',
       descriptionPermInfo: 'Описание:',
       allowedUrlPermInfo: 'Разрешенные эндпоинты:',
-      isWrongPermissionsSelect: 'Выбранные разрешения и текущая роль не совпадают!',
+      isWrongPermissionsSelect: 'Выбранные разрешения и текущая роль не совпадают!'
+    },
+
+    bindStockGoodsToInventoryColumnsTexts: {
+      asinField: 'ASIN',
+      photoField: 'Photo',
+      titleField: 'Title',
+
+      skuField: 'SKU',
+      stockValueField: 'Count',
+      reservedField: 'Reserved',
+      roiField: 'ROI'
+    },
+
+    bindInventoryGoodsToStockColumnsTexts: {
+      asinField: 'ASIN',
+      photoField: 'Photo',
+      titleField: 'Title',
+
+      skuField: 'SKU',
+      stockValueField: 'Count',
+      reservedField: 'Reserved',
+      roiField: 'ROI'
     },
 
     addProductSellerboardForm: {
-      formTitle: 'Добавить товар',
+      formTitle: 'Перенести в инвентарь',
       asin: 'ASIN',
       sku: 'SKU',
       title: 'Название',
@@ -594,6 +642,37 @@ export const texts = {
       sentToFba: 'Доставляется в Amazon',
       addBtn: 'Добавить',
       closeBtn: 'Отмена',
+
+      chosenMainGood: 'Выберите основной товар со склада:',
+
+      linkLabel: 'Amazon link',
+      linkHolder: 'Link',
+      parseBtn: 'Parse',
+      addPhoto: 'Прикрепить фото',
+      link: 'Ссылка',
+      loadBtn: 'Загрузить',
+      addAndBindBtn: 'Добавить и привязать'
+    },
+
+    addOwnProductForm: {
+      formTitle: 'Добавить свой товар',
+      asin: 'ASIN',
+      sku: 'SKU',
+      title: 'Title',
+      stockValue: 'Доступно',
+      reserved: 'Резерв',
+      sentToFba: 'Доставляется в Amazon',
+      addBtn: 'Добавить',
+      closeBtn: 'Отмена',
+
+      linkLabel: 'Amazon link',
+      linkHolder: 'Link',
+      parseBtn: 'Parse',
+      addingAmazon: 'Доставляется в Amazon',
+      addPhoto: 'Прикрепить фото',
+      link: 'Ссылка',
+      loadBtn: 'Загрузить',
+      addAndBindBtn: 'Добавить и привязать'
     },
 
     exchangeInventoryColumns: {
@@ -625,7 +704,7 @@ export const texts = {
       fbaField: 'FBA',
       barcodeField: 'Barcode',
       setBarcodeChipLabel: 'Set barcode',
-      fbaAmountField: 'Recommend amount',
+      fbaAmountField: 'Recommend amount'
     },
 
     clientInventoryColumns: {
@@ -658,7 +737,7 @@ export const texts = {
       barcodeField: 'Barcode',
       setBarcodeChipLabel: 'Set barcode',
       fbaAmountField: 'Recommend amount',
-      actionField: 'Actions',
+      actionField: 'Actions'
     },
 
     clientDailySellerBoardColumns: {
@@ -675,7 +754,7 @@ export const texts = {
       orderedField: 'Ordered',
       unitsorganicField: 'Unitsorganic',
       unitsppcField: 'Unitsppc',
-      netprofitField: 'Netprofit',
+      netprofitField: 'Netprofit'
     },
 
     clientLast30DaySellerBoardColumns: {
@@ -685,7 +764,7 @@ export const texts = {
       titleField: 'Title',
       stockValueField: 'Count',
       reservedField: 'Reserved',
-      roiField: 'ROI',
+      roiField: 'ROI'
     },
 
     exchangeAllColumns: {
@@ -710,7 +789,7 @@ export const texts = {
       bsrField: 'BSR',
       fbaField: 'FBA',
       barcodeField: 'Barcode',
-      createDateField: 'Create date',
+      createDateField: 'Create date'
     },
 
     exchangeWaitingColumns: {
@@ -737,7 +816,7 @@ export const texts = {
       barcodeField: 'Barcode',
       createDateField: 'Create date',
       profitField: 'Profit',
-      marginField: 'Margin',
+      marginField: 'Margin'
     },
     exchangeCheckingColumns: {
       strategyStatusField: 'Strategy',
@@ -766,7 +845,7 @@ export const texts = {
       barcodeField: 'Barcode',
       createDateField: 'Create date',
       checkDateField: 'Check date',
-      updateDateField: 'Update date',
+      updateDateField: 'Update date'
     },
     exchangeSupplierSearchColumns: {
       strategyStatusField: 'Strategy',
@@ -795,7 +874,7 @@ export const texts = {
       updateDateField: 'Update date',
       profitField: 'Profit',
       marginField: 'Margin',
-      fbaAmountField: 'FBA amount',
+      fbaAmountField: 'FBA amount'
     },
 
     exchangeBuyerWorkColumns: {
@@ -825,7 +904,7 @@ export const texts = {
       updateDateField: 'Update date',
       profitField: 'Profit',
       marginField: 'Margin',
-      fbaAmountField: 'FBA amount',
+      fbaAmountField: 'FBA amount'
     },
 
     exchangeSupplierFoundedColumns: {
@@ -856,11 +935,11 @@ export const texts = {
       updateDateField: 'Update date',
       profitField: 'Profit',
       marginField: 'Margin',
-      fbaAmountField: 'FBA amount',
+      fbaAmountField: 'FBA amount'
     },
     exchangeRequestsBodyRow: {
       editBtn: 'Edit',
-      closeBtn: 'Close',
+      closeBtn: 'Close'
     },
     documentationView: {
       appBarTitle: 'Documentation',
@@ -873,7 +952,7 @@ export const texts = {
       authDescription: 'При нажатии на "Create account" перенесет на страницу Регистрации',
       registerTitle: 'Регистрация',
       registerLink: 'https://stoic-northcutt-f04ad5.netlify.app/register',
-      registerDescription: 'При нажатии на "Already have account" перенесет на страницу Аутентификации',
+      registerDescription: 'При нажатии на "Already have account" перенесет на страницу Аутентификации'
     },
     inventoryView: {
       appbarTitle: 'Inventory',
@@ -882,6 +961,8 @@ export const texts = {
       listingBtn: 'Listing',
       setBarcodeChipLabel: 'Set barcode',
       orderBtn: 'Заказать',
+      bindGoodsBtn: 'Привязать товар со склада',
+
       showProductBtn: 'Смотреть подробно',
       resetBtn: 'Сбросить',
       productsInInventoryDashboardCard: 'Товаров в инвентаре',
@@ -892,7 +973,7 @@ export const texts = {
       addProductBtn: 'Добавить свой товар',
       addProductModal: 'Добавить свой товар',
       successTitle: 'Заказ создан',
-      successBtn: 'Ок',
+      successBtn: 'Ок'
     },
     researcherDashboardView: {
       appBarTitle: 'Dashboard',
@@ -904,7 +985,7 @@ export const texts = {
       finesCardTitle: 'Штрафы',
       newProductsCardTitle: 'Новых товаров в базе',
       meCheckingCardTitle: 'У меня на проверке',
-      accuredCardTitle: 'Начислено',
+      accuredCardTitle: 'Начислено'
     },
 
     supervisorDashboardView: {
@@ -923,7 +1004,7 @@ export const texts = {
       purchasedCardTitle: 'Купленные',
 
       finesCardTitle: 'Штрафы',
-      accuredCardTitle: 'Начислено',
+      accuredCardTitle: 'Начислено'
     },
 
     buyerDashboardView: {
@@ -937,12 +1018,12 @@ export const texts = {
       newProductsCardTitle: 'Новых товаров в базе',
       myProductCardTitle: 'Мои товары',
       myOrdersCardTitle: 'Мои заказы',
-      freeOrdersCardTitle: 'Свободные заказы',
+      freeOrdersCardTitle: 'Свободные заказы'
     },
 
     researcherProductsView: {
       appBarTitle: 'Products',
-      mainTitle: 'Мои продукты',
+      mainTitle: 'Мои продукты'
     },
 
     researcherProductsRequestsView: {
@@ -957,7 +1038,7 @@ export const texts = {
       yesBtn: 'Да',
       noBtn: 'Нет',
       okBtn: 'Ок',
-      errorTitle: 'Ошибка!',
+      errorTitle: 'Ошибка!'
     },
 
     freelancerProductsRequestsView: {
@@ -972,7 +1053,7 @@ export const texts = {
       yesBtn: 'Да',
       noBtn: 'Нет',
       okBtn: 'Ок',
-      errorTitle: 'Ошибка!',
+      errorTitle: 'Ошибка!'
     },
 
     researcherSettingsView: {
@@ -986,14 +1067,14 @@ export const texts = {
       fieldRole: 'Role',
       fieldFba: 'FBA',
       saveBtn: 'Сохранить',
-      cancelBtn: 'Отменить',
+      cancelBtn: 'Отменить'
     },
 
     batchesModalEditBatch: {
       batchDestination: 'Не назначен',
       mainTitle: 'Просмотр/редактирование партии',
       saveBtn: 'Сохранить',
-      cancelBtn: 'Отмена',
+      cancelBtn: 'Отмена'
     },
 
     batchesModalEditBoxList: {
@@ -1008,7 +1089,7 @@ export const texts = {
       typoWeight: 'Weight',
       typoVolumeWeight: 'volumeWeight',
       typoWeightFinal: 'weightFinal',
-      count: 'Кол-во:',
+      count: 'Кол-во:'
     },
     batchesModalEditFillList: {
       listFills: 'Список полей для заполнения',
@@ -1029,7 +1110,7 @@ export const texts = {
       valueSend: 'Отправлена',
       valueReceived: 'Получена',
       treckerNum: 'Трек номер США:',
-      typoCloseButch: 'needCloseButch',
+      typoCloseButch: 'needCloseButch'
     },
     ordersViewsModalSelectFields: {
       warehouse: 'Склад',
@@ -1068,11 +1149,11 @@ export const texts = {
       loadTitle: 'Прикрепить фото к задаче',
       orderImagesBtn: 'Имеющиеся изображения к заказу',
 
-      totalPrice: 'Запланированная стоимость заказа',
+      totalPrice: 'Запланированная стоимость в долларах',
       totalPriceInYuans: 'Запланированная стоимость в юанях',
       checkIsPlanningPriceText: 'Фактическая стоимость совпадает с запланированной',
       priceYuansDeliveryCostToTheWarehouse: 'Из них за доставку до склада Китая Ұ',
-      deliveryCostToTheWarehouse: 'Из них за доставку до склада Китая $',
+      deliveryCostToTheWarehouse: 'Из них за доставку до склада Китая $'
     },
 
     buyerProductView: {
@@ -1087,12 +1168,12 @@ export const texts = {
       yesBtn: 'Да',
       noBtn: 'Нет',
       okBtn: 'ок',
-      deleteSupplierMessage: 'Вы точно хотите удалить поставщика?',
+      deleteSupplierMessage: 'Вы точно хотите удалить поставщика?'
     },
     adminProductView: {
       appBarTitle: 'Product',
       appBarUsername: 'Admin',
-      appUser: 'admin',
+      appUser: 'admin'
     },
 
     researcherProductView: {
@@ -1108,7 +1189,7 @@ export const texts = {
       yesBtn: 'Да',
       noBtn: 'Нет',
 
-      okBtn: 'Ок',
+      okBtn: 'Ок'
     },
     supervisorProductView: {
       appBarTitle: 'Product',
@@ -1119,13 +1200,13 @@ export const texts = {
       confirmTitle: 'Внимание',
       yesBtn: 'Да',
       noBtn: 'Нет',
-      okBtn: 'ок',
+      okBtn: 'ок'
     },
     buyerProductsView: {
       appBarTitle: 'Products',
       appBarUsername: 'Buyer',
       appUser: 'buyer',
-      mainTitle: 'Товары',
+      mainTitle: 'Товары'
     },
     dataGridCells: {
       asinTypo: 'ASIN ',
@@ -1159,14 +1240,14 @@ export const texts = {
       rejectBtn: 'Отклонить',
       addPermissionsBtn: 'Назначить разрешения',
 
-      id: 'ASIN: ',
+      id: 'ASIN: '
     },
 
     linkSubUserForm: {
       title: 'Добавить саб-юзера',
       addBtn: 'Добавить',
       cancelBtn: 'Отмена',
-      email: 'Email',
+      email: 'Email'
     },
 
     subUsersModalContent: {
@@ -1192,6 +1273,8 @@ export const texts = {
 
       closeBtn: 'cancel',
       choose: 'Выбор',
+
+      canByMasterUser: 'Can By Master User'
     },
 
     subUsersModalPermission: {
@@ -1200,7 +1283,7 @@ export const texts = {
       researcherTitle: 'Researcher',
       acManagerTitle: 'Account manager',
       warehouseManagerTitle: 'Warehouse manager',
-      saveBtn: 'Save',
+      saveBtn: 'Save'
     },
     buyerSubUsersView: {
       addUserBtn: 'Add User',
@@ -1221,7 +1304,7 @@ export const texts = {
       confirmTitle: 'Внимание',
       confirmRemoveMessage: 'Вы точно хотите отвязать сабюзера?',
       yesBtn: 'Да',
-      noBtn: 'Нет',
+      noBtn: 'Нет'
     },
 
     warehouseSubUsersView: {
@@ -1243,7 +1326,7 @@ export const texts = {
       confirmTitle: 'Внимание',
       confirmRemoveMessage: 'Вы точно хотите отвязать сабюзера?',
       yesBtn: 'Да',
-      noBtn: 'Нет',
+      noBtn: 'Нет'
     },
 
     researcherSubUsersView: {
@@ -1265,7 +1348,7 @@ export const texts = {
       confirmTitle: 'Внимание',
       confirmRemoveMessage: 'Вы точно хотите отвязать сабюзера?',
       yesBtn: 'Да',
-      noBtn: 'Нет',
+      noBtn: 'Нет'
     },
 
     supervisorSubUsersView: {
@@ -1287,7 +1370,7 @@ export const texts = {
       confirmTitle: 'Внимание',
       confirmRemoveMessage: 'Вы точно хотите отвязать сабюзера?',
       yesBtn: 'Да',
-      noBtn: 'Нет',
+      noBtn: 'Нет'
     },
 
     clientSubUsersView: {
@@ -1308,64 +1391,64 @@ export const texts = {
       confirmTitle: 'Внимание',
       confirmRemoveMessage: 'Вы точно хотите отвязать сабюзера?',
       yesBtn: 'Да',
-      noBtn: 'Нет',
+      noBtn: 'Нет'
     },
     buyerUserView: {
       timer: '14 минут',
       appBarTitle: 'User page',
       appBarUsername: 'Buyer',
-      appUser: 'buyer',
+      appUser: 'buyer'
     },
 
     clientUserView: {
       timer: '14 минут',
       appBarTitle: 'User page',
       appBarUsername: 'Client',
-      appUser: 'client',
+      appUser: 'client'
     },
 
     userProfileView: {
       timer: '14 минут',
       appBarTitle: 'User page',
       appBarUsername: 'Client',
-      appUser: 'client',
+      appUser: 'client'
     },
 
     buyerSubUsersBodyRow: {
       bussinesUnit: 'N/A',
       editBtn: 'Edit User',
-      deleteBtn: 'Delete',
+      deleteBtn: 'Delete'
     },
     adminSubUsersBodyRow: {
       bussinesUnit: 'N/A',
       editBtn: 'Edit User',
-      balanceBtn: 'Balance',
+      balanceBtn: 'Balance'
     },
     setBarcodeModalContent: {
       title: 'Установить штрихкод',
       saveBtn: 'Сохранить',
       close: 'Закрыть',
-      inputLabel: 'Штрихкод товара:',
+      inputLabel: 'Штрихкод товара:'
     },
     dashboardInfoCard: {
-      viewMoreBtn: 'View more',
+      viewMoreBtn: 'View more'
     },
     clientExchnageModalContent: {
       title: 'Order product',
       orderNowBtn: 'Заказать сразу',
-      cancelBtn: 'Отменить',
+      cancelBtn: 'Отменить'
     },
     supervisorProductsView: {
       appBarTitle: 'Products',
       appBarUsername: 'Supervisor',
       appUser: 'supervisor',
-      mainTitle: 'Товары',
+      mainTitle: 'Товары'
     },
     supervisorReadyToCheckView: {
       appBarTitle: 'Ready to check',
       appBarUsername: 'Supervisor',
       appUser: 'supervisor',
-      mainTitle: 'Товары на проверку',
+      mainTitle: 'Товары на проверку'
     },
     supervisorSettingsView: {
       appBarTitle: 'Settings',
@@ -1378,14 +1461,14 @@ export const texts = {
       fieldRole: 'Role',
       fieldFba: 'FBA',
       saveBtn: 'Сохранить',
-      cancelBtn: 'Отменить',
+      cancelBtn: 'Отменить'
     },
     researcherAddProductForm: {
       buttonCheck: 'Проверить',
       buttonAdd: 'Добавить',
       linkAmazon: 'Введите ссылку с амазона',
       codeOfGood: 'Код товара',
-      successActionAlert: 'Operation complete',
+      successActionAlert: 'Operation complete'
     },
     productStatusButtonsConfigs: {
       searchForSupplier: 'Поиск поставщика',
@@ -1393,14 +1476,14 @@ export const texts = {
       supplierWasFound: 'Поставщик найден',
       supplierWasNotFound: 'Поставщик не найден',
       supplierPriceNotAccepted: 'Цена поставщика не приемлима',
-      publish: 'Опубликовать на бирже',
+      publish: 'Опубликовать на бирже'
     },
     deliveryType: {
       road: 'Road',
       sea: 'Sea',
       train: 'Train',
       multiple: 'Multiple',
-      air: 'Air',
+      air: 'Air'
     },
     orderStatus: {
       formed: 'Formed',
@@ -1414,10 +1497,10 @@ export const texts = {
 
       closed: 'Closed',
       awaitingShipment: 'Awaiting shipment',
-      shipped: 'Shipped',
+      shipped: 'Shipped'
     },
     productStatusButtons: {
-      saveWithoutStatusBtn: 'Сохранить без статуса',
+      saveWithoutStatusBtn: 'Сохранить без статуса'
     },
     warehouseType: {
       warehouse0: 'Warehouse 0',
@@ -1426,8 +1509,8 @@ export const texts = {
       mem1: 'MEM1 Memphis, TN',
       mdw2: 'MDW2 Joliet, IL',
       lax9: 'LAX9 FONTANA, CA',
-      lgb82: 'LGB8 Rialto, CA',
-    },
+      lgb82: 'LGB8 Rialto, CA'
+    }
   },
   ru: {
     clientDashboardView: {
@@ -1448,27 +1531,27 @@ export const texts = {
       canceledOrdersSectionItemTitle: 'Отмененные заказы',
       soldItemsOnExchangeSectionItemTitle: 'Продано товаров на бирже',
       accuredToReserchersSectionItemTitle: 'Начислено ресерчерам',
-      disputsForProductsSectionItemTitle: 'Споров по товарам',
+      disputsForProductsSectionItemTitle: 'Споров по товарам'
     },
     productView: {
       appBarTitle: 'Product',
       appBarUsername: 'Client',
       appUser: 'client',
       addVendor: 'Добавить нового поставщика',
-      editVendor: 'Редактировать поставщика',
+      editVendor: 'Редактировать поставщика'
     },
     entryLeftPanel: {
       companyName: 'Amazontop',
       greetingTitle: 'Hello, nice to meet you',
       greetingSubtitle: 'Just register to join with us',
-      footer: 'Footer',
+      footer: 'Footer'
     },
     appbarComponent: {
       addGood: 'Добавлен новый товар у ресерчера на которого вы подписаны!',
       statusStart: 'Ваш запуск #77777 был ',
       statusEnd: 'обработан!',
       sendGood: 'Заказ #10391 был отправлен на склад платформы',
-      allNotifications: 'View all Notifications',
+      allNotifications: 'View all Notifications'
     },
     researcherDashboardView: {
       appBarTitle: 'Dashboard',
@@ -1480,7 +1563,7 @@ export const texts = {
       finesCardTitle: 'Штрафы',
       newProductsCardTitle: 'Новых товаров в базе',
       meCheckingCardTitle: 'У меня на проверке',
-      accuredCardTitle: 'Начислено',
+      accuredCardTitle: 'Начислено'
     },
     buyerComponent: {
       goods: 'Байер - Продукты',
@@ -1496,7 +1579,7 @@ export const texts = {
       haveHistory: 'Имеется история действий, которые можно отменять.',
       batchGoods: 'Байер - Партии товаров',
       myProfile: 'Байер - Пользователи - Мой профиль',
-      myUsers: 'Байер - Пользователи - Мои пользователи ',
+      myUsers: 'Байер - Пользователи - Мои пользователи '
     },
     clientExchangeRequestsView: {
       appbarTitle: 'Exchange - Requests',
@@ -1542,7 +1625,7 @@ export const texts = {
 
       editBtn: 'Изменить',
       createBtn: 'Создать заявку',
-      cancelBtn: 'Отмена',
+      cancelBtn: 'Отмена'
     },
 
     freelancerExchangeRequestsView: {
@@ -1589,7 +1672,7 @@ export const texts = {
 
       editBtn: 'Изменить',
       createBtn: 'Создать заявку',
-      cancelBtn: 'Отмена',
+      cancelBtn: 'Отмена'
     },
 
     clientComponent: {
@@ -1640,14 +1723,14 @@ export const texts = {
       clientProduct: 'Клиент - Продукт',
       clickAddButton: 'При нажатии на кнопку добавления появляется модальное окно с формой.',
       clickEditButton: 'При нажатии на кнопку редактирования появляется модальное окно с формой.',
-      clickDeleteButton: 'При нажатии на кнопки удаления, поставщик исчезает из списка.',
+      clickDeleteButton: 'При нажатии на кнопки удаления, поставщик исчезает из списка.'
     },
     researcherComponent: {
       mainPage: 'Ресерчер - Главная страница',
       moveToMyOrders: 'Возможно перейти на страницу "Мои заказы"',
       viewMore: 'Переход на другие страницы осуществляется путем нажатие кнопки "View more".',
       myOrders: 'Ресерчер - Мои заказы',
-      settings: 'Ресерчер - Настройки',
+      settings: 'Ресерчер - Настройки'
     },
     supervisorComponent: {
       mainPage: 'Супервизор - Главная страница',
@@ -1659,14 +1742,14 @@ export const texts = {
       supervisorPrepares: 'Супервизор - Готовые к проверке',
       supervisorMyGoods: 'Супервизор - Мои товары',
       settings: 'Супервизор - Настройки',
-      productVar1: 'Супервизор - Продукт вариант 1',
+      productVar1: 'Супервизор - Продукт вариант 1'
     },
     exchangeBodyRow: {
       launchBtn: 'Запустить',
-      priceBtn: 'Add $9.99',
+      priceBtn: 'Add $9.99'
     },
     contentCardComponent: {
-      time: 'Время осталось',
+      time: 'Время осталось'
     },
     addOrEditSupplierModalContent: {
       name: 'Название*',
@@ -1682,7 +1765,7 @@ export const texts = {
       cancelBtn: 'Отменить',
       loadTitle: 'Прикрепить фото к задаче',
       availablePhotos: 'Имеющиеся фотографии',
-      circularProgressTitle: 'Загрузка фотографий...',
+      circularProgressTitle: 'Загрузка фотографий...'
     },
     productWrapperComponent: {
       buttonParseAmazon: ' Parse Amazon ',
@@ -1743,28 +1826,28 @@ export const texts = {
 
       supplierPhotos: 'Фотографии',
       strategyLabel: 'Стратегия продукта',
-      deliveryMethod: 'Метод отправки',
+      deliveryMethod: 'Метод отправки'
     },
     buyerBatchesView: {
       editBatch: 'Редактировать партию',
       mainTitle: 'Партии товаров',
       appBarTitle: 'Batches',
       appBarUsername: 'Buyer',
-      appUser: 'buyer',
+      appUser: 'buyer'
     },
     clientBatchesView: {
       editBatch: 'Редактировать партию',
       mainTitle: 'Мои отправления',
       appBarTitle: 'Batches',
       appBarUsername: 'Client',
-      appUser: 'client',
+      appUser: 'client'
     },
 
     clientLast30DaySellerBoardView: {
       mainTitle: 'Отчет seller board за 30 дней',
       appBarTitle: 'Last 30 Day SellerBoard ',
       appBarUsername: 'Client',
-      appUser: 'client',
+      appUser: 'client'
     },
 
     clientDailySellerBoardView: {
@@ -1772,25 +1855,29 @@ export const texts = {
       appBarTitle: 'SellerBoard',
       appBarUsername: 'Client',
       appUser: 'client',
+
+      moveToInventoryBtn: 'Перенести в инвентарь',
+
+      bindBtn: 'Привязать к товару из инвентаря'
     },
     adminBatchesView: {
       editBatch: 'Редактировать партию',
       mainTitle: 'Мои отправления',
       appBarTitle: 'Batches',
       appBarUsername: 'Client',
-      appUser: 'client',
+      appUser: 'client'
     },
     ordersViewsModalSetBarcode: {
       title: 'Установить штрихкод',
       code: 'Штрихкод товара:',
       saveBtn: 'Сохранить',
-      closeBtn: 'Закрыть',
+      closeBtn: 'Закрыть'
     },
     ordersViewsModalSetShippingLabel: {
       title: 'Установить Shipping label',
       code: 'Shipping label товара:',
       saveBtn: 'Сохранить',
-      closeBtn: 'Закрыть',
+      closeBtn: 'Закрыть'
     },
     ordersViewsModalEditOrder: {
       title: 'Редактирование заказа',
@@ -1808,7 +1895,7 @@ export const texts = {
       noBtn: 'Нет',
       addBoxBtn: 'Добавить коробку',
       okBtn: 'ок',
-      firstWarning: 'БУДЬТЕ ВНИМАТЕЛЬНЫ!!!',
+      firstWarning: 'БУДЬТЕ ВНИМАТЕЛЬНЫ!!!'
     },
     freeOrdersView: {
       mainTitle: 'Свободные заказы',
@@ -1819,13 +1906,13 @@ export const texts = {
       pickUp: 'Взять в работу',
 
       okBtn: 'ок',
-      warningTitle: 'Заказ взят в работу и перенесен в раздел "Мои заказы"',
+      warningTitle: 'Заказ взят в работу и перенесен в раздел "Мои заказы"'
     },
     myProductsView: {
       mainTitle: 'Мои товары',
       appBarTitle: 'Products',
       appBarUsername: 'Buyer',
-      appUser: 'buyer',
+      appUser: 'buyer'
     },
     myOrdersView: {
       mainTitle: 'Мои заказы',
@@ -1837,7 +1924,7 @@ export const texts = {
       okBtn: 'Ок',
       warningMessage:
         'Статус "Оплачено" станет доступным после подтверждения изменения стоимости заказа клиентом. Текущий статус не будет изменен! Коробки не будут созданы',
-      successMessage: 'Создана задача складу: "Принять коробку" ',
+      successMessage: 'Создана задача складу: "Принять коробку" '
     },
 
     mergeBoxModal: {
@@ -1850,35 +1937,35 @@ export const texts = {
       shippingLabel: 'Шиппинглейбл',
       comment: 'Комментарий клиента к задаче',
       saveBtn: 'Соединить',
-      cancelBtn: 'Отмена',
+      cancelBtn: 'Отмена'
     },
 
     buyerUserExchangeItem: {
       standartPrice: '$ 499',
       startBtn: 'Запустить',
       addBtn: 'Добавить за $ ',
-      addBtnAlert: 'Card button click',
+      addBtnAlert: 'Card button click'
     },
     buyerUserActiveOrders: {
       mainTitle: 'Активные предложения на бирже товаров',
       buyGoodsOfUser: 'Купить товары пользователя',
-      noActiveOffers: 'Активных предложений не найдено',
+      noActiveOffers: 'Активных предложений не найдено'
     },
     buerUserPurchaseHistory: {
       mainTitle: 'История ваших покупок у ',
       buyInfo: 'Вы приобрели информацию',
       pushedGoods: 'Запущенные товары',
-      noHistory: 'История сделок не найдена',
+      noHistory: 'История сделок не найдена'
     },
     buerUserReviews: {
       mainTitle: 'Отзывы',
       fromBuyers: 'От покупателей',
       fromSellers: 'От продавцов',
-      noReviews: 'Отзывы не найдены',
+      noReviews: 'Отзывы не найдены'
     },
     buerUserFeedbackCard: {
       positiveReview: 'Положительный отзыв',
-      negativeReview: 'Негативный отзыв',
+      negativeReview: 'Негативный отзыв'
     },
     buyerUserHeaderInfo: {
       mainTitle: 'Информация',
@@ -1890,19 +1977,19 @@ export const texts = {
       inBlocked: 'Заблокирован(-а)',
       youBlocked: 'Заблокировал(-а)',
       accountCreateAt: 'Аккаунт создан',
-      investors: ' инвесторов',
+      investors: ' инвесторов'
     },
     buerUserHeaderTested: {
       mainTitle: 'Прошел проверку по стратегиям',
       flipping: 'Флипинг',
       dropShiping: 'Дропшиппинг с Ибей',
       usa: 'Wholesale USA',
-      privateLabel: 'Private Label',
+      privateLabel: 'Private Label'
     },
     buerUserHeader: {
       sendBtn: 'Отправить заказ',
       filter: 'Фильтровать его товары',
-      ignore: 'Игнорировать его товары',
+      ignore: 'Игнорировать его товары'
     },
     buyerUserModalContent: {
       mainTitle: 'Заказ товара',
@@ -1919,7 +2006,7 @@ export const texts = {
       costStart: 'Стоимость запуска',
       acManager: 'Аккаунт менеджер',
       buyNowBtn: 'Заказать сразу',
-      cancelBtn: 'Отменить',
+      cancelBtn: 'Отменить'
     },
 
     clientOrderProductModal: {
@@ -1937,8 +2024,8 @@ export const texts = {
       comment: 'Комментарий клиента',
 
       addBasketBtn: 'Добавить в корзину',
-      buyNowBtn: 'Заказать сразу',
-      cancelBtn: 'Отменить',
+      buyNowBtn: 'Заказать',
+      cancelBtn: 'Отменить'
     },
 
     clientBatchesForm: {
@@ -1953,14 +2040,14 @@ export const texts = {
       deliveryMethod: 'Способ доставки:',
       status: 'Статус:',
       track: 'Трек номер США:',
-      dispatchDate: 'Ожидаемое время отправки:',
+      dispatchDate: 'Ожидаемое время отправки:'
     },
     clientOrdersView: {
       mainTitle: 'Мои заказы',
       appBarTitle: 'Страница заказов',
       appBarUsername: 'Client',
       appUser: 'client',
-      ordersBtn: 'Мои заказы',
+      ordersBtn: 'Мои заказы'
     },
     clientOrdersNotificationsView: {
       mainTitle: 'Уведомления по заказам',
@@ -1971,63 +2058,63 @@ export const texts = {
       yesBtn: 'Да',
       noBtn: 'Нет',
       errorMessage: 'Вы хотите отменить?',
-      confirmMessage: 'Вы подтверждаете доплату?',
+      confirmMessage: 'Вы подтверждаете доплату?'
     },
     adminOrdersView: {
       mainTitle: 'Заказы',
       appBarTitle: 'Страница заказов',
       appBarUsername: 'Admin',
       appUser: 'admin',
-      ordersBtn: 'Мои заказы',
+      ordersBtn: 'Мои заказы'
     },
 
     adminFinancesView: {
       mainTitle: 'Финансы',
       appBarTitle: 'Страница финансов',
       appBarUsername: 'Admin',
-      appUser: 'admin',
+      appUser: 'admin'
     },
 
     clientFinancesView: {
       mainTitle: 'Финансы',
       appBarTitle: 'Страница финансов',
       appBarUsername: 'Client',
-      appUser: 'client',
+      appUser: 'client'
     },
 
     buyerFinancesView: {
       mainTitle: 'Финансы',
       appBarTitle: 'Страница финансов',
       appBarUsername: 'Buyer',
-      appUser: 'buyer',
+      appUser: 'buyer'
     },
 
     researcherFinancesView: {
       mainTitle: 'Финансы',
       appBarTitle: 'Страница финансов',
       appBarUsername: 'Researcher',
-      appUser: 'researcher',
+      appUser: 'researcher'
     },
 
     supervisorFinancesView: {
       mainTitle: 'Финансы',
       appBarTitle: 'Страница финансов',
       appBarUsername: 'Supervisor',
-      appUser: 'supervisor',
+      appUser: 'supervisor'
     },
 
     freelancerFinancesView: {
       mainTitle: 'Финансы',
       appBarTitle: 'Страница финансов',
       appBarUsername: 'Freelancer',
-      appUser: 'freelancer',
+      appUser: 'freelancer'
     },
 
     warehouseFinancesView: {
       mainTitle: 'Финансы',
       appBarTitle: 'Страница финансов',
       appBarUsername: 'Warehouse',
-      appUser: 'warehouse',
+      appUser: 'warehouse'
     },
 
     adminTasksView: {
@@ -2035,14 +2122,14 @@ export const texts = {
       appBarTitle: 'Страница задач склада',
       appBarUsername: 'Admin',
       appUser: 'admin',
-      actionBtn: 'Смотреть подробнее',
+      actionBtn: 'Смотреть подробнее'
     },
     clientOrdersTableRow: {
       asinTypo: 'ASIN ',
       setBarcodeLabel: 'Set barcode',
       barcodeDeleteAlert: 'Barcode deleting',
       distributeBtn: 'Распределить',
-      titleToolTip: 'Финальный вес будет расчитан когда склад получит товар',
+      titleToolTip: 'Финальный вес будет расчитан когда склад получит товар'
     },
     adminOrdersTableColumns: {
       createDateField: 'Создан',
@@ -2061,12 +2148,12 @@ export const texts = {
       weightField: 'Вес',
       grossWeightField: 'Общий вес',
       trackIdField: 'Трек номер',
-      statusField: 'Статус',
+      statusField: 'Статус'
     },
 
     subUsersTableColumns: {
       emailField: 'Почта',
-      actionField: 'Действия',
+      actionField: 'Действия'
     },
 
     adminFinancesTableColumns: {
@@ -2074,7 +2161,7 @@ export const texts = {
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
-      recipientNameField: 'Реципиент ',
+      recipientNameField: 'Реципиент '
     },
 
     buyerFinancesTableColumns: {
@@ -2082,7 +2169,7 @@ export const texts = {
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
-      recipientNameField: 'Реципиент ',
+      recipientNameField: 'Реципиент '
     },
 
     clientFinancesTableColumns: {
@@ -2090,7 +2177,7 @@ export const texts = {
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
-      recipientNameField: 'Реципиент ',
+      recipientNameField: 'Реципиент '
     },
 
     researcherFinancesTableColumns: {
@@ -2098,7 +2185,7 @@ export const texts = {
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
-      recipientNameField: 'Реципиент ',
+      recipientNameField: 'Реципиент '
     },
 
     supervisorFinancesTableColumns: {
@@ -2106,7 +2193,7 @@ export const texts = {
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
-      recipientNameField: 'Реципиент ',
+      recipientNameField: 'Реципиент '
     },
 
     warehouseFinancesTableColumns: {
@@ -2114,7 +2201,7 @@ export const texts = {
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
-      recipientNameField: 'Реципиент ',
+      recipientNameField: 'Реципиент '
     },
 
     freelancerFinancesTableColumns: {
@@ -2122,7 +2209,7 @@ export const texts = {
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
-      recipientNameField: 'Реципиент ',
+      recipientNameField: 'Реципиент '
     },
 
     adminSinglePermissionsColumns: {
@@ -2131,7 +2218,7 @@ export const texts = {
       descriptionField: 'Описание',
       keyField: 'Ключ',
       titleField: 'Название',
-      actionField: 'Действия',
+      actionField: 'Действия'
     },
 
     adminGroupPermissionsColumns: {
@@ -2140,7 +2227,7 @@ export const texts = {
       descriptionField: 'Описание',
       keyField: 'Ключ',
       titleField: 'Название',
-      actionField: 'Действия',
+      actionField: 'Действия'
     },
 
     clientOrdersTableColumns: {
@@ -2163,7 +2250,7 @@ export const texts = {
       grossWeightField: 'Общий вес',
       trackIdField: 'Трек номер',
       neededToPayExtraField: 'Необходимо доплатить',
-      forDeliveryFromTheWarehouse: 'Из них за доставку до склада Китая',
+      forDeliveryFromTheWarehouse: 'Из них за доставку до склада Китая'
     },
 
     buyerMyOrdersTableColumns: {
@@ -2177,7 +2264,7 @@ export const texts = {
       clientCommentField: 'Комментарий клиента',
       buyerCommentField: 'Комментарий закупщика',
       createdAtField: 'Создан',
-      updatedAtField: 'Изменен',
+      updatedAtField: 'Изменен'
     },
 
     buyerFreeOrdersTableColumns: {
@@ -2191,7 +2278,7 @@ export const texts = {
       buyerCommentField: 'Комментарий закупщика',
       createdAtField: 'Создан',
       actionField: 'Действие',
-      pickUp: 'Взять в работу',
+      pickUp: 'Взять в работу'
     },
 
     adminBoxesTableColumns: {
@@ -2209,10 +2296,13 @@ export const texts = {
       trackIdField: 'Трек id',
       weightField: 'Финальный Вес',
       grossWeightField: 'Общий вес',
+
+      clientNameField: 'Клиент'
     },
 
     adminUsersTableColumns: {
       createdAtField: 'Created',
+      updatedAtField: 'Updated',
       balanceField: 'Balance',
       freezeField: 'Freeze',
       emailField: 'Email',
@@ -2222,7 +2312,7 @@ export const texts = {
       actionsField: 'Actions',
 
       editBtnText: 'Edit User',
-      balanceBtnText: 'Balance',
+      balanceBtnText: 'Balance'
     },
 
     clientBoxesTableColumns: {
@@ -2239,7 +2329,7 @@ export const texts = {
       priceField: 'Общая цена',
       trackIdField: 'Трек id',
       weightField: 'Финальный Вес',
-      grossWeightField: 'Общий вес',
+      grossWeightField: 'Общий вес'
     },
 
     warehouseBoxesTableColumns: {
@@ -2248,7 +2338,7 @@ export const texts = {
       ordersField: 'Продукт',
       ordersId: 'id Заказа',
       warehouseField: 'Склад',
-      boxIdField: 'id Коробки',
+      boxIdField: 'id Коробки'
     },
 
     batchesTableColumns: {
@@ -2269,7 +2359,7 @@ export const texts = {
       toralPriceField: 'Общая стоимость',
 
       showBtn: 'Смотреть',
-      actionField: 'Действия',
+      actionField: 'Действия'
     },
 
     adminTasksTableColumns: {
@@ -2285,7 +2375,7 @@ export const texts = {
       operatioTypeReceive: 'Принять',
       operatioTypeEdit: 'Изменить',
 
-      actionBtn: 'Смотреть подробнее',
+      actionBtn: 'Смотреть подробнее'
     },
 
     researcherProductsTableColumns: {
@@ -2294,7 +2384,7 @@ export const texts = {
       statusField: 'STATUS',
       createDateField: 'Created',
       amazonPriceField: 'Amazon price',
-      bsrField: 'BSR',
+      bsrField: 'BSR'
     },
 
     researcherProductsRequestsTableColumns: {
@@ -2303,7 +2393,7 @@ export const texts = {
       deadline: 'Deadline',
       costOfOneProposal: 'Cost of proposal',
       countOfProposals: 'Count of proposals',
-      limitOfProposals: 'Limit of proposals',
+      limitOfProposals: 'Limit of proposals'
     },
 
     freelancerProductsRequestsTableColumns: {
@@ -2312,7 +2402,7 @@ export const texts = {
       deadline: 'Deadline',
       costOfOneProposal: 'Cost of proposal',
       countOfProposals: 'Count of proposals',
-      limitOfProposals: 'Limit of proposals',
+      limitOfProposals: 'Limit of proposals'
     },
 
     supervisorProductsTableColumns: {
@@ -2327,7 +2417,7 @@ export const texts = {
 
       updateDateField: 'Updated',
       fbafeeField: 'Fba fee',
-      profitField: 'Profit',
+      profitField: 'Profit'
     },
 
     buyerProductsTableColumns: {
@@ -2341,7 +2431,7 @@ export const texts = {
       updateDateField: 'Updated',
       fbafeeField: 'Fba fee',
       feesAndNetField: 'Fees & Net',
-      fbaamountField: 'Recommend amount',
+      fbaamountField: 'Recommend amount'
     },
 
     warehouseVacantTasksTableColumns: {
@@ -2356,7 +2446,7 @@ export const texts = {
       operatioTypeSplit: 'Разделить',
       operatioTypeReceive: 'Принять',
       operatioTypeEdit: 'Изменить',
-      pickUp: 'Взять в работу',
+      pickUp: 'Взять в работу'
     },
 
     clientExchangeTableColumns: {
@@ -2370,7 +2460,7 @@ export const texts = {
       fbaamountField: 'Recommend batch',
       researcherField: 'Researcher',
       buyerField: 'Buyer',
-      byForBtn: 'Купить за',
+      byForBtn: 'Купить за'
     },
 
     clientSearchRequestsTableColumns: {
@@ -2398,7 +2488,7 @@ export const texts = {
       directionField: 'Направление',
       statusField: 'Статус',
       maxAmountOfProposalsField: 'Макс. кол-во предложений',
-      priceField: 'Цена заявки',
+      priceField: 'Цена заявки'
     },
 
     warehouseMyTasksTableColumns: {
@@ -2412,7 +2502,7 @@ export const texts = {
       operatioTypeMerge: 'Соединить',
       operatioTypeSplit: 'Разделить',
       operatioTypeReceive: 'Принять',
-      operatioTypeEdit: 'Изменить',
+      operatioTypeEdit: 'Изменить'
     },
 
     warehouseCanceledTasksTableColumns: {
@@ -2427,7 +2517,7 @@ export const texts = {
       operatioTypeSplit: 'Разделить',
       operatioTypeReceive: 'Принять',
       operatioTypeEdit: 'Изменить',
-      showBtn: 'Смотреть',
+      showBtn: 'Смотреть'
     },
 
     warehouseCompletedTasksTableColumns: {
@@ -2442,29 +2532,29 @@ export const texts = {
       operatioTypeSplit: 'Разделить',
       operatioTypeReceive: 'Принять',
       operatioTypeEdit: 'Изменить',
-      showBtn: 'Смотреть',
+      showBtn: 'Смотреть'
     },
 
     clientOrderView: {
       mainTitle: 'Заказ',
-      appBarTitle: 'Страница заказов',
+      appBarTitle: 'Страница заказов'
     },
 
     orderContent: {
       backBtn: 'Назад',
       boxesAtOrder: 'Коробки к заказу:',
-      noBoxes: 'Коробок пока нет...',
+      noBoxes: 'Коробок пока нет...'
     },
 
     ResearcherRequestView: {
       mainTitle: 'Запрос на поск товаров/ниш',
-      appBarTitle: 'Страница запросов на поиск',
+      appBarTitle: 'Страница запросов на поиск'
     },
 
     ClientRequestView: {
       mainTitle: 'Запрос на поск товаров/ниш',
       appBarTitle: 'Страница запросов на поиск',
-      customTitle: 'Универсальная заявка',
+      customTitle: 'Универсальная заявка'
     },
 
     CustomRequestView: {
@@ -2484,21 +2574,21 @@ export const texts = {
       acceptProposal: 'Принять предложенние',
 
       successTitle: 'Предложение принято.',
-      failTitle: 'Предложение не принято.',
+      failTitle: 'Предложение не принято.'
     },
 
     adminOrderView: {
       mainTitle: 'Заказ',
-      appBarTitle: 'Страница заказов',
+      appBarTitle: 'Страница заказов'
     },
 
     adminUserPermissionsView: {
       mainTitle: 'Разрешения',
-      appBarTitle: 'Разрешения пользователей',
+      appBarTitle: 'Разрешения пользователей'
     },
 
     clientListingView: {
-      appBarTitle: 'Листинг продукта',
+      appBarTitle: 'Листинг продукта'
     },
 
     clientOrderParameters: {
@@ -2510,12 +2600,12 @@ export const texts = {
       sizes: 'Размеры (дюйм)',
       weight: 'Вес (кг)',
       extraParam: 'Дополнительный параметр',
-      extraParamValue: 'Значение',
+      extraParamValue: 'Значение'
     },
     clientOrderLeftPanel: {
       id: 'ASIN: ',
       allParameters: 'Все параметры товара',
-      close: 'Свернуть',
+      close: 'Свернуть'
     },
     clientOrderComments: {
       mainTitle: 'Комментарии',
@@ -2524,7 +2614,7 @@ export const texts = {
         'Бубны распространённый инструмент, есть у разных народов мира, от сибирских шаманов, до индейцев америки.',
       clientLabel: 'Клиента',
       clientComment:
-        'На руси бубны существовали еще в языческие времена, на бубнах играли на свадьбах, похоронах, и применяли на охоте и войнах, для устрашения',
+        'На руси бубны существовали еще в языческие времена, на бубнах играли на свадьбах, похоронах, и применяли на охоте и войнах, для устрашения'
     },
     clientOrderInfo: {
       mainTitle: 'Информация о заказе',
@@ -2538,7 +2628,7 @@ export const texts = {
       dateSend: '20 09 2020',
       sendNearDate: 'Дата ожидаемой доставки',
       dateNearSend: '30 09 2020',
-      docs: 'Документы',
+      docs: 'Документы'
     },
     clientOrderDelivery: {
       mainTitle: 'Доставка',
@@ -2547,7 +2637,7 @@ export const texts = {
       city: 'Город*',
       street: 'Улица*',
       house: 'Дом*',
-      deliveryMethod: 'Способ доставки',
+      deliveryMethod: 'Способ доставки'
     },
     inventoryView: {
       appbarTitle: 'Inventory',
@@ -2556,28 +2646,28 @@ export const texts = {
       exchangeBtn: 'Exchange',
       setBarcodeChipLabel: 'Set barcode',
       addProductBtn: 'Добавить свой товар',
-      addProductModal: 'Добавить свой товар',
+      addProductModal: 'Добавить свой товар'
     },
 
     setBarcodeModalContent: {
       title: 'Установить штрихкод',
       saveBtn: 'Сохранить',
       close: 'Закрыть',
-      inputLabel: 'Штрихкод товара:',
+      inputLabel: 'Штрихкод товара:'
     },
     dashboardInfoCard: {
-      viewMoreBtn: 'View more',
+      viewMoreBtn: 'View more'
     },
     clientExchnageModalContent: {
       title: 'Order product',
       orderNowBtn: 'Заказать сразу',
-      cancelBtn: 'Отменить',
+      cancelBtn: 'Отменить'
     },
     supervisorProductsView: {
       appBarTitle: 'Products',
       appBarUsername: 'Supervisor',
       appUser: 'supervisor',
-      mainTitle: 'Products',
+      mainTitle: 'Products'
     },
     supervisorSettingsView: {
       appBarTitle: 'Settings',
@@ -2590,20 +2680,20 @@ export const texts = {
       fieldRole: 'Role',
       fieldFba: 'FBA',
       saveBtn: 'Save',
-      cancelBtn: 'Cancel',
+      cancelBtn: 'Cancel'
     },
     supervisorReadyToCheckView: {
       appBarTitle: 'Ready to check',
       appBarUsername: 'Supervisor',
       appUser: 'supervisor',
-      mainTitle: 'Товары на проверку',
+      mainTitle: 'Товары на проверку'
     },
     researcherAddProductForm: {
       buttonCheck: 'Проверить',
       buttonAdd: 'Добавить',
       linkAmazon: 'Введите ссылку на амазоне',
       codeOfGood: 'Код товара',
-      successActionAlert: 'Operation complete',
+      successActionAlert: 'Operation complete'
     },
     warehouseHistory: {
       date: 'Дата создания',
@@ -2611,7 +2701,7 @@ export const texts = {
       theme: 'Тема',
       description: 'Описание',
       action: 'Действия',
-      statusTitle: 'Статус',
+      statusTitle: 'Статус'
     },
     userBalanceHistory: {
       mainTitle: 'Изменения баланса',
@@ -2622,7 +2712,7 @@ export const texts = {
       reason: 'Причина',
       username: 'Имя пользователя',
       productId: 'Продукт Id',
-      noPayments: 'Транзакций пока нет...',
+      noPayments: 'Транзакций пока нет...'
     },
     warehouseHistoryBodyRow: {
       merge: 'Соединение в коробку: ',
@@ -2636,6 +2726,8 @@ export const texts = {
       acceptBtn: 'Подтвердить',
       receive: 'Принять коробку:',
       edit: 'Изменить коробку:',
+
+      showDetails: 'Смотреть подробнее'
     },
     warehouseDashboardView: {
       appBarTitle: 'Dashboard',
@@ -2651,7 +2743,7 @@ export const texts = {
       comletedTasksCardTitle: 'Кол-во выполненных задач',
       myStatsCardTitle: 'Моя статистика',
       myPaymentsCardTitle: 'Мои платежи',
-      warehouseHistoryTitle: 'Вакантные задачи',
+      warehouseHistoryTitle: 'Вакантные задачи'
     },
 
     warehouseVacantTasksView: {
@@ -2661,7 +2753,7 @@ export const texts = {
       mainTitle: 'Вакантные задачи',
       okBtn: 'Ок',
       pickUp: 'Взять в работу',
-      warningTitle: 'Данная задача взята в работу и перенесена в раздел "Мои задачи"',
+      warningTitle: 'Данная задача взята в работу и перенесена в раздел "Мои задачи"'
     },
 
     appbarSettingsForm: {
@@ -2672,7 +2764,7 @@ export const texts = {
       last30DaysReport: 'Ссылка на отчет за последние 30 дней:',
       editBtn: 'Изменить',
       createBtn: 'Создать',
-      cancelBtn: 'Отмена',
+      cancelBtn: 'Отмена'
     },
 
     userSettingsForm: {
@@ -2684,6 +2776,9 @@ export const texts = {
       editBtn: 'Изменить',
       createBtn: 'Создать',
       cancelBtn: 'Отмена',
+
+      success: 'Данные приняты',
+      okBtn: 'Ок'
     },
 
     singlePermissions: {
@@ -2695,7 +2790,7 @@ export const texts = {
       confirmRemovePermMessage: 'Вы точно хотите удалить разрешение?',
       confirmCloseModalMessage: 'Данные не будут сохранены!',
       yesBtn: 'Да',
-      noBtn: 'Нет',
+      noBtn: 'Нет'
     },
 
     groupPermissions: {
@@ -2707,7 +2802,7 @@ export const texts = {
       confirmRemoveGroupMessage: 'Вы точно хотите удалить группу?',
       confirmCloseModalMessage: 'Данные не будут сохранены!',
       yesBtn: 'Да',
-      noBtn: 'Нет',
+      noBtn: 'Нет'
     },
 
     warehouseMyTasksView: {
@@ -2726,7 +2821,7 @@ export const texts = {
       confirmTitle: 'Внимание',
       confirmMessage: 'Вы точно хотите отменить задачу?',
       yesBtn: 'Да',
-      noBtn: 'Нет',
+      noBtn: 'Нет'
     },
 
     warehouseCompletedTasksView: {
@@ -2734,20 +2829,20 @@ export const texts = {
       appBarUsername: 'Warehouse',
       appUser: 'warehouse',
       mainTitle: 'Выполненные задачи',
-      showBtn: 'Смотреть',
+      showBtn: 'Смотреть'
     },
     warehouseCanceledTasksView: {
       appBarTitle: 'Dashboard',
       appBarUsername: 'Warehouse',
       appUser: 'warehouse',
       mainTitle: 'Отмененные задачи',
-      showBtn: 'Смотреть',
+      showBtn: 'Смотреть'
     },
     warehouseModalEditTask: {
       batchDestination: 'Не назначен',
       mainTitle: 'Просмотр/редактирование задачи',
       saveBtn: 'Сохранить',
-      cancelBtn: 'Отмена',
+      cancelBtn: 'Отмена'
     },
     warehouseViewsEditBoxModal: {
       title: 'Редактирование коробки',
@@ -2769,8 +2864,16 @@ export const texts = {
       weightFinalAccountingKgWarehouse: 'weightFinalAccountingKgWarehouse',
 
       amountOfSubBoxes: 'amountOfSubBoxes',
-      amountIfItemsInBox: 'Items in box',
+      amountIfItemsInBox: 'Items in box'
     },
+
+    addImagesFormText: {
+      title: 'Добавит избражения',
+      addPhotos: 'Добавьте фотографии:',
+      saveBtn: 'Сохранить',
+      closeBtn: 'Закрыть'
+    },
+
     warehouseReceiveBoxModal: {
       title: 'Принять и распределить',
       redistributionTitle: 'Redistribution',
@@ -2782,7 +2885,7 @@ export const texts = {
       cancelBtn: 'Cancel',
       actuallyAssembled: 'Actually assembled',
       dimensionsMessage: 'Внесите размеры всех коробок',
-      okBtn: 'Ок',
+      okBtn: 'Ок'
     },
 
     boxesToCreateTable: {
@@ -2796,7 +2899,7 @@ export const texts = {
       cancelBtn: 'Cancel',
       actuallyAssembled: 'Actually assembled',
       dimensionsMessage: 'Внесите размеры всех коробок',
-      okBtn: 'Ок',
+      okBtn: 'Ок'
     },
 
     warehouseBeforeAfterBlock: {
@@ -2826,7 +2929,7 @@ export const texts = {
 
       warehouseLabel: 'Склад',
       deliveryMethodLabel: 'Метод доставки',
-      statusLabel: 'Статус заказа',
+      statusLabel: 'Статус заказа'
     },
 
     beforeAfterInfoTaskBlock: {
@@ -2852,7 +2955,7 @@ export const texts = {
 
       warehouseLabel: 'Склад',
       deliveryMethodLabel: 'Метод доставки',
-      statusLabel: 'Статус заказа',
+      statusLabel: 'Статус заказа'
     },
 
     warehouseTaskForm: {
@@ -2861,7 +2964,7 @@ export const texts = {
       saveChangesBtn: 'Сохранить',
       cancelChangesBtn: 'Отмена',
       receiveBoxBtn: 'Принять коробку',
-      reReceiveBoxBtn: 'Перераспределить',
+      reReceiveBoxBtn: 'Перераспределить'
     },
 
     imageFileInput: {
@@ -2869,6 +2972,10 @@ export const texts = {
       hideImagesBtn: 'Hide images',
       showImagesBtn: 'Show images',
       removeAllBtn: 'Remove all',
+
+      addPhoto: 'Прикрепить фото',
+      link: 'Ссылка',
+      loadBtn: 'Загрузить'
     },
 
     warehouseCompletedTaskModal: {
@@ -2891,7 +2998,7 @@ export const texts = {
       statusLabel: 'Статус',
       incomingBoxes: 'Поступившие коробки:',
       saveChangesBtn: 'Сохранить',
-      cancelChangesBtn: 'Отмена',
+      cancelChangesBtn: 'Отмена'
     },
     warehouseTasksBodyRow: {
       cancelBtn: 'Отменить',
@@ -2906,7 +3013,7 @@ export const texts = {
       unMerge: 'Разъедененние в коробки',
       changeStatus: ' изменил статус на ',
       receive: 'Принять коробку',
-      edit: 'Изменить коробку',
+      edit: 'Изменить коробку'
     },
     productStatusButtonsConfigs: {
       checkedBySupervisor: 'Продукт подходит',
@@ -2917,13 +3024,13 @@ export const texts = {
       supplierWasFound: 'Поставщик найден',
       supplierWasNotFound: 'Поставщик не найден',
       supplierPriceNotAccepted: 'Прайс поставщика не подходит',
-      publish: 'Опубликовать на бирже',
+      publish: 'Опубликовать на бирже'
     },
     boxItemCard: {
       count: 'Количество:',
       barCode: `Баркод:`,
       material: 'Материал',
-      codeCheck: 'Баркод проклеен поставщиком',
+      codeCheck: 'Баркод проклеен поставщиком'
     },
 
     taskInfoBoxItemCard: {
@@ -2955,7 +3062,7 @@ export const texts = {
       fieldMargin: 'Маржа, %',
 
       allParameters: 'Показать все параметры товара',
-      close: 'Свернуть',
+      close: 'Свернуть'
     },
     warehouseWarehouseView: {
       appbarTitle: 'Warehouse',
@@ -2964,7 +3071,7 @@ export const texts = {
       confirmMessage: 'Отправить?',
       yesBtn: 'Да',
       noBtn: 'Нет',
-      confirmTitle: 'Внимание',
+      confirmTitle: 'Внимание'
     },
     appbarTexts: {
       menuTitle: 'Меню:',
@@ -2972,7 +3079,7 @@ export const texts = {
 
       roleTitle: 'Текущая роль',
       chooseBtn: 'Выбрать',
-      profileBtn: 'Профиль',
+      profileBtn: 'Профиль'
     },
     commentsLine: {
       commentLabel: 'Комментарий склада',
@@ -2985,7 +3092,7 @@ export const texts = {
       receivedPlaceHolder: 'общая сумма всех товаров в коробках когда склад заполнил их',
 
       differenceLabel: 'Разница',
-      differencePlaceHolder: 'разница в количестве',
+      differencePlaceHolder: 'разница в количестве'
     },
     taskInfoModal: {
       divideBox: 'Разделить коробки',
@@ -2997,7 +3104,7 @@ export const texts = {
       clientLabel: 'Комментарий клиента',
       warehouseLabel: 'Комментарий склада',
       clientPlaceholder: 'Комментарий клиента к задаче',
-      warehousePlaceholder: 'Комментарий склада к задаче для клиента',
+      warehousePlaceholder: 'Комментарий склада к задаче для клиента'
     },
 
     batchInfoModal: {
@@ -3014,17 +3121,17 @@ export const texts = {
 
       countTypo: 'Кол-во:',
       photos: 'Фотографии',
-      mainTitle: 'Поставка',
+      mainTitle: 'Поставка'
     },
 
     supervisorReadyToCheckBodyRow: {
-      goToWorkBtn: 'Взять в работу',
+      goToWorkBtn: 'Взять в работу'
     },
     buyerFreeOrdersBodyRow: {
-      goToWorkBtn: 'Взять в работу',
+      goToWorkBtn: 'Взять в работу'
     },
     buyerReadyToCheckBodyRow: {
-      goToWorkBtn: 'Взять в работу',
+      goToWorkBtn: 'Взять в работу'
     },
     editOrderSuppliersTable: {
       fieldAsin: 'ID*',
@@ -3040,22 +3147,22 @@ export const texts = {
       tableCost: 'Стоимость',
       tableComment: 'Комментарий',
       tableCellNoVendors: 'Нет поставщиков',
-      supplierPhotos: 'Фотографии',
+      supplierPhotos: 'Фотографии'
     },
     requestToSendBatchModal: {
       modalTitle: 'Отправка коробок',
       totalPrice: 'Общая стоимость отправки:',
       totalWeight: 'Общий финальный вес:',
       noPrice:
-        '* Коробки помеченные красным не будут отправлены потому что у них нет размеров или не достаточно данных',
+        '* Коробки, помеченные красным, не будут отправлены, потому что у них нет размеров или недостаточно данных',
       btnSend: 'Отправить',
-      btnClose: 'Закрыть',
+      btnClose: 'Закрыть'
     },
 
     selectionSupplierModal: {
       modalTitle: 'Выбрать поставщика',
       modalSubTitle: 'Оставьте комментарий для поиска поставщика:',
-      modalPlaceholder: 'Комментарий...',
-    },
-  },
+      modalPlaceholder: 'Комментарий...'
+    }
+  }
 }

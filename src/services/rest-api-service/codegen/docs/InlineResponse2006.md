@@ -46,6 +46,10 @@ Name | Type | Description | Notes
 **margin** | **Number** | Маржа | [optional] 
 **byboxprice** | **Number** | Цена | [optional] 
 **createdBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+<<<<<<< HEAD
+=======
+**checkedBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 **checkedAt** | **Date** | Дата проверки | [optional] 

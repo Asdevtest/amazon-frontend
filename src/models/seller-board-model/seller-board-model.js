@@ -2,12 +2,13 @@ import {restApiService} from '@services/rest-api-service/rest-api-service'
 
 class SellerBoardModelStatic {
   getMyDailyReports = async () => {
-    const response = await restApiService.sellerBoardApi.apiV1TestsGetMyDailyReportsGet()
+    const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseReportsDailyGet()
     return response
   }
 
   getMyDailyReportsLast30Days = async () => {
-    const response = await restApiService.sellerBoardApi.apiV1TestsGetMyReportsLast30DaysGet()
+    const response =
+      await restApiService.integrationsApi.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet()
     return response
   }
 }

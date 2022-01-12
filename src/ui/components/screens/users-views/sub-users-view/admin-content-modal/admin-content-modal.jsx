@@ -53,6 +53,7 @@ export const AdminContentModal = observer(
       allowedRoles: (editUserFormFields?.allowedRoles === null ? [] : editUserFormFields?.allowedRoles) || [],
       email: editUserFormFields?.email || '',
       fba: editUserFormFields?.fba || false,
+      canByMasterUser: editUserFormFields?.canByMasterUser || false,
       name: editUserFormFields?.name || '',
       rate: editUserFormFields?.rate || 0,
       role: editUserFormFields?.role || '',
@@ -63,10 +64,15 @@ export const AdminContentModal = observer(
 
     const [formFields, setFormFields] = useState(sourceFormFields)
 
+    console.log('formFields', formFields)
+
     const onChangeFormField = fieldName => event => {
+      console.log('event', event)
       const newFormFields = {...formFields}
       if (fieldName === 'rate') {
         newFormFields[fieldName] = event.target.value.replace(/[-]/, '')
+      } else if (['fba', 'canByMasterUser'].includes(fieldName)) {
+        newFormFields[fieldName] = event.target.checked
       } else {
         newFormFields[fieldName] = event.target.value
       }
@@ -189,9 +195,19 @@ export const AdminContentModal = observer(
           }
         />
         <div className={classNames.checkboxWrapper}>
-          <Checkbox color="primary" value={formFields.fba} />
+          <Checkbox color="primary" checked={formFields.fba} onChange={onChangeFormField('fba')} />
           <Typography className={classNames.checkboxLabel}>{textConsts.fba}</Typography>
         </div>
+
+        <div className={classNames.checkboxWrapper}>
+          <Checkbox
+            color="primary"
+            checked={formFields.canByMasterUser}
+            onChange={onChangeFormField('canByMasterUser')}
+          />
+          <Typography className={classNames.checkboxLabel}>{textConsts.canByMasterUser}</Typography>
+        </div>
+
         <Field label={textConsts.fieldSecurity} inputComponent={renderPermissionBtn} />
 
         {isWrongPermissionsSelect && (

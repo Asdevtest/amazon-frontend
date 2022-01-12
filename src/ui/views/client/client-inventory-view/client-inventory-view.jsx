@@ -15,7 +15,8 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {DashboardInfoCard} from '@components/dashboard-info-card'
-import {SendOwnProductForm} from '@components/forms/send-own-product-form'
+import {AddOwnProductForm} from '@components/forms/add-own-product-form'
+import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -68,6 +69,7 @@ export class ClientInventoryViewRaw extends Component {
       showSuccessModal,
       showSendOwnProductModal,
       showAddOrEditSupplierModal,
+      showBindInventoryGoodsToStockModal,
       onClickShowProduct,
       onDoubleClickBarcode,
       onTriggerDrawer,
@@ -76,6 +78,8 @@ export class ClientInventoryViewRaw extends Component {
       onClickSaveBarcode,
       onTriggerOpenModal,
       onSubmitOrderProductModal,
+      onClickBindInventoryGoodsToStockBtn,
+      getStockData,
 
       onSelectionModel,
       setDataGridState,
@@ -140,12 +144,15 @@ export class ClientInventoryViewRaw extends Component {
                   </Button>
 
                   <Button
-                    variant="contained"
+                    disableElevation
+                    tooltipContent="Пример тултипа"
+                    disabled={selectedRowIds.length !== 1}
                     className={classNames.buttonOffset}
-                    // disabled={selectedRowIds.length !== 1}
-                    onClick={() => onTriggerOpenModal('showSelectionSupplierModal')}
+                    variant="contained"
+                    color="primary"
+                    onClick={onClickBindInventoryGoodsToStockBtn}
                   >
-                    {'test button'}
+                    {textConsts.bindGoodsBtn}
                   </Button>
                 </div>
 
@@ -186,8 +193,7 @@ export class ClientInventoryViewRaw extends Component {
         </Main>
 
         <Modal openModal={showSendOwnProductModal} setOpenModal={() => onTriggerOpenModal('showSendOwnProductModal')}>
-          <Typography variant="h5">{textConsts.addProductModal}</Typography>
-          <SendOwnProductForm />
+          <AddOwnProductForm />
         </Modal>
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
@@ -224,6 +230,16 @@ export class ClientInventoryViewRaw extends Component {
             onTriggerOpenModal={onTriggerOpenModal}
             onDoubleClickBarcode={onDoubleClickBarcode}
             onSubmit={onSubmitOrderProductModal}
+          />
+        </Modal>
+
+        <Modal
+          openModal={showBindInventoryGoodsToStockModal}
+          setOpenModal={() => onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
+        >
+          <BindInventoryGoodsToStockForm
+            selectedRow={getCurrentData().find(item => selectedRowIds.includes(item.id))}
+            goodsToSelect={getStockData()}
           />
         </Modal>
 

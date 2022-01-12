@@ -17,6 +17,9 @@ Name | Type | Description | Notes
 **permissions** | **[String]** | Массив permission-ов. | [optional] 
 **permissionGroups** | **[String]** | Массив групп permission-ов. | [optional] 
 **masterUser** | **String** | GUID мастер пользователя к которму относится данный субпользователь. | [optional] 
+**canByMasterUser** | **Boolean** | Флаг fba. | [optional] 
 **allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
+**createdAt** | **Date** | Дата создания | [optional] 
+**updatedAt** | **Date** | Дата изменения | [optional] 
 
 

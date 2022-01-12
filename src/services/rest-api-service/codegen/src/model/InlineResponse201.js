@@ -48,8 +48,8 @@ class InlineResponse201 {
         if (data) {
             obj = obj || new InlineResponse201();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], [Object]);
             }
         }
         return obj;
@@ -59,10 +59,9 @@ class InlineResponse201 {
 }
 
 /**
- * guid созданной настройки.
- * @member {String} guid
+ * @member {Array.<Object>} guids
  */
-InlineResponse201.prototype['guid'] = undefined;
+InlineResponse201.prototype['guids'] = undefined;
 
 
 

@@ -1,6 +1,10 @@
 import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
+  root: {
+    position: 'relative',
+  },
+
   success: {
     color: '#fff',
     backgroundColor: 'rgb(15, 169, 20)',
@@ -30,4 +34,18 @@ export const useClassNames = makeStyles(() => ({
     },
   },
   disabled: {},
+
+  tooltip: {
+    width: '25px',
+    height: '25px',
+    position: 'absolute',
+    color: 'red',
+    top: '-10px',
+    right: '-10px',
+    transition: '.3s ease-in-out',
+    '&:hover': {
+      cursor: 'default',
+      transform: 'scale(1.1)',
+    },
+  },
 }))

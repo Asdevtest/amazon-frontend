@@ -4,7 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**request** | [**ApiV1RequestsCustomRequest**](ApiV1RequestsCustomRequest.md) |  | [optional] 
-**details** | [**ApiV1RequestsCustomDetails**](ApiV1RequestsCustomDetails.md) |  | [optional] 
+**name** | **String** | Название поставщика. | 
+**link** | **String** | Ссылка на поставщика. | 
+**price** | **Number** | Цена | 
+**delivery** | **Number** | Тип доставки | 
+**amount** | **Number** | кол-во | 
+**minlot** | **Number** | Минимальный лот. | 
+**lotcost** | **Number** | Стоимость лота. | 
+**images** | **[String]** | Массив картинок. | [optional] 
+**comment** | **String** | Комментарий | 
 
 

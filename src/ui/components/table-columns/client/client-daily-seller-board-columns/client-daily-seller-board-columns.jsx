@@ -1,7 +1,5 @@
 import React from 'react'
 
-import {Radio} from '@material-ui/core'
-
 import {texts} from '@constants/texts'
 
 import {renderFieldValueCell, ScrollingCell} from '@components/data-grid-cells/data-grid-cells'
@@ -10,19 +8,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientDailySellerBoardColumns
 
-export const clientDailySellerBoardColumns = (selectedRow, rowHandlers) => [
-  {
-    field: 'id',
-    headerName: '',
-    width: 40,
-    renderCell: params => (
-      <Radio
-        color="primary"
-        checked={params.value === selectedRow.id}
-        onChange={() => rowHandlers.selectedRow(params.row)}
-      />
-    ),
-  },
+export const clientDailySellerBoardColumns = () => [
   {
     field: 'asin',
     headerName: textConsts.asinField,

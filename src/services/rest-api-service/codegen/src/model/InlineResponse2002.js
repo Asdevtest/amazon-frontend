@@ -119,7 +119,36 @@ InlineResponse2002.prototype['comment'] = undefined;
 
 
 
+<<<<<<< HEAD
+/**
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy
+ */
+InlineResponse2002.prototype['permissions'] = undefined
+
+/**
+ * @member {module:model/ApiV1AdminsPaymentsProduct} product
+ */
+InlineResponse2002.prototype['permissionGroups'] = undefined
+
+/**
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient
+ */
+InlineResponse2002.prototype['masterUser'] = undefined
+
+/**
+ * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+ * @member {Number} sum
+ */
+InlineResponse2002.prototype['allowedRoles'] = undefined
+
+/**
+ * комментарий
+ * @member {String} comment
+ */
+InlineResponse2002.prototype['createdAt'] = undefined
+=======
 
 
 export default InlineResponse2002;
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 

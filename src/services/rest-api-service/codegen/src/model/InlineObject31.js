@@ -47,14 +47,8 @@ class InlineObject31 {
         if (data) {
             obj = obj || new InlineObject31();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('requestProposalIds')) {
+                obj['requestProposalIds'] = ApiClient.convertToType(data['requestProposalIds'], ['String']);
             }
         }
         return obj;
@@ -64,22 +58,10 @@ class InlineObject31 {
 }
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
+ * Массив id предложений.
+ * @member {Array.<String>} requestProposalIds
  */
-InlineObject31.prototype['status'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject31.prototype['images'] = undefined;
-
-/**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineObject31.prototype['storekeeperComment'] = undefined;
+InlineObject31.prototype['requestProposalIds'] = undefined;
 
 
 

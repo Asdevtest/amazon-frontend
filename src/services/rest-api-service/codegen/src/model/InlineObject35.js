@@ -21,20 +21,11 @@ import ApiClient from '../ApiClient';
 class InlineObject35 {
     /**
      * Constructs a new <code>InlineObject35</code>.
-     * Новый поставщик.
      * @alias module:model/InlineObject35
-     * @param name {String} Название поставщика.
-     * @param link {String} Ссылка на поставщика.
-     * @param price {Number} Цена
-     * @param delivery {Number} Тип доставки
-     * @param amount {Number} кол-во
-     * @param minlot {Number} Минимальный лот.
-     * @param lotcost {Number} Стоимость лота.
-     * @param comment {String} Комментарий
      */
-    constructor(name, link, price, delivery, amount, minlot, lotcost, comment) { 
+    constructor() { 
         
-        InlineObject35.initialize(this, name, link, price, delivery, amount, minlot, lotcost, comment);
+        InlineObject35.initialize(this);
     }
 
     /**
@@ -42,15 +33,7 @@ class InlineObject35 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, link, price, delivery, amount, minlot, lotcost, comment) { 
-        obj['name'] = name;
-        obj['link'] = link;
-        obj['price'] = price;
-        obj['delivery'] = delivery;
-        obj['amount'] = amount;
-        obj['minlot'] = minlot;
-        obj['lotcost'] = lotcost;
-        obj['comment'] = comment;
+    static initialize(obj) { 
     }
 
     /**
@@ -64,32 +47,14 @@ class InlineObject35 {
         if (data) {
             obj = obj || new InlineObject35();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
-            }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -99,46 +64,10 @@ class InlineObject35 {
 }
 
 /**
- * Название поставщика.
- * @member {String} name
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject35.prototype['name'] = undefined;
-
-/**
- * Ссылка на поставщика.
- * @member {String} link
- */
-InlineObject35.prototype['link'] = undefined;
-
-/**
- * Цена
- * @member {Number} price
- */
-InlineObject35.prototype['price'] = undefined;
-
-/**
- * Тип доставки
- * @member {Number} delivery
- */
-InlineObject35.prototype['delivery'] = undefined;
-
-/**
- * кол-во
- * @member {Number} amount
- */
-InlineObject35.prototype['amount'] = undefined;
-
-/**
- * Минимальный лот.
- * @member {Number} minlot
- */
-InlineObject35.prototype['minlot'] = undefined;
-
-/**
- * Стоимость лота.
- * @member {Number} lotcost
- */
-InlineObject35.prototype['lotcost'] = undefined;
+InlineObject35.prototype['status'] = undefined;
 
 /**
  * Массив картинок.
@@ -147,10 +76,10 @@ InlineObject35.prototype['lotcost'] = undefined;
 InlineObject35.prototype['images'] = undefined;
 
 /**
- * Комментарий
- * @member {String} comment
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
  */
-InlineObject35.prototype['comment'] = undefined;
+InlineObject35.prototype['storekeeperComment'] = undefined;
 
 
 

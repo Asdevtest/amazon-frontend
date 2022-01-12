@@ -5,9 +5,6 @@ export const styles = createStyles(() => ({
     padding: '16px 20px',
     marginBottom: '42px',
   },
-  button: {
-    marginRight: '24px',
-  },
   buttonsWrapper: {
     textAlign: 'right',
   },
@@ -19,5 +16,9 @@ export const styles = createStyles(() => ({
   },
   errorMessage: {
     color: 'red',
+  },
+
+  button: {
+    marginLeft: '10px',
   },
 }))

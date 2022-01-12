@@ -6,6 +6,7 @@ export const useClassNames = makeStyles(() => ({
     height: '500px',
     display: 'flex',
     flexDirection: 'column',
+    overflowY: 'scroll',
   },
 
   form: {

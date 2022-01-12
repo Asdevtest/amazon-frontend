@@ -46,6 +46,7 @@ Name | Type | Description | Notes
 **margin** | **Number** | Маржа | [optional] 
 **byboxprice** | **Number** | Цена | [optional] 
 **createdBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**checkedBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 **checkedAt** | **Date** | Дата проверки | [optional] 

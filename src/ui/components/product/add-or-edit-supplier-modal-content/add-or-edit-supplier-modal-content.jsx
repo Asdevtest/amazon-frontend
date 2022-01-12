@@ -137,8 +137,6 @@ export const AddOrEditSupplierModalContent = observer(
 
         <div className={classNames.bottomWrapper}>
           <div>
-            <Typography className={classNames.loadTitle}>{textConsts.loadTitle}</Typography>
-
             <div className={classNames.imageFileInputWrapper}>
               <ImageFileInput
                 images={photosOfSupplier}

@@ -4,6 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**additionalBoxes** | [**[InlineObject6]**](InlineObject6.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
+**action** | **String** |  | 
+**reason** | **String** | Причина смены статуса. | [optional] 
+
+
+
+## Enum: ActionEnum
+
+
+* `LINK` (value: `"LINK"`)
+
+* `UNLINK` (value: `"UNLINK"`)
+
+
 
 

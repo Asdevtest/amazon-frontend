@@ -192,6 +192,9 @@ class InlineResponse200 {
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['createdBy']);
             }
+            if (data.hasOwnProperty('checkedBy')) {
+                obj['checkedBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['checkedBy']);
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -506,6 +509,11 @@ InlineResponse200.prototype['byboxprice'] = undefined;
  * @member {module:model/ApiV1AdminsGetProductsByStatusClient} createdBy
  */
 InlineResponse200.prototype['createdBy'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} checkedBy
+ */
+InlineResponse200.prototype['checkedBy'] = undefined;
 
 /**
  * Дата создания

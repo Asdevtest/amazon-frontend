@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+<<<<<<< HEAD
 **date** | **String** | \&quot;Date\&quot; | [optional] 
 **marketplace** | **String** | Marketplace | [optional] 
 **asin** | **String** | ASIN | [optional] 
@@ -40,5 +41,8 @@ Name | Type | Description | Notes
 **netprofit** | **Number** | NetProfit | [optional] 
 **margin** | **Number** | Margin | [optional] 
 **realAcos** | **Number** | Real ACOS | [optional] 
+=======
+**isExist** | **Boolean** | Флаг, показывает есть ли такой id в базе или нет | [optional] 
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 

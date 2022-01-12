@@ -72,9 +72,17 @@ export const useClassNames = makeStyles(theme => ({
   },
   mainWrapper: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     width: '100%',
   },
+
+  subWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+
   attributeWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -83,6 +91,10 @@ export const useClassNames = makeStyles(theme => ({
   fieldsWrapper: {
     display: 'flex',
     gap: '10px',
+  },
+
+  field: {
+    minWidth: '250px',
   },
 
   moreBtn: {

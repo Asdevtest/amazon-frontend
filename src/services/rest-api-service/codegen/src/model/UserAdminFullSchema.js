@@ -106,6 +106,18 @@ class UserAdminFullSchema {
             if (data.hasOwnProperty('allowedRoles')) {
                 obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
             }
+<<<<<<< HEAD
+=======
+            if (data.hasOwnProperty('canByMasterUser')) {
+                obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
         }
         return obj;
     }
@@ -197,6 +209,27 @@ UserAdminFullSchema.prototype['masterUser'] = undefined;
  */
 UserAdminFullSchema.prototype['allowedRoles'] = undefined;
 
+<<<<<<< HEAD
+=======
+/**
+ * Может ли данный пользователь быть мастер юзером.
+ * @member {Boolean} canByMasterUser
+ */
+UserAdminFullSchema.prototype['canByMasterUser'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+UserAdminFullSchema.prototype['createdAt'] = undefined;
+
+/**
+ * Дата изменения
+ * @member {Date} updatedAt
+ */
+UserAdminFullSchema.prototype['updatedAt'] = undefined;
+
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 
 

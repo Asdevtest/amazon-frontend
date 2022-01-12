@@ -120,8 +120,6 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
       <AttributesEditBlock box={editingBox} operationType={operationType} setNewBoxField={setNewBoxField} />
 
       <Box className={classNames.boxCode}>
-        <Typography className={(classNames.modalText, classNames.typoCode)}>{textConsts.addPhotos}</Typography>
-
         <div className={classNames.imageFileInputWrapper}>
           <ImageFileInput images={editingBox.tmpImages} setImages={setImagesOfBox} maxNumber={50} />
         </div>

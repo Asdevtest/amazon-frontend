@@ -4,28 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Имя параметра. | [optional] 
-**value** | **Number** | Значение параметра. | [optional] 
-
-
-
-## Enum: NameEnum
-
-
-* `dollarYuanRate` (value: `"dollarYuanRate"`)
-
-* `airDeliveryPrice` (value: `"airDeliveryPrice"`)
-
-* `seaDeliveryPrice` (value: `"seaDeliveryPrice"`)
-
-* `timeLimitForProductResearchInMinutes` (value: `"timeLimitForProductResearchInMinutes"`)
-
-* `penaltyFeeForProductResearch` (value: `"penaltyFeeForProductResearch"`)
-
-* `platformCommissionForProductResearch` (value: `"platformCommissionForProductResearch"`)
-
-* `supervisorCommissionForProductResearch` (value: `"supervisorCommissionForProductResearch"`)
-
-
+**yuanToDollarRate** | **Number** | Курс юаня к доллару. | [optional] 
+**airDeliveryPrice** | **Number** | Цена за авиа доставку, доллар/кг. | [optional] 
+**seaDeliveryPrice** | **Number** | Цена за доставку морем, доллар/кг. | [optional] 
+**costOfFindingSupplier** | **Number** | Цена за поиск поставщика, в долларах. | [optional] 
+**timeLimitInHourForCancelingProposalsByClient** | **Number** | Время после которого будет автоматом принято предложение клиентом, в часах. | [optional] 
+**timeLimitInHourForCheckingProposalBySuper** | **Number** | Время после которого будет автоматом снят супервизор с проверки предложения, в часах. | [optional] 
 
 

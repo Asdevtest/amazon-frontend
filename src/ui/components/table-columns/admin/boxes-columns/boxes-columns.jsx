@@ -41,6 +41,13 @@ export const adminBoxesViewColumns = () => [
   },
 
   {
+    field: 'client',
+    headerName: textConsts.clientNameField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 250,
+  },
+
+  {
     field: 'orders',
     headerName: textConsts.ordersField,
     width: 350,
@@ -69,7 +76,7 @@ export const adminBoxesViewColumns = () => [
     headerName: textConsts.qtyField,
     renderCell: params =>
       params.row.originalData.amount > 1 ? (
-        <SuperboxQtyCell qty={params.row.qty} superbox={params.row.amount} />
+        <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
       ) : (
         renderFieldValueCell(params.value)
       ),

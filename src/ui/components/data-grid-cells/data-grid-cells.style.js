@@ -229,7 +229,6 @@ export const styles = createStyles(() => ({
   },
 
   imagesWrapper: {
-    maxWidth: '90px',
     flexDirection: 'column',
     border: '1px solid rgba(0, 123, 255, 0.5)',
     borderRadius: '10px',
@@ -367,5 +366,22 @@ export const styles = createStyles(() => ({
   sendSuccess: {
     color: 'green',
     fontWeight: 'bold',
+  },
+
+  trashWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  trashImg: {
+    width: '20px',
+    height: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
   },
 }))

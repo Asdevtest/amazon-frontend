@@ -2,7 +2,6 @@ import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {BACKEND_API_URL} from '@constants/env'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatusByKey, OrderStatus} from '@constants/order-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
@@ -10,7 +9,6 @@ import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BoxesWarehouseUpdateBoxInTaskContract} from '@models/boxes-model/boxes-model.contracts'
-import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 
@@ -19,6 +17,7 @@ import {warehouseMyTasksViewColumns} from '@components/table-columns/warehouse/m
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 export class WarehouseVacantViewModel {
   history = undefined
@@ -163,37 +162,6 @@ export class WarehouseVacantViewModel {
     }
   }
 
-  async onSubmitPostImages({images, type}) {
-    this[type] = []
-    const loadingStep = 100 / images.length
-
-    this.showProgress = true
-
-    for (let i = 0; i < images.length; i++) {
-      const image = images[i]
-
-      await this.onPostImage(image, type)
-
-      this.progressValue = this.progressValue + loadingStep
-    }
-
-    this.showProgress = false
-    this.progressValue = 0
-  }
-
-  async onPostImage(imageData, imagesType) {
-    const formData = new FormData()
-    formData.append('filename', imageData.file)
-
-    try {
-      const imageFile = await OtherModel.postImage(formData)
-
-      this[imagesType].push(BACKEND_API_URL + '/uploads/' + imageFile.data.fileName)
-    } catch (error) {
-      this.error = error
-    }
-  }
-
   async onSubmitUpdateBoxes(boxes) {
     for (let i = 0; i < boxes.length; i++) {
       const box = boxes[i]
@@ -205,7 +173,7 @@ export class WarehouseVacantViewModel {
   async updateBox(id, data) {
     try {
       if (data.tmpImages.length > 0) {
-        await this.onSubmitPostImages({images: data.tmpImages, type: 'imagesOfBox'})
+        await onSubmitPostImages.call(this, {images: data.tmpImages, type: 'imagesOfBox'})
 
         data = {...data, images: [...data.images, ...this.imagesOfBox]}
       }
@@ -268,7 +236,7 @@ export class WarehouseVacantViewModel {
 
       if (operationType === TaskOperationType.RECEIVE) {
         if (newBoxes[0].tmpImages.length > 0) {
-          await this.onSubmitPostImages({images: newBoxes[0].tmpImages, type: 'imagesOfBox'})
+          await onSubmitPostImages.call(this, {images: newBoxes[0].tmpImages, type: 'imagesOfBox'})
         }
 
         const requestBoxes = newBoxes.map(box =>
@@ -316,7 +284,7 @@ export class WarehouseVacantViewModel {
       }
 
       if (photos.length > 0) {
-        await this.onSubmitPostImages({images: photos, type: 'imagesOfTask'})
+        await onSubmitPostImages.call(this, {images: photos, type: 'imagesOfTask'})
       } else {
         this.imagesOfTask = []
       }

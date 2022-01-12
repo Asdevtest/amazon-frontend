@@ -237,7 +237,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersVacGet
 
-> [InlineResponse2001] apiV1BuyersOrdersVacGet(opts)
+> [InlineResponse2001] apiV1BuyersOrdersVacGet(createdWithOutBuyersProducts, opts)
 
 # Получить список свободных заказов.
 
@@ -255,10 +255,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BuyerApi();
+let createdWithOutBuyersProducts = true; // Boolean | Добавить ордеры с продуктами в которых не участвовали байеры?
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1BuyersOrdersVacGet(opts).then((data) => {
+apiInstance.apiV1BuyersOrdersVacGet(createdWithOutBuyersProducts, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -271,6 +272,7 @@ apiInstance.apiV1BuyersOrdersVacGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **createdWithOutBuyersProducts** | **Boolean**| Добавить ордеры с продуктами в которых не участвовали байеры? | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

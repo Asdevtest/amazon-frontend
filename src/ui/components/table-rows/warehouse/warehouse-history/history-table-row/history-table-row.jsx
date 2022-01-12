@@ -80,7 +80,7 @@ export const HistoryTableRow = ({item, onClickTaskInfo, onClickCancelBtn}) => {
 
   const renderTaskInfoBtn = () => (
     <Button className={classNames.infoBtn} onClick={() => onClickTaskInfo(item)}>
-      {'Смотреть подробнее'}
+      {textConsts.showDetails}
     </Button>
   )
 
@@ -118,7 +118,7 @@ export const HistoryTableRow = ({item, onClickTaskInfo, onClickCancelBtn}) => {
         return (
           <React.Fragment>
             <TableCell>{taskReceiveDescription()}</TableCell>
-            <TableCell />
+            <TableCell>{renderTaskInfoBtn()}</TableCell>
           </React.Fragment>
         )
       case TaskOperationType.EDIT:

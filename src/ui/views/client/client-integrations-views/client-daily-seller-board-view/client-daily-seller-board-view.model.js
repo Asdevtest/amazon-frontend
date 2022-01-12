@@ -3,12 +3,14 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {ClientModel} from '@models/client-model'
 import {SellerBoardModel} from '@models/seller-board-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {clientDailySellerBoardColumns} from '@components/table-columns/client/client-daily-seller-board-columns'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class ClientDailySellerBoardViewModel {
@@ -17,9 +19,12 @@ export class ClientDailySellerBoardViewModel {
   error = undefined
 
   sellerBoardDailyData = []
+
+  inventoryProducts = []
   drawerOpen = false
 
   showAddProductSellerboardModal = false
+  showBindStockGoodsToInventoryModal = false
 
   addProductSettings = {
     product: {},
@@ -29,6 +34,8 @@ export class ClientDailySellerBoardViewModel {
   rowHandlers = {
     selectedRow: item => this.onClickRowRadioBtn(item),
   }
+
+  selectedRows = []
   selectedRow = {}
   sortModel = []
   filterModel = {items: []}
@@ -118,6 +125,10 @@ export class ClientDailySellerBoardViewModel {
     this.curPage = e
   }
 
+  onSelectionModel(model) {
+    this.selectedRows = model
+  }
+
   async getMyDailyReports() {
     try {
       const result = await SellerBoardModel.getMyDailyReports()
@@ -135,11 +146,37 @@ export class ClientDailySellerBoardViewModel {
     this.onTriggerOpenModal('showAddProductSellerboardModal')
   }
 
-  onClickCancelBtn() {
-    this.onTriggerOpenModal('showAddProductSellerboardModal')
-  }
-
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
+  }
+
+  async onClickBindStockGoodsToInventoryBtn() {
+    try {
+      // await this.getProductsMy()
+      this.onTriggerOpenModal('showBindStockGoodsToInventoryModal')
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  getInventoryData() {
+    return toJS(this.inventoryProducts)
+  }
+
+  async getProductsMy() {
+    try {
+      const result = await ClientModel.getProductsMy()
+      runInAction(() => {
+        this.inventoryProducts = result.sort(sortObjectsArrayByFiledDate('updatedAt'))
+      })
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
   }
 }

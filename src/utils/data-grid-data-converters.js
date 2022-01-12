@@ -392,6 +392,8 @@ export const adminBoxesDataConverter = data =>
     grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
     warehouses: warehouses[item.warehouse],
 
+    client: item.items[0].order.createdBy.email,
+
     isDraft: item.isDraft,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -432,6 +434,7 @@ export const adminUsersDataConverter = data =>
     active: item.active === true ? 'Active' : 'Banned',
 
     createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
     name: item.name,
     balance: item.balance,
     balanceFreeze: item.balanceFreeze,

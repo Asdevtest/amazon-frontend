@@ -12,8 +12,11 @@
  */
 
 import ApiClient from '../ApiClient';
+<<<<<<< HEAD
 import ApiV1RequestsCustomGuidDetails from './ApiV1RequestsCustomGuidDetails';
 import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
+=======
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 /**
  * The InlineObject40 model module.
@@ -23,7 +26,6 @@ import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 class InlineObject40 {
     /**
      * Constructs a new <code>InlineObject40</code>.
-     * Схема кастомной заявки.
      * @alias module:model/InlineObject40
      */
     constructor() { 
@@ -50,11 +52,37 @@ class InlineObject40 {
         if (data) {
             obj = obj || new InlineObject40();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomGuidRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
+<<<<<<< HEAD
             if (data.hasOwnProperty('details')) {
                 obj['details'] = ApiV1RequestsCustomGuidDetails.constructFromObject(data['details']);
+=======
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('delivery')) {
+                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            }
+            if (data.hasOwnProperty('lotcost')) {
+                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
             }
         }
         return obj;
@@ -64,14 +92,62 @@ class InlineObject40 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomGuidRequest} request
+ * Название поставщика.
+ * @member {String} name
  */
-InlineObject40.prototype['request'] = undefined;
+InlineObject40.prototype['name'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestsCustomGuidDetails} details
+ * Ссылка на поставщика.
+ * @member {String} link
  */
-InlineObject40.prototype['details'] = undefined;
+InlineObject40.prototype['link'] = undefined;
+
+/**
+ * Цена
+ * @member {Number} price
+ */
+InlineObject40.prototype['price'] = undefined;
+
+/**
+ * Тип доставки
+ * @member {Number} delivery
+ */
+InlineObject40.prototype['delivery'] = undefined;
+
+/**
+ * кол-во
+ * @member {Number} amount
+ */
+InlineObject40.prototype['amount'] = undefined;
+
+/**
+ * Минимальный лот.
+ * @member {Number} minlot
+ */
+InlineObject40.prototype['minlot'] = undefined;
+
+/**
+ * Стоимость лота.
+ * @member {Number} lotcost
+ */
+InlineObject40.prototype['lotcost'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject40.prototype['images'] = undefined;
+
+/**
+<<<<<<< HEAD
+ * @member {module:model/ApiV1RequestsCustomGuidDetails} details
+=======
+ * Комментарий
+ * @member {String} comment
+>>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+ */
+InlineObject40.prototype['comment'] = undefined;
 
 
 

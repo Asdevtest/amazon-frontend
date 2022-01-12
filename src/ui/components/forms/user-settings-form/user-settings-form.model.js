@@ -12,7 +12,10 @@ export class UserSettingsModel {
   }
 
   userSettings = undefined
+  sourceUserSettings = undefined
   userSettingsAvailable = []
+
+  showSuccessModal = false
 
   constructor({history}) {
     this.history = history
@@ -41,6 +44,8 @@ export class UserSettingsModel {
       const result = await UserModel.getUserSettingsMy()
 
       runInAction(() => {
+        this.sourceUserSettings = result.data
+
         this.userSettings = result.data
       })
     } catch (error) {
@@ -63,6 +68,8 @@ export class UserSettingsModel {
   async createUserSettings(data) {
     try {
       await UserModel.createUserSettings({settingOwnerId: this.userId, data})
+
+      this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       console.log(error)
     }
@@ -70,9 +77,15 @@ export class UserSettingsModel {
 
   async editUserSettings(data) {
     try {
-      await UserModel.editUserSettings(this.userId, {data})
+      await UserModel.editUserSettings(this.userId, {settingOwnerId: this.userId, data})
+
+      this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       console.log(error)
     }
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }

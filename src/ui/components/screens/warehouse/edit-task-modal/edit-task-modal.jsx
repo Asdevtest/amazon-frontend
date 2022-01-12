@@ -107,12 +107,8 @@ export const EditTaskModal = observer(
             />
           )}
 
-          <div>
-            <Typography>{'Прикрепить фото к задаче'}</Typography>
-
-            <div className={classNames.imageFileInputWrapper}>
-              <ImageFileInput images={photosOfTask} setImages={setPhotosOfTask} maxNumber={50} />
-            </div>
+          <div className={classNames.imageFileInputWrapper}>
+            <ImageFileInput images={photosOfTask} setImages={setPhotosOfTask} maxNumber={50} />
           </div>
 
           <BeforeAfterBlock
@@ -170,7 +166,11 @@ export const EditTaskModal = observer(
             {textConsts.cancelChangesBtn}
           </Button>
         </div>
-        <Modal openModal={receiveBoxModal} setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}>
+        <Modal
+          openModal={receiveBoxModal}
+          setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
+          onCloseModal={() => setReceiveBoxModal(!receiveBoxModal)}
+        >
           <ReceiveBoxModal
             setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
             selectedBox={task.boxesBefore[0]}

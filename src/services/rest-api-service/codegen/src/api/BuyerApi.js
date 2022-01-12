@@ -259,17 +259,23 @@ export default class BuyerApi {
     /**
      * # Получить список свободных заказов.
      * ## Получить список свободных заказов.   
+     * @param {Boolean} createdWithOutBuyersProducts Добавить ордеры с продуктами в которых не участвовали байеры?
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2001>} and HTTP response
      */
-    apiV1BuyersOrdersVacGetWithHttpInfo(opts) {
+    apiV1BuyersOrdersVacGetWithHttpInfo(createdWithOutBuyersProducts, opts) {
       opts = opts || {};
       let postBody = null;
+      // verify the required parameter 'createdWithOutBuyersProducts' is set
+      if (createdWithOutBuyersProducts === undefined || createdWithOutBuyersProducts === null) {
+        throw new Error("Missing the required parameter 'createdWithOutBuyersProducts' when calling apiV1BuyersOrdersVacGet");
+      }
 
       let pathParams = {
       };
       let queryParams = {
+        'createdWithOutBuyersProducts': createdWithOutBuyersProducts
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -291,12 +297,13 @@ export default class BuyerApi {
     /**
      * # Получить список свободных заказов.
      * ## Получить список свободных заказов.   
+     * @param {Boolean} createdWithOutBuyersProducts Добавить ордеры с продуктами в которых не участвовали байеры?
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2001>}
      */
-    apiV1BuyersOrdersVacGet(opts) {
-      return this.apiV1BuyersOrdersVacGetWithHttpInfo(opts)
+    apiV1BuyersOrdersVacGet(createdWithOutBuyersProducts, opts) {
+      return this.apiV1BuyersOrdersVacGetWithHttpInfo(createdWithOutBuyersProducts, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
