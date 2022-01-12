@@ -11,25 +11,24 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {BatchInfoModal} from '@components/modals/batch-info-modal'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
+import {onStateChangeHandler} from '@utils/for-data-grid'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import {WarehouseWarehouseViewModel} from './warehouse-warehouse-view.model'
-import {styles} from './warehouse-warehouse-view.style'
+import avatar from '../assets/clientAvatar.jpg'
+import {WarehouseMyWarehouseViewModel} from './warehouse-my-warehouse-view.model'
+import {styles} from './warehouse-my-warehouse-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseWarehouseView
+const textConsts = getLocalizedTexts(texts, 'en').warehouseMyWarehouseView
 
-const activeCategory = navBarActiveCategory.NAVBAR_BATCHES
+const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
+const activeSubCategory = null
 @observer
-export class WarehouseWarehouseViewRaw extends Component {
-  viewModel = new WarehouseWarehouseViewModel({history: this.props.history})
+export class WarehouseMyWarehouseViewRaw extends Component {
+  viewModel = new WarehouseMyWarehouseViewModel({history: this.props.history})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -38,31 +37,24 @@ export class WarehouseWarehouseViewRaw extends Component {
 
   render() {
     const {
-      selectedBatches,
-      curBatch,
-      showBatchInfoModal,
-      onTriggerOpenModal,
-      showConfirmModal,
+      requestStatus,
       getCurrentData,
       sortModel,
       filterModel,
-      requestStatus,
       densityModel,
       columnsModel,
-      isWarning,
       drawerOpen,
       curPage,
       rowsPerPage,
+      selectedBoxes,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
 
+      onChangeFilterModel,
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
-
-      onClickConfirmSendToBatchBtn,
-      onChangeFilterModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -71,81 +63,59 @@ export class WarehouseWarehouseViewRaw extends Component {
       <React.Fragment>
         <Navbar
           activeCategory={activeCategory}
+          activeSubCategory={activeSubCategory}
           curUserRole={UserRole.STOREKEEPER}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle} curUserRole={UserRole.STOREKEEPER}>
+          <Appbar
+            avatarSrc={avatar}
+            setDrawerOpen={onTriggerDrawer}
+            title={textConsts.appbarTitle}
+            curUserRole={UserRole.STOREKEEPER}
+          >
             <MainContent>
               <Typography paragraph variant="h5">
                 {textConsts.mainTitle}
               </Typography>
-              <Button
-                disableElevation
-                disabled={!selectedBatches.length}
-                color="primary"
-                variant="contained"
-                onClick={() => onTriggerOpenModal('showConfirmModal')}
-              >
-                {textConsts.confirmSendBatchBtn}
-              </Button>
+
               <div className={classNames.tableWrapper}>
                 <DataGrid
-                  checkboxSelection
                   pagination
                   useResizeContainer
                   autoHeight
-                  classes={{
-                    row: classNames.row,
-                  }}
+                  checkboxSelection
+                  isRowSelectable={params => params.row.isDraft === false}
+                  getRowClassName={params => params.getValue(params.id, 'isDraft') === true && classNames.isDraftRow}
+                  selectionModel={selectedBoxes}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[5, 10, 15, 20]}
                   rows={getCurrentData()}
-                  rowHeight={200}
+                  rowHeight={150}
                   components={{
                     Toolbar: GridToolbar,
                   }}
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection)
-                  }}
+                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
                   onFilterModelChange={model => onChangeFilterModel(model)}
+                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
                 />
               </div>
             </MainContent>
           </Appbar>
         </Main>
-
-        <ConfirmationModal
-          isWarning={isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
-          message={textConsts.confirmMessage}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
-          onClickSuccessBtn={onClickConfirmSendToBatchBtn}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
-
-        <BatchInfoModal
-          openModal={showBatchInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showBatchInfoModal')}
-          batch={curBatch}
-        />
       </React.Fragment>
     )
   }
 }
 
-export const WarehouseWarehouseView = withStyles(styles)(WarehouseWarehouseViewRaw)
+export const WarehouseMyWarehouseView = withStyles(styles)(WarehouseMyWarehouseViewRaw)

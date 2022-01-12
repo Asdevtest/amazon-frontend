@@ -21,12 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineResponse20010 {
     /**
      * Constructs a new <code>InlineResponse20010</code>.
-     * Схема парсинга.
+     * Схема репорта за 30 дней с Seller-board
      * @alias module:model/InlineResponse20010
+     * @param sku {String} SKU
      */
-    constructor() { 
+    constructor(sku) { 
         
-        InlineResponse20010.initialize(this);
+        InlineResponse20010.initialize(this, sku);
     }
 
     /**
@@ -34,7 +35,8 @@ class InlineResponse20010 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, sku) { 
+        obj['sku'] = sku;
     }
 
     /**
@@ -48,83 +50,74 @@ class InlineResponse20010 {
         if (data) {
             obj = obj || new InlineResponse20010();
 
-            if (data.hasOwnProperty('amazonFee')) {
-                obj['amazonFee'] = ApiClient.convertToType(data['amazonFee'], 'Number');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
-            }
-            if (data.hasOwnProperty('weight')) {
-                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
-            }
-            if (data.hasOwnProperty('weightUnitString')) {
-                obj['weightUnitString'] = ApiClient.convertToType(data['weightUnitString'], 'String');
-            }
-            if (data.hasOwnProperty('isWhiteGloveRequired')) {
-                obj['isWhiteGloveRequired'] = ApiClient.convertToType(data['isWhiteGloveRequired'], 'Boolean');
-            }
-            if (data.hasOwnProperty('subCategory')) {
-                obj['subCategory'] = ApiClient.convertToType(data['subCategory'], 'String');
-            }
-            if (data.hasOwnProperty('fnsku')) {
-                obj['fnsku'] = ApiClient.convertToType(data['fnsku'], 'String');
-            }
-            if (data.hasOwnProperty('dimensionUnit')) {
-                obj['dimensionUnit'] = ApiClient.convertToType(data['dimensionUnit'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('binding')) {
-                obj['binding'] = ApiClient.convertToType(data['binding'], 'String');
+            if (data.hasOwnProperty('sku')) {
+                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
             }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('dimensionUnitString')) {
-                obj['dimensionUnitString'] = ApiClient.convertToType(data['dimensionUnitString'], 'String');
+            if (data.hasOwnProperty('roi')) {
+                obj['roi'] = ApiClient.convertToType(data['roi'], 'Number');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('fbaFbmStock')) {
+                obj['fbaFbmStock'] = ApiClient.convertToType(data['fbaFbmStock'], 'Number');
             }
-            if (data.hasOwnProperty('imageUrl')) {
-                obj['imageUrl'] = ApiClient.convertToType(data['imageUrl'], 'String');
+            if (data.hasOwnProperty('stockValue')) {
+                obj['stockValue'] = ApiClient.convertToType(data['stockValue'], 'Number');
             }
-            if (data.hasOwnProperty('isAfn')) {
-                obj['isAfn'] = ApiClient.convertToType(data['isAfn'], 'Boolean');
+            if (data.hasOwnProperty('estimatedSalesVelocity')) {
+                obj['estimatedSalesVelocity'] = ApiClient.convertToType(data['estimatedSalesVelocity'], 'Number');
             }
-            if (data.hasOwnProperty('gl')) {
-                obj['gl'] = ApiClient.convertToType(data['gl'], 'String');
+            if (data.hasOwnProperty('daysOfStockLeft')) {
+                obj['daysOfStockLeft'] = ApiClient.convertToType(data['daysOfStockLeft'], 'Number');
             }
-            if (data.hasOwnProperty('TRexId')) {
-                obj['TRexId'] = ApiClient.convertToType(data['TRexId'], 'String');
+            if (data.hasOwnProperty('recommendedQuantityForReordering')) {
+                obj['recommendedQuantityForReordering'] = ApiClient.convertToType(data['recommendedQuantityForReordering'], 'Number');
             }
-            if (data.hasOwnProperty('isAsinLimits')) {
-                obj['isAsinLimits'] = ApiClient.convertToType(data['isAsinLimits'], 'Boolean');
+            if (data.hasOwnProperty('runningOutOfStock')) {
+                obj['runningOutOfStock'] = ApiClient.convertToType(data['runningOutOfStock'], 'String');
             }
-            if (data.hasOwnProperty('originalUrl')) {
-                obj['originalUrl'] = ApiClient.convertToType(data['originalUrl'], 'String');
+            if (data.hasOwnProperty('reserved')) {
+                obj['reserved'] = ApiClient.convertToType(data['reserved'], 'Number');
             }
-            if (data.hasOwnProperty('productGroup')) {
-                obj['productGroup'] = ApiClient.convertToType(data['productGroup'], 'String');
+            if (data.hasOwnProperty('sentToFba')) {
+                obj['sentToFba'] = ApiClient.convertToType(data['sentToFba'], 'Number');
             }
-            if (data.hasOwnProperty('thumbStringUrl')) {
-                obj['thumbStringUrl'] = ApiClient.convertToType(data['thumbStringUrl'], 'String');
+            if (data.hasOwnProperty('fbaPrepStock')) {
+                obj['fbaPrepStock'] = ApiClient.convertToType(data['fbaPrepStock'], 'Number');
             }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            if (data.hasOwnProperty('ordered')) {
+                obj['ordered'] = ApiClient.convertToType(data['ordered'], 'String');
             }
-            if (data.hasOwnProperty('encryptedMarketplaceId')) {
-                obj['encryptedMarketplaceId'] = ApiClient.convertToType(data['encryptedMarketplaceId'], 'String');
+            if (data.hasOwnProperty('timeToReorder')) {
+                obj['timeToReorder'] = ApiClient.convertToType(data['timeToReorder'], 'String');
             }
-            if (data.hasOwnProperty('weightUnit')) {
-                obj['weightUnit'] = ApiClient.convertToType(data['weightUnit'], 'String');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('marketplace')) {
+                obj['marketplace'] = ApiClient.convertToType(data['marketplace'], 'String');
+            }
+            if (data.hasOwnProperty('targetStockRangeAfterNewOrderDays')) {
+                obj['targetStockRangeAfterNewOrderDays'] = ApiClient.convertToType(data['targetStockRangeAfterNewOrderDays'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaBufferDays')) {
+                obj['fbaBufferDays'] = ApiClient.convertToType(data['fbaBufferDays'], 'Number');
+            }
+            if (data.hasOwnProperty('manufTimeDays')) {
+                obj['manufTimeDays'] = ApiClient.convertToType(data['manufTimeDays'], 'Number');
+            }
+            if (data.hasOwnProperty('useAPrepCenter')) {
+                obj['useAPrepCenter'] = ApiClient.convertToType(data['useAPrepCenter'], 'String');
+            }
+            if (data.hasOwnProperty('shippingToPrepCenterDays')) {
+                obj['shippingToPrepCenterDays'] = ApiClient.convertToType(data['shippingToPrepCenterDays'], 'Number');
+            }
+            if (data.hasOwnProperty('shippingToFbaDays')) {
+                obj['shippingToFbaDays'] = ApiClient.convertToType(data['shippingToFbaDays'], 'Number');
             }
         }
         return obj;
@@ -134,139 +127,142 @@ class InlineResponse20010 {
 }
 
 /**
- * 
- * @member {Number} amazonFee
- */
-InlineResponse20010.prototype['amazonFee'] = undefined;
-
-/**
- * 
- * @member {Number} width
- */
-InlineResponse20010.prototype['width'] = undefined;
-
-/**
- * 
- * @member {Number} height
- */
-InlineResponse20010.prototype['height'] = undefined;
-
-/**
- * 
- * @member {Number} length
- */
-InlineResponse20010.prototype['length'] = undefined;
-
-/**
- * 
- * @member {Number} weight
- */
-InlineResponse20010.prototype['weight'] = undefined;
-
-/**
- * @member {String} weightUnitString
- */
-InlineResponse20010.prototype['weightUnitString'] = undefined;
-
-/**
- * @member {Boolean} isWhiteGloveRequired
- */
-InlineResponse20010.prototype['isWhiteGloveRequired'] = undefined;
-
-/**
- * @member {String} subCategory
- */
-InlineResponse20010.prototype['subCategory'] = undefined;
-
-/**
- * @member {String} fnsku
- */
-InlineResponse20010.prototype['fnsku'] = undefined;
-
-/**
- * @member {String} dimensionUnit
- */
-InlineResponse20010.prototype['dimensionUnit'] = undefined;
-
-/**
- * @member {String} link
- */
-InlineResponse20010.prototype['link'] = undefined;
-
-/**
- * @member {String} binding
- */
-InlineResponse20010.prototype['binding'] = undefined;
-
-/**
- * @member {String} title
- */
-InlineResponse20010.prototype['title'] = undefined;
-
-/**
- * @member {String} dimensionUnitString
- */
-InlineResponse20010.prototype['dimensionUnitString'] = undefined;
-
-/**
- * @member {Number} price
- */
-InlineResponse20010.prototype['price'] = undefined;
-
-/**
- * @member {String} imageUrl
- */
-InlineResponse20010.prototype['imageUrl'] = undefined;
-
-/**
- * @member {Boolean} isAfn
- */
-InlineResponse20010.prototype['isAfn'] = undefined;
-
-/**
- * @member {String} gl
- */
-InlineResponse20010.prototype['gl'] = undefined;
-
-/**
- * @member {String} TRexId
- */
-InlineResponse20010.prototype['TRexId'] = undefined;
-
-/**
- * @member {Boolean} isAsinLimits
- */
-InlineResponse20010.prototype['isAsinLimits'] = undefined;
-
-/**
- * @member {String} originalUrl
- */
-InlineResponse20010.prototype['originalUrl'] = undefined;
-
-/**
- * @member {String} productGroup
- */
-InlineResponse20010.prototype['productGroup'] = undefined;
-
-/**
- * @member {String} thumbStringUrl
- */
-InlineResponse20010.prototype['thumbStringUrl'] = undefined;
-
-/**
+ * \"ASIN\"
  * @member {String} asin
  */
 InlineResponse20010.prototype['asin'] = undefined;
 
 /**
- * @member {String} encryptedMarketplaceId
+ * SKU
+ * @member {String} sku
  */
-InlineResponse20010.prototype['encryptedMarketplaceId'] = undefined;
+InlineResponse20010.prototype['sku'] = undefined;
 
 /**
- * @member {String} weightUnit
+ * Title
+ * @member {String} title
  */
-InlineResponse20010.prototype['weightUnit'] = undefined;
+InlineResponse20010.prototype['title'] = undefined;
+
+/**
+ * ROI, %
+ * @member {Number} roi
+ */
+InlineResponse20010.prototype['roi'] = undefined;
+
+/**
+ * FBA/FBM Stock
+ * @member {Number} fbaFbmStock
+ */
+InlineResponse20010.prototype['fbaFbmStock'] = undefined;
+
+/**
+ * Stock value
+ * @member {Number} stockValue
+ */
+InlineResponse20010.prototype['stockValue'] = undefined;
+
+/**
+ * Estimated Sales Velocity
+ * @member {Number} estimatedSalesVelocity
+ */
+InlineResponse20010.prototype['estimatedSalesVelocity'] = undefined;
+
+/**
+ * Days  of stock  left
+ * @member {Number} daysOfStockLeft
+ */
+InlineResponse20010.prototype['daysOfStockLeft'] = undefined;
+
+/**
+ * Recommended quantity for  reordering
+ * @member {Number} recommendedQuantityForReordering
+ */
+InlineResponse20010.prototype['recommendedQuantityForReordering'] = undefined;
+
+/**
+ * Running  out of stock
+ * @member {String} runningOutOfStock
+ */
+InlineResponse20010.prototype['runningOutOfStock'] = undefined;
+
+/**
+ * Reserved
+ * @member {Number} reserved
+ */
+InlineResponse20010.prototype['reserved'] = undefined;
+
+/**
+ * Sent  to FBA
+ * @member {Number} sentToFba
+ */
+InlineResponse20010.prototype['sentToFba'] = undefined;
+
+/**
+ * FBA  Prep. Stock
+ * @member {Number} fbaPrepStock
+ */
+InlineResponse20010.prototype['fbaPrepStock'] = undefined;
+
+/**
+ * Ordered
+ * @member {String} ordered
+ */
+InlineResponse20010.prototype['ordered'] = undefined;
+
+/**
+ * Time to  reorder
+ * @member {String} timeToReorder
+ */
+InlineResponse20010.prototype['timeToReorder'] = undefined;
+
+/**
+ * Comment
+ * @member {String} comment
+ */
+InlineResponse20010.prototype['comment'] = undefined;
+
+/**
+ * Marketplace
+ * @member {String} marketplace
+ */
+InlineResponse20010.prototype['marketplace'] = undefined;
+
+/**
+ * Target stock range after new order days
+ * @member {Number} targetStockRangeAfterNewOrderDays
+ */
+InlineResponse20010.prototype['targetStockRangeAfterNewOrderDays'] = undefined;
+
+/**
+ * FBA buffer days
+ * @member {Number} fbaBufferDays
+ */
+InlineResponse20010.prototype['fbaBufferDays'] = undefined;
+
+/**
+ * Manuf. time days
+ * @member {Number} manufTimeDays
+ */
+InlineResponse20010.prototype['manufTimeDays'] = undefined;
+
+/**
+ * Use a Prep Center
+ * @member {String} useAPrepCenter
+ */
+InlineResponse20010.prototype['useAPrepCenter'] = undefined;
+
+/**
+ * Shipping to Prep Center days
+ * @member {Number} shippingToPrepCenterDays
+ */
+InlineResponse20010.prototype['shippingToPrepCenterDays'] = undefined;
+
+/**
+ * Shipping to FBA days
+ * @member {Number} shippingToFbaDays
+ */
+InlineResponse20010.prototype['shippingToFbaDays'] = undefined;
 
 
 

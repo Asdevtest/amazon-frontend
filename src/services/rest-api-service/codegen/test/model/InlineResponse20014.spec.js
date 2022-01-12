@@ -66,8 +66,10 @@
       //expect(instance).to.be();
     });
 
+
     it('should have the property strategy (base name: "strategy")', function() {
       // uncomment below and update the code to test the property strategy
+
       //var instance = new TestSwagger.InlineResponse20014();
       //expect(instance).to.be();
     });
@@ -144,6 +146,7 @@
       //expect(instance).to.be();
     });
 
+
     it('should have the property denyProductsBoughtByMe (base name: "denyProductsBoughtByMe")', function() {
       // uncomment below and update the code to test the property denyProductsBoughtByMe
       //var instance = new TestSwagger.InlineResponse20014();
@@ -164,6 +167,8 @@
 
     it('should have the property checkedByService (base name: "checkedByService")', function() {
       // uncomment below and update the code to test the property checkedByService
+
+
       //var instance = new TestSwagger.InlineResponse20014();
       //expect(instance).to.be();
     });

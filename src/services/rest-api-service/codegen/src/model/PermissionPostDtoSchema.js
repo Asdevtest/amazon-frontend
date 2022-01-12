@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import PermissionPatchDtoSchemaAllowedUrls from './PermissionPatchDtoSchemaAllowedUrls';
 
 /**
  * The PermissionPostDtoSchema model module.
@@ -24,14 +25,14 @@ class PermissionPostDtoSchema {
      * Создать permission
      * @alias module:model/PermissionPostDtoSchema
      * @param key {String} permission ключ
-     * @param title {String} простое название
+     * @param title {String} Простое название
      * @param description {String} описание permission
-     * @param allowedUrl {Array.<String>} Массив доступных url
+     * @param allowedUrls {Array.<module:model/PermissionPatchDtoSchemaAllowedUrls>} Массив доступных url
      * @param role {Number} Роль для которого данный permission
      */
-    constructor(key, title, description, allowedUrl, role) { 
+    constructor(key, title, description, allowedUrls, role) { 
         
-        PermissionPostDtoSchema.initialize(this, key, title, description, allowedUrl, role);
+        PermissionPostDtoSchema.initialize(this, key, title, description, allowedUrls, role);
     }
 
     /**
@@ -39,11 +40,11 @@ class PermissionPostDtoSchema {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, key, title, description, allowedUrl, role) { 
+    static initialize(obj, key, title, description, allowedUrls, role) { 
         obj['key'] = key;
         obj['title'] = title;
         obj['description'] = description;
-        obj['allowedUrl'] = allowedUrl;
+        obj['allowedUrls'] = allowedUrls;
         obj['role'] = role;
     }
 
@@ -67,8 +68,8 @@ class PermissionPostDtoSchema {
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('allowedUrl')) {
-                obj['allowedUrl'] = ApiClient.convertToType(data['allowedUrl'], ['String']);
+            if (data.hasOwnProperty('allowedUrls')) {
+                obj['allowedUrls'] = ApiClient.convertToType(data['allowedUrls'], [PermissionPatchDtoSchemaAllowedUrls]);
             }
             if (data.hasOwnProperty('role')) {
                 obj['role'] = ApiClient.convertToType(data['role'], 'Number');
@@ -87,7 +88,7 @@ class PermissionPostDtoSchema {
 PermissionPostDtoSchema.prototype['key'] = undefined;
 
 /**
- * простое название
+ * Простое название
  * @member {String} title
  */
 PermissionPostDtoSchema.prototype['title'] = undefined;
@@ -100,9 +101,9 @@ PermissionPostDtoSchema.prototype['description'] = undefined;
 
 /**
  * Массив доступных url
- * @member {Array.<String>} allowedUrl
+ * @member {Array.<module:model/PermissionPatchDtoSchemaAllowedUrls>} allowedUrls
  */
-PermissionPostDtoSchema.prototype['allowedUrl'] = undefined;
+PermissionPostDtoSchema.prototype['allowedUrls'] = undefined;
 
 /**
  * Роль для которого данный permission

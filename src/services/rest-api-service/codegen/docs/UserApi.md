@@ -5,8 +5,10 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1TechClearAllSchemasPost**](UserApi.md#apiV1TechClearAllSchemasPost) | **POST** /api/v1/tech/clear_all_schemas | Очистить все коллекции в БД кроме пользователей.
+[**apiV1UsersCheckIsUniqueNameOrEmailPost**](UserApi.md#apiV1UsersCheckIsUniqueNameOrEmailPost) | **POST** /api/v1/users/check_isUnique_name_or_email | Выдача массива объектов с ответом является ли уникальным name и/или email.
+[**apiV1UsersEditMySubUsersGuidPatch**](UserApi.md#apiV1UsersEditMySubUsersGuidPatch) | **PATCH** /api/v1/users/edit_my_sub-users/{guid} | Редактирование сабюзера мастер юзером.
 [**apiV1UsersInfoGet**](UserApi.md#apiV1UsersInfoGet) | **GET** /api/v1/users/info | Получить информацию от текущем пользователе.
-[**apiV1UsersLinkSubUserPatch**](UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка суб пользователя.
+[**apiV1UsersLinkSubUserPatch**](UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка субпользователя.
 [**apiV1UsersMePatch**](UserApi.md#apiV1UsersMePatch) | **PATCH** /api/v1/users/me | # Обновления информации о себе самим пользователем.
 [**apiV1UsersMySubUsersGet**](UserApi.md#apiV1UsersMySubUsersGet) | **GET** /api/v1/users/my_sub-users | Получить список сабюзеров мастер пользователя.
 [**apiV1UsersPost**](UserApi.md#apiV1UsersPost) | **POST** /api/v1/users/ | Создание нового пользователя. Регистрация.
@@ -71,6 +73,116 @@ Name | Type | Description  | Notes
 - **Accept**: text/html
 
 
+## apiV1UsersCheckIsUniqueNameOrEmailPost
+
+> CheckIsUniqueNameOrEmailReqSchema apiV1UsersCheckIsUniqueNameOrEmailPost(opts)
+
+Выдача массива объектов с ответом является ли уникальным name и/или email.
+
+## Выдача массива объектов с ответом является ли уникальным name и/или email.   Нужно использовать данный эдпонт перед создание или редактирования пользователя.    В противном случае получит ошибку записи в базу, если уже есть пользователь с таким name или email.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.UserApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.CheckIsUniqueNameOrEmailSchema() // CheckIsUniqueNameOrEmailSchema | 
+};
+apiInstance.apiV1UsersCheckIsUniqueNameOrEmailPost(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**CheckIsUniqueNameOrEmailSchema**](CheckIsUniqueNameOrEmailSchema.md)|  | [optional] 
+
+### Return type
+
+[**CheckIsUniqueNameOrEmailReqSchema**](CheckIsUniqueNameOrEmailReqSchema.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1UsersEditMySubUsersGuidPatch
+
+> String apiV1UsersEditMySubUsersGuidPatch(guid, opts)
+
+Редактирование сабюзера мастер юзером.
+
+##  Редактирование сабюзера мастер юзером.  Только мастер пользователь может редактировать
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.UserApi();
+let guid = "guid_example"; // String | GUID продукта в БД.
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.SubUserPatchDtoSchema() // SubUserPatchDtoSchema | 
+};
+apiInstance.apiV1UsersEditMySubUsersGuidPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID продукта в БД. | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**SubUserPatchDtoSchema**](SubUserPatchDtoSchema.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## apiV1UsersInfoGet
 
 > UserFullSchema apiV1UsersInfoGet(opts)
@@ -127,9 +239,9 @@ Name | Type | Description  | Notes
 
 > String apiV1UsersLinkSubUserPatch(opts)
 
-# Привязка суб пользователя.
+# Привязка субпользователя.
 
-## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## По email пользователя которого к себе хочет привязать мастер пользователь.  
+## Этот эндпоинт может быть вызван из любой роли кроме админа.  По email пользователя которого к себе хочет привязать мастер пользователь.  Проверки: у админа не может быть субпользователя, субпользователя не может иметь субпользователя,  только кандидата можно привязать к качестве субпользователя
 
 ### Example
 
@@ -385,7 +497,7 @@ No authorization required
 
 # Отвязка суб пользователя.
 
-## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## По email пользователя которого хочет отвязать мастер пользователь.  
+## Этот эндпоинт может быть вызван из любой роли кроме админа.   По email пользователя которого хочет отвязать мастер пользователь. Проверки: по email должен существовать пользователь,    У субпользователя поле masterUser должно совпадает с id мастер пользователя. 
 
 ### Example
 
@@ -482,7 +594,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1UsersUserSettingsMyGet

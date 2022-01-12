@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsUsersPermissionGroups from './ApiV1AdminsUsersPermissionGroups';
-import ApiV1AdminsUsersPermissions from './ApiV1AdminsUsersPermissions';
+import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
+import ApiV1AdminsPaymentsProduct from './ApiV1AdminsPaymentsProduct';
 
 /**
  * The InlineResponse2002 model module.
@@ -24,17 +24,10 @@ class InlineResponse2002 {
     /**
      * Constructs a new <code>InlineResponse2002</code>.
      * @alias module:model/InlineResponse2002
-     * @param _id {String} GUID пользователя в БД.
-     * @param name {String} Имя пользователя.
-     * @param email {String} email
-     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
-     * @param fba {Boolean} Флаг fba.
-     * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
-     * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
-    constructor(_id, name, email, role, fba, active, rate) { 
+    constructor() { 
         
-        InlineResponse2002.initialize(this, _id, name, email, role, fba, active, rate);
+        InlineResponse2002.initialize(this);
     }
 
     /**
@@ -42,14 +35,7 @@ class InlineResponse2002 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, name, email, role, fba, active, rate) { 
-        obj['_id'] = _id;
-        obj['name'] = name;
-        obj['email'] = email;
-        obj['role'] = role;
-        obj['fba'] = fba;
-        obj['active'] = active;
-        obj['rate'] = rate;
+    static initialize(obj) { 
     }
 
     /**
@@ -66,47 +52,23 @@ class InlineResponse2002 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
-            }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('active')) {
-                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
-            }
-            if (data.hasOwnProperty('rate')) {
-                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
-            }
-            if (data.hasOwnProperty('balance')) {
-                obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
-            }
-            if (data.hasOwnProperty('balanceFreeze')) {
-                obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
-            }
-            if (data.hasOwnProperty('overdraft')) {
-                obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
-            }
-            if (data.hasOwnProperty('permissions')) {
-                obj['permissions'] = ApiClient.convertToType(data['permissions'], [ApiV1AdminsUsersPermissions]);
-            }
-            if (data.hasOwnProperty('permissionGroups')) {
-                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], [ApiV1AdminsUsersPermissionGroups]);
-            }
-            if (data.hasOwnProperty('masterUser')) {
-                obj['masterUser'] = ApiClient.convertToType(data['masterUser'], 'String');
-            }
-            if (data.hasOwnProperty('allowedRoles')) {
-                obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
-            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = ApiV1AdminsPaymentsProduct.constructFromObject(data['product']);
+            }
+            if (data.hasOwnProperty('recipient')) {
+                obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient']);
+            }
+            if (data.hasOwnProperty('sum')) {
+                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -116,92 +78,43 @@ class InlineResponse2002 {
 }
 
 /**
- * GUID пользователя в БД.
+ * GUID платежа
  * @member {String} _id
  */
 InlineResponse2002.prototype['_id'] = undefined;
 
 /**
- * Имя пользователя.
- * @member {String} name
- */
-InlineResponse2002.prototype['name'] = undefined;
-
-/**
- * email
- * @member {String} email
- */
-InlineResponse2002.prototype['email'] = undefined;
-
-/**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
- * @member {Number} role
- */
-InlineResponse2002.prototype['role'] = undefined;
-
-/**
- * Флаг fba.
- * @member {Boolean} fba
- */
-InlineResponse2002.prototype['fba'] = undefined;
-
-/**
- * Если истина - пользователь активен. Если нет - заблокирован админом.
- * @member {Boolean} active
- */
-InlineResponse2002.prototype['active'] = undefined;
-
-/**
- * Ставка, по который оплачивается сотрудник.
- * @member {Number} rate
- */
-InlineResponse2002.prototype['rate'] = undefined;
-
-/**
- * Баланс сотрудника
- * @member {Number} balance
- */
-InlineResponse2002.prototype['balance'] = undefined;
-
-/**
- * Замороженная при оплате ордера сумма.
- * @member {Number} balanceFreeze
- */
-InlineResponse2002.prototype['balanceFreeze'] = undefined;
-
-/**
- * Сумма на которую может уходить в минус пользователь.
- * @member {Number} overdraft
- */
-InlineResponse2002.prototype['overdraft'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1AdminsUsersPermissions>} permissions
- */
-InlineResponse2002.prototype['permissions'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1AdminsUsersPermissionGroups>} permissionGroups
- */
-InlineResponse2002.prototype['permissionGroups'] = undefined;
-
-/**
- * GUID мастер пользователя к которому относится данный субпользователь.
- * @member {String} masterUser
- */
-InlineResponse2002.prototype['masterUser'] = undefined;
-
-/**
- * Массив массив ролей.
- * @member {Array.<Number>} allowedRoles
- */
-InlineResponse2002.prototype['allowedRoles'] = undefined;
-
-/**
- * Дата создания
+ * Дата создания.
  * @member {Date} createdAt
  */
 InlineResponse2002.prototype['createdAt'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy
+ */
+InlineResponse2002.prototype['createdBy'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsPaymentsProduct} product
+ */
+InlineResponse2002.prototype['product'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient
+ */
+InlineResponse2002.prototype['recipient'] = undefined;
+
+/**
+ * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+ * @member {Number} sum
+ */
+InlineResponse2002.prototype['sum'] = undefined;
+
+/**
+ * комментарий
+ * @member {String} comment
+ */
+InlineResponse2002.prototype['comment'] = undefined;
 
 
 

@@ -78,14 +78,15 @@ import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-
 import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view/supervisor-settings-view'
 import {SupervisorSubUsersView} from '@views/supervisor/supervisor-users-views/supervisor-sub-users-view'
 import {TermsView} from '@views/terms'
+import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-view/warehouse-batches-view'
 import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-canceled-tasks-view'
 import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-completed-tasks-view'
 import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
 import {WarehouseFinancesViews} from '@views/warehouse/warehouse-finances-views'
 import {WarehouseMyTasksView} from '@views/warehouse/warehouse-my-tasks-view'
+import {WarehouseMyWarehouseView} from '@views/warehouse/warehouse-my-warehouse-view'
 import {WarehouseSubUsersView} from '@views/warehouse/warehouse-users-views/warehouse-sub-users-view'
 import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-vacant-tasks-view'
-import {WarehouseWarehouseView} from '@views/warehouse/warehouse-warehouse-view/warehouse-warehouse-view'
 
 import {UserRole} from './user-roles'
 
@@ -478,7 +479,13 @@ export const privateRoutesConfigs = [
   },
   {
     routePath: '/warehouse/boxes',
-    component: WarehouseWarehouseView,
+    component: WarehouseBatchesView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+  },
+  {
+    routePath: '/warehouse/my-warehouse',
+    component: WarehouseMyWarehouseView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
   },
@@ -504,7 +511,7 @@ export const privateRoutesConfigs = [
   },
   {
     routePath: '/warehouse/warehouse',
-    component: WarehouseWarehouseView,
+    component: WarehouseBatchesView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
   },

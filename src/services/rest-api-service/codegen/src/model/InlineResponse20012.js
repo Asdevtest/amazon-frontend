@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestsCustomGuidProposalsProposal from './ApiV1RequestsCustomGuidProposalsProposal';
+import InlineObject38 from './InlineObject38';
 
 /**
  * The InlineResponse20012 model module.
@@ -21,13 +23,12 @@ import ApiClient from '../ApiClient';
 class InlineResponse20012 {
     /**
      * Constructs a new <code>InlineResponse20012</code>.
-     * Схема репорта за 30 дней с Seller-board
+     * Схема кастомной заявки.
      * @alias module:model/InlineResponse20012
-     * @param sku {String} SKU
      */
-    constructor(sku) { 
+    constructor() { 
         
-        InlineResponse20012.initialize(this, sku);
+        InlineResponse20012.initialize(this);
     }
 
     /**
@@ -35,8 +36,7 @@ class InlineResponse20012 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, sku) { 
-        obj['sku'] = sku;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,113 +50,11 @@ class InlineResponse20012 {
         if (data) {
             obj = obj || new InlineResponse20012();
 
-            if (data.hasOwnProperty('date')) {
-                obj['date'] = ApiClient.convertToType(data['date'], 'String');
+            if (data.hasOwnProperty('proposal')) {
+                obj['proposal'] = ApiV1RequestsCustomGuidProposalsProposal.constructFromObject(data['proposal']);
             }
-            if (data.hasOwnProperty('marketplace')) {
-                obj['marketplace'] = ApiClient.convertToType(data['marketplace'], 'String');
-            }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
-            }
-            if (data.hasOwnProperty('sku')) {
-                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
-            }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('salesorganic')) {
-                obj['salesorganic'] = ApiClient.convertToType(data['salesorganic'], 'Number');
-            }
-            if (data.hasOwnProperty('salesppc')) {
-                obj['salesppc'] = ApiClient.convertToType(data['salesppc'], 'Number');
-            }
-            if (data.hasOwnProperty('unitsorganic')) {
-                obj['unitsorganic'] = ApiClient.convertToType(data['unitsorganic'], 'Number');
-            }
-            if (data.hasOwnProperty('unitsppc')) {
-                obj['unitsppc'] = ApiClient.convertToType(data['unitsppc'], 'Number');
-            }
-            if (data.hasOwnProperty('refunds')) {
-                obj['refunds'] = ApiClient.convertToType(data['refunds'], 'Number');
-            }
-            if (data.hasOwnProperty('promovalue')) {
-                obj['promovalue'] = ApiClient.convertToType(data['promovalue'], 'Number');
-            }
-            if (data.hasOwnProperty('sponsoredproducts')) {
-                obj['sponsoredproducts'] = ApiClient.convertToType(data['sponsoredproducts'], 'Number');
-            }
-            if (data.hasOwnProperty('sponsoreddisplay')) {
-                obj['sponsoreddisplay'] = ApiClient.convertToType(data['sponsoreddisplay'], 'Number');
-            }
-            if (data.hasOwnProperty('sponsoredRands')) {
-                obj['sponsoredRands'] = ApiClient.convertToType(data['sponsoredRands'], 'Number');
-            }
-            if (data.hasOwnProperty('sponsoredbrandsvideo')) {
-                obj['sponsoredbrandsvideo'] = ApiClient.convertToType(data['sponsoredbrandsvideo'], 'Number');
-            }
-            if (data.hasOwnProperty('giftwrap')) {
-                obj['giftwrap'] = ApiClient.convertToType(data['giftwrap'], 'Number');
-            }
-            if (data.hasOwnProperty('shipping')) {
-                obj['shipping'] = ApiClient.convertToType(data['shipping'], 'Number');
-            }
-            if (data.hasOwnProperty('refundcost')) {
-                obj['refundcost'] = ApiClient.convertToType(data['refundcost'], 'Number');
-            }
-            if (data.hasOwnProperty('valueOfReturnedItems')) {
-                obj['valueOfReturnedItems'] = ApiClient.convertToType(data['valueOfReturnedItems'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostUnsellableRefunds')) {
-                obj['productcostUnsellableRefunds'] = ApiClient.convertToType(data['productcostUnsellableRefunds'], 'Number');
-            }
-            if (data.hasOwnProperty('commission')) {
-                obj['commission'] = ApiClient.convertToType(data['commission'], 'Number');
-            }
-            if (data.hasOwnProperty('fbadisposalfee')) {
-                obj['fbadisposalfee'] = ApiClient.convertToType(data['fbadisposalfee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaperunitfulfillmentfee')) {
-                obj['fbaperunitfulfillmentfee'] = ApiClient.convertToType(data['fbaperunitfulfillmentfee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbastoragefee')) {
-                obj['fbastoragefee'] = ApiClient.convertToType(data['fbastoragefee'], 'Number');
-            }
-            if (data.hasOwnProperty('subscription')) {
-                obj['subscription'] = ApiClient.convertToType(data['subscription'], 'Number');
-            }
-            if (data.hasOwnProperty('estimatedpayout')) {
-                obj['estimatedpayout'] = ApiClient.convertToType(data['estimatedpayout'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostSales')) {
-                obj['productcostSales'] = ApiClient.convertToType(data['productcostSales'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostNonAmazon')) {
-                obj['productcostNonAmazon'] = ApiClient.convertToType(data['productcostNonAmazon'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostMultichannelcosts')) {
-                obj['productcostMultichannelcosts'] = ApiClient.convertToType(data['productcostMultichannelcosts'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostMissingfrominbound')) {
-                obj['productcostMissingfrominbound'] = ApiClient.convertToType(data['productcostMissingfrominbound'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostCostofmissingreturns')) {
-                obj['productcostCostofmissingreturns'] = ApiClient.convertToType(data['productcostCostofmissingreturns'], 'Number');
-            }
-            if (data.hasOwnProperty('vat')) {
-                obj['vat'] = ApiClient.convertToType(data['vat'], 'Number');
-            }
-            if (data.hasOwnProperty('grossprofit')) {
-                obj['grossprofit'] = ApiClient.convertToType(data['grossprofit'], 'Number');
-            }
-            if (data.hasOwnProperty('netprofit')) {
-                obj['netprofit'] = ApiClient.convertToType(data['netprofit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('realAcos')) {
-                obj['realAcos'] = ApiClient.convertToType(data['realAcos'], 'Number');
+            if (data.hasOwnProperty('details')) {
+                obj['details'] = InlineObject38.constructFromObject(data['details']);
             }
         }
         return obj;
@@ -166,220 +64,14 @@ class InlineResponse20012 {
 }
 
 /**
- * \"Date\"
- * @member {String} date
+ * @member {module:model/ApiV1RequestsCustomGuidProposalsProposal} proposal
  */
-InlineResponse20012.prototype['date'] = undefined;
+InlineResponse20012.prototype['proposal'] = undefined;
 
 /**
- * Marketplace
- * @member {String} marketplace
+ * @member {module:model/InlineObject38} details
  */
-InlineResponse20012.prototype['marketplace'] = undefined;
-
-/**
- * ASIN
- * @member {String} asin
- */
-InlineResponse20012.prototype['asin'] = undefined;
-
-/**
- * SKU
- * @member {String} sku
- */
-InlineResponse20012.prototype['sku'] = undefined;
-
-/**
- * Name
- * @member {String} name
- */
-InlineResponse20012.prototype['name'] = undefined;
-
-/**
- * SalesOrganic
- * @member {Number} salesorganic
- */
-InlineResponse20012.prototype['salesorganic'] = undefined;
-
-/**
- * SalesPPC
- * @member {Number} salesppc
- */
-InlineResponse20012.prototype['salesppc'] = undefined;
-
-/**
- * UnitsOrganic
- * @member {Number} unitsorganic
- */
-InlineResponse20012.prototype['unitsorganic'] = undefined;
-
-/**
- * UnitsPPC
- * @member {Number} unitsppc
- */
-InlineResponse20012.prototype['unitsppc'] = undefined;
-
-/**
- * Refunds
- * @member {Number} refunds
- */
-InlineResponse20012.prototype['refunds'] = undefined;
-
-/**
- * PromoValue
- * @member {Number} promovalue
- */
-InlineResponse20012.prototype['promovalue'] = undefined;
-
-/**
- * SponsoredProducts
- * @member {Number} sponsoredproducts
- */
-InlineResponse20012.prototype['sponsoredproducts'] = undefined;
-
-/**
- * SponsoredDisplay
- * @member {Number} sponsoreddisplay
- */
-InlineResponse20012.prototype['sponsoreddisplay'] = undefined;
-
-/**
- * SponsoredВrands
- * @member {Number} sponsoredRands
- */
-InlineResponse20012.prototype['sponsoredRands'] = undefined;
-
-/**
- * SponsoredBrandsVideo
- * @member {Number} sponsoredbrandsvideo
- */
-InlineResponse20012.prototype['sponsoredbrandsvideo'] = undefined;
-
-/**
- * GiftWrap
- * @member {Number} giftwrap
- */
-InlineResponse20012.prototype['giftwrap'] = undefined;
-
-/**
- * Shipping
- * @member {Number} shipping
- */
-InlineResponse20012.prototype['shipping'] = undefined;
-
-/**
- * RefundCost
- * @member {Number} refundcost
- */
-InlineResponse20012.prototype['refundcost'] = undefined;
-
-/**
- * Value of returned items
- * @member {Number} valueOfReturnedItems
- */
-InlineResponse20012.prototype['valueOfReturnedItems'] = undefined;
-
-/**
- * ProductCost Unsellable Refunds
- * @member {Number} productcostUnsellableRefunds
- */
-InlineResponse20012.prototype['productcostUnsellableRefunds'] = undefined;
-
-/**
- * Commission
- * @member {Number} commission
- */
-InlineResponse20012.prototype['commission'] = undefined;
-
-/**
- * FBADisposalFee
- * @member {Number} fbadisposalfee
- */
-InlineResponse20012.prototype['fbadisposalfee'] = undefined;
-
-/**
- * FBAPerUnitFulfillmentFee
- * @member {Number} fbaperunitfulfillmentfee
- */
-InlineResponse20012.prototype['fbaperunitfulfillmentfee'] = undefined;
-
-/**
- * FBAStorageFee
- * @member {Number} fbastoragefee
- */
-InlineResponse20012.prototype['fbastoragefee'] = undefined;
-
-/**
- * Subscription
- * @member {Number} subscription
- */
-InlineResponse20012.prototype['subscription'] = undefined;
-
-/**
- * EstimatedPayout
- * @member {Number} estimatedpayout
- */
-InlineResponse20012.prototype['estimatedpayout'] = undefined;
-
-/**
- * ProductCost Sales
- * @member {Number} productcostSales
- */
-InlineResponse20012.prototype['productcostSales'] = undefined;
-
-/**
- * ProductCost Non-Amazon
- * @member {Number} productcostNonAmazon
- */
-InlineResponse20012.prototype['productcostNonAmazon'] = undefined;
-
-/**
- * ProductCost MultichannelCosts
- * @member {Number} productcostMultichannelcosts
- */
-InlineResponse20012.prototype['productcostMultichannelcosts'] = undefined;
-
-/**
- * ProductCost MissingFromInbound
- * @member {Number} productcostMissingfrominbound
- */
-InlineResponse20012.prototype['productcostMissingfrominbound'] = undefined;
-
-/**
- * ProductCost CostOfMissingReturns
- * @member {Number} productcostCostofmissingreturns
- */
-InlineResponse20012.prototype['productcostCostofmissingreturns'] = undefined;
-
-/**
- * VAT
- * @member {Number} vat
- */
-InlineResponse20012.prototype['vat'] = undefined;
-
-/**
- * GrossProfit
- * @member {Number} grossprofit
- */
-InlineResponse20012.prototype['grossprofit'] = undefined;
-
-/**
- * NetProfit
- * @member {Number} netprofit
- */
-InlineResponse20012.prototype['netprofit'] = undefined;
-
-/**
- * Margin
- * @member {Number} margin
- */
-InlineResponse20012.prototype['margin'] = undefined;
-
-/**
- * Real ACOS
- * @member {Number} realAcos
- */
-InlineResponse20012.prototype['realAcos'] = undefined;
+InlineResponse20012.prototype['details'] = undefined;
 
 
 

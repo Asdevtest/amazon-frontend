@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGuidGet
 
-> InlineResponse2008 apiV1RequestsCustomGuidGet(guid, opts)
+> InlineResponse2007 apiV1RequestsCustomGuidGet(guid, opts)
 
 Получить кастомную заявку по его guid.
 
@@ -119,7 +119,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2008**](InlineResponse2008.md)
+[**InlineResponse2007**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -189,7 +189,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGuidProposalsGet
 
-> [InlineResponse20013] apiV1RequestsCustomGuidProposalsGet(guid, opts)
+> [InlineResponse20012] apiV1RequestsCustomGuidProposalsGet(guid, opts)
 
 Получить список предложений к заявке.
 
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20013]**](InlineResponse20013.md)
+[**[InlineResponse20012]**](InlineResponse20012.md)
 
 ### Authorization
 
@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsGet
 
-> [InlineResponse2008] apiV1RequestsGet(type, opts)
+> [InlineResponse2007] apiV1RequestsGet(type, opts)
 
 Получить список заявок
 
@@ -317,7 +317,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.RequestsApi();
 let type = "type_example"; // String | Тип заявки
 let opts = {
-  'kind': "kind_example", // String | Виды заявок:             VACANT - все заявки со статусом CREATED,             MY - все заявки созданные тем кто вызывает метод,             ASSIGNEES - все заявки где числится как исполнитель,             ALL - абсолютно все заявки, без исключения.
+  'kind': "kind_example", // String | Виды заявок:             VACANT - все заявки со статусом CREATED и IN_PROCESS,             MY - все заявки созданные тем кто вызывает метод,             ASSIGNEES - все заявки где числится как исполнитель,             ALL - абсолютно все заявки, без исключения.
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1RequestsGet(type, opts).then((data) => {
@@ -334,12 +334,12 @@ apiInstance.apiV1RequestsGet(type, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **type** | **String**| Тип заявки | 
- **kind** | **String**| Виды заявок:             VACANT - все заявки со статусом CREATED,             MY - все заявки созданные тем кто вызывает метод,             ASSIGNEES - все заявки где числится как исполнитель,             ALL - абсолютно все заявки, без исключения. | [optional] 
+ **kind** | **String**| Виды заявок:             VACANT - все заявки со статусом CREATED и IN_PROCESS,             MY - все заявки созданные тем кто вызывает метод,             ASSIGNEES - все заявки где числится как исполнитель,             ALL - абсолютно все заявки, без исключения. | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -465,7 +465,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsSearchNicheGet
 
-> [InlineResponse20014] apiV1RequestsSearchNicheGet(opts)
+> [InlineResponse20013] apiV1RequestsSearchNicheGet(opts)
 
 Получить список деталей заявок созданных данным клиентом.
 
@@ -503,7 +503,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20014]**](InlineResponse20014.md)
+[**[InlineResponse20013]**](InlineResponse20013.md)
 
 ### Authorization
 
@@ -681,7 +681,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsSearchProductsGet
 
-> [InlineResponse20015] apiV1RequestsSearchProductsGet(opts)
+> [InlineResponse20014] apiV1RequestsSearchProductsGet(opts)
 
 Получить список деталей заявок созданных данным клиентом.
 
@@ -719,7 +719,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20015]**](InlineResponse20015.md)
+[**[InlineResponse20014]**](InlineResponse20014.md)
 
 ### Authorization
 

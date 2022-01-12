@@ -22,10 +22,12 @@ class ApiV1RequestsCustomDetails {
     /**
      * Constructs a new <code>ApiV1RequestsCustomDetails</code>.
      * @alias module:model/ApiV1RequestsCustomDetails
+     * @param name {String} Имя кастомной заявки.
+     * @param conditions {String} Условия кастомной заявки.
      */
-    constructor() { 
+    constructor(name, conditions) { 
         
-        ApiV1RequestsCustomDetails.initialize(this);
+        ApiV1RequestsCustomDetails.initialize(this, name, conditions);
     }
 
     /**
@@ -33,7 +35,9 @@ class ApiV1RequestsCustomDetails {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, conditions) { 
+        obj['name'] = name;
+        obj['conditions'] = conditions;
     }
 
     /**

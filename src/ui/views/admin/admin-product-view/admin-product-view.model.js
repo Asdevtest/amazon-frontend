@@ -74,6 +74,15 @@ export class AdminProductViewModel {
     }
   }
 
+  async handleProductActionButtons(actionType) {
+    switch (actionType) {
+      case 'cancel':
+        this.history.push('/admin/exchange')
+
+        break
+    }
+  }
+
   onChangeProductFields() {}
 
   onChangeProduct(e, value) {

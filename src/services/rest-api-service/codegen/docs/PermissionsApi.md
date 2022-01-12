@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**apiV1PermissionsGuidDelete**](PermissionsApi.md#apiV1PermissionsGuidDelete) | **DELETE** /api/v1/permissions/{guid} | # Удалить permission по его GUID.
 [**apiV1PermissionsGuidPatch**](PermissionsApi.md#apiV1PermissionsGuidPatch) | **PATCH** /api/v1/permissions/{guid} | #  Изменить permission.
 [**apiV1PermissionsPost**](PermissionsApi.md#apiV1PermissionsPost) | **POST** /api/v1/permissions/ | # Создать permission.
-[**apiV1PermissionsSetForUserGuidPatch**](PermissionsApi.md#apiV1PermissionsSetForUserGuidPatch) | **PATCH** /api/v1/permissions/set-for-user/{guid} | #   Мастер пользователь задает пермишены своим суб пользователям.
+[**apiV1PermissionsSetForUserGuidPatch**](PermissionsApi.md#apiV1PermissionsSetForUserGuidPatch) | **PATCH** /api/v1/permissions/set-for-user/{guid} | #   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid
 
 
 
@@ -456,9 +456,9 @@ Name | Type | Description  | Notes
 
 > String apiV1PermissionsSetForUserGuidPatch(guid, opts)
 
-#   Мастер пользователь задает пермишены своим суб пользователям.
+#   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid
 
-## Мастер пользователь задает пермишены своим суб пользователям.   
+## !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid.   
 
 ### Example
 

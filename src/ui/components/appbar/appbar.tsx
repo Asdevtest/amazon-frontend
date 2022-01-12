@@ -116,7 +116,7 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
           <Menu keepMounted id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
             <Typography className={classNames.menuTitle}>{textConsts.menuTitle}</Typography>
 
-            {componentModel.current.allowedRoles?.length && (
+            {componentModel.current?.allowedRoles?.length ? (
               <div className={classNames.roleWrapper}>
                 <Typography className={classNames.menuTitle}>{textConsts.roleTitle}</Typography>
 
@@ -150,7 +150,7 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
                   </Button>
                 </div>
               </div>
-            )}
+            ) : undefined}
 
             {
               <MenuItem className={classNames.menuWrapper} onClick={onClickProfile}>

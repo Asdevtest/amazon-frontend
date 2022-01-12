@@ -14,6 +14,8 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
+import CheckIsUniqueNameOrEmailReqSchema from '../model/CheckIsUniqueNameOrEmailReqSchema';
+import CheckIsUniqueNameOrEmailSchema from '../model/CheckIsUniqueNameOrEmailSchema';
 import ConflictInTheState from '../model/ConflictInTheState';
 import ForbiddenError from '../model/ForbiddenError';
 import InternalServerError from '../model/InternalServerError';
@@ -22,6 +24,7 @@ import MePatchInputSchema from '../model/MePatchInputSchema';
 import NotFoundError from '../model/NotFoundError';
 import SignInResponseSchema from '../model/SignInResponseSchema';
 import SigninInputSchema from '../model/SigninInputSchema';
+import SubUserPatchDtoSchema from '../model/SubUserPatchDtoSchema';
 import UserFullSchema from '../model/UserFullSchema';
 import UserRegisterSchema from '../model/UserRegisterSchema';
 import UserSettingInputSchema from '../model/UserSettingInputSchema';
@@ -97,6 +100,111 @@ export default class UserApi {
 
 
     /**
+     * Выдача массива объектов с ответом является ли уникальным name и/или email.
+     * ## Выдача массива объектов с ответом является ли уникальным name и/или email.   Нужно использовать данный эдпонт перед создание или редактирования пользователя.    В противном случае получит ошибку записи в базу, если уже есть пользователь с таким name или email.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/CheckIsUniqueNameOrEmailSchema} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/CheckIsUniqueNameOrEmailReqSchema} and HTTP response
+     */
+    apiV1UsersCheckIsUniqueNameOrEmailPostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = CheckIsUniqueNameOrEmailReqSchema;
+      return this.apiClient.callApi(
+        '/api/v1/users/check_isUnique_name_or_email', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Выдача массива объектов с ответом является ли уникальным name и/или email.
+     * ## Выдача массива объектов с ответом является ли уникальным name и/или email.   Нужно использовать данный эдпонт перед создание или редактирования пользователя.    В противном случае получит ошибку записи в базу, если уже есть пользователь с таким name или email.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/CheckIsUniqueNameOrEmailSchema} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CheckIsUniqueNameOrEmailReqSchema}
+     */
+    apiV1UsersCheckIsUniqueNameOrEmailPost(opts) {
+      return this.apiV1UsersCheckIsUniqueNameOrEmailPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Редактирование сабюзера мастер юзером.
+     * ##  Редактирование сабюзера мастер юзером.  Только мастер пользователь может редактировать
+     * @param {String} guid GUID продукта в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/SubUserPatchDtoSchema} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1UsersEditMySubUsersGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1UsersEditMySubUsersGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/users/edit_my_sub-users/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Редактирование сабюзера мастер юзером.
+     * ##  Редактирование сабюзера мастер юзером.  Только мастер пользователь может редактировать
+     * @param {String} guid GUID продукта в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/SubUserPatchDtoSchema} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1UsersEditMySubUsersGuidPatch(guid, opts) {
+      return this.apiV1UsersEditMySubUsersGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * Получить информацию от текущем пользователе.
      * ## Получить информацию от текущем пользователе.   
      * @param {Object} opts Optional parameters
@@ -144,8 +252,8 @@ export default class UserApi {
 
 
     /**
-     * # Привязка суб пользователя.
-     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## По email пользователя которого к себе хочет привязать мастер пользователь.  
+     * # Привязка субпользователя.
+     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  По email пользователя которого к себе хочет привязать мастер пользователь.  Проверки: у админа не может быть субпользователя, субпользователя не может иметь субпользователя,  только кандидата можно привязать к качестве субпользователя
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/LinkSubuserInputSchema} opts.body 
@@ -177,8 +285,8 @@ export default class UserApi {
     }
 
     /**
-     * # Привязка суб пользователя.
-     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## По email пользователя которого к себе хочет привязать мастер пользователь.  
+     * # Привязка субпользователя.
+     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  По email пользователя которого к себе хочет привязать мастер пользователь.  Проверки: у админа не может быть субпользователя, субпользователя не может иметь субпользователя,  только кандидата можно привязать к качестве субпользователя
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/LinkSubuserInputSchema} opts.body 
@@ -388,7 +496,7 @@ export default class UserApi {
 
     /**
      * # Отвязка суб пользователя.
-     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## По email пользователя которого хочет отвязать мастер пользователь.  
+     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.   По email пользователя которого хочет отвязать мастер пользователь. Проверки: по email должен существовать пользователь,    У субпользователя поле masterUser должно совпадает с id мастер пользователя. 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/LinkSubuserInputSchema} opts.body 
@@ -421,7 +529,7 @@ export default class UserApi {
 
     /**
      * # Отвязка суб пользователя.
-     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  ## По email пользователя которого хочет отвязать мастер пользователь.  
+     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.   По email пользователя которого хочет отвязать мастер пользователь. Проверки: по email должен существовать пользователь,    У субпользователя поле masterUser должно совпадает с id мастер пользователя. 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/LinkSubuserInputSchema} opts.body 
@@ -458,7 +566,7 @@ export default class UserApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [Object];
       return this.apiClient.callApi(
         '/api/v1/users/user-settings/available', 'GET',

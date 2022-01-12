@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import PermissionPatchDtoSchemaAllowedUrls from './PermissionPatchDtoSchemaAllowedUrls';
 
 /**
  * The PermissionPatchDtoSchema model module.
@@ -54,8 +55,8 @@ class PermissionPatchDtoSchema {
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('allowedUrl')) {
-                obj['allowedUrl'] = ApiClient.convertToType(data['allowedUrl'], ['String']);
+            if (data.hasOwnProperty('allowedUrls')) {
+                obj['allowedUrls'] = ApiClient.convertToType(data['allowedUrls'], [PermissionPatchDtoSchemaAllowedUrls]);
             }
             if (data.hasOwnProperty('role')) {
                 obj['role'] = ApiClient.convertToType(data['role'], 'Number');
@@ -68,7 +69,7 @@ class PermissionPatchDtoSchema {
 }
 
 /**
- * простое название
+ * Простое название
  * @member {String} title
  */
 PermissionPatchDtoSchema.prototype['title'] = undefined;
@@ -80,10 +81,10 @@ PermissionPatchDtoSchema.prototype['title'] = undefined;
 PermissionPatchDtoSchema.prototype['description'] = undefined;
 
 /**
- * Массив доступных url.
- * @member {Array.<String>} allowedUrl
+ * Массив доступных url
+ * @member {Array.<module:model/PermissionPatchDtoSchemaAllowedUrls>} allowedUrls
  */
-PermissionPatchDtoSchema.prototype['allowedUrl'] = undefined;
+PermissionPatchDtoSchema.prototype['allowedUrls'] = undefined;
 
 /**
  * Роль для которого данный permission

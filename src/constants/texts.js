@@ -89,18 +89,19 @@ export const texts = {
       mergeBtn: 'Merge',
       redistributeBtn: 'Redistribute',
       editBtn: 'Edit',
-      closeBtn: 'Close',
+      closeBtn: 'OK',
       resetBtn: 'Сбросить',
       warehouseHistoryTitle: 'Задачи склада',
 
       modalSendOwnProductTitle: 'Send own product',
       modalEditBoxTitle: 'Box editing',
+      modalEditSuccessMessage: 'Создана задача на изменение коробки',
       modalRedistributionTitle: 'Box redistributing',
       modalRedistributionAddNewBoxTitle: 'Attention!',
       modalRedistributionAddNewBoxMessage:
         'Увеличение количества коробок будет требовать дополнительной оплаты в зависимости от тарифов склада на котором находиться товар',
       modalRedistributionSuccessTitle: 'Success!',
-      modalRedistributionSuccessMessage: 'Box redistribution was successful',
+      modalRedistributionSuccessMessage: 'Создана задача на разъединение коробки',
       modalRedistributionFailTitle: 'Fail',
       modalRedistributionFailMessage: 'Новые коробки должны отличаться от старых',
 
@@ -108,11 +109,17 @@ export const texts = {
       modalMergeFieldLabel: 'Комментарий клиента к задаче',
       modalMergeMergeBtn: 'Соединить',
       modalMergeCancelBtn: 'Отменить',
+      modalMergeSuccessMessage: 'Создана задача на объединение коробок',
 
       confirmTitle: 'Внимание',
       confirmMessage: 'Вы точно хотите отменить задачу?',
       yesBtn: 'Да',
       noBtn: 'Нет',
+    },
+
+    warehouseMyWarehouseView: {
+      appbarTitle: 'Warehouse',
+      mainTitle: 'My warehouse',
     },
 
     adminWarehouseView: {
@@ -579,9 +586,9 @@ export const texts = {
 
     addProductSellerboardForm: {
       formTitle: 'Добавить товар',
-      asin: 'Asin',
-      sku: 'Sku',
-      title: 'Title',
+      asin: 'ASIN',
+      sku: 'SKU',
+      title: 'Название',
       stockValue: 'Доступно',
       reserved: 'Резерв',
       sentToFba: 'Доставляется в Amazon',
@@ -935,12 +942,12 @@ export const texts = {
 
     researcherProductsView: {
       appBarTitle: 'Products',
-      mainTitle: 'Заявки на поиск товара/ниши',
+      mainTitle: 'Мои продукты',
     },
 
     researcherProductsRequestsView: {
       appBarTitle: 'Requests',
-      mainTitle: 'Мои товары',
+      mainTitle: 'Заявки',
       cardMainTitle: 'Проверка товара на наличие в базе',
 
       confirmTitle: 'Вы готовы начать работу по формированию предложения?',
@@ -1072,7 +1079,7 @@ export const texts = {
       appBarTitle: 'Product',
       appBarUsername: 'Buyer',
       appUser: 'buyer',
-      modalAddTitle: 'Добавить нового поставщика',
+      modalAddTitle: 'Добавление и редактирование поставщика',
       modalEditTitle: 'Редактировать поставщика',
       showNoSuplierErrorTitle: 'Не выбран поставщик',
       errorBtn: 'Ок',
@@ -1665,7 +1672,7 @@ export const texts = {
       name: 'Название*',
       link: 'Ссылка*',
       price: 'Цена за шт. $*',
-      deliveryPrice: 'Доставка на 1 ед. $*',
+      deliveryPrice: 'Доставка за 1 ед. $*',
       qty: 'Кол-во закупки*',
       minLot: 'Минимальная партия*',
       lotCost: 'Цена партии $*',
@@ -2235,6 +2242,15 @@ export const texts = {
       grossWeightField: 'Общий вес',
     },
 
+    warehouseBoxesTableColumns: {
+      createdAtField: 'Создания',
+      updatedAtField: 'Обновление',
+      ordersField: 'Продукт',
+      ordersId: 'id Заказа',
+      warehouseField: 'Склад',
+      boxIdField: 'id Коробки',
+    },
+
     batchesTableColumns: {
       createdAtField: 'Дата создания',
       ordersField: 'Продукт',
@@ -2452,7 +2468,7 @@ export const texts = {
     },
 
     CustomRequestView: {
-      mainTitle: 'Универсальная запрос',
+      mainTitle: 'Универсальные заявки',
       appBarTitle: 'Страница запросов на поиск',
       customTitle: 'Универсальная заявка',
 
@@ -2520,7 +2536,7 @@ export const texts = {
       boxesCount: 'Коробки, кол-во 40, вес 50 и прочие.',
       sendDate: 'Дата отправки',
       dateSend: '20 09 2020',
-      sendNearDate: 'Дата ожи-мой доставки',
+      sendNearDate: 'Дата ожидаемой доставки',
       dateNearSend: '30 09 2020',
       docs: 'Документы',
     },
@@ -2796,7 +2812,7 @@ export const texts = {
       width: 'Ширина: ',
       height: 'Высота: ',
       weight: 'Вес: ',
-      volumeWeigh: 'Удельный вес: ',
+      volumeWeigh: 'Объемный вес: ',
       finalWeight: 'Финальный вес: ',
       codeCheck: 'Баркод проклеен поставщиком',
       photos: 'Фотографии:',
@@ -2824,7 +2840,7 @@ export const texts = {
       width: 'Ширина: ',
       height: 'Высота: ',
       weight: 'Вес: ',
-      volumeWeigh: 'Удельный вес: ',
+      volumeWeigh: 'Объемный вес: ',
       finalWeight: 'Финальный вес: ',
       codeCheck: 'Баркод проклеен поставщиком',
       photos: 'Фотографии:',
@@ -3034,6 +3050,12 @@ export const texts = {
         '* Коробки помеченные красным не будут отправлены потому что у них нет размеров или не достаточно данных',
       btnSend: 'Отправить',
       btnClose: 'Закрыть',
+    },
+
+    selectionSupplierModal: {
+      modalTitle: 'Выбрать поставщика',
+      modalSubTitle: 'Оставьте комментарий для поиска поставщика:',
+      modalPlaceholder: 'Комментарий...',
     },
   },
 }

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Имя кастомной заявки. | [optional] 
-**conditions** | **String** | Условия кастомной заявки. | [optional] 
+**name** | **String** | Имя кастомной заявки. | 
+**conditions** | **String** | Условия кастомной заявки. | 
 
 

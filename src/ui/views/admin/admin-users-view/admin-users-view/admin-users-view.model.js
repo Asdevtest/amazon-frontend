@@ -6,6 +6,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {AdministratorModel} from '@models/administrator-model'
 import {PermissionsModel} from '@models/permissions-model'
 import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 import {adminUsersViewColumns} from '@components/table-columns/admin/users-columns'
 
@@ -20,7 +21,8 @@ export class AdminUsersViewModel {
   users = []
   groupPermissions = []
   singlePermissions = []
-
+  checkValidationNameOrEmail = {}
+  changeNameAndEmail = {email: '', name: ''}
   editUserFormFields = undefined
   selectionModel = undefined
   dataGridState = null
@@ -144,15 +146,23 @@ export class AdminUsersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
+      this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
+        name: this.changeNameAndEmail.name,
+        email: this.changeNameAndEmail.email,
+      })
+      if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
+        return
+      } else {
+        await AdministratorModel.updateUser(this.selectionModel, data)
 
-      await AdministratorModel.updateUser(this.selectionModel, data)
+        this.setRequestStatus(loadingStatuses.success)
 
-      this.setRequestStatus(loadingStatuses.success)
-
-      this.onTriggerOpenModal('showEditUserModal')
-      await this.getUsers()
-      await this.getGroupPermissions()
-      await this.getSinglePermissions()
+        this.onTriggerOpenModal('showEditUserModal')
+        await this.getUsers()
+        await this.getGroupPermissions()
+        await this.getSinglePermissions()
+        this.changeNameAndEmail = {email: '', name: ''}
+      }
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)

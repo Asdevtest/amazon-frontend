@@ -29,7 +29,7 @@ Method | HTTP request | Description
 
 ## apiV1AdminsBatchesGet
 
-> [InlineResponse2005] apiV1AdminsBatchesGet(opts)
+> [InlineResponse2004] apiV1AdminsBatchesGet(opts)
 
 # Получить все партии.
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -673,7 +673,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsPaymentsGet
 
-> [InlineResponse2003] apiV1AdminsPaymentsGet(opts)
+> [InlineResponse2002] apiV1AdminsPaymentsGet(opts)
 
 # Получить все оплаты, которые были начислены всем ролям.
 
@@ -711,7 +711,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2003]**](InlineResponse2003.md)
+[**[InlineResponse2002]**](InlineResponse2002.md)
 
 ### Authorization
 
@@ -833,7 +833,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsTasksGet
 
-> [InlineResponse2004] apiV1AdminsTasksGet(opts)
+> [InlineResponse2003] apiV1AdminsTasksGet(opts)
 
 # Получить задачи.
 
@@ -873,7 +873,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -887,7 +887,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsUsersGet
 
-> [InlineResponse2002] apiV1AdminsUsersGet(opts)
+> [UserAdminFullSchema] apiV1AdminsUsersGet(opts)
 
 Получить всех пользователей.
 
@@ -925,7 +925,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+[**[UserAdminFullSchema]**](UserAdminFullSchema.md)
 
 ### Authorization
 
@@ -993,7 +993,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsUsersGuidGet
 
-> InlineResponse2002 apiV1AdminsUsersGuidGet(guid, opts)
+> UserAdminFullSchema apiV1AdminsUsersGuidGet(guid, opts)
 
 Получить пользователя по GUID.
 
@@ -1033,7 +1033,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2002**](InlineResponse2002.md)
+[**UserAdminFullSchema**](UserAdminFullSchema.md)
 
 ### Authorization
 

@@ -16,7 +16,7 @@ export const useClassNames = makeStyles(() => ({
   descriptionField: {
     minHeight: '100px',
     width: '100%',
-    overflowY: 'scroll',
+    overflowY: 'hidden',
   },
 
   allowUrlsWrapper: {
@@ -26,15 +26,21 @@ export const useClassNames = makeStyles(() => ({
   },
 
   urlInputWrapper: {
+    width: 'auto',
     display: 'flex',
     alignItems: 'center',
+  },
+
+  httpMethodSelect: {
+    height: '65px',
+    width: '95px',
   },
 
   urlInput: {
     overflowY: 'scroll',
     whiteSpace: 'wrap',
     height: '65px',
-
+    marginRight: '20px',
     width: '450px',
   },
 }))

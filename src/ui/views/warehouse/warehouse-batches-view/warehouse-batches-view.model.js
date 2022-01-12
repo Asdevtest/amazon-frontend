@@ -12,7 +12,7 @@ import {batchesViewColumns} from '@components/table-columns/batches-columns'
 import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
-export class WarehouseWarehouseViewModel {
+export class WarehouseBatchesViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined

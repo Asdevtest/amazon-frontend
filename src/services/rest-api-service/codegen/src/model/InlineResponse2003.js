@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
-import ApiV1AdminsPaymentsProduct from './ApiV1AdminsPaymentsProduct';
+import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import ApiV1AdminsTasksBoxesBefore from './ApiV1AdminsTasksBoxesBefore';
 
 /**
  * The InlineResponse2003 model module.
@@ -24,10 +24,14 @@ class InlineResponse2003 {
     /**
      * Constructs a new <code>InlineResponse2003</code>.
      * @alias module:model/InlineResponse2003
+     * @param _id {String} GUID задачи в DB
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param boxes {Array.<module:model/ApiV1AdminsTasksBoxesBefore>} Массив коробок.
+     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
      */
-    constructor() { 
+    constructor(_id, taskId, boxes, status) { 
         
-        InlineResponse2003.initialize(this);
+        InlineResponse2003.initialize(this, _id, taskId, boxes, status);
     }
 
     /**
@@ -35,7 +39,11 @@ class InlineResponse2003 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id, taskId, boxes, status) { 
+        obj['_id'] = _id;
+        obj['taskId'] = taskId;
+        obj['boxes'] = boxes;
+        obj['status'] = status;
     }
 
     /**
@@ -52,23 +60,38 @@ class InlineResponse2003 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            }
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            }
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1AdminsTasksBoxesBefore]);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsTasksBoxesBefore]);
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['storekeeper']);
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiV1AdminsPaymentsProduct.constructFromObject(data['product']);
-            }
-            if (data.hasOwnProperty('recipient')) {
-                obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient']);
-            }
-            if (data.hasOwnProperty('sum')) {
-                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -78,10 +101,63 @@ class InlineResponse2003 {
 }
 
 /**
- * GUID платежа
+ * GUID задачи в DB
  * @member {String} _id
  */
 InlineResponse2003.prototype['_id'] = undefined;
+
+/**
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
+ */
+InlineResponse2003.prototype['taskId'] = undefined;
+
+/**
+ * Тип операции
+ * @member {module:model/InlineResponse2003.OperationTypeEnum} operationType
+ */
+InlineResponse2003.prototype['operationType'] = undefined;
+
+/**
+ * Массив коробок которые были до переформирования коробок.
+ * @member {Array.<module:model/ApiV1AdminsTasksBoxesBefore>} boxesBefore
+ */
+InlineResponse2003.prototype['boxesBefore'] = undefined;
+
+/**
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1AdminsTasksBoxesBefore>} boxes
+ */
+InlineResponse2003.prototype['boxes'] = undefined;
+
+/**
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
+ */
+InlineResponse2003.prototype['status'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} storekeeper
+ */
+InlineResponse2003.prototype['storekeeper'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineResponse2003.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Комментарий клиента.
+ * @member {String} clientComment
+ */
+InlineResponse2003.prototype['clientComment'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse2003.prototype['images'] = undefined;
 
 /**
  * Дата создания.
@@ -90,34 +166,40 @@ InlineResponse2003.prototype['_id'] = undefined;
 InlineResponse2003.prototype['createdAt'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy
+ * Дата создания.
+ * @member {Date} updatedAt
  */
-InlineResponse2003.prototype['createdBy'] = undefined;
+InlineResponse2003.prototype['updatedAt'] = undefined;
+
+
+
+
 
 /**
- * @member {module:model/ApiV1AdminsPaymentsProduct} product
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineResponse2003.prototype['product'] = undefined;
+InlineResponse2003['OperationTypeEnum'] = {
 
-/**
- * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient
- */
-InlineResponse2003.prototype['recipient'] = undefined;
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
 
-/**
- * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
- * @member {Number} sum
- */
-InlineResponse2003.prototype['sum'] = undefined;
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
 
-/**
- * комментарий
- * @member {String} comment
- */
-InlineResponse2003.prototype['comment'] = undefined;
-
-
-
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive"
+};
 
 
 

@@ -96,7 +96,7 @@ export const AddOrEditGroupPermissionForm = observer(
         <Typography>{perm.description}</Typography>
 
         <Typography>{textConsts.allowedUrlPermInfo}</Typography>
-        {perm.allowedUrl.map((item, itemIndex) => (
+        {perm.allowedUrls.map((item, itemIndex) => (
           <div key={itemIndex}>
             <Typography>{item}</Typography>
           </div>
@@ -129,7 +129,7 @@ export const AddOrEditGroupPermissionForm = observer(
     const renderMenuItem = per => (
       <MenuItem key={per._id} value={per._id}>
         <Checkbox checked={formFields.permissions.includes(per._id)} />
-        <ListItemText primary={`${per.title} (ключ: ${per.key})`} />
+        <ListItemText primary={`${per.title}`} />
       </MenuItem>
     )
 
@@ -199,7 +199,7 @@ export const AddOrEditGroupPermissionForm = observer(
 
                   {curPermissions.map((el, index) => (
                     <Tooltip key={index} title={renderPermissionInfo(el)}>
-                      <Typography className={classNames.singlePermission}>{`${el.title} (ключ: ${el.key})`}</Typography>
+                      <Typography className={classNames.singlePermission}>{`${el.title}`}</Typography>
                     </Tooltip>
                   ))}
 
@@ -276,6 +276,7 @@ export const AddOrEditGroupPermissionForm = observer(
 
                         <Button
                           disableElevation
+                          disabled={!curPermissions.length}
                           className={classNames.button}
                           color="primary"
                           variant="default"

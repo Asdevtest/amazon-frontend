@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **key** | **String** | permission ключ | 
-**title** | **String** | простое название | 
+**title** | **String** | Простое название | 
 **description** | **String** | описание permission | 
-**allowedUrl** | **[String]** | Массив доступных url | 
+**allowedUrls** | [**[PermissionPatchDtoSchemaAllowedUrls]**](PermissionPatchDtoSchemaAllowedUrls.md) | Массив доступных url | 
 **role** | **Number** | Роль для которого данный permission | 
 
 

@@ -38,7 +38,7 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
     },
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
-
+  const [deadlineError, setDeadlineError] = useState(false)
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
     if (['maxAmountOfProposals'].includes(fieldName)) {
@@ -50,6 +50,7 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
       return
     } else if (['timeoutAt'].includes(fieldName)) {
       newFormFields[section][fieldName] = event
+      setDeadlineError(false)
     } else {
       newFormFields[section][fieldName] = event.target.value
     }
@@ -67,7 +68,8 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
 
   const isDeadlineError = formFields.request.timeoutAt < new Date()
 
-  const disableSubmitBtn = JSON.stringify(sourceFormFields) === JSON.stringify(formFields) || isOneOfFieldIsEmpty
+  const disableSubmitBtn =
+    JSON.stringify(sourceFormFields) === JSON.stringify(formFields) || isOneOfFieldIsEmpty || deadlineError
 
   return (
     <div className={classNames.root}>
@@ -94,9 +96,9 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
           containerClasses={classNames.field}
           label={textConsts.timeoutAt}
           inputComponent={
-            <div className={clsx({[classNames.deadlineError]: isDeadlineError})}>
+            <div className={clsx({[classNames.deadlineError]: deadlineError})}>
               <DatePicker value={formFields.request.timeoutAt} onChange={onChangeField('request')('timeoutAt')} />
-              {isDeadlineError && <p className={classNames.deadlineErrorText}>{textConsts.deadlineError}</p>}
+              {deadlineError && <p className={classNames.deadlineErrorText}>{textConsts.deadlineError}</p>}
             </div>
           }
         />
@@ -152,7 +154,11 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
         disabled={disableSubmitBtn}
         color="primary"
         variant="contained"
-        onClick={() => onSubmit(formFields, requestToEdit?.request?._id)}
+        onClick={() =>
+          isDeadlineError
+            ? setDeadlineError(!deadlineError)
+            : onSubmit(formFields, requestToEdit?.request?._id)
+        }
       >
         {isEdit ? textConsts.editBtn : textConsts.createBtn}
       </Button>

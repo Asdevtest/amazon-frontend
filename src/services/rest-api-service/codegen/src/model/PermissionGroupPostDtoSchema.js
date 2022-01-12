@@ -26,7 +26,7 @@ class PermissionGroupPostDtoSchema {
      * @param key {String} Ключ группы permission
      * @param title {String} Простое название
      * @param description {String} Описание permission
-     * @param role {Number} Роль для которого данной группы permission-ов
+     * @param role {Number} Роль для которого данная группа permission-ов
      */
     constructor(key, title, description, role) { 
         
@@ -102,7 +102,7 @@ PermissionGroupPostDtoSchema.prototype['description'] = undefined;
 PermissionGroupPostDtoSchema.prototype['permissions'] = undefined;
 
 /**
- * Роль для которого данной группы permission-ов
+ * Роль для которого данная группа permission-ов
  * @member {Number} role
  */
 PermissionGroupPostDtoSchema.prototype['role'] = undefined;

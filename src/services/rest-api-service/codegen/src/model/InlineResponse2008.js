@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsDetails from './ApiV1RequestsDetails';
-import ApiV1RequestsRequest from './ApiV1RequestsRequest';
 
 /**
  * The InlineResponse2008 model module.
@@ -23,7 +21,7 @@ import ApiV1RequestsRequest from './ApiV1RequestsRequest';
 class InlineResponse2008 {
     /**
      * Constructs a new <code>InlineResponse2008</code>.
-     * Схема детали на поиск ниш.
+     * Успешный ответ.
      * @alias module:model/InlineResponse2008
      */
     constructor() { 
@@ -50,11 +48,8 @@ class InlineResponse2008 {
         if (data) {
             obj = obj || new InlineResponse2008();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsRequest.constructFromObject(data['request']);
-            }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
         }
         return obj;
@@ -64,14 +59,10 @@ class InlineResponse2008 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsRequest} request
+ * Флаг, показывает есть ли такой id в базе или нет
+ * @member {Boolean} isExist
  */
-InlineResponse2008.prototype['request'] = undefined;
-
-/**
- * @member {module:model/ApiV1RequestsDetails} details
- */
-InlineResponse2008.prototype['details'] = undefined;
+InlineResponse2008.prototype['isExist'] = undefined;
 
 
 

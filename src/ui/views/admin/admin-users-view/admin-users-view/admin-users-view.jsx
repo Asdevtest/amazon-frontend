@@ -52,6 +52,8 @@ class AdminUsersViewRaw extends Component {
       rowsPerPage,
       editUserFormFields,
       showEditUserModal,
+      checkValidationNameOrEmail,
+      changeNameAndEmail,
       submitEditUserForm,
       onTriggerDrawer,
       onChangeCurPage,
@@ -115,6 +117,8 @@ class AdminUsersViewRaw extends Component {
         </Main>
         <Modal openModal={showEditUserModal} setOpenModal={() => onTriggerOpenModal('showEditUserModal')}>
           <AdminContentModal
+            checkValidationNameOrEmail={checkValidationNameOrEmail}
+            changeNameAndEmail={changeNameAndEmail}
             singlePermissions={singlePermissions}
             groupPermissions={groupPermissions}
             editUserFormFields={editUserFormFields}

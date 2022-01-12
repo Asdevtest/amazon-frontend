@@ -33,7 +33,7 @@ export const useClassNames = makeStyles(() => ({
     marginBottom: '24px',
   },
   listingTitle: {
-    height: '45px',
+    height: 'auto',
     width: '100%',
     display: 'block',
     fontSize: '25px',

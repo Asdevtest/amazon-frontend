@@ -88,7 +88,7 @@ class ClientModelStatic {
   }
 
   getMyPayments = async () => {
-    const response = await restApiService.clientApi.apiV1ClientPaymentsGet()
+    const response = await restApiService.otherApi.apiV1OtherPaymentsMyGet()
     return response
   }
 

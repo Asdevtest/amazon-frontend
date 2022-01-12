@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Button, Chip, Tooltip, Typography} from '@material-ui/core'
+import {Button, Chip, Link, Tooltip, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
@@ -18,7 +18,7 @@ import {
 } from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixedWithDollarSign, trimBarcode, toFixedWithKg} from '@utils/text'
+import {toFixedWithDollarSign, trimBarcode, toFixedWithKg, checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {styles} from './data-grid-cells.style'
 
@@ -79,9 +79,11 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
       {!product.currentSupplier ? 'N/A' : product.currentSupplier.name}
     </Typography>
 
-    <Typography className={classNames.noActiveLink}>{`link: ${
-      !product.currentSupplier ? 'N/A' : product.currentSupplier.link
-    }`}</Typography>
+    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(params.row.currentSupplier.link)}>
+      <Typography className={classNames.noActiveLink}>{`${
+        !params.row.currentSupplier ? 'N/A' : params.row.currentSupplier.link
+      }`}</Typography>
+    </Link>
   </div>
 ))
 

@@ -21,7 +21,7 @@ export const RequestToSendBatchesGroupBoxes = ({
   onClickRemoveBoxFromBatch,
 }) => {
   const classNames = useClassNames()
-
+  
   const totalPrice = selectedGroup.boxes.reduce(
     (acc, cur) => (acc += boxesDeliveryCosts.find(priceObj => priceObj.guid === cur._id).deliveryCost),
     0,
@@ -29,6 +29,7 @@ export const RequestToSendBatchesGroupBoxes = ({
 
   const totalWeight = selectedGroup.boxes.reduce((acc, cur) => acc + calcFinalWeightForBox(cur), 0)
   const warehousesBox = selectedGroup.warehouse
+
   const deliveryMethod = selectedGroup.deliveryMethod
 
   return (
@@ -45,6 +46,7 @@ export const RequestToSendBatchesGroupBoxes = ({
           const findRequestToSendBatchPriceForCurBox = boxesDeliveryCosts.find(
             priceObj => priceObj.guid === findBox._id,
           )
+          totalPrice += +findRequestToSendBatchPriceForCurBox.deliveryCost.toFixed(2)
 
           return (
             <div key={`requestToSendBatchModalBox_${findBox._id}_${index}`} className={classNames.boxWrapper}>
