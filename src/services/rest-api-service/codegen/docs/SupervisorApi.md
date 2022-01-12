@@ -35,7 +35,7 @@ let apiInstance = new TestSwagger.SupervisorApi();
 let guid = "guid_example"; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject37() // InlineObject37 | 
+  'body': new TestSwagger.InlineObject39() // InlineObject39 | 
 };
 apiInstance.apiV1SupervisorsProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject37**](InlineObject37.md)|  | [optional] 
+ **body** | [**InlineObject39**](InlineObject39.md)|  | [optional] 
 
 ### Return type
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1SupervisorsProductsListingGuidPatch
@@ -91,7 +91,7 @@ let apiInstance = new TestSwagger.SupervisorApi();
 let guid = "guid_example"; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject38() // InlineObject38 | 
+  'body': new TestSwagger.InlineObject40() // InlineObject40 | 
 };
 apiInstance.apiV1SupervisorsProductsListingGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject38**](InlineObject38.md)|  | [optional] 
+ **body** | [**InlineObject40**](InlineObject40.md)|  | [optional] 
 
 ### Return type
 
@@ -173,7 +173,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1SupervisorsProductsPickupGuidPost
@@ -227,7 +227,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1SupervisorsProductsVacGet
@@ -279,5 +279,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 

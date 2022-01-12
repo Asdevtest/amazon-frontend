@@ -47,8 +47,11 @@ class InlineObject26 {
         if (data) {
             obj = obj || new InlineObject26();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('sku')) {
+                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
             }
         }
         return obj;
@@ -58,10 +61,14 @@ class InlineObject26 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * @member {String} productId
  */
-InlineObject26.prototype['suppliersIds'] = undefined;
+InlineObject26.prototype['productId'] = undefined;
+
+/**
+ * @member {String} sku
+ */
+InlineObject26.prototype['sku'] = undefined;
 
 
 

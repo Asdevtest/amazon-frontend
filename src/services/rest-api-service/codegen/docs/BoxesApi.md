@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesByOrderGuidGuidGet
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesByProductGuidGuidGet
@@ -187,7 +187,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesCalculateBoxDeliveryCostsInBatchPost
@@ -295,7 +295,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesCancelEditWithDraftGuidPost
@@ -349,7 +349,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesCancelMergePost
@@ -403,7 +403,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesCancelSplitPost
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesClientsDraftsGet
@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesClientsGet
@@ -561,7 +561,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesClientsSentToBatchGet
@@ -613,7 +613,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesDraftsGet
@@ -665,7 +665,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesEditGuidPost
@@ -721,7 +721,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesGet
@@ -773,7 +773,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesGuidDelete
@@ -827,7 +827,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesMergePost
@@ -836,7 +836,7 @@ Name | Type | Description  | Notes
 
 # Объединить две и более коробок.
 
-## Объединить две и более коробок.   
+## Объединить две и более коробок.   !!!при обединении id  сторкипера берется из первой корбки, не делал проверку чтобы все коробки были от одного сторкипера или вовсе из небыло!!! Эржигит
 
 ### Example
 
@@ -881,7 +881,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesPost
@@ -935,7 +935,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesRequestSendBoxesToBatchPost
@@ -989,7 +989,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesSendBoxesToBatchPost
@@ -1043,7 +1043,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesSplitPost
@@ -1097,7 +1097,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BoxesStorekeepersGuidPatch
@@ -1153,5 +1153,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 

@@ -50,8 +50,6 @@ class SubUserPatchDtoSchema {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-<<<<<<< HEAD
-=======
             if (data.hasOwnProperty('email')) {
                 obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
@@ -61,7 +59,6 @@ class SubUserPatchDtoSchema {
             if (data.hasOwnProperty('active')) {
                 obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
             }
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
             if (data.hasOwnProperty('permissions')) {
                 obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
             }
@@ -82,8 +79,6 @@ class SubUserPatchDtoSchema {
 SubUserPatchDtoSchema.prototype['name'] = undefined;
 
 /**
-<<<<<<< HEAD
-=======
  * email
  * @member {String} email
  */
@@ -102,7 +97,6 @@ SubUserPatchDtoSchema.prototype['fba'] = undefined;
 SubUserPatchDtoSchema.prototype['active'] = undefined;
 
 /**
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
  * Массив permission-ов.
  * @member {Array.<String>} permissions
  */

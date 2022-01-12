@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsCustomGuidDetails from './ApiV1RequestsCustomGuidDetails';
-import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 
 /**
  * The InlineObject43 model module.
@@ -23,12 +21,12 @@ import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 class InlineObject43 {
     /**
      * Constructs a new <code>InlineObject43</code>.
-     * Схема кастомной заявки.
      * @alias module:model/InlineObject43
+     * @param result {String} Результат рабоботы ресерчера.
      */
-    constructor() { 
+    constructor(result) { 
         
-        InlineObject43.initialize(this);
+        InlineObject43.initialize(this, result);
     }
 
     /**
@@ -36,7 +34,8 @@ class InlineObject43 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, result) { 
+        obj['result'] = result;
     }
 
     /**
@@ -50,11 +49,14 @@ class InlineObject43 {
         if (data) {
             obj = obj || new InlineObject43();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomGuidRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('result')) {
+                obj['result'] = ApiClient.convertToType(data['result'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsCustomGuidDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -64,14 +66,22 @@ class InlineObject43 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomGuidRequest} request
+ * Результат рабоботы ресерчера.
+ * @member {String} result
  */
-InlineObject43.prototype['request'] = undefined;
+InlineObject43.prototype['result'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestsCustomGuidDetails} details
+ * Комментарии ресерчера.
+ * @member {String} comment
  */
-InlineObject43.prototype['details'] = undefined;
+InlineObject43.prototype['comment'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject43.prototype['linksToMediaFiles'] = undefined;
 
 
 

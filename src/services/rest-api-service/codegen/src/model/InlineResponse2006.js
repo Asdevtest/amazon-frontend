@@ -192,12 +192,9 @@ class InlineResponse2006 {
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['createdBy']);
             }
-<<<<<<< HEAD
-=======
             if (data.hasOwnProperty('checkedBy')) {
                 obj['checkedBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['checkedBy']);
             }
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -332,7 +329,6 @@ InlineResponse2006.prototype['fba'] = undefined;
  * @member {Boolean} fbm
  */
 InlineResponse2006.prototype['fbm'] = undefined;
-<<<<<<< HEAD
 
 /**
  * Признак экспресс доставки.
@@ -397,72 +393,6 @@ InlineResponse2006.prototype['delivery'] = undefined;
  *  Общая сумма с фба.
  * @member {Number} fbaamount
  */
-=======
-
-/**
- * Признак экспресс доставки.
- * @member {Boolean} express
- */
-InlineResponse2006.prototype['express'] = undefined;
-
-/**
- * 
- * @member {Number} amazon
- */
-InlineResponse2006.prototype['amazon'] = undefined;
-
-/**
- * Высота
- * @member {Number} height
- */
-InlineResponse2006.prototype['height'] = undefined;
-
-/**
- * Ширина
- * @member {Number} width
- */
-InlineResponse2006.prototype['width'] = undefined;
-
-/**
- * Длинна
- * @member {Number} length
- */
-InlineResponse2006.prototype['length'] = undefined;
-
-/**
- * Вес
- * @member {Number} weight
- */
-InlineResponse2006.prototype['weight'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier>} suppliers
- */
-InlineResponse2006.prototype['suppliers'] = undefined;
-
-/**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
- */
-InlineResponse2006.prototype['reffee'] = undefined;
-
-/**
- * ФБА комиссия
- * @member {Number} fbafee
- */
-InlineResponse2006.prototype['fbafee'] = undefined;
-
-/**
- * Стоимость доставки.
- * @member {Number} delivery
- */
-InlineResponse2006.prototype['delivery'] = undefined;
-
-/**
- *  Общая сумма с фба.
- * @member {Number} fbaamount
- */
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 InlineResponse2006.prototype['fbaamount'] = undefined;
 
 /**
@@ -584,14 +514,11 @@ InlineResponse2006.prototype['byboxprice'] = undefined;
 InlineResponse2006.prototype['createdBy'] = undefined;
 
 /**
-<<<<<<< HEAD
-=======
  * @member {module:model/ApiV1AdminsGetProductsByStatusClient} checkedBy
  */
 InlineResponse2006.prototype['checkedBy'] = undefined;
 
 /**
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
  * Дата создания
  * @member {Date} createdAt
  */

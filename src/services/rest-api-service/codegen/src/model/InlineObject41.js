@@ -21,12 +21,20 @@ import ApiClient from '../ApiClient';
 class InlineObject41 {
     /**
      * Constructs a new <code>InlineObject41</code>.
+     * Новый поставщик.
      * @alias module:model/InlineObject41
-     * @param result {String} Результат рабоботы ресерчера.
+     * @param name {String} Название поставщика.
+     * @param link {String} Ссылка на поставщика.
+     * @param price {Number} Цена
+     * @param delivery {Number} Тип доставки
+     * @param amount {Number} кол-во
+     * @param minlot {Number} Минимальный лот.
+     * @param lotcost {Number} Стоимость лота.
+     * @param comment {String} Комментарий
      */
-    constructor(result) { 
+    constructor(name, link, price, delivery, amount, minlot, lotcost, comment) { 
         
-        InlineObject41.initialize(this, result);
+        InlineObject41.initialize(this, name, link, price, delivery, amount, minlot, lotcost, comment);
     }
 
     /**
@@ -34,8 +42,15 @@ class InlineObject41 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, result) { 
-        obj['result'] = result;
+    static initialize(obj, name, link, price, delivery, amount, minlot, lotcost, comment) { 
+        obj['name'] = name;
+        obj['link'] = link;
+        obj['price'] = price;
+        obj['delivery'] = delivery;
+        obj['amount'] = amount;
+        obj['minlot'] = minlot;
+        obj['lotcost'] = lotcost;
+        obj['comment'] = comment;
     }
 
     /**
@@ -49,14 +64,32 @@ class InlineObject41 {
         if (data) {
             obj = obj || new InlineObject41();
 
-            if (data.hasOwnProperty('result')) {
-                obj['result'] = ApiClient.convertToType(data['result'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('delivery')) {
+                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            }
+            if (data.hasOwnProperty('lotcost')) {
+                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
             if (data.hasOwnProperty('comment')) {
                 obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -66,22 +99,58 @@ class InlineObject41 {
 }
 
 /**
- * Результат рабоботы ресерчера.
- * @member {String} result
+ * Название поставщика.
+ * @member {String} name
  */
-InlineObject41.prototype['result'] = undefined;
+InlineObject41.prototype['name'] = undefined;
 
 /**
- * Комментарии ресерчера.
+ * Ссылка на поставщика.
+ * @member {String} link
+ */
+InlineObject41.prototype['link'] = undefined;
+
+/**
+ * Цена
+ * @member {Number} price
+ */
+InlineObject41.prototype['price'] = undefined;
+
+/**
+ * Тип доставки
+ * @member {Number} delivery
+ */
+InlineObject41.prototype['delivery'] = undefined;
+
+/**
+ * кол-во
+ * @member {Number} amount
+ */
+InlineObject41.prototype['amount'] = undefined;
+
+/**
+ * Минимальный лот.
+ * @member {Number} minlot
+ */
+InlineObject41.prototype['minlot'] = undefined;
+
+/**
+ * Стоимость лота.
+ * @member {Number} lotcost
+ */
+InlineObject41.prototype['lotcost'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject41.prototype['images'] = undefined;
+
+/**
+ * Комментарий
  * @member {String} comment
  */
 InlineObject41.prototype['comment'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject41.prototype['linksToMediaFiles'] = undefined;
 
 
 

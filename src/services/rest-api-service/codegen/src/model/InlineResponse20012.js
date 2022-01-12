@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsCustomGuidProposalsProposal from './ApiV1RequestsCustomGuidProposalsProposal';
-import InlineObject38 from './InlineObject38';
 
 /**
  * The InlineResponse20012 model module.
@@ -23,11 +21,7 @@ import InlineObject38 from './InlineObject38';
 class InlineResponse20012 {
     /**
      * Constructs a new <code>InlineResponse20012</code>.
-<<<<<<< HEAD
-     * Схема кастомной заявки.
-=======
-     * Схема парсинга.
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+     * Успешный ответ.
      * @alias module:model/InlineResponse20012
      */
     constructor() { 
@@ -54,91 +48,8 @@ class InlineResponse20012 {
         if (data) {
             obj = obj || new InlineResponse20012();
 
-<<<<<<< HEAD
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = ApiV1RequestsCustomGuidProposalsProposal.constructFromObject(data['proposal']);
-            }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = InlineObject38.constructFromObject(data['details']);
-=======
-            if (data.hasOwnProperty('amazonFee')) {
-                obj['amazonFee'] = ApiClient.convertToType(data['amazonFee'], 'Number');
-            }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
-            }
-            if (data.hasOwnProperty('weight')) {
-                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
-            }
-            if (data.hasOwnProperty('weightUnitString')) {
-                obj['weightUnitString'] = ApiClient.convertToType(data['weightUnitString'], 'String');
-            }
-            if (data.hasOwnProperty('isWhiteGloveRequired')) {
-                obj['isWhiteGloveRequired'] = ApiClient.convertToType(data['isWhiteGloveRequired'], 'Boolean');
-            }
-            if (data.hasOwnProperty('subCategory')) {
-                obj['subCategory'] = ApiClient.convertToType(data['subCategory'], 'String');
-            }
-            if (data.hasOwnProperty('fnsku')) {
-                obj['fnsku'] = ApiClient.convertToType(data['fnsku'], 'String');
-            }
-            if (data.hasOwnProperty('dimensionUnit')) {
-                obj['dimensionUnit'] = ApiClient.convertToType(data['dimensionUnit'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('binding')) {
-                obj['binding'] = ApiClient.convertToType(data['binding'], 'String');
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('dimensionUnitString')) {
-                obj['dimensionUnitString'] = ApiClient.convertToType(data['dimensionUnitString'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('imageUrl')) {
-                obj['imageUrl'] = ApiClient.convertToType(data['imageUrl'], 'String');
-            }
-            if (data.hasOwnProperty('isAfn')) {
-                obj['isAfn'] = ApiClient.convertToType(data['isAfn'], 'Boolean');
-            }
-            if (data.hasOwnProperty('gl')) {
-                obj['gl'] = ApiClient.convertToType(data['gl'], 'String');
-            }
-            if (data.hasOwnProperty('TRexId')) {
-                obj['TRexId'] = ApiClient.convertToType(data['TRexId'], 'String');
-            }
-            if (data.hasOwnProperty('isAsinLimits')) {
-                obj['isAsinLimits'] = ApiClient.convertToType(data['isAsinLimits'], 'Boolean');
-            }
-            if (data.hasOwnProperty('originalUrl')) {
-                obj['originalUrl'] = ApiClient.convertToType(data['originalUrl'], 'String');
-            }
-            if (data.hasOwnProperty('productGroup')) {
-                obj['productGroup'] = ApiClient.convertToType(data['productGroup'], 'String');
-            }
-            if (data.hasOwnProperty('thumbStringUrl')) {
-                obj['thumbStringUrl'] = ApiClient.convertToType(data['thumbStringUrl'], 'String');
-            }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
-            }
-            if (data.hasOwnProperty('encryptedMarketplaceId')) {
-                obj['encryptedMarketplaceId'] = ApiClient.convertToType(data['encryptedMarketplaceId'], 'String');
-            }
-            if (data.hasOwnProperty('weightUnit')) {
-                obj['weightUnit'] = ApiClient.convertToType(data['weightUnit'], 'String');
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
         }
         return obj;
@@ -148,150 +59,10 @@ class InlineResponse20012 {
 }
 
 /**
-<<<<<<< HEAD
- * @member {module:model/ApiV1RequestsCustomGuidProposalsProposal} proposal
+ * Флаг, показывает есть ли такой id в базе или нет
+ * @member {Boolean} isExist
  */
-InlineResponse20012.prototype['proposal'] = undefined;
-
-/**
- * @member {module:model/InlineObject38} details
- */
-InlineResponse20012.prototype['details'] = undefined;
-=======
- * 
- * @member {Number} amazonFee
- */
-InlineResponse20012.prototype['amazonFee'] = undefined;
-
-/**
- * 
- * @member {Number} width
- */
-InlineResponse20012.prototype['width'] = undefined;
-
-/**
- * 
- * @member {Number} height
- */
-InlineResponse20012.prototype['height'] = undefined;
-
-/**
- * 
- * @member {Number} length
- */
-InlineResponse20012.prototype['length'] = undefined;
-
-/**
- * 
- * @member {Number} weight
- */
-InlineResponse20012.prototype['weight'] = undefined;
-
-/**
- * @member {String} weightUnitString
- */
-InlineResponse20012.prototype['weightUnitString'] = undefined;
-
-/**
- * @member {Boolean} isWhiteGloveRequired
- */
-InlineResponse20012.prototype['isWhiteGloveRequired'] = undefined;
-
-/**
- * @member {String} subCategory
- */
-InlineResponse20012.prototype['subCategory'] = undefined;
-
-/**
- * @member {String} fnsku
- */
-InlineResponse20012.prototype['fnsku'] = undefined;
-
-/**
- * @member {String} dimensionUnit
- */
-InlineResponse20012.prototype['dimensionUnit'] = undefined;
-
-/**
- * @member {String} link
- */
-InlineResponse20012.prototype['link'] = undefined;
-
-/**
- * @member {String} binding
- */
-InlineResponse20012.prototype['binding'] = undefined;
-
-/**
- * @member {String} title
- */
-InlineResponse20012.prototype['title'] = undefined;
-
-/**
- * @member {String} dimensionUnitString
- */
-InlineResponse20012.prototype['dimensionUnitString'] = undefined;
-
-/**
- * @member {Number} price
- */
-InlineResponse20012.prototype['price'] = undefined;
-
-/**
- * @member {String} imageUrl
- */
-InlineResponse20012.prototype['imageUrl'] = undefined;
-
-/**
- * @member {Boolean} isAfn
- */
-InlineResponse20012.prototype['isAfn'] = undefined;
-
-/**
- * @member {String} gl
- */
-InlineResponse20012.prototype['gl'] = undefined;
-
-/**
- * @member {String} TRexId
- */
-InlineResponse20012.prototype['TRexId'] = undefined;
-
-/**
- * @member {Boolean} isAsinLimits
- */
-InlineResponse20012.prototype['isAsinLimits'] = undefined;
-
-/**
- * @member {String} originalUrl
- */
-InlineResponse20012.prototype['originalUrl'] = undefined;
-
-/**
- * @member {String} productGroup
- */
-InlineResponse20012.prototype['productGroup'] = undefined;
-
-/**
- * @member {String} thumbStringUrl
- */
-InlineResponse20012.prototype['thumbStringUrl'] = undefined;
-
-/**
- * @member {String} asin
- */
-InlineResponse20012.prototype['asin'] = undefined;
-
-/**
- * @member {String} encryptedMarketplaceId
- */
-InlineResponse20012.prototype['encryptedMarketplaceId'] = undefined;
-
-/**
- * @member {String} weightUnit
- */
-InlineResponse20012.prototype['weightUnit'] = undefined;
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+InlineResponse20012.prototype['isExist'] = undefined;
 
 
 

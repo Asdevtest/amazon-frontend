@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1SuppliersGuidDelete
@@ -115,7 +115,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1SuppliersGuidGet
@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1SuppliersGuidPatch
@@ -195,7 +195,7 @@ let apiInstance = new TestSwagger.SupplierApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject40() // InlineObject40 | 
+  'body': new TestSwagger.InlineObject42() // InlineObject42 | 
 };
 apiInstance.apiV1SuppliersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject40**](InlineObject40.md)|  | [optional] 
+ **body** | [**InlineObject42**](InlineObject42.md)|  | [optional] 
 
 ### Return type
 
@@ -225,7 +225,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1SuppliersPost
@@ -250,7 +250,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.SupplierApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject39() // InlineObject39 | 
+  'body': new TestSwagger.InlineObject41() // InlineObject41 | 
 };
 apiInstance.apiV1SuppliersPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -266,7 +266,7 @@ apiInstance.apiV1SuppliersPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject39**](InlineObject39.md)|  | [optional] 
+ **body** | [**InlineObject41**](InlineObject41.md)|  | [optional] 
 
 ### Return type
 
@@ -279,5 +279,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 

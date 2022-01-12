@@ -32,7 +32,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = "guid_example"; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject25() // InlineObject25 | 
+  'body': new TestSwagger.InlineObject27() // InlineObject27 | 
 };
 apiInstance.apiV1ProductsAddSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -49,7 +49,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject25**](InlineObject25.md)|  | [optional] 
+ **body** | [**InlineObject27**](InlineObject27.md)|  | [optional] 
 
 ### Return type
 
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1ProductsRemoveSuppliersGuidPost
@@ -88,7 +88,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = "guid_example"; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject26() // InlineObject26 | 
+  'body': new TestSwagger.InlineObject28() // InlineObject28 | 
 };
 apiInstance.apiV1ProductsRemoveSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject26**](InlineObject26.md)|  | [optional] 
+ **body** | [**InlineObject28**](InlineObject28.md)|  | [optional] 
 
 ### Return type
 
@@ -118,5 +118,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 

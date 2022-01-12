@@ -12,11 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-<<<<<<< HEAD
-import ApiV1RequestsCustomGuidDetails from './ApiV1RequestsCustomGuidDetails';
-import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
-=======
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
 
 /**
  * The InlineObject40 model module.
@@ -52,37 +48,41 @@ class InlineObject40 {
         if (data) {
             obj = obj || new InlineObject40();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('fbm')) {
+                obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean');
             }
-<<<<<<< HEAD
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsCustomGuidDetails.constructFromObject(data['details']);
-=======
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            if (data.hasOwnProperty('listingName')) {
+                obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('listingBulletPoints')) {
+                obj['listingBulletPoints'] = ApiClient.convertToType(data['listingBulletPoints'], ['String']);
             }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+            if (data.hasOwnProperty('listingProductDetails')) {
+                obj['listingProductDetails'] = ApiClient.convertToType(data['listingProductDetails'], 'String');
             }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('listingSearchTerms')) {
+                obj['listingSearchTerms'] = ApiClient.convertToType(data['listingSearchTerms'], 'String');
             }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            if (data.hasOwnProperty('listingSubjectMatters')) {
+                obj['listingSubjectMatters'] = ApiClient.convertToType(data['listingSubjectMatters'], ['String']);
             }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
+            if (data.hasOwnProperty('listingImages')) {
+                obj['listingImages'] = ApiClient.convertToType(data['listingImages'], ['String']);
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('listingTaskToFindSupplier')) {
+                obj['listingTaskToFindSupplier'] = ApiClient.convertToType(data['listingTaskToFindSupplier'], 'String');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+            if (data.hasOwnProperty('listingSupplierImportantPoints')) {
+                obj['listingSupplierImportantPoints'] = ApiClient.convertToType(data['listingSupplierImportantPoints'], 'String');
+            }
+            if (data.hasOwnProperty('listingExtraInfo')) {
+                obj['listingExtraInfo'] = ApiClient.convertToType(data['listingExtraInfo'], 'String');
+            }
+            if (data.hasOwnProperty('listingSupplierCompetitors')) {
+                obj['listingSupplierCompetitors'] = ApiClient.convertToType(data['listingSupplierCompetitors'], [ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]);
+            }
+            if (data.hasOwnProperty('strategyStatus')) {
+                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
             }
         }
         return obj;
@@ -92,62 +92,76 @@ class InlineObject40 {
 }
 
 /**
- * Название поставщика.
- * @member {String} name
+ * Признак fbm
+ * @member {Boolean} fbm
  */
-InlineObject40.prototype['name'] = undefined;
+InlineObject40.prototype['fbm'] = undefined;
 
 /**
- * Ссылка на поставщика.
- * @member {String} link
+ * 
+ * @member {String} listingName
  */
-InlineObject40.prototype['link'] = undefined;
+InlineObject40.prototype['listingName'] = undefined;
 
 /**
- * Цена
- * @member {Number} price
+ * Массив ...
+ * @member {Array.<String>} listingBulletPoints
  */
-InlineObject40.prototype['price'] = undefined;
+InlineObject40.prototype['listingBulletPoints'] = undefined;
 
 /**
- * Тип доставки
- * @member {Number} delivery
+ * 
+ * @member {String} listingProductDetails
  */
-InlineObject40.prototype['delivery'] = undefined;
+InlineObject40.prototype['listingProductDetails'] = undefined;
 
 /**
- * кол-во
- * @member {Number} amount
+ * 
+ * @member {String} listingSearchTerms
  */
-InlineObject40.prototype['amount'] = undefined;
+InlineObject40.prototype['listingSearchTerms'] = undefined;
 
 /**
- * Минимальный лот.
- * @member {Number} minlot
+ * Массив ...
+ * @member {Array.<String>} listingSubjectMatters
  */
-InlineObject40.prototype['minlot'] = undefined;
+InlineObject40.prototype['listingSubjectMatters'] = undefined;
 
 /**
- * Стоимость лота.
- * @member {Number} lotcost
+ * массив картинок(в виде прямых ссылок).
+ * @member {Array.<String>} listingImages
  */
-InlineObject40.prototype['lotcost'] = undefined;
+InlineObject40.prototype['listingImages'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * 
+ * @member {String} listingTaskToFindSupplier
  */
-InlineObject40.prototype['images'] = undefined;
+InlineObject40.prototype['listingTaskToFindSupplier'] = undefined;
 
 /**
-<<<<<<< HEAD
- * @member {module:model/ApiV1RequestsCustomGuidDetails} details
-=======
- * Комментарий
- * @member {String} comment
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+ * 
+ * @member {String} listingSupplierImportantPoints
  */
-InlineObject40.prototype['comment'] = undefined;
+InlineObject40.prototype['listingSupplierImportantPoints'] = undefined;
+
+/**
+ * 
+ * @member {String} listingExtraInfo
+ */
+InlineObject40.prototype['listingExtraInfo'] = undefined;
+
+/**
+ * Массив объектов: ссылки и комментарии к конкурентам
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors>} listingSupplierCompetitors
+ */
+InlineObject40.prototype['listingSupplierCompetitors'] = undefined;
+
+/**
+ * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+ * @member {Number} strategyStatus
+ */
+InlineObject40.prototype['strategyStatus'] = undefined;
 
 
 

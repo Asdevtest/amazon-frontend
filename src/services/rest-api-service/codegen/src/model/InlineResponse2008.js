@@ -21,11 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse2008 {
     /**
      * Constructs a new <code>InlineResponse2008</code>.
-<<<<<<< HEAD
-     * Успешный ответ.
-=======
      * Схема репорта за 30 дней с Seller-board
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
      * @alias module:model/InlineResponse2008
      * @param sku {String} SKU
      */
@@ -54,10 +50,6 @@ class InlineResponse2008 {
         if (data) {
             obj = obj || new InlineResponse2008();
 
-<<<<<<< HEAD
-            if (data.hasOwnProperty('isExist')) {
-                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
-=======
             if (data.hasOwnProperty('date')) {
                 obj['date'] = ApiClient.convertToType(data['date'], 'String');
             }
@@ -165,7 +157,6 @@ class InlineResponse2008 {
             }
             if (data.hasOwnProperty('realAcos')) {
                 obj['realAcos'] = ApiClient.convertToType(data['realAcos'], 'Number');
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
             }
         }
         return obj;
@@ -175,12 +166,6 @@ class InlineResponse2008 {
 }
 
 /**
-<<<<<<< HEAD
- * Флаг, показывает есть ли такой id в базе или нет
- * @member {Boolean} isExist
- */
-InlineResponse2008.prototype['isExist'] = undefined;
-=======
  * \"Date\"
  * @member {String} date
  */
@@ -395,7 +380,6 @@ InlineResponse2008.prototype['margin'] = undefined;
  * @member {Number} realAcos
  */
 InlineResponse2008.prototype['realAcos'] = undefined;
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 
 

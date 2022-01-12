@@ -155,9 +155,7 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
         color="primary"
         variant="contained"
         onClick={() =>
-          isDeadlineError
-            ? setDeadlineError(!deadlineError)
-            : onSubmit(formFields, requestToEdit?.request?._id)
+          isDeadlineError ? setDeadlineError(!deadlineError) : onSubmit(formFields, requestToEdit?.request?._id)
         }
       >
         {isEdit ? textConsts.editBtn : textConsts.createBtn}

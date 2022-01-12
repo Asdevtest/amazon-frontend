@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BuyersOrdersGuidPatch
@@ -126,7 +126,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BuyersOrdersMyGet
@@ -178,7 +178,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BuyersOrdersPickupGuidPost
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BuyersOrdersVacGet
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BuyersProductsGuidPatch
@@ -342,7 +342,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BuyersProductsMyGet
@@ -394,7 +394,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BuyersProductsPickupGuidPost
@@ -448,7 +448,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BuyersProductsVacGet
@@ -500,7 +500,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BuyersTasksCancelGuidPost
@@ -554,7 +554,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BuyersTasksGet
@@ -606,7 +606,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1BuyersTasksPost
@@ -660,5 +660,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 

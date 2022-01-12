@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineObject6 from './InlineObject6';
 
 /**
  * The InlineObject36 model module.
@@ -47,14 +48,8 @@ class InlineObject36 {
         if (data) {
             obj = obj || new InlineObject36();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
-            }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'], 'Boolean');
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject6]);
             }
         }
         return obj;
@@ -64,22 +59,10 @@ class InlineObject36 {
 }
 
 /**
- * Статус
- * @member {Number} status
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject6>} additionalBoxes
  */
-InlineObject36.prototype['status'] = undefined;
-
-/**
- * Признак того, что баркод поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
- */
-InlineObject36.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
-
-/**
- * ???===нет описания===
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper
- */
-InlineObject36.prototype['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = undefined;
+InlineObject36.prototype['additionalBoxes'] = undefined;
 
 
 

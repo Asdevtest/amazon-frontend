@@ -21,27 +21,11 @@ import ApiClient from '../ApiClient';
 class InlineResponse20010 {
     /**
      * Constructs a new <code>InlineResponse20010</code>.
-<<<<<<< HEAD
-     * Схема репорта за 30 дней с Seller-board
      * @alias module:model/InlineResponse20010
-     * @param sku {String} SKU
      */
-    constructor(sku) { 
+    constructor() { 
         
-        InlineResponse20010.initialize(this, sku);
-=======
-     * @alias module:model/InlineResponse20010
-     * @param _id {String} GUID заявки в базе данных.
-     * @param type {String} Тип заявки.
-     * @param maxAmountOfProposals {Number} Количество предложений.
-     * @param price {Number} Цена за каждое предложение.
-     * @param status {module:model/InlineResponse20010.StatusEnum} Статус заявки.
-     * @param direction {module:model/InlineResponse20010.DirectionEnum} Направление заявки, исходящая или входящая.
-     */
-    constructor(_id, type, maxAmountOfProposals, price, status, direction) { 
-        
-        InlineResponse20010.initialize(this, _id, type, maxAmountOfProposals, price, status, direction);
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+        InlineResponse20010.initialize(this);
     }
 
     /**
@@ -49,18 +33,7 @@ class InlineResponse20010 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-<<<<<<< HEAD
-    static initialize(obj, sku) { 
-        obj['sku'] = sku;
-=======
-    static initialize(obj, _id, type, maxAmountOfProposals, price, status, direction) { 
-        obj['_id'] = _id;
-        obj['type'] = type;
-        obj['maxAmountOfProposals'] = maxAmountOfProposals;
-        obj['price'] = price;
-        obj['status'] = status;
-        obj['direction'] = direction;
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+    static initialize(obj) { 
     }
 
     /**
@@ -74,113 +47,26 @@ class InlineResponse20010 {
         if (data) {
             obj = obj || new InlineResponse20010();
 
-<<<<<<< HEAD
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
-            }
-            if (data.hasOwnProperty('sku')) {
-                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('roi')) {
-                obj['roi'] = ApiClient.convertToType(data['roi'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaFbmStock')) {
-                obj['fbaFbmStock'] = ApiClient.convertToType(data['fbaFbmStock'], 'Number');
-            }
-            if (data.hasOwnProperty('stockValue')) {
-                obj['stockValue'] = ApiClient.convertToType(data['stockValue'], 'Number');
-            }
-            if (data.hasOwnProperty('estimatedSalesVelocity')) {
-                obj['estimatedSalesVelocity'] = ApiClient.convertToType(data['estimatedSalesVelocity'], 'Number');
-            }
-            if (data.hasOwnProperty('daysOfStockLeft')) {
-                obj['daysOfStockLeft'] = ApiClient.convertToType(data['daysOfStockLeft'], 'Number');
-            }
-            if (data.hasOwnProperty('recommendedQuantityForReordering')) {
-                obj['recommendedQuantityForReordering'] = ApiClient.convertToType(data['recommendedQuantityForReordering'], 'Number');
-            }
-            if (data.hasOwnProperty('runningOutOfStock')) {
-                obj['runningOutOfStock'] = ApiClient.convertToType(data['runningOutOfStock'], 'String');
-            }
-            if (data.hasOwnProperty('reserved')) {
-                obj['reserved'] = ApiClient.convertToType(data['reserved'], 'Number');
-            }
-            if (data.hasOwnProperty('sentToFba')) {
-                obj['sentToFba'] = ApiClient.convertToType(data['sentToFba'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaPrepStock')) {
-                obj['fbaPrepStock'] = ApiClient.convertToType(data['fbaPrepStock'], 'Number');
-=======
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
             if (data.hasOwnProperty('type')) {
                 obj['type'] = ApiClient.convertToType(data['type'], 'String');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('maxAmountOfProposals')) {
-                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
-            }
-            if (data.hasOwnProperty('ordered')) {
-                obj['ordered'] = ApiClient.convertToType(data['ordered'], 'String');
-            }
-<<<<<<< HEAD
-            if (data.hasOwnProperty('timeToReorder')) {
-                obj['timeToReorder'] = ApiClient.convertToType(data['timeToReorder'], 'String');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('marketplace')) {
-                obj['marketplace'] = ApiClient.convertToType(data['marketplace'], 'String');
-            }
-            if (data.hasOwnProperty('targetStockRangeAfterNewOrderDays')) {
-                obj['targetStockRangeAfterNewOrderDays'] = ApiClient.convertToType(data['targetStockRangeAfterNewOrderDays'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaBufferDays')) {
-                obj['fbaBufferDays'] = ApiClient.convertToType(data['fbaBufferDays'], 'Number');
-            }
-            if (data.hasOwnProperty('manufTimeDays')) {
-                obj['manufTimeDays'] = ApiClient.convertToType(data['manufTimeDays'], 'Number');
-            }
-            if (data.hasOwnProperty('useAPrepCenter')) {
-                obj['useAPrepCenter'] = ApiClient.convertToType(data['useAPrepCenter'], 'String');
-            }
-            if (data.hasOwnProperty('shippingToPrepCenterDays')) {
-                obj['shippingToPrepCenterDays'] = ApiClient.convertToType(data['shippingToPrepCenterDays'], 'Number');
-            }
-            if (data.hasOwnProperty('shippingToFbaDays')) {
-                obj['shippingToFbaDays'] = ApiClient.convertToType(data['shippingToFbaDays'], 'Number');
-=======
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
             if (data.hasOwnProperty('timeoutAt')) {
                 obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
             }
-            if (data.hasOwnProperty('timeLimitInMinutes')) {
-                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            if (data.hasOwnProperty('clientId')) {
+                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
             }
-            if (data.hasOwnProperty('assignees')) {
-                obj['assignees'] = ApiClient.convertToType(data['assignees'], ['String']);
-            }
-            if (data.hasOwnProperty('direction')) {
-                obj['direction'] = ApiClient.convertToType(data['direction'], 'String');
-            }
-            if (data.hasOwnProperty('roles')) {
-                obj['roles'] = ApiClient.convertToType(data['roles'], ['Number']);
-            }
-            if (data.hasOwnProperty('needCheckBySupervisor')) {
-                obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
-            }
-            if (data.hasOwnProperty('restrictMoreThanOneProposalFromOneAssignee')) {
-                obj['restrictMoreThanOneProposalFromOneAssignee'] = ApiClient.convertToType(data['restrictMoreThanOneProposalFromOneAssignee'], 'Boolean');
+            if (data.hasOwnProperty('supervisorId')) {
+                obj['supervisorId'] = ApiClient.convertToType(data['supervisorId'], 'String');
             }
             if (data.hasOwnProperty('createdById')) {
                 obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
@@ -193,7 +79,6 @@ class InlineResponse20010 {
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
             }
         }
         return obj;
@@ -203,230 +88,55 @@ class InlineResponse20010 {
 }
 
 /**
-<<<<<<< HEAD
- * \"ASIN\"
- * @member {String} asin
- */
-InlineResponse20010.prototype['asin'] = undefined;
-
-/**
- * SKU
- * @member {String} sku
- */
-InlineResponse20010.prototype['sku'] = undefined;
-
-/**
- * Title
- * @member {String} title
- */
-InlineResponse20010.prototype['title'] = undefined;
-
-/**
- * ROI, %
- * @member {Number} roi
- */
-InlineResponse20010.prototype['roi'] = undefined;
-
-/**
- * FBA/FBM Stock
- * @member {Number} fbaFbmStock
- */
-InlineResponse20010.prototype['fbaFbmStock'] = undefined;
-
-/**
- * Stock value
- * @member {Number} stockValue
- */
-InlineResponse20010.prototype['stockValue'] = undefined;
-
-/**
- * Estimated Sales Velocity
- * @member {Number} estimatedSalesVelocity
- */
-InlineResponse20010.prototype['estimatedSalesVelocity'] = undefined;
-
-/**
- * Days  of stock  left
- * @member {Number} daysOfStockLeft
- */
-InlineResponse20010.prototype['daysOfStockLeft'] = undefined;
-
-/**
- * Recommended quantity for  reordering
- * @member {Number} recommendedQuantityForReordering
- */
-InlineResponse20010.prototype['recommendedQuantityForReordering'] = undefined;
-
-/**
- * Running  out of stock
- * @member {String} runningOutOfStock
- */
-InlineResponse20010.prototype['runningOutOfStock'] = undefined;
-
-/**
- * Reserved
- * @member {Number} reserved
- */
-InlineResponse20010.prototype['reserved'] = undefined;
-
-/**
- * Sent  to FBA
- * @member {Number} sentToFba
- */
-InlineResponse20010.prototype['sentToFba'] = undefined;
-
-/**
- * FBA  Prep. Stock
- * @member {Number} fbaPrepStock
- */
-InlineResponse20010.prototype['fbaPrepStock'] = undefined;
-
-/**
- * Ordered
- * @member {String} ordered
- */
-InlineResponse20010.prototype['ordered'] = undefined;
-
-/**
- * Time to  reorder
- * @member {String} timeToReorder
- */
-InlineResponse20010.prototype['timeToReorder'] = undefined;
-
-/**
- * Comment
- * @member {String} comment
- */
-InlineResponse20010.prototype['comment'] = undefined;
-
-/**
- * Marketplace
- * @member {String} marketplace
- */
-InlineResponse20010.prototype['marketplace'] = undefined;
-
-/**
- * Target stock range after new order days
- * @member {Number} targetStockRangeAfterNewOrderDays
- */
-InlineResponse20010.prototype['targetStockRangeAfterNewOrderDays'] = undefined;
-
-/**
- * FBA buffer days
- * @member {Number} fbaBufferDays
- */
-InlineResponse20010.prototype['fbaBufferDays'] = undefined;
-
-/**
- * Manuf. time days
- * @member {Number} manufTimeDays
- */
-InlineResponse20010.prototype['manufTimeDays'] = undefined;
-
-/**
- * Use a Prep Center
- * @member {String} useAPrepCenter
- */
-InlineResponse20010.prototype['useAPrepCenter'] = undefined;
-
-/**
- * Shipping to Prep Center days
- * @member {Number} shippingToPrepCenterDays
- */
-InlineResponse20010.prototype['shippingToPrepCenterDays'] = undefined;
-
-/**
- * Shipping to FBA days
- * @member {Number} shippingToFbaDays
- */
-InlineResponse20010.prototype['shippingToFbaDays'] = undefined;
-
-=======
- * GUID заявки в базе данных.
+ * Guid продожения к заявке.
  * @member {String} _id
  */
 InlineResponse20010.prototype['_id'] = undefined;
 
 /**
- * Тип заявки.
+ * Guid заявки к которой относится данное предложение.
+ * @member {String} requestId
+ */
+InlineResponse20010.prototype['requestId'] = undefined;
+
+/**
+ * Тип предложения.
  * @member {String} type
  */
 InlineResponse20010.prototype['type'] = undefined;
 
 /**
- * Title заявки.
- * @member {String} title
- */
-InlineResponse20010.prototype['title'] = undefined;
-
-/**
- * Количество предложений.
- * @member {Number} maxAmountOfProposals
- */
-InlineResponse20010.prototype['maxAmountOfProposals'] = undefined;
-
-/**
- * Цена за каждое предложение.
- * @member {Number} price
- */
-InlineResponse20010.prototype['price'] = undefined;
-
-/**
- * Статус заявки.
+ * Статус предложения предложения.
  * @member {module:model/InlineResponse20010.StatusEnum} status
  */
 InlineResponse20010.prototype['status'] = undefined;
 
 /**
- * Время закрытия заявки.
+ * Время закрытия предложения.
  * @member {Date} timeoutAt
  */
 InlineResponse20010.prototype['timeoutAt'] = undefined;
 
 /**
- * Время за которое должен отправить предложение после бронирования. В минутах.
- * @member {Number} timeLimitInMinutes
+ * GUID клиента .
+ * @member {String} clientId
  */
-InlineResponse20010.prototype['timeLimitInMinutes'] = undefined;
+InlineResponse20010.prototype['clientId'] = undefined;
 
 /**
- * Массив id пользователей.
- * @member {Array.<String>} assignees
+ * GUID супервизора.
+ * @member {String} supervisorId
  */
-InlineResponse20010.prototype['assignees'] = undefined;
+InlineResponse20010.prototype['supervisorId'] = undefined;
 
 /**
- * Направление заявки, исходящая или входящая.
- * @member {module:model/InlineResponse20010.DirectionEnum} direction
- */
-InlineResponse20010.prototype['direction'] = undefined;
-
-/**
- * Массив массив ролей.
- * @member {Array.<Number>} roles
- */
-InlineResponse20010.prototype['roles'] = undefined;
-
-/**
- * Если требуется проверка супервайзером.
- * @member {Boolean} needCheckBySupervisor
- */
-InlineResponse20010.prototype['needCheckBySupervisor'] = undefined;
-
-/**
- * Запретить фрилансеру повторное отправление предложений.
- * @member {Boolean} restrictMoreThanOneProposalFromOneAssignee
- */
-InlineResponse20010.prototype['restrictMoreThanOneProposalFromOneAssignee'] = undefined;
-
-/**
- * GUID клиента, который создал заявку.
+ * GUID любого, кто создал предложение.
  * @member {String} createdById
  */
 InlineResponse20010.prototype['createdById'] = undefined;
 
 /**
- * GUID клиента, который обновил запрос на поиск товара.
+ * GUID любого, кто последний редактировал предложение.
  * @member {String} lastModifiedById
  */
 InlineResponse20010.prototype['lastModifiedById'] = undefined;
@@ -455,16 +165,16 @@ InlineResponse20010.prototype['updatedAt'] = undefined;
 InlineResponse20010['StatusEnum'] = {
 
     /**
+     * value: "EMPTY"
+     * @const
+     */
+    "EMPTY": "EMPTY",
+
+    /**
      * value: "CREATED"
      * @const
      */
     "CREATED": "CREATED",
-
-    /**
-     * value: "IN_PROCESS"
-     * @const
-     */
-    "IN_PROCESS": "IN_PROCESS",
 
     /**
      * value: "READY_TO_VERIFY"
@@ -473,10 +183,10 @@ InlineResponse20010['StatusEnum'] = {
     "READY_TO_VERIFY": "READY_TO_VERIFY",
 
     /**
-     * value: "VERIFYING"
+     * value: "VERIFYING_BY_SUPERVISOR"
      * @const
      */
-    "VERIFYING": "VERIFYING",
+    "VERIFYING_BY_SUPERVISOR": "VERIFYING_BY_SUPERVISOR",
 
     /**
      * value: "TO_CORRECT"
@@ -485,38 +195,46 @@ InlineResponse20010['StatusEnum'] = {
     "TO_CORRECT": "TO_CORRECT",
 
     /**
-     * value: "CANCELED"
+     * value: "CORRECTED"
      * @const
      */
-    "CANCELED": "CANCELED",
+    "CORRECTED": "CORRECTED",
+
+    /**
+     * value: "CANCELED_BY_CLIENT"
+     * @const
+     */
+    "CANCELED_BY_CLIENT": "CANCELED_BY_CLIENT",
+
+    /**
+     * value: "CANCELED_BY_SUPERVISOR"
+     * @const
+     */
+    "CANCELED_BY_SUPERVISOR": "CANCELED_BY_SUPERVISOR",
+
+    /**
+     * value: "CANCELED_BY_EXECUTOR"
+     * @const
+     */
+    "CANCELED_BY_EXECUTOR": "CANCELED_BY_EXECUTOR",
+
+    /**
+     * value: "ACCEPTED_BY_CLIENT"
+     * @const
+     */
+    "ACCEPTED_BY_CLIENT": "ACCEPTED_BY_CLIENT",
+
+    /**
+     * value: "ACCEPTED_BY_SUPERVISOR"
+     * @const
+     */
+    "ACCEPTED_BY_SUPERVISOR": "ACCEPTED_BY_SUPERVISOR",
 
     /**
      * value: "EXPIRED"
      * @const
      */
     "EXPIRED": "EXPIRED"
-};
-
-
-/**
- * Allowed values for the <code>direction</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse20010['DirectionEnum'] = {
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
-
-    /**
-     * value: "IN"
-     * @const
-     */
-    "IN": "IN",
-
-    /**
-     * value: "OUT"
-     * @const
-     */
-    "OUT": "OUT"
 };
 
 

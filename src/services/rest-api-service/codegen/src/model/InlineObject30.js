@@ -22,11 +22,10 @@ class InlineObject30 {
     /**
      * Constructs a new <code>InlineObject30</code>.
      * @alias module:model/InlineObject30
-     * @param action {module:model/InlineObject30.ActionEnum} 
      */
-    constructor(action) { 
+    constructor() { 
         
-        InlineObject30.initialize(this, action);
+        InlineObject30.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject30 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, action) { 
-        obj['action'] = action;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,11 @@ class InlineObject30 {
         if (data) {
             obj = obj || new InlineObject30();
 
-            if (data.hasOwnProperty('action')) {
-                obj['action'] = ApiClient.convertToType(data['action'], 'String');
-            }
             if (data.hasOwnProperty('reason')) {
                 obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -63,39 +61,19 @@ class InlineObject30 {
 }
 
 /**
- * @member {module:model/InlineObject30.ActionEnum} action
- */
-InlineObject30.prototype['action'] = undefined;
-
-/**
- * Причина смены статуса.
+ * Комментарий причин изменения статуса.
  * @member {String} reason
  */
 InlineObject30.prototype['reason'] = undefined;
 
-
-
-
-
 /**
- * Allowed values for the <code>action</code> property.
- * @enum {String}
- * @readonly
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject30['ActionEnum'] = {
+InlineObject30.prototype['linksToMediaFiles'] = undefined;
 
-    /**
-     * value: "LINK"
-     * @const
-     */
-    "LINK": "LINK",
 
-    /**
-     * value: "UNLINK"
-     * @const
-     */
-    "UNLINK": "UNLINK"
-};
+
 
 
 

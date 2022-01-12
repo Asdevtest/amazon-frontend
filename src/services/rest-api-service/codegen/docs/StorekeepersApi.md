@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1StorekeepersBoxesGet
@@ -117,7 +117,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch
@@ -143,7 +143,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = "guid_example"; // String | GUID ордера, который мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject36() // InlineObject36 | 
+  'body': new TestSwagger.InlineObject38() // InlineObject38 | 
 };
 apiInstance.apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID ордера, который мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject36**](InlineObject36.md)|  | [optional] 
+ **body** | [**InlineObject38**](InlineObject38.md)|  | [optional] 
 
 ### Return type
 
@@ -173,7 +173,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1StorekeepersTasksCancelGuidPost
@@ -227,7 +227,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1StorekeepersTasksDoneGuidPost
@@ -253,7 +253,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = "guid_example"; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject34() // InlineObject34 | 
+  'body': new TestSwagger.InlineObject36() // InlineObject36 | 
 };
 apiInstance.apiV1StorekeepersTasksDoneGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -270,7 +270,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject34**](InlineObject34.md)|  | [optional] 
+ **body** | [**InlineObject36**](InlineObject36.md)|  | [optional] 
 
 ### Return type
 
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1StorekeepersTasksGuidPatch
@@ -309,7 +309,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = "guid_example"; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject35() // InlineObject35 | 
+  'body': new TestSwagger.InlineObject37() // InlineObject37 | 
 };
 apiInstance.apiV1StorekeepersTasksGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -326,7 +326,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject35**](InlineObject35.md)|  | [optional] 
+ **body** | [**InlineObject37**](InlineObject37.md)|  | [optional] 
 
 ### Return type
 
@@ -339,7 +339,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1StorekeepersTasksMyGet
@@ -393,7 +393,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1StorekeepersTasksPickupGuidPost
@@ -447,7 +447,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1StorekeepersTasksVacGet
@@ -499,5 +499,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 

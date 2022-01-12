@@ -18,11 +18,8 @@ Name | Type | Description | Notes
 **permissionGroups** | [**[UserAdminFullSchemaPermissionGroups]**](UserAdminFullSchemaPermissionGroups.md) | Массив групп permission-ов. | [optional] 
 **masterUser** | **String** | GUID мастер пользователя к которму относится данный субпользователь. | [optional] 
 **allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
-<<<<<<< HEAD
-=======
 **canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 

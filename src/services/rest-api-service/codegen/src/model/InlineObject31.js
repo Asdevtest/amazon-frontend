@@ -47,8 +47,11 @@ class InlineObject31 {
         if (data) {
             obj = obj || new InlineObject31();
 
-            if (data.hasOwnProperty('requestProposalIds')) {
-                obj['requestProposalIds'] = ApiClient.convertToType(data['requestProposalIds'], ['String']);
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -58,10 +61,16 @@ class InlineObject31 {
 }
 
 /**
- * Массив id предложений.
- * @member {Array.<String>} requestProposalIds
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject31.prototype['requestProposalIds'] = undefined;
+InlineObject31.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject31.prototype['linksToMediaFiles'] = undefined;
 
 
 

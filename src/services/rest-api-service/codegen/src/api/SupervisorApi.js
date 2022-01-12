@@ -15,8 +15,8 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject37 from '../model/InlineObject37';
-import InlineObject38 from '../model/InlineObject38';
+import InlineObject39 from '../model/InlineObject39';
+import InlineObject40 from '../model/InlineObject40';
 import InlineResponse200 from '../model/InlineResponse200';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -47,7 +47,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject37} opts.body 
+     * @param {module:model/InlineObject39} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -71,7 +71,7 @@ export default class SupervisorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/{guid}', 'PATCH',
@@ -86,7 +86,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject37} opts.body 
+     * @param {module:model/InlineObject39} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsGuidPatch(guid, opts) {
@@ -103,7 +103,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject38} opts.body 
+     * @param {module:model/InlineObject40} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsListingGuidPatchWithHttpInfo(guid, opts) {
@@ -142,7 +142,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject38} opts.body 
+     * @param {module:model/InlineObject40} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsListingGuidPatch(guid, opts) {
@@ -176,7 +176,7 @@ export default class SupervisorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse200];
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/my', 'GET',
@@ -229,7 +229,7 @@ export default class SupervisorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/pickup/{guid}', 'POST',
@@ -277,7 +277,7 @@ export default class SupervisorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse200];
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/vac', 'GET',

@@ -200,8 +200,12 @@ Class | Method | HTTP request | Description
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksGet**](docs/ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя.
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksGuidDelete**](docs/ClientApi.md#apiV1ClientsTasksGuidDelete) | **DELETE** /api/v1/clients/tasks/{guid} | # Удалить задачу.
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksPost**](docs/ClientApi.md#apiV1ClientsTasksPost) | **POST** /api/v1/clients/tasks | # Создать задачу.
+*TestSwagger.IntegrationsApi* | [**apiV1IntegrationsGetLinkedProductSkuGet**](docs/IntegrationsApi.md#apiV1IntegrationsGetLinkedProductSkuGet) | **GET** /api/v1/integrations/get_linked_product/{sku} | Получить продут с массивом sku, через SKU. Просто для примера
+*TestSwagger.IntegrationsApi* | [**apiV1IntegrationsGetProductsWithSkuGuidGet**](docs/IntegrationsApi.md#apiV1IntegrationsGetProductsWithSkuGuidGet) | **GET** /api/v1/integrations/get_products_with_sku/{guid} | Получить продуты с массивом sku, через GUID продукта. Просто для примера
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet) | **GET** /api/v1/integrations/sellerboard_dashboard_products_days_reports_last_30_days | Получить месячный отчет селерборда.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardWarehouseProductsGet**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseProductsGet) | **GET** /api/v1/integrations/sellerboard_warehouse_products | Поиск по товарам со склада по: asin, sku, title..
+*TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch) | **PATCH** /api/v1/integrations/sellerboard_warehouse_products_link_sku | # Приаязать к товару SKU.
+*TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch) | **PATCH** /api/v1/integrations/sellerboard_warehouse_products_unLink_sku | # Отаязать товар от SKU.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardWarehouseReportsDailyGet**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseReportsDailyGet) | **GET** /api/v1/integrations/sellerboard_warehouse_reports_daily | Получить дневной отчет селерборда.
 *TestSwagger.OtherApi* | [**apiV1OtherImgGuidGet**](docs/OtherApi.md#apiV1OtherImgGuidGet) | **GET** /api/v1/other/img/{guid} | # Получить изображение.
 *TestSwagger.OtherApi* | [**apiV1OtherPaymentsByProductGuidGet**](docs/OtherApi.md#apiV1OtherPaymentsByProductGuidGet) | **GET** /api/v1/other/payments/by_product/{guid} | # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
@@ -298,10 +302,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1BoxesSplitNewBoxesParams](docs/ApiV1BoxesSplitNewBoxesParams.md)
  - [TestSwagger.ApiV1RequestsCustomDetails](docs/ApiV1RequestsCustomDetails.md)
  - [TestSwagger.ApiV1RequestsCustomGuidDetails](docs/ApiV1RequestsCustomGuidDetails.md)
-<<<<<<< HEAD
- - [TestSwagger.ApiV1RequestsCustomGuidProposalsProposal](docs/ApiV1RequestsCustomGuidProposalsProposal.md)
-=======
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
  - [TestSwagger.ApiV1RequestsCustomGuidRequest](docs/ApiV1RequestsCustomGuidRequest.md)
  - [TestSwagger.ApiV1RequestsCustomRequest](docs/ApiV1RequestsCustomRequest.md)
  - [TestSwagger.BadRequestError](docs/BadRequestError.md)
@@ -349,6 +349,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject41](docs/InlineObject41.md)
  - [TestSwagger.InlineObject42](docs/InlineObject42.md)
  - [TestSwagger.InlineObject43](docs/InlineObject43.md)
+ - [TestSwagger.InlineObject44](docs/InlineObject44.md)
+ - [TestSwagger.InlineObject45](docs/InlineObject45.md)
  - [TestSwagger.InlineObject5](docs/InlineObject5.md)
  - [TestSwagger.InlineObject6](docs/InlineObject6.md)
  - [TestSwagger.InlineObject7](docs/InlineObject7.md)
@@ -360,11 +362,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20011](docs/InlineResponse20011.md)
  - [TestSwagger.InlineResponse20012](docs/InlineResponse20012.md)
  - [TestSwagger.InlineResponse20013](docs/InlineResponse20013.md)
-<<<<<<< HEAD
  - [TestSwagger.InlineResponse20014](docs/InlineResponse20014.md)
-=======
- - [TestSwagger.InlineResponse20013Details](docs/InlineResponse20013Details.md)
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+ - [TestSwagger.InlineResponse20014Details](docs/InlineResponse20014Details.md)
  - [TestSwagger.InlineResponse2002](docs/InlineResponse2002.md)
  - [TestSwagger.InlineResponse2003](docs/InlineResponse2003.md)
  - [TestSwagger.InlineResponse2004](docs/InlineResponse2004.md)
@@ -373,6 +372,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse2007](docs/InlineResponse2007.md)
  - [TestSwagger.InlineResponse2008](docs/InlineResponse2008.md)
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)
+ - [TestSwagger.InlineResponse2009Sellerboard](docs/InlineResponse2009Sellerboard.md)
  - [TestSwagger.InlineResponse201](docs/InlineResponse201.md)
  - [TestSwagger.InlineResponse2011](docs/InlineResponse2011.md)
  - [TestSwagger.InlineResponse2012](docs/InlineResponse2012.md)

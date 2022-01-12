@@ -29,10 +29,6 @@ import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
 import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
 import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetails';
-<<<<<<< HEAD
-import ApiV1RequestsCustomGuidProposalsProposal from './model/ApiV1RequestsCustomGuidProposalsProposal';
-=======
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
 import BadRequestError from './model/BadRequestError';
@@ -80,6 +76,8 @@ import InlineObject40 from './model/InlineObject40';
 import InlineObject41 from './model/InlineObject41';
 import InlineObject42 from './model/InlineObject42';
 import InlineObject43 from './model/InlineObject43';
+import InlineObject44 from './model/InlineObject44';
+import InlineObject45 from './model/InlineObject45';
 import InlineObject5 from './model/InlineObject5';
 import InlineObject6 from './model/InlineObject6';
 import InlineObject7 from './model/InlineObject7';
@@ -91,11 +89,8 @@ import InlineResponse20010 from './model/InlineResponse20010';
 import InlineResponse20011 from './model/InlineResponse20011';
 import InlineResponse20012 from './model/InlineResponse20012';
 import InlineResponse20013 from './model/InlineResponse20013';
-<<<<<<< HEAD
 import InlineResponse20014 from './model/InlineResponse20014';
-=======
-import InlineResponse20013Details from './model/InlineResponse20013Details';
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+import InlineResponse20014Details from './model/InlineResponse20014Details';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
@@ -104,6 +99,7 @@ import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse2007 from './model/InlineResponse2007';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
+import InlineResponse2009Sellerboard from './model/InlineResponse2009Sellerboard';
 import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
 import InlineResponse2012 from './model/InlineResponse2012';
@@ -294,15 +290,6 @@ export {
     /**
      * The ApiV1RequestsCustomGuidDetails model constructor.
      * @property {module:model/ApiV1RequestsCustomGuidDetails}
-<<<<<<< HEAD
-     */
-    ApiV1RequestsCustomGuidDetails,
-
-    /**
-     * The ApiV1RequestsCustomGuidProposalsProposal model constructor.
-     * @property {module:model/ApiV1RequestsCustomGuidProposalsProposal}
-=======
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
      */
     ApiV1RequestsCustomGuidDetails,
 
@@ -323,18 +310,6 @@ export {
      * @property {module:model/BadRequestError}
      */
     BadRequestError,
-
-    /**
-     * The CheckIsUniqueNameOrEmailReqSchema model constructor.
-     * @property {module:model/CheckIsUniqueNameOrEmailReqSchema}
-     */
-    CheckIsUniqueNameOrEmailReqSchema,
-
-    /**
-     * The CheckIsUniqueNameOrEmailSchema model constructor.
-     * @property {module:model/CheckIsUniqueNameOrEmailSchema}
-     */
-    CheckIsUniqueNameOrEmailSchema,
 
     /**
      * The CheckIsUniqueNameOrEmailReqSchema model constructor.
@@ -601,6 +576,18 @@ export {
     InlineObject43,
 
     /**
+     * The InlineObject44 model constructor.
+     * @property {module:model/InlineObject44}
+     */
+    InlineObject44,
+
+    /**
+     * The InlineObject45 model constructor.
+     * @property {module:model/InlineObject45}
+     */
+    InlineObject45,
+
+    /**
      * The InlineObject5 model constructor.
      * @property {module:model/InlineObject5}
      */
@@ -667,17 +654,16 @@ export {
     InlineResponse20013,
 
     /**
-<<<<<<< HEAD
      * The InlineResponse20014 model constructor.
      * @property {module:model/InlineResponse20014}
      */
     InlineResponse20014,
-=======
-     * The InlineResponse20013Details model constructor.
-     * @property {module:model/InlineResponse20013Details}
+
+    /**
+     * The InlineResponse20014Details model constructor.
+     * @property {module:model/InlineResponse20014Details}
      */
-    InlineResponse20013Details,
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+    InlineResponse20014Details,
 
     /**
      * The InlineResponse2002 model constructor.
@@ -726,6 +712,12 @@ export {
      * @property {module:model/InlineResponse2009}
      */
     InlineResponse2009,
+
+    /**
+     * The InlineResponse2009Sellerboard model constructor.
+     * @property {module:model/InlineResponse2009Sellerboard}
+     */
+    InlineResponse2009Sellerboard,
 
     /**
      * The InlineResponse201 model constructor.

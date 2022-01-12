@@ -79,7 +79,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse2004];
       return this.apiClient.callApi(
         '/api/v1/admins/batches', 'GET',
@@ -129,7 +129,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse200];
       return this.apiClient.callApi(
         '/api/v1/admins/get_checking_products', 'GET',
@@ -176,7 +176,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse200];
       return this.apiClient.callApi(
         '/api/v1/admins/get_not_paid_products', 'GET',
@@ -223,7 +223,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse200];
       return this.apiClient.callApi(
         '/api/v1/admins/get_paid_products', 'GET',
@@ -272,7 +272,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse200];
       return this.apiClient.callApi(
         '/api/v1/admins/get_products_by_status', 'GET',
@@ -320,7 +320,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = {'String': Object};
       return this.apiClient.callApi(
         '/api/v1/admins/get_settings', 'GET',
@@ -367,7 +367,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse200];
       return this.apiClient.callApi(
         '/api/v1/admins/get_vac_products', 'GET',
@@ -414,7 +414,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse200];
       return this.apiClient.callApi(
         '/api/v1/admins/get_waiting_products', 'GET',
@@ -462,7 +462,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/admins/make_payment', 'POST',
@@ -512,7 +512,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse2001];
       return this.apiClient.callApi(
         '/api/v1/admins/orders', 'GET',
@@ -567,7 +567,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/admins/orders/{guid}', 'PATCH',
@@ -623,7 +623,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/admins/patch_products/{guid}', 'PATCH',
@@ -672,7 +672,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse2002];
       return this.apiClient.callApi(
         '/api/v1/admins/payments', 'GET',
@@ -725,7 +725,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/admins/pickup_product/{guid}', 'POST',
@@ -774,7 +774,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = InlineResponse201;
       return this.apiClient.callApi(
         '/api/v1/admins/set_setting', 'PATCH',
@@ -824,7 +824,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse2003];
       return this.apiClient.callApi(
         '/api/v1/admins/tasks', 'GET',
@@ -872,7 +872,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [UserAdminFullSchema];
       return this.apiClient.callApi(
         '/api/v1/admins/users', 'GET',
@@ -925,7 +925,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/admins/users/{guid}', 'DELETE',
@@ -979,7 +979,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = UserAdminFullSchema;
       return this.apiClient.callApi(
         '/api/v1/admins/users/{guid}', 'GET',
@@ -1034,7 +1034,7 @@ export default class AdministratorApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/admins/users/{guid}', 'PATCH',

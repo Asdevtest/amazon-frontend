@@ -22,12 +22,11 @@ class InlineObject32 {
     /**
      * Constructs a new <code>InlineObject32</code>.
      * @alias module:model/InlineObject32
-     * @param id {String} ASIN продукта
-     * @param lamazon {String} Ссылка на этот продукт на амазоне.
+     * @param action {module:model/InlineObject32.ActionEnum} 
      */
-    constructor(id, lamazon) { 
+    constructor(action) { 
         
-        InlineObject32.initialize(this, id, lamazon);
+        InlineObject32.initialize(this, action);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject32 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, lamazon) { 
-        obj['id'] = id;
-        obj['lamazon'] = lamazon;
+    static initialize(obj, action) { 
+        obj['action'] = action;
     }
 
     /**
@@ -51,59 +49,11 @@ class InlineObject32 {
         if (data) {
             obj = obj || new InlineObject32();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
+            if (data.hasOwnProperty('action')) {
+                obj['action'] = ApiClient.convertToType(data['action'], 'String');
             }
-            if (data.hasOwnProperty('lamazon')) {
-                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
-            }
-            if (data.hasOwnProperty('lsupplier')) {
-                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
-            }
-            if (data.hasOwnProperty('currentSupplierId')) {
-                obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
-            }
-            if (data.hasOwnProperty('category')) {
-                obj['category'] = ApiClient.convertToType(data['category'], 'String');
-            }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('fbm')) {
-                obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
-            }
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
-            }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('icomment')) {
-                obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('byboxprice')) {
-                obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number');
-            }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
-            }
-            if (data.hasOwnProperty('strategyStatus')) {
-                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -113,115 +63,39 @@ class InlineObject32 {
 }
 
 /**
- * ASIN продукта
- * @member {String} id
+ * @member {module:model/InlineObject32.ActionEnum} action
  */
-InlineObject32.prototype['id'] = undefined;
+InlineObject32.prototype['action'] = undefined;
 
 /**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lamazon
+ * Причина смены статуса.
+ * @member {String} reason
  */
-InlineObject32.prototype['lamazon'] = undefined;
+InlineObject32.prototype['reason'] = undefined;
+
+
+
+
 
 /**
- * Ссылка на этот продукт на поставщика.
- * @member {String} lsupplier
+ * Allowed values for the <code>action</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineObject32.prototype['lsupplier'] = undefined;
+InlineObject32['ActionEnum'] = {
 
-/**
- * GUID поставщика
- * @member {String} currentSupplierId
- */
-InlineObject32.prototype['currentSupplierId'] = undefined;
+    /**
+     * value: "LINK"
+     * @const
+     */
+    "LINK": "LINK",
 
-/**
- * Категория
- * @member {String} category
- */
-InlineObject32.prototype['category'] = undefined;
-
-/**
- * 
- * @member {Number} bsr
- */
-InlineObject32.prototype['bsr'] = undefined;
-
-/**
- * Признак fba
- * @member {Boolean} fba
- */
-InlineObject32.prototype['fba'] = undefined;
-
-/**
- * Признак fbm
- * @member {Boolean} fbm
- */
-InlineObject32.prototype['fbm'] = undefined;
-
-/**
- *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
- * @member {Number} status
- */
-InlineObject32.prototype['status'] = undefined;
-
-/**
- * 
- * @member {Number} amazon
- */
-InlineObject32.prototype['amazon'] = undefined;
-
-/**
- * Массив поставщиков.
- * @member {Array.<String>} suppliersIds
- */
-InlineObject32.prototype['suppliersIds'] = undefined;
-
-/**
- * ФБА комиссия
- * @member {Number} fbafee
- */
-InlineObject32.prototype['fbafee'] = undefined;
-
-/**
- * Стоимость доставки.
- * @member {Number} delivery
- */
-InlineObject32.prototype['delivery'] = undefined;
-
-/**
- * Комментарии к товару.
- * @member {String} icomment
- */
-InlineObject32.prototype['icomment'] = undefined;
-
-/**
- * Массив изображений.
- * @member {Array.<String>} images
- */
-InlineObject32.prototype['images'] = undefined;
-
-/**
- * Цена
- * @member {Number} byboxprice
- */
-InlineObject32.prototype['byboxprice'] = undefined;
-
-/**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
- */
-InlineObject32.prototype['reffee'] = undefined;
-
-/**
- * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
- * @member {Number} strategyStatus
- */
-InlineObject32.prototype['strategyStatus'] = undefined;
-
-
-
+    /**
+     * value: "UNLINK"
+     * @const
+     */
+    "UNLINK": "UNLINK"
+};
 
 
 

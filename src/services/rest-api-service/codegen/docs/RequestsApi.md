@@ -66,16 +66,12 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1RequestsCustomGuidGet
 
-<<<<<<< HEAD
-> InlineResponse2007 apiV1RequestsCustomGuidGet(guid, opts)
-=======
-> InlineResponse20013 apiV1RequestsCustomGuidGet(guid, opts)
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+> InlineResponse20014 apiV1RequestsCustomGuidGet(guid, opts)
 
 Получить кастомную заявку по его guid.
 
@@ -115,11 +111,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-<<<<<<< HEAD
-[**InlineResponse2007**](InlineResponse2007.md)
-=======
-[**InlineResponse20013**](InlineResponse20013.md)
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+[**InlineResponse20014**](InlineResponse20014.md)
 
 ### Authorization
 
@@ -154,7 +146,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = "guid_example"; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject43() // InlineObject43 | 
+  'body': new TestSwagger.InlineObject45() // InlineObject45 | 
 };
 apiInstance.apiV1RequestsCustomGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -171,7 +163,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject43**](InlineObject43.md)|  | [optional] 
+ **body** | [**InlineObject45**](InlineObject45.md)|  | [optional] 
 
 ### Return type
 
@@ -184,66 +176,9 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
-
-
-<<<<<<< HEAD
-## apiV1RequestsCustomGuidProposalsGet
-
-> [InlineResponse20012] apiV1RequestsCustomGuidProposalsGet(guid, opts)
-
-Получить список предложений к заявке.
-
-Получить список предложений к заявке.   
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.RequestsApi();
-let guid = "guid_example"; // String | GUID в сущности в БД
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example" // String | 
-};
-apiInstance.apiV1RequestsCustomGuidProposalsGet(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID в сущности в БД | 
- **Accept_Encoding** | **String**|  | [optional] 
-
-### Return type
-
-[**[InlineResponse20012]**](InlineResponse20012.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
-=======
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 ## apiV1RequestsCustomPost
 
 > InlineResponse2017 apiV1RequestsCustomPost(opts)
@@ -266,7 +201,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.RequestsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject42() // InlineObject42 | 
+  'body': new TestSwagger.InlineObject44() // InlineObject44 | 
 };
 apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -282,7 +217,7 @@ apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject42**](InlineObject42.md)|  | [optional] 
+ **body** | [**InlineObject44**](InlineObject44.md)|  | [optional] 
 
 ### Return type
 
@@ -295,16 +230,12 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1RequestsGet
 
-<<<<<<< HEAD
-> [InlineResponse2007] apiV1RequestsGet(type, opts)
-=======
-> [InlineResponse20010] apiV1RequestsGet(type, kind, opts)
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+> [InlineResponse20011] apiV1RequestsGet(type, kind, opts)
 
 Получить список заявок
 
@@ -325,10 +256,6 @@ let apiInstance = new TestSwagger.RequestsApi();
 let type = "type_example"; // String | Тип заявки
 let kind = "kind_example"; // String | Виды заявок:             VACANT - все заявки со статусом TO_PUBLISH и IN_PROCESS, + должны быть свободные слоты для предложений.             MY - все заявки созданные тем кто вызывает метод,             PICKUPED_BY_ME - все заявки где числится как исполнитель тот кто вызывает метод,             ALL - абсолютно все заявки, без исключения,             ASSIGNED_TO_ME - пока не реализовано.
 let opts = {
-<<<<<<< HEAD
-  'kind': "kind_example", // String | Виды заявок:             VACANT - все заявки со статусом CREATED и IN_PROCESS,             MY - все заявки созданные тем кто вызывает метод,             ASSIGNEES - все заявки где числится как исполнитель,             ALL - абсолютно все заявки, без исключения.
-=======
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1RequestsGet(type, kind, opts).then((data) => {
@@ -345,20 +272,12 @@ apiInstance.apiV1RequestsGet(type, kind, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **type** | **String**| Тип заявки | 
-<<<<<<< HEAD
- **kind** | **String**| Виды заявок:             VACANT - все заявки со статусом CREATED и IN_PROCESS,             MY - все заявки созданные тем кто вызывает метод,             ASSIGNEES - все заявки где числится как исполнитель,             ALL - абсолютно все заявки, без исключения. | [optional] 
-=======
  **kind** | **String**| Виды заявок:             VACANT - все заявки со статусом TO_PUBLISH и IN_PROCESS, + должны быть свободные слоты для предложений.             MY - все заявки созданные тем кто вызывает метод,             PICKUPED_BY_ME - все заявки где числится как исполнитель тот кто вызывает метод,             ALL - абсолютно все заявки, без исключения,             ASSIGNED_TO_ME - пока не реализовано. | 
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-<<<<<<< HEAD
-[**[InlineResponse2007]**](InlineResponse2007.md)
-=======
-[**[InlineResponse20010]**](InlineResponse20010.md)
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+[**[InlineResponse20011]**](InlineResponse20011.md)
 
 ### Authorization
 
@@ -393,7 +312,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject31() // InlineObject31 | 
+  'body': new TestSwagger.InlineObject33() // InlineObject33 | 
 };
 apiInstance.apiV1RequestsGuidCompletePost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -410,7 +329,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject31**](InlineObject31.md)|  | [optional] 
+ **body** | [**InlineObject33**](InlineObject33.md)|  | [optional] 
 
 ### Return type
 
@@ -470,225 +389,6 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-<<<<<<< HEAD
-[**InlineResponse2017**](InlineResponse2017.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## apiV1RequestsSearchNicheGet
-
-> [InlineResponse20013] apiV1RequestsSearchNicheGet(opts)
-
-Получить список деталей заявок созданных данным клиентом.
-
-Получить список деталей заявок созданных данным клиентом.   
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.RequestsApi();
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example" // String | 
-};
-apiInstance.apiV1RequestsSearchNicheGet(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] 
-
-### Return type
-
-[**[InlineResponse20013]**](InlineResponse20013.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/html
-
-
-## apiV1RequestsSearchNicheGuidDelete
-
-> String apiV1RequestsSearchNicheGuidDelete(guid, opts)
-
-# Удалить детали заявки на поиск ниш по его GUID.
-
-## Удалить детали заявки по его GUID, возможно только после проверки статуса.   ## Только владелец, админ или супервайзер могут удалять заявку  
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.RequestsApi();
-let guid = "guid_example"; // String | GUID в сущности в БД
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example" // String | 
-};
-apiInstance.apiV1RequestsSearchNicheGuidDelete(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID в сущности в БД | 
- **Accept_Encoding** | **String**|  | [optional] 
-
-### Return type
-
-**String**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/html
-
-
-## apiV1RequestsSearchNicheGuidPatch
-
-> String apiV1RequestsSearchNicheGuidPatch(guid, opts)
-
-#  Изменить детали заявки на поиск ниш.
-
-## Изменить детали заявки на поиск ниш.   ## Только владелец, админ или супервайзер могут редактировать заявку   
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.RequestsApi();
-let guid = "guid_example"; // String | GUID продукта БД
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject42() // InlineObject42 | 
-};
-apiInstance.apiV1RequestsSearchNicheGuidPatch(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID продукта БД | 
- **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject42**](InlineObject42.md)|  | [optional] 
-
-### Return type
-
-**String**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: text/html
-
-
-## apiV1RequestsSearchNichePost
-
-> InlineResponse2016 apiV1RequestsSearchNichePost(opts)
-
-# Создать детали заявки на поиск ниш.
-
-## Создать детали заявки на поиск ниш. 
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.RequestsApi();
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject41() // InlineObject41 | 
-};
-apiInstance.apiV1RequestsSearchNichePost(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject41**](InlineObject41.md)|  | [optional] 
-
-### Return type
-
-=======
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 [**InlineResponse2016**](InlineResponse2016.md)
 
 ### Authorization
@@ -698,117 +398,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-<<<<<<< HEAD
-- **Accept**: text/html
-
-
-## apiV1RequestsSearchProductsGet
-
-> [InlineResponse20014] apiV1RequestsSearchProductsGet(opts)
-
-Получить список деталей заявок созданных данным клиентом.
-
-Получить список деталей заявок созданных данным клиентом.   
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.RequestsApi();
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example" // String | 
-};
-apiInstance.apiV1RequestsSearchProductsGet(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] 
-
-### Return type
-
-[**[InlineResponse20014]**](InlineResponse20014.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/html
-
-
-## apiV1RequestsSearchProductsGuidDelete
-
-> String apiV1RequestsSearchProductsGuidDelete(guid, opts)
-
-# Удалить детали заявки на поиск товара по его GUID.
-
-## Удалить детали заявки по его GUID, возможно только после проверки статуса.    ## Только владелец, админ или супервайзер могут удалять заявку   
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.RequestsApi();
-let guid = "guid_example"; // String | GUID в сущности в БД
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example" // String | 
-};
-apiInstance.apiV1RequestsSearchProductsGuidDelete(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID в сущности в БД | 
- **Accept_Encoding** | **String**|  | [optional] 
-
-### Return type
-
-**String**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/html
-=======
 - **Accept**: application/json
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 
 ## apiV1RequestsGuidToPublishPatch
@@ -864,5 +454,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 

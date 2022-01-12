@@ -68,9 +68,9 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
       </td>
 
       <td className={tableCellClsx}>
-        <Typography variant="subtitle1">{`Реальный вес: ${box.weighGrossKgWarehouse}кг; Объемный вес: ${box.volumeWeightKgWarehouse}кг; Финальный вес: ${calcFinalWeightForBox(
-          box
-        )}кг`}</Typography>
+        <Typography variant="subtitle1">{`Реальный вес: ${box.weighGrossKgWarehouse}кг; Объемный вес: ${
+          box.volumeWeightKgWarehouse
+        }кг; Финальный вес: ${calcFinalWeightForBox(box)}кг`}</Typography>
       </td>
       <td className={tableCellClsx}>
         <Typography variant="subtitle1">{warehouses[box.warehouse]}</Typography>
@@ -79,7 +79,9 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
         <Typography variant="subtitle1">{DeliveryTypeByCode[box.deliveryMethod]}</Typography>
       </td>
       <td className={tableCellClsx}>
-        {box.items.map((item, idx) => <Typography key={idx} variant="subtitle1">{`${item.amount}шт.`}</Typography>)}
+        {box.items.map((item, idx) => (
+          <Typography key={idx} variant="subtitle1">{`${item.amount}шт.`}</Typography>
+        ))}
       </td>
       <td className={clsx(tableCellClsx, classNames.priceCellRight)}>
         {price ? <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography> : null}

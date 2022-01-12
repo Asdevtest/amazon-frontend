@@ -47,14 +47,8 @@ class InlineObject27 {
         if (data) {
             obj = obj || new InlineObject27();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('timeLimitInMinutes')) {
-                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -64,21 +58,10 @@ class InlineObject27 {
 }
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject27.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject27.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * @member {Number} timeLimitInMinutes
- */
-InlineObject27.prototype['timeLimitInMinutes'] = undefined;
+InlineObject27.prototype['suppliersIds'] = undefined;
 
 
 

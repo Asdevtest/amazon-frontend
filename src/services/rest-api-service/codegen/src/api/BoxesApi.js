@@ -77,7 +77,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/approve', 'POST',
@@ -131,7 +131,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [ApiV1AdminsTasksBoxesBefore];
       return this.apiClient.callApi(
         '/api/v1/boxes/by_order_guid/{guid}', 'GET',
@@ -185,7 +185,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [ApiV1AdminsTasksBoxesBefore];
       return this.apiClient.callApi(
         '/api/v1/boxes/by_product_guid/{guid}', 'GET',
@@ -283,7 +283,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/cancel-edit', 'POST',
@@ -337,7 +337,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/cancel_edit_with_draft/{guid}', 'POST',
@@ -386,7 +386,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/cancel-merge', 'POST',
@@ -435,7 +435,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/cancel-split', 'POST',
@@ -483,7 +483,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [ApiV1AdminsTasksBoxesBefore];
       return this.apiClient.callApi(
         '/api/v1/boxes/clients/drafts', 'GET',
@@ -530,7 +530,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [ApiV1AdminsTasksBoxesBefore];
       return this.apiClient.callApi(
         '/api/v1/boxes/clients', 'GET',
@@ -577,7 +577,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [ApiV1AdminsTasksBoxesBefore];
       return this.apiClient.callApi(
         '/api/v1/boxes/clients/sent_to_batch', 'GET',
@@ -624,7 +624,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [ApiV1AdminsTasksBoxesBefore];
       return this.apiClient.callApi(
         '/api/v1/boxes/drafts', 'GET',
@@ -678,7 +678,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = InlineResponse2012;
       return this.apiClient.callApi(
         '/api/v1/boxes/edit/{guid}', 'POST',
@@ -727,7 +727,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [ApiV1AdminsTasksBoxesBefore];
       return this.apiClient.callApi(
         '/api/v1/boxes/', 'GET',
@@ -780,7 +780,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/{guid}', 'DELETE',
@@ -807,7 +807,7 @@ export default class BoxesApi {
 
     /**
      * # Объединить две и более коробок.
-     * ## Объединить две и более коробок.   
+     * ## Объединить две и более коробок.   !!!при обединении id  сторкипера берется из первой корбки, не делал проверку чтобы все коробки были от одного сторкипера или вовсе из небыло!!! Эржигит
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject8} opts.body 
@@ -829,7 +829,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = InlineResponse2012;
       return this.apiClient.callApi(
         '/api/v1/boxes/merge', 'POST',
@@ -840,7 +840,7 @@ export default class BoxesApi {
 
     /**
      * # Объединить две и более коробок.
-     * ## Объединить две и более коробок.   
+     * ## Объединить две и более коробок.   !!!при обединении id  сторкипера берется из первой корбки, не делал проверку чтобы все коробки были от одного сторкипера или вовсе из небыло!!! Эржигит
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject8} opts.body 
@@ -878,7 +878,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = InlineResponse2011;
       return this.apiClient.callApi(
         '/api/v1/boxes/', 'POST',
@@ -927,7 +927,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/request_send_boxes_to_batch', 'POST',
@@ -976,7 +976,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/send_boxes_to_batch', 'POST',
@@ -1025,7 +1025,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = ['String'];
       return this.apiClient.callApi(
         '/api/v1/boxes/split', 'POST',
@@ -1080,7 +1080,7 @@ export default class BoxesApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/boxes/storekeepers/{guid}', 'PATCH',

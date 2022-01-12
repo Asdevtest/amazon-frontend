@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **Number** | ID коробки | [optional] 
+**humanFriendlyId** | **Number** | Человекочитаемый ID коробки | [optional] 
 **_id** | **String** | GUID коробки в БД | [optional] 
 **amount** | **Number** | сколько таких же коробок в одной коробке | [optional] 
 **weighGrossKg** | **Number** | Общий вес кг коробки | [optional] 

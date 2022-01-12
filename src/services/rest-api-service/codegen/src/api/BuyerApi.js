@@ -74,7 +74,7 @@ export default class BuyerApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = {'String': Object};
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/{guid}', 'GET',
@@ -129,7 +129,7 @@ export default class BuyerApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/{guid}', 'PATCH',
@@ -178,7 +178,7 @@ export default class BuyerApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse2001];
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/my', 'GET',
@@ -231,7 +231,7 @@ export default class BuyerApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/pickup/{guid}', 'POST',
@@ -285,7 +285,7 @@ export default class BuyerApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse2001];
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/vac', 'GET',
@@ -340,7 +340,7 @@ export default class BuyerApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/buyers/products/{guid}', 'PATCH',
@@ -389,7 +389,7 @@ export default class BuyerApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse200];
       return this.apiClient.callApi(
         '/api/v1/buyers/products/my', 'GET',
@@ -442,7 +442,7 @@ export default class BuyerApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/buyers/products/pickup/{guid}', 'POST',
@@ -490,7 +490,7 @@ export default class BuyerApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse200];
       return this.apiClient.callApi(
         '/api/v1/buyers/products/vac', 'GET',
@@ -543,7 +543,7 @@ export default class BuyerApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/buyers/tasks/cancel/{guid}', 'POST',
@@ -591,7 +591,7 @@ export default class BuyerApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse2005];
       return this.apiClient.callApi(
         '/api/v1/buyers/tasks', 'GET',
@@ -639,7 +639,7 @@ export default class BuyerApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = InlineResponse2013;
       return this.apiClient.callApi(
         '/api/v1/buyers/tasks', 'POST',

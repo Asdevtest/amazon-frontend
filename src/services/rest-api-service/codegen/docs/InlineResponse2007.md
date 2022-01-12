@@ -4,10 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-<<<<<<< HEAD
-**request** | [**ApiV1RequestsRequest**](ApiV1RequestsRequest.md) |  | [optional] 
-**details** | [**ApiV1RequestsDetails**](ApiV1RequestsDetails.md) |  | [optional] 
-=======
 **asin** | **String** | \&quot;ASIN\&quot; | [optional] 
 **sku** | **String** | SKU | 
 **title** | **String** | Title | [optional] 
@@ -31,6 +27,5 @@ Name | Type | Description | Notes
 **useAPrepCenter** | **String** | Use a Prep Center | [optional] 
 **shippingToPrepCenterDays** | **Number** | Shipping to Prep Center days | [optional] 
 **shippingToFbaDays** | **Number** | Shipping to FBA days | [optional] 
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 

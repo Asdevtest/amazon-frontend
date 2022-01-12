@@ -15,18 +15,12 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject32 from '../model/InlineObject32';
-import InlineObject33 from '../model/InlineObject33';
+import InlineObject34 from '../model/InlineObject34';
+import InlineObject35 from '../model/InlineObject35';
 import InlineResponse200 from '../model/InlineResponse200';
-<<<<<<< HEAD
-import InlineResponse2008 from '../model/InlineResponse2008';
-import InlineResponse2009 from '../model/InlineResponse2009';
-import InlineResponse2016 from '../model/InlineResponse2016';
-=======
-import InlineResponse20011 from '../model/InlineResponse20011';
 import InlineResponse20012 from '../model/InlineResponse20012';
+import InlineResponse20013 from '../model/InlineResponse20013';
 import InlineResponse2017 from '../model/InlineResponse2017';
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -56,11 +50,7 @@ export default class ResearcherApi {
      * @param {String} id id для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-<<<<<<< HEAD
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2008} and HTTP response
-=======
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20011} and HTTP response
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20012} and HTTP response
      */
     apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts) {
       opts = opts || {};
@@ -83,12 +73,8 @@ export default class ResearcherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
-<<<<<<< HEAD
-      let returnType = InlineResponse2008;
-=======
-      let returnType = InlineResponse20011;
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20012;
       return this.apiClient.callApi(
         '/api/v1/researchers/check_products/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -102,11 +88,7 @@ export default class ResearcherApi {
      * @param {String} id id для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-<<<<<<< HEAD
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2008}
-=======
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20011}
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20012}
      */
     apiV1ResearchersCheckProductsIdGet(id, opts) {
       return this.apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts)
@@ -145,7 +127,7 @@ export default class ResearcherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = {'String': Object};
       return this.apiClient.callApi(
         '/api/v1/researchers/parse_amazon/{id}', 'GET',
@@ -177,11 +159,7 @@ export default class ResearcherApi {
      * @param {String} opts.id ASIN продукта
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-<<<<<<< HEAD
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2009} and HTTP response
-=======
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20012} and HTTP response
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20013} and HTTP response
      */
     apiV1ResearchersParseSellercentralGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -201,12 +179,8 @@ export default class ResearcherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
-<<<<<<< HEAD
-      let returnType = InlineResponse2009;
-=======
-      let returnType = InlineResponse20012;
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20013;
       return this.apiClient.callApi(
         '/api/v1/researchers/parse_sellercentral', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -221,11 +195,7 @@ export default class ResearcherApi {
      * @param {String} opts.id ASIN продукта
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-<<<<<<< HEAD
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2009}
-=======
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20012}
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20013}
      */
     apiV1ResearchersParseSellercentralGet(opts) {
       return this.apiV1ResearchersParseSellercentralGetWithHttpInfo(opts)
@@ -258,7 +228,7 @@ export default class ResearcherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse200];
       return this.apiClient.callApi(
         '/api/v1/researchers/products', 'GET',
@@ -311,7 +281,7 @@ export default class ResearcherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/researchers/products/{guid}', 'DELETE',
@@ -365,7 +335,7 @@ export default class ResearcherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = InlineResponse200;
       return this.apiClient.callApi(
         '/api/v1/researchers/products/{guid}', 'GET',
@@ -396,7 +366,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject33} opts.body 
+     * @param {module:model/InlineObject35} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -420,7 +390,7 @@ export default class ResearcherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/researchers/products/{guid}', 'PATCH',
@@ -435,7 +405,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject33} opts.body 
+     * @param {module:model/InlineObject35} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ResearchersProductsGuidPatch(guid, opts) {
@@ -451,7 +421,7 @@ export default class ResearcherApi {
      * ## Добавить новый продукт.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject32} opts.body 
+     * @param {module:model/InlineObject34} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
      */
     apiV1ResearchersProductsPostWithHttpInfo(opts) {
@@ -470,7 +440,7 @@ export default class ResearcherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = InlineResponse2017;
       return this.apiClient.callApi(
         '/api/v1/researchers/products', 'POST',
@@ -484,7 +454,7 @@ export default class ResearcherApi {
      * ## Добавить новый продукт.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject32} opts.body 
+     * @param {module:model/InlineObject34} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
      */
     apiV1ResearchersProductsPost(opts) {

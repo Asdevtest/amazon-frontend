@@ -69,6 +69,8 @@ docs/InlineObject40.md
 docs/InlineObject41.md
 docs/InlineObject42.md
 docs/InlineObject43.md
+docs/InlineObject44.md
+docs/InlineObject45.md
 docs/InlineObject5.md
 docs/InlineObject6.md
 docs/InlineObject7.md
@@ -80,7 +82,8 @@ docs/InlineResponse20010.md
 docs/InlineResponse20011.md
 docs/InlineResponse20012.md
 docs/InlineResponse20013.md
-docs/InlineResponse20013Details.md
+docs/InlineResponse20014.md
+docs/InlineResponse20014Details.md
 docs/InlineResponse2002.md
 docs/InlineResponse2003.md
 docs/InlineResponse2004.md
@@ -89,6 +92,7 @@ docs/InlineResponse2006.md
 docs/InlineResponse2007.md
 docs/InlineResponse2008.md
 docs/InlineResponse2009.md
+docs/InlineResponse2009Sellerboard.md
 docs/InlineResponse201.md
 docs/InlineResponse2011.md
 docs/InlineResponse2012.md
@@ -225,6 +229,8 @@ src/model/InlineObject40.js
 src/model/InlineObject41.js
 src/model/InlineObject42.js
 src/model/InlineObject43.js
+src/model/InlineObject44.js
+src/model/InlineObject45.js
 src/model/InlineObject5.js
 src/model/InlineObject6.js
 src/model/InlineObject7.js
@@ -236,7 +242,8 @@ src/model/InlineResponse20010.js
 src/model/InlineResponse20011.js
 src/model/InlineResponse20012.js
 src/model/InlineResponse20013.js
-src/model/InlineResponse20013Details.js
+src/model/InlineResponse20014.js
+src/model/InlineResponse20014Details.js
 src/model/InlineResponse2002.js
 src/model/InlineResponse2003.js
 src/model/InlineResponse2004.js
@@ -245,6 +252,7 @@ src/model/InlineResponse2006.js
 src/model/InlineResponse2007.js
 src/model/InlineResponse2008.js
 src/model/InlineResponse2009.js
+src/model/InlineResponse2009Sellerboard.js
 src/model/InlineResponse201.js
 src/model/InlineResponse2011.js
 src/model/InlineResponse2012.js
@@ -287,3 +295,5 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+test/model/InlineResponse20014Details.spec.js
+test/model/InlineResponse2009Sellerboard.spec.js

@@ -14,8 +14,12 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
+import ConflictInTheState from '../model/ConflictInTheState';
+import InlineObject25 from '../model/InlineObject25';
+import InlineObject26 from '../model/InlineObject26';
 import InlineResponse2007 from '../model/InlineResponse2007';
 import InlineResponse2008 from '../model/InlineResponse2008';
+import InlineResponse2009 from '../model/InlineResponse2009';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -37,6 +41,114 @@ export default class IntegrationsApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
+
+
+    /**
+     * Получить продут с массивом sku, через SKU. Просто для примера
+     * ## Получить продут с массивом sku, через SKU. Просто для примера   ## 
+     * @param {String} sku SKU.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2009} and HTTP response
+     */
+    apiV1IntegrationsGetLinkedProductSkuGetWithHttpInfo(sku, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'sku' is set
+      if (sku === undefined || sku === null) {
+        throw new Error("Missing the required parameter 'sku' when calling apiV1IntegrationsGetLinkedProductSkuGet");
+      }
+
+      let pathParams = {
+        'sku': sku
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse2009;
+      return this.apiClient.callApi(
+        '/api/v1/integrations/get_linked_product/{sku}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить продут с массивом sku, через SKU. Просто для примера
+     * ## Получить продут с массивом sku, через SKU. Просто для примера   ## 
+     * @param {String} sku SKU.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2009}
+     */
+    apiV1IntegrationsGetLinkedProductSkuGet(sku, opts) {
+      return this.apiV1IntegrationsGetLinkedProductSkuGetWithHttpInfo(sku, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Получить продуты с массивом sku, через GUID продукта. Просто для примера
+     * ## Получить продуты с массивом sku, через GUID продукта. Просто для примера   ## 
+     * @param {String} guid GUID продукта.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2009} and HTTP response
+     */
+    apiV1IntegrationsGetProductsWithSkuGuidGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IntegrationsGetProductsWithSkuGuidGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse2009;
+      return this.apiClient.callApi(
+        '/api/v1/integrations/get_products_with_sku/{guid}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить продуты с массивом sku, через GUID продукта. Просто для примера
+     * ## Получить продуты с массивом sku, через GUID продукта. Просто для примера   ## 
+     * @param {String} guid GUID продукта.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2009}
+     */
+    apiV1IntegrationsGetProductsWithSkuGuidGet(guid, opts) {
+      return this.apiV1IntegrationsGetProductsWithSkuGuidGetWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
 
     /**
@@ -130,6 +242,104 @@ export default class IntegrationsApi {
      */
     apiV1IntegrationsSellerboardWarehouseProductsGet(opts) {
       return this.apiV1IntegrationsSellerboardWarehouseProductsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Приаязать к товару SKU.
+     * ## Приаязать к товару SKU.. 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject25} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatchWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/integrations/sellerboard_warehouse_products_link_sku', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Приаязать к товару SKU.
+     * ## Приаязать к товару SKU.. 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject25} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(opts) {
+      return this.apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatchWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Отаязать товар от SKU.
+     * ## Отаязать товар от SKU. 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject26} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatchWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/integrations/sellerboard_warehouse_products_unLink_sku', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Отаязать товар от SKU.
+     * ## Отаязать товар от SKU. 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject26} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(opts) {
+      return this.apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatchWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

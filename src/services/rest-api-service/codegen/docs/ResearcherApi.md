@@ -17,11 +17,7 @@ Method | HTTP request | Description
 
 ## apiV1ResearchersCheckProductsIdGet
 
-<<<<<<< HEAD
-> InlineResponse2008 apiV1ResearchersCheckProductsIdGet(id, opts)
-=======
-> InlineResponse20011 apiV1ResearchersCheckProductsIdGet(id, opts)
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+> InlineResponse20012 apiV1ResearchersCheckProductsIdGet(id, opts)
 
 Проверить продукт по ID существует ли он в базе.
 
@@ -61,11 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-<<<<<<< HEAD
-[**InlineResponse2008**](InlineResponse2008.md)
-=======
-[**InlineResponse20011**](InlineResponse20011.md)
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+[**InlineResponse20012**](InlineResponse20012.md)
 
 ### Authorization
 
@@ -74,7 +66,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1ResearchersParseAmazonIdGet
@@ -128,16 +120,12 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1ResearchersParseSellercentralGet
 
-<<<<<<< HEAD
-> InlineResponse2009 apiV1ResearchersParseSellercentralGet(opts)
-=======
-> InlineResponse20012 apiV1ResearchersParseSellercentralGet(opts)
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+> InlineResponse20013 apiV1ResearchersParseSellercentralGet(opts)
 
 Получить данные о продукте с SellerCentral
 
@@ -179,11 +167,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-<<<<<<< HEAD
-[**InlineResponse2009**](InlineResponse2009.md)
-=======
-[**InlineResponse20012**](InlineResponse20012.md)
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+[**InlineResponse20013**](InlineResponse20013.md)
 
 ### Authorization
 
@@ -192,7 +176,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1ResearchersProductsGet
@@ -244,7 +228,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1ResearchersProductsGuidDelete
@@ -298,7 +282,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1ResearchersProductsGuidGet
@@ -352,7 +336,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1ResearchersProductsGuidPatch
@@ -378,7 +362,7 @@ let apiInstance = new TestSwagger.ResearcherApi();
 let guid = "guid_example"; // String | GUID продукта БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject33() // InlineObject33 | 
+  'body': new TestSwagger.InlineObject35() // InlineObject35 | 
 };
 apiInstance.apiV1ResearchersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -395,7 +379,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject33**](InlineObject33.md)|  | [optional] 
+ **body** | [**InlineObject35**](InlineObject35.md)|  | [optional] 
 
 ### Return type
 
@@ -408,7 +392,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 
 
 ## apiV1ResearchersProductsPost
@@ -433,7 +417,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ResearcherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject32() // InlineObject32 | 
+  'body': new TestSwagger.InlineObject34() // InlineObject34 | 
 };
 apiInstance.apiV1ResearchersProductsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -449,7 +433,7 @@ apiInstance.apiV1ResearchersProductsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject32**](InlineObject32.md)|  | [optional] 
+ **body** | [**InlineObject34**](InlineObject34.md)|  | [optional] 
 
 ### Return type
 
@@ -462,5 +446,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: text/html
+- **Accept**: application/json
 

@@ -79,9 +79,9 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
       {!product.currentSupplier ? 'N/A' : product.currentSupplier.name}
     </Typography>
 
-    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(params.row.currentSupplier.link)}>
+    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.currentSupplier.link)}>
       <Typography className={classNames.noActiveLink}>{`${
-        !params.row.currentSupplier ? 'N/A' : params.row.currentSupplier.link
+        !product.currentSupplier ? 'N/A' : product.currentSupplier.link
       }`}</Typography>
     </Link>
   </div>

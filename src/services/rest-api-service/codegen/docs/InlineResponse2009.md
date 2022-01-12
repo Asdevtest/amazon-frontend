@@ -4,76 +4,69 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-<<<<<<< HEAD
-**amazonFee** | **Number** |  | [optional] 
-**width** | **Number** |  | [optional] 
-**height** | **Number** |  | [optional] 
-**length** | **Number** |  | [optional] 
-**weight** | **Number** |  | [optional] 
-**weightUnitString** | **String** |  | [optional] 
-**isWhiteGloveRequired** | **Boolean** |  | [optional] 
-**subCategory** | **String** |  | [optional] 
-**fnsku** | **String** |  | [optional] 
-**dimensionUnit** | **String** |  | [optional] 
-**link** | **String** |  | [optional] 
-**binding** | **String** |  | [optional] 
-**title** | **String** |  | [optional] 
-**dimensionUnitString** | **String** |  | [optional] 
-**price** | **Number** |  | [optional] 
-**imageUrl** | **String** |  | [optional] 
-**isAfn** | **Boolean** |  | [optional] 
-**gl** | **String** |  | [optional] 
-**TRexId** | **String** |  | [optional] 
-**isAsinLimits** | **Boolean** |  | [optional] 
-**originalUrl** | **String** |  | [optional] 
-**productGroup** | **String** |  | [optional] 
-**thumbStringUrl** | **String** |  | [optional] 
-**asin** | **String** |  | [optional] 
-**encryptedMarketplaceId** | **String** |  | [optional] 
-**weightUnit** | **String** |  | [optional] 
-=======
-**_id** | **String** | Guid продожения к заявке. | [optional] 
-**requestId** | **String** | Guid заявки к которой относится данное предложение. | [optional] 
-**type** | **String** | Тип предложения. | [optional] 
-**status** | **String** | Статус предложения предложения. | [optional] 
-**timeoutAt** | **Date** | Время закрытия предложения. | [optional] 
-**clientId** | **String** | GUID клиента . | [optional] 
-**supervisorId** | **String** | GUID супервизора. | [optional] 
-**createdById** | **String** | GUID любого, кто создал предложение. | [optional] 
-**lastModifiedById** | **String** | GUID любого, кто последний редактировал предложение. | [optional] 
+**_id** | **String** | GUID продукта в базе данных | 
+**id** | **String** | ASIN продукта | 
+**material** | **String** |  | [optional] 
+**currentSupplier** | [**ApiV1AdminsGetProductsByStatusCurrentSupplier**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md) |  | [optional] 
+**currentSupplierId** | **String** | GUID поставщика в базе данных | [optional] 
+**category** | **String** | Категория | [optional] 
+**lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
+**lsupplier** | **String** | Ссылка на поставщика. | [optional] 
+**bsr** | **Number** |  | 
+**fba** | **Boolean** | Признак fba | 
+**fbm** | **Boolean** | Признак fbm | [optional] 
+**express** | **Boolean** | Признак экспресс доставки. | [optional] 
+**amazon** | **Number** |  | 
+**height** | **Number** | Высота | [optional] 
+**width** | **Number** | Ширина | [optional] 
+**length** | **Number** | Длинна | [optional] 
+**weight** | **Number** | Вес | [optional] 
+**suppliers** | [**[ApiV1AdminsGetProductsByStatusCurrentSupplier]**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md) |  | 
+**reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
+**fbafee** | **Number** | ФБА комиссия | [optional] 
+**delivery** | **Number** | Стоимость доставки. | [optional] 
+**fbaamount** | **Number** |  Общая сумма с фба. | [optional] 
+**fbalink** | **String** | ФБА ссылка | [optional] 
+**status** | **Number** | Код текущего статуса | [optional] 
+**icomment** | **String** | Комментарии к товару. | 
+**images** | **[String]** | Массив картинок. | [optional] 
+**checkednotes** | **String** |  | [optional] 
+**researcherFine** | **Number** | Размер штрафа менеджеру. | [optional] 
+**researcherFineComment** | **String** | Комментарии к штрафу. | [optional] 
+**supervisorFine** | **Number** | Размер штрафа на супервайзера. | [optional] 
+**supervisorFineComment** | **String** | Комментарии к штрафу | [optional] 
+**dirdecision** | **Number** | Код решения директора. | [optional] 
+**client** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**amazonDescription** | **String** | Описание с сайта амазон. | [optional] 
+**amazonDetail** | **String** | Данные из поля детали с сайта амазон. | [optional] 
+**amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
+**barCode** | **String** | Баркод | [optional] 
+**minpurchase** | **Number** | Минимальный заказ | [optional] 
+**profit** | **Number** | Прибыль | [optional] 
+**margin** | **Number** | Маржа | [optional] 
+**byboxprice** | **Number** | Цена | [optional] 
+**createdBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**checkedBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
-
-
-
-## Enum: StatusEnum
-
-
-* `EMPTY` (value: `"EMPTY"`)
-
-* `CREATED` (value: `"CREATED"`)
-
-* `READY_TO_VERIFY` (value: `"READY_TO_VERIFY"`)
-
-* `VERIFYING_BY_SUPERVISOR` (value: `"VERIFYING_BY_SUPERVISOR"`)
-
-* `TO_CORRECT` (value: `"TO_CORRECT"`)
-
-* `CORRECTED` (value: `"CORRECTED"`)
-
-* `CANCELED_BY_CLIENT` (value: `"CANCELED_BY_CLIENT"`)
-
-* `CANCELED_BY_SUPERVISOR` (value: `"CANCELED_BY_SUPERVISOR"`)
-
-* `CANCELED_BY_EXECUTOR` (value: `"CANCELED_BY_EXECUTOR"`)
-
-* `ACCEPTED_BY_CLIENT` (value: `"ACCEPTED_BY_CLIENT"`)
-
-* `ACCEPTED_BY_SUPERVISOR` (value: `"ACCEPTED_BY_SUPERVISOR"`)
-
-* `EXPIRED` (value: `"EXPIRED"`)
-
-
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+**checkedAt** | **Date** | Дата проверки | [optional] 
+**buyer** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**buyersComment** | **String** | Комментарии к товару от байера. | [optional] 
+**researcherRate** | **Number** | Савка ресечера. | [optional] 
+**supervisorRate** | **Number** | Савка супервайзера. | [optional] 
+**paidAt** | **Date** | Дата оплаты | [optional] 
+**buyerRate** | **Number** | Савка байера. | [optional] 
+**listingName** | **String** |  | [optional] 
+**listingBulletPoints** | **[String]** | Массив ... | [optional] 
+**listingProductDetails** | **String** |  | [optional] 
+**listingSearchTerms** | **String** |  | [optional] 
+**listingSubjectMatters** | **[String]** | Массив ... | [optional] 
+**listingImages** | **[String]** | массив картинок(в виде прямых ссылок). | [optional] 
+**listingTaskToFindSupplier** | **String** |  | [optional] 
+**listingSupplierImportantPoints** | **String** |  | [optional] 
+**listingExtraInfo** | **String** |  | [optional] 
+**listingSupplierCompetitors** | [**[ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]**](ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md) | Массив объектов: ссылки и комментарии к конкурентам | [optional] 
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
+**sellerboard** | [**[InlineResponse2009Sellerboard]**](InlineResponse2009Sellerboard.md) |  | [optional] 
 
 

@@ -52,6 +52,9 @@ class ApiV1AdminsTasksBoxesBefore {
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'Number');
             }
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            }
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
@@ -181,6 +184,12 @@ class ApiV1AdminsTasksBoxesBefore {
  * @member {Number} id
  */
 ApiV1AdminsTasksBoxesBefore.prototype['id'] = undefined;
+
+/**
+ * Человекочитаемый ID коробки
+ * @member {Number} humanFriendlyId
+ */
+ApiV1AdminsTasksBoxesBefore.prototype['humanFriendlyId'] = undefined;
 
 /**
  * GUID коробки в БД

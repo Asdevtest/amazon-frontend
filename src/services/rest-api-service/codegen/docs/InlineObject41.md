@@ -4,8 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**result** | **String** | Результат рабоботы ресерчера. | 
-**comment** | **String** | Комментарии ресерчера. | [optional] 
-**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**name** | **String** | Название поставщика. | 
+**link** | **String** | Ссылка на поставщика. | 
+**price** | **Number** | Цена | 
+**delivery** | **Number** | Тип доставки | 
+**amount** | **Number** | кол-во | 
+**minlot** | **Number** | Минимальный лот. | 
+**lotcost** | **Number** | Стоимость лота. | 
+**images** | **[String]** | Массив картинок. | [optional] 
+**comment** | **String** | Комментарий | 
 
 

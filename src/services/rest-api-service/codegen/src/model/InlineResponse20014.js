@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20011 from './InlineResponse20011';
+import InlineResponse20014Details from './InlineResponse20014Details';
 
 /**
  * The InlineResponse20014 model module.
@@ -21,7 +23,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20014 {
     /**
      * Constructs a new <code>InlineResponse20014</code>.
-     * Схема детали на поиск продукта.
+     * Схема детали на поиск ниш.
      * @alias module:model/InlineResponse20014
      */
     constructor() { 
@@ -48,74 +50,11 @@ class InlineResponse20014 {
         if (data) {
             obj = obj || new InlineResponse20014();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('request')) {
+                obj['request'] = InlineResponse20011.constructFromObject(data['request']);
             }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('strategy')) {
-                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'Number');
-            }
-            if (data.hasOwnProperty('monthlySales')) {
-                obj['monthlySales'] = ApiClient.convertToType(data['monthlySales'], 'Number');
-            }
-            if (data.hasOwnProperty('size')) {
-                obj['size'] = ApiClient.convertToType(data['size'], 'String');
-            }
-            if (data.hasOwnProperty('searchVolume')) {
-                obj['searchVolume'] = ApiClient.convertToType(data['searchVolume'], 'Number');
-            }
-            if (data.hasOwnProperty('minAmazonPrice')) {
-                obj['minAmazonPrice'] = ApiClient.convertToType(data['minAmazonPrice'], 'Number');
-            }
-            if (data.hasOwnProperty('maxAmazonPrice')) {
-                obj['maxAmazonPrice'] = ApiClient.convertToType(data['maxAmazonPrice'], 'Number');
-            }
-            if (data.hasOwnProperty('minBSR')) {
-                obj['minBSR'] = ApiClient.convertToType(data['minBSR'], 'Number');
-            }
-            if (data.hasOwnProperty('maxBSR')) {
-                obj['maxBSR'] = ApiClient.convertToType(data['maxBSR'], 'Number');
-            }
-            if (data.hasOwnProperty('minReviews')) {
-                obj['minReviews'] = ApiClient.convertToType(data['minReviews'], 'Number');
-            }
-            if (data.hasOwnProperty('maxReviews')) {
-                obj['maxReviews'] = ApiClient.convertToType(data['maxReviews'], 'Number');
-            }
-            if (data.hasOwnProperty('minRevenue')) {
-                obj['minRevenue'] = ApiClient.convertToType(data['minRevenue'], 'Number');
-            }
-            if (data.hasOwnProperty('maxRevenue')) {
-                obj['maxRevenue'] = ApiClient.convertToType(data['maxRevenue'], 'Number');
-            }
-            if (data.hasOwnProperty('notes')) {
-                obj['notes'] = ApiClient.convertToType(data['notes'], 'String');
-            }
-            if (data.hasOwnProperty('denyProductsBoughtByMe')) {
-                obj['denyProductsBoughtByMe'] = ApiClient.convertToType(data['denyProductsBoughtByMe'], 'Boolean');
-            }
-            if (data.hasOwnProperty('denyProductsExistInServiceByCurStrategy')) {
-                obj['denyProductsExistInServiceByCurStrategy'] = ApiClient.convertToType(data['denyProductsExistInServiceByCurStrategy'], 'Boolean');
-            }
-            if (data.hasOwnProperty('findSupplier')) {
-                obj['findSupplier'] = ApiClient.convertToType(data['findSupplier'], 'Boolean');
-            }
-            if (data.hasOwnProperty('checkedByService')) {
-                obj['checkedByService'] = ApiClient.convertToType(data['checkedByService'], 'Boolean');
-            }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('details')) {
+                obj['details'] = InlineResponse20014Details.constructFromObject(data['details']);
             }
         }
         return obj;
@@ -125,172 +64,17 @@ class InlineResponse20014 {
 }
 
 /**
- * GUID
- * @member {String} _id
+ * @member {module:model/InlineResponse20011} request
  */
-InlineResponse20014.prototype['_id'] = undefined;
+InlineResponse20014.prototype['request'] = undefined;
 
 /**
- * GUID заявки к торой относится данное дополнение.
- * @member {String} link
+ * @member {module:model/InlineResponse20014Details} details
  */
-InlineResponse20014.prototype['link'] = undefined;
-
-/**
- * Стратегия.
- * @member {Number} strategy
- */
-InlineResponse20014.prototype['strategy'] = undefined;
-
-/**
- * Продажи за месяц.
- * @member {Number} monthlySales
- */
-InlineResponse20014.prototype['monthlySales'] = undefined;
-
-/**
- * Размер.
- * @member {module:model/InlineResponse20014.SizeEnum} size
- */
-InlineResponse20014.prototype['size'] = undefined;
-
-/**
- * Объём продаж данной категории.
- * @member {Number} searchVolume
- */
-InlineResponse20014.prototype['searchVolume'] = undefined;
-
-/**
- * Мин стоимость товара на Амазоне.
- * @member {Number} minAmazonPrice
- */
-InlineResponse20014.prototype['minAmazonPrice'] = undefined;
-
-/**
- * Макс стоимость товара на Амазоне.
- * @member {Number} maxAmazonPrice
- */
-InlineResponse20014.prototype['maxAmazonPrice'] = undefined;
-
-/**
- * Мин рейтинг BSR на амазоне.
- * @member {Number} minBSR
- */
-InlineResponse20014.prototype['minBSR'] = undefined;
-
-/**
- * Макс рейтинг BSR на амазоне
- * @member {Number} maxBSR
- */
-InlineResponse20014.prototype['maxBSR'] = undefined;
-
-/**
- * Мин просмотры на амазоне
- * @member {Number} minReviews
- */
-InlineResponse20014.prototype['minReviews'] = undefined;
-
-/**
- * Макс просмотры на амазоне
- * @member {Number} maxReviews
- */
-InlineResponse20014.prototype['maxReviews'] = undefined;
-
-/**
- * Мин доход по продукту на Амазоне
- * @member {Number} minRevenue
- */
-InlineResponse20014.prototype['minRevenue'] = undefined;
-
-/**
- * Макс доход по продукту на Амазоне
- * @member {Number} maxRevenue
- */
-InlineResponse20014.prototype['maxRevenue'] = undefined;
-
-/**
- * Коментарий.
- * @member {String} notes
- */
-InlineResponse20014.prototype['notes'] = undefined;
-
-/**
- * Запретить товары ранее купленные.
- * @member {Boolean} denyProductsBoughtByMe
- */
-InlineResponse20014.prototype['denyProductsBoughtByMe'] = undefined;
-
-/**
- * Запретить товары которые есть в системе под данную статегию.
- * @member {Boolean} denyProductsExistInServiceByCurStrategy
- */
-InlineResponse20014.prototype['denyProductsExistInServiceByCurStrategy'] = undefined;
-
-/**
- * Найти поставщика.
- * @member {Boolean} findSupplier
- */
-InlineResponse20014.prototype['findSupplier'] = undefined;
-
-/**
- * Проверить сепервайзером.
- * @member {Boolean} checkedByService
- */
-InlineResponse20014.prototype['checkedByService'] = undefined;
-
-/**
- * ID создателя заявки.
- * @member {String} createdById
- */
-InlineResponse20014.prototype['createdById'] = undefined;
-
-/**
- * ID кто последний изменял заявку.
- * @member {String} lastModifiedById
- */
-InlineResponse20014.prototype['lastModifiedById'] = undefined;
-
-/**
- * Дата создания
- * @member {Date} createdAt
- */
-InlineResponse20014.prototype['createdAt'] = undefined;
-
-/**
- * Дата изменения
- * @member {Date} updatedAt
- */
-InlineResponse20014.prototype['updatedAt'] = undefined;
+InlineResponse20014.prototype['details'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>size</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse20014['SizeEnum'] = {
-
-    /**
-     * value: "SMALL"
-     * @const
-     */
-    "SMALL": "SMALL",
-
-    /**
-     * value: "MEDIUM"
-     * @const
-     */
-    "MEDIUM": "MEDIUM",
-
-    /**
-     * value: "LARGE"
-     * @const
-     */
-    "LARGE": "LARGE"
-};
 
 
 

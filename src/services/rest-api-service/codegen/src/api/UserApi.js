@@ -25,11 +25,8 @@ import NotFoundError from '../model/NotFoundError';
 import SignInResponseSchema from '../model/SignInResponseSchema';
 import SigninInputSchema from '../model/SigninInputSchema';
 import SubUserPatchDtoSchema from '../model/SubUserPatchDtoSchema';
-<<<<<<< HEAD
-=======
 import UnLinkSubuserInputSchema from '../model/UnLinkSubuserInputSchema';
 import UserAdminFullSchema from '../model/UserAdminFullSchema';
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 import UserFullSchema from '../model/UserFullSchema';
 import UserRegisterSchema from '../model/UserRegisterSchema';
 import UserSettingInputSchema from '../model/UserSettingInputSchema';
@@ -80,7 +77,7 @@ export default class UserApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/tech/clear_all_schemas', 'POST',
@@ -155,11 +152,7 @@ export default class UserApi {
 
     /**
      * Редактирование сабюзера мастер юзером.
-<<<<<<< HEAD
-     * ##  Редактирование сабюзера мастер юзером.  Только мастер пользователь может редактировать
-=======
      * ##  Редактирование сабюзера мастер юзером.  Только мастер пользователь может редактировать Запрешено редактировать мастер юзера Мастер может редактировать только своих сабов Пермишены должны принадлежать роли сабюзера
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -198,11 +191,7 @@ export default class UserApi {
 
     /**
      * Редактирование сабюзера мастер юзером.
-<<<<<<< HEAD
-     * ##  Редактирование сабюзера мастер юзером.  Только мастер пользователь может редактировать
-=======
      * ##  Редактирование сабюзера мастер юзером.  Только мастер пользователь может редактировать Запрешено редактировать мастер юзера Мастер может редактировать только своих сабов Пермишены должны принадлежать роли сабюзера
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -240,7 +229,7 @@ export default class UserApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = UserAdminFullSchema;
       return this.apiClient.callApi(
         '/api/v1/users/info', 'GET',
@@ -266,11 +255,7 @@ export default class UserApi {
 
     /**
      * # Привязка субпользователя.
-<<<<<<< HEAD
-     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  По email пользователя которого к себе хочет привязать мастер пользователь.  Проверки: у админа не может быть субпользователя, субпользователя не может иметь субпользователя,  только кандидата можно привязать к качестве субпользователя
-=======
      * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  По email пользователя которого к себе хочет привязать мастер пользователь.  Проверки: у админа не может быть сабюзера, сабюзер не может иметь сабюзера,  Может ли данный пользователь быть мастер юзером, такую возможность дает только администратор. только кандидата можно привязать к качестве субпользователя
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/LinkSubuserInputSchema} opts.body 
@@ -292,7 +277,7 @@ export default class UserApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/users/link_sub-user', 'PATCH',
@@ -303,11 +288,7 @@ export default class UserApi {
 
     /**
      * # Привязка субпользователя.
-<<<<<<< HEAD
-     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  По email пользователя которого к себе хочет привязать мастер пользователь.  Проверки: у админа не может быть субпользователя, субпользователя не может иметь субпользователя,  только кандидата можно привязать к качестве субпользователя
-=======
      * ## Этот эндпоинт может быть вызван из любой роли кроме админа.  По email пользователя которого к себе хочет привязать мастер пользователь.  Проверки: у админа не может быть сабюзера, сабюзер не может иметь сабюзера,  Может ли данный пользователь быть мастер юзером, такую возможность дает только администратор. только кандидата можно привязать к качестве субпользователя
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/LinkSubuserInputSchema} opts.body 
@@ -345,7 +326,7 @@ export default class UserApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/users/me', 'PATCH',
@@ -393,7 +374,7 @@ export default class UserApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [UserFullSchema];
       return this.apiClient.callApi(
         '/api/v1/users/my_sub-users', 'GET',
@@ -441,7 +422,7 @@ export default class UserApi {
 
       let authNames = [];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = UserFullSchema;
       return this.apiClient.callApi(
         '/api/v1/users/', 'POST',
@@ -490,7 +471,7 @@ export default class UserApi {
 
       let authNames = [];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = SignInResponseSchema;
       return this.apiClient.callApi(
         '/api/v1/users/sign_in', 'POST',
@@ -517,11 +498,7 @@ export default class UserApi {
 
     /**
      * # Отвязка суб пользователя.
-<<<<<<< HEAD
-     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.   По email пользователя которого хочет отвязать мастер пользователь. Проверки: по email должен существовать пользователь,    У субпользователя поле masterUser должно совпадает с id мастер пользователя. 
-=======
      * ##  По guid саб пользователя которого хочет отвязать мастер пользователь.  Саб пользователь просто блокируется. Проверки: по guid должен существовать пользователь,    У суб пользователя поле masterUser должно совпадать с id мастер пользователя.
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/UnLinkSubuserInputSchema} opts.body 
@@ -543,7 +520,7 @@ export default class UserApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/users/unlink_sub-user', 'PATCH',
@@ -554,11 +531,7 @@ export default class UserApi {
 
     /**
      * # Отвязка суб пользователя.
-<<<<<<< HEAD
-     * ## Этот эндпоинт может быть вызван из любой роли кроме админа.   По email пользователя которого хочет отвязать мастер пользователь. Проверки: по email должен существовать пользователь,    У субпользователя поле masterUser должно совпадает с id мастер пользователя. 
-=======
      * ##  По guid саб пользователя которого хочет отвязать мастер пользователь.  Саб пользователь просто блокируется. Проверки: по guid должен существовать пользователь,    У суб пользователя поле masterUser должно совпадать с id мастер пользователя.
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/UnLinkSubuserInputSchema} opts.body 
@@ -642,7 +615,7 @@ export default class UserApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = UserSettingResponseSchema;
       return this.apiClient.callApi(
         '/api/v1/users/user-settings/my', 'GET',
@@ -696,7 +669,7 @@ export default class UserApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/users/user-settings/my', 'PATCH',
@@ -746,7 +719,7 @@ export default class UserApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = UserSettingPostResponseSchema;
       return this.apiClient.callApi(
         '/api/v1/users/user-settings', 'POST',

@@ -12,11 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-<<<<<<< HEAD
-=======
-import InlineResponse20010 from './InlineResponse20010';
-import InlineResponse20013Details from './InlineResponse20013Details';
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 /**
  * The InlineResponse20013 model module.
@@ -26,7 +21,7 @@ import InlineResponse20013Details from './InlineResponse20013Details';
 class InlineResponse20013 {
     /**
      * Constructs a new <code>InlineResponse20013</code>.
-     * Схема детали на поиск ниш.
+     * Схема парсинга.
      * @alias module:model/InlineResponse20013
      */
     constructor() { 
@@ -53,73 +48,83 @@ class InlineResponse20013 {
         if (data) {
             obj = obj || new InlineResponse20013();
 
-<<<<<<< HEAD
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('amazonFee')) {
+                obj['amazonFee'] = ApiClient.convertToType(data['amazonFee'], 'Number');
+            }
+            if (data.hasOwnProperty('width')) {
+                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
+            }
+            if (data.hasOwnProperty('height')) {
+                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
+            }
+            if (data.hasOwnProperty('length')) {
+                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
+            }
+            if (data.hasOwnProperty('weight')) {
+                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
+            }
+            if (data.hasOwnProperty('weightUnitString')) {
+                obj['weightUnitString'] = ApiClient.convertToType(data['weightUnitString'], 'String');
+            }
+            if (data.hasOwnProperty('isWhiteGloveRequired')) {
+                obj['isWhiteGloveRequired'] = ApiClient.convertToType(data['isWhiteGloveRequired'], 'Boolean');
+            }
+            if (data.hasOwnProperty('subCategory')) {
+                obj['subCategory'] = ApiClient.convertToType(data['subCategory'], 'String');
+            }
+            if (data.hasOwnProperty('fnsku')) {
+                obj['fnsku'] = ApiClient.convertToType(data['fnsku'], 'String');
+            }
+            if (data.hasOwnProperty('dimensionUnit')) {
+                obj['dimensionUnit'] = ApiClient.convertToType(data['dimensionUnit'], 'String');
             }
             if (data.hasOwnProperty('link')) {
                 obj['link'] = ApiClient.convertToType(data['link'], 'String');
             }
-            if (data.hasOwnProperty('keyword')) {
-                obj['keyword'] = ApiClient.convertToType(data['keyword'], 'String');
+            if (data.hasOwnProperty('binding')) {
+                obj['binding'] = ApiClient.convertToType(data['binding'], 'String');
             }
-            if (data.hasOwnProperty('monthlySales')) {
-                obj['monthlySales'] = ApiClient.convertToType(data['monthlySales'], 'Number');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('size')) {
-                obj['size'] = ApiClient.convertToType(data['size'], 'String');
+            if (data.hasOwnProperty('dimensionUnitString')) {
+                obj['dimensionUnitString'] = ApiClient.convertToType(data['dimensionUnitString'], 'String');
             }
-            if (data.hasOwnProperty('searchVolume')) {
-                obj['searchVolume'] = ApiClient.convertToType(data['searchVolume'], 'Number');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('minAmazonPrice')) {
-                obj['minAmazonPrice'] = ApiClient.convertToType(data['minAmazonPrice'], 'Number');
+            if (data.hasOwnProperty('imageUrl')) {
+                obj['imageUrl'] = ApiClient.convertToType(data['imageUrl'], 'String');
             }
-            if (data.hasOwnProperty('maxAmazonPrice')) {
-                obj['maxAmazonPrice'] = ApiClient.convertToType(data['maxAmazonPrice'], 'Number');
+            if (data.hasOwnProperty('isAfn')) {
+                obj['isAfn'] = ApiClient.convertToType(data['isAfn'], 'Boolean');
             }
-            if (data.hasOwnProperty('minBSR')) {
-                obj['minBSR'] = ApiClient.convertToType(data['minBSR'], 'Number');
+            if (data.hasOwnProperty('gl')) {
+                obj['gl'] = ApiClient.convertToType(data['gl'], 'String');
             }
-            if (data.hasOwnProperty('maxBSR')) {
-                obj['maxBSR'] = ApiClient.convertToType(data['maxBSR'], 'Number');
+            if (data.hasOwnProperty('TRexId')) {
+                obj['TRexId'] = ApiClient.convertToType(data['TRexId'], 'String');
             }
-            if (data.hasOwnProperty('minReviews')) {
-                obj['minReviews'] = ApiClient.convertToType(data['minReviews'], 'Number');
+            if (data.hasOwnProperty('isAsinLimits')) {
+                obj['isAsinLimits'] = ApiClient.convertToType(data['isAsinLimits'], 'Boolean');
             }
-            if (data.hasOwnProperty('maxReviews')) {
-                obj['maxReviews'] = ApiClient.convertToType(data['maxReviews'], 'Number');
+            if (data.hasOwnProperty('originalUrl')) {
+                obj['originalUrl'] = ApiClient.convertToType(data['originalUrl'], 'String');
             }
-            if (data.hasOwnProperty('minRevenue')) {
-                obj['minRevenue'] = ApiClient.convertToType(data['minRevenue'], 'Number');
+            if (data.hasOwnProperty('productGroup')) {
+                obj['productGroup'] = ApiClient.convertToType(data['productGroup'], 'String');
             }
-            if (data.hasOwnProperty('maxRevenue')) {
-                obj['maxRevenue'] = ApiClient.convertToType(data['maxRevenue'], 'Number');
+            if (data.hasOwnProperty('thumbStringUrl')) {
+                obj['thumbStringUrl'] = ApiClient.convertToType(data['thumbStringUrl'], 'String');
             }
-            if (data.hasOwnProperty('notes')) {
-                obj['notes'] = ApiClient.convertToType(data['notes'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('denyNichesBoughtByMe')) {
-                obj['denyNichesBoughtByMe'] = ApiClient.convertToType(data['denyNichesBoughtByMe'], 'Boolean');
+            if (data.hasOwnProperty('encryptedMarketplaceId')) {
+                obj['encryptedMarketplaceId'] = ApiClient.convertToType(data['encryptedMarketplaceId'], 'String');
             }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
-=======
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = InlineResponse20010.constructFromObject(data['request']);
-            }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = InlineResponse20013Details.constructFromObject(data['details']);
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+            if (data.hasOwnProperty('weightUnit')) {
+                obj['weightUnit'] = ApiClient.convertToType(data['weightUnit'], 'String');
             }
         }
         return obj;
@@ -129,163 +134,142 @@ class InlineResponse20013 {
 }
 
 /**
-<<<<<<< HEAD
- * GUID продукта в базе данных.
- * @member {String} _id
+ * 
+ * @member {Number} amazonFee
  */
-InlineResponse20013.prototype['_id'] = undefined;
+InlineResponse20013.prototype['amazonFee'] = undefined;
 
 /**
- * GUID заявки к торой относится данное дополнение.
+ * 
+ * @member {Number} width
+ */
+InlineResponse20013.prototype['width'] = undefined;
+
+/**
+ * 
+ * @member {Number} height
+ */
+InlineResponse20013.prototype['height'] = undefined;
+
+/**
+ * 
+ * @member {Number} length
+ */
+InlineResponse20013.prototype['length'] = undefined;
+
+/**
+ * 
+ * @member {Number} weight
+ */
+InlineResponse20013.prototype['weight'] = undefined;
+
+/**
+ * @member {String} weightUnitString
+ */
+InlineResponse20013.prototype['weightUnitString'] = undefined;
+
+/**
+ * @member {Boolean} isWhiteGloveRequired
+ */
+InlineResponse20013.prototype['isWhiteGloveRequired'] = undefined;
+
+/**
+ * @member {String} subCategory
+ */
+InlineResponse20013.prototype['subCategory'] = undefined;
+
+/**
+ * @member {String} fnsku
+ */
+InlineResponse20013.prototype['fnsku'] = undefined;
+
+/**
+ * @member {String} dimensionUnit
+ */
+InlineResponse20013.prototype['dimensionUnit'] = undefined;
+
+/**
  * @member {String} link
-=======
- * @member {module:model/InlineResponse20010} request
- */
-InlineResponse20013.prototype['request'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20013Details} details
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
  */
 InlineResponse20013.prototype['link'] = undefined;
 
 /**
- * Ключевые слова ниши.
- * @member {String} keyword
+ * @member {String} binding
  */
-InlineResponse20013.prototype['keyword'] = undefined;
+InlineResponse20013.prototype['binding'] = undefined;
 
 /**
- * Количество продаж за месяц.
- * @member {Number} monthlySales
+ * @member {String} title
  */
-InlineResponse20013.prototype['monthlySales'] = undefined;
+InlineResponse20013.prototype['title'] = undefined;
 
 /**
- * Размерный ряд.
- * @member {module:model/InlineResponse20013.SizeEnum} size
+ * @member {String} dimensionUnitString
  */
-InlineResponse20013.prototype['size'] = undefined;
+InlineResponse20013.prototype['dimensionUnitString'] = undefined;
 
 /**
- * Объём продаж данной категории.
- * @member {Number} searchVolume
+ * @member {Number} price
  */
-InlineResponse20013.prototype['searchVolume'] = undefined;
+InlineResponse20013.prototype['price'] = undefined;
 
 /**
- * Мин стоимость товара на Амазоне
- * @member {Number} minAmazonPrice
+ * @member {String} imageUrl
  */
-InlineResponse20013.prototype['minAmazonPrice'] = undefined;
+InlineResponse20013.prototype['imageUrl'] = undefined;
 
 /**
- * Макс стоимость товара на Амазоне
- * @member {Number} maxAmazonPrice
+ * @member {Boolean} isAfn
  */
-InlineResponse20013.prototype['maxAmazonPrice'] = undefined;
+InlineResponse20013.prototype['isAfn'] = undefined;
 
 /**
- * Мин рейтинг BSR на Амазоне
- * @member {Number} minBSR
+ * @member {String} gl
  */
-InlineResponse20013.prototype['minBSR'] = undefined;
+InlineResponse20013.prototype['gl'] = undefined;
 
 /**
- * Макс рейтинг BSR на Амазоне
- * @member {Number} maxBSR
+ * @member {String} TRexId
  */
-InlineResponse20013.prototype['maxBSR'] = undefined;
+InlineResponse20013.prototype['TRexId'] = undefined;
 
 /**
- * Мин просмотры на Амазоне
- * @member {Number} minReviews
+ * @member {Boolean} isAsinLimits
  */
-InlineResponse20013.prototype['minReviews'] = undefined;
+InlineResponse20013.prototype['isAsinLimits'] = undefined;
 
 /**
- * Макс просмотры на Амазоне
- * @member {Number} maxReviews
+ * @member {String} originalUrl
  */
-InlineResponse20013.prototype['maxReviews'] = undefined;
+InlineResponse20013.prototype['originalUrl'] = undefined;
 
 /**
- * Мин  доход по продукту на Амазоне
- * @member {Number} minRevenue
+ * @member {String} productGroup
  */
-InlineResponse20013.prototype['minRevenue'] = undefined;
+InlineResponse20013.prototype['productGroup'] = undefined;
 
 /**
- * Макс доход по продукту на Амазоне
- * @member {Number} maxRevenue
+ * @member {String} thumbStringUrl
  */
-InlineResponse20013.prototype['maxRevenue'] = undefined;
+InlineResponse20013.prototype['thumbStringUrl'] = undefined;
 
 /**
- * Комментарий к заявке
- * @member {String} notes
+ * @member {String} asin
  */
-InlineResponse20013.prototype['notes'] = undefined;
+InlineResponse20013.prototype['asin'] = undefined;
 
 /**
- * Запретить ниши которые когда либо куплены клиентом.
- * @member {Boolean} denyNichesBoughtByMe
+ * @member {String} encryptedMarketplaceId
  */
-InlineResponse20013.prototype['denyNichesBoughtByMe'] = undefined;
+InlineResponse20013.prototype['encryptedMarketplaceId'] = undefined;
 
 /**
- * GUID клиента, который создал запрос на поиск товара.
- * @member {String} createdById
+ * @member {String} weightUnit
  */
-InlineResponse20013.prototype['createdById'] = undefined;
-
-/**
- * GUID клиента, который обновил запрос на поиск товара.
- * @member {String} lastModifiedById
- */
-InlineResponse20013.prototype['lastModifiedById'] = undefined;
-
-/**
- * Дата создания
- * @member {Date} createdAt
- */
-InlineResponse20013.prototype['createdAt'] = undefined;
-
-/**
- * Дата изменения
- * @member {Date} updatedAt
- */
-InlineResponse20013.prototype['updatedAt'] = undefined;
+InlineResponse20013.prototype['weightUnit'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>size</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse20013['SizeEnum'] = {
-
-    /**
-     * value: "SMALL"
-     * @const
-     */
-    "SMALL": "SMALL",
-
-    /**
-     * value: "MEDIUM"
-     * @const
-     */
-    "MEDIUM": "MEDIUM",
-
-    /**
-     * value: "LARGE"
-     * @const
-     */
-    "LARGE": "LARGE"
-};
 
 
 

@@ -12,11 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-<<<<<<< HEAD
-import ApiV1RequestsDetails from './ApiV1RequestsDetails';
-import ApiV1RequestsRequest from './ApiV1RequestsRequest';
-=======
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 /**
  * The InlineResponse2007 model module.
@@ -26,14 +21,6 @@ import ApiV1RequestsRequest from './ApiV1RequestsRequest';
 class InlineResponse2007 {
     /**
      * Constructs a new <code>InlineResponse2007</code>.
-<<<<<<< HEAD
-     * Схема детали на поиск ниш.
-     * @alias module:model/InlineResponse2007
-     */
-    constructor() { 
-        
-        InlineResponse2007.initialize(this);
-=======
      * Схема репорта за 30 дней с Seller-board
      * @alias module:model/InlineResponse2007
      * @param sku {String} SKU
@@ -41,7 +28,6 @@ class InlineResponse2007 {
     constructor(sku) { 
         
         InlineResponse2007.initialize(this, sku);
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
     }
 
     /**
@@ -49,12 +35,8 @@ class InlineResponse2007 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-<<<<<<< HEAD
-    static initialize(obj) { 
-=======
     static initialize(obj, sku) { 
         obj['sku'] = sku;
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
     }
 
     /**
@@ -68,13 +50,6 @@ class InlineResponse2007 {
         if (data) {
             obj = obj || new InlineResponse2007();
 
-<<<<<<< HEAD
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsRequest.constructFromObject(data['request']);
-            }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsDetails.constructFromObject(data['details']);
-=======
             if (data.hasOwnProperty('asin')) {
                 obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
@@ -143,7 +118,6 @@ class InlineResponse2007 {
             }
             if (data.hasOwnProperty('shippingToFbaDays')) {
                 obj['shippingToFbaDays'] = ApiClient.convertToType(data['shippingToFbaDays'], 'Number');
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
             }
         }
         return obj;
@@ -153,16 +127,6 @@ class InlineResponse2007 {
 }
 
 /**
-<<<<<<< HEAD
- * @member {module:model/ApiV1RequestsRequest} request
- */
-InlineResponse2007.prototype['request'] = undefined;
-
-/**
- * @member {module:model/ApiV1RequestsDetails} details
- */
-InlineResponse2007.prototype['details'] = undefined;
-=======
  * \"ASIN\"
  * @member {String} asin
  */
@@ -299,7 +263,6 @@ InlineResponse2007.prototype['shippingToPrepCenterDays'] = undefined;
  * @member {Number} shippingToFbaDays
  */
 InlineResponse2007.prototype['shippingToFbaDays'] = undefined;
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 
 
 

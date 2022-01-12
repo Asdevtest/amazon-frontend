@@ -68,7 +68,7 @@ export default class OtherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/other/img/{guid}', 'GET',
@@ -122,7 +122,7 @@ export default class OtherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse2002];
       return this.apiClient.callApi(
         '/api/v1/other/payments/by_product/{guid}', 'GET',
@@ -176,7 +176,7 @@ export default class OtherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse2002];
       return this.apiClient.callApi(
         '/api/v1/other/payments/by_user/{guid}', 'GET',
@@ -224,7 +224,7 @@ export default class OtherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = [InlineResponse2002];
       return this.apiClient.callApi(
         '/api/v1/other/payments/my', 'GET',
@@ -271,7 +271,7 @@ export default class OtherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = InlineResponse2015;
       return this.apiClient.callApi(
         '/api/v1/other/upload_file', 'POST',

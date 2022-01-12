@@ -15,19 +15,11 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject31 from '../model/InlineObject31';
-import InlineObject42 from '../model/InlineObject42';
-import InlineObject43 from '../model/InlineObject43';
-<<<<<<< HEAD
+import InlineObject33 from '../model/InlineObject33';
 import InlineObject44 from '../model/InlineObject44';
-import InlineResponse20012 from '../model/InlineResponse20012';
-import InlineResponse20013 from '../model/InlineResponse20013';
+import InlineObject45 from '../model/InlineObject45';
+import InlineResponse20011 from '../model/InlineResponse20011';
 import InlineResponse20014 from '../model/InlineResponse20014';
-import InlineResponse2007 from '../model/InlineResponse2007';
-=======
-import InlineResponse20010 from '../model/InlineResponse20010';
-import InlineResponse20013 from '../model/InlineResponse20013';
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
 import InlineResponse2016 from '../model/InlineResponse2016';
 import InlineResponse2017 from '../model/InlineResponse2017';
 import InternalServerError from '../model/InternalServerError';
@@ -82,7 +74,7 @@ export default class RequestsApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/requests/custom/{guid}', 'DELETE',
@@ -113,11 +105,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-<<<<<<< HEAD
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2007} and HTTP response
-=======
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20013} and HTTP response
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20014} and HTTP response
      */
     apiV1RequestsCustomGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -141,11 +129,7 @@ export default class RequestsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-<<<<<<< HEAD
-      let returnType = InlineResponse2007;
-=======
-      let returnType = InlineResponse20013;
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+      let returnType = InlineResponse20014;
       return this.apiClient.callApi(
         '/api/v1/requests/custom/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -159,11 +143,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-<<<<<<< HEAD
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2007}
-=======
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20013}
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20014}
      */
     apiV1RequestsCustomGuidGet(guid, opts) {
       return this.apiV1RequestsCustomGuidGetWithHttpInfo(guid, opts)
@@ -179,7 +159,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject43} opts.body 
+     * @param {module:model/InlineObject45} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsCustomGuidPatchWithHttpInfo(guid, opts) {
@@ -203,7 +183,7 @@ export default class RequestsApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/requests/custom/{guid}', 'PATCH',
@@ -218,7 +198,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject43} opts.body 
+     * @param {module:model/InlineObject45} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsCustomGuidPatch(guid, opts) {
@@ -230,68 +210,11 @@ export default class RequestsApi {
 
 
     /**
-<<<<<<< HEAD
-     * Получить список предложений к заявке.
-     * Получить список предложений к заявке.   
-     * @param {String} guid GUID в сущности в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20012>} and HTTP response
-     */
-    apiV1RequestsCustomGuidProposalsGetWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestsCustomGuidProposalsGet");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = [InlineResponse20012];
-      return this.apiClient.callApi(
-        '/api/v1/requests/custom/{guid}/proposals', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Получить список предложений к заявке.
-     * Получить список предложений к заявке.   
-     * @param {String} guid GUID в сущности в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20012>}
-     */
-    apiV1RequestsCustomGuidProposalsGet(guid, opts) {
-      return this.apiV1RequestsCustomGuidProposalsGetWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-=======
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
      * # Создать кастомную заявку.
      * ## Создать кастомную заявку. 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject42} opts.body 
+     * @param {module:model/InlineObject44} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
      */
     apiV1RequestsCustomPostWithHttpInfo(opts) {
@@ -310,7 +233,7 @@ export default class RequestsApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = InlineResponse2017;
       return this.apiClient.callApi(
         '/api/v1/requests/custom/', 'POST',
@@ -324,7 +247,7 @@ export default class RequestsApi {
      * ## Создать кастомную заявку. 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject42} opts.body 
+     * @param {module:model/InlineObject44} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
      */
     apiV1RequestsCustomPost(opts) {
@@ -341,14 +264,8 @@ export default class RequestsApi {
      * @param {module:model/String} type Тип заявки
      * @param {module:model/String} kind Виды заявок:             VACANT - все заявки со статусом TO_PUBLISH и IN_PROCESS, + должны быть свободные слоты для предложений.             MY - все заявки созданные тем кто вызывает метод,             PICKUPED_BY_ME - все заявки где числится как исполнитель тот кто вызывает метод,             ALL - абсолютно все заявки, без исключения,             ASSIGNED_TO_ME - пока не реализовано.
      * @param {Object} opts Optional parameters
-<<<<<<< HEAD
-     * @param {module:model/String} opts.kind Виды заявок:             VACANT - все заявки со статусом CREATED и IN_PROCESS,             MY - все заявки созданные тем кто вызывает метод,             ASSIGNEES - все заявки где числится как исполнитель,             ALL - абсолютно все заявки, без исключения.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2007>} and HTTP response
-=======
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20010>} and HTTP response
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20011>} and HTTP response
      */
     apiV1RequestsGetWithHttpInfo(type, kind, opts) {
       opts = opts || {};
@@ -377,11 +294,7 @@ export default class RequestsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-<<<<<<< HEAD
-      let returnType = [InlineResponse2007];
-=======
-      let returnType = [InlineResponse20010];
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+      let returnType = [InlineResponse20011];
       return this.apiClient.callApi(
         '/api/v1/requests/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -395,14 +308,8 @@ export default class RequestsApi {
      * @param {module:model/String} type Тип заявки
      * @param {module:model/String} kind Виды заявок:             VACANT - все заявки со статусом TO_PUBLISH и IN_PROCESS, + должны быть свободные слоты для предложений.             MY - все заявки созданные тем кто вызывает метод,             PICKUPED_BY_ME - все заявки где числится как исполнитель тот кто вызывает метод,             ALL - абсолютно все заявки, без исключения,             ASSIGNED_TO_ME - пока не реализовано.
      * @param {Object} opts Optional parameters
-<<<<<<< HEAD
-     * @param {module:model/String} opts.kind Виды заявок:             VACANT - все заявки со статусом CREATED и IN_PROCESS,             MY - все заявки созданные тем кто вызывает метод,             ASSIGNEES - все заявки где числится как исполнитель,             ALL - абсолютно все заявки, без исключения.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2007>}
-=======
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20010>}
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20011>}
      */
     apiV1RequestsGet(type, kind, opts) {
       return this.apiV1RequestsGetWithHttpInfo(type, kind, opts)
@@ -418,7 +325,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject31} opts.body 
+     * @param {module:model/InlineObject33} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
      */
     apiV1RequestsGuidCompletePostWithHttpInfo(guid, opts) {
@@ -457,7 +364,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject31} opts.body 
+     * @param {module:model/InlineObject33} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
      */
     apiV1RequestsGuidCompletePost(guid, opts) {
@@ -525,322 +432,9 @@ export default class RequestsApi {
 
 
     /**
-<<<<<<< HEAD
-     * Получить список деталей заявок созданных данным клиентом.
-     * Получить список деталей заявок созданных данным клиентом.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20013>} and HTTP response
-     */
-    apiV1RequestsSearchNicheGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [InlineResponse20013];
-      return this.apiClient.callApi(
-        '/api/v1/requests/search_niche/', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Получить список деталей заявок созданных данным клиентом.
-     * Получить список деталей заявок созданных данным клиентом.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20013>}
-     */
-    apiV1RequestsSearchNicheGet(opts) {
-      return this.apiV1RequestsSearchNicheGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Удалить детали заявки на поиск ниш по его GUID.
-     * ## Удалить детали заявки по его GUID, возможно только после проверки статуса.   ## Только владелец, админ или супервайзер могут удалять заявку  
-     * @param {String} guid GUID в сущности в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1RequestsSearchNicheGuidDeleteWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestsSearchNicheGuidDelete");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/requests/search_niche/{guid}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Удалить детали заявки на поиск ниш по его GUID.
-     * ## Удалить детали заявки по его GUID, возможно только после проверки статуса.   ## Только владелец, админ или супервайзер могут удалять заявку  
-     * @param {String} guid GUID в сущности в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1RequestsSearchNicheGuidDelete(guid, opts) {
-      return this.apiV1RequestsSearchNicheGuidDeleteWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * #  Изменить детали заявки на поиск ниш.
-     * ## Изменить детали заявки на поиск ниш.   ## Только владелец, админ или супервайзер могут редактировать заявку   
-     * @param {String} guid GUID продукта БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject42} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1RequestsSearchNicheGuidPatchWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestsSearchNicheGuidPatch");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/requests/search_niche/{guid}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * #  Изменить детали заявки на поиск ниш.
-     * ## Изменить детали заявки на поиск ниш.   ## Только владелец, админ или супервайзер могут редактировать заявку   
-     * @param {String} guid GUID продукта БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject42} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1RequestsSearchNicheGuidPatch(guid, opts) {
-      return this.apiV1RequestsSearchNicheGuidPatchWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Создать детали заявки на поиск ниш.
-     * ## Создать детали заявки на поиск ниш. 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject41} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2016} and HTTP response
-     */
-    apiV1RequestsSearchNichePostWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
-      let returnType = InlineResponse2016;
-      return this.apiClient.callApi(
-        '/api/v1/requests/search_niche/', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Создать детали заявки на поиск ниш.
-     * ## Создать детали заявки на поиск ниш. 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject41} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2016}
-     */
-    apiV1RequestsSearchNichePost(opts) {
-      return this.apiV1RequestsSearchNichePostWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Получить список деталей заявок созданных данным клиентом.
-     * Получить список деталей заявок созданных данным клиентом.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20014>} and HTTP response
-     */
-    apiV1RequestsSearchProductsGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = [InlineResponse20014];
-      return this.apiClient.callApi(
-        '/api/v1/requests/search_products/', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Получить список деталей заявок созданных данным клиентом.
-     * Получить список деталей заявок созданных данным клиентом.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20014>}
-     */
-    apiV1RequestsSearchProductsGet(opts) {
-      return this.apiV1RequestsSearchProductsGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Удалить детали заявки на поиск товара по его GUID.
-     * ## Удалить детали заявки по его GUID, возможно только после проверки статуса.    ## Только владелец, админ или супервайзер могут удалять заявку   
-     * @param {String} guid GUID в сущности в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1RequestsSearchProductsGuidDeleteWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestsSearchProductsGuidDelete");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['text/html'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/requests/search_products/{guid}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Удалить детали заявки на поиск товара по его GUID.
-     * ## Удалить детали заявки по его GUID, возможно только после проверки статуса.    ## Только владелец, админ или супервайзер могут удалять заявку   
-     * @param {String} guid GUID в сущности в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1RequestsSearchProductsGuidDelete(guid, opts) {
-      return this.apiV1RequestsSearchProductsGuidDeleteWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * #  Изменить детали заявки на поиск товара.
-     * ## Изменить детали заявки на поиск товара.   ## Только владелец, админ или супервайзер могут редактировать заявку   
-     * @param {String} guid GUID продукта БД
-=======
      * #  Опубликовать заявку.
      * ## Опубликовать заявку.   Статус поменяется на TO_PUBLISH. Проверки:  Публиковать можно только заявки со статусом CREATED. Только владелец может опубликовать.
      * @param {String} guid GUID в БД
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Object} opts.body 
@@ -867,7 +461,7 @@ export default class RequestsApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = ['text/html'];
+      let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/requests/{guid}/to_publish', 'PATCH',
