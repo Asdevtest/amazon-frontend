@@ -154,6 +154,14 @@ export class ClientInventoryViewRaw extends Component {
                   >
                     {textConsts.bindGoodsBtn}
                   </Button>
+
+                  <Button
+                    variant="contained"
+                    className={classNames.buttonOffset}
+                    onClick={() => onTriggerOpenModal('showSelectionSupplierModal')}
+                  >
+                    {'test'}
+                  </Button>
                 </div>
 
                 <SuccessButton onClick={() => onTriggerOpenModal('showSendOwnProductModal')}>
@@ -208,7 +216,10 @@ export class ClientInventoryViewRaw extends Component {
           openModal={showAddOrEditSupplierModal}
           setOpenModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
         >
-          <AddOrEditSupplierModalContent renderButton={() => renderButton()} />
+          <AddOrEditSupplierModalContent
+            title={textConsts.addOrEditSupplierTitle}
+            renderButton={() => renderButton()}
+          />
         </Modal>
 
         <Modal

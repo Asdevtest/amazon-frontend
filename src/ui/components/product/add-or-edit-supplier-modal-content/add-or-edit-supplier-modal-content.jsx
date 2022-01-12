@@ -130,10 +130,6 @@ export const AddOrEditSupplierModalContent = observer(
           value={tmpSupplier.comment}
           onChange={onChangeField('comment')}
         />
-        <div className={classNames.photoLinkWrapper}>
-          <Field label={'Прикрепить фото'} inputProps={{maxLength: 50}} placeholder={'Ссылка'} />
-          <Button className={classNames.photoLinkButton}>Загрузить</Button>
-        </div>
 
         <div className={classNames.bottomWrapper}>
           <div>

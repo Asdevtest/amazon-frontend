@@ -974,6 +974,8 @@ export const texts = {
       addProductModal: 'Добавить свой товар',
       successTitle: 'Заказ создан',
       successBtn: 'Ок',
+
+      addOrEditSupplierTitle: 'Добавить поставщика',
     },
     researcherDashboardView: {
       appBarTitle: 'Dashboard',
@@ -2647,6 +2649,8 @@ export const texts = {
       setBarcodeChipLabel: 'Set barcode',
       addProductBtn: 'Добавить свой товар',
       addProductModal: 'Добавить свой товар',
+
+      addOrEditSupplierTitle: 'Добавить поставщика',
     },
 
     setBarcodeModalContent: {

@@ -9,6 +9,7 @@ import {UserModel} from '@models/user-model'
 
 import {warehouseBoxesViewColumns} from '@components/table-columns/warehouse/warehouse-boxes-columns'
 
+import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -153,10 +154,7 @@ export class WarehouseMyWarehouseViewModel {
       const result = await StorekeeperModel.getBoxesMy()
 
       runInAction(() => {
-        this.boxesMy = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
-          ...item,
-          id: item._id,
-        }))
+        this.boxesMy = addIdDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
       })
     } catch (error) {
       console.log(error)
