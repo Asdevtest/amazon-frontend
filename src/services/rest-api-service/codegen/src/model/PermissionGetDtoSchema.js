@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import UserAdminFullSchemaAllowedUrls from './UserAdminFullSchemaAllowedUrls';
 
 /**
  * The PermissionGetDtoSchema model module.
@@ -25,17 +26,17 @@ class PermissionGetDtoSchema {
      * @alias module:model/PermissionGetDtoSchema
      * @param _id {String} GUID Permission в базе данных
      * @param key {String} Permission ключ
-     * @param title {String} Простое название
+     * @param title {String} Простое название.
      * @param description {String} Описание permission
-     * @param allowedUrl {Array.<String>} Массив доступных url.
+     * @param allowedUrls {Array.<module:model/UserAdminFullSchemaAllowedUrls>} Массив доступных url.
      * @param createdById {String} GUID любого, кто последний создал permission.
      * @param role {Number} Роль для которого данный permission
      * @param createdAt {Date} Дата создания
      * @param updatedAt {Date} Дата изменения
      */
-    constructor(_id, key, title, description, allowedUrl, createdById, role, createdAt, updatedAt) { 
+    constructor(_id, key, title, description, allowedUrls, createdById, role, createdAt, updatedAt) { 
         
-        PermissionGetDtoSchema.initialize(this, _id, key, title, description, allowedUrl, createdById, role, createdAt, updatedAt);
+        PermissionGetDtoSchema.initialize(this, _id, key, title, description, allowedUrls, createdById, role, createdAt, updatedAt);
     }
 
     /**
@@ -43,12 +44,12 @@ class PermissionGetDtoSchema {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, key, title, description, allowedUrl, createdById, role, createdAt, updatedAt) { 
+    static initialize(obj, _id, key, title, description, allowedUrls, createdById, role, createdAt, updatedAt) { 
         obj['_id'] = _id;
         obj['key'] = key;
         obj['title'] = title;
         obj['description'] = description;
-        obj['allowedUrl'] = allowedUrl;
+        obj['allowedUrls'] = allowedUrls;
         obj['createdById'] = createdById;
         obj['role'] = role;
         obj['createdAt'] = createdAt;
@@ -78,8 +79,8 @@ class PermissionGetDtoSchema {
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('allowedUrl')) {
-                obj['allowedUrl'] = ApiClient.convertToType(data['allowedUrl'], ['String']);
+            if (data.hasOwnProperty('allowedUrls')) {
+                obj['allowedUrls'] = ApiClient.convertToType(data['allowedUrls'], [UserAdminFullSchemaAllowedUrls]);
             }
             if (data.hasOwnProperty('createdById')) {
                 obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
@@ -116,7 +117,7 @@ PermissionGetDtoSchema.prototype['_id'] = undefined;
 PermissionGetDtoSchema.prototype['key'] = undefined;
 
 /**
- * Простое название
+ * Простое название.
  * @member {String} title
  */
 PermissionGetDtoSchema.prototype['title'] = undefined;
@@ -129,9 +130,9 @@ PermissionGetDtoSchema.prototype['description'] = undefined;
 
 /**
  * Массив доступных url.
- * @member {Array.<String>} allowedUrl
+ * @member {Array.<module:model/UserAdminFullSchemaAllowedUrls>} allowedUrls
  */
-PermissionGetDtoSchema.prototype['allowedUrl'] = undefined;
+PermissionGetDtoSchema.prototype['allowedUrls'] = undefined;
 
 /**
  * GUID любого, кто последний создал permission.

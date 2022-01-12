@@ -64,6 +64,16 @@ class UserModelStatic {
     this.userInfo = ApiClient.convertToType(response, UserInfoContract)
   }
 
+  async isCheckUniqueUser({name, email}) {
+    const response = await restApiService.userApi.apiV1UsersCheckIsUniqueNameOrEmailPost({
+      body: {
+        name,
+        email,
+      },
+    })
+    return response
+  }
+
   async getUserInfo() {
     const response = await restApiService.userApi.apiV1UsersInfoGet()
     runInAction(() => {

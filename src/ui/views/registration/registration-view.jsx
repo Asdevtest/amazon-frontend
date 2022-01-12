@@ -32,6 +32,7 @@ class RegistrationViewRaw extends Component {
       password,
       confirmPassword,
       acceptTerms,
+      checkValidationNameOrEmail,
       showErrorRegistrationModal,
       showSuccessRegistrationModal,
       onTriggerOpenModal,
@@ -47,6 +48,7 @@ class RegistrationViewRaw extends Component {
         </Hidden>
         <EntryRightPanel redirect={textConsts.redirect} title={textConsts.title} onClickRedirect={onClickRedirect}>
           <RegistrationForm
+            checkValidationNameOrEmail={checkValidationNameOrEmail}
             formFields={{
               name,
               email: disallowsSpecialCharInFirstCharEmail(email) && disallowsSpecialCharInEmailField(email),

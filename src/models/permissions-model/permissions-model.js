@@ -46,7 +46,7 @@ class PermissionsModelStatic {
   }
 
   setPermissionsForUser = async (guid, data) => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsSetForUserGuidPatch(guid, {
+    const response = await restApiService.userApi.apiV1UsersEditMySubUsersGuidPatch(guid, {
       body: data,
     })
     return response

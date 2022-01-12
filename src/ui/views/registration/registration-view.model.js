@@ -18,6 +18,7 @@ export class RegistrationViewModel {
   password = ''
   confirmPassword = ''
   acceptTerms = false
+  checkValidationNameOrEmail = {}
 
   requestStatus = undefined
   error = undefined
@@ -49,21 +50,22 @@ export class RegistrationViewModel {
     try {
       this.requestStatus = loadingStatuses.isLoading
       this.error = undefined
-
+      this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({name: this.name, email: this.email})
       const requestData = {name: this.name, email: this.email, password: this.password}
 
       await transformAndValidate(UserRegistrationContract, requestData)
 
       await UserModel.signUp(requestData)
+
       this.onTriggerOpenModal('showSuccessRegistrationModal')
+
       this.requestStatus = loadingStatuses.success
+
       setTimeout(() => {
         this.history.push('/auth')
       }, delayRedirectToAuthTime)
     } catch (error) {
       this.requestStatus = loadingStatuses.failed
-      this.error = error
-      this.onTriggerOpenModal('showErrorRegistrationModal')
     }
   }
 

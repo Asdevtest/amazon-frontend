@@ -168,7 +168,7 @@ export class SinglePermissionsModel {
 
   async updateSinglePermission(data, permissionId) {
     try {
-      const allowData = getObjectFilteredByKeyArrayWhiteList(data, ['title', 'description', 'allowedUrl', 'role'])
+      const allowData = getObjectFilteredByKeyArrayWhiteList(data, ['title', 'description', 'allowedUrls', 'role'])
 
       await PermissionsModel.updateSinglePermission(permissionId, allowData)
     } catch (error) {

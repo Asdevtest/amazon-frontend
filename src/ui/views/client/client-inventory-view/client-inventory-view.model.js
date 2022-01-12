@@ -37,6 +37,8 @@ export class ClientInventoryViewModel {
   showOrderModal = false
   showSuccessModal = false
   showSetBarcodeModal = false
+  showSelectionSupplierModal = false
+  showAddOrEditSupplierModal = false
   selectedProduct = undefined
   showSendOwnProductModal = false
 

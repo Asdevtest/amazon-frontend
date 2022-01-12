@@ -50,7 +50,7 @@ export default class PermissionsApi {
      * Получить список permissions.
      * ## Получить список permission-ы. Админ может запращивать по всем ролям.  ## Обычный пользователь может получить только permission-ы из его роли.
      * @param {Object} opts Optional parameters
-     * @param {Number} opts.role Если указать role - отфильтрует, нет - выведет все.
+     * @param {module:model/Number} opts.role Если указать role - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PermissionGetDtoSchema>} and HTTP response
      */
@@ -84,7 +84,7 @@ export default class PermissionsApi {
      * Получить список permissions.
      * ## Получить список permission-ы. Админ может запращивать по всем ролям.  ## Обычный пользователь может получить только permission-ы из его роли.
      * @param {Object} opts Optional parameters
-     * @param {Number} opts.role Если указать role - отфильтрует, нет - выведет все.
+     * @param {module:model/Number} opts.role Если указать role - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PermissionGetDtoSchema>}
      */
@@ -100,7 +100,7 @@ export default class PermissionsApi {
      * Получить список групп permissions.
      * ## Получить список групп permissions.   
      * @param {Object} opts Optional parameters
-     * @param {Number} opts.role Если указать role - отфильтрует, нет - выведет все.
+     * @param {module:model/Number} opts.role Если указать role - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PermissionGroupGetDtoSchema>} and HTTP response
      */
@@ -134,7 +134,7 @@ export default class PermissionsApi {
      * Получить список групп permissions.
      * ## Получить список групп permissions.   
      * @param {Object} opts Optional parameters
-     * @param {Number} opts.role Если указать role - отфильтрует, нет - выведет все.
+     * @param {module:model/Number} opts.role Если указать role - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PermissionGroupGetDtoSchema>}
      */
@@ -465,8 +465,8 @@ export default class PermissionsApi {
 
 
     /**
-     * #   Мастер пользователь задает пермишены своим суб пользователям.
-     * ## Мастер пользователь задает пермишены своим суб пользователям.   
+     * #   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid
+     * ## !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid.   
      * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -504,8 +504,8 @@ export default class PermissionsApi {
     }
 
     /**
-     * #   Мастер пользователь задает пермишены своим суб пользователям.
-     * ## Мастер пользователь задает пермишены своим суб пользователям.   
+     * #   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid
+     * ## !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid.   
      * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 

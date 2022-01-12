@@ -61,6 +61,7 @@ class ClientDailySellerBoardViewRaw extends Component {
       onChangeSortingModel,
     } = this.viewModel
     const {classes: className} = this.props
+
     return (
       <React.Fragment>
         <Navbar
@@ -87,7 +88,7 @@ class ClientDailySellerBoardViewRaw extends Component {
               </Typography>
 
               <Button
-                disableElevation
+                disabled={!selectedRow.asin}
                 variant="contained"
                 color="primary"
                 onClick={() => onTriggerOpenModal('showAddProductSellerboardModal')}

@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
+import ApiV1RequestsCustomGuidDetails from './ApiV1RequestsCustomGuidDetails';
 import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 
 /**
@@ -54,7 +54,7 @@ class InlineObject40 {
                 obj['request'] = ApiV1RequestsCustomGuidRequest.constructFromObject(data['request']);
             }
             if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
+                obj['details'] = ApiV1RequestsCustomGuidDetails.constructFromObject(data['details']);
             }
         }
         return obj;
@@ -69,7 +69,7 @@ class InlineObject40 {
 InlineObject40.prototype['request'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestsCustomDetails} details
+ * @member {module:model/ApiV1RequestsCustomGuidDetails} details
  */
 InlineObject40.prototype['details'] = undefined;
 

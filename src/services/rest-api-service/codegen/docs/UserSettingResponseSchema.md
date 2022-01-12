@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**settingOwnerId** | **String** | GUID пользователя | [optional] 
+**settingOwnerId** | **String** | GUID пользователя | 
 **data** | [**UserSettingInputSchemaData**](UserSettingInputSchemaData.md) |  | 
 
 

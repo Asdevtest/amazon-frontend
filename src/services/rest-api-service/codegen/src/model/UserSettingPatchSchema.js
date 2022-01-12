@@ -24,11 +24,12 @@ class UserSettingPatchSchema {
      * Constructs a new <code>UserSettingPatchSchema</code>.
      * Создание настроек пользователя.
      * @alias module:model/UserSettingPatchSchema
+     * @param settingOwnerId {String} GUID пользователя
      * @param data {module:model/UserSettingInputSchemaData} 
      */
-    constructor(data) { 
+    constructor(settingOwnerId, data) { 
         
-        UserSettingPatchSchema.initialize(this, data);
+        UserSettingPatchSchema.initialize(this, settingOwnerId, data);
     }
 
     /**
@@ -36,7 +37,8 @@ class UserSettingPatchSchema {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, data) { 
+    static initialize(obj, settingOwnerId, data) { 
+        obj['settingOwnerId'] = settingOwnerId;
         obj['data'] = data;
     }
 

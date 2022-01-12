@@ -27,7 +27,7 @@ Method | HTTP request | Description
 
 ## apiV1ClientsBatchesGet
 
-> [InlineResponse2005] apiV1ClientsBatchesGet(opts)
+> [InlineResponse2004] apiV1ClientsBatchesGet(opts)
 
 # Получить партии.
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -571,7 +571,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyGet
 
-> [InlineResponse2007] apiV1ClientsProductsMyGet(opts)
+> [InlineResponse2006] apiV1ClientsProductsMyGet(opts)
 
 # Получить список товаров данного клиента.
 
@@ -609,7 +609,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -623,7 +623,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsPaidGet
 
-> [InlineResponse2007] apiV1ClientsProductsPaidGet(opts)
+> [InlineResponse2006] apiV1ClientsProductsPaidGet(opts)
 
 # Получить список товаров оплаченных данного клиента.
 
@@ -661,7 +661,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -729,7 +729,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsVacGet
 
-> [InlineResponse2007] apiV1ClientsProductsVacGet(opts)
+> [InlineResponse2006] apiV1ClientsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -767,7 +767,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 

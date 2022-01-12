@@ -4,6 +4,7 @@ import {IconButton, NativeSelect, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
+import {HttpMethod} from '@constants/http-method'
 import {texts} from '@constants/texts'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
@@ -28,17 +29,17 @@ export const AddOrEditSinglePermissionForm = observer(
       key: permissionToEdit?.key || '',
       title: permissionToEdit?.title || '',
       description: permissionToEdit?.description || '',
-      allowedUrl: permissionToEdit?.allowedUrl || [],
+      allowedUrls: permissionToEdit?.allowedUrls || [],
       role: permissionToEdit?.role === 0 ? 0 : permissionToEdit?.role || '',
     }
 
     const [formFields, setFormFields] = useState(sourceFormFields)
 
-    const onChangeField = (fieldName, index) => event => {
+    const onChangeField = (fieldName, index, type) => event => {
       const newFormFields = {...formFields}
 
-      if (fieldName === 'allowedUrl') {
-        newFormFields[fieldName][index] = event.target.value
+      if (fieldName === 'allowedUrls') {
+        newFormFields[fieldName][index][type] = event.target.value
       } else {
         newFormFields[fieldName] = event.target.value
       }
@@ -52,15 +53,18 @@ export const AddOrEditSinglePermissionForm = observer(
 
     const addAllowUrl = () => {
       const newFormFields = {...formFields}
-      const addUrlToArray = newFormFields.allowedUrl.concat('')
-      newFormFields.allowedUrl = addUrlToArray
+      const addUrlToArray = newFormFields.allowedUrls.concat({
+        url: '',
+        httpMethod: '',
+      })
+      newFormFields.allowedUrls = addUrlToArray
       setFormFields(newFormFields)
     }
 
     const onRemovePermission = index => {
       const newFormFields = {...formFields}
-      const removeUrlFromArray = newFormFields.allowedUrl.filter(url => url !== newFormFields.allowedUrl[index])
-      newFormFields.allowedUrl = removeUrlFromArray
+      const removeUrlFromArray = newFormFields.allowedUrls.filter(url => url !== newFormFields.allowedUrls[index])
+      newFormFields.allowedUrls = removeUrlFromArray
       setFormFields(newFormFields)
     }
 
@@ -76,9 +80,10 @@ export const AddOrEditSinglePermissionForm = observer(
       formFields.key.match(/[_]/) === null ||
       formFields.title === '' ||
       formFields.description === '' ||
-      !formFields.allowedUrl[0] ||
-      formFields.role === 'None' ||
-      isDoubleKey
+      !formFields?.allowedUrls[formFields?.allowedUrls.length - 1]?.url ||
+      formFields?.allowedUrls[formFields?.allowedUrls.length - 1]?.httpMethod === 'None' ||
+      !formFields?.allowedUrls[formFields?.allowedUrls.length - 1]?.httpMethod
+    formFields.role === 'None' || isDoubleKey
 
     return (
       <div className={classNames.root}>
@@ -139,17 +144,31 @@ export const AddOrEditSinglePermissionForm = observer(
             label={textConsts.allowUrlsLabel}
             inputComponent={
               <div className={classNames.allowUrlsWrapper}>
-                {formFields.allowedUrl.map((url, index) => (
+                {formFields.allowedUrls.map((obj, index) => (
                   <div key={index} className={classNames.urlInputWrapper}>
                     <Input
                       multiline
                       minRows={1}
                       rowsMax={3}
                       className={classNames.urlInput}
-                      value={url}
+                      value={formFields.allowedUrls[index].url}
                       placeholder={textConsts.allowUrlsHolder}
-                      onChange={onChangeField('allowedUrl', index)}
+                      onChange={onChangeField('allowedUrls', index, 'url')}
                     />
+                    <NativeSelect
+                      variant="filled"
+                      value={formFields.allowedUrls[index].httpMethod}
+                      input={<Input fullWidth />}
+                      className={classNames.httpMethodSelect}
+                      onChange={onChangeField('allowedUrls', index, 'httpMethod')}
+                    >
+                      <option value={'None'}>{textConsts.valueNone}</option>
+                      {Object.keys(HttpMethod).map((http, idx) => (
+                        <option key={idx} value={http}>
+                          {HttpMethod[http]}
+                        </option>
+                      ))}
+                    </NativeSelect>
 
                     <IconButton onClick={() => onRemovePermission(index)}>
                       <DeleteIcon className={classNames.deleteBtn} />

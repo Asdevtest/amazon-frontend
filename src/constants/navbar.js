@@ -400,6 +400,14 @@ export const navbarConfig = {
       checkHideBlock: () => true,
     },
     {
+      icon: ArchiveOutlinedIcon,
+      title: 'Мой склад',
+      subtitles: null,
+      route: '/warehouse/my-warehouse',
+      key: navBarActiveCategory.NAVBAR_WAREHOUSE,
+      checkHideBlock: () => true,
+    },
+    {
       icon: DoneOutline,
       title: 'Выполненые задачи',
       subtitles: null,

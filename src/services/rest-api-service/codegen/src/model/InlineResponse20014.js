@@ -21,7 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20014 {
     /**
      * Constructs a new <code>InlineResponse20014</code>.
-     * Схема детали на поиск ниш.
+     * Схема детали на поиск продукта.
      * @alias module:model/InlineResponse20014
      */
     constructor() { 
@@ -54,8 +54,8 @@ class InlineResponse20014 {
             if (data.hasOwnProperty('link')) {
                 obj['link'] = ApiClient.convertToType(data['link'], 'String');
             }
-            if (data.hasOwnProperty('keyword')) {
-                obj['keyword'] = ApiClient.convertToType(data['keyword'], 'String');
+            if (data.hasOwnProperty('strategy')) {
+                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'Number');
             }
             if (data.hasOwnProperty('monthlySales')) {
                 obj['monthlySales'] = ApiClient.convertToType(data['monthlySales'], 'Number');
@@ -93,8 +93,17 @@ class InlineResponse20014 {
             if (data.hasOwnProperty('notes')) {
                 obj['notes'] = ApiClient.convertToType(data['notes'], 'String');
             }
-            if (data.hasOwnProperty('denyNichesBoughtByMe')) {
-                obj['denyNichesBoughtByMe'] = ApiClient.convertToType(data['denyNichesBoughtByMe'], 'Boolean');
+            if (data.hasOwnProperty('denyProductsBoughtByMe')) {
+                obj['denyProductsBoughtByMe'] = ApiClient.convertToType(data['denyProductsBoughtByMe'], 'Boolean');
+            }
+            if (data.hasOwnProperty('denyProductsExistInServiceByCurStrategy')) {
+                obj['denyProductsExistInServiceByCurStrategy'] = ApiClient.convertToType(data['denyProductsExistInServiceByCurStrategy'], 'Boolean');
+            }
+            if (data.hasOwnProperty('findSupplier')) {
+                obj['findSupplier'] = ApiClient.convertToType(data['findSupplier'], 'Boolean');
+            }
+            if (data.hasOwnProperty('checkedByService')) {
+                obj['checkedByService'] = ApiClient.convertToType(data['checkedByService'], 'Boolean');
             }
             if (data.hasOwnProperty('createdById')) {
                 obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
@@ -116,7 +125,7 @@ class InlineResponse20014 {
 }
 
 /**
- * GUID продукта в базе данных.
+ * GUID
  * @member {String} _id
  */
 InlineResponse20014.prototype['_id'] = undefined;
@@ -128,19 +137,19 @@ InlineResponse20014.prototype['_id'] = undefined;
 InlineResponse20014.prototype['link'] = undefined;
 
 /**
- * Ключевые слова ниши.
- * @member {String} keyword
+ * Стратегия.
+ * @member {Number} strategy
  */
-InlineResponse20014.prototype['keyword'] = undefined;
+InlineResponse20014.prototype['strategy'] = undefined;
 
 /**
- * Количество продаж за месяц.
+ * Продажи за месяц.
  * @member {Number} monthlySales
  */
 InlineResponse20014.prototype['monthlySales'] = undefined;
 
 /**
- * Размерный ряд.
+ * Размер.
  * @member {module:model/InlineResponse20014.SizeEnum} size
  */
 InlineResponse20014.prototype['size'] = undefined;
@@ -152,43 +161,43 @@ InlineResponse20014.prototype['size'] = undefined;
 InlineResponse20014.prototype['searchVolume'] = undefined;
 
 /**
- * Мин стоимость товара на Амазоне
+ * Мин стоимость товара на Амазоне.
  * @member {Number} minAmazonPrice
  */
 InlineResponse20014.prototype['minAmazonPrice'] = undefined;
 
 /**
- * Макс стоимость товара на Амазоне
+ * Макс стоимость товара на Амазоне.
  * @member {Number} maxAmazonPrice
  */
 InlineResponse20014.prototype['maxAmazonPrice'] = undefined;
 
 /**
- * Мин рейтинг BSR на Амазоне
+ * Мин рейтинг BSR на амазоне.
  * @member {Number} minBSR
  */
 InlineResponse20014.prototype['minBSR'] = undefined;
 
 /**
- * Макс рейтинг BSR на Амазоне
+ * Макс рейтинг BSR на амазоне
  * @member {Number} maxBSR
  */
 InlineResponse20014.prototype['maxBSR'] = undefined;
 
 /**
- * Мин просмотры на Амазоне
+ * Мин просмотры на амазоне
  * @member {Number} minReviews
  */
 InlineResponse20014.prototype['minReviews'] = undefined;
 
 /**
- * Макс просмотры на Амазоне
+ * Макс просмотры на амазоне
  * @member {Number} maxReviews
  */
 InlineResponse20014.prototype['maxReviews'] = undefined;
 
 /**
- * Мин  доход по продукту на Амазоне
+ * Мин доход по продукту на Амазоне
  * @member {Number} minRevenue
  */
 InlineResponse20014.prototype['minRevenue'] = undefined;
@@ -200,25 +209,43 @@ InlineResponse20014.prototype['minRevenue'] = undefined;
 InlineResponse20014.prototype['maxRevenue'] = undefined;
 
 /**
- * Комментарий к заявке
+ * Коментарий.
  * @member {String} notes
  */
 InlineResponse20014.prototype['notes'] = undefined;
 
 /**
- * Запретить ниши которые когда либо куплены клиентом.
- * @member {Boolean} denyNichesBoughtByMe
+ * Запретить товары ранее купленные.
+ * @member {Boolean} denyProductsBoughtByMe
  */
-InlineResponse20014.prototype['denyNichesBoughtByMe'] = undefined;
+InlineResponse20014.prototype['denyProductsBoughtByMe'] = undefined;
 
 /**
- * GUID клиента, который создал запрос на поиск товара.
+ * Запретить товары которые есть в системе под данную статегию.
+ * @member {Boolean} denyProductsExistInServiceByCurStrategy
+ */
+InlineResponse20014.prototype['denyProductsExistInServiceByCurStrategy'] = undefined;
+
+/**
+ * Найти поставщика.
+ * @member {Boolean} findSupplier
+ */
+InlineResponse20014.prototype['findSupplier'] = undefined;
+
+/**
+ * Проверить сепервайзером.
+ * @member {Boolean} checkedByService
+ */
+InlineResponse20014.prototype['checkedByService'] = undefined;
+
+/**
+ * ID создателя заявки.
  * @member {String} createdById
  */
 InlineResponse20014.prototype['createdById'] = undefined;
 
 /**
- * GUID клиента, который обновил запрос на поиск товара.
+ * ID кто последний изменял заявку.
  * @member {String} lastModifiedById
  */
 InlineResponse20014.prototype['lastModifiedById'] = undefined;

@@ -33,6 +33,7 @@ export class AdminProductView extends Component {
       history,
       selectedSupplier,
       formFieldsValidationErrors,
+      handleProductActionButtons,
       onTriggerDrawerOpen,
       onChangeSelectedSupplier,
       onChangeProductFields,
@@ -64,6 +65,7 @@ export class AdminProductView extends Component {
                   suppliers={suppliers}
                   selectedSupplier={selectedSupplier}
                   formFieldsValidationErrors={formFieldsValidationErrors}
+                  handleProductActionButtons={handleProductActionButtons}
                   onClickSupplier={onChangeSelectedSupplier}
                   onChangeField={onChangeProductFields}
                 />

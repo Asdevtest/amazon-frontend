@@ -75,6 +75,8 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
     </>
   )
 
+  const disableButtonExecute = balanceValue === '0' || balanceValue === ''
+
   return (
     <>
       <Container disableGutters className={classNames.modalContainer}>
@@ -107,7 +109,13 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
         {isWithdraw ? renderNegativeMessage : renderPositiveMessage}
 
         <div className={classNames.buttonWrapper}>
-          <Button disableElevation color="primary" variant="contained" onClick={onTriggerConfirmModal}>
+          <Button
+            disableElevation
+            disabled={disableButtonExecute}
+            color="primary"
+            variant="contained"
+            onClick={onTriggerConfirmModal}
+          >
             {textConsts.executeBtn}
           </Button>
         </div>

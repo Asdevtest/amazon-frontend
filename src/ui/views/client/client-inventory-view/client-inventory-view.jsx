@@ -19,9 +19,11 @@ import {SendOwnProductForm} from '@components/forms/send-own-product-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {SelectionSupplierModal} from '@components/modals/selection-supplier-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
+import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 
 import {onStateChangeHandler} from '@utils/data-grid-handlers'
@@ -58,12 +60,14 @@ export class ClientInventoryViewRaw extends Component {
       drawerOpen,
       selectedProduct,
       showSetBarcodeModal,
+      showSelectionSupplierModal,
       curPage,
       productsMy,
       rowsPerPage,
       showOrderModal,
       showSuccessModal,
       showSendOwnProductModal,
+      showAddOrEditSupplierModal,
       onClickShowProduct,
       onDoubleClickBarcode,
       onTriggerDrawer,
@@ -79,7 +83,21 @@ export class ClientInventoryViewRaw extends Component {
       onChangeFilterModel,
     } = this.viewModel
     const {classes: classNames} = this.props
-
+    const renderButton = () => (
+      <div className={classNames.buttonsWrapper}>
+        <Button disableElevation className={classNames.saveBtn} variant="contained">
+          {textConsts.saveBtn}
+        </Button>
+        <div>
+          <Button disableElevation className={classNames.saveBtn} variant="contained">
+            {textConsts.saveBtn}
+          </Button>
+          <Button disableElevation className={classNames.cancelBtn} variant="contained">
+            {textConsts.cancelBtn}
+          </Button>
+        </div>
+      </div>
+    )
     return (
       <React.Fragment>
         <Navbar
@@ -119,6 +137,15 @@ export class ClientInventoryViewRaw extends Component {
                     onClick={() => onClickShowProduct()}
                   >
                     {textConsts.showProductBtn}
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    className={classNames.buttonOffset}
+                    // disabled={selectedRowIds.length !== 1}
+                    onClick={() => onTriggerOpenModal('showSelectionSupplierModal')}
+                  >
+                    {'test button'}
                   </Button>
                 </div>
 
@@ -168,6 +195,23 @@ export class ClientInventoryViewRaw extends Component {
             product={selectedProduct}
             onClickSaveBarcode={onClickSaveBarcode}
             onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
+          />
+        </Modal>
+
+        <Modal
+          openModal={showAddOrEditSupplierModal}
+          setOpenModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
+        >
+          <AddOrEditSupplierModalContent renderButton={() => renderButton()} />
+        </Modal>
+
+        <Modal
+          openModal={showSelectionSupplierModal}
+          setOpenModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
+        >
+          <SelectionSupplierModal
+            onTriggerOpenModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
+            onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
           />
         </Modal>
 

@@ -88,14 +88,12 @@ export const AddOrEditSupplierModalContent = observer(
           label={textConsts.price}
           inputProps={{maxLength: 50}}
           value={tmpSupplier.price}
-          placeholder="$"
           onChange={onChangeField('price')}
         />
         <Field
           label={textConsts.deliveryPrice}
           inputProps={{maxLength: 50}}
           value={tmpSupplier.delivery}
-          placeholder="$"
           onChange={onChangeField('delivery')}
         />
         <Field
@@ -114,7 +112,6 @@ export const AddOrEditSupplierModalContent = observer(
           label={textConsts.lotCost}
           inputProps={{maxLength: 50}}
           value={tmpSupplier.lotcost}
-          placeholder="$"
           onChange={onChangeField('lotcost')}
         />
         <Field
@@ -123,23 +120,32 @@ export const AddOrEditSupplierModalContent = observer(
           value={priceCalculation(tmpSupplier.price, tmpSupplier.delivery, tmpSupplier.amount)}
         />
 
-        <div className={classNames.bottomWrapper}>
-          <Field
-            multiline
-            className={classNames.commentField}
-            inputProps={{maxLength: 2000}}
-            rows={4}
-            rowsMax={6}
-            label={textConsts.comment}
-            value={tmpSupplier.comment}
-            onChange={onChangeField('comment')}
-          />
+        <Field
+          multiline
+          className={classNames.commentField}
+          inputProps={{maxLength: 2000}}
+          rows={4}
+          rowsMax={6}
+          label={textConsts.comment}
+          value={tmpSupplier.comment}
+          onChange={onChangeField('comment')}
+        />
+        <div className={classNames.photoLinkWrapper}>
+          <Field label={'Прикрепить фото'} inputProps={{maxLength: 50}} placeholder={'Ссылка'} />
+          <Button className={classNames.photoLinkButton}>Загрузить</Button>
+        </div>
 
+        <div className={classNames.bottomWrapper}>
           <div>
             <Typography className={classNames.loadTitle}>{textConsts.loadTitle}</Typography>
 
             <div className={classNames.imageFileInputWrapper}>
-              <ImageFileInput images={photosOfSupplier} setImages={setPhotosOfSupplier} maxNumber={50} />
+              <ImageFileInput
+                images={photosOfSupplier}
+                setImages={setPhotosOfSupplier}
+                maxNumber={50}
+                className={classNames.imageFileInput}
+              />
             </div>
 
             <Button

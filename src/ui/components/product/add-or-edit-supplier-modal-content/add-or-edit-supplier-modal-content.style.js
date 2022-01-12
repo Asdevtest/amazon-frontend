@@ -33,7 +33,7 @@ export const useClassNames = makeStyles(() => ({
   },
   commentField: {
     height: 'auto',
-    width: '280px',
+    width: '100%',
   },
   bottomWrapper: {
     display: 'flex',
@@ -51,6 +51,18 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imageFileInputWrapper: {
-    width: '400px',
+    width: '700px',
+  },
+
+  photoLinkWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  photoLinkButton: {
+    width: '160px',
+    height: 'auto',
+    marginLeft: '20px',
+    marginTop: '10px',
   },
 }))

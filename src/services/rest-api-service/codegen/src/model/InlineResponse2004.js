@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import ApiV1AdminsBatchesBatch from './ApiV1AdminsBatchesBatch';
 import ApiV1AdminsTasksBoxesBefore from './ApiV1AdminsTasksBoxesBefore';
 
 /**
@@ -24,14 +24,12 @@ class InlineResponse2004 {
     /**
      * Constructs a new <code>InlineResponse2004</code>.
      * @alias module:model/InlineResponse2004
-     * @param _id {String} GUID задачи в DB
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param batch {module:model/ApiV1AdminsBatchesBatch} 
      * @param boxes {Array.<module:model/ApiV1AdminsTasksBoxesBefore>} Массив коробок.
-     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
      */
-    constructor(_id, taskId, boxes, status) { 
+    constructor(batch, boxes) { 
         
-        InlineResponse2004.initialize(this, _id, taskId, boxes, status);
+        InlineResponse2004.initialize(this, batch, boxes);
     }
 
     /**
@@ -39,11 +37,9 @@ class InlineResponse2004 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, taskId, boxes, status) { 
-        obj['_id'] = _id;
-        obj['taskId'] = taskId;
+    static initialize(obj, batch, boxes) { 
+        obj['batch'] = batch;
         obj['boxes'] = boxes;
-        obj['status'] = status;
     }
 
     /**
@@ -57,41 +53,11 @@ class InlineResponse2004 {
         if (data) {
             obj = obj || new InlineResponse2004();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
-            }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
-            }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1AdminsTasksBoxesBefore]);
+            if (data.hasOwnProperty('batch')) {
+                obj['batch'] = ApiV1AdminsBatchesBatch.constructFromObject(data['batch']);
             }
             if (data.hasOwnProperty('boxes')) {
                 obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsTasksBoxesBefore]);
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['storekeeper']);
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -101,28 +67,9 @@ class InlineResponse2004 {
 }
 
 /**
- * GUID задачи в DB
- * @member {String} _id
+ * @member {module:model/ApiV1AdminsBatchesBatch} batch
  */
-InlineResponse2004.prototype['_id'] = undefined;
-
-/**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
- */
-InlineResponse2004.prototype['taskId'] = undefined;
-
-/**
- * Тип операции
- * @member {module:model/InlineResponse2004.OperationTypeEnum} operationType
- */
-InlineResponse2004.prototype['operationType'] = undefined;
-
-/**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/ApiV1AdminsTasksBoxesBefore>} boxesBefore
- */
-InlineResponse2004.prototype['boxesBefore'] = undefined;
+InlineResponse2004.prototype['batch'] = undefined;
 
 /**
  * Массив коробок.
@@ -130,76 +77,8 @@ InlineResponse2004.prototype['boxesBefore'] = undefined;
  */
 InlineResponse2004.prototype['boxes'] = undefined;
 
-/**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
- */
-InlineResponse2004.prototype['status'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusClient} storekeeper
- */
-InlineResponse2004.prototype['storekeeper'] = undefined;
-
-/**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineResponse2004.prototype['storekeeperComment'] = undefined;
-
-/**
- * Комментарий клиента.
- * @member {String} clientComment
- */
-InlineResponse2004.prototype['clientComment'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineResponse2004.prototype['images'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} createdAt
- */
-InlineResponse2004.prototype['createdAt'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} updatedAt
- */
-InlineResponse2004.prototype['updatedAt'] = undefined;
 
 
-
-
-
-/**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse2004['OperationTypeEnum'] = {
-
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
-
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
-
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive"
-};
 
 
 

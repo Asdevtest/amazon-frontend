@@ -105,7 +105,9 @@ export class ClientOrdersViewModel {
       const result = await ClientModel.getOrders()
 
       runInAction(() => {
+
         this.orders = clientOrdersDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
+
       })
     } catch (error) {
       console.log(error)

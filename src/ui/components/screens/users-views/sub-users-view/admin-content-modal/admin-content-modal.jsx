@@ -22,7 +22,17 @@ const activeOptions = [
 ]
 
 export const AdminContentModal = observer(
-  ({editUserFormFields, title, buttonLabel, onSubmit, onCloseModal, groupPermissions, singlePermissions}) => {
+  ({
+    editUserFormFields,
+    title,
+    buttonLabel,
+    onSubmit,
+    onCloseModal,
+    groupPermissions,
+    singlePermissions,
+    checkValidationNameOrEmail,
+    changeNameAndEmail,
+  }) => {
     const classNames = useClassNames()
 
     const [showPermissionModal, setShowPermissionModal] = useState(false)
@@ -61,6 +71,19 @@ export const AdminContentModal = observer(
         newFormFields[fieldName] = event.target.value
       }
 
+      if (fieldName === 'role' && fieldName === 'permissions' && fieldName === 'permissionGroups') {
+        changeNameAndEmail.name = ''
+        changeNameAndEmail.email = ''
+      }
+
+      if (fieldName === 'name') {
+        changeNameAndEmail.name = event.target.value
+      }
+
+      if (fieldName === 'email') {
+        changeNameAndEmail.email = event.target.value
+      }
+
       setFormFields(newFormFields)
     }
 
@@ -88,8 +111,19 @@ export const AdminContentModal = observer(
           {`${title} ${editUserFormFields.name}`}
         </Typography>
 
-        <Field label={textConsts.name} value={formFields.name} onChange={onChangeFormField('name')} />
-        <Field label={textConsts.email} value={formFields.email} type="email" onChange={onChangeFormField('email')} />
+        <Field
+          label={textConsts.name}
+          error={checkValidationNameOrEmail.nameIsUnique && 'Пользователь с таким именем уже существует'}
+          value={formFields.name}
+          onChange={onChangeFormField('name')}
+        />
+        <Field
+          label={textConsts.email}
+          error={checkValidationNameOrEmail.emailIsUnique && 'Пользователь с таким email уже существует'}
+          value={formFields.email}
+          type="email"
+          onChange={onChangeFormField('email')}
+        />
         <Field label={textConsts.rate} value={formFields.rate} onChange={onChangeFormField('rate')} />
         <Field
           label={textConsts.role}
@@ -102,7 +136,11 @@ export const AdminContentModal = observer(
               onChange={onChangeFormField('role')}
             >
               {Object.keys(UserRoleCodeMap).map(userRoleCode => (
-                <option key={userRoleCode} value={userRoleCode}>
+                <option
+                  key={userRoleCode}
+                  value={userRoleCode}
+                  disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[userRoleCode])}
+                >
                   {UserRoleCodeMap[userRoleCode]}
                 </option>
               ))}
@@ -119,14 +157,16 @@ export const AdminContentModal = observer(
               renderValue={selected => selected.map(el => UserRoleCodeMap[el]).join(', ')}
               onChange={onChangeFormField('allowedRoles')}
             >
-              {Object.keys(UserRoleCodeMap)
-                .filter(role => UserRoleCodeMap[role] !== UserRole.CANDIDATE)
-                .map((role, index) => (
-                  <MenuItem key={index} value={Number(role)}>
-                    <Checkbox color="primary" checked={formFields.allowedRoles.includes(Number(role))} />
-                    <ListItemText primary={UserRoleCodeMap[role]} />
-                  </MenuItem>
-                ))}
+              {Object.keys(UserRoleCodeMap).map((role, index) => (
+                <MenuItem
+                  key={index}
+                  value={Number(role)}
+                  disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role])}
+                >
+                  <Checkbox color="primary" checked={formFields.allowedRoles.includes(Number(role))} />
+                  <ListItemText primary={UserRoleCodeMap[role]} />
+                </MenuItem>
+              ))}
             </Select>
           }
         />

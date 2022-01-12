@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1StorekeepersBatchesGet**](StorekeepersApi.md#apiV1StorekeepersBatchesGet) | **GET** /api/v1/storekeepers/batches | # Получить партии....
+[**apiV1StorekeepersBoxesGet**](StorekeepersApi.md#apiV1StorekeepersBoxesGet) | **GET** /api/v1/storekeepers/boxes | # Получить коробки и их строки по текущему сторкиперу.
 [**apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch**](StorekeepersApi.md#apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch) | **PATCH** /api/v1/storekeepers/orders/set_barcode_and_status/{guid} | # Изменить значение isBarCodeAlreadyAttachedByTheSupplier и status в сущности заказ.
 [**apiV1StorekeepersTasksCancelGuidPost**](StorekeepersApi.md#apiV1StorekeepersTasksCancelGuidPost) | **POST** /api/v1/storekeepers/tasks/cancel/{guid} | # Отметить задачу, как отмененную..
 [**apiV1StorekeepersTasksDoneGuidPost**](StorekeepersApi.md#apiV1StorekeepersTasksDoneGuidPost) | **POST** /api/v1/storekeepers/tasks/done/{guid} | # Отметить задачу, как выполненную.
@@ -17,7 +18,7 @@ Method | HTTP request | Description
 
 ## apiV1StorekeepersBatchesGet
 
-> [InlineResponse2005] apiV1StorekeepersBatchesGet(opts)
+> [InlineResponse2004] apiV1StorekeepersBatchesGet(opts)
 
 # Получить партии....
 
@@ -55,7 +56,59 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html
+
+
+## apiV1StorekeepersBoxesGet
+
+> [ApiV1AdminsTasksBoxesBefore] apiV1StorekeepersBoxesGet(opts)
+
+# Получить коробки и их строки по текущему сторкиперу.
+
+## Получить коробки и их строки по текущему сторкиперу.   Без отправленных в партию. Без сделан ли запрос на отправку коробки в партию)  GUID сторкипера получаем из токена.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.StorekeepersApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1StorekeepersBoxesGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[ApiV1AdminsTasksBoxesBefore]**](ApiV1AdminsTasksBoxesBefore.md)
 
 ### Authorization
 
@@ -291,7 +344,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksMyGet
 
-> [InlineResponse2004] apiV1StorekeepersTasksMyGet(opts)
+> [InlineResponse2003] apiV1StorekeepersTasksMyGet(opts)
 
 # Получить задачи закрепленные за данным сборщиком..
 
@@ -331,7 +384,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -399,7 +452,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksVacGet
 
-> [InlineResponse2004] apiV1StorekeepersTasksVacGet(opts)
+> [InlineResponse2003] apiV1StorekeepersTasksVacGet(opts)
 
 # Получить задачи не закрепленные за сотрудниками склада.
 
@@ -437,7 +490,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 

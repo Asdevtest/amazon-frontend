@@ -54,9 +54,15 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
       </td>
       <td className={tableCellClsx}>
         <Typography variant="subtitle1">{DeliveryTypeByCode[box.deliveryMethod]}</Typography>
+      </td>    
+      <td className={tableCellClsx}>
+        {box.items.map((item, idx) => (
+          <Typography key={idx} variant="subtitle1">{`${item.amount}шт.`}</Typography>
+        ))}
       </td>
-      <td className={clsx(tableCellClsx, classNames.priceCellRight)}>
-        {price ? <Typography variant="h5">{`${price} $`}</Typography> : null}
+      <td className={clsx(tableCellClsx, classNames.tableCellRight)}>
+        {price ? <Typography variant="h5">{`${price.toFixed(2)} $`}</Typography> : null}
+
       </td>
       <td className={classNames.tableCellCrossBtn}>
         <ErrorButton className={classNames.crossBtn} onClick={onClickRemoveBoxFromBatch}>

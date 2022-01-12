@@ -54,12 +54,15 @@
       //expect(instance).to.be.a(TestSwagger.ApiV1RequestsCustomDetails);
     });
 
+<<<<<<< HEAD
     it('should have the property _id (base name: "_id")', function() {
       // uncomment below and update the code to test the property _id
       //var instance = new TestSwagger.ApiV1RequestsCustomDetails();
       //expect(instance).to.be();
     });
 
+=======
+>>>>>>> c7aea67 (AMAZONSERVICE-820 1/2)
     it('should have the property name (base name: "name")', function() {
       // uncomment below and update the code to test the property name
       //var instance = new TestSwagger.ApiV1RequestsCustomDetails();
@@ -72,6 +75,7 @@
       //expect(instance).to.be();
     });
 
+<<<<<<< HEAD
     it('should have the property createdById (base name: "createdById")', function() {
       // uncomment below and update the code to test the property createdById
       //var instance = new TestSwagger.ApiV1RequestsCustomDetails();
@@ -96,6 +100,8 @@
       //expect(instance).to.be();
     });
 
+=======
+>>>>>>> c7aea67 (AMAZONSERVICE-820 1/2)
   });
 
 }));

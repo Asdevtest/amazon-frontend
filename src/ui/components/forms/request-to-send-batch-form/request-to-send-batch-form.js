@@ -66,7 +66,8 @@ export const RequestToSendBatchForm = observer(
         return acc
       }, [])
       .concat(boxesWithoutPrice)
-      .filter(obj => obj.boxes.length !== 0)
+      .filter(obj => obj.boxes.length)
+
     return (
       <div className={classNames.content}>
         <Typography className={classNames.modalTitle} variant="h4">

@@ -16,7 +16,7 @@ export const useClassNames = makeStyles(() => ({
   descriptionField: {
     minHeight: '100px',
     width: '100%',
-    overflowY: 'scroll',
+    overflowY: 'hidden',
   },
 
   allowPermissions: {

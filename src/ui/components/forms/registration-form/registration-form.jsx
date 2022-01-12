@@ -12,7 +12,13 @@ import {styles} from './registration-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').registerScreen
 
-export const RegistrationFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubmit}) => {
+export const RegistrationFormRaw = ({
+  classes: classNames,
+  formFields,
+  onChangeFormField,
+  onSubmit,
+  checkValidationNameOrEmail,
+}) => {
   const onSubmitForm = event => {
     event.preventDefault()
     onSubmit()
@@ -25,7 +31,8 @@ export const RegistrationFormRaw = ({classes: classNames, formFields, onChangeFo
           containerClasses={classNames.field}
           label={'Your Name'}
           placeholder={'name'}
-          value={formFields.name}
+          error={checkValidationNameOrEmail.nameIsUnique && 'Пользователь с таким именем уже существует'}
+          value={formFields.name.replace(/[^а-яА-Яa-zA-Z0-9]/g, '')}
           onChange={onChangeFormField('name')}
         />
         <Field
@@ -33,6 +40,7 @@ export const RegistrationFormRaw = ({classes: classNames, formFields, onChangeFo
           label={textConsts.emailLabel}
           placeholder={textConsts.emailPlaceholder}
           type="email"
+          error={checkValidationNameOrEmail.emailIsUnique && 'Пользователь с таким email уже существует'}
           value={formFields.email}
           onChange={onChangeFormField('email')}
         />

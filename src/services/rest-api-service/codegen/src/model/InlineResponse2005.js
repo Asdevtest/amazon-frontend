@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsBatchesBatch from './ApiV1AdminsBatchesBatch';
 import ApiV1AdminsTasksBoxesBefore from './ApiV1AdminsTasksBoxesBefore';
 
 /**
@@ -24,12 +23,10 @@ class InlineResponse2005 {
     /**
      * Constructs a new <code>InlineResponse2005</code>.
      * @alias module:model/InlineResponse2005
-     * @param batch {module:model/ApiV1AdminsBatchesBatch} 
-     * @param boxes {Array.<module:model/ApiV1AdminsTasksBoxesBefore>} Массив коробок.
      */
-    constructor(batch, boxes) { 
+    constructor() { 
         
-        InlineResponse2005.initialize(this, batch, boxes);
+        InlineResponse2005.initialize(this);
     }
 
     /**
@@ -37,9 +34,7 @@ class InlineResponse2005 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, batch, boxes) { 
-        obj['batch'] = batch;
-        obj['boxes'] = boxes;
+    static initialize(obj) { 
     }
 
     /**
@@ -53,11 +48,41 @@ class InlineResponse2005 {
         if (data) {
             obj = obj || new InlineResponse2005();
 
-            if (data.hasOwnProperty('batch')) {
-                obj['batch'] = ApiV1AdminsBatchesBatch.constructFromObject(data['batch']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            }
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1AdminsTasksBoxesBefore]);
             }
             if (data.hasOwnProperty('boxes')) {
                 obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsTasksBoxesBefore]);
+            }
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updateDate')) {
+                obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
             }
         }
         return obj;
@@ -67,9 +92,22 @@ class InlineResponse2005 {
 }
 
 /**
- * @member {module:model/ApiV1AdminsBatchesBatch} batch
+ * GUID
+ * @member {String} _id
  */
-InlineResponse2005.prototype['batch'] = undefined;
+InlineResponse2005.prototype['_id'] = undefined;
+
+/**
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
+ */
+InlineResponse2005.prototype['taskId'] = undefined;
+
+/**
+ * Массив коробок которые были до переформирования коробок.
+ * @member {Array.<module:model/ApiV1AdminsTasksBoxesBefore>} boxesBefore
+ */
+InlineResponse2005.prototype['boxesBefore'] = undefined;
 
 /**
  * Массив коробок.
@@ -77,8 +115,83 @@ InlineResponse2005.prototype['batch'] = undefined;
  */
 InlineResponse2005.prototype['boxes'] = undefined;
 
+/**
+ * Тип операции
+ * @member {module:model/InlineResponse2005.OperationTypeEnum} operationType
+ */
+InlineResponse2005.prototype['operationType'] = undefined;
+
+/**
+ * GUID сотрудника склада, который выполняет задачу.
+ * @member {String} storekeeperId
+ */
+InlineResponse2005.prototype['storekeeperId'] = undefined;
+
+/**
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
+ * @member {Number} status
+ */
+InlineResponse2005.prototype['status'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineResponse2005.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Комментарий клиента.
+ * @member {String} clientComment
+ */
+InlineResponse2005.prototype['clientComment'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse2005.prototype['images'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
+ */
+InlineResponse2005.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Date} updateDate
+ */
+InlineResponse2005.prototype['updateDate'] = undefined;
 
 
+
+
+
+/**
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse2005['OperationTypeEnum'] = {
+
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
+
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
+
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive"
+};
 
 
 

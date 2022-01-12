@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import PermissionGetDtoSchema from './PermissionGetDtoSchema';
+import UserAdminFullSchemaPermissions from './UserAdminFullSchemaPermissions';
 
 /**
  * The PermissionGroupGetDtoSchema model module.
@@ -27,8 +27,8 @@ class PermissionGroupGetDtoSchema {
      * @param key {String} Ключ группы пермишенов
      * @param title {String} Простое название
      * @param description {String} Описание группы пермишенов
-     * @param permissions {Array.<module:model/PermissionGetDtoSchema>} 
-     * @param role {Number} Роль для которого данной группы permission-ов
+     * @param permissions {Array.<module:model/UserAdminFullSchemaPermissions>} 
+     * @param role {Number} Роль для которого данная группа permission-ов
      * @param createdById {String} GUID любого, кто последний создал группу permission.
      * @param createdAt {Date} Дата создания
      * @param updatedAt {Date} Дата изменения
@@ -78,7 +78,7 @@ class PermissionGroupGetDtoSchema {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
             if (data.hasOwnProperty('permissions')) {
-                obj['permissions'] = ApiClient.convertToType(data['permissions'], [PermissionGetDtoSchema]);
+                obj['permissions'] = ApiClient.convertToType(data['permissions'], [UserAdminFullSchemaPermissions]);
             }
             if (data.hasOwnProperty('role')) {
                 obj['role'] = ApiClient.convertToType(data['role'], 'Number');
@@ -127,12 +127,12 @@ PermissionGroupGetDtoSchema.prototype['title'] = undefined;
 PermissionGroupGetDtoSchema.prototype['description'] = undefined;
 
 /**
- * @member {Array.<module:model/PermissionGetDtoSchema>} permissions
+ * @member {Array.<module:model/UserAdminFullSchemaPermissions>} permissions
  */
 PermissionGroupGetDtoSchema.prototype['permissions'] = undefined;
 
 /**
- * Роль для которого данной группы permission-ов
+ * Роль для которого данная группа permission-ов
  * @member {Number} role
  */
 PermissionGroupGetDtoSchema.prototype['role'] = undefined;

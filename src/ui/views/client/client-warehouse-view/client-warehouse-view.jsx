@@ -75,6 +75,8 @@ export class ClientWarehouseViewRaw extends Component {
       showRedistributeBoxSuccessModal,
       showRedistributeBoxFailModal,
       showRequestToSendBatchModal,
+      showEditBoxSuccessModal,
+      showMergeBoxSuccessModal,
       boxesDeliveryCosts,
       onTriggerDrawer,
       onChangeCurPage,
@@ -220,6 +222,26 @@ export class ClientWarehouseViewRaw extends Component {
           openModal={showTaskInfoModal}
           setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
           task={curOpenedTask}
+        />
+
+        <SuccessInfoModal
+          openModal={showEditBoxSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showEditBoxSuccessModal')}
+          title={textConsts.modalEditSuccessMessage}
+          successBtnText={textConsts.closeBtn}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showEditBoxSuccessModal')
+          }}
+        />
+
+        <SuccessInfoModal
+          openModal={showMergeBoxSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showMergeBoxSuccessModal')}
+          title={textConsts.modalMergeSuccessMessage}
+          successBtnText={textConsts.closeBtn}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showMergeBoxSuccessModal')
+          }}
         />
 
         <SuccessInfoModal

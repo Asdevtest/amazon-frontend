@@ -24,11 +24,12 @@ class UserSettingResponseSchema {
      * Constructs a new <code>UserSettingResponseSchema</code>.
      * Создание настроек пользователя.
      * @alias module:model/UserSettingResponseSchema
+     * @param settingOwnerId {String} GUID пользователя
      * @param data {module:model/UserSettingInputSchemaData} 
      */
-    constructor(data) { 
+    constructor(settingOwnerId, data) { 
         
-        UserSettingResponseSchema.initialize(this, data);
+        UserSettingResponseSchema.initialize(this, settingOwnerId, data);
     }
 
     /**
@@ -36,7 +37,8 @@ class UserSettingResponseSchema {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, data) { 
+    static initialize(obj, settingOwnerId, data) { 
+        obj['settingOwnerId'] = settingOwnerId;
         obj['data'] = data;
     }
 

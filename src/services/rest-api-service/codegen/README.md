@@ -213,7 +213,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsGuidDelete**](docs/PermissionsApi.md#apiV1PermissionsGuidDelete) | **DELETE** /api/v1/permissions/{guid} | # Удалить permission по его GUID.
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsGuidPatch) | **PATCH** /api/v1/permissions/{guid} | #  Изменить permission.
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsPost**](docs/PermissionsApi.md#apiV1PermissionsPost) | **POST** /api/v1/permissions/ | # Создать permission.
-*TestSwagger.PermissionsApi* | [**apiV1PermissionsSetForUserGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsSetForUserGuidPatch) | **PATCH** /api/v1/permissions/set-for-user/{guid} | #   Мастер пользователь задает пермишены своим суб пользователям.
+*TestSwagger.PermissionsApi* | [**apiV1PermissionsSetForUserGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsSetForUserGuidPatch) | **PATCH** /api/v1/permissions/set-for-user/{guid} | #   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid
 *TestSwagger.ProductApi* | [**apiV1ProductsAddSuppliersGuidPost**](docs/ProductApi.md#apiV1ProductsAddSuppliersGuidPost) | **POST** /api/v1/products/add_suppliers/{guid} | Добавить поставщиков к продукту.
 *TestSwagger.ProductApi* | [**apiV1ProductsRemoveSuppliersGuidPost**](docs/ProductApi.md#apiV1ProductsRemoveSuppliersGuidPost) | **POST** /api/v1/products/remove_suppliers/{guid} | Удалить поставщиков из продукта.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsCustomGuidDelete**](docs/RequestProposalsApi.md#apiV1RequestProposalsCustomGuidDelete) | **DELETE** /api/v1/request-proposals/custom/{guid} | # Удалить предложение к кастомной заявки по его GUID.
@@ -247,6 +247,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.SellerBoardApi* | [**apiV1TestsGetMyDailyReportsGet**](docs/SellerBoardApi.md#apiV1TestsGetMyDailyReportsGet) | **GET** /api/v1/tests/get_my_daily_reports | Получить дневной отчет селерборда.
 *TestSwagger.SellerBoardApi* | [**apiV1TestsGetMyReportsLast30DaysGet**](docs/SellerBoardApi.md#apiV1TestsGetMyReportsLast30DaysGet) | **GET** /api/v1/tests/get_my_reports_last_30_days | Получить месячный отчет селерборда.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersBatchesGet**](docs/StorekeepersApi.md#apiV1StorekeepersBatchesGet) | **GET** /api/v1/storekeepers/batches | # Получить партии....
+*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersBoxesGet**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesGet) | **GET** /api/v1/storekeepers/boxes | # Получить коробки и их строки по текущему сторкиперу.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch) | **PATCH** /api/v1/storekeepers/orders/set_barcode_and_status/{guid} | # Изменить значение isBarCodeAlreadyAttachedByTheSupplier и status в сущности заказ.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksCancelGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksCancelGuidPost) | **POST** /api/v1/storekeepers/tasks/cancel/{guid} | # Отметить задачу, как отмененную..
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksDoneGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksDoneGuidPost) | **POST** /api/v1/storekeepers/tasks/done/{guid} | # Отметить задачу, как выполненную.
@@ -265,8 +266,10 @@ Class | Method | HTTP request | Description
 *TestSwagger.SupplierApi* | [**apiV1SuppliersGuidPatch**](docs/SupplierApi.md#apiV1SuppliersGuidPatch) | **PATCH** /api/v1/suppliers/{guid} | # Изменить поставщика.
 *TestSwagger.SupplierApi* | [**apiV1SuppliersPost**](docs/SupplierApi.md#apiV1SuppliersPost) | **POST** /api/v1/suppliers/ | # Добавить нового поставщика.
 *TestSwagger.UserApi* | [**apiV1TechClearAllSchemasPost**](docs/UserApi.md#apiV1TechClearAllSchemasPost) | **POST** /api/v1/tech/clear_all_schemas | Очистить все коллекции в БД кроме пользователей.
+*TestSwagger.UserApi* | [**apiV1UsersCheckIsUniqueNameOrEmailPost**](docs/UserApi.md#apiV1UsersCheckIsUniqueNameOrEmailPost) | **POST** /api/v1/users/check_isUnique_name_or_email | Выдача массива объектов с ответом является ли уникальным name и/или email.
+*TestSwagger.UserApi* | [**apiV1UsersEditMySubUsersGuidPatch**](docs/UserApi.md#apiV1UsersEditMySubUsersGuidPatch) | **PATCH** /api/v1/users/edit_my_sub-users/{guid} | Редактирование сабюзера мастер юзером.
 *TestSwagger.UserApi* | [**apiV1UsersInfoGet**](docs/UserApi.md#apiV1UsersInfoGet) | **GET** /api/v1/users/info | Получить информацию от текущем пользователе.
-*TestSwagger.UserApi* | [**apiV1UsersLinkSubUserPatch**](docs/UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка суб пользователя.
+*TestSwagger.UserApi* | [**apiV1UsersLinkSubUserPatch**](docs/UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка субпользователя.
 *TestSwagger.UserApi* | [**apiV1UsersMePatch**](docs/UserApi.md#apiV1UsersMePatch) | **PATCH** /api/v1/users/me | # Обновления информации о себе самим пользователем.
 *TestSwagger.UserApi* | [**apiV1UsersMySubUsersGet**](docs/UserApi.md#apiV1UsersMySubUsersGet) | **GET** /api/v1/users/my_sub-users | Получить список сабюзеров мастер пользователя.
 *TestSwagger.UserApi* | [**apiV1UsersPost**](docs/UserApi.md#apiV1UsersPost) | **POST** /api/v1/users/ | Создание нового пользователя. Регистрация.
@@ -289,20 +292,21 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1AdminsPaymentsProduct](docs/ApiV1AdminsPaymentsProduct.md)
  - [TestSwagger.ApiV1AdminsTasksBoxesBefore](docs/ApiV1AdminsTasksBoxesBefore.md)
  - [TestSwagger.ApiV1AdminsTasksItems](docs/ApiV1AdminsTasksItems.md)
- - [TestSwagger.ApiV1AdminsUsersPermissionGroups](docs/ApiV1AdminsUsersPermissionGroups.md)
- - [TestSwagger.ApiV1AdminsUsersPermissions](docs/ApiV1AdminsUsersPermissions.md)
  - [TestSwagger.ApiV1BoxesItems](docs/ApiV1BoxesItems.md)
  - [TestSwagger.ApiV1BoxesMergeBoxBody](docs/ApiV1BoxesMergeBoxBody.md)
  - [TestSwagger.ApiV1BoxesSplitBoxItems](docs/ApiV1BoxesSplitBoxItems.md)
  - [TestSwagger.ApiV1BoxesSplitNewBoxesParams](docs/ApiV1BoxesSplitNewBoxesParams.md)
  - [TestSwagger.ApiV1RequestProposalsCustomDetails](docs/ApiV1RequestProposalsCustomDetails.md)
  - [TestSwagger.ApiV1RequestsCustomDetails](docs/ApiV1RequestsCustomDetails.md)
+ - [TestSwagger.ApiV1RequestsCustomGuidDetails](docs/ApiV1RequestsCustomGuidDetails.md)
  - [TestSwagger.ApiV1RequestsCustomGuidProposalsProposal](docs/ApiV1RequestsCustomGuidProposalsProposal.md)
  - [TestSwagger.ApiV1RequestsCustomGuidRequest](docs/ApiV1RequestsCustomGuidRequest.md)
  - [TestSwagger.ApiV1RequestsCustomRequest](docs/ApiV1RequestsCustomRequest.md)
  - [TestSwagger.ApiV1RequestsDetails](docs/ApiV1RequestsDetails.md)
  - [TestSwagger.ApiV1RequestsRequest](docs/ApiV1RequestsRequest.md)
  - [TestSwagger.BadRequestError](docs/BadRequestError.md)
+ - [TestSwagger.CheckIsUniqueNameOrEmailReqSchema](docs/CheckIsUniqueNameOrEmailReqSchema.md)
+ - [TestSwagger.CheckIsUniqueNameOrEmailSchema](docs/CheckIsUniqueNameOrEmailSchema.md)
  - [TestSwagger.ConflictInTheState](docs/ConflictInTheState.md)
  - [TestSwagger.DefaultHeaders](docs/DefaultHeaders.md)
  - [TestSwagger.ForbiddenError](docs/ForbiddenError.md)
@@ -358,7 +362,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20012](docs/InlineResponse20012.md)
  - [TestSwagger.InlineResponse20013](docs/InlineResponse20013.md)
  - [TestSwagger.InlineResponse20014](docs/InlineResponse20014.md)
- - [TestSwagger.InlineResponse20015](docs/InlineResponse20015.md)
  - [TestSwagger.InlineResponse2002](docs/InlineResponse2002.md)
  - [TestSwagger.InlineResponse2003](docs/InlineResponse2003.md)
  - [TestSwagger.InlineResponse2004](docs/InlineResponse2004.md)
@@ -387,14 +390,20 @@ Class | Method | HTTP request | Description
  - [TestSwagger.PermissionGroupPatchDtoSchema](docs/PermissionGroupPatchDtoSchema.md)
  - [TestSwagger.PermissionGroupPostDtoSchema](docs/PermissionGroupPostDtoSchema.md)
  - [TestSwagger.PermissionPatchDtoSchema](docs/PermissionPatchDtoSchema.md)
+ - [TestSwagger.PermissionPatchDtoSchemaAllowedUrls](docs/PermissionPatchDtoSchemaAllowedUrls.md)
  - [TestSwagger.PermissionPostDtoSchema](docs/PermissionPostDtoSchema.md)
  - [TestSwagger.QuerystringGetDTOSchema](docs/QuerystringGetDTOSchema.md)
  - [TestSwagger.SetPermissionsForUsersPathDTOSchema](docs/SetPermissionsForUsersPathDTOSchema.md)
  - [TestSwagger.SignInResponseSchema](docs/SignInResponseSchema.md)
  - [TestSwagger.SigninInputSchema](docs/SigninInputSchema.md)
+ - [TestSwagger.SubUserPatchDtoSchema](docs/SubUserPatchDtoSchema.md)
  - [TestSwagger.SuccessResponseBodyWithGuid](docs/SuccessResponseBodyWithGuid.md)
  - [TestSwagger.UnauthorizedError](docs/UnauthorizedError.md)
  - [TestSwagger.UpdatedSuccessfully](docs/UpdatedSuccessfully.md)
+ - [TestSwagger.UserAdminFullSchema](docs/UserAdminFullSchema.md)
+ - [TestSwagger.UserAdminFullSchemaAllowedUrls](docs/UserAdminFullSchemaAllowedUrls.md)
+ - [TestSwagger.UserAdminFullSchemaPermissionGroups](docs/UserAdminFullSchemaPermissionGroups.md)
+ - [TestSwagger.UserAdminFullSchemaPermissions](docs/UserAdminFullSchemaPermissions.md)
  - [TestSwagger.UserFullSchema](docs/UserFullSchema.md)
  - [TestSwagger.UserRegisterSchema](docs/UserRegisterSchema.md)
  - [TestSwagger.UserSettingInputSchema](docs/UserSettingInputSchema.md)

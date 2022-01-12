@@ -102,7 +102,7 @@ export const AddOrEditUserPermissionsForm = observer(
     const renderMenuItem = (per, checkArr) => (
       <MenuItem key={per._id} value={per._id}>
         <Checkbox color="primary" checked={checkArr.includes(per._id)} />
-        <ListItemText primary={`${per.title} (ключ: ${per.key})`} />
+        <ListItemText primary={`${per.title}`} />
       </MenuItem>
     )
 
@@ -198,6 +198,7 @@ export const AddOrEditUserPermissionsForm = observer(
 
                       <Button
                         disableElevation
+                        disabled={!formFields.curPermissionGroups.length}
                         className={classNames.button}
                         color="primary"
                         variant="default"
@@ -314,6 +315,7 @@ export const AddOrEditUserPermissionsForm = observer(
 
                       <Button
                         disableElevation
+                        disabled={!formFields.curPermissions.length}
                         className={classNames.button}
                         color="primary"
                         variant="default"
@@ -338,7 +340,6 @@ export const AddOrEditUserPermissionsForm = observer(
                         <Checkbox checked disabled color="primary" />
                         <div>
                           <Typography>{el.title}</Typography>
-                          <Typography>{`(${el.description})`}</Typography>
                           <Typography>{`(${UserRoleCodeMap[el.role]})`}</Typography>
                         </div>
                       </div>

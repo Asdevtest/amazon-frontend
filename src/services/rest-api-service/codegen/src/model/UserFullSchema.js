@@ -26,7 +26,7 @@ class UserFullSchema {
      * @param _id {String} GUID пользователя в БД.
      * @param name {String} Имя пользователя.
      * @param email {String} email
-     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.candidate = 50    
+     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
      * @param fba {Boolean} Флаг fba.
      * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
      * @param rate {Number} Ставка, по который оплачивается сотрудник.
@@ -130,7 +130,7 @@ UserFullSchema.prototype['name'] = undefined;
 UserFullSchema.prototype['email'] = undefined;
 
 /**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.candidate = 50    
+ * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
  * @member {Number} role
  */
 UserFullSchema.prototype['role'] = undefined;

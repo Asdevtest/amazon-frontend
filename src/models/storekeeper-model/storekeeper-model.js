@@ -17,7 +17,7 @@ class StorekeeperModelStatic {
   }
 
   getPaymentsMy = async () => {
-    const response = await restApiService.strokeepersApi.apiV1StorekeeperPaymentsGet()
+    const response = await restApiService.otherApi.apiV1OtherPaymentsMyGet()
     return response
   }
 
@@ -33,6 +33,11 @@ class StorekeeperModelStatic {
 
   getBalance = async () => {
     const response = await restApiService.strokeepersApi.apiV1StorekeepersPaymentsMyBalanceGet()
+    return response
+  }
+
+  getBoxesMy = async () => {
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersBoxesGet()
     return response
   }
 

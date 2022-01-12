@@ -68,6 +68,8 @@ export class ClientWarehouseViewModel {
   showRedistributeBoxSuccessModal = false
   showRedistributeBoxFailModal = false
   showRequestToSendBatchModal = false
+  showMergeBoxSuccessModal = false
+  showEditBoxSuccessModal = false
   boxesDeliveryCosts = undefined
 
   sortModel = []
@@ -266,6 +268,9 @@ export class ClientWarehouseViewModel {
       this.onTriggerOpenModal('showEditBoxModal')
 
       this.setRequestStatus(loadingStatuses.success)
+
+      this.onTriggerOpenModal('showEditBoxSuccessModal')
+
       await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -293,7 +298,7 @@ export class ClientWarehouseViewModel {
       this.setRequestStatus(loadingStatuses.success)
       this.onTriggerOpenModal('showMergeBoxModal')
       this.tmpClientComment = ''
-
+      this.onTriggerOpenModal('showMergeBoxSuccessModal')
       await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
