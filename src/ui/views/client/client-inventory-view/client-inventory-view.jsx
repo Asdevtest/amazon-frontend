@@ -87,21 +87,11 @@ export class ClientInventoryViewRaw extends Component {
       onChangeFilterModel,
     } = this.viewModel
     const {classes: classNames} = this.props
-    const renderButton = () => (
-      <div className={classNames.buttonsWrapper}>
-        <Button disableElevation className={classNames.saveBtn} variant="contained">
-          {textConsts.saveBtn}
-        </Button>
-        <div>
-          <Button disableElevation className={classNames.saveBtn} variant="contained">
-            {textConsts.saveBtn}
-          </Button>
-          <Button disableElevation className={classNames.cancelBtn} variant="contained">
-            {textConsts.cancelBtn}
-          </Button>
-        </div>
-      </div>
-    )
+    const onClickPrevButton = () => {
+      onTriggerOpenModal('showAddOrEditSupplierModal')
+      onTriggerOpenModal('showSelectionSupplierModal')
+    }
+
     return (
       <React.Fragment>
         <Navbar
@@ -218,7 +208,8 @@ export class ClientInventoryViewRaw extends Component {
         >
           <AddOrEditSupplierModalContent
             title={textConsts.addOrEditSupplierTitle}
-            renderButton={() => renderButton()}
+            curUserRole={UserRole.CLIENT}
+            onClickPrevButton={() => onClickPrevButton()}
           />
         </Modal>
 

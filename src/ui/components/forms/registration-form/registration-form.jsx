@@ -40,7 +40,7 @@ export const RegistrationFormRaw = ({
           label={textConsts.emailLabel}
           placeholder={textConsts.emailPlaceholder}
           type="email"
-          error={checkValidationNameOrEmail.emailIsUnique && 'Пользователь с таким email уже существует'}
+          error={checkValidationNameOrEmail?.emailIsUnique ? 'Пользователь с таким email уже существует' : ''}
           value={formFields.email}
           onChange={onChangeFormField('email')}
         />

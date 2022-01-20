@@ -82,6 +82,9 @@ export class RegistrationViewModel {
       this.setField(fieldName)(!this.acceptTerms)
     } else {
       this.setField(fieldName)(event.target.value)
+      if (this.name === '' || this.email === '') {
+        this.checkValidationNameOrEmail = {}
+      }
     }
   }
 }

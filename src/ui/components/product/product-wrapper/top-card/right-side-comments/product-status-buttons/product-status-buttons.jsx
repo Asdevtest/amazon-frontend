@@ -34,8 +34,9 @@ export const ProductStatusButtons = ({
           <Grid key={buttonConfig.statusKey} item>
             <ColoredChip
               disabled={
-                mapProductStrategyStatusEnum[product.strategyStatus] === 'PRIVATE_LABEL' &&
-                buttonConfig.statusKey === 'RESEARCHER_FOUND_SUPPLIER'
+                (mapProductStrategyStatusEnum[product.strategyStatus] === 'PRIVATE_LABEL' &&
+                  buttonConfig.statusKey === 'RESEARCHER_FOUND_SUPPLIER') ||
+                product.status === ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]
               }
               label={buttonConfig.label}
               color={buttonConfig.color}

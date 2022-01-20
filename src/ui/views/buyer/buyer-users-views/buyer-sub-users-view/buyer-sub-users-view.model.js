@@ -143,7 +143,7 @@ export class BuyerSubUsersViewModel {
     try {
       const result = await UserModel.getMySubUsers()
       runInAction(() => {
-        this.subUsersData = addIdDataConverter(result)
+        this.subUsersData = addIdDataConverter(result).filter(role => role !== mapUserRoleEnumToKey[UserRole.BUYER])
       })
     } catch (error) {
       console.log(error)

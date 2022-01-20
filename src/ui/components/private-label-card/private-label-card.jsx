@@ -1,4 +1,4 @@
-import {Button, Divider, InputBase, Paper, Typography} from '@material-ui/core'
+import {Divider, InputBase, Paper, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
@@ -66,7 +66,7 @@ export const PrivateLabelCard = ({item, setProductToPay, onTriggerOpenModal}) =>
           >
             {textConsts.launchBtn}
           </SuccessButton>
-          <Button
+          {/* <Button
             disableElevation
             color="primary"
             className={classNames.priceButton}
@@ -77,7 +77,8 @@ export const PrivateLabelCard = ({item, setProductToPay, onTriggerOpenModal}) =>
             }}
           >
             {`${textConsts.addBtnPrefix} ${toFixedWithDollarSign(item.amazon, 2)}`}
-          </Button>
+          </Button> */}{' '}
+          /может пригодится
         </div>
       </div>
     </Paper>

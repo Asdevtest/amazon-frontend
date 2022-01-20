@@ -145,6 +145,7 @@ export const AdminContentModal = observer(
                 <option
                   key={userRoleCode}
                   value={userRoleCode}
+                  className={classNames.userRoleSelect}
                   disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[userRoleCode])}
                 >
                   {UserRoleCodeMap[userRoleCode]}

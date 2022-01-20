@@ -18,7 +18,8 @@ import {useClassNames} from './request-to-send-batch-box.styles'
 export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBatch}) => {
   const classNames = useClassNames()
   const tableCellClsx = clsx(classNames.tableCell, {[classNames.boxNoPrice]: !price})
-
+  const noShippingLabelClsx = clsx({[classNames.noShippingLabel]: !box.shippingLabel})
+  console.log(box)
   return (
     <tr className={classNames.box}>
       <td className={tableCellClsx}>
@@ -73,10 +74,11 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
         }кг; Финальный вес: ${calcFinalWeightForBox(box)}кг`}</Typography>
       </td>
       <td className={tableCellClsx}>
-        <Typography variant="subtitle1">{warehouses[box.warehouse]}</Typography>
-      </td>
-      <td className={tableCellClsx}>
-        <Typography variant="subtitle1">{DeliveryTypeByCode[box.deliveryMethod]}</Typography>
+        <Typography variant="subtitle1">{`Склад: ${warehouses[box.warehouse]}`}</Typography>
+        <Typography variant="subtitle1">{`Способ доставки: ${DeliveryTypeByCode[box.deliveryMethod]}`}</Typography>
+        <Typography className={noShippingLabelClsx} variant="subtitle1">{`Shipping Label: ${
+          box.shippingLabel ? box.shippingLabel : 'None'
+        }`}</Typography>
       </td>
       <td className={tableCellClsx}>
         {box.items.map((item, idx) => (

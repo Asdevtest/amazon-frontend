@@ -213,12 +213,12 @@ export const texts = {
       warehouseLabel: 'Warehouse',
       deliveryMethodLabel: 'Delivery method',
       statusLabel: 'Status',
-      lengthCmSupplier: 'lengthCmSupplier',
-      widthCmSupplier: 'widthCmSupplier',
-      heightCmSupplier: 'heightCmSupplier',
-      weighGrossKgSupplier: 'weighGrossKgSupplier',
-      volumeWeightKgSupplier: 'volumeWeightKgSupplier',
-      weightFinalAccountingKgSupplier: 'weightFinalAccountingKgSupplier',
+      lengthCmSupplier: 'Длина коробки в см',
+      widthCmSupplier: 'Ширина коробки в см',
+      heightCmSupplier: 'Высота коробки в см',
+      weighGrossKgSupplier: 'Реальный вес в кг',
+      volumeWeightKgSupplier: 'Объемный вес в кг',
+      weightFinalAccountingKgSupplier: 'Финальный вес в кг',
 
       lengthCmWarehouse: 'lengthCmWarehouse',
       widthCmWarehouse: 'widthCmWarehouse',
@@ -229,8 +229,8 @@ export const texts = {
 
       amountLabel: 'Amount',
       materialLabel: 'Material',
-      amountOfSubBoxes: 'amountOfSubBoxes',
-      amountIfItemsInBox: 'Items in box *',
+      amountOfSubBoxes: 'Кол-во коробок',
+      amountIfItemsInBox: 'Товаров в коробке',
 
       warehouseDemensions: 'Warehouse demensions',
 
@@ -509,7 +509,7 @@ export const texts = {
       descriptionLabel: 'Описание',
       descriptionHolder: 'Доступ к редактированию товаров',
       allowUrlsLabel: 'Разрешенные эндпоинты',
-      allowUrlsHolder: '/api/v1/permissions/...',
+      allowUrlsHolder: '/api/v1/...',
       keyFieldError: 'Значение должно содержать "_"',
       doubleKeyError: 'Ключ уже существует',
 
@@ -975,14 +975,14 @@ export const texts = {
       successTitle: 'Заказ создан',
       successBtn: 'Ок',
 
-      addOrEditSupplierTitle: 'Добавить поставщика',
+      addOrEditSupplierTitle: 'Добавить нового поставщика',
     },
     researcherDashboardView: {
       appBarTitle: 'Dashboard',
       appBarUsername: 'Researcher',
       appUser: 'researcher',
       mainTitle: 'Dashboard',
-      myProductsCardTitle: 'Мои товары',
+      myRequestsCardTitle: 'Мои заявки',
       curBalanceCardTitle: 'Текущий баланс',
       finesCardTitle: 'Штрафы',
       newProductsCardTitle: 'Новых товаров в базе',
@@ -1025,7 +1025,7 @@ export const texts = {
 
     researcherProductsView: {
       appBarTitle: 'Products',
-      mainTitle: 'Мои продукты',
+      mainTitle: 'Мои товары',
     },
 
     researcherProductsRequestsView: {
@@ -1182,7 +1182,7 @@ export const texts = {
       appBarTitle: 'Product',
       appBarUsername: 'Researcher',
       appUser: 'researcher',
-      modalAddTitle: 'Добавить нового поставщика',
+      modalAddTitle: 'Добавление и редактирование поставщика',
       modalEditTitle: 'Редактировать поставщика',
       confirmTitle: 'Внимание',
       confirmMessage: 'Товар будет отправлен на проверку к Supervisor. Вы уверены?',
@@ -2650,7 +2650,7 @@ export const texts = {
       addProductBtn: 'Добавить свой товар',
       addProductModal: 'Добавить свой товар',
 
-      addOrEditSupplierTitle: 'Добавить поставщика',
+      addOrEditSupplierTitle: 'Добавить нового поставщика',
     },
 
     setBarcodeModalContent: {
@@ -3167,6 +3167,8 @@ export const texts = {
       modalTitle: 'Выбрать поставщика',
       modalSubTitle: 'Оставьте комментарий для поиска поставщика:',
       modalPlaceholder: 'Комментарий...',
+      searchSupplierTooltip: 'Платная услуга',
+      newSupplierTooltip: 'Платная услуга',
     },
   },
 }

@@ -23,16 +23,16 @@ export const getResearcherDashboardCardConfig = textConsts => [
 ]
 
 export const FreelancerDashboardCardDataKey = {
-  PRODUCTS: 'PRODUCTS',
+  REQUESTS: 'REQUESTS',
   CUR_BALANCE: 'CUR_BALANCE',
   FINES: 'FINES',
 }
 export const getFreelancerDashboardCardConfig = textConsts => [
   {
-    dataKey: FreelancerDashboardCardDataKey.PRODUCTS,
-    title: textConsts.myProductsCardTitle,
+    dataKey: FreelancerDashboardCardDataKey.REQUESTS,
+    title: textConsts.myRequestsCardTitle,
     color: '#63c2de',
-    route: '/researcher/products',
+    route: '/freelancer/exchange/requests/custom',
   },
   {
     dataKey: FreelancerDashboardCardDataKey.CUR_BALANCE,
