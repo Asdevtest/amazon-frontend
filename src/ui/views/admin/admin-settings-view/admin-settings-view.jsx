@@ -1,6 +1,5 @@
 import {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -8,6 +7,7 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {AdminSettingsForm} from '@components/forms/admin-settings-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -25,7 +25,6 @@ export class AdminSettingsViewRaw extends Component {
 
   render() {
     const {drawerOpen} = this.state
-    const {classes: classNames} = this.props
 
     return (
       <>
@@ -43,9 +42,7 @@ export class AdminSettingsViewRaw extends Component {
             title={textConsts.appbarTitle}
           >
             <MainContent>
-              <Typography paragraph variant="h5" className={classNames.example}>
-                {textConsts.mainTitle}
-              </Typography>
+              <AdminSettingsForm />
             </MainContent>
           </Appbar>
         </Main>

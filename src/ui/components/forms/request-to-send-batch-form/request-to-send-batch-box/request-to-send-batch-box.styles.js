@@ -9,7 +9,7 @@ export const useClassNames = makeStyles(() => ({
   },
   tableCell: {
     padding: '0 5px',
-    textAlign: 'center',
+    textAlign: 'left',
     display: 'table-cell',
     verticalAlign: 'middle',
   },
@@ -55,5 +55,9 @@ export const useClassNames = makeStyles(() => ({
     minWidth: '40px',
     color: 'blue',
     fontWeight: 'bold',
+  },
+
+  noShippingLabel: {
+    color: 'red',
   },
 }))

@@ -76,7 +76,7 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
     </>
   )
 
-  const disableButtonExecute = balanceValue === '0' || balanceValue === ''
+  const disableButtonExecute = ['0', '0.', '0.0', ''].includes(balanceValue)
 
   return (
     <>

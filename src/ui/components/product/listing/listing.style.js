@@ -39,6 +39,12 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '25px',
   },
 
+  listingSearchTerms: {
+    height: 'auto',
+    width: '100%',
+    display: 'block',
+  },
+
   searchSupplierField: {
     height: 'auto',
     width: '100%',

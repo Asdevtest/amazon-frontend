@@ -41,3 +41,5 @@ export const checkIsPositiveNummberAndNoMoreNCharactersAfterDot = (str, max) =>
   checkIsPositiveNum(str) && !checkIsMoreNCharactersAfterDot(str, max)
 
 export const isMasterUser = user => !!user.masterUser
+
+export const noPermissionsUser = user => !user.permissions

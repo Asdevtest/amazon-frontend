@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Container, Grid, TextareaAutosize, Tooltip, Typography, Zoom} from '@material-ui/core'
+import {Container, Grid, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
@@ -23,8 +23,12 @@ export const SelectionSupplierModal = ({onCloseModal, onTriggerOpenModal}) => {
 
   const classNames = useClassNames()
 
-  const toolTipSendRequestClsx = clsx(classNames.toolTip, {[classNames.toolTipActive]: selectedSendRequestButton})
-  const toolTipAddSupplierClsx = clsx(classNames.toolTip, {[classNames.toolTipActive]: selectedAddSupplierButton})
+  const buttonSendRequestClsx = clsx(classNames.modalButton, {
+    [classNames.modalButtonActive]: selectedSendRequestButton,
+  })
+  const buttonAddSupplierClsx = clsx(classNames.modalButton, {
+    [classNames.modalButtonActive]: selectedAddSupplierButton,
+  })
   const modalTitleClsx = clsx(classNames.modalTitle, {[classNames.modalTitleChange]: clickNextOrPrevButton})
 
   const selectedButtonValueConfig = {
@@ -57,46 +61,32 @@ export const SelectionSupplierModal = ({onCloseModal, onTriggerOpenModal}) => {
   }
 
   return (
-    <Container disableGutters>
+    <Container disableGutters className={classNames.modalWrapper}>
       <Typography className={modalTitleClsx}>{textConsts.modalTitle}</Typography>
 
       {selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
         <div>
           <Typography className={classNames.modalSubTitle}>{textConsts.modalSubTitle}</Typography>
-          <Field
-            inputComponent={
-              <TextareaAutosize placeholder={textConsts.modalPlaceholder} className={classNames.modalTextArea} />
-            }
-          />
+          <Field multiline placeholder={textConsts.modalPlaceholder} className={classNames.modalTextArea} />
         </div>
       ) : (
-        <Grid container spacing={3} className={classNames.modalToolTipWrapper}>
-          <Grid item>
-            <Tooltip
-              arrow
-              TransitionComponent={Zoom}
-              title="Платная услуга"
-              placement="top-end"
-              className={toolTipSendRequestClsx}
-            >
-              <Button className={classNames.modalButton} onClick={() => onClickSendRequestButton()}>
-                Отправить заявку на поиск поставщика
-              </Button>
-            </Tooltip>
-          </Grid>
-          <Grid item>
-            <Tooltip
-              TransitionComponent={Zoom}
-              title="Бесплатно"
-              placement="top-end"
-              className={toolTipAddSupplierClsx}
-            >
-              <Button className={classNames.modalButton} onClick={() => onClickAddSupplierButton()}>
-                Добавить нового поставщика
-              </Button>
-            </Tooltip>
-          </Grid>
-        </Grid>
+        <div className={classNames.modalButtonsWrapper}>
+          <Button
+            tooltipContent={textConsts.searchSupplierTooltip}
+            className={buttonSendRequestClsx}
+            onClick={() => onClickSendRequestButton()}
+          >
+            Отправить заявку на поиск поставщика
+          </Button>
+
+          <Button
+            tooltipContent={textConsts.newSupplierTooltip}
+            className={buttonAddSupplierClsx}
+            onClick={() => onClickAddSupplierButton()}
+          >
+            Добавить нового поставщика
+          </Button>
+        </div>
       )}
 
       <Grid container spacing={2} className={classNames.modalButtonWrapper}>

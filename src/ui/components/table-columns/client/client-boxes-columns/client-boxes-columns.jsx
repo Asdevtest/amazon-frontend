@@ -34,9 +34,9 @@ export const clientBoxesViewColumns = () => [
   },
 
   {
-    field: 'id',
+    field: 'humanFriendlyId',
     headerName: textConsts.boxIdField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => renderFieldValueCell(params.row.originalData.humanFriendlyId),
     width: 300,
   },
 

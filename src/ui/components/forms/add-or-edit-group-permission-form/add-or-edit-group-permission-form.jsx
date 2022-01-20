@@ -43,9 +43,8 @@ export const AddOrEditGroupPermissionForm = observer(
       permissions: permissionToEdit?.permissions?.map(el => el._id) || [],
       role: permissionToEdit?.role === 0 ? 0 : permissionToEdit?.role || '',
     }
-
     const [formFields, setFormFields] = useState(sourceFormFields)
-
+    console.log(formFields.permissions)
     const [showAddOrEditSinglePermissionModal, setShowAddOrEditSinglePermissionModal] = useState(false)
 
     const [newSinglePermission, setNewSinglePermission] = useState([])
@@ -98,7 +97,8 @@ export const AddOrEditGroupPermissionForm = observer(
         <Typography>{textConsts.allowedUrlPermInfo}</Typography>
         {perm.allowedUrls.map((item, itemIndex) => (
           <div key={itemIndex}>
-            <Typography>{item}</Typography>
+            <Typography>{item.url}</Typography>
+            <Typography>{item.httpMethod}</Typography>
           </div>
         ))}
       </div>

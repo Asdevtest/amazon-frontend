@@ -104,6 +104,7 @@ export const Listing = observer(({product, onClickBack}) => {
 
           <Field
             multiline
+            className={classNames.listingSearchTerms}
             disabled={!userIsSupervisor}
             label={'Поисковые запросы:'}
             placeholder="введите поисковые запросы"

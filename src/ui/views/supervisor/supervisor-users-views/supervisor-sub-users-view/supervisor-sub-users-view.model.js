@@ -146,8 +146,11 @@ export class SupervisorSubUsersViewModel {
   async getUsers() {
     try {
       const result = await UserModel.getMySubUsers()
+
       runInAction(() => {
-        this.subUsersData = addIdDataConverter(result)
+        this.subUsersData = addIdDataConverter(result).filter(
+          role => role !== mapUserRoleEnumToKey[UserRole.SUPERVISOR],
+        )
       })
     } catch (error) {
       console.log(error)

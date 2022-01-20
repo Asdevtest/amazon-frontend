@@ -17,10 +17,56 @@ export const useClassNames = makeStyles(() => ({
   fieldsDivider: {
     margin: '32px -24px 20px',
   },
+  buttonsWrapperClient: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
   buttonsWrapper: {
     textAlign: 'right',
     marginTop: '16px',
   },
+
+  prevBtnClient: {
+    height: '40px',
+    alignSelf: 'end',
+    fontSize: '18px',
+    lineHeight: '22px',
+    padding: '9px 39px',
+  },
+
+  saveAndBindBtnClient: {
+    display: 'block',
+    fontSize: '18px',
+    lineHeight: '22px',
+    marginBottom: '10px',
+    padding: '9px 32px',
+    backgroundColor: '#c4c4c4',
+    color: 'ffffff',
+    '&:hover': {
+      backgroundColor: '#00b746',
+
+      '@media (hover: none)': {
+        backgroundColor: '#00b746',
+      },
+    },
+  },
+
+  saveAndAddBtnClient: {
+    display: 'block',
+    fontSize: '18px',
+    lineHeight: '22px',
+    padding: '9px 16px',
+    backgroundColor: '#c4c4c4',
+    color: 'ffffff',
+    '&:hover': {
+      backgroundColor: '#00b746',
+
+      '@media (hover: none)': {
+        backgroundColor: '#00b746',
+      },
+    },
+  },
+
   saveBtn: {
     backgroundColor: 'rgba(0, 123, 255, 1)',
     color: '#fff',

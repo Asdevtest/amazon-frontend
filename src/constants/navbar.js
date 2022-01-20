@@ -10,10 +10,46 @@ import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutline
 import PeopleIcon from '@material-ui/icons/People'
 import SettingsIcon from '@material-ui/icons/Settings'
 
-import {isMasterUser} from '@utils/checks'
+import {isMasterUser, noPermissionsUser} from '@utils/checks'
 
 import {navBarActiveCategory} from './navbar-active-category'
 import {UserRole} from './user-roles'
+
+const permissionsKeys = {
+  supervisor: {
+    GET_PRODUCTS_VACANT_1: 'GET_PRODUCTS_VACANT_1',
+    GET_PRODUCTS_MY_SUPERVISOR: 'GET_PRODUCTS_MY_SUPERVISOR',
+    GET_PAYMENTS_MY_3: 'GET_PAYMENTS_MY_3',
+    GET_USERS_INFO_2: 'GET_USERS_INFO_2',
+  },
+  buyer: {
+    GET_PRODUCTS_VACANT: 'GET_PRODUCTS_VACANT',
+    GET_PRODUCTS_MY: 'GET_PRODUCTS_MY',
+    GET_ORDERS_MY: 'GET_ORDERS_MY',
+    GET_ORDERS_VACANT: 'GET_ORDERS_VACANT',
+    GET_PAYMENTS_MY_1: 'GET_PAYMENTS_MY_1',
+  },
+  storekeeper: {
+    GET_TASKS_VACANT: 'GET_TASKS_VACANT',
+    GET_TASKS_MY: 'GET_TASKS_MY',
+    GET_BOXES: 'GET_BOXES',
+    GET_BATCHES_1: 'GET_BATCHES_1',
+    GET_PAYMENTS_MY_4: 'GET_PAYMENTS_MY_4',
+  },
+  client: {
+    GET_PRODUCTS_MY_1: 'GET_PRODUCTS_MY_1',
+    GET_ORDERS: 'GET_ORDERS',
+    GET_BOXES_CLIENT: 'GET_BOXES_CLIENT',
+    GET_BATCHES: 'GET_BATCHES',
+    GET_DAILY_REPORTS_MY: 'GET_DAILY_REPORTS_MY',
+    GET_REPORTS_LAST_30_DAYS_MY: 'GET_REPORTS_LAST_30_DAYS_MY',
+    GET_USER_SETTINGS: 'GET_USER_SETTINGS',
+    GET_PAYMENTS_MY: 'GET_PAYMENTS_MY',
+  },
+  researcher: {
+    GET_PRODUCTS: 'GET_PRODUCTS',
+  },
+}
 
 export const navbarConfig = {
   [UserRole.CLIENT]: [
@@ -42,7 +78,8 @@ export const navbarConfig = {
       route: '/client/inventory',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_INVENTORY,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.GET_PRODUCTS_MY_1),
     },
     {
       icon: Work,
@@ -62,7 +99,8 @@ export const navbarConfig = {
       route: '/client/orders',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MY_ORDERS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.GET_ORDERS),
     },
     {
       icon: ArchiveOutlinedIcon,
@@ -70,7 +108,8 @@ export const navbarConfig = {
       route: '/client/warehouse',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.GET_BOXES_CLIENT),
     },
     {
       icon: AllInboxIcon,
@@ -78,7 +117,8 @@ export const navbarConfig = {
       route: '/client/batches',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_BATCHES,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.GET_BATCHES),
     },
     {
       icon: PeopleIcon,
@@ -86,7 +126,7 @@ export const navbarConfig = {
       route: '/client/users/sub-users',
       subtitles: [{subtitle: 'Мои пользователи', subRoute: '/client/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
-      checkHideBlock: () => true,
+      checkHideBlock: user => !isMasterUser(user),
     },
     {
       icon: SettingsIcon,
@@ -97,7 +137,13 @@ export const navbarConfig = {
         {subtitle: 'Дашборд по товарам/дням', subRoute: '/client/integrations/last-30-day'},
       ],
       key: navBarActiveCategory.NAVBAR_INTEGRATIONS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) ||
+        user?.permissions.some(
+          item =>
+            item.key === permissionsKeys.client.GET_DAILY_REPORTS_MY &&
+            permissionsKeys.client.GET_REPORTS_LAST_30_DAYS_MY,
+        ),
     },
     {
       icon: SettingsIcon,
@@ -105,7 +151,8 @@ export const navbarConfig = {
       route: '/client/settings',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_SETTINGS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.GET_USER_SETTINGS),
     },
     {
       icon: ChatBubbleOutlineOutlinedIcon,
@@ -124,7 +171,8 @@ export const navbarConfig = {
         {subtitle: 'Списания', subRoute: '/client/finances'},
       ],
       key: navBarActiveCategory.NAVBAR_FINANCES,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.GET_PAYMENTS_MY),
     },
     {
       icon: ChatBubbleOutlineOutlinedIcon,
@@ -150,7 +198,8 @@ export const navbarConfig = {
       subtitles: null,
       route: '/researcher/products',
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.researcher.GET_PRODUCTS),
     },
     {
       icon: AssignmentIcon,
@@ -182,7 +231,7 @@ export const navbarConfig = {
       route: '/researcher/users/sub-users',
       subtitles: [{subtitle: 'Мои пользователи', subRoute: '/researcher/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
-      checkHideBlock: () => true,
+      checkHideBlock: user => !isMasterUser(user),
     },
     {
       icon: SettingsIcon,
@@ -223,7 +272,7 @@ export const navbarConfig = {
         {subtitle: 'Универсальные', subRoute: '/freelancer/my-requests/custom'},
       ],
       key: navBarActiveCategory.NAVBAR_MY_REQUESTS,
-      checkHideBlock: user => !isMasterUser(user),
+      checkHideBlock: user => !isMasterUser(user) && !noPermissionsUser(user),
     },
     {
       icon: AssignmentIcon,
@@ -273,7 +322,9 @@ export const navbarConfig = {
       subtitles: null,
       route: '/supervisor/ready-to-check',
       key: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.supervisor.GET_PRODUCTS_VACANT_1),
     },
     {
       icon: InboxOutlinedIcon,
@@ -281,7 +332,9 @@ export const navbarConfig = {
       subtitles: null,
       route: '/supervisor/products',
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.supervisor.GET_PRODUCTS_MY_SUPERVISOR),
     },
     {
       icon: PeopleIcon,
@@ -289,7 +342,7 @@ export const navbarConfig = {
       route: '/supervisor/users/sub-users',
       subtitles: [{subtitle: 'Мои пользователи', subRoute: '/supervisor/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
-      checkHideBlock: () => true,
+      checkHideBlock: user => !isMasterUser(user),
     },
     {
       icon: SettingsIcon,
@@ -297,7 +350,8 @@ export const navbarConfig = {
       subtitles: null,
       route: '/supervisor/settings',
       key: navBarActiveCategory.NAVBAR_SETTINGS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.supervisor.GET_USERS_INFO_2),
     },
     {
       icon: MonetizationOnOutlinedIcon,
@@ -308,7 +362,9 @@ export const navbarConfig = {
         {subtitle: 'Списания', subRoute: '/supervisor/finances'},
       ],
       key: navBarActiveCategory.NAVBAR_FINANCES,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.supervisor.GET_PAYMENTS_MY_3),
     },
   ],
   [UserRole.BUYER]: [
@@ -327,7 +383,8 @@ export const navbarConfig = {
       route: '/buyer/products',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.GET_PRODUCTS_VACANT),
     },
     {
       icon: InboxOutlinedIcon,
@@ -335,7 +392,8 @@ export const navbarConfig = {
       route: '/buyer/my-products',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.GET_PRODUCTS_MY),
     },
 
     {
@@ -344,7 +402,8 @@ export const navbarConfig = {
       route: '/buyer/my-orders',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MY_ORDERS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.GET_ORDERS_MY),
     },
     {
       icon: AssignmentIcon,
@@ -352,7 +411,8 @@ export const navbarConfig = {
       route: '/buyer/free-orders',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.GET_ORDERS_VACANT),
     },
     {
       icon: PeopleIcon,
@@ -360,7 +420,7 @@ export const navbarConfig = {
       route: '/buyer/users/sub-users',
       subtitles: [{subtitle: 'Мои пользователи', subRoute: '/buyer/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
-      checkHideBlock: () => true,
+      checkHideBlock: user => !isMasterUser(user),
     },
     {
       icon: MonetizationOnOutlinedIcon,
@@ -371,7 +431,8 @@ export const navbarConfig = {
         {subtitle: 'Списания', subRoute: '/buyer/finances'},
       ],
       key: navBarActiveCategory.NAVBAR_FINANCES,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.GET_PAYMENTS_MY_1),
     },
   ],
   [UserRole.STOREKEEPER]: [
@@ -389,7 +450,9 @@ export const navbarConfig = {
       subtitles: null,
       route: '/warehouse/vacant-tasks',
       key: navBarActiveCategory.NAVBAR_VACANT_TASKS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.GET_TASKS_VACANT),
     },
     {
       icon: Work,
@@ -397,7 +460,8 @@ export const navbarConfig = {
       subtitles: null,
       route: '/warehouse/my-tasks',
       key: navBarActiveCategory.NAVBAR_MY_TASKS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.storekeeper.GET_TASKS_MY),
     },
     {
       icon: ArchiveOutlinedIcon,
@@ -405,7 +469,8 @@ export const navbarConfig = {
       subtitles: null,
       route: '/warehouse/my-warehouse',
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.storekeeper.GET_BOXES),
     },
     {
       icon: DoneOutline,
@@ -413,7 +478,8 @@ export const navbarConfig = {
       subtitles: null,
       route: '/warehouse/completed-tasks',
       key: navBarActiveCategory.NAVBAR_COMPLETED_TASKS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.storekeeper.GET_TASKS_MY),
     },
     {
       icon: Block,
@@ -421,7 +487,8 @@ export const navbarConfig = {
       subtitles: null,
       route: '/warehouse/canceled-tasks',
       key: navBarActiveCategory.NAVBAR_CANCELED_TASKS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.storekeeper.GET_TASKS_MY),
     },
     {
       icon: LocalConvenienceStore,
@@ -429,7 +496,8 @@ export const navbarConfig = {
       subtitles: null,
       route: '/warehouse/boxes',
       key: navBarActiveCategory.NAVBAR_BATCHES,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.storekeeper.GET_BATCHES_1),
     },
     {
       icon: PeopleIcon,
@@ -437,7 +505,7 @@ export const navbarConfig = {
       route: '/warehouse/users/sub-users',
       subtitles: [{subtitle: 'Мои пользователи', subRoute: '/warehouse/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
-      checkHideBlock: () => true,
+      checkHideBlock: user => !isMasterUser(user),
     },
     {
       icon: MonetizationOnOutlinedIcon,
@@ -448,7 +516,9 @@ export const navbarConfig = {
         {subtitle: 'Списания', subRoute: '/warehouse/finances'},
       ],
       key: navBarActiveCategory.NAVBAR_FINANCES,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.GET_PAYMENTS_MY_4),
     },
   ],
   [UserRole.ADMIN]: [

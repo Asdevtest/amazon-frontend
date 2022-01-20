@@ -131,7 +131,7 @@ export const AddOrEditSinglePermissionForm = observer(
           <Field
             multiline
             minRows={4}
-            rowsMax={6}
+            rowsMax={4}
             className={classNames.descriptionField}
             label={textConsts.descriptionLabel}
             placeholder={textConsts.descriptionHolder}

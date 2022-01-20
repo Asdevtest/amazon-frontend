@@ -21,7 +21,17 @@ import {useClassNames} from './add-or-edit-supplier-modal-content.style'
 const textConsts = getLocalizedTexts(texts, 'ru').addOrEditSupplierModalContent
 
 export const AddOrEditSupplierModalContent = observer(
-  ({title, onTriggerShowModal, supplier, onClickSaveBtn, showProgress, progressValue, requestStatus}) => {
+  ({
+    title,
+    onTriggerShowModal,
+    supplier,
+    onClickSaveBtn,
+    showProgress,
+    progressValue,
+    requestStatus,
+    curUserRole,
+    onClickPrevButton,
+  }) => {
     const classNames = useClassNames()
 
     const [isSubmitBtnClicked, setIsSubmitBtnClicked] = useState(false)
@@ -41,6 +51,73 @@ export const AddOrEditSupplierModalContent = observer(
     const [photosOfSupplier, setPhotosOfSupplier] = useState([])
 
     const [showPhotosModal, setShowPhotosModal] = useState(false)
+
+    const renderFooterModalButtons = () => {
+      if (curUserRole) {
+        return (
+          <div className={classNames.buttonsWrapperClient}>
+            <Button
+              disableElevation
+              className={classNames.prevBtnClient}
+              variant="contained"
+              onClick={() => onClickPrevButton()}
+            >
+              Назад
+            </Button>
+            <div>
+              <Button
+                disableElevation
+                success
+                disabled={diasabledSubmit}
+                className={classNames.saveAndBindBtnClient}
+                variant="contained"
+                onClick={() => {
+                  setIsSubmitBtnClicked(true)
+                  onClickSaveBtn({...tmpSupplier, _id: supplier && supplier._id}, photosOfSupplier)
+                }}
+              >
+                Сохранить и привязать
+              </Button>
+              <Button
+                disableElevation
+                success
+                disabled={diasabledSubmit}
+                className={classNames.saveAndAddBtnClient}
+                variant="contained"
+                onClick={() => onTriggerShowModal()}
+              >
+                Сохранить и добавить еще
+              </Button>
+            </div>
+          </div>
+        )
+      } else {
+        return (
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              disableElevation
+              disabled={diasabledSubmit}
+              className={classNames.saveBtn}
+              variant="contained"
+              onClick={() => {
+                setIsSubmitBtnClicked(true)
+                onClickSaveBtn({...tmpSupplier, _id: supplier && supplier._id}, photosOfSupplier)
+              }}
+            >
+              {textConsts.saveBtn}
+            </Button>
+            <Button
+              disableElevation
+              className={classNames.cancelBtn}
+              variant="contained"
+              onClick={() => onTriggerShowModal()}
+            >
+              {textConsts.cancelBtn}
+            </Button>
+          </div>
+        )
+      }
+    }
 
     const onChangeField = fieldName => event => {
       if (
@@ -74,7 +151,7 @@ export const AddOrEditSupplierModalContent = observer(
 
         <Field
           label={textConsts.name}
-          inputProps={{maxLength: 2000}}
+          inputProps={{maxLength: 1024}}
           value={tmpSupplier.name}
           onChange={onChangeField('name')}
         />
@@ -157,28 +234,7 @@ export const AddOrEditSupplierModalContent = observer(
 
         <Divider className={classNames.fieldsDivider} />
 
-        <div className={classNames.buttonsWrapper}>
-          <Button
-            disableElevation
-            disabled={diasabledSubmit}
-            className={classNames.saveBtn}
-            variant="contained"
-            onClick={() => {
-              setIsSubmitBtnClicked(true)
-              onClickSaveBtn({...tmpSupplier, _id: supplier && supplier._id}, photosOfSupplier)
-            }}
-          >
-            {textConsts.saveBtn}
-          </Button>
-          <Button
-            disableElevation
-            className={classNames.cancelBtn}
-            variant="contained"
-            onClick={() => onTriggerShowModal()}
-          >
-            {textConsts.cancelBtn}
-          </Button>
-        </div>
+        {renderFooterModalButtons()}
 
         {showProgress && <CircularProgressWithLabel value={progressValue} title={textConsts.circularProgressTitle} />}
 

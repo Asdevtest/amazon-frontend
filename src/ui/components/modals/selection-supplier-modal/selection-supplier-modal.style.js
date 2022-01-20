@@ -1,6 +1,10 @@
 import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
+  modalWrapper: {
+    width: '548px',
+  },
+
   modalTitle: {
     color: 'rgb(61, 81, 112)',
     fontSize: '24px',
@@ -25,7 +29,10 @@ export const useClassNames = makeStyles(() => ({
 
   modalTextArea: {
     width: '100%',
-    minHeight: '119px',
+    height: '119px',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+    display: 'block',
   },
 
   modalButton: {
@@ -33,9 +40,6 @@ export const useClassNames = makeStyles(() => ({
     height: '90px',
     fontSize: '18px',
     lineHeight: '22px',
-  },
-
-  toolTip: {
     backgroundColor: '#c4c4c4',
     transition: 'all .5s ease-in-out',
     '&:hover': {
@@ -44,12 +48,15 @@ export const useClassNames = makeStyles(() => ({
     },
   },
 
-  toolTipActive: {
+  modalButtonActive: {
     backgroundColor: '#006CFF',
   },
 
-  modalToolTipWrapper: {
+  modalButtonsWrapper: {
     marginBottom: '60px',
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '74px',
   },
 
   modalButtonWrapper: {

@@ -95,7 +95,7 @@ export const RightSideComments = observer(
           (checkIsSupervisor(curUserRole) &&
             product.status === ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]) ||
           (checkIsBuyer(curUserRole) && product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
-          (checkIsSupervisor(curUserRole) && product.status < ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]) ? (
+          (checkIsSupervisor(curUserRole) && product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ? (
             <div className={classNames.buttonsWrapper}>
               <Button
                 className={classNames.buttonNormal}

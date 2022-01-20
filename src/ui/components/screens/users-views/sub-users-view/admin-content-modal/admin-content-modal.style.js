@@ -38,4 +38,10 @@ export const useClassNames = makeStyles(() => ({
     color: 'red',
     marginBottom: '15px',
   },
+
+  userRoleSelect: {
+    '&:disabled': {
+      color: '#DEDEDE',
+    },
+  },
 }))
