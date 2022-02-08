@@ -22,12 +22,10 @@ class InlineObject24 {
     /**
      * Constructs a new <code>InlineObject24</code>.
      * @alias module:model/InlineObject24
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param operationType {module:model/InlineObject24.OperationTypeEnum} Тип операции
      */
-    constructor(taskId, operationType) { 
+    constructor() { 
         
-        InlineObject24.initialize(this, taskId, operationType);
+        InlineObject24.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject24 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, operationType) { 
-        obj['taskId'] = taskId;
-        obj['operationType'] = operationType;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,26 +47,29 @@ class InlineObject24 {
         if (data) {
             obj = obj || new InlineObject24();
 
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
             }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
             }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -80,81 +79,55 @@ class InlineObject24 {
 }
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * Код текущего состояния заказа.
+ * @member {Number} status
  */
-InlineObject24.prototype['taskId'] = undefined;
+InlineObject24.prototype['status'] = undefined;
 
 /**
- * @member {Array.<String>} boxesBefore
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
  */
-InlineObject24.prototype['boxesBefore'] = undefined;
+InlineObject24.prototype['amount'] = undefined;
 
 /**
- * @member {Array.<String>} boxes
+ * Код метода доставки.
+ * @member {Number} deliveryMethod
  */
-InlineObject24.prototype['boxes'] = undefined;
+InlineObject24.prototype['deliveryMethod'] = undefined;
 
 /**
- * Тип операции
- * @member {module:model/InlineObject24.OperationTypeEnum} operationType
+ * Номер склада.
+ * @member {Number} warehouse
  */
-InlineObject24.prototype['operationType'] = undefined;
+InlineObject24.prototype['warehouse'] = undefined;
 
 /**
- * Комментарий клиента.
+ * Комментарии клиента.
  * @member {String} clientComment
- * @default ''
  */
-InlineObject24.prototype['clientComment'] = '';
+InlineObject24.prototype['clientComment'] = undefined;
 
 /**
- * Массив картинок.
+ * GUID заказанного продукта
+ * @member {String} productId
+ */
+InlineObject24.prototype['productId'] = undefined;
+
+/**
+ * Курс юань доллар.
+ * @member {Number} yuanToDollarRate
+ */
+InlineObject24.prototype['yuanToDollarRate'] = undefined;
+
+/**
+ * Массив изображений.
  * @member {Array.<String>} images
  */
 InlineObject24.prototype['images'] = undefined;
 
-/**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineObject24.prototype['storekeeperComment'] = undefined;
 
 
-
-
-
-/**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject24['OperationTypeEnum'] = {
-
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
-
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
-
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive",
-
-    /**
-     * value: "edit"
-     * @const
-     */
-    "edit": "edit"
-};
 
 
 

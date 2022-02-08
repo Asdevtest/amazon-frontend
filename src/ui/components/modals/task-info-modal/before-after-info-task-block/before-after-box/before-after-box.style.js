@@ -88,4 +88,26 @@ export const useClassNames = makeStyles(() => ({
     border: '2px solid rgba(61, 81, 112, 0.3)',
     borderRadius: '10px',
   },
+
+  imagesWrapper: {
+    display: 'flex',
+    padding: '5px',
+  },
+
+  photoWrapper: {
+    width: '200px',
+    marginLeft: '20px',
+  },
+
+  imgBox: {
+    width: '200px',
+    height: '100px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+    transition: '.2s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
+  },
 }))

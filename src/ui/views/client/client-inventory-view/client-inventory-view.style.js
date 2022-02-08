@@ -21,4 +21,12 @@ export const styles = createStyles({
   buttonOffset: {
     marginLeft: '20px',
   },
+
+  row: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
 })

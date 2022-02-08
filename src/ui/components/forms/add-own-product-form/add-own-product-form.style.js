@@ -51,14 +51,14 @@ export const useClassNames = makeStyles(() => ({
     margin: '20px 0 13px',
   },
 
-  amazonLinkWrapper: {
+  inputWrapper: {
     display: 'flex',
     alignItems: 'center',
     width: '100%',
   },
 
-  amazonLinkInput: {
-    height: '26px',
+  input: {
+    height: '32px',
     borderRadius: '8px',
     width: 'calc(100% - 110px)',
   },
@@ -69,10 +69,10 @@ export const useClassNames = makeStyles(() => ({
     width: 'calc(100% - 182px)',
   },
 
-  parseBtn: {
+  defaultBtn: {
     marginLeft: '10px',
     borderRadius: '8px',
-    height: '26px',
+    height: '32px',
     width: '100px',
   },
 
@@ -85,5 +85,33 @@ export const useClassNames = makeStyles(() => ({
 
   fieldsWrapper: {
     marginTop: '25px',
+  },
+
+  skuItemsWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '10px',
+    padding: '0 10px',
+  },
+
+  skuItemWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  deleteBtnWrapper: {
+    width: '25px',
+    height: '25px',
+  },
+
+  deleteBtn: {
+    width: '20px',
+    height: '20px',
+    opacity: '0.5',
+  },
+
+  skuItemTitle: {
+    fontSize: '20px',
   },
 }))

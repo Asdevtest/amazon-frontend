@@ -1,10 +1,7 @@
 import React from 'react'
 
-import {Typography} from '@material-ui/core'
+import {Checkbox, Typography} from '@material-ui/core'
 import clsx from 'clsx'
-
-import {DeliveryTypeByCode} from '@constants/delivery-options'
-import {warehouses} from '@constants/warehouses'
 
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 
@@ -19,23 +16,21 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
   const classNames = useClassNames()
   const tableCellClsx = clsx(classNames.tableCell, {[classNames.boxNoPrice]: !price})
   const noShippingLabelClsx = clsx({[classNames.noShippingLabel]: !box.shippingLabel})
-  console.log(box)
+  const noShippingLabelGlueClsx = clsx({[classNames.noShippingLabel]: !box.isShippingLabelAttachedByStorekeeper})
+
   return (
     <tr className={classNames.box}>
-      <td className={tableCellClsx}>
+      <td className={clsx(tableCellClsx, classNames.indexCell)}>
         <Typography variant="subtitle2">{index + 1}</Typography>
       </td>
 
-      <td className={tableCellClsx}>
+      <td className={clsx(tableCellClsx, classNames.productCell)}>
         <div className={classNames.boxWrapper}>
           {box.amount > 1 ? (
             <td className={classNames.boxItemWrapper}>
-              <img
-                src={box.items[0].product.images && getAmazonImageUrl(box.items[0].product.images[0])}
-                className={classNames.img}
-              />
+              <img src={getAmazonImageUrl(box.items[0].product.images[0])} className={classNames.img} />
 
-              <Typography variant="h5">{`${getShortenStringIfLongerThanCount(
+              <Typography className={classNames.amazonTitle}>{`${getShortenStringIfLongerThanCount(
                 box.items[0].product.amazonTitle,
                 30,
               )}`}</Typography>
@@ -49,12 +44,9 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
           ) : (
             box.items.map((item, idx) => (
               <td key={idx} className={classNames.boxItemWrapper}>
-                <img
-                  src={item.product.images && getAmazonImageUrl(item.product.images[0])}
-                  className={classNames.img}
-                />
+                <img src={getAmazonImageUrl(item.product.images[0])} className={classNames.img} />
 
-                <Typography variant="h5">{`${idx + 1}: ${getShortenStringIfLongerThanCount(
+                <Typography className={classNames.amazonTitle}>{`${idx + 1}: ${getShortenStringIfLongerThanCount(
                   item.product.amazonTitle,
                   30,
                 )}`}</Typography>
@@ -68,19 +60,29 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
         </div>
       </td>
 
-      <td className={tableCellClsx}>
-        <Typography variant="subtitle1">{`Реальный вес: ${box.weighGrossKgWarehouse}кг; Объемный вес: ${
-          box.volumeWeightKgWarehouse
-        }кг; Финальный вес: ${calcFinalWeightForBox(box)}кг`}</Typography>
+      <td className={clsx(tableCellClsx, classNames.dementionsCell)}>
+        <Typography variant="subtitle1">{`Реальный вес: ${toFixedWithKg(
+          box.weighGrossKgWarehouse,
+          2,
+        )}; Объемный вес: ${toFixedWithKg(box.volumeWeightKgWarehouse, 2)}; Финальный вес: ${toFixedWithKg(
+          calcFinalWeightForBox(box),
+          2,
+        )}`}</Typography>
       </td>
-      <td className={tableCellClsx}>
-        <Typography variant="subtitle1">{`Склад: ${warehouses[box.warehouse]}`}</Typography>
-        <Typography variant="subtitle1">{`Способ доставки: ${DeliveryTypeByCode[box.deliveryMethod]}`}</Typography>
-        <Typography className={noShippingLabelClsx} variant="subtitle1">{`Shipping Label: ${
-          box.shippingLabel ? box.shippingLabel : 'None'
-        }`}</Typography>
+      <td className={clsx(tableCellClsx, classNames.shippingLabelCell)}>
+        <div>
+          <Typography className={noShippingLabelClsx} variant="subtitle1">
+            {`Shipping Label: ${box.shippingLabel ? box.shippingLabel : 'None'}`}
+          </Typography>
+
+          <div className={classNames.checkboxWrapper}>
+            <Typography className={noShippingLabelGlueClsx}>{'проклеен'}</Typography>
+
+            <Checkbox disabled color="primary" checked={box.isShippingLabelAttachedByStorekeeper} />
+          </div>
+        </div>
       </td>
-      <td className={tableCellClsx}>
+      <td className={clsx(tableCellClsx, classNames.amountCell)}>
         {box.items.map((item, idx) => (
           <Typography key={idx} variant="subtitle1">{`${item.amount}шт.`}</Typography>
         ))}

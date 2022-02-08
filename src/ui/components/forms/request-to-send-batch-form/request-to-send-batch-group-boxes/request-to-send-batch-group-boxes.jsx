@@ -8,7 +8,7 @@ import {warehouses} from '@constants/warehouses'
 
 import {calcFinalWeightForBox} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixedWithDollarSign} from '@utils/text'
+import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
 
 import {RequestToSendBatchBox} from '../request-to-send-batch-box'
 import {useClassNames} from './request-to-send-batch-group-boxes.style'
@@ -64,7 +64,7 @@ export const RequestToSendBatchesGroupBoxes = ({
         <Typography className={classNames.tableWrapperInfo}>
           {`${textConsts.totalPrice} ${toFixedWithDollarSign(totalPrice, 2)} , ${
             textConsts.totalWeight
-          } ${totalWeight}кг`}
+          } ${toFixedWithKg(totalWeight, 2)}`}
         </Typography>
       )}
     </div>

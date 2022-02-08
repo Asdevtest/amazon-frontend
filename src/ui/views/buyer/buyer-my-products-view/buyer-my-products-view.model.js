@@ -31,7 +31,7 @@ export class BuyerMyProductsViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = buyerProductsViewColumns(this.rowHandlers)
 
   constructor({history}) {
@@ -70,7 +70,7 @@ export class BuyerMyProductsViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -135,7 +135,10 @@ export class BuyerMyProductsViewModel {
   }
 
   onClickTableRow(item) {
-    this.history.push('/buyer/product', {product: toJS(item.originalData)})
+    this.history.push({
+      pathname: '/buyer/product',
+      search: item.originalData._id,
+    })
   }
 
   onTriggerDrawerOpen() {

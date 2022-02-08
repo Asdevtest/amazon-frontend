@@ -22,10 +22,13 @@ export class AdminUsersViewModel {
   groupPermissions = []
   singlePermissions = []
   checkValidationNameOrEmail = {}
+  availableSubUsers = undefined
   changeNameAndEmail = {email: '', name: ''}
   editUserFormFields = undefined
   selectionModel = undefined
   dataGridState = null
+
+  submitEditData = undefined
 
   rowHandlers = {
     onClickEditUser: () => this.onClickEditUser(),
@@ -36,11 +39,11 @@ export class AdminUsersViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = adminUsersViewColumns(this.rowHandlers)
 
   drawerOpen = false
-
+  showConfirmModal = false
   showEditUserModal = false
 
   constructor({history}) {
@@ -69,7 +72,7 @@ export class AdminUsersViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -142,7 +145,7 @@ export class AdminUsersViewModel {
     }
   }
 
-  async submitEditUserForm(data) {
+  async submitEditUserForm(data, sourceData) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
@@ -150,21 +153,39 @@ export class AdminUsersViewModel {
         name: this.changeNameAndEmail.name,
         email: this.changeNameAndEmail.email,
       })
+
+      this.submitEditData = data
+      this.availableSubUsers = undefined
+
+      if (sourceData.canByMasterUser === true && data.canByMasterUser === false) {
+        this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.selectionModel)).subUsers.length
+      }
+
       if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
         return
+      } else if (this.availableSubUsers) {
+        this.onTriggerOpenModal('showConfirmModal')
       } else {
-        await AdministratorModel.updateUser(this.selectionModel, data)
-
-        this.setRequestStatus(loadingStatuses.success)
-
-        this.onTriggerOpenModal('showEditUserModal')
-        await this.getUsers()
-        await this.getGroupPermissions()
-        await this.getSinglePermissions()
-        this.changeNameAndEmail = {email: '', name: ''}
+        await this.finalStepSubmitEditUserForm()
       }
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      this.error = error?.body?.message || error
+    }
+  }
+
+  async finalStepSubmitEditUserForm() {
+    try {
+      await AdministratorModel.updateUser(this.selectionModel, this.submitEditData)
+      this.setRequestStatus(loadingStatuses.success)
+
+      this.onTriggerOpenModal('showEditUserModal')
+      await this.getUsers()
+      await this.getGroupPermissions()
+      await this.getSinglePermissions()
+      this.changeNameAndEmail = {email: '', name: ''}
+    } catch (error) {
       console.log(error)
       this.error = error?.body?.message || error
     }

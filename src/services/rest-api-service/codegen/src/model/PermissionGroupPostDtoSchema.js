@@ -65,6 +65,9 @@ class PermissionGroupPostDtoSchema {
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
+            if (data.hasOwnProperty('hierarchy')) {
+                obj['hierarchy'] = ApiClient.convertToType(data['hierarchy'], 'Number');
+            }
             if (data.hasOwnProperty('permissions')) {
                 obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
             }
@@ -95,6 +98,12 @@ PermissionGroupPostDtoSchema.prototype['title'] = undefined;
  * @member {String} description
  */
 PermissionGroupPostDtoSchema.prototype['description'] = undefined;
+
+/**
+ * Для фронта, чтобы хранить иерархию.
+ * @member {Number} hierarchy
+ */
+PermissionGroupPostDtoSchema.prototype['hierarchy'] = undefined;
 
 /**
  * @member {Array.<String>} permissions

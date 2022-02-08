@@ -41,7 +41,7 @@ export class ResearcherProductsViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = researcherProductsViewColumns()
 
   constructor({history}) {
@@ -70,7 +70,7 @@ export class ResearcherProductsViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -150,7 +150,10 @@ export class ResearcherProductsViewModel {
 
       const foundedProd = this.products.find(prod => prod.originalData._id === this.newProductId)
 
-      this.history.push('/researcher/product', {product: toJS(foundedProd.originalData)})
+      this.history.push({
+        pathname: '/researcher/product',
+        search: foundedProd.originalData._id,
+      })
     } catch (error) {
       console.warn(error)
     }
@@ -221,7 +224,10 @@ export class ResearcherProductsViewModel {
 
   onClickTableRow(item) {
     if (item.originalData.status < ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
-      this.history.push('/researcher/product', {product: toJS(item.originalData)})
+      this.history.push({
+        pathname: '/researcher/product',
+        search: item.originalData._id,
+      })
     }
   }
 

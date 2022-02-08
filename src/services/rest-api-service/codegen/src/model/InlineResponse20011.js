@@ -22,16 +22,10 @@ class InlineResponse20011 {
     /**
      * Constructs a new <code>InlineResponse20011</code>.
      * @alias module:model/InlineResponse20011
-     * @param _id {String} GUID заявки в базе данных.
-     * @param type {String} Тип заявки.
-     * @param maxAmountOfProposals {Number} Количество предложений.
-     * @param price {Number} Цена за каждое предложение.
-     * @param status {module:model/InlineResponse20011.StatusEnum} Статус заявки.
-     * @param direction {module:model/InlineResponse20011.DirectionEnum} Направление заявки, исходящая или входящая.
      */
-    constructor(_id, type, maxAmountOfProposals, price, status, direction) { 
+    constructor() { 
         
-        InlineResponse20011.initialize(this, _id, type, maxAmountOfProposals, price, status, direction);
+        InlineResponse20011.initialize(this);
     }
 
     /**
@@ -39,13 +33,7 @@ class InlineResponse20011 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, type, maxAmountOfProposals, price, status, direction) { 
-        obj['_id'] = _id;
-        obj['type'] = type;
-        obj['maxAmountOfProposals'] = maxAmountOfProposals;
-        obj['price'] = price;
-        obj['status'] = status;
-        obj['direction'] = direction;
+    static initialize(obj) { 
     }
 
     /**
@@ -59,56 +47,29 @@ class InlineResponse20011 {
         if (data) {
             obj = obj || new InlineResponse20011();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'String');
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('platformMargin')) {
+                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
+            }
+            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
+                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
+            }
+            if (data.hasOwnProperty('supervisorFee')) {
+                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
+            }
+            if (data.hasOwnProperty('unitCost')) {
+                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
             }
             if (data.hasOwnProperty('maxAmountOfProposals')) {
                 obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
-            }
-            if (data.hasOwnProperty('timeoutAt')) {
-                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
-            }
-            if (data.hasOwnProperty('timeLimitInMinutes')) {
-                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
-            }
-            if (data.hasOwnProperty('assignees')) {
-                obj['assignees'] = ApiClient.convertToType(data['assignees'], ['String']);
-            }
-            if (data.hasOwnProperty('direction')) {
-                obj['direction'] = ApiClient.convertToType(data['direction'], 'String');
-            }
-            if (data.hasOwnProperty('roles')) {
-                obj['roles'] = ApiClient.convertToType(data['roles'], ['Number']);
-            }
-            if (data.hasOwnProperty('needCheckBySupervisor')) {
-                obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
-            }
-            if (data.hasOwnProperty('restrictMoreThanOneProposalFromOneAssignee')) {
-                obj['restrictMoreThanOneProposalFromOneAssignee'] = ApiClient.convertToType(data['restrictMoreThanOneProposalFromOneAssignee'], 'Boolean');
-            }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -118,181 +79,55 @@ class InlineResponse20011 {
 }
 
 /**
- * GUID заявки в базе данных.
- * @member {String} _id
- */
-InlineResponse20011.prototype['_id'] = undefined;
-
-/**
- * Тип заявки.
- * @member {String} type
- */
-InlineResponse20011.prototype['type'] = undefined;
-
-/**
- * Title заявки.
- * @member {String} title
- */
-InlineResponse20011.prototype['title'] = undefined;
-
-/**
- * Количество предложений.
- * @member {Number} maxAmountOfProposals
- */
-InlineResponse20011.prototype['maxAmountOfProposals'] = undefined;
-
-/**
  * Цена за каждое предложение.
  * @member {Number} price
  */
 InlineResponse20011.prototype['price'] = undefined;
 
 /**
- * Статус заявки.
- * @member {module:model/InlineResponse20011.StatusEnum} status
+ * Процент с каждого предложения, маржа платформы, в процентах.
+ * @member {Number} requestPlatformMarginInPercent
  */
-InlineResponse20011.prototype['status'] = undefined;
+InlineResponse20011.prototype['requestPlatformMarginInPercent'] = undefined;
 
 /**
- * Время закрытия заявки.
- * @member {Date} timeoutAt
+ * Услуги платформы.
+ * @member {Number} platformMargin
  */
-InlineResponse20011.prototype['timeoutAt'] = undefined;
+InlineResponse20011.prototype['platformMargin'] = undefined;
 
 /**
- * Время за которое должен отправить предложение после бронирования. В минутах.
- * @member {Number} timeLimitInMinutes
+ * Процент с каждого предложения для супервайзера, в процентах.
+ * @member {Number} requestSupervisorFeeInPercent
  */
-InlineResponse20011.prototype['timeLimitInMinutes'] = undefined;
+InlineResponse20011.prototype['requestSupervisorFeeInPercent'] = undefined;
 
 /**
- * Массив id пользователей.
- * @member {Array.<String>} assignees
+ * Услуги супервайзера.
+ * @member {Number} supervisorFee
  */
-InlineResponse20011.prototype['assignees'] = undefined;
+InlineResponse20011.prototype['supervisorFee'] = undefined;
 
 /**
- * Направление заявки, исходящая или входящая.
- * @member {module:model/InlineResponse20011.DirectionEnum} direction
+ * Сумма.
+ * @member {Number} unitCost
  */
-InlineResponse20011.prototype['direction'] = undefined;
+InlineResponse20011.prototype['unitCost'] = undefined;
 
 /**
- * Массив массив ролей.
- * @member {Array.<Number>} roles
+ * Количество предложений, не менее.
+ * @member {Number} maxAmountOfProposals
  */
-InlineResponse20011.prototype['roles'] = undefined;
+InlineResponse20011.prototype['maxAmountOfProposals'] = undefined;
 
 /**
- * Если требуется проверка супервайзером.
- * @member {Boolean} needCheckBySupervisor
+ * Итого.
+ * @member {Number} totalCost
  */
-InlineResponse20011.prototype['needCheckBySupervisor'] = undefined;
-
-/**
- * Запретить фрилансеру повторное отправление предложений.
- * @member {Boolean} restrictMoreThanOneProposalFromOneAssignee
- */
-InlineResponse20011.prototype['restrictMoreThanOneProposalFromOneAssignee'] = undefined;
-
-/**
- * GUID клиента, который создал заявку.
- * @member {String} createdById
- */
-InlineResponse20011.prototype['createdById'] = undefined;
-
-/**
- * GUID клиента, который обновил запрос на поиск товара.
- * @member {String} lastModifiedById
- */
-InlineResponse20011.prototype['lastModifiedById'] = undefined;
-
-/**
- * Дата создания
- * @member {Date} createdAt
- */
-InlineResponse20011.prototype['createdAt'] = undefined;
-
-/**
- * Дата изменения
- * @member {Date} updatedAt
- */
-InlineResponse20011.prototype['updatedAt'] = undefined;
+InlineResponse20011.prototype['totalCost'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>status</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse20011['StatusEnum'] = {
-
-    /**
-     * value: "CREATED"
-     * @const
-     */
-    "CREATED": "CREATED",
-
-    /**
-     * value: "IN_PROCESS"
-     * @const
-     */
-    "IN_PROCESS": "IN_PROCESS",
-
-    /**
-     * value: "READY_TO_VERIFY"
-     * @const
-     */
-    "READY_TO_VERIFY": "READY_TO_VERIFY",
-
-    /**
-     * value: "VERIFYING"
-     * @const
-     */
-    "VERIFYING": "VERIFYING",
-
-    /**
-     * value: "TO_CORRECT"
-     * @const
-     */
-    "TO_CORRECT": "TO_CORRECT",
-
-    /**
-     * value: "CANCELED"
-     * @const
-     */
-    "CANCELED": "CANCELED",
-
-    /**
-     * value: "EXPIRED"
-     * @const
-     */
-    "EXPIRED": "EXPIRED"
-};
-
-
-/**
- * Allowed values for the <code>direction</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse20011['DirectionEnum'] = {
-
-    /**
-     * value: "IN"
-     * @const
-     */
-    "IN": "IN",
-
-    /**
-     * value: "OUT"
-     * @const
-     */
-    "OUT": "OUT"
-};
 
 
 

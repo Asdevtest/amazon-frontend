@@ -19,7 +19,8 @@ import {BuyerMyProductsView} from '@views/buyer/buyer-my-products-view'
 import {BuyerFreeOrdersView} from '@views/buyer/buyer-orders-views/buyer-free-orders-view'
 import {BuyerMyOrdersView} from '@views/buyer/buyer-orders-views/buyer-my-orders-view'
 import {BuyerProductView} from '@views/buyer/buyer-product-view/'
-import {BuyerProductsView} from '@views/buyer/buyer-products-view/'
+import {BuyerSearchSupplierByClientView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-client-view'
+import {BuyerSearchSupplierBySupervisorView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-supervisor-view'
 import {BuyerSubUsersView} from '@views/buyer/buyer-users-views/buyer-sub-users-view'
 import {ClientBatchesView} from '@views/client/client-batches-view'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
@@ -40,6 +41,7 @@ import {ClientСustomRequestsView} from '@views/client/client-requests-views/cli
 import {ClientRequestsNichesView} from '@views/client/client-requests-views/client-requests-niches-view'
 import {ClientRequestsProductsView} from '@views/client/client-requests-views/client-requests-products-view/client-requests-products-view'
 import {ClientSettingsView} from '@views/client/client-settings-view'
+import {ClientShopsView} from '@views/client/client-shop-view/client-shop-view'
 import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
 import {DocumentationView} from '@views/documentation'
@@ -50,6 +52,7 @@ import {FreelancerMyNichesRequestsView} from '@views/freelancer/freelancer-my-re
 import {FreelancerMyProductsRequestsView} from '@views/freelancer/freelancer-my-requests-views/freelancer-my-products-requests-view'
 import {FreelancerRequestDetailCustomView} from '@views/freelancer/freelancer-requests-details-views/freelancer-requests-detail-custom-view'
 import {FreelancerСustomRequestsView} from '@views/freelancer/freelancer-requests-views/freelancer-custom-requests-view'
+import {FreelancerSubUsersView} from '@views/freelancer/freelancer-users-views/freelancer-sub-users-view'
 import {FreelancerVacantCustomRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-custom-requests-view'
 import {FreelancerVacantNichesRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-niches-requests-view'
 import {FreelancerVacantProductsRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-products-requests-view'
@@ -74,7 +77,8 @@ import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-vi
 import {SupervisorFinancesViews} from '@views/supervisor/supervisor-finances-views'
 import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
 import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view/'
-import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-view'
+import {SupervisorReadyToCheckByClientView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-by-client-view'
+import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-view'
 import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view/supervisor-settings-view'
 import {SupervisorSubUsersView} from '@views/supervisor/supervisor-users-views/supervisor-sub-users-view'
 import {TermsView} from '@views/terms'
@@ -131,11 +135,19 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/buyer/products',
-    component: BuyerProductsView,
+    routePath: '/buyer/search-supplier-by-supervisor',
+    component: BuyerSearchSupplierBySupervisorView,
     exact: false,
     permission: [UserRole.BUYER],
   },
+
+  {
+    routePath: '/buyer/search-supplier-by-client',
+    component: BuyerSearchSupplierByClientView,
+    exact: false,
+    permission: [UserRole.BUYER],
+  },
+
   {
     routePath: '/buyer/users/sub-users',
     component: BuyerSubUsersView,
@@ -337,6 +349,13 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/client/shops',
+    component: ClientShopsView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
     routePath: '/client/integrations/daily',
     component: ClientDailySellerBoardView,
     exact: false,
@@ -442,6 +461,13 @@ export const privateRoutesConfigs = [
   {
     routePath: '/supervisor/ready-to-check',
     component: SupervisorReadyToCheckView,
+    exact: false,
+    permission: [UserRole.SUPERVISOR],
+  },
+
+  {
+    routePath: '/supervisor/ready-to-check-by-client',
+    component: SupervisorReadyToCheckByClientView,
     exact: false,
     permission: [UserRole.SUPERVISOR],
   },
@@ -644,6 +670,13 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/requests/niches',
     component: FreelancerVacantNichesRequestsView,
     exact: true,
+    permission: [UserRole.FREELANCER],
+  },
+
+  {
+    routePath: '/freelancer/users/sub-users',
+    component: FreelancerSubUsersView,
+    exact: false,
     permission: [UserRole.FREELANCER],
   },
 

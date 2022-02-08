@@ -59,7 +59,7 @@ class InlineResponse2017 {
 }
 
 /**
- * guid созданного объекта
+ * guid обновленного объекта
  * @member {String} guid
  */
 InlineResponse2017.prototype['guid'] = undefined;

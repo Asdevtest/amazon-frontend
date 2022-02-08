@@ -1,7 +1,8 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {Component} from 'react'
 
 import {Button, Typography} from '@material-ui/core'
-import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -20,7 +21,6 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {NicheSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/niche-search-request-form'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/clientAvatar.jpg'
@@ -111,7 +111,7 @@ class ClientRequestsNichesViewRaw extends Component {
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={100}
                   components={{
@@ -123,7 +123,7 @@ class ClientRequestsNichesViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onStateChange={setDataGridState}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
                 />

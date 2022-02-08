@@ -1,8 +1,8 @@
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
 class BuyerModelStatic {
-  getProductsVacant = async () => {
-    const response = await restApiService.buyerApi.apiV1BuyersProductsVacGet()
+  getProductsVacant = async isCreatedByClient => {
+    const response = await restApiService.buyerApi.apiV1BuyersProductsVacGet({isCreatedByClient})
     return response
   }
 

@@ -1,17 +1,18 @@
 import React, {Component} from 'react'
 
-import {Button, Grid, Typography} from '@material-ui/core'
+import {Button} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {getClientDashboardCardConfig, ClientDashboardCardDataKey} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {DashboardBalance} from '@components/dashboard-balance'
-import {DashboardInfoCard} from '@components/dashboard-info-card'
+import {DashboardBalance} from '@components/dashboards/dashboard-balance'
+import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {UserMoneyTransferModal} from '@components/modals/user-money-transfer-modal'
@@ -46,6 +47,7 @@ export class ClientDashboardViewRaw extends Component {
       onTriggerOpenModal,
       onClickAddMoney,
       onClickWithdrawMoney,
+      onClickInfoCardViewMode,
     } = this.viewModel
     const {classes} = this.props
 
@@ -81,7 +83,14 @@ export class ClientDashboardViewRaw extends Component {
                   {textConsts.replenish}
                 </Button>
               </div>
-              {this.renderInfoCardsSections(dashboardCardConfig)}
+
+              {/* <SectionalDashboard
+                config={dashboardCardConfig} 
+                valueByKeyFunction={this.getCardValueByDataKey} 
+                onClickViewMore={onClickInfoCardViewMode} 
+              /> */}
+
+              {SectionalDashboard(dashboardCardConfig, this.getCardValueByDataKey, onClickInfoCardViewMode)}
             </MainContent>
           </Appbar>
         </Main>
@@ -94,55 +103,43 @@ export class ClientDashboardViewRaw extends Component {
     )
   }
 
-  renderInfoCardsSections = sections =>
-    sections.map(section => (
-      <div key={`dashboardSection_${section.key}`} className={this.props.classes.mb5}>
-        <Typography paragraph variant="h5">
-          {section.title}
-        </Typography>
-        <Grid container justify="center" spacing={3}>
-          {section.items.map(item => this.renderInfoCard(item, section))}
-        </Grid>
-      </div>
-    ))
-
-  renderInfoCard = (infoCardData, section) => (
-    <Grid key={`dashboardSection_${section.dataKey}_infoCard_${infoCardData.dataKey}`} item lg={4} sm={6} xs={12}>
-      <DashboardInfoCard
-        color={infoCardData.color}
-        title={infoCardData.title}
-        route={infoCardData.route || false}
-        value={this.getCardValueByDataKey(infoCardData.dataKey)}
-        onClickViewMore={this.viewModel.onClickInfoCardViewMode}
-      />
-    </Grid>
-  )
-
   getCardValueByDataKey = dataKey => {
-    const {productsPaid, orders} = this.viewModel
+    const {productsPaid, orders, boxesMy, batchesBoxes} = this.viewModel
     switch (dataKey) {
       case ClientDashboardCardDataKey.IN_INVENTORY:
         return productsPaid.length
-      case ClientDashboardCardDataKey.FULL_COST:
-        return 'N/A'
+
+      case ClientDashboardCardDataKey.IN_INVENTORY_BY_CLIENT:
+        return productsPaid.filter(el => el.isCreatedByClient).length
+
       case ClientDashboardCardDataKey.REPURCHASE_ITEMS:
-        return 'N/A'
-      case ClientDashboardCardDataKey.NOT_PAID_ORDERS:
-        return 'N/A'
-      case ClientDashboardCardDataKey.PAID_ORDERS:
+        return productsPaid.filter(el => !el.isCreatedByClient).length
+
+      case ClientDashboardCardDataKey.ALL_ORDERS:
         return orders.length
+
+      case ClientDashboardCardDataKey.PAID_ORDERS:
+        return orders.filter(el =>
+          [
+            OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+            OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+            OrderStatusByKey[OrderStatus.IN_STOCK],
+          ].includes(el.status),
+        ).length
+
       case ClientDashboardCardDataKey.CANCELED_ORDERS:
-        return 'N/A'
-      case ClientDashboardCardDataKey.SOLD_ITEMS_ON_EXCHANGE:
-        return 'N/A'
-      case ClientDashboardCardDataKey.ACCURED_TO_RESERCHERS:
-        return 'N/A'
-      case ClientDashboardCardDataKey.DISPUTS_FOR_PRODUCTS:
-        return 'N/A'
+        return orders.filter(el => el.status === OrderStatusByKey[OrderStatus.ORDER_CLOSED]).length
+
+      case ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE:
+        return boxesMy.filter(el => !el.isDraft).length
+
+      case ClientDashboardCardDataKey.READY_TO_SEND:
+        return batchesBoxes?.filter(el => !el.sendToBatchComplete).length
+
+      case ClientDashboardCardDataKey.SEND_BOXES:
+        return batchesBoxes?.filter(el => el.sendToBatchComplete).length
     }
   }
 }
 
-const ClientDashboardView = withStyles(styles)(ClientDashboardViewRaw)
-
-export {ClientDashboardView}
+export const ClientDashboardView = withStyles(styles)(ClientDashboardViewRaw)

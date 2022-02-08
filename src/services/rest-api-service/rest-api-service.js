@@ -1,6 +1,14 @@
 import {BACKEND_API_URL} from '@constants/env'
 
-import {ApiClient, BoxesApi, IntegrationsApi, PermissionsApi, RequestProposalsApi, RequestsApi} from './codegen/src'
+import {
+  ApiClient,
+  BoxesApi,
+  IntegrationsApi,
+  PermissionsApi,
+  RequestProposalsApi,
+  RequestsApi,
+  ShopApi,
+} from './codegen/src'
 import AdministratorApi from './codegen/src/api/AdministratorApi'
 import BatchesApi from './codegen/src/api/BatchesApi'
 import BuyerApi from './codegen/src/api/BuyerApi'
@@ -43,6 +51,7 @@ class RestApiService {
 
     this.SearchRequestApi = new RequestsApi(this.apiClient)
     this.SearchRequestProposalApi = new RequestProposalsApi(this.apiClient)
+    this.shopApi = new ShopApi(this.apiClient)
   }
 
   setAccessToken = accessToken => {

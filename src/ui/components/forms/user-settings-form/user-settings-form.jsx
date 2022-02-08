@@ -5,6 +5,7 @@ import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
 import {texts} from '@constants/texts'
+import {renderSettingsRuLabelByKey} from '@constants/user-settings-labels-to-render'
 
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Field} from '@components/field/field'
@@ -47,8 +48,6 @@ export const UserSettingsForm = observer(() => {
 
   return (
     <div className={classNames.mainWrapper}>
-      <Typography variant="h5">{textConsts.mainTitle}</Typography>
-
       {!sourceUserSettings && (
         <Typography className={classNames.noSettingsWarning}>{textConsts.noSettingsWarning}</Typography>
       )}
@@ -56,7 +55,7 @@ export const UserSettingsForm = observer(() => {
       {userSettingsAvailable.map((item, i) => (
         <Field
           key={i}
-          label={item.key}
+          label={renderSettingsRuLabelByKey(item.key)}
           inputComponent={
             <TextareaAutosize
               className={classNames.textField}

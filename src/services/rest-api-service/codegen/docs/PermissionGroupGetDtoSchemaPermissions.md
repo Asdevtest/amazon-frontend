@@ -8,9 +8,10 @@ Name | Type | Description | Notes
 **key** | **String** | Permission ключ | 
 **title** | **String** | Простое название. | 
 **description** | **String** | Описание permission | 
-**allowedUrl** | **[String]** | Массив доступных url. | 
-**createdById** | **String** | GUID любого, кто последний создал permission. | 
+**allowedUrls** | [**[UserAdminFullSchemaAllowedUrls]**](UserAdminFullSchemaAllowedUrls.md) | Массив доступных url. | 
 **role** | **Number** | Роль для которого данный permission | 
+**hierarchy** | **Number** | Для фронта, чтобы хранить иерархию. | [optional] 
+**createdById** | **String** | GUID любого, кто последний создал permission. | 
 **lastModifiedById** | **String** | GUID любого, кто последний редактировал permission. | [optional] 
 **createdAt** | **Date** | Дата создания | 
 **updatedAt** | **Date** | Дата изменения | 

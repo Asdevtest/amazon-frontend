@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
-import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 
 /**
  * The InlineObject44 model module.
@@ -23,7 +21,6 @@ import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 class InlineObject44 {
     /**
      * Constructs a new <code>InlineObject44</code>.
-     * Схема кастомной заявки.
      * @alias module:model/InlineObject44
      */
     constructor() { 
@@ -50,11 +47,14 @@ class InlineObject44 {
         if (data) {
             obj = obj || new InlineObject44();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            }
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'], 'Boolean');
             }
         }
         return obj;
@@ -64,14 +64,22 @@ class InlineObject44 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomRequest} request
+ * Статус
+ * @member {Number} status
  */
-InlineObject44.prototype['request'] = undefined;
+InlineObject44.prototype['status'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestsCustomDetails} details
+ * Признак того, что баркод поклеен у поставщика.
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
  */
-InlineObject44.prototype['details'] = undefined;
+InlineObject44.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+
+/**
+ * ???===нет описания===
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper
+ */
+InlineObject44.prototype['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = undefined;
 
 
 

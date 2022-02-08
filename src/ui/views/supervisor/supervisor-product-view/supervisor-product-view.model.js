@@ -1,5 +1,5 @@
 import {transformAndValidate} from 'class-transformer-validator'
-import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
+import {action, makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
@@ -78,6 +78,10 @@ const confirmMessageByProductStatus = {
   20: 'Товар не подходит?',
   70: 'Опубликовать на бирже?',
   80: 'Поставщик не найден?',
+  230: 'Отправить на поиск поставщика?',
+  270: 'Подтвердить нахождение поставщика?',
+  280: 'Поставщик не найден?',
+  290: 'Цена поставщика неприемлема?',
 }
 
 const confirmMessageWithoutStatus = 'Сохранить без статуса?'
@@ -97,9 +101,9 @@ export class SupervisorProductViewModel {
   actionStatus = undefined
 
   product = undefined
+  productId = undefined
   productBase = undefined
 
-  suppliers = []
   curUpdateProductData = {}
   confirmMessage = ''
   warningModalTitle = ''
@@ -113,21 +117,35 @@ export class SupervisorProductViewModel {
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
-  constructor({history, location}) {
+  constructor({history}) {
     this.history = history
-    if (location.state) {
-      const product = {
-        ...location.state.product,
-        supplier: location.state.product.suppliers.map(supplierItem =>
-          typeof supplierItem === 'string' ? supplierItem : supplierItem._id,
-        ),
-      }
-      this.product = product
-      this.productBase = product
-      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.suppliers
-    }
+
+    this.productId = history.location.search.slice(1)
+
     makeAutoObservable(this, undefined, {autoBind: true})
-    updateProductAutoCalculatedFields.call(this)
+  }
+
+  async loadData() {
+    try {
+      await this.getProductById()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getProductById() {
+    try {
+      const result = await ProductModel.getProductById(this.productId)
+
+      runInAction(() => {
+        this.product = result
+
+        this.productBase = result
+        updateProductAutoCalculatedFields.call(this)
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onChangeProductFields = fieldName =>
@@ -178,7 +196,7 @@ export class SupervisorProductViewModel {
 
       this.onTriggerOpenModal('showWarningModal')
     } else {
-      this.product.status = ProductStatusByKey[statusKey]
+      this.product = {...this.product, status: ProductStatusByKey[statusKey]}
     }
   }
 
@@ -233,6 +251,10 @@ export class SupervisorProductViewModel {
         this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(this.curUpdateProductData, ['status'])
       }
 
+      if (this.product.isCreatedByClient) {
+        this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(this.curUpdateProductData, ['amazon'])
+      }
+
       await transformAndValidate(SupervisorUpdateProductContract, this.curUpdateProductData)
 
       this.confirmMessage = withoutStatus
@@ -271,8 +293,6 @@ export class SupervisorProductViewModel {
       await SupervisorModel.updateProduct(this.product._id, this.curUpdateProductData)
       this.setActionStatus(loadingStatuses.success)
 
-      this.history.replace('/supervisor/product', {product: toJS(this.product), suppliers: toJS(this.suppliers)})
-
       this.history.push('/supervisor/products')
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
@@ -307,16 +327,16 @@ export class SupervisorProductViewModel {
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
       await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
       this.setActionStatus(loadingStatuses.success)
-      const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === this.selectedSupplier._id)
       const findProductSupplierIndex = this.product.suppliers.findIndex(
         supplierItem => supplierItem._id === this.selectedSupplier._id,
       )
       runInAction(() => {
-        this.suppliers.splice(findSupplierIndex, 1)
         this.product.suppliers.splice(findProductSupplierIndex, 1)
         this.selectedSupplier = undefined
         this.onSaveProductData()
       })
+
+      this.loadData()
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)

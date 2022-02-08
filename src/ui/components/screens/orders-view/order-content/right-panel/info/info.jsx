@@ -9,6 +9,7 @@ import {texts} from '@constants/texts'
 
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './info.style'
@@ -63,25 +64,48 @@ export const Info = ({order}) => {
         </div>
       </div>
 
-      <div className={classNames.photoWrapper}>
-        <Typography className={classNames.subTitle}>{'Фотографии к заказу:'}</Typography>
+      <div className={classNames.imagesWrapper}>
+        <div className={classNames.photoWrapper}>
+          <Typography className={classNames.subTitle}>{'Фотографии к заказу:'}</Typography>
 
-        {(order.images === null ? false : order.images.length > 0) ? (
-          <Carousel autoPlay={false} timeout={100} animation="fade">
-            {order.images.map((el, index) => (
-              <div key={index}>
-                <img
-                  alt=""
-                  className={classNames.imgBox}
-                  src={el}
-                  onClick={() => onClickImg({images: order.images, imgIndex: index})}
-                />
-              </div>
-            ))}
-          </Carousel>
-        ) : (
-          <Typography>{'Фотографий пока нет...'}</Typography>
-        )}
+          {(order.images === null ? false : order.images.length > 0) ? (
+            <Carousel autoPlay={false} timeout={100} animation="fade">
+              {order.images.map((el, index) => (
+                <div key={index}>
+                  <img
+                    alt=""
+                    className={classNames.imgBox}
+                    src={getAmazonImageUrl(el)}
+                    onClick={() => onClickImg({images: order.images, imgIndex: index})}
+                  />
+                </div>
+              ))}
+            </Carousel>
+          ) : (
+            <Typography>{'Фотографий пока нет...'}</Typography>
+          )}
+        </div>
+
+        <div className={classNames.photoWrapper}>
+          <Typography className={classNames.subTitle}>{'Фотографии текущего поставщика:'}</Typography>
+
+          {(order.product.images === null ? false : order.product.images.length > 0) ? (
+            <Carousel autoPlay={false} timeout={100} animation="fade">
+              {order.product.currentSupplier.images.map((el, index) => (
+                <div key={index}>
+                  <img
+                    alt=""
+                    className={classNames.imgBox}
+                    src={getAmazonImageUrl(el)}
+                    onClick={() => onClickImg({images: order.product.currentSupplier.images, imgIndex: index})}
+                  />
+                </div>
+              ))}
+            </Carousel>
+          ) : (
+            <Typography>{'Фотографий пока нет...'}</Typography>
+          )}
+        </div>
       </div>
 
       <BigImagesModal

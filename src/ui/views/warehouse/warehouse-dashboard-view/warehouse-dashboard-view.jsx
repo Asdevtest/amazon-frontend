@@ -11,8 +11,8 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {DashboardBalance} from '@components/dashboard-balance'
-import {DashboardInfoCard} from '@components/dashboard-info-card'
+import {DashboardBalance} from '@components/dashboards/dashboard-balance'
+import {DashboardInfoCard} from '@components/dashboards/dashboard-info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -82,25 +82,25 @@ export class WarehouseDashboardViewRaw extends Component {
     ))
 
   getCardValueByDataKey = dataKey => {
-    const {tasksVacant, tasksMy, boxesVacant, boxesMy, batches} = this.viewModel
+    const {tasksVacant, tasksMy, batches, boxesMy} = this.viewModel
     switch (dataKey) {
       case WarehouseDashboardCardDataKey.VACANT_TASKS:
         return tasksVacant.filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.NEW]).length
+
       case WarehouseDashboardCardDataKey.TASKS_MY:
         return tasksMy.filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS]).length
-      case WarehouseDashboardCardDataKey.BOXES_VACANT:
-        return boxesVacant.length
-      case WarehouseDashboardCardDataKey.BOXES_MY:
-        return boxesMy.length
-      case WarehouseDashboardCardDataKey.BATCHES:
-        return batches.length
 
       case WarehouseDashboardCardDataKey.COMPLETED_TASKS:
         return tasksMy.filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.SOLVED]).length
-      case WarehouseDashboardCardDataKey.MY_STATS:
-        return 'N/A'
-      case WarehouseDashboardCardDataKey.MY_PAYMENTS:
-        return 'N/A'
+
+      case WarehouseDashboardCardDataKey.BOXES_IN_STORE:
+        return boxesMy.length
+
+      case WarehouseDashboardCardDataKey.SENT_BATCHES:
+        return batches.filter(batch => batch.boxes[0].sendToBatchComplete).length
+
+      case WarehouseDashboardCardDataKey.NOT_SENT_BATCHES:
+        return batches.filter(batch => !batch.boxes[0].sendToBatchComplete).length
     }
   }
 }

@@ -1,9 +1,12 @@
-import React, {useState} from 'react'
+import {DataGrid} from '@mui/x-data-grid'
+
+import React, {useEffect, useState} from 'react'
 
 import {Chip, Typography} from '@material-ui/core'
-import {DataGrid} from '@material-ui/data-grid'
 import clsx from 'clsx'
+import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
+import qs from 'qs'
 
 import {texts} from '@constants/texts'
 
@@ -24,7 +27,7 @@ const chipConfigSettings = {
   SKU: 'SKU',
 }
 
-export const BindInventoryGoodsToStockForm = observer(({goodsToSelect /* selectedRow*/}) => {
+export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockData, selectedRow, onSubmit}) => {
   const classNames = useClassNames()
 
   const [chosenGoods, setChosenGoods] = useState([])
@@ -37,16 +40,35 @@ export const BindInventoryGoodsToStockForm = observer(({goodsToSelect /* selecte
     setChosenGoods(filteredArray)
   }
 
+  const filterByChipConfig = config => {
+    switch (config) {
+      case chipConfigSettings.RECOMMENDED:
+        return 'asin'
+      case chipConfigSettings.NAME:
+        return 'title'
+      case chipConfigSettings.ASIN:
+        return 'asin'
+      case chipConfigSettings.SKU:
+        return 'sku'
+    }
+  }
+
+  const filter = qs
+    .stringify(
+      chipConfig === chipConfigSettings.RECOMMENDED
+        ? {[filterByChipConfig(chipConfig)]: {$contains: selectedRow.id}}
+        : {[filterByChipConfig(chipConfig)]: {$contains: searchInputValue}},
+      {encode: false},
+    )
+    .replace(/&/, ';')
+
   const onClickSearch = () => {
-    // switch (chipConfig) {
-    //   case chipConfigSettings.NAME:
-    //     // setInventoryData(filteredArray.filter(el=>el.title.includes(searchInputValue)))
-    //     sortInventoryDataByName(searchInputValue)
-    //     break
-    //   case chipConfigSettings.ASIN:
-    //     // setInventoryData(filteredArray.filter(el=>el.asin.includes(searchInputValue)))
-    //     break
-    // }
+    updateStockData(filter)
+  }
+
+  const setRecommendChip = () => {
+    setChipConfig(chipConfigSettings.RECOMMENDED)
+    setSearchInputValue('')
   }
 
   const onSelectionModel = model => {
@@ -54,8 +76,20 @@ export const BindInventoryGoodsToStockForm = observer(({goodsToSelect /* selecte
 
     const newRowIds = model.filter(el => !curChosenGoodsIds.includes(el))
 
-    const newSelectedItems = goodsToSelect.filter(el => newRowIds.includes(el.id))
+    const newSelectedItems = toJS(stockData).filter(el => newRowIds.includes(el.id))
     setChosenGoods([...chosenGoods, ...newSelectedItems])
+  }
+
+  useEffect(() => {
+    if (chipConfig === chipConfigSettings.RECOMMENDED) {
+      updateStockData()
+    }
+  }, [chipConfig])
+
+  const onClickSubmit = () => {
+    const selectedSkus = chosenGoods.map(el => el.sku)
+
+    onSubmit({productId: selectedRow.originalData._id, skus: selectedSkus})
   }
 
   return (
@@ -67,7 +101,7 @@ export const BindInventoryGoodsToStockForm = observer(({goodsToSelect /* selecte
           <Chip
             label={textConsts.recommend}
             className={clsx(classNames.chip, {[classNames.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED})}
-            onClick={() => setChipConfig(chipConfigSettings.RECOMMENDED)}
+            onClick={() => setRecommendChip()}
           />
           <Typography className={classNames.betweenChipsText}>{textConsts.betweenChipsText}</Typography>
 
@@ -116,7 +150,7 @@ export const BindInventoryGoodsToStockForm = observer(({goodsToSelect /* selecte
           <DataGrid
             hideFooter
             checkboxSelection
-            rows={goodsToSelect}
+            rows={toJS(stockData)}
             columns={sourceColumns()}
             rowHeight={60}
             onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
@@ -130,7 +164,13 @@ export const BindInventoryGoodsToStockForm = observer(({goodsToSelect /* selecte
         </div>
 
         <div className={classNames.btnsWrapper}>
-          <SuccessButton disableElevation disabled={chosenGoods.length < 1} variant="contained" color="primary">
+          <SuccessButton
+            disableElevation
+            disabled={chosenGoods.length < 1}
+            variant="contained"
+            color="primary"
+            onClick={onClickSubmit}
+          >
             {textConsts.bindBtn}
           </SuccessButton>
         </div>

@@ -10,7 +10,7 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {DashboardInfoCard} from '@components/dashboard-info-card'
+import {DashboardInfoCard} from '@components/dashboards/dashboard-info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'

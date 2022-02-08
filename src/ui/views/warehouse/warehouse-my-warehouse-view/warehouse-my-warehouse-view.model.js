@@ -42,7 +42,7 @@ export class WarehouseMyWarehouseViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = warehouseBoxesViewColumns()
 
   get isMasterBoxSelected() {
@@ -82,7 +82,7 @@ export class WarehouseMyWarehouseViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value

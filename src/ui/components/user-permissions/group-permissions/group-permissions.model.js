@@ -49,7 +49,7 @@ export class GroupPermissionsModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = adminGroupPermissionsColumns(this.rowHandlers)
 
   constructor({history}) {
@@ -78,7 +78,7 @@ export class GroupPermissionsModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -214,7 +214,7 @@ export class GroupPermissionsModel {
 
   async updateGroupPermission(data, permissionId) {
     try {
-      const allowData = getObjectFilteredByKeyArrayWhiteList(data, ['title', 'description', 'permissions'])
+      const allowData = getObjectFilteredByKeyArrayWhiteList(data, ['title', 'description', 'permissions', 'hierarchy'])
 
       await PermissionsModel.updateGroupPermission(permissionId, allowData)
     } catch (error) {

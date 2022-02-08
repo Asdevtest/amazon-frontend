@@ -1,7 +1,7 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {useEffect, useRef} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
@@ -13,7 +13,6 @@ import {AddOrEditSinglePermissionForm} from '@components/forms/add-or-edit-singl
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {SinglePermissionsModel} from './single-permissions.model'
@@ -58,8 +57,6 @@ export const SinglePermissions = observer(() => {
 
   return (
     <div className={classNames.mainWrapper}>
-      <Typography variant="h6">{textConsts.mainTitle}</Typography>
-
       <div className={classNames.placeAddBtnWrapper}>
         <SuccessButton onClick={() => onClickAddBtn()}>{textConsts.addBtn}</SuccessButton>
       </div>
@@ -73,7 +70,7 @@ export const SinglePermissions = observer(() => {
           filterModel={filterModel}
           page={curPage}
           pageSize={rowsPerPage}
-          rowsPerPageOptions={[5, 10, 15, 20]}
+          rowsPerPageOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}
           rowHeight={70}
           components={{
@@ -85,7 +82,7 @@ export const SinglePermissions = observer(() => {
           onSortModelChange={onChangeSortingModel}
           onPageSizeChange={onChangeRowsPerPage}
           onPageChange={onChangeCurPage}
-          onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+          onStateChange={setDataGridState}
           onFilterModelChange={model => onChangeFilterModel(model)}
         />
       </div>

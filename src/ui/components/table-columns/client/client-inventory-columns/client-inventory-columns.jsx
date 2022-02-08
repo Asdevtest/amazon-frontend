@@ -41,6 +41,13 @@ export const clientInventoryColumns = barCodeHandlers => [
   },
 
   {
+    field: 'status',
+    headerName: textConsts.statusField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 400,
+  },
+
+  {
     field: 'strategyStatus',
     headerName: textConsts.strategyStatusField,
     renderCell: params => renderFieldValueCell(params.value),

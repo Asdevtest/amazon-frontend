@@ -41,14 +41,15 @@ const TableBodyBoxRow = ({item, handlers}) => {
         {item.items.map(el => (
           <div key={el.product._id} className={classNames.descriptionWrapper}>
             <div className={classNames.imgBlock}>
-              <img
-                className={classNames.imgBox}
-                src={el.product.images && el.product.images[0] && getAmazonImageUrl(el.product.images[0])}
-              />
+              <img className={classNames.imgBox} src={getAmazonImageUrl(el.product.images[0])} />
               <div className={classNames.imgSubBlock}>
                 <div className={classNames.countBlock}>
                   <Typography>{textConsts.countTypo}</Typography>
-                  <Typography>{el.amount}</Typography>
+                  <Typography className={classNames.amount}>{el.amount}</Typography>
+
+                  {item.amount > 1 && (
+                    <Typography className={classNames.superboxTypo}>{`Superbox x ${item.amount}`}</Typography>
+                  )}
                 </div>
                 <Typography className={classNames.boxTitle}>{el.product.id}</Typography>
               </div>
@@ -59,7 +60,7 @@ const TableBodyBoxRow = ({item, handlers}) => {
       </TableCell>
 
       <TableCell>
-        <Typography>{item._id}</Typography>
+        <Typography>{item.humanFriendlyId}</Typography>
       </TableCell>
 
       <TableCell>

@@ -50,7 +50,7 @@ export class WarehouseVacantViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = warehouseMyTasksViewColumns(this.rowHandlers)
 
   tmpDataForCancelTask = {}
@@ -73,7 +73,7 @@ export class WarehouseVacantViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
 
@@ -235,12 +235,15 @@ export class WarehouseVacantViewModel {
       }
 
       if (operationType === TaskOperationType.RECEIVE) {
-        if (newBoxes[0].tmpImages.length > 0) {
-          await onSubmitPostImages.call(this, {images: newBoxes[0].tmpImages, type: 'imagesOfBox'})
-        }
+        const requestBoxes = []
+        for (let i = 0; i < newBoxes.length; i++) {
+          const box = newBoxes[i]
 
-        const requestBoxes = newBoxes.map(box =>
-          getObjectFilteredByKeyArrayBlackList(
+          if (box.tmpImages.length > 0) {
+            await onSubmitPostImages.call(this, {images: box.tmpImages, type: 'imagesOfBox'})
+          }
+
+          const newBox = getObjectFilteredByKeyArrayBlackList(
             {
               ...box,
               items: [
@@ -250,7 +253,7 @@ export class WarehouseVacantViewModel {
                   productId: box.items[0].product._id,
                 },
               ],
-              images: this.imagesOfBox || [],
+              images: this.imagesOfBox || box.images,
             },
             [
               '_id',
@@ -270,9 +273,13 @@ export class WarehouseVacantViewModel {
               'sendToBatchRequest',
               'sendToBatchComplete',
               'storekeeperId',
+              'humanFriendlyId',
             ],
-          ),
-        )
+          )
+
+          requestBoxes.push(newBox)
+        }
+
         await this.resolveTask(task._id, requestBoxes)
 
         await this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {

@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -54,7 +53,6 @@ export class AdminUserPermissionsView extends Component {
             curUserRole={UserRole.ADMIN}
           >
             <MainContent>
-              <Typography variant="h3">{textConsts.mainTitle}</Typography>
               <UserPermissions />
             </MainContent>
           </Appbar>

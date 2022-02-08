@@ -23,10 +23,20 @@ class InlineObject4 {
      * Constructs a new <code>InlineObject4</code>.
      * Схема динамических настроек.
      * @alias module:model/InlineObject4
+     * @param yuanToDollarRate {Number} Курс юаня к доллару.
+     * @param airDeliveryPrice {Number} Цена за авиа доставку, доллар/кг.
+     * @param seaDeliveryPrice {Number} Цена за доставку морем, доллар/кг.
+     * @param costOfFindingSupplier {Number} Цена за поиск поставщика, оплата байеру, в долларах.
+     * @param deadlineForFindingSupplier {Number} Дедлайна на поиск поставщика., в часах.
+     * @param requestMinAmountPriceOfProposal {Number} Минимальная цена за предложение к заявке, в долларах.
+     * @param requestPlatformMarginInPercent {Number} Процент с каждого предложения, маржа платформы, в процентах.
+     * @param requestSupervisorFeeInPercent {Number} Процент с каждого предложения для супервайзера, в процентах.
+     * @param requestTimeLimitInHourForCancelingProposalsByClient {Number} Время после которого будет автоматом принято предложение клиентом, в часах.
+     * @param requestTimeLimitInHourForCheckingProposalBySuper {Number} Время после которого будет автоматом снят супервизор с проверки предложения, в часах.
      */
-    constructor() { 
+    constructor(yuanToDollarRate, airDeliveryPrice, seaDeliveryPrice, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper) { 
         
-        InlineObject4.initialize(this);
+        InlineObject4.initialize(this, yuanToDollarRate, airDeliveryPrice, seaDeliveryPrice, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper);
     }
 
     /**
@@ -34,7 +44,17 @@ class InlineObject4 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, yuanToDollarRate, airDeliveryPrice, seaDeliveryPrice, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper) { 
+        obj['yuanToDollarRate'] = yuanToDollarRate;
+        obj['airDeliveryPrice'] = airDeliveryPrice;
+        obj['seaDeliveryPrice'] = seaDeliveryPrice;
+        obj['costOfFindingSupplier'] = costOfFindingSupplier;
+        obj['deadlineForFindingSupplier'] = deadlineForFindingSupplier;
+        obj['requestMinAmountPriceOfProposal'] = requestMinAmountPriceOfProposal;
+        obj['requestPlatformMarginInPercent'] = requestPlatformMarginInPercent;
+        obj['requestSupervisorFeeInPercent'] = requestSupervisorFeeInPercent;
+        obj['requestTimeLimitInHourForCancelingProposalsByClient'] = requestTimeLimitInHourForCancelingProposalsByClient;
+        obj['requestTimeLimitInHourForCheckingProposalBySuper'] = requestTimeLimitInHourForCheckingProposalBySuper;
     }
 
     /**
@@ -60,11 +80,26 @@ class InlineObject4 {
             if (data.hasOwnProperty('costOfFindingSupplier')) {
                 obj['costOfFindingSupplier'] = ApiClient.convertToType(data['costOfFindingSupplier'], 'Number');
             }
-            if (data.hasOwnProperty('timeLimitInHourForCancelingProposalsByClient')) {
-                obj['timeLimitInHourForCancelingProposalsByClient'] = ApiClient.convertToType(data['timeLimitInHourForCancelingProposalsByClient'], 'Number');
+            if (data.hasOwnProperty('costOfCheckingProduct')) {
+                obj['costOfCheckingProduct'] = ApiClient.convertToType(data['costOfCheckingProduct'], 'Number');
             }
-            if (data.hasOwnProperty('timeLimitInHourForCheckingProposalBySuper')) {
-                obj['timeLimitInHourForCheckingProposalBySuper'] = ApiClient.convertToType(data['timeLimitInHourForCheckingProposalBySuper'], 'Number');
+            if (data.hasOwnProperty('deadlineForFindingSupplier')) {
+                obj['deadlineForFindingSupplier'] = ApiClient.convertToType(data['deadlineForFindingSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('requestMinAmountPriceOfProposal')) {
+                obj['requestMinAmountPriceOfProposal'] = ApiClient.convertToType(data['requestMinAmountPriceOfProposal'], 'Number');
+            }
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
+            }
+            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
+                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
+            }
+            if (data.hasOwnProperty('requestTimeLimitInHourForCancelingProposalsByClient')) {
+                obj['requestTimeLimitInHourForCancelingProposalsByClient'] = ApiClient.convertToType(data['requestTimeLimitInHourForCancelingProposalsByClient'], 'Number');
+            }
+            if (data.hasOwnProperty('requestTimeLimitInHourForCheckingProposalBySuper')) {
+                obj['requestTimeLimitInHourForCheckingProposalBySuper'] = ApiClient.convertToType(data['requestTimeLimitInHourForCheckingProposalBySuper'], 'Number');
             }
         }
         return obj;
@@ -92,22 +127,52 @@ InlineObject4.prototype['airDeliveryPrice'] = undefined;
 InlineObject4.prototype['seaDeliveryPrice'] = undefined;
 
 /**
- * Цена за поиск поставщика, в долларах.
+ * Цена за поиск поставщика, оплата байеру, в долларах.
  * @member {Number} costOfFindingSupplier
  */
 InlineObject4.prototype['costOfFindingSupplier'] = undefined;
 
 /**
- * Время после которого будет автоматом принято предложение клиентом, в часах.
- * @member {Number} timeLimitInHourForCancelingProposalsByClient
+ * Цена за поиск поставщика, оплата ресерчера, в долларах.
+ * @member {Number} costOfCheckingProduct
  */
-InlineObject4.prototype['timeLimitInHourForCancelingProposalsByClient'] = undefined;
+InlineObject4.prototype['costOfCheckingProduct'] = undefined;
+
+/**
+ * Дедлайна на поиск поставщика., в часах.
+ * @member {Number} deadlineForFindingSupplier
+ */
+InlineObject4.prototype['deadlineForFindingSupplier'] = undefined;
+
+/**
+ * Минимальная цена за предложение к заявке, в долларах.
+ * @member {Number} requestMinAmountPriceOfProposal
+ */
+InlineObject4.prototype['requestMinAmountPriceOfProposal'] = undefined;
+
+/**
+ * Процент с каждого предложения, маржа платформы, в процентах.
+ * @member {Number} requestPlatformMarginInPercent
+ */
+InlineObject4.prototype['requestPlatformMarginInPercent'] = undefined;
+
+/**
+ * Процент с каждого предложения для супервайзера, в процентах.
+ * @member {Number} requestSupervisorFeeInPercent
+ */
+InlineObject4.prototype['requestSupervisorFeeInPercent'] = undefined;
+
+/**
+ * Время после которого будет автоматом принято предложение клиентом, в часах.
+ * @member {Number} requestTimeLimitInHourForCancelingProposalsByClient
+ */
+InlineObject4.prototype['requestTimeLimitInHourForCancelingProposalsByClient'] = undefined;
 
 /**
  * Время после которого будет автоматом снят супервизор с проверки предложения, в часах.
- * @member {Number} timeLimitInHourForCheckingProposalBySuper
+ * @member {Number} requestTimeLimitInHourForCheckingProposalBySuper
  */
-InlineObject4.prototype['timeLimitInHourForCheckingProposalBySuper'] = undefined;
+InlineObject4.prototype['requestTimeLimitInHourForCheckingProposalBySuper'] = undefined;
 
 
 

@@ -31,9 +31,9 @@ export const calcTotalFbaForProduct = product =>
 export const calcMaxDeliveryForProduct = product =>
   product.express ? (product.weight || 0) * 7 : (product.weight || 0) * 5
 
-export function updateProductAutoCalculatedFields(inConstructor) {
+export function updateProductAutoCalculatedFields() {
   const strBsr = this.product.bsr + ''
-  this.product.bsr = parseFloat(strBsr.replace(',', '')) || (inConstructor ? '' : 0)
+  this.product.bsr = parseFloat(strBsr.replace(',', '')) || 0
 
   const strPrice = this.product.amazon + ''
   this.product.amazon = (strPrice.replace(',', '') === '0' ? '' : strPrice.replace(',', '')) || ''
@@ -57,7 +57,7 @@ export function updateProductAutoCalculatedFields(inConstructor) {
           (parseFloat(this.product.currentSupplier.delivery) || 0).toFixed(2) -
           (parseFloat(this.product.currentSupplier.price) || 0).toFixed(2) -
           (parseFloat(this.product.fbafee) || 0).toFixed(2) || 0
-      ).toFixed(4)
+      ).toFixed(2)
     } else {
       this.product.profit = (
         (parseFloat(this.product.amazon) || 0).toFixed(2) -
@@ -83,6 +83,21 @@ export const calcTotalPriceForOrder = order =>
   (parseInt(order.amount) || 0)
 
 export const calcTotalPriceForBatch = batch =>
-  batch.boxes.reduce((acc, cur) => acc + cur.items[0].product.currentSupplier.lotcost, 0)
+  batch.boxes.reduce(
+    (acc, cur) =>
+      cur.amount > 1
+        ? acc +
+          cur.items.reduce(
+            (ac, cu) => ac + (cu.product.currentSupplier.price + cu.product.currentSupplier.delivery) * cu.amount,
+            0,
+          ) *
+            cur.amount
+        : acc +
+          cur.items.reduce(
+            (ac, cu) => ac + (cu.product.currentSupplier.price + cu.product.currentSupplier.delivery) * cu.amount,
+            0,
+          ),
+    0,
+  )
 
 export const calcAmazonPriceForBox = box => box.items.reduce((acc, cur) => acc + cur.product.amazon * cur.amount, 0)

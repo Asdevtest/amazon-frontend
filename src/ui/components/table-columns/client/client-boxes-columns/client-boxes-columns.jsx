@@ -26,24 +26,32 @@ export const clientBoxesViewColumns = () => [
   },
 
   {
+    field: 'humanFriendlyId',
+    headerName: textConsts.boxIdField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 60,
+  },
+
+  {
     field: 'createdAt',
     headerName: textConsts.createdAtField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 100,
+    width: 110,
     type: 'date',
   },
 
   {
-    field: 'humanFriendlyId',
-    headerName: textConsts.boxIdField,
-    renderCell: params => renderFieldValueCell(params.row.originalData.humanFriendlyId),
-    width: 300,
+    field: 'updatedAt',
+    headerName: textConsts.updatedAtField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 110,
+    type: 'date',
   },
 
   {
     field: 'orders',
     headerName: textConsts.ordersField,
-    width: 350,
+    width: 400,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
         <OrderManyItemsCell box={params.row.originalData} />
@@ -56,13 +64,6 @@ export const clientBoxesViewColumns = () => [
     filterable: false,
     sortable: false,
   },
-  {
-    field: 'updatedAt',
-    headerName: textConsts.updatedAtField,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 100,
-    type: 'date',
-  },
 
   {
     field: 'qty',
@@ -73,7 +74,7 @@ export const clientBoxesViewColumns = () => [
       ) : (
         renderFieldValueCell(params.value)
       ),
-    width: 150,
+    width: 110,
     type: 'number',
   },
 
@@ -81,14 +82,14 @@ export const clientBoxesViewColumns = () => [
     field: 'warehouses',
     headerName: textConsts.warehouseField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 200,
+    width: 160,
   },
 
   {
     field: 'amazonPrice',
     headerName: textConsts.priceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
-    width: 200,
+    width: 120,
     type: 'number',
   },
 
@@ -97,7 +98,7 @@ export const clientBoxesViewColumns = () => [
     headerName: textConsts.weightField,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 200,
+    width: 140,
   },
 
   {
@@ -105,13 +106,13 @@ export const clientBoxesViewColumns = () => [
     headerName: textConsts.grossWeightField,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 200,
+    width: 120,
   },
 
   {
     field: 'trackingNumberChina',
     headerName: textConsts.trackIdField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 150,
+    width: 170,
   },
 ]

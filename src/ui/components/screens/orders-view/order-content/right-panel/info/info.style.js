@@ -93,6 +93,10 @@ export const useClassNames = makeStyles(theme => ({
     minWidth: '330px',
   },
 
+  imagesWrapper: {
+    display: 'flex',
+  },
+
   subTitle: {
     color: 'rgba(61, 81, 112, 1)',
     fontSize: '16px',
@@ -102,11 +106,12 @@ export const useClassNames = makeStyles(theme => ({
   },
   photoWrapper: {
     maxWidth: '200px',
+    marginLeft: '10px',
   },
 
   imgBox: {
     width: '200px',
-    height: '200px',
+    height: '150px',
     objectFit: 'contain',
     objectPosition: 'center',
     transition: '.2s ease',

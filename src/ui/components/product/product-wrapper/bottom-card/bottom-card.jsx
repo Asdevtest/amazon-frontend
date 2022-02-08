@@ -3,20 +3,34 @@ import React from 'react'
 import {Grid, Typography, Paper} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {ProductStatusByCode} from '@constants/product-status'
+import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
 import {texts} from '@constants/texts'
 
 import {Field} from '@components/field'
 
-import {checkIsResearcher, checkIsSupervisor} from '@utils/checks'
+import {checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixed} from '@utils/text'
 
 import {useClassNames} from './bottom-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
-export const BottomCard = observer(({curUserRole, product, onChangeField, formFieldsValidationErrors}) => {
+const clientToEditStatuses = [
+  ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
+]
+
+export const BottomCard = observer(({curUserRole, product, productBase, onChangeField, formFieldsValidationErrors}) => {
   const classNames = useClassNames()
+
+  const clientCanEdit =
+    checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)
+
+  const defaultFieldDisable = !(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || clientCanEdit)
 
   return (
     <React.Fragment>
@@ -24,51 +38,58 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
         <Grid item sm={7} xs={12}>
           <Paper className={classNames.cardPadding}>
             <Field
-              disabled
+              disabled={
+                !(
+                  checkIsClient(curUserRole) &&
+                  product.isCreatedByClient &&
+                  clientToEditStatuses.includes(productBase.status)
+                )
+              }
+              inputProps={{maxLength: 200}}
               label={textConsts.category}
               value={product.category || ''}
               onChange={onChangeField('category')}
             />
             <Field
-              disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.bsr}
               label={textConsts.bsr}
-              value={product.bsr}
+              value={product.bsr || 0}
               onChange={onChangeField('bsr')}
             />
             <Field
-              disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              disabled={defaultFieldDisable}
               label={textConsts.amazonPrice}
               error={formFieldsValidationErrors.amazon}
               value={product.amazon || ''}
               onChange={onChangeField('amazon')}
             />
             <Field
-              disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.width}
               label={textConsts.fieldWidth}
-              value={product.width || ''}
+              value={toFixed(product.width, 2) || ''}
               onChange={onChangeField('width')}
             />
             <Field
-              disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.height}
               label={textConsts.fieldHeight}
-              value={product.height || ''}
+              value={toFixed(product.height, 2) || ''}
               onChange={onChangeField('height')}
             />
             <Field
-              disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.length}
               label={textConsts.fieldLength}
-              value={product.length || ''}
+              value={toFixed(product.length, 2) || ''}
               onChange={onChangeField('length')}
             />
             <Field
-              disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.weight}
               label={textConsts.fieldWeight}
-              value={product.weight || ''}
+              value={toFixed(product.weight, 2) || ''}
               onChange={onChangeField('weight')}
             />
 
@@ -76,39 +97,39 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
               disabled
               error={formFieldsValidationErrors.minpurchase}
               label={textConsts.minpurchase}
-              value={product.minpurchase || ''}
+              value={toFixed(product.minpurchase, 2) || ''}
               onChange={onChangeField('minpurchase')}
             />
             <Field
               disabled
               error={formFieldsValidationErrors.maxDelivery}
               label={textConsts.maxDeliveryPrice}
-              value={product.maxDelivery || 0}
+              value={toFixed(product.maxDelivery, 2) || 0}
               onChange={onChangeField('maxDelivery')}
             />
             <Field
               disabled
               error={formFieldsValidationErrors.reffee}
               label={textConsts.refferalFee}
-              value={product.reffee || ''}
+              value={toFixed(product.reffee, 2) || ''}
               onChange={onChangeField('reffee')}
             />
             <Field
-              disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.fbafee}
               label={textConsts.fbaFee}
-              value={product.fbafee || ''}
+              value={toFixed(product.fbafee, 2) || ''}
               onChange={onChangeField('fbafee')}
             />
             <Field
               disabled
               error={formFieldsValidationErrors.totalFba}
               label={textConsts.totalFba}
-              value={product.totalFba || ''}
+              value={toFixed(product.totalFba, 2) || ''}
               onChange={onChangeField('totalFba')}
             />
             <Field
-              disabled={!(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole))}
+              disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.fbaamount}
               label={textConsts.recommendedBatch}
               value={product.fbaamount || ''}
@@ -118,14 +139,14 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
               disabled
               error={formFieldsValidationErrors.profit}
               label={textConsts.revenue}
-              value={product.profit || 0}
+              value={toFixed(product.profit, 2) || 0}
               onChange={onChangeField('profit')}
             />
             <Field
               disabled
               error={formFieldsValidationErrors.margin}
               label={textConsts.fieldMargin}
-              value={product.margin || 0}
+              value={toFixed(product.margin, 2) || 0}
               onChange={onChangeField('margin')}
             />
             <Field
@@ -140,24 +161,33 @@ export const BottomCard = observer(({curUserRole, product, onChangeField, formFi
         <Grid item sm={5} xs={12}>
           <Paper className={classNames.cardPadding}>
             <Typography className={classNames.title}>{textConsts.descriptionOFGoods}</Typography>
-            <Field disabled label={textConsts.csCode} value={product.amazonTitle || ''} />
             <Field
-              disabled
+              disabled={!clientCanEdit}
+              label={textConsts.csCode}
+              value={product.amazonTitle || ''}
+              onChange={onChangeField('amazonTitle')}
+            />
+
+            <Field
               multiline
+              disabled={!clientCanEdit}
               className={classNames.heightFieldAuto}
               rows={4}
               rowsMax={6}
               label={textConsts.summary}
               value={product.amazonDescription || ''}
+              onChange={onChangeField('amazonDescription')}
             />
+
             <Field
-              disabled
               multiline
+              disabled={!clientCanEdit}
               className={classNames.heightFieldAuto}
               rows={4}
               rowsMax={6}
               label={textConsts.description}
               value={product.amazonDetail || ''}
+              onChange={onChangeField('amazonDetail')}
             />
           </Paper>
         </Grid>

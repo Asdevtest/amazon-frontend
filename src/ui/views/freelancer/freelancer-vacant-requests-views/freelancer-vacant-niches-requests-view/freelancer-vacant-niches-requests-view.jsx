@@ -1,7 +1,7 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -16,7 +16,6 @@ import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/researcherAvatar.jpg'
@@ -82,7 +81,6 @@ class FreelancerVacantNichesRequestsViewRaw extends Component {
             curUserRole={UserRole.FREELANCER}
           >
             <MainContent>
-              <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
                 <DataGrid
                   pagination
@@ -95,7 +93,7 @@ class FreelancerVacantNichesRequestsViewRaw extends Component {
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={60}
                   components={{
@@ -110,7 +108,7 @@ class FreelancerVacantNichesRequestsViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onStateChange={setDataGridState}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                 />

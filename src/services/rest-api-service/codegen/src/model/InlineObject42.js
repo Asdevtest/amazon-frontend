@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineObject7 from './InlineObject7';
 
 /**
  * The InlineObject42 model module.
@@ -47,32 +48,8 @@ class InlineObject42 {
         if (data) {
             obj = obj || new InlineObject42();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
-            }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject7]);
             }
         }
         return obj;
@@ -82,58 +59,10 @@ class InlineObject42 {
 }
 
 /**
- * Название поставщика.
- * @member {String} name
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject7>} additionalBoxes
  */
-InlineObject42.prototype['name'] = undefined;
-
-/**
- * Ссылка на поставщика.
- * @member {String} link
- */
-InlineObject42.prototype['link'] = undefined;
-
-/**
- * Цена
- * @member {Number} price
- */
-InlineObject42.prototype['price'] = undefined;
-
-/**
- * Тип доставки
- * @member {Number} delivery
- */
-InlineObject42.prototype['delivery'] = undefined;
-
-/**
- * кол-во
- * @member {Number} amount
- */
-InlineObject42.prototype['amount'] = undefined;
-
-/**
- * Минимальный лот.
- * @member {Number} minlot
- */
-InlineObject42.prototype['minlot'] = undefined;
-
-/**
- * Стоимость лота.
- * @member {Number} lotcost
- */
-InlineObject42.prototype['lotcost'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject42.prototype['images'] = undefined;
-
-/**
- * Комментарий
- * @member {String} comment
- */
-InlineObject42.prototype['comment'] = undefined;
+InlineObject42.prototype['additionalBoxes'] = undefined;
 
 
 

@@ -1,7 +1,7 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -17,9 +17,13 @@ import {BindStockGoodsToInventoryForm} from '@components/forms/bind-stock-goods-
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {SelectionSupplierModal} from '@components/modals/selection-supplier-modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
+import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/clientAvatar.jpg'
@@ -42,22 +46,29 @@ class ClientDailySellerBoardViewRaw extends Component {
   render() {
     const {
       getCurrentData,
-      addProductSettings,
       sortModel,
       filterModel,
       requestStatus,
       densityModel,
       columnsModel,
-      selectedRow,
+      confirmMessage,
+      successModalText,
+      progressValue,
+      showProgress,
       drawerOpen,
       showAddProductSellerboardModal,
       showBindStockGoodsToInventoryModal,
+      showInfoModal,
+      showAddOrEditSupplierModal,
+      showSelectionSupplierModal,
+      showSuccessModal,
+      showConfirmModal,
       curPage,
       rowsPerPage,
       selectedRows,
       inventoryProducts,
+      onSubmitBindStockGoods,
       getProductsMy,
-      // getInventoryData,
       onClickBindStockGoodsToInventoryBtn,
       onTriggerDrawer,
       onTriggerOpenModal,
@@ -67,8 +78,18 @@ class ClientDailySellerBoardViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onSelectionModel,
+
+      onSubmitCreateAndBindProduct,
+      onSubmitSaveSupplier,
+      onSubmitSeekSupplier,
+      onSubmitCalculateSeekSupplier,
     } = this.viewModel
     const {classes: className} = this.props
+
+    const onClickPrevButton = () => {
+      onTriggerOpenModal('showAddOrEditSupplierModal')
+      onTriggerOpenModal('showSelectionSupplierModal')
+    }
 
     return (
       <React.Fragment>
@@ -91,13 +112,9 @@ class ClientDailySellerBoardViewRaw extends Component {
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>
-              <Typography variant="h6" className={className.mainTitle}>
-                {textConsts.mainTitle}
-              </Typography>
-
               <Button
                 disableElevation
-                tooltipContent="Пример тултипа"
+                tooltipContent={textConsts.moveToInventoryBtnTooltip}
                 disabled={selectedRows.length === 0}
                 variant="contained"
                 color="primary"
@@ -108,7 +125,6 @@ class ClientDailySellerBoardViewRaw extends Component {
 
               <Button
                 disableElevation
-                tooltipContent="Пример тултипа"
                 disabled={selectedRows.length === 0}
                 className={className.button}
                 variant="contained"
@@ -131,7 +147,7 @@ class ClientDailySellerBoardViewRaw extends Component {
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={100}
                   components={{
@@ -144,7 +160,7 @@ class ClientDailySellerBoardViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onStateChange={setDataGridState}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
@@ -158,8 +174,9 @@ class ClientDailySellerBoardViewRaw extends Component {
         >
           <AddProductSellerboardForm
             goodsToSelect={getCurrentData().filter(item => selectedRows.includes(item.id))}
-            selectedProduct={selectedRow}
-            productToEdit={addProductSettings.product}
+            showProgress={showProgress}
+            progressValue={progressValue}
+            onSubmit={onSubmitCreateAndBindProduct}
           />
         </Modal>
 
@@ -171,8 +188,67 @@ class ClientDailySellerBoardViewRaw extends Component {
             goodsToSelect={getCurrentData().filter(item => selectedRows.includes(item.id))}
             inventoryData={inventoryProducts}
             updateInventoryData={getProductsMy}
+            onSubmit={onSubmitBindStockGoods}
           />
         </Modal>
+
+        <Modal
+          openModal={showAddOrEditSupplierModal}
+          setOpenModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
+        >
+          <AddOrEditSupplierModalContent
+            outsideProduct
+            title={textConsts.addOrEditSupplierTitle}
+            showProgress={showProgress}
+            progressValue={progressValue}
+            onClickPrevButton={() => onClickPrevButton()}
+            onClickSaveBtn={onSubmitSaveSupplier}
+          />
+        </Modal>
+
+        <Modal
+          openModal={showSelectionSupplierModal}
+          setOpenModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
+        >
+          <SelectionSupplierModal
+            onTriggerOpenModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
+            onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
+            onSubmitSeekSupplier={onSubmitCalculateSeekSupplier}
+          />
+        </Modal>
+
+        <SuccessInfoModal
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={successModalText}
+          successBtnText={textConsts.successBtn}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showSuccessModal')
+          }}
+        />
+
+        <WarningInfoModal
+          openModal={showInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
+          title={textConsts.infoModalTitle}
+          btnText={textConsts.okBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showInfoModal')
+          }}
+        />
+
+        <ConfirmationModal
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={textConsts.confirmTitle}
+          message={confirmMessage}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={() => {
+            onSubmitSeekSupplier()
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
       </React.Fragment>
     )
   }

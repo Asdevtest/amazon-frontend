@@ -50,9 +50,6 @@ export const useClassNames = makeStyles(() => ({
     cursor: 'pointer',
     transition: '.3s ease-in-out',
 
-    fontFamily: 'Montserrat',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
     backgroundColor: 'white',
     color: '#006CFF',
     '&:hover': {
@@ -67,7 +64,6 @@ export const useClassNames = makeStyles(() => ({
   },
 
   searchBtnText: {
-    fontFamily: 'Montserrat',
     fontSize: '14px',
     lineHeight: '17px',
     color: '#006CFF',

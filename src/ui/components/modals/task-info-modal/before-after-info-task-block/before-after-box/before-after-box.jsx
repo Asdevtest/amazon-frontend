@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {Typography, Paper, Checkbox} from '@material-ui/core'
+import Carousel from 'react-material-ui-carousel'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
@@ -9,6 +10,7 @@ import {texts} from '@constants/texts'
 import {getWarehousesOptionByCode} from '@constants/warehouses'
 
 import {Field} from '@components/field'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithCm, toFixedWithKg} from '@utils/text'
@@ -20,6 +22,10 @@ const textConsts = getLocalizedTexts(texts, 'ru').beforeAfterInfoTaskBlock
 
 export const BeforeAfterBox = ({box, isCurrentBox, taskType}) => {
   const classNames = useClassNames()
+
+  const [showImageModal, setShowImageModal] = useState(false)
+
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   return (
     <Paper className={classNames.box}>
@@ -40,7 +46,7 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType}) => {
         )}
       </div>
 
-      <Typography className={classNames.boxTitle}>{`${textConsts.boxNum} ${box._id}`}</Typography>
+      <Typography className={classNames.boxTitle}>{`${textConsts.boxNum} ${box.humanFriendlyId}`}</Typography>
 
       {box.amount > 1 && (
         <div className={classNames.superWrapper}>
@@ -55,6 +61,60 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType}) => {
             <TaskInfoBoxItemCard item={item} index={index} superCount={box.amount} box={box} />
           </div>
         ))}
+      </div>
+
+      <div className={classNames.imagesWrapper}>
+        {box.images && (
+          <div className={classNames.photoWrapper}>
+            <Typography>{'Фотографии коробки:'}</Typography>
+
+            {box.images.length > 0 ? (
+              <Carousel autoPlay={false} timeout={100} animation="fade">
+                {box.images.map((el, index) => (
+                  <div key={index}>
+                    <img
+                      alt=""
+                      className={classNames.imgBox}
+                      src={el}
+                      onClick={() => {
+                        setShowImageModal(!showImageModal)
+                        setBigImagesOptions({images: box.images, imgIndex: index})
+                      }}
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            ) : (
+              <Typography>{'Фотографий пока нет...'}</Typography>
+            )}
+          </div>
+        )}
+
+        {box.items[0].order.images && (
+          <div className={classNames.photoWrapper}>
+            <Typography>{'Фотографии заказа:'}</Typography>
+
+            {box.items[0].order.images.length > 0 ? (
+              <Carousel autoPlay={false} timeout={100} animation="fade">
+                {box.items[0].order.images.map((el, index) => (
+                  <div key={index}>
+                    <img
+                      alt=""
+                      className={classNames.imgBox}
+                      src={el}
+                      onClick={() => {
+                        setShowImageModal(!showImageModal)
+                        setBigImagesOptions({images: box.items[0].order.images, imgIndex: index})
+                      }}
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            ) : (
+              <Typography>{'Фотографий пока нет...'}</Typography>
+            )}
+          </div>
+        )}
       </div>
 
       <Paper className={classNames.bottomBlockWrapper}>
@@ -144,6 +204,14 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType}) => {
           </Paper>
         )}
       </Paper>
+
+      <BigImagesModal
+        isAmazone
+        openModal={showImageModal}
+        setOpenModal={() => setShowImageModal(!showImageModal)}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
+      />
     </Paper>
   )
 }

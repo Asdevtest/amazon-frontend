@@ -1,15 +1,14 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
-import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables-keys'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 
-import {adminFinancesViewColumns} from '@components/table-columns/admin/finances-columns'
+import {financesViewColumns} from '@components/table-columns/admin/finances-columns/finances-columns'
 
-import {adminFinancesDataConverter} from '@utils/data-grid-data-converters'
+import {financesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -21,16 +20,14 @@ export class AdminFinancesViewsModel {
   currentFinancesData = []
 
   selectionModel = undefined
-
-  activeSubCategory = SettingsModel.activeSubCategoryState[ActiveSubCategoryTablesKeys.ADMIN_FINANCES] || 0
   drawerOpen = false
 
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
-  columnsModel = adminFinancesViewColumns()
+  densityModel = 'compact'
+  columnsModel = financesViewColumns()
 
   constructor({history}) {
     this.history = history
@@ -39,10 +36,6 @@ export class AdminFinancesViewsModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
-  }
-
-  setActiveSubCategoryState(state) {
-    SettingsModel.setActiveSubCategoryState(state, ActiveSubCategoryTablesKeys.ADMIN_FINANCES)
   }
 
   setDataGridState(state) {
@@ -62,37 +55,29 @@ export class AdminFinancesViewsModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = adminFinancesViewColumns().map(el => ({
+      this.columnsModel = financesViewColumns().map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }
 
-  onChangeSubCategory(value) {
-    this.setActiveSubCategoryState(value)
-    this.activeSubCategory = value
-    this.getPayments(value)
-  }
-
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
   }
 
-  async getPayments(activeSubCategory) {
+  async getPayments() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
       const result = await AdministratorModel.getAllPayments()
 
       runInAction(() => {
-        this.currentFinancesData = adminFinancesDataConverter(result)
-          .filter(el => (activeSubCategory < 1 ? el.sum >= 0 : el.sum < 0))
-          .sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.currentFinancesData = financesDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

@@ -38,7 +38,7 @@ export class ResearcherProductsRequestsViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = researcherProductsRequestsViewColumns()
 
   constructor({history}) {
@@ -67,7 +67,7 @@ export class ResearcherProductsRequestsViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value

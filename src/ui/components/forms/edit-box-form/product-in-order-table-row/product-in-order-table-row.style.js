@@ -45,8 +45,8 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   buyerComment: {
-    height: '150px',
+    height: '60px',
     width: '300px',
-    overflowY: 'scroll',
+    overflowX: 'scroll',
   },
 }))

@@ -25,8 +25,7 @@ export const ProductStatusButtons = ({
   if (!buttonsConfig) {
     return <div />
   }
-  console.log(buttonsConfig)
-  console.log(product)
+
   return (
     <Box marginBottom={2}>
       <Grid container spacing={1}>
@@ -34,9 +33,8 @@ export const ProductStatusButtons = ({
           <Grid key={buttonConfig.statusKey} item>
             <ColoredChip
               disabled={
-                (mapProductStrategyStatusEnum[product.strategyStatus] === 'PRIVATE_LABEL' &&
-                  buttonConfig.statusKey === 'RESEARCHER_FOUND_SUPPLIER') ||
-                product.status === ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]
+                mapProductStrategyStatusEnum[product.strategyStatus] === 'PRIVATE_LABEL' &&
+                buttonConfig.statusKey === 'RESEARCHER_FOUND_SUPPLIER'
               }
               label={buttonConfig.label}
               color={buttonConfig.color}
@@ -49,7 +47,7 @@ export const ProductStatusButtons = ({
         {onClickSaveWithoutStatusChange ? (
           <Grid item>
             <ColoredChip
-              disabled={product.status === ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]}
+              disabled={productStatus === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
               label={textConfig.saveWithoutStatusBtn}
               color={saveWithoutStatusBtnColor}
               colorHover={saveWithoutStatusBtnColorHover}

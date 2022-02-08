@@ -68,9 +68,6 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
           >
             <MainContent>
               <div className={classNames.mb5}>
-                <Typography paragraph variant="h6">
-                  {textConsts.mainTitle}
-                </Typography>
                 <div className={classNames.cardsWrapper}>
                   {productsVacant.length > 0 ? (
                     this.renderProductsVacant()
@@ -94,7 +91,6 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
           cancelBtnText={textConsts.cancelBtn}
           onClickSuccessBtn={() => {
             onClickBuyProductBtn(productToPay)
-            onTriggerOpenModal('showConfirmPayModal')
           }}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmPayModal')}
         />
@@ -114,11 +110,11 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
 
   renderProductsVacant = () => {
     const {classes: classNames} = this.props
-    const {productsVacant, setProductToPay, onTriggerOpenModal} = this.viewModel
+    const {productsVacant, setProductToPay} = this.viewModel
 
     return productsVacant.map((item, index) => (
       <div key={`product_${item._id}_${index}`} className={classNames.cardWrapper}>
-        <PrivateLabelCard item={item} setProductToPay={setProductToPay} onTriggerOpenModal={onTriggerOpenModal} />
+        <PrivateLabelCard item={item} setProductToPay={setProductToPay} />
       </div>
     ))
   }

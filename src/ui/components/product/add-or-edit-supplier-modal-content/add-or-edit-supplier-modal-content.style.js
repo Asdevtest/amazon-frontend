@@ -29,40 +29,19 @@ export const useClassNames = makeStyles(() => ({
   prevBtnClient: {
     height: '40px',
     alignSelf: 'end',
-    fontSize: '18px',
-    lineHeight: '22px',
-    padding: '9px 39px',
   },
 
-  saveAndBindBtnClient: {
+  saveBtnClient: {
+    minWidth: '240px',
     display: 'block',
-    fontSize: '18px',
-    lineHeight: '22px',
     marginBottom: '10px',
-    padding: '9px 32px',
-    backgroundColor: '#c4c4c4',
+    backgroundColor: '#4caf50',
     color: 'ffffff',
     '&:hover': {
-      backgroundColor: '#00b746',
+      backgroundColor: '#009a07',
 
       '@media (hover: none)': {
-        backgroundColor: '#00b746',
-      },
-    },
-  },
-
-  saveAndAddBtnClient: {
-    display: 'block',
-    fontSize: '18px',
-    lineHeight: '22px',
-    padding: '9px 16px',
-    backgroundColor: '#c4c4c4',
-    color: 'ffffff',
-    '&:hover': {
-      backgroundColor: '#00b746',
-
-      '@media (hover: none)': {
-        backgroundColor: '#00b746',
+        backgroundColor: '#009a07',
       },
     },
   },
@@ -110,5 +89,18 @@ export const useClassNames = makeStyles(() => ({
     height: 'auto',
     marginLeft: '20px',
     marginTop: '10px',
+  },
+
+  checkboxWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '20px',
+  },
+
+  checkboxText: {
+    fontSize: '16px',
+    lineHeight: '20px',
+    color: 'rgba(61, 81, 112, 1)',
+    fontWeight: '600',
   },
 }))

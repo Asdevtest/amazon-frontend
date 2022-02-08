@@ -34,18 +34,22 @@ export const Button: FC<Props> = ({
     <StyledButton
       disableElevation
       color={color || 'primary'}
-      disabled={disabled && !(success || danger)}
+      disabled={disabled}
       variant={variant || 'contained'}
-      {...restProps}
       className={clsx(classNames.root, className, {
         [classNames.success]: success,
         [classNames.danger]: danger,
         [classNames.disabled]: disabled,
       })}
+      {...restProps}
     >
       {tooltipContent && (
         <Tooltip arrow title={tooltipContent} placement="top-end">
-          <img className={classNames.tooltip} src="/assets/icons/tooltip.svg" alt="" />
+          <img
+            className={clsx(classNames.tooltip, {[classNames.tooltipDisabled]: disabled})}
+            src="/assets/icons/tooltip.svg"
+            alt=""
+          />
         </Tooltip>
       )}
       {children}

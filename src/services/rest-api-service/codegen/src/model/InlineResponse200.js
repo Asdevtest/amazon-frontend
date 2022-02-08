@@ -72,6 +72,9 @@ class InlineResponse200 {
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
+            }
             if (data.hasOwnProperty('material')) {
                 obj['material'] = ApiClient.convertToType(data['material'], 'String');
             }
@@ -141,6 +144,9 @@ class InlineResponse200 {
             if (data.hasOwnProperty('icomment')) {
                 obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
             }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -152,6 +158,9 @@ class InlineResponse200 {
             }
             if (data.hasOwnProperty('researcherFineComment')) {
                 obj['researcherFineComment'] = ApiClient.convertToType(data['researcherFineComment'], 'String');
+            }
+            if (data.hasOwnProperty('isCreatedByClient')) {
+                obj['isCreatedByClient'] = ApiClient.convertToType(data['isCreatedByClient'], 'Boolean');
             }
             if (data.hasOwnProperty('supervisorFine')) {
                 obj['supervisorFine'] = ApiClient.convertToType(data['supervisorFine'], 'Number');
@@ -207,6 +216,9 @@ class InlineResponse200 {
             if (data.hasOwnProperty('buyer')) {
                 obj['buyer'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['buyer']);
             }
+            if (data.hasOwnProperty('buyerTimeoutAt')) {
+                obj['buyerTimeoutAt'] = ApiClient.convertToType(data['buyerTimeoutAt'], 'Date');
+            }
             if (data.hasOwnProperty('buyersComment')) {
                 obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
             }
@@ -255,6 +267,9 @@ class InlineResponse200 {
             if (data.hasOwnProperty('strategyStatus')) {
                 obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
             }
+            if (data.hasOwnProperty('needCheckBySupervisor')) {
+                obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
+            }
         }
         return obj;
     }
@@ -273,6 +288,11 @@ InlineResponse200.prototype['_id'] = undefined;
  * @member {String} id
  */
 InlineResponse200.prototype['id'] = undefined;
+
+/**
+ * @member {Array.<String>} skusByClient
+ */
+InlineResponse200.prototype['skusByClient'] = undefined;
 
 /**
  * 
@@ -411,6 +431,12 @@ InlineResponse200.prototype['status'] = undefined;
 InlineResponse200.prototype['icomment'] = undefined;
 
 /**
+ * Комментарии к товару, от клиента.
+ * @member {String} clientComment
+ */
+InlineResponse200.prototype['clientComment'] = undefined;
+
+/**
  * Массив картинок.
  * @member {Array.<String>} images
  */
@@ -433,6 +459,12 @@ InlineResponse200.prototype['researcherFine'] = undefined;
  * @member {String} researcherFineComment
  */
 InlineResponse200.prototype['researcherFineComment'] = undefined;
+
+/**
+ * Признак isCreatedByClient
+ * @member {Boolean} isCreatedByClient
+ */
+InlineResponse200.prototype['isCreatedByClient'] = undefined;
 
 /**
  * Размер штрафа на супервайзера.
@@ -539,6 +571,12 @@ InlineResponse200.prototype['checkedAt'] = undefined;
 InlineResponse200.prototype['buyer'] = undefined;
 
 /**
+ * Дедлаин на на поиск поставщика байером.
+ * @member {Date} buyerTimeoutAt
+ */
+InlineResponse200.prototype['buyerTimeoutAt'] = undefined;
+
+/**
  * Комментарии к товару от байера.
  * @member {String} buyersComment
  */
@@ -633,6 +671,12 @@ InlineResponse200.prototype['listingSupplierCompetitors'] = undefined;
  * @member {Number} strategyStatus
  */
 InlineResponse200.prototype['strategyStatus'] = undefined;
+
+/**
+ * Признак needCheckBySupervisor
+ * @member {Boolean} needCheckBySupervisor
+ */
+InlineResponse200.prototype['needCheckBySupervisor'] = undefined;
 
 
 

@@ -47,14 +47,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.standartCell}>
         <Typography className={classNames.boxTitle}>{item._id}</Typography>
         <div className={classNames.descriptionWrapper}>
-          <img
-            className={classNames.img}
-            src={
-              item.items[0].product.images &&
-              item.items[0].product.images[0] &&
-              getAmazonImageUrl(item.items[0].product.images[0])
-            }
-          />
+          <img className={classNames.img} src={getAmazonImageUrl(item.items[0]?.product.images[0])} />
           <Typography className={classNames.title}>
             {itemIndex + 1 + '. ' + item.items[0].product.amazonTitle}
           </Typography>
@@ -276,14 +269,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
       <Typography className={classNames.sectionTitle}>{textConsts.redistributionTitle}</Typography>
       <Typography className={classNames.boxTitle}>{selectedBox._id}</Typography>
       <div className={classNames.order}>
-        <img
-          className={classNames.img}
-          src={
-            selectedBox.items[0].product.images &&
-            selectedBox.items[0].product.images[0] &&
-            getAmazonImageUrl(selectedBox.items[0].product.images[0])
-          }
-        />
+        <img className={classNames.img} src={getAmazonImageUrl(selectedBox?.items[0]?.product.images[0])} />
         <Typography className={classNames.titleOfCurBox}>{selectedBox.items[0].product.amazonTitle}</Typography>
       </div>
       <div className={classNames.currentBoxFooter}>
@@ -305,6 +291,8 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
       </div>
     </div>
   )
+
+  const disableSubmit = newBoxes.some(box => box.items[0].amount < 1)
 
   return (
     <div className={classNames.root}>
@@ -328,7 +316,8 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
 
       <div className={classNames.buttonsWrapper}>
         <Button
-          variant="text"
+          disabled={disableSubmit}
+          className={classNames.button}
           onClick={() => {
             onClickRedistributeBtn()
           }}
@@ -336,7 +325,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
           {textConsts.toRedistributeBtn}
         </Button>
         <Button
-          variant="text"
+          className={classNames.button}
           onClick={() => {
             setNewBoxes(newBoxes.concat(getEmptyBox()))
           }}
@@ -344,7 +333,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
           {textConsts.newBoxBtn}
         </Button>
         <Button
-          variant="text"
+          className={classNames.button}
           onClick={() => {
             setOpenModal()
           }}

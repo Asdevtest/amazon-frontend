@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1ClientsBatchesGet**](ClientApi.md#apiV1ClientsBatchesGet) | **GET** /api/v1/clients/batches | # Получить партии.
+[**apiV1ClientsGetOrdersByProductIdGuidGet**](ClientApi.md#apiV1ClientsGetOrdersByProductIdGuidGet) | **GET** /api/v1/clients/get_orders_by_product_id/{guid} | # Получить заказы текущего клиента через id товара.
 [**apiV1ClientsMakePaymentsPost**](ClientApi.md#apiV1ClientsMakePaymentsPost) | **POST** /api/v1/clients/make_payments | # Оплатить товары.
 [**apiV1ClientsOrdersGet**](ClientApi.md#apiV1ClientsOrdersGet) | **GET** /api/v1/clients/orders | # Получить заказы текущего клиента.
 [**apiV1ClientsOrdersGuidConfirmPriceChangePost**](ClientApi.md#apiV1ClientsOrdersGuidConfirmPriceChangePost) | **POST** /api/v1/clients/orders/{guid}/confirm_price_change | # Потвердить измение цены.
@@ -13,10 +14,12 @@ Method | HTTP request | Description
 [**apiV1ClientsOrdersGuidPatch**](ClientApi.md#apiV1ClientsOrdersGuidPatch) | **PATCH** /api/v1/clients/orders/{guid} | # Внести изменения в заказ.
 [**apiV1ClientsOrdersGuidRejectPriceChangePost**](ClientApi.md#apiV1ClientsOrdersGuidRejectPriceChangePost) | **POST** /api/v1/clients/orders/{guid}/reject_price_change | Отменить измение цены.
 [**apiV1ClientsOrdersPost**](ClientApi.md#apiV1ClientsOrdersPost) | **POST** /api/v1/clients/orders | # Создать заказ.
+[**apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch**](ClientApi.md#apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch) | **PATCH** /api/v1/clients/products/{guid}/from_client_ready_to_be_checked_by_supervisor | # Отправить  созданный клиентом товар на проверку супервайзеру.
+[**apiV1ClientsProductsGuidGetPriceForClientGet**](ClientApi.md#apiV1ClientsProductsGuidGetPriceForClientGet) | **GET** /api/v1/clients/products/{guid}/get_price_for_client | # Получить цену для клиента на поиск поставщика
 [**apiV1ClientsProductsGuidPatch**](ClientApi.md#apiV1ClientsProductsGuidPatch) | **PATCH** /api/v1/clients/products/{guid} | # Внести изменения в товар.
 [**apiV1ClientsProductsMyGet**](ClientApi.md#apiV1ClientsProductsMyGet) | **GET** /api/v1/clients/products/my | # Получить список товаров данного клиента используя фильтр
 [**apiV1ClientsProductsPaidGet**](ClientApi.md#apiV1ClientsProductsPaidGet) | **GET** /api/v1/clients/products/paid | # Получить список товаров оплаченных данного клиента.
-[**apiV1ClientsProductsPickupGuidPost**](ClientApi.md#apiV1ClientsProductsPickupGuidPost) | **POST** /api/v1/clients/products/pickup/{guid} | # Взять товар в работу.
+[**apiV1ClientsProductsPost**](ClientApi.md#apiV1ClientsProductsPost) | **POST** /api/v1/clients/products | # Добавить новый продукт клиентом(копия эндпоинта как у ресерчера.).
 [**apiV1ClientsProductsVacGet**](ClientApi.md#apiV1ClientsProductsVacGet) | **GET** /api/v1/clients/products/vac | # Получить список вакантных товаров.
 [**apiV1ClientsTasksCancelGuidPost**](ClientApi.md#apiV1ClientsTasksCancelGuidPost) | **POST** /api/v1/clients/tasks/cancel/{guid} | # Отменить задачу.
 [**apiV1ClientsTasksGet**](ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя.
@@ -77,6 +80,60 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1ClientsGetOrdersByProductIdGuidGet
+
+> [InlineResponse2001] apiV1ClientsGetOrdersByProductIdGuidGet(guid, opts)
+
+# Получить заказы текущего клиента через id товара.
+
+## Получить заказы текущего клиента через id товара.   ## описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \&quot;требуется подтверждение для изменения цены \&quot;        paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;    вернет все незавершенные заказы клиента, гед есть указанный товар.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let guid = "guid_example"; // String | GUID товара
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1ClientsGetOrdersByProductIdGuidGet(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID товара | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse2001]**](InlineResponse2001.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## apiV1ClientsMakePaymentsPost
 
 > String apiV1ClientsMakePaymentsPost(opts)
@@ -99,7 +156,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject21() // InlineObject21 | 
+  'body': new TestSwagger.InlineObject22() // InlineObject22 | 
 };
 apiInstance.apiV1ClientsMakePaymentsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -115,7 +172,7 @@ apiInstance.apiV1ClientsMakePaymentsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject21**](InlineObject21.md)|  | [optional] 
+ **body** | [**InlineObject22**](InlineObject22.md)|  | [optional] 
 
 ### Return type
 
@@ -137,7 +194,7 @@ Name | Type | Description  | Notes
 
 # Получить заказы текущего клиента.
 
-## Получить заказы текущего клиента.   ## описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;    
+## Получить заказы текущего клиента.   ## описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \&quot;требуется подтверждение для изменения цены \&quot;        paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;    
 
 ### Example
 
@@ -245,7 +302,7 @@ Name | Type | Description  | Notes
 
 # Удалить заказ по его GUID.
 
-## Удалить заказ по его GUID.   ## описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;    
+## Удалить заказ по его GUID.   ## описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \&quot;требуется подтверждение для изменения цены \&quot;        paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;    
 
 ### Example
 
@@ -299,7 +356,7 @@ Name | Type | Description  | Notes
 
 # Получить заказ по его GUID.
 
-## Получить заказ по его GUID.   ## описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;    
+## Получить заказ по его GUID.   ## описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \&quot;требуется подтверждение для изменения цены \&quot;        paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;    
 
 ### Example
 
@@ -353,7 +410,7 @@ Name | Type | Description  | Notes
 
 # Внести изменения в заказ.
 
-## Внести изменения в заказ.   ## Обратить внимание - внутри заказа нельзя отдельно редактировать атрибуты товара.   ## Если изменился какой-то они товар, все равно нужно передать полностью новый массив с .   ## с товарами.   ## описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;    
+## Внести изменения в заказ.   ## Обратить внимание - внутри заказа нельзя отдельно редактировать атрибуты товара.   ## Если изменился какой-то они товар, все равно нужно передать полностью новый массив с .   ## с товарами.   ## описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \&quot;требуется подтверждение для изменения цены \&quot;        paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;    
 
 ### Example
 
@@ -370,7 +427,7 @@ let apiInstance = new TestSwagger.ClientApi();
 let guid = "guid_example"; // String | GUID заказа, который будет изменен
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject23() // InlineObject23 | 
+  'body': new TestSwagger.InlineObject24() // InlineObject24 | 
 };
 apiInstance.apiV1ClientsOrdersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -387,7 +444,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID заказа, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject23**](InlineObject23.md)|  | [optional] 
+ **body** | [**InlineObject24**](InlineObject24.md)|  | [optional] 
 
 ### Return type
 
@@ -461,11 +518,11 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsOrdersPost
 
-> InlineResponse2014 apiV1ClientsOrdersPost(opts)
+> InlineResponse2013 apiV1ClientsOrdersPost(opts)
 
 # Создать заказ.
 
-## Создать заказ.   ### описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;     Стоимость заказа &#x3D; количество * (цена товара + цена доставки от поставщика):  Эта сумма будет заморожена у клиента. Проверки:  Наличие продукта по guid,  Наличие у продукта поставщика
+## Создать заказ.   ### описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \&quot;требуется подтверждение для изменения цены \&quot;        paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;     Стоимость заказа &#x3D; количество * (цена товара + цена доставки от поставщика):  Эта сумма будет заморожена у клиента. Проверки:  Наличие продукта по guid,  Наличие у продукта поставщика Проверять что активного поставщика добавил не сам клиент, Т.е. заказать можно только тот продукт, активного поставщика который был добавлен баером в платформе
 
 ### Example
 
@@ -481,7 +538,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject22() // InlineObject22 | 
+  'body': new TestSwagger.InlineObject23() // InlineObject23 | 
 };
 apiInstance.apiV1ClientsOrdersPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -497,11 +554,11 @@ apiInstance.apiV1ClientsOrdersPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject22**](InlineObject22.md)|  | [optional] 
+ **body** | [**InlineObject23**](InlineObject23.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2014**](InlineResponse2014.md)
+[**InlineResponse2013**](InlineResponse2013.md)
 
 ### Authorization
 
@@ -513,13 +570,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1ClientsProductsGuidPatch
+## apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch
 
-> String apiV1ClientsProductsGuidPatch(guid, opts)
+> String apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch(guid, opts)
 
-# Внести изменения в товар.
+# Отправить  созданный клиентом товар на проверку супервайзеру.
 
-## Внести изменения в товар.   
+## Отправить  созданный клиентом товар на проверку супервайзеру.   Данный метод ставит статус FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR (205).   Замораживает средства у клиента,( услуги баер + услуги супервайзера(если он требуется)) * 2    Затирает id баера и супервайзера  Записывает комментарий от клиента   ## Проверки  Вы можете ставить продукту статус FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR (205), если ранее товар имел статусы 200, 270, 275, 280, 290
 
 ### Example
 
@@ -533,10 +590,120 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.ClientApi();
-let guid = "guid_example"; // String | GUID заказа, который будет изменен
+let guid = "guid_example"; // String | GUID продукта, который будет изменен
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject20() // InlineObject20 | 
+  'body': new TestSwagger.InlineObject27() // InlineObject27 | 
+};
+apiInstance.apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID продукта, который будет изменен | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject27**](InlineObject27.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1ClientsProductsGuidGetPriceForClientGet
+
+> InlineResponse2007 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
+
+# Получить цену для клиента на поиск поставщика
+
+## Получить цену для клиента на поиск поставщика   ## Проверки  только продуты созданные клиентом и принадлежавшие данному пользователю.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let guid = "guid_example"; // String | GUID продукта, который будет изменен
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID продукта, который будет изменен | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse2007**](InlineResponse2007.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1ClientsProductsGuidPatch
+
+> String apiV1ClientsProductsGuidPatch(guid, opts)
+
+# Внести изменения в товар.
+
+## Внести изменения в товар.   Если товар был создан ресерчером (статус до 100) менять можно только баркод (нет проверки).   ## Если товар был создан клиентом (статус от 200):  Вам разрешено редактировать свой товар или добавлять поставщика только если ранее товар имел статусы 200, 270, 280, 290  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let guid = "guid_example"; // String | GUID продукта, который будет изменен
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject21() // InlineObject21 | 
 };
 apiInstance.apiV1ClientsProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -551,9 +718,9 @@ apiInstance.apiV1ClientsProductsGuidPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID заказа, который будет изменен | 
+ **guid** | **String**| GUID продукта, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject20**](InlineObject20.md)|  | [optional] 
+ **body** | [**InlineObject21**](InlineObject21.md)|  | [optional] 
 
 ### Return type
 
@@ -571,7 +738,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyGet
 
-> [InlineResponse2006] apiV1ClientsProductsMyGet(opts)
+> [InlineResponse2005] apiV1ClientsProductsMyGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -611,7 +778,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2005]**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -625,7 +792,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsPaidGet
 
-> [InlineResponse2006] apiV1ClientsProductsPaidGet(opts)
+> [InlineResponse2005] apiV1ClientsProductsPaidGet(opts)
 
 # Получить список товаров оплаченных данного клиента.
 
@@ -663,7 +830,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2005]**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -675,13 +842,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1ClientsProductsPickupGuidPost
+## apiV1ClientsProductsPost
 
-> String apiV1ClientsProductsPickupGuidPost(guid, opts)
+> InlineResponse2014 apiV1ClientsProductsPost(opts)
 
-# Взять товар в работу.
+# Добавить новый продукт клиентом(копия эндпоинта как у ресерчера.).
 
-## Взять товар в работу.   
+# Добавить новый продукт клиентом.  ## В отличии от метода ресерчера, статус продукта ставиться автоматом  CREATED_BY_CLIENT 
 
 ### Example
 
@@ -695,11 +862,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.ClientApi();
-let guid = "guid_example"; // String | GUID продукта в БД
 let opts = {
-  'Accept_Encoding': "Accept_Encoding_example" // String | 
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject26() // InlineObject26 | 
 };
-apiInstance.apiV1ClientsProductsPickupGuidPost(guid, opts).then((data) => {
+apiInstance.apiV1ClientsProductsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -712,12 +879,12 @@ apiInstance.apiV1ClientsProductsPickupGuidPost(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID продукта в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject26**](InlineObject26.md)|  | [optional] 
 
 ### Return type
 
-**String**
+[**InlineResponse2014**](InlineResponse2014.md)
 
 ### Authorization
 
@@ -725,17 +892,17 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## apiV1ClientsProductsVacGet
 
-> [InlineResponse2006] apiV1ClientsProductsVacGet(opts)
+> [InlineResponse2005] apiV1ClientsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
-## Получить список  вакантных товаров.   
+## Получить список  вакантных товаров. статусы 70 и 110(скрыты данные о поставщике, байере, супервайзере, создателе и skusByClient)  
 
 ### Example
 
@@ -769,7 +936,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2005]**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -951,7 +1118,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsTasksPost
 
-> InlineResponse2013 apiV1ClientsTasksPost(opts)
+> InlineResponse2012 apiV1ClientsTasksPost(opts)
 
 # Создать задачу.
 
@@ -971,7 +1138,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject24() // InlineObject24 | 
+  'body': new TestSwagger.InlineObject25() // InlineObject25 | 
 };
 apiInstance.apiV1ClientsTasksPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -987,11 +1154,11 @@ apiInstance.apiV1ClientsTasksPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject24**](InlineObject24.md)|  | [optional] 
+ **body** | [**InlineObject25**](InlineObject25.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2013**](InlineResponse2013.md)
+[**InlineResponse2012**](InlineResponse2012.md)
 
 ### Authorization
 

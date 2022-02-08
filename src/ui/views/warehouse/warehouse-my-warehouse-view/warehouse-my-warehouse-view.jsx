@@ -1,7 +1,7 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -15,7 +15,6 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/clientAvatar.jpg'
@@ -59,6 +58,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
+    const getRowClassName = params => params.getValue(params.id, 'isDraft') === true && classNames.isDraftRow
+
     return (
       <React.Fragment>
         <Navbar
@@ -76,10 +77,6 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             curUserRole={UserRole.STOREKEEPER}
           >
             <MainContent>
-              <Typography paragraph variant="h5">
-                {textConsts.mainTitle}
-              </Typography>
-
               <div className={classNames.tableWrapper}>
                 <DataGrid
                   pagination
@@ -87,13 +84,13 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                   autoHeight
                   checkboxSelection
                   isRowSelectable={params => params.row.isDraft === false}
-                  getRowClassName={params => params.getValue(params.id, 'isDraft') === true && classNames.isDraftRow}
+                  getRowClassName={getRowClassName}
                   selectionModel={selectedBoxes}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={150}
                   components={{
@@ -107,7 +104,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
                   onFilterModelChange={model => onChangeFilterModel(model)}
-                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onStateChange={setDataGridState}
                 />
               </div>
             </MainContent>

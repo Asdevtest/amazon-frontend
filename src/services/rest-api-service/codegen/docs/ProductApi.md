@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1ProductsAddSuppliersGuidPost**](ProductApi.md#apiV1ProductsAddSuppliersGuidPost) | **POST** /api/v1/products/add_suppliers/{guid} | Добавить поставщиков к продукту.
+[**apiV1ProductsGuidGet**](ProductApi.md#apiV1ProductsGuidGet) | **GET** /api/v1/products/{guid} | # Получить товар оп id.
 [**apiV1ProductsRemoveSuppliersGuidPost**](ProductApi.md#apiV1ProductsRemoveSuppliersGuidPost) | **POST** /api/v1/products/remove_suppliers/{guid} | Удалить поставщиков из продукта.
 
 
@@ -32,7 +33,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = "guid_example"; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject27() // InlineObject27 | 
+  'body': new TestSwagger.InlineObject30() // InlineObject30 | 
 };
 apiInstance.apiV1ProductsAddSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -49,7 +50,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject27**](InlineObject27.md)|  | [optional] 
+ **body** | [**InlineObject30**](InlineObject30.md)|  | [optional] 
 
 ### Return type
 
@@ -62,6 +63,60 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1ProductsGuidGet
+
+> InlineResponse200 apiV1ProductsGuidGet(guid, opts)
+
+# Получить товар оп id.
+
+## Получить товар оп id.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ProductApi();
+let guid = "guid_example"; // String | id товара.
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1ProductsGuidGet(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| id товара. | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse200**](InlineResponse200.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -88,7 +143,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = "guid_example"; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject28() // InlineObject28 | 
+  'body': new TestSwagger.InlineObject31() // InlineObject31 | 
 };
 apiInstance.apiV1ProductsRemoveSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -105,7 +160,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject28**](InlineObject28.md)|  | [optional] 
+ **body** | [**InlineObject31**](InlineObject31.md)|  | [optional] 
 
 ### Return type
 

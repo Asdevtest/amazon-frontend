@@ -5,7 +5,7 @@ import {Box, Container, Divider, Typography} from '@material-ui/core'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
-import {Input} from '@components/input'
+import {Field} from '@components/field/field'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -21,13 +21,25 @@ export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, o
     <Container disableGutters>
       <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
       <Divider className={classNames.divider} />
-      <Box className={classNames.boxCode}>
-        <Typography className={(classNames.modalText, classNames.typoCode)}>{textConsts.code}</Typography>
-        <Input className={classNames.input} value={shippingLabel} onChange={e => setShippingLabel(e.target.value)} />
-      </Box>
+
+      <Field
+        multiline
+        minRows={4}
+        rowsMax={4}
+        className={classNames.labelField}
+        inputProps={{maxLength: 1000}}
+        value={shippingLabel}
+        error={shippingLabel.length < 5 && shippingLabel.length > 0 && textConsts.shippingLabelError}
+        onChange={e => setShippingLabel(e.target.value)}
+      />
+
       <Divider className={classNames.divider} />
       <Box className={classNames.saveBox}>
-        <Button className={classNames.saveBtn} onClick={() => onClickSaveShippingLabel(shippingLabel)}>
+        <Button
+          disabled={shippingLabel.length < 5 && shippingLabel.length > 0}
+          className={classNames.saveBtn}
+          onClick={() => onClickSaveShippingLabel(shippingLabel)}
+        >
           {textConsts.saveBtn}
         </Button>
         <Button onClick={onCloseModal}>{textConsts.closeBtn}</Button>

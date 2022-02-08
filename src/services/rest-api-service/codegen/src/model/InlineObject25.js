@@ -22,10 +22,12 @@ class InlineObject25 {
     /**
      * Constructs a new <code>InlineObject25</code>.
      * @alias module:model/InlineObject25
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param operationType {module:model/InlineObject25.OperationTypeEnum} Тип операции
      */
-    constructor() { 
+    constructor(taskId, operationType) { 
         
-        InlineObject25.initialize(this);
+        InlineObject25.initialize(this, taskId, operationType);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject25 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, taskId, operationType) { 
+        obj['taskId'] = taskId;
+        obj['operationType'] = operationType;
     }
 
     /**
@@ -47,11 +51,26 @@ class InlineObject25 {
         if (data) {
             obj = obj || new InlineObject25();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
             }
-            if (data.hasOwnProperty('sku')) {
-                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
+            }
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -61,17 +80,81 @@ class InlineObject25 {
 }
 
 /**
- * @member {String} productId
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
  */
-InlineObject25.prototype['productId'] = undefined;
+InlineObject25.prototype['taskId'] = undefined;
 
 /**
- * @member {String} sku
+ * @member {Array.<String>} boxesBefore
  */
-InlineObject25.prototype['sku'] = undefined;
+InlineObject25.prototype['boxesBefore'] = undefined;
+
+/**
+ * @member {Array.<String>} boxes
+ */
+InlineObject25.prototype['boxes'] = undefined;
+
+/**
+ * Тип операции
+ * @member {module:model/InlineObject25.OperationTypeEnum} operationType
+ */
+InlineObject25.prototype['operationType'] = undefined;
+
+/**
+ * Комментарий клиента.
+ * @member {String} clientComment
+ * @default ''
+ */
+InlineObject25.prototype['clientComment'] = '';
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject25.prototype['images'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineObject25.prototype['storekeeperComment'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject25['OperationTypeEnum'] = {
+
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
+
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
+
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive",
+
+    /**
+     * value: "edit"
+     * @const
+     */
+    "edit": "edit"
+};
 
 
 

@@ -30,7 +30,7 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
           disabled={email === ''}
           variant="contained"
           className={classNames.button}
-          onClick={() => onSubmit({email})}
+          onClick={() => onSubmit({email: email.toLowerCase()})}
         >
           {textConsts.addBtn}
         </Button>

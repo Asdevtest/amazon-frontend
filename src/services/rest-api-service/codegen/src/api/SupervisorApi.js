@@ -15,8 +15,8 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject39 from '../model/InlineObject39';
-import InlineObject40 from '../model/InlineObject40';
+import InlineObject45 from '../model/InlineObject45';
+import InlineObject46 from '../model/InlineObject46';
 import InlineResponse200 from '../model/InlineResponse200';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -43,11 +43,11 @@ export default class SupervisorApi {
 
     /**
      * # Изменить продукт.
-     * ## Изменит продукт.  ## 20, 70, 80, 90 - эти статусы запускают процесс выплат. После того как поставлен   ## одн из таких статусов - больше нельзя така как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,      researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,       // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/    
+     * ## Изменить продукт.  ## 20, 70, 80, 90 - эти статусы запускают процесс заполнения полей для выплат в продуете.    ## 270, 280, 290 - эти статусы запускают процесс авто выплат.   ## одн из таких статусов - больше нельзя така как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,       researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,      buyerPickedUpProduct: 35,   // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      paidByClient: 75,     PLATFORMS_PRODUCT_COPY: 76, // копия товара от платформы, при покупке товара из бесплатно доступных     completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/      noPublished: 100,     PLATFORMS_FREE: 110, // продукт принадлежит платформе и распространяется бесплатно     CREATED_BY_CLIENT: 200, // товар создан клиентом     FROM_CLIENT_TO_BUYER_FOR_RESEARCH: 230, //статус говорит о том что клиент отправил товар на поиск поставщика баеру (устанавливает клиент)     FROM_CLIENT_BUYER_PICKED_PRODUCT: 235, // баер взял в работу товар клиента (устанавливает баер)     FROM_CLIENT_BUYER_FOUND_SUPPLIER: 240, // баер нашел поставщика для товара клиента     FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER: 250, // баер не нашел поставщика для товара клиента (устанавливает баер)     FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE: 260, // цена товара у поставщика не подходит для товара клиента (устанавливает баер)     FROM_CLIENT_COMPLETE_SUCCESS: 270, //  успешно найден поставщик для товара клиента (этот товар не публикуется на бирже товаров, а все так же доступен для просмотра только клиенту который создал товар) (устанавливает супервизор)       FROM_CLIENT_PAID_BY_CLIENT: 275,      FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND: 280, //  поставщик не найден для товара клиента (устанавливает супервизор)     FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE: 290, // - цена товара у поставщика не подходит для товара клиента (устанавливает супервизор)   
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject39} opts.body 
+     * @param {module:model/InlineObject45} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -82,11 +82,11 @@ export default class SupervisorApi {
 
     /**
      * # Изменить продукт.
-     * ## Изменит продукт.  ## 20, 70, 80, 90 - эти статусы запускают процесс выплат. После того как поставлен   ## одн из таких статусов - больше нельзя така как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,      researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,       // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/    
+     * ## Изменить продукт.  ## 20, 70, 80, 90 - эти статусы запускают процесс заполнения полей для выплат в продуете.    ## 270, 280, 290 - эти статусы запускают процесс авто выплат.   ## одн из таких статусов - больше нельзя така как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,       researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,      buyerPickedUpProduct: 35,   // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      paidByClient: 75,     PLATFORMS_PRODUCT_COPY: 76, // копия товара от платформы, при покупке товара из бесплатно доступных     completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/      noPublished: 100,     PLATFORMS_FREE: 110, // продукт принадлежит платформе и распространяется бесплатно     CREATED_BY_CLIENT: 200, // товар создан клиентом     FROM_CLIENT_TO_BUYER_FOR_RESEARCH: 230, //статус говорит о том что клиент отправил товар на поиск поставщика баеру (устанавливает клиент)     FROM_CLIENT_BUYER_PICKED_PRODUCT: 235, // баер взял в работу товар клиента (устанавливает баер)     FROM_CLIENT_BUYER_FOUND_SUPPLIER: 240, // баер нашел поставщика для товара клиента     FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER: 250, // баер не нашел поставщика для товара клиента (устанавливает баер)     FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE: 260, // цена товара у поставщика не подходит для товара клиента (устанавливает баер)     FROM_CLIENT_COMPLETE_SUCCESS: 270, //  успешно найден поставщик для товара клиента (этот товар не публикуется на бирже товаров, а все так же доступен для просмотра только клиенту который создал товар) (устанавливает супервизор)       FROM_CLIENT_PAID_BY_CLIENT: 275,      FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND: 280, //  поставщик не найден для товара клиента (устанавливает супервизор)     FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE: 290, // - цена товара у поставщика не подходит для товара клиента (устанавливает супервизор)   
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject39} opts.body 
+     * @param {module:model/InlineObject45} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsGuidPatch(guid, opts) {
@@ -103,7 +103,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject40} opts.body 
+     * @param {module:model/InlineObject46} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsListingGuidPatchWithHttpInfo(guid, opts) {
@@ -142,7 +142,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject40} opts.body 
+     * @param {module:model/InlineObject46} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsListingGuidPatch(guid, opts) {
@@ -256,8 +256,9 @@ export default class SupervisorApi {
 
     /**
      * # Получить список вакантных товаров.
-     * ## Получить список вакантных товаров.   
+     * ## Получить список вакантных товаров со статусами 5, 10, 35 или 205, 235, 240 если нужны товары созданные клиентом.   
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
@@ -268,6 +269,7 @@ export default class SupervisorApi {
       let pathParams = {
       };
       let queryParams = {
+        'isCreatedByClient': opts['isCreatedByClient']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -288,8 +290,9 @@ export default class SupervisorApi {
 
     /**
      * # Получить список вакантных товаров.
-     * ## Получить список вакантных товаров.   
+     * ## Получить список вакантных товаров со статусами 5, 10, 35 или 205, 235, 240 если нужны товары созданные клиентом.   
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */

@@ -166,6 +166,7 @@ export const clientInventoryDataConverter = data =>
     researcherName: item.createdBy?.name,
     buyerName: item.buyer?.name,
     strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    status: ProductStatusByCode[item.status],
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
 
@@ -179,7 +180,7 @@ export const clientInventoryDataConverter = data =>
     bsr: item.bsr,
     fbafee: item.fbafee,
 
-    id: item.id,
+    id: item._id,
   }))
 
 export const clientCustomRequestsDataConverter = data =>
@@ -214,12 +215,13 @@ export const clientOrdersDataConverter = data =>
     id: item.id,
 
     barCode: item.product.barCode,
-    totalPrice: calcTotalPriceForOrder(item),
+    totalPrice: item.totalPrice, // calcTotalPriceForOrder(item),
     grossWeightKg: item.product.weight * item.amount,
     warehouses: warehouses[item.warehouse],
     status: OrderStatusByCode[item.status],
 
     createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
     amount: item.amount,
     trackingNumberChina: item.trackingNumberChina,
   }))
@@ -245,6 +247,8 @@ export const clientWarehouseDataConverter = data =>
     isDraft: item.isDraft,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+
+    humanFriendlyId: item.humanFriendlyId,
   }))
 
 export const clientBatchesDataConverter = data =>
@@ -375,6 +379,7 @@ export const adminTasksDataConverter = data =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     description: item.description,
+    storekeeper: item.storekeeper?.email,
   }))
 
 export const adminBoxesDataConverter = data =>
@@ -392,7 +397,8 @@ export const adminBoxesDataConverter = data =>
     grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
     warehouses: warehouses[item.warehouse],
 
-    client: item.items[0].order.createdBy.email,
+    client: item.createdBy.email,
+    storekeeper: item.storekeeper?.email,
 
     isDraft: item.isDraft,
     createdAt: item.createdAt,
@@ -414,7 +420,7 @@ export const adminBatchesDataConverter = data =>
     totalPrice: calcTotalPriceForBatch(item),
   }))
 
-export const adminFinancesDataConverter = data =>
+export const financesDataConverter = data =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -423,6 +429,7 @@ export const adminFinancesDataConverter = data =>
     createdAt: item.createdAt,
     comment: item.comment,
     sum: item.sum,
+    type: item.sum > 0 ? 'replenish' : item.sum < 0 ? 'fine' : 'zero',
   }))
 
 export const adminUsersDataConverter = data =>

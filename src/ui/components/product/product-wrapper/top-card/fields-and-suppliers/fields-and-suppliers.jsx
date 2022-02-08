@@ -25,22 +25,54 @@ import {useClassNames} from './fields-and-suppliers.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
+const clientToEditStatuses = [
+  ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
+]
+
 export const FieldsAndSuppliers = observer(
-  ({curUserRole, onChangeField, product, onClickSupplierBtns, selectedSupplier}) => {
+  ({curUserRole, onChangeField, product, productBase, onClickSupplierBtns, selectedSupplier}) => {
     const classNames = useClassNames()
     const isSupplierAcceptRevokeActive =
       selectedSupplier && product.currentSupplierId && product.currentSupplierId === selectedSupplier._id
     return (
       <Grid item xs={12}>
         <Box className={classNames.productFieldBox}>
-          <Field disabled label={textConsts.fieldAsin} value={product.id} />
+          <Field
+            disabled={
+              !(
+                checkIsClient(curUserRole) &&
+                product.isCreatedByClient &&
+                clientToEditStatuses.includes(productBase.status)
+              )
+            }
+            label={textConsts.fieldAsin}
+            value={product.id}
+            onChange={onChangeField('id')}
+          />
           <Field
             disabled
             label={textConsts.fieldLinkAmazon}
             inputComponent={
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.lamazon)}>
-                <Typography className={classNames.amazonLink}>{product.lamazon}</Typography>
-              </Link>
+              <div>
+                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.lamazon)}>
+                  <Typography className={classNames.amazonLink}>{product.lamazon}</Typography>
+                </Link>
+
+                {checkIsClient(curUserRole) &&
+                  product.isCreatedByClient &&
+                  clientToEditStatuses.includes(productBase.status) && (
+                    <Input
+                      disabled={!checkIsClient(curUserRole)}
+                      placeholder={textConsts.linkPlaceholder}
+                      value={product.lamazon}
+                      onChange={onChangeField('lamazon')}
+                    />
+                  )}
+              </div>
             }
           />
 
@@ -50,7 +82,15 @@ export const FieldsAndSuppliers = observer(
             <Box className={classNames.productCheckboxBox} mb={2.5}>
               <Typography className={classNames.label}>{textConsts.checkboxFba}</Typography>
               <MuiCheckbox
-                disabled={!(checkIsSupervisor(curUserRole) || checkIsResearcher(curUserRole))}
+                disabled={
+                  !(
+                    checkIsSupervisor(curUserRole) ||
+                    checkIsResearcher(curUserRole) ||
+                    (checkIsClient(curUserRole) &&
+                      product.isCreatedByClient &&
+                      clientToEditStatuses.includes(productBase.status))
+                  )
+                }
                 color="primary"
                 checked={product.fba}
                 onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
@@ -60,7 +100,15 @@ export const FieldsAndSuppliers = observer(
             <Box className={classNames.productCheckboxBox} mb={2.5}>
               <Typography className={classNames.label}>{textConsts.checkboxFbm}</Typography>
               <MuiCheckbox
-                disabled={!(checkIsSupervisor(curUserRole) || checkIsResearcher(curUserRole))}
+                disabled={
+                  !(
+                    checkIsSupervisor(curUserRole) ||
+                    checkIsResearcher(curUserRole) ||
+                    (checkIsClient(curUserRole) &&
+                      product.isCreatedByClient &&
+                      clientToEditStatuses.includes(productBase.status))
+                  )
+                }
                 color="primary"
                 checked={!product.fba}
                 onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
@@ -72,7 +120,14 @@ export const FieldsAndSuppliers = observer(
             <InputLabel className={classNames.strategyLabel}>{textConsts.strategyLabel}</InputLabel>
 
             <NativeSelect
-              disabled={!checkIsResearcher(curUserRole)}
+              disabled={
+                !(
+                  checkIsResearcher(curUserRole) ||
+                  (checkIsClient(curUserRole) &&
+                    product.isCreatedByClient &&
+                    clientToEditStatuses.includes(productBase.status))
+                )
+              }
               value={product.strategyStatus}
               className={classNames.nativeSelect}
               input={<Input />}
@@ -91,7 +146,12 @@ export const FieldsAndSuppliers = observer(
           <Typography variant="h4" className={classNames.supplierTitle}>
             {textConsts.supplierTitle}
           </Typography>
-          {!(checkIsClient(curUserRole) || checkIsSupervisor(curUserRole) || checkIsAdmin(curUserRole)) ? (
+          {!(
+            (checkIsClient(curUserRole) && !product.isCreatedByClient) ||
+            (checkIsClient(curUserRole) && !clientToEditStatuses.includes(productBase.status)) ||
+            checkIsSupervisor(curUserRole) ||
+            checkIsAdmin(curUserRole)
+          ) ? (
             <div className={classNames.supplierActionsWrapper}>
               <Typography variant="h6" className={classNames.supplierActionsTitle}>
                 {textConsts.supplierActionsTitle}

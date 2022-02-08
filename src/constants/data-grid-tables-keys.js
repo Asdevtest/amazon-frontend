@@ -5,6 +5,7 @@ export const DataGridTablesKeys = {
   ADMIN_TASKS: 'adminTasksDataGridState',
   ADMIN_BOXES: 'adminBoxesDataGridState',
   ADMIN_FINANCES: 'adminFinancesDataGridState',
+  ADMIN_USER_FINANCES: 'adminUserFinancesDataGridState',
   ADMIN_BATCHES: 'adminBatchesDataGridState',
 
   ADMIN_SINGLE_PERMISSIONS: 'adminSinglePermissionsDataGridState',
@@ -63,9 +64,11 @@ export const DataGridTablesKeys = {
   CLIENT_DAILY_SELLER_BOARD: 'clientDailySellerBoardDataGridState',
   CLIENT_LAST_30_DAY_SELLER_BOARD: 'clientLast30DaySellerBoardDataGridState',
   CLIENT_FINANCES: 'clientFinancesDataGridState',
+  CLIENT_SHOPS: 'clientShopsDataGridState',
 
   FREELANCER_FINANCES: 'freelancerFinancesDataGridState',
   FREELANCER_CUSTOM_MY_REQUESTS: 'freelancerCustomMyRequestsDataGridState',
   FREELANCER_CUSTOM_VACANT_REQUESTS: 'freelancerCustomVacantRequestsDataGridState',
   FREELANCER_CUSTOM_SEARCH_REQUESTS: 'freelancerCustomSearchRequestsDataGridState',
+  FREELANCER_SUB_USERS: 'freelancerSubUsersDataGridState',
 }

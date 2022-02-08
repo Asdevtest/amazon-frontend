@@ -13,6 +13,7 @@ import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {LabelField} from '@components/label-field/label-field'
 
+import {checkIsPositiveNum} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './create-box-form.style'
@@ -128,7 +129,7 @@ export const CreateBoxForm = observer(({formItem, boxesForCreation, onTriggerOpe
   }
 
   const setAmountField = orderBoxIndex => e => {
-    if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+    if (!checkIsPositiveNum(e.target.value)) {
       return
     }
 
@@ -149,6 +150,8 @@ export const CreateBoxForm = observer(({formItem, boxesForCreation, onTriggerOpe
     const updatedNewBoxes = formFieldsArr.filter((box, i) => i !== boxIndex)
     setFormFieldsArr(updatedNewBoxes)
   }
+
+  const disableSubmit = formFieldsArr.length < 1 || formFieldsArr.some(el => el.items[0].amount < 1)
 
   return (
     <div className={classNames.root}>
@@ -210,7 +213,7 @@ export const CreateBoxForm = observer(({formItem, boxesForCreation, onTriggerOpe
       <div className={classNames.buttonsWrapper}>
         <SuccessButton
           disableElevation
-          disabled={formFieldsArr.length < 1}
+          disabled={disableSubmit}
           className={classNames.button}
           color="primary"
           variant="contained"

@@ -28,6 +28,32 @@ import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '
 
 const textConsts = getLocalizedTexts(texts, 'en').researcherProductView
 
+const fieldsOfProductAllowedToForceUpdate = [
+  'lamazon',
+  'lsupplier',
+  'bsr',
+  'amazon',
+  'fbafee',
+  'reffee',
+  'delivery',
+  'icomment',
+  'fba',
+  'profit',
+  'margin',
+  'images',
+  'width',
+  'height',
+  'length',
+  'amazonTitle',
+  'amazonDetail',
+  'amazonDescription',
+  'category',
+  'weight',
+  'minpurchase',
+  'fbaamount',
+  'strategyStatus',
+]
+
 const fieldsOfProductAllowedToUpdate = [
   'lamazon',
   'lsupplier',
@@ -100,9 +126,12 @@ export class ResearcherProductViewModel {
   actionStatus = undefined
   alertFailedText = undefined
 
+  productId = undefined
   product = undefined
+  productBase = undefined
   curUpdateProductData = {}
-  suppliers = []
+  imagesForLoad = []
+  uploadedImages = []
 
   drawerOpen = false
   selectedSupplier = undefined
@@ -126,22 +155,35 @@ export class ResearcherProductViewModel {
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
-  constructor({history, location}) {
+  constructor({history}) {
     this.history = history
-    if (location.state) {
-      const product = {
-        ...location.state.product,
-        suppliers: location.state.product.suppliers?.map(supplierItem =>
-          typeof supplierItem === 'string' ? supplierItem : supplierItem._id,
-        ),
-      }
-      this.product = product
-      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.suppliers
-      const inConstructor = true
 
-      updateProductAutoCalculatedFields.call(this, inConstructor)
-    }
+    this.productId = history.location.search.slice(1)
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async loadData() {
+    try {
+      await this.getProductById()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getProductById() {
+    try {
+      const result = await ProductModel.getProductById(this.productId)
+
+      runInAction(() => {
+        this.product = result
+
+        this.productBase = result
+
+        updateProductAutoCalculatedFields.call(this)
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onChangeSelectedSupplier(supplier) {
@@ -156,7 +198,7 @@ export class ResearcherProductViewModel {
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
       if (['icomment'].includes(fieldName)) {
-        this.product[fieldName] = e.target.value
+        this.product = {...this.product, [fieldName]: e.target.value}
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
           return
@@ -171,9 +213,9 @@ export class ResearcherProductViewModel {
           return
         }
         if (['fbaamount'].includes(fieldName)) {
-          this.product[fieldName] = parseInt(e.target.value)
+          this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
         } else {
-          this.product[fieldName] = e.target.value
+          this.product = {...this.product, [fieldName]: e.target.value}
         }
       }
 
@@ -202,14 +244,14 @@ export class ResearcherProductViewModel {
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'accept':
-        this.product.currentSupplierId = this.selectedSupplier._id
-        this.product.currentSupplier = this.selectedSupplier
+        this.product = {...this.product, currentSupplierId: this.selectedSupplier._id}
+        this.product = {...this.product, currentSupplier: this.selectedSupplier}
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
         break
       case 'acceptRevoke':
-        this.product.currentSupplierId = undefined
-        this.product.currentSupplier = undefined
+        this.product = {...this.product, currentSupplierId: null}
+        this.product = {...this.product, currentSupplier: undefined}
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
         break
@@ -231,11 +273,8 @@ export class ResearcherProductViewModel {
       await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
       this.setActionStatus(loadingStatuses.success)
-      const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === this.selectedSupplier._id)
 
       runInAction(() => {
-        this.suppliers.splice(findSupplierIndex, 1)
-
         this.product.suppliers
         this.selectedSupplier = undefined
 
@@ -243,6 +282,8 @@ export class ResearcherProductViewModel {
           this.product.currentSupplierId = undefined
         }
       })
+
+      this.onSaveForceProductData()
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -279,7 +320,7 @@ export class ResearcherProductViewModel {
 
       this.onTriggerOpenModal('showWarningModal')
     } else {
-      this.product.status = ProductStatusByKey[statusKey]
+      this.product = {...this.product, status: ProductStatusByKey[statusKey]}
     }
   }
 
@@ -371,7 +412,7 @@ export class ResearcherProductViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-        delivery: parseFloat(supplier?.delivery) || '',
+        delivery: parseFloat(supplier?.delivery) || 0,
         lotcost: parseFloat(supplier?.lotcost) || '',
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
@@ -381,10 +422,7 @@ export class ResearcherProductViewModel {
       if (supplier._id) {
         const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
-        const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === supplier._id)
-        runInAction(() => {
-          this.suppliers[findSupplierIndex] = supplier
-        })
+
         if (supplier._id === this.product.currentSupplierId) {
           this.product.currentSupplier = supplier
           updateProductAutoCalculatedFields.call(this)
@@ -394,10 +432,10 @@ export class ResearcherProductViewModel {
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
         runInAction(() => {
           this.product.suppliers.push(createSupplierResult.guid)
-          this.suppliers.push({...supplier, _id: createSupplierResult.guid})
         })
       }
 
+      this.onSaveForceProductData()
       this.setActionStatus(loadingStatuses.success)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
@@ -422,8 +460,6 @@ export class ResearcherProductViewModel {
         }
       })()
 
-      console.log('parseResult', parseResult)
-
       runInAction(() => {
         if (Object.keys(parseResult).length > 5) {
           // проверка, что ответ не пустой (иначе приходит объект {length: 2})
@@ -431,6 +467,8 @@ export class ResearcherProductViewModel {
             ...this.product,
             ...parseFieldsAdapter(parseResult, productDataParser),
             weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
+            amazonDescription: parseResult.info?.description || this.product.amazonDescription,
+            amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
           }
         }
         updateProductAutoCalculatedFields.call(this)
@@ -446,36 +484,78 @@ export class ResearcherProductViewModel {
     }
   }
 
-  // async onForcedSaveSelectedFields(selectedFieldsObj) { //МОЖЕТ ПРИГОДИТСЯ
-  //   try {
-  //     await ResearcherModel.updateProduct(
-  //       this.product._id,
-  //       getObjectFilteredByKeyArrayBlackList(selectedFieldsObj, ['suppliers']),
-  //     )
-  //   } catch (error) {
-  //     this.setActionStatus(loadingStatuses.failed)
-  //     console.log('error', error)
-  //   }
-  // }
+  onChangeImagesForLoad(value) {
+    this.imagesForLoad = value
+  }
 
   async onSaveProductData(editingСontinues) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
+      if (this.imagesForLoad.length) {
+        await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'uploadedImages'})
+
+        this.imagesForLoad = []
+      }
+
       await ResearcherModel.updateProduct(
         this.product._id,
         getObjectFilteredByKeyArrayBlackList(
-          this.curUpdateProductData,
+          {
+            ...this.curUpdateProductData,
+            images: this.uploadedImages.length
+              ? [...this.curUpdateProductData.images, ...this.uploadedImages]
+              : this.curUpdateProductData.images,
+          },
           this.curUpdateProductData.currentSupplierId === null ? ['suppliers', 'currentSupplierId'] : ['suppliers'],
         ),
       )
       this.setActionStatus(loadingStatuses.success)
 
-      this.history.replace('/researcher/product', {product: toJS(this.product), suppliers: toJS(this.suppliers)})
-
       !editingСontinues && this.history.push('/researcher/products')
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
+      console.log('error', error)
+    }
+  }
+
+  async onSaveForceProductData() {
+    try {
+      await ResearcherModel.updateProduct(
+        this.product._id,
+        getObjectFilteredByKeyArrayWhiteList(
+          toJS(this.product),
+          fieldsOfProductAllowedToForceUpdate,
+          true,
+          (key, value) => {
+            switch (key) {
+              case 'bsr':
+                return (value && parseInt(value)) || 0
+              case 'amazon':
+                return (value && parseFloat(value)) || 0
+              case 'weight':
+                return (value && parseFloat(value)) || 0
+              case 'length':
+                return (value && parseFloat(value)) || 0
+              case 'width':
+                return (value && parseFloat(value)) || 0
+              case 'height':
+                return (value && parseFloat(value)) || 0
+              case 'fbaamount':
+                return (value && parseFloat(value)) || 0
+              case 'fbafee':
+                return (value && parseFloat(value)) || 0
+              case 'profit':
+                return (value && parseFloat(value)) || 0
+              default:
+                return value
+            }
+          },
+        ),
+      )
+
+      this.loadData()
+    } catch (error) {
       console.log('error', error)
     }
   }

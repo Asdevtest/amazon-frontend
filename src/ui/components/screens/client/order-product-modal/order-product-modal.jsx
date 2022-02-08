@@ -43,9 +43,10 @@ export const OrderProductModal = ({
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
 
+  const [productsForRender, setProductsForRender] = useState(selectedProductsData)
+
   const [orderState, setOrderState] = useState(
     selectedProductsData.map(product => ({
-      status: 1,
       amount: 1,
       deliveryMethod: '',
       warehouse: '',
@@ -55,6 +56,14 @@ export const OrderProductModal = ({
       images: [],
     })),
   )
+
+  const onRemoveProduct = itemId => {
+    const newStateOrderState = [...orderState].filter(el => el._id !== itemId)
+    const newRenderOrderState = [...productsForRender].filter(el => el._id !== itemId)
+
+    setProductsForRender(newRenderOrderState)
+    setOrderState(newStateOrderState)
+  }
 
   const setOrderStateFiled = index => fieldsName => value => {
     const newStateOrderState = [...orderState]
@@ -93,10 +102,11 @@ export const OrderProductModal = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {selectedProductsData.map((product, index) => (
+            {productsForRender.map((product, index) => (
               <OrderModalBodyRow
                 key={index}
                 item={product}
+                withRemove={selectedProductsData.length > 1}
                 orderState={orderState[index]}
                 setOrderStateFiled={setOrderStateFiled(index)}
                 itemIndex={index}
@@ -108,6 +118,7 @@ export const OrderProductModal = ({
                 onDeleteBarcode={() => {
                   setOrderStateFiled(index)('barCode')('')
                 }}
+                onRemoveProduct={onRemoveProduct}
               />
             ))}
           </TableBody>
@@ -146,7 +157,7 @@ export const OrderProductModal = ({
           {textConsts.cancelBtn}
         </Button>
       </div>
-      <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
+      <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
         <SetBarcodeModal
           order={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex]}
           onClickSaveBarcode={barCode => {

@@ -21,7 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse201 {
     /**
      * Constructs a new <code>InlineResponse201</code>.
-     * Успешный ответ
+     * Успешный ответ.
      * @alias module:model/InlineResponse201
      */
     constructor() { 
@@ -48,8 +48,8 @@ class InlineResponse201 {
         if (data) {
             obj = obj || new InlineResponse201();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], [Object]);
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -59,9 +59,9 @@ class InlineResponse201 {
 }
 
 /**
- * @member {Array.<Object>} guids
+ * @member {String} guid
  */
-InlineResponse201.prototype['guids'] = undefined;
+InlineResponse201.prototype['guid'] = undefined;
 
 
 

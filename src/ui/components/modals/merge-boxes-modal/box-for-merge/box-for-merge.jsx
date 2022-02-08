@@ -21,7 +21,7 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
 
   return (
     <div className={classNames.box}>
-      <Typography className={classNames.boxTitle}>{box._id}</Typography>
+      <Typography className={classNames.boxTitle}>{box.humanFriendlyId}</Typography>
       <div className={classNames.itemsWrapper}>
         <div>
           {box.items.map((order, orderIndex) => (

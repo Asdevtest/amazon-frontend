@@ -35,16 +35,13 @@ const Box = ({
   const classNames = useClassNames()
   return (
     <div className={classNames.box}>
-      <Typography className={classNames.boxTitle}>{box._id}</Typography>
+      {!isNewBox && <Typography className={classNames.boxTitle}>{box.humanFriendlyId}</Typography>}
       <div className={classNames.itemWrapper}>
         <div>
           {box.items.map((order, orderIndex) => (
             <div key={`box_${box._id}_${readOnly ? 1 : 0}_${orderIndex}`}>
               <div key={orderIndex} className={classNames.order}>
-                <img
-                  className={classNames.img}
-                  src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
-                />
+                <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
                 <Typography className={classNames.title}>
                   {orderIndex + 1 + '. ' + order.product.amazonTitle}
                 </Typography>
@@ -106,9 +103,9 @@ const Box = ({
             <Field
               multiline
               disabled={!isNewBox}
-              className={classNames.heightFieldAuto}
               label={textConsts.shippingLabel}
               value={box.shippingLabel}
+              error={box.shippingLabel.length < 5 && box.shippingLabel.length > 0 && textConsts.shippingLabelError}
               onChange={e => onChangeField(e, 'shippingLabel', box._id)}
             />
           </div>
@@ -265,7 +262,10 @@ export const RedistributeBox = ({
   )
 
   const disabledSubmitBtn =
-    totalProductsAmount !== 0 || requestStatus === loadingStatuses.isLoading || filterEmptyBoxes(newBoxes).length < 2
+    totalProductsAmount !== 0 ||
+    requestStatus === loadingStatuses.isLoading ||
+    filterEmptyBoxes(newBoxes).length < 2 ||
+    filterEmptyBoxes(newBoxes).some(el => el.shippingLabel.length < 5 && el.shippingLabel.length > 0)
 
   return (
     <React.Fragment>

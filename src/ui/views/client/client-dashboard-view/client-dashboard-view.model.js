@@ -17,6 +17,7 @@ export class ClientDashboardViewModel {
   boxesMy = []
   orders = []
   productsPaid = []
+  batchesBoxes = []
 
   showTransferModal = false
 
@@ -58,10 +59,12 @@ export class ClientDashboardViewModel {
   async loadData() {
     try {
       this.requestStatus = loadingStatuses.isLoading
-      await this.getProductsPaid()
-      await this.getOrders()
+      this.getProductsPaid()
+      this.getOrders()
 
-      await this.getBoxesMy()
+      this.getBoxesMy()
+
+      this.getBatches()
 
       this.requestStatus = loadingStatuses.success
     } catch (error) {
@@ -70,17 +73,17 @@ export class ClientDashboardViewModel {
     }
   }
 
-  async getBoxesMy() {
-    try {
-      const result = await BoxesModel.getBoxes()
-      runInAction(() => {
-        this.boxesMy = result
-      })
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
+  // async getBoxesMy() {
+  //   try {
+  //     const result = await BoxesModel.getBoxes()
+  //     runInAction(() => {
+  //       this.boxesMy = result
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.error = error
+  //   }
+  // }
 
   async getOrders() {
     try {
@@ -96,9 +99,35 @@ export class ClientDashboardViewModel {
 
   async getProductsPaid() {
     try {
-      const result = await ClientModel.getProductsPaid()
+      const result = await ClientModel.getProductsMy()
       runInAction(() => {
         this.productsPaid = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async getBoxesMy() {
+    try {
+      const result = await BoxesModel.getBoxesForCurClient()
+
+      runInAction(() => {
+        this.boxesMy = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async getBatches() {
+    try {
+      const result = await ClientModel.getBatches()
+
+      runInAction(() => {
+        this.batchesBoxes = result.reduce((ac, cur) => ac.concat(cur.boxes), [])
       })
     } catch (error) {
       console.log(error)

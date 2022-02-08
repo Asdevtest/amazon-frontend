@@ -2,10 +2,13 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {texts} from '@constants/texts'
 
 import {ClientModel} from '@models/client-model'
+import {ProductModel} from '@models/product-model'
 import {SellerBoardModel} from '@models/seller-board-model'
 import {SettingsModel} from '@models/settings-model'
+import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
 import {clientInventoryColumns} from '@components/table-columns/client/client-inventory-columns'
@@ -13,7 +16,12 @@ import {clientInventoryColumns} from '@components/table-columns/client/client-in
 import {copyToClipBoard} from '@utils/clipboard'
 import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {toFixed} from '@utils/text'
+import {onSubmitPostImages} from '@utils/upload-files'
+
+const textConsts = getLocalizedTexts(texts, 'en').inventoryView
 
 const fieldsOfProductAllowedToUpdate = [
   'dirdecision',
@@ -22,6 +30,7 @@ const fieldsOfProductAllowedToUpdate = [
   'supervisorFine',
   'supervisorFineComment',
   'barCode',
+  'clientComment',
 ]
 
 export class ClientInventoryViewModel {
@@ -33,6 +42,9 @@ export class ClientInventoryViewModel {
   productsMy = []
   orders = []
   selectedRowIds = []
+  sellerBoardDailyData = []
+
+  selectedRowId = undefined
 
   drawerOpen = false
   showOrderModal = false
@@ -43,6 +55,12 @@ export class ClientInventoryViewModel {
   selectedProduct = undefined
   showSendOwnProductModal = false
   showBindInventoryGoodsToStockModal = false
+  showInfoModal = false
+  showConfirmModal = false
+
+  successModalText = ''
+  confirmMessage = ''
+  priceForSeekSupplier = 0
 
   barCodeHandlers = {
     onClickBarcode: item => this.onClickBarcode(item),
@@ -50,11 +68,15 @@ export class ClientInventoryViewModel {
     onDeleteBarcode: item => this.onDeleteBarcode(item),
   }
 
+  readyImages = []
+  progressValue = 0
+  showProgress = false
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = clientInventoryColumns(this.barCodeHandlers)
 
   constructor({history}) {
@@ -66,10 +88,11 @@ export class ClientInventoryViewModel {
     this.filterModel = model
   }
 
-  onClickShowProduct() {
-    const foundedProduct = this.productsMy.filter(product => this.selectedRowIds.includes(product.id))[0]
-
-    this.history.push('/client/product', {product: toJS(foundedProduct.originalData)})
+  onClickShowProduct(row) {
+    this.history.push({
+      pathname: '/client/product',
+      search: row.originalData._id,
+    })
   }
 
   setDataGridState(state) {
@@ -89,7 +112,7 @@ export class ClientInventoryViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -214,6 +237,7 @@ export class ClientInventoryViewModel {
       }
 
       if (!this.error) {
+        this.successModalText = textConsts.successOrderTitle
         this.onTriggerOpenModal('showSuccessModal')
       }
       this.setActionStatus(loadingStatuses.success)
@@ -235,6 +259,109 @@ export class ClientInventoryViewModel {
     }
   }
 
+  async onSubmitSaveSupplier(supplier, photosOfSupplier, addMore, makeMainSupplier) {
+    try {
+      if (photosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      }
+
+      supplier = {
+        ...supplier,
+        amount: parseFloat(supplier?.amount) || '',
+        delivery: parseFloat(supplier?.delivery) || 0,
+        lotcost: parseFloat(supplier?.lotcost) || '',
+        minlot: parseInt(supplier?.minlot) || '',
+        price: parseFloat(supplier?.price) || '',
+        images: supplier.images.concat(this.readyImages),
+      }
+
+      const createSupplierResult = await SupplierModel.createSupplier(supplier)
+      await ProductModel.addSuppliersToProduct(this.selectedRowId, [createSupplierResult.guid])
+
+      if (makeMainSupplier) {
+        await ClientModel.updateProduct(this.selectedRowId, {
+          currentSupplierId: createSupplierResult.guid,
+        })
+      }
+
+      this.successModalText = textConsts.successSupplierTitle
+      this.onTriggerOpenModal('showSuccessModal')
+
+      !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  onClickAddSupplierBtn() {
+    this.selectedRowId = this.selectedRowIds[0]
+    this.onTriggerOpenModal('showSelectionSupplierModal')
+  }
+
+  async onSubmitCalculateSeekSupplier(clientComment) {
+    try {
+      this.clientComment = clientComment
+
+      const result = await ClientModel.calculatePriceToSeekSupplier(this.selectedRowId)
+
+      this.priceForSeekSupplier = result.priceForClient
+
+      this.confirmMessage = `Стоимость услуги поиска поставщика составит $${toFixed(
+        result.priceForClient,
+        2,
+      )}.\n Подать заявку?`
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitSeekSupplier() {
+    try {
+      await ClientModel.sendProductToSeekSupplier(this.selectedRowId, {
+        clientComment: this.clientComment,
+        priceForClient: this.priceForSeekSupplier,
+      })
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.onTriggerOpenModal('showSelectionSupplierModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitCreateProduct(data, photosOfNewProduct) {
+    try {
+      if (photosOfNewProduct.length) {
+        await onSubmitPostImages.call(this, {images: photosOfNewProduct, type: 'readyImages'})
+      }
+
+      const resData = {...data, images: this.readyImages.length ? this.readyImages : data.images}
+
+      const result = await ClientModel.createProduct(resData)
+
+      if (result) {
+        this.selectedRowId = result.guid
+
+        this.onTriggerOpenModal('showSelectionSupplierModal')
+      }
+
+      this.successModalText = textConsts.successAddProductTitle
+      this.onTriggerOpenModal('showSuccessModal')
+
+      await this.getProductsMy()
+      this.onTriggerOpenModal('showSendOwnProductModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
   async updateUserInfo() {
     await UserModel.getUserInfo()
   }
@@ -250,7 +377,6 @@ export class ClientInventoryViewModel {
 
   async onClickBindInventoryGoodsToStockBtn() {
     try {
-      await this.getMyDailyReports()
       this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
     } catch (error) {
       console.log(error)
@@ -260,22 +386,33 @@ export class ClientInventoryViewModel {
     }
   }
 
-  getStockData() {
-    return toJS(this.sellerBoardDailyData)
-  }
-
-  async getMyDailyReports() {
+  async getStockGoodsByFilters(filter) {
     try {
-      const result = await SellerBoardModel.getMyDailyReports()
+      const result = await SellerBoardModel.getStockGoodsByFilters(filter)
 
       runInAction(() => {
         this.sellerBoardDailyData = addIdDataConverter(result)
       })
     } catch (error) {
       console.log(error)
+      this.sellerBoardDailyData = []
       if (error.body && error.body.message) {
         this.error = error.body.message
       }
+    }
+  }
+
+  async onSubmitBindStockGoods(data) {
+    try {
+      await SellerBoardModel.bindStockProductsBySku(data)
+      this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
+
+      this.successModalText = textConsts.successBindTitle
+      this.onTriggerOpenModal('showSuccessModal')
+    } catch (error) {
+      this.onTriggerOpenModal('showInfoModal')
+
+      console.log(error)
     }
   }
 

@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**additionalBoxes** | [**[InlineObject6]**](InlineObject6.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
+**totalCost** | **Number** | Для подтверждения нужно вернуть totalCost из калькулятора. | 
 
 

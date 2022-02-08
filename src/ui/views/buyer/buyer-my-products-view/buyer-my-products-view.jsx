@@ -1,13 +1,13 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import {ProductStatus} from '@constants/product-status'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -16,7 +16,6 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/buyerAvatar.jpg'
@@ -27,7 +26,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').myProductsView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 
-const attentionStatuses = [ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT]]
+const attentionStatuses = [ProductStatus.BUYER_PICKED_PRODUCT, ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]
 @observer
 export class BuyerMyProductsViewRaw extends Component {
   viewModel = new BuyerMyProductsViewModel({history: this.props.history})
@@ -61,6 +60,9 @@ export class BuyerMyProductsViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
 
+    const getRowClassName = params =>
+      attentionStatuses.includes(params.getValue(params.id, 'status')) && classNames.attentionRow
+
     return (
       <React.Fragment>
         <Navbar
@@ -80,7 +82,6 @@ export class BuyerMyProductsViewRaw extends Component {
             curUserRole={UserRole.BUYER}
           >
             <MainContent>
-              <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
                 <DataGrid
                   pagination
@@ -89,14 +90,12 @@ export class BuyerMyProductsViewRaw extends Component {
                   classes={{
                     row: classNames.row,
                   }}
-                  getRowClassName={params =>
-                    attentionStatuses.includes(params.getValue(params.id, 'status')) && classNames.attentionRow
-                  }
+                  getRowClassName={getRowClassName}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={100}
                   components={{
@@ -111,7 +110,7 @@ export class BuyerMyProductsViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onStateChange={setDataGridState}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                 />

@@ -44,6 +44,7 @@ const updateBoxBlackList = [
   'sendToBatchComplete',
   'storekeeperId',
   'storekeeper',
+  'humanFriendlyId',
 ]
 
 export class ClientWarehouseViewModel {
@@ -72,12 +73,13 @@ export class ClientWarehouseViewModel {
   showMergeBoxSuccessModal = false
   showEditBoxSuccessModal = false
   boxesDeliveryCosts = undefined
+  showMergeBoxFailModal = false
 
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = clientBoxesViewColumns()
 
   get isMasterBoxSelected() {
@@ -117,7 +119,7 @@ export class ClientWarehouseViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -221,7 +223,9 @@ export class ClientWarehouseViewModel {
 
         this.setRequestStatus(loadingStatuses.success)
 
-        this.onTriggerOpenModal('showRedistributeBoxSuccessModal')
+        splitBoxesResult
+          ? this.onTriggerOpenModal('showRedistributeBoxSuccessModal')
+          : this.onTriggerOpenModal('showRedistributeBoxFailModal')
         this.onTriggerOpenModal('showRedistributeBoxModal')
         this.onModalRedistributeBoxAddNewBox(null)
       }
@@ -236,7 +240,7 @@ export class ClientWarehouseViewModel {
     this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
   }
 
-  async onEditBoxSubmit(id, boxData) {
+  async onEditBoxSubmit(id, boxData, sourceData) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.selectedBoxes = []
@@ -251,6 +255,8 @@ export class ClientWarehouseViewModel {
       const requestBox = getObjectFilteredByKeyArrayBlackList(
         {
           ...boxData,
+          isShippingLabelAttachedByStorekeeper:
+            sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
           items: newItems,
         },
         updateBoxBlackList,
@@ -289,6 +295,12 @@ export class ClientWarehouseViewModel {
 
       const mergeBoxesResult = await this.mergeBoxes(selectedIds, boxBody)
 
+      mergeBoxesResult
+        ? this.onTriggerOpenModal('showMergeBoxSuccessModal')
+        : this.onTriggerOpenModal('showMergeBoxFailModal')
+
+      this.onTriggerOpenModal('showMergeBoxModal')
+
       await this.postTask({
         idsData: [mergeBoxesResult.guid],
         idsBeforeData: [...selectedIds],
@@ -297,9 +309,8 @@ export class ClientWarehouseViewModel {
       })
 
       this.setRequestStatus(loadingStatuses.success)
-      this.onTriggerOpenModal('showMergeBoxModal')
+
       this.tmpClientComment = ''
-      this.onTriggerOpenModal('showMergeBoxSuccessModal')
       await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

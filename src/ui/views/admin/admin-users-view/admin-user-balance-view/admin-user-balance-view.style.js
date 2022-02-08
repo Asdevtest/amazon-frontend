@@ -11,4 +11,18 @@ export const styles = createStyles(theme => ({
     fontSize: theme.spacing(5),
     color: 'orange',
   },
+
+  tableWrapper: {
+    marginTop: '24px',
+    width: '100%',
+    height: '100%',
+  },
+
+  redRow: {
+    color: 'red',
+  },
+
+  greenRow: {
+    color: 'green',
+  },
 }))

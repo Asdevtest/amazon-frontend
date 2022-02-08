@@ -15,13 +15,13 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject17 from '../model/InlineObject17';
 import InlineObject18 from '../model/InlineObject18';
 import InlineObject19 from '../model/InlineObject19';
+import InlineObject20 from '../model/InlineObject20';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
-import InlineResponse2005 from '../model/InlineResponse2005';
-import InlineResponse2013 from '../model/InlineResponse2013';
+import InlineResponse2006 from '../model/InlineResponse2006';
+import InlineResponse2012 from '../model/InlineResponse2012';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -101,11 +101,11 @@ export default class BuyerApi {
 
     /**
      * # Редактировать заказ.
-     * ## Редактировать заказ.   
+     * ## Редактировать заказ.   Статус 20 приводит к оплате.  Только заказы со статусом 15 можно оплачивать. статусы выше 20 нельзя повторно оплачивать или менять цену при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject18} opts.body 
+     * @param {module:model/InlineObject19} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersOrdersGuidPatchWithHttpInfo(guid, opts) {
@@ -140,11 +140,11 @@ export default class BuyerApi {
 
     /**
      * # Редактировать заказ.
-     * ## Редактировать заказ.   
+     * ## Редактировать заказ.   Статус 20 приводит к оплате.  Только заказы со статусом 15 можно оплачивать. статусы выше 20 нельзя повторно оплачивать или менять цену при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject18} opts.body 
+     * @param {module:model/InlineObject19} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersOrdersGuidPatch(guid, opts) {
@@ -312,11 +312,11 @@ export default class BuyerApi {
 
     /**
      * # Внести изменения в продукт.
-     * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 30, 35, 40, 50, 60.   
+     * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 35, 40, 50, 60, 235, 240, 250, 260.   
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject17} opts.body 
+     * @param {module:model/InlineObject18} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -351,11 +351,11 @@ export default class BuyerApi {
 
     /**
      * # Внести изменения в продукт.
-     * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 30, 35, 40, 50, 60.   
+     * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 35, 40, 50, 60, 235, 240, 250, 260.   
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject17} opts.body 
+     * @param {module:model/InlineObject18} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersProductsGuidPatch(guid, opts) {
@@ -471,6 +471,7 @@ export default class BuyerApi {
      * # Получить список вакантных товаров.
      * ## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
@@ -481,6 +482,7 @@ export default class BuyerApi {
       let pathParams = {
       };
       let queryParams = {
+        'isCreatedByClient': opts['isCreatedByClient']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -503,6 +505,7 @@ export default class BuyerApi {
      * # Получить список вакантных товаров.
      * ## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
@@ -573,7 +576,7 @@ export default class BuyerApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
      */
     apiV1BuyersTasksGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -592,7 +595,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2005];
+      let returnType = [InlineResponse2006];
       return this.apiClient.callApi(
         '/api/v1/buyers/tasks', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -605,7 +608,7 @@ export default class BuyerApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
      */
     apiV1BuyersTasksGet(opts) {
       return this.apiV1BuyersTasksGetWithHttpInfo(opts)
@@ -620,8 +623,8 @@ export default class BuyerApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject19} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2013} and HTTP response
+     * @param {module:model/InlineObject20} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2012} and HTTP response
      */
     apiV1BuyersTasksPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -640,7 +643,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2013;
+      let returnType = InlineResponse2012;
       return this.apiClient.callApi(
         '/api/v1/buyers/tasks', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -653,8 +656,8 @@ export default class BuyerApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject19} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2013}
+     * @param {module:model/InlineObject20} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2012}
      */
     apiV1BuyersTasksPost(opts) {
       return this.apiV1BuyersTasksPostWithHttpInfo(opts)

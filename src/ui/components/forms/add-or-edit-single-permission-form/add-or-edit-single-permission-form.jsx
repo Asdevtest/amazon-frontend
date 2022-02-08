@@ -12,6 +12,7 @@ import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
 
+import {checkIsPositiveNum} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {clearSpecialCharacters} from '@utils/text'
 
@@ -31,23 +32,25 @@ export const AddOrEditSinglePermissionForm = observer(
       description: permissionToEdit?.description || '',
       allowedUrls: permissionToEdit?.allowedUrls || [],
       role: permissionToEdit?.role === 0 ? 0 : permissionToEdit?.role || '',
+      hierarchy: permissionToEdit?.hierarchy === 0 ? 0 : permissionToEdit?.hierarchy || 1,
     }
 
     const [formFields, setFormFields] = useState(sourceFormFields)
 
     const onChangeField = (fieldName, index, type) => event => {
-      const newFormFields = {...formFields}
+      const newFormFields = JSON.parse(JSON.stringify(formFields))
 
       if (fieldName === 'allowedUrls') {
         newFormFields[fieldName][index][type] = event.target.value
+      } else if (fieldName === 'key') {
+        setOnKeyFieldEditing(true)
+        newFormFields[fieldName] = clearSpecialCharacters(event.target.value)
+      } else if (fieldName === 'hierarchy' && !checkIsPositiveNum(event.target.value)) {
+        return
       } else {
         newFormFields[fieldName] = event.target.value
       }
 
-      if (fieldName === 'key') {
-        setOnKeyFieldEditing(true)
-        newFormFields[fieldName] = clearSpecialCharacters(event.target.value)
-      }
       setFormFields(newFormFields)
     }
 
@@ -80,10 +83,12 @@ export const AddOrEditSinglePermissionForm = observer(
       formFields.key.match(/[_]/) === null ||
       formFields.title === '' ||
       formFields.description === '' ||
-      !formFields?.allowedUrls[formFields?.allowedUrls.length - 1]?.url ||
-      formFields?.allowedUrls[formFields?.allowedUrls.length - 1]?.httpMethod === 'None' ||
-      !formFields?.allowedUrls[formFields?.allowedUrls.length - 1]?.httpMethod
-    formFields.role === 'None' || isDoubleKey
+      (formFields.allowedUrls.length &&
+        (!formFields?.allowedUrls[formFields?.allowedUrls.length - 1]?.url ||
+          formFields?.allowedUrls[formFields?.allowedUrls.length - 1]?.httpMethod === 'None' ||
+          !formFields?.allowedUrls[formFields?.allowedUrls.length - 1]?.httpMethod)) ||
+      formFields.role === 'None' ||
+      isDoubleKey
 
     return (
       <div className={classNames.root}>
@@ -137,6 +142,13 @@ export const AddOrEditSinglePermissionForm = observer(
             placeholder={textConsts.descriptionHolder}
             value={formFields.description}
             onChange={onChangeField('description')}
+          />
+
+          <Field
+            label={textConsts.hierarchyLabel}
+            placeholder={textConsts.hierarchyHolder}
+            value={formFields.hierarchy}
+            onChange={onChangeField('hierarchy')}
           />
 
           <Field

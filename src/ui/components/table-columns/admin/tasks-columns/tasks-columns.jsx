@@ -36,6 +36,7 @@ export const adminTasksViewColumns = handlers => [
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
+
   {
     field: 'description',
     headerName: textConsts.descriptionField,
@@ -43,6 +44,13 @@ export const adminTasksViewColumns = handlers => [
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'storekeeper',
+    headerName: textConsts.storekeeperField,
+    width: 250,
+    renderCell: params => renderFieldValueCell(params.value),
   },
 
   {

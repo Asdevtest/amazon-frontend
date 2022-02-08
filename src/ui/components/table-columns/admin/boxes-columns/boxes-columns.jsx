@@ -48,6 +48,13 @@ export const adminBoxesViewColumns = () => [
   },
 
   {
+    field: 'storekeeper',
+    headerName: textConsts.storekeeperNameField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 250,
+  },
+
+  {
     field: 'orders',
     headerName: textConsts.ordersField,
     width: 350,

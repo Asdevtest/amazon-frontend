@@ -17,7 +17,7 @@ import {useClassNames} from './table-supplier.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
-export const TableSupplier = observer(({product, suppliers, selectedSupplier, onClickSupplier}) => {
+export const TableSupplier = observer(({product, selectedSupplier, onClickSupplier}) => {
   const classNames = useClassNames()
   const [showPhotosModal, setShowPhotosModal] = useState(false)
   const [curImages, setCurImages] = useState([])
@@ -41,8 +41,8 @@ export const TableSupplier = observer(({product, suppliers, selectedSupplier, on
           </TableRow>
         </TableHead>
         <TableBody>
-          {suppliers && suppliers.length ? (
-            suppliers.map((supplier, index) => (
+          {product.suppliers.length ? (
+            product.suppliers.map((supplier, index) => (
               <TableRow
                 key={`supplier_${supplier.id}_${index}`}
                 className={clsx({

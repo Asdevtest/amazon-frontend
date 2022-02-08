@@ -93,7 +93,10 @@ export const RequestToSendBatchForm = observer(
         <div className={classNames.btnsWrapper}>
           <Button
             disableElevation
-            disabled={boxesWithPriceRequest.length < 1 || !boxesMy.shippingLabel}
+            disabled={
+              boxesWithPriceRequest.length < 1 ||
+              boxesWithPriceRequest.some(el => !el.isShippingLabelAttachedByStorekeeper)
+            }
             color="primary"
             variant="contained"
             onClick={onClickSendBoxesToBatch}

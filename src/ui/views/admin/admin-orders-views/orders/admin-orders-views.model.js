@@ -42,7 +42,7 @@ export class AdminOrdersAllViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = adminOrdersViewColumns()
 
   constructor({history}) {
@@ -75,7 +75,7 @@ export class AdminOrdersAllViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value

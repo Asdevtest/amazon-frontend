@@ -53,9 +53,6 @@ class InlineObject1 {
         if (data) {
             obj = obj || new InlineObject1();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
             if (data.hasOwnProperty('recipientId')) {
                 obj['recipientId'] = ApiClient.convertToType(data['recipientId'], 'String');
             }
@@ -71,12 +68,6 @@ class InlineObject1 {
 
 
 }
-
-/**
- * GUID продукта.
- * @member {String} productId
- */
-InlineObject1.prototype['productId'] = undefined;
 
 /**
  * GUID пользователя.

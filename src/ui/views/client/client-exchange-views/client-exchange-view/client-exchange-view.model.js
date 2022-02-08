@@ -37,7 +37,7 @@ export class ClientExchangeViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = clientExchangeViewColumns(this.rowHandlers)
 
   showOrderModal = false
@@ -91,7 +91,7 @@ export class ClientExchangeViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -211,11 +211,11 @@ export class ClientExchangeViewModel {
 
   async onClickBuyProductBtn(product) {
     try {
-      console.log('product ', product)
-      const pickUpProductResult = await ClientModel.pickupProduct(product._id)
-      console.log('pickUpProductResult ', pickUpProductResult)
-      const makePaymentsResult = await ClientModel.makePayments([product._id])
-      console.log('makePaymentsResult ', makePaymentsResult)
+      await ClientModel.makePayments([product._id])
+
+      this.onTriggerOpenModal('showConfirmPayModal')
+      this.onTriggerOpenModal('showOrderModal')
+
       await this.updateUserInfo()
       this.loadData()
     } catch (error) {

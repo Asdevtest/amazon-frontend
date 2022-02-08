@@ -153,6 +153,11 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
     setBoxFields(newFormFields)
   }
 
+  const disableSubmit =
+    JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
+    requestStatus === loadingStatuses.isLoading ||
+    (boxFields.shippingLabel.length < 5 && boxFields.shippingLabel.length > 0)
+
   return (
     <div className={classNames.root}>
       <div className={classNames.form}>
@@ -269,7 +274,7 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
         <div className={classNames.tableWrapper}>
           <div className={classNames.boxTitleWrapper}>
             <Typography className={classNames.tableTitle}>{`${textConsts.boxTitle} #${
-              formItem && formItem._id
+              formItem && formItem.humanFriendlyId
             }`}</Typography>
 
             <Typography variant="h4" className={classNames.amountSpan}>
@@ -294,6 +299,7 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
             className={classNames.heightFieldAuto}
             rows={4}
             rowsMax={6}
+            inputProps={{maxLength: 2000}}
             label={'Оставить комментарий к задаче'}
             placeholder={'Комментарий клиента к задаче'}
             onChange={setFormField('clientComment')}
@@ -304,14 +310,12 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
       <div className={classNames.buttonsWrapper}>
         <SuccessButton
           disableElevation
-          disabled={
-            JSON.stringify(boxInitialState) === JSON.stringify(boxFields) || requestStatus === loadingStatuses.isLoading
-          }
+          disabled={disableSubmit}
           className={classNames.button}
           color="primary"
           variant="contained"
           onClick={() => {
-            onSubmit(formItem._id, boxFields)
+            onSubmit(formItem._id, boxFields, formItem)
           }}
         >
           {textConsts.saveChangesBtn}

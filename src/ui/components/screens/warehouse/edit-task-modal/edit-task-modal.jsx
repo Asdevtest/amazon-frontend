@@ -87,6 +87,7 @@ export const EditTaskModal = observer(
               className={classNames.heightFieldAuto}
               rows={4}
               rowsMax={6}
+              inputProps={{maxLength: 2000}}
               label={'Комментарий склада'}
               placeholder={'Комментарий склада к задаче для клиента'}
               value={storekeeperComment || ''}

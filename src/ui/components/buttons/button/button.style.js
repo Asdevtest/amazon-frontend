@@ -7,7 +7,7 @@ export const useClassNames = makeStyles(() => ({
 
   success: {
     color: '#fff',
-    backgroundColor: 'rgb(15, 169, 20)',
+    backgroundColor: '#4caf50',
     '&:hover': {
       backgroundColor: '#009a07',
 
@@ -47,5 +47,9 @@ export const useClassNames = makeStyles(() => ({
       cursor: 'default',
       transform: 'scale(1.1)',
     },
+  },
+
+  tooltipDisabled: {
+    opacity: '0.7',
   },
 }))

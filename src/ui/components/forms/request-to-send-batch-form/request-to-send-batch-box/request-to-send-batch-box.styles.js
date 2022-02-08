@@ -15,7 +15,7 @@ export const useClassNames = makeStyles(() => ({
   },
   priceCellRight: {
     textAlign: 'center',
-    minWidth: '150px',
+    width: '150px',
   },
   imgWrapper: {
     minHeight: '50px',
@@ -59,5 +59,34 @@ export const useClassNames = makeStyles(() => ({
 
   noShippingLabel: {
     color: 'red',
+  },
+
+  indexCell: {
+    width: '20px',
+  },
+  productCell: {
+    minWidth: '300px',
+  },
+
+  dementionsCell: {
+    width: '350px',
+  },
+
+  shippingLabelCell: {
+    width: '250px',
+  },
+
+  amountCell: {
+    width: '60px',
+  },
+
+  amazonTitle: {
+    fontWeight: 'bold',
+  },
+
+  checkboxWrapper: {
+    display: 'flex',
+
+    alignItems: 'center',
   },
 }))

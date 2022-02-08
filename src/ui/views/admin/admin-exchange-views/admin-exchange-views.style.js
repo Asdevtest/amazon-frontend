@@ -21,4 +21,10 @@ export const styles = createStyles(theme => ({
       transform: 'scale(1.01)',
     },
   },
+
+  tableWrapper: {
+    marginTop: '24px',
+    width: '100%',
+    height: '100%',
+  },
 }))

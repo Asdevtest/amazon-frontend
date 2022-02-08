@@ -29,19 +29,23 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 export class ResearcherProductView extends Component {
   viewModel = new ResearcherProductViewModel({
     history: this.props.history,
-    location: this.props.location,
   })
+
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
 
   render() {
     const {
+      imagesForLoad,
       requestStatus,
       alertFailedText,
       showProgress,
       progressValue,
       drawerOpen,
       product,
+      productBase,
       actionStatus,
-      suppliers,
       selectedSupplier,
       showAddOrEditSupplierModal,
       formFieldsValidationErrors,
@@ -59,6 +63,7 @@ export class ResearcherProductView extends Component {
       handleProductActionButtons,
       onTriggerOpenModal,
       onClickSetProductStatusBtn,
+      onChangeImagesForLoad,
     } = this.viewModel
 
     return (
@@ -68,7 +73,6 @@ export class ResearcherProductView extends Component {
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
-          // user={textConsts.appUser}
         />
         <Main>
           <Appbar
@@ -82,10 +86,13 @@ export class ResearcherProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  imagesForLoad={imagesForLoad}
+                  showProgress={showProgress}
+                  progressValue={progressValue}
                   alertFailedText={alertFailedText}
                   curUserRole={UserRole.RESEARCHER}
                   product={product}
-                  suppliers={suppliers}
+                  productBase={productBase}
                   actionStatus={actionStatus}
                   selectedSupplier={selectedSupplier}
                   formFieldsValidationErrors={formFieldsValidationErrors}
@@ -95,6 +102,7 @@ export class ResearcherProductView extends Component {
                   onClickSetProductStatusBtn={onClickSetProductStatusBtn}
                   onClickSupplier={onChangeSelectedSupplier}
                   onClickParseProductData={onClickParseProductData}
+                  onChangeImagesForLoad={onChangeImagesForLoad}
                 />
               ) : undefined}
             </MainContent>

@@ -65,6 +65,7 @@ export const useClassNames = makeStyles(() => ({
   },
   buttonParseAmazon: {
     marginRight: '16px',
+    height: '50px',
   },
   productFieldBox: {
     display: 'flex',
@@ -133,5 +134,9 @@ export const useClassNames = makeStyles(() => ({
   },
   carouselImage: {
     height: '100%',
+  },
+
+  imageFileInputWrapper: {
+    marginLeft: '20px',
   },
 }))

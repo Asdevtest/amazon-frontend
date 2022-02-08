@@ -17,6 +17,7 @@ import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {Modal} from '@components/modal'
 
+import {checkIsPositiveNum} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {AddOrEditSinglePermissionForm} from '../add-or-edit-single-permission-form'
@@ -42,9 +43,10 @@ export const AddOrEditGroupPermissionForm = observer(
       description: permissionToEdit?.description || '',
       permissions: permissionToEdit?.permissions?.map(el => el._id) || [],
       role: permissionToEdit?.role === 0 ? 0 : permissionToEdit?.role || '',
+      hierarchy: permissionToEdit?.hierarchy === 0 ? 0 : permissionToEdit?.hierarchy || 1,
     }
     const [formFields, setFormFields] = useState(sourceFormFields)
-    console.log(formFields.permissions)
+
     const [showAddOrEditSinglePermissionModal, setShowAddOrEditSinglePermissionModal] = useState(false)
 
     const [newSinglePermission, setNewSinglePermission] = useState([])
@@ -64,10 +66,16 @@ export const AddOrEditGroupPermissionForm = observer(
     const onChangeField = fieldName => event => {
       const newFormFields = {...formFields}
       newFormFields[fieldName] = event.target.value
+
       if (fieldName === 'key') {
         setOnKeyFieldEditing(true)
         newFormFields[fieldName] = event.target.value.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '')
+      } else if (fieldName === 'hierarchy' && !checkIsPositiveNum(event.target.value)) {
+        return
+      } else {
+        newFormFields[fieldName] = event.target.value
       }
+
       setFormFields(newFormFields)
     }
 
@@ -180,12 +188,19 @@ export const AddOrEditGroupPermissionForm = observer(
           <Field
             multiline
             minRows={4}
-            rowsMax={6}
+            rowsMax={4}
             className={classNames.descriptionField}
             label={textConsts.descriptionLabel}
             placeholder={textConsts.descriptionHolder}
             value={formFields.description}
             onChange={onChangeField('description')}
+          />
+
+          <Field
+            label={textConsts.hierarchyLabel}
+            placeholder={textConsts.hierarchyHolder}
+            value={formFields.hierarchy}
+            onChange={onChangeField('hierarchy')}
           />
 
           <Field

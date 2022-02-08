@@ -49,7 +49,7 @@ export const UserBalanceHistory = ({historyData, title}) => {
                     <TableCell className={classNames.typeCell}>{item.sum >= 0 ? 'replenish' : 'withdraw'}</TableCell>
                     <TableCell className={classNames.commentCell}>{item.comment}</TableCell>
                     <TableCell className={classNames.reasonCell}>{item.productId}</TableCell>
-                    <TableCell className={classNames.usernameCell}>{item.recipient.name}</TableCell>
+                    <TableCell className={classNames.usernameCell}>{item.recipient?.name}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

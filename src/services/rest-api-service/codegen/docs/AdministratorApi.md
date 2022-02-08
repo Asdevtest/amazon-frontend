@@ -9,15 +9,15 @@ Method | HTTP request | Description
 [**apiV1AdminsGetNotPaidProductsGet**](AdministratorApi.md#apiV1AdminsGetNotPaidProductsGet) | **GET** /api/v1/admins/get_not_paid_products | # Получить список не оплаченных товаров.
 [**apiV1AdminsGetPaidProductsGet**](AdministratorApi.md#apiV1AdminsGetPaidProductsGet) | **GET** /api/v1/admins/get_paid_products | # Получить список оплаченных товаров.
 [**apiV1AdminsGetProductsByStatusGet**](AdministratorApi.md#apiV1AdminsGetProductsByStatusGet) | **GET** /api/v1/admins/get_products_by_status | # Получить список продуктов с фильтром по статусу.
-[**apiV1AdminsGetSettingsGet**](AdministratorApi.md#apiV1AdminsGetSettingsGet) | **GET** /api/v1/admins/get_settings | Получить настройки.
-[**apiV1AdminsGetVacProductsGet**](AdministratorApi.md#apiV1AdminsGetVacProductsGet) | **GET** /api/v1/admins/get_vac_products | # Получить список товаров, которые ожидают проверку. 
+[**apiV1AdminsGetSettingsGet**](AdministratorApi.md#apiV1AdminsGetSettingsGet) | **GET** /api/v1/admins/get_settings | Получить все настройки.
 [**apiV1AdminsGetWaitingProductsGet**](AdministratorApi.md#apiV1AdminsGetWaitingProductsGet) | **GET** /api/v1/admins/get_waiting_products | # Получить список товаров, которые ожидают проверку. 
 [**apiV1AdminsMakePaymentPost**](AdministratorApi.md#apiV1AdminsMakePaymentPost) | **POST** /api/v1/admins/make_payment | # Создать оплату или штраф для пользователя.
+[**apiV1AdminsMakePaymentsPost**](AdministratorApi.md#apiV1AdminsMakePaymentsPost) | **POST** /api/v1/admins/make_payments | # Оплатить товары. (точная копия как у клиента)
 [**apiV1AdminsOrdersGet**](AdministratorApi.md#apiV1AdminsOrdersGet) | **GET** /api/v1/admins/orders | # Получить список заказов.
 [**apiV1AdminsOrdersGuidPatch**](AdministratorApi.md#apiV1AdminsOrdersGuidPatch) | **PATCH** /api/v1/admins/orders/{guid} | # Редактировать заказ.
 [**apiV1AdminsPatchProductsGuidPatch**](AdministratorApi.md#apiV1AdminsPatchProductsGuidPatch) | **PATCH** /api/v1/admins/patch_products/{guid} | # Внести изменения в продукт (снять с биржи).
 [**apiV1AdminsPaymentsGet**](AdministratorApi.md#apiV1AdminsPaymentsGet) | **GET** /api/v1/admins/payments | # Получить все оплаты, которые были начислены всем ролям.
-[**apiV1AdminsPickupProductGuidPost**](AdministratorApi.md#apiV1AdminsPickupProductGuidPost) | **POST** /api/v1/admins/pickup_product/{guid} | # Взять продукт на проверку.
+[**apiV1AdminsProductsVacGet**](AdministratorApi.md#apiV1AdminsProductsVacGet) | **GET** /api/v1/admins/products/vac | # Получить список вакантных товаров.
 [**apiV1AdminsSetSettingPatch**](AdministratorApi.md#apiV1AdminsSetSettingPatch) | **PATCH** /api/v1/admins/set_setting | # Установить динамические настройки.
 [**apiV1AdminsTasksGet**](AdministratorApi.md#apiV1AdminsTasksGet) | **GET** /api/v1/admins/tasks | # Получить задачи.
 [**apiV1AdminsUsersGet**](AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
@@ -299,7 +299,7 @@ Name | Type | Description  | Notes
 
 > {String: Object} apiV1AdminsGetSettingsGet(opts)
 
-Получить настройки.
+Получить все настройки.
 
 ## Получить все актуальные настройки.   
 
@@ -336,58 +336,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 **{String: Object}**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## apiV1AdminsGetVacProductsGet
-
-> [InlineResponse200] apiV1AdminsGetVacProductsGet(opts)
-
-# Получить список товаров, которые ожидают проверку. 
-
-## переименовали в клиент. Возможно, уже не нужен.   ## Сейчас показывает товары со статусом 0, 10, 40, 50, 60 - т.е. требуют проверки супером.   
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.AdministratorApi();
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example" // String | 
-};
-apiInstance.apiV1AdminsGetVacProductsGet(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] 
-
-### Return type
-
-[**[InlineResponse200]**](InlineResponse200.md)
 
 ### Authorization
 
@@ -490,6 +438,60 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject1**](InlineObject1.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1AdminsMakePaymentsPost
+
+> String apiV1AdminsMakePaymentsPost(opts)
+
+# Оплатить товары. (точная копия как у клиента)
+
+## Оплатить товары.   ## ВНИМАНИЕ: Данный эндпоинт не выбросит ошибку если один из GUID будет валидным но товара с таким GUID    ## ВНИМАНИЕ: не будет найден в базе.    ## ВНИМАНИЕ: Эта оплата товара не имеет ничего общего с оплатой в блоке байер.    ## ВНИМАНИЕ: Здесь оплата заполняет значения полей paidById, paidAt в Продукте.  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.AdministratorApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject5() // InlineObject5 | 
+};
+apiInstance.apiV1AdminsMakePaymentsPost(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject5**](InlineObject5.md)|  | [optional] 
 
 ### Return type
 
@@ -723,13 +725,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1AdminsPickupProductGuidPost
+## apiV1AdminsProductsVacGet
 
-> String apiV1AdminsPickupProductGuidPost(guid, opts)
+> [InlineResponse2005] apiV1AdminsProductsVacGet(opts)
 
-# Взять продукт на проверку.
+# Получить список вакантных товаров.
 
-## Взять продукт на проверку.   ## Берет на проверку от имени директора. Думаю это устаревший эндпоинт.   
+## Получить список  вакантных товаров. статусы 70 и 110  
 
 ### Example
 
@@ -743,11 +745,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.AdministratorApi();
-let guid = "guid_example"; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1AdminsPickupProductGuidPost(guid, opts).then((data) => {
+apiInstance.apiV1AdminsProductsVacGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -760,12 +761,11 @@ apiInstance.apiV1AdminsPickupProductGuidPost(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-**String**
+[**[InlineResponse2005]**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -779,7 +779,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsSetSettingPatch
 
-> InlineResponse201 apiV1AdminsSetSettingPatch(opts)
+> String apiV1AdminsSetSettingPatch(opts)
 
 # Установить динамические настройки.
 
@@ -819,7 +819,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse201**](InlineResponse201.md)
+**String**
 
 ### Authorization
 
@@ -993,7 +993,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsUsersGuidGet
 
-> UserAdminFullSchema apiV1AdminsUsersGuidGet(guid, opts)
+> UserAdminFullSchemaWithSubUsers apiV1AdminsUsersGuidGet(guid, opts)
 
 Получить пользователя по GUID.
 
@@ -1033,7 +1033,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UserAdminFullSchema**](UserAdminFullSchema.md)
+[**UserAdminFullSchemaWithSubUsers**](UserAdminFullSchemaWithSubUsers.md)
 
 ### Authorization
 

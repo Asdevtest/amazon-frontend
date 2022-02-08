@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**requestProposalIds** | **[String]** | Массив id предложений. | [optional] 
+**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
+**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
 
 

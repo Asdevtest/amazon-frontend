@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guids** | **[Object]** |  | [optional] 
+**guid** | **String** |  | [optional] 
 
 

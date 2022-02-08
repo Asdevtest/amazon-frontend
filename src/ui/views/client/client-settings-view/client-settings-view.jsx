@@ -19,7 +19,7 @@ import avatar from '../assets/clientAvatar.jpg'
 import {ClientSettingsViewModel} from './client-settings-view.model'
 import {styles} from './client-settings-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersNotificationsView
+const textConsts = getLocalizedTexts(texts, 'ru').clientSettingsView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_SETTINGS
 
@@ -37,7 +37,6 @@ class ClientSettingsViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
         />
         <Main>
           <Appbar

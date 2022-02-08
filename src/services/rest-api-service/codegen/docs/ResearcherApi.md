@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## apiV1ResearchersCheckProductsIdGet
 
-> InlineResponse20012 apiV1ResearchersCheckProductsIdGet(id, opts)
+> InlineResponse20013 apiV1ResearchersCheckProductsIdGet(id, opts)
 
 Проверить продукт по ID существует ли он в базе.
 
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20012**](InlineResponse20012.md)
+[**InlineResponse20013**](InlineResponse20013.md)
 
 ### Authorization
 
@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersParseSellercentralGet
 
-> InlineResponse20013 apiV1ResearchersParseSellercentralGet(opts)
+> InlineResponse20014 apiV1ResearchersParseSellercentralGet(opts)
 
 Получить данные о продукте с SellerCentral
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20013**](InlineResponse20013.md)
+[**InlineResponse20014**](InlineResponse20014.md)
 
 ### Authorization
 
@@ -345,7 +345,7 @@ Name | Type | Description  | Notes
 
 #  Изменить продукт.
 
-## Изменить продукт.   ## ASIN нельзя менять после того как создан продукт.   
+## Изменить продукт.   ## ASIN нельзя менять после того как создан продукт.   Может редактировать только товары со статусами 0, 5, 10
 
 ### Example
 
@@ -362,7 +362,7 @@ let apiInstance = new TestSwagger.ResearcherApi();
 let guid = "guid_example"; // String | GUID продукта БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject35() // InlineObject35 | 
+  'body': new TestSwagger.InlineObject39() // InlineObject39 | 
 };
 apiInstance.apiV1ResearchersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -379,7 +379,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject35**](InlineObject35.md)|  | [optional] 
+ **body** | [**InlineObject39**](InlineObject39.md)|  | [optional] 
 
 ### Return type
 
@@ -397,7 +397,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsPost
 
-> InlineResponse2017 apiV1ResearchersProductsPost(opts)
+> InlineResponse2014 apiV1ResearchersProductsPost(opts)
 
 # Добавить новый продукт.
 
@@ -417,7 +417,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ResearcherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject34() // InlineObject34 | 
+  'body': new TestSwagger.InlineObject38() // InlineObject38 | 
 };
 apiInstance.apiV1ResearchersProductsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -433,11 +433,11 @@ apiInstance.apiV1ResearchersProductsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject34**](InlineObject34.md)|  | [optional] 
+ **body** | [**InlineObject38**](InlineObject38.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2017**](InlineResponse2017.md)
+[**InlineResponse2014**](InlineResponse2014.md)
 
 ### Authorization
 

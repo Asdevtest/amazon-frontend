@@ -76,4 +76,10 @@ export const useClassNames = makeStyles(() => ({
   saveBtn: {
     marginRight: '8px',
   },
+
+  labelField: {
+    height: '100px',
+    width: '100%',
+    overflowY: 'hidden',
+  },
 }))

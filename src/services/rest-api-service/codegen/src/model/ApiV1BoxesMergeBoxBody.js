@@ -22,10 +22,11 @@ class ApiV1BoxesMergeBoxBody {
     /**
      * Constructs a new <code>ApiV1BoxesMergeBoxBody</code>.
      * @alias module:model/ApiV1BoxesMergeBoxBody
+     * @param shippingLabel {String} Ссылка на наклейку для коробки
      */
-    constructor() { 
+    constructor(shippingLabel) { 
         
-        ApiV1BoxesMergeBoxBody.initialize(this);
+        ApiV1BoxesMergeBoxBody.initialize(this, shippingLabel);
     }
 
     /**
@@ -33,7 +34,8 @@ class ApiV1BoxesMergeBoxBody {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, shippingLabel) { 
+        obj['shippingLabel'] = shippingLabel;
     }
 
     /**

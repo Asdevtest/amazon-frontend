@@ -109,6 +109,12 @@ export const ClientDashboardCardDataKey = {
   SOLD_ITEMS_ON_EXCHANGE: 'SOLD_ITEMS_ON_EXCHANGE',
   ACCURED_TO_RESERCHERS: 'ACCURED_TO_RESERCHERS',
   DISPUTS_FOR_PRODUCTS: 'DISPUTS_FOR_PRODUCTS',
+
+  IN_INVENTORY_BY_CLIENT: 'IN_INVENTORY_BY_CLIENT',
+  ALL_ORDERS: 'ALL_ORDERS',
+  BOXES_IN_WAREHOUSE: 'BOXES_IN_WAREHOUSE',
+  READY_TO_SEND: 'READY_TO_SEND',
+  SEND_BOXES: 'SEND_BOXES',
 }
 export const getClientDashboardCardConfig = textConsts => [
   {
@@ -122,15 +128,16 @@ export const getClientDashboardCardConfig = textConsts => [
         route: '/client/inventory',
       },
       {
-        dataKey: ClientDashboardCardDataKey.FULL_COST,
-        title: textConsts.fullCostOfWarehouseSectionItemTitle,
+        dataKey: ClientDashboardCardDataKey.IN_INVENTORY_BY_CLIENT,
+        title: textConsts.productsByClient,
         color: '#63c2de',
-        route: '/client/warehouse',
+        route: '/client/inventory',
       },
       {
         dataKey: ClientDashboardCardDataKey.REPURCHASE_ITEMS,
-        title: textConsts.repurchaseItemsSectionItemTitle,
+        title: textConsts.productPaid,
         color: '#4dbd74',
+        route: '/client/inventory',
       },
     ],
   },
@@ -140,9 +147,10 @@ export const getClientDashboardCardConfig = textConsts => [
     title: textConsts.ordersTitle,
     items: [
       {
-        dataKey: ClientDashboardCardDataKey.NOT_PAID_ORDERS,
-        title: textConsts.notPaidOrdersSectionItemTitle,
+        dataKey: ClientDashboardCardDataKey.ALL_ORDERS,
+        title: textConsts.allOrders,
         color: '#ffc107',
+        route: '/client/orders',
       },
       {
         dataKey: ClientDashboardCardDataKey.PAID_ORDERS,
@@ -154,27 +162,28 @@ export const getClientDashboardCardConfig = textConsts => [
         dataKey: ClientDashboardCardDataKey.CANCELED_ORDERS,
         title: textConsts.canceledOrdersSectionItemTitle,
         color: '#20a8d8',
+        route: '/client/orders',
       },
     ],
   },
   {
-    key: 'exchange',
-    title: textConsts.exchangeTitle,
+    key: 'boxes',
+    title: textConsts.boxesTitle,
     items: [
       {
-        dataKey: ClientDashboardCardDataKey.SOLD_ITEMS_ON_EXCHANGE,
-        title: textConsts.soldItemsOnExchangeSectionItemTitle,
+        dataKey: ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE,
+        title: textConsts.boxesInWarehouse,
         color: '#63c2de',
-        route: '/client/exchange',
+        route: '/client/warehouse',
       },
       {
-        dataKey: ClientDashboardCardDataKey.ACCURED_TO_RESERCHERS,
-        title: textConsts.accuredToReserchersSectionItemTitle,
+        dataKey: ClientDashboardCardDataKey.READY_TO_SEND,
+        title: textConsts.readyToSend,
         color: '#4dbd74',
       },
       {
-        dataKey: ClientDashboardCardDataKey.DISPUTS_FOR_PRODUCTS,
-        title: textConsts.disputsForProductsSectionItemTitle,
+        dataKey: ClientDashboardCardDataKey.SEND_BOXES,
+        title: textConsts.sendBoxes,
         color: '#f86c6b',
       },
     ],
@@ -222,6 +231,10 @@ export const WarehouseDashboardCardDataKey = {
   COMPLETED_TASKS: 'COMPLETED_TASKS',
   MY_STATS: 'MY_STATS',
   MY_PAYMENTS: 'MY_PAYMENTS',
+  BOXES_IN_STORE: 'BOXES_IN_STORE',
+  SENT_BATCHES: 'SENT_BATCHES',
+  NOT_SENT_BATCHES: 'NOT_SENT_BATCHES',
+  TASKS_MY: 'TASKS_MY',
 }
 export const getWarehouseDashboardCardConfig = textConsts => [
   {
@@ -236,21 +249,6 @@ export const getWarehouseDashboardCardConfig = textConsts => [
     color: '#FFC107',
     route: '/warehouse/my-tasks',
   },
-  // { // Эти не нужны пока
-  //   dataKey: WarehouseDashboardCardDataKey.BOXES_VACANT,
-  //   title: textConsts.vacantBoxesCardTitle,
-  //   color: '#20a8d8',
-  // },
-  // {
-  //   dataKey: WarehouseDashboardCardDataKey.BOXES_MY,
-  //   title: textConsts.boxesMyCardTitle,
-  //   color: '#f86c6b',
-  // },
-  {
-    dataKey: WarehouseDashboardCardDataKey.BATCHES,
-    title: textConsts.batchesCardTitle,
-    color: '#63c2de',
-  },
 
   {
     dataKey: WarehouseDashboardCardDataKey.COMPLETED_TASKS,
@@ -258,14 +256,22 @@ export const getWarehouseDashboardCardConfig = textConsts => [
     color: '#4dbd74',
     route: '/warehouse/completed-tasks',
   },
+
   {
-    dataKey: WarehouseDashboardCardDataKey.MY_STATS,
-    title: textConsts.myStatsCardTitle,
+    dataKey: WarehouseDashboardCardDataKey.BOXES_IN_STORE,
+    title: textConsts.boxesInStore,
     color: '#f86c6b',
   },
+
   {
-    dataKey: WarehouseDashboardCardDataKey.MY_PAYMENTS,
-    title: textConsts.myPaymentsCardTitle,
+    dataKey: WarehouseDashboardCardDataKey.SENT_BATCHES,
+    title: textConsts.sentBatches,
+    color: '#20a8d8',
+  },
+
+  {
+    dataKey: WarehouseDashboardCardDataKey.NOT_SENT_BATCHES,
+    title: textConsts.notSentBatches,
     color: '#20a8d8',
   },
 ]
@@ -338,7 +344,8 @@ export const getAdminDashboardCardConfig = textConsts => [
 ]
 
 export const BuyerDashboardCardDataKey = {
-  NEW_PRODUCTS: 'NEW_PRODUCTS',
+  NEW_PRODUCTS_AT_SUPERVISOR: 'NEW_PRODUCTS_AT_SUPERVISOR',
+  NEW_PRODUCTS_AT_CLIENT: 'NEW_PRODUCTS_AT_CLIENT',
   ME_PRODUCTS: 'ME_PRODUCTS',
   ME_ORDERS: 'ME_ORDERS',
   FREE_ORDERS: 'FREE_ORDERS',
@@ -346,10 +353,17 @@ export const BuyerDashboardCardDataKey = {
 
 export const getBuyerDashboardCardConfig = textConsts => [
   {
-    dataKey: BuyerDashboardCardDataKey.NEW_PRODUCTS,
-    title: textConsts.newProductsCardTitle,
+    dataKey: BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_SUPERVISOR,
+    title: textConsts.newProductsSupervisor,
     color: '#63c2de',
-    route: '/buyer/products',
+    route: '/buyer/search-supplier-by-supervisor',
+  },
+
+  {
+    dataKey: BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT,
+    title: textConsts.newProductsClient,
+    color: '#64h9de',
+    route: '/buyer/search-supplier-by-client',
   },
   {
     dataKey: BuyerDashboardCardDataKey.ME_PRODUCTS,

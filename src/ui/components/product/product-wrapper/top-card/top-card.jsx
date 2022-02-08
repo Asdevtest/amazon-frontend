@@ -7,11 +7,14 @@ import Carousel from 'react-material-ui-carousel'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {ImageFileInput} from '@components/image-file-input'
 
-import {checkIsResearcher} from '@utils/checks'
+import {checkIsClient, checkIsResearcher} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -22,14 +25,25 @@ import {useClassNames} from './top-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
+const clientToEditStatuses = [
+  ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
+]
+
 export const TopCard = observer(
   ({
+    imagesForLoad,
+    showProgress,
+    progressValue,
     alertFailedText,
-    suppliers,
     curUserRole,
     onChangeField,
     actionStatus,
     product,
+    productBase,
     onClickSupplierBtns,
     selectedSupplier,
     formFieldsValidationErrors,
@@ -37,8 +51,13 @@ export const TopCard = observer(
     onClickParseProductData,
     onClickSetProductStatusBtn,
     handleProductActionButtons,
+    onChangeImagesForLoad,
   }) => {
     const classNames = useClassNames()
+
+    const clientToEdit =
+      checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)
+
     return (
       <React.Fragment>
         <Paper className={classNames.mainCardWrapper}>
@@ -58,17 +77,30 @@ export const TopCard = observer(
                     </div>
                   ) : undefined}
                 </Box>
-                {checkIsResearcher(curUserRole) ? (
+                {checkIsResearcher(curUserRole) || checkIsClient(curUserRole) ? (
                   <Box className={classNames.parseButtonsWrapper}>
-                    <Button
-                      className={classNames.buttonParseAmazon}
-                      onClick={() => onClickParseProductData(ProductDataParser.AMAZON, product)}
-                    >
-                      {textConsts.buttonParseAmazon}
-                    </Button>
-                    <Button onClick={() => onClickParseProductData(ProductDataParser.SELLCENTRAL, product)}>
-                      {textConsts.buttonParseSellcentrall}
-                    </Button>
+                    {checkIsResearcher(curUserRole) && (
+                      <React.Fragment>
+                        <Button
+                          className={classNames.buttonParseAmazon}
+                          onClick={() => onClickParseProductData(ProductDataParser.AMAZON, product)}
+                        >
+                          {textConsts.buttonParseAmazon}
+                        </Button>
+                        <Button
+                          className={classNames.buttonParseAmazon}
+                          onClick={() => onClickParseProductData(ProductDataParser.SELLCENTRAL, product)}
+                        >
+                          {textConsts.buttonParseSellcentrall}
+                        </Button>
+                      </React.Fragment>
+                    )}
+
+                    {(checkIsResearcher(curUserRole) || clientToEdit) && (
+                      <div className={classNames.imageFileInputWrapper}>
+                        <ImageFileInput images={imagesForLoad} setImages={onChangeImagesForLoad} maxNumber={50} />
+                      </div>
+                    )}
                   </Box>
                 ) : undefined}
                 {actionStatus === loadingStatuses.success || actionStatus === loadingStatuses.failed ? (
@@ -86,7 +118,7 @@ export const TopCard = observer(
               <FieldsAndSuppliers
                 curUserRole={curUserRole}
                 product={product}
-                suppliers={suppliers}
+                productBase={productBase}
                 selectedSupplier={selectedSupplier}
                 onChangeField={onChangeField}
                 onClickSupplierBtns={onClickSupplierBtns}
@@ -96,6 +128,7 @@ export const TopCard = observer(
             <RightSideComments
               curUserRole={curUserRole}
               product={product}
+              productBase={productBase}
               formFieldsValidationErrors={formFieldsValidationErrors}
               handleProductActionButtons={handleProductActionButtons}
               onClickSetProductStatusBtn={onClickSetProductStatusBtn}
@@ -103,12 +136,9 @@ export const TopCard = observer(
             />
           </Grid>
 
-          <TableSupplier
-            product={product}
-            selectedSupplier={selectedSupplier}
-            suppliers={suppliers}
-            onClickSupplier={onClickSupplier}
-          />
+          <TableSupplier product={product} selectedSupplier={selectedSupplier} onClickSupplier={onClickSupplier} />
+
+          {showProgress && <CircularProgressWithLabel value={progressValue} title={textConsts.circularProgressTitle} />}
         </Paper>
       </React.Fragment>
     )

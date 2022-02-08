@@ -22,11 +22,10 @@ class InlineObject43 {
     /**
      * Constructs a new <code>InlineObject43</code>.
      * @alias module:model/InlineObject43
-     * @param result {String} Результат рабоботы ресерчера.
      */
-    constructor(result) { 
+    constructor() { 
         
-        InlineObject43.initialize(this, result);
+        InlineObject43.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject43 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, result) { 
-        obj['result'] = result;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,14 +47,14 @@ class InlineObject43 {
         if (data) {
             obj = obj || new InlineObject43();
 
-            if (data.hasOwnProperty('result')) {
-                obj['result'] = ApiClient.convertToType(data['result'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -66,22 +64,22 @@ class InlineObject43 {
 }
 
 /**
- * Результат рабоботы ресерчера.
- * @member {String} result
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject43.prototype['result'] = undefined;
+InlineObject43.prototype['status'] = undefined;
 
 /**
- * Комментарии ресерчера.
- * @member {String} comment
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineObject43.prototype['comment'] = undefined;
+InlineObject43.prototype['images'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
  */
-InlineObject43.prototype['linksToMediaFiles'] = undefined;
+InlineObject43.prototype['storekeeperComment'] = undefined;
 
 
 

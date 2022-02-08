@@ -47,7 +47,7 @@ export class SinglePermissionsModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = adminSinglePermissionsColumns(this.rowHandlers)
 
   constructor({history}) {
@@ -76,7 +76,7 @@ export class SinglePermissionsModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -168,7 +168,13 @@ export class SinglePermissionsModel {
 
   async updateSinglePermission(data, permissionId) {
     try {
-      const allowData = getObjectFilteredByKeyArrayWhiteList(data, ['title', 'description', 'allowedUrls', 'role'])
+      const allowData = getObjectFilteredByKeyArrayWhiteList(data, [
+        'title',
+        'description',
+        'allowedUrls',
+        'role',
+        'hierarchy',
+      ])
 
       await PermissionsModel.updateSinglePermission(permissionId, allowData)
     } catch (error) {

@@ -13,7 +13,6 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
-import ApiV1AdminsPaymentsProduct from './ApiV1AdminsPaymentsProduct';
 
 /**
  * The InlineResponse2002 model module.
@@ -58,8 +57,11 @@ class InlineResponse2002 {
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
             }
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiV1AdminsPaymentsProduct.constructFromObject(data['product']);
+            if (data.hasOwnProperty('entityId')) {
+                obj['entityId'] = ApiClient.convertToType(data['entityId'], 'String');
+            }
+            if (data.hasOwnProperty('paymentType')) {
+                obj['paymentType'] = ApiClient.convertToType(data['paymentType'], 'String');
             }
             if (data.hasOwnProperty('recipient')) {
                 obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient']);
@@ -95,9 +97,16 @@ InlineResponse2002.prototype['createdAt'] = undefined;
 InlineResponse2002.prototype['createdBy'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsPaymentsProduct} product
+ * GUID товара или услуги.
+ * @member {String} entityId
  */
-InlineResponse2002.prototype['product'] = undefined;
+InlineResponse2002.prototype['entityId'] = undefined;
+
+/**
+ * Тип платежа
+ * @member {module:model/InlineResponse2002.PaymentTypeEnum} paymentType
+ */
+InlineResponse2002.prototype['paymentType'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient
@@ -118,6 +127,81 @@ InlineResponse2002.prototype['comment'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>paymentType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse2002['PaymentTypeEnum'] = {
+
+    /**
+     * value: "PRODUCT"
+     * @const
+     */
+    "PRODUCT": "PRODUCT",
+
+    /**
+     * value: "ORDER"
+     * @const
+     */
+    "ORDER": "ORDER",
+
+    /**
+     * value: "BOX"
+     * @const
+     */
+    "BOX": "BOX",
+
+    /**
+     * value: "USER"
+     * @const
+     */
+    "USER": "USER",
+
+    /**
+     * value: "REQUEST-CUSTOM"
+     * @const
+     */
+    "REQUEST-CUSTOM": "REQUEST-CUSTOM",
+
+    /**
+     * value: "REQUEST-SEARCH_PRODUCT"
+     * @const
+     */
+    "REQUEST-SEARCH_PRODUCT": "REQUEST-SEARCH_PRODUCT",
+
+    /**
+     * value: "REQUEST-SEARCH_NICHE"
+     * @const
+     */
+    "REQUEST-SEARCH_NICHE": "REQUEST-SEARCH_NICHE",
+
+    /**
+     * value: "REQUEST-PROPOSAL-CUSTOM"
+     * @const
+     */
+    "REQUEST-PROPOSAL-CUSTOM": "REQUEST-PROPOSAL-CUSTOM",
+
+    /**
+     * value: "REQUEST-PROPOSAL-SEARCH_PRODUCT"
+     * @const
+     */
+    "REQUEST-PROPOSAL-SEARCH_PRODUCT": "REQUEST-PROPOSAL-SEARCH_PRODUCT",
+
+    /**
+     * value: "REQUEST-PROPOSAL-SEARCH_NICHE"
+     * @const
+     */
+    "REQUEST-PROPOSAL-SEARCH_NICHE": "REQUEST-PROPOSAL-SEARCH_NICHE",
+
+    /**
+     * value: "OTHER"
+     * @const
+     */
+    "OTHER": "OTHER"
+};
 
 
 

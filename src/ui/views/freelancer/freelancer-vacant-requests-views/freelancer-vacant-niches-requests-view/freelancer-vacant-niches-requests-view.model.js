@@ -42,7 +42,7 @@ export class FreelancerVacantNichesRequestsViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = freelancerProductsRequestsViewColumns(typeOfRequests.NICHE)
 
   constructor({history}) {
@@ -71,7 +71,7 @@ export class FreelancerVacantNichesRequestsViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value

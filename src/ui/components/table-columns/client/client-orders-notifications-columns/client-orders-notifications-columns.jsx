@@ -40,6 +40,15 @@ export const clientOrdersNotificationsViewColumns = handlers => [
   },
 
   {
+    field: 'action',
+    headerName: textConsts.actionField,
+    width: 250,
+    renderCell: params => <ClientOrdersNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />,
+    filterable: false,
+    sortable: false,
+  },
+
+  {
     field: 'orders',
     headerName: textConsts.ordersField,
     width: 400,
@@ -96,13 +105,5 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     headerName: textConsts.trackIdField,
     width: 160,
     renderCell: params => renderFieldValueCell(params.value),
-  },
-  {
-    field: 'action',
-    headerName: textConsts.actionField,
-    width: 250,
-    renderCell: params => <ClientOrdersNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />,
-    filterable: false,
-    sortable: false,
   },
 ]

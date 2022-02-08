@@ -22,15 +22,10 @@ class InlineObject22 {
     /**
      * Constructs a new <code>InlineObject22</code>.
      * @alias module:model/InlineObject22
-     * @param amount {Number} Кол-во продукта по этой позиции.
-     * @param deliveryMethod {Number} Код метода доставки.
-     * @param warehouse {Number} Номер склада.
-     * @param clientComment {String} Комментарии клиента.
-     * @param productId {String} GUID заказанного продукта
      */
-    constructor(amount, deliveryMethod, warehouse, clientComment, productId) { 
+    constructor() { 
         
-        InlineObject22.initialize(this, amount, deliveryMethod, warehouse, clientComment, productId);
+        InlineObject22.initialize(this);
     }
 
     /**
@@ -38,12 +33,7 @@ class InlineObject22 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, productId) { 
-        obj['amount'] = amount;
-        obj['deliveryMethod'] = deliveryMethod;
-        obj['warehouse'] = warehouse;
-        obj['clientComment'] = clientComment;
-        obj['productId'] = productId;
+    static initialize(obj) { 
     }
 
     /**
@@ -57,29 +47,8 @@ class InlineObject22 {
         if (data) {
             obj = obj || new InlineObject22();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('yuanToDollarRate')) {
-                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
             }
         }
         return obj;
@@ -89,52 +58,10 @@ class InlineObject22 {
 }
 
 /**
- * Код текущего состояния заказа.
- * @member {Number} status
+ * массив GUIDов оплаченных товаров
+ * @member {Array.<String>} guids
  */
-InlineObject22.prototype['status'] = undefined;
-
-/**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
- */
-InlineObject22.prototype['amount'] = undefined;
-
-/**
- * Код метода доставки.
- * @member {Number} deliveryMethod
- */
-InlineObject22.prototype['deliveryMethod'] = undefined;
-
-/**
- * Номер склада.
- * @member {Number} warehouse
- */
-InlineObject22.prototype['warehouse'] = undefined;
-
-/**
- * Комментарии клиента.
- * @member {String} clientComment
- */
-InlineObject22.prototype['clientComment'] = undefined;
-
-/**
- * GUID заказанного продукта
- * @member {String} productId
- */
-InlineObject22.prototype['productId'] = undefined;
-
-/**
- * Курс юань доллар.
- * @member {Number} yuanToDollarRate
- */
-InlineObject22.prototype['yuanToDollarRate'] = undefined;
-
-/**
- * Массив изображений.
- * @member {Array.<String>} images
- */
-InlineObject22.prototype['images'] = undefined;
+InlineObject22.prototype['guids'] = undefined;
 
 
 

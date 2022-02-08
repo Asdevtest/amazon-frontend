@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesItems from './ApiV1BoxesItems';
 
 /**
  * The InlineObject5 model module.
@@ -22,13 +21,11 @@ import ApiV1BoxesItems from './ApiV1BoxesItems';
 class InlineObject5 {
     /**
      * Constructs a new <code>InlineObject5</code>.
-     * Коробка
      * @alias module:model/InlineObject5
-     * @param items {Array.<module:model/ApiV1BoxesItems>} Массив коробок.
      */
-    constructor(items) { 
+    constructor() { 
         
-        InlineObject5.initialize(this, items);
+        InlineObject5.initialize(this);
     }
 
     /**
@@ -36,8 +33,7 @@ class InlineObject5 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, items) { 
-        obj['items'] = items;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,80 +47,8 @@ class InlineObject5 {
         if (data) {
             obj = obj || new InlineObject5();
 
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKg')) {
-                obj['weighGrossKg'] = ApiClient.convertToType(data['weighGrossKg'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKg')) {
-                obj['volumeWeightKg'] = ApiClient.convertToType(data['volumeWeightKg'], 'Number');
-            }
-            if (data.hasOwnProperty('weightFinalAccountingKg')) {
-                obj['weightFinalAccountingKg'] = ApiClient.convertToType(data['weightFinalAccountingKg'], 'Number');
-            }
-            if (data.hasOwnProperty('lengthCmSupplier')) {
-                obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCmSupplier')) {
-                obj['widthCmSupplier'] = ApiClient.convertToType(data['widthCmSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmSupplier')) {
-                obj['heightCmSupplier'] = ApiClient.convertToType(data['heightCmSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgSupplier')) {
-                obj['weighGrossKgSupplier'] = ApiClient.convertToType(data['weighGrossKgSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKgSupplier')) {
-                obj['volumeWeightKgSupplier'] = ApiClient.convertToType(data['volumeWeightKgSupplier'], 'Number');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('scheduledDispatchDate')) {
-                obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'Date');
-            }
-            if (data.hasOwnProperty('factDispatchDate')) {
-                obj['factDispatchDate'] = ApiClient.convertToType(data['factDispatchDate'], 'Date');
-            }
-            if (data.hasOwnProperty('isDraft')) {
-                obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
-            }
-            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
-                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
-            }
-            if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems]);
-            }
-            if (data.hasOwnProperty('clientId')) {
-                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
-            }
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
-                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
             }
         }
         return obj;
@@ -134,154 +58,10 @@ class InlineObject5 {
 }
 
 /**
- * Сколько таких же коробок в одной коробке
- * @member {Number} amount
+ * массив GUIDов оплаченных товаров
+ * @member {Array.<String>} guids
  */
-InlineObject5.prototype['amount'] = undefined;
-
-/**
- * Общий вес кг коробки
- * @member {Number} weighGrossKg
- */
-InlineObject5.prototype['weighGrossKg'] = undefined;
-
-/**
- * Объемный вес (подсчет)
- * @member {Number} volumeWeightKg
- */
-InlineObject5.prototype['volumeWeightKg'] = undefined;
-
-/**
- * Наибольший вес (подсчет)
- * @member {Number} weightFinalAccountingKg
- */
-InlineObject5.prototype['weightFinalAccountingKg'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} lengthCmSupplier
- */
-InlineObject5.prototype['lengthCmSupplier'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} widthCmSupplier
- */
-InlineObject5.prototype['widthCmSupplier'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} heightCmSupplier
- */
-InlineObject5.prototype['heightCmSupplier'] = undefined;
-
-/**
- * Общий вес кг коробки который назвал поставщик.
- * @member {Number} weighGrossKgSupplier
- */
-InlineObject5.prototype['weighGrossKgSupplier'] = undefined;
-
-/**
- * id склада - склады куда отправляют 
- * @member {Number} volumeWeightKgSupplier
- */
-InlineObject5.prototype['volumeWeightKgSupplier'] = undefined;
-
-/**
- * id склада - склады куда отправляют 
- * @member {Number} warehouse
- */
-InlineObject5.prototype['warehouse'] = undefined;
-
-/**
- * Метод доставки - 1: Air , 2: Sea
- * @member {Number} deliveryMethod
- */
-InlineObject5.prototype['deliveryMethod'] = undefined;
-
-/**
- * Запланированная дата отправки.
- * @member {Date} scheduledDispatchDate
- */
-InlineObject5.prototype['scheduledDispatchDate'] = undefined;
-
-/**
- * Запланированная дата доставки.
- * @member {Date} factDispatchDate
- */
-InlineObject5.prototype['factDispatchDate'] = undefined;
-
-/**
- * true - если создаем черновик заказа.
- * @member {Boolean} isDraft
- */
-InlineObject5.prototype['isDraft'] = undefined;
-
-/**
- * Прикреплен ли баркод к коробке сотрудником склада.
- * @member {Boolean} isBarCodeAttachedByTheStorekeeper
- */
-InlineObject5.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
-
-/**
- * Массив коробок.
- * @member {Array.<module:model/ApiV1BoxesItems>} items
- */
-InlineObject5.prototype['items'] = undefined;
-
-/**
- * GUID клиента
- * @member {String} clientId
- */
-InlineObject5.prototype['clientId'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
- */
-InlineObject5.prototype['images'] = undefined;
-
-/**
- * Шипингш лейбл
- * @member {String} shippingLabel
- */
-InlineObject5.prototype['shippingLabel'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} lengthCmWarehouse
- */
-InlineObject5.prototype['lengthCmWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} widthCmWarehouse
- */
-InlineObject5.prototype['widthCmWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} heightCmWarehouse
- */
-InlineObject5.prototype['heightCmWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} weighGrossKgWarehouse
- */
-InlineObject5.prototype['weighGrossKgWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} volumeWeightKgWarehouse
- */
-InlineObject5.prototype['volumeWeightKgWarehouse'] = undefined;
-
-/**
- * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
- */
-InlineObject5.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+InlineObject5.prototype['guids'] = undefined;
 
 
 

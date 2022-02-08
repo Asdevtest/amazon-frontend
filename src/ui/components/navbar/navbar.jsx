@@ -42,6 +42,7 @@ export const Navbar = observer(
                   activeSubCategory={activeSubCategory}
                   category={category}
                   index={category.key}
+                  userInfo={viewModel.current.userInfo}
                   onChangeSubCategory={onChangeSubCategory}
                 />
               </React.Fragment>

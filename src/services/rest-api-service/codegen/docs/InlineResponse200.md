@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | **String** | GUID продукта в базе данных | 
 **id** | **String** | ASIN продукта | 
+**skusByClient** | **[String]** |  | [optional] 
 **material** | **String** |  | [optional] 
 **currentSupplier** | [**ApiV1AdminsGetProductsByStatusCurrentSupplier**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md) |  | [optional] 
 **currentSupplierId** | **String** | GUID поставщика в базе данных | [optional] 
@@ -29,10 +30,12 @@ Name | Type | Description | Notes
 **fbalink** | **String** | ФБА ссылка | [optional] 
 **status** | **Number** | Код текущего статуса | [optional] 
 **icomment** | **String** | Комментарии к товару. | 
+**clientComment** | **String** | Комментарии к товару, от клиента. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 **checkednotes** | **String** |  | [optional] 
 **researcherFine** | **Number** | Размер штрафа менеджеру. | [optional] 
 **researcherFineComment** | **String** | Комментарии к штрафу. | [optional] 
+**isCreatedByClient** | **Boolean** | Признак isCreatedByClient | [optional] 
 **supervisorFine** | **Number** | Размер штрафа на супервайзера. | [optional] 
 **supervisorFineComment** | **String** | Комментарии к штрафу | [optional] 
 **dirdecision** | **Number** | Код решения директора. | [optional] 
@@ -51,6 +54,7 @@ Name | Type | Description | Notes
 **updatedAt** | **Date** | Дата изменения | [optional] 
 **checkedAt** | **Date** | Дата проверки | [optional] 
 **buyer** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**buyerTimeoutAt** | **Date** | Дедлаин на на поиск поставщика байером. | [optional] 
 **buyersComment** | **String** | Комментарии к товару от байера. | [optional] 
 **researcherRate** | **Number** | Савка ресечера. | [optional] 
 **supervisorRate** | **Number** | Савка супервайзера. | [optional] 
@@ -67,5 +71,6 @@ Name | Type | Description | Notes
 **listingExtraInfo** | **String** |  | [optional] 
 **listingSupplierCompetitors** | [**[ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]**](ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md) | Массив объектов: ссылки и комментарии к конкурентам | [optional] 
 **strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
+**needCheckBySupervisor** | **Boolean** | Признак needCheckBySupervisor | [optional] 
 
 

@@ -1,4 +1,6 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
+
+import {ProductModel} from '@models/product-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {getNewObjectWithDefaultValue} from '@utils/object'
@@ -32,8 +34,8 @@ export class AdminProductViewModel {
   requestStatus = undefined
   actionStatus = undefined
 
+  productId = undefined
   product = undefined
-  suppliers = []
   curUpdateProductData = {}
   confirmMessage = ''
 
@@ -51,19 +53,31 @@ export class AdminProductViewModel {
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
-  constructor({history, location}) {
+  constructor({history}) {
     this.history = history
-    if (location.state) {
-      const product = {
-        ...location.state.product,
-        suppliers: location.state.product.suppliers.map(supplierItem => supplierItem._id),
-      }
-      this.product = product
-      this.suppliers = location.state.product.suppliers
-    }
+    this.productId = history.location.search.slice(1)
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
 
-    updateProductAutoCalculatedFields.call(this)
+  async loadData() {
+    try {
+      await this.getProductById()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getProductById() {
+    try {
+      const result = await ProductModel.getProductById(this.productId)
+
+      runInAction(() => {
+        this.product = result
+        updateProductAutoCalculatedFields.call(this)
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onChangeSelectedSupplier(supplier) {
@@ -77,7 +91,7 @@ export class AdminProductViewModel {
   async handleProductActionButtons(actionType) {
     switch (actionType) {
       case 'cancel':
-        this.history.push('/admin/exchange')
+        this.history.goBack()
 
         break
     }
