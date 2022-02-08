@@ -16,8 +16,6 @@ export const styles = createStyles(() => ({
   },
 
   attentionRow: {
-    boxShadow: 'inset 0 0 30px rgba(247, 179, 7,1)',
-    // boxShadow: 'inset 0 0 30px rgba(247, 131, 64,1)'
-    // boxShadow: 'inset 0 0 30px rgba(247, 240, 15,1)'
+    boxShadow: 'inset 0 0 15px rgba(247, 179, 7, .8)',
   },
 }))

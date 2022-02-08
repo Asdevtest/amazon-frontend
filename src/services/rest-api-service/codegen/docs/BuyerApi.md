@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 
 # Редактировать заказ.
 
-## Редактировать заказ.   
+## Редактировать заказ.   Статус 20 приводит к оплате.  Только заказы со статусом 15 можно оплачивать. статусы выше 20 нельзя повторно оплачивать или менять цену при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены
 
 ### Example
 
@@ -96,7 +96,7 @@ let apiInstance = new TestSwagger.BuyerApi();
 let guid = "guid_example"; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject18() // InlineObject18 | 
+  'body': new TestSwagger.InlineObject19() // InlineObject19 | 
 };
 apiInstance.apiV1BuyersOrdersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject18**](InlineObject18.md)|  | [optional] 
+ **body** | [**InlineObject19**](InlineObject19.md)|  | [optional] 
 
 ### Return type
 
@@ -295,7 +295,7 @@ Name | Type | Description  | Notes
 
 # Внести изменения в продукт.
 
-## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 30, 35, 40, 50, 60.   
+## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 35, 40, 50, 60, 235, 240, 250, 260.   
 
 ### Example
 
@@ -312,7 +312,7 @@ let apiInstance = new TestSwagger.BuyerApi();
 let guid = "guid_example"; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject17() // InlineObject17 | 
+  'body': new TestSwagger.InlineObject18() // InlineObject18 | 
 };
 apiInstance.apiV1BuyersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -329,7 +329,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject17**](InlineObject17.md)|  | [optional] 
+ **body** | [**InlineObject18**](InlineObject18.md)|  | [optional] 
 
 ### Return type
 
@@ -472,6 +472,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.BuyerApi();
 let opts = {
+  'isCreatedByClient': true, // Boolean | Если true отдает товары созданные клиентом.
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BuyersProductsVacGet(opts).then((data) => {
@@ -487,6 +488,7 @@ apiInstance.apiV1BuyersProductsVacGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **isCreatedByClient** | **Boolean**| Если true отдает товары созданные клиентом. | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -559,7 +561,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksGet
 
-> [InlineResponse2005] apiV1BuyersTasksGet(opts)
+> [InlineResponse2006] apiV1BuyersTasksGet(opts)
 
 # Показать все задачи данного пользователя.
 
@@ -597,7 +599,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -611,7 +613,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksPost
 
-> InlineResponse2013 apiV1BuyersTasksPost(opts)
+> InlineResponse2012 apiV1BuyersTasksPost(opts)
 
 # Создать задачу.
 
@@ -631,7 +633,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BuyerApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject19() // InlineObject19 | 
+  'body': new TestSwagger.InlineObject20() // InlineObject20 | 
 };
 apiInstance.apiV1BuyersTasksPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -647,11 +649,11 @@ apiInstance.apiV1BuyersTasksPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject19**](InlineObject19.md)|  | [optional] 
+ **body** | [**InlineObject20**](InlineObject20.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2013**](InlineResponse2013.md)
+[**InlineResponse2012**](InlineResponse2012.md)
 
 ### Authorization
 

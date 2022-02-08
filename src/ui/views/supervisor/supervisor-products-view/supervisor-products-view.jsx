@@ -1,13 +1,13 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import {ProductStatus} from '@constants/product-status'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -16,7 +16,6 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {SupervisorProductsViewModel} from './supervisor-products-view.model'
@@ -27,10 +26,18 @@ const textConsts = getLocalizedTexts(texts, 'en').supervisorProductsView
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 
 const attentionStatuses = [
-  ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
-  ProductStatusByKey[ProductStatus.NEW_PRODUCT],
-  ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
-  ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
+  ProductStatus.BUYER_FOUND_SUPPLIER,
+  ProductStatus.NEW_PRODUCT,
+  ProductStatus.RESEARCHER_FOUND_SUPPLIER,
+  ProductStatus.CHECKED_BY_SUPERVISOR,
+
+  ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
+  ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
+
+  ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR,
+  ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
+  ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
+  ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
 ]
 
 @observer
@@ -66,6 +73,9 @@ class SupervisorProductsViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
 
+    const getRowClassName = params =>
+      attentionStatuses.includes(params.getValue(params.id, 'status')) && classNames.attentionRow
+
     return (
       <React.Fragment>
         <Navbar
@@ -84,7 +94,6 @@ class SupervisorProductsViewRaw extends Component {
             curUserRole={UserRole.SUPERVISOR}
           >
             <MainContent>
-              <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
                 <DataGrid
                   pagination
@@ -93,14 +102,12 @@ class SupervisorProductsViewRaw extends Component {
                   classes={{
                     row: classNames.row,
                   }}
-                  getRowClassName={params =>
-                    attentionStatuses.includes(params.getValue(params.id, 'status')) && classNames.attentionRow
-                  }
+                  getRowClassName={getRowClassName}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={100}
                   components={{
@@ -115,7 +122,7 @@ class SupervisorProductsViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onStateChange={setDataGridState}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                 />

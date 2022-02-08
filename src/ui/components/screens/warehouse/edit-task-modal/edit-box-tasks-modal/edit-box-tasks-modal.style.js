@@ -105,4 +105,22 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     marginTop: '16px',
   },
+
+  photoWrapper: {
+    width: '400px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+
+  imgBox: {
+    width: '200px',
+    height: '200px',
+    objectFit: 'contain',
+    transition: '.2s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
+  },
 }))

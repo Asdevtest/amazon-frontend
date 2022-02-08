@@ -23,8 +23,9 @@ export const useClassNames = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1,
-    fontWeight: 500,
+    fontWeight: 600,
     color: theme.palette.text.secondary,
+    fontSize: '24px',
   },
   avatar: {
     marginLeft: theme.spacing(3),

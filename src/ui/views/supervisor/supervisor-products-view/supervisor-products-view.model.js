@@ -25,7 +25,7 @@ export class SupervisorProductsViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = supervisorProductsViewColumns()
 
   constructor({history}) {
@@ -54,7 +54,7 @@ export class SupervisorProductsViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -116,7 +116,10 @@ export class SupervisorProductsViewModel {
   }
 
   onClickTableRow(item) {
-    this.history.push('/supervisor/product', {product: toJS(item.originalData)})
+    this.history.push({
+      pathname: '/supervisor/product',
+      search: item.originalData._id,
+    })
   }
 
   onTriggerDrawerOpen() {

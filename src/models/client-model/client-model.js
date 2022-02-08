@@ -18,8 +18,8 @@ class ClientModelStatic {
     return response
   }
 
-  getProductsMy = async () => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsMyGet()
+  getProductsMy = async filters => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsMyGet({filters})
     return response
   }
 
@@ -104,6 +104,31 @@ class ClientModelStatic {
 
   orderRejectriceChange = async orderId => {
     const response = await restApiService.clientApi.apiV1ClientsOrdersGuidRejectPriceChangePost(orderId, {body: {}})
+    return response
+  }
+
+  getOrdersByProductId = async id => {
+    const response = await restApiService.clientApi.apiV1ClientsGetOrdersByProductIdGuidGet(id)
+    return response
+  }
+
+  createProduct = async data => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsPost({body: data})
+    return response
+  }
+
+  calculatePriceToSeekSupplier = async id => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidGetPriceForClientGet(id)
+    return response
+  }
+
+  sendProductToSeekSupplier = async (id, data) => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch(
+      id,
+      {
+        body: data,
+      },
+    )
     return response
   }
 }

@@ -39,7 +39,7 @@ export class AdminSettingsViewRaw extends Component {
             avatarSrc=""
             curUserRole={UserRole.ADMIN}
             setDrawerOpen={this.onTriggerDrawer}
-            title={textConsts.appbarTitle}
+            title={textConsts.appBarTitle}
           >
             <MainContent>
               <AdminSettingsForm />

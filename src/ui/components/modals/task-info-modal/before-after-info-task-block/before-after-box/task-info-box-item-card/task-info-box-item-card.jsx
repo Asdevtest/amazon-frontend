@@ -11,6 +11,7 @@ import {Input} from '@components/input'
 import {calcMaxDeliveryForProduct, calcTotalFbaForProduct} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixed} from '@utils/text'
 
 import {useClassNames} from './task-info-box-item-card.style'
 
@@ -82,31 +83,31 @@ export const TaskInfoBoxItemCard = ({item, superCount, box}) => {
                 disabled
                 className={classNames.field}
                 label={textConsts.amazonPrice}
-                value={item.product.amazon || ''}
+                value={toFixed(item.product.amazon, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
                 label={textConsts.fieldWidth}
-                value={item.product.width || ''}
+                value={toFixed(item.product.width, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
                 label={textConsts.fieldHeight}
-                value={item.product.height || ''}
+                value={toFixed(item.product.height, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
                 label={textConsts.fieldLength}
-                value={item.product.length || ''}
+                value={toFixed(item.product.length, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
                 label={textConsts.fieldWeight}
-                value={item.product.weight || ''}
+                value={toFixed(item.product.weight, 2) || ''}
               />
             </div>
             <div>
@@ -114,31 +115,31 @@ export const TaskInfoBoxItemCard = ({item, superCount, box}) => {
                 disabled
                 className={classNames.field}
                 label={textConsts.minpurchase}
-                value={item.product.minpurchase || ''}
+                value={toFixed(item.product.minpurchase, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
                 label={textConsts.maxDeliveryPrice}
-                value={calcMaxDeliveryForProduct(item.product)}
+                value={toFixed(calcMaxDeliveryForProduct(item.product), 2)}
               />
               <Field
                 disabled
                 className={classNames.field}
                 label={textConsts.refferalFee}
-                value={item.product.reffee || ''}
+                value={toFixed(item.product.reffee, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
                 label={textConsts.fbaFee}
-                value={item.product.fbafee || ''}
+                value={toFixed(item.product.fbafee, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
                 label={textConsts.totalFba}
-                value={calcTotalFbaForProduct(item.product)}
+                value={toFixed(calcTotalFbaForProduct(item.product), 2)}
               />
               <Field
                 disabled
@@ -150,13 +151,13 @@ export const TaskInfoBoxItemCard = ({item, superCount, box}) => {
                 disabled
                 className={classNames.field}
                 label={textConsts.revenue}
-                value={item.product.profit || 0}
+                value={toFixed(item.product.profit, 2) || 0}
               />
               <Field
                 disabled
                 className={classNames.field}
                 label={textConsts.fieldMargin}
-                value={item.product.margin || 0}
+                value={toFixed(item.product.margin, 2) || 0}
               />
             </div>
           </div>

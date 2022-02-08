@@ -1,7 +1,8 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {Component} from 'react'
 
-import {Grid, Typography} from '@material-ui/core'
-import {DataGrid, GridToolbar} from '@material-ui/data-grid'
+import {Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -14,20 +15,21 @@ import {UserRole} from '@constants/user-roles'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
-import {DashboardInfoCard} from '@components/dashboard-info-card'
+import {DashboardInfoCard} from '@components/dashboards/dashboard-info-card'
 import {AddOwnProductForm} from '@components/forms/add-own-product-form'
 import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SelectionSupplierModal} from '@components/modals/selection-supplier-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/clientAvatar.jpg'
@@ -56,12 +58,20 @@ export class ClientInventoryViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
+      successModalText,
+      confirmMessage,
 
+      showProgress,
+      progressValue,
+      selectedRowId,
+
+      sellerBoardDailyData,
       selectedRowIds,
       drawerOpen,
       selectedProduct,
       showSetBarcodeModal,
       showSelectionSupplierModal,
+      showConfirmModal,
       curPage,
       productsMy,
       rowsPerPage,
@@ -70,6 +80,9 @@ export class ClientInventoryViewRaw extends Component {
       showSendOwnProductModal,
       showAddOrEditSupplierModal,
       showBindInventoryGoodsToStockModal,
+      showInfoModal,
+      onSubmitBindStockGoods,
+      getStockGoodsByFilters,
       onClickShowProduct,
       onDoubleClickBarcode,
       onTriggerDrawer,
@@ -79,12 +92,16 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerOpenModal,
       onSubmitOrderProductModal,
       onClickBindInventoryGoodsToStockBtn,
-      getStockData,
 
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      onSubmitCreateProduct,
+      onSubmitSaveSupplier,
+      onClickAddSupplierBtn,
+      onSubmitSeekSupplier,
+      onSubmitCalculateSeekSupplier,
     } = this.viewModel
     const {classes: classNames} = this.props
     const onClickPrevButton = () => {
@@ -108,12 +125,9 @@ export class ClientInventoryViewRaw extends Component {
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>
-              <Grid container justify="center" spacing={2} md={12}>
+              {/* <Grid container justify="center" spacing={2} md={12}>  //ПОКА СКРЫЛ, ПОХОЖЕ ДАШБОРД ТУТ НЕ НУЖЕН
                 {this.renderDashboardCards()}
-              </Grid>
-              <Typography variant="h6" className={classNames.someClass}>
-                {textConsts.productsList}
-              </Typography>
+              </Grid> */}
               <div className={classNames.addProductBtnsWrapper}>
                 <div>
                   <Button
@@ -125,17 +139,7 @@ export class ClientInventoryViewRaw extends Component {
                   </Button>
 
                   <Button
-                    variant="contained"
-                    className={classNames.buttonOffset}
-                    disabled={selectedRowIds.length !== 1}
-                    onClick={() => onClickShowProduct()}
-                  >
-                    {textConsts.showProductBtn}
-                  </Button>
-
-                  <Button
                     disableElevation
-                    tooltipContent="Пример тултипа"
                     disabled={selectedRowIds.length !== 1}
                     className={classNames.buttonOffset}
                     variant="contained"
@@ -147,10 +151,11 @@ export class ClientInventoryViewRaw extends Component {
 
                   <Button
                     variant="contained"
+                    disabled={selectedRowIds.length !== 1}
                     className={classNames.buttonOffset}
-                    onClick={() => onTriggerOpenModal('showSelectionSupplierModal')}
+                    onClick={() => onClickAddSupplierBtn()}
                   >
-                    {'test'}
+                    {textConsts.addSupplierBtn}
                   </Button>
                 </div>
 
@@ -165,11 +170,14 @@ export class ClientInventoryViewRaw extends Component {
                   useResizeContainer
                   autoHeight
                   checkboxSelection
+                  classes={{
+                    row: classNames.row,
+                  }}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={100}
                   components={{
@@ -182,8 +190,9 @@ export class ClientInventoryViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onStateChange={setDataGridState}
                   onFilterModelChange={model => onChangeFilterModel(model)}
+                  onRowDoubleClick={e => onClickShowProduct(e.row)}
                 />
               </div>
             </MainContent>
@@ -191,7 +200,11 @@ export class ClientInventoryViewRaw extends Component {
         </Main>
 
         <Modal openModal={showSendOwnProductModal} setOpenModal={() => onTriggerOpenModal('showSendOwnProductModal')}>
-          <AddOwnProductForm />
+          <AddOwnProductForm
+            showProgress={showProgress}
+            progressValue={progressValue}
+            onSubmit={onSubmitCreateProduct}
+          />
         </Modal>
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
@@ -207,9 +220,12 @@ export class ClientInventoryViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
         >
           <AddOrEditSupplierModalContent
+            outsideProduct
             title={textConsts.addOrEditSupplierTitle}
-            curUserRole={UserRole.CLIENT}
+            showProgress={showProgress}
+            progressValue={progressValue}
             onClickPrevButton={() => onClickPrevButton()}
+            onClickSaveBtn={onSubmitSaveSupplier}
           />
         </Modal>
 
@@ -218,8 +234,10 @@ export class ClientInventoryViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
         >
           <SelectionSupplierModal
+            product={productsMy.find(el => el.originalData._id === selectedRowId)}
             onTriggerOpenModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
             onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
+            onSubmitSeekSupplier={onSubmitCalculateSeekSupplier}
           />
         </Modal>
 
@@ -241,18 +259,43 @@ export class ClientInventoryViewRaw extends Component {
         >
           <BindInventoryGoodsToStockForm
             selectedRow={getCurrentData().find(item => selectedRowIds.includes(item.id))}
-            goodsToSelect={getStockData()}
+            stockData={sellerBoardDailyData}
+            updateStockData={getStockGoodsByFilters}
+            onSubmit={onSubmitBindStockGoods}
           />
         </Modal>
 
         <SuccessInfoModal
           openModal={showSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={textConsts.successTitle}
+          title={successModalText}
           successBtnText={textConsts.successBtn}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showSuccessModal')
           }}
+        />
+
+        <WarningInfoModal
+          openModal={showInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
+          title={textConsts.infoModalTitle}
+          btnText={textConsts.okBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showInfoModal')
+          }}
+        />
+
+        <ConfirmationModal
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={textConsts.confirmTitle}
+          message={confirmMessage}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={() => {
+            onSubmitSeekSupplier()
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
       </React.Fragment>
     )

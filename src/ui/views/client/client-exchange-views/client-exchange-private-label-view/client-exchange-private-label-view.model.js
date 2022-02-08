@@ -88,14 +88,14 @@ export class ClientExchangePrivateLabelViewModel {
 
   async onClickBuyProductBtn(product) {
     try {
-      await ClientModel.pickupProduct(product._id)
-
       await ClientModel.makePayments([product._id])
 
-      await this.updateUserInfo()
-      this.loadData()
+      this.onTriggerOpenModal('showConfirmPayModal')
+      this.onTriggerOpenModal('showOrderModal')
 
       this.onTriggerOpenModal('showSuccessModal')
+      await this.updateUserInfo()
+      this.loadData()
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
@@ -106,6 +106,8 @@ export class ClientExchangePrivateLabelViewModel {
 
   setProductToPay(selectedProduct) {
     this.productToPay = selectedProduct
+
+    this.onTriggerOpenModal('showConfirmPayModal')
   }
 
   onTriggerOpenModal(modal) {

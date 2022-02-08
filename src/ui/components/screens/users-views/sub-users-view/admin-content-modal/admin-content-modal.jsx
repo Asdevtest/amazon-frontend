@@ -7,7 +7,7 @@ import {texts} from '@constants/texts'
 import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {Field} from '@components/field'
-import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-permissions-form'
+import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit-user-permissions-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
@@ -64,10 +64,7 @@ export const AdminContentModal = observer(
 
     const [formFields, setFormFields] = useState(sourceFormFields)
 
-    console.log('formFields', formFields)
-
     const onChangeFormField = fieldName => event => {
-      console.log('event', event)
       const newFormFields = {...formFields}
       if (fieldName === 'rate') {
         newFormFields[fieldName] = event.target.value.replace(/[-]/, '')
@@ -93,10 +90,10 @@ export const AdminContentModal = observer(
       setFormFields(newFormFields)
     }
 
-    const onSubmitUserPermissionsForm = (permissions, permissionGroups) => {
+    const onSubmitUserPermissionsForm = permissions => {
       const newFormFields = {...formFields}
       newFormFields.permissions = permissions
-      newFormFields.permissionGroups = permissionGroups
+      newFormFields.permissionGroups = []
       setFormFields(newFormFields)
     }
 
@@ -203,6 +200,7 @@ export const AdminContentModal = observer(
         <div className={classNames.checkboxWrapper}>
           <Checkbox
             color="primary"
+            disabled={editUserFormFields.masterUser}
             checked={formFields.canByMasterUser}
             onChange={onChangeFormField('canByMasterUser')}
           />
@@ -224,7 +222,7 @@ export const AdminContentModal = observer(
             variant="contained"
             color="primary"
             onClick={() => {
-              onSubmit(formFields)
+              onSubmit(formFields, editUserFormFields)
             }}
           >
             {buttonLabel}
@@ -243,9 +241,9 @@ export const AdminContentModal = observer(
           </Button>
         </div>
         <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
-          <AddOrEditUserPermissionsForm
-            permissionsToSelect={singlePermissions}
-            permissionGroupsToSelect={groupPermissions}
+          <NewAddOrEditUserPermissionsForm
+            permissionsToSelect={singlePermissions.filter(item => item.role === formFields.role)}
+            permissionGroupsToSelect={groupPermissions.filter(item => item.role === formFields.role)}
             sourceData={formFields}
             onCloseModal={() => setShowPermissionModal(!showPermissionModal)}
             onSubmit={onSubmitUserPermissionsForm}

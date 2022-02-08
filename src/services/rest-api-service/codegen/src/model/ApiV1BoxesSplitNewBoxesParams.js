@@ -25,10 +25,11 @@ class ApiV1BoxesSplitNewBoxesParams {
      * Constructs a new <code>ApiV1BoxesSplitNewBoxesParams</code>.
      * Описание новых коробок
      * @alias module:model/ApiV1BoxesSplitNewBoxesParams
+     * @param boxBody {module:model/ApiV1BoxesMergeBoxBody} 
      */
-    constructor() { 
+    constructor(boxBody) { 
         
-        ApiV1BoxesSplitNewBoxesParams.initialize(this);
+        ApiV1BoxesSplitNewBoxesParams.initialize(this, boxBody);
     }
 
     /**
@@ -36,7 +37,8 @@ class ApiV1BoxesSplitNewBoxesParams {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxBody) { 
+        obj['boxBody'] = boxBody;
     }
 
     /**

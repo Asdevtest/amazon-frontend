@@ -86,7 +86,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.OtherApi();
-let guid = "guid_example"; // String | guid пользователя по которому нужны оплаты.
+let guid = "guid_example"; // String | guid товара по которому нужны оплаты.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -103,7 +103,7 @@ apiInstance.apiV1OtherPaymentsByProductGuidGet(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| guid пользователя по которому нужны оплаты. | 
+ **guid** | **String**| guid товара по которому нужны оплаты. | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -117,7 +117,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: text/html
 
 
 ## apiV1OtherPaymentsByUserGuidGet

@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
 
 import {Box, Container, Divider, Typography} from '@material-ui/core'
+import Carousel from 'react-material-ui-carousel'
 
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {ImageFileInput} from '@components/image-file-input'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -70,6 +72,10 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
 
   const [editingBox, setEditingBox] = useState(box)
 
+  const [showPhotosModal, setShowPhotosModal] = useState(false)
+
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+
   const setNewBoxField = fieldName => e => {
     if (isNaN(e.target.value) || Number(e.target.value) < 0) {
       return
@@ -119,6 +125,31 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
 
       <AttributesEditBlock box={editingBox} operationType={operationType} setNewBoxField={setNewBoxField} />
 
+      <div className={classNames.photoWrapper}>
+        <Typography>{'Текущие фотографии:'}</Typography>
+
+        {box.images.length > 0 ? (
+          <Carousel autoPlay timeout={100} animation="fade">
+            {box.images.map((el, index) => (
+              <div key={index}>
+                <img
+                  alt=""
+                  className={classNames.imgBox}
+                  src={el}
+                  onClick={() => {
+                    setShowPhotosModal(!showPhotosModal)
+
+                    setBigImagesOptions({images: box.images, imgIndex: index})
+                  }}
+                />
+              </div>
+            ))}
+          </Carousel>
+        ) : (
+          <Typography>{'Фотографий пока нет...'}</Typography>
+        )}
+      </div>
+
       <Box className={classNames.boxCode}>
         <div className={classNames.imageFileInputWrapper}>
           <ImageFileInput images={editingBox.tmpImages} setImages={setImagesOfBox} maxNumber={50} />
@@ -136,6 +167,14 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
           <Button onClick={() => setEditModal()}>{textConsts.closeBtn}</Button>
         </Box>
       </div>
+
+      <BigImagesModal
+        isAmazone
+        openModal={showPhotosModal}
+        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
+      />
     </Container>
   )
 }

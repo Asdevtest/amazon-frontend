@@ -1,7 +1,8 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
-import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -19,7 +20,6 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {CustomSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {FreelancerСustomRequestsViewModel} from './freelancer-custom-requests-view.model'
@@ -82,11 +82,6 @@ class FreelancerСustomRequestsViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle} curUserRole={UserRole.FREELANCER}>
             <MainContent>
-              <div className={classNames.titleWrapper}>
-                <Typography paragraph variant="h6">
-                  {textConsts.mainTitle}
-                </Typography>
-              </div>
               <div className={classNames.placeRequestBtnWrapper}>
                 <SuccessButton onClick={() => onClickAddBtn()}>{textConsts.placeOrderBtn}</SuccessButton>
               </div>
@@ -102,7 +97,7 @@ class FreelancerСustomRequestsViewRaw extends Component {
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={100}
                   components={{
@@ -114,7 +109,7 @@ class FreelancerСustomRequestsViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onStateChange={setDataGridState}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
                 />

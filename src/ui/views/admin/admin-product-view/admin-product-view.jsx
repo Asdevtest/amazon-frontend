@@ -22,14 +22,16 @@ const textConsts = getLocalizedTexts(texts, 'en').adminProductView
 export class AdminProductView extends Component {
   viewModel = new AdminProductViewModel({
     history: this.props.history,
-    location: this.props.location,
   })
+
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
 
   render() {
     const {
       product,
       drawerOpen,
-      suppliers,
       history,
       selectedSupplier,
       formFieldsValidationErrors,
@@ -62,7 +64,6 @@ export class AdminProductView extends Component {
                 <ProductWrapper
                   curUserRole={UserRole.ADMIN}
                   product={product}
-                  suppliers={suppliers}
                   selectedSupplier={selectedSupplier}
                   formFieldsValidationErrors={formFieldsValidationErrors}
                   handleProductActionButtons={handleProductActionButtons}

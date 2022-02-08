@@ -27,11 +27,7 @@ const textConsts = getLocalizedTexts(texts, 'en').dataGridCells
 export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
   <div className={classNames.asinCell}>
     <div className={classNames.asinCellContainer}>
-      <img
-        alt="placeholder"
-        className={classNames.img}
-        src={product.images && product.images[0] && getAmazonImageUrl(product.images[0])}
-      />
+      <img alt="placeholder" className={classNames.img} src={getAmazonImageUrl(product.images[0])} />
 
       <div>
         <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
@@ -79,9 +75,9 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
       {!product.currentSupplier ? 'N/A' : product.currentSupplier.name}
     </Typography>
 
-    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.currentSupplier.link)}>
+    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.currentSupplier?.link)}>
       <Typography className={classNames.noActiveLink}>{`${
-        !product.currentSupplier ? 'N/A' : product.currentSupplier.link
+        !product.currentSupplier ? 'N/A' : product.currentSupplier?.link
       }`}</Typography>
     </Link>
   </div>
@@ -89,12 +85,10 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
 
 export const SupervisorCell = withStyles(styles)(({classes: classNames, product, onlyName}) => (
   <div>
-    <Typography className={classNames.researcherCell}>
-      {!product.supervisor ? 'N/A' : product.supervisor.name}
-    </Typography>
+    <Typography className={classNames.researcherCell}>{!product.checkedBy ? 'N/A' : product.checkedBy.name}</Typography>
     {!onlyName && (
       <Typography className={classNames.researcherCell}>{`rate: ${
-        !product.supervisor ? 'N/A' : product.supervisor.rate
+        !product.checkedBy ? 'N/A' : product.checkedBy.rate
       }`}</Typography>
     )}
   </div>
@@ -168,7 +162,7 @@ export const NormDateWithParseISOCell = withStyles(styles)(({params}) => (
 
 export const OrderCell = withStyles(styles)(({classes: classNames, product, superbox}) => (
   <div className={classNames.order}>
-    <img alt="" src={product.images[0] && getAmazonImageUrl(product.images[0])} className={classNames.orderImg} />
+    <img alt="" src={getAmazonImageUrl(product.images[0])} className={classNames.orderImg} />
     <div>
       <Typography className={classNames.orderTitle}>{product.amazonTitle}</Typography>
       <Typography className={classNames.orderText}>
@@ -198,7 +192,7 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
               <img
                 alt="placeholder"
                 className={classNames.taskDescriptionImg}
-                src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
+                src={getAmazonImageUrl(product.product.images[0])}
               />
               <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
             </div>
@@ -288,7 +282,7 @@ export const ToFixedWithKgSignCell = withStyles(styles)(({classes: classNames, v
 
 export const SmallRowImageCell = withStyles(styles)(({classes: classNames, images}) => (
   <div className={classNames.smallRowImgWrapper}>
-    <img alt="placeholder" className={classNames.img} src={images && images[0] && getAmazonImageUrl(images[0])} />
+    <img alt="placeholder" className={classNames.img} src={getAmazonImageUrl(images[0])} />
   </div>
 ))
 
@@ -333,17 +327,13 @@ export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames
 
 export const ClientOrdersNotificationsBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
   <div>
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={() => handlers.onTriggerOpenConfirmModal('showConfirmModal', row)}
-    >
+    <Button variant="contained" color="primary" onClick={() => handlers.onTriggerOpenConfirmModal(row)}>
       {textConsts.confirmBtn}
     </Button>
     <ErrorButton
       className={classNames.rowCancelBtn}
       onClick={() => {
-        handlers.onTriggerOpenModal('showConfirmModal', row)
+        handlers.onTriggerOpenRejectModal(row)
       }}
     >
       {textConsts.rejectBtn}
@@ -424,6 +414,14 @@ export const ScrollingCell = withStyles(styles)(({classes: classNames, value}) =
   </React.Fragment>
 ))
 
+export const ScrollingLinkCell = withStyles(styles)(({classes: classNames, value}) => (
+  <React.Fragment>
+    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(value)} className={classNames.scrollingValue}>
+      <Typography>{value || 'N/A'}</Typography>
+    </Link>
+  </React.Fragment>
+))
+
 export const EditOrRemoveBtnsCell = withStyles(styles)(
   ({classes: classNames, row, handlers, isSubUsersTable, disableActionBtn}) => (
     <div>
@@ -454,11 +452,7 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
     <div className={classNames.batchProductsWrapper}>
       {box.items.map((item, itemIndex) => (
         <div key={itemIndex} className={classNames.order}>
-          <img
-            alt=""
-            src={item.product.images[0] && getAmazonImageUrl(item.product.images[0])}
-            className={classNames.orderImg}
-          />
+          <img alt="" src={getAmazonImageUrl(item.product.images[0])} className={classNames.orderImg} />
           <div>
             <Typography className={classNames.batchProductTitle}>{item.product.amazonTitle}</Typography>
             <Typography className={classNames.orderText}>
@@ -467,6 +461,9 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
               {box.sendToBatchComplete && <span className={classNames.sendSuccess}>{' Отправлено'}</span>}
             </Typography>
             <Typography className={classNames.imgNum}>{`x ${item.amount}`}</Typography>
+            {box.amount > 1 && (
+              <Typography className={classNames.superboxTypo}>{`Superbox x ${box.amount}`}</Typography>
+            )}
           </div>
         </div>
       ))}

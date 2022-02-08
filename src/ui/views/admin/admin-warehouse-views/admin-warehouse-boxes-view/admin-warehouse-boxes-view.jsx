@@ -1,7 +1,7 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -15,7 +15,6 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/adminAvatar.jpg'
@@ -74,10 +73,6 @@ export class AdminWarehouseBoxesViewRaw extends Component {
             title={textConsts.appbarTitle}
           >
             <MainContent>
-              <Typography paragraph variant="h5">
-                {textConsts.mainTitle}
-              </Typography>
-
               <DataGrid
                 pagination
                 useResizeContainer
@@ -86,7 +81,7 @@ export class AdminWarehouseBoxesViewRaw extends Component {
                 filterModel={filterModel}
                 page={curPage}
                 pageSize={rowsPerPage}
-                rowsPerPageOptions={[5, 10, 15, 20]}
+                rowsPerPageOptions={[15, 25, 50, 100]}
                 rows={getCurrentData()}
                 density={densityModel}
                 columns={columnsModel}
@@ -98,7 +93,7 @@ export class AdminWarehouseBoxesViewRaw extends Component {
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
-                onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
               />
             </MainContent>

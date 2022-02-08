@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import UserAdminFullSchemaAllowedUrls from './UserAdminFullSchemaAllowedUrls';
 
 /**
  * The PermissionGroupGetDtoSchemaPermissions model module.
@@ -27,15 +28,15 @@ class PermissionGroupGetDtoSchemaPermissions {
      * @param key {String} Permission ключ
      * @param title {String} Простое название.
      * @param description {String} Описание permission
-     * @param allowedUrl {Array.<String>} Массив доступных url.
-     * @param createdById {String} GUID любого, кто последний создал permission.
+     * @param allowedUrls {Array.<module:model/UserAdminFullSchemaAllowedUrls>} Массив доступных url.
      * @param role {Number} Роль для которого данный permission
+     * @param createdById {String} GUID любого, кто последний создал permission.
      * @param createdAt {Date} Дата создания
      * @param updatedAt {Date} Дата изменения
      */
-    constructor(_id, key, title, description, allowedUrl, createdById, role, createdAt, updatedAt) { 
+    constructor(_id, key, title, description, allowedUrls, role, createdById, createdAt, updatedAt) { 
         
-        PermissionGroupGetDtoSchemaPermissions.initialize(this, _id, key, title, description, allowedUrl, createdById, role, createdAt, updatedAt);
+        PermissionGroupGetDtoSchemaPermissions.initialize(this, _id, key, title, description, allowedUrls, role, createdById, createdAt, updatedAt);
     }
 
     /**
@@ -43,14 +44,14 @@ class PermissionGroupGetDtoSchemaPermissions {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, key, title, description, allowedUrl, createdById, role, createdAt, updatedAt) { 
+    static initialize(obj, _id, key, title, description, allowedUrls, role, createdById, createdAt, updatedAt) { 
         obj['_id'] = _id;
         obj['key'] = key;
         obj['title'] = title;
         obj['description'] = description;
-        obj['allowedUrl'] = allowedUrl;
-        obj['createdById'] = createdById;
+        obj['allowedUrls'] = allowedUrls;
         obj['role'] = role;
+        obj['createdById'] = createdById;
         obj['createdAt'] = createdAt;
         obj['updatedAt'] = updatedAt;
     }
@@ -78,14 +79,17 @@ class PermissionGroupGetDtoSchemaPermissions {
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('allowedUrl')) {
-                obj['allowedUrl'] = ApiClient.convertToType(data['allowedUrl'], ['String']);
-            }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            if (data.hasOwnProperty('allowedUrls')) {
+                obj['allowedUrls'] = ApiClient.convertToType(data['allowedUrls'], [UserAdminFullSchemaAllowedUrls]);
             }
             if (data.hasOwnProperty('role')) {
                 obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            }
+            if (data.hasOwnProperty('hierarchy')) {
+                obj['hierarchy'] = ApiClient.convertToType(data['hierarchy'], 'Number');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
             if (data.hasOwnProperty('lastModifiedById')) {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
@@ -129,21 +133,27 @@ PermissionGroupGetDtoSchemaPermissions.prototype['description'] = undefined;
 
 /**
  * Массив доступных url.
- * @member {Array.<String>} allowedUrl
+ * @member {Array.<module:model/UserAdminFullSchemaAllowedUrls>} allowedUrls
  */
-PermissionGroupGetDtoSchemaPermissions.prototype['allowedUrl'] = undefined;
-
-/**
- * GUID любого, кто последний создал permission.
- * @member {String} createdById
- */
-PermissionGroupGetDtoSchemaPermissions.prototype['createdById'] = undefined;
+PermissionGroupGetDtoSchemaPermissions.prototype['allowedUrls'] = undefined;
 
 /**
  * Роль для которого данный permission
  * @member {Number} role
  */
 PermissionGroupGetDtoSchemaPermissions.prototype['role'] = undefined;
+
+/**
+ * Для фронта, чтобы хранить иерархию.
+ * @member {Number} hierarchy
+ */
+PermissionGroupGetDtoSchemaPermissions.prototype['hierarchy'] = undefined;
+
+/**
+ * GUID любого, кто последний создал permission.
+ * @member {String} createdById
+ */
+PermissionGroupGetDtoSchemaPermissions.prototype['createdById'] = undefined;
 
 /**
  * GUID любого, кто последний редактировал permission.

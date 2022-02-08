@@ -207,4 +207,14 @@ export const useClassNames = makeStyles(() => ({
   imageFileInputWrapper: {
     width: '500px',
   },
+
+  modalTextArea: {
+    height: '100px',
+    width: '100%',
+    overflowY: 'hidden',
+  },
+
+  descriptionProduct: {
+    width: '80%',
+  },
 }))

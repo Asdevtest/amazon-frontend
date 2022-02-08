@@ -40,10 +40,10 @@ export const warehouseBoxesViewColumns = () => [
   },
 
   {
-    field: 'id',
+    field: 'humanFriendlyId',
     headerName: textConsts.boxIdField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 300,
+    width: 130,
   },
 
   {

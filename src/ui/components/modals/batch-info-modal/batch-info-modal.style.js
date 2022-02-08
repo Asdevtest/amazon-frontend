@@ -68,4 +68,15 @@ export const useClassNames = makeStyles(theme => ({
   buttonsWrapper: {
     marginTop: '20px',
   },
+
+  superboxTypo: {
+    marginLeft: '10px',
+    color: '#007BFF',
+    fontSize: '20px',
+    fontWeight: '900px',
+  },
+
+  amount: {
+    marginLeft: '5px',
+  },
 }))

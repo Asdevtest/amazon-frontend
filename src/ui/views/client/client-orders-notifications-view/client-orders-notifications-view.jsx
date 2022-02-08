@@ -1,7 +1,7 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {DataGrid, GridToolbar} from '@material-ui/data-grid'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -16,7 +16,6 @@ import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/clientAvatar.jpg'
@@ -80,7 +79,6 @@ class ClientOrdersNotificationsViewRaw extends Component {
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>
-              <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.tableWrapper}>
                 <DataGrid
                   pagination
@@ -92,7 +90,7 @@ class ClientOrdersNotificationsViewRaw extends Component {
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={100}
                   components={{
@@ -107,7 +105,7 @@ class ClientOrdersNotificationsViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onStateChange={setDataGridState}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                 />
@@ -126,7 +124,6 @@ class ClientOrdersNotificationsViewRaw extends Component {
           cancelBtnText={textConsts.noBtn}
           onClickSuccessBtn={() => {
             confirmModalSettings.onClickOkBtn()
-            onTriggerOpenModal('showConfirmModal')
           }}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />

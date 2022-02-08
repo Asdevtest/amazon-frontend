@@ -96,7 +96,7 @@ export default class OtherApi {
     /**
      * # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
      * ## Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.  
-     * @param {String} guid guid пользователя по которому нужны оплаты.
+     * @param {String} guid guid товара по которому нужны оплаты.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
@@ -122,7 +122,7 @@ export default class OtherApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = ['application/json'];
+      let accepts = ['text/html'];
       let returnType = [InlineResponse2002];
       return this.apiClient.callApi(
         '/api/v1/other/payments/by_product/{guid}', 'GET',
@@ -134,7 +134,7 @@ export default class OtherApi {
     /**
      * # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
      * ## Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.  
-     * @param {String} guid guid пользователя по которому нужны оплаты.
+     * @param {String} guid guid товара по которому нужны оплаты.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}

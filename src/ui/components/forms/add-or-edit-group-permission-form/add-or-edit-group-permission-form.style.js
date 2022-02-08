@@ -14,7 +14,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   descriptionField: {
-    minHeight: '100px',
+    height: '100px',
     width: '100%',
     overflowY: 'hidden',
   },

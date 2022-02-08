@@ -83,6 +83,9 @@ class UserAdminFullSchemaPermissionGroups {
             if (data.hasOwnProperty('role')) {
                 obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
+            if (data.hasOwnProperty('hierarchy')) {
+                obj['hierarchy'] = ApiClient.convertToType(data['hierarchy'], 'Number');
+            }
             if (data.hasOwnProperty('createdById')) {
                 obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
@@ -136,6 +139,12 @@ UserAdminFullSchemaPermissionGroups.prototype['permissions'] = undefined;
  * @member {Number} role
  */
 UserAdminFullSchemaPermissionGroups.prototype['role'] = undefined;
+
+/**
+ * Для фронта, чтобы хранить иерархию.
+ * @member {Number} hierarchy
+ */
+UserAdminFullSchemaPermissionGroups.prototype['hierarchy'] = undefined;
 
 /**
  * GUID любого, кто последний создал группу permission.

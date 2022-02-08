@@ -58,6 +58,9 @@ class PermissionPatchDtoSchema {
             if (data.hasOwnProperty('allowedUrls')) {
                 obj['allowedUrls'] = ApiClient.convertToType(data['allowedUrls'], [PermissionPatchDtoSchemaAllowedUrls]);
             }
+            if (data.hasOwnProperty('hierarchy')) {
+                obj['hierarchy'] = ApiClient.convertToType(data['hierarchy'], 'Number');
+            }
             if (data.hasOwnProperty('role')) {
                 obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
@@ -85,6 +88,12 @@ PermissionPatchDtoSchema.prototype['description'] = undefined;
  * @member {Array.<module:model/PermissionPatchDtoSchemaAllowedUrls>} allowedUrls
  */
 PermissionPatchDtoSchema.prototype['allowedUrls'] = undefined;
+
+/**
+ * Для фронта, чтобы хранить иерархию.
+ * @member {Number} hierarchy
+ */
+PermissionPatchDtoSchema.prototype['hierarchy'] = undefined;
 
 /**
  * Роль для которого данный permission

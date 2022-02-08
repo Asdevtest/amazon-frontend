@@ -7,13 +7,13 @@ import {SuccessButton} from '@components/buttons/success-button'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixedWithDollarSign, withAmount, withKg} from '@utils/text'
+import {toFixedWithDollarSign, toFixedWithKg, withAmount} from '@utils/text'
 
 import {useClassNames} from './private-label-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').privateLabelCard
 
-export const PrivateLabelCard = ({item, setProductToPay, onTriggerOpenModal}) => {
+export const PrivateLabelCard = ({item, setProductToPay}) => {
   const classNames = useClassNames()
 
   const InfoRow = ({label, value}) => (
@@ -26,14 +26,12 @@ export const PrivateLabelCard = ({item, setProductToPay, onTriggerOpenModal}) =>
   return (
     <Paper className={classNames.root}>
       <div className={classNames.imgWrapper}>
-        <img
-          alt="item image"
-          className={classNames.img}
-          src={item.images && item.images[0] && getAmazonImageUrl(item.images[0])}
-        />
+        <img alt="item image" className={classNames.img} src={getAmazonImageUrl(item.images[0])} />
       </div>
       <div className={classNames.wrapper}>
-        <Typography className={classNames.title}>{item.category}</Typography>
+        <Typography className={classNames.title}>{item.amazonTitle}</Typography>
+
+        <Typography className={classNames.category}>{item.category}</Typography>
 
         <InfoRow label={textConsts.price} value={toFixedWithDollarSign(item.amazon, 2)} />
         <div className={classNames.textWrapper}>
@@ -46,7 +44,7 @@ export const PrivateLabelCard = ({item, setProductToPay, onTriggerOpenModal}) =>
         <InfoRow label={textConsts.avgPrice} value={toFixedWithDollarSign(item.avgPrice, 2)} />
 
         <InfoRow label={textConsts.recConsignmentQty} value={withAmount(item.fbaamount)} />
-        <InfoRow label={textConsts.recConsignmentWeight} value={withKg(item.weight)} />
+        <InfoRow label={textConsts.recConsignmentWeight} value={toFixedWithKg(item.weight, 2)} />
 
         <Divider className={classNames.divider} />
 
@@ -61,12 +59,11 @@ export const PrivateLabelCard = ({item, setProductToPay, onTriggerOpenModal}) =>
             variant="contained"
             onClick={() => {
               setProductToPay(item)
-              onTriggerOpenModal('showConfirmPayModal')
             }}
           >
             {textConsts.launchBtn}
           </SuccessButton>
-          {/* <Button
+          {/* <Button  // может пригодится
             disableElevation
             color="primary"
             className={classNames.priceButton}
@@ -77,8 +74,7 @@ export const PrivateLabelCard = ({item, setProductToPay, onTriggerOpenModal}) =>
             }}
           >
             {`${textConsts.addBtnPrefix} ${toFixedWithDollarSign(item.amazon, 2)}`}
-          </Button> */}{' '}
-          /может пригодится
+          </Button> */}
         </div>
       </div>
     </Paper>

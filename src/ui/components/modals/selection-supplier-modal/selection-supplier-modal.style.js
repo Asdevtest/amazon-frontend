@@ -28,11 +28,9 @@ export const useClassNames = makeStyles(() => ({
   },
 
   modalTextArea: {
+    height: '100px',
     width: '100%',
-    height: '119px',
-    overflowY: 'scroll',
-    overflowX: 'hidden',
-    display: 'block',
+    overflowY: 'hidden',
   },
 
   modalButton: {
@@ -72,5 +70,15 @@ export const useClassNames = makeStyles(() => ({
   modalButtonNext: {
     width: '134px',
     height: '40px',
+
+    backgroundColor: '#4caf50',
+    color: 'ffffff',
+    '&:hover': {
+      backgroundColor: '#009a07',
+
+      '@media (hover: none)': {
+        backgroundColor: '#009a07',
+      },
+    },
   },
 }))

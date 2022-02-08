@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **title** | **String** | Простое название | [optional] 
 **description** | **String** | описание permission | [optional] 
 **allowedUrls** | [**[PermissionPatchDtoSchemaAllowedUrls]**](PermissionPatchDtoSchemaAllowedUrls.md) | Массив доступных url | [optional] 
+**hierarchy** | **Number** | Для фронта, чтобы хранить иерархию. | [optional] 
 **role** | **Number** | Роль для которого данный permission | [optional] 
 
 

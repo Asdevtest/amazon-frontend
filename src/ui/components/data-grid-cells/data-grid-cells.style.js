@@ -309,7 +309,7 @@ export const styles = createStyles(() => ({
   },
 
   scrollingValue: {
-    width: '400px',
+    width: '100%',
     height: '45px',
     overflowX: 'scroll',
   },

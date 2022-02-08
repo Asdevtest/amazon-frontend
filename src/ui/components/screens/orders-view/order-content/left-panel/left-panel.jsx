@@ -18,11 +18,7 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
   return (
     <div className={classNames.orderContainer}>
       <div className={classNames.product}>
-        <img
-          alt=""
-          className={classNames.productImg}
-          src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
-        />
+        <img alt="" className={classNames.productImg} src={getAmazonImageUrl(order.product.images[0])} />
         <div>
           <Typography>{order.product.amazonTitle}</Typography>
           <Typography className={classNames.text}>

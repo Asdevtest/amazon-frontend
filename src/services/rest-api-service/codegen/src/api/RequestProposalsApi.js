@@ -15,12 +15,13 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject29 from '../model/InlineObject29';
-import InlineObject30 from '../model/InlineObject30';
-import InlineObject31 from '../model/InlineObject31';
 import InlineObject32 from '../model/InlineObject32';
-import InlineObject43 from '../model/InlineObject43';
+import InlineObject33 from '../model/InlineObject33';
+import InlineObject34 from '../model/InlineObject34';
+import InlineObject35 from '../model/InlineObject35';
+import InlineObject49 from '../model/InlineObject49';
 import InlineResponse20010 from '../model/InlineResponse20010';
+import InlineResponse20016 from '../model/InlineResponse20016';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -46,11 +47,11 @@ export default class RequestProposalsApi {
 
     /**
      * Получить список предложений по guid заявки.
-     * ## Получить список предложений по guid заявки..   Если его вызывает создатель заявки:  Эндпоинт должен отдавать список всех предложений со всеми статусами Если его вызывает исполнитель(фрилансер): Он должен отдавать предложения к заявке, только от этого исполнителя со всеми статусами Если его вызывает супервизор: Он должен отдавать предложения проверяемые данным супервизором.
+     * ## Получить список предложений по guid заявки..   Если его вызывает создатель заявки:  Эндпоинт должен отдавать список всех предложений со всеми статусами Если его вызывает исполнитель(фрилансер): Он должен отдавать предложения к заявке, только от этого исполнителя со всеми статусами Если его вызывает супервизор: Он должен отдавать предложения проверяемые данным супервайзером.
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20010>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20016>} and HTTP response
      */
     apiV1RequestProposalsCustomByRequestIdGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -74,7 +75,7 @@ export default class RequestProposalsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20010];
+      let returnType = [InlineResponse20016];
       return this.apiClient.callApi(
         '/api/v1/request-proposals/custom/by_request_id/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -84,11 +85,11 @@ export default class RequestProposalsApi {
 
     /**
      * Получить список предложений по guid заявки.
-     * ## Получить список предложений по guid заявки..   Если его вызывает создатель заявки:  Эндпоинт должен отдавать список всех предложений со всеми статусами Если его вызывает исполнитель(фрилансер): Он должен отдавать предложения к заявке, только от этого исполнителя со всеми статусами Если его вызывает супервизор: Он должен отдавать предложения проверяемые данным супервизором.
+     * ## Получить список предложений по guid заявки..   Если его вызывает создатель заявки:  Эндпоинт должен отдавать список всех предложений со всеми статусами Если его вызывает исполнитель(фрилансер): Он должен отдавать предложения к заявке, только от этого исполнителя со всеми статусами Если его вызывает супервизор: Он должен отдавать предложения проверяемые данным супервайзером.
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20010>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20016>}
      */
     apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts) {
       return this.apiV1RequestProposalsCustomByRequestIdGuidGetWithHttpInfo(guid, opts)
@@ -104,7 +105,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject43} opts.body 
+     * @param {module:model/InlineObject49} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsCustomGuidEditPatchWithHttpInfo(guid, opts) {
@@ -143,7 +144,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject43} opts.body 
+     * @param {module:model/InlineObject49} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsCustomGuidEditPatch(guid, opts) {
@@ -212,7 +213,7 @@ export default class RequestProposalsApi {
      * Получить все предложения для супервизора.
      * ## Получить все предложения для супервизора.  
      * @param {module:model/String} type Тип заявки
-     * @param {module:model/String} kind Виды запросов.
+     * @param {module:model/String} kind Виды запросов:       LINKED_TO_ME - предложения которые связанны с данным пользователем,       ALL - все предложения, если в заявке требовалась проверка супервайзера,       VACANT - все доступные предложения на проверку сепервайзером.
      * @param {Object} opts Optional parameters
      * @param {Array.<module:model/String>} opts.status Сортировать по статусам.
      * @param {String} opts.Accept_Encoding 
@@ -258,7 +259,7 @@ export default class RequestProposalsApi {
      * Получить все предложения для супервизора.
      * ## Получить все предложения для супервизора.  
      * @param {module:model/String} type Тип заявки
-     * @param {module:model/String} kind Виды запросов.
+     * @param {module:model/String} kind Виды запросов:       LINKED_TO_ME - предложения которые связанны с данным пользователем,       ALL - все предложения, если в заявке требовалась проверка супервайзера,       VACANT - все доступные предложения на проверку сепервайзером.
      * @param {Object} opts Optional parameters
      * @param {Array.<module:model/String>} opts.status Сортировать по статусам.
      * @param {String} opts.Accept_Encoding 
@@ -274,7 +275,7 @@ export default class RequestProposalsApi {
 
     /**
      * #  Принять предложение.
-     * ## Принять предложение.   Если клиент принял предложение, то статус меняется на ACCEPTED_BY_CLIENT, Если супервайзер принял предложение, то статус меняется на ACCEPTED_BY_SUPERVISOR Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+     * ## Принять предложение.   Произвести оплаты Если клиент принял предложение, то статус меняется на ACCEPTED_BY_CLIENT, Если супервайзер принял предложение, то статус меняется на ACCEPTED_BY_SUPERVISOR Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -313,7 +314,7 @@ export default class RequestProposalsApi {
 
     /**
      * #  Принять предложение.
-     * ## Принять предложение.   Если клиент принял предложение, то статус меняется на ACCEPTED_BY_CLIENT, Если супервайзер принял предложение, то статус меняется на ACCEPTED_BY_SUPERVISOR Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+     * ## Принять предложение.   Произвести оплаты Если клиент принял предложение, то статус меняется на ACCEPTED_BY_CLIENT, Если супервайзер принял предложение, то статус меняется на ACCEPTED_BY_SUPERVISOR Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -334,7 +335,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject31} opts.body 
+     * @param {module:model/InlineObject34} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidCancelPatchWithHttpInfo(guid, opts) {
@@ -373,7 +374,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject31} opts.body 
+     * @param {module:model/InlineObject34} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidCancelPatch(guid, opts) {
@@ -386,11 +387,11 @@ export default class RequestProposalsApi {
 
     /**
      * # Отправить на доработку.
-     * ## Отправить на доработку.  Ставиться статус TO_CORRECT Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+     * ## Отправить на доработку.  Ставиться статус TO_CORRECT Нужно написать в комментарии причину. Можно выставить время на доработку, в минутах. по умолчанию 120 мин. Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject29} opts.body 
+     * @param {module:model/InlineObject32} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidCorrectPatchWithHttpInfo(guid, opts) {
@@ -425,11 +426,11 @@ export default class RequestProposalsApi {
 
     /**
      * # Отправить на доработку.
-     * ## Отправить на доработку.  Ставиться статус TO_CORRECT Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+     * ## Отправить на доработку.  Ставиться статус TO_CORRECT Нужно написать в комментарии причину. Можно выставить время на доработку, в минутах. по умолчанию 120 мин. Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject29} opts.body 
+     * @param {module:model/InlineObject32} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidCorrectPatch(guid, opts) {
@@ -442,11 +443,11 @@ export default class RequestProposalsApi {
 
     /**
      * #  Отправить обратно на утверждение, после доработки.
-     * ##  Отправить обратно на утверждение, после доработки.  Статус CORRECTED ставится автоматом Фрилансер может написать комментарий к действию или пртерепить ссылкы на медиа файлы Проверки: Только предложения со статусом TO_CORRECT. 
+     * ##  Отправить обратно на утверждение, после доработки.  Статус CORRECTED ставится автоматом В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Фрилансер может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом TO_CORRECT. 
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject30} opts.body 
+     * @param {module:model/InlineObject33} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidCorrectedPatchWithHttpInfo(guid, opts) {
@@ -481,11 +482,11 @@ export default class RequestProposalsApi {
 
     /**
      * #  Отправить обратно на утверждение, после доработки.
-     * ##  Отправить обратно на утверждение, после доработки.  Статус CORRECTED ставится автоматом Фрилансер может написать комментарий к действию или пртерепить ссылкы на медиа файлы Проверки: Только предложения со статусом TO_CORRECT. 
+     * ##  Отправить обратно на утверждение, после доработки.  Статус CORRECTED ставится автоматом В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Фрилансер может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом TO_CORRECT. 
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject30} opts.body 
+     * @param {module:model/InlineObject33} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidCorrectedPatch(guid, opts) {
@@ -498,11 +499,11 @@ export default class RequestProposalsApi {
 
     /**
      * #  Привязать или \"отвязать\" супервайзера от предложения.
-     * ## Привязать  супервайзра за предложением. Статус меняется на VERIFYING_BY_SUPERVISOR в поле supervisorId вписывается id супервайзера. Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Статус предложения должны быть одним из:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED
+     * ## Привязать  супервайзра за предложением. Статус меняется на VERIFYING_BY_SUPERVISOR В поле supervisorId вписывается id супервайзера. Устанавливается время за которое супервайзер должен принять решение. Пос истечения времени супервайзер снимается.Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Только со статусами предложений:   VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED ## Это нужно чтобы рассчитать остаток средств при закрытии заявки. Супервайзер не может отвязать от себя предложение если он не связан.
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject32} opts.body 
+     * @param {module:model/InlineObject35} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatchWithHttpInfo(guid, opts) {
@@ -537,11 +538,11 @@ export default class RequestProposalsApi {
 
     /**
      * #  Привязать или \"отвязать\" супервайзера от предложения.
-     * ## Привязать  супервайзра за предложением. Статус меняется на VERIFYING_BY_SUPERVISOR в поле supervisorId вписывается id супервайзера. Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Статус предложения должны быть одним из:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED
+     * ## Привязать  супервайзра за предложением. Статус меняется на VERIFYING_BY_SUPERVISOR В поле supervisorId вписывается id супервайзера. Устанавливается время за которое супервайзер должен принять решение. Пос истечения времени супервайзер снимается.Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Только со статусами предложений:   VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED ## Это нужно чтобы рассчитать остаток средств при закрытии заявки. Супервайзер не может отвязать от себя предложение если он не связан.
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject32} opts.body 
+     * @param {module:model/InlineObject35} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid, opts) {
@@ -554,7 +555,7 @@ export default class RequestProposalsApi {
 
     /**
      * #  Отправить предложение на утверждение.
-     * ##  Отправить на утверждение.  Статус CORRECTED ставится автоматом Фрилансер может написать комментарий к действию или пртерепить ссылкы на медиа файлы Проверки: Только предложения со статусом CREATED. 
+     * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервизором, то время не устанавливается. Проверки: Только предложения со статусом CREATED. 
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -593,7 +594,7 @@ export default class RequestProposalsApi {
 
     /**
      * #  Отправить предложение на утверждение.
-     * ##  Отправить на утверждение.  Статус CORRECTED ставится автоматом Фрилансер может написать комментарий к действию или пртерепить ссылкы на медиа файлы Проверки: Только предложения со статусом CREATED. 
+     * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервизором, то время не устанавливается. Проверки: Только предложения со статусом CREATED. 
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 

@@ -96,9 +96,9 @@ export const MergeBoxesModal = ({
 
       <Field
         multiline
-        className={classNames.heightFieldAuto}
         label={textConsts.shippingLabel}
         value={boxBody.shippingLabel}
+        error={boxBody.shippingLabel.length < 5 && boxBody.shippingLabel.length > 0 && textConsts.shippingLabelError}
         onChange={e => setBoxBody({...boxBody, shippingLabel: e.target.value})}
       />
 
@@ -107,6 +107,7 @@ export const MergeBoxesModal = ({
         className={classNames.heightFieldAuto}
         rows={4}
         rowsMax={6}
+        inputProps={{maxLength: 2000}}
         label={textConsts.comment}
         value={comment}
         onChange={e => setComment(e.target.value)}
@@ -117,7 +118,8 @@ export const MergeBoxesModal = ({
             requestStatus === loadingStatuses.isLoading ||
             boxBody.warehouse === '' ||
             boxBody.deliveryMethod === '' ||
-            selectedBoxes.length < 2
+            selectedBoxes.length < 2 ||
+            (boxBody.shippingLabel.length < 5 && boxBody.shippingLabel.length > 0)
           }
           color="primary"
           variant="contained"

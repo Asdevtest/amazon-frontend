@@ -1,21 +1,23 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {DataGrid, GridToolbar} from '@material-ui/data-grid'
+import {Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {adminExchangeBtnsConfig} from '@constants/tables-filter-btns-configs'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {ColoredChip} from '@components/colored-chip'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../assets/adminAvatar.jpg'
@@ -76,39 +78,52 @@ class AdminExchangeViewsRaw extends Component {
             title={textConsts.appbarTitle}
           >
             <MainContent>
-              <Typography paragraph variant="h5" className={classNames.example}>
-                {textConsts.mainTitle}
-              </Typography>
-              <DataGrid
-                pagination
-                useResizeContainer
-                autoHeight
-                classes={{
-                  row: classNames.row,
-                }}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[5, 10, 15, 20]}
-                rowHeight={100}
-                rows={getCurrentData()}
-                components={{
-                  Toolbar: GridToolbar,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection[0])
-                }}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={e => onStateChangeHandler(e, setDataGridState)}
-                onRowDoubleClick={e => onClickTableRow(e.row)}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-              />
+              <Grid container spacing={2}>
+                {adminExchangeBtnsConfig.map((buttonConfig, index) => (
+                  <Grid key={buttonConfig.statusKey} item>
+                    <ColoredChip
+                      label={buttonConfig.label}
+                      color={buttonConfig.color}
+                      colorHover={buttonConfig.colorHover}
+                      selected={activeSubCategory === index}
+                      onClick={() => onChangeSubCategory(index)}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+
+              <div className={classNames.tableWrapper}>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  autoHeight
+                  classes={{
+                    row: classNames.row,
+                  }}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rowHeight={100}
+                  rows={getCurrentData()}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection[0])
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={setDataGridState}
+                  onRowDoubleClick={e => onClickTableRow(e.row)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

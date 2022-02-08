@@ -92,4 +92,26 @@ export const useClassNames = makeStyles(() => ({
   fieldsWrapper: {
     padding: '0 10px',
   },
+
+  imagesWrapper: {
+    display: 'flex',
+    padding: '5px',
+  },
+
+  photoWrapper: {
+    width: '200px',
+    marginLeft: '20px',
+  },
+
+  imgBox: {
+    width: '200px',
+    height: '100px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+    transition: '.2s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
+  },
 }))

@@ -32,7 +32,7 @@ export class WarehouseVacantViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers)
 
   constructor({history}) {
@@ -61,7 +61,7 @@ export class WarehouseVacantViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value

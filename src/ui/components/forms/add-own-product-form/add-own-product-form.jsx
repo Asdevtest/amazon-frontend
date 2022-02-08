@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
 
-import {Typography} from '@material-ui/core'
+import {Typography, IconButton, Grid} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field/field'
 import {ImageFileInput} from '@components/image-file-input'
 import {Input} from '@components/input'
@@ -18,29 +20,37 @@ import {useClassNames} from './add-own-product-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').addOwnProductForm
 
-export const AddOwnProductForm = observer(({selectedProduct}) => {
+export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValue}) => {
   const classNames = useClassNames()
 
-  const [amazonLink, setAmazonLink] = useState('')
+  const [skuLine, setSkuLine] = useState('')
 
   const [images, setImages] = useState([])
 
-  const onClickParseBtn = () => {
-    setFormFields({
-      asin: getAmazonCodeFromLink(amazonLink) || '',
-      sku: '',
-      title: '',
-    })
-    setAmazonLink('')
-  }
-
   const sourceFormFields = {
-    asin: selectedProduct?.asin || '',
-    sku: selectedProduct?.sku || '',
-    title: selectedProduct?.title || '',
+    id: '',
+    skusByClient: [],
+    amazonTitle: '',
+    images: [],
+    lamazon: '',
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
+
+  const onClickParseBtn = () => {
+    setFormFields({...formFields, id: getAmazonCodeFromLink(formFields.lamazon) || ''})
+  }
+
+  const onClickSkuBtn = () => {
+    setFormFields({...formFields, skusByClient: [...formFields.skusByClient, skuLine.toUpperCase()]})
+    setSkuLine('')
+  }
+
+  const onRemoveSku = index => {
+    const newArr = formFields.skusByClient.filter((el, i) => i !== index)
+
+    setFormFields({...formFields, skusByClient: newArr})
+  }
 
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
@@ -48,7 +58,11 @@ export const AddOwnProductForm = observer(({selectedProduct}) => {
     setFormFields(newFormFields)
   }
 
-  const disableSubmitBtn = formFields.asin === '' && formFields.sku === '' && formFields.title === ''
+  const disableSubmitBtn =
+    formFields.id === '' &&
+    !formFields.skusByClient.length &&
+    formFields.amazonTitle === '' &&
+    formFields.lamazon === ''
 
   return (
     <div className={classNames.root}>
@@ -60,16 +74,16 @@ export const AddOwnProductForm = observer(({selectedProduct}) => {
         <Field
           label={textConsts.linkLabel}
           inputComponent={
-            <div className={classNames.amazonLinkWrapper}>
+            <div className={classNames.inputWrapper}>
               <Input
                 placeholder={textConsts.linkHolder}
-                value={amazonLink}
-                className={classNames.amazonLinkInput}
-                onChange={e => setAmazonLink(e.target.value)}
+                value={formFields.lamazon}
+                className={classNames.input}
+                onChange={onChangeField('lamazon')}
               />
               <Button
                 disableElevation
-                className={classNames.parseBtn}
+                className={classNames.defaultBtn}
                 variant="contained"
                 color="primary"
                 onClick={onClickParseBtn}
@@ -81,27 +95,60 @@ export const AddOwnProductForm = observer(({selectedProduct}) => {
         />
 
         <Field
+          inputProps={{maxLength: 1000}}
           label={textConsts.asin}
-          value={formFields.asin}
+          value={formFields.id}
           placeholder={textConsts.asin}
-          onChange={onChangeField('asin')}
+          onChange={onChangeField('id')}
         />
 
         <Field
           label={textConsts.sku}
-          value={formFields.sku}
-          placeholder={textConsts.sku}
-          onChange={onChangeField('sku')}
+          inputComponent={
+            <div>
+              {formFields.skusByClient.length ? (
+                <Grid container spacing={2} className={classNames.skuItemsWrapper}>
+                  {formFields.skusByClient.map((item, index) => (
+                    <Grid key={index} item className={classNames.skuItemWrapper}>
+                      <Typography className={classNames.skuItemTitle}>{item}</Typography>
+
+                      <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
+                        <DeleteIcon className={classNames.deleteBtn} />
+                      </IconButton>
+                    </Grid>
+                  ))}
+                </Grid>
+              ) : null}
+
+              <div className={classNames.inputWrapper}>
+                <Input
+                  placeholder={textConsts.skuHolder}
+                  inputProps={{maxLength: 1000}}
+                  value={skuLine}
+                  className={classNames.input}
+                  onChange={e => setSkuLine(e.target.value)}
+                />
+                <Button
+                  disableElevation
+                  disabled={skuLine === ''}
+                  className={classNames.defaultBtn}
+                  variant="contained"
+                  color="primary"
+                  onClick={onClickSkuBtn}
+                >
+                  {textConsts.addSkuBtn}
+                </Button>
+              </div>
+            </div>
+          }
         />
 
         <Field
           label={textConsts.title}
-          value={formFields.title}
+          value={formFields.amazonTitle}
           placeholder={textConsts.title}
-          onChange={onChangeField('title')}
+          onChange={onChangeField('amazonTitle')}
         />
-
-        <Field label={textConsts.addingAmazon} />
       </div>
 
       <div className={classNames.imageFileInputWrapper}>
@@ -109,10 +156,18 @@ export const AddOwnProductForm = observer(({selectedProduct}) => {
       </div>
 
       <div className={classNames.btnsWrapper}>
-        <SuccessButton disableElevation disabled={disableSubmitBtn} variant="contained" color="primary">
+        <SuccessButton
+          disableElevation
+          disabled={disableSubmitBtn}
+          variant="contained"
+          color="primary"
+          onClick={() => onSubmit(formFields, images)}
+        >
           {textConsts.addAndBindBtn}
         </SuccessButton>
       </div>
+
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={textConsts.circularProgressTitle} />}
     </div>
   )
 })

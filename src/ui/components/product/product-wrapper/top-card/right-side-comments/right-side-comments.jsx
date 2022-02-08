@@ -11,7 +11,7 @@ import {texts} from '@constants/texts'
 import {ErrorButton} from '@components/buttons/error-button'
 import {Field} from '@components/field'
 
-import {checkIsBuyer, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
+import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {ProductStatusButtons} from './product-status-buttons'
@@ -21,18 +21,43 @@ const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 const withoutStatus = true
 
+const clientToEditStatuses = [
+  ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
+]
+
 export const RightSideComments = observer(
   ({
     curUserRole,
     onChangeField,
     product,
+    productBase,
     onClickSetProductStatusBtn,
     handleProductActionButtons,
     formFieldsValidationErrors,
   }) => {
     const classNames = useClassNames()
     const productStatusButtonsConfig =
-      productStatusButtonsConfigs[curUserRole] && productStatusButtonsConfigs[curUserRole](product.status)
+      productStatusButtonsConfigs[curUserRole] && productStatusButtonsConfigs[curUserRole](productBase.status)
+
+    const showActionBtns =
+      (checkIsSupervisor(curUserRole) && productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
+      (checkIsSupervisor(curUserRole) &&
+        productBase.status >= ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
+        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS]) ||
+      (checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)) ||
+      (checkIsResearcher(curUserRole) &&
+        productBase.status < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) ||
+      (checkIsSupervisor(curUserRole) &&
+        productBase.status === ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]) ||
+      (checkIsBuyer(curUserRole) && productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
+      (checkIsBuyer(curUserRole) &&
+        productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
+        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
+
     return (
       <Grid item sm={5} xs={12}>
         <Box className={classNames.rightBoxComments}>
@@ -53,7 +78,7 @@ export const RightSideComments = observer(
           />
           <ProductStatusButtons
             product={product}
-            productStatus={product.status}
+            productStatus={product?.status}
             buttonsConfig={productStatusButtonsConfig}
             onClickButton={onClickSetProductStatusBtn}
             onClickSaveWithoutStatusChange={
@@ -90,18 +115,29 @@ export const RightSideComments = observer(
             value={product.buyersComment}
             onChange={onChangeField('buyersComment')}
           />
-          {(checkIsResearcher(curUserRole) &&
-            product.status < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) ||
-          (checkIsSupervisor(curUserRole) &&
-            product.status === ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]) ||
-          (checkIsBuyer(curUserRole) && product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
-          (checkIsSupervisor(curUserRole) && product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ? (
+
+          <Field
+            multiline
+            disabled={!checkIsClient(curUserRole) || !clientToEditStatuses.includes(productBase.status)}
+            // error={formFieldsValidationErrors.clientComment}
+            className={clsx(classNames.heightFieldAuto, {
+              // [classNames.errorActive]: formFieldsValidationErrors.icomment,
+            })}
+            inputProps={{maxLength: 1000}}
+            rows={4}
+            rowsMax={6}
+            label={textConsts.fieldClient}
+            value={product.clientComment}
+            onChange={onChangeField('clientComment')}
+          />
+
+          {showActionBtns ? (
             <div className={classNames.buttonsWrapper}>
               <Button
                 className={classNames.buttonNormal}
                 color="primary"
                 variant="contained"
-                onClick={() => handleProductActionButtons('accept')}
+                onClick={() => handleProductActionButtons('accept', false)}
               >
                 {textConsts.buttonAccept}
               </Button>

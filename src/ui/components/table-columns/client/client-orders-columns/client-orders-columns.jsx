@@ -25,6 +25,14 @@ export const clientOrdersViewColumns = () => [
   },
 
   {
+    field: 'updatedAt',
+    headerName: textConsts.updateDateField,
+    width: 100,
+    renderCell: params => <NormDateCell params={params} />,
+    type: 'date',
+  },
+
+  {
     field: 'orders',
     headerName: textConsts.ordersField,
     width: 400,
@@ -36,7 +44,7 @@ export const clientOrdersViewColumns = () => [
   {
     field: 'status',
     headerName: textConsts.statusField,
-    width: 150,
+    width: 230,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
@@ -52,20 +60,20 @@ export const clientOrdersViewColumns = () => [
     headerName: textConsts.amountField,
     renderCell: params => renderFieldValueCell(params.value),
     type: 'number',
-    width: 150,
+    width: 90,
   },
 
   {
     field: 'warehouses',
     headerName: textConsts.warehouseField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 200,
+    width: 160,
   },
 
   {
     field: 'totalPrice',
     headerName: textConsts.sumField,
-    width: 160,
+    width: 100,
     type: 'number',
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
   },
@@ -73,7 +81,7 @@ export const clientOrdersViewColumns = () => [
   {
     field: 'grossWeightKg',
     headerName: textConsts.grossWeightField,
-    width: 160,
+    width: 110,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
   },
   {

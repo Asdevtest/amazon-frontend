@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Box, Typography, Paper, Checkbox} from '@material-ui/core'
+import {Box, Paper, Checkbox} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -56,7 +56,6 @@ export class SupervisorSettingsViewRaw extends Component {
             <MainContent>
               {formFields ? (
                 <Paper className={classNames.card}>
-                  <Typography variant="h3">{textConsts.mainTitle}</Typography>
                   <Field
                     label={textConsts.fieldName}
                     placeholder={'supervisor'}

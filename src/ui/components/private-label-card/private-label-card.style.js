@@ -12,7 +12,7 @@ export const useClassNames = makeStyles(theme => ({
     },
   },
   imgWrapper: {
-    height: 'auto',
+    height: '220px',
     width: '50%',
     alignSelf: 'center',
   },
@@ -20,6 +20,8 @@ export const useClassNames = makeStyles(theme => ({
     height: '100%',
     width: '100%',
     borderRadius: '8px 8px 0px 0px',
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
   wrapper: {
     padding: '16px 24px 24px 24px',
@@ -34,7 +36,15 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: 600,
     lineHeight: '26px',
     marginBottom: '12px',
+    height: '100px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
+
+  category: {
+    height: '25px',
+  },
+
   textWrapper: {
     display: 'flex',
     justifyContent: 'space-between',

@@ -20,13 +20,13 @@ import ApiV1AdminsGetProductsByStatusCurrentSupplier from './model/ApiV1AdminsGe
 import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
 import ApiV1AdminsOrdersCreatedBy from './model/ApiV1AdminsOrdersCreatedBy';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
-import ApiV1AdminsPaymentsProduct from './model/ApiV1AdminsPaymentsProduct';
 import ApiV1AdminsTasksBoxesBefore from './model/ApiV1AdminsTasksBoxesBefore';
 import ApiV1AdminsTasksItems from './model/ApiV1AdminsTasksItems';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
 import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
+import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1RequestProposalsCustomByRequestIdGuidDetails';
 import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetails';
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
@@ -78,7 +78,13 @@ import InlineObject42 from './model/InlineObject42';
 import InlineObject43 from './model/InlineObject43';
 import InlineObject44 from './model/InlineObject44';
 import InlineObject45 from './model/InlineObject45';
+import InlineObject46 from './model/InlineObject46';
+import InlineObject47 from './model/InlineObject47';
+import InlineObject48 from './model/InlineObject48';
+import InlineObject49 from './model/InlineObject49';
 import InlineObject5 from './model/InlineObject5';
+import InlineObject50 from './model/InlineObject50';
+import InlineObject51 from './model/InlineObject51';
 import InlineObject6 from './model/InlineObject6';
 import InlineObject7 from './model/InlineObject7';
 import InlineObject8 from './model/InlineObject8';
@@ -90,7 +96,10 @@ import InlineResponse20011 from './model/InlineResponse20011';
 import InlineResponse20012 from './model/InlineResponse20012';
 import InlineResponse20013 from './model/InlineResponse20013';
 import InlineResponse20014 from './model/InlineResponse20014';
-import InlineResponse20014Details from './model/InlineResponse20014Details';
+import InlineResponse20015 from './model/InlineResponse20015';
+import InlineResponse20016 from './model/InlineResponse20016';
+import InlineResponse20017 from './model/InlineResponse20017';
+import InlineResponse20017Details from './model/InlineResponse20017Details';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
@@ -99,7 +108,6 @@ import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse2007 from './model/InlineResponse2007';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
-import InlineResponse2009Sellerboard from './model/InlineResponse2009Sellerboard';
 import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
 import InlineResponse2012 from './model/InlineResponse2012';
@@ -107,7 +115,6 @@ import InlineResponse2013 from './model/InlineResponse2013';
 import InlineResponse2014 from './model/InlineResponse2014';
 import InlineResponse2015 from './model/InlineResponse2015';
 import InlineResponse2016 from './model/InlineResponse2016';
-import InlineResponse2017 from './model/InlineResponse2017';
 import InternalServerError from './model/InternalServerError';
 import LinkSubuserInputSchema from './model/LinkSubuserInputSchema';
 import MePatchInputSchema from './model/MePatchInputSchema';
@@ -117,6 +124,7 @@ import PasteSuccessfully from './model/PasteSuccessfully';
 import PayloadTooLarge from './model/PayloadTooLarge';
 import PermissionGetDtoSchema from './model/PermissionGetDtoSchema';
 import PermissionGroupGetDtoSchema from './model/PermissionGroupGetDtoSchema';
+import PermissionGroupGetDtoSchemaPermissions from './model/PermissionGroupGetDtoSchemaPermissions';
 import PermissionGroupPatchDtoSchema from './model/PermissionGroupPatchDtoSchema';
 import PermissionGroupPostDtoSchema from './model/PermissionGroupPostDtoSchema';
 import PermissionPatchDtoSchema from './model/PermissionPatchDtoSchema';
@@ -135,7 +143,11 @@ import UserAdminFullSchema from './model/UserAdminFullSchema';
 import UserAdminFullSchemaAllowedUrls from './model/UserAdminFullSchemaAllowedUrls';
 import UserAdminFullSchemaPermissionGroups from './model/UserAdminFullSchemaPermissionGroups';
 import UserAdminFullSchemaPermissions from './model/UserAdminFullSchemaPermissions';
+import UserAdminFullSchemaWithSubUsers from './model/UserAdminFullSchemaWithSubUsers';
 import UserFullSchema from './model/UserFullSchema';
+import UserInfoSchema from './model/UserInfoSchema';
+import UserInfoSchemaPermissionGroups from './model/UserInfoSchemaPermissionGroups';
+import UserInfoSchemaPermissions from './model/UserInfoSchemaPermissions';
 import UserRegisterSchema from './model/UserRegisterSchema';
 import UserSettingInputSchema from './model/UserSettingInputSchema';
 import UserSettingInputSchemaData from './model/UserSettingInputSchemaData';
@@ -153,6 +165,7 @@ import ProductApi from './api/ProductApi';
 import RequestProposalsApi from './api/RequestProposalsApi';
 import RequestsApi from './api/RequestsApi';
 import ResearcherApi from './api/ResearcherApi';
+import ShopApi from './api/ShopApi';
 import StorekeepersApi from './api/StorekeepersApi';
 import SupervisorApi from './api/SupervisorApi';
 import SupplierApi from './api/SupplierApi';
@@ -240,12 +253,6 @@ export {
     ApiV1AdminsPaymentsCreatedBy,
 
     /**
-     * The ApiV1AdminsPaymentsProduct model constructor.
-     * @property {module:model/ApiV1AdminsPaymentsProduct}
-     */
-    ApiV1AdminsPaymentsProduct,
-
-    /**
      * The ApiV1AdminsTasksBoxesBefore model constructor.
      * @property {module:model/ApiV1AdminsTasksBoxesBefore}
      */
@@ -280,6 +287,12 @@ export {
      * @property {module:model/ApiV1BoxesSplitNewBoxesParams}
      */
     ApiV1BoxesSplitNewBoxesParams,
+
+    /**
+     * The ApiV1RequestProposalsCustomByRequestIdGuidDetails model constructor.
+     * @property {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails}
+     */
+    ApiV1RequestProposalsCustomByRequestIdGuidDetails,
 
     /**
      * The ApiV1RequestsCustomDetails model constructor.
@@ -588,10 +601,46 @@ export {
     InlineObject45,
 
     /**
+     * The InlineObject46 model constructor.
+     * @property {module:model/InlineObject46}
+     */
+    InlineObject46,
+
+    /**
+     * The InlineObject47 model constructor.
+     * @property {module:model/InlineObject47}
+     */
+    InlineObject47,
+
+    /**
+     * The InlineObject48 model constructor.
+     * @property {module:model/InlineObject48}
+     */
+    InlineObject48,
+
+    /**
+     * The InlineObject49 model constructor.
+     * @property {module:model/InlineObject49}
+     */
+    InlineObject49,
+
+    /**
      * The InlineObject5 model constructor.
      * @property {module:model/InlineObject5}
      */
     InlineObject5,
+
+    /**
+     * The InlineObject50 model constructor.
+     * @property {module:model/InlineObject50}
+     */
+    InlineObject50,
+
+    /**
+     * The InlineObject51 model constructor.
+     * @property {module:model/InlineObject51}
+     */
+    InlineObject51,
 
     /**
      * The InlineObject6 model constructor.
@@ -660,10 +709,28 @@ export {
     InlineResponse20014,
 
     /**
-     * The InlineResponse20014Details model constructor.
-     * @property {module:model/InlineResponse20014Details}
+     * The InlineResponse20015 model constructor.
+     * @property {module:model/InlineResponse20015}
      */
-    InlineResponse20014Details,
+    InlineResponse20015,
+
+    /**
+     * The InlineResponse20016 model constructor.
+     * @property {module:model/InlineResponse20016}
+     */
+    InlineResponse20016,
+
+    /**
+     * The InlineResponse20017 model constructor.
+     * @property {module:model/InlineResponse20017}
+     */
+    InlineResponse20017,
+
+    /**
+     * The InlineResponse20017Details model constructor.
+     * @property {module:model/InlineResponse20017Details}
+     */
+    InlineResponse20017Details,
 
     /**
      * The InlineResponse2002 model constructor.
@@ -714,12 +781,6 @@ export {
     InlineResponse2009,
 
     /**
-     * The InlineResponse2009Sellerboard model constructor.
-     * @property {module:model/InlineResponse2009Sellerboard}
-     */
-    InlineResponse2009Sellerboard,
-
-    /**
      * The InlineResponse201 model constructor.
      * @property {module:model/InlineResponse201}
      */
@@ -760,12 +821,6 @@ export {
      * @property {module:model/InlineResponse2016}
      */
     InlineResponse2016,
-
-    /**
-     * The InlineResponse2017 model constructor.
-     * @property {module:model/InlineResponse2017}
-     */
-    InlineResponse2017,
 
     /**
      * The InternalServerError model constructor.
@@ -820,6 +875,12 @@ export {
      * @property {module:model/PermissionGroupGetDtoSchema}
      */
     PermissionGroupGetDtoSchema,
+
+    /**
+     * The PermissionGroupGetDtoSchemaPermissions model constructor.
+     * @property {module:model/PermissionGroupGetDtoSchemaPermissions}
+     */
+    PermissionGroupGetDtoSchemaPermissions,
 
     /**
      * The PermissionGroupPatchDtoSchema model constructor.
@@ -930,10 +991,34 @@ export {
     UserAdminFullSchemaPermissions,
 
     /**
+     * The UserAdminFullSchemaWithSubUsers model constructor.
+     * @property {module:model/UserAdminFullSchemaWithSubUsers}
+     */
+    UserAdminFullSchemaWithSubUsers,
+
+    /**
      * The UserFullSchema model constructor.
      * @property {module:model/UserFullSchema}
      */
     UserFullSchema,
+
+    /**
+     * The UserInfoSchema model constructor.
+     * @property {module:model/UserInfoSchema}
+     */
+    UserInfoSchema,
+
+    /**
+     * The UserInfoSchemaPermissionGroups model constructor.
+     * @property {module:model/UserInfoSchemaPermissionGroups}
+     */
+    UserInfoSchemaPermissionGroups,
+
+    /**
+     * The UserInfoSchemaPermissions model constructor.
+     * @property {module:model/UserInfoSchemaPermissions}
+     */
+    UserInfoSchemaPermissions,
 
     /**
      * The UserRegisterSchema model constructor.
@@ -1036,6 +1121,12 @@ export {
     * @property {module:api/ResearcherApi}
     */
     ResearcherApi,
+
+    /**
+    * The ShopApi service constructor.
+    * @property {module:api/ShopApi}
+    */
+    ShopApi,
 
     /**
     * The StorekeepersApi service constructor.

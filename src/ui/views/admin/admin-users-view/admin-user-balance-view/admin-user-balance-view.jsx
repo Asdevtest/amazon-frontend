@@ -1,9 +1,12 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import {Component} from 'react'
 
 import {Button, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
@@ -13,7 +16,6 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
-import {UserBalanceHistory} from '@components/screens/user-balance-history'
 import {AdminBalanceModal} from '@components/screens/users-views/sub-users-view/admin-balance-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -37,7 +39,6 @@ class AdminUserBalanceViewRaw extends Component {
   render() {
     const {
       user,
-      payments,
       drawerOpen,
       showReplenishModal,
       showWithdrawModal,
@@ -45,8 +46,30 @@ class AdminUserBalanceViewRaw extends Component {
       onTriggerReplenishModal,
       onTriggerWithdrawModal,
       onTriggerDrawer,
+
+      requestStatus,
+      getCurrentData,
+      sortModel,
+      filterModel,
+      densityModel,
+      columnsModel,
+
+      rowsPerPage,
+      curPage,
+      onChangeCurPage,
+      onChangeRowsPerPage,
+      onSelectionModel,
+
+      setDataGridState,
+      onChangeSortingModel,
+      onChangeFilterModel,
     } = this.viewModel
     const {classes: classNames} = this.props
+
+    const getRowClassName = params =>
+      params.getValue(params.id, 'sum') < 0
+        ? classNames.redRow
+        : params.getValue(params.id, 'sum') > 0 && classNames.greenRow
 
     return (
       <>
@@ -83,7 +106,38 @@ class AdminUserBalanceViewRaw extends Component {
               <Button disableElevation color="primary" onClick={onTriggerWithdrawModal}>
                 {textConsts.withdraw}
               </Button>
-              <UserBalanceHistory historyData={payments} title={textConsts.balanceHistoryTitle} />
+
+              <div className={classNames.tableWrapper}>
+                <Typography variant="h6">{textConsts.balanceHistoryTitle}</Typography>
+
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  autoHeight
+                  getRowClassName={getRowClassName}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  rowHeight={75}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection[0])
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={setDataGridState}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

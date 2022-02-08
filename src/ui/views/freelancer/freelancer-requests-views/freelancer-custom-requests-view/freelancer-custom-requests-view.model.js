@@ -42,7 +42,7 @@ export class FreelancerСustomRequestsViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = freelancerCustomSearchRequestsBtnsViewColumns(this.rowHandlers)
 
   constructor({history}) {
@@ -63,7 +63,7 @@ export class FreelancerСustomRequestsViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.curPage = state.pagination.page
       this.rowsPerPage = state.pagination.pageSize
 

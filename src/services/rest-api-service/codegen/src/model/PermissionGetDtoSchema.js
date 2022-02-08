@@ -29,14 +29,14 @@ class PermissionGetDtoSchema {
      * @param title {String} Простое название.
      * @param description {String} Описание permission
      * @param allowedUrls {Array.<module:model/UserAdminFullSchemaAllowedUrls>} Массив доступных url.
-     * @param createdById {String} GUID любого, кто последний создал permission.
      * @param role {Number} Роль для которого данный permission
+     * @param createdById {String} GUID любого, кто последний создал permission.
      * @param createdAt {Date} Дата создания
      * @param updatedAt {Date} Дата изменения
      */
-    constructor(_id, key, title, description, allowedUrls, createdById, role, createdAt, updatedAt) { 
+    constructor(_id, key, title, description, allowedUrls, role, createdById, createdAt, updatedAt) { 
         
-        PermissionGetDtoSchema.initialize(this, _id, key, title, description, allowedUrls, createdById, role, createdAt, updatedAt);
+        PermissionGetDtoSchema.initialize(this, _id, key, title, description, allowedUrls, role, createdById, createdAt, updatedAt);
     }
 
     /**
@@ -44,14 +44,14 @@ class PermissionGetDtoSchema {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, key, title, description, allowedUrls, createdById, role, createdAt, updatedAt) { 
+    static initialize(obj, _id, key, title, description, allowedUrls, role, createdById, createdAt, updatedAt) { 
         obj['_id'] = _id;
         obj['key'] = key;
         obj['title'] = title;
         obj['description'] = description;
         obj['allowedUrls'] = allowedUrls;
-        obj['createdById'] = createdById;
         obj['role'] = role;
+        obj['createdById'] = createdById;
         obj['createdAt'] = createdAt;
         obj['updatedAt'] = updatedAt;
     }
@@ -82,11 +82,14 @@ class PermissionGetDtoSchema {
             if (data.hasOwnProperty('allowedUrls')) {
                 obj['allowedUrls'] = ApiClient.convertToType(data['allowedUrls'], [UserAdminFullSchemaAllowedUrls]);
             }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
             if (data.hasOwnProperty('role')) {
                 obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            }
+            if (data.hasOwnProperty('hierarchy')) {
+                obj['hierarchy'] = ApiClient.convertToType(data['hierarchy'], 'Number');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
             if (data.hasOwnProperty('lastModifiedById')) {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
@@ -135,16 +138,22 @@ PermissionGetDtoSchema.prototype['description'] = undefined;
 PermissionGetDtoSchema.prototype['allowedUrls'] = undefined;
 
 /**
- * GUID любого, кто последний создал permission.
- * @member {String} createdById
- */
-PermissionGetDtoSchema.prototype['createdById'] = undefined;
-
-/**
  * Роль для которого данный permission
  * @member {Number} role
  */
 PermissionGetDtoSchema.prototype['role'] = undefined;
+
+/**
+ * Для фронта, чтобы хранить иерархию.
+ * @member {Number} hierarchy
+ */
+PermissionGetDtoSchema.prototype['hierarchy'] = undefined;
+
+/**
+ * GUID любого, кто последний создал permission.
+ * @member {String} createdById
+ */
+PermissionGetDtoSchema.prototype['createdById'] = undefined;
 
 /**
  * GUID любого, кто последний редактировал permission.

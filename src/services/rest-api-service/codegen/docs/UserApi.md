@@ -4,7 +4,6 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV1TechClearAllSchemasPost**](UserApi.md#apiV1TechClearAllSchemasPost) | **POST** /api/v1/tech/clear_all_schemas | Очистить все коллекции в БД кроме пользователей.
 [**apiV1UsersCheckIsUniqueNameOrEmailPost**](UserApi.md#apiV1UsersCheckIsUniqueNameOrEmailPost) | **POST** /api/v1/users/check_isUnique_name_or_email | Выдача массива объектов с ответом является ли уникальным name и/или email.
 [**apiV1UsersEditMySubUsersGuidPatch**](UserApi.md#apiV1UsersEditMySubUsersGuidPatch) | **PATCH** /api/v1/users/edit_my_sub-users/{guid} | Редактирование сабюзера мастер юзером.
 [**apiV1UsersInfoGet**](UserApi.md#apiV1UsersInfoGet) | **GET** /api/v1/users/info | Получить информацию от текущем пользователе.
@@ -19,58 +18,6 @@ Method | HTTP request | Description
 [**apiV1UsersUserSettingsMyPatch**](UserApi.md#apiV1UsersUserSettingsMyPatch) | **PATCH** /api/v1/users/user-settings/my | #  Изменения пользователем своих настроек.
 [**apiV1UsersUserSettingsPost**](UserApi.md#apiV1UsersUserSettingsPost) | **POST** /api/v1/users/user-settings | Создание настроек пользователя.
 
-
-
-## apiV1TechClearAllSchemasPost
-
-> String apiV1TechClearAllSchemasPost(opts)
-
-Очистить все коллекции в БД кроме пользователей.
-
-## Очистить все коллекции в БД кроме пользователей..   
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.UserApi();
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example" // String | 
-};
-apiInstance.apiV1TechClearAllSchemasPost(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] 
-
-### Return type
-
-**String**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
 
 
 ## apiV1UsersCheckIsUniqueNameOrEmailPost
@@ -185,7 +132,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersInfoGet
 
-> UserAdminFullSchema apiV1UsersInfoGet(opts)
+> UserInfoSchema apiV1UsersInfoGet(opts)
 
 Получить информацию от текущем пользователе.
 
@@ -223,7 +170,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UserAdminFullSchema**](UserAdminFullSchema.md)
+[**UserInfoSchema**](UserInfoSchema.md)
 
 ### Authorization
 

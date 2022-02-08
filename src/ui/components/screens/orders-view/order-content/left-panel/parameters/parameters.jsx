@@ -28,9 +28,9 @@ export const Parameters = ({order, collapsed}) => {
   return (
     <Table>
       <TableBody>
-        <OrderParameter label={textConsts.minPrice} value={order.product.minpurchase} />
+        <OrderParameter label={textConsts.minPrice} value={toFixed(order.product.minpurchase, 2)} />
         <OrderParameter label={textConsts.qty} value={order.amount} />
-        <OrderParameter label={textConsts.minBuyPrice} value={toFixed(order.product.currentSupplier.price)} />
+        <OrderParameter label={textConsts.minBuyPrice} value={toFixed(order.product.currentSupplier.price, 2)} />
 
         <TableRow>
           <TableCell className={classNames.parameterTableCell}>
@@ -56,7 +56,7 @@ export const Parameters = ({order, collapsed}) => {
               : 'undefined'
           }
         />
-        <OrderParameter label={textConsts.weight} value={toFixed(order.product.weight, 3)} />
+        <OrderParameter label={textConsts.weight} value={toFixed(order.product.weight, 2)} />
 
         <TableRow>
           <TableCell className={classNames.parameterTableCell}>

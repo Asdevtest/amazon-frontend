@@ -11,9 +11,9 @@ import {
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-const textConsts = getLocalizedTexts(texts, 'ru').adminFinancesTableColumns
+const textConsts = getLocalizedTexts(texts, 'ru').financesTableColumns
 
-export const adminFinancesViewColumns = () => [
+export const financesViewColumns = () => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
@@ -23,20 +23,16 @@ export const adminFinancesViewColumns = () => [
   },
 
   {
-    field: 'comment',
-    headerName: textConsts.commentField,
-    width: 400,
-    renderCell: params => (
-      <ScrollingCell
-        value={`${params.value} ${params.row?.originalData?.product ? params.row.originalData.product?.id : ''}`}
-      />
-    ),
+    field: 'type',
+    headerName: textConsts.typeField,
+    width: 110,
+    renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'sum',
     headerName: textConsts.sumField,
-    width: 160,
+    width: 110,
     type: 'number',
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
   },
@@ -44,14 +40,25 @@ export const adminFinancesViewColumns = () => [
   {
     field: 'creatorName',
     headerName: textConsts.creatorNameField,
-    width: 250,
+    width: 170,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'recipientName',
     headerName: textConsts.recipientNameField,
-    width: 250,
+    width: 170,
     renderCell: params => renderFieldValueCell(params.value),
+  },
+
+  {
+    field: 'comment',
+    headerName: textConsts.commentField,
+    width: 800,
+    renderCell: params => (
+      <ScrollingCell
+        value={`${params.value} ${params.row?.originalData?.product ? params.row.originalData.product?.id : ''}`}
+      />
+    ),
   },
 ]

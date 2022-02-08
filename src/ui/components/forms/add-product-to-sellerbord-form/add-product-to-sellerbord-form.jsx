@@ -1,13 +1,16 @@
+import {DataGrid} from '@mui/x-data-grid'
+
 import React, {useState} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {DataGrid} from '@material-ui/data-grid'
+import {Grid, IconButton, Typography} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field/field'
 import {ImageFileInput} from '@components/image-file-input'
 import {Input} from '@components/input'
@@ -20,12 +23,12 @@ import {useClassNames} from './add-product-to-sellerbord-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').addProductSellerboardForm
 
-export const AddProductSellerboardForm = observer(({selectedProduct, goodsToSelect}) => {
+export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, showProgress, progressValue}) => {
   const classNames = useClassNames()
 
   const [chosenGoods, setChosenGoods] = useState(goodsToSelect)
 
-  const [amazonLink, setAmazonLink] = useState('')
+  const [skuLine, setSkuLine] = useState('')
 
   const [images, setImages] = useState([])
 
@@ -35,33 +38,19 @@ export const AddProductSellerboardForm = observer(({selectedProduct, goodsToSele
     setSelectedRow(item)
 
     setFormFields({
-      asin: item?.asin || '',
-      sku: item?.sku || '',
-      title: item?.title || '',
+      ...formFields,
+      id: item?.asin || '',
+      skusByClient: item ? [item.sku] : [],
+      amazonTitle: item?.title || '',
     })
-  }
-
-  const onClickTrash = asin => {
-    const filteredArray = [...chosenGoods].filter(el => el.asin !== asin)
-    setChosenGoods(filteredArray)
-  }
-
-  const onClickParseBtn = () => {
-    setSelectedRow({})
-
-    setFormFields({
-      asin: getAmazonCodeFromLink(amazonLink) || '',
-      sku: '',
-      title: '',
-    })
-
-    setAmazonLink('')
   }
 
   const sourceFormFields = {
-    asin: selectedProduct?.asin || '',
-    sku: selectedProduct?.sku || '',
-    title: selectedProduct?.title || '',
+    id: '',
+    skusByClient: [],
+    amazonTitle: '',
+    images: [],
+    lamazon: '',
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
@@ -72,6 +61,30 @@ export const AddProductSellerboardForm = observer(({selectedProduct, goodsToSele
     const newFormFields = {...formFields}
     newFormFields[fieldName] = event.target.value
     setFormFields(newFormFields)
+  }
+
+  const onClickTrash = asin => {
+    const filteredArray = [...chosenGoods].filter(el => el.asin !== asin)
+    setChosenGoods(filteredArray)
+  }
+
+  const onClickParseBtn = () => {
+    setFormFields({...formFields, id: getAmazonCodeFromLink(formFields.lamazon) || ''})
+  }
+
+  const onClickSkuBtn = () => {
+    setSelectedRow({})
+
+    setFormFields({...formFields, skusByClient: [...formFields.skusByClient, skuLine.toUpperCase()]})
+    setSkuLine('')
+  }
+
+  const onRemoveSku = index => {
+    setSelectedRow({})
+
+    const newArr = formFields.skusByClient.filter((el, i) => i !== index)
+
+    setFormFields({...formFields, skusByClient: newArr})
   }
 
   const disableSubmitBtn = formFields.asin === '' || formFields.sku === '' || formFields.title === ''
@@ -96,16 +109,16 @@ export const AddProductSellerboardForm = observer(({selectedProduct, goodsToSele
         <Field
           label={textConsts.linkLabel}
           inputComponent={
-            <div className={classNames.amazonLinkWrapper}>
+            <div className={classNames.inputWrapper}>
               <Input
                 placeholder={textConsts.linkHolder}
-                value={amazonLink}
-                className={classNames.amazonLinkInput}
-                onChange={e => setAmazonLink(e.target.value)}
+                value={formFields.lamazon}
+                className={classNames.input}
+                onChange={onChangeField('lamazon')}
               />
               <Button
                 disableElevation
-                className={classNames.parseBtn}
+                className={classNames.defaultBtn}
                 variant="contained"
                 color="primary"
                 onClick={onClickParseBtn}
@@ -117,24 +130,58 @@ export const AddProductSellerboardForm = observer(({selectedProduct, goodsToSele
         />
 
         <Field
+          inputProps={{maxLength: 1000}}
           label={textConsts.asin}
-          value={formFields.asin}
+          value={formFields.id}
           placeholder={textConsts.asin}
-          onChange={onChangeField('asin')}
+          onChange={onChangeField('id')}
         />
 
         <Field
           label={textConsts.sku}
-          value={formFields.sku}
-          placeholder={textConsts.sku}
-          onChange={onChangeField('sku')}
+          inputComponent={
+            <div>
+              {formFields.skusByClient.length ? (
+                <Grid container spacing={2} className={classNames.skuItemsWrapper}>
+                  {formFields.skusByClient.map((item, index) => (
+                    <Grid key={index} item className={classNames.skuItemWrapper}>
+                      <Typography className={classNames.skuItemTitle}>{item}</Typography>
+
+                      <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
+                        <DeleteIcon className={classNames.deleteBtn} />
+                      </IconButton>
+                    </Grid>
+                  ))}
+                </Grid>
+              ) : null}
+
+              <div className={classNames.inputWrapper}>
+                <Input
+                  placeholder={textConsts.skuHolder}
+                  value={skuLine}
+                  className={classNames.input}
+                  onChange={e => setSkuLine(e.target.value)}
+                />
+                <Button
+                  disableElevation
+                  disabled={skuLine === ''}
+                  className={classNames.defaultBtn}
+                  variant="contained"
+                  color="primary"
+                  onClick={onClickSkuBtn}
+                >
+                  {textConsts.addSkuBtn}
+                </Button>
+              </div>
+            </div>
+          }
         />
 
         <Field
           label={textConsts.title}
-          value={formFields.title}
+          value={formFields.amazonTitle}
           placeholder={textConsts.title}
-          onChange={onChangeField('title')}
+          onChange={onChangeField('amazonTitle')}
         />
       </div>
 
@@ -143,10 +190,18 @@ export const AddProductSellerboardForm = observer(({selectedProduct, goodsToSele
       </div>
 
       <div className={classNames.btnsWrapper}>
-        <SuccessButton disableElevation disabled={disableSubmitBtn} variant="contained" color="primary">
+        <SuccessButton
+          disableElevation
+          disabled={disableSubmitBtn}
+          variant="contained"
+          color="primary"
+          onClick={() => onSubmit(formFields, images)}
+        >
           {textConsts.addAndBindBtn}
         </SuccessButton>
       </div>
+
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={textConsts.circularProgressTitle} />}
     </div>
   )
 })

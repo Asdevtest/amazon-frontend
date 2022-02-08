@@ -41,4 +41,12 @@ export const useClassNames = makeStyles(theme => ({
   tableContainer: {
     maxHeight: '69vh',
   },
+
+  noRowsTitleWrapper: {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '40px',
+  },
 }))

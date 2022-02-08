@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
 
-import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
@@ -8,12 +7,21 @@ import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 
+import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {AdminSettingsModel} from './admin-settings-form.model'
 import {useClassNames} from './admin-settings-form.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').userSettingsForm
+const textConsts = getLocalizedTexts(texts, 'ru').adminSettingsForm
+
+const fieldsWithoutCharactersAfterDote = [
+  'requestPlatformMarginInPercent',
+  'requestSupervisorFeeInPercent',
+  'deadlineForFindingSupplier',
+  'requestTimeLimitInHourForCancelingProposalsByClient',
+  'requestTimeLimitInHourForCheckingProposalBySuper',
+]
 
 export const AdminSettingsForm = observer(() => {
   const classNames = useClassNames()
@@ -30,17 +38,20 @@ export const AdminSettingsForm = observer(() => {
 
   useEffect(() => {
     const sourceFormFields = {
-      yuanToDollarRate: adminSettings?.yuanToDollarRate || '',
-      airDeliveryPrice: adminSettings?.airDeliveryPrice || '',
-      seaDeliveryPrice: adminSettings?.seaDeliveryPrice || '',
-      costOfFindingSupplier: adminSettings?.costOfFindingSupplier || '',
-      requestMinAmountPriceOfProposal: adminSettings?.requestMinAmountPriceOfProposal || '',
-      requestPlatformMarginInPercent: adminSettings?.requestPlatformMarginInPercent || '',
-      requestSupervisorFeeInPercent: adminSettings?.requestSupervisorFeeInPercent || '',
+      airDeliveryPrice: adminSettings?.dynamicSettings?.airDeliveryPrice || '',
+      costOfFindingSupplier: adminSettings?.dynamicSettings?.costOfFindingSupplier || '',
+      deadlineForFindingSupplier: adminSettings?.dynamicSettings?.deadlineForFindingSupplier || '',
+      requestMinAmountPriceOfProposal: adminSettings?.dynamicSettings?.requestMinAmountPriceOfProposal || '',
+      requestPlatformMarginInPercent: adminSettings?.dynamicSettings?.requestPlatformMarginInPercent || '',
+      requestSupervisorFeeInPercent: adminSettings?.dynamicSettings?.requestSupervisorFeeInPercent || '',
       requestTimeLimitInHourForCancelingProposalsByClient:
-        adminSettings?.requestTimeLimitInHourForCancelingProposalsByClient || '',
+        adminSettings?.dynamicSettings?.requestTimeLimitInHourForCancelingProposalsByClient || '',
       requestTimeLimitInHourForCheckingProposalBySuper:
-        adminSettings?.requestTimeLimitInHourForCheckingProposalBySuper || '',
+        adminSettings?.dynamicSettings?.requestTimeLimitInHourForCheckingProposalBySuper || '',
+
+      seaDeliveryPrice: adminSettings?.dynamicSettings?.seaDeliveryPrice || '',
+      yuanToDollarRate: adminSettings?.dynamicSettings?.yuanToDollarRate || '',
+      costOfCheckingProduct: adminSettings?.dynamicSettings?.costOfCheckingProduct || '',
     }
 
     setFormFields(sourceFormFields)
@@ -51,98 +62,122 @@ export const AdminSettingsForm = observer(() => {
     'airDeliveryPrice',
     'seaDeliveryPrice',
     'costOfFindingSupplier',
+    'costOfCheckingProduct',
     'requestMinAmountPriceOfProposal',
     'requestPlatformMarginInPercent',
     'requestSupervisorFeeInPercent',
     'requestTimeLimitInHourForCancelingProposalsByClient',
     'requestTimeLimitInHourForCheckingProposalBySuper',
+    'deadlineForFindingSupplier',
   ]
 
-  const onCreateSubmit = keys => {
-    if (!adminSettings) {
-      createAdminSettings(formFields)
-    } else {
-      keys.map(key => {
-        if (formFields[key] !== adminSettings[key]) {
-          createAdminSettings({[key]: parseInt(formFields[key])})
-        }
-      })
-    }
+  const onCreateSubmit = () => {
+    // if (!adminSettings) { // ЕСЛИ НУЖНО ОБНОВЛЯТЬ ОТДЕЛЬНЫЕ КЛЮЧИ
+    //   createAdminSettings(formFields)
+    // } else {
+    //   keys.map(key => {
+    //     if (formFields[key] !== adminSettings.dynamicSettings[key]) {
+    //       createAdminSettings({[key]: parseInt(formFields[key])})
+    //     }
+    //   })
+    // }
+
+    createAdminSettings(formFields)
   }
 
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
-    newFormFields[fieldName] = event.target.value.replace(/[^0-9]/g, '')
+
+    if (
+      !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(
+        event.target.value,
+        fieldsWithoutCharactersAfterDote.includes(fieldName) ? 0 : 2,
+      )
+    ) {
+      return
+    }
+    newFormFields[fieldName] = event.target.value
     setFormFields(newFormFields)
   }
 
   return (
     <div className={classNames.mainWrapper}>
-      <Typography variant="h5" className={classNames.mainTitle}>
-        {textConsts.mainTitle}
-      </Typography>
-
       <Field
-        label={'Курс юаня к доллару'}
+        label={textConsts.yuanToDollarRate}
         className={classNames.textField}
         value={formFields.yuanToDollarRate}
         onChange={onChangeField('yuanToDollarRate')}
       />
       <Field
-        label={'Цена за авиа доставку'}
+        label={textConsts.airDeliveryPrice}
         className={classNames.textField}
         value={formFields.airDeliveryPrice}
         onChange={onChangeField('airDeliveryPrice')}
       />
       <Field
-        label={'Цена за доставку морем'}
+        label={textConsts.seaDeliveryPrice}
         className={classNames.textField}
         value={formFields.seaDeliveryPrice}
         onChange={onChangeField('seaDeliveryPrice')}
       />
       <Field
-        label={'Цена за поиск поставщика'}
+        label={textConsts.costOfFindingSupplier}
         className={classNames.textField}
         value={formFields.costOfFindingSupplier}
         onChange={onChangeField('costOfFindingSupplier')}
       />
+
       <Field
-        label={'Минимальная цена за предложение к заявке'}
+        label={textConsts.costOfCheckingProduct}
+        className={classNames.textField}
+        value={formFields.costOfCheckingProduct}
+        onChange={onChangeField('costOfCheckingProduct')}
+      />
+
+      <Field
+        label={textConsts.requestMinAmountPriceOfProposal}
         className={classNames.textField}
         value={formFields.requestMinAmountPriceOfProposal}
         onChange={onChangeField('requestMinAmountPriceOfProposal')}
       />
       <Field
-        label={'Процент с каждого предложения'}
+        label={textConsts.requestPlatformMarginInPercent}
         className={classNames.textField}
         value={formFields.requestPlatformMarginInPercent}
         onChange={onChangeField('requestPlatformMarginInPercent')}
       />
       <Field
-        label={'Процент с каждого предложения для супервайзера'}
+        label={textConsts.requestSupervisorFeeInPercent}
         className={classNames.textField}
         value={formFields.requestSupervisorFeeInPercent}
         onChange={onChangeField('requestSupervisorFeeInPercent')}
       />
       <Field
-        label={'Время, после которого, автоматически будет принято предложение'}
+        label={textConsts.requestTimeLimitInHourForCancelingProposalsByClient}
         className={classNames.textField}
         value={formFields.requestTimeLimitInHourForCancelingProposalsByClient}
         onChange={onChangeField('requestTimeLimitInHourForCancelingProposalsByClient')}
       />
       <Field
-        label={'Время, после которого, автоматически будет снят супервизор с проверки'}
+        label={textConsts.requestTimeLimitInHourForCheckingProposalBySuper}
         className={classNames.textField}
         value={formFields.requestTimeLimitInHourForCheckingProposalBySuper}
         onChange={onChangeField('requestTimeLimitInHourForCheckingProposalBySuper')}
       />
 
+      <Field
+        label={textConsts.deadlineForFindingSupplier}
+        className={classNames.textField}
+        value={formFields.deadlineForFindingSupplier}
+        onChange={onChangeField('deadlineForFindingSupplier')}
+      />
+
       <div className={classNames.placeAddBtnWrapper}>
         <Button
-          disabled={JSON.stringify(adminSettings) === JSON.stringify(formFields)}
+          disabled={JSON.stringify(adminSettings.dynamicSettings) === JSON.stringify(formFields)}
           onClick={() => onCreateSubmit(dataKeys)}
         >
-          Сохранить
+          {textConsts.saveBtn}
         </Button>
       </div>
     </div>

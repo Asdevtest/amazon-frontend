@@ -1,7 +1,8 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {Component} from 'react'
 
-import {Typography, Box} from '@material-ui/core'
-import {DataGrid, GridToolbar} from '@material-ui/data-grid'
+import {Box} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -11,9 +12,9 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-permissions-form'
+import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {LinkSubUserForm} from '@components/forms/link-sub-user-form'
+import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit-user-permissions-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -21,7 +22,6 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
-import {onStateChangeHandler} from '@utils/data-grid-handlers'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import avatar from '../../assets/clientAvatar.jpg'
@@ -96,12 +96,10 @@ class SupervisorSubUsersViewRaw extends Component {
             curUserRole={UserRole.SUPERVISOR}
           >
             <MainContent>
-              <Typography>{textConsts.mainTitle}</Typography>
-
               <Box className={this.props.classes.buttonBox}>
-                <Button color="secondary" onClick={() => onTriggerOpenModal('showAddSubUserModal')}>
+                <SuccessButton onClick={() => onTriggerOpenModal('showAddSubUserModal')}>
                   {textConsts.addUserBtn}
-                </Button>
+                </SuccessButton>
               </Box>
 
               <div>
@@ -113,7 +111,7 @@ class SupervisorSubUsersViewRaw extends Component {
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[5, 10, 15, 20]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={200}
                   components={{
@@ -125,7 +123,7 @@ class SupervisorSubUsersViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={e => onStateChangeHandler(e, setDataGridState)}
+                  onStateChange={setDataGridState}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
@@ -141,7 +139,7 @@ class SupervisorSubUsersViewRaw extends Component {
         </Modal>
 
         <Modal openModal={showPermissionModal} setOpenModal={() => onTriggerOpenModal('showPermissionModal')}>
-          <AddOrEditUserPermissionsForm
+          <NewAddOrEditUserPermissionsForm
             permissionsToSelect={singlePermissions}
             permissionGroupsToSelect={groupPermissions}
             sourceData={selectedSubUser}

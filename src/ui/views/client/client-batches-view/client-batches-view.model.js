@@ -32,7 +32,7 @@ export class ClientBatchesViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = batchesViewColumns(this.rowHandlers)
 
   constructor({history}) {
@@ -57,7 +57,7 @@ export class ClientBatchesViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value

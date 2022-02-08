@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import UserAdminFullSchemaPermissions from './UserAdminFullSchemaPermissions';
+import PermissionGroupGetDtoSchemaPermissions from './PermissionGroupGetDtoSchemaPermissions';
 
 /**
  * The PermissionGroupGetDtoSchema model module.
@@ -27,7 +27,7 @@ class PermissionGroupGetDtoSchema {
      * @param key {String} Ключ группы пермишенов
      * @param title {String} Простое название
      * @param description {String} Описание группы пермишенов
-     * @param permissions {Array.<module:model/UserAdminFullSchemaPermissions>} 
+     * @param permissions {Array.<module:model/PermissionGroupGetDtoSchemaPermissions>} 
      * @param role {Number} Роль для которого данная группа permission-ов
      * @param createdById {String} GUID любого, кто последний создал группу permission.
      * @param createdAt {Date} Дата создания
@@ -77,8 +77,11 @@ class PermissionGroupGetDtoSchema {
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
+            if (data.hasOwnProperty('hierarchy')) {
+                obj['hierarchy'] = ApiClient.convertToType(data['hierarchy'], 'Number');
+            }
             if (data.hasOwnProperty('permissions')) {
-                obj['permissions'] = ApiClient.convertToType(data['permissions'], [UserAdminFullSchemaPermissions]);
+                obj['permissions'] = ApiClient.convertToType(data['permissions'], [PermissionGroupGetDtoSchemaPermissions]);
             }
             if (data.hasOwnProperty('role')) {
                 obj['role'] = ApiClient.convertToType(data['role'], 'Number');
@@ -127,7 +130,13 @@ PermissionGroupGetDtoSchema.prototype['title'] = undefined;
 PermissionGroupGetDtoSchema.prototype['description'] = undefined;
 
 /**
- * @member {Array.<module:model/UserAdminFullSchemaPermissions>} permissions
+ * Для фронта, чтобы хранить иерархию.
+ * @member {Number} hierarchy
+ */
+PermissionGroupGetDtoSchema.prototype['hierarchy'] = undefined;
+
+/**
+ * @member {Array.<module:model/PermissionGroupGetDtoSchemaPermissions>} permissions
  */
 PermissionGroupGetDtoSchema.prototype['permissions'] = undefined;
 

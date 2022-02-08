@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Box, Typography, Paper, Checkbox} from '@material-ui/core'
+import {Box, Paper, Checkbox} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -45,7 +45,6 @@ class ResearcherSettingsViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
-          // user={textConsts.appUser}
         />
         <Main>
           <Appbar
@@ -58,7 +57,6 @@ class ResearcherSettingsViewRaw extends Component {
             <MainContent>
               {formFields ? (
                 <Paper className={this.props.classes.card}>
-                  <Typography variant="h3">{textConsts.mainTitle}</Typography>
                   <Field
                     label={textConsts.fieldName}
                     placeholder={'researcher'}

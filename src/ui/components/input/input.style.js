@@ -4,6 +4,7 @@ export const styles = () =>
   createStyles({
     root: {
       height: '32px',
+      width: '100%',
       border: '1px solid rgba(217, 222, 229, 1)',
       borderRadius: '4px',
       flexShrink: '0',

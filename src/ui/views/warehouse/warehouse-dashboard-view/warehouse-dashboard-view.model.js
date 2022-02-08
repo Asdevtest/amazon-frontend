@@ -2,7 +2,6 @@ import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
-import {BoxesModel} from '@models/boxes-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
@@ -72,9 +71,10 @@ export class WarehouseDashboardViewModel {
     }
   }
 
-  async getBoxesMy(id) {
+  async getBoxesMy() {
     try {
-      const result = await BoxesModel.getBoxes(id)
+      const result = await StorekeeperModel.getBoxesMy()
+
       runInAction(() => {
         this.boxesMy = result
       })
@@ -83,6 +83,7 @@ export class WarehouseDashboardViewModel {
       this.error = error
     }
   }
+
   async getBatches() {
     try {
       const result = await StorekeeperModel.getBatches()

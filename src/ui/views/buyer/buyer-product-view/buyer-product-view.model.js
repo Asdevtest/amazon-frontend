@@ -1,5 +1,5 @@
 import {transformAndValidate} from 'class-transformer-validator'
-import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
+import {action, makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
@@ -24,7 +24,6 @@ import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '
 const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
 
 const fieldsOfProductAllowedToUpdate = [
-  'lsupplier',
   'amazon',
   'reffee',
   'fbalink',
@@ -37,6 +36,19 @@ const fieldsOfProductAllowedToUpdate = [
   'buyersComment',
   'additionalProp1',
   'currentSupplierId',
+]
+
+const fieldsOfProductAllowedToForceUpdate = [
+  'amazon',
+  'reffee',
+  'fbalink',
+  'fbafee',
+  'fbaamount',
+  'delivery',
+  'profit',
+  'margin',
+  'buyersComment',
+  'additionalProp1',
 ]
 
 const formFieldsDefault = {
@@ -66,6 +78,9 @@ const confirmMessageByProductStatus = {
   60: 'Прайс поставщика не подходит?',
   50: 'Поставщик не найден?',
   40: 'Поставщик найден?',
+  240: 'Поставщик найден?',
+  260: 'Прайс поставщика не подходит?',
+  250: 'Поставщик не найден?',
 }
 
 const warningModalTitleVariants = {
@@ -78,8 +93,10 @@ export class BuyerProductViewModel {
   requestStatus = undefined
   actionStatus = undefined
 
+  productId = undefined
+
   product = undefined
-  suppliers = []
+  productBase = undefined
   curUpdateProductData = {}
   warningModalTitle = ''
 
@@ -104,21 +121,35 @@ export class BuyerProductViewModel {
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
-  constructor({history, location}) {
+  constructor({history}) {
     this.history = history
 
-    if (location.state) {
-      const product = {
-        ...location.state.product,
-        suppliers: location.state.product.suppliers.map(supplierItem =>
-          typeof supplierItem === 'string' ? supplierItem : supplierItem._id,
-        ),
-      }
-      this.product = product
-      this.suppliers = location.state.suppliers ? location.state.suppliers : location.state.product.suppliers
-      updateProductAutoCalculatedFields.call(this)
-    }
+    this.productId = history.location.search.slice(1)
+
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async loadData() {
+    try {
+      await this.getProductById()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getProductById() {
+    try {
+      const result = await ProductModel.getProductById(this.productId)
+
+      runInAction(() => {
+        this.product = result
+
+        this.productBase = result
+        updateProductAutoCalculatedFields.call(this)
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onChangeProductFields = fieldsName =>
@@ -130,7 +161,7 @@ export class BuyerProductViewModel {
     })
 
   onClickSetProductStatusBtn(statusKey) {
-    this.product.status = ProductStatusByKey[statusKey]
+    this.product = {...this.product, status: ProductStatusByKey[statusKey]}
   }
 
   onChangeSelectedSupplier(supplier) {
@@ -157,14 +188,16 @@ export class BuyerProductViewModel {
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'accept':
-        this.product.currentSupplierId = this.selectedSupplier._id
-        this.product.currentSupplier = this.selectedSupplier
+        this.product = {...this.product, currentSupplierId: this.selectedSupplier._id}
+        this.product = {...this.product, currentSupplier: this.selectedSupplier}
+
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
         break
       case 'acceptRevoke':
-        this.product.currentSupplierId = undefined
-        this.product.currentSupplier = undefined
+        this.product = {...this.product, currentSupplierId: null}
+        this.product = {...this.product, currentSupplier: undefined}
+
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
         break
@@ -186,16 +219,15 @@ export class BuyerProductViewModel {
       await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
       this.setActionStatus(loadingStatuses.success)
-      const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === this.selectedSupplier._id)
 
       runInAction(() => {
-        this.suppliers.splice(findSupplierIndex, 1)
         this.product.suppliers
         this.selectedSupplier = undefined
-        if (this.product.currentSupplierId && this.product.currentSupplierId === this.selectedSupplier._id) {
+        if (this.product.currentSupplierId && this.product.currentSupplierId === this.selectedSupplier?._id) {
           this.product.currentSupplierId = undefined
         }
       })
+      this.onSaveForceProductData()
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -235,10 +267,17 @@ export class BuyerProductViewModel {
       await transformAndValidate(BuyerUpdateProductContract, this.curUpdateProductData)
 
       if (
-        (this.curUpdateProductData.currentSupplierId ||
-          this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]) &&
-        this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
-        this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]
+        (this.curUpdateProductData.currentSupplierId &&
+          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT]) ||
+        (this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER] &&
+          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
+          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) ||
+        (this.curUpdateProductData.currentSupplierId &&
+          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]) ||
+        (this.curUpdateProductData.status ===
+          ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER] &&
+          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] &&
+          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH])
       ) {
         runInAction(() => {
           this.confirmModalSettings = {
@@ -254,7 +293,9 @@ export class BuyerProductViewModel {
           this.warningModalTitle =
             this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] ||
             this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]
-              ? warningModalTitleVariants.CHOOSE_STATUS
+              ? // this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] ||
+                // this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH]
+                warningModalTitleVariants.CHOOSE_STATUS
               : warningModalTitleVariants.NO_SUPPLIER
           this.onTriggerOpenModal('showWarningModal')
         })
@@ -282,17 +323,9 @@ export class BuyerProductViewModel {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
-      await BuyerModel.updateProduct(
-        this.product._id,
-        getObjectFilteredByKeyArrayBlackList(
-          this.curUpdateProductData,
-          this.curUpdateProductData.currentSupplierId === null ? ['currentSupplierId'] : [],
-        ),
-      )
+      await BuyerModel.updateProduct(this.product._id, this.curUpdateProductData)
 
       this.setActionStatus(loadingStatuses.success)
-
-      this.history.replace('/buyer/product', {product: toJS(this.product), suppliers: toJS(this.suppliers)})
 
       this.history.push('/buyer/my-products')
     } catch (error) {
@@ -305,25 +338,37 @@ export class BuyerProductViewModel {
     }
   }
 
-  // async onForcedSaveSelectedFields(selectedFieldsObj) {  МОЖЕТ ПРИГОДИТЬСЯ
-  //   try {
-  //     await BuyerModel.updateProduct(this.product._id, selectedFieldsObj)
-  //   } catch (error) {
-  //     this.setActionStatus(loadingStatuses.failed)
-  //     console.log('error', error)
-  //   }
-  // }
+  async onSaveForceProductData() {
+    try {
+      await BuyerModel.updateProduct(
+        this.productId,
+        getObjectFilteredByKeyArrayWhiteList(this.product, fieldsOfProductAllowedToForceUpdate, false, (key, value) => {
+          if (key === 'buyersComment' && isUndefined(value)) {
+            return ''
+          } else {
+            return value
+          }
+        }),
+      )
+
+      this.loadData()
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
 
   async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      if (photosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      }
 
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-        delivery: parseFloat(supplier?.delivery) || '',
+        delivery: parseFloat(supplier?.delivery) || 0,
         lotcost: parseFloat(supplier?.lotcost) || '',
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
@@ -333,8 +378,6 @@ export class BuyerProductViewModel {
       if (supplier._id) {
         const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
-        const findSupplierIndex = this.suppliers.findIndex(supplierItem => supplierItem._id === supplier._id)
-        this.suppliers[findSupplierIndex] = supplier
 
         if (supplier._id === this.product.currentSupplierId) {
           this.product.currentSupplier = supplier
@@ -345,9 +388,10 @@ export class BuyerProductViewModel {
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
         runInAction(() => {
           this.product.suppliers.push(createSupplierResult.guid)
-          this.suppliers.push({...supplier, _id: createSupplierResult.guid})
         })
       }
+
+      this.onSaveForceProductData()
 
       this.setRequestStatus(loadingStatuses.success)
       this.onTriggerAddOrEditSupplierModal()

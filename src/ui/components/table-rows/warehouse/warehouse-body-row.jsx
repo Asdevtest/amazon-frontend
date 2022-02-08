@@ -8,6 +8,9 @@ import clsx from 'clsx'
 
 import {warehouses} from '@constants/warehouses'
 
+import {Button} from '@components/buttons/button'
+import {BigImagesModal} from '@components/modals/big-images-modal'
+
 import {formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixedWithDollarSign, withKg} from '@utils/text'
@@ -19,6 +22,9 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
   const ordersQty = box.items.length
   const boxCreatedAt = formatNormDateTime(box.createdAt)
   const [isMaximizedMasterBox, setIsMaximizedMasterBox] = useState(false)
+
+  const [showPhotosModal, setShowPhotosModal] = useState(false)
+  const [curImages, setCurImages] = useState([])
 
   const onTriggerIsMaximizedMasterBox = () => {
     setIsMaximizedMasterBox(!isMaximizedMasterBox)
@@ -73,11 +79,28 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           </React.Fragment>
         )}
         <TableCell>{boxCreatedAt}</TableCell>
-        <ProductCell
-          imgSrc={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
-          title={order.product.amazonTitle}
-        />
-        <TableCell>{'ID: ' + order.order._id}</TableCell>
+        <ProductCell imgSrc={getAmazonImageUrl(order.product.images[0])} title={order.product.amazonTitle} />
+        <TableCell>{order.order._id}</TableCell>
+
+        {orderIndex === 0 && (
+          <React.Fragment>
+            <TableCell rowSpan={ordersQty}>
+              <Button
+                disableElevation
+                disabled={!box.images?.length}
+                color="primary"
+                className={classNames.button}
+                variant="contained"
+                onClick={() => {
+                  setCurImages(box.images)
+                  setShowPhotosModal(!showPhotosModal)
+                }}
+              >
+                {'фотографии'}
+              </Button>
+            </TableCell>
+          </React.Fragment>
+        )}
 
         <TableCell>
           <Typography className={classNames.barCode}>{order.product.barCode || 'N/A'}</Typography>
@@ -88,10 +111,11 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
         </TableCell>
         <TableCell>{order.product.material}</TableCell>
+
         {orderIndex === 0 && (
           <React.Fragment>
             <TableCell rowSpan={ordersQty}>{warehouses[box.warehouse]}</TableCell>
-            <TableCell rowSpan={ordersQty}>{'ID: ' + box._id}</TableCell>
+            <TableCell rowSpan={ordersQty}>{'ID: ' + box.humanFriendlyId}</TableCell>
           </React.Fragment>
         )}
 
@@ -134,6 +158,13 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           </TableCell>
         </TableRow>
       ) : undefined}
+
+      <BigImagesModal
+        isAmazone
+        openModal={showPhotosModal}
+        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        images={curImages}
+      />
     </React.Fragment>
   ))
 }

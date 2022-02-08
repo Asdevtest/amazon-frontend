@@ -84,7 +84,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   sizesCell: {
-    minWidth: '130px',
+    minWidth: '140px',
     display: 'flex',
     gap: '5px',
     flexDirection: 'column',
@@ -115,5 +115,9 @@ export const useClassNames = makeStyles(theme => ({
   },
   deleteBtn: {
     color: 'rgba(189, 194, 209, 1)',
+  },
+
+  button: {
+    marginRight: '10px',
   },
 }))

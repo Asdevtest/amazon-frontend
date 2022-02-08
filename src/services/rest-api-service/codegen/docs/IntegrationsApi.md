@@ -4,77 +4,22 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV1IntegrationsGetLinkedProductSkuGet**](IntegrationsApi.md#apiV1IntegrationsGetLinkedProductSkuGet) | **GET** /api/v1/integrations/get_linked_product/{sku} | Получить продут с массивом sku, через SKU. Просто для примера
-[**apiV1IntegrationsGetProductsWithSkuGuidGet**](IntegrationsApi.md#apiV1IntegrationsGetProductsWithSkuGuidGet) | **GET** /api/v1/integrations/get_products_with_sku/{guid} | Получить продуты с массивом sku, через GUID продукта. Просто для примера
+[**apiV1IntegrationsGetSkusByProductIdGuidGet**](IntegrationsApi.md#apiV1IntegrationsGetSkusByProductIdGuidGet) | **GET** /api/v1/integrations/get_skus_by_product_id/{guid} | Получить товары из склада (sku), через GUID продукта.
 [**apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet**](IntegrationsApi.md#apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet) | **GET** /api/v1/integrations/sellerboard_dashboard_products_days_reports_last_30_days | Получить месячный отчет селерборда.
 [**apiV1IntegrationsSellerboardWarehouseProductsGet**](IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseProductsGet) | **GET** /api/v1/integrations/sellerboard_warehouse_products | Поиск по товарам со склада по: asin, sku, title..
-[**apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch**](IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch) | **PATCH** /api/v1/integrations/sellerboard_warehouse_products_link_sku | # Приаязать к товару SKU.
-[**apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch**](IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch) | **PATCH** /api/v1/integrations/sellerboard_warehouse_products_unLink_sku | # Отаязать товар от SKU.
+[**apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch**](IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch) | **PATCH** /api/v1/integrations/sellerboard_warehouse_products_link_sku | # Привязать к товару SKU.
+[**apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch**](IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch) | **PATCH** /api/v1/integrations/sellerboard_warehouse_products_unLink_sku | # Отвязать товар от SKU.
 [**apiV1IntegrationsSellerboardWarehouseReportsDailyGet**](IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseReportsDailyGet) | **GET** /api/v1/integrations/sellerboard_warehouse_reports_daily | Получить дневной отчет селерборда.
 
 
 
-## apiV1IntegrationsGetLinkedProductSkuGet
+## apiV1IntegrationsGetSkusByProductIdGuidGet
 
-> InlineResponse2009 apiV1IntegrationsGetLinkedProductSkuGet(sku, opts)
+> [InlineResponse2008] apiV1IntegrationsGetSkusByProductIdGuidGet(guid, opts)
 
-Получить продут с массивом sku, через SKU. Просто для примера
+Получить товары из склада (sku), через GUID продукта.
 
-## Получить продут с массивом sku, через SKU. Просто для примера   ## 
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.IntegrationsApi();
-let sku = "sku_example"; // String | SKU.
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example" // String | 
-};
-apiInstance.apiV1IntegrationsGetLinkedProductSkuGet(sku, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sku** | **String**| SKU. | 
- **Accept_Encoding** | **String**|  | [optional] 
-
-### Return type
-
-[**InlineResponse2009**](InlineResponse2009.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## apiV1IntegrationsGetProductsWithSkuGuidGet
-
-> InlineResponse2009 apiV1IntegrationsGetProductsWithSkuGuidGet(guid, opts)
-
-Получить продуты с массивом sku, через GUID продукта. Просто для примера
-
-## Получить продуты с массивом sku, через GUID продукта. Просто для примера   ## 
+## Получить товары из склада (sku), через GUID продукта   ## 
 
 ### Example
 
@@ -92,7 +37,7 @@ let guid = "guid_example"; // String | GUID продукта.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1IntegrationsGetProductsWithSkuGuidGet(guid, opts).then((data) => {
+apiInstance.apiV1IntegrationsGetSkusByProductIdGuidGet(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -110,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2009**](InlineResponse2009.md)
+[**[InlineResponse2008]**](InlineResponse2008.md)
 
 ### Authorization
 
@@ -124,7 +69,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet
 
-> [InlineResponse2008] apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(opts)
+> [InlineResponse2009] apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(opts)
 
 Получить месячный отчет селерборда.
 
@@ -162,7 +107,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2009]**](InlineResponse2009.md)
 
 ### Authorization
 
@@ -176,7 +121,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsSellerboardWarehouseProductsGet
 
-> [InlineResponse2007] apiV1IntegrationsSellerboardWarehouseProductsGet(opts)
+> [InlineResponse2008] apiV1IntegrationsSellerboardWarehouseProductsGet(opts)
 
 Поиск по товарам со склада по: asin, sku, title..
 
@@ -216,7 +161,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[InlineResponse2008]**](InlineResponse2008.md)
 
 ### Authorization
 
@@ -232,9 +177,9 @@ Name | Type | Description  | Notes
 
 > String apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(opts)
 
-# Приаязать к товару SKU.
+# Привязать к товару SKU.
 
-## Приаязать к товару SKU.. 
+## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Отсутствие связи пары SKU и productId
 
 ### Example
 
@@ -250,7 +195,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.IntegrationsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject25() // InlineObject25 | 
+  'body': new TestSwagger.InlineObject28() // InlineObject28 | 
 };
 apiInstance.apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -266,7 +211,7 @@ apiInstance.apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(opts).then
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject25**](InlineObject25.md)|  | [optional] 
+ **body** | [**InlineObject28**](InlineObject28.md)|  | [optional] 
 
 ### Return type
 
@@ -286,9 +231,9 @@ Name | Type | Description  | Notes
 
 > String apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(opts)
 
-# Отаязать товар от SKU.
+# Отвязать товар от SKU.
 
-## Отаязать товар от SKU. 
+## Отвязать товар от SKU.  Нужна проверка может ли данный пользователь удалять связи!!!(пока такой проверки нет)
 
 ### Example
 
@@ -304,7 +249,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.IntegrationsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject26() // InlineObject26 | 
+  'body': new TestSwagger.InlineObject29() // InlineObject29 | 
 };
 apiInstance.apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -320,7 +265,7 @@ apiInstance.apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(opts).th
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject26**](InlineObject26.md)|  | [optional] 
+ **body** | [**InlineObject29**](InlineObject29.md)|  | [optional] 
 
 ### Return type
 
@@ -338,7 +283,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsSellerboardWarehouseReportsDailyGet
 
-> [InlineResponse2007] apiV1IntegrationsSellerboardWarehouseReportsDailyGet(opts)
+> [InlineResponse2008] apiV1IntegrationsSellerboardWarehouseReportsDailyGet(opts)
 
 Получить дневной отчет селерборда.
 
@@ -376,7 +321,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[InlineResponse2008]**](InlineResponse2008.md)
 
 ### Authorization
 

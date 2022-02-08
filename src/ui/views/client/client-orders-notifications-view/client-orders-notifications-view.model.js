@@ -34,10 +34,10 @@ export class ClientOrdersNotificationsViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   rowHandlers = {
-    onTriggerOpenConfirmModal: (type, row) => this.onTriggerOpenConfirmModal(type, row),
-    onTriggerOpenModal: (type, row) => this.onTriggerOpenModal(type, row),
+    onTriggerOpenConfirmModal: row => this.onTriggerOpenConfirmModal(row),
+    onTriggerOpenRejectModal: row => this.onTriggerOpenRejectModal(row),
   }
   columnsModel = clientOrdersNotificationsViewColumns(this.rowHandlers)
 
@@ -66,7 +66,7 @@ export class ClientOrdersNotificationsViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -81,21 +81,25 @@ export class ClientOrdersNotificationsViewModel {
     this.rowsPerPage = e
   }
 
-  onTriggerOpenConfirmModal(modal, row) {
+  onTriggerOpenConfirmModal(row) {
     this.confirmModalSettings = {
       isWarning: false,
       message: textConsts.confirmMessage,
       onClickOkBtn: () => this.onClickConfirmOrderPriceChangeBtn(row),
     }
-    this[modal] = !this[modal]
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
-  onTriggerOpenModal(modal, row) {
+  onTriggerOpenRejectModal(row) {
     this.confirmModalSettings = {
       isWarning: true,
       message: textConsts.errorMessage,
       onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
     }
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
   }
 
@@ -137,8 +141,6 @@ export class ClientOrdersNotificationsViewModel {
     try {
       const result = await ClientModel.getOrders()
 
-      console.log('result', result)
-
       runInAction(() => {
         this.orders = clientOrdersNotificationsDataConverter(
           result.filter(order => order.totalPrice < order.totalPriceChanged),
@@ -168,6 +170,8 @@ export class ClientOrdersNotificationsViewModel {
     try {
       this.setLoadingStatus(loadingStatuses.isLoading)
       await ClientModel.orderConfirmPriceChange(order._id)
+
+      this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
       this.setLoadingStatus(loadingStatuses.success)
     } catch (error) {
@@ -180,6 +184,7 @@ export class ClientOrdersNotificationsViewModel {
     try {
       this.setLoadingStatus(loadingStatuses.isLoading)
       await ClientModel.orderRejectriceChange(order._id)
+      this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
       this.setLoadingStatus(loadingStatuses.success)
     } catch (error) {

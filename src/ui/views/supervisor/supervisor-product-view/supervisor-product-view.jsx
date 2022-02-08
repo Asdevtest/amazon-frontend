@@ -27,14 +27,17 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 export class SupervisorProductView extends Component {
   viewModel = new SupervisorProductViewModel({
     history: this.props.history,
-    location: this.props.location,
   })
+
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
 
   render() {
     const {
       drawerOpen,
       product,
-      suppliers,
+      productBase,
       actionStatus,
       selectedSupplier,
       formFieldsValidationErrors,
@@ -74,7 +77,7 @@ export class SupervisorProductView extends Component {
                 <ProductWrapper
                   curUserRole={UserRole.SUPERVISOR}
                   product={product}
-                  suppliers={suppliers}
+                  productBase={productBase}
                   selectedSupplier={selectedSupplier}
                   formFieldsValidationErrors={formFieldsValidationErrors}
                   handleSupplierButtons={onClickSupplierButtons}

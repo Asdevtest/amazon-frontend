@@ -8,6 +8,8 @@ export const OrderStatus = {
   NEW: 'NEW',
   READY_TO_PROCESS: 'READY_TO_PROCESS',
   AT_PROCESS: 'AT_PROCESS',
+  NEED_CONFIRMING_TO_PRICE_CHANGE: 'NEED_CONFIRMING_TO_PRICE_CHANGE',
+
   PAID_TO_SUPPLIER: 'PAID_TO_SUPPLIER',
   TRACK_NUMBER_ISSUED: 'TRACK_NUMBER_ISSUED',
   IN_STOCK: 'IN_STOCK',
@@ -22,6 +24,7 @@ export const OrderStatusByCode = {
   1: OrderStatus.NEW, // Клиент создал заказ - статус "Новый"
   10: OrderStatus.READY_TO_PROCESS, // Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус "доступен для обработки"
   15: OrderStatus.AT_PROCESS, // Закупщик взял заказ в обработку - статус "в обработке"
+  19: OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
   20: OrderStatus.PAID_TO_SUPPLIER, // закупщик оплатил заказ - статус "оплачен"
   25: OrderStatus.TRACK_NUMBER_ISSUED, // выдан и принят трек номер - статус "выдан трек номер"
   30: OrderStatus.IN_STOCK, // Товар пришёл на склад - "Пришёл на склад"
@@ -52,6 +55,12 @@ export const ORDER_STATUS_OPTIONS = [
     key: OrderStatus.AT_PROCESS,
     label: textConfig.atProcess,
   },
+
+  {
+    key: OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
+    label: textConfig.toPriceChange,
+  },
+
   {
     key: OrderStatus.PAID_TO_SUPPLIER,
     label: textConfig.paid,

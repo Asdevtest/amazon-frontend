@@ -5,6 +5,7 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {BoxesModel} from '@models/boxes-model'
 import {OtherModel} from '@models/other-model'
+import {ProductModel} from '@models/product-model'
 import {SupervisorModel} from '@models/supervisor-model'
 import {UserModel} from '@models/user-model'
 
@@ -52,31 +53,10 @@ export class ListingModel {
     return UserModel.userInfo?.role
   }
 
-  constructor({history, product}) {
+  constructor({history, productId}) {
     this.history = history
-    this.listingProduct = {
-      ...product,
 
-      listingName: product.listingName || '',
-
-      listingBulletPoints: product.listingBulletPoints || [],
-
-      listingProductDetails: product.listingProductDetails || '',
-
-      listingSearchTerms: product.listingSearchTerms || '',
-
-      listingSubjectMatters: product.listingSubjectMatters || [],
-
-      listingImages: product.listingImages || [],
-
-      listingTaskToFindSupplier: product.listingTaskToFindSupplier || '',
-
-      listingSupplierImportantPoints: product.listingSupplierImportantPoints || '',
-
-      listingExtraInfo: product.listingExtraInfo || '',
-
-      listingSupplierCompetitors: product.listingSupplierCompetitors || [],
-    }
+    this.productId = productId
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -124,12 +104,48 @@ export class ListingModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
+      this.getProductById()
+
       await this.getBoxes()
       !checkIsBuyer(UserRoleCodeMap[this.userRole]) && (await this.getPayments())
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getProductById() {
+    try {
+      const result = await ProductModel.getProductById(this.productId)
+
+      runInAction(() => {
+        this.listingProduct = {
+          ...result,
+
+          listingName: result.listingName || '',
+
+          listingBulletPoints: result.listingBulletPoints || [],
+
+          listingProductDetails: result.listingProductDetails || '',
+
+          listingSearchTerms: result.listingSearchTerms || '',
+
+          listingSubjectMatters: result.listingSubjectMatters || [],
+
+          listingImages: result.listingImages || [],
+
+          listingTaskToFindSupplier: result.listingTaskToFindSupplier || '',
+
+          listingSupplierImportantPoints: result.listingSupplierImportantPoints || '',
+
+          listingExtraInfo: result.listingExtraInfo || '',
+
+          listingSupplierCompetitors: result.listingSupplierCompetitors || [],
+        }
+      })
+    } catch (error) {
       console.log(error)
     }
   }
@@ -152,7 +168,7 @@ export class ListingModel {
 
   async getPayments() {
     try {
-      const result = await OtherModel.getPaymentsByProductId(this.listingProduct._id)
+      const result = await OtherModel.getPaymentsByProductId(this.productId)
 
       runInAction(() => {
         this.payments = result

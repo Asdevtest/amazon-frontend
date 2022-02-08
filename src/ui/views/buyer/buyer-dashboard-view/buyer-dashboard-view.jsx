@@ -10,8 +10,8 @@ import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {DashboardBalance} from '@components/dashboard-balance'
-import {DashboardInfoCard} from '@components/dashboard-info-card'
+import {DashboardBalance} from '@components/dashboards/dashboard-balance'
+import {DashboardInfoCard} from '@components/dashboards/dashboard-info-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -86,8 +86,10 @@ export class BuyerDashboardViewRaw extends Component {
   getCardValueByDataKey = dataKey => {
     const {productsVacant, productsMy, ordersMy, ordersVacant} = this.viewModel
     switch (dataKey) {
-      case BuyerDashboardCardDataKey.NEW_PRODUCTS:
+      case BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_SUPERVISOR:
         return productsVacant.length
+      case BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT:
+        return 0
       case BuyerDashboardCardDataKey.ME_PRODUCTS:
         return productsMy.length
       case BuyerDashboardCardDataKey.ME_ORDERS:

@@ -22,6 +22,8 @@ export class ResearcherSubUsersViewModel {
   error = undefined
 
   subUsersData = []
+  singlePermissions = []
+  groupPermissions = []
 
   drawerOpen = false
 
@@ -45,7 +47,7 @@ export class ResearcherSubUsersViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = subUsersColumns(this.rowHandlers)
 
   warningInfoModalSettings = {
@@ -79,7 +81,7 @@ export class ResearcherSubUsersViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -196,9 +198,9 @@ export class ResearcherSubUsersViewModel {
     }
   }
 
-  async onSubmitUserPermissionsForm(permissions, permissionGroups, subUserId) {
+  async onSubmitUserPermissionsForm(permissions, subUserId) {
     try {
-      await this.setPermissionsForUser(subUserId, {permissions, permissionGroups})
+      await this.setPermissionsForUser(subUserId, {permissions, permissionGroups: []})
 
       await this.getUsers()
     } catch (error) {
@@ -223,7 +225,7 @@ export class ResearcherSubUsersViewModel {
 
       this.warningInfoModalSettings = {
         isWarning: true,
-        title: textConsts.failTitle,
+        title: error.body.message || textConsts.failTitle,
       }
 
       this.onTriggerOpenModal('showWarningModal')

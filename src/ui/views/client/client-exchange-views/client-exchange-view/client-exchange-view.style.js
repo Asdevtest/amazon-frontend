@@ -33,8 +33,5 @@ export const styles = createStyles(theme => ({
   tableWrapper: {
     marginTop: '32px',
     minWidth: '100%',
-    height: '100%',
-    flex: 1,
-    display: 'flex',
   },
 }))

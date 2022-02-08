@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
-import {Paper, Table as MuiTable, TableBody, TableContainer, TableHead, Toolbar} from '@material-ui/core'
+import {Paper, Table as MuiTable, TableBody, TableContainer, TableHead, Toolbar, Typography} from '@material-ui/core'
 import {Pagination} from '@material-ui/lab'
 import {observer} from 'mobx-react'
 
@@ -9,6 +10,7 @@ import {useClassNames} from './table.style'
 
 export const Table = observer(
   ({
+    noRowsTitle,
     rowsOnly,
     rowsPerPage,
     handlerRowsPerPage,
@@ -46,6 +48,12 @@ export const Table = observer(
             </TableBody>
           </MuiTable>
         </TableContainer>
+
+        {!data.length && (
+          <div className={classNames.noRowsTitleWrapper}>
+            <Typography>{noRowsTitle}</Typography>
+          </div>
+        )}
 
         {!rowsOnly && (
           <Toolbar className={classNames.footer}>

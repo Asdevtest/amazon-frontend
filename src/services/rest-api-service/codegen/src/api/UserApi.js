@@ -26,8 +26,8 @@ import SignInResponseSchema from '../model/SignInResponseSchema';
 import SigninInputSchema from '../model/SigninInputSchema';
 import SubUserPatchDtoSchema from '../model/SubUserPatchDtoSchema';
 import UnLinkSubuserInputSchema from '../model/UnLinkSubuserInputSchema';
-import UserAdminFullSchema from '../model/UserAdminFullSchema';
 import UserFullSchema from '../model/UserFullSchema';
+import UserInfoSchema from '../model/UserInfoSchema';
 import UserRegisterSchema from '../model/UserRegisterSchema';
 import UserSettingInputSchema from '../model/UserSettingInputSchema';
 import UserSettingPatchSchema from '../model/UserSettingPatchSchema';
@@ -52,53 +52,6 @@ export default class UserApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
-
-    /**
-     * Очистить все коллекции в БД кроме пользователей.
-     * ## Очистить все коллекции в БД кроме пользователей..   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1TechClearAllSchemasPostWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/tech/clear_all_schemas', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Очистить все коллекции в БД кроме пользователей.
-     * ## Очистить все коллекции в БД кроме пользователей..   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1TechClearAllSchemasPost(opts) {
-      return this.apiV1TechClearAllSchemasPostWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
 
     /**
@@ -211,7 +164,7 @@ export default class UserApi {
      * ## Получить информацию от текущем пользователе.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UserAdminFullSchema} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UserInfoSchema} and HTTP response
      */
     apiV1UsersInfoGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -230,7 +183,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = UserAdminFullSchema;
+      let returnType = UserInfoSchema;
       return this.apiClient.callApi(
         '/api/v1/users/info', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -243,7 +196,7 @@ export default class UserApi {
      * ## Получить информацию от текущем пользователе.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserAdminFullSchema}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserInfoSchema}
      */
     apiV1UsersInfoGet(opts) {
       return this.apiV1UsersInfoGetWithHttpInfo(opts)

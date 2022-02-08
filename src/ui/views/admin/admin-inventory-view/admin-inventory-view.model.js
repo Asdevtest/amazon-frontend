@@ -28,7 +28,7 @@ export class AdminInventoryViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = exchangeInventoryColumns()
 
   constructor({history}) {
@@ -57,7 +57,7 @@ export class AdminInventoryViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -69,7 +69,10 @@ export class AdminInventoryViewModel {
   }
 
   onClickTableRow(product) {
-    this.history.push('/admin/product', {product: toJS(product.originalData)})
+    this.history.push({
+      pathname: '/admin/product',
+      search: product.originalData._id,
+    })
   }
 
   onChangeSortingModel(e) {

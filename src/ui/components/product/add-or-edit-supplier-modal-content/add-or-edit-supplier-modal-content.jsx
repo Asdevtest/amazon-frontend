@@ -1,6 +1,6 @@
 import {React, useState} from 'react'
 
-import {Container, Divider, Typography} from '@material-ui/core'
+import {Checkbox, Container, Divider, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -29,12 +29,10 @@ export const AddOrEditSupplierModalContent = observer(
     showProgress,
     progressValue,
     requestStatus,
-    curUserRole,
+    outsideProduct,
     onClickPrevButton,
   }) => {
     const classNames = useClassNames()
-
-    const [isSubmitBtnClicked, setIsSubmitBtnClicked] = useState(false)
 
     const [tmpSupplier, setTmpSupplier] = useState({
       amount: (supplier && supplier.amount) || '',
@@ -48,45 +46,66 @@ export const AddOrEditSupplierModalContent = observer(
       images: (supplier && supplier.images) || [],
     })
 
+    const [makeMainSupplier, setMakeMainSupplier] = useState(false)
+
     const [photosOfSupplier, setPhotosOfSupplier] = useState([])
 
     const [showPhotosModal, setShowPhotosModal] = useState(false)
 
     const renderFooterModalButtons = () => {
-      if (curUserRole) {
+      if (outsideProduct) {
         return (
           <div className={classNames.buttonsWrapperClient}>
-            <Button
-              disableElevation
-              className={classNames.prevBtnClient}
-              variant="contained"
-              onClick={() => onClickPrevButton()}
-            >
-              Назад
+            <Button disableElevation className={classNames.prevBtnClient} onClick={() => onClickPrevButton()}>
+              {textConsts.backBtn}
             </Button>
             <div>
               <Button
                 disableElevation
                 success
+                color="success"
                 disabled={diasabledSubmit}
-                className={classNames.saveAndBindBtnClient}
-                variant="contained"
+                className={classNames.saveBtnClient}
                 onClick={() => {
-                  setIsSubmitBtnClicked(true)
-                  onClickSaveBtn({...tmpSupplier, _id: supplier && supplier._id}, photosOfSupplier)
+                  onClickSaveBtn(
+                    {...tmpSupplier, _id: supplier && supplier._id},
+                    photosOfSupplier,
+                    false,
+                    makeMainSupplier,
+                  )
                 }}
               >
-                Сохранить и привязать
+                {textConsts.saveAndBindBtn}
               </Button>
               <Button
                 disableElevation
                 success
+                color="success"
                 disabled={diasabledSubmit}
-                className={classNames.saveAndAddBtnClient}
+                className={classNames.saveBtnClient}
                 variant="contained"
-                onClick={() => onTriggerShowModal()}
+                onClick={() => {
+                  onClickSaveBtn(
+                    {...tmpSupplier, _id: supplier && supplier._id},
+                    photosOfSupplier,
+                    true,
+                    makeMainSupplier,
+                  )
+                  setTmpSupplier({
+                    amount: '',
+                    comment: '',
+                    delivery: '',
+                    link: '',
+                    lotcost: '',
+                    minlot: '',
+                    name: '',
+                    price: '',
+                    images: [],
+                  })
+                  setMakeMainSupplier(false)
+                }}
               >
-                Сохранить и добавить еще
+                {textConsts.saveAndAddBtn}
               </Button>
             </div>
           </div>
@@ -100,7 +119,6 @@ export const AddOrEditSupplierModalContent = observer(
               className={classNames.saveBtn}
               variant="contained"
               onClick={() => {
-                setIsSubmitBtnClicked(true)
                 onClickSaveBtn({...tmpSupplier, _id: supplier && supplier._id}, photosOfSupplier)
               }}
             >
@@ -141,8 +159,11 @@ export const AddOrEditSupplierModalContent = observer(
       '' === tmpSupplier.delivery ||
       '' === tmpSupplier.lotcost ||
       '' === tmpSupplier.minlot ||
-      requestStatus === loadingStatuses.isLoading ||
-      isSubmitBtnClicked
+      0 === parseInt(tmpSupplier.price) ||
+      0 === parseInt(tmpSupplier.amount) ||
+      0 === parseInt(tmpSupplier.lotcost) ||
+      0 === parseInt(tmpSupplier.minlot) ||
+      requestStatus === loadingStatuses.isLoading
 
     return (
       <Container disableGutters className={classNames.modalContainer}>
@@ -165,6 +186,7 @@ export const AddOrEditSupplierModalContent = observer(
           label={textConsts.price}
           inputProps={{maxLength: 50}}
           value={tmpSupplier.price}
+          error={parseInt(tmpSupplier.price) === 0 && textConsts.errorNoZero}
           onChange={onChangeField('price')}
         />
         <Field
@@ -177,18 +199,21 @@ export const AddOrEditSupplierModalContent = observer(
           label={textConsts.qty}
           inputProps={{maxLength: 50}}
           value={tmpSupplier.amount}
+          error={parseInt(tmpSupplier.amount) === 0 && textConsts.errorNoZero}
           onChange={onChangeField('amount')}
         />
         <Field
           label={textConsts.minLot}
           inputProps={{maxLength: 50}}
           value={tmpSupplier.minlot}
+          error={parseInt(tmpSupplier.minlot) === 0 && textConsts.errorNoZero}
           onChange={onChangeField('minlot')}
         />
         <Field
           label={textConsts.lotCost}
           inputProps={{maxLength: 50}}
           value={tmpSupplier.lotcost}
+          error={parseInt(tmpSupplier.lotcost) === 0 && textConsts.errorNoZero}
           onChange={onChangeField('lotcost')}
         />
         <Field
@@ -207,6 +232,18 @@ export const AddOrEditSupplierModalContent = observer(
           value={tmpSupplier.comment}
           onChange={onChangeField('comment')}
         />
+
+        {outsideProduct && (
+          <div className={classNames.checkboxWrapper}>
+            <Typography className={classNames.checkboxText}>{textConsts.makeMainSupplier}</Typography>
+
+            <Checkbox
+              color="primary"
+              checked={makeMainSupplier}
+              onChange={() => setMakeMainSupplier(!makeMainSupplier)}
+            />
+          </div>
+        )}
 
         <div className={classNames.bottomWrapper}>
           <div>

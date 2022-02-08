@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **description** | **String** | Описание группы пермишенов | 
 **permissions** | [**[UserAdminFullSchemaPermissions]**](UserAdminFullSchemaPermissions.md) |  | 
 **role** | **Number** | Роль для которого данная группа permission-ов | 
+**hierarchy** | **Number** | Для фронта, чтобы хранить иерархию. | [optional] 
 **createdById** | **String** | GUID любого, кто последний создал группу permission. | 
 **lastModifiedById** | **String** | GUID любого, кто последний редактировал группу permission. | [optional] 
 **createdAt** | **Date** | Дата создания | 

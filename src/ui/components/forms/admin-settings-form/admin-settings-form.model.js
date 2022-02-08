@@ -39,6 +39,8 @@ export class AdminSettingsModel {
   async createAdminSettings(data) {
     try {
       await AdministratorModel.setSettings(data)
+
+      await this.getAdminSettings()
     } catch (error) {
       console.log(error)
     }

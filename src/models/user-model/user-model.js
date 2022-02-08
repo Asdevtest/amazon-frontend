@@ -75,11 +75,16 @@ class UserModelStatic {
   }
 
   async getUserInfo() {
-    const response = await restApiService.userApi.apiV1UsersInfoGet()
-    runInAction(() => {
-      this.userInfo = response
-    })
-    return response
+    try {
+      const response = await restApiService.userApi.apiV1UsersInfoGet()
+      runInAction(() => {
+        this.userInfo = response
+      })
+      return response
+    } catch (error) {
+      this.accessToken = undefined
+      this.userInfo = undefined
+    }
   }
 
   async changeUserInfo(data) {

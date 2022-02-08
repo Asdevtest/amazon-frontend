@@ -29,14 +29,18 @@ export class BuyerProductView extends Component {
     location: this.props.location,
   })
 
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
   render() {
     const {
       requestStatus,
       showProgress,
       progressValue,
       product,
+      productBase,
       drawerOpen,
-      suppliers,
       selectedSupplier,
       showAddOrEditSupplierModal,
       formFieldsValidationErrors,
@@ -77,7 +81,7 @@ export class BuyerProductView extends Component {
                 <ProductWrapper
                   curUserRole={UserRole.BUYER}
                   product={product}
-                  suppliers={suppliers}
+                  productBase={productBase}
                   selectedSupplier={selectedSupplier}
                   formFieldsValidationErrors={formFieldsValidationErrors}
                   handleSupplierButtons={onClickSupplierButtons}

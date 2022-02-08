@@ -3,8 +3,8 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
 
@@ -32,7 +32,7 @@ export class AdminWarehouseBatchesViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = batchesViewColumns(this.rowHandlers)
 
   constructor({history}) {
@@ -57,7 +57,7 @@ export class AdminWarehouseBatchesViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -117,7 +117,7 @@ export class AdminWarehouseBatchesViewModel {
 
   async getBatches() {
     try {
-      const result = await StorekeeperModel.getBatches()
+      const result = await AdministratorModel.getBatches()
 
       runInAction(() => {
         this.batches = adminBatchesDataConverter(result)

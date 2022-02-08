@@ -31,7 +31,7 @@ export class BuyerFreeOrdersViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers)
 
   showWarningModal = false
@@ -62,7 +62,7 @@ export class BuyerFreeOrdersViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value

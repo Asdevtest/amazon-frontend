@@ -16,17 +16,17 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {UserBalanceHistory} from '@components/screens/user-balance-history'
 
-import {checkIsBuyer, checkIsSupervisor} from '@utils/checks'
+import {checkIsBuyer, checkIsClient, checkIsSupervisor} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {Button} from '../../buttons/button'
 import {ListingModel} from './listing.model'
 import {useClassNames} from './listing.style'
 
-export const Listing = observer(({product, onClickBack}) => {
+export const Listing = observer(({productId, onClickBack}) => {
   const classNames = useClassNames()
   const history = useHistory()
-  const listingModel = useRef(new ListingModel({history, product}))
+  const listingModel = useRef(new ListingModel({history, productId}))
 
   useEffect(() => {
     listingModel.current.loadData()
@@ -54,7 +54,7 @@ export const Listing = observer(({product, onClickBack}) => {
     onRemoveCompetitor,
   } = listingModel.current
 
-  const userIsSupervisor = checkIsSupervisor(UserRoleCodeMap[userRole])
+  const userCanEdit = checkIsSupervisor(UserRoleCodeMap[userRole]) || checkIsClient(UserRoleCodeMap[userRole])
 
   return (
     <div className={classNames.mainWrapper}>
@@ -64,9 +64,10 @@ export const Listing = observer(({product, onClickBack}) => {
 
           <Field
             multiline
-            disabled={!userIsSupervisor}
+            disabled={!userCanEdit}
             className={classNames.listingTitle}
             rows={4}
+            inputProps={{maxLength: 1000}}
             label={'Название листинга:'}
             placeholder="введите название листинга, строка"
             value={listingProduct.listingName}
@@ -80,32 +81,36 @@ export const Listing = observer(({product, onClickBack}) => {
               disabled={
                 (index === 0
                   ? index !== 0
-                  : listingProduct.listingBulletPoints[index]
+                  : listingProduct.listingBulletPoints?.[index]
                   ? false
-                  : !listingProduct.listingBulletPoints[index - 1]) || !userIsSupervisor
+                  : !listingProduct.listingBulletPoints?.[index - 1]) || !userCanEdit
               }
               className={classNames.descriptionProduct}
+              inputProps={{maxLength: 1000}}
               label={`Bullet Point #${el}: `}
-              value={listingProduct.listingBulletPoints[index] || ''}
+              value={listingProduct.listingBulletPoints?.[index] || ''}
               onChange={e => onChangeArrayField(e, 'listingBulletPoints', index)}
             />
           ))}
 
-          <div className={classNames.detailDescriptionWrapper}>
-            <Typography className={classNames.subTitle}>{'Подробно о товаре:'}</Typography>
-            <textarea
-              className={classNames.detailDescription}
-              disabled={!userIsSupervisor}
-              placeholder="введите описание"
-              value={listingProduct.listingProductDetails}
-              onChange={e => onChangeField(e, 'listingProductDetails')}
-            />
-          </div>
+          <Field
+            multiline
+            label={'Подробно о товаре:'}
+            disabled={!userCanEdit}
+            minRows={4}
+            rowsMax={4}
+            inputProps={{maxLength: 1000}}
+            value={listingProduct.listingProductDetails}
+            placeholder={'введите описание'}
+            className={classNames.modalTextArea}
+            onChange={e => onChangeField(e, 'listingProductDetails')}
+          />
 
           <Field
             multiline
             className={classNames.listingSearchTerms}
-            disabled={!userIsSupervisor}
+            disabled={!userCanEdit}
+            inputProps={{maxLength: 1000}}
             label={'Поисковые запросы:'}
             placeholder="введите поисковые запросы"
             value={listingProduct.listingSearchTerms}
@@ -119,22 +124,59 @@ export const Listing = observer(({product, onClickBack}) => {
               disabled={
                 (index === 0
                   ? index !== 0
-                  : listingProduct.listingSubjectMatters[index]
+                  : listingProduct.listingSubjectMatters?.[index]
                   ? false
-                  : !listingProduct.listingSubjectMatters[index - 1]) || !userIsSupervisor
+                  : !listingProduct.listingSubjectMatters?.[index - 1]) || !userCanEdit
               }
+              inputProps={{maxLength: 1000}}
               className={classNames.descriptionProduct}
               label={`Subject Matter #${el}: `}
-              value={listingProduct.listingSubjectMatters[index] || ''}
+              value={listingProduct.listingSubjectMatters?.[index] || ''}
               onChange={e => onChangeArrayField(e, 'listingSubjectMatters', index)}
             />
           ))}
 
-          {userIsSupervisor && (
+          {userCanEdit && (
             <div>
               <div className={classNames.imageFileInputWrapper}>
                 <ImageFileInput images={tmpListingImages} setImages={setTmpListingImages} maxNumber={50} />
               </div>
+            </div>
+          )}
+
+          {userCanEdit ? (
+            <div className={classNames.buttonsWrapper}>
+              <Button
+                disableElevation
+                className={classNames.button}
+                color="primary"
+                variant="contained"
+                onClick={onSaveSubmit}
+              >
+                {'Сохранить'}
+              </Button>
+
+              <Button
+                disableElevation
+                className={classNames.button}
+                color="primary"
+                variant="contained"
+                onClick={onCancel}
+              >
+                {'Отменить'}
+              </Button>
+            </div>
+          ) : (
+            <div className={classNames.buttonsWrapper}>
+              <Button
+                disableElevation
+                className={classNames.button}
+                color="primary"
+                variant="contained"
+                onClick={onClickBack ? onClickBack : onCancel}
+              >
+                {'Назад'}
+              </Button>
             </div>
           )}
         </Paper>
@@ -146,8 +188,9 @@ export const Listing = observer(({product, onClickBack}) => {
 
           <Field
             multiline
-            disabled={!userIsSupervisor}
+            disabled={!userCanEdit}
             className={classNames.searchSupplierField}
+            inputProps={{maxLength: 1000}}
             label={'Задание для поиска поставщика:'}
             placeholder={`-цена до 1000$;\n-доставка: США, Европа;\n-расчеты через юр. лицо`}
             value={listingProduct.listingTaskToFindSupplier}
@@ -156,8 +199,9 @@ export const Listing = observer(({product, onClickBack}) => {
 
           <Field
             multiline
-            disabled={!userIsSupervisor}
+            disabled={!userCanEdit}
             className={classNames.searchSupplierField}
+            inputProps={{maxLength: 1000}}
             label={'Обратить внимание:'}
             placeholder={`-цены на товары;\n-минимальное количество товара для закупки и отгрузки...`}
             value={listingProduct.listingSupplierImportantPoints}
@@ -166,8 +210,9 @@ export const Listing = observer(({product, onClickBack}) => {
 
           <Field
             multiline
-            disabled={!userIsSupervisor}
+            disabled={!userCanEdit}
             className={classNames.searchSupplierField}
+            inputProps={{maxLength: 1000}}
             label={'Дополнительная информация:'}
             placeholder={`дедлайн`}
             value={listingProduct.listingExtraInfo}
@@ -176,7 +221,7 @@ export const Listing = observer(({product, onClickBack}) => {
 
           <Typography className={classNames.subTitle}>{'Конкуренты:'}</Typography>
 
-          {listingProduct.listingSupplierCompetitors.length > 0 ? (
+          {listingProduct.listingSupplierCompetitors?.length > 0 ? (
             listingProduct.listingSupplierCompetitors.map((el, index) => (
               <div key={index} className={classNames.competitorMainWrapper}>
                 <div className={classNames.competitorWrapper}>
@@ -185,11 +230,18 @@ export const Listing = observer(({product, onClickBack}) => {
                     <Typography className={classNames.link}>{el.link}</Typography>
                   </Link>
 
-                  <Typography>{'Комментарий:'}</Typography>
-                  <Field multiline disabled className={classNames.searchSupplierField} value={el.comments} />
+                  <Field
+                    multiline
+                    disabled
+                    label={'Комментарий:'}
+                    minRows={4}
+                    rowsMax={4}
+                    value={el.comments}
+                    className={classNames.modalTextArea}
+                  />
                 </div>
 
-                {userIsSupervisor && (
+                {userCanEdit && (
                   <IconButton onClick={() => onRemoveCompetitor(index)}>
                     <DeleteIcon className={classNames.deleteBtn} />
                   </IconButton>
@@ -201,7 +253,7 @@ export const Listing = observer(({product, onClickBack}) => {
               <Typography>{'Нет конкурентов...'}</Typography>
             </div>
           )}
-          {userIsSupervisor && (
+          {userCanEdit && (
             <Button
               disableElevation
               className={classNames.button}
@@ -239,7 +291,7 @@ export const Listing = observer(({product, onClickBack}) => {
           <div>
             <Typography className={classNames.subTitle}>{'Фотографии листинга:'}</Typography>
 
-            {listingProduct.listingImages.length > 0 ? (
+            {listingProduct.listingImages?.length > 0 ? (
               <div className={classNames.carouselWrapper}>
                 <Carousel autoPlay={false} timeout={100} animation="fade">
                   {listingProduct.listingImages.map((el, index) => (
@@ -260,35 +312,6 @@ export const Listing = observer(({product, onClickBack}) => {
           </div>
         </Paper>
       </div>
-      {userIsSupervisor ? (
-        <div className={classNames.buttonsWrapper}>
-          <Button
-            disableElevation
-            className={classNames.button}
-            color="primary"
-            variant="contained"
-            onClick={onSaveSubmit}
-          >
-            {'Сохранить'}
-          </Button>
-
-          <Button disableElevation className={classNames.button} color="primary" variant="contained" onClick={onCancel}>
-            {'Отменить'}
-          </Button>
-        </div>
-      ) : (
-        <div className={classNames.buttonsWrapper}>
-          <Button
-            disableElevation
-            className={classNames.button}
-            color="primary"
-            variant="contained"
-            onClick={onClickBack ? onClickBack : onCancel}
-          >
-            {'Назад'}
-          </Button>
-        </div>
-      )}
 
       {!checkIsBuyer(UserRoleCodeMap[userRole]) && <UserBalanceHistory historyData={payments} title="Транзакции:" />}
 
@@ -307,7 +330,6 @@ export const Listing = observer(({product, onClickBack}) => {
         successBtnText={'ок'}
         onClickSuccessBtn={() => {
           onTriggerOpenModal('showSuccessModal')
-          history.goBack()
         }}
       />
 

@@ -36,8 +36,8 @@ export const ProductInOrderTableRow = observer(({item, handlers}) => {
         <Typography>{item.amount}</Typography>
       </TableCell>
 
-      <TableCell className={classNames.buyerComment}>
-        <Typography>{item.order.buyerComment}</Typography>
+      <TableCell>
+        <Typography className={classNames.buyerComment}>{item.order.buyerComment}</Typography>
       </TableCell>
 
       <TableCell>

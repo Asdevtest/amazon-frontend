@@ -31,7 +31,7 @@ export class WarehouseCompletedViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers)
 
   showTaskInfoModal = false
@@ -62,7 +62,7 @@ export class WarehouseCompletedViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value

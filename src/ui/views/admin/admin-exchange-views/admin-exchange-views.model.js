@@ -41,7 +41,7 @@ export class AdminExchangeViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = exchangeProductsColumns({activeSubCategory: this.activeSubCategory})
 
   drawerOpen = false
@@ -65,7 +65,10 @@ export class AdminExchangeViewModel {
   }
 
   onClickTableRow(product) {
-    this.history.push('/admin/product', {product: toJS(product.originalData)})
+    this.history.push({
+      pathname: '/admin/product',
+      search: product.originalData._id,
+    })
   }
 
   dataGridTableKeyDependingOnActiveSubCategory() {
@@ -114,7 +117,7 @@ export class AdminExchangeViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter
+      this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value

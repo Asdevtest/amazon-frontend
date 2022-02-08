@@ -1,6 +1,7 @@
 import React from 'react'
 
-import {Chip, Typography, TableCell, TableRow, NativeSelect} from '@material-ui/core'
+import {Chip, Typography, TableCell, TableRow, NativeSelect, IconButton} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 
 import {
@@ -32,6 +33,8 @@ export const OrderModalBodyRow = ({
   onDoubleClickBarcode,
   onDeleteBarcode,
   orderState,
+  onRemoveProduct,
+  withRemove,
 }) => {
   const classNames = useClassNames()
 
@@ -40,15 +43,16 @@ export const OrderModalBodyRow = ({
   }
 
   return (
-    <TableRow key={item._id} hover role="checkbox">
+    <TableRow
+      key={item._id}
+      hover
+      role="checkbox"
+      className={clsx({[classNames.noCurrentSupplier]: !item.currentSupplier})}
+    >
       <TableCell className={classNames.asinCell}>
         <div className={classNames.asinCellContainer}>
           <div>
-            <img
-              alt="placeholder"
-              className={classNames.img}
-              src={item.images && item.images[0] && getAmazonImageUrl(item.images[0])}
-            />
+            <img alt="placeholder" className={classNames.img} src={getAmazonImageUrl(item.images[0])} />
           </div>
         </div>
       </TableCell>
@@ -57,6 +61,9 @@ export const OrderModalBodyRow = ({
         <div>
           <Typography>{item.amazonTitle}</Typography>
           <Typography>{`ASIN: ${item.id}`}</Typography>
+          {!item.currentSupplier && (
+            <Typography className={classNames.noCurrentSupplierText}>{textConsts.noCurrentSupplier}</Typography>
+          )}
         </div>
       </TableCell>
 
@@ -146,6 +153,14 @@ export const OrderModalBodyRow = ({
       <TableCell>
         <Input inputProps={{maxLength: 500}} onChange={e => onChangeInput(e, 'clientComment')} />
       </TableCell>
+
+      {withRemove && (
+        <TableCell>
+          <IconButton onClick={() => onRemoveProduct(item._id)}>
+            <DeleteIcon />
+          </IconButton>
+        </TableCell>
+      )}
     </TableRow>
   )
 }
