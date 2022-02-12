@@ -7,6 +7,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
+import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
 import {ImageFileInput} from '@components/image-file-input'
@@ -60,12 +61,11 @@ export const AddOrEditSupplierModalContent = observer(
               {textConsts.backBtn}
             </Button>
             <div>
-              <Button
+              <SuccessButton
                 disableElevation
-                success
-                color="success"
                 disabled={diasabledSubmit}
                 className={classNames.saveBtnClient}
+                variant="contained"
                 onClick={() => {
                   onClickSaveBtn(
                     {...tmpSupplier, _id: supplier && supplier._id},
@@ -76,11 +76,9 @@ export const AddOrEditSupplierModalContent = observer(
                 }}
               >
                 {textConsts.saveAndBindBtn}
-              </Button>
-              <Button
+              </SuccessButton>
+              <SuccessButton
                 disableElevation
-                success
-                color="success"
                 disabled={diasabledSubmit}
                 className={classNames.saveBtnClient}
                 variant="contained"
@@ -106,7 +104,7 @@ export const AddOrEditSupplierModalContent = observer(
                 }}
               >
                 {textConsts.saveAndAddBtn}
-              </Button>
+              </SuccessButton>
             </div>
           </div>
         )

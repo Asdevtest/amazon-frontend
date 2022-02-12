@@ -29,7 +29,7 @@ export const ProductsBodyRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.asinCell}>
         <div className={classNames.asinCellContainer}>
           <div>
-            <img alt="placeholder" className={classNames.img} src={item.img} />
+            <img alt="" className={classNames.img} src={item.img} />
           </div>
           <div>
             <Typography className={classNames.csCodeTypo}>{item.csCode}</Typography>

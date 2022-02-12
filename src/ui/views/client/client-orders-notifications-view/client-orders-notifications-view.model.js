@@ -183,7 +183,7 @@ export class ClientOrdersNotificationsViewModel {
   async onClickRejectOrderPriceChangeBtn(order) {
     try {
       this.setLoadingStatus(loadingStatuses.isLoading)
-      await ClientModel.orderRejectriceChange(order._id)
+      await ClientModel.cancelOrder(order._id)
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
       this.setLoadingStatus(loadingStatuses.success)

@@ -15,13 +15,14 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject36 from '../model/InlineObject36';
-import InlineObject37 from '../model/InlineObject37';
-import InlineObject50 from '../model/InlineObject50';
-import InlineObject51 from '../model/InlineObject51';
+import InlineObject39 from '../model/InlineObject39';
+import InlineObject40 from '../model/InlineObject40';
+import InlineObject41 from '../model/InlineObject41';
+import InlineObject54 from '../model/InlineObject54';
+import InlineObject55 from '../model/InlineObject55';
 import InlineResponse20011 from '../model/InlineResponse20011';
 import InlineResponse20012 from '../model/InlineResponse20012';
-import InlineResponse20017 from '../model/InlineResponse20017';
+import InlineResponse20018 from '../model/InlineResponse20018';
 import InlineResponse2014 from '../model/InlineResponse2014';
 import InlineResponse2016 from '../model/InlineResponse2016';
 import InternalServerError from '../model/InternalServerError';
@@ -48,8 +49,8 @@ export default class RequestsApi {
 
 
     /**
-     * Получить детализации стоимости заявки
-     * Получить детализации стоимости заявки.  ## Перед публикованием заявки нужно уведомить пользователя. Для заявок с статусом CREATED выдает детализацию для всех предложений.  ## Перед отменой заявки клиентом, нужно уведомить пользователя что придется все активные предложения принять и оплатить.  Для заявок с статусом IN_PROCESS выдает детализацию для всех незавершенных предложений. Незавершенные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR## Точность до сотых, (0.01$)   Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами CREATED, IN_PROCESS.
+     * Получить детализацию стоимости заявки
+     * ##  Получить детализацию стоимости заявки.  Перед публикованием заявки, нужно уведомить пользователя стоимости. Точность до сотых, (0.01$)   Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами DRAFT.
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -86,8 +87,8 @@ export default class RequestsApi {
     }
 
     /**
-     * Получить детализации стоимости заявки
-     * Получить детализации стоимости заявки.  ## Перед публикованием заявки нужно уведомить пользователя. Для заявок с статусом CREATED выдает детализацию для всех предложений.  ## Перед отменой заявки клиентом, нужно уведомить пользователя что придется все активные предложения принять и оплатить.  Для заявок с статусом IN_PROCESS выдает детализацию для всех незавершенных предложений. Незавершенные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR## Точность до сотых, (0.01$)   Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами CREATED, IN_PROCESS.
+     * Получить детализацию стоимости заявки
+     * ##  Получить детализацию стоимости заявки.  Перед публикованием заявки, нужно уведомить пользователя стоимости. Точность до сотых, (0.01$)   Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами DRAFT.
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -102,12 +103,12 @@ export default class RequestsApi {
 
 
     /**
-     * Получить кастомную заявку по его guid.
-     * Получить кастомную заявку по его guid.   
+     * Получить уникальную заявку по его guid.
+     * Получить уникальную заявку по его guid.   
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20017} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20018} and HTTP response
      */
     apiV1RequestsCustomGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -131,7 +132,7 @@ export default class RequestsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20017;
+      let returnType = InlineResponse20018;
       return this.apiClient.callApi(
         '/api/v1/requests/custom/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -140,12 +141,12 @@ export default class RequestsApi {
     }
 
     /**
-     * Получить кастомную заявку по его guid.
-     * Получить кастомную заявку по его guid.   
+     * Получить уникальную заявку по его guid.
+     * Получить уникальную заявку по его guid.   
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20017}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20018}
      */
     apiV1RequestsCustomGuidGet(guid, opts) {
       return this.apiV1RequestsCustomGuidGetWithHttpInfo(guid, opts)
@@ -157,11 +158,11 @@ export default class RequestsApi {
 
     /**
      * #  Изменить заявку.
-     * ## Изменить заявку.   Проверка на статус, статус должен быть CREATED или TO_PUBLISH. ## Важно!!!, если заявка была ранее опубликована, и еще не имеет предложений (TO_PUBLISH) статус вернется на CREATED, замороженные средства будут возвращены, нужно снова публиковать Проверки: Только владелец может редактировать заявку  Цена за предложение не может быть ниже установленного минимума.
+     * ## Изменить заявку.   После редактирования статус вернется на DRAFT  Цена будет округлена на до 0,01$   Проверки: Только владелец может редактировать заявку  Проверка на статус, статус должен быть DRAFT или PUBLISHED..
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject51} opts.body 
+     * @param {module:model/InlineObject55} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsCustomGuidPatchWithHttpInfo(guid, opts) {
@@ -196,11 +197,11 @@ export default class RequestsApi {
 
     /**
      * #  Изменить заявку.
-     * ## Изменить заявку.   Проверка на статус, статус должен быть CREATED или TO_PUBLISH. ## Важно!!!, если заявка была ранее опубликована, и еще не имеет предложений (TO_PUBLISH) статус вернется на CREATED, замороженные средства будут возвращены, нужно снова публиковать Проверки: Только владелец может редактировать заявку  Цена за предложение не может быть ниже установленного минимума.
+     * ## Изменить заявку.   После редактирования статус вернется на DRAFT  Цена будет округлена на до 0,01$   Проверки: Только владелец может редактировать заявку  Проверка на статус, статус должен быть DRAFT или PUBLISHED..
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject51} opts.body 
+     * @param {module:model/InlineObject55} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsCustomGuidPatch(guid, opts) {
@@ -212,11 +213,11 @@ export default class RequestsApi {
 
 
     /**
-     * # Создать кастомную заявку.
-     * ## Создать кастомную заявку. Проверки: Цена за предложение не должно быть меньше установленного.
+     * # Создать универсальную заявку.
+     * ## Создать универсальную заявку.   Цена будет округлена на до 0,01$   Проверки: пока нет проверки (Цена за предложение не должно быть меньше установленного в админке.)
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject50} opts.body 
+     * @param {module:model/InlineObject54} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
      */
     apiV1RequestsCustomPostWithHttpInfo(opts) {
@@ -245,11 +246,11 @@ export default class RequestsApi {
     }
 
     /**
-     * # Создать кастомную заявку.
-     * ## Создать кастомную заявку. Проверки: Цена за предложение не должно быть меньше установленного.
+     * # Создать универсальную заявку.
+     * ## Создать универсальную заявку.   Цена будет округлена на до 0,01$   Проверки: пока нет проверки (Цена за предложение не должно быть меньше установленного в админке.)
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject50} opts.body 
+     * @param {module:model/InlineObject54} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
      */
     apiV1RequestsCustomPost(opts) {
@@ -323,11 +324,11 @@ export default class RequestsApi {
 
     /**
      * # Прервать прием предложений.
-     * ## Прервать прием предложений.  При вызове этого метода клиент прекращает прием предложений, статус меняется на CANCELED  Все незавершенные предложения будут приняты и оплачены.   ## Важно!! Для избежания проблем связанных с изменением состояния заявки, с того момента когда пользователь  ## получил детализацию из калькулятора стоимости заявки и принятия решения,  для подтверждения нужно вернуть totalCost Остаток средств будет возвращен на баланс. NНезавершенные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами IN_PROCESS,  Проверка изменения totalCost
+     * ## Прервать прием предложений.  При вызове этого метода клиент прекращает прием предложений, статус меняется на FORBID_NEW_PROPOSALS  Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами PUBLISHED, IN_PROGRESS
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject37} opts.body 
+     * @param {module:model/InlineObject41} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsGuidAbortPatchWithHttpInfo(guid, opts) {
@@ -362,11 +363,11 @@ export default class RequestsApi {
 
     /**
      * # Прервать прием предложений.
-     * ## Прервать прием предложений.  При вызове этого метода клиент прекращает прием предложений, статус меняется на CANCELED  Все незавершенные предложения будут приняты и оплачены.   ## Важно!! Для избежания проблем связанных с изменением состояния заявки, с того момента когда пользователь  ## получил детализацию из калькулятора стоимости заявки и принятия решения,  для подтверждения нужно вернуть totalCost Остаток средств будет возвращен на баланс. NНезавершенные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами IN_PROCESS,  Проверка изменения totalCost
+     * ## Прервать прием предложений.  При вызове этого метода клиент прекращает прием предложений, статус меняется на FORBID_NEW_PROPOSALS  Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами PUBLISHED, IN_PROGRESS
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject37} opts.body 
+     * @param {module:model/InlineObject41} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsGuidAbortPatch(guid, opts) {
@@ -379,7 +380,7 @@ export default class RequestsApi {
 
     /**
      * # Удалить заявку по его GUID.
-     * ## Удалить заявку по его GUIDD.    Заявку можно удалить только если статус TO_PUBLISH или CREATED. Замороженные средства будут возвращены!!! Только владелец может удалить заявку  
+     * ## Удалить заявку по его GUIDD.    Заявку можно удалить только если статус DRAFT или PUBLISHED. Только владелец может удалить заявку  
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -417,7 +418,7 @@ export default class RequestsApi {
 
     /**
      * # Удалить заявку по его GUID.
-     * ## Удалить заявку по его GUIDD.    Заявку можно удалить только если статус TO_PUBLISH или CREATED. Замороженные средства будут возвращены!!! Только владелец может удалить заявку  
+     * ## Удалить заявку по его GUIDD.    Заявку можно удалить только если статус DRAFT или PUBLISHED. Только владелец может удалить заявку  
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -433,11 +434,11 @@ export default class RequestsApi {
 
     /**
      * # Этот метод вызывает тот кто бронирует место в заявке.
-     * ## Этот метод вызывает тот кто бронирует место в заявке.  При первом бронировании статус меняется с TO_PUBLISH на IN_PROGRESS. В зависимости от типа заявки создается предложение и его детали, статуc предложения EMPTY Проверки: Владелец заявки не может отправлять себе предложения. Количество активных предложений меньше чем ограничение клиента на эту заявку. Активные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR, ACCEPTED_BY_CLIENT, ACCEPTED_BY_SUPERVISOR Если у данной заявки есть незавершенные предложения от данного пользователя Незавершенные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR
+     * ## Этот метод вызывает тот кто бронирует место в заявке.  При первом бронировании статус заявка меняется с PUBLISHED на IN_PROGRESS. В зависимости от типа заявки создается предложение и его детали, статус предложения CREATED  Проверки: Можно бронировать только заявки со статусами: PUBLISHED, IN_PROCESS Владелец заявки не может отправлять себе предложения.  Количество активных (принятых + в работе) предложений меньше чем ограничение клиента на эту заявку. Активные предложения имеют статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ACCEPTED_BY_CREATOR ACCEPTED_BY_SUPERVISOR  Если у данной заявки есть незавершенные предложения от данного пользователя Незавершенные предложения имеют статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {Object} opts.body 
+     * @param {module:model/InlineObject40} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2016} and HTTP response
      */
     apiV1RequestsGuidPickupPostWithHttpInfo(guid, opts) {
@@ -472,11 +473,11 @@ export default class RequestsApi {
 
     /**
      * # Этот метод вызывает тот кто бронирует место в заявке.
-     * ## Этот метод вызывает тот кто бронирует место в заявке.  При первом бронировании статус меняется с TO_PUBLISH на IN_PROGRESS. В зависимости от типа заявки создается предложение и его детали, статуc предложения EMPTY Проверки: Владелец заявки не может отправлять себе предложения. Количество активных предложений меньше чем ограничение клиента на эту заявку. Активные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR, ACCEPTED_BY_CLIENT, ACCEPTED_BY_SUPERVISOR Если у данной заявки есть незавершенные предложения от данного пользователя Незавершенные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR
+     * ## Этот метод вызывает тот кто бронирует место в заявке.  При первом бронировании статус заявка меняется с PUBLISHED на IN_PROGRESS. В зависимости от типа заявки создается предложение и его детали, статус предложения CREATED  Проверки: Можно бронировать только заявки со статусами: PUBLISHED, IN_PROCESS Владелец заявки не может отправлять себе предложения.  Количество активных (принятых + в работе) предложений меньше чем ограничение клиента на эту заявку. Активные предложения имеют статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ACCEPTED_BY_CREATOR ACCEPTED_BY_SUPERVISOR  Если у данной заявки есть незавершенные предложения от данного пользователя Незавершенные предложения имеют статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {Object} opts.body 
+     * @param {module:model/InlineObject40} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2016}
      */
     apiV1RequestsGuidPickupPost(guid, opts) {
@@ -489,11 +490,11 @@ export default class RequestsApi {
 
     /**
      * #  Опубликовать заявку.
-     * ## Опубликовать заявку.   Статус поменяется на TO_PUBLISH. Будут заморожены средства на оплату предложений к заявке ## Важно!! Для избежания проблем связанных с изменением состояния заявки, с того момента когда пользователь  ## получил детализацию из калькулятора стоимости заявки и до момента вызова данного метода,  для подтверждения нужно вернуть totalCost Проверки:  Публиковать можно только заявки со статусом CREATED. Только владелец может опубликовать. Проверка изменения totalCost
+     * ## Опубликовать заявку.   Статус поменяется на PUBLISHED. ## Важно!! Для избежания проблем связанных с изменением состояния заявки, с того момента когда пользователь  ## получил детализацию из калькулятора стоимости заявки и до момента вызова данного метода,  для подтверждения нужно вернуть totalCost Проверки:  Публиковать можно только заявки со статусом DRAFT. Только владелец может опубликовать. Проверка изменения totalCost
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject36} opts.body 
+     * @param {module:model/InlineObject39} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsGuidToPublishPatchWithHttpInfo(guid, opts) {
@@ -528,11 +529,11 @@ export default class RequestsApi {
 
     /**
      * #  Опубликовать заявку.
-     * ## Опубликовать заявку.   Статус поменяется на TO_PUBLISH. Будут заморожены средства на оплату предложений к заявке ## Важно!! Для избежания проблем связанных с изменением состояния заявки, с того момента когда пользователь  ## получил детализацию из калькулятора стоимости заявки и до момента вызова данного метода,  для подтверждения нужно вернуть totalCost Проверки:  Публиковать можно только заявки со статусом CREATED. Только владелец может опубликовать. Проверка изменения totalCost
+     * ## Опубликовать заявку.   Статус поменяется на PUBLISHED. ## Важно!! Для избежания проблем связанных с изменением состояния заявки, с того момента когда пользователь  ## получил детализацию из калькулятора стоимости заявки и до момента вызова данного метода,  для подтверждения нужно вернуть totalCost Проверки:  Публиковать можно только заявки со статусом DRAFT. Только владелец может опубликовать. Проверка изменения totalCost
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject36} opts.body 
+     * @param {module:model/InlineObject39} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsGuidToPublishPatch(guid, opts) {

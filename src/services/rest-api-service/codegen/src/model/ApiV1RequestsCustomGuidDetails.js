@@ -64,13 +64,13 @@ class ApiV1RequestsCustomGuidDetails {
 }
 
 /**
- * Имя кастомной заявки.
+ * Имя универсальной заявки.
  * @member {String} name
  */
 ApiV1RequestsCustomGuidDetails.prototype['name'] = undefined;
 
 /**
- * Условия кастомной заявки.
+ * Условия универсальной заявки.
  * @member {String} conditions
  */
 ApiV1RequestsCustomGuidDetails.prototype['conditions'] = undefined;

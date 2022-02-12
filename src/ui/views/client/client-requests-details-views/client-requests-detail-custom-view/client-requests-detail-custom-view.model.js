@@ -10,6 +10,7 @@ export class ClientRequestDetailCustomViewModel {
   error = undefined
 
   drawerOpen = false
+  requestId = undefined
   request = undefined
   requestProposals = []
 
@@ -19,7 +20,7 @@ export class ClientRequestDetailCustomViewModel {
   constructor({history, location}) {
     this.history = history
     if (location.state) {
-      this.request = location.state.request
+      this.requestId = location.state.request._id
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -40,7 +41,7 @@ export class ClientRequestDetailCustomViewModel {
 
   async getCustomRequestById() {
     try {
-      const result = await RequestModel.getCustomRequestById(this.request.request._id)
+      const result = await RequestModel.getCustomRequestById(this.requestId)
 
       runInAction(() => {
         this.request = result
@@ -53,7 +54,7 @@ export class ClientRequestDetailCustomViewModel {
 
   async getCustomRequestProposalsByRequestId() {
     try {
-      const result = await RequestModel.getRequestProposalsCustomByRequestId(this.request.request._id)
+      const result = await RequestModel.getRequestProposalsCustomByRequestId(this.requestId)
 
       runInAction(() => {
         this.requestProposals = result

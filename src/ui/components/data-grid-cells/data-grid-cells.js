@@ -27,7 +27,7 @@ const textConsts = getLocalizedTexts(texts, 'en').dataGridCells
 export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
   <div className={classNames.asinCell}>
     <div className={classNames.asinCellContainer}>
-      <img alt="placeholder" className={classNames.img} src={getAmazonImageUrl(product.images[0])} />
+      <img alt="" className={classNames.img} src={getAmazonImageUrl(product.images[0])} />
 
       <div>
         <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
@@ -190,7 +190,7 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
           box.items.map((product, productIndex) => (
             <div key={productIndex} className={classNames.imgWrapper}>
               <img
-                alt="placeholder"
+                alt=""
                 className={classNames.taskDescriptionImg}
                 src={getAmazonImageUrl(product.product.images[0])}
               />
@@ -282,7 +282,7 @@ export const ToFixedWithKgSignCell = withStyles(styles)(({classes: classNames, v
 
 export const SmallRowImageCell = withStyles(styles)(({classes: classNames, images}) => (
   <div className={classNames.smallRowImgWrapper}>
-    <img alt="placeholder" className={classNames.img} src={getAmazonImageUrl(images[0])} />
+    <img alt="" className={classNames.img} src={getAmazonImageUrl(images[0])} />
   </div>
 ))
 
@@ -396,7 +396,7 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box}
         {box.items.map((product, productIndex) => (
           <div key={productIndex} className={classNames.manyItemsImgWrapper}>
             <img
-              alt="placeholder"
+              alt=""
               className={classNames.taskDescriptionImg}
               src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
             />

@@ -5,6 +5,7 @@ import {texts} from '@constants/texts'
 import {AdminUsersActionBtnsCell, NormDateCell, renderFieldValueCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixed} from '@utils/text'
 
 const textConsts = getLocalizedTexts(texts, 'ru').adminUsersTableColumns
 
@@ -29,7 +30,7 @@ export const adminUsersViewColumns = handlers => [
   {
     field: 'balance',
     headerName: textConsts.balanceField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => renderFieldValueCell(toFixed(params.value, 2)),
     width: 150,
     type: 'number',
   },
@@ -37,7 +38,7 @@ export const adminUsersViewColumns = handlers => [
   {
     field: 'balanceFreeze',
     headerName: textConsts.freezeField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => renderFieldValueCell(toFixed(params.value, 2)),
     width: 150,
     type: 'number',
   },

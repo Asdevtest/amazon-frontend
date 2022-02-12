@@ -57,9 +57,6 @@ class InlineObject23 {
         if (data) {
             obj = obj || new InlineObject23();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
@@ -87,12 +84,6 @@ class InlineObject23 {
 
 
 }
-
-/**
- * Код текущего состояния заказа.
- * @member {Number} status
- */
-InlineObject23.prototype['status'] = undefined;
 
 /**
  * Кол-во продукта по этой позиции.

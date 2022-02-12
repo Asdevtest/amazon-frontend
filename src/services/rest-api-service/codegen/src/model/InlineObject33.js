@@ -47,11 +47,11 @@ class InlineObject33 {
         if (data) {
             obj = obj || new InlineObject33();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
         }
         return obj;
@@ -61,16 +61,16 @@ class InlineObject33 {
 }
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * Время на выполнение, в часах.
+ * @member {Number} execution_time
  */
-InlineObject33.prototype['reason'] = undefined;
+InlineObject33.prototype['execution_time'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * Цена предложения.
+ * @member {Number} price
  */
-InlineObject33.prototype['linksToMediaFiles'] = undefined;
+InlineObject33.prototype['price'] = undefined;
 
 
 

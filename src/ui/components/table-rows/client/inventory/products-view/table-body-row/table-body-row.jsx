@@ -43,7 +43,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
         <div className={classNames.asinCellContainer}>
           <div>
             <img
-              alt="placeholder"
+              alt=""
               className={classNames.img}
               src={item.images && item.images[0] && getAmazonImageUrl(item.images[0])}
             />

@@ -52,7 +52,7 @@ export const OrderModalBodyRow = ({
       <TableCell className={classNames.asinCell}>
         <div className={classNames.asinCellContainer}>
           <div>
-            <img alt="placeholder" className={classNames.img} src={getAmazonImageUrl(item.images[0])} />
+            <img alt="" className={classNames.img} src={getAmazonImageUrl(item.images[0])} />
           </div>
         </div>
       </TableCell>

@@ -29,7 +29,7 @@ export const clientBoxesViewColumns = () => [
     field: 'humanFriendlyId',
     headerName: textConsts.boxIdField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 60,
+    width: 50,
   },
 
   {
@@ -86,6 +86,13 @@ export const clientBoxesViewColumns = () => [
   },
 
   {
+    field: 'deliveryMethod',
+    headerName: textConsts.deliveryField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 120,
+  },
+
+  {
     field: 'amazonPrice',
     headerName: textConsts.priceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
@@ -107,12 +114,5 @@ export const clientBoxesViewColumns = () => [
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 120,
-  },
-
-  {
-    field: 'trackingNumberChina',
-    headerName: textConsts.trackIdField,
-    renderCell: params => renderFieldValueCell(params.value),
-    width: 170,
   },
 ]

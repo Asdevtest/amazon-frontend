@@ -26,7 +26,6 @@ export const Integrations = observer(({productId}) => {
       <DataGrid
         pagination
         useResizeContainer
-        autoHeight
         classes={{
           row: classNames.row,
         }}

@@ -2,11 +2,9 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {ClientInventoryDashboardCardDataKey, getClientInventoryDashboardCardConfig} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
@@ -15,7 +13,6 @@ import {UserRole} from '@constants/user-roles'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
-import {DashboardInfoCard} from '@components/dashboards/dashboard-info-card'
 import {AddOwnProductForm} from '@components/forms/add-own-product-form'
 import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
 import {Main} from '@components/main'
@@ -37,7 +34,6 @@ import {ClientInventoryViewModel} from './client-inventory-view.model'
 import {styles} from './client-inventory-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').inventoryView
-const inventoryDashboardCardConfig = getClientInventoryDashboardCardConfig(textConsts)
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_INVENTORY
 
@@ -52,6 +48,7 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      showInfoModalTitle,
       requestStatus,
       getCurrentData,
       sortModel,
@@ -125,9 +122,6 @@ export class ClientInventoryViewRaw extends Component {
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>
-              {/* <Grid container justify="center" spacing={2} md={12}>  //ПОКА СКРЫЛ, ПОХОЖЕ ДАШБОРД ТУТ НЕ НУЖЕН
-                {this.renderDashboardCards()}
-              </Grid> */}
               <div className={classNames.addProductBtnsWrapper}>
                 <div>
                   <Button
@@ -164,37 +158,34 @@ export class ClientInventoryViewRaw extends Component {
                 </SuccessButton>
               </div>
 
-              <div className={classNames.tableWrapper}>
-                <DataGrid
-                  pagination
-                  useResizeContainer
-                  autoHeight
-                  checkboxSelection
-                  classes={{
-                    row: classNames.row,
-                  }}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  rowHeight={100}
-                  components={{
-                    Toolbar: GridToolbar,
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                  onRowDoubleClick={e => onClickShowProduct(e.row)}
-                />
-              </div>
+              <DataGrid
+                pagination
+                useResizeContainer
+                checkboxSelection
+                classes={{
+                  row: classNames.row,
+                }}
+                sortModel={sortModel}
+                filterModel={filterModel}
+                page={curPage}
+                pageSize={rowsPerPage}
+                rowsPerPageOptions={[15, 25, 50, 100]}
+                rows={getCurrentData()}
+                rowHeight={100}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
+                density={densityModel}
+                columns={columnsModel}
+                loading={requestStatus === loadingStatuses.isLoading}
+                onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                onSortModelChange={onChangeSortingModel}
+                onPageSizeChange={onChangeRowsPerPage}
+                onPageChange={onChangeCurPage}
+                onStateChange={setDataGridState}
+                onFilterModelChange={model => onChangeFilterModel(model)}
+                onRowDoubleClick={e => onClickShowProduct(e.row)}
+              />
             </MainContent>
           </Appbar>
         </Main>
@@ -278,7 +269,7 @@ export class ClientInventoryViewRaw extends Component {
         <WarningInfoModal
           openModal={showInfoModal}
           setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-          title={textConsts.infoModalTitle}
+          title={showInfoModalTitle}
           btnText={textConsts.okBtn}
           onClickBtn={() => {
             onTriggerOpenModal('showInfoModal')
@@ -299,29 +290,6 @@ export class ClientInventoryViewRaw extends Component {
         />
       </React.Fragment>
     )
-  }
-
-  renderDashboardCards = () =>
-    inventoryDashboardCardConfig.map(item => (
-      <Grid key={`inventoryDashboardCard_${item.dataKey}`} item>
-        <DashboardInfoCard value={this.getCardValueByDataKey(item.dataKey)} title={item.title} color={item.color} />
-      </Grid>
-    ))
-
-  getCardValueByDataKey = dataKey => {
-    const {productsMy, orders} = this.viewModel
-    switch (dataKey) {
-      case ClientInventoryDashboardCardDataKey.PRODUCTS_IN_INVENTORY:
-        return productsMy.length
-      case ClientInventoryDashboardCardDataKey.PRODUCTS_BOUGHT_ON_EXCHANGE:
-        return productsMy.length
-      case ClientInventoryDashboardCardDataKey.PRODUCTS_ADDED:
-        return 'N/A'
-      case ClientInventoryDashboardCardDataKey.ORDERS_CHECKOUT:
-        return orders.length
-      case ClientInventoryDashboardCardDataKey.BOUGHT_FOR_LAST_30_DAYS:
-        return 'N/A'
-    }
   }
 }
 

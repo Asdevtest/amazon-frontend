@@ -102,8 +102,8 @@ class ClientModelStatic {
     return response
   }
 
-  orderRejectriceChange = async orderId => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidRejectPriceChangePost(orderId, {body: {}})
+  cancelOrder = async orderId => {
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidCancelPost(orderId, {body: {}})
     return response
   }
 

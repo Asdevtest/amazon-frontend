@@ -123,37 +123,33 @@ export class ClientWarehouseViewRaw extends Component {
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
               </div>
 
-              <div className={classNames.tableWrapper}>
-                <DataGrid
-                  pagination
-                  useResizeContainer
-                  autoHeight
-                  checkboxSelection
-                  isRowSelectable={params => params.row.isDraft === false}
-                  getRowClassName={getRowClassName}
-                  selectionModel={selectedBoxes}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  rowHeight={150}
-                  components={{
-                    Toolbar: GridToolbar,
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                  onStateChange={setDataGridState}
-                />
-              </div>
-
+              <DataGrid
+                pagination
+                useResizeContainer
+                checkboxSelection
+                isRowSelectable={params => params.row.isDraft === false}
+                getRowClassName={getRowClassName}
+                selectionModel={selectedBoxes}
+                sortModel={sortModel}
+                filterModel={filterModel}
+                page={curPage}
+                pageSize={rowsPerPage}
+                rowsPerPageOptions={[15, 25, 50, 100]}
+                rows={getCurrentData()}
+                rowHeight={150}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
+                density={densityModel}
+                columns={columnsModel}
+                loading={requestStatus === loadingStatuses.isLoading}
+                onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                onSortModelChange={onChangeSortingModel}
+                onPageSizeChange={onChangeRowsPerPage}
+                onPageChange={onChangeCurPage}
+                onFilterModelChange={model => onChangeFilterModel(model)}
+                onStateChange={setDataGridState}
+              />
               <Paper>
                 <WarehouseHistory
                   tasksData={tasksMy}

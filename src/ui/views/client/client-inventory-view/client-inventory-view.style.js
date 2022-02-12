@@ -14,10 +14,7 @@ export const styles = createStyles({
     justifyContent: 'space-between',
     padding: '10px',
   },
-  tableWrapper: {
-    minWidth: '100%',
-    height: '83vh',
-  },
+
   buttonOffset: {
     marginLeft: '20px',
   },

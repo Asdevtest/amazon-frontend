@@ -72,7 +72,7 @@ export const supervisorProductsDataConverter = data =>
     updatedAt: item.updatedAt,
     amazon: item.amazon,
     bsr: item.bsr,
-    id: item.id,
+    id: item._id,
     fbafee: item.fbafee,
   }))
 
@@ -98,7 +98,7 @@ export const buyerProductsDataConverter = data =>
     amazon: item.amazon,
     profit: item.profit,
     bsr: item.bsr,
-    id: item.id,
+    id: item._id,
     fbaamount: item.fbaamount,
   }))
 
@@ -117,7 +117,7 @@ export const buyerMyOrdersDataConverter = data =>
     clientComment: item.clientComment,
     buyerComment: item.buyerComment,
 
-    id: item.id,
+    id: item._id,
   }))
 
 export const buyerVacantOrdersDataConverter = data =>
@@ -156,7 +156,7 @@ export const clientProductsDataConverter = data =>
     amazon: item.amazon,
     bsr: item.bsr,
 
-    id: item.id,
+    id: item._id,
   }))
 
 export const clientInventoryDataConverter = data =>
@@ -212,7 +212,7 @@ export const freelancerCustomRequestsDataConverter = data =>
 export const clientOrdersDataConverter = data =>
   data.map(item => ({
     originalData: item,
-    id: item.id,
+    id: item._id,
 
     barCode: item.product.barCode,
     totalPrice: item.totalPrice, // calcTotalPriceForOrder(item),
@@ -236,13 +236,13 @@ export const clientWarehouseDataConverter = data =>
 
     amazonPrice: item.items.reduce((acc, cur) => acc + cur.product.amazon * cur.amount, 0),
 
-    trackingNumberChina: item.items[0].order.trackingNumberChina,
     finalWeight: Math.max(
       parseFloat(item.volumeWeightKgWarehouse ? item.volumeWeightKgWarehouse : item.volumeWeightKgSupplier) || 0,
       parseFloat(item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier) || 0,
     ),
     grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
     warehouses: warehouses[item.warehouse],
+    deliveryMethod: DeliveryTypeByCode[item.deliveryMethod],
 
     isDraft: item.isDraft,
     createdAt: item.createdAt,
@@ -280,7 +280,7 @@ export const clientFinancesDataConverter = data =>
 export const clientOrdersNotificationsDataConverter = data =>
   data.map(item => ({
     originalData: item,
-    id: item.id,
+    id: item._id,
 
     barCode: item.product.barCode,
     totalPrice: calcTotalPriceForOrder(item),
@@ -346,7 +346,7 @@ export const adminProductsDataConverter = data =>
     profit: item.profit,
     margin: item.margin,
     bsr: item.bsr,
-    id: item.id,
+    id: item._id,
     fbafee: item.fbafee,
     fbaamount: item.fbaamount,
     barCode: item.barCode,
@@ -355,7 +355,7 @@ export const adminProductsDataConverter = data =>
 export const adminOrdersDataConverter = data =>
   data.map(item => ({
     originalData: item,
-    id: item.id,
+    id: item._id,
 
     barCode: item.product.barCode,
     totalPrice: calcTotalPriceForOrder(item),

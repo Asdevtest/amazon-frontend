@@ -65,12 +65,12 @@ export const texts = {
       balance: 'My balance',
       withdraw: 'Withdraw money',
       replenish: 'Add money',
-      inventoryTitle: 'Inventory',
+      inventoryTitle: 'Инвентарь',
 
-      ordersTitle: 'Orders',
+      ordersTitle: 'Заказы',
       exchangeTitle: 'Exchange',
 
-      boxesTitle: 'Boxes',
+      boxesTitle: 'Склад',
       withdrawFunds: 'Вывод средств',
       fillAccount: 'Пополнить счёт',
       itemsInInventorySectionItemTitle: 'Товаров в инвентаре',
@@ -417,11 +417,11 @@ export const texts = {
     },
 
     clientExchangeRequestsView: {
-      appbarTitle: 'Exchange - Requests',
+      appbarTitle: 'Мои заявки',
       mainTitle: 'My requests on exchange',
       newRequest: 'New request',
       myRequests: 'Мои заявки',
-      placeOrderBtn: 'Разместить заявку',
+      placeOrderBtn: 'Создать заявку',
 
       modalNewRequestTitle: 'New request',
       modalEditRequestTitle: 'Edit request',
@@ -1049,6 +1049,7 @@ export const texts = {
       addOrEditSupplierTitle: 'Добавить нового поставщика',
       okBtn: 'Ок',
       infoModalTitle: 'Нельзя привязать',
+      infoNoMakeOrder: 'Нельзя заказать',
 
       confirmTitle: 'Внимание',
       confirmMessage: 'Вы точно хотите отменить задачу?',
@@ -1102,6 +1103,25 @@ export const texts = {
       myProductCardTitle: 'Мои товары',
       myOrdersCardTitle: 'Мои заказы',
       freeOrdersCardTitle: 'Свободные заказы',
+
+      productsTitle: 'Продукты',
+      ordersTitle: 'Заказы',
+      financesTitle: 'Финансы',
+
+      allProducts: 'Всего товаров',
+      successProduts: 'Выполненные',
+      payedProducts: 'Оплаченные',
+      produtsAtSupervisor: 'Новый поиск от супервизора',
+      produtsAtClient: 'Новый поиск от клиента',
+      inSearchProduts: 'В процессе поиска',
+      rejectedProduts: 'Отклоненные',
+
+      inProcessOrders: 'В процессе обработки',
+      freeOrders: 'Свободные',
+      rejectedOrders: 'Выполненные',
+
+      replenish: 'Начисления',
+      fines: 'Штрафы',
     },
 
     researcherProductsView: {
@@ -1124,7 +1144,7 @@ export const texts = {
     },
 
     freelancerProductsRequestsView: {
-      appBarTitle: 'Requests',
+      appBarTitle: 'Вакантные заявки',
       mainTitle: 'Мои товары',
       cardMainTitle: 'Проверка товара на наличие в базе',
 
@@ -1251,6 +1271,13 @@ export const texts = {
       noBtn: 'Нет',
       okBtn: 'ок',
       deleteSupplierMessage: 'Вы точно хотите удалить поставщика?',
+    },
+
+    clientCreateRequestView: {
+      appBarTitle: 'Создание заявки',
+      closeBtn: 'Ок',
+      infoCreateRequest: 'Заявка создана',
+      infoNoCreateRequest: 'Заявка не создана',
     },
 
     clientProductView: {
@@ -1954,6 +1981,7 @@ export const texts = {
       buttonAccept: 'Принять',
       buttonCancel: 'Отменить',
       buttonDelete: 'Удалить',
+      buttonSave: 'Сохранить',
       buttonClose: 'Закрыть',
 
       supplierTitle: 'Список поставщиков',
@@ -2528,6 +2556,7 @@ export const texts = {
       trackIdField: 'Трек номер',
       weightField: 'Финальный Вес',
       grossWeightField: 'Общий вес',
+      deliveryField: 'Доставка',
     },
 
     warehouseBoxesTableColumns: {
@@ -2660,15 +2689,28 @@ export const texts = {
       researcherField: 'Researcher',
       buyerField: 'Buyer',
       byForBtn: 'Купить за',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
     },
 
-    clientSearchRequestsTableColumns: {
+    clientMyRequestsTableColumns: {
+      statusField: 'Статус',
+      nameRequestField: 'Имя',
+      budget: 'Бюджет',
+      deadline: 'Срок',
+      price: 'Цена',
+
+      offerCount: 'Пр-ий всего',
+      offerAwaits: 'Пр-ий ожидают',
+      offersInWork: 'Пр-ий в работе',
+      offersWaitCheck: 'Пр-ий на проверке',
+      offersAccept: 'Пр-ий принято',
+
       actionField: 'Действия',
       createDateField: 'Создана',
       timeoutDateField: 'Дедлайн',
-      budget: 'Бюджет',
+
       countOfProposals: 'Необходимо предложений',
-      deadline: 'Дедлайн',
       strategyStatusField: 'Стратегия',
       minKeywords: 'Минимально ниш',
       minProductInProposals: 'Минимально продуктов',
@@ -2682,10 +2724,9 @@ export const texts = {
       maxRevenue: 'Макс. доход',
       minReviews: 'Мин. отзывы',
       maxReviews: 'Макс. отзывы',
-      nameRequestField: 'Имя заявки',
 
       directionField: 'Направление',
-      statusField: 'Статус',
+
       maxAmountOfProposalsField: 'Макс. кол-во предложений',
       priceField: 'Цена заявки',
     },
@@ -2737,6 +2778,12 @@ export const texts = {
     clientOrderView: {
       mainTitle: 'Заказ',
       appBarTitle: 'Страница заказов',
+    },
+
+    CreateRequestContent: {
+      backBtn: 'Назад',
+      boxesAtOrder: 'Коробки к заказу:',
+      noBoxes: 'Коробок пока нет...',
     },
 
     orderContent: {
@@ -2838,18 +2885,6 @@ export const texts = {
       house: 'Дом*',
       deliveryMethod: 'Способ доставки',
     },
-    inventoryView: {
-      appbarTitle: 'Инвентарь',
-      productsList: 'Products list',
-      setBarCodeBtn: 'Set barcode',
-      exchangeBtn: 'Exchange',
-      setBarcodeChipLabel: 'Set barcode',
-      addProductBtn: 'Добавить свой товар',
-      addProductModal: 'Добавить свой товар',
-      addSupplierBtn: 'Поиск поставщика',
-
-      addOrEditSupplierTitle: 'Добавить нового поставщика',
-    },
 
     setBarcodeModalContent: {
       title: 'Установить штрихкод',
@@ -2943,12 +2978,17 @@ export const texts = {
       batchesCardTitle: 'Партии',
 
       comletedTasksCardTitle: 'Выполненные задачи',
+      canceledTasksCardTitle: 'Отмененные задачи',
       myStatsCardTitle: 'Моя статистика',
       myPaymentsCardTitle: 'Мои платежи',
       warehouseHistoryTitle: 'Вакантные задачи',
       boxesInStore: 'Коробок на складе',
       sentBatches: 'Отправленные',
       notSentBatches: 'Запрошенные отправления',
+
+      tasksTitle: 'Задачи',
+      warehouseTitle: 'Склад',
+      batchesTitle: 'Отправления',
     },
 
     warehouseVacantTasksView: {
@@ -3385,7 +3425,7 @@ export const texts = {
 
     selectionSupplierModal: {
       modalTitle: 'Выбрать поставщика',
-      modalSubTitle: 'Оставьте комментарий для поиска поставщика:',
+      modalSubTitle: 'Обновить комментарий к продукту:',
       modalPlaceholder: 'Комментарий...',
       searchSupplierTooltip: 'Платная услуга',
       newSupplierTooltip: 'Бесплатная услуга',

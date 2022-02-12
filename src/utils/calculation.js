@@ -64,7 +64,7 @@ export function updateProductAutoCalculatedFields() {
           (this.product.reffee || 0).toFixed(2) -
           (parseFloat(this.product.currentSupplier.delivery) || 0).toFixed(2) -
           (parseFloat(this.product.currentSupplier.price) || 0).toFixed(2) || 0
-      ).toFixed(4)
+      ).toFixed(2)
     }
     this.product.margin =
       (this.product.profit /

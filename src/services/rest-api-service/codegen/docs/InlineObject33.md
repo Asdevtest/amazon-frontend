@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
-**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**execution_time** | **Number** | Время на выполнение, в часах. | [optional] 
+**price** | **Number** | Цена предложения. | [optional] 
 
 

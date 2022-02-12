@@ -28,9 +28,7 @@ export const useClassNames = makeStyles(theme => ({
     maxWidth: '370px',
     maxHeight: '150px',
     textOverflow: 'ellipsis',
-    // whiteSpace: 'nowrap',
     overflow: 'hidden',
-    // overflowY: 'scroll',
     marginBottom: '20px',
   },
   barCodeField: {

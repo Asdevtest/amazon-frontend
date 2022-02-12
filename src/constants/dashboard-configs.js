@@ -155,13 +155,13 @@ export const getClientDashboardCardConfig = textConsts => [
       {
         dataKey: ClientDashboardCardDataKey.PAID_ORDERS,
         title: textConsts.paidOrdersSectionItemTitle,
-        color: '#f86c6b',
+        color: '#00B746',
         route: '/client/orders',
       },
       {
         dataKey: ClientDashboardCardDataKey.CANCELED_ORDERS,
         title: textConsts.canceledOrdersSectionItemTitle,
-        color: '#20a8d8',
+        color: '#BC3030',
         route: '/client/orders',
       },
     ],
@@ -173,56 +173,22 @@ export const getClientDashboardCardConfig = textConsts => [
       {
         dataKey: ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE,
         title: textConsts.boxesInWarehouse,
-        color: '#63c2de',
+        color: '#C69109',
         route: '/client/warehouse',
       },
       {
         dataKey: ClientDashboardCardDataKey.READY_TO_SEND,
         title: textConsts.readyToSend,
-        color: '#4dbd74',
+        color: '#C69109',
+        route: '/client/batches',
       },
       {
         dataKey: ClientDashboardCardDataKey.SEND_BOXES,
         title: textConsts.sendBoxes,
-        color: '#f86c6b',
+        color: '#00B746',
+        route: '/client/batches',
       },
     ],
-  },
-]
-
-export const ClientInventoryDashboardCardDataKey = {
-  PRODUCTS_IN_INVENTORY: 'PRODUCTS_IN_INVENTORY',
-  PRODUCTS_BOUGHT_ON_EXCHANGE: 'PRODUCTS_BOUGHT_ON_EXCHANGE',
-  PRODUCTS_ADDED: 'PRODUCTS_ADDED',
-  ORDERS_CHECKOUT: 'ORDERS_CHECKOUT',
-  BOUGHT_FOR_LAST_30_DAYS: 'BOUGHT_FOR_LAST_30_DAYS',
-}
-
-export const getClientInventoryDashboardCardConfig = textConsts => [
-  {
-    dataKey: ClientInventoryDashboardCardDataKey.PRODUCTS_IN_INVENTORY,
-    title: textConsts.productsInInventoryDashboardCard,
-    color: '#63c2de',
-  },
-  {
-    dataKey: ClientInventoryDashboardCardDataKey.PRODUCTS_BOUGHT_ON_EXCHANGE,
-    title: textConsts.productsBoughtOnExchangeDashboardCard,
-    color: '#FFC107',
-  },
-  {
-    dataKey: ClientInventoryDashboardCardDataKey.PRODUCTS_ADDED,
-    title: textConsts.productsAddedDashboardCard,
-    color: '#4dbd74',
-  },
-  {
-    dataKey: ClientInventoryDashboardCardDataKey.ORDERS_CHECKOUT,
-    title: textConsts.ordersChackoutDashboardCard,
-    color: '#f86c6b',
-  },
-  {
-    dataKey: ClientInventoryDashboardCardDataKey.BOUGHT_FOR_LAST_30_DAYS,
-    title: textConsts.productsBoughtLast30DaysDashboardCard,
-    color: '#f86c6b',
   },
 ]
 
@@ -235,44 +201,74 @@ export const WarehouseDashboardCardDataKey = {
   SENT_BATCHES: 'SENT_BATCHES',
   NOT_SENT_BATCHES: 'NOT_SENT_BATCHES',
   TASKS_MY: 'TASKS_MY',
+
+  CANCELED_TASKS: 'CANCELED_TASKS',
 }
 export const getWarehouseDashboardCardConfig = textConsts => [
   {
-    dataKey: WarehouseDashboardCardDataKey.VACANT_TASKS,
-    title: textConsts.vacantTasksCardTitle,
-    color: '#63c2de',
-    route: '/warehouse/vacant-tasks',
-  },
-  {
-    dataKey: WarehouseDashboardCardDataKey.TASKS_MY,
-    title: textConsts.tasksMyCardTitle,
-    color: '#FFC107',
-    route: '/warehouse/my-tasks',
+    key: 'TASKS',
+    title: textConsts.tasksTitle,
+    items: [
+      {
+        dataKey: WarehouseDashboardCardDataKey.VACANT_TASKS,
+        title: textConsts.vacantTasksCardTitle,
+        color: '#0056B2',
+        route: '/warehouse/vacant-tasks',
+      },
+      {
+        dataKey: WarehouseDashboardCardDataKey.TASKS_MY,
+        title: textConsts.tasksMyCardTitle,
+        color: '#0056B2',
+        route: '/warehouse/my-tasks',
+      },
+
+      {
+        dataKey: WarehouseDashboardCardDataKey.COMPLETED_TASKS,
+        title: textConsts.comletedTasksCardTitle,
+        color: '#4dbd74',
+        route: '/warehouse/completed-tasks',
+      },
+
+      {
+        dataKey: WarehouseDashboardCardDataKey.CANCELED_TASKS,
+        title: textConsts.canceledTasksCardTitle,
+        color: '#BC3030',
+        route: '/warehouse/canceled-tasks',
+      },
+    ],
   },
 
   {
-    dataKey: WarehouseDashboardCardDataKey.COMPLETED_TASKS,
-    title: textConsts.comletedTasksCardTitle,
-    color: '#4dbd74',
-    route: '/warehouse/completed-tasks',
+    key: 'WAREHOUSE',
+    title: textConsts.warehouseTitle,
+    items: [
+      {
+        dataKey: WarehouseDashboardCardDataKey.BOXES_IN_STORE,
+        title: textConsts.boxesInStore,
+        color: '#63C2DE',
+        route: '/warehouse/my-warehouse',
+      },
+    ],
   },
 
   {
-    dataKey: WarehouseDashboardCardDataKey.BOXES_IN_STORE,
-    title: textConsts.boxesInStore,
-    color: '#f86c6b',
-  },
+    key: 'BATCHES',
+    title: textConsts.batchesTitle,
+    items: [
+      {
+        dataKey: WarehouseDashboardCardDataKey.SENT_BATCHES,
+        title: textConsts.sentBatches,
+        color: '#C69109',
+        route: '/warehouse/boxes',
+      },
 
-  {
-    dataKey: WarehouseDashboardCardDataKey.SENT_BATCHES,
-    title: textConsts.sentBatches,
-    color: '#20a8d8',
-  },
-
-  {
-    dataKey: WarehouseDashboardCardDataKey.NOT_SENT_BATCHES,
-    title: textConsts.notSentBatches,
-    color: '#20a8d8',
+      {
+        dataKey: WarehouseDashboardCardDataKey.NOT_SENT_BATCHES,
+        title: textConsts.notSentBatches,
+        color: '#00B746',
+        route: '/warehouse/boxes',
+      },
+    ],
   },
 ]
 
@@ -344,43 +340,118 @@ export const getAdminDashboardCardConfig = textConsts => [
 ]
 
 export const BuyerDashboardCardDataKey = {
+  ALL_PRODUCTS: 'ALL_PRODUCTS',
+  SUCCESS_PRODUCTS: 'SUCCESS_PRODUCTS',
+  PAYED_PRODUCTS: 'PAYED_PRODUCTS',
+
   NEW_PRODUCTS_AT_SUPERVISOR: 'NEW_PRODUCTS_AT_SUPERVISOR',
   NEW_PRODUCTS_AT_CLIENT: 'NEW_PRODUCTS_AT_CLIENT',
-  ME_PRODUCTS: 'ME_PRODUCTS',
-  ME_ORDERS: 'ME_ORDERS',
+
+  IN_SEARCH_PRODUCTS: 'IN_SEARCH_PRODUCTS',
+  REJECTED_PRODUCTS: 'REJECTED_PRODUCTS',
+
+  IN_PROCESS_ORDERS: 'IN_PROCESS_ORDERS',
   FREE_ORDERS: 'FREE_ORDERS',
+  CLOSED_ORDERS: 'CLOSED_ORDERS',
+
+  REPLENISH: 'REPLENISH',
+  FINES: 'FINES',
 }
 
 export const getBuyerDashboardCardConfig = textConsts => [
   {
-    dataKey: BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_SUPERVISOR,
-    title: textConsts.newProductsSupervisor,
-    color: '#63c2de',
-    route: '/buyer/search-supplier-by-supervisor',
+    key: 'PRODUCTS',
+    title: textConsts.productsTitle,
+    items: [
+      {
+        dataKey: BuyerDashboardCardDataKey.ALL_PRODUCTS,
+        title: textConsts.allProducts,
+        color: '#006CFF',
+        route: '/buyer/my-products',
+      },
+      {
+        dataKey: BuyerDashboardCardDataKey.SUCCESS_PRODUCTS,
+        title: textConsts.successProduts,
+        color: '#00B746',
+        route: '/buyer/my-products',
+      },
+      {
+        dataKey: BuyerDashboardCardDataKey.PAYED_PRODUCTS,
+        title: textConsts.payedProducts,
+        color: '#00B746',
+        route: '/buyer/my-products',
+      },
+
+      {
+        dataKey: BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_SUPERVISOR,
+        title: textConsts.produtsAtSupervisor,
+        color: '#ffc107',
+        route: '/buyer/search-supplier-by-supervisor',
+      },
+      {
+        dataKey: BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT,
+        title: textConsts.produtsAtClient,
+        color: '#4dbd74',
+        route: '/buyer/search-supplier-by-client',
+      },
+
+      {
+        dataKey: BuyerDashboardCardDataKey.IN_SEARCH_PRODUCTS,
+        title: textConsts.inSearchProduts,
+        color: '#ffc107',
+        route: '/buyer/my-products',
+      },
+
+      {
+        dataKey: BuyerDashboardCardDataKey.REJECTED_PRODUCTS,
+        title: textConsts.rejectedProduts,
+        color: '#BC3030',
+        route: '/buyer/my-products',
+      },
+    ],
   },
 
   {
-    dataKey: BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT,
-    title: textConsts.newProductsClient,
-    color: '#64h9de',
-    route: '/buyer/search-supplier-by-client',
+    key: 'ORDERS',
+    title: textConsts.ordersTitle,
+    items: [
+      {
+        dataKey: BuyerDashboardCardDataKey.IN_PROCESS_ORDERS,
+        title: textConsts.inProcessOrders,
+        color: '#20a8d8',
+        route: '/buyer/my-orders',
+      },
+      {
+        dataKey: BuyerDashboardCardDataKey.FREE_ORDERS,
+        title: textConsts.freeOrders,
+        color: '#006CFF',
+        route: '/buyer/free-orders',
+      },
+      {
+        dataKey: BuyerDashboardCardDataKey.CLOSED_ORDERS,
+        title: textConsts.rejectedOrders,
+        color: '#00B746',
+        route: '/buyer/my-orders',
+      },
+    ],
   },
+
   {
-    dataKey: BuyerDashboardCardDataKey.ME_PRODUCTS,
-    title: textConsts.myProductCardTitle,
-    color: '#FFC107',
-    route: '/buyer/my-products',
-  },
-  {
-    dataKey: BuyerDashboardCardDataKey.ME_ORDERS,
-    title: textConsts.myOrdersCardTitle,
-    color: '#4dbd74',
-    route: '/buyer/my-orders',
-  },
-  {
-    dataKey: BuyerDashboardCardDataKey.FREE_ORDERS,
-    title: textConsts.freeOrdersCardTitle,
-    color: '#f86c6b',
-    route: '/buyer/free-orders',
+    key: 'FINANCES',
+    title: textConsts.financesTitle,
+    items: [
+      {
+        dataKey: BuyerDashboardCardDataKey.REPLENISH,
+        title: textConsts.replenish,
+        color: '#00B746',
+        route: '/buyer/finances',
+      },
+      {
+        dataKey: BuyerDashboardCardDataKey.FINES,
+        title: textConsts.fines,
+        color: '#BC3030',
+        route: '/buyer/finances',
+      },
+    ],
   },
 ]

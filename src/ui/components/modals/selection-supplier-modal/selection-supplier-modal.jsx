@@ -29,7 +29,7 @@ export const SelectionSupplierModal = ({product, onCloseModal, onTriggerOpenModa
   const [selectedButtonValue, setSelectedButtonValue] = useState('')
   const [clickNextOrPrevButton, setClickNextOrPrevButton] = useState(false)
 
-  const [comment, setComment] = useState('')
+  const [comment, setComment] = useState(product?.originalData.clientComment || '')
 
   const classNames = useClassNames()
 
@@ -80,9 +80,10 @@ export const SelectionSupplierModal = ({product, onCloseModal, onTriggerOpenModa
 
       {selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
         <div>
-          <Typography className={classNames.modalSubTitle}>{textConsts.modalSubTitle}</Typography>
+          {/* <Typography className={classNames.modalSubTitle}>{textConsts.modalSubTitle}</Typography> */}
           <Field
             multiline
+            label={textConsts.modalSubTitle}
             minRows={4}
             rowsMax={4}
             value={comment}

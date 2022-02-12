@@ -4,14 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Название поставщика. | 
-**link** | **String** | Ссылка на поставщика. | 
-**price** | **Number** | Цена | 
-**delivery** | **Number** | Тип доставки | 
-**amount** | **Number** | кол-во | 
-**minlot** | **Number** | Минимальный лот. | 
-**lotcost** | **Number** | Стоимость лота. | 
+**status** | **Number** | Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
-**comment** | **String** | Комментарий | 
+**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
 
 

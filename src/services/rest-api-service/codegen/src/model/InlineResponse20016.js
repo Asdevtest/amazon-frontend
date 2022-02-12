@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './ApiV1RequestProposalsCustomByRequestIdGuidDetails';
-import InlineResponse20010 from './InlineResponse20010';
+import ApiV1StorekeepersTasksLightVacBoxesBefore from './ApiV1StorekeepersTasksLightVacBoxesBefore';
 
 /**
  * The InlineResponse20016 model module.
@@ -23,7 +22,6 @@ import InlineResponse20010 from './InlineResponse20010';
 class InlineResponse20016 {
     /**
      * Constructs a new <code>InlineResponse20016</code>.
-     * Схема кастомной заявки.
      * @alias module:model/InlineResponse20016
      */
     constructor() { 
@@ -50,11 +48,23 @@ class InlineResponse20016 {
         if (data) {
             obj = obj || new InlineResponse20016();
 
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = InlineResponse20010.constructFromObject(data['proposal']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestProposalsCustomByRequestIdGuidDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Number');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Number');
+            }
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1StorekeepersTasksLightVacBoxesBefore]);
             }
         }
         return obj;
@@ -64,14 +74,39 @@ class InlineResponse20016 {
 }
 
 /**
- * @member {module:model/InlineResponse20010} proposal
+ * @member {String} _id
  */
-InlineResponse20016.prototype['proposal'] = undefined;
+InlineResponse20016.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails} details
+ * Дата создания.
+ * @member {Number} createdAt
  */
-InlineResponse20016.prototype['details'] = undefined;
+InlineResponse20016.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Number} updatedAt
+ */
+InlineResponse20016.prototype['updatedAt'] = undefined;
+
+/**
+ * Тип операции
+ * @member {String} operationType
+ */
+InlineResponse20016.prototype['operationType'] = undefined;
+
+/**
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
+ */
+InlineResponse20016.prototype['status'] = undefined;
+
+/**
+ * Массив коробок которые были до переформирования коробок.
+ * @member {Array.<module:model/ApiV1StorekeepersTasksLightVacBoxesBefore>} boxesBefore
+ */
+InlineResponse20016.prototype['boxesBefore'] = undefined;
 
 
 

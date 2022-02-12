@@ -76,7 +76,6 @@ export class AdminInventoryViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
-                autoHeight
                 classes={{
                   row: classNames.row,
                 }}

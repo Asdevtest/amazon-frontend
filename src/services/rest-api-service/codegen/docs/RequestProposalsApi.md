@@ -5,21 +5,25 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1RequestProposalsCustomByRequestIdGuidGet**](RequestProposalsApi.md#apiV1RequestProposalsCustomByRequestIdGuidGet) | **GET** /api/v1/request-proposals/custom/by_request_id/{guid} | Получить список предложений по guid заявки.
-[**apiV1RequestProposalsCustomGuidEditPatch**](RequestProposalsApi.md#apiV1RequestProposalsCustomGuidEditPatch) | **PATCH** /api/v1/request-proposals/custom/{guid}/edit | #  Редактировать предложение.
+[**apiV1RequestProposalsCustomGuidEditPatch**](RequestProposalsApi.md#apiV1RequestProposalsCustomGuidEditPatch) | **PATCH** /api/v1/request-proposals/custom/{guid}/edit | #  Редактировать результат работы.
 [**apiV1RequestProposalsCustomGuidGet**](RequestProposalsApi.md#apiV1RequestProposalsCustomGuidGet) | **GET** /api/v1/request-proposals/custom/{guid} | Получить предложение по его id.
 [**apiV1RequestProposalsGet**](RequestProposalsApi.md#apiV1RequestProposalsGet) | **GET** /api/v1/request-proposals/ | Получить все предложения для супервизора.
-[**apiV1RequestProposalsGuidAcceptPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidAcceptPatch) | **PATCH** /api/v1/request-proposals/{guid}/accept | #  Принять предложение.
-[**apiV1RequestProposalsGuidCancelPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidCancelPatch) | **PATCH** /api/v1/request-proposals/{guid}/cancel | # Отмена предложения, в зависимости от того кто вызвал ставится статус.
-[**apiV1RequestProposalsGuidCorrectPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidCorrectPatch) | **PATCH** /api/v1/request-proposals/{guid}/correct | # Отправить на доработку.
-[**apiV1RequestProposalsGuidCorrectedPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidCorrectedPatch) | **PATCH** /api/v1/request-proposals/{guid}/corrected | #  Отправить обратно на утверждение, после доработки.
+[**apiV1RequestProposalsGuidCancelPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidCancelPatch) | **PATCH** /api/v1/request-proposals/{guid}/cancel | # Отмена предложения после заключения сделки, в зависимости от того кто вызвал ставится статус.
 [**apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch) | **PATCH** /api/v1/request-proposals/{guid}/link_or_unlink_supervisor | #  Привязать или \&quot;отвязать\&quot; супервайзера от предложения.
+[**apiV1RequestProposalsGuidProposalAcceptPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidProposalAcceptPatch) | **PATCH** /api/v1/request-proposals/{guid}/proposal_accept | #  Принять предложение.
+[**apiV1RequestProposalsGuidProposalCorrectedPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidProposalCorrectedPatch) | **PATCH** /api/v1/request-proposals/{guid}/proposal_corrected | # Отправить предложение обратно, после доработки.
+[**apiV1RequestProposalsGuidProposalEditPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidProposalEditPatch) | **PATCH** /api/v1/request-proposals/{guid}/proposal_edit | #  Редактировать предложение.
+[**apiV1RequestProposalsGuidProposalRejectPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidProposalRejectPatch) | **PATCH** /api/v1/request-proposals/{guid}/proposal_reject | # Отказаться от предложения.
 [**apiV1RequestProposalsGuidReadyToVerifyPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidReadyToVerifyPatch) | **PATCH** /api/v1/request-proposals/{guid}/ready_to_verify | #  Отправить предложение на утверждение.
+[**apiV1RequestProposalsGuidResultAcceptPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidResultAcceptPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_accept | #  Принять результаты работы.
+[**apiV1RequestProposalsGuidResultCorrectedPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidResultCorrectedPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_corrected | #  Отправить обратно на утверждение, после доработки.
+[**apiV1RequestProposalsGuidResultToCorrectPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidResultToCorrectPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_to_correct | # Отправить на доработку результат работы.
 
 
 
 ## apiV1RequestProposalsCustomByRequestIdGuidGet
 
-> [InlineResponse20016] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
+> [InlineResponse20017] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
 
 Получить список предложений по guid заявки.
 
@@ -59,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20016]**](InlineResponse20016.md)
+[**[InlineResponse20017]**](InlineResponse20017.md)
 
 ### Authorization
 
@@ -75,9 +79,9 @@ Name | Type | Description  | Notes
 
 > String apiV1RequestProposalsCustomGuidEditPatch(guid, opts)
 
-#  Редактировать предложение.
+#  Редактировать результат работы.
 
-## Редактировать предложение   Если были статусы EMPTY или CREATED ставиться статус CREATED Если был статус TO_CORRECT, то статус не меняется Проверки: Только предложения со статусом EMPTY, CREATED и TO_CORRECT могут быть отредактированы.
+## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
 
 ### Example
 
@@ -94,7 +98,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = "guid_example"; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject49() // InlineObject49 | 
+  'body': new TestSwagger.InlineObject53() // InlineObject53 | 
 };
 apiInstance.apiV1RequestProposalsCustomGuidEditPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -111,7 +115,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject49**](InlineObject49.md)|  | [optional] 
+ **body** | [**InlineObject53**](InlineObject53.md)|  | [optional] 
 
 ### Return type
 
@@ -239,13 +243,125 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1RequestProposalsGuidAcceptPatch
+## apiV1RequestProposalsGuidCancelPatch
 
-> String apiV1RequestProposalsGuidAcceptPatch(guid, opts)
+> String apiV1RequestProposalsGuidCancelPatch(guid, opts)
+
+# Отмена предложения после заключения сделки, в зависимости от того кто вызвал ставится статус.
+
+## Отмена предложения после заключения сделки  Вызывает возврат замороженных средств.  ## Если вызвал исполнитель(фрилансер), стутус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY TO_CORRECT CORRECTED Является ли вызвавший данный метод владельцем предложения. ## Если вызвал клиент, статус меняется на CANCELED_BY_CREATOR Проверки: Только  предложения со статусами:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод владельцем заявки к торой относится данное предложение. ## Если вызвал супервайзер, статус меняется на CANCELED_BY_SUPERVISOR Проверки: Только  предложения со статусами:  VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.RequestProposalsApi();
+let guid = "guid_example"; // String | GUID в сущности в БД
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject37() // InlineObject37 | 
+};
+apiInstance.apiV1RequestProposalsGuidCancelPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID в сущности в БД | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject37**](InlineObject37.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch
+
+> String apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid, opts)
+
+#  Привязать или \&quot;отвязать\&quot; супервайзера от предложения.
+
+## Привязать  супервайзра к предложению. Статус меняется на VERIFYING_BY_SUPERVISOR В поле supervisorId вписывается id супервайзера. Устанавливается время за которое супервайзер должен принять решение. Пос истечения времени супервайзер снимается.  Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Только со статусами предложений:   VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ## Это нужно чтобы рассчитать остаток средств при закрытии заявки. Супервайзер не может отвязать от себя предложение если он не связан.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.RequestProposalsApi();
+let guid = "guid_example"; // String | GUID в БД
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject38() // InlineObject38 | 
+};
+apiInstance.apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID в БД | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject38**](InlineObject38.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1RequestProposalsGuidProposalAcceptPatch
+
+> String apiV1RequestProposalsGuidProposalAcceptPatch(guid, opts)
 
 #  Принять предложение.
 
-## Принять предложение.   Произвести оплаты Если клиент принял предложение, то статус меняется на ACCEPTED_BY_CLIENT, Если супервайзер принял предложение, то статус меняется на ACCEPTED_BY_SUPERVISOR Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+## Принять предложение.   При вызове данного метода клиент подтверждает согласие на заключение договора Если клиент принял предложение, то статус меняется на OFFER_CONDITIONS_ACCEPTEDУ фрилансеру дается время которое было оговорено. У клиента замораживаются средства. Проверки: Только владелец заявки может принять предложение Принимаются предложения только со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
 
 ### Example
 
@@ -264,7 +380,7 @@ let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': null // Object | 
 };
-apiInstance.apiV1RequestProposalsGuidAcceptPatch(guid, opts).then((data) => {
+apiInstance.apiV1RequestProposalsGuidProposalAcceptPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -295,13 +411,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1RequestProposalsGuidCancelPatch
+## apiV1RequestProposalsGuidProposalCorrectedPatch
 
-> String apiV1RequestProposalsGuidCancelPatch(guid, opts)
+> String apiV1RequestProposalsGuidProposalCorrectedPatch(guid, opts)
 
-# Отмена предложения, в зависимости от того кто вызвал ставится статус.
+# Отправить предложение обратно, после доработки.
 
-## Отмена предложение по его GUID  ## Если вызвал исполнитель(фрилансер), стутус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  EMPTY, CREATED, READY_TO_VERIFY Является ли вызвавший данный метод владельцем предложения. ## Если вызвал клиент, статус меняется на CANCELED_BY_CLIENT Проверки: Только  предложения со статусами:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод владельцем заявки к торой относится данное предложение. ## Если вызвал супервайзер, статус меняется на CANCELED_BY_SUPERVISOR Проверки: Только  предложения со статусами:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED 
 
 ### Example
 
@@ -315,12 +431,12 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.RequestProposalsApi();
-let guid = "guid_example"; // String | GUID в сущности в БД
+let guid = "guid_example"; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject34() // InlineObject34 | 
 };
-apiInstance.apiV1RequestProposalsGuidCancelPatch(guid, opts).then((data) => {
+apiInstance.apiV1RequestProposalsGuidProposalCorrectedPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -333,7 +449,7 @@ apiInstance.apiV1RequestProposalsGuidCancelPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID в сущности в БД | 
+ **guid** | **String**| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject34**](InlineObject34.md)|  | [optional] 
 
@@ -351,69 +467,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1RequestProposalsGuidCorrectPatch
+## apiV1RequestProposalsGuidProposalEditPatch
 
-> String apiV1RequestProposalsGuidCorrectPatch(guid, opts)
+> String apiV1RequestProposalsGuidProposalEditPatch(guid, opts)
 
-# Отправить на доработку.
+#  Редактировать предложение.
 
-## Отправить на доработку.  Ставиться статус TO_CORRECT Нужно написать в комментарии причину. Можно выставить время на доработку, в минутах. по умолчанию 120 мин. Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.RequestProposalsApi();
-let guid = "guid_example"; // String | GUID в сущности в БД
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject32() // InlineObject32 | 
-};
-apiInstance.apiV1RequestProposalsGuidCorrectPatch(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID в сущности в БД | 
- **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject32**](InlineObject32.md)|  | [optional] 
-
-### Return type
-
-**String**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## apiV1RequestProposalsGuidCorrectedPatch
-
-> String apiV1RequestProposalsGuidCorrectedPatch(guid, opts)
-
-#  Отправить обратно на утверждение, после доработки.
-
-##  Отправить обратно на утверждение, после доработки.  Статус CORRECTED ставится автоматом В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Фрилансер может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом TO_CORRECT. 
+## Редактировать предложение   Поведение данного метода делится на до заключения договора, и после заключения договораПроверки: Только предложения доступные Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
 
 ### Example
 
@@ -432,7 +492,7 @@ let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject33() // InlineObject33 | 
 };
-apiInstance.apiV1RequestProposalsGuidCorrectedPatch(guid, opts).then((data) => {
+apiInstance.apiV1RequestProposalsGuidProposalEditPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -463,13 +523,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch
+## apiV1RequestProposalsGuidProposalRejectPatch
 
-> String apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid, opts)
+> String apiV1RequestProposalsGuidProposalRejectPatch(guid, opts)
 
-#  Привязать или \&quot;отвязать\&quot; супервайзера от предложения.
+# Отказаться от предложения.
 
-## Привязать  супервайзра за предложением. Статус меняется на VERIFYING_BY_SUPERVISOR В поле supervisorId вписывается id супервайзера. Устанавливается время за которое супервайзер должен принять решение. Пос истечения времени супервайзер снимается.Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Только со статусами предложений:   VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED ## Это нужно чтобы рассчитать остаток средств при закрытии заявки. Супервайзер не может отвязать от себя предложение если он не связан.
+## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. 
 
 ### Example
 
@@ -483,12 +543,12 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.RequestProposalsApi();
-let guid = "guid_example"; // String | GUID в БД
+let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject35() // InlineObject35 | 
+  'body': new TestSwagger.InlineObject32() // InlineObject32 | 
 };
-apiInstance.apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid, opts).then((data) => {
+apiInstance.apiV1RequestProposalsGuidProposalRejectPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -501,9 +561,9 @@ apiInstance.apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid, opts).the
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID в БД | 
+ **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject35**](InlineObject35.md)|  | [optional] 
+ **body** | [**InlineObject32**](InlineObject32.md)|  | [optional] 
 
 ### Return type
 
@@ -525,7 +585,7 @@ Name | Type | Description  | Notes
 
 #  Отправить предложение на утверждение.
 
-##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервизором, то время не устанавливается. Проверки: Только предложения со статусом CREATED. 
+##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервизором, то время не устанавливается. Проверки: Только предложения со статусом:  OFFER_CONDITIONS_ACCEPTED
 
 ### Example
 
@@ -560,6 +620,174 @@ Name | Type | Description  | Notes
  **guid** | **String**| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | **Object**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1RequestProposalsGuidResultAcceptPatch
+
+> String apiV1RequestProposalsGuidResultAcceptPatch(guid, opts)
+
+#  Принять результаты работы.
+
+## Принять результаты работы.   Произвести оплаты Если клиент принял предложение, то статус меняется на ACCEPTED_BY_CLIENT, Если супервайзер принял предложение, то статус меняется на ACCEPTED_BY_SUPERVISOR Проверки: Если вызвал СОЗДАТЕЛЬ ЗАЯВКИ принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED, READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.RequestProposalsApi();
+let guid = "guid_example"; // String | GUID в БД
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': null // Object | 
+};
+apiInstance.apiV1RequestProposalsGuidResultAcceptPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID в БД | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | **Object**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1RequestProposalsGuidResultCorrectedPatch
+
+> String apiV1RequestProposalsGuidResultCorrectedPatch(guid, opts)
+
+#  Отправить обратно на утверждение, после доработки.
+
+##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.RequestProposalsApi();
+let guid = "guid_example"; // String | GUID в БД
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject36() // InlineObject36 | 
+};
+apiInstance.apiV1RequestProposalsGuidResultCorrectedPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID в БД | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject36**](InlineObject36.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1RequestProposalsGuidResultToCorrectPatch
+
+> String apiV1RequestProposalsGuidResultToCorrectPatch(guid, opts)
+
+# Отправить на доработку результат работы.
+
+## Отправить на доработку результат работы.  Ставиться статус TO_CORRECT Нужно написать в комментарии причину. Можно выставить время на доработку, в минутах. по умолчанию 120 мин. Проверки: Если вызвал СОЗДАТЕЛЬ ЗАЯВКИ принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.RequestProposalsApi();
+let guid = "guid_example"; // String | GUID в сущности в БД
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject35() // InlineObject35 | 
+};
+apiInstance.apiV1RequestProposalsGuidResultToCorrectPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID в сущности в БД | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject35**](InlineObject35.md)|  | [optional] 
 
 ### Return type
 

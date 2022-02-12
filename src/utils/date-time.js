@@ -5,6 +5,8 @@ export const formatDateForBackend = dateString => format(parseISO(dateString), '
 
 export const formatDateForBackendWithoutParseISO = dateString => format(dateString, 'yyyy-MM-dd')
 
+export const formatDateForShowWithoutParseISO = dateString => format(dateString, 'dd-MM-yyyy HH:mm')
+
 export const formatDateTime = dateString => format(parseISO(dateString), 'MM-dd-yyyy HH:mm')
 export const formatNormDateTime = dateString => {
   if (dateString) {

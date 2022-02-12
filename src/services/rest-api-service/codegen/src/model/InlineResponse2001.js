@@ -108,6 +108,9 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('totalPriceChanged')) {
                 obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
+            if (data.hasOwnProperty('paidAt')) {
+                obj['paidAt'] = ApiClient.convertToType(data['paidAt'], 'String');
+            }
             if (data.hasOwnProperty('yuanToDollarRate')) {
                 obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
@@ -231,6 +234,11 @@ InlineResponse2001.prototype['totalPrice'] = undefined;
  * @member {Number} totalPriceChanged
  */
 InlineResponse2001.prototype['totalPriceChanged'] = undefined;
+
+/**
+ * @member {String} paidAt
+ */
+InlineResponse2001.prototype['paidAt'] = undefined;
 
 /**
  * Курс юань доллар.

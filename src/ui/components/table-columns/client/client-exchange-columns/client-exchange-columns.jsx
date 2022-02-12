@@ -3,6 +3,7 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
+  NormDateCell,
   renderFieldValueCell,
   SmallRowImageCell,
   SuccessActionBtnCell,
@@ -20,10 +21,26 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'image',
     headerName: textConsts.imageField,
-    width: 100,
+    width: 80,
     renderCell: params => <SmallRowImageCell images={params.row.images} />,
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'createdAt',
+    headerName: textConsts.createDateField,
+    renderCell: params => <NormDateCell params={params} />,
+    minWidth: 110,
+    type: 'date',
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: textConsts.updateDateField,
+    renderCell: params => <NormDateCell params={params} />,
+    minWidth: 110,
+    type: 'date',
   },
 
   {
@@ -44,7 +61,7 @@ export const clientExchangeViewColumns = handlers => [
     field: 'amazon',
     headerName: textConsts.priceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
-    width: 130,
+    width: 120,
     type: 'number',
   },
 
@@ -52,7 +69,7 @@ export const clientExchangeViewColumns = handlers => [
     field: 'weight',
     headerName: textConsts.weightField,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-    width: 130,
+    width: 80,
     type: 'number',
   },
 
@@ -60,7 +77,7 @@ export const clientExchangeViewColumns = handlers => [
     field: 'bsr',
     headerName: textConsts.bsrField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 130,
+    width: 60,
     type: 'number',
   },
 
@@ -68,7 +85,7 @@ export const clientExchangeViewColumns = handlers => [
     field: 'fbaamount',
     headerName: textConsts.fbaamountField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 130,
+    width: 90,
     type: 'number',
   },
 
@@ -76,20 +93,20 @@ export const clientExchangeViewColumns = handlers => [
     field: 'researcherName',
     headerName: textConsts.researcherField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 200,
+    width: 170,
   },
 
   {
     field: 'buyerName',
     headerName: textConsts.buyerField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 200,
+    width: 170,
   },
 
   {
     field: 'action',
     headerName: textConsts.actionField,
-    width: 250,
+    width: 190,
     renderCell: params => (
       <SuccessActionBtnCell
         bTnText={`${textConsts.byForBtn} ${toFixedWithDollarSign(calcProductPrice(params.row.originalData), 2)}`}

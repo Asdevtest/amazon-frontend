@@ -20,4 +20,8 @@ export const styles = createStyles(() => ({
   button: {
     marginRight: '10px',
   },
+
+  detailsWrapper: {
+    marginTop: '20px',
+  },
 }))

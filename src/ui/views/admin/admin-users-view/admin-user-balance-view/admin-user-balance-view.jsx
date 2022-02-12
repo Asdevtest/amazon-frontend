@@ -113,7 +113,6 @@ class AdminUserBalanceViewRaw extends Component {
                 <DataGrid
                   pagination
                   useResizeContainer
-                  autoHeight
                   getRowClassName={getRowClassName}
                   sortModel={sortModel}
                   filterModel={filterModel}

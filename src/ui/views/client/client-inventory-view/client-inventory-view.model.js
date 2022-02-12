@@ -60,6 +60,7 @@ export class ClientInventoryViewModel {
 
   successModalText = ''
   confirmMessage = ''
+  showInfoModalTitle = ''
   priceForSeekSupplier = 0
 
   barCodeHandlers = {
@@ -255,6 +256,9 @@ export class ClientInventoryViewModel {
       await this.updateUserInfo()
     } catch (error) {
       console.log(error)
+
+      this.showInfoModalTitle = `${textConsts.infoNoMakeOrder} "${error.body.message}"`
+      this.onTriggerOpenModal('showInfoModal')
       this.error = error
     }
   }
@@ -410,6 +414,7 @@ export class ClientInventoryViewModel {
       this.successModalText = textConsts.successBindTitle
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
+      this.showInfoModalTitle = textConsts.infoModalTitle
       this.onTriggerOpenModal('showInfoModal')
 
       console.log(error)

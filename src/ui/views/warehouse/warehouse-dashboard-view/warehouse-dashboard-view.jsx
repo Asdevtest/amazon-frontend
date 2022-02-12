@@ -1,18 +1,16 @@
 import React, {Component} from 'react'
 
-import {Grid, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {getWarehouseDashboardCardConfig, WarehouseDashboardCardDataKey} from '@constants/dashboard-configs'
+import {getWarehouseDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
-import {DashboardInfoCard} from '@components/dashboards/dashboard-info-card'
+import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -35,8 +33,7 @@ export class WarehouseDashboardViewRaw extends Component {
   }
 
   render() {
-    const {balance, drawerOpen, onChangeTriggerDrawerOpen} = this.viewModel
-    const {classes: classNames} = this.props
+    const {dashboardData, balance, drawerOpen, onChangeTriggerDrawerOpen, onClickInfoCardViewMode} = this.viewModel
 
     return (
       <React.Fragment>
@@ -57,51 +54,17 @@ export class WarehouseDashboardViewRaw extends Component {
           >
             <MainContent>
               <DashboardBalance balance={balance} />
-              <Typography variant="h6">{textConsts.mainTitle}</Typography>
-              <Grid container className={classNames.dashboardCardWrapper} justify="center" spacing={3}>
-                {this.renderDashboardCards()}
-              </Grid>
+
+              <SectionalDashboard
+                config={dashboardCardConfig}
+                valuesData={dashboardData}
+                onClickViewMore={onClickInfoCardViewMode}
+              />
             </MainContent>
           </Appbar>
         </Main>
       </React.Fragment>
     )
-  }
-
-  renderDashboardCards = () =>
-    dashboardCardConfig.map(item => (
-      <Grid key={`dashboardCard_${item.dataKey}`} item xs={6} lg={4}>
-        <DashboardInfoCard
-          value={this.getCardValueByDataKey(item.dataKey)}
-          title={item.title}
-          color={item.color}
-          route={item.route || false}
-          onClickViewMore={this.viewModel.onClickInfoCardViewMode}
-        />
-      </Grid>
-    ))
-
-  getCardValueByDataKey = dataKey => {
-    const {tasksVacant, tasksMy, batches, boxesMy} = this.viewModel
-    switch (dataKey) {
-      case WarehouseDashboardCardDataKey.VACANT_TASKS:
-        return tasksVacant.filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.NEW]).length
-
-      case WarehouseDashboardCardDataKey.TASKS_MY:
-        return tasksMy.filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS]).length
-
-      case WarehouseDashboardCardDataKey.COMPLETED_TASKS:
-        return tasksMy.filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.SOLVED]).length
-
-      case WarehouseDashboardCardDataKey.BOXES_IN_STORE:
-        return boxesMy.length
-
-      case WarehouseDashboardCardDataKey.SENT_BATCHES:
-        return batches.filter(batch => batch.boxes[0].sendToBatchComplete).length
-
-      case WarehouseDashboardCardDataKey.NOT_SENT_BATCHES:
-        return batches.filter(batch => !batch.boxes[0].sendToBatchComplete).length
-    }
   }
 }
 

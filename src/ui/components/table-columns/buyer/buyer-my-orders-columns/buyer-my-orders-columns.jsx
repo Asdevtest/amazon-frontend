@@ -23,6 +23,14 @@ export const buyerMyOrdersViewColumns = () => [
   },
 
   {
+    field: 'updatedAt',
+    headerName: textConsts.updatedAtField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 100,
+    type: 'date',
+  },
+
+  {
     field: 'status',
     headerName: textConsts.statusField,
     width: 200,
@@ -39,14 +47,6 @@ export const buyerMyOrdersViewColumns = () => [
   },
 
   {field: 'amount', headerName: textConsts.amountField, type: 'number', width: 130},
-
-  {
-    field: 'updatedAt',
-    headerName: textConsts.updatedAtField,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 100,
-    type: 'date',
-  },
 
   {
     field: 'barCode',

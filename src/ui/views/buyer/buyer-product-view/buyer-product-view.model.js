@@ -24,7 +24,6 @@ import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '
 const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
 
 const fieldsOfProductAllowedToUpdate = [
-  'amazon',
   'reffee',
   'fbalink',
   'fbafee',
@@ -39,7 +38,6 @@ const fieldsOfProductAllowedToUpdate = [
 ]
 
 const fieldsOfProductAllowedToForceUpdate = [
-  'amazon',
   'reffee',
   'fbalink',
   'fbafee',
@@ -268,16 +266,20 @@ export class BuyerProductViewModel {
 
       if (
         (this.curUpdateProductData.currentSupplierId &&
-          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT]) ||
+          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
+          !this.product.isCreatedByClient) ||
         (this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER] &&
           this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
-          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) ||
+          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] &&
+          !this.product.isCreatedByClient) ||
         (this.curUpdateProductData.currentSupplierId &&
-          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]) ||
+          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] &&
+          this.product.isCreatedByClient) ||
         (this.curUpdateProductData.status ===
           ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER] &&
           this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] &&
-          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH])
+          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH] &&
+          this.product.isCreatedByClient)
       ) {
         runInAction(() => {
           this.confirmModalSettings = {
@@ -292,10 +294,10 @@ export class BuyerProductViewModel {
         runInAction(() => {
           this.warningModalTitle =
             this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] ||
-            this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]
-              ? // this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] ||
-                // this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH]
-                warningModalTitleVariants.CHOOSE_STATUS
+            this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] ||
+            this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] ||
+            this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH]
+              ? warningModalTitleVariants.CHOOSE_STATUS
               : warningModalTitleVariants.NO_SUPPLIER
           this.onTriggerOpenModal('showWarningModal')
         })
