@@ -81,37 +81,34 @@ class ClientBatchesViewRaw extends Component {
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>
-              <div className={className.tableWrapper}>
-                <DataGrid
-                  pagination
-                  useResizeContainer
-                  autoHeight
-                  classes={{
-                    row: className.row,
-                  }}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  rowHeight={200}
-                  components={{
-                    Toolbar: GridToolbar,
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection)
-                  }}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                />
-              </div>
+              <DataGrid
+                pagination
+                useResizeContainer
+                classes={{
+                  row: className.row,
+                }}
+                sortModel={sortModel}
+                filterModel={filterModel}
+                page={curPage}
+                pageSize={rowsPerPage}
+                rowsPerPageOptions={[15, 25, 50, 100]}
+                rows={getCurrentData()}
+                rowHeight={200}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
+                density={densityModel}
+                columns={columnsModel}
+                loading={requestStatus === loadingStatuses.isLoading}
+                onSelectionModelChange={newSelection => {
+                  onSelectionModel(newSelection)
+                }}
+                onSortModelChange={onChangeSortingModel}
+                onPageSizeChange={onChangeRowsPerPage}
+                onPageChange={onChangeCurPage}
+                onStateChange={setDataGridState}
+                onFilterModelChange={model => onChangeFilterModel(model)}
+              />
             </MainContent>
           </Appbar>
         </Main>

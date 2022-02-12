@@ -30,12 +30,7 @@ export class ResearcherRequestDetailNicheView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          curUserRole={UserRole.RESEARCHER}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-          // user={textConsts.appUser}
-        />
+        <Navbar curUserRole={UserRole.RESEARCHER} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}

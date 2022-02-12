@@ -58,16 +58,6 @@ class RequestModelStatic {
     return response
   }
 
-  getRequests = async (type, subType) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGet(type, {kind: subType})
-    return response
-  }
-
-  getCustomRequestById = async id => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidGet(id)
-    return response
-  }
-
   getRequestProposalsCustomByRequestId = async requestId => {
     const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidProposalsGet(requestId)
     return response
@@ -96,6 +86,24 @@ class RequestModelStatic {
     const response = await restApiService.SearchRequestApi.apiV1RequestsGuidCompletePost(requestId, {
       body: {requestProposalIds},
     })
+    return response
+  }
+
+  // НОВЫЕ -------------------------------------------------------------- 11.02.2022
+  createRequest = async data => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomPost({
+      body: data,
+    })
+    return response
+  }
+
+  getRequests = async (type, subType) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGet(type, subType)
+    return response
+  }
+
+  getCustomRequestById = async id => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidGet(id)
     return response
   }
 }

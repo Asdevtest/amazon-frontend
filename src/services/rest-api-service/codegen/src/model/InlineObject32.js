@@ -53,9 +53,6 @@ class InlineObject32 {
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
-            if (data.hasOwnProperty('timeLimitInMinutes')) {
-                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
-            }
         }
         return obj;
     }
@@ -74,11 +71,6 @@ InlineObject32.prototype['reason'] = undefined;
  * @member {Array.<String>} linksToMediaFiles
  */
 InlineObject32.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * @member {Number} timeLimitInMinutes
- */
-InlineObject32.prototype['timeLimitInMinutes'] = undefined;
 
 
 

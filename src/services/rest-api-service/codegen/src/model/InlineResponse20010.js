@@ -62,6 +62,15 @@ class InlineResponse20010 {
             if (data.hasOwnProperty('timeoutAt')) {
                 obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
             }
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
+            }
+            if (data.hasOwnProperty('attempts')) {
+                obj['attempts'] = ApiClient.convertToType(data['attempts'], 'Number');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
             if (data.hasOwnProperty('clientId')) {
                 obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
             }
@@ -106,7 +115,7 @@ InlineResponse20010.prototype['requestId'] = undefined;
 InlineResponse20010.prototype['type'] = undefined;
 
 /**
- * Статус предложения предложения.
+ *  CREATED - предложение по заявке создано, с ценой и временем выполнения от исполнителя OFFER_CONDITIONS_ACCEPTED - условия предложения были приняты клиентом, после этого начиначется отсчет времени на выполнение заявки, с этого статуса можно перейти только на READY_TO_VERIFY, с этого момента начинаем учитывать этого исполнителя в счетчике людей работающих по заявке OFFER_CONDITIONS_REJECTED - условия предложения были отклонены клиентом. После изменения условий клиентом выставляется статус OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_CORRECTED - исполнитель отредактировал свои условия по предложению чтобы клиент опять их посмотрел и решил принимает или нет, после этого статуса можно опять перейти на OFFER_CONDITIONS_ACCEPTED или OFFER_CONDITIONS_REJECTED READY_TO_VERIFY - статус выставляет исполнитель, статус говорит о том что исполнитель выполнил работу и клиент/супервизор может ее проверять, после этого статуса можно выставить VERIFYING_BY_SUPERVISOR или TO_CORRECT, а так же закрывающие статусы VERIFYING_BY_SUPERVISOR - работа проверяется супервизором TO_CORRECT - отправляется на доработку от клиента/супервизора CORRECTED - исполнитель отмечает работу как исправленная CANCELED_BY_CREATOR - предложение закрывается клиентом, обязательно с комментарием, финальный статус, может быть выставлено только при статусе OFFER_CONDITIONS_REJECTED. Думаю что тут будет еще условия но нужно это обсудить. Этот статус не очень безопасный или может привести к перегрузу админа для решения конфликтных ситуаций CANCELED_BY_SUPERVISOR - предложение закрывается супервизором, обязательно с комментарием, финальный статус, может быть выставлен в любой момент. Тут должна появиться возможность создать запрос в поддержку для решения конфликтных ситуаций, это позже обсудим. CANCELED_BY_EXECUTOR - закрыто исполнителем, обязательно с комментарием, финальный статус, может быть выставлен в любой момент ACCEPTED_BY_CREATOR - принято клиентом, происходи оплата ACCEPTED_BY_SUPERVISOR - принято супервизором, происходи оплата EXPIRED - проставляется автоматически, если время указанное в предложении от исполнителя истекло а предложение не было уже в одном из финальных статусов 
  * @member {module:model/InlineResponse20010.StatusEnum} status
  */
 InlineResponse20010.prototype['status'] = undefined;
@@ -116,6 +125,24 @@ InlineResponse20010.prototype['status'] = undefined;
  * @member {Date} timeoutAt
  */
 InlineResponse20010.prototype['timeoutAt'] = undefined;
+
+/**
+ * Время на выполнение, в часах.
+ * @member {Number} execution_time
+ */
+InlineResponse20010.prototype['execution_time'] = undefined;
+
+/**
+ * Количество попыток, подать предложение или исправить результат работы.
+ * @member {Number} attempts
+ */
+InlineResponse20010.prototype['attempts'] = undefined;
+
+/**
+ * Цена предложения.
+ * @member {Number} price
+ */
+InlineResponse20010.prototype['price'] = undefined;
 
 /**
  * GUID клиента .
@@ -165,22 +192,34 @@ InlineResponse20010.prototype['updatedAt'] = undefined;
 InlineResponse20010['StatusEnum'] = {
 
     /**
-     * value: "EMPTY"
-     * @const
-     */
-    "EMPTY": "EMPTY",
-
-    /**
      * value: "CREATED"
      * @const
      */
     "CREATED": "CREATED",
 
     /**
+     * value: "OFFER_CONDITIONS_ACCEPTED"
+     * @const
+     */
+    "OFFER_CONDITIONS_ACCEPTED": "OFFER_CONDITIONS_ACCEPTED",
+
+    /**
      * value: "READY_TO_VERIFY"
      * @const
      */
     "READY_TO_VERIFY": "READY_TO_VERIFY",
+
+    /**
+     * value: "OFFER_CONDITIONS_REJECTED"
+     * @const
+     */
+    "OFFER_CONDITIONS_REJECTED": "OFFER_CONDITIONS_REJECTED",
+
+    /**
+     * value: "OFFER_CONDITIONS_CORRECTED"
+     * @const
+     */
+    "OFFER_CONDITIONS_CORRECTED": "OFFER_CONDITIONS_CORRECTED",
 
     /**
      * value: "VERIFYING_BY_SUPERVISOR"
@@ -201,10 +240,10 @@ InlineResponse20010['StatusEnum'] = {
     "CORRECTED": "CORRECTED",
 
     /**
-     * value: "CANCELED_BY_CLIENT"
+     * value: "CANCELED_BY_CREATOR"
      * @const
      */
-    "CANCELED_BY_CLIENT": "CANCELED_BY_CLIENT",
+    "CANCELED_BY_CREATOR": "CANCELED_BY_CREATOR",
 
     /**
      * value: "CANCELED_BY_SUPERVISOR"
@@ -219,10 +258,10 @@ InlineResponse20010['StatusEnum'] = {
     "CANCELED_BY_EXECUTOR": "CANCELED_BY_EXECUTOR",
 
     /**
-     * value: "ACCEPTED_BY_CLIENT"
+     * value: "ACCEPTED_BY_CREATOR"
      * @const
      */
-    "ACCEPTED_BY_CLIENT": "ACCEPTED_BY_CLIENT",
+    "ACCEPTED_BY_CREATOR": "ACCEPTED_BY_CREATOR",
 
     /**
      * value: "ACCEPTED_BY_SUPERVISOR"

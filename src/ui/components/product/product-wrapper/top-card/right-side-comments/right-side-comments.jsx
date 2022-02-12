@@ -139,7 +139,7 @@ export const RightSideComments = observer(
                 variant="contained"
                 onClick={() => handleProductActionButtons('accept', false)}
               >
-                {textConsts.buttonAccept}
+                {checkIsClient(curUserRole) ? textConsts.buttonSave : textConsts.buttonAccept}
               </Button>
               <ErrorButton
                 className={clsx(classNames.buttonNormal, {
@@ -148,7 +148,7 @@ export const RightSideComments = observer(
                 variant="contained"
                 onClick={() => handleProductActionButtons('cancel')}
               >
-                {textConsts.buttonCancel}
+                {checkIsClient(curUserRole) ? textConsts.buttonClose : textConsts.buttonCancel}
               </ErrorButton>
 
               {checkIsResearcher(curUserRole) ? (

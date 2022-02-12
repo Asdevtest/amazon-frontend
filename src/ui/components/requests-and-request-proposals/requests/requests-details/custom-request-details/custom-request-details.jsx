@@ -1,6 +1,11 @@
-import React from 'react'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import Accordion from '@mui/material/Accordion'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
 
-import {Paper, TextareaAutosize} from '@material-ui/core'
+import React, {useState} from 'react'
+
+import {TextareaAutosize, Paper, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
@@ -15,27 +20,36 @@ const textConsts = getLocalizedTexts(texts, 'en').productSearchRequestContent
 export const CustomSearchRequestDetails = ({request}) => {
   const classNames = useClassNames()
 
-  return (
-    <Paper>
-      <div className={classNames.root}>
-        <div className={classNames.requestDataWrapper}>
-          <Field
-            multiline
-            disabled
-            className={classNames.nameField}
-            label={textConsts.nameRequest}
-            value={request.name}
-          />
+  const [showDetails, setShowDetails] = useState(true)
 
-          <Field
-            multiline
-            label={textConsts.conditionsRequest}
-            inputComponent={
-              <TextareaAutosize disabled className={classNames.conditionsField} value={request.conditions} />
-            }
-          />
-        </div>
-      </div>
+  return (
+    <Paper className={classNames.root}>
+      <Accordion
+        classes={{root: classNames.accordion}}
+        expanded={showDetails}
+        onChange={() => setShowDetails(!showDetails)}
+      >
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography className={classNames.title}>{'Подробное описание заявки'}</Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <div className={classNames.mainWrapper}>
+            <Field
+              multiline
+              label={textConsts.conditionsRequest}
+              containerClasses={classNames.conditionsFieldWrapper}
+              inputComponent={
+                <TextareaAutosize
+                  disabled
+                  className={classNames.conditionsField}
+                  value={request?.details?.conditions}
+                />
+              }
+            />
+          </div>
+        </AccordionDetails>
+      </Accordion>
     </Paper>
   )
 }

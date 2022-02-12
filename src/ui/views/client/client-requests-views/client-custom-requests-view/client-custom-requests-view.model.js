@@ -7,9 +7,9 @@ import {RequestSubType, RequestType} from '@constants/request-type'
 import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 
-import {clientCustomSearchRequestsViewColumns} from '@components/table-columns/client/client-custom-search-requests-columns/client-custom-search-requests-columns'
+import {clientMyRequestsViewColumns} from '@components/table-columns/client/client-my-requests-columns/client-my-requests-columns'
 
-import {clientCustomRequestsDataConverter} from '@utils/data-grid-data-converters'
+import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 
 export class ClientСustomRequestsViewModel {
@@ -33,17 +33,12 @@ export class ClientСustomRequestsViewModel {
     onSubmit: data => this.onSubmitCreateCustomSearchRequest(data),
   }
 
-  rowHandlers = {
-    onClickRemoveBtn: row => this.onClickRemoveBtn(row),
-    onClickEditBtn: row => this.onClickEditBtn(row),
-  }
-
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientCustomSearchRequestsViewColumns(this.rowHandlers)
+  columnsModel = clientMyRequestsViewColumns(this.rowHandlers)
 
   constructor({history}) {
     this.history = history
@@ -68,7 +63,7 @@ export class ClientСustomRequestsViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = clientCustomSearchRequestsViewColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = clientMyRequestsViewColumns(this.rowHandlers).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -109,12 +104,7 @@ export class ClientСustomRequestsViewModel {
   }
 
   onClickAddBtn() {
-    this.requestFormSettings = {
-      request: {},
-      isEdit: false,
-      onSubmit: data => this.onSubmitCreateCustomSearchRequest(data),
-    }
-    this.onTriggerOpenModal('showRequestForm')
+    this.history.push('/client/create-request')
   }
 
   onClickEditBtn(row) {
@@ -192,7 +182,9 @@ export class ClientСustomRequestsViewModel {
       const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY)
 
       runInAction(() => {
-        this.searchRequests = clientCustomRequestsDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
+        // this.searchRequests = clientCustomRequestsDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
+
+        this.searchRequests = addIdDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
       })
     } catch (error) {
       console.log(error)
@@ -212,7 +204,7 @@ export class ClientСustomRequestsViewModel {
   }
 
   onClickTableRow(item) {
-    this.history.push('/client/custom-search-request', {request: toJS(item.originalData)})
+    this.history.push('/client/custom-search-request', {request: toJS(item)})
   }
 
   onTriggerDrawer() {

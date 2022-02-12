@@ -80,36 +80,33 @@ export class WarehouseCanceledTasksViewRaw extends Component {
             curUserRole={UserRole.STOREKEEPER}
           >
             <MainContent>
-              <div className={classNames.tableWrapper}>
-                <DataGrid
-                  pagination
-                  useResizeContainer
-                  autoHeight
-                  classes={{
-                    row: classNames.row,
-                  }}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  rowHeight={200}
-                  components={{
-                    Toolbar: GridToolbar,
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection[0])
-                  }}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                />
-              </div>
+              <DataGrid
+                pagination
+                useResizeContainer
+                classes={{
+                  row: classNames.row,
+                }}
+                sortModel={sortModel}
+                filterModel={filterModel}
+                page={curPage}
+                pageSize={rowsPerPage}
+                rowsPerPageOptions={[15, 25, 50, 100]}
+                rows={getCurrentData()}
+                rowHeight={200}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
+                density={densityModel}
+                columns={columnsModel}
+                loading={requestStatus === loadingStatuses.isLoading}
+                onSelectionModelChange={newSelection => {
+                  onSelectionModel(newSelection[0])
+                }}
+                onSortModelChange={onChangeSortingModel}
+                onPageSizeChange={onChangeRowsPerPage}
+                onPageChange={onChangeCurPage}
+                onStateChange={setDataGridState}
+              />
             </MainContent>
           </Appbar>
         </Main>

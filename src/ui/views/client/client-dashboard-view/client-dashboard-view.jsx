@@ -4,9 +4,8 @@ import {Button} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {getClientDashboardCardConfig, ClientDashboardCardDataKey} from '@constants/dashboard-configs'
+import {getClientDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {texts} from '@constants/texts'
 import {UserRole} from '@constants/user-roles'
 
@@ -39,6 +38,7 @@ export class ClientDashboardViewRaw extends Component {
 
   render() {
     const {
+      dashboardData,
       balance,
       drawerOpen,
       showTransferModal,
@@ -84,13 +84,11 @@ export class ClientDashboardViewRaw extends Component {
                 </Button>
               </div>
 
-              {/* <SectionalDashboard
-                config={dashboardCardConfig} 
-                valueByKeyFunction={this.getCardValueByDataKey} 
-                onClickViewMore={onClickInfoCardViewMode} 
-              /> */}
-
-              {SectionalDashboard(dashboardCardConfig, this.getCardValueByDataKey, onClickInfoCardViewMode)}
+              <SectionalDashboard
+                config={dashboardCardConfig}
+                valuesData={dashboardData}
+                onClickViewMore={onClickInfoCardViewMode}
+              />
             </MainContent>
           </Appbar>
         </Main>
@@ -101,44 +99,6 @@ export class ClientDashboardViewRaw extends Component {
         />
       </React.Fragment>
     )
-  }
-
-  getCardValueByDataKey = dataKey => {
-    const {productsPaid, orders, boxesMy, batchesBoxes} = this.viewModel
-    switch (dataKey) {
-      case ClientDashboardCardDataKey.IN_INVENTORY:
-        return productsPaid.length
-
-      case ClientDashboardCardDataKey.IN_INVENTORY_BY_CLIENT:
-        return productsPaid.filter(el => el.isCreatedByClient).length
-
-      case ClientDashboardCardDataKey.REPURCHASE_ITEMS:
-        return productsPaid.filter(el => !el.isCreatedByClient).length
-
-      case ClientDashboardCardDataKey.ALL_ORDERS:
-        return orders.length
-
-      case ClientDashboardCardDataKey.PAID_ORDERS:
-        return orders.filter(el =>
-          [
-            OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
-            OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
-            OrderStatusByKey[OrderStatus.IN_STOCK],
-          ].includes(el.status),
-        ).length
-
-      case ClientDashboardCardDataKey.CANCELED_ORDERS:
-        return orders.filter(el => el.status === OrderStatusByKey[OrderStatus.ORDER_CLOSED]).length
-
-      case ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE:
-        return boxesMy.filter(el => !el.isDraft).length
-
-      case ClientDashboardCardDataKey.READY_TO_SEND:
-        return batchesBoxes?.filter(el => !el.sendToBatchComplete).length
-
-      case ClientDashboardCardDataKey.SEND_BOXES:
-        return batchesBoxes?.filter(el => el.sendToBatchComplete).length
-    }
   }
 }
 

@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами. | 
-**sellerBoardWarehouseReportUrlDaily** | **String** | URL для скачивания ежедневных отчетов SellerBoard. | 
-**sellerBoardWarehouseReportUrlMonthly** | **String** | URL для скачивания отчетов SellerBoard за последний месяц. | 
+**price** | **Number** | Цена от исполнителя | [optional] 
+**execution_time** | **Number** | Время за которое исполнитель предлагает выполнить, в минутах. | [optional] 
 
 

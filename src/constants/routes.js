@@ -23,6 +23,7 @@ import {BuyerSearchSupplierByClientView} from '@views/buyer/buyer-search-supplie
 import {BuyerSearchSupplierBySupervisorView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-supervisor-view'
 import {BuyerSubUsersView} from '@views/buyer/buyer-users-views/buyer-sub-users-view'
 import {ClientBatchesView} from '@views/client/client-batches-view'
+import {ClientCreateRequestView} from '@views/client/client-create-request-view'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
 import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
@@ -53,9 +54,9 @@ import {FreelancerMyProductsRequestsView} from '@views/freelancer/freelancer-my-
 import {FreelancerRequestDetailCustomView} from '@views/freelancer/freelancer-requests-details-views/freelancer-requests-detail-custom-view'
 import {FreelancerСustomRequestsView} from '@views/freelancer/freelancer-requests-views/freelancer-custom-requests-view'
 import {FreelancerSubUsersView} from '@views/freelancer/freelancer-users-views/freelancer-sub-users-view'
-import {FreelancerVacantCustomRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-custom-requests-view'
 import {FreelancerVacantNichesRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-niches-requests-view'
 import {FreelancerVacantProductsRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-products-requests-view'
+import {FreelancerVacantRequestsView} from '@views/freelancer/freelancer-vacant-requests-views/freelancer-vacant-requests-view/freelancer-vacant-requests-view'
 import {UserProfileView} from '@views/overall/user-profile-view/user-profile-view'
 import {RegistrationView} from '@views/registration'
 import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
@@ -309,6 +310,13 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/client/create-request',
+    component: ClientCreateRequestView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
     routePath: '/client/exchange',
     component: ClientExchangeView,
     exact: true,
@@ -335,7 +343,7 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/exchange/requests/custom',
+    routePath: '/client/exchange/requests/my',
     component: ClientСustomRequestsView,
     exact: false,
     permission: [UserRole.CLIENT],
@@ -681,8 +689,8 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/freelancer/requests/custom',
-    component: FreelancerVacantCustomRequestsView,
+    routePath: '/freelancer/requests',
+    component: FreelancerVacantRequestsView,
     exact: true,
     permission: [UserRole.FREELANCER],
   },

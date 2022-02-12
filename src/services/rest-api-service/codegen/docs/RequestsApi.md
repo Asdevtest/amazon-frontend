@@ -4,10 +4,10 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV1RequestsCalculateRequestCostGuidGet**](RequestsApi.md#apiV1RequestsCalculateRequestCostGuidGet) | **GET** /api/v1/requests/calculate_request_cost/{guid} | Получить детализации стоимости заявки
-[**apiV1RequestsCustomGuidGet**](RequestsApi.md#apiV1RequestsCustomGuidGet) | **GET** /api/v1/requests/custom/{guid} | Получить кастомную заявку по его guid.
+[**apiV1RequestsCalculateRequestCostGuidGet**](RequestsApi.md#apiV1RequestsCalculateRequestCostGuidGet) | **GET** /api/v1/requests/calculate_request_cost/{guid} | Получить детализацию стоимости заявки
+[**apiV1RequestsCustomGuidGet**](RequestsApi.md#apiV1RequestsCustomGuidGet) | **GET** /api/v1/requests/custom/{guid} | Получить уникальную заявку по его guid.
 [**apiV1RequestsCustomGuidPatch**](RequestsApi.md#apiV1RequestsCustomGuidPatch) | **PATCH** /api/v1/requests/custom/{guid} | #  Изменить заявку.
-[**apiV1RequestsCustomPost**](RequestsApi.md#apiV1RequestsCustomPost) | **POST** /api/v1/requests/custom/ | # Создать кастомную заявку.
+[**apiV1RequestsCustomPost**](RequestsApi.md#apiV1RequestsCustomPost) | **POST** /api/v1/requests/custom/ | # Создать универсальную заявку.
 [**apiV1RequestsGet**](RequestsApi.md#apiV1RequestsGet) | **GET** /api/v1/requests/ | Получить список заявок
 [**apiV1RequestsGuidAbortPatch**](RequestsApi.md#apiV1RequestsGuidAbortPatch) | **PATCH** /api/v1/requests/{guid}/abort | # Прервать прием предложений.
 [**apiV1RequestsGuidDelete**](RequestsApi.md#apiV1RequestsGuidDelete) | **DELETE** /api/v1/requests/{guid} | # Удалить заявку по его GUID.
@@ -20,9 +20,9 @@ Method | HTTP request | Description
 
 > InlineResponse20011 apiV1RequestsCalculateRequestCostGuidGet(guid, opts)
 
-Получить детализации стоимости заявки
+Получить детализацию стоимости заявки
 
-Получить детализации стоимости заявки.  ## Перед публикованием заявки нужно уведомить пользователя. Для заявок с статусом CREATED выдает детализацию для всех предложений.  ## Перед отменой заявки клиентом, нужно уведомить пользователя что придется все активные предложения принять и оплатить.  Для заявок с статусом IN_PROCESS выдает детализацию для всех незавершенных предложений. Незавершенные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR## Точность до сотых, (0.01$)   Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами CREATED, IN_PROCESS.
+##  Получить детализацию стоимости заявки.  Перед публикованием заявки, нужно уведомить пользователя стоимости. Точность до сотых, (0.01$)   Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами DRAFT.
 
 ### Example
 
@@ -72,11 +72,11 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGuidGet
 
-> InlineResponse20017 apiV1RequestsCustomGuidGet(guid, opts)
+> InlineResponse20018 apiV1RequestsCustomGuidGet(guid, opts)
 
-Получить кастомную заявку по его guid.
+Получить уникальную заявку по его guid.
 
-Получить кастомную заявку по его guid.   
+Получить уникальную заявку по его guid.   
 
 ### Example
 
@@ -112,7 +112,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20017**](InlineResponse20017.md)
+[**InlineResponse20018**](InlineResponse20018.md)
 
 ### Authorization
 
@@ -130,7 +130,7 @@ Name | Type | Description  | Notes
 
 #  Изменить заявку.
 
-## Изменить заявку.   Проверка на статус, статус должен быть CREATED или TO_PUBLISH. ## Важно!!!, если заявка была ранее опубликована, и еще не имеет предложений (TO_PUBLISH) статус вернется на CREATED, замороженные средства будут возвращены, нужно снова публиковать Проверки: Только владелец может редактировать заявку  Цена за предложение не может быть ниже установленного минимума.
+## Изменить заявку.   После редактирования статус вернется на DRAFT  Цена будет округлена на до 0,01$   Проверки: Только владелец может редактировать заявку  Проверка на статус, статус должен быть DRAFT или PUBLISHED..
 
 ### Example
 
@@ -147,7 +147,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = "guid_example"; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject51() // InlineObject51 | 
+  'body': new TestSwagger.InlineObject55() // InlineObject55 | 
 };
 apiInstance.apiV1RequestsCustomGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject51**](InlineObject51.md)|  | [optional] 
+ **body** | [**InlineObject55**](InlineObject55.md)|  | [optional] 
 
 ### Return type
 
@@ -184,9 +184,9 @@ Name | Type | Description  | Notes
 
 > InlineResponse2014 apiV1RequestsCustomPost(opts)
 
-# Создать кастомную заявку.
+# Создать универсальную заявку.
 
-## Создать кастомную заявку. Проверки: Цена за предложение не должно быть меньше установленного.
+## Создать универсальную заявку.   Цена будет округлена на до 0,01$   Проверки: пока нет проверки (Цена за предложение не должно быть меньше установленного в админке.)
 
 ### Example
 
@@ -202,7 +202,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.RequestsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject50() // InlineObject50 | 
+  'body': new TestSwagger.InlineObject54() // InlineObject54 | 
 };
 apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -218,7 +218,7 @@ apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject50**](InlineObject50.md)|  | [optional] 
+ **body** | [**InlineObject54**](InlineObject54.md)|  | [optional] 
 
 ### Return type
 
@@ -296,7 +296,7 @@ Name | Type | Description  | Notes
 
 # Прервать прием предложений.
 
-## Прервать прием предложений.  При вызове этого метода клиент прекращает прием предложений, статус меняется на CANCELED  Все незавершенные предложения будут приняты и оплачены.   ## Важно!! Для избежания проблем связанных с изменением состояния заявки, с того момента когда пользователь  ## получил детализацию из калькулятора стоимости заявки и принятия решения,  для подтверждения нужно вернуть totalCost Остаток средств будет возвращен на баланс. NНезавершенные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами IN_PROCESS,  Проверка изменения totalCost
+## Прервать прием предложений.  При вызове этого метода клиент прекращает прием предложений, статус меняется на FORBID_NEW_PROPOSALS  Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами PUBLISHED, IN_PROGRESS
 
 ### Example
 
@@ -313,7 +313,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject37() // InlineObject37 | 
+  'body': new TestSwagger.InlineObject41() // InlineObject41 | 
 };
 apiInstance.apiV1RequestsGuidAbortPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -330,7 +330,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject37**](InlineObject37.md)|  | [optional] 
+ **body** | [**InlineObject41**](InlineObject41.md)|  | [optional] 
 
 ### Return type
 
@@ -352,7 +352,7 @@ Name | Type | Description  | Notes
 
 # Удалить заявку по его GUID.
 
-## Удалить заявку по его GUIDD.    Заявку можно удалить только если статус TO_PUBLISH или CREATED. Замороженные средства будут возвращены!!! Только владелец может удалить заявку  
+## Удалить заявку по его GUIDD.    Заявку можно удалить только если статус DRAFT или PUBLISHED. Только владелец может удалить заявку  
 
 ### Example
 
@@ -406,7 +406,7 @@ Name | Type | Description  | Notes
 
 # Этот метод вызывает тот кто бронирует место в заявке.
 
-## Этот метод вызывает тот кто бронирует место в заявке.  При первом бронировании статус меняется с TO_PUBLISH на IN_PROGRESS. В зависимости от типа заявки создается предложение и его детали, статуc предложения EMPTY Проверки: Владелец заявки не может отправлять себе предложения. Количество активных предложений меньше чем ограничение клиента на эту заявку. Активные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR, ACCEPTED_BY_CLIENT, ACCEPTED_BY_SUPERVISOR Если у данной заявки есть незавершенные предложения от данного пользователя Незавершенные предложения имеют статусы:  EMPTY, CREATED, READY_TO_VERIFY, TO_CORRECT, CORRECTED, VERIFYING_BY_SUPERVISOR
+## Этот метод вызывает тот кто бронирует место в заявке.  При первом бронировании статус заявка меняется с PUBLISHED на IN_PROGRESS. В зависимости от типа заявки создается предложение и его детали, статус предложения CREATED  Проверки: Можно бронировать только заявки со статусами: PUBLISHED, IN_PROCESS Владелец заявки не может отправлять себе предложения.  Количество активных (принятых + в работе) предложений меньше чем ограничение клиента на эту заявку. Активные предложения имеют статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ACCEPTED_BY_CREATOR ACCEPTED_BY_SUPERVISOR  Если у данной заявки есть незавершенные предложения от данного пользователя Незавершенные предложения имеют статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
 
 ### Example
 
@@ -423,7 +423,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': null // Object | 
+  'body': new TestSwagger.InlineObject40() // InlineObject40 | 
 };
 apiInstance.apiV1RequestsGuidPickupPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -440,7 +440,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | **Object**|  | [optional] 
+ **body** | [**InlineObject40**](InlineObject40.md)|  | [optional] 
 
 ### Return type
 
@@ -462,7 +462,7 @@ Name | Type | Description  | Notes
 
 #  Опубликовать заявку.
 
-## Опубликовать заявку.   Статус поменяется на TO_PUBLISH. Будут заморожены средства на оплату предложений к заявке ## Важно!! Для избежания проблем связанных с изменением состояния заявки, с того момента когда пользователь  ## получил детализацию из калькулятора стоимости заявки и до момента вызова данного метода,  для подтверждения нужно вернуть totalCost Проверки:  Публиковать можно только заявки со статусом CREATED. Только владелец может опубликовать. Проверка изменения totalCost
+## Опубликовать заявку.   Статус поменяется на PUBLISHED. ## Важно!! Для избежания проблем связанных с изменением состояния заявки, с того момента когда пользователь  ## получил детализацию из калькулятора стоимости заявки и до момента вызова данного метода,  для подтверждения нужно вернуть totalCost Проверки:  Публиковать можно только заявки со статусом DRAFT. Только владелец может опубликовать. Проверка изменения totalCost
 
 ### Example
 
@@ -479,7 +479,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = "guid_example"; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject36() // InlineObject36 | 
+  'body': new TestSwagger.InlineObject39() // InlineObject39 | 
 };
 apiInstance.apiV1RequestsGuidToPublishPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -496,7 +496,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject36**](InlineObject36.md)|  | [optional] 
+ **body** | [**InlineObject39**](InlineObject39.md)|  | [optional] 
 
 ### Return type
 

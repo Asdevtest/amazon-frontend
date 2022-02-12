@@ -16,9 +16,10 @@ import ApiClient from "../ApiClient";
 import ApiV1AdminsTasksBoxesBefore from '../model/ApiV1AdminsTasksBoxesBefore';
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject42 from '../model/InlineObject42';
-import InlineObject43 from '../model/InlineObject43';
-import InlineObject44 from '../model/InlineObject44';
+import InlineObject46 from '../model/InlineObject46';
+import InlineObject47 from '../model/InlineObject47';
+import InlineObject48 from '../model/InlineObject48';
+import InlineResponse20016 from '../model/InlineResponse20016';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2004 from '../model/InlineResponse2004';
 import InternalServerError from '../model/InternalServerError';
@@ -144,7 +145,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID ордера, который мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject44} opts.body 
+     * @param {module:model/InlineObject48} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatchWithHttpInfo(guid, opts) {
@@ -183,7 +184,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID ордера, который мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject44} opts.body 
+     * @param {module:model/InlineObject48} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch(guid, opts) {
@@ -254,7 +255,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject42} opts.body 
+     * @param {module:model/InlineObject46} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersTasksDoneGuidPostWithHttpInfo(guid, opts) {
@@ -293,7 +294,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject42} opts.body 
+     * @param {module:model/InlineObject46} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersTasksDoneGuidPost(guid, opts) {
@@ -310,7 +311,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject43} opts.body 
+     * @param {module:model/InlineObject47} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersTasksGuidPatchWithHttpInfo(guid, opts) {
@@ -349,11 +350,108 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject43} opts.body 
+     * @param {module:model/InlineObject47} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersTasksGuidPatch(guid, opts) {
       return this.apiV1StorekeepersTasksGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить задачи закрепленные за данным сборщиком..
+     * ## Получить задачи закрепленные за данным сборщиком.  
+     * @param {Object} opts Optional parameters
+     * @param {Number} opts.status Статус задачи для фильтра.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20016>} and HTTP response
+     */
+    apiV1StorekeepersTasksLightMyGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'status': opts['status']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [InlineResponse20016];
+      return this.apiClient.callApi(
+        '/api/v1/storekeepers/tasks_light/my', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить задачи закрепленные за данным сборщиком..
+     * ## Получить задачи закрепленные за данным сборщиком.  
+     * @param {Object} opts Optional parameters
+     * @param {Number} opts.status Статус задачи для фильтра.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20016>}
+     */
+    apiV1StorekeepersTasksLightMyGet(opts) {
+      return this.apiV1StorekeepersTasksLightMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить задачи не закрепленные за сотрудниками склада.
+     * ## Получить задачи не закрепленные за сотрудниками склада.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20016>} and HTTP response
+     */
+    apiV1StorekeepersTasksLightVacGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [InlineResponse20016];
+      return this.apiClient.callApi(
+        '/api/v1/storekeepers/tasks_light/vac', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить задачи не закрепленные за сотрудниками склада.
+     * ## Получить задачи не закрепленные за сотрудниками склада.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20016>}
+     */
+    apiV1StorekeepersTasksLightVacGet(opts) {
+      return this.apiV1StorekeepersTasksLightVacGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 
-import {Grid, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -11,7 +10,7 @@ import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
-import {DashboardInfoCard} from '@components/dashboards/dashboard-info-card'
+import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -36,7 +35,7 @@ export class BuyerDashboardViewRaw extends Component {
   }
 
   render() {
-    const {balance, drawerOpen, onTriggerDrawerOpen} = this.viewModel
+    const {dashboardData, balance, drawerOpen, onTriggerDrawerOpen, onClickInfoCardViewMode} = this.viewModel
     const {classes: classNames} = this.props
     return (
       <React.Fragment>
@@ -57,11 +56,13 @@ export class BuyerDashboardViewRaw extends Component {
           >
             <MainContent>
               <DashboardBalance balance={balance} />
-              <Typography variant="h6">{textConsts.mainTitle}</Typography>
+
               <div className={classNames.amountWithLabelCardsWrapper}>
-                <Grid container justify="center" spacing={3}>
-                  {this.renderDashboardCards()}
-                </Grid>
+                <SectionalDashboard
+                  config={dashboardCardConfig}
+                  valuesData={dashboardData}
+                  onClickViewMore={onClickInfoCardViewMode}
+                />
               </div>
             </MainContent>
           </Appbar>
@@ -69,19 +70,6 @@ export class BuyerDashboardViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderDashboardCards = () =>
-    dashboardCardConfig.map((item, index) => (
-      <Grid key={index} item xs={6} lg={4}>
-        <DashboardInfoCard
-          value={this.getCardValueByDataKey(item.dataKey)}
-          title={item.title}
-          color={item.color}
-          route={item.route || false}
-          onClickViewMore={this.viewModel.onClickInfoCardViewMode}
-        />
-      </Grid>
-    ))
 
   getCardValueByDataKey = dataKey => {
     const {productsVacant, productsMy, ordersMy, ordersVacant} = this.viewModel

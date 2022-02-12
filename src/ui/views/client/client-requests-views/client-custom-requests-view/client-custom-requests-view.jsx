@@ -29,7 +29,7 @@ import {styles} from './client-custom-requests-view.style'
 const textConsts = getLocalizedTexts(texts, 'en').clientExchangeRequestsView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = 2
+const navbarActiveSubCategory = 0
 
 @observer
 class ClientСustomRequestsViewRaw extends Component {
@@ -88,43 +88,35 @@ class ClientСustomRequestsViewRaw extends Component {
             curUserRole={UserRole.CLIENT}
           >
             <MainContent>
-              <div className={classNames.titleWrapper}>
-                <Typography paragraph variant="h6">
-                  {textConsts.mainTitle}
-                </Typography>
-              </div>
               <div className={classNames.placeRequestBtnWrapper}>
                 <SuccessButton onClick={() => onClickAddBtn()}>{textConsts.placeOrderBtn}</SuccessButton>
               </div>
-              <div className={classNames.tableWrapper}>
-                <DataGrid
-                  pagination
-                  useResizeContainer
-                  autoHeight
-                  classes={{
-                    row: classNames.row,
-                  }}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  rowHeight={100}
-                  components={{
-                    Toolbar: GridToolbar,
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                  onRowDoubleClick={e => onClickTableRow(e.row)}
-                />
-              </div>
+              <DataGrid
+                pagination
+                useResizeContainer
+                classes={{
+                  row: classNames.row,
+                }}
+                sortModel={sortModel}
+                filterModel={filterModel}
+                page={curPage}
+                pageSize={rowsPerPage}
+                rowsPerPageOptions={[15, 25, 50, 100]}
+                rows={getCurrentData()}
+                rowHeight={100}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
+                density={densityModel}
+                columns={columnsModel}
+                loading={requestStatus === loadingStatuses.isLoading}
+                onSortModelChange={onChangeSortingModel}
+                onPageSizeChange={onChangeRowsPerPage}
+                onPageChange={onChangeCurPage}
+                onStateChange={setDataGridState}
+                onFilterModelChange={model => onChangeFilterModel(model)}
+                onRowDoubleClick={e => onClickTableRow(e.row)}
+              />
             </MainContent>
           </Appbar>
         </Main>

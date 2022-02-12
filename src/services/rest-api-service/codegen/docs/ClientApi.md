@@ -8,11 +8,11 @@ Method | HTTP request | Description
 [**apiV1ClientsGetOrdersByProductIdGuidGet**](ClientApi.md#apiV1ClientsGetOrdersByProductIdGuidGet) | **GET** /api/v1/clients/get_orders_by_product_id/{guid} | # Получить заказы текущего клиента через id товара.
 [**apiV1ClientsMakePaymentsPost**](ClientApi.md#apiV1ClientsMakePaymentsPost) | **POST** /api/v1/clients/make_payments | # Оплатить товары.
 [**apiV1ClientsOrdersGet**](ClientApi.md#apiV1ClientsOrdersGet) | **GET** /api/v1/clients/orders | # Получить заказы текущего клиента.
-[**apiV1ClientsOrdersGuidConfirmPriceChangePost**](ClientApi.md#apiV1ClientsOrdersGuidConfirmPriceChangePost) | **POST** /api/v1/clients/orders/{guid}/confirm_price_change | # Потвердить измение цены.
+[**apiV1ClientsOrdersGuidCancelPost**](ClientApi.md#apiV1ClientsOrdersGuidCancelPost) | **POST** /api/v1/clients/orders/{guid}/cancel | Отменить заказ.
+[**apiV1ClientsOrdersGuidConfirmPriceChangePost**](ClientApi.md#apiV1ClientsOrdersGuidConfirmPriceChangePost) | **POST** /api/v1/clients/orders/{guid}/confirm_price_change | # Подтвердить измение цены.
 [**apiV1ClientsOrdersGuidDelete**](ClientApi.md#apiV1ClientsOrdersGuidDelete) | **DELETE** /api/v1/clients/orders/{guid} | # Удалить заказ по его GUID.
 [**apiV1ClientsOrdersGuidGet**](ClientApi.md#apiV1ClientsOrdersGuidGet) | **GET** /api/v1/clients/orders/{guid} | # Получить заказ по его GUID.
 [**apiV1ClientsOrdersGuidPatch**](ClientApi.md#apiV1ClientsOrdersGuidPatch) | **PATCH** /api/v1/clients/orders/{guid} | # Внести изменения в заказ.
-[**apiV1ClientsOrdersGuidRejectPriceChangePost**](ClientApi.md#apiV1ClientsOrdersGuidRejectPriceChangePost) | **POST** /api/v1/clients/orders/{guid}/reject_price_change | Отменить измение цены.
 [**apiV1ClientsOrdersPost**](ClientApi.md#apiV1ClientsOrdersPost) | **POST** /api/v1/clients/orders | # Создать заказ.
 [**apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch**](ClientApi.md#apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch) | **PATCH** /api/v1/clients/products/{guid}/from_client_ready_to_be_checked_by_supervisor | # Отправить  созданный клиентом товар на проверку супервайзеру.
 [**apiV1ClientsProductsGuidGetPriceForClientGet**](ClientApi.md#apiV1ClientsProductsGuidGetPriceForClientGet) | **GET** /api/v1/clients/products/{guid}/get_price_for_client | # Получить цену для клиента на поиск поставщика
@@ -194,7 +194,7 @@ Name | Type | Description  | Notes
 
 # Получить заказы текущего клиента.
 
-## Получить заказы текущего клиента.   ## описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \&quot;требуется подтверждение для изменения цены \&quot;        paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;    
+## Получить заказы текущего клиента.   ## Отдает все ордеры кроме статусов returnOrder: 35, orderIsClosed: 40 
 
 ### Example
 
@@ -240,13 +240,69 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1ClientsOrdersGuidCancelPost
+
+> String apiV1ClientsOrdersGuidCancelPost(guid, opts)
+
+Отменить заказ.
+
+## Этот метод должен устанавливать статус ордеру 40, а так же брать из заказа поле totalPrice и  вычитать эту сумму у привязанного к заказу, клиента из поля balanceFreeze и прибавлять в поле balance  ## Проверки:  Данный метод возможно вызывать до выплат поставщику (пока paidAt &#x3D;&#x3D;&#x3D; null)
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let guid = "guid_example"; // String | Guid ордера
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': null // Object | 
+};
+apiInstance.apiV1ClientsOrdersGuidCancelPost(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| Guid ордера | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | **Object**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## apiV1ClientsOrdersGuidConfirmPriceChangePost
 
 > String apiV1ClientsOrdersGuidConfirmPriceChangePost(guid, opts)
 
-# Потвердить измение цены.
+# Подтвердить измение цены.
 
-## Метод должен вычислять разницу между totalPriceChanged и totalPrice - (totalPriceChanged-totalPrice).   ## Если разница больше 0 то нужно у клиента, который привязан к этому ордеру из поля balance вычесть эту разницу,  а в поле balanceFreeze прибавить  ## Если разница меньше 0 то нужно у клиента, который привязан к этому ордеру из поля balanceFreeze вычесть эту   разницу, а в поле balance прибавить   ## Далее нужно сделать у заказа totalPrice &#x3D; totalPriceChanged   
+## Метод должен вычислять разницу между totalPriceChanged и totalPrice - (totalPriceChanged-totalPrice).   ## Если разница больше 0 то нужно у клиента, который привязан к этому ордеру из поля balance вычесть эту разницу,  а в поле balanceFreeze прибавить  ## Если разница меньше 0 то нужно у клиента, который привязан к этому ордеру из поля balanceFreeze вычесть эту   разницу, а в поле balance прибавить   ## Далее нужно сделать у заказа totalPrice &#x3D; totalPriceChanged   ## Проверки:Только для заказов со статусом needConfirmingToPriceChange: 19
 
 ### Example
 
@@ -302,7 +358,7 @@ Name | Type | Description  | Notes
 
 # Удалить заказ по его GUID.
 
-## Удалить заказ по его GUID.   ## описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \&quot;требуется подтверждение для изменения цены \&quot;        paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;    
+## Удалить заказ по его GUID.   ## удалиь можно пока не взята байером (buyerId &#x3D;&#x3D;&#x3D; null)
 
 ### Example
 
@@ -410,7 +466,7 @@ Name | Type | Description  | Notes
 
 # Внести изменения в заказ.
 
-## Внести изменения в заказ.   ## Обратить внимание - внутри заказа нельзя отдельно редактировать атрибуты товара.   ## Если изменился какой-то они товар, все равно нужно передать полностью новый массив с .   ## с товарами.   ## описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \&quot;требуется подтверждение для изменения цены \&quot;        paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;    
+## Внести изменения в заказ.   ## Обратить внимание - внутри заказа нельзя отдельно редактировать атрибуты товара.   ## Если изменился какой-то они товар, все равно нужно передать полностью новый массив с .   ## с товарами.   ## Данный метод возможно вызывать до выплат поставщику (пока paidAt &#x3D;&#x3D;&#x3D; null)
 
 ### Example
 
@@ -460,69 +516,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1ClientsOrdersGuidRejectPriceChangePost
-
-> String apiV1ClientsOrdersGuidRejectPriceChangePost(guid, opts)
-
-Отменить измение цены.
-
-## Этот метод должен устанавливать статус ордеру 40, а так же брать из заказа поле totalPrice и вычитать эту сумму у, привязанного к заказу, клиента из поля balanceFreeze и прибавлять в поле balance
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.ClientApi();
-let guid = "guid_example"; // String | Guid ордера
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': null // Object | 
-};
-apiInstance.apiV1ClientsOrdersGuidRejectPriceChangePost(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | **String**| Guid ордера | 
- **Accept_Encoding** | **String**|  | [optional] 
- **body** | **Object**|  | [optional] 
-
-### Return type
-
-**String**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
 ## apiV1ClientsOrdersPost
 
 > InlineResponse2013 apiV1ClientsOrdersPost(opts)
 
 # Создать заказ.
 
-## Создать заказ.   ### описание поля status:       formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \&quot;требуется подтверждение для изменения цены \&quot;        paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;     Стоимость заказа &#x3D; количество * (цена товара + цена доставки от поставщика):  Эта сумма будет заморожена у клиента. Проверки:  Наличие продукта по guid,  Наличие у продукта поставщика Проверять что активного поставщика добавил не сам клиент, Т.е. заказать можно только тот продукт, активного поставщика который был добавлен баером в платформе
+## Создать заказ.   ## Статус автоматом ставиться readyToProcess: 10  Стоимость заказа &#x3D; количество * (цена товара + цена доставки от поставщика):  Эта сумма будет заморожена у клиента. Проверки:  Наличие продукта по guid,  Наличие у продукта поставщика Проверять что активного поставщика добавил не сам клиент, Т.е. заказать можно только тот продукт, активного поставщика который был добавлен баером в платформе
 
 ### Example
 
@@ -686,7 +686,7 @@ Name | Type | Description  | Notes
 
 # Внести изменения в товар.
 
-## Внести изменения в товар.   Если товар был создан ресерчером (статус до 100) менять можно только баркод (нет проверки).   ## Если товар был создан клиентом (статус от 200):  Вам разрешено редактировать свой товар или добавлять поставщика только если ранее товар имел статусы 200, 270, 280, 290  
+## Внести изменения в товар.   Если товар был создан ресерчером (статус до 100) менять можно только баркод (нет проверки).   ## Если товар был создан клиентом (статус от 200):  Вам разрешено редактировать свой товар или добавлять поставщика только если ранее товар имел статусы 200, 270, 275, 280, 290  
 
 ### Example
 

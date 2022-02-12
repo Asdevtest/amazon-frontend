@@ -87,7 +87,6 @@ class AdminUsersViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
-                autoHeight
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}

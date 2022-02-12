@@ -60,6 +60,9 @@ class InlineResponse20015 {
             if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
                 obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
+            if (data.hasOwnProperty('ownerId')) {
+                obj['ownerId'] = ApiClient.convertToType(data['ownerId'], 'String');
+            }
             if (data.hasOwnProperty('createdById')) {
                 obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
@@ -102,6 +105,12 @@ InlineResponse20015.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
  * @member {String} sellerBoardWarehouseReportUrlMonthly
  */
 InlineResponse20015.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+
+/**
+ * GUID, владелеца.
+ * @member {String} ownerId
+ */
+InlineResponse20015.prototype['ownerId'] = undefined;
 
 /**
  * GUID любого, кто последний создал.

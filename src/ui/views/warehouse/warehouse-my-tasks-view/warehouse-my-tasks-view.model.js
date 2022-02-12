@@ -239,6 +239,8 @@ export class WarehouseVacantViewModel {
         for (let i = 0; i < newBoxes.length; i++) {
           const box = newBoxes[i]
 
+          this.imagesOfBox = []
+
           if (box.tmpImages.length > 0) {
             await onSubmitPostImages.call(this, {images: box.tmpImages, type: 'imagesOfBox'})
           }

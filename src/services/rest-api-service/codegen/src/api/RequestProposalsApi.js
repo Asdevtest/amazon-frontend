@@ -19,9 +19,12 @@ import InlineObject32 from '../model/InlineObject32';
 import InlineObject33 from '../model/InlineObject33';
 import InlineObject34 from '../model/InlineObject34';
 import InlineObject35 from '../model/InlineObject35';
-import InlineObject49 from '../model/InlineObject49';
+import InlineObject36 from '../model/InlineObject36';
+import InlineObject37 from '../model/InlineObject37';
+import InlineObject38 from '../model/InlineObject38';
+import InlineObject53 from '../model/InlineObject53';
 import InlineResponse20010 from '../model/InlineResponse20010';
-import InlineResponse20016 from '../model/InlineResponse20016';
+import InlineResponse20017 from '../model/InlineResponse20017';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -51,7 +54,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20016>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20017>} and HTTP response
      */
     apiV1RequestProposalsCustomByRequestIdGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -75,7 +78,7 @@ export default class RequestProposalsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20016];
+      let returnType = [InlineResponse20017];
       return this.apiClient.callApi(
         '/api/v1/request-proposals/custom/by_request_id/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -89,7 +92,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20016>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20017>}
      */
     apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts) {
       return this.apiV1RequestProposalsCustomByRequestIdGuidGetWithHttpInfo(guid, opts)
@@ -100,12 +103,12 @@ export default class RequestProposalsApi {
 
 
     /**
-     * #  Редактировать предложение.
-     * ## Редактировать предложение   Если были статусы EMPTY или CREATED ставиться статус CREATED Если был статус TO_CORRECT, то статус не меняется Проверки: Только предложения со статусом EMPTY, CREATED и TO_CORRECT могут быть отредактированы.
+     * #  Редактировать результат работы.
+     * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject49} opts.body 
+     * @param {module:model/InlineObject53} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsCustomGuidEditPatchWithHttpInfo(guid, opts) {
@@ -139,12 +142,12 @@ export default class RequestProposalsApi {
     }
 
     /**
-     * #  Редактировать предложение.
-     * ## Редактировать предложение   Если были статусы EMPTY или CREATED ставиться статус CREATED Если был статус TO_CORRECT, то статус не меняется Проверки: Только предложения со статусом EMPTY, CREATED и TO_CORRECT могут быть отредактированы.
+     * #  Редактировать результат работы.
+     * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject49} opts.body 
+     * @param {module:model/InlineObject53} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsCustomGuidEditPatch(guid, opts) {
@@ -274,68 +277,12 @@ export default class RequestProposalsApi {
 
 
     /**
-     * #  Принять предложение.
-     * ## Принять предложение.   Произвести оплаты Если клиент принял предложение, то статус меняется на ACCEPTED_BY_CLIENT, Если супервайзер принял предложение, то статус меняется на ACCEPTED_BY_SUPERVISOR Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
-     * @param {String} guid GUID в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {Object} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1RequestProposalsGuidAcceptPatchWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestProposalsGuidAcceptPatch");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/request-proposals/{guid}/accept', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * #  Принять предложение.
-     * ## Принять предложение.   Произвести оплаты Если клиент принял предложение, то статус меняется на ACCEPTED_BY_CLIENT, Если супервайзер принял предложение, то статус меняется на ACCEPTED_BY_SUPERVISOR Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
-     * @param {String} guid GUID в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {Object} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1RequestProposalsGuidAcceptPatch(guid, opts) {
-      return this.apiV1RequestProposalsGuidAcceptPatchWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Отмена предложения, в зависимости от того кто вызвал ставится статус.
-     * ## Отмена предложение по его GUID  ## Если вызвал исполнитель(фрилансер), стутус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  EMPTY, CREATED, READY_TO_VERIFY Является ли вызвавший данный метод владельцем предложения. ## Если вызвал клиент, статус меняется на CANCELED_BY_CLIENT Проверки: Только  предложения со статусами:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод владельцем заявки к торой относится данное предложение. ## Если вызвал супервайзер, статус меняется на CANCELED_BY_SUPERVISOR Проверки: Только  предложения со статусами:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+     * # Отмена предложения после заключения сделки, в зависимости от того кто вызвал ставится статус.
+     * ## Отмена предложения после заключения сделки  Вызывает возврат замороженных средств.  ## Если вызвал исполнитель(фрилансер), стутус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY TO_CORRECT CORRECTED Является ли вызвавший данный метод владельцем предложения. ## Если вызвал клиент, статус меняется на CANCELED_BY_CREATOR Проверки: Только  предложения со статусами:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод владельцем заявки к торой относится данное предложение. ## Если вызвал супервайзер, статус меняется на CANCELED_BY_SUPERVISOR Проверки: Только  предложения со статусами:  VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject34} opts.body 
+     * @param {module:model/InlineObject37} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidCancelPatchWithHttpInfo(guid, opts) {
@@ -369,12 +316,12 @@ export default class RequestProposalsApi {
     }
 
     /**
-     * # Отмена предложения, в зависимости от того кто вызвал ставится статус.
-     * ## Отмена предложение по его GUID  ## Если вызвал исполнитель(фрилансер), стутус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  EMPTY, CREATED, READY_TO_VERIFY Является ли вызвавший данный метод владельцем предложения. ## Если вызвал клиент, статус меняется на CANCELED_BY_CLIENT Проверки: Только  предложения со статусами:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод владельцем заявки к торой относится данное предложение. ## Если вызвал супервайзер, статус меняется на CANCELED_BY_SUPERVISOR Проверки: Только  предложения со статусами:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+     * # Отмена предложения после заключения сделки, в зависимости от того кто вызвал ставится статус.
+     * ## Отмена предложения после заключения сделки  Вызывает возврат замороженных средств.  ## Если вызвал исполнитель(фрилансер), стутус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY TO_CORRECT CORRECTED Является ли вызвавший данный метод владельцем предложения. ## Если вызвал клиент, статус меняется на CANCELED_BY_CREATOR Проверки: Только  предложения со статусами:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод владельцем заявки к торой относится данное предложение. ## Если вызвал супервайзер, статус меняется на CANCELED_BY_SUPERVISOR Проверки: Только  предложения со статусами:  VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject34} opts.body 
+     * @param {module:model/InlineObject37} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidCancelPatch(guid, opts) {
@@ -386,124 +333,12 @@ export default class RequestProposalsApi {
 
 
     /**
-     * # Отправить на доработку.
-     * ## Отправить на доработку.  Ставиться статус TO_CORRECT Нужно написать в комментарии причину. Можно выставить время на доработку, в минутах. по умолчанию 120 мин. Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
-     * @param {String} guid GUID в сущности в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject32} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1RequestProposalsGuidCorrectPatchWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestProposalsGuidCorrectPatch");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/request-proposals/{guid}/correct', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Отправить на доработку.
-     * ## Отправить на доработку.  Ставиться статус TO_CORRECT Нужно написать в комментарии причину. Можно выставить время на доработку, в минутах. по умолчанию 120 мин. Проверки: Если вызвал КЛИЕНТ принимаются только статусы:  READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
-     * @param {String} guid GUID в сущности в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject32} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1RequestProposalsGuidCorrectPatch(guid, opts) {
-      return this.apiV1RequestProposalsGuidCorrectPatchWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * #  Отправить обратно на утверждение, после доработки.
-     * ##  Отправить обратно на утверждение, после доработки.  Статус CORRECTED ставится автоматом В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Фрилансер может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом TO_CORRECT. 
-     * @param {String} guid GUID в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject33} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1RequestProposalsGuidCorrectedPatchWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestProposalsGuidCorrectedPatch");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/request-proposals/{guid}/corrected', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * #  Отправить обратно на утверждение, после доработки.
-     * ##  Отправить обратно на утверждение, после доработки.  Статус CORRECTED ставится автоматом В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Фрилансер может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом TO_CORRECT. 
-     * @param {String} guid GUID в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject33} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1RequestProposalsGuidCorrectedPatch(guid, opts) {
-      return this.apiV1RequestProposalsGuidCorrectedPatchWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
      * #  Привязать или \"отвязать\" супервайзера от предложения.
-     * ## Привязать  супервайзра за предложением. Статус меняется на VERIFYING_BY_SUPERVISOR В поле supervisorId вписывается id супервайзера. Устанавливается время за которое супервайзер должен принять решение. Пос истечения времени супервайзер снимается.Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Только со статусами предложений:   VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED ## Это нужно чтобы рассчитать остаток средств при закрытии заявки. Супервайзер не может отвязать от себя предложение если он не связан.
+     * ## Привязать  супервайзра к предложению. Статус меняется на VERIFYING_BY_SUPERVISOR В поле supervisorId вписывается id супервайзера. Устанавливается время за которое супервайзер должен принять решение. Пос истечения времени супервайзер снимается.  Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Только со статусами предложений:   VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ## Это нужно чтобы рассчитать остаток средств при закрытии заявки. Супервайзер не может отвязать от себя предложение если он не связан.
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject35} opts.body 
+     * @param {module:model/InlineObject38} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatchWithHttpInfo(guid, opts) {
@@ -538,11 +373,11 @@ export default class RequestProposalsApi {
 
     /**
      * #  Привязать или \"отвязать\" супервайзера от предложения.
-     * ## Привязать  супервайзра за предложением. Статус меняется на VERIFYING_BY_SUPERVISOR В поле supervisorId вписывается id супервайзера. Устанавливается время за которое супервайзер должен принять решение. Пос истечения времени супервайзер снимается.Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Только со статусами предложений:   VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED ## Это нужно чтобы рассчитать остаток средств при закрытии заявки. Супервайзер не может отвязать от себя предложение если он не связан.
+     * ## Привязать  супервайзра к предложению. Статус меняется на VERIFYING_BY_SUPERVISOR В поле supervisorId вписывается id супервайзера. Устанавливается время за которое супервайзер должен принять решение. Пос истечения времени супервайзер снимается.  Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Только со статусами предложений:   VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ## Это нужно чтобы рассчитать остаток средств при закрытии заявки. Супервайзер не может отвязать от себя предложение если он не связан.
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject35} opts.body 
+     * @param {module:model/InlineObject38} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid, opts) {
@@ -554,8 +389,232 @@ export default class RequestProposalsApi {
 
 
     /**
+     * #  Принять предложение.
+     * ## Принять предложение.   При вызове данного метода клиент подтверждает согласие на заключение договора Если клиент принял предложение, то статус меняется на OFFER_CONDITIONS_ACCEPTEDУ фрилансеру дается время которое было оговорено. У клиента замораживаются средства. Проверки: Только владелец заявки может принять предложение Принимаются предложения только со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+     * @param {String} guid GUID в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Object} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1RequestProposalsGuidProposalAcceptPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestProposalsGuidProposalAcceptPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/request-proposals/{guid}/proposal_accept', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Принять предложение.
+     * ## Принять предложение.   При вызове данного метода клиент подтверждает согласие на заключение договора Если клиент принял предложение, то статус меняется на OFFER_CONDITIONS_ACCEPTEDУ фрилансеру дается время которое было оговорено. У клиента замораживаются средства. Проверки: Только владелец заявки может принять предложение Принимаются предложения только со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+     * @param {String} guid GUID в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Object} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1RequestProposalsGuidProposalAcceptPatch(guid, opts) {
+      return this.apiV1RequestProposalsGuidProposalAcceptPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Отправить предложение обратно, после доработки.
+     * ##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED 
+     * @param {String} guid GUID в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject34} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1RequestProposalsGuidProposalCorrectedPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestProposalsGuidProposalCorrectedPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/request-proposals/{guid}/proposal_corrected', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Отправить предложение обратно, после доработки.
+     * ##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED 
+     * @param {String} guid GUID в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject34} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1RequestProposalsGuidProposalCorrectedPatch(guid, opts) {
+      return this.apiV1RequestProposalsGuidProposalCorrectedPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Редактировать предложение.
+     * ## Редактировать предложение   Поведение данного метода делится на до заключения договора, и после заключения договораПроверки: Только предложения доступные Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+     * @param {String} guid GUID в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject33} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1RequestProposalsGuidProposalEditPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestProposalsGuidProposalEditPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/request-proposals/{guid}/proposal_edit', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Редактировать предложение.
+     * ## Редактировать предложение   Поведение данного метода делится на до заключения договора, и после заключения договораПроверки: Только предложения доступные Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+     * @param {String} guid GUID в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject33} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1RequestProposalsGuidProposalEditPatch(guid, opts) {
+      return this.apiV1RequestProposalsGuidProposalEditPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Отказаться от предложения.
+     * ## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. 
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject32} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1RequestProposalsGuidProposalRejectPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestProposalsGuidProposalRejectPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/request-proposals/{guid}/proposal_reject', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Отказаться от предложения.
+     * ## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. 
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject32} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1RequestProposalsGuidProposalRejectPatch(guid, opts) {
+      return this.apiV1RequestProposalsGuidProposalRejectPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * #  Отправить предложение на утверждение.
-     * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервизором, то время не устанавливается. Проверки: Только предложения со статусом CREATED. 
+     * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервизором, то время не устанавливается. Проверки: Только предложения со статусом:  OFFER_CONDITIONS_ACCEPTED
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -594,7 +653,7 @@ export default class RequestProposalsApi {
 
     /**
      * #  Отправить предложение на утверждение.
-     * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервизором, то время не устанавливается. Проверки: Только предложения со статусом CREATED. 
+     * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервизором, то время не устанавливается. Проверки: Только предложения со статусом:  OFFER_CONDITIONS_ACCEPTED
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -603,6 +662,174 @@ export default class RequestProposalsApi {
      */
     apiV1RequestProposalsGuidReadyToVerifyPatch(guid, opts) {
       return this.apiV1RequestProposalsGuidReadyToVerifyPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Принять результаты работы.
+     * ## Принять результаты работы.   Произвести оплаты Если клиент принял предложение, то статус меняется на ACCEPTED_BY_CLIENT, Если супервайзер принял предложение, то статус меняется на ACCEPTED_BY_SUPERVISOR Проверки: Если вызвал СОЗДАТЕЛЬ ЗАЯВКИ принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED, READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+     * @param {String} guid GUID в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Object} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1RequestProposalsGuidResultAcceptPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestProposalsGuidResultAcceptPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/request-proposals/{guid}/result_accept', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Принять результаты работы.
+     * ## Принять результаты работы.   Произвести оплаты Если клиент принял предложение, то статус меняется на ACCEPTED_BY_CLIENT, Если супервайзер принял предложение, то статус меняется на ACCEPTED_BY_SUPERVISOR Проверки: Если вызвал СОЗДАТЕЛЬ ЗАЯВКИ принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED, READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+     * @param {String} guid GUID в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Object} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1RequestProposalsGuidResultAcceptPatch(guid, opts) {
+      return this.apiV1RequestProposalsGuidResultAcceptPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Отправить обратно на утверждение, после доработки.
+     * ##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
+     * @param {String} guid GUID в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject36} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1RequestProposalsGuidResultCorrectedPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestProposalsGuidResultCorrectedPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/request-proposals/{guid}/result_corrected', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Отправить обратно на утверждение, после доработки.
+     * ##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
+     * @param {String} guid GUID в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject36} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1RequestProposalsGuidResultCorrectedPatch(guid, opts) {
+      return this.apiV1RequestProposalsGuidResultCorrectedPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Отправить на доработку результат работы.
+     * ## Отправить на доработку результат работы.  Ставиться статус TO_CORRECT Нужно написать в комментарии причину. Можно выставить время на доработку, в минутах. по умолчанию 120 мин. Проверки: Если вызвал СОЗДАТЕЛЬ ЗАЯВКИ принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject35} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1RequestProposalsGuidResultToCorrectPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestProposalsGuidResultToCorrectPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/request-proposals/{guid}/result_to_correct', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Отправить на доработку результат работы.
+     * ## Отправить на доработку результат работы.  Ставиться статус TO_CORRECT Нужно написать в комментарии причину. Можно выставить время на доработку, в минутах. по умолчанию 120 мин. Проверки: Если вызвал СОЗДАТЕЛЬ ЗАЯВКИ принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject35} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1RequestProposalsGuidResultToCorrectPatch(guid, opts) {
+      return this.apiV1RequestProposalsGuidResultToCorrectPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -31,6 +31,7 @@ import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetails';
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
+import ApiV1StorekeepersTasksLightVacBoxesBefore from './model/ApiV1StorekeepersTasksLightVacBoxesBefore';
 import BadRequestError from './model/BadRequestError';
 import CheckIsUniqueNameOrEmailReqSchema from './model/CheckIsUniqueNameOrEmailReqSchema';
 import CheckIsUniqueNameOrEmailSchema from './model/CheckIsUniqueNameOrEmailSchema';
@@ -85,6 +86,10 @@ import InlineObject49 from './model/InlineObject49';
 import InlineObject5 from './model/InlineObject5';
 import InlineObject50 from './model/InlineObject50';
 import InlineObject51 from './model/InlineObject51';
+import InlineObject52 from './model/InlineObject52';
+import InlineObject53 from './model/InlineObject53';
+import InlineObject54 from './model/InlineObject54';
+import InlineObject55 from './model/InlineObject55';
 import InlineObject6 from './model/InlineObject6';
 import InlineObject7 from './model/InlineObject7';
 import InlineObject8 from './model/InlineObject8';
@@ -99,7 +104,8 @@ import InlineResponse20014 from './model/InlineResponse20014';
 import InlineResponse20015 from './model/InlineResponse20015';
 import InlineResponse20016 from './model/InlineResponse20016';
 import InlineResponse20017 from './model/InlineResponse20017';
-import InlineResponse20017Details from './model/InlineResponse20017Details';
+import InlineResponse20018 from './model/InlineResponse20018';
+import InlineResponse20018Details from './model/InlineResponse20018Details';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
@@ -317,6 +323,12 @@ export {
      * @property {module:model/ApiV1RequestsCustomRequest}
      */
     ApiV1RequestsCustomRequest,
+
+    /**
+     * The ApiV1StorekeepersTasksLightVacBoxesBefore model constructor.
+     * @property {module:model/ApiV1StorekeepersTasksLightVacBoxesBefore}
+     */
+    ApiV1StorekeepersTasksLightVacBoxesBefore,
 
     /**
      * The BadRequestError model constructor.
@@ -643,6 +655,30 @@ export {
     InlineObject51,
 
     /**
+     * The InlineObject52 model constructor.
+     * @property {module:model/InlineObject52}
+     */
+    InlineObject52,
+
+    /**
+     * The InlineObject53 model constructor.
+     * @property {module:model/InlineObject53}
+     */
+    InlineObject53,
+
+    /**
+     * The InlineObject54 model constructor.
+     * @property {module:model/InlineObject54}
+     */
+    InlineObject54,
+
+    /**
+     * The InlineObject55 model constructor.
+     * @property {module:model/InlineObject55}
+     */
+    InlineObject55,
+
+    /**
      * The InlineObject6 model constructor.
      * @property {module:model/InlineObject6}
      */
@@ -727,10 +763,16 @@ export {
     InlineResponse20017,
 
     /**
-     * The InlineResponse20017Details model constructor.
-     * @property {module:model/InlineResponse20017Details}
+     * The InlineResponse20018 model constructor.
+     * @property {module:model/InlineResponse20018}
      */
-    InlineResponse20017Details,
+    InlineResponse20018,
+
+    /**
+     * The InlineResponse20018Details model constructor.
+     * @property {module:model/InlineResponse20018Details}
+     */
+    InlineResponse20018Details,
 
     /**
      * The InlineResponse2002 model constructor.

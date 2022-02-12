@@ -5,6 +5,7 @@ export const useClassNames = makeStyles(() => ({
     gap: '5px',
     width: '100%',
     flexDirection: 'column',
+    height: '80vh',
   },
 
   row: {

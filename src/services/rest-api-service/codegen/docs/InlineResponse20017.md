@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**request** | [**InlineResponse20012**](InlineResponse20012.md) |  | [optional] 
-**details** | [**InlineResponse20017Details**](InlineResponse20017Details.md) |  | [optional] 
+**proposal** | [**InlineResponse20010**](InlineResponse20010.md) |  | [optional] 
+**details** | [**ApiV1RequestProposalsCustomByRequestIdGuidDetails**](ApiV1RequestProposalsCustomByRequestIdGuidDetails.md) |  | [optional] 
 
 

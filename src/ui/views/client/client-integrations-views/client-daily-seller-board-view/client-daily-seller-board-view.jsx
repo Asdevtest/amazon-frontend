@@ -133,37 +133,34 @@ class ClientDailySellerBoardViewRaw extends Component {
               >
                 {textConsts.bindBtn}
               </Button>
-              <div className={className.tableWrapper}>
-                <DataGrid
-                  pagination
-                  useResizeContainer
-                  autoHeight
-                  checkboxSelection
-                  classes={{
-                    row: className.row,
-                  }}
-                  sortModel={sortModel}
-                  selectionModel={selectedRows}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  rowHeight={100}
-                  components={{
-                    Toolbar: GridToolbar,
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                />
-              </div>
+              <DataGrid
+                pagination
+                useResizeContainer
+                checkboxSelection
+                classes={{
+                  row: className.row,
+                }}
+                sortModel={sortModel}
+                selectionModel={selectedRows}
+                filterModel={filterModel}
+                page={curPage}
+                pageSize={rowsPerPage}
+                rowsPerPageOptions={[15, 25, 50, 100]}
+                rows={getCurrentData()}
+                rowHeight={100}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
+                density={densityModel}
+                columns={columnsModel}
+                loading={requestStatus === loadingStatuses.isLoading}
+                onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                onSortModelChange={onChangeSortingModel}
+                onPageSizeChange={onChangeRowsPerPage}
+                onPageChange={onChangeCurPage}
+                onStateChange={setDataGridState}
+                onFilterModelChange={model => onChangeFilterModel(model)}
+              />
             </MainContent>
           </Appbar>
         </Main>

@@ -44,7 +44,7 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
         {box.items.map((product, productIndex) => (
           <div key={productIndex} className={classNames.imgWrapper}>
             <img
-              alt="placeholder"
+              alt=""
               className={classNames.img}
               src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
             />

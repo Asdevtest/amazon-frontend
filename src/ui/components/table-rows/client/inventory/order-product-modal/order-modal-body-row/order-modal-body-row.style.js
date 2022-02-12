@@ -6,7 +6,7 @@ export const useClassNames = makeStyles(() => ({
     width: '64px',
     borderRadius: '2px',
     verticalAlign: 'middle',
-    marginRight: '16px',
+    margin: '0 16px',
     objectFit: 'contain',
     objectPosition: 'center',
   },
@@ -141,7 +141,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   noCurrentSupplier: {
-    border: '1px solid red',
+    boxShadow: 'inset 0 0 15px rgba(255, 79, 7, .8)',
   },
 
   noCurrentSupplierText: {

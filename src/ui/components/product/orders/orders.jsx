@@ -26,7 +26,6 @@ export const Orders = observer(({productId}) => {
       <DataGrid
         pagination
         useResizeContainer
-        autoHeight
         classes={{
           row: classNames.row,
         }}

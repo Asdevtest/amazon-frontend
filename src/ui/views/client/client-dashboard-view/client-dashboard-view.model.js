@@ -1,6 +1,8 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {ClientDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
@@ -13,11 +15,18 @@ export class ClientDashboardViewModel {
 
   balance = UserModel.userInfo?.balance
   drawerOpen = false
-  productsMy = []
-  boxesMy = []
-  orders = []
-  productsPaid = []
-  batchesBoxes = []
+
+  dashboardData = {
+    [ClientDashboardCardDataKey.IN_INVENTORY]: '',
+    [ClientDashboardCardDataKey.IN_INVENTORY_BY_CLIENT]: '',
+    [ClientDashboardCardDataKey.REPURCHASE_ITEMS]: '',
+    [ClientDashboardCardDataKey.ALL_ORDERS]: '',
+    [ClientDashboardCardDataKey.PAID_ORDERS]: '',
+    [ClientDashboardCardDataKey.CANCELED_ORDERS]: '',
+    [ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE]: '',
+    [ClientDashboardCardDataKey.READY_TO_SEND]: '',
+    [ClientDashboardCardDataKey.SEND_BOXES]: '',
+  }
 
   showTransferModal = false
 
@@ -89,7 +98,20 @@ export class ClientDashboardViewModel {
     try {
       const result = await ClientModel.getOrders()
       runInAction(() => {
-        this.orders = result
+        this.dashboardData = {
+          ...this.dashboardData,
+          [ClientDashboardCardDataKey.ALL_ORDERS]: result.length,
+          [ClientDashboardCardDataKey.PAID_ORDERS]: result.filter(el =>
+            [
+              OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+              OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+              OrderStatusByKey[OrderStatus.IN_STOCK],
+            ].includes(el.status),
+          ).length,
+          [ClientDashboardCardDataKey.CANCELED_ORDERS]: result.filter(
+            el => el.status === OrderStatusByKey[OrderStatus.ORDER_CLOSED],
+          ).length,
+        }
       })
     } catch (error) {
       console.log(error)
@@ -101,7 +123,12 @@ export class ClientDashboardViewModel {
     try {
       const result = await ClientModel.getProductsMy()
       runInAction(() => {
-        this.productsPaid = result
+        this.dashboardData = {
+          ...this.dashboardData,
+          [ClientDashboardCardDataKey.IN_INVENTORY]: result.length,
+          [ClientDashboardCardDataKey.IN_INVENTORY_BY_CLIENT]: result.filter(el => el.isCreatedByClient).length,
+          [ClientDashboardCardDataKey.REPURCHASE_ITEMS]: result.filter(el => !el.isCreatedByClient).length,
+        }
       })
     } catch (error) {
       console.log(error)
@@ -114,7 +141,10 @@ export class ClientDashboardViewModel {
       const result = await BoxesModel.getBoxesForCurClient()
 
       runInAction(() => {
-        this.boxesMy = result
+        this.dashboardData = {
+          ...this.dashboardData,
+          [ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE]: result.filter(el => !el.isDraft).length,
+        }
       })
     } catch (error) {
       console.log(error)
@@ -126,8 +156,14 @@ export class ClientDashboardViewModel {
     try {
       const result = await ClientModel.getBatches()
 
+      const batchesBoxes = result.reduce((ac, cur) => ac.concat(cur.boxes), [])
+
       runInAction(() => {
-        this.batchesBoxes = result.reduce((ac, cur) => ac.concat(cur.boxes), [])
+        this.dashboardData = {
+          ...this.dashboardData,
+          [ClientDashboardCardDataKey.READY_TO_SEND]: batchesBoxes.filter(el => !el.sendToBatchComplete).length,
+          [ClientDashboardCardDataKey.SEND_BOXES]: batchesBoxes.filter(el => el.sendToBatchComplete).length,
+        }
       })
     } catch (error) {
       console.log(error)

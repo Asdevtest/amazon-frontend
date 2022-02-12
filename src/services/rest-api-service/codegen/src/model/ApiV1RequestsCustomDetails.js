@@ -22,8 +22,8 @@ class ApiV1RequestsCustomDetails {
     /**
      * Constructs a new <code>ApiV1RequestsCustomDetails</code>.
      * @alias module:model/ApiV1RequestsCustomDetails
-     * @param name {String} Имя кастомной заявки.
-     * @param conditions {String} Условия кастомной заявки.
+     * @param name {String} Имя универсальной заявки.
+     * @param conditions {Object} Условия универсальной заявки.
      */
     constructor(name, conditions) { 
         
@@ -55,7 +55,7 @@ class ApiV1RequestsCustomDetails {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
             if (data.hasOwnProperty('conditions')) {
-                obj['conditions'] = ApiClient.convertToType(data['conditions'], 'String');
+                obj['conditions'] = ApiClient.convertToType(data['conditions'], Object);
             }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
@@ -68,14 +68,14 @@ class ApiV1RequestsCustomDetails {
 }
 
 /**
- * Имя кастомной заявки.
+ * Имя универсальной заявки.
  * @member {String} name
  */
 ApiV1RequestsCustomDetails.prototype['name'] = undefined;
 
 /**
- * Условия кастомной заявки.
- * @member {String} conditions
+ * Условия универсальной заявки.
+ * @member {Object} conditions
  */
 ApiV1RequestsCustomDetails.prototype['conditions'] = undefined;
 

@@ -41,7 +41,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
         <div className={classNames.asinCellContainer}>
           <div>
             <img
-              alt="placeholder"
+              alt=""
               className={classNames.img}
               src={item.images && item.images[0] && getAmazonImageUrl(item.images[0])}
             />

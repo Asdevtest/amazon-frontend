@@ -1,6 +1,8 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {WarehouseDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -13,11 +15,16 @@ export class WarehouseDashboardViewModel {
   drawerOpen = false
 
   balance = UserModel.userInfo?.balance
-  tasksVacant = []
-  tasksMy = []
-  boxesVacant = []
-  boxesMy = []
-  batches = []
+
+  dashboardData = {
+    [WarehouseDashboardCardDataKey.VACANT_TASKS]: '',
+    [WarehouseDashboardCardDataKey.TASKS_MY]: '',
+    [WarehouseDashboardCardDataKey.COMPLETED_TASKS]: '',
+    [WarehouseDashboardCardDataKey.CANCELED_TASKS]: '',
+    [WarehouseDashboardCardDataKey.BOXES_IN_STORE]: '',
+    [WarehouseDashboardCardDataKey.SENT_BATCHES]: '',
+    [WarehouseDashboardCardDataKey.NOT_SENT_BATCHES]: '',
+  }
 
   constructor({history}) {
     this.history = history
@@ -49,9 +56,13 @@ export class WarehouseDashboardViewModel {
   async getTasksVacant() {
     try {
       const result = await StorekeeperModel.getTasksVacant()
-      console.log('result ', result)
       runInAction(() => {
-        this.tasksVacant = result
+        this.dashboardData = {
+          ...this.dashboardData,
+          [WarehouseDashboardCardDataKey.VACANT_TASKS]: result.filter(
+            task => task.status === mapTaskStatusEmumToKey[TaskStatus.NEW],
+          ).length,
+        }
       })
     } catch (error) {
       console.log(error)
@@ -63,7 +74,19 @@ export class WarehouseDashboardViewModel {
     try {
       const result = await StorekeeperModel.getTasksMy()
       runInAction(() => {
-        this.tasksMy = result
+        this.dashboardData = {
+          ...this.dashboardData,
+          [WarehouseDashboardCardDataKey.TASKS_MY]: result.filter(
+            task => task.status === mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS],
+          ).length,
+          [WarehouseDashboardCardDataKey.COMPLETED_TASKS]: result.filter(
+            task => task.status === mapTaskStatusEmumToKey[TaskStatus.SOLVED],
+          ).length,
+
+          [WarehouseDashboardCardDataKey.CANCELED_TASKS]: result.filter(
+            task => task.status === mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
+          ).length,
+        }
       })
     } catch (error) {
       console.log(error)
@@ -76,7 +99,10 @@ export class WarehouseDashboardViewModel {
       const result = await StorekeeperModel.getBoxesMy()
 
       runInAction(() => {
-        this.boxesMy = result
+        this.dashboardData = {
+          ...this.dashboardData,
+          [WarehouseDashboardCardDataKey.BOXES_IN_STORE]: result.length,
+        }
       })
     } catch (error) {
       console.log(error)
@@ -88,7 +114,13 @@ export class WarehouseDashboardViewModel {
     try {
       const result = await StorekeeperModel.getBatches()
       runInAction(() => {
-        this.batches = result
+        this.dashboardData = {
+          ...this.dashboardData,
+          [WarehouseDashboardCardDataKey.SENT_BATCHES]: result.filter(batch => batch.boxes[0].sendToBatchComplete)
+            .length,
+          [WarehouseDashboardCardDataKey.NOT_SENT_BATCHES]: result.filter(batch => !batch.boxes[0].sendToBatchComplete)
+            .length,
+        }
       })
     } catch (error) {
       console.log(error)

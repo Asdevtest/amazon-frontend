@@ -8,5 +8,6 @@ export const useClassNames = makeStyles(theme => ({
     [theme.breakpoints.down('xs')]: {
       padding: theme.spacing(1),
     },
+    minHeight: '50vh',
   },
 }))

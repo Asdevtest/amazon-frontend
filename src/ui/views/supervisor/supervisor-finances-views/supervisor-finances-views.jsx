@@ -80,35 +80,32 @@ class SupervisorFinancesViewsRaw extends Component {
             setDrawerOpen={onChangeDrawerOpen}
           >
             <MainContent>
-              <div className={classNames.tableWrapper}>
-                <DataGrid
-                  pagination
-                  useResizeContainer
-                  autoHeight
-                  getRowClassName={getRowClassName}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  rowHeight={75}
-                  components={{
-                    Toolbar: GridToolbar,
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection[0])
-                  }}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                />
-              </div>
+              <DataGrid
+                pagination
+                useResizeContainer
+                getRowClassName={getRowClassName}
+                sortModel={sortModel}
+                filterModel={filterModel}
+                page={curPage}
+                pageSize={rowsPerPage}
+                rowsPerPageOptions={[15, 25, 50, 100]}
+                rows={getCurrentData()}
+                rowHeight={75}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
+                density={densityModel}
+                columns={columnsModel}
+                loading={requestStatus === loadingStatuses.isLoading}
+                onSelectionModelChange={newSelection => {
+                  onSelectionModel(newSelection[0])
+                }}
+                onSortModelChange={onChangeSortingModel}
+                onPageSizeChange={onChangeRowsPerPage}
+                onPageChange={onChangeCurPage}
+                onStateChange={setDataGridState}
+                onFilterModelChange={model => onChangeFilterModel(model)}
+              />
             </MainContent>
           </Appbar>
         </Main>

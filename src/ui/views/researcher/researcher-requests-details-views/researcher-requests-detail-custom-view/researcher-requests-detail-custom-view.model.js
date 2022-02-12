@@ -97,7 +97,6 @@ export class ResearcherRequestDetailCustomViewModel {
       }
 
       this.onTriggerOpenModal('showWarningModal')
-      // this.history.goBack()
     } catch (error) {
       console.log(error)
       this.error = error

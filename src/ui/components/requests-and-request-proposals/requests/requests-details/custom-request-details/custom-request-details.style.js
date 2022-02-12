@@ -2,53 +2,21 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    padding: '0 10px 10px',
-  },
-
-  requestDataWrapper: {
-    marginTop: '20px',
+    width: '100%',
     display: 'flex',
-    flexDirection: 'column',
-    borderRadius: '10px',
+
+    borderRadius: '4px',
+    border: '1px solid rgba(0,0,0, .3)',
+
+    padding: '10px 5px 20px',
   },
 
-  row: {
-    display: 'flex',
-    '&:nth-child(2n)': {
-      background: 'rgba(0,0,0,.1)',
-    },
+  mainWrapper: {
+    width: '100%',
   },
 
-  leftColumn: {
-    width: '70%',
-    padding: '5px',
-  },
-
-  rightColumn: {
-    width: '30%',
-    padding: '5px',
-    borderLeft: '1px solid rgba(0,0,0,.3)',
-  },
-
-  rightHeadColumn: {
-    width: '30%',
-    padding: '5px',
-  },
-
-  columnHead: {
-    fontWeight: 'bold',
-  },
-
-  clientComment: {
-    minHeight: '100px',
-    maxHeight: '300px',
-    overflowY: 'scroll',
-  },
-
-  defaultBlock: {
-    border: '1px solid rgba(217, 222, 229, 1)',
-    borderRadius: '10px',
-    marginBottom: '20px',
+  conditionsFieldWrapper: {
+    width: '100%',
   },
 
   conditionsField: {
@@ -66,7 +34,15 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '1.5',
   },
 
-  nameField: {
+  accordion: {
     width: '100%',
+    backgroundColor: 'red',
+  },
+
+  title: {
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '21px',
+    color: '#354256',
   },
 }))

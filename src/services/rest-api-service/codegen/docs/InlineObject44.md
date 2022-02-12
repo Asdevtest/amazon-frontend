@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Статус | [optional] 
-**isBarCodeAlreadyAttachedByTheSupplier** | **Boolean** | Признак того, что баркод поклеен у поставщика. | [optional] 
-**isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper** | **Boolean** | ???&#x3D;&#x3D;&#x3D;нет описания&#x3D;&#x3D;&#x3D; | [optional] 
+**name** | **String** | Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами. | 
+**sellerBoardWarehouseReportUrlDaily** | **String** | URL для скачивания ежедневных отчетов SellerBoard. | 
+**sellerBoardWarehouseReportUrlMonthly** | **String** | URL для скачивания отчетов SellerBoard за последний месяц. | 
 
 
