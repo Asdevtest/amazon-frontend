@@ -2,22 +2,22 @@ import SettingsIcon from '@mui/icons-material/Settings'
 
 import React, {useRef, useState, FC} from 'react'
 
-import {Avatar, Divider, Paper, Typography, Hidden, IconButton, NativeSelect} from '@material-ui/core'
+import {Avatar, Divider, Paper, Typography, Hidden, IconButton} from '@material-ui/core'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import MenuIcon from '@material-ui/icons/Menu'
 import NotificationsIcon from '@material-ui/icons/Notifications'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
 import {texts} from '@constants/texts'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {Badge} from '@components/badge'
 import {Button} from '@components/buttons/button'
-import {Input} from '@components/input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
@@ -34,12 +34,11 @@ interface Props {
   setDrawerOpen: () => void
 }
 
-export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserRole, setDrawerOpen}) => {
+export const Appbar: FC<Props> = observer(({avatarSrc, children, title, setDrawerOpen}) => {
   const history = useHistory()
   const classNames = useClassNames()
-  const componentModel = useRef(new AppbarModel({userRole: curUserRole}))
+  const componentModel = useRef(new AppbarModel())
 
-  const [role, setRole] = useState(componentModel.current.role)
   const renderNavbarButton = (
     <Hidden mdUp>
       <IconButton onClick={setDrawerOpen}>
@@ -64,14 +63,18 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
     history.push('/auth')
   }
 
-  const onChangeUserInfo = () => {
-    componentModel.current.changeUserInfo({role})
+  const onChangeUserInfo = (roleNun: number) => {
+    componentModel.current.changeUserInfo({role: roleNun})
     history.push('/nonexistent-address') // для перехода на разрешенный роут другой роли
   }
 
   const onClickProfile = () => {
     history.push('/profile')
   }
+
+  const allowedRolesWithoutCandidate = componentModel.current.allowedRoles?.filter(
+    (el: number) => el !== (mapUserRoleEnumToKey as {[key: string]: number})[UserRole.CANDIDATE],
+  )
 
   return (
     <React.Fragment>
@@ -82,9 +85,27 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
           <Typography className={classNames.title}>{title}</Typography>
 
           <Typography className={classNames.userroleTitle}>{'role:'}</Typography>
-          <Typography className={classNames.userrole}>
-            {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
-          </Typography>
+
+          <div className={classNames.allowedRolesWrapper}>
+            {allowedRolesWithoutCandidate?.map((roleCode: number) => (
+              <Button
+                key={roleCode}
+                variant={'text'}
+                className={clsx(classNames.allowedRolesItem, {
+                  [classNames.CurrentAllowedRolesItem]: roleCode === componentModel.current.role,
+                })}
+                onClick={() => onChangeUserInfo(roleCode)}
+              >
+                {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
+              </Button>
+            ))}
+          </div>
+
+          {!allowedRolesWithoutCandidate?.length && (
+            <Typography className={classNames.userrole}>
+              {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
+            </Typography>
+          )}
 
           <Divider orientation="vertical" />
           <Badge showZero badgeContent={2}>
@@ -115,42 +136,6 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, curUserR
         <div>
           <Menu keepMounted id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
             <Typography className={classNames.menuTitle}>{textConsts.menuTitle}</Typography>
-
-            {componentModel.current?.allowedRoles?.length ? (
-              <div className={classNames.roleWrapper}>
-                <Typography className={classNames.menuTitle}>{textConsts.roleTitle}</Typography>
-
-                <div className={classNames.roleSubWrapper}>
-                  <NativeSelect
-                    input={<Input fullWidth />}
-                    variant="filled"
-                    className={classNames.roleSelect}
-                    value={role}
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                      setRole((e.target as HTMLSelectElement).value)
-                    }
-                  >
-                    {componentModel.current.allowedRoles.map((roleCode: number) => (
-                      <option key={roleCode} value={roleCode}>
-                        {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
-                      </option>
-                    ))}
-                  </NativeSelect>
-
-                  <Button
-                    disableElevation
-                    variant="contained"
-                    className={classNames.menuBtn}
-                    color="primary"
-                    onClick={() => {
-                      onChangeUserInfo()
-                    }}
-                  >
-                    {textConsts.chooseBtn}
-                  </Button>
-                </div>
-              </div>
-            ) : undefined}
 
             {
               <MenuItem className={classNames.menuWrapper} onClick={onClickProfile}>

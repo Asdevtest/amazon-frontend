@@ -8,7 +8,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -67,7 +66,6 @@ export class AdminWarehouseTasksViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.ADMIN}
           activeCategory={activeCategory}
           activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
@@ -81,7 +79,6 @@ export class AdminWarehouseTasksViewRaw extends Component {
             avatarSrc=""
             history={history}
             setDrawerOpen={onChangeDrawerOpen}
-            curUserRole={UserRole.ADMIN}
           >
             <MainContent>
               <DataGrid

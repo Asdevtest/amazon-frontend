@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
 
-import {Typography, FormControlLabel, RadioGroup, Radio} from '@material-ui/core'
-import clsx from 'clsx'
+import {Typography} from '@material-ui/core'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {texts} from '@constants/texts'
@@ -17,7 +15,7 @@ import {useClassNames} from './delivery.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrderDelivery
 
-export const Delivery = ({order, deliveryType, setDeliveryType, deliveryOptions}) => {
+export const Delivery = ({order}) => {
   const classNames = useClassNames()
 
   return (

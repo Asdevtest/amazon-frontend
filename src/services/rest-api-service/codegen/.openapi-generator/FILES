@@ -12,6 +12,7 @@ docs/ApiV1AdminsOrdersCreatedBy.md
 docs/ApiV1AdminsPaymentsCreatedBy.md
 docs/ApiV1AdminsTasksBoxesBefore.md
 docs/ApiV1AdminsTasksItems.md
+docs/ApiV1AdminsTasksLightBoxes.md
 docs/ApiV1BoxesItems.md
 docs/ApiV1BoxesMergeBoxBody.md
 docs/ApiV1BoxesSplitBoxItems.md
@@ -21,7 +22,6 @@ docs/ApiV1RequestsCustomDetails.md
 docs/ApiV1RequestsCustomGuidDetails.md
 docs/ApiV1RequestsCustomGuidRequest.md
 docs/ApiV1RequestsCustomRequest.md
-docs/ApiV1StorekeepersTasksLightVacBoxesBefore.md
 docs/BadRequestError.md
 docs/BoxesApi.md
 docs/BuyerApi.md
@@ -195,6 +195,7 @@ src/model/ApiV1AdminsOrdersCreatedBy.js
 src/model/ApiV1AdminsPaymentsCreatedBy.js
 src/model/ApiV1AdminsTasksBoxesBefore.js
 src/model/ApiV1AdminsTasksItems.js
+src/model/ApiV1AdminsTasksLightBoxes.js
 src/model/ApiV1BoxesItems.js
 src/model/ApiV1BoxesMergeBoxBody.js
 src/model/ApiV1BoxesSplitBoxItems.js
@@ -204,7 +205,6 @@ src/model/ApiV1RequestsCustomDetails.js
 src/model/ApiV1RequestsCustomGuidDetails.js
 src/model/ApiV1RequestsCustomGuidRequest.js
 src/model/ApiV1RequestsCustomRequest.js
-src/model/ApiV1StorekeepersTasksLightVacBoxesBefore.js
 src/model/BadRequestError.js
 src/model/CheckIsUniqueNameOrEmailReqSchema.js
 src/model/CheckIsUniqueNameOrEmailSchema.js
@@ -333,6 +333,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/ApiV1StorekeepersTasksLightVacBoxesBefore.spec.js
-test/model/InlineResponse20018.spec.js
-test/model/InlineResponse20018Details.spec.js

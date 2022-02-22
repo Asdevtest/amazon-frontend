@@ -77,6 +77,11 @@ class ClientModelStatic {
     return response
   }
 
+  getLightTasks = async () => {
+    const response = await restApiService.clientApi.apiV1ClientsTasksLightGet()
+    return response
+  }
+
   getBatches = async () => {
     const response = await restApiService.clientApi.apiV1ClientsBatchesGet()
     return response

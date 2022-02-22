@@ -23,6 +23,7 @@ export class ClientShopsViewModel {
 
   showAddOrEditShopModal = false
   showWarningModal = false
+  showConfirmModal = false
 
   selectionModel = undefined
 

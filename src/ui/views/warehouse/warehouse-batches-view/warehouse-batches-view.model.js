@@ -137,9 +137,6 @@ export class WarehouseBatchesViewModel {
   async onClickConfirmSendToBatchBtn() {
     try {
       const boxesIds = []
-      console.log('this.batches', this.batches)
-
-      console.log('this.selectedBatches', this.selectedBatches)
 
       this.batches
         .filter(batch => this.selectedBatches.includes(batch.id))

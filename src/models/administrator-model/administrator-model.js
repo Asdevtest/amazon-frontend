@@ -100,6 +100,11 @@ class AdministratorModelStatic {
     return response
   }
 
+  getLightTasks = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsTasksLightGet()
+    return response
+  }
+
   getSettings = async () => {
     const response = await restApiService.administratorApi.apiV1AdminsGetSettingsGet()
     return response

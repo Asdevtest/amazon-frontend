@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -61,12 +60,7 @@ export class BuyerProductView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          curUserRole={UserRole.BUYER}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
-        />
+        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} user={textConsts.appUser} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
@@ -74,12 +68,10 @@ export class BuyerProductView extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.BUYER}
           >
             <MainContent>
               {product ? (
                 <ProductWrapper
-                  curUserRole={UserRole.BUYER}
                   product={product}
                   productBase={productBase}
                   selectedSupplier={selectedSupplier}

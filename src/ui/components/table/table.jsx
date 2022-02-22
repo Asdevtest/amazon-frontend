@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {Paper, Table as MuiTable, TableBody, TableContainer, TableHead, Toolbar, Typography} from '@material-ui/core'

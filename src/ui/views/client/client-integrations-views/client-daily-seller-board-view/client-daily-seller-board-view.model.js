@@ -13,7 +13,7 @@ import {SupplierModel} from '@models/supplier-model'
 import {clientDailySellerBoardColumns} from '@components/table-columns/client/client-daily-seller-board-columns'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {onSubmitPostImages} from '@utils/upload-files'
@@ -187,7 +187,7 @@ export class ClientDailySellerBoardViewModel {
     try {
       const result = await ClientModel.getProductsMy(filters)
       runInAction(() => {
-        this.inventoryProducts = result.sort(sortObjectsArrayByFiledDate('updatedAt'))
+        this.inventoryProducts = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
       console.log(error)

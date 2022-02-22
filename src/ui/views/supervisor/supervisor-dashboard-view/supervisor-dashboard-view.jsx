@@ -8,7 +8,6 @@ import {getSupervisorDashboardCardConfig, SupervisorDashboardCardDataKey} from '
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
@@ -18,6 +17,7 @@ import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixed} from '@utils/text'
 
 import {SupervisorDashboardViewModel} from './supervisor-dashboard-view.model'
 import {styles} from './supervisor-dashboard-view.style'
@@ -36,26 +36,20 @@ export class SupervisorDashboardViewRaw extends Component {
   }
 
   render() {
-    const {balance, drawerOpen, onTriggerDrawerOpen} = this.viewModel
+    const {userInfo, drawerOpen, onTriggerDrawerOpen} = this.viewModel
     const {classes: classNames} = this.props
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.SUPERVISOR}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.SUPERVISOR}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <DashboardBalance balance={balance} />
+              <DashboardBalance user={userInfo} />
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <div className={classNames.amountWithLabelCardsWrapper}>
                 <Grid container justify="center" spacing={3}>
@@ -100,9 +94,16 @@ export class SupervisorDashboardViewRaw extends Component {
         return producatsMy.filter(prod => prod.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]).length
 
       case SupervisorDashboardCardDataKey.ACCURED:
-        return paymentsMy.reduce((ac, el) => el.sum > 0 && ac + el.sum, 0)
+        return toFixed(
+          paymentsMy.reduce((ac, el) => el.sum > 0 && ac + el.sum, 0),
+          2,
+        )
+
       case SupervisorDashboardCardDataKey.FINES:
-        return paymentsMy.reduce((ac, el) => el.sum < 0 && ac + el.sum, 0)
+        return toFixed(
+          paymentsMy.reduce((ac, el) => el.sum < 0 && ac + el.sum, 0),
+          2,
+        )
     }
   }
 }

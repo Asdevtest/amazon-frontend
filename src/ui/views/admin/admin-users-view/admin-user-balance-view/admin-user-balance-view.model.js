@@ -10,7 +10,7 @@ import {SettingsModel} from '@models/settings-model'
 import {financesViewColumns} from '@components/table-columns/admin/finances-columns/finances-columns'
 
 import {financesDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminUserBalanceViewModel {
@@ -136,7 +136,7 @@ export class AdminUserBalanceViewModel {
       const result = await OtherModel.getPaymentsByUserId(id)
 
       runInAction(() => {
-        this.payments = financesDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.payments = financesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       console.log(error)

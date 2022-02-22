@@ -4,7 +4,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {SupervisorModel} from '@models/supervisor-model'
 
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 
 export class SupervisorReadyToCheckByClientViewModel {
   history = undefined
@@ -43,7 +43,7 @@ export class SupervisorReadyToCheckByClientViewModel {
 
       this.setRequestStatus(loadingStatuses.success)
       runInAction(() => {
-        this.productsReadyToCheck = result.sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.productsReadyToCheck = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       console.log(error)

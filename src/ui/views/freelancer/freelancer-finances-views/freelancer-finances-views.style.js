@@ -26,4 +26,12 @@ export const styles = createStyles(theme => ({
       marginRight: 0,
     },
   },
+
+  redRow: {
+    color: 'red',
+  },
+
+  greenRow: {
+    color: 'green',
+  },
 }))

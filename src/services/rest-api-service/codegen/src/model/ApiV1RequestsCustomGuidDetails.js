@@ -47,9 +47,6 @@ class ApiV1RequestsCustomGuidDetails {
         if (data) {
             obj = obj || new ApiV1RequestsCustomGuidDetails();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
             if (data.hasOwnProperty('conditions')) {
                 obj['conditions'] = ApiClient.convertToType(data['conditions'], 'String');
             }
@@ -62,12 +59,6 @@ class ApiV1RequestsCustomGuidDetails {
 
 
 }
-
-/**
- * Имя универсальной заявки.
- * @member {String} name
- */
-ApiV1RequestsCustomGuidDetails.prototype['name'] = undefined;
 
 /**
  * Условия универсальной заявки.

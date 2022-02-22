@@ -16,6 +16,7 @@ import {useClassNames} from './selection-supplier-modal.style'
 const textConsts = getLocalizedTexts(texts, 'ru').selectionSupplierModal
 
 const clientToEditStatuses = [
+  ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT],
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
   ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS],
   ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT],
@@ -96,11 +97,7 @@ export const SelectionSupplierModal = ({product, onCloseModal, onTriggerOpenModa
         <div className={classNames.modalButtonsWrapper}>
           <Button
             tooltipContent={textConsts.searchSupplierTooltip}
-            disabled={
-              product &&
-              (product?.originalData.status < ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] ||
-                !clientToEditStatuses.includes(product?.originalData.status))
-            }
+            disabled={product && !clientToEditStatuses.includes(product?.originalData.status)}
             className={buttonSendRequestClsx}
             onClick={() => onClickSendRequestButton()}
           >

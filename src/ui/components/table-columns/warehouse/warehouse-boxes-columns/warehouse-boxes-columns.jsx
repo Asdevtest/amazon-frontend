@@ -27,7 +27,7 @@ export const warehouseBoxesViewColumns = () => [
     field: 'createdAt',
     headerName: textConsts.createdAtField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 100,
+    width: 120,
     type: 'date',
   },
 
@@ -35,7 +35,7 @@ export const warehouseBoxesViewColumns = () => [
     field: 'updatedAt',
     headerName: textConsts.updatedAtField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 100,
+    width: 120,
     type: 'date',
   },
 
@@ -49,7 +49,7 @@ export const warehouseBoxesViewColumns = () => [
   {
     field: 'orders',
     headerName: textConsts.ordersField,
-    width: 350,
+    width: 450,
     renderCell: params =>
       params.row.items.length > 1 ? (
         <OrderManyItemsCell box={params.row} />

@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20012 from './InlineResponse20012';
+import InlineResponse20013 from './InlineResponse20013';
 import InlineResponse20018Details from './InlineResponse20018Details';
 
 /**
@@ -51,7 +51,7 @@ class InlineResponse20018 {
             obj = obj || new InlineResponse20018();
 
             if (data.hasOwnProperty('request')) {
-                obj['request'] = InlineResponse20012.constructFromObject(data['request']);
+                obj['request'] = InlineResponse20013.constructFromObject(data['request']);
             }
             if (data.hasOwnProperty('details')) {
                 obj['details'] = InlineResponse20018Details.constructFromObject(data['details']);
@@ -64,7 +64,7 @@ class InlineResponse20018 {
 }
 
 /**
- * @member {module:model/InlineResponse20012} request
+ * @member {module:model/InlineResponse20013} request
  */
 InlineResponse20018.prototype['request'] = undefined;
 

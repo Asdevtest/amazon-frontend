@@ -100,6 +100,8 @@ export const AddOrEditSupplierModalContent = observer(
                     price: '',
                     images: [],
                   })
+
+                  setPhotosOfSupplier(() => [])
                   setMakeMainSupplier(false)
                 }}
               >
@@ -118,6 +120,8 @@ export const AddOrEditSupplierModalContent = observer(
               variant="contained"
               onClick={() => {
                 onClickSaveBtn({...tmpSupplier, _id: supplier && supplier._id}, photosOfSupplier)
+
+                setPhotosOfSupplier(() => [])
               }}
             >
               {textConsts.saveBtn}

@@ -73,6 +73,7 @@ const fieldsOfProductAllowedToUpdate = [
   'currentSupplierId',
   'id',
   'clientComment',
+  'skusByClient',
 ]
 
 export class ClientProductViewModel {
@@ -156,6 +157,7 @@ export class ClientProductViewModel {
           'amazonTitle',
           'amazonDescription',
           'amazonDetail',
+          'skusByClient',
         ].includes(fieldName)
       ) {
         this.product = {...this.product, [fieldName]: e.target.value}
@@ -341,6 +343,8 @@ export class ClientProductViewModel {
   async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
+      this.readyImages = []
 
       if (photosOfSupplier.length) {
         await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})

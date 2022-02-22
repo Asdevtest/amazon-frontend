@@ -9,7 +9,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -82,7 +81,6 @@ export class WarehouseMyTasksViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.STOREKEEPER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}
@@ -94,7 +92,6 @@ export class WarehouseMyTasksViewRaw extends Component {
             notificationCount={2}
             avatarSrc=""
             setDrawerOpen={onChangeTriggerDrawerOpen}
-            curUserRole={UserRole.STOREKEEPER}
           >
             <MainContent>
               <DataGrid
@@ -148,7 +145,13 @@ export class WarehouseMyTasksViewRaw extends Component {
           />
         </Modal>
 
-        <Modal openModal={showCancelTaskModal} setOpenModal={() => onTriggerOpenModal('showCancelTaskModal')}>
+        <Modal
+          openModal={showCancelTaskModal}
+          setOpenModal={() => {
+            onTriggerOpenModal('showCancelTaskModal')
+            onTriggerOpenModal('showConfirmModal')
+          }}
+        >
           <Typography variant="h5">{textConsts.modalMergeTitle}</Typography>
           <Field
             multiline
@@ -172,7 +175,10 @@ export class WarehouseMyTasksViewRaw extends Component {
               color="primary"
               variant="contained"
               className={classNames.button}
-              onClick={() => onTriggerOpenModal('showCancelTaskModal')}
+              onClick={() => {
+                onTriggerOpenModal('showCancelTaskModal')
+                onTriggerOpenModal('showConfirmModal')
+              }}
             >
               {textConsts.cancelBtn}
             </Button>

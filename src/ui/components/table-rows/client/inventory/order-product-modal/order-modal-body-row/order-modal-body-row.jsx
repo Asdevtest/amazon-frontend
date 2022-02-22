@@ -84,7 +84,7 @@ export const OrderModalBodyRow = ({
         />
       </TableCell>
 
-      <TableCell>
+      <TableCell className={classNames.totalCell}>
         <Typography>{toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}</Typography>
       </TableCell>
 

@@ -4,11 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** |  | [optional] 
-**createdAt** | **Number** | Дата создания. | [optional] 
-**updatedAt** | **Number** | Дата обновления. | [optional] 
-**operationType** | **String** | Тип операции | [optional] 
-**status** | **Number** | Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено. | [optional] 
-**boxesBefore** | [**[ApiV1StorekeepersTasksLightVacBoxesBefore]**](ApiV1StorekeepersTasksLightVacBoxesBefore.md) | Массив коробок которые были до переформирования коробок. | [optional] 
+**_id** | **String** | ID магазина. | [optional] 
+**name** | **String** | Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами. | [optional] 
+**sellerBoardWarehouseReportUrlDaily** | **String** | URL для скачивания ежедневных отчетов SellerBoard. | [optional] 
+**sellerBoardWarehouseReportUrlMonthly** | **String** | URL для скачивания отчетов SellerBoard за последний месяц. | [optional] 
+**ownerId** | **String** | GUID, владелеца. | [optional] 
+**createdById** | **String** | GUID любого, кто последний создал. | [optional] 
+**lastModifiedById** | **String** | GUID любого, кто последний редактировал. | [optional] 
+**createdAt** | **Date** | Дата создания | [optional] 
+**updatedAt** | **Date** | Дата изменения | [optional] 
 
 

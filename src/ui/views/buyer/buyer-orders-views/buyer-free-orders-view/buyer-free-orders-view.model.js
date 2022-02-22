@@ -9,7 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 import {buyerFreeOrdersViewColumns} from '@components/table-columns/buyer/buyer-fre-orders-columns'
 
 import {buyerVacantOrdersDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class BuyerFreeOrdersViewModel {
@@ -115,7 +115,9 @@ export class BuyerFreeOrdersViewModel {
     try {
       const result = await BuyerModel.getOrdersVacant()
       runInAction(() => {
-        this.ordersVacant = buyerVacantOrdersDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.ordersVacant = buyerVacantOrdersDataConverter(result).sort(
+          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+        )
       })
     } catch (error) {
       this.ordersVacant = []

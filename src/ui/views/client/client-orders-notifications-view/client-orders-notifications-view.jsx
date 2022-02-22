@@ -8,7 +8,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -64,7 +63,6 @@ class ClientOrdersNotificationsViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
@@ -76,7 +74,6 @@ class ClientOrdersNotificationsViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <div className={classNames.tableWrapper}>

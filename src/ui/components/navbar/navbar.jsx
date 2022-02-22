@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {navbarConfig} from '@constants/navbar'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {NavbarCategory} from './navbar-category'
 import {NavbarCollapse} from './navbar-collapse'
@@ -12,9 +13,9 @@ import {NavbarModel} from './navbar.model'
 import {useClassNames} from './navbar.style'
 
 export const Navbar = observer(
-  ({activeCategory, activeSubCategory, curUserRole, drawerOpen, setDrawerOpen, onChangeSubCategory}) => {
+  ({activeCategory, activeSubCategory, drawerOpen, setDrawerOpen, onChangeSubCategory}) => {
     const classNames = useClassNames()
-    const viewModel = useRef(new NavbarModel({curUserRole}))
+    const viewModel = useRef(new NavbarModel())
     const drawerContent = (
       <React.Fragment>
         <div className={classNames.logoWrapper}>
@@ -23,15 +24,14 @@ export const Navbar = observer(
         <Divider />
 
         <List className={classNames.categoriesWrapper}>
-          {navbarConfig[curUserRole].map((category, index) =>
+          {navbarConfig[UserRoleCodeMap[viewModel.current.userInfo.role]].map((category, index) =>
             category.checkHideBlock(viewModel.current.userInfo) ? (
               <React.Fragment key={index}>
                 <NavbarCategory
                   button
                   isSelected={category.key === activeCategory}
-                  to={category.route}
-                  icon={category.icon}
-                  title={category.title}
+                  userInfo={viewModel.current.userInfo}
+                  category={category}
                   badge={
                     category.route === '/client/orders-notifications' && viewModel.current.ordersNotificationsAmount
                   }

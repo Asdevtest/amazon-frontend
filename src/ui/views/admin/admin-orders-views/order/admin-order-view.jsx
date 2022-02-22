@@ -4,7 +4,6 @@ import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -35,12 +34,7 @@ export class AdminOrderView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          curUserRole={UserRole.ADMIN}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
-        />
+        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} user={textConsts.appUser} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
@@ -48,7 +42,6 @@ export class AdminOrderView extends Component {
             avatarSrc={avatar}
             history={history}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.ADMIN}
           >
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>

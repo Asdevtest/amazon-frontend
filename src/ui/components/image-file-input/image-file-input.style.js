@@ -151,4 +151,10 @@ export const useClassNames = makeStyles(() => ({
     height: '26px',
     width: '172px',
   },
+
+  errorText: {
+    color: 'red',
+    fontWeight: 'bold',
+    fontSize: '18px',
+  },
 }))

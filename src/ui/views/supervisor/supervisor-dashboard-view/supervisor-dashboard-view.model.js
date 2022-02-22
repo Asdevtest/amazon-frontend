@@ -11,10 +11,14 @@ export class SupervisorDashboardViewModel {
   requestStatus = undefined
   error = undefined
   drawerOpen = false
-  balance = UserModel.userInfo?.balance
+
   productsVacant = []
   producatsMy = []
   paymentsMy = []
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history

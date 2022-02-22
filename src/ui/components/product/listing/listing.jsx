@@ -165,6 +165,16 @@ export const Listing = observer(({productId, onClickBack}) => {
               >
                 {'Отменить'}
               </Button>
+
+              <Button
+                disableElevation
+                className={classNames.button}
+                color="primary"
+                variant="contained"
+                onClick={onClickBack}
+              >
+                {'Назад'}
+              </Button>
             </div>
           ) : (
             <div className={classNames.buttonsWrapper}>

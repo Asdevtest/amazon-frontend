@@ -8,12 +8,14 @@ import {TaskOperationType} from '@constants/task-operation-type'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {clientBoxesViewColumns} from '@components/table-columns/client/client-boxes-columns'
+import {clientTasksViewColumns} from '@components/table-columns/client/client-tasks-columns'
 
-import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {clientWarehouseDataConverter, warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
+import {sortObjectsArrayByFiledDate, sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const updateBoxBlackList = [
@@ -81,6 +83,13 @@ export class ClientWarehouseViewModel {
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = clientBoxesViewColumns()
+
+  rowTaskHandlers = {
+    onClickTaskInfo: item => this.setCurrentOpenedTask(item),
+    onClickCancelBtn: (id, taskId, type) => this.onClickCancelBtn(id, taskId, type),
+  }
+
+  taskColumnsModel = clientTasksViewColumns(this.rowTaskHandlers)
 
   get isMasterBoxSelected() {
     return this.selectedBoxes.some(boxId => {
@@ -153,22 +162,32 @@ export class ClientWarehouseViewModel {
     return toJS(this.boxesMy)
   }
 
+  getCurrentTaskData() {
+    return toJS(this.tasksMy)
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getBoxesMy()
+      this.getBoxesMy()
 
       this.setRequestStatus(loadingStatuses.success)
-      await this.getTasksMy()
+      this.getTasksMy()
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
-  setCurrentOpenedTask(item) {
-    this.curOpenedTask = item
-    this.onTriggerOpenModal('showTaskInfoModal')
+  async setCurrentOpenedTask(item) {
+    try {
+      const result = await StorekeeperModel.getTaskById(item._id)
+
+      this.curOpenedTask = result
+      this.onTriggerOpenModal('showTaskInfoModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onModalRedistributeBoxAddNewBox(value) {
@@ -336,10 +355,10 @@ export class ClientWarehouseViewModel {
 
   async getTasksMy() {
     try {
-      const result = await ClientModel.getTasks()
+      const result = await ClientModel.getLightTasks()
 
       runInAction(() => {
-        this.tasksMy = result.data.sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.tasksMy = warehouseTasksDataConverter(result).sort(sortObjectsArrayByFiledDate('updatedAt'))
       })
     } catch (error) {
       console.log(error)
@@ -402,7 +421,7 @@ export class ClientWarehouseViewModel {
       const result = await BoxesModel.getBoxesForCurClient()
 
       runInAction(() => {
-        this.boxesMy = clientWarehouseDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.boxesMy = clientWarehouseDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       console.log(error)

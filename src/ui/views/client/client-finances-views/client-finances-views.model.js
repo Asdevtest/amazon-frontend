@@ -9,7 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 import {financesViewColumns} from '@components/table-columns/admin/finances-columns/finances-columns'
 
 import {financesDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class ClientFinancesViewsModel {
@@ -78,7 +78,9 @@ export class ClientFinancesViewsModel {
       const result = await OtherModel.getMyPayments()
 
       runInAction(() => {
-        this.currentFinancesData = financesDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.currentFinancesData = financesDataConverter(result).sort(
+          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+        )
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

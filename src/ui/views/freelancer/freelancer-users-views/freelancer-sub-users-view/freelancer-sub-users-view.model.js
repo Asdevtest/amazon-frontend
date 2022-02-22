@@ -235,6 +235,13 @@ export class FreelancerSubUsersViewModel {
   async unlinkSubUser() {
     try {
       await UserModel.unlinkSubUser({userId: this.selectedSubUser._id})
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: textConsts.successRemoveTitle,
+      }
+
+      this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
       console.log(error)
       this.error = error

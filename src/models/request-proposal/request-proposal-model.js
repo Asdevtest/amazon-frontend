@@ -24,7 +24,9 @@ class RequestProposalModelStatic {
   }
 
   getRequestProposalsCustomByRequestId = async requestId => {
-    const response = await restApiService.SearchRequestProposalApi.apiV1RequestProposalsCustomGuidGet(requestId)
+    const response = await restApiService.SearchRequestProposalApi.apiV1RequestProposalsCustomByRequestIdGuidGet(
+      requestId,
+    )
     return response
   }
 }

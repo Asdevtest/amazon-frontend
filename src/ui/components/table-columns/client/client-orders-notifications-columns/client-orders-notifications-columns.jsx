@@ -58,6 +58,13 @@ export const clientOrdersNotificationsViewColumns = handlers => [
   },
 
   {
+    field: 'buyerComment',
+    headerName: textConsts.buyerCommentField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 450,
+  },
+
+  {
     field: 'status',
     headerName: textConsts.statusField,
     width: 150,

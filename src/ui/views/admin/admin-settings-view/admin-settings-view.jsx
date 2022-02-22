@@ -4,7 +4,6 @@ import {withStyles} from '@material-ui/styles'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {AdminSettingsForm} from '@components/forms/admin-settings-form'
@@ -28,19 +27,9 @@ export class AdminSettingsViewRaw extends Component {
 
     return (
       <>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          curUserRole={UserRole.ADMIN}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={this.onTriggerDrawer}
-        />
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={this.onTriggerDrawer} />
         <Main>
-          <Appbar
-            avatarSrc=""
-            curUserRole={UserRole.ADMIN}
-            setDrawerOpen={this.onTriggerDrawer}
-            title={textConsts.appBarTitle}
-          >
+          <Appbar avatarSrc="" setDrawerOpen={this.onTriggerDrawer} title={textConsts.appBarTitle}>
             <MainContent>
               <AdminSettingsForm />
             </MainContent>

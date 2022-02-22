@@ -3,11 +3,12 @@ import React, {useState} from 'react'
 import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow, TableCell} from '@material-ui/core'
 
 import {DELIVERY_OPTIONS} from '@constants/delivery-options'
-import {getOrderStatusOptionByCode} from '@constants/order-status'
+import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
+import {ErrorButton} from '@components/buttons/error-button'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 
@@ -29,7 +30,7 @@ const renderHeadRow = (
   </TableRow>
 )
 
-export const OrderContent = ({order, boxes, history}) => {
+export const OrderContent = ({order, boxes, history, onClickCancelOrder}) => {
   const classNames = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)
@@ -67,6 +68,12 @@ export const OrderContent = ({order, boxes, history}) => {
           <Divider orientation={'horizontal'} />
 
           <div className={classNames.btnsWrapper}>
+            {order.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] && (
+              <ErrorButton className={classNames.cancelBtn} onClick={onClickCancelOrder}>
+                {textConsts.cancelBtn}
+              </ErrorButton>
+            )}
+
             <Button
               disableElevation
               className={classNames.goBackBtn}

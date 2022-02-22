@@ -1,12 +1,11 @@
 import React, {useState} from 'react'
 
-import {Container, Button, Typography, NativeSelect} from '@material-ui/core'
+import {Container, Button, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {Field} from '@components/field'
-import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
@@ -16,22 +15,13 @@ import {useClassNames} from './admin-balance-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').adminBalanceModal
 
-const withdrawSelectOptions = [
-  {value: textConsts.widthdrawOptionFine, label: textConsts.widthdrawOptionFine},
-  {value: textConsts.widthdrawOptionWithdraw, label: textConsts.widthdrawOptionWithdraw},
-]
-
-const replenishSelectOptions = [
-  {value: textConsts.replenishOptionReplenish, label: textConsts.replenishOptionReplenish},
-  {value: textConsts.replenishOptionServicePayment, label: textConsts.replenishOptionServicePayment},
-]
-
 export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSubmit}) => {
   const classNames = useClassNames()
+
   const [balanceValue, setBalanceValue] = useState('')
-  const [reasonValue, setReasonValue] = useState(
-    isWithdraw ? textConsts.widthdrawOptionFine : textConsts.replenishOptionReplenish,
-  )
+
+  const [reasonValue, setReasonValue] = useState('')
+
   const [showConfirmModal, setConfirmModal] = useState(false)
   const onTriggerConfirmModal = () => setConfirmModal(prevState => !prevState)
   const onConfirm = () => {
@@ -66,16 +56,6 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
     return `${textConsts.confirmMsgAreYouSureYouWantTo} ${decreaseOrIncrease} ${textConsts.confirmMsgTheBalanceOfTheUser} ${user.name} ${textConsts.confirmMsgBy} ${balanceValue}?`
   }
 
-  const renderOptions = options => (
-    <>
-      {options.map((option, index) => (
-        <option key={index} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </>
-  )
-
   const disableButtonExecute = ['0', '0.', '0.0', ''].includes(balanceValue)
 
   return (
@@ -94,19 +74,16 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
             setBalanceValue(e.target.value)
           }
         />
+
         <Field
-          containerClasses={classNames.field}
+          multiline
           label={textConsts.reasonLabel}
-          inputComponent={
-            <NativeSelect
-              variant="filled"
-              value={reasonValue}
-              input={<Input fullWidth />}
-              onChange={e => setReasonValue(e.target.value)}
-            >
-              {isWithdraw ? renderOptions(withdrawSelectOptions) : renderOptions(replenishSelectOptions)}
-            </NativeSelect>
-          }
+          minRows={4}
+          rowsMax={4}
+          value={reasonValue}
+          placeholder={textConsts.modalPlaceholder}
+          className={classNames.modalTextArea}
+          onChange={e => setReasonValue(e.target.value)}
         />
 
         {isWithdraw ? renderNegativeMessage : renderPositiveMessage}

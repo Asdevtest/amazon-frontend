@@ -9,7 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 import {exchangeInventoryColumns} from '@components/table-columns/admin/inventory-columns'
 
 import {adminProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminInventoryViewModel {
@@ -95,7 +95,7 @@ export class AdminInventoryViewModel {
       const productsData = adminProductsDataConverter(result)
 
       runInAction(() => {
-        this.products = productsData.sort(sortObjectsArrayByFiledDate('updatedAt'))
+        this.products = productsData.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

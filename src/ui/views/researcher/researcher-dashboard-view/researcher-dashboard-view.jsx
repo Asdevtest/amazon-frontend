@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 import {getResearcherDashboardCardConfig, ResearcherDashboardCardDataKey} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
@@ -35,18 +34,12 @@ export class ResearcherDashboardViewRaw extends Component {
   }
 
   render() {
-    const {balance, drawerOpen, onTriggerDrawerOpen} = this.viewModel
+    const {userInfo, drawerOpen, onTriggerDrawerOpen} = this.viewModel
     const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
-        <Navbar
-          curUserRole={UserRole.RESEARCHER}
-          activeCategory={navbarActiveCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-          // user={textConsts.appUser}
-        />
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
@@ -54,10 +47,9 @@ export class ResearcherDashboardViewRaw extends Component {
             avatarSrc={avatar}
             drawerOpen={drawerOpen}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.RESEARCHER}
           >
             <MainContent>
-              <DashboardBalance balance={balance} />
+              <DashboardBalance user={userInfo} />
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <Grid container className={classNames.dashboardCardWrapper} justify="center" spacing={3}>
                 {this.renderDashboardCards()}

@@ -35,10 +35,14 @@ export const useClassNames = makeStyles(() => ({
   btnsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    alignItems: 'center',
   },
 
   goBackBtn: {
     margin: '16px 32px',
-    // alignSelf: 'flex-end'
+  },
+
+  cancelBtn: {
+    height: '36px',
   },
 }))

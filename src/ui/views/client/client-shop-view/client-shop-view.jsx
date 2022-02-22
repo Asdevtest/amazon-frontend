@@ -9,7 +9,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -73,19 +72,13 @@ class ClientShopsViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          curUserRole={UserRole.CLIENT}
-          activeCategory={navbarActiveCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onChangeDrawerOpen}
-        />
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onChangeDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
             setDrawerOpen={onChangeDrawerOpen}
-            curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <Box className={this.props.classes.buttonBox}>

@@ -116,4 +116,24 @@ export const useClassNames = makeStyles(theme => ({
     width: '80px',
     height: '30px',
   },
+
+  allowedRolesWrapper: {
+    display: 'flex',
+    marginRight: '30px',
+  },
+
+  allowedRolesItem: {
+    marginLeft: '10px',
+    color: 'rgba(0, 0, 0, 0.54)',
+    fontSize: '16px',
+    transition: '.15s ease-in-out',
+    '&:hover': {
+      color: 'blue',
+      transform: 'scale(1.01)',
+    },
+  },
+
+  CurrentAllowedRolesItem: {
+    color: 'blue',
+  },
 }))

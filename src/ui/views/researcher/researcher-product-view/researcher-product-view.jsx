@@ -4,7 +4,6 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -68,12 +67,7 @@ export class ResearcherProductView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          curUserRole={UserRole.RESEARCHER}
-          activeCategory={navbarActiveCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
@@ -81,7 +75,6 @@ export class ResearcherProductView extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.RESEARCHER}
           >
             <MainContent>
               {product ? (
@@ -90,7 +83,6 @@ export class ResearcherProductView extends Component {
                   showProgress={showProgress}
                   progressValue={progressValue}
                   alertFailedText={alertFailedText}
-                  curUserRole={UserRole.RESEARCHER}
                   product={product}
                   productBase={productBase}
                   actionStatus={actionStatus}

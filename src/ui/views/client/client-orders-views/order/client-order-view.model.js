@@ -3,8 +3,9 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
+import {ClientModel} from '@models/client-model'
 
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 
 export class ClientOrderViewModel {
   history = undefined
@@ -16,6 +17,8 @@ export class ClientOrderViewModel {
   drawerOpen = false
   orderBase = undefined
   order = undefined
+
+  showConfirmModal = false
 
   constructor({history, location}) {
     this.history = history
@@ -41,8 +44,24 @@ export class ClientOrderViewModel {
     try {
       const result = await BoxesModel.getBoxesOfOrder(orderId)
       runInAction(() => {
-        this.orderBoxes = result.sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.orderBoxes = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickCancelOrder() {
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitCancelOrder() {
+    try {
+      await ClientModel.cancelOrder(this.order._id)
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.history.goBack()
     } catch (error) {
       console.log(error)
     }
@@ -53,5 +72,9 @@ export class ClientOrderViewModel {
   }
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }

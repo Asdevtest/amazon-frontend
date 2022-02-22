@@ -9,7 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 import {adminBoxesViewColumns} from '@components/table-columns/admin/boxes-columns'
 
 import {adminBoxesDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminWarehouseBoxesViewModel {
@@ -105,7 +105,7 @@ export class AdminWarehouseBoxesViewModel {
       const result = await BoxesModel.getBoxes()
 
       runInAction(() => {
-        this.boxes = adminBoxesDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.boxes = adminBoxesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       console.log(error)

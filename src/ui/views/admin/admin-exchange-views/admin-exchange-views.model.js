@@ -11,7 +11,7 @@ import {SettingsModel} from '@models/settings-model'
 import {exchangeProductsColumns} from '@components/table-columns/admin/exchange-columns'
 
 import {adminProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const productsStatusBySubCategory = {
@@ -170,7 +170,7 @@ export class AdminExchangeViewModel {
       const productsData = adminProductsDataConverter(result)
 
       runInAction(() => {
-        this.currentProductsData = productsData.sort(sortObjectsArrayByFiledDate('updatedAt'))
+        this.currentProductsData = productsData.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
       console.log(error)

@@ -4,7 +4,6 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -64,7 +63,6 @@ export class ClientProductView extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
@@ -77,7 +75,6 @@ export class ClientProductView extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               {product ? (
@@ -85,7 +82,6 @@ export class ClientProductView extends Component {
                   imagesForLoad={imagesForLoad}
                   showProgress={showProgress}
                   progressValue={progressValue}
-                  curUserRole={UserRole.CLIENT}
                   product={product}
                   productBase={productBase}
                   selectedSupplier={selectedSupplier}

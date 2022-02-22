@@ -80,8 +80,19 @@ export const ImageFileInput = observer(({images, setImages, maxNumber}) => {
         maxFileSize={maxSizeInBytes}
         onChange={onChange}
       >
-        {({imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps}) => (
+        {({
+          imageList,
+          onImageUpload,
+          onImageRemoveAll,
+          onImageUpdate,
+          onImageRemove,
+          isDragging,
+          dragProps,
+          errors,
+        }) => (
           <div className={classNames.mainWrapper}>
+            {errors?.maxNumber && <Typography className={classNames.errorText}>{textConsts.maxNumberError}</Typography>}
+
             <button
               className={clsx(classNames.dragAndDropBtn, {[classNames.dragingOnDropBtn]: isDragging})}
               onClick={onImageUpload}

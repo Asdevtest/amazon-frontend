@@ -6,6 +6,11 @@ class StorekeeperModelStatic {
     return response
   }
 
+  getLightTasksVacant = async () => {
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksLightVacGet()
+    return response
+  }
+
   pickupTask = async id => {
     const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksPickupGuidPost(id)
     return response
@@ -13,6 +18,11 @@ class StorekeeperModelStatic {
 
   getTasksMy = async data => {
     const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksMyGet(data)
+    return response
+  }
+
+  getLightTasksMy = async data => {
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksLightMyGet(data)
     return response
   }
 
@@ -50,6 +60,11 @@ class StorekeeperModelStatic {
 
   resolveTask = async (id, data) => {
     const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksDoneGuidPost(id, {body: data})
+    return response
+  }
+
+  getTaskById = async id => {
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksGuidGet(id)
     return response
   }
 }

@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -30,14 +29,13 @@ export class ResearcherRequestDetailProductView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar curUserRole={UserRole.RESEARCHER} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
+        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.RESEARCHER}
           >
             <MainContent>
               <ProductSearchRequestDetails request={request} />

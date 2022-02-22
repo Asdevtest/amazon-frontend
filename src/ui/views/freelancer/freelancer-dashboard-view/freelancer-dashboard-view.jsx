@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 import {getFreelancerDashboardCardConfig, FreelancerDashboardCardDataKey} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
@@ -35,14 +34,13 @@ export class FreelancerDashboardViewRaw extends Component {
   }
 
   render() {
-    const {balance, drawerOpen, onTriggerDrawerOpen, userInfo} = this.viewModel
+    const {drawerOpen, onTriggerDrawerOpen, userInfo} = this.viewModel
     const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
         <Navbar
           user={userInfo}
-          curUserRole={UserRole.FREELANCER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
@@ -54,10 +52,9 @@ export class FreelancerDashboardViewRaw extends Component {
             avatarSrc={avatar}
             drawerOpen={drawerOpen}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.FREELANCER}
           >
             <MainContent>
-              <DashboardBalance balance={balance} />
+              <DashboardBalance user={userInfo} />
               <Typography variant="h6">{textConsts.mainTitle}</Typography>
               <Grid container className={classNames.dashboardCardWrapper} justify="center" spacing={3}>
                 {this.renderDashboardCards()}

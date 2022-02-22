@@ -363,6 +363,8 @@ export class BuyerProductViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
+      this.readyImages = []
+
       if (photosOfSupplier.length) {
         await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
       }

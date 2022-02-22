@@ -87,7 +87,7 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
     setFormFields({...formFields, skusByClient: newArr})
   }
 
-  const disableSubmitBtn = formFields.asin === '' || formFields.sku === '' || formFields.title === ''
+  const disableSubmitBtn = formFields.asin === '' || !formFields.skusByClient.length || formFields.title === ''
   return (
     <div className={classNames.root}>
       <Typography variant="h5" className={classNames.title}>

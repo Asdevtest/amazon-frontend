@@ -147,7 +147,7 @@ export class WarehouseVacantViewModel {
 
   async getTasksMy() {
     try {
-      const result = await StorekeeperModel.getTasksMy({
+      const result = await StorekeeperModel.getLightTasksMy({
         status: mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS],
       })
 
@@ -406,8 +406,14 @@ export class WarehouseVacantViewModel {
     this[modal] = !this[modal]
   }
 
-  onClickResolveBtn(item) {
-    this.onSelectTask(item)
-    this.onTriggerEditTaskModal()
+  async onClickResolveBtn(item) {
+    try {
+      const result = await StorekeeperModel.getTaskById(item._id)
+
+      this.onSelectTask(result)
+      this.onTriggerEditTaskModal()
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

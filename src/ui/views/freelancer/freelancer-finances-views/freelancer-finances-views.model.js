@@ -1,15 +1,15 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
-import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables-keys'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
-import {FreelancerModel} from '@models/freelancer-model'
+import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 
-import {freelancerFinancesViewColumns} from '@components/table-columns/freelancer/freelancer-finances-columns/freelancer-finances-columns'
+import {financesViewColumns} from '@components/table-columns/admin/finances-columns/finances-columns'
 
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {financesDataConverter} from '@utils/data-grid-data-converters'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class FreelancerFinancesViewsModel {
@@ -21,7 +21,6 @@ export class FreelancerFinancesViewsModel {
 
   selectionModel = undefined
 
-  activeSubCategory = SettingsModel.activeSubCategoryState[ActiveSubCategoryTablesKeys.FREELANCER_FINANCES] || 0
   drawerOpen = false
 
   sortModel = []
@@ -29,7 +28,7 @@ export class FreelancerFinancesViewsModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = freelancerFinancesViewColumns()
+  columnsModel = financesViewColumns()
 
   constructor({history}) {
     this.history = history
@@ -38,10 +37,6 @@ export class FreelancerFinancesViewsModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
-  }
-
-  setActiveSubCategoryState(state) {
-    SettingsModel.setActiveSubCategoryState(state, ActiveSubCategoryTablesKeys.FREELANCER_FINANCES)
   }
 
   setDataGridState(state) {
@@ -65,40 +60,34 @@ export class FreelancerFinancesViewsModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = freelancerFinancesViewColumns().map(el => ({
+      this.columnsModel = financesViewColumns().map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
   }
 
-  onChangeSubCategory(value) {
-    this.setActiveSubCategoryState(value)
-    this.activeSubCategory = value
-    this.getPayments(value)
-  }
-
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
   }
 
-  async getPayments(activeSubCategory) {
+  async getPayments() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
-      const result = await FreelancerModel.getPaymentsMy()
+      const result = await OtherModel.getMyPayments()
 
-      const paymentsData = result.map(item => ({
-        ...item,
-        id: item._id,
-        tmpCreatorName: item.createdBy?.name,
-        tmpRecipientName: item.recipient?.name,
-      }))
+      // const paymentsData = result.map(item => ({
+      //   ...item,
+      //   id: item._id,
+      //   tmpCreatorName: item.createdBy?.name,
+      //   tmpRecipientName: item.recipient?.name,
+      // }))
 
       runInAction(() => {
-        this.currentFinancesData = paymentsData
-          .filter(el => (activeSubCategory < 1 ? el.sum >= 0 : el.sum < 0))
-          .sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.currentFinancesData = financesDataConverter(result).sort(
+          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+        )
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

@@ -19,14 +19,14 @@ export const buyerFreeOrdersViewColumns = handlers => [
     field: 'createdAt',
     headerName: textConsts.createdAtField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 100,
+    width: 120,
     type: 'date',
   },
 
   {
     field: 'action',
     headerName: textConsts.actionField,
-    width: 250,
+    width: 170,
     renderCell: params => (
       <NormalActionBtnCell bTnText={textConsts.pickUp} onClickOkBtn={() => handlers.onClickTableRowBtn(params.row)} />
     ),
@@ -37,13 +37,13 @@ export const buyerFreeOrdersViewColumns = handlers => [
   {
     field: 'orders',
     headerName: textConsts.ordersField,
-    width: 300,
+    width: 400,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
     filterable: false,
     sortable: false,
   },
 
-  {field: 'amount', headerName: textConsts.amountField, type: 'number', width: 130},
+  {field: 'amount', headerName: textConsts.amountField, type: 'number', width: 100},
 
   {
     field: 'barCode',
@@ -63,7 +63,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     field: 'deliveryMethod',
     headerName: textConsts.deliveryField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 200,
+    width: 150,
   },
 
   {

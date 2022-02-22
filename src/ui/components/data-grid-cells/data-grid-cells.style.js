@@ -384,4 +384,8 @@ export const styles = createStyles(() => ({
       transform: 'scale(1.2)',
     },
   },
+
+  cancelTaskBtn: {
+    marginLeft: '20px',
+  },
 }))

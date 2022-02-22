@@ -10,7 +10,7 @@ import {SettingsModel} from '@models/settings-model'
 import {buyerProductsViewColumns} from '@components/table-columns/buyer/buyer-products-columns'
 
 import {buyerProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class BuyerMyProductsViewModel {
@@ -122,7 +122,7 @@ export class BuyerMyProductsViewModel {
       this.error = undefined
       const result = await BuyerModel.getProductsMy()
       runInAction(() => {
-        this.productsMy = buyerProductsDataConverter(result).sort(sortObjectsArrayByFiledDate('updatedAt'))
+        this.productsMy = buyerProductsDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

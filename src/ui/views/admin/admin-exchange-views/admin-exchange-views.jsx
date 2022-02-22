@@ -10,7 +10,6 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {adminExchangeBtnsConfig} from '@constants/tables-filter-btns-configs'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {ColoredChip} from '@components/colored-chip'
@@ -65,18 +64,12 @@ class AdminExchangeViewsRaw extends Component {
         <Navbar
           activeCategory={activeCategory}
           activeSubCategory={activeSubCategory}
-          curUserRole={UserRole.ADMIN}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawer}
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
-          <Appbar
-            avatarSrc={avatar}
-            curUserRole={UserRole.ADMIN}
-            setDrawerOpen={onTriggerDrawer}
-            title={textConsts.appbarTitle}
-          >
+          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <Grid container spacing={2}>
                 {adminExchangeBtnsConfig.map((buttonConfig, index) => (

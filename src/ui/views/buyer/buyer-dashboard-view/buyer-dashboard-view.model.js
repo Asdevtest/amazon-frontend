@@ -36,6 +36,10 @@ export class BuyerDashboardViewModel {
     [BuyerDashboardCardDataKey.FINES]: '',
   }
 
+  get userInfo() {
+    return UserModel.userInfo
+  }
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})

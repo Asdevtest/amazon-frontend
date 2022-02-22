@@ -9,7 +9,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -73,25 +72,16 @@ class AdminUserBalanceViewRaw extends Component {
 
     return (
       <>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          curUserRole={UserRole.ADMIN}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawer}
-        />
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar
-            avatarSrc={avatar}
-            curUserRole={UserRole.ADMIN}
-            setDrawerOpen={onTriggerDrawer}
-            title={textConsts.appbarTitle}
-          >
+          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <Typography variant="h5">{`${textConsts.balance} of ${user.email}`}</Typography>
               <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</Typography>
               {user.balanceFreeze !== 0 && (
                 <Typography className={classNames.balanceFreeze}>{`${toFixedWithDollarSign(
                   user.balanceFreeze,
+                  2,
                 )} -freeze`}</Typography>
               )}
               <Button

@@ -22,12 +22,11 @@ class ApiV1RequestsCustomDetails {
     /**
      * Constructs a new <code>ApiV1RequestsCustomDetails</code>.
      * @alias module:model/ApiV1RequestsCustomDetails
-     * @param name {String} Имя универсальной заявки.
      * @param conditions {Object} Условия универсальной заявки.
      */
-    constructor(name, conditions) { 
+    constructor(conditions) { 
         
-        ApiV1RequestsCustomDetails.initialize(this, name, conditions);
+        ApiV1RequestsCustomDetails.initialize(this, conditions);
     }
 
     /**
@@ -35,8 +34,7 @@ class ApiV1RequestsCustomDetails {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, conditions) { 
-        obj['name'] = name;
+    static initialize(obj, conditions) { 
         obj['conditions'] = conditions;
     }
 
@@ -51,9 +49,6 @@ class ApiV1RequestsCustomDetails {
         if (data) {
             obj = obj || new ApiV1RequestsCustomDetails();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
             if (data.hasOwnProperty('conditions')) {
                 obj['conditions'] = ApiClient.convertToType(data['conditions'], Object);
             }
@@ -66,12 +61,6 @@ class ApiV1RequestsCustomDetails {
 
 
 }
-
-/**
- * Имя универсальной заявки.
- * @member {String} name
- */
-ApiV1RequestsCustomDetails.prototype['name'] = undefined;
 
 /**
  * Условия универсальной заявки.

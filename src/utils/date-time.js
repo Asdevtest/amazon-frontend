@@ -22,8 +22,7 @@ const now = new Date()
 
 export const formatDateDistanceFromNow = date => formatDistance(parseISO(date), now, {addSuffix: true})
 
-export const sortObjectsArrayByFiledDate = fieldName => (a, b) =>
-  compareDesc(parseISO(a[fieldName]), parseISO(b[fieldName]))
+export const sortObjectsArrayByFiledDate = fieldName => (a, b) => compareDesc(a[fieldName], b[fieldName])
 
 export const sortObjectsArrayByFiledDateWithParseISO = fieldName => (a, b) =>
   compareDesc(parseISO(a[fieldName]), parseISO(b[fieldName]))

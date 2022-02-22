@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {BUYER_PRODUCTS_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -53,7 +52,6 @@ export class BuyerSearchSupplierByClientViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.BUYER}
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
@@ -67,7 +65,6 @@ export class BuyerSearchSupplierByClientViewRaw extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.BUYER}
           >
             <MainContent>
               <div className={classNames.tableWrapper}>
