@@ -6,6 +6,7 @@ import {texts} from '@constants/texts'
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
 import {SupplierModel} from '@models/supplier-model'
+import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {
@@ -112,6 +113,10 @@ export class ClientProductViewModel {
   formFields = {...formFieldsDefault}
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history

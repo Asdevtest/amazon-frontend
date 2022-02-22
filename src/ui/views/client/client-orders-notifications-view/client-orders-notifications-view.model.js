@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {texts} from '@constants/texts'
 
 import {ClientModel} from '@models/client-model'
@@ -143,7 +144,7 @@ export class ClientOrdersNotificationsViewModel {
 
       runInAction(() => {
         this.orders = clientOrdersNotificationsDataConverter(
-          result.filter(order => order.totalPrice < order.totalPriceChanged),
+          result.filter(order => order.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
         ).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {

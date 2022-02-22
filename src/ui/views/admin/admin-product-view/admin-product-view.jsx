@@ -29,6 +29,7 @@ export class AdminProductView extends Component {
 
   render() {
     const {
+      userInfo,
       product,
       drawerOpen,
       history,
@@ -55,6 +56,7 @@ export class AdminProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  userRole={userInfo.role}
                   product={product}
                   selectedSupplier={selectedSupplier}
                   formFieldsValidationErrors={formFieldsValidationErrors}

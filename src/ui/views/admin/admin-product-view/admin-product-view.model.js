@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {ProductModel} from '@models/product-model'
+import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {getNewObjectWithDefaultValue} from '@utils/object'
@@ -52,6 +53,10 @@ export class AdminProductViewModel {
   formFields = {...formFieldsDefault}
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history

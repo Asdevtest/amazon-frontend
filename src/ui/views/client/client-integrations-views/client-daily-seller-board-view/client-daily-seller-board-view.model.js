@@ -153,7 +153,7 @@ export class ClientDailySellerBoardViewModel {
 
   async getMyDailyReports() {
     try {
-      const result = await SellerBoardModel.getMyDailyReports()
+      const result = await SellerBoardModel.getStockGoodsByFilters()
 
       runInAction(() => {
         this.sellerBoardDailyData = addIdDataConverter(result)

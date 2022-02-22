@@ -34,6 +34,7 @@ export class BuyerProductView extends Component {
 
   render() {
     const {
+      userInfo,
       requestStatus,
       showProgress,
       progressValue,
@@ -72,6 +73,7 @@ export class BuyerProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  userRole={userInfo.role}
                   product={product}
                   productBase={productBase}
                   selectedSupplier={selectedSupplier}

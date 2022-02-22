@@ -36,6 +36,7 @@ export class ResearcherProductView extends Component {
 
   render() {
     const {
+      userInfo,
       imagesForLoad,
       requestStatus,
       alertFailedText,
@@ -79,6 +80,7 @@ export class ResearcherProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  userRole={userInfo.role}
                   imagesForLoad={imagesForLoad}
                   showProgress={showProgress}
                   progressValue={progressValue}

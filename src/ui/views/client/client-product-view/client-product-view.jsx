@@ -35,6 +35,7 @@ export class ClientProductView extends Component {
 
   render() {
     const {
+      userInfo,
       selectedSupplier,
       requestStatus,
       showProgress,
@@ -79,6 +80,7 @@ export class ClientProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  userRole={userInfo.role}
                   imagesForLoad={imagesForLoad}
                   showProgress={showProgress}
                   progressValue={progressValue}

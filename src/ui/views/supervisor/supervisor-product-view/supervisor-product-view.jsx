@@ -35,6 +35,7 @@ export class SupervisorProductView extends Component {
 
   render() {
     const {
+      userInfo,
       drawerOpen,
       product,
       productBase,
@@ -74,6 +75,7 @@ export class SupervisorProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  userRole={userInfo.role}
                   product={product}
                   productBase={productBase}
                   selectedSupplier={selectedSupplier}

@@ -10,6 +10,7 @@ import {ProductModel} from '@models/product-model'
 import {ResearcherModel} from '@models/researcher-model'
 import {ResearcherUpdateProductContract} from '@models/researcher-model/researcher-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
+import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {
@@ -154,6 +155,10 @@ export class ResearcherProductViewModel {
   formFields = {...formFieldsDefault}
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history

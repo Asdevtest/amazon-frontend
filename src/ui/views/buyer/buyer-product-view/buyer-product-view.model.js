@@ -9,6 +9,7 @@ import {BuyerModel} from '@models/buyer-model'
 import {BuyerUpdateProductContract} from '@models/buyer-model/buyer-model.contracts'
 import {ProductModel} from '@models/product-model'
 import {SupplierModel} from '@models/supplier-model'
+import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {isUndefined} from '@utils/checks'
@@ -118,6 +119,10 @@ export class BuyerProductViewModel {
   formFields = {...formFieldsDefault}
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history

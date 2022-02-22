@@ -16,6 +16,7 @@ export const Navbar = observer(
   ({activeCategory, activeSubCategory, drawerOpen, setDrawerOpen, onChangeSubCategory}) => {
     const classNames = useClassNames()
     const viewModel = useRef(new NavbarModel())
+
     const drawerContent = (
       <React.Fragment>
         <div className={classNames.logoWrapper}>
