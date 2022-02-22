@@ -8,7 +8,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -68,14 +67,9 @@ export class WarehouseBatchesViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={activeCategory}
-          curUserRole={UserRole.STOREKEEPER}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawer}
-        />
+        <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle} curUserRole={UserRole.STOREKEEPER}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <Button
                 disableElevation

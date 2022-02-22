@@ -407,7 +407,11 @@ export class ResearcherProductViewModel {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
-      await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      this.readyImages = []
+
+      if (photosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      }
 
       supplier = {
         ...supplier,

@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch**](StorekeepersApi.md#apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch) | **PATCH** /api/v1/storekeepers/orders/set_barcode_and_status/{guid} | # Изменить значение isBarCodeAlreadyAttachedByTheSupplier и status в сущности заказ.
 [**apiV1StorekeepersTasksCancelGuidPost**](StorekeepersApi.md#apiV1StorekeepersTasksCancelGuidPost) | **POST** /api/v1/storekeepers/tasks/cancel/{guid} | # Отметить задачу, как отмененную..
 [**apiV1StorekeepersTasksDoneGuidPost**](StorekeepersApi.md#apiV1StorekeepersTasksDoneGuidPost) | **POST** /api/v1/storekeepers/tasks/done/{guid} | # Отметить задачу, как выполненную.
+[**apiV1StorekeepersTasksGuidGet**](StorekeepersApi.md#apiV1StorekeepersTasksGuidGet) | **GET** /api/v1/storekeepers/tasks/{guid} | # Получить задачу по его id.
 [**apiV1StorekeepersTasksGuidPatch**](StorekeepersApi.md#apiV1StorekeepersTasksGuidPatch) | **PATCH** /api/v1/storekeepers/tasks/{guid} | # Изменить задачу.
 [**apiV1StorekeepersTasksLightMyGet**](StorekeepersApi.md#apiV1StorekeepersTasksLightMyGet) | **GET** /api/v1/storekeepers/tasks_light/my | # Получить задачи закрепленные за данным сборщиком..
 [**apiV1StorekeepersTasksLightVacGet**](StorekeepersApi.md#apiV1StorekeepersTasksLightVacGet) | **GET** /api/v1/storekeepers/tasks_light/vac | # Получить задачи не закрепленные за сотрудниками склада.
@@ -20,7 +21,7 @@ Method | HTTP request | Description
 
 ## apiV1StorekeepersBatchesGet
 
-> [InlineResponse2004] apiV1StorekeepersBatchesGet(opts)
+> [InlineResponse2005] apiV1StorekeepersBatchesGet(opts)
 
 # Получить партии....
 
@@ -58,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+[**[InlineResponse2005]**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -255,65 +256,9 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = "guid_example"; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject46() // InlineObject46 | 
-};
-apiInstance.apiV1StorekeepersTasksDoneGuidPost(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID задачи, которую мы хотим изменить | 
- **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject46**](InlineObject46.md)|  | [optional] 
-
-### Return type
-
-**String**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## apiV1StorekeepersTasksGuidPatch
-
-> String apiV1StorekeepersTasksGuidPatch(guid, opts)
-
-# Изменить задачу.
-
-## Изменить задачу. Здесь только статус.   
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.StorekeepersApi();
-let guid = "guid_example"; // String | GUID задачи, которую мы хотим изменить
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject47() // InlineObject47 | 
 };
-apiInstance.apiV1StorekeepersTasksGuidPatch(guid, opts).then((data) => {
+apiInstance.apiV1StorekeepersTasksDoneGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -344,9 +289,119 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1StorekeepersTasksGuidGet
+
+> {String: Object} apiV1StorekeepersTasksGuidGet(guid, opts)
+
+# Получить задачу по его id.
+
+## Получить задачу по его id.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.StorekeepersApi();
+let guid = "guid_example"; // String | GUID задачи.
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1StorekeepersTasksGuidGet(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID задачи. | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**{String: Object}**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1StorekeepersTasksGuidPatch
+
+> String apiV1StorekeepersTasksGuidPatch(guid, opts)
+
+# Изменить задачу.
+
+## Изменить задачу. Здесь только статус.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.StorekeepersApi();
+let guid = "guid_example"; // String | GUID задачи, которую мы хотим изменить
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject46() // InlineObject46 | 
+};
+apiInstance.apiV1StorekeepersTasksGuidPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID задачи, которую мы хотим изменить | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject46**](InlineObject46.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## apiV1StorekeepersTasksLightMyGet
 
-> [InlineResponse20016] apiV1StorekeepersTasksLightMyGet(opts)
+> [InlineResponse2003] apiV1StorekeepersTasksLightMyGet(opts)
 
 # Получить задачи закрепленные за данным сборщиком..
 
@@ -386,7 +441,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20016]**](InlineResponse20016.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -400,7 +455,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksLightVacGet
 
-> [InlineResponse20016] apiV1StorekeepersTasksLightVacGet(opts)
+> [InlineResponse2003] apiV1StorekeepersTasksLightVacGet(opts)
 
 # Получить задачи не закрепленные за сотрудниками склада.
 
@@ -438,7 +493,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20016]**](InlineResponse20016.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -452,7 +507,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksMyGet
 
-> [InlineResponse2003] apiV1StorekeepersTasksMyGet(opts)
+> [InlineResponse2004] apiV1StorekeepersTasksMyGet(opts)
 
 # Получить задачи закрепленные за данным сборщиком..
 
@@ -492,7 +547,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2003]**](InlineResponse2003.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -560,7 +615,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksVacGet
 
-> [InlineResponse2003] apiV1StorekeepersTasksVacGet(opts)
+> [InlineResponse2004] apiV1StorekeepersTasksVacGet(opts)
 
 # Получить задачи не закрепленные за сотрудниками склада.
 
@@ -598,7 +653,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2003]**](InlineResponse2003.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 

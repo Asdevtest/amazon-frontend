@@ -10,7 +10,6 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {BUYER_FREE_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 import {warehouses} from '@constants/warehouses'
 
 import {Appbar} from '@components/appbar'
@@ -72,7 +71,6 @@ class BuyerFreeOrdersViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.BUYER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
@@ -86,7 +84,6 @@ class BuyerFreeOrdersViewRaw extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.BUYER}
           >
             <MainContent>
               <DataGrid

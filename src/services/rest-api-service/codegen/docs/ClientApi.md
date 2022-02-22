@@ -24,13 +24,14 @@ Method | HTTP request | Description
 [**apiV1ClientsTasksCancelGuidPost**](ClientApi.md#apiV1ClientsTasksCancelGuidPost) | **POST** /api/v1/clients/tasks/cancel/{guid} | # Отменить задачу.
 [**apiV1ClientsTasksGet**](ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя.
 [**apiV1ClientsTasksGuidDelete**](ClientApi.md#apiV1ClientsTasksGuidDelete) | **DELETE** /api/v1/clients/tasks/{guid} | # Удалить задачу.
+[**apiV1ClientsTasksLightGet**](ClientApi.md#apiV1ClientsTasksLightGet) | **GET** /api/v1/clients/tasks_light | # Облегченная версия. Показать все задачи данного пользователя.
 [**apiV1ClientsTasksPost**](ClientApi.md#apiV1ClientsTasksPost) | **POST** /api/v1/clients/tasks | # Создать задачу.
 
 
 
 ## apiV1ClientsBatchesGet
 
-> [InlineResponse2004] apiV1ClientsBatchesGet(opts)
+> [InlineResponse2005] apiV1ClientsBatchesGet(opts)
 
 # Получить партии.
 
@@ -68,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+[**[InlineResponse2005]**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -522,7 +523,7 @@ Name | Type | Description  | Notes
 
 # Создать заказ.
 
-## Создать заказ.   ## Статус автоматом ставиться readyToProcess: 10  Стоимость заказа &#x3D; количество * (цена товара + цена доставки от поставщика):  Эта сумма будет заморожена у клиента. Проверки:  Наличие продукта по guid,  Наличие у продукта поставщика Проверять что активного поставщика добавил не сам клиент, Т.е. заказать можно только тот продукт, активного поставщика который был добавлен баером в платформе
+## Создать заказ.   ## Статус автоматом ставиться readyToProcess: 10  Стоимость заказа &#x3D; количество * (цена товара + цена доставки от поставщика):  Эта сумма будет заморожена у клиента.Курс записывается из админки Проверки:  Наличие продукта по guid,  Наличие у продукта поставщика 
 
 ### Example
 
@@ -628,7 +629,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGuidGetPriceForClientGet
 
-> InlineResponse2007 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
+> InlineResponse2008 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
 
 # Получить цену для клиента на поиск поставщика
 
@@ -668,7 +669,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2007**](InlineResponse2007.md)
+[**InlineResponse2008**](InlineResponse2008.md)
 
 ### Authorization
 
@@ -738,7 +739,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyGet
 
-> [InlineResponse2005] apiV1ClientsProductsMyGet(opts)
+> [InlineResponse2006] apiV1ClientsProductsMyGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -778,7 +779,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -792,7 +793,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsPaidGet
 
-> [InlineResponse2005] apiV1ClientsProductsPaidGet(opts)
+> [InlineResponse2006] apiV1ClientsProductsPaidGet(opts)
 
 # Получить список товаров оплаченных данного клиента.
 
@@ -830,7 +831,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -898,7 +899,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsVacGet
 
-> [InlineResponse2005] apiV1ClientsProductsVacGet(opts)
+> [InlineResponse2006] apiV1ClientsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -936,7 +937,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -1105,6 +1106,58 @@ Name | Type | Description  | Notes
 ### Return type
 
 **String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1ClientsTasksLightGet
+
+> [InlineResponse2003] apiV1ClientsTasksLightGet(opts)
+
+# Облегченная версия. Показать все задачи данного пользователя.
+
+## Показать все задачи данного пользователя.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1ClientsTasksLightGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 

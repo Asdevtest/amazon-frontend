@@ -58,7 +58,7 @@ export const DataGridTablesKeys = {
   CLIENT_WAREHOUSE: 'clientWarehouseDataGridState',
   CLIENT_PRODUCT_SEARCH_REQUESTS: 'clientProductSearchRequestsDataGridState',
   CLIENT_NICHE_SEARCH_REQUESTS: 'clientNicheSearchRequestsDataGridState',
-  CLIENT_CUSTOM_SEARCH_REQUESTS: 'clientCustomSearchRequestsDataGridState',
+
   CLIENT_SUB_USERS: 'clientSubUsersDataGridState',
   CLIENT_BATCHES: 'clientBatchesDataGridState',
   CLIENT_DAILY_SELLER_BOARD: 'clientDailySellerBoardDataGridState',
@@ -71,4 +71,6 @@ export const DataGridTablesKeys = {
   FREELANCER_CUSTOM_VACANT_REQUESTS: 'freelancerCustomVacantRequestsDataGridState',
   FREELANCER_CUSTOM_SEARCH_REQUESTS: 'freelancerCustomSearchRequestsDataGridState',
   FREELANCER_SUB_USERS: 'freelancerSubUsersDataGridState',
+
+  OVERALL_CUSTOM_SEARCH_REQUESTS: 'overallCustomSearchRequestsDataGridState',
 }

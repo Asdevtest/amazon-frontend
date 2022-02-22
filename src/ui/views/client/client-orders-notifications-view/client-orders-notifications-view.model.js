@@ -10,7 +10,7 @@ import {SettingsModel} from '@models/settings-model'
 import {clientOrdersNotificationsViewColumns} from '@components/table-columns/client/client-orders-notifications-columns'
 
 import {clientOrdersNotificationsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -144,7 +144,7 @@ export class ClientOrdersNotificationsViewModel {
       runInAction(() => {
         this.orders = clientOrdersNotificationsDataConverter(
           result.filter(order => order.totalPrice < order.totalPriceChanged),
-        ).sort(sortObjectsArrayByFiledDate('createdAt'))
+        ).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       console.log(error)

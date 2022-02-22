@@ -63,11 +63,6 @@ class RequestModelStatic {
     return response
   }
 
-  pickupRequestById = async id => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidPickupPost(id, {body: {}})
-    return response
-  }
-
   updateCustomRequest = async (id, data) => {
     const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidPatch(id, {
       body: data,
@@ -97,6 +92,18 @@ class RequestModelStatic {
     return response
   }
 
+  editRequest = async (id, data) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidPatch(id, {
+      body: data,
+    })
+    return response
+  }
+
+  deleteRequest = async id => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidDelete(id)
+    return response
+  }
+
   getRequests = async (type, subType) => {
     const response = await restApiService.SearchRequestApi.apiV1RequestsGet(type, subType)
     return response
@@ -104,6 +111,28 @@ class RequestModelStatic {
 
   getCustomRequestById = async id => {
     const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidGet(id)
+    return response
+  }
+
+  pickupRequestById = async (id, data) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidPickupPost(id, {body: data})
+    return response
+  }
+
+  calculateRequestCost = async id => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCalculateRequestCostGuidGet(id)
+    return response
+  }
+
+  toPublishRequest = async (id, data) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidToPublishPatch(id, {body: data})
+    return response
+  }
+
+  abortRequest = async (id, data) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidAbortPatch(id, {
+      body: data,
+    })
     return response
   }
 }

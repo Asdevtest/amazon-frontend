@@ -5,7 +5,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {BuyerModel} from '@models/buyer-model'
 import {UserModel} from '@models/user-model'
 
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 
 export class BuyerSearchSupplierByClientModel {
   history = undefined
@@ -43,7 +43,7 @@ export class BuyerSearchSupplierByClientModel {
 
       const result = await BuyerModel.getProductsVacant(isCreatedByClient)
       runInAction(() => {
-        this.productsVacant = result.sort(sortObjectsArrayByFiledDate('checkedAt'))
+        this.productsVacant = result.sort(sortObjectsArrayByFiledDateWithParseISO('checkedAt'))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

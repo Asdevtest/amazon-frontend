@@ -9,5 +9,6 @@ export const useClassNames = makeStyles(theme => ({
       padding: theme.spacing(1),
     },
     minHeight: '50vh',
+    width: '100%',
   },
 }))

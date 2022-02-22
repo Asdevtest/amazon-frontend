@@ -7,12 +7,15 @@ import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 import {UserRoleCodeMap} from '@constants/user-roles'
 import {warehouses} from '@constants/warehouses'
 
+// import { fromUnixTime } from 'date-fns'
 import {
   calcAmazonPriceForBox,
   calcFinalWeightForBox,
   calcTotalPriceForBatch,
   calcTotalPriceForOrder,
 } from './calculation'
+
+// import { formatDateForShowWithoutParseISO } from './date-time'
 
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
 
@@ -226,6 +229,17 @@ export const clientOrdersDataConverter = data =>
     trackingNumberChina: item.trackingNumberChina,
   }))
 
+// export const clientWarehouseTasksDataConverter = data =>
+//   data.map(item => ({
+//     originalData: item,
+
+//     createdAt: formatDateForShowWithoutParseISO(fromUnixTime(item.createdAt)),
+//     updatedAt: formatDateForShowWithoutParseISO(fromUnixTime(item.updateDate)),
+
+//     status: item.status
+
+//   }))
+
 export const clientWarehouseDataConverter = data =>
   data.map(item => ({
     originalData: item,
@@ -293,6 +307,7 @@ export const clientOrdersNotificationsDataConverter = data =>
     trackingNumberChina: item.trackingNumberChina,
     totalPriceChanged: item.totalPriceChanged,
     deliveryCostToTheWarehouse: item.deliveryCostToTheWarehouse,
+    buyerComment: item.buyerComment,
   }))
 
 export const warehouseFinancesDataConverter = data =>
@@ -328,9 +343,9 @@ export const warehouseTasksDataConverter = data =>
     id: item._id,
     operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]],
     status: mapTaskStatusKeyToEnum[item.status],
+
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
-    description: item.description,
   }))
 
 export const adminProductsDataConverter = data =>

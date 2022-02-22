@@ -9,7 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 import {clientOrdersViewColumns} from '@components/table-columns/client/client-orders-columns'
 
 import {clientOrdersDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class ClientOrdersViewModel {
@@ -105,7 +105,7 @@ export class ClientOrdersViewModel {
       const result = await ClientModel.getOrders()
 
       runInAction(() => {
-        this.orders = clientOrdersDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.orders = clientOrdersDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       console.log(error)

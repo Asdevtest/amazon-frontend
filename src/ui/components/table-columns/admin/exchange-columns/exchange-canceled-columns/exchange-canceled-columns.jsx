@@ -9,7 +9,6 @@ import {
   ResearcherCell,
   BuyerCell,
   SupplierCell,
-  NoActiveBarcodeCell,
   ToFixedWithDollarSignCell,
   NormDateCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -54,13 +53,6 @@ export const exchangeCanceledColumns = () => [
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
-  },
-
-  {
-    field: 'barCode',
-    headerName: textConsts.barcodeField,
-    width: 150,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.value} />,
   },
 
   {

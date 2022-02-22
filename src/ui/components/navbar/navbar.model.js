@@ -7,13 +7,11 @@ import {UserModel} from '@models/user-model'
 
 export class NavbarModel {
   ordersNotificationsAmount = undefined
-  curUserRole = undefined
   get userInfo() {
     return UserModel.userInfo
   }
-  constructor({curUserRole}) {
+  constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
-    this.curUserRole = curUserRole
     this.setClientOrdersNotificationsAmount()
   }
 

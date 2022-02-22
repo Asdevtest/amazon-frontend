@@ -15,7 +15,7 @@ import {clientInventoryColumns} from '@components/table-columns/client/client-in
 
 import {copyToClipBoard} from '@utils/clipboard'
 import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixed} from '@utils/text'
@@ -179,7 +179,9 @@ export class ClientInventoryViewModel {
     try {
       const result = await ClientModel.getProductsMy()
       runInAction(() => {
-        this.productsMy = clientInventoryDataConverter(result).sort(sortObjectsArrayByFiledDate('updatedAt'))
+        this.productsMy = clientInventoryDataConverter(result).sort(
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+        )
       })
     } catch (error) {
       console.log(error)

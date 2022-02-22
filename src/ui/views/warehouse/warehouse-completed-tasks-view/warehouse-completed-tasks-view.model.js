@@ -11,6 +11,7 @@ import {warehouseCompletedTasksViewColumns} from '@components/table-columns/ware
 
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+// import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class WarehouseCompletedViewModel {
@@ -106,7 +107,7 @@ export class WarehouseCompletedViewModel {
 
   async getTasksMy() {
     try {
-      const result = await StorekeeperModel.getTasksMy({
+      const result = await StorekeeperModel.getLightTasksMy({
         status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],
       })
 
@@ -121,9 +122,15 @@ export class WarehouseCompletedViewModel {
     }
   }
 
-  setCurrentOpenedTask(item) {
-    this.curOpenedTask = item
-    this.onTriggerOpenModal('showTaskInfoModal')
+  async setCurrentOpenedTask(item) {
+    try {
+      const result = await StorekeeperModel.getTaskById(item._id)
+
+      this.curOpenedTask = result
+      this.onTriggerOpenModal('showTaskInfoModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onChangeTriggerDrawerOpen() {

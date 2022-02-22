@@ -32,7 +32,7 @@ export const RegistrationFormRaw = ({
           label={'Your Name'}
           placeholder={'name'}
           error={checkValidationNameOrEmail.nameIsUnique && 'Пользователь с таким именем уже существует'}
-          value={formFields.name.replace(/[^а-яА-Яa-zA-Z0-9]/g, '')}
+          value={formFields.name}
           onChange={onChangeFormField('name')}
         />
         <Field

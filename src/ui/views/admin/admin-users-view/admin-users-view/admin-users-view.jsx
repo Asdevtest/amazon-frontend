@@ -8,7 +8,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -70,19 +69,9 @@ class AdminUsersViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          curUserRole={UserRole.ADMIN}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawer}
-        />
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar
-            avatarSrc={avatar}
-            curUserRole={UserRole.ADMIN}
-            setDrawerOpen={onTriggerDrawer}
-            title={textConsts.appbarTitle}
-          >
+          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <DataGrid
                 pagination

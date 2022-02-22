@@ -367,7 +367,7 @@ export const texts = {
     clientExchangeView: {
       appbarTitle: 'Биржа вилок',
       mainTitle: 'Active offers on exchange',
-      confirmTitle: 'Вы покупаете товар, уверены?',
+      confirmTitle: 'Вы покупаете карточку товара, уверены?',
       confirmMessage: 'У вас будет списание ',
       confirmBtn: 'Да',
       cancelBtn: 'Отмена',
@@ -384,7 +384,7 @@ export const texts = {
       appbarTitle: 'Биржа товаров - PrivateLabel',
       mainTitle: 'Information about Private Label',
 
-      confirmTitle: 'Вы покупаете товар, уверены?',
+      confirmTitle: 'Вы покупаете карточку товара, уверены?',
       confirmMessage: 'У вас будет списание ',
       confirmBtn: 'Да',
       cancelBtn: 'Отмена',
@@ -1273,11 +1273,21 @@ export const texts = {
       deleteSupplierMessage: 'Вы точно хотите удалить поставщика?',
     },
 
+    freelancerCreateProposalView: {
+      appBarTitle: 'Создание предложения',
+      closeBtn: 'Ок',
+      infoCreateRequest: 'Предложение создано',
+      infoNoCreateRequest: 'Предложение не создано',
+    },
+
     clientCreateRequestView: {
       appBarTitle: 'Создание заявки',
       closeBtn: 'Ок',
       infoCreateRequest: 'Заявка создана',
       infoNoCreateRequest: 'Заявка не создана',
+
+      infoEditRequest: 'Заявка изменена',
+      infoNoEditRequest: 'Заявка не изменена',
     },
 
     clientProductView: {
@@ -1384,6 +1394,9 @@ export const texts = {
       addPermissionsBtn: 'Назначить разрешения',
 
       id: 'ASIN: ',
+
+      showDetails: 'Подробнее',
+      cancelTaskBtn: 'Отменить',
     },
 
     linkSubUserForm: {
@@ -1462,6 +1475,7 @@ export const texts = {
       modalEditBtn: 'Save changes',
 
       successTitle: 'Саб-юзер добавлен',
+      successRemoveTitle: 'Саб-юзер удален',
       failTitle: 'Саб-юзер не добавлен!',
 
       okBtn: 'Ок',
@@ -1484,6 +1498,7 @@ export const texts = {
       modalEditBtn: 'Save changes',
 
       successTitle: 'Саб-юзер добавлен',
+      successRemoveTitle: 'Саб-юзер удален',
       failTitle: 'Саб-юзер не добавлен!',
 
       okBtn: 'Ок',
@@ -1506,6 +1521,7 @@ export const texts = {
       modalEditBtn: 'Save changes',
 
       successTitle: 'Саб-юзер добавлен',
+      successRemoveTitle: 'Саб-юзер удален',
       failTitle: 'Саб-юзер не добавлен!',
 
       okBtn: 'Ок',
@@ -1528,6 +1544,7 @@ export const texts = {
       modalEditBtn: 'Save changes',
 
       successTitle: 'Саб-юзер добавлен',
+      successRemoveTitle: 'Саб-юзер удален',
       failTitle: 'Саб-юзер не добавлен!',
       okBtn: 'Ок',
 
@@ -1550,6 +1567,7 @@ export const texts = {
       modalEditBtn: 'Save changes',
 
       successTitle: 'Саб-юзер добавлен',
+      successRemoveTitle: 'Саб-юзер удален',
       failTitle: 'Саб-юзер не добавлен!',
       okBtn: 'Ок',
 
@@ -2016,7 +2034,12 @@ export const texts = {
       deliveryMethod: 'Метод отправки',
 
       linkPlaceholder: 'Ссылка',
+
+      sku: 'SKU by Client',
+      skuHolder: 'SKU',
+      addSkuBtn: 'добавить',
     },
+
     buyerBatchesView: {
       editBatch: 'Редактировать партию',
       mainTitle: 'Партии товаров',
@@ -2097,7 +2120,7 @@ export const texts = {
       suppliers: 'Поставщики',
       noBoxesYat: 'Коробок пока нет...',
       confirmTitle: 'Внимание.Вы уверены?',
-      confirmStatusMessage: 'После сохранения, статус нельзя изменить на более ранний!',
+      confirmStatusMessage: 'В рамках текущего редактирования изменить можно только единожды!',
       confirmSubmitMessage: 'Вы уверены что все данные внесены верно?',
       yesBtn: 'Да',
       noBtn: 'Нет',
@@ -2476,6 +2499,7 @@ export const texts = {
       trackIdField: 'Трек номер',
       neededToPayExtraField: 'Необходимо доплатить',
       forDeliveryFromTheWarehouse: 'Из них за доставку до склада Китая',
+      buyerCommentField: 'Комментарий баера',
     },
 
     buyerMyOrdersTableColumns: {
@@ -2560,8 +2584,8 @@ export const texts = {
     },
 
     warehouseBoxesTableColumns: {
-      createdAtField: 'Создания',
-      updatedAtField: 'Обновление',
+      createdAtField: 'Создано',
+      updatedAtField: 'Обновлено',
       ordersField: 'Продукт',
       ordersId: 'id Заказа',
       warehouseField: 'Склад',
@@ -2693,6 +2717,44 @@ export const texts = {
       updateDateField: 'Updated',
     },
 
+    myRequestsTableColumns: {
+      statusField: 'Статус',
+      nameRequestField: 'Имя',
+      budget: 'Бюджет',
+      deadline: 'Срок',
+      price: 'Цена',
+
+      offerCount: 'Пр-ий всего',
+      offerAwaits: 'Пр-ий ожидают',
+      offersInWork: 'Пр-ий в работе',
+      offersWaitCheck: 'Пр-ий на проверке',
+      offersAccept: 'Пр-ий принято',
+
+      actionField: 'Действия',
+      createDateField: 'Создана',
+      timeoutDateField: 'Дедлайн',
+
+      countOfProposals: 'Необходимо предложений',
+      strategyStatusField: 'Стратегия',
+      minKeywords: 'Минимально ниш',
+      minProductInProposals: 'Минимально продуктов',
+      monthlySales: 'Месячные продажи',
+      size: 'Размер',
+      minAmazonPrice: 'Мин. цена амазона',
+      maxAmazonPrice: 'Макс. цена амазона',
+      minBSR: 'Мин. бср',
+      maxBSR: 'Макс. бср',
+      minRevenue: 'Мин. доход',
+      maxRevenue: 'Макс. доход',
+      minReviews: 'Мин. отзывы',
+      maxReviews: 'Макс. отзывы',
+
+      directionField: 'Направление',
+
+      maxAmountOfProposalsField: 'Макс. кол-во предложений',
+      priceField: 'Цена заявки',
+    },
+
     clientMyRequestsTableColumns: {
       statusField: 'Статус',
       nameRequestField: 'Имя',
@@ -2731,9 +2793,23 @@ export const texts = {
       priceField: 'Цена заявки',
     },
 
+    clientTasksTableColumns: {
+      createDateField: 'Создано',
+      updateDateField: 'Обновлено',
+      typeField: 'Тип',
+      descriptionField: 'Описание',
+      actionField: 'Действие',
+      statusField: 'Статус',
+
+      operatioTypeMerge: 'Соединить',
+      operatioTypeSplit: 'Разделить',
+      operatioTypeReceive: 'Принять',
+      operatioTypeEdit: 'Изменить',
+    },
+
     warehouseMyTasksTableColumns: {
-      createDateField: 'Дата создания',
-      updateDateField: 'Последнее обновление',
+      createDateField: 'Создано',
+      updateDateField: 'Обновлено',
       typeField: 'Тип',
       descriptionField: 'Описание',
       actionField: 'Действие',
@@ -2778,15 +2854,21 @@ export const texts = {
     clientOrderView: {
       mainTitle: 'Заказ',
       appBarTitle: 'Страница заказов',
+
+      confirmTitle: 'Внимание',
+      confirmMessage: 'Вы точно хотите отменить заказ?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
     },
 
-    CreateRequestContent: {
+    CreateOrEditRequestContent: {
       backBtn: 'Назад',
       boxesAtOrder: 'Коробки к заказу:',
       noBoxes: 'Коробок пока нет...',
     },
 
     orderContent: {
+      cancelBtn: 'Отменить заказ',
       backBtn: 'Назад',
       boxesAtOrder: 'Коробки к заказу:',
       noBoxes: 'Коробок пока нет...',
@@ -2805,7 +2887,7 @@ export const texts = {
 
     CustomRequestView: {
       mainTitle: 'Универсальные заявки',
-      appBarTitle: 'Страница запросов на поиск',
+      appBarTitle: 'Вакантные заявки',
       customTitle: 'Универсальная заявка',
 
       confirmTitle: 'Внимание',
@@ -2821,6 +2903,10 @@ export const texts = {
 
       successTitle: 'Предложение принято.',
       failTitle: 'Предложение не принято.',
+
+      commentModalTitle: 'Приостановить прием предложений?',
+      commentModalLabel: 'Причина остановки:',
+      cancelBtn: 'Отмена',
     },
 
     adminOrderView: {
@@ -3239,6 +3325,7 @@ export const texts = {
       addPhoto: 'Прикрепить фото',
       link: 'Ссылка',
       loadBtn: 'Загрузить',
+      maxNumberError: 'Нельзя загрузить больше 50 файлов за раз!',
     },
 
     warehouseCompletedTaskModal: {

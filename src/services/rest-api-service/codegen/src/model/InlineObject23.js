@@ -72,9 +72,6 @@ class InlineObject23 {
             if (data.hasOwnProperty('productId')) {
                 obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('yuanToDollarRate')) {
-                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
-            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -114,12 +111,6 @@ InlineObject23.prototype['clientComment'] = undefined;
  * @member {String} productId
  */
 InlineObject23.prototype['productId'] = undefined;
-
-/**
- * Курс юань доллар.
- * @member {Number} yuanToDollarRate
- */
-InlineObject23.prototype['yuanToDollarRate'] = undefined;
 
 /**
  * Массив изображений.

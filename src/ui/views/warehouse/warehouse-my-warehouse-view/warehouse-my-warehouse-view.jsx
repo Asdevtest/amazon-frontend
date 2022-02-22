@@ -8,7 +8,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -65,17 +64,11 @@ export class WarehouseMyWarehouseViewRaw extends Component {
         <Navbar
           activeCategory={activeCategory}
           activeSubCategory={activeSubCategory}
-          curUserRole={UserRole.STOREKEEPER}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar
-            avatarSrc={avatar}
-            setDrawerOpen={onTriggerDrawer}
-            title={textConsts.appbarTitle}
-            curUserRole={UserRole.STOREKEEPER}
-          >
+          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <DataGrid
                 pagination

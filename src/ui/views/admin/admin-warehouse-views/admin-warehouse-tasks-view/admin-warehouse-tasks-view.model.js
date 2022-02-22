@@ -5,6 +5,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
 
 import {adminTasksViewColumns} from '@components/table-columns/admin/tasks-columns'
 
@@ -106,7 +107,7 @@ export class AdminWarehouseTasksViewModel {
 
   async getTasks() {
     try {
-      const result = await AdministratorModel.getTasks()
+      const result = await AdministratorModel.getLightTasks()
 
       runInAction(() => {
         this.tasksData = adminTasksDataConverter(
@@ -125,9 +126,15 @@ export class AdminWarehouseTasksViewModel {
     }
   }
 
-  setCurrentOpenedTask(item) {
-    this.curOpenedTask = item
-    this.onTriggerOpenModal('showTaskInfoModal')
+  async setCurrentOpenedTask(item) {
+    try {
+      const result = await StorekeeperModel.getTaskById(item._id)
+
+      this.curOpenedTask = result
+      this.onTriggerOpenModal('showTaskInfoModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onTriggerOpenModal(modal) {

@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRoleCodeMap, UserRole} from '@constants/user-roles'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -40,19 +40,13 @@ class ResearcherSettingsViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          curUserRole={UserRole.RESEARCHER}
-          activeCategory={navbarActiveCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.RESEARCHER}
           >
             <MainContent>
               {formFields ? (

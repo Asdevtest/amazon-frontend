@@ -21,13 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineResponse2008 {
     /**
      * Constructs a new <code>InlineResponse2008</code>.
-     * Схема репорта за 30 дней с Seller-board
+     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse2008
-     * @param sku {String} SKU
      */
-    constructor(sku) { 
+    constructor() { 
         
-        InlineResponse2008.initialize(this, sku);
+        InlineResponse2008.initialize(this);
     }
 
     /**
@@ -35,8 +34,7 @@ class InlineResponse2008 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, sku) { 
-        obj['sku'] = sku;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,74 +48,8 @@ class InlineResponse2008 {
         if (data) {
             obj = obj || new InlineResponse2008();
 
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
-            }
-            if (data.hasOwnProperty('sku')) {
-                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('roi')) {
-                obj['roi'] = ApiClient.convertToType(data['roi'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaFbmStock')) {
-                obj['fbaFbmStock'] = ApiClient.convertToType(data['fbaFbmStock'], 'Number');
-            }
-            if (data.hasOwnProperty('stockValue')) {
-                obj['stockValue'] = ApiClient.convertToType(data['stockValue'], 'Number');
-            }
-            if (data.hasOwnProperty('estimatedSalesVelocity')) {
-                obj['estimatedSalesVelocity'] = ApiClient.convertToType(data['estimatedSalesVelocity'], 'Number');
-            }
-            if (data.hasOwnProperty('daysOfStockLeft')) {
-                obj['daysOfStockLeft'] = ApiClient.convertToType(data['daysOfStockLeft'], 'Number');
-            }
-            if (data.hasOwnProperty('recommendedQuantityForReordering')) {
-                obj['recommendedQuantityForReordering'] = ApiClient.convertToType(data['recommendedQuantityForReordering'], 'Number');
-            }
-            if (data.hasOwnProperty('runningOutOfStock')) {
-                obj['runningOutOfStock'] = ApiClient.convertToType(data['runningOutOfStock'], 'String');
-            }
-            if (data.hasOwnProperty('reserved')) {
-                obj['reserved'] = ApiClient.convertToType(data['reserved'], 'Number');
-            }
-            if (data.hasOwnProperty('sentToFba')) {
-                obj['sentToFba'] = ApiClient.convertToType(data['sentToFba'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaPrepStock')) {
-                obj['fbaPrepStock'] = ApiClient.convertToType(data['fbaPrepStock'], 'Number');
-            }
-            if (data.hasOwnProperty('ordered')) {
-                obj['ordered'] = ApiClient.convertToType(data['ordered'], 'String');
-            }
-            if (data.hasOwnProperty('timeToReorder')) {
-                obj['timeToReorder'] = ApiClient.convertToType(data['timeToReorder'], 'String');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('marketplace')) {
-                obj['marketplace'] = ApiClient.convertToType(data['marketplace'], 'String');
-            }
-            if (data.hasOwnProperty('targetStockRangeAfterNewOrderDays')) {
-                obj['targetStockRangeAfterNewOrderDays'] = ApiClient.convertToType(data['targetStockRangeAfterNewOrderDays'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaBufferDays')) {
-                obj['fbaBufferDays'] = ApiClient.convertToType(data['fbaBufferDays'], 'Number');
-            }
-            if (data.hasOwnProperty('manufTimeDays')) {
-                obj['manufTimeDays'] = ApiClient.convertToType(data['manufTimeDays'], 'Number');
-            }
-            if (data.hasOwnProperty('useAPrepCenter')) {
-                obj['useAPrepCenter'] = ApiClient.convertToType(data['useAPrepCenter'], 'String');
-            }
-            if (data.hasOwnProperty('shippingToPrepCenterDays')) {
-                obj['shippingToPrepCenterDays'] = ApiClient.convertToType(data['shippingToPrepCenterDays'], 'Number');
-            }
-            if (data.hasOwnProperty('shippingToFbaDays')) {
-                obj['shippingToFbaDays'] = ApiClient.convertToType(data['shippingToFbaDays'], 'Number');
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -127,142 +59,9 @@ class InlineResponse2008 {
 }
 
 /**
- * \"ASIN\"
- * @member {String} asin
+ * @member {Number} priceForClient
  */
-InlineResponse2008.prototype['asin'] = undefined;
-
-/**
- * SKU
- * @member {String} sku
- */
-InlineResponse2008.prototype['sku'] = undefined;
-
-/**
- * Title
- * @member {String} title
- */
-InlineResponse2008.prototype['title'] = undefined;
-
-/**
- * ROI, %
- * @member {Number} roi
- */
-InlineResponse2008.prototype['roi'] = undefined;
-
-/**
- * FBA/FBM Stock
- * @member {Number} fbaFbmStock
- */
-InlineResponse2008.prototype['fbaFbmStock'] = undefined;
-
-/**
- * Stock value
- * @member {Number} stockValue
- */
-InlineResponse2008.prototype['stockValue'] = undefined;
-
-/**
- * Estimated Sales Velocity
- * @member {Number} estimatedSalesVelocity
- */
-InlineResponse2008.prototype['estimatedSalesVelocity'] = undefined;
-
-/**
- * Days  of stock  left
- * @member {Number} daysOfStockLeft
- */
-InlineResponse2008.prototype['daysOfStockLeft'] = undefined;
-
-/**
- * Recommended quantity for  reordering
- * @member {Number} recommendedQuantityForReordering
- */
-InlineResponse2008.prototype['recommendedQuantityForReordering'] = undefined;
-
-/**
- * Running  out of stock
- * @member {String} runningOutOfStock
- */
-InlineResponse2008.prototype['runningOutOfStock'] = undefined;
-
-/**
- * Reserved
- * @member {Number} reserved
- */
-InlineResponse2008.prototype['reserved'] = undefined;
-
-/**
- * Sent  to FBA
- * @member {Number} sentToFba
- */
-InlineResponse2008.prototype['sentToFba'] = undefined;
-
-/**
- * FBA  Prep. Stock
- * @member {Number} fbaPrepStock
- */
-InlineResponse2008.prototype['fbaPrepStock'] = undefined;
-
-/**
- * Ordered
- * @member {String} ordered
- */
-InlineResponse2008.prototype['ordered'] = undefined;
-
-/**
- * Time to  reorder
- * @member {String} timeToReorder
- */
-InlineResponse2008.prototype['timeToReorder'] = undefined;
-
-/**
- * Comment
- * @member {String} comment
- */
-InlineResponse2008.prototype['comment'] = undefined;
-
-/**
- * Marketplace
- * @member {String} marketplace
- */
-InlineResponse2008.prototype['marketplace'] = undefined;
-
-/**
- * Target stock range after new order days
- * @member {Number} targetStockRangeAfterNewOrderDays
- */
-InlineResponse2008.prototype['targetStockRangeAfterNewOrderDays'] = undefined;
-
-/**
- * FBA buffer days
- * @member {Number} fbaBufferDays
- */
-InlineResponse2008.prototype['fbaBufferDays'] = undefined;
-
-/**
- * Manuf. time days
- * @member {Number} manufTimeDays
- */
-InlineResponse2008.prototype['manufTimeDays'] = undefined;
-
-/**
- * Use a Prep Center
- * @member {String} useAPrepCenter
- */
-InlineResponse2008.prototype['useAPrepCenter'] = undefined;
-
-/**
- * Shipping to Prep Center days
- * @member {Number} shippingToPrepCenterDays
- */
-InlineResponse2008.prototype['shippingToPrepCenterDays'] = undefined;
-
-/**
- * Shipping to FBA days
- * @member {Number} shippingToFbaDays
- */
-InlineResponse2008.prototype['shippingToFbaDays'] = undefined;
+InlineResponse2008.prototype['priceForClient'] = undefined;
 
 
 

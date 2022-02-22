@@ -5,11 +5,11 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {OrderContent} from '@components/screens/orders-view/order-content'
 
@@ -34,12 +34,21 @@ export class ClientOrderView extends Component {
   }
 
   render() {
-    const {orderBoxes, drawerOpen, order, history, onTriggerDrawerOpen} = this.viewModel
+    const {
+      orderBoxes,
+      drawerOpen,
+      order,
+      history,
+      showConfirmModal,
+      onTriggerDrawerOpen,
+      onTriggerOpenModal,
+      onClickCancelOrder,
+      onSubmitCancelOrder,
+    } = this.viewModel
 
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.CLIENT}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
@@ -51,13 +60,31 @@ export class ClientOrderView extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.CLIENT}
           >
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
-              <OrderContent order={order} boxes={orderBoxes} history={history} />
+              <OrderContent
+                order={order}
+                boxes={orderBoxes}
+                history={history}
+                onClickCancelOrder={onClickCancelOrder}
+              />
             </MainContent>
           </Appbar>
+
+          <ConfirmationModal
+            isWarning
+            openModal={showConfirmModal}
+            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+            title={textConsts.confirmTitle}
+            message={textConsts.confirmMessage}
+            successBtnText={textConsts.yesBtn}
+            cancelBtnText={textConsts.noBtn}
+            onClickSuccessBtn={() => {
+              onSubmitCancelOrder()
+            }}
+            onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+          />
         </Main>
       </React.Fragment>
     )

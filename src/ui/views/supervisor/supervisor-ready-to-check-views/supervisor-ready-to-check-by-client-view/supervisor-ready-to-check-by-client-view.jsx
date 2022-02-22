@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {SUPERVISOR_PRODUCTS_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -52,7 +51,6 @@ class SupervisorReadyToCheckByClientViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.SUPERVISOR}
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
@@ -65,7 +63,6 @@ class SupervisorReadyToCheckByClientViewRaw extends Component {
             notificationCount={2}
             user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.SUPERVISOR}
           >
             <MainContent>
               <div className={classNames.tableWrapper}>

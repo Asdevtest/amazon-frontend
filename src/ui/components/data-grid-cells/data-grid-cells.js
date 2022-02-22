@@ -3,15 +3,19 @@ import React from 'react'
 import {Button, Chip, Link, Tooltip, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
+import {fromUnixTime} from 'date-fns'
 
-import {TaskOperationType} from '@constants/task-operation-type'
+import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
+import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {texts} from '@constants/texts'
+import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 
 import {
   formatDateDistanceFromNow,
+  formatDateForShowWithoutParseISO,
   formatDateTime,
   formatNormDateTime,
   formatNormDateTimeWithParseISO,
@@ -153,6 +157,12 @@ export const DateCell = withStyles(styles)(({params}) => (
 export const NormDateCell = withStyles(styles)(({classes: classNames, params}) => (
   <Typography className={classNames.normDateCellTypo}>
     {!(params && params.value) ? 'N/A' : formatNormDateTime(params.value)}
+  </Typography>
+))
+
+export const NormDateFromUnixCell = withStyles(styles)(({classes: classNames, value}) => (
+  <Typography className={classNames.normDateCellTypo}>
+    {!value ? 'N/A' : formatDateForShowWithoutParseISO(fromUnixTime(value))}
   </Typography>
 ))
 
@@ -325,6 +335,77 @@ export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames
   </div>
 ))
 
+export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => {
+  const checkIfTaskCouldBeCanceled = status => {
+    if (status === mapTaskStatusEmumToKey[TaskStatus.NEW]) {
+      return true
+    }
+    return false
+  }
+
+  const renderTaskInfoBtn = () => (
+    <Button
+      variant="contained"
+      color="primary"
+      className={classNames.infoBtn}
+      onClick={() => handlers.onClickTaskInfo(row)}
+    >
+      {textConsts.showDetails}
+    </Button>
+  )
+
+  const renderHistoryItem = () => {
+    switch (mapTaskOperationTypeKeyToEnum[row.operationType]) {
+      case TaskOperationType.MERGE:
+        return (
+          <React.Fragment>
+            {renderTaskInfoBtn()}
+            {checkIfTaskCouldBeCanceled(row.status) && (
+              <ErrorButton
+                className={classNames.cancelTaskBtn}
+                onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'merge')}
+              >
+                {textConsts.cancelTaskBtn}
+              </ErrorButton>
+            )}
+          </React.Fragment>
+        )
+      case TaskOperationType.SPLIT:
+        return (
+          <React.Fragment>
+            {renderTaskInfoBtn()}
+            {checkIfTaskCouldBeCanceled(row.status) && (
+              <ErrorButton
+                className={classNames.cancelTaskBtn}
+                onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'split')}
+              >
+                {textConsts.cancelTaskBtn}
+              </ErrorButton>
+            )}
+          </React.Fragment>
+        )
+      case TaskOperationType.RECEIVE:
+        return <React.Fragment>{renderTaskInfoBtn()}</React.Fragment>
+      case TaskOperationType.EDIT:
+        return (
+          <React.Fragment>
+            {renderTaskInfoBtn()}
+            {checkIfTaskCouldBeCanceled(row.status) && (
+              <ErrorButton
+                className={classNames.cancelTaskBtn}
+                onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'edit')}
+              >
+                {textConsts.cancelTaskBtn}
+              </ErrorButton>
+            )}
+          </React.Fragment>
+        )
+    }
+  }
+
+  return <div>{renderHistoryItem()}</div>
+})
+
 export const ClientOrdersNotificationsBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
   <div>
     <Button variant="contained" color="primary" onClick={() => handlers.onTriggerOpenConfirmModal(row)}>
@@ -346,6 +427,7 @@ export const AdminUsersActionBtnsCell = withStyles(styles)(
     <React.Fragment>
       <Button
         className={classNames.marginRightBtn}
+        disabled={row.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
         variant="contained"
         color="primary"
         onClick={() => handlers.onClickEditUser()}

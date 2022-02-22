@@ -61,7 +61,7 @@ class InlineObject33 {
 }
 
 /**
- * Время на выполнение, в часах.
+ * Время на выполнение, в минутах.
  * @member {Number} execution_time
  */
 InlineObject33.prototype['execution_time'] = undefined;

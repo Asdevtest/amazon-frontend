@@ -5,7 +5,7 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1BuyersOrdersGuidGet**](BuyerApi.md#apiV1BuyersOrdersGuidGet) | **GET** /api/v1/buyers/orders/{guid} | # Получить конкретный заказ по его GUID.
-[**apiV1BuyersOrdersGuidPatch**](BuyerApi.md#apiV1BuyersOrdersGuidPatch) | **PATCH** /api/v1/buyers/orders/{guid} | # Редактировать заказ.
+[**apiV1BuyersOrdersGuidPatch**](BuyerApi.md#apiV1BuyersOrdersGuidPatch) | **PATCH** /api/v1/buyers/orders/{guid} | # Срочно требуется разделить на логические эндпоинты, это поддерживать невозможно!!!!! Редактировать заказ.
 [**apiV1BuyersOrdersMyGet**](BuyerApi.md#apiV1BuyersOrdersMyGet) | **GET** /api/v1/buyers/orders/my | # Получить список заказов текущего байера.
 [**apiV1BuyersOrdersPickupGuidPost**](BuyerApi.md#apiV1BuyersOrdersPickupGuidPost) | **POST** /api/v1/buyers/orders/pickup/{guid} | # Закрепить заказ за байером. Взять его в работу.
 [**apiV1BuyersOrdersVacGet**](BuyerApi.md#apiV1BuyersOrdersVacGet) | **GET** /api/v1/buyers/orders/vac | # Получить список свободных заказов.
@@ -77,9 +77,9 @@ Name | Type | Description  | Notes
 
 > String apiV1BuyersOrdersGuidPatch(guid, opts)
 
-# Редактировать заказ.
+# Срочно требуется разделить на логические эндпоинты, это поддерживать невозможно!!!!! Редактировать заказ.
 
-## Редактировать заказ.   Статус 20 и 25 приводит к оплате поставщику.  Только заказы со статусом 15 можно оплачивать. нельзя повторно оплачивать или менять цену после оплаты поставщику (paidAt &#x3D;&#x3D;&#x3D; null) при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены  при снижении цены автоматическим производиться возврат разницы клиенту.  статус 35 приведит к возврату средств и закрытию заказа, данный статус можно ставить только оплачено поставщику
+## Срочно требуется разделить на логические эндпоинты, это поддерживать невозможно!!!!!, Редактировать заказ.   Статус 20 и 25 приводит к оплате поставщику.  Только заказы со статусом 15 можно оплачивать. нельзя повторно оплачивать или менять цену после оплаты поставщику (paidAt &#x3D;&#x3D;&#x3D; null) при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены  при снижении цены автоматическим производиться возврат разницы клиенту.  статус 35 приведет к возврату средств и закрытию заказа, данный статус можно ставить только оплачено поставщику
 
 ### Example
 
@@ -561,7 +561,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksGet
 
-> [InlineResponse2006] apiV1BuyersTasksGet(opts)
+> [InlineResponse2007] apiV1BuyersTasksGet(opts)
 
 # Показать все задачи данного пользователя.
 
@@ -599,7 +599,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 

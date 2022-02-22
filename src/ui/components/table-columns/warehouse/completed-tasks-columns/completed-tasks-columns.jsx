@@ -3,10 +3,10 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
-  NormDateCell,
   TaskDescriptionCell,
   renderFieldValueCell,
   NormalActionBtnCell,
+  NormDateFromUnixCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -18,7 +18,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     field: 'createdAt',
     headerName: textConsts.createDateField,
     width: 250,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
 
@@ -26,7 +26,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
     width: 250,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
 

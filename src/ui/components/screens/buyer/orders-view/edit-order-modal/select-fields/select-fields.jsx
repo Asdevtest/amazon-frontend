@@ -25,6 +25,7 @@ const textConsts = getLocalizedTexts(texts, 'en').ordersViewsModalSelectFields
 
 const allowOrderStatuses = [
   `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`,
+  `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
   `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
   `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
   `${OrderStatusByKey[OrderStatus.RETURN_ORDER]}`,
@@ -53,7 +54,7 @@ export const SelectFields = ({
   )
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
-  console.log('orderFields', orderFields)
+
   return (
     <Grid container justify="space-around">
       <Grid item>
@@ -64,10 +65,6 @@ export const SelectFields = ({
           <NativeSelect
             disabled
             variant="filled"
-            inputProps={{
-              name: 'warehouse-select',
-              id: 'warehouse-select',
-            }}
             value={orderFields.warehouse}
             className={classNames.nativeSelect}
             input={<Input />}
@@ -91,10 +88,6 @@ export const SelectFields = ({
           <NativeSelect
             disabled
             variant="filled"
-            inputProps={{
-              name: 'delivery-select',
-              id: 'delivery-select',
-            }}
             value={orderFields.deliveryMethod}
             className={classNames.nativeSelect}
             input={<Input />}
@@ -112,11 +105,8 @@ export const SelectFields = ({
             {textConsts.typoStatus}
           </InputLabel>
           <NativeSelect
+            disabled={order.status !== orderFields.status}
             variant="filled"
-            inputProps={{
-              name: 'status-select',
-              id: 'status-select',
-            }}
             value={orderFields.status}
             className={classNames.nativeSelect}
             input={<Input />}
@@ -128,7 +118,15 @@ export const SelectFields = ({
                 allowOrderStatuses.filter(el => el >= order.status),
               ),
             }).map((statusCode, statusIndex) => (
-              <option key={statusIndex} value={statusCode}>
+              <option
+                key={statusIndex}
+                value={statusCode}
+                className={clsx({
+                  [classNames.disableSelect]:
+                    statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+                })}
+                disabled={statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`}
+              >
                 {getOrderStatusOptionByCode(statusCode).label}
               </option>
             ))}
@@ -264,12 +262,18 @@ export const SelectFields = ({
 
         <div className={classNames.checkboxWithLabelWrapper}>
           <Checkbox
+            disabled={
+              ![
+                OrderStatusByKey[OrderStatus.AT_PROCESS],
+                OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
+              ].includes(orderFields.status)
+            }
             checked={checkIsPlanningPrice}
             color="primary"
-            onChange={e => {
+            onChange={() => {
               setCheckIsPlanningPrice(!checkIsPlanningPrice)
               setOrderField('totalPriceChanged')({
-                target: {value: e},
+                target: {value: orderFields.totalPrice},
               })
               setPriceYuansForBatch(
                 calcExchangeDollarsInYuansPrice(orderFields.totalPrice, orderFields.yuanToDollarRate),
@@ -326,17 +330,20 @@ export const SelectFields = ({
 
         <Box>
           <div className={classNames.barCodeWrapper}>
-            <Checkbox
-              color="primary"
-              disabled={!orderFields.product.barCode}
-              checked={orderFields.isBarCodeAlreadyAttachedByTheSupplier}
-              onChange={() => {
-                setOrderField('isBarCodeAlreadyAttachedByTheSupplier')({
-                  target: {value: !orderFields.isBarCodeAlreadyAttachedByTheSupplier},
-                })
-              }}
-            />
-            <Typography className={classNames.modalText}>{textConsts.supplierAddBarCode}</Typography>
+            <div className={classNames.checkboxWithLabelWrapper}>
+              <Checkbox
+                color="primary"
+                disabled={!orderFields.product.barCode}
+                checked={orderFields.isBarCodeAlreadyAttachedByTheSupplier}
+                onChange={() => {
+                  setOrderField('isBarCodeAlreadyAttachedByTheSupplier')({
+                    target: {value: !orderFields.isBarCodeAlreadyAttachedByTheSupplier},
+                  })
+                }}
+              />
+              <Typography className={classNames.modalText}>{textConsts.supplierAddBarCode}</Typography>
+            </div>
+
             <Typography>{'Баркод:'}</Typography>
             <Typography className={classNames.barCodeText}>{orderFields.product.barCode || 'N/A'}</Typography>
           </div>

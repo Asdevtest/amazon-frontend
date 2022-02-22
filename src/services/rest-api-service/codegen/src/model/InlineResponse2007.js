@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsTasksBoxesBefore from './ApiV1AdminsTasksBoxesBefore';
 
 /**
  * The InlineResponse2007 model module.
@@ -21,7 +22,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse2007 {
     /**
      * Constructs a new <code>InlineResponse2007</code>.
-     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse2007
      */
     constructor() { 
@@ -48,8 +48,41 @@ class InlineResponse2007 {
         if (data) {
             obj = obj || new InlineResponse2007();
 
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            }
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1AdminsTasksBoxesBefore]);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsTasksBoxesBefore]);
+            }
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updateDate')) {
+                obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
             }
         }
         return obj;
@@ -59,12 +92,106 @@ class InlineResponse2007 {
 }
 
 /**
- * @member {Number} priceForClient
+ * GUID
+ * @member {String} _id
  */
-InlineResponse2007.prototype['priceForClient'] = undefined;
+InlineResponse2007.prototype['_id'] = undefined;
+
+/**
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
+ */
+InlineResponse2007.prototype['taskId'] = undefined;
+
+/**
+ * Массив коробок которые были до переформирования коробок.
+ * @member {Array.<module:model/ApiV1AdminsTasksBoxesBefore>} boxesBefore
+ */
+InlineResponse2007.prototype['boxesBefore'] = undefined;
+
+/**
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1AdminsTasksBoxesBefore>} boxes
+ */
+InlineResponse2007.prototype['boxes'] = undefined;
+
+/**
+ * Тип операции
+ * @member {module:model/InlineResponse2007.OperationTypeEnum} operationType
+ */
+InlineResponse2007.prototype['operationType'] = undefined;
+
+/**
+ * GUID сотрудника склада, который выполняет задачу.
+ * @member {String} storekeeperId
+ */
+InlineResponse2007.prototype['storekeeperId'] = undefined;
+
+/**
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
+ * @member {Number} status
+ */
+InlineResponse2007.prototype['status'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineResponse2007.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Комментарий клиента.
+ * @member {String} clientComment
+ */
+InlineResponse2007.prototype['clientComment'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse2007.prototype['images'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
+ */
+InlineResponse2007.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Date} updateDate
+ */
+InlineResponse2007.prototype['updateDate'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse2007['OperationTypeEnum'] = {
+
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
+
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
+
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive"
+};
 
 
 

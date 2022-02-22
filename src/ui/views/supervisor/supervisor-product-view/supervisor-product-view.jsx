@@ -70,12 +70,10 @@ export class SupervisorProductView extends Component {
             notificationCount={2}
             user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.SUPERVISOR}
           >
             <MainContent>
               {product ? (
                 <ProductWrapper
-                  curUserRole={UserRole.SUPERVISOR}
                   product={product}
                   productBase={productBase}
                   selectedSupplier={selectedSupplier}

@@ -9,7 +9,7 @@ import {SupervisorModel} from '@models/supervisor-model'
 import {supervisorProductsViewColumns} from '@components/table-columns/supervisor/supervisor-products-columns'
 
 import {supervisorProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class SupervisorProductsViewModel {
@@ -105,7 +105,9 @@ export class SupervisorProductsViewModel {
       const result = await SupervisorModel.getProductsMy()
 
       runInAction(() => {
-        this.productsMy = supervisorProductsDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.productsMy = supervisorProductsDataConverter(result).sort(
+          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+        )
       })
     } catch (error) {
       console.log(error)

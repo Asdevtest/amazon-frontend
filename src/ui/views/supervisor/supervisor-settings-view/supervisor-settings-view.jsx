@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -40,19 +40,13 @@ export class SupervisorSettingsViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.SUPERVISOR}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
           user={textConsts.appUser}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.SUPERVISOR}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               {formFields ? (
                 <Paper className={classNames.card}>

@@ -14,9 +14,16 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     marginBottom: '12px',
   },
+  // input: {
+  //   width: '100%'
+  // },
+
   input: {
-    width: '100%',
+    height: '32px',
+    borderRadius: '8px',
+    width: 'calc(100% - 110px)',
   },
+
   text: {
     color: 'rgba(61, 81, 112, 1)',
     fontSize: '14px',
@@ -164,5 +171,35 @@ export const useClassNames = makeStyles(() => ({
   productCheckboxBoxesWrapper: {
     display: 'flex',
     gap: '20px',
+  },
+
+  defaultBtn: {
+    marginLeft: '10px',
+    borderRadius: '8px',
+    height: '32px',
+    width: '100px',
+  },
+
+  inputWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+  },
+
+  skuItemTitle: {
+    fontSize: '20px',
+  },
+
+  skuItemWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  skuItemsWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '10px',
+    padding: '0 10px',
   },
 }))

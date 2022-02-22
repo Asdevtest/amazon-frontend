@@ -58,6 +58,7 @@ const permissionsKeys = {
     SHOW_USER_SETTINGS_CLIENT: 'SHOW_USER_SETTINGS_CLIENT',
     SHOW_PAYMENTS_CLIENT: 'SHOW_PAYMENTS_CLIENT',
     SHOW_NOTIFICATIONS_CLIENT: 'SHOW_NOTIFICATIONS_CLIENT',
+    SHOW_SHOPS_CLIENT: 'SHOW_SHOPS_CLIENT',
   },
   researcher: {
     SHOW_PAYMENTS_RESEARCHER: 'SHOW_PAYMENTS_RESEARCHER',
@@ -104,12 +105,10 @@ export const navbarConfig = {
     {
       icon: Work,
       title: 'Заявки',
-      route: '/client/exchange/requests/my',
+      route: '/vacant-requests',
       subtitles: [
-        // {subtitle: 'На поиск продукта', subRoute: '/client/exchange/requests/products'},
-        // {subtitle: 'На поиск ниши', subRoute: '/client/exchange/requests/niches'},
-        {subtitle: 'Мои заявки', subRoute: '/client/exchange/requests/my'},
-        {subtitle: 'Вакантные заявки', subRoute: '/client/exchange/requests/vacant'},
+        {subtitle: 'Вакантные заявки', subRoute: '/vacant-requests'},
+        {subtitle: 'Мои заявки', subRoute: '/requests/my'},
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user =>
@@ -159,7 +158,8 @@ export const navbarConfig = {
       route: '/client/shops',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_SHOPS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_SHOPS_CLIENT),
     },
 
     {
@@ -231,34 +231,34 @@ export const navbarConfig = {
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_PRODUCTS_RESEARCHER),
     },
-    {
-      icon: AssignmentIcon,
-      title: 'Заявки в работе',
-      route: '/researcher/my-requests/products',
-      subtitles: [
-        {subtitle: 'На поиск продукта', subRoute: '/researcher/my-requests/products'},
-        {subtitle: 'На поиск ниши', subRoute: '/researcher/my-requests/niches'},
-        {subtitle: 'Универсальные', subRoute: '/researcher/my-requests/custom'},
-      ],
-      key: navBarActiveCategory.NAVBAR_MY_REQUESTS,
-      checkHideBlock: user =>
-        !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_REQUESTS_RESEARCHER),
-    },
-    {
-      icon: AssignmentIcon,
-      title: 'Вакантные заявки',
-      route: '/researcher/requests/products',
-      subtitles: [
-        {subtitle: 'На поиск продукта', subRoute: '/researcher/requests/products'},
-        {subtitle: 'На поиск ниши', subRoute: '/researcher/requests/niches'},
-        {subtitle: 'Универсальные', subRoute: '/researcher/requests/custom'},
-      ],
-      key: navBarActiveCategory.NAVBAR_VACANT_REQUESTS,
-      checkHideBlock: user =>
-        !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_VAC_REQUESTS_RESEARCHER),
-    },
+    // { // ПОКА УБЕРЕМ У РЕСЕРЧЕРА
+    //   icon: AssignmentIcon,
+    //   title: 'Заявки в работе',
+    //   route: '/researcher/my-requests/products',
+    //   subtitles: [
+    //     {subtitle: 'На поиск продукта', subRoute: '/researcher/my-requests/products'},
+    //     {subtitle: 'На поиск ниши', subRoute: '/researcher/my-requests/niches'},
+    //     {subtitle: 'Универсальные', subRoute: '/researcher/my-requests/custom'},
+    //   ],
+    //   key: navBarActiveCategory.NAVBAR_MY_REQUESTS,
+    //   checkHideBlock: user =>
+    //     !isMasterUser(user) ||
+    //     user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_REQUESTS_RESEARCHER),
+    // },
+    // {
+    //   icon: AssignmentIcon,
+    //   title: 'Вакантные заявки',
+    //   route: '/researcher/requests/products',
+    //   subtitles: [
+    //     {subtitle: 'На поиск продукта', subRoute: '/researcher/requests/products'},
+    //     {subtitle: 'На поиск ниши', subRoute: '/researcher/requests/niches'},
+    //     {subtitle: 'Универсальные', subRoute: '/researcher/requests/custom'},
+    //   ],
+    //   key: navBarActiveCategory.NAVBAR_VACANT_REQUESTS,
+    //   checkHideBlock: user =>
+    //     !isMasterUser(user) ||
+    //     user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_VAC_REQUESTS_RESEARCHER),
+    // },
     {
       icon: PeopleIcon,
       title: 'Пользователи',
@@ -298,39 +298,15 @@ export const navbarConfig = {
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: () => true,
     },
-    // {
-    //   icon: AssignmentIcon,
-    //   title: 'Заявки в работе',
-    //   route: '/freelancer/my-requests/products',
-    //   subtitles: [
-    //     {subtitle: 'На поиск продукта', subRoute: '/freelancer/my-requests/products'},
-    //     {subtitle: 'На поиск ниши', subRoute: '/freelancer/my-requests/niches'},
-    //     {subtitle: 'Универсальные', subRoute: '/freelancer/my-requests/custom'},
-    //   ],
-    //   key: navBarActiveCategory.NAVBAR_MY_REQUESTS,
-    //   checkHideBlock: user => !isMasterUser(user) && !noPermissionsUser(user),
-    // },
-    // {
-    //   icon: AssignmentIcon,
-    //   title: 'Вакантные заявки',
-    //   route: '/freelancer/requests/products',
-    //   subtitles: [
-    //     {subtitle: 'На поиск продукта', subRoute: '/freelancer/requests/products'},
-    //     {subtitle: 'На поиск ниши', subRoute: '/freelancer/requests/niches'},
-    //     {subtitle: 'Универсальные', subRoute: '/freelancer/requests/custom'},
-    //   ],
-    //   key: navBarActiveCategory.NAVBAR_VACANT_REQUESTS,
-    //   checkHideBlock: () => true,
-    // },
 
     {
       icon: Work,
       title: 'Заявки',
-      route: '/freelancer/requests',
+      route: '/vacant-requests',
       subtitles: [
-        {subtitle: 'Вакантные заявки', subRoute: '/freelancer/requests'},
-        {subtitle: 'Заявки в работе', subRoute: '/freelancer/requests-in-work'},
-        {subtitle: 'Мои заявки', subRoute: '/freelancer/my-requests'},
+        {subtitle: 'Вакантные заявки', subRoute: '/vacant-requests'},
+        {subtitle: 'Мои заявки', subRoute: '/requests/my'},
+        // {subtitle: 'Заявки в работе', subRoute: '/freelancer/requests-in-work'},
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user => !isMasterUser(user),
@@ -387,7 +363,7 @@ export const navbarConfig = {
         user?.permissions.some(
           item =>
             item.key === permissionsKeys.supervisor.SHOW_VAC_BY_RES_SUPERVISOR ||
-            permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR,
+            item.key === permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR,
         ),
     },
     {
@@ -443,7 +419,7 @@ export const navbarConfig = {
     {
       icon: InboxOutlinedIcon,
       title: 'Поиск поставщика',
-      route: '/buyer/search-supplier-by-supervisor',
+      // route: '/buyer/search-supplier-by-supervisor',
       subtitles: [
         {
           subtitle: 'От Супервайзера',
@@ -465,7 +441,8 @@ export const navbarConfig = {
         !isMasterUser(user) ||
         user?.permissions.some(
           item =>
-            item.key === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER || permissionsKeys.buyer.SHOW_VAC_BY_SUP_BUYER,
+            item.key === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER ||
+            item.key === permissionsKeys.buyer.SHOW_VAC_BY_SUP_BUYER,
         ),
     },
 

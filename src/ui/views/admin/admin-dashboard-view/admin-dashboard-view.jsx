@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 import {AdminDashboardCardDataKey, getAdminDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardInfoCard} from '@components/dashboards/dashboard-info-card'
@@ -41,17 +40,11 @@ export class AdminDashboardViewRaw extends Component {
       <React.Fragment>
         <Navbar
           activeCategory={navbarActiveCategory}
-          curUserRole={UserRole.ADMIN}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}
         />
         <Main>
-          <Appbar
-            avatarSrc={avatar}
-            curUserRole={UserRole.ADMIN}
-            setDrawerOpen={onChangeTriggerDrawerOpen}
-            title={textConsts.appbarTitle}
-          >
+          <Appbar avatarSrc={avatar} setDrawerOpen={onChangeTriggerDrawerOpen} title={textConsts.appbarTitle}>
             <MainContent>
               <Typography paragraph variant="h5">
                 {textConsts.mainTitle}

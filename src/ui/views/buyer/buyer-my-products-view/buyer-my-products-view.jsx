@@ -9,7 +9,6 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {ProductStatus} from '@constants/product-status'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -66,7 +65,6 @@ export class BuyerMyProductsViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.BUYER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
@@ -79,7 +77,6 @@ export class BuyerMyProductsViewRaw extends Component {
             avatarSrc={avatar}
             user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.BUYER}
           >
             <MainContent>
               <DataGrid

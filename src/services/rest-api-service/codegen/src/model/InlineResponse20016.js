@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1StorekeepersTasksLightVacBoxesBefore from './ApiV1StorekeepersTasksLightVacBoxesBefore';
 
 /**
  * The InlineResponse20016 model module.
@@ -22,6 +21,7 @@ import ApiV1StorekeepersTasksLightVacBoxesBefore from './ApiV1StorekeepersTasksL
 class InlineResponse20016 {
     /**
      * Constructs a new <code>InlineResponse20016</code>.
+     * Схема магазина.
      * @alias module:model/InlineResponse20016
      */
     constructor() { 
@@ -51,20 +51,29 @@ class InlineResponse20016 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            }
+            if (data.hasOwnProperty('ownerId')) {
+                obj['ownerId'] = ApiClient.convertToType(data['ownerId'], 'String');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            }
             if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Number');
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
             if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Number');
-            }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1StorekeepersTasksLightVacBoxesBefore]);
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -74,39 +83,58 @@ class InlineResponse20016 {
 }
 
 /**
+ * ID магазина.
  * @member {String} _id
  */
 InlineResponse20016.prototype['_id'] = undefined;
 
 /**
- * Дата создания.
- * @member {Number} createdAt
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
+ */
+InlineResponse20016.prototype['name'] = undefined;
+
+/**
+ * URL для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
+ */
+InlineResponse20016.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+
+/**
+ * URL для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
+ */
+InlineResponse20016.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+
+/**
+ * GUID, владелеца.
+ * @member {String} ownerId
+ */
+InlineResponse20016.prototype['ownerId'] = undefined;
+
+/**
+ * GUID любого, кто последний создал.
+ * @member {String} createdById
+ */
+InlineResponse20016.prototype['createdById'] = undefined;
+
+/**
+ * GUID любого, кто последний редактировал.
+ * @member {String} lastModifiedById
+ */
+InlineResponse20016.prototype['lastModifiedById'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
  */
 InlineResponse20016.prototype['createdAt'] = undefined;
 
 /**
- * Дата обновления.
- * @member {Number} updatedAt
+ * Дата изменения
+ * @member {Date} updatedAt
  */
 InlineResponse20016.prototype['updatedAt'] = undefined;
-
-/**
- * Тип операции
- * @member {String} operationType
- */
-InlineResponse20016.prototype['operationType'] = undefined;
-
-/**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
- */
-InlineResponse20016.prototype['status'] = undefined;
-
-/**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/ApiV1StorekeepersTasksLightVacBoxesBefore>} boxesBefore
- */
-InlineResponse20016.prototype['boxesBefore'] = undefined;
 
 
 

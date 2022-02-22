@@ -8,7 +8,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -30,7 +29,7 @@ class FreelancerFinancesViewsRaw extends Component {
   viewModel = new FreelancerFinancesViewsModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getPayments(this.viewModel.activeSubCategory)
+    this.viewModel.getPayments()
     this.viewModel.getDataGridState()
   }
 
@@ -46,7 +45,6 @@ class FreelancerFinancesViewsRaw extends Component {
       drawerOpen,
       rowsPerPage,
       curPage,
-      activeSubCategory,
       onChangeDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -58,12 +56,17 @@ class FreelancerFinancesViewsRaw extends Component {
       onChangeFilterModel,
     } = this.viewModel
 
+    const {classes: classNames} = this.props
+
+    const getRowClassName = params =>
+      params.getValue(params.id, 'sum') < 0
+        ? classNames.redRow
+        : params.getValue(params.id, 'sum') > 0 && classNames.greenRow
+
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.FREELANCER}
           activeCategory={navbarActiveCategory}
-          activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeDrawerOpen}
           onChangeSubCategory={onChangeSubCategory}
@@ -73,13 +76,13 @@ class FreelancerFinancesViewsRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            curUserRole={UserRole.FREELANCER}
             setDrawerOpen={onChangeDrawerOpen}
           >
             <MainContent>
               <DataGrid
                 pagination
                 useResizeContainer
+                getRowClassName={getRowClassName}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}

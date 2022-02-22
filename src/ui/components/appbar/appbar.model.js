@@ -5,7 +5,6 @@ import {UserModel} from '@models/user-model'
 export class AppbarModel {
   requestStatus = undefined
   error = undefined
-  userRole = undefined
 
   get role() {
     return UserModel.userInfo?.role
@@ -23,8 +22,7 @@ export class AppbarModel {
     return UserModel.userInfo?.name
   }
 
-  constructor({userRole}) {
-    this.userRole = userRole
+  constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 

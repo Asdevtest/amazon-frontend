@@ -31,7 +31,6 @@ export const UserBalanceHistory = ({historyData, title}) => {
                   <TableCell className={classNames.rightTextCell}>{textConsts.amount}</TableCell>
                   <TableCell className={classNames.centerTextCell}>{textConsts.type}</TableCell>
                   <TableCell className={classNames.centerTextCell}>{textConsts.comment}</TableCell>
-                  <TableCell className={classNames.centerTextCell}>{textConsts.productId}</TableCell>
                   <TableCell className={classNames.centerTextCell}>{textConsts.username}</TableCell>
                 </TableRow>
               </TableHead>
@@ -48,7 +47,6 @@ export const UserBalanceHistory = ({historyData, title}) => {
                     <TableCell className={classNames.amountCell}>{toFixedWithDollarSign(item.sum, 2)}</TableCell>
                     <TableCell className={classNames.typeCell}>{item.sum >= 0 ? 'replenish' : 'withdraw'}</TableCell>
                     <TableCell className={classNames.commentCell}>{item.comment}</TableCell>
-                    <TableCell className={classNames.reasonCell}>{item.productId}</TableCell>
                     <TableCell className={classNames.usernameCell}>{item.recipient?.name}</TableCell>
                   </TableRow>
                 ))}

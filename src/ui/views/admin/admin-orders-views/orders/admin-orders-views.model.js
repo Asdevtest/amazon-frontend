@@ -11,7 +11,7 @@ import {SettingsModel} from '@models/settings-model'
 import {adminOrdersViewColumns} from '@components/table-columns/admin/orders-columns'
 
 import {adminOrdersDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const ordersStatusBySubCategory = {
@@ -109,7 +109,7 @@ export class AdminOrdersAllViewModel {
       const ordersData = adminOrdersDataConverter(result)
 
       runInAction(() => {
-        this.currentOrdersData = ordersData.sort(sortObjectsArrayByFiledDate('updatedAt'))
+        this.currentOrdersData = ordersData.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

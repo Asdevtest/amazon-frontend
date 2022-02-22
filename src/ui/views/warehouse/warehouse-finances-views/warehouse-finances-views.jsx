@@ -8,7 +8,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -65,7 +64,6 @@ class WarehouseFinancesViewsRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.STOREKEEPER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeDrawerOpen}
@@ -76,7 +74,6 @@ class WarehouseFinancesViewsRaw extends Component {
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
-            curUserRole={UserRole.STOREKEEPER}
             setDrawerOpen={onChangeDrawerOpen}
           >
             <MainContent>

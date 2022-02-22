@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 import {getClientDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
@@ -38,8 +37,8 @@ export class ClientDashboardViewRaw extends Component {
 
   render() {
     const {
+      userInfo,
       dashboardData,
-      balance,
       drawerOpen,
       showTransferModal,
       transferModalSettings,
@@ -53,23 +52,17 @@ export class ClientDashboardViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          curUserRole={UserRole.CLIENT}
-          activeCategory={navbarActiveCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawer}
-        />
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
           <Appbar
             avatarSrc={avatar}
-            curUserRole={UserRole.CLIENT}
             setDrawerOpen={onTriggerDrawer}
             title={textConsts.appbarTitle}
-            balance={balance}
+            balance={userInfo.balance}
           >
             <MainContent>
               <div className={classes.mb5}>
-                <DashboardBalance balance={balance} />
+                <DashboardBalance user={userInfo} />
                 <Button
                   disableElevation
                   className={classes.mr2}

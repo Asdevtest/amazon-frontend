@@ -14,8 +14,6 @@ export class WarehouseDashboardViewModel {
 
   drawerOpen = false
 
-  balance = UserModel.userInfo?.balance
-
   dashboardData = {
     [WarehouseDashboardCardDataKey.VACANT_TASKS]: '',
     [WarehouseDashboardCardDataKey.TASKS_MY]: '',
@@ -24,6 +22,10 @@ export class WarehouseDashboardViewModel {
     [WarehouseDashboardCardDataKey.BOXES_IN_STORE]: '',
     [WarehouseDashboardCardDataKey.SENT_BATCHES]: '',
     [WarehouseDashboardCardDataKey.NOT_SENT_BATCHES]: '',
+  }
+
+  get userInfo() {
+    return UserModel.userInfo
   }
 
   constructor({history}) {

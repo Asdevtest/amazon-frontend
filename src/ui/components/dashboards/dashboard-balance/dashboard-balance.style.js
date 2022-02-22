@@ -8,4 +8,9 @@ export const useClassNames = makeStyles(theme => ({
     lineHeight: '84px',
     marginBottom: theme.spacing(3),
   },
+
+  balanceFreeze: {
+    fontSize: theme.spacing(5),
+    color: 'orange',
+  },
 }))

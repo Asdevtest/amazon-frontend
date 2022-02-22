@@ -137,7 +137,7 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: 'rgb(61, 81, 112)',
   },
   amountCell: {
-    width: '72px',
+    width: '90px',
   },
 
   noCurrentSupplier: {
@@ -146,5 +146,9 @@ export const useClassNames = makeStyles(() => ({
 
   noCurrentSupplierText: {
     color: 'red',
+  },
+
+  totalCell: {
+    minWidth: '110px',
   },
 }))

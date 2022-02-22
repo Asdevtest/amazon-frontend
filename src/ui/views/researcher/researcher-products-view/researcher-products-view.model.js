@@ -10,7 +10,7 @@ import {SettingsModel} from '@models/settings-model'
 import {researcherProductsViewColumns} from '@components/table-columns/researcher/researcher-products-columns'
 
 import {researcherProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
 import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
@@ -196,7 +196,9 @@ export class ResearcherProductsViewModel {
     try {
       const result = await ResearcherModel.getProductsVacant()
       runInAction(() => {
-        this.products = researcherProductsDataConverter(result.sort(sortObjectsArrayByFiledDate('createdAt')))
+        this.products = researcherProductsDataConverter(
+          result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
+        )
       })
     } catch (error) {
       console.log(error)

@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**apiV1AdminsProductsVacGet**](AdministratorApi.md#apiV1AdminsProductsVacGet) | **GET** /api/v1/admins/products/vac | # Получить список вакантных товаров.
 [**apiV1AdminsSetSettingPatch**](AdministratorApi.md#apiV1AdminsSetSettingPatch) | **PATCH** /api/v1/admins/set_setting | # Установить динамические настройки.
 [**apiV1AdminsTasksGet**](AdministratorApi.md#apiV1AdminsTasksGet) | **GET** /api/v1/admins/tasks | # Получить задачи.
+[**apiV1AdminsTasksLightGet**](AdministratorApi.md#apiV1AdminsTasksLightGet) | **GET** /api/v1/admins/tasks_light | #  Облегченная версия. Получить задачи.
 [**apiV1AdminsUsersGet**](AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
 [**apiV1AdminsUsersGuidDelete**](AdministratorApi.md#apiV1AdminsUsersGuidDelete) | **DELETE** /api/v1/admins/users/{guid} | Изменить пользователя.
 [**apiV1AdminsUsersGuidGet**](AdministratorApi.md#apiV1AdminsUsersGuidGet) | **GET** /api/v1/admins/users/{guid} | Получить пользователя по GUID.
@@ -29,7 +30,7 @@ Method | HTTP request | Description
 
 ## apiV1AdminsBatchesGet
 
-> [InlineResponse2004] apiV1AdminsBatchesGet(opts)
+> [InlineResponse2005] apiV1AdminsBatchesGet(opts)
 
 # Получить все партии.
 
@@ -73,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+[**[InlineResponse2005]**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -727,7 +728,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsProductsVacGet
 
-> [InlineResponse2005] apiV1AdminsProductsVacGet(opts)
+> [InlineResponse2006] apiV1AdminsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -765,7 +766,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -833,7 +834,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsTasksGet
 
-> [InlineResponse2003] apiV1AdminsTasksGet(opts)
+> [InlineResponse2004] apiV1AdminsTasksGet(opts)
 
 # Получить задачи.
 
@@ -856,6 +857,60 @@ let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1AdminsTasksGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **String**| если указать статус - отфильтрует, нет - выведет все. | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse2004]**](InlineResponse2004.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1AdminsTasksLightGet
+
+> [InlineResponse2003] apiV1AdminsTasksLightGet(opts)
+
+#  Облегченная версия. Получить задачи.
+
+## Получить задачи.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.AdministratorApi();
+let opts = {
+  'status': "status_example", // String | если указать статус - отфильтрует, нет - выведет все.
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1AdminsTasksLightGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);

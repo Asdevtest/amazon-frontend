@@ -47,9 +47,6 @@ class InlineResponse20018Details {
         if (data) {
             obj = obj || new InlineResponse20018Details();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
             if (data.hasOwnProperty('conditions')) {
                 obj['conditions'] = ApiClient.convertToType(data['conditions'], 'String');
             }
@@ -74,12 +71,6 @@ class InlineResponse20018Details {
 
 
 }
-
-/**
- * Имя кастомной заявки.
- * @member {String} name
- */
-InlineResponse20018Details.prototype['name'] = undefined;
 
 /**
  * Условия кастомной заявки.

@@ -17,7 +17,7 @@ import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject28 from '../model/InlineObject28';
 import InlineObject29 from '../model/InlineObject29';
-import InlineResponse2008 from '../model/InlineResponse2008';
+import InlineResponse20010 from '../model/InlineResponse20010';
 import InlineResponse2009 from '../model/InlineResponse2009';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -48,7 +48,7 @@ export default class IntegrationsApi {
      * @param {String} guid GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
      */
     apiV1IntegrationsGetSkusByProductIdGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -72,7 +72,7 @@ export default class IntegrationsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2008];
+      let returnType = [InlineResponse2009];
       return this.apiClient.callApi(
         '/api/v1/integrations/get_skus_by_product_id/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -86,7 +86,7 @@ export default class IntegrationsApi {
      * @param {String} guid GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
      */
     apiV1IntegrationsGetSkusByProductIdGuidGet(guid, opts) {
       return this.apiV1IntegrationsGetSkusByProductIdGuidGetWithHttpInfo(guid, opts)
@@ -101,7 +101,7 @@ export default class IntegrationsApi {
      * ## Получить месячный отчет селерборда   ## Это эндпоинт отдает последние записи клиента.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20010>} and HTTP response
      */
     apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -120,7 +120,7 @@ export default class IntegrationsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2009];
+      let returnType = [InlineResponse20010];
       return this.apiClient.callApi(
         '/api/v1/integrations/sellerboard_dashboard_products_days_reports_last_30_days', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -133,7 +133,7 @@ export default class IntegrationsApi {
      * ## Получить месячный отчет селерборда   ## Это эндпоинт отдает последние записи клиента.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20010>}
      */
     apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(opts) {
       return this.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGetWithHttpInfo(opts)
@@ -149,7 +149,7 @@ export default class IntegrationsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters Примеры: ?filters=or[0][sku][$eq]=L9-HOQU-YEE4;or[1][title][$contains]=Measuring отдает все где sku = \"L9-HOQU-YEE4\" или в title встречается \"Measuring\", не чувствителен к регистру.  без или: ?filters=[title][$contains]=Measuring
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
      */
     apiV1IntegrationsSellerboardWarehouseProductsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -169,7 +169,7 @@ export default class IntegrationsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2008];
+      let returnType = [InlineResponse2009];
       return this.apiClient.callApi(
         '/api/v1/integrations/sellerboard_warehouse_products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -183,7 +183,7 @@ export default class IntegrationsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters Примеры: ?filters=or[0][sku][$eq]=L9-HOQU-YEE4;or[1][title][$contains]=Measuring отдает все где sku = \"L9-HOQU-YEE4\" или в title встречается \"Measuring\", не чувствителен к регистру.  без или: ?filters=[title][$contains]=Measuring
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
      */
     apiV1IntegrationsSellerboardWarehouseProductsGet(opts) {
       return this.apiV1IntegrationsSellerboardWarehouseProductsGetWithHttpInfo(opts)
@@ -296,7 +296,7 @@ export default class IntegrationsApi {
      * ## Получить дневной отчет селерборда   ## Это эндпоинт отдает все записи клиента.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
      */
     apiV1IntegrationsSellerboardWarehouseReportsDailyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -315,7 +315,7 @@ export default class IntegrationsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2008];
+      let returnType = [InlineResponse2009];
       return this.apiClient.callApi(
         '/api/v1/integrations/sellerboard_warehouse_reports_daily', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -328,7 +328,7 @@ export default class IntegrationsApi {
      * ## Получить дневной отчет селерборда   ## Это эндпоинт отдает все записи клиента.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
      */
     apiV1IntegrationsSellerboardWarehouseReportsDailyGet(opts) {
       return this.apiV1IntegrationsSellerboardWarehouseReportsDailyGetWithHttpInfo(opts)

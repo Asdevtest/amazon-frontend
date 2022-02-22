@@ -2,7 +2,7 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {Typography, Paper} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
@@ -10,7 +10,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -26,7 +25,6 @@ import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
-import {WarehouseHistory} from '@components/screens/warehouse/warehouse-history'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -49,15 +47,18 @@ export class ClientWarehouseViewRaw extends Component {
 
   render() {
     const {
+      taskColumnsModel,
+
       requestStatus,
       getCurrentData,
+      getCurrentTaskData,
       sortModel,
       filterModel,
       densityModel,
       columnsModel,
 
       curOpenedTask,
-      tasksMy,
+      // tasksMy,
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -84,12 +85,12 @@ export class ClientWarehouseViewRaw extends Component {
       onTriggerOpenModal,
       onModalRedistributeBoxAddNewBox,
       onEditBoxSubmit,
-      setCurrentOpenedTask,
+      // setCurrentOpenedTask,
       triggerRequestToSendBatchModal,
       onClickSendBoxesToBatch,
       onClickMerge,
       onRemoveBoxFromSelected,
-      onClickCancelBtn,
+      // onClickCancelBtn,
       onClickCancelAfterConfirm,
 
       onChangeFilterModel,
@@ -107,17 +108,11 @@ export class ClientWarehouseViewRaw extends Component {
         <Navbar
           activeCategory={activeCategory}
           activeSubCategory={activeSubCategory}
-          curUserRole={UserRole.CLIENT}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar
-            avatarSrc={avatar}
-            setDrawerOpen={onTriggerDrawer}
-            title={textConsts.appbarTitle}
-            curUserRole={UserRole.CLIENT}
-          >
+          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <div className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
@@ -150,14 +145,20 @@ export class ClientWarehouseViewRaw extends Component {
                 onFilterModelChange={model => onChangeFilterModel(model)}
                 onStateChange={setDataGridState}
               />
-              <Paper>
-                <WarehouseHistory
-                  tasksData={tasksMy}
-                  title={textConsts.warehouseHistoryTitle}
-                  onClickTaskInfo={setCurrentOpenedTask}
-                  onClickCancelBtn={onClickCancelBtn}
+
+              <div className={classNames.tasksWrapper}>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentTaskData()}
+                  rowHeight={150}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  columns={taskColumnsModel}
                 />
-              </Paper>
+              </div>
             </MainContent>
           </Appbar>
         </Main>

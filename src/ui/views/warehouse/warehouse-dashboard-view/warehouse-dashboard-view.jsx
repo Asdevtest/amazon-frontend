@@ -6,7 +6,6 @@ import {observer} from 'mobx-react'
 import {getWarehouseDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
@@ -33,12 +32,11 @@ export class WarehouseDashboardViewRaw extends Component {
   }
 
   render() {
-    const {dashboardData, balance, drawerOpen, onChangeTriggerDrawerOpen, onClickInfoCardViewMode} = this.viewModel
+    const {dashboardData, userInfo, drawerOpen, onChangeTriggerDrawerOpen, onClickInfoCardViewMode} = this.viewModel
 
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.STOREKEEPER}
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}
@@ -50,10 +48,9 @@ export class WarehouseDashboardViewRaw extends Component {
             notificationCount={2}
             avatarSrc=""
             setDrawerOpen={onChangeTriggerDrawerOpen}
-            curUserRole={UserRole.STOREKEEPER}
           >
             <MainContent>
-              <DashboardBalance balance={balance} />
+              <DashboardBalance user={userInfo} />
 
               <SectionalDashboard
                 config={dashboardCardConfig}

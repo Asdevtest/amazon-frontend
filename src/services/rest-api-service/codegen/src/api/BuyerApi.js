@@ -20,7 +20,7 @@ import InlineObject19 from '../model/InlineObject19';
 import InlineObject20 from '../model/InlineObject20';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
-import InlineResponse2006 from '../model/InlineResponse2006';
+import InlineResponse2007 from '../model/InlineResponse2007';
 import InlineResponse2012 from '../model/InlineResponse2012';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -100,8 +100,8 @@ export default class BuyerApi {
 
 
     /**
-     * # Редактировать заказ.
-     * ## Редактировать заказ.   Статус 20 и 25 приводит к оплате поставщику.  Только заказы со статусом 15 можно оплачивать. нельзя повторно оплачивать или менять цену после оплаты поставщику (paidAt === null) при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены  при снижении цены автоматическим производиться возврат разницы клиенту.  статус 35 приведит к возврату средств и закрытию заказа, данный статус можно ставить только оплачено поставщику
+     * # Срочно требуется разделить на логические эндпоинты, это поддерживать невозможно!!!!! Редактировать заказ.
+     * ## Срочно требуется разделить на логические эндпоинты, это поддерживать невозможно!!!!!, Редактировать заказ.   Статус 20 и 25 приводит к оплате поставщику.  Только заказы со статусом 15 можно оплачивать. нельзя повторно оплачивать или менять цену после оплаты поставщику (paidAt === null) при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены  при снижении цены автоматическим производиться возврат разницы клиенту.  статус 35 приведет к возврату средств и закрытию заказа, данный статус можно ставить только оплачено поставщику
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -139,8 +139,8 @@ export default class BuyerApi {
     }
 
     /**
-     * # Редактировать заказ.
-     * ## Редактировать заказ.   Статус 20 и 25 приводит к оплате поставщику.  Только заказы со статусом 15 можно оплачивать. нельзя повторно оплачивать или менять цену после оплаты поставщику (paidAt === null) при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены  при снижении цены автоматическим производиться возврат разницы клиенту.  статус 35 приведит к возврату средств и закрытию заказа, данный статус можно ставить только оплачено поставщику
+     * # Срочно требуется разделить на логические эндпоинты, это поддерживать невозможно!!!!! Редактировать заказ.
+     * ## Срочно требуется разделить на логические эндпоинты, это поддерживать невозможно!!!!!, Редактировать заказ.   Статус 20 и 25 приводит к оплате поставщику.  Только заказы со статусом 15 можно оплачивать. нельзя повторно оплачивать или менять цену после оплаты поставщику (paidAt === null) при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены  при снижении цены автоматическим производиться возврат разницы клиенту.  статус 35 приведет к возврату средств и закрытию заказа, данный статус можно ставить только оплачено поставщику
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -576,7 +576,7 @@ export default class BuyerApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2007>} and HTTP response
      */
     apiV1BuyersTasksGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -595,7 +595,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2006];
+      let returnType = [InlineResponse2007];
       return this.apiClient.callApi(
         '/api/v1/buyers/tasks', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -608,7 +608,7 @@ export default class BuyerApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2007>}
      */
     apiV1BuyersTasksGet(opts) {
       return this.apiV1BuyersTasksGetWithHttpInfo(opts)

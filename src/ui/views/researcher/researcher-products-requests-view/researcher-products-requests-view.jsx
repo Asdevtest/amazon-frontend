@@ -8,7 +8,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -64,19 +63,13 @@ class ResearcherProductsRequestsViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          curUserRole={UserRole.RESEARCHER}
-          activeCategory={navbarActiveCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
             avatarSrc={avatar}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.RESEARCHER}
           >
             <MainContent>
               <DataGrid

@@ -225,7 +225,7 @@ export class SupervisorProductViewModel {
             case 'bsr':
               return (value && parseInt(value)) || 0
             case 'amazon':
-              return value && parseFloat(value)
+              return (value && parseFloat(value)) || 0
             case 'weight':
               return value && parseFloat(value)
             case 'length':
@@ -249,10 +249,6 @@ export class SupervisorProductViewModel {
       )
       if (withoutStatus) {
         this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(this.curUpdateProductData, ['status'])
-      }
-
-      if (this.product.isCreatedByClient) {
-        this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(this.curUpdateProductData, ['amazon'])
       }
 
       await transformAndValidate(SupervisorUpdateProductContract, this.curUpdateProductData)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
@@ -23,6 +23,19 @@ export const ConfirmationModal = ({
 }) => {
   const classNames = useClassNames()
 
+  const [submitIsClicked, setSubmitIsClicked] = useState(false)
+
+  useEffect(() => {
+    if (openModal) {
+      setSubmitIsClicked(false)
+    }
+  }, [openModal])
+
+  const onSubmit = () => {
+    onClickSuccessBtn()
+    setSubmitIsClicked(!submitIsClicked)
+  }
+
   return (
     <Modal isWarning={isWarning} openModal={openModal} setOpenModal={setOpenModal}>
       <div className={clsx(classNames.modalMessageWrapper, {[classNames.warningModalMessageWrapper]: isWarning})}>
@@ -34,16 +47,21 @@ export const ConfirmationModal = ({
         </Typography>
         <div className={clsx(classNames.buttonsWrapper, {[classNames.warningButtonsWrapper]: isWarning})}>
           {isWarning ? (
-            <ErrorButton disableElevation variant="contained" onClick={onClickSuccessBtn}>
+            <ErrorButton disableElevation disabled={submitIsClicked} variant="contained" onClick={onSubmit}>
               {successBtnText}
             </ErrorButton>
           ) : (
-            <SuccessButton disableElevation variant="contained" onClick={onClickSuccessBtn}>
+            <SuccessButton disableElevation disabled={submitIsClicked} variant="contained" onClick={onSubmit}>
               {successBtnText}
             </SuccessButton>
           )}
 
-          <Button className={classNames.cancelBtn} color="primary" onClick={onClickCancelBtn}>
+          <Button
+            disabled={submitIsClicked}
+            className={classNames.cancelBtn}
+            color="primary"
+            onClick={onClickCancelBtn}
+          >
             {cancelBtnText}
           </Button>
         </div>

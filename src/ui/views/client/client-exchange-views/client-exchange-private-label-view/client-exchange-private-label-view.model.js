@@ -6,7 +6,7 @@ import {mapProductStrategyStatusEnumToKey, ProductStrategyStatus} from '@constan
 import {ClientModel} from '@models/client-model'
 import {UserModel} from '@models/user-model'
 
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 
 export class ClientExchangePrivateLabelViewModel {
   history = undefined
@@ -50,7 +50,7 @@ export class ClientExchangePrivateLabelViewModel {
           .filter(
             item => item.strategyStatus === mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL],
           )
-          .sort(sortObjectsArrayByFiledDate('checkedAt'))
+          .sort(sortObjectsArrayByFiledDateWithParseISO('checkedAt'))
       })
     } catch (error) {
       this.productsVacant = []

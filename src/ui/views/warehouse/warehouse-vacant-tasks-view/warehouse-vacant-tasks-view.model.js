@@ -128,7 +128,7 @@ export class WarehouseVacantViewModel {
 
   async getTasksVacant() {
     try {
-      const result = await StorekeeperModel.getTasksVacant()
+      const result = await StorekeeperModel.getLightTasksVacant()
 
       runInAction(() => {
         this.tasksVacant = warehouseTasksDataConverter(
@@ -142,11 +142,7 @@ export class WarehouseVacantViewModel {
       console.log(error)
       this.error = error
 
-      if (error.body.message === 'По данному запросу ничего не найдено.') {
-        runInAction(() => {
-          this.tasksVacant = []
-        })
-      }
+      this.tasksVacant = []
     }
   }
 

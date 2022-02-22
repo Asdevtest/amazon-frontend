@@ -20,7 +20,7 @@ const textConsts = getLocalizedTexts(texts, 'en').productSearchRequestContent
 export const CustomSearchRequestDetails = ({request}) => {
   const classNames = useClassNames()
 
-  const [showDetails, setShowDetails] = useState(true)
+  const [showDetails, setShowDetails] = useState(false)
 
   return (
     <Paper className={classNames.root}>

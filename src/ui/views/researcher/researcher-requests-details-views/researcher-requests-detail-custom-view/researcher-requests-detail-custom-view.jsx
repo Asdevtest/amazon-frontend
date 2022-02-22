@@ -6,14 +6,13 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
-import {GeneralRequestInfo} from '@components/requests-and-request-proposals/general-request-info'
+import {OwnerGeneralRequestInfo} from '@components/requests-and-request-proposals/owner-general-request-info'
 import {RequestProposalCustomForm} from '@components/requests-and-request-proposals/request-proposals/forms/request-proposal-custom-from'
 import {RequestProposalsDetailsCustom} from '@components/requests-and-request-proposals/request-proposals/request-proposals-details/request-proposals-details-custom'
 import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
@@ -56,7 +55,6 @@ export class ResearcherRequestDetailCustomViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.RESEARCHER}
           drawerOpen={drawerOpen}
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
@@ -69,12 +67,11 @@ export class ResearcherRequestDetailCustomViewRaw extends Component {
             notificationCount={2}
             avatarSrc={avatar}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.RESEARCHER}
           >
             <MainContent>
               <Typography variant="h3">{textConsts.customTitle}</Typography>
               <Typography variant="h5">{`Заявка # ${request.request._id}`}</Typography>
-              <GeneralRequestInfo request={request.request} />
+              <OwnerGeneralRequestInfo request={request.request} />
               <CustomSearchRequestDetails request={request.details} />
 
               <div className={classNames.requestProposalsWrapper}>

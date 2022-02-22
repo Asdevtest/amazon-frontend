@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {Box, Container, Grid, IconButton, Typography, Link, InputLabel, NativeSelect} from '@material-ui/core'
 import MuiCheckbox from '@material-ui/core/Checkbox'
@@ -14,6 +14,7 @@ import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {texts} from '@constants/texts'
 
+import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 
@@ -36,8 +37,24 @@ const clientToEditStatuses = [
 export const FieldsAndSuppliers = observer(
   ({curUserRole, onChangeField, product, productBase, onClickSupplierBtns, selectedSupplier}) => {
     const classNames = useClassNames()
+
+    const [skuLine, setSkuLine] = useState('')
+
+    const onClickSkuBtn = () => {
+      onChangeField('skusByClient')({target: {value: [...product.skusByClient, skuLine.toUpperCase()]}})
+
+      setSkuLine('')
+    }
+
+    const onRemoveSku = index => {
+      const newArr = product.skusByClient.filter((el, i) => i !== index)
+
+      onChangeField('skusByClient')({target: {value: [...newArr]}})
+    }
+
     const isSupplierAcceptRevokeActive =
       selectedSupplier && product.currentSupplierId && product.currentSupplierId === selectedSupplier._id
+
     return (
       <Grid item xs={12}>
         <Box className={classNames.productFieldBox}>
@@ -71,6 +88,55 @@ export const FieldsAndSuppliers = observer(
                       value={product.lamazon}
                       onChange={onChangeField('lamazon')}
                     />
+                  )}
+              </div>
+            }
+          />
+
+          <Field
+            label={textConsts.sku}
+            inputComponent={
+              <div>
+                {product.skusByClient.length ? (
+                  <Grid container spacing={2} className={classNames.skuItemsWrapper}>
+                    {product.skusByClient.map((item, index) => (
+                      <Grid key={index} item className={classNames.skuItemWrapper}>
+                        <Typography className={classNames.skuItemTitle}>{item}</Typography>
+
+                        {checkIsClient(curUserRole) &&
+                          product.isCreatedByClient &&
+                          clientToEditStatuses.includes(productBase.status) && (
+                            <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
+                              <DeleteIcon className={classNames.deleteBtn} />
+                            </IconButton>
+                          )}
+                      </Grid>
+                    ))}
+                  </Grid>
+                ) : null}
+
+                {checkIsClient(curUserRole) &&
+                  product.isCreatedByClient &&
+                  clientToEditStatuses.includes(productBase.status) && (
+                    <div className={classNames.inputWrapper}>
+                      <Input
+                        placeholder={textConsts.skuHolder}
+                        inputProps={{maxLength: 1000}}
+                        value={skuLine}
+                        className={classNames.input}
+                        onChange={e => setSkuLine(e.target.value)}
+                      />
+                      <Button
+                        disableElevation
+                        disabled={skuLine === ''}
+                        className={classNames.defaultBtn}
+                        variant="contained"
+                        color="primary"
+                        onClick={onClickSkuBtn}
+                      >
+                        {textConsts.addSkuBtn}
+                      </Button>
+                    </div>
                   )}
               </div>
             }

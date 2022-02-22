@@ -4,7 +4,6 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -37,12 +36,7 @@ export class AdminUserPermissionsView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          curUserRole={UserRole.ADMIN}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
@@ -50,7 +44,6 @@ export class AdminUserPermissionsView extends Component {
             avatarSrc={avatar}
             history={history}
             setDrawerOpen={onTriggerDrawerOpen}
-            curUserRole={UserRole.ADMIN}
           >
             <MainContent>
               <UserPermissions />

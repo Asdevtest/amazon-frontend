@@ -78,4 +78,13 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     gap: '10px',
   },
+
+  checkboxWithLabelWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  disableSelect: {
+    color: 'rgba(0,0,0, .3)',
+  },
 }))

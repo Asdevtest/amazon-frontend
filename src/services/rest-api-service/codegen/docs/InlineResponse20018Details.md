@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Имя кастомной заявки. | [optional] 
 **conditions** | **String** | Условия кастомной заявки. | [optional] 
 **linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
 **createdById** | **String** | GUID клиента, который создал запрос на поиск товара. | [optional] 

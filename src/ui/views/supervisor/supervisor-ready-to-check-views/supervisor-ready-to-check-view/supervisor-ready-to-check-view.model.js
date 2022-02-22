@@ -5,7 +5,7 @@ import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 
 import {SupervisorModel} from '@models/supervisor-model'
 
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 
 export class SupervisorReadyToCheckViewModel {
   history = undefined
@@ -44,7 +44,7 @@ export class SupervisorReadyToCheckViewModel {
       runInAction(() => {
         this.productsReadyToCheck = result
           .filter(el => el.status !== ProductStatusByKey[ProductStatus.NEW_PRODUCT])
-          .sort(sortObjectsArrayByFiledDate('createdAt'))
+          .sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       console.log(error)

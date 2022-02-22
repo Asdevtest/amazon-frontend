@@ -3496,6 +3496,16 @@ bl@^4.1.0:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
+blob-url-file-js@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/blob-url-file-js/-/blob-url-file-js-1.0.1.tgz#dc9c4ec0d6f10dc8cbc468991252aa7824f218fa"
+  integrity sha512-wZd8uNU72Zl+RCCGmyWRgs7pjH6ZozI9L14ieLil/kVlgC3Zy/h1R6FjyX1WVgXzA+hcA0ZvJibCXjaYrkxZxg==
+
+blob-url-file@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/blob-url-file/-/blob-url-file-1.0.0.tgz#f29fd6905164d5db64b6e7804a8a0f71db2ae358"
+  integrity sha512-ou0dhnCgDqFPlpYoCj55sD6vXo50qZCLJM6JQBMt4bZWFUUslg6TBUN8cdC/9sgaADeYRtk+0WJzzRygEEcVPQ==
+
 bluebird@^3.5.5:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"

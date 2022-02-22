@@ -13,7 +13,6 @@ export class ClientDashboardViewModel {
   requestStatus = undefined
   error = undefined
 
-  balance = UserModel.userInfo?.balance
   drawerOpen = false
 
   dashboardData = {
@@ -32,6 +31,10 @@ export class ClientDashboardViewModel {
 
   transferModalSettings = {
     isWithdraw: false,
+  }
+
+  get userInfo() {
+    return UserModel.userInfo
   }
 
   constructor({history}) {

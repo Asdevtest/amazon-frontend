@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
-import ApiV1AdminsTasksBoxesBefore from './ApiV1AdminsTasksBoxesBefore';
+import ApiV1AdminsTasksLightBoxes from './ApiV1AdminsTasksLightBoxes';
 
 /**
  * The InlineResponse2003 model module.
@@ -24,14 +23,10 @@ class InlineResponse2003 {
     /**
      * Constructs a new <code>InlineResponse2003</code>.
      * @alias module:model/InlineResponse2003
-     * @param _id {String} GUID задачи в DB
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxes {Array.<module:model/ApiV1AdminsTasksBoxesBefore>} Массив коробок.
-     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
      */
-    constructor(_id, taskId, boxes, status) { 
+    constructor() { 
         
-        InlineResponse2003.initialize(this, _id, taskId, boxes, status);
+        InlineResponse2003.initialize(this);
     }
 
     /**
@@ -39,11 +34,7 @@ class InlineResponse2003 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, taskId, boxes, status) { 
-        obj['_id'] = _id;
-        obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
-        obj['status'] = status;
+    static initialize(obj) { 
     }
 
     /**
@@ -60,38 +51,23 @@ class InlineResponse2003 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Number');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Number');
             }
             if (data.hasOwnProperty('operationType')) {
                 obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
             }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1AdminsTasksBoxesBefore]);
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsTasksBoxesBefore]);
-            }
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['storekeeper']);
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsTasksLightBoxes]);
             }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1AdminsTasksLightBoxes]);
             }
         }
         return obj;
@@ -101,34 +77,28 @@ class InlineResponse2003 {
 }
 
 /**
- * GUID задачи в DB
+ * GUID элемента
  * @member {String} _id
  */
 InlineResponse2003.prototype['_id'] = undefined;
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * Дата создания.
+ * @member {Number} createdAt
  */
-InlineResponse2003.prototype['taskId'] = undefined;
+InlineResponse2003.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Number} updatedAt
+ */
+InlineResponse2003.prototype['updatedAt'] = undefined;
 
 /**
  * Тип операции
- * @member {module:model/InlineResponse2003.OperationTypeEnum} operationType
+ * @member {String} operationType
  */
 InlineResponse2003.prototype['operationType'] = undefined;
-
-/**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/ApiV1AdminsTasksBoxesBefore>} boxesBefore
- */
-InlineResponse2003.prototype['boxesBefore'] = undefined;
-
-/**
- * Массив коробок.
- * @member {Array.<module:model/ApiV1AdminsTasksBoxesBefore>} boxes
- */
-InlineResponse2003.prototype['boxes'] = undefined;
 
 /**
  * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
@@ -137,69 +107,19 @@ InlineResponse2003.prototype['boxes'] = undefined;
 InlineResponse2003.prototype['status'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusClient} storekeeper
+ * Массив коробок которые были до переформирования коробок.
+ * @member {Array.<module:model/ApiV1AdminsTasksLightBoxes>} boxes
  */
-InlineResponse2003.prototype['storekeeper'] = undefined;
+InlineResponse2003.prototype['boxes'] = undefined;
 
 /**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
+ * Массив коробок которые были до переформирования коробок.
+ * @member {Array.<module:model/ApiV1AdminsTasksLightBoxes>} boxesBefore
  */
-InlineResponse2003.prototype['storekeeperComment'] = undefined;
-
-/**
- * Комментарий клиента.
- * @member {String} clientComment
- */
-InlineResponse2003.prototype['clientComment'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineResponse2003.prototype['images'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} createdAt
- */
-InlineResponse2003.prototype['createdAt'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} updatedAt
- */
-InlineResponse2003.prototype['updatedAt'] = undefined;
+InlineResponse2003.prototype['boxesBefore'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse2003['OperationTypeEnum'] = {
-
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
-
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
-
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive"
-};
 
 
 

@@ -47,4 +47,10 @@ export const styles = createStyles(theme => ({
   isDraftRow: {
     opacity: '.5',
   },
+
+  tasksWrapper: {
+    marginTop: '30px',
+
+    height: '60vh',
+  },
 }))

@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## apiV1ResearchersCheckProductsIdGet
 
-> InlineResponse20013 apiV1ResearchersCheckProductsIdGet(id, opts)
+> InlineResponse20014 apiV1ResearchersCheckProductsIdGet(id, opts)
 
 Проверить продукт по ID существует ли он в базе.
 
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20013**](InlineResponse20013.md)
+[**InlineResponse20014**](InlineResponse20014.md)
 
 ### Authorization
 
@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersParseSellercentralGet
 
-> InlineResponse20014 apiV1ResearchersParseSellercentralGet(opts)
+> InlineResponse20015 apiV1ResearchersParseSellercentralGet(opts)
 
 Получить данные о продукте с SellerCentral
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20014**](InlineResponse20014.md)
+[**InlineResponse20015**](InlineResponse20015.md)
 
 ### Authorization
 

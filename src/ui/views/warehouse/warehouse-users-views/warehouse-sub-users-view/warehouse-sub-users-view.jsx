@@ -9,7 +9,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
-import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
@@ -79,7 +78,6 @@ class WarehouseSubUsersViewRaw extends Component {
     return (
       <React.Fragment>
         <Navbar
-          curUserRole={UserRole.STOREKEEPER}
           activeCategory={navbarActiveCategory}
           activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
@@ -92,7 +90,6 @@ class WarehouseSubUsersViewRaw extends Component {
             notificationCount={2}
             avatarSrc={''}
             setDrawerOpen={onChangeDrawerOpen}
-            curUserRole={UserRole.STOREKEEPER}
           >
             <MainContent>
               <Box className={this.props.classes.buttonBox}>

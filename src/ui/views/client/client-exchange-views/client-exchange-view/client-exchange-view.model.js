@@ -10,7 +10,7 @@ import {UserModel} from '@models/user-model'
 import {clientExchangeViewColumns} from '@components/table-columns/client/client-exchange-columns'
 
 import {clientProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 const fieldsOfProductAllowedToUpdate = ['barCode']
@@ -147,7 +147,9 @@ export class ClientExchangeViewModel {
     try {
       const result = await ClientModel.getProductsVacant()
       runInAction(() => {
-        this.productsVacant = clientProductsDataConverter(result).sort(sortObjectsArrayByFiledDate('updatedAt'))
+        this.productsVacant = clientProductsDataConverter(result).sort(
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+        )
       })
     } catch (error) {
       console.log(error)

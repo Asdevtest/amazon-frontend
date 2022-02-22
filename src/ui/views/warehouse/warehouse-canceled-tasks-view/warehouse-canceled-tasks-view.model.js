@@ -108,9 +108,15 @@ export class WarehouseCanceledTasksViewModel {
     }
   }
 
-  setCurrentOpenedTask(item) {
-    this.curOpenedTask = item
-    this.onTriggerOpenModal('showTaskInfoModal')
+  async setCurrentOpenedTask(item) {
+    try {
+      const result = await StorekeeperModel.getTaskById(item._id)
+
+      this.curOpenedTask = result
+      this.onTriggerOpenModal('showTaskInfoModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onChangeTriggerDrawerOpen() {
@@ -123,7 +129,11 @@ export class WarehouseCanceledTasksViewModel {
 
   async getTasksMy() {
     try {
-      const result = await StorekeeperModel.getTasksMy({
+      // const result = await StorekeeperModel.getTasksMy({
+      //   status: mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
+      // })
+
+      const result = await StorekeeperModel.getLightTasksMy({
         status: mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
       })
 

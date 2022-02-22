@@ -27,6 +27,7 @@ import InlineResponse2002 from '../model/InlineResponse2002';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2005 from '../model/InlineResponse2005';
+import InlineResponse2006 from '../model/InlineResponse2006';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 import UserAdminFullSchema from '../model/UserAdminFullSchema';
@@ -60,7 +61,7 @@ export default class AdministratorApi {
      * @param {Boolean} opts.sendToBatchRequest Только сделаны запрос на отправку коробки в партию. По умолчанию False
      * @param {String} opts.clientId Id клиента. По умолчанию все.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
      */
     apiV1AdminsBatchesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -82,7 +83,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2004];
+      let returnType = [InlineResponse2005];
       return this.apiClient.callApi(
         '/api/v1/admins/batches', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -98,7 +99,7 @@ export default class AdministratorApi {
      * @param {Boolean} opts.sendToBatchRequest Только сделаны запрос на отправку коробки в партию. По умолчанию False
      * @param {String} opts.clientId Id клиента. По умолчанию все.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
      */
     apiV1AdminsBatchesGet(opts) {
       return this.apiV1AdminsBatchesGetWithHttpInfo(opts)
@@ -705,7 +706,7 @@ export default class AdministratorApi {
      * ## Получить список  вакантных товаров. статусы 70 и 110  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
      */
     apiV1AdminsProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -724,7 +725,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2005];
+      let returnType = [InlineResponse2006];
       return this.apiClient.callApi(
         '/api/v1/admins/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -737,7 +738,7 @@ export default class AdministratorApi {
      * ## Получить список  вакантных товаров. статусы 70 и 110  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
      */
     apiV1AdminsProductsVacGet(opts) {
       return this.apiV1AdminsProductsVacGetWithHttpInfo(opts)
@@ -802,7 +803,7 @@ export default class AdministratorApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.status если указать статус - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
     apiV1AdminsTasksGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -822,7 +823,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2003];
+      let returnType = [InlineResponse2004];
       return this.apiClient.callApi(
         '/api/v1/admins/tasks', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -836,10 +837,60 @@ export default class AdministratorApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.status если указать статус - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */
     apiV1AdminsTasksGet(opts) {
       return this.apiV1AdminsTasksGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Облегченная версия. Получить задачи.
+     * ## Получить задачи.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.status если указать статус - отфильтрует, нет - выведет все.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
+     */
+    apiV1AdminsTasksLightGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'status': opts['status']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [InlineResponse2003];
+      return this.apiClient.callApi(
+        '/api/v1/admins/tasks_light', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Облегченная версия. Получить задачи.
+     * ## Получить задачи.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.status если указать статус - отфильтрует, нет - выведет все.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
+     */
+    apiV1AdminsTasksLightGet(opts) {
+      return this.apiV1AdminsTasksLightGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

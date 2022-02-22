@@ -3,7 +3,7 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
-  NormDateCell,
+  NormDateFromUnixCell,
   TaskDescriptionCell,
   renderFieldValueCell,
   NormalActionBtnCell,
@@ -18,7 +18,7 @@ export const adminTasksViewColumns = handlers => [
     field: 'createdAt',
     headerName: textConsts.createDateField,
     width: 250,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
 
@@ -26,7 +26,7 @@ export const adminTasksViewColumns = handlers => [
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
     width: 250,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
 

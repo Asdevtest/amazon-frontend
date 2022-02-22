@@ -10,10 +10,13 @@ export class ResearcherDashboardViewModel {
   requestStatus = undefined
   error = undefined
 
-  balance = UserModel.userInfo?.balance
   drawerOpen = false
   productsVacant = []
   paymentsMy = []
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history

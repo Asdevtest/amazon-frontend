@@ -38,6 +38,8 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.3.0",
     "axios": "^0.22.0",
+    "blob-url-file": "^1.0.0",
+    "blob-url-file-js": "^1.0.1",
     "class-transformer": "^0.4.0",
     "class-transformer-validator": "^0.9.1",
     "class-validator": "^0.13.1",

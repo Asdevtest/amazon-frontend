@@ -12,7 +12,7 @@ import {SettingsModel} from '@models/settings-model'
 import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
 
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -154,7 +154,7 @@ export class BuyerMyOrdersViewModel {
     try {
       const result = await BoxesModel.getBoxesOfOrder(orderId)
       runInAction(() => {
-        this.curBoxesOfOrder = result.sort(sortObjectsArrayByFiledDate('createdAt')).reverse()
+        this.curBoxesOfOrder = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')).reverse()
       })
     } catch (error) {
       console.log(error)
@@ -293,7 +293,7 @@ export class BuyerMyOrdersViewModel {
     try {
       const result = await BuyerModel.getOrdersMy()
       runInAction(() => {
-        this.ordersMy = buyerMyOrdersDataConverter(result).sort(sortObjectsArrayByFiledDate('createdAt'))
+        this.ordersMy = buyerMyOrdersDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       this.ordersMy = []

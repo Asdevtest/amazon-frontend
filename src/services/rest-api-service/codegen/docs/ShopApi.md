@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## apiV1ShopsGet
 
-> [InlineResponse20015] apiV1ShopsGet(opts)
+> [InlineResponse20016] apiV1ShopsGet(opts)
 
 # Получить все магазины пользователя.
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20015]**](InlineResponse20015.md)
+[**[InlineResponse20016]**](InlineResponse20016.md)
 
 ### Authorization
 
@@ -179,7 +179,7 @@ Name | Type | Description  | Notes
 
 # Добавить новый магазин клиентом.
 
-# Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops 
+# Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops Проверки: Пользователь не может иметь два магазина с одинаковыми именами (name)
 
 ### Example
 

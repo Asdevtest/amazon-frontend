@@ -9,7 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {researcherProductsRequestsViewColumns} from '@components/table-columns/researcher/researcher-products-requests-columns'
 
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList, getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
 const formFieldsDefault = {
@@ -119,7 +119,7 @@ export class ResearcherProductsRequestsViewModel {
     try {
       const result = await RequestModel.getProductSearchRequestsForResearcher()
       runInAction(() => {
-        this.requests = result.sort(sortObjectsArrayByFiledDate('createdAt')).map(item => ({
+        this.requests = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')).map(item => ({
           ...item,
           id: item._id,
           tmpStrategyStatus: mapProductStrategyStatusEnum[item.strategy],
