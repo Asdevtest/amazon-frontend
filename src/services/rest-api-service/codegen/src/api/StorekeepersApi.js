@@ -13,15 +13,15 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiV1AdminsTasksBoxesBefore from '../model/ApiV1AdminsTasksBoxesBefore';
+import ApiV1AdminsBatchesBoxes from '../model/ApiV1AdminsBatchesBoxes';
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject46 from '../model/InlineObject46';
-import InlineObject47 from '../model/InlineObject47';
-import InlineObject48 from '../model/InlineObject48';
+import InlineObject49 from '../model/InlineObject49';
+import InlineObject50 from '../model/InlineObject50';
+import InlineObject51 from '../model/InlineObject51';
+import InlineResponse20016 from '../model/InlineResponse20016';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2004 from '../model/InlineResponse2004';
-import InlineResponse2005 from '../model/InlineResponse2005';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -50,7 +50,7 @@ export default class StorekeepersApi {
      * ## Получить партии...  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
     apiV1StorekeepersBatchesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -69,7 +69,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2005];
+      let returnType = [InlineResponse2004];
       return this.apiClient.callApi(
         '/api/v1/storekeepers/batches', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -82,7 +82,7 @@ export default class StorekeepersApi {
      * ## Получить партии...  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */
     apiV1StorekeepersBatchesGet(opts) {
       return this.apiV1StorekeepersBatchesGetWithHttpInfo(opts)
@@ -97,7 +97,7 @@ export default class StorekeepersApi {
      * ## Получить коробки и их строки по текущему сторкиперу.   Без отправленных в партию. Без сделан ли запрос на отправку коробки в партию)  GUID сторкипера получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>} and HTTP response
      */
     apiV1StorekeepersBoxesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -116,7 +116,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1AdminsTasksBoxesBefore];
+      let returnType = [ApiV1AdminsBatchesBoxes];
       return this.apiClient.callApi(
         '/api/v1/storekeepers/boxes', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -129,7 +129,7 @@ export default class StorekeepersApi {
      * ## Получить коробки и их строки по текущему сторкиперу.   Без отправленных в партию. Без сделан ли запрос на отправку коробки в партию)  GUID сторкипера получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsTasksBoxesBefore>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>}
      */
     apiV1StorekeepersBoxesGet(opts) {
       return this.apiV1StorekeepersBoxesGetWithHttpInfo(opts)
@@ -145,7 +145,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID ордера, который мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject48} opts.body 
+     * @param {module:model/InlineObject51} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatchWithHttpInfo(guid, opts) {
@@ -184,7 +184,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID ордера, который мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject48} opts.body 
+     * @param {module:model/InlineObject51} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch(guid, opts) {
@@ -255,7 +255,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject47} opts.body 
+     * @param {module:model/InlineObject50} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersTasksDoneGuidPostWithHttpInfo(guid, opts) {
@@ -294,7 +294,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject47} opts.body 
+     * @param {module:model/InlineObject50} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersTasksDoneGuidPost(guid, opts) {
@@ -365,7 +365,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject46} opts.body 
+     * @param {module:model/InlineObject49} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersTasksGuidPatchWithHttpInfo(guid, opts) {
@@ -404,7 +404,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject46} opts.body 
+     * @param {module:model/InlineObject49} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersTasksGuidPatch(guid, opts) {
@@ -518,7 +518,7 @@ export default class StorekeepersApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.status Статус задачи для фильтра.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20016>} and HTTP response
      */
     apiV1StorekeepersTasksMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -538,7 +538,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2004];
+      let returnType = [InlineResponse20016];
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -552,7 +552,7 @@ export default class StorekeepersApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.status Статус задачи для фильтра.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20016>}
      */
     apiV1StorekeepersTasksMyGet(opts) {
       return this.apiV1StorekeepersTasksMyGetWithHttpInfo(opts)
@@ -621,7 +621,7 @@ export default class StorekeepersApi {
      * ## Получить задачи не закрепленные за сотрудниками склада.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20016>} and HTTP response
      */
     apiV1StorekeepersTasksVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -640,7 +640,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2004];
+      let returnType = [InlineResponse20016];
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -653,7 +653,7 @@ export default class StorekeepersApi {
      * ## Получить задачи не закрепленные за сотрудниками склада.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20016>}
      */
     apiV1StorekeepersTasksVacGet(opts) {
       return this.apiV1StorekeepersTasksVacGetWithHttpInfo(opts)

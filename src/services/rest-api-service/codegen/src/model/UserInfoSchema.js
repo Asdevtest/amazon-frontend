@@ -108,6 +108,9 @@ class UserInfoSchema {
             if (data.hasOwnProperty('canByMasterUser')) {
                 obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
             }
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -209,6 +212,12 @@ UserInfoSchema.prototype['allowedRoles'] = undefined;
  * @member {Boolean} canByMasterUser
  */
 UserInfoSchema.prototype['canByMasterUser'] = undefined;
+
+/**
+ * Рейтинг пользователя.
+ * @member {Number} rating
+ */
+UserInfoSchema.prototype['rating'] = undefined;
 
 /**
  * Дата создания

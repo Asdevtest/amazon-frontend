@@ -16,7 +16,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/clientAvatar.jpg'
 import {WarehouseFinancesViewsModel} from './warehouse-finances-views.model'
 import {styles} from './warehouse-finances-views.style'
 
@@ -70,12 +69,7 @@ class WarehouseFinancesViewsRaw extends Component {
           user={textConsts.appUser}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            setDrawerOpen={onChangeDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination

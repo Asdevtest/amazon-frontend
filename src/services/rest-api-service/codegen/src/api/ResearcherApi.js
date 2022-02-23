@@ -15,11 +15,11 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject42 from '../model/InlineObject42';
-import InlineObject43 from '../model/InlineObject43';
+import InlineObject45 from '../model/InlineObject45';
+import InlineObject46 from '../model/InlineObject46';
 import InlineResponse200 from '../model/InlineResponse200';
+import InlineResponse20013 from '../model/InlineResponse20013';
 import InlineResponse20014 from '../model/InlineResponse20014';
-import InlineResponse20015 from '../model/InlineResponse20015';
 import InlineResponse2014 from '../model/InlineResponse2014';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -50,7 +50,7 @@ export default class ResearcherApi {
      * @param {String} id id для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20014} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20013} and HTTP response
      */
     apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts) {
       opts = opts || {};
@@ -74,7 +74,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20014;
+      let returnType = InlineResponse20013;
       return this.apiClient.callApi(
         '/api/v1/researchers/check_products/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -88,7 +88,7 @@ export default class ResearcherApi {
      * @param {String} id id для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20014}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20013}
      */
     apiV1ResearchersCheckProductsIdGet(id, opts) {
       return this.apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts)
@@ -159,7 +159,7 @@ export default class ResearcherApi {
      * @param {String} opts.id ASIN продукта
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20015} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20014} and HTTP response
      */
     apiV1ResearchersParseSellercentralGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -180,7 +180,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20015;
+      let returnType = InlineResponse20014;
       return this.apiClient.callApi(
         '/api/v1/researchers/parse_sellercentral', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -195,7 +195,7 @@ export default class ResearcherApi {
      * @param {String} opts.id ASIN продукта
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20015}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20014}
      */
     apiV1ResearchersParseSellercentralGet(opts) {
       return this.apiV1ResearchersParseSellercentralGetWithHttpInfo(opts)
@@ -366,7 +366,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject43} opts.body 
+     * @param {module:model/InlineObject46} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -405,7 +405,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject43} opts.body 
+     * @param {module:model/InlineObject46} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ResearchersProductsGuidPatch(guid, opts) {
@@ -421,7 +421,7 @@ export default class ResearcherApi {
      * ## Добавить новый продукт.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject42} opts.body 
+     * @param {module:model/InlineObject45} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
      */
     apiV1ResearchersProductsPostWithHttpInfo(opts) {
@@ -454,7 +454,7 @@ export default class ResearcherApi {
      * ## Добавить новый продукт.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject42} opts.body 
+     * @param {module:model/InlineObject45} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
      */
     apiV1ResearchersProductsPost(opts) {

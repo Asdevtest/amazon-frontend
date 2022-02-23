@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineObject48 {
     /**
      * Constructs a new <code>InlineObject48</code>.
+     * Схема магазина.
      * @alias module:model/InlineObject48
      */
     constructor() { 
@@ -47,14 +48,14 @@ class InlineObject48 {
         if (data) {
             obj = obj || new InlineObject48();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
             }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'], 'Boolean');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
         }
         return obj;
@@ -64,22 +65,22 @@ class InlineObject48 {
 }
 
 /**
- * Статус
- * @member {Number} status
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineObject48.prototype['status'] = undefined;
+InlineObject48.prototype['name'] = undefined;
 
 /**
- * Признак того, что баркод поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
+ * URL для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
  */
-InlineObject48.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+InlineObject48.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
 
 /**
- * ???===нет описания===
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper
+ * URL для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
  */
-InlineObject48.prototype['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = undefined;
+InlineObject48.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 
 

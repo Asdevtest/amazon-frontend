@@ -43,10 +43,6 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
   },
 
-  userRating: {
-    marginLeft: '100px',
-  },
-
   timeInfoWrapper: {
     width: '100%',
     margin: '22px 0 30px',
@@ -61,6 +57,7 @@ export const useClassNames = makeStyles(() => ({
     height: '40px',
     objectFit: 'contain',
     objectPosition: 'center',
+    marginRight: '5px',
   },
 
   actionButton: {
@@ -78,5 +75,9 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '10px',
     lineHeight: '11px',
     color: '#656565',
+  },
+
+  nameRatingWrapper: {
+    marginLeft: '10px',
   },
 }))

@@ -31,6 +31,22 @@ class OtherModelStatic {
     return response
   }
 
+  postAvatar = async dataForm => {
+    const response = await axios({
+      method: 'post',
+      url: `${BACKEND_API_URL}/api/v1/other/upload_avatar`,
+      data: dataForm,
+
+      headers: {
+        'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
+
+        Authorization: `${restApiService.apiClient.authentications.AccessTokenBearer.apiKeyPrefix} ${restApiService.apiClient.authentications.AccessTokenBearer.apiKey}`,
+      },
+    })
+
+    return response
+  }
+
   getAllImages = async () => {
     const response = await axios({
       method: 'get',

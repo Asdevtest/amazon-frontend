@@ -11,12 +11,11 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
@@ -53,7 +52,6 @@ export class WarehouseMyTasksViewRaw extends Component {
       rowsPerPage,
       selectedTask,
       progressValue,
-      tmpWarehouseComment,
       showProgress,
       showEditBoxModal,
       showNoDimensionsErrorModal,
@@ -67,7 +65,6 @@ export class WarehouseMyTasksViewRaw extends Component {
       onTriggerShowEditBoxModal,
       onClickSolveTask,
       onTriggerOpenModal,
-      setTmpWarehouseComment,
       onClickConfirmCancelTask,
 
       onSelectionModel,
@@ -84,15 +81,9 @@ export class WarehouseMyTasksViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}
-          user={textConsts.appUser}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc=""
-            setDrawerOpen={onChangeTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination
@@ -145,45 +136,18 @@ export class WarehouseMyTasksViewRaw extends Component {
           />
         </Modal>
 
-        <Modal
+        <ConfirmWithCommentModal
           openModal={showCancelTaskModal}
           setOpenModal={() => {
             onTriggerOpenModal('showCancelTaskModal')
             onTriggerOpenModal('showConfirmModal')
           }}
-        >
-          <Typography variant="h5">{textConsts.modalMergeTitle}</Typography>
-          <Field
-            multiline
-            className={classNames.heightFieldAuto}
-            rows={4}
-            rowsMax={6}
-            label={textConsts.modalCancelTaskLabel}
-            value={tmpWarehouseComment}
-            onChange={e => setTmpWarehouseComment(e)}
-          />
-          <div className={classNames.buttonsWrapper}>
-            <Button
-              color="primary"
-              variant="contained"
-              className={classNames.button}
-              onClick={() => onClickConfirmCancelTask()}
-            >
-              {textConsts.okBtn}
-            </Button>
-            <Button
-              color="primary"
-              variant="contained"
-              className={classNames.button}
-              onClick={() => {
-                onTriggerOpenModal('showCancelTaskModal')
-                onTriggerOpenModal('showConfirmModal')
-              }}
-            >
-              {textConsts.cancelBtn}
-            </Button>
-          </div>
-        </Modal>
+          titleText={textConsts.modalMergeTitle}
+          commentLabelText={textConsts.modalCancelTaskLabel}
+          okBtnText={textConsts.okBtn}
+          cancelBtnText={textConsts.cancelBtn}
+          onSubmit={onClickConfirmCancelTask}
+        />
 
         <WarningInfoModal
           openModal={showNoDimensionsErrorModal}

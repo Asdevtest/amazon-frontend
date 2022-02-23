@@ -17,7 +17,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/researcherAvatar.jpg'
 import {ResearcherDashboardViewModel} from './researcher-dashboard-view.model'
 import {styles} from './researcher-dashboard-view.style'
 
@@ -44,7 +43,6 @@ export class ResearcherDashboardViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             drawerOpen={drawerOpen}
             setDrawerOpen={onTriggerDrawerOpen}
           >

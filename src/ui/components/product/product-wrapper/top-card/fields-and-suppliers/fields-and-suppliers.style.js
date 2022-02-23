@@ -188,6 +188,9 @@ export const useClassNames = makeStyles(() => ({
 
   skuItemTitle: {
     fontSize: '20px',
+    maxWidth: '200px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 
   skuItemWrapper: {
@@ -196,10 +199,14 @@ export const useClassNames = makeStyles(() => ({
   },
 
   skuItemsWrapper: {
+    marginLeft: '2px',
     width: '100%',
     display: 'flex',
     alignItems: 'center',
     marginBottom: '10px',
     padding: '0 10px',
+
+    border: '1px solid rgba(0, 0, 0, .1)',
+    borderRadius: '10px',
   },
 }))

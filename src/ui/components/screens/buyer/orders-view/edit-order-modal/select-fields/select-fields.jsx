@@ -28,7 +28,7 @@ const allowOrderStatuses = [
   `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
   `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
   `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
-  `${OrderStatusByKey[OrderStatus.RETURN_ORDER]}`,
+  `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
 ]
 
 export const SelectFields = ({

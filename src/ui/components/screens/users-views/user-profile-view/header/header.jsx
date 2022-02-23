@@ -1,12 +1,13 @@
 import React from 'react'
 
-import {Box, Paper, Typography, Button} from '@material-ui/core'
+import {Avatar, Box, Paper, Typography, Button} from '@material-ui/core'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 
 import {FeedbackCard} from './feedback-card'
 import {useClassNames} from './header.style'
@@ -15,13 +16,18 @@ import {Tested} from './tested'
 
 const textConsts = getLocalizedTexts(texts, 'ru').buerUserHeader
 
-export const Header = observer(({user, timer, headerInfoData, avatar}) => {
+export const Header = observer(({user, timer, headerInfoData, onClickChangeAvatar}) => {
   const classNames = useClassNames()
   return (
     <Paper className={classNames.paper}>
       <Box className={classNames.mainBox}>
         <Box className={classNames.sendOrderBox}>
-          <img alt="user avatar" src={avatar} className={classNames.avatar} />
+          <Avatar src={getUserAvatarSrc(user._id)} className={classNames.avatar} />
+
+          <Button variant="contained" color="primary" onClick={onClickChangeAvatar}>
+            {'Изменить аватар'}
+          </Button>
+
           <Button>{textConsts.sendBtn}</Button>
         </Box>
 

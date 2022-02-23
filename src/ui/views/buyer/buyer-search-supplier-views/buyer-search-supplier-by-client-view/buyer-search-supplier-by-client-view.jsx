@@ -17,7 +17,6 @@ import {TableBodyRow} from '@components/table-rows/buyer/products-view/table-bod
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/buyerAvatar.jpg'
 import {BuyerSearchSupplierByClientModel} from './buyer-search-supplier-by-client-view.model'
 import {styles} from './buyer-search-supplier-by-client-view.style'
 
@@ -62,7 +61,6 @@ export class BuyerSearchSupplierByClientViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
           >

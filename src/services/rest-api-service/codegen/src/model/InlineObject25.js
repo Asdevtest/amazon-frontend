@@ -22,12 +22,15 @@ class InlineObject25 {
     /**
      * Constructs a new <code>InlineObject25</code>.
      * @alias module:model/InlineObject25
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param operationType {module:model/InlineObject25.OperationTypeEnum} Тип операции
+     * @param amount {Number} Кол-во продукта по этой позиции.
+     * @param deliveryMethod {Number} Код метода доставки.
+     * @param warehouse {Number} Номер склада.
+     * @param clientComment {String} Комментарии клиента.
+     * @param productId {String} GUID заказанного продукта
      */
-    constructor(taskId, operationType) { 
+    constructor(amount, deliveryMethod, warehouse, clientComment, productId) { 
         
-        InlineObject25.initialize(this, taskId, operationType);
+        InlineObject25.initialize(this, amount, deliveryMethod, warehouse, clientComment, productId);
     }
 
     /**
@@ -35,9 +38,12 @@ class InlineObject25 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, operationType) { 
-        obj['taskId'] = taskId;
-        obj['operationType'] = operationType;
+    static initialize(obj, amount, deliveryMethod, warehouse, clientComment, productId) { 
+        obj['amount'] = amount;
+        obj['deliveryMethod'] = deliveryMethod;
+        obj['warehouse'] = warehouse;
+        obj['clientComment'] = clientComment;
+        obj['productId'] = productId;
     }
 
     /**
@@ -51,26 +57,23 @@ class InlineObject25 {
         if (data) {
             obj = obj || new InlineObject25();
 
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
-            }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
             }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -80,81 +83,43 @@ class InlineObject25 {
 }
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
  */
-InlineObject25.prototype['taskId'] = undefined;
+InlineObject25.prototype['amount'] = undefined;
 
 /**
- * @member {Array.<String>} boxesBefore
+ * Код метода доставки.
+ * @member {Number} deliveryMethod
  */
-InlineObject25.prototype['boxesBefore'] = undefined;
+InlineObject25.prototype['deliveryMethod'] = undefined;
 
 /**
- * @member {Array.<String>} boxes
+ * Номер склада.
+ * @member {Number} warehouse
  */
-InlineObject25.prototype['boxes'] = undefined;
+InlineObject25.prototype['warehouse'] = undefined;
 
 /**
- * Тип операции
- * @member {module:model/InlineObject25.OperationTypeEnum} operationType
- */
-InlineObject25.prototype['operationType'] = undefined;
-
-/**
- * Комментарий клиента.
+ * Комментарии клиента.
  * @member {String} clientComment
- * @default ''
  */
-InlineObject25.prototype['clientComment'] = '';
+InlineObject25.prototype['clientComment'] = undefined;
 
 /**
- * Массив картинок.
+ * GUID заказанного продукта
+ * @member {String} productId
+ */
+InlineObject25.prototype['productId'] = undefined;
+
+/**
+ * Массив изображений.
  * @member {Array.<String>} images
  */
 InlineObject25.prototype['images'] = undefined;
 
-/**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineObject25.prototype['storekeeperComment'] = undefined;
 
 
-
-
-
-/**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject25['OperationTypeEnum'] = {
-
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
-
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
-
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive",
-
-    /**
-     * value: "edit"
-     * @const
-     */
-    "edit": "edit"
-};
 
 
 

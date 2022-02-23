@@ -1596,6 +1596,8 @@ export const texts = {
       appBarTitle: 'User page',
       appBarUsername: 'Client',
       appUser: 'client',
+      closeBtn: 'Ок',
+      avatarUploadSuccess: 'Аватар загружен. Обновите страницу.',
     },
 
     buyerSubUsersBodyRow: {
@@ -2540,7 +2542,7 @@ export const texts = {
       qtyField: 'Количество',
       materialField: 'Материал',
       warehouseField: 'Склад',
-      boxIdField: 'id Коробки',
+      boxIdField: 'id',
       priceField: 'Общая цена',
       trackIdField: 'Трек номер',
       weightField: 'Финальный Вес',

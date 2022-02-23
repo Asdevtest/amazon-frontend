@@ -412,6 +412,8 @@ export const adminBoxesDataConverter = data =>
     client: item.createdBy.email,
     storekeeper: item.storekeeper?.email,
 
+    humanFriendlyId: item.humanFriendlyId,
+
     isDraft: item.isDraft,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,

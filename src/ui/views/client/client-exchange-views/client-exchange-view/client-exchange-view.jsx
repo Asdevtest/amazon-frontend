@@ -23,7 +23,6 @@ import {calcProductPrice} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
-import avatar from '../../assets/clientAvatar.jpg'
 import {ClientExchangeViewModel} from './client-exchange-view.model'
 import {styles} from './client-exchange-view.style'
 
@@ -83,7 +82,7 @@ export class ClientExchangeViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <DataGrid
                 pagination

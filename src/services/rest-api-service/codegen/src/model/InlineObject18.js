@@ -47,38 +47,41 @@ class InlineObject18 {
         if (data) {
             obj = obj || new InlineObject18();
 
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
             }
-            if (data.hasOwnProperty('fbalink')) {
-                obj['fbalink'] = ApiClient.convertToType(data['fbalink'], 'String');
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
             }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
             }
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('lsupplier')) {
-                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
-            if (data.hasOwnProperty('buyersComment')) {
-                obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            }
+            if (data.hasOwnProperty('trackingNumberChina')) {
+                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
+            }
+            if (data.hasOwnProperty('amountPaymentPerConsignmentAtDollars')) {
+                obj['amountPaymentPerConsignmentAtDollars'] = ApiClient.convertToType(data['amountPaymentPerConsignmentAtDollars'], 'Number');
+            }
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
         }
         return obj;
@@ -88,70 +91,76 @@ class InlineObject18 {
 }
 
 /**
- * 
- * @member {Number} amazon
+ * комментарии байера.
+ * @member {String} buyerComment
  */
-InlineObject18.prototype['amazon'] = undefined;
+InlineObject18.prototype['buyerComment'] = undefined;
 
 /**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
+ * Номер склада.
+ * @member {Number} warehouse
  */
-InlineObject18.prototype['reffee'] = undefined;
+InlineObject18.prototype['warehouse'] = undefined;
 
 /**
- * ФБА ссылка
- * @member {String} fbalink
+ * Вид доставки.
+ * @member {Number} deliveryMethod
  */
-InlineObject18.prototype['fbalink'] = undefined;
+InlineObject18.prototype['deliveryMethod'] = undefined;
 
 /**
- * ФБА комиссия
- * @member {Number} fbafee
+ * Признак FBA это заказ или нет.
+ * @member {Boolean} fba
  */
-InlineObject18.prototype['fbafee'] = undefined;
+InlineObject18.prototype['fba'] = undefined;
 
 /**
- * ФБА кол-во
- * @member {Number} fbaamount
- */
-InlineObject18.prototype['fbaamount'] = undefined;
-
-/**
- * Стоимость доставки.
- * @member {Number} delivery
- */
-InlineObject18.prototype['delivery'] = undefined;
-
-/**
- * Код статуса
+ *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
  * @member {Number} status
  */
 InlineObject18.prototype['status'] = undefined;
 
 /**
- * Прибыль
- * @member {Number} profit
+ * Стоимость доставки до склада.
+ * @member {Number} deliveryCostToTheWarehouse
  */
-InlineObject18.prototype['profit'] = undefined;
+InlineObject18.prototype['deliveryCostToTheWarehouse'] = undefined;
 
 /**
- * Маржа
- * @member {Number} margin
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineObject18.prototype['margin'] = undefined;
+InlineObject18.prototype['images'] = undefined;
 
 /**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lsupplier
+ * Курс юань доллар.
+ * @member {Number} yuanToDollarRate
  */
-InlineObject18.prototype['lsupplier'] = undefined;
+InlineObject18.prototype['yuanToDollarRate'] = undefined;
 
 /**
- * Примечания байера.
- * @member {String} buyersComment
+ * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
  */
-InlineObject18.prototype['buyersComment'] = undefined;
+InlineObject18.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+
+/**
+ * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
+ * @member {String} trackingNumberChina
+ */
+InlineObject18.prototype['trackingNumberChina'] = undefined;
+
+/**
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} amountPaymentPerConsignmentAtDollars
+ */
+InlineObject18.prototype['amountPaymentPerConsignmentAtDollars'] = undefined;
+
+/**
+ * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
+ * @member {Number} totalPriceChanged
+ */
+InlineObject18.prototype['totalPriceChanged'] = undefined;
 
 
 

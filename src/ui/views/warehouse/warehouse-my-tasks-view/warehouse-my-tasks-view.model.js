@@ -120,10 +120,6 @@ export class WarehouseVacantViewModel {
     }
   }
 
-  setTmpWarehouseComment(e) {
-    this.tmpDataForCancelTask = {...this.tmpDataForCancelTask, comment: e.target.value}
-  }
-
   onChangeTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
   }
@@ -333,34 +329,22 @@ export class WarehouseVacantViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async cancelTaskActionByStatus() {
+  async cancelTaskActionByStatus(comment) {
     switch (mapTaskOperationTypeKeyToEnum[this.tmpDataForCancelTask.taskType]) {
       case TaskOperationType.MERGE:
-        await this.onCancelMergeBoxes(
-          this.tmpDataForCancelTask.boxId,
-          this.tmpDataForCancelTask.taskId,
-          this.tmpDataForCancelTask.comment,
-        )
+        await this.onCancelMergeBoxes(this.tmpDataForCancelTask.boxId, this.tmpDataForCancelTask.taskId, comment)
 
       case TaskOperationType.SPLIT:
-        await this.onCancelSplitBoxes(
-          this.tmpDataForCancelTask.boxId,
-          this.tmpDataForCancelTask.taskId,
-          this.tmpDataForCancelTask.comment,
-        )
+        await this.onCancelSplitBoxes(this.tmpDataForCancelTask.boxId, this.tmpDataForCancelTask.taskId, comment)
 
       case TaskOperationType.EDIT:
-        await this.onCancelEditBox(
-          this.tmpDataForCancelTask.boxId,
-          this.tmpDataForCancelTask.taskId,
-          this.tmpDataForCancelTask.comment,
-        )
+        await this.onCancelEditBox(this.tmpDataForCancelTask.boxId, this.tmpDataForCancelTask.taskId, comment)
     }
   }
 
-  async onClickConfirmCancelTask() {
+  async onClickConfirmCancelTask(comment) {
     try {
-      await this.cancelTaskActionByStatus()
+      await this.cancelTaskActionByStatus(comment)
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showCancelTaskModal')
     } catch (error) {

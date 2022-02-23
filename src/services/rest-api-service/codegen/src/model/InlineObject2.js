@@ -47,44 +47,44 @@ class InlineObject2 {
         if (data) {
             obj = obj || new InlineObject2();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
             if (data.hasOwnProperty('fba')) {
                 obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('active')) {
+                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
             }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
+            if (data.hasOwnProperty('rate')) {
+                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('balance')) {
+                obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
             }
-            if (data.hasOwnProperty('yuanToDollarRate')) {
-                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
+            if (data.hasOwnProperty('balanceFreeze')) {
+                obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
             }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            if (data.hasOwnProperty('overdraft')) {
+                obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
             }
-            if (data.hasOwnProperty('trackingNumberChina')) {
-                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
+            if (data.hasOwnProperty('permissions')) {
+                obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
             }
-            if (data.hasOwnProperty('amountPaymentPerConsignmentAtDollars')) {
-                obj['amountPaymentPerConsignmentAtDollars'] = ApiClient.convertToType(data['amountPaymentPerConsignmentAtDollars'], 'Number');
+            if (data.hasOwnProperty('permissionGroups')) {
+                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], ['String']);
             }
-            if (data.hasOwnProperty('totalPriceChanged')) {
-                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
+            if (data.hasOwnProperty('allowedRoles')) {
+                obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
             }
-            if (data.hasOwnProperty('totalPrice')) {
-                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
+            if (data.hasOwnProperty('canByMasterUser')) {
+                obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
             }
         }
         return obj;
@@ -94,82 +94,82 @@ class InlineObject2 {
 }
 
 /**
- * комментарии байера.
- * @member {String} buyerComment
+ * Имя пользователя.
+ * @member {String} name
  */
-InlineObject2.prototype['buyerComment'] = undefined;
+InlineObject2.prototype['name'] = undefined;
 
 /**
- * Номер склада.
- * @member {Number} warehouse
+ * email
+ * @member {String} email
  */
-InlineObject2.prototype['warehouse'] = undefined;
+InlineObject2.prototype['email'] = undefined;
 
 /**
- * Вид доставки.
- * @member {Number} deliveryMethod
+ * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
+ * @member {Number} role
  */
-InlineObject2.prototype['deliveryMethod'] = undefined;
+InlineObject2.prototype['role'] = undefined;
 
 /**
- * Признак FBA это заказ или нет.
+ * Флаг fba.
  * @member {Boolean} fba
  */
 InlineObject2.prototype['fba'] = undefined;
 
 /**
- *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      returnOrder: 35 Если Заказ пришёл не кондиционный - \"возврат заказа\"    
- * @member {Number} status
+ * Если истина - пользователь активен. Если нет - заблокирован админом.
+ * @member {Boolean} active
  */
-InlineObject2.prototype['status'] = undefined;
+InlineObject2.prototype['active'] = undefined;
 
 /**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
+ * Ставка, по который оплачивается сотрудник.
+ * @member {Number} rate
  */
-InlineObject2.prototype['deliveryCostToTheWarehouse'] = undefined;
+InlineObject2.prototype['rate'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * Текущий баланс пользователя.
+ * @member {Number} balance
  */
-InlineObject2.prototype['images'] = undefined;
+InlineObject2.prototype['balance'] = undefined;
 
 /**
- * Курс юань доллар.
- * @member {Number} yuanToDollarRate
+ * Замороженная при оплате ордера сумма.
+ * @member {Number} balanceFreeze
  */
-InlineObject2.prototype['yuanToDollarRate'] = undefined;
+InlineObject2.prototype['balanceFreeze'] = undefined;
 
 /**
- * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
+ * Сумма на которую может уходить в минус пользователь.
+ * @member {Number} overdraft
  */
-InlineObject2.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+InlineObject2.prototype['overdraft'] = undefined;
 
 /**
- * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
- * @member {String} trackingNumberChina
+ * Массив permission-ов.
+ * @member {Array.<String>} permissions
  */
-InlineObject2.prototype['trackingNumberChina'] = undefined;
+InlineObject2.prototype['permissions'] = undefined;
 
 /**
- * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
- * @member {Number} amountPaymentPerConsignmentAtDollars
+ * Массив групп permission-ов.
+ * @member {Array.<String>} permissionGroups
  */
-InlineObject2.prototype['amountPaymentPerConsignmentAtDollars'] = undefined;
+InlineObject2.prototype['permissionGroups'] = undefined;
 
 /**
- * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
- * @member {Number} totalPriceChanged
+ * Массив массив ролей.
+ * @member {Array.<Number>} allowedRoles
  */
-InlineObject2.prototype['totalPriceChanged'] = undefined;
+InlineObject2.prototype['allowedRoles'] = undefined;
 
 /**
- * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
- * @member {Number} totalPrice
+ * Может ли данный пользователь быть мастер юзером.
+ * @member {Boolean} canByMasterUser
  */
-InlineObject2.prototype['totalPrice'] = undefined;
+InlineObject2.prototype['canByMasterUser'] = undefined;
 
 
 

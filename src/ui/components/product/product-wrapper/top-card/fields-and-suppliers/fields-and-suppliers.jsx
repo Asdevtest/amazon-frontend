@@ -93,54 +93,56 @@ export const FieldsAndSuppliers = observer(
             }
           />
 
-          <Field
-            label={textConsts.sku}
-            inputComponent={
-              <div>
-                {product.skusByClient.length ? (
-                  <Grid container spacing={2} className={classNames.skuItemsWrapper}>
-                    {product.skusByClient.map((item, index) => (
-                      <Grid key={index} item className={classNames.skuItemWrapper}>
-                        <Typography className={classNames.skuItemTitle}>{item}</Typography>
+          {checkIsClient(curUserRole) && product.isCreatedByClient && (
+            <Field
+              label={textConsts.sku}
+              inputComponent={
+                <div>
+                  {product.skusByClient.length ? (
+                    <Grid container className={classNames.skuItemsWrapper}>
+                      {product.skusByClient.map((item, index) => (
+                        <Grid key={index} item className={classNames.skuItemWrapper}>
+                          <Typography className={classNames.skuItemTitle}>{item}</Typography>
 
-                        {checkIsClient(curUserRole) &&
-                          product.isCreatedByClient &&
-                          clientToEditStatuses.includes(productBase.status) && (
-                            <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
-                              <DeleteIcon className={classNames.deleteBtn} />
-                            </IconButton>
-                          )}
-                      </Grid>
-                    ))}
-                  </Grid>
-                ) : null}
+                          {checkIsClient(curUserRole) &&
+                            product.isCreatedByClient &&
+                            clientToEditStatuses.includes(productBase.status) && (
+                              <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
+                                <DeleteIcon className={classNames.deleteBtn} />
+                              </IconButton>
+                            )}
+                        </Grid>
+                      ))}
+                    </Grid>
+                  ) : null}
 
-                {checkIsClient(curUserRole) &&
-                  product.isCreatedByClient &&
-                  clientToEditStatuses.includes(productBase.status) && (
-                    <div className={classNames.inputWrapper}>
-                      <Input
-                        placeholder={textConsts.skuHolder}
-                        inputProps={{maxLength: 1000}}
-                        value={skuLine}
-                        className={classNames.input}
-                        onChange={e => setSkuLine(e.target.value)}
-                      />
-                      <Button
-                        disableElevation
-                        disabled={skuLine === ''}
-                        className={classNames.defaultBtn}
-                        variant="contained"
-                        color="primary"
-                        onClick={onClickSkuBtn}
-                      >
-                        {textConsts.addSkuBtn}
-                      </Button>
-                    </div>
-                  )}
-              </div>
-            }
-          />
+                  {checkIsClient(curUserRole) &&
+                    product.isCreatedByClient &&
+                    clientToEditStatuses.includes(productBase.status) && (
+                      <div className={classNames.inputWrapper}>
+                        <Input
+                          placeholder={textConsts.skuHolder}
+                          inputProps={{maxLength: 1000}}
+                          value={skuLine}
+                          className={classNames.input}
+                          onChange={e => setSkuLine(e.target.value)}
+                        />
+                        <Button
+                          disableElevation
+                          disabled={skuLine === ''}
+                          className={classNames.defaultBtn}
+                          variant="contained"
+                          color="primary"
+                          onClick={onClickSkuBtn}
+                        >
+                          {textConsts.addSkuBtn}
+                        </Button>
+                      </div>
+                    )}
+                </div>
+              }
+            />
+          )}
 
           <Typography className={classNames.label}>{textConsts.deliveryMethod}</Typography>
 

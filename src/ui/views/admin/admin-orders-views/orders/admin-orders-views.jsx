@@ -19,7 +19,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/adminAvatar.jpg'
 import {AdminOrdersAllViewModel} from './admin-orders-views.model'
 import {styles} from './admin-orders-views.style'
 
@@ -69,16 +68,10 @@ class AdminOrdersViewsRaw extends Component {
           activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeDrawerOpen}
-          user={textConsts.appUser}
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            setDrawerOpen={onChangeDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <Grid container spacing={2}>
                 {adminOrdersBtnsConfig.map((buttonConfig, index) => (

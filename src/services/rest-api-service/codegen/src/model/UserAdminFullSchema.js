@@ -109,6 +109,9 @@ class UserAdminFullSchema {
             if (data.hasOwnProperty('canByMasterUser')) {
                 obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
             }
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -211,6 +214,12 @@ UserAdminFullSchema.prototype['allowedRoles'] = undefined;
  * @member {Boolean} canByMasterUser
  */
 UserAdminFullSchema.prototype['canByMasterUser'] = undefined;
+
+/**
+ * Рейтинг пользователя.
+ * @member {Number} rating
+ */
+UserAdminFullSchema.prototype['rating'] = undefined;
 
 /**
  * Дата создания

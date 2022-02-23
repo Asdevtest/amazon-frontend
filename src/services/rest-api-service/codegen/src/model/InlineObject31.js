@@ -22,10 +22,12 @@ class InlineObject31 {
     /**
      * Constructs a new <code>InlineObject31</code>.
      * @alias module:model/InlineObject31
+     * @param productId {String} 
+     * @param skus {Array.<String>} 
      */
-    constructor() { 
+    constructor(productId, skus) { 
         
-        InlineObject31.initialize(this);
+        InlineObject31.initialize(this, productId, skus);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject31 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productId, skus) { 
+        obj['productId'] = productId;
+        obj['skus'] = skus;
     }
 
     /**
@@ -47,8 +51,11 @@ class InlineObject31 {
         if (data) {
             obj = obj || new InlineObject31();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('skus')) {
+                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
             }
         }
         return obj;
@@ -58,10 +65,14 @@ class InlineObject31 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * @member {String} productId
  */
-InlineObject31.prototype['suppliersIds'] = undefined;
+InlineObject31.prototype['productId'] = undefined;
+
+/**
+ * @member {Array.<String>} skus
+ */
+InlineObject31.prototype['skus'] = undefined;
 
 
 

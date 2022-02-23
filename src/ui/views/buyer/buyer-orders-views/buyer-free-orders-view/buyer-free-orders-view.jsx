@@ -22,7 +22,6 @@ import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-m
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/buyerAvatar.jpg'
 import {BuyerFreeOrdersViewModel} from './buyer-free-orders-view.model'
 import {styles} from './buyer-free-orders-view.style'
 
@@ -81,7 +80,6 @@ class BuyerFreeOrdersViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
           >

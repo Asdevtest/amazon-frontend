@@ -28,7 +28,6 @@ import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-m
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/clientAvatar.jpg'
 import {ClientWarehouseViewModel} from './client-warehouse-view.model'
 import {styles} from './client-warehouse-view.style'
 
@@ -112,7 +111,7 @@ export class ClientWarehouseViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <div className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>

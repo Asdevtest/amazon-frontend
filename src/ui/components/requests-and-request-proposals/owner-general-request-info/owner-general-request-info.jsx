@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Typography, Paper} from '@material-ui/core'
+import {Typography, Paper, Avatar} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {RequestStatus} from '@constants/request-status'
@@ -9,6 +9,7 @@ import {RequestStatus} from '@constants/request-status'
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime} from '@utils/date-time'
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 // import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
@@ -29,7 +30,7 @@ export const OwnerGeneralRequestInfo = ({
     <Paper className={classNames.root}>
       <div className={classNames.mainBlockWrapper}>
         <div className={classNames.titleBlockWrapper}>
-          <img src="/assets/img/no-photo.jpg" className={classNames.userPhoto} />
+          <Avatar src={getUserAvatarSrc(request?.request.createdById)} className={classNames.userPhoto} />
 
           <div className={classNames.titleWrapper}>
             <Typography className={classNames.title}>{request?.request.title}</Typography>

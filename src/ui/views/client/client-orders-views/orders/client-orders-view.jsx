@@ -16,7 +16,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/clientAvatar.jpg'
 import {ClientOrdersViewModel} from './client-orders-view.model'
 import {styles} from './client-orders-view.style'
 
@@ -66,12 +65,7 @@ class ClientOrdersViewRaw extends Component {
           user={textConsts.appUser}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination

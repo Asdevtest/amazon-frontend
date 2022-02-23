@@ -19,7 +19,6 @@ import {CustomSearchRequestDetails} from '@components/requests-and-request-propo
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/researcherAvatar.jpg'
 import {ResearcherRequestDetailCustomViewModel} from './researcher-requests-detail-custom-view.model'
 import {styles} from './researcher-requests-detail-custom-view.style'
 
@@ -62,12 +61,7 @@ export class ResearcherRequestDetailCustomViewRaw extends Component {
           user={textConsts.appUser}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <Typography variant="h3">{textConsts.customTitle}</Typography>
               <Typography variant="h5">{`Заявка # ${request.request._id}`}</Typography>

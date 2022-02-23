@@ -19,7 +19,6 @@ import {calcProductPrice} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
-import avatar from '../../assets/clientAvatar.jpg'
 import {ClientExchangePrivateLabelViewModel} from './client-exchange-private-label-view.model'
 import {styles} from './client-exchange-private-label-view.style'
 
@@ -58,7 +57,7 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <div className={classNames.mb5}>
                 <div className={classNames.cardsWrapper}>

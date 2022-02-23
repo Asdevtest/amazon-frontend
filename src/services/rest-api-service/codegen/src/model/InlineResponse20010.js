@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestProposalsCreatedBy from './ApiV1RequestProposalsCreatedBy';
 
 /**
  * The InlineResponse20010 model module.
@@ -21,13 +22,11 @@ import ApiClient from '../ApiClient';
 class InlineResponse20010 {
     /**
      * Constructs a new <code>InlineResponse20010</code>.
-     * Схема репорта за 30 дней с Seller-board
      * @alias module:model/InlineResponse20010
-     * @param sku {String} SKU
      */
-    constructor(sku) { 
+    constructor() { 
         
-        InlineResponse20010.initialize(this, sku);
+        InlineResponse20010.initialize(this);
     }
 
     /**
@@ -35,8 +34,7 @@ class InlineResponse20010 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, sku) { 
-        obj['sku'] = sku;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,113 +48,50 @@ class InlineResponse20010 {
         if (data) {
             obj = obj || new InlineResponse20010();
 
-            if (data.hasOwnProperty('date')) {
-                obj['date'] = ApiClient.convertToType(data['date'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('marketplace')) {
-                obj['marketplace'] = ApiClient.convertToType(data['marketplace'], 'String');
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'String');
             }
-            if (data.hasOwnProperty('sku')) {
-                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
             }
-            if (data.hasOwnProperty('salesorganic')) {
-                obj['salesorganic'] = ApiClient.convertToType(data['salesorganic'], 'Number');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
-            if (data.hasOwnProperty('salesppc')) {
-                obj['salesppc'] = ApiClient.convertToType(data['salesppc'], 'Number');
+            if (data.hasOwnProperty('attempts')) {
+                obj['attempts'] = ApiClient.convertToType(data['attempts'], 'Number');
             }
-            if (data.hasOwnProperty('unitsorganic')) {
-                obj['unitsorganic'] = ApiClient.convertToType(data['unitsorganic'], 'Number');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('unitsppc')) {
-                obj['unitsppc'] = ApiClient.convertToType(data['unitsppc'], 'Number');
+            if (data.hasOwnProperty('clientId')) {
+                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
             }
-            if (data.hasOwnProperty('refunds')) {
-                obj['refunds'] = ApiClient.convertToType(data['refunds'], 'Number');
+            if (data.hasOwnProperty('supervisorId')) {
+                obj['supervisorId'] = ApiClient.convertToType(data['supervisorId'], 'String');
             }
-            if (data.hasOwnProperty('promovalue')) {
-                obj['promovalue'] = ApiClient.convertToType(data['promovalue'], 'Number');
+            if (data.hasOwnProperty('chatId')) {
+                obj['chatId'] = ApiClient.convertToType(data['chatId'], 'String');
             }
-            if (data.hasOwnProperty('sponsoredproducts')) {
-                obj['sponsoredproducts'] = ApiClient.convertToType(data['sponsoredproducts'], 'Number');
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
-            if (data.hasOwnProperty('sponsoreddisplay')) {
-                obj['sponsoreddisplay'] = ApiClient.convertToType(data['sponsoreddisplay'], 'Number');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
-            if (data.hasOwnProperty('sponsoredRands')) {
-                obj['sponsoredRands'] = ApiClient.convertToType(data['sponsoredRands'], 'Number');
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
-            if (data.hasOwnProperty('sponsoredbrandsvideo')) {
-                obj['sponsoredbrandsvideo'] = ApiClient.convertToType(data['sponsoredbrandsvideo'], 'Number');
-            }
-            if (data.hasOwnProperty('giftwrap')) {
-                obj['giftwrap'] = ApiClient.convertToType(data['giftwrap'], 'Number');
-            }
-            if (data.hasOwnProperty('shipping')) {
-                obj['shipping'] = ApiClient.convertToType(data['shipping'], 'Number');
-            }
-            if (data.hasOwnProperty('refundcost')) {
-                obj['refundcost'] = ApiClient.convertToType(data['refundcost'], 'Number');
-            }
-            if (data.hasOwnProperty('valueOfReturnedItems')) {
-                obj['valueOfReturnedItems'] = ApiClient.convertToType(data['valueOfReturnedItems'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostUnsellableRefunds')) {
-                obj['productcostUnsellableRefunds'] = ApiClient.convertToType(data['productcostUnsellableRefunds'], 'Number');
-            }
-            if (data.hasOwnProperty('commission')) {
-                obj['commission'] = ApiClient.convertToType(data['commission'], 'Number');
-            }
-            if (data.hasOwnProperty('fbadisposalfee')) {
-                obj['fbadisposalfee'] = ApiClient.convertToType(data['fbadisposalfee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaperunitfulfillmentfee')) {
-                obj['fbaperunitfulfillmentfee'] = ApiClient.convertToType(data['fbaperunitfulfillmentfee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbastoragefee')) {
-                obj['fbastoragefee'] = ApiClient.convertToType(data['fbastoragefee'], 'Number');
-            }
-            if (data.hasOwnProperty('subscription')) {
-                obj['subscription'] = ApiClient.convertToType(data['subscription'], 'Number');
-            }
-            if (data.hasOwnProperty('estimatedpayout')) {
-                obj['estimatedpayout'] = ApiClient.convertToType(data['estimatedpayout'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostSales')) {
-                obj['productcostSales'] = ApiClient.convertToType(data['productcostSales'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostNonAmazon')) {
-                obj['productcostNonAmazon'] = ApiClient.convertToType(data['productcostNonAmazon'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostMultichannelcosts')) {
-                obj['productcostMultichannelcosts'] = ApiClient.convertToType(data['productcostMultichannelcosts'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostMissingfrominbound')) {
-                obj['productcostMissingfrominbound'] = ApiClient.convertToType(data['productcostMissingfrominbound'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostCostofmissingreturns')) {
-                obj['productcostCostofmissingreturns'] = ApiClient.convertToType(data['productcostCostofmissingreturns'], 'Number');
-            }
-            if (data.hasOwnProperty('vat')) {
-                obj['vat'] = ApiClient.convertToType(data['vat'], 'Number');
-            }
-            if (data.hasOwnProperty('grossprofit')) {
-                obj['grossprofit'] = ApiClient.convertToType(data['grossprofit'], 'Number');
-            }
-            if (data.hasOwnProperty('netprofit')) {
-                obj['netprofit'] = ApiClient.convertToType(data['netprofit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('realAcos')) {
-                obj['realAcos'] = ApiClient.convertToType(data['realAcos'], 'Number');
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1RequestProposalsCreatedBy.constructFromObject(data['createdBy']);
             }
         }
         return obj;
@@ -166,223 +101,189 @@ class InlineResponse20010 {
 }
 
 /**
- * \"Date\"
- * @member {String} date
+ * Guid продожения к заявке.
+ * @member {String} _id
  */
-InlineResponse20010.prototype['date'] = undefined;
+InlineResponse20010.prototype['_id'] = undefined;
 
 /**
- * Marketplace
- * @member {String} marketplace
+ * Guid заявки к которой относится данное предложение.
+ * @member {String} requestId
  */
-InlineResponse20010.prototype['marketplace'] = undefined;
+InlineResponse20010.prototype['requestId'] = undefined;
 
 /**
- * ASIN
- * @member {String} asin
+ * Тип предложения.
+ * @member {String} type
  */
-InlineResponse20010.prototype['asin'] = undefined;
+InlineResponse20010.prototype['type'] = undefined;
 
 /**
- * SKU
- * @member {String} sku
+ *  CREATED - предложение по заявке создано, с ценой и временем выполнения от исполнителя OFFER_CONDITIONS_ACCEPTED - условия предложения были приняты клиентом, после этого начиначется отсчет времени на выполнение заявки, с этого статуса можно перейти только на READY_TO_VERIFY, с этого момента начинаем учитывать этого исполнителя в счетчике людей работающих по заявке OFFER_CONDITIONS_REJECTED - условия предложения были отклонены клиентом. После изменения условий клиентом выставляется статус OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_CORRECTED - исполнитель отредактировал свои условия по предложению чтобы клиент опять их посмотрел и решил принимает или нет, после этого статуса можно опять перейти на OFFER_CONDITIONS_ACCEPTED или OFFER_CONDITIONS_REJECTED READY_TO_VERIFY - статус выставляет исполнитель, статус говорит о том что исполнитель выполнил работу и клиент/супервизор может ее проверять, после этого статуса можно выставить VERIFYING_BY_SUPERVISOR или TO_CORRECT, а так же закрывающие статусы VERIFYING_BY_SUPERVISOR - работа проверяется супервизором TO_CORRECT - отправляется на доработку от клиента/супервизора CORRECTED - исполнитель отмечает работу как исправленная CANCELED_BY_CREATOR - предложение закрывается клиентом, обязательно с комментарием, финальный статус, может быть выставлено только при статусе OFFER_CONDITIONS_REJECTED. Думаю что тут будет еще условия но нужно это обсудить. Этот статус не очень безопасный или может привести к перегрузу админа для решения конфликтных ситуаций CANCELED_BY_SUPERVISOR - предложение закрывается супервизором, обязательно с комментарием, финальный статус, может быть выставлен в любой момент. Тут должна появиться возможность создать запрос в поддержку для решения конфликтных ситуаций, это позже обсудим. CANCELED_BY_EXECUTOR - закрыто исполнителем, обязательно с комментарием, финальный статус, может быть выставлен в любой момент ACCEPTED_BY_CREATOR - принято клиентом, происходи оплата ACCEPTED_BY_SUPERVISOR - принято супервизором, происходи оплата EXPIRED - проставляется автоматически, если время указанное в предложении от исполнителя истекло а предложение не было уже в одном из финальных статусов 
+ * @member {module:model/InlineResponse20010.StatusEnum} status
  */
-InlineResponse20010.prototype['sku'] = undefined;
+InlineResponse20010.prototype['status'] = undefined;
 
 /**
- * Name
- * @member {String} name
+ * Время закрытия предложения.
+ * @member {Date} timeoutAt
  */
-InlineResponse20010.prototype['name'] = undefined;
+InlineResponse20010.prototype['timeoutAt'] = undefined;
 
 /**
- * SalesOrganic
- * @member {Number} salesorganic
+ * Время на выполнение, в часах.
+ * @member {Number} execution_time
  */
-InlineResponse20010.prototype['salesorganic'] = undefined;
+InlineResponse20010.prototype['execution_time'] = undefined;
 
 /**
- * SalesPPC
- * @member {Number} salesppc
+ * Количество попыток, подать предложение или исправить результат работы.
+ * @member {Number} attempts
  */
-InlineResponse20010.prototype['salesppc'] = undefined;
+InlineResponse20010.prototype['attempts'] = undefined;
 
 /**
- * UnitsOrganic
- * @member {Number} unitsorganic
+ * Цена предложения.
+ * @member {Number} price
  */
-InlineResponse20010.prototype['unitsorganic'] = undefined;
+InlineResponse20010.prototype['price'] = undefined;
 
 /**
- * UnitsPPC
- * @member {Number} unitsppc
+ * GUID клиента .
+ * @member {String} clientId
  */
-InlineResponse20010.prototype['unitsppc'] = undefined;
+InlineResponse20010.prototype['clientId'] = undefined;
 
 /**
- * Refunds
- * @member {Number} refunds
+ * GUID супервизора.
+ * @member {String} supervisorId
  */
-InlineResponse20010.prototype['refunds'] = undefined;
+InlineResponse20010.prototype['supervisorId'] = undefined;
 
 /**
- * PromoValue
- * @member {Number} promovalue
+ * GUID чата.
+ * @member {String} chatId
  */
-InlineResponse20010.prototype['promovalue'] = undefined;
+InlineResponse20010.prototype['chatId'] = undefined;
 
 /**
- * SponsoredProducts
- * @member {Number} sponsoredproducts
+ * GUID любого, кто последний редактировал предложение.
+ * @member {String} lastModifiedById
  */
-InlineResponse20010.prototype['sponsoredproducts'] = undefined;
+InlineResponse20010.prototype['lastModifiedById'] = undefined;
 
 /**
- * SponsoredDisplay
- * @member {Number} sponsoreddisplay
+ * Дата создания
+ * @member {Date} createdAt
  */
-InlineResponse20010.prototype['sponsoreddisplay'] = undefined;
+InlineResponse20010.prototype['createdAt'] = undefined;
 
 /**
- * SponsoredВrands
- * @member {Number} sponsoredRands
+ * Дата изменения
+ * @member {Date} updatedAt
  */
-InlineResponse20010.prototype['sponsoredRands'] = undefined;
+InlineResponse20010.prototype['updatedAt'] = undefined;
 
 /**
- * SponsoredBrandsVideo
- * @member {Number} sponsoredbrandsvideo
+ * @member {module:model/ApiV1RequestProposalsCreatedBy} createdBy
  */
-InlineResponse20010.prototype['sponsoredbrandsvideo'] = undefined;
+InlineResponse20010.prototype['createdBy'] = undefined;
+
+
+
+
 
 /**
- * GiftWrap
- * @member {Number} giftwrap
+ * Allowed values for the <code>status</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineResponse20010.prototype['giftwrap'] = undefined;
+InlineResponse20010['StatusEnum'] = {
 
-/**
- * Shipping
- * @member {Number} shipping
- */
-InlineResponse20010.prototype['shipping'] = undefined;
+    /**
+     * value: "CREATED"
+     * @const
+     */
+    "CREATED": "CREATED",
 
-/**
- * RefundCost
- * @member {Number} refundcost
- */
-InlineResponse20010.prototype['refundcost'] = undefined;
+    /**
+     * value: "OFFER_CONDITIONS_ACCEPTED"
+     * @const
+     */
+    "OFFER_CONDITIONS_ACCEPTED": "OFFER_CONDITIONS_ACCEPTED",
 
-/**
- * Value of returned items
- * @member {Number} valueOfReturnedItems
- */
-InlineResponse20010.prototype['valueOfReturnedItems'] = undefined;
+    /**
+     * value: "READY_TO_VERIFY"
+     * @const
+     */
+    "READY_TO_VERIFY": "READY_TO_VERIFY",
 
-/**
- * ProductCost Unsellable Refunds
- * @member {Number} productcostUnsellableRefunds
- */
-InlineResponse20010.prototype['productcostUnsellableRefunds'] = undefined;
+    /**
+     * value: "OFFER_CONDITIONS_REJECTED"
+     * @const
+     */
+    "OFFER_CONDITIONS_REJECTED": "OFFER_CONDITIONS_REJECTED",
 
-/**
- * Commission
- * @member {Number} commission
- */
-InlineResponse20010.prototype['commission'] = undefined;
+    /**
+     * value: "OFFER_CONDITIONS_CORRECTED"
+     * @const
+     */
+    "OFFER_CONDITIONS_CORRECTED": "OFFER_CONDITIONS_CORRECTED",
 
-/**
- * FBADisposalFee
- * @member {Number} fbadisposalfee
- */
-InlineResponse20010.prototype['fbadisposalfee'] = undefined;
+    /**
+     * value: "VERIFYING_BY_SUPERVISOR"
+     * @const
+     */
+    "VERIFYING_BY_SUPERVISOR": "VERIFYING_BY_SUPERVISOR",
 
-/**
- * FBAPerUnitFulfillmentFee
- * @member {Number} fbaperunitfulfillmentfee
- */
-InlineResponse20010.prototype['fbaperunitfulfillmentfee'] = undefined;
+    /**
+     * value: "TO_CORRECT"
+     * @const
+     */
+    "TO_CORRECT": "TO_CORRECT",
 
-/**
- * FBAStorageFee
- * @member {Number} fbastoragefee
- */
-InlineResponse20010.prototype['fbastoragefee'] = undefined;
+    /**
+     * value: "CORRECTED"
+     * @const
+     */
+    "CORRECTED": "CORRECTED",
 
-/**
- * Subscription
- * @member {Number} subscription
- */
-InlineResponse20010.prototype['subscription'] = undefined;
+    /**
+     * value: "CANCELED_BY_CREATOR"
+     * @const
+     */
+    "CANCELED_BY_CREATOR": "CANCELED_BY_CREATOR",
 
-/**
- * EstimatedPayout
- * @member {Number} estimatedpayout
- */
-InlineResponse20010.prototype['estimatedpayout'] = undefined;
+    /**
+     * value: "CANCELED_BY_SUPERVISOR"
+     * @const
+     */
+    "CANCELED_BY_SUPERVISOR": "CANCELED_BY_SUPERVISOR",
 
-/**
- * ProductCost Sales
- * @member {Number} productcostSales
- */
-InlineResponse20010.prototype['productcostSales'] = undefined;
+    /**
+     * value: "CANCELED_BY_EXECUTOR"
+     * @const
+     */
+    "CANCELED_BY_EXECUTOR": "CANCELED_BY_EXECUTOR",
 
-/**
- * ProductCost Non-Amazon
- * @member {Number} productcostNonAmazon
- */
-InlineResponse20010.prototype['productcostNonAmazon'] = undefined;
+    /**
+     * value: "ACCEPTED_BY_CREATOR"
+     * @const
+     */
+    "ACCEPTED_BY_CREATOR": "ACCEPTED_BY_CREATOR",
 
-/**
- * ProductCost MultichannelCosts
- * @member {Number} productcostMultichannelcosts
- */
-InlineResponse20010.prototype['productcostMultichannelcosts'] = undefined;
+    /**
+     * value: "ACCEPTED_BY_SUPERVISOR"
+     * @const
+     */
+    "ACCEPTED_BY_SUPERVISOR": "ACCEPTED_BY_SUPERVISOR",
 
-/**
- * ProductCost MissingFromInbound
- * @member {Number} productcostMissingfrominbound
- */
-InlineResponse20010.prototype['productcostMissingfrominbound'] = undefined;
-
-/**
- * ProductCost CostOfMissingReturns
- * @member {Number} productcostCostofmissingreturns
- */
-InlineResponse20010.prototype['productcostCostofmissingreturns'] = undefined;
-
-/**
- * VAT
- * @member {Number} vat
- */
-InlineResponse20010.prototype['vat'] = undefined;
-
-/**
- * GrossProfit
- * @member {Number} grossprofit
- */
-InlineResponse20010.prototype['grossprofit'] = undefined;
-
-/**
- * NetProfit
- * @member {Number} netprofit
- */
-InlineResponse20010.prototype['netprofit'] = undefined;
-
-/**
- * Margin
- * @member {Number} margin
- */
-InlineResponse20010.prototype['margin'] = undefined;
-
-/**
- * Real ACOS
- * @member {Number} realAcos
- */
-InlineResponse20010.prototype['realAcos'] = undefined;
-
-
-
+    /**
+     * value: "EXPIRED"
+     * @const
+     */
+    "EXPIRED": "EXPIRED"
+};
 
 
 

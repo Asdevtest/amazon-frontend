@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsCustomGuidDetails from './ApiV1RequestsCustomGuidDetails';
-import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 
 /**
  * The InlineObject55 model module.
@@ -23,7 +21,6 @@ import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 class InlineObject55 {
     /**
      * Constructs a new <code>InlineObject55</code>.
-     * Схема универсальной заявки.
      * @alias module:model/InlineObject55
      */
     constructor() { 
@@ -50,11 +47,32 @@ class InlineObject55 {
         if (data) {
             obj = obj || new InlineObject55();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomGuidRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsCustomGuidDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('delivery')) {
+                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            }
+            if (data.hasOwnProperty('lotcost')) {
+                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -64,14 +82,58 @@ class InlineObject55 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomGuidRequest} request
+ * Название поставщика.
+ * @member {String} name
  */
-InlineObject55.prototype['request'] = undefined;
+InlineObject55.prototype['name'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestsCustomGuidDetails} details
+ * Ссылка на поставщика.
+ * @member {String} link
  */
-InlineObject55.prototype['details'] = undefined;
+InlineObject55.prototype['link'] = undefined;
+
+/**
+ * Цена
+ * @member {Number} price
+ */
+InlineObject55.prototype['price'] = undefined;
+
+/**
+ * Тип доставки
+ * @member {Number} delivery
+ */
+InlineObject55.prototype['delivery'] = undefined;
+
+/**
+ * кол-во
+ * @member {Number} amount
+ */
+InlineObject55.prototype['amount'] = undefined;
+
+/**
+ * Минимальный лот.
+ * @member {Number} minlot
+ */
+InlineObject55.prototype['minlot'] = undefined;
+
+/**
+ * Стоимость лота.
+ * @member {Number} lotcost
+ */
+InlineObject55.prototype['lotcost'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject55.prototype['images'] = undefined;
+
+/**
+ * Комментарий
+ * @member {String} comment
+ */
+InlineObject55.prototype['comment'] = undefined;
 
 
 

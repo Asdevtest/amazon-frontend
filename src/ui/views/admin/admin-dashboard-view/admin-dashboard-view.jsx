@@ -16,7 +16,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/adminAvatar.jpg'
 import {AdminDashboardViewModel} from './admin-dashboard-view.model'
 import {styles} from './admin-dashboard-view.style'
 
@@ -44,7 +43,7 @@ export class AdminDashboardViewRaw extends Component {
           setDrawerOpen={onChangeTriggerDrawerOpen}
         />
         <Main>
-          <Appbar avatarSrc={avatar} setDrawerOpen={onChangeTriggerDrawerOpen} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onChangeTriggerDrawerOpen} title={textConsts.appbarTitle}>
             <MainContent>
               <Typography paragraph variant="h5">
                 {textConsts.mainTitle}

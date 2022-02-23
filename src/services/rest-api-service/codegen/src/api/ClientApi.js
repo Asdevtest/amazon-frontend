@@ -15,18 +15,18 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject21 from '../model/InlineObject21';
-import InlineObject22 from '../model/InlineObject22';
 import InlineObject23 from '../model/InlineObject23';
 import InlineObject24 from '../model/InlineObject24';
 import InlineObject25 from '../model/InlineObject25';
 import InlineObject26 from '../model/InlineObject26';
 import InlineObject27 from '../model/InlineObject27';
+import InlineObject28 from '../model/InlineObject28';
+import InlineObject29 from '../model/InlineObject29';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse2003 from '../model/InlineResponse2003';
+import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2005 from '../model/InlineResponse2005';
-import InlineResponse2006 from '../model/InlineResponse2006';
-import InlineResponse2008 from '../model/InlineResponse2008';
+import InlineResponse2007 from '../model/InlineResponse2007';
 import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse2013 from '../model/InlineResponse2013';
 import InlineResponse2014 from '../model/InlineResponse2014';
@@ -58,7 +58,7 @@ export default class ClientApi {
      * ## Получить партии.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
     apiV1ClientsBatchesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -77,7 +77,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2005];
+      let returnType = [InlineResponse2004];
       return this.apiClient.callApi(
         '/api/v1/clients/batches', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -90,7 +90,7 @@ export default class ClientApi {
      * ## Получить партии.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */
     apiV1ClientsBatchesGet(opts) {
       return this.apiV1ClientsBatchesGetWithHttpInfo(opts)
@@ -102,7 +102,7 @@ export default class ClientApi {
 
     /**
      * # Получить заказы текущего клиента через id товара.
-     * ## Получить заказы текущего клиента через id товара.   ## описание поля status:       formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      returnOrder: 35 Если Заказ пришёл не кондиционный - \"возврат заказа\"    вернет все незавершенные заказы клиента, гед есть указанный товар.
+     * ## Получить заказы текущего клиента через id товара.   ## описание поля status:       formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   вернет все незавершенные заказы клиента, гед есть указанный товар.
      * @param {String} guid GUID товара
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -140,7 +140,7 @@ export default class ClientApi {
 
     /**
      * # Получить заказы текущего клиента через id товара.
-     * ## Получить заказы текущего клиента через id товара.   ## описание поля status:       formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      returnOrder: 35 Если Заказ пришёл не кондиционный - \"возврат заказа\"    вернет все незавершенные заказы клиента, гед есть указанный товар.
+     * ## Получить заказы текущего клиента через id товара.   ## описание поля status:       formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   вернет все незавершенные заказы клиента, гед есть указанный товар.
      * @param {String} guid GUID товара
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -156,10 +156,10 @@ export default class ClientApi {
 
     /**
      * # Оплатить товары.
-     * ## Оплатить товары.   ## ВНИМАНИЕ: Данный эндпоинт не выбросит ошибку если один из GUID будет валидным но товара с таким GUID    ## ВНИМАНИЕ: не будет найден в базе.    ## ВНИМАНИЕ: Эта оплата товара не имеет ничего общего с оплатой в блоке байер.    ## ВНИМАНИЕ: Здесь оплата заполняет значения полей paidById, paidAt в Продукте.  
+     * ## Оплатить товары.   ## Данный эндпоинт выбросит ошибку если хотябы один из продуктов не будет валидным   ## Прижимаются товары со статусами [70, 110]  ## Товары со статусом 70 (созданные фрилансером) получают статус 275, товар полностью переходит к клиенту: createdById меняется на id клиента, isCreatedByClient меняется на true, needCheckBySupervisor меняется на true,  ## Проверка продуктов(валидация): Нельзя повторно покупать товар который был оплачен (product.status === 70 && product.paidById !== null)  ## Товары со статусом 110 (бесплатные от платформы) получают статус 76, клиент получает копию продукта без данных о ресерчере, баере и супервайзере.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject22} opts.body 
+     * @param {module:model/InlineObject24} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsMakePaymentsPostWithHttpInfo(opts) {
@@ -189,10 +189,10 @@ export default class ClientApi {
 
     /**
      * # Оплатить товары.
-     * ## Оплатить товары.   ## ВНИМАНИЕ: Данный эндпоинт не выбросит ошибку если один из GUID будет валидным но товара с таким GUID    ## ВНИМАНИЕ: не будет найден в базе.    ## ВНИМАНИЕ: Эта оплата товара не имеет ничего общего с оплатой в блоке байер.    ## ВНИМАНИЕ: Здесь оплата заполняет значения полей paidById, paidAt в Продукте.  
+     * ## Оплатить товары.   ## Данный эндпоинт выбросит ошибку если хотябы один из продуктов не будет валидным   ## Прижимаются товары со статусами [70, 110]  ## Товары со статусом 70 (созданные фрилансером) получают статус 275, товар полностью переходит к клиенту: createdById меняется на id клиента, isCreatedByClient меняется на true, needCheckBySupervisor меняется на true,  ## Проверка продуктов(валидация): Нельзя повторно покупать товар который был оплачен (product.status === 70 && product.paidById !== null)  ## Товары со статусом 110 (бесплатные от платформы) получают статус 76, клиент получает копию продукта без данных о ресерчере, баере и супервайзере.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject22} opts.body 
+     * @param {module:model/InlineObject24} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsMakePaymentsPost(opts) {
@@ -205,7 +205,7 @@ export default class ClientApi {
 
     /**
      * # Получить заказы текущего клиента.
-     * ## Получить заказы текущего клиента.   ## Отдает все ордеры кроме статусов returnOrder: 35, orderIsClosed: 40 
+     * ## Получить заказы текущего клиента.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2001>} and HTTP response
@@ -237,7 +237,7 @@ export default class ClientApi {
 
     /**
      * # Получить заказы текущего клиента.
-     * ## Получить заказы текущего клиента.   ## Отдает все ордеры кроме статусов returnOrder: 35, orderIsClosed: 40 
+     * ## Получить заказы текущего клиента.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2001>}
@@ -252,7 +252,7 @@ export default class ClientApi {
 
     /**
      * Отменить заказ.
-     * ## Этот метод должен устанавливать статус ордеру 40, а так же брать из заказа поле totalPrice и  вычитать эту сумму у привязанного к заказу, клиента из поля balanceFreeze и прибавлять в поле balance  ## Проверки:  Данный метод возможно вызывать до выплат поставщику (пока paidAt === null)
+     * ## Этот метод должен устанавливать статус ордеру 40(отменен клиентом), а так же брать из заказа поле totalPrice и  вычитать эту сумму у привязанного к заказу, клиента из поля balanceFreeze и прибавлять в поле balance  ## Проверки:  Данный метод возможно вызвать только при статусах readyToProcess: 10  и needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены)
      * @param {String} guid Guid ордера
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -291,7 +291,7 @@ export default class ClientApi {
 
     /**
      * Отменить заказ.
-     * ## Этот метод должен устанавливать статус ордеру 40, а так же брать из заказа поле totalPrice и  вычитать эту сумму у привязанного к заказу, клиента из поля balanceFreeze и прибавлять в поле balance  ## Проверки:  Данный метод возможно вызывать до выплат поставщику (пока paidAt === null)
+     * ## Этот метод должен устанавливать статус ордеру 40(отменен клиентом), а так же брать из заказа поле totalPrice и  вычитать эту сумму у привязанного к заказу, клиента из поля balanceFreeze и прибавлять в поле balance  ## Проверки:  Данный метод возможно вызвать только при статусах readyToProcess: 10  и needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены)
      * @param {String} guid Guid ордера
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -363,62 +363,8 @@ export default class ClientApi {
 
 
     /**
-     * # Удалить заказ по его GUID.
-     * ## Удалить заказ по его GUID.   ## удалиь можно пока не взята байером (buyerId === null)
-     * @param {String} guid GUID в сущности в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1ClientsOrdersGuidDeleteWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1ClientsOrdersGuidDelete");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/clients/orders/{guid}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Удалить заказ по его GUID.
-     * ## Удалить заказ по его GUID.   ## удалиь можно пока не взята байером (buyerId === null)
-     * @param {String} guid GUID в сущности в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1ClientsOrdersGuidDelete(guid, opts) {
-      return this.apiV1ClientsOrdersGuidDeleteWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
      * # Получить заказ по его GUID.
-     * ## Получить заказ по его GUID.   ## описание поля status:       formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      returnOrder: 35 Если Заказ пришёл не кондиционный - \"возврат заказа\"    
+     * ## Получить заказ по его GUID.   ## описание поля status:       formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -456,7 +402,7 @@ export default class ClientApi {
 
     /**
      * # Получить заказ по его GUID.
-     * ## Получить заказ по его GUID.   ## описание поля status:       formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      returnOrder: 35 Если Заказ пришёл не кондиционный - \"возврат заказа\"    
+     * ## Получить заказ по его GUID.   ## описание поля status:       formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -476,7 +422,7 @@ export default class ClientApi {
      * @param {String} guid GUID заказа, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject24} opts.body 
+     * @param {module:model/InlineObject26} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsOrdersGuidPatchWithHttpInfo(guid, opts) {
@@ -515,7 +461,7 @@ export default class ClientApi {
      * @param {String} guid GUID заказа, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject24} opts.body 
+     * @param {module:model/InlineObject26} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsOrdersGuidPatch(guid, opts) {
@@ -528,10 +474,10 @@ export default class ClientApi {
 
     /**
      * # Создать заказ.
-     * ## Создать заказ.   ## Статус автоматом ставиться readyToProcess: 10  Стоимость заказа = количество * (цена товара + цена доставки от поставщика):  Эта сумма будет заморожена у клиента.Курс записывается из админки Проверки:  Наличие продукта по guid,  Наличие у продукта поставщика 
+     * ## Создать заказ.   ## Статус автоматом ставиться readyToProcess: 10  Стоимость заказа = количество * (цена товара + цена доставки от поставщика):  Эта сумма будет заморожена у клиента. Курс записывается из админки Проверки:  Наличие продукта по guid,  Наличие у продукта поставщика 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject23} opts.body 
+     * @param {module:model/InlineObject25} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2013} and HTTP response
      */
     apiV1ClientsOrdersPostWithHttpInfo(opts) {
@@ -561,10 +507,10 @@ export default class ClientApi {
 
     /**
      * # Создать заказ.
-     * ## Создать заказ.   ## Статус автоматом ставиться readyToProcess: 10  Стоимость заказа = количество * (цена товара + цена доставки от поставщика):  Эта сумма будет заморожена у клиента.Курс записывается из админки Проверки:  Наличие продукта по guid,  Наличие у продукта поставщика 
+     * ## Создать заказ.   ## Статус автоматом ставиться readyToProcess: 10  Стоимость заказа = количество * (цена товара + цена доставки от поставщика):  Эта сумма будет заморожена у клиента. Курс записывается из админки Проверки:  Наличие продукта по guid,  Наличие у продукта поставщика 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject23} opts.body 
+     * @param {module:model/InlineObject25} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2013}
      */
     apiV1ClientsOrdersPost(opts) {
@@ -581,7 +527,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject27} opts.body 
+     * @param {module:model/InlineObject29} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatchWithHttpInfo(guid, opts) {
@@ -620,7 +566,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject27} opts.body 
+     * @param {module:model/InlineObject29} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch(guid, opts) {
@@ -637,7 +583,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2008} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2007} and HTTP response
      */
     apiV1ClientsProductsGuidGetPriceForClientGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -661,7 +607,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2008;
+      let returnType = InlineResponse2007;
       return this.apiClient.callApi(
         '/api/v1/clients/products/{guid}/get_price_for_client', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -675,7 +621,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2008}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2007}
      */
     apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts) {
       return this.apiV1ClientsProductsGuidGetPriceForClientGetWithHttpInfo(guid, opts)
@@ -691,7 +637,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject21} opts.body 
+     * @param {module:model/InlineObject23} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -730,7 +676,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject21} opts.body 
+     * @param {module:model/InlineObject23} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsProductsGuidPatch(guid, opts) {
@@ -747,7 +693,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.  без или: /products?filters=[amazonTitle][$contains]=drive
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
      */
     apiV1ClientsProductsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -767,7 +713,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2006];
+      let returnType = [InlineResponse2005];
       return this.apiClient.callApi(
         '/api/v1/clients/products/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -781,7 +727,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.  без или: /products?filters=[amazonTitle][$contains]=drive
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
      */
     apiV1ClientsProductsMyGet(opts) {
       return this.apiV1ClientsProductsMyGetWithHttpInfo(opts)
@@ -796,7 +742,7 @@ export default class ClientApi {
      * ## Получить список товаров оплаченных данного клиента.   ## Думаю это УСТАРЕВШИЙ метод. Он опирается на dirchecked.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
      */
     apiV1ClientsProductsPaidGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -815,7 +761,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2006];
+      let returnType = [InlineResponse2005];
       return this.apiClient.callApi(
         '/api/v1/clients/products/paid', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -828,7 +774,7 @@ export default class ClientApi {
      * ## Получить список товаров оплаченных данного клиента.   ## Думаю это УСТАРЕВШИЙ метод. Он опирается на dirchecked.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
      */
     apiV1ClientsProductsPaidGet(opts) {
       return this.apiV1ClientsProductsPaidGetWithHttpInfo(opts)
@@ -839,11 +785,11 @@ export default class ClientApi {
 
 
     /**
-     * # Добавить новый продукт клиентом(копия эндпоинта как у ресерчера.).
+     * # Добавить новый продукт клиентом.
      * # Добавить новый продукт клиентом.  ## В отличии от метода ресерчера, статус продукта ставиться автоматом  CREATED_BY_CLIENT 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject26} opts.body 
+     * @param {module:model/InlineObject28} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
      */
     apiV1ClientsProductsPostWithHttpInfo(opts) {
@@ -872,11 +818,11 @@ export default class ClientApi {
     }
 
     /**
-     * # Добавить новый продукт клиентом(копия эндпоинта как у ресерчера.).
+     * # Добавить новый продукт клиентом.
      * # Добавить новый продукт клиентом.  ## В отличии от метода ресерчера, статус продукта ставиться автоматом  CREATED_BY_CLIENT 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject26} opts.body 
+     * @param {module:model/InlineObject28} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
      */
     apiV1ClientsProductsPost(opts) {
@@ -892,7 +838,7 @@ export default class ClientApi {
      * ## Получить список  вакантных товаров. статусы 70 и 110(скрыты данные о поставщике, байере, супервайзере, создателе и skusByClient)  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
      */
     apiV1ClientsProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -911,7 +857,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2006];
+      let returnType = [InlineResponse2005];
       return this.apiClient.callApi(
         '/api/v1/clients/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -924,7 +870,7 @@ export default class ClientApi {
      * ## Получить список  вакантных товаров. статусы 70 и 110(скрыты данные о поставщике, байере, супервайзере, создателе и skusByClient)  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
      */
     apiV1ClientsProductsVacGet(opts) {
       return this.apiV1ClientsProductsVacGetWithHttpInfo(opts)
@@ -989,119 +935,6 @@ export default class ClientApi {
 
 
     /**
-     * # Показать все задачи данного пользователя.
-     * ## Показать все задачи данного пользователя.   
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.offset Смещение в пагинации (default to 0)
-     * @param {Number} opts.limit Сколько записей отдать в пагинации (default to 20)
-     * @param {String} opts.sortBy Название поля по которому происходи сортировка.
-     * @param {module:model/String} opts.order Направление сортировки
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, {String: Object}>} and HTTP response
-     */
-    apiV1ClientsTasksGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-        'offset': opts['offset'],
-        'limit': opts['limit'],
-        'sortBy': opts['sortBy'],
-        'order': opts['order']
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = {'String': Object};
-      return this.apiClient.callApi(
-        '/api/v1/clients/tasks', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Показать все задачи данного пользователя.
-     * ## Показать все задачи данного пользователя.   
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.offset Смещение в пагинации (default to 0)
-     * @param {Number} opts.limit Сколько записей отдать в пагинации (default to 20)
-     * @param {String} opts.sortBy Название поля по которому происходи сортировка.
-     * @param {module:model/String} opts.order Направление сортировки
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, {String: Object}>}
-     */
-    apiV1ClientsTasksGet(opts) {
-      return this.apiV1ClientsTasksGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Удалить задачу.
-     * ## Удалить задачу. !!! Можно удалять только задачи со статусом \"0\".   
-     * @param {String} guid GUID удаляемого объекта.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1ClientsTasksGuidDeleteWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1ClientsTasksGuidDelete");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/clients/tasks/{guid}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Удалить задачу.
-     * ## Удалить задачу. !!! Можно удалять только задачи со статусом \"0\".   
-     * @param {String} guid GUID удаляемого объекта.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1ClientsTasksGuidDelete(guid, opts) {
-      return this.apiV1ClientsTasksGuidDeleteWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
      * # Облегченная версия. Показать все задачи данного пользователя.
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
@@ -1153,7 +986,7 @@ export default class ClientApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject25} opts.body 
+     * @param {module:model/InlineObject27} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2012} and HTTP response
      */
     apiV1ClientsTasksPostWithHttpInfo(opts) {
@@ -1186,7 +1019,7 @@ export default class ClientApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject25} opts.body 
+     * @param {module:model/InlineObject27} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2012}
      */
     apiV1ClientsTasksPost(opts) {

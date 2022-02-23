@@ -16,7 +16,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/buyerAvatar.jpg'
 import {BuyerDashboardViewModel} from './buyer-dashboard-view.model'
 import {styles} from './buyer-dashboard-view.style'
 
@@ -45,12 +44,7 @@ export class BuyerDashboardViewRaw extends Component {
           user={textConsts.appUser}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            setDrawerOpen={onTriggerDrawerOpen}
-            avatarSrc={avatar}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DashboardBalance user={userInfo} />
 

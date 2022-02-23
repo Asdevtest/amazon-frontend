@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalCost** | **Number** | Для подтверждения нужно вернуть totalCost из калькулятора. | 
+**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
+**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
 
 

@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
-import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 
 /**
  * The InlineObject54 model module.
@@ -23,14 +21,20 @@ import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 class InlineObject54 {
     /**
      * Constructs a new <code>InlineObject54</code>.
-     * Схема универсальной заявки.
+     * Новый поставщик.
      * @alias module:model/InlineObject54
-     * @param request {module:model/ApiV1RequestsCustomRequest} 
-     * @param details {module:model/ApiV1RequestsCustomDetails} 
+     * @param name {String} Название поставщика.
+     * @param link {String} Ссылка на поставщика.
+     * @param price {Number} Цена
+     * @param delivery {Number} Тип доставки
+     * @param amount {Number} кол-во
+     * @param minlot {Number} Минимальный лот.
+     * @param lotcost {Number} Стоимость лота.
+     * @param comment {String} Комментарий
      */
-    constructor(request, details) { 
+    constructor(name, link, price, delivery, amount, minlot, lotcost, comment) { 
         
-        InlineObject54.initialize(this, request, details);
+        InlineObject54.initialize(this, name, link, price, delivery, amount, minlot, lotcost, comment);
     }
 
     /**
@@ -38,9 +42,15 @@ class InlineObject54 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, request, details) { 
-        obj['request'] = request;
-        obj['details'] = details;
+    static initialize(obj, name, link, price, delivery, amount, minlot, lotcost, comment) { 
+        obj['name'] = name;
+        obj['link'] = link;
+        obj['price'] = price;
+        obj['delivery'] = delivery;
+        obj['amount'] = amount;
+        obj['minlot'] = minlot;
+        obj['lotcost'] = lotcost;
+        obj['comment'] = comment;
     }
 
     /**
@@ -54,11 +64,32 @@ class InlineObject54 {
         if (data) {
             obj = obj || new InlineObject54();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('delivery')) {
+                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            }
+            if (data.hasOwnProperty('lotcost')) {
+                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -68,14 +99,58 @@ class InlineObject54 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomRequest} request
+ * Название поставщика.
+ * @member {String} name
  */
-InlineObject54.prototype['request'] = undefined;
+InlineObject54.prototype['name'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestsCustomDetails} details
+ * Ссылка на поставщика.
+ * @member {String} link
  */
-InlineObject54.prototype['details'] = undefined;
+InlineObject54.prototype['link'] = undefined;
+
+/**
+ * Цена
+ * @member {Number} price
+ */
+InlineObject54.prototype['price'] = undefined;
+
+/**
+ * Тип доставки
+ * @member {Number} delivery
+ */
+InlineObject54.prototype['delivery'] = undefined;
+
+/**
+ * кол-во
+ * @member {Number} amount
+ */
+InlineObject54.prototype['amount'] = undefined;
+
+/**
+ * Минимальный лот.
+ * @member {Number} minlot
+ */
+InlineObject54.prototype['minlot'] = undefined;
+
+/**
+ * Стоимость лота.
+ * @member {Number} lotcost
+ */
+InlineObject54.prototype['lotcost'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject54.prototype['images'] = undefined;
+
+/**
+ * Комментарий
+ * @member {String} comment
+ */
+InlineObject54.prototype['comment'] = undefined;
 
 
 

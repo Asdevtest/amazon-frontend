@@ -111,7 +111,7 @@ export const DocumentationView = () => {
       <Main>
         <Appbar
           notificationCount={2}
-          // avatarSrc={avatar}
+          //
           setDrawerOpen={onTriggerDrawer}
           title={texts.en.documentationView.appBarTitle}
           username={texts.en.documentationView.appBarUserName}

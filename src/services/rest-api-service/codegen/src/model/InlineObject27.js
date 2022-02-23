@@ -22,12 +22,12 @@ class InlineObject27 {
     /**
      * Constructs a new <code>InlineObject27</code>.
      * @alias module:model/InlineObject27
-     * @param clientComment {String} 
-     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param operationType {module:model/InlineObject27.OperationTypeEnum} Тип операции
      */
-    constructor(clientComment, priceForClient) { 
+    constructor(taskId, operationType) { 
         
-        InlineObject27.initialize(this, clientComment, priceForClient);
+        InlineObject27.initialize(this, taskId, operationType);
     }
 
     /**
@@ -35,9 +35,9 @@ class InlineObject27 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment, priceForClient) { 
-        obj['clientComment'] = clientComment;
-        obj['priceForClient'] = priceForClient;
+    static initialize(obj, taskId, operationType) { 
+        obj['taskId'] = taskId;
+        obj['operationType'] = operationType;
     }
 
     /**
@@ -51,11 +51,26 @@ class InlineObject27 {
         if (data) {
             obj = obj || new InlineObject27();
 
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            }
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
+            }
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -65,18 +80,81 @@ class InlineObject27 {
 }
 
 /**
- * @member {String} clientComment
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
  */
-InlineObject27.prototype['clientComment'] = undefined;
+InlineObject27.prototype['taskId'] = undefined;
 
 /**
- * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
- * @member {Number} priceForClient
+ * @member {Array.<String>} boxesBefore
  */
-InlineObject27.prototype['priceForClient'] = undefined;
+InlineObject27.prototype['boxesBefore'] = undefined;
+
+/**
+ * @member {Array.<String>} boxes
+ */
+InlineObject27.prototype['boxes'] = undefined;
+
+/**
+ * Тип операции
+ * @member {module:model/InlineObject27.OperationTypeEnum} operationType
+ */
+InlineObject27.prototype['operationType'] = undefined;
+
+/**
+ * Комментарий клиента.
+ * @member {String} clientComment
+ * @default ''
+ */
+InlineObject27.prototype['clientComment'] = '';
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject27.prototype['images'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineObject27.prototype['storekeeperComment'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject27['OperationTypeEnum'] = {
+
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
+
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
+
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive",
+
+    /**
+     * value: "edit"
+     * @const
+     */
+    "edit": "edit"
+};
 
 
 

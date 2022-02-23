@@ -104,6 +104,9 @@ class UserFullSchema {
             if (data.hasOwnProperty('canByMasterUser')) {
                 obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
             }
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
             if (data.hasOwnProperty('allowedRoles')) {
                 obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
             }
@@ -203,6 +206,12 @@ UserFullSchema.prototype['masterUser'] = undefined;
  * @member {Boolean} canByMasterUser
  */
 UserFullSchema.prototype['canByMasterUser'] = undefined;
+
+/**
+ * Рейтинг пользователя.
+ * @member {Number} rating
+ */
+UserFullSchema.prototype['rating'] = undefined;
 
 /**
  * Массив массив ролей.

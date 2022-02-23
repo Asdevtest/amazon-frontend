@@ -16,7 +16,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/clientAvatar.jpg'
 import {WarehouseMyWarehouseViewModel} from './warehouse-my-warehouse-view.model'
 import {styles} from './warehouse-my-warehouse-view.style'
 
@@ -68,7 +67,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <DataGrid
                 pagination

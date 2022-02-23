@@ -16,7 +16,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/buyerAvatar.jpg'
 import {BuyerFinancesViewsModel} from './buyer-finances-views.model'
 import {styles} from './buyer-finances-views.style'
 
@@ -70,12 +69,7 @@ class BuyerFinancesViewsRaw extends Component {
           user={textConsts.appUser}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            setDrawerOpen={onChangeDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination

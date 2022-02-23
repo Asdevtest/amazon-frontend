@@ -13,7 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './ApiV1RequestProposalsCustomByRequestIdGuidDetails';
-import InlineResponse20011 from './InlineResponse20011';
+import InlineResponse20010 from './InlineResponse20010';
 
 /**
  * The InlineResponse20017 model module.
@@ -23,7 +23,7 @@ import InlineResponse20011 from './InlineResponse20011';
 class InlineResponse20017 {
     /**
      * Constructs a new <code>InlineResponse20017</code>.
-     * Схема универсальной заявки.
+     * Схема универсального предложения
      * @alias module:model/InlineResponse20017
      */
     constructor() { 
@@ -51,7 +51,7 @@ class InlineResponse20017 {
             obj = obj || new InlineResponse20017();
 
             if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = InlineResponse20011.constructFromObject(data['proposal']);
+                obj['proposal'] = InlineResponse20010.constructFromObject(data['proposal']);
             }
             if (data.hasOwnProperty('details')) {
                 obj['details'] = ApiV1RequestProposalsCustomByRequestIdGuidDetails.constructFromObject(data['details']);
@@ -64,7 +64,7 @@ class InlineResponse20017 {
 }
 
 /**
- * @member {module:model/InlineResponse20011} proposal
+ * @member {module:model/InlineResponse20010} proposal
  */
 InlineResponse20017.prototype['proposal'] = undefined;
 

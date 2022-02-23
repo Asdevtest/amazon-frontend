@@ -17,7 +17,6 @@ import {ProductWrapper} from '@components/product/product-wrapper'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from './assets/researcherAvatar.jpg'
 import {ResearcherProductViewModel} from './researcher-product-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').researcherProductView
@@ -73,7 +72,6 @@ export class ResearcherProductView extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
           >

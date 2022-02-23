@@ -28,7 +28,6 @@ import {OrderProductModal} from '@components/screens/client/order-product-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/clientAvatar.jpg'
 import {ClientInventoryViewModel} from './client-inventory-view.model'
 import {styles} from './client-inventory-view.style'
 
@@ -109,7 +108,7 @@ export class ClientInventoryViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <div className={classNames.addProductBtnsWrapper}>
                 <div>

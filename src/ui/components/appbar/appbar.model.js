@@ -22,6 +22,10 @@ export class AppbarModel {
     return UserModel.userInfo?.name
   }
 
+  get userId() {
+    return UserModel.userInfo?._id
+  }
+
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
   }

@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject7 from './InlineObject7';
 
 /**
  * The InlineObject13 model module.
@@ -48,11 +47,29 @@ class InlineObject13 {
         if (data) {
             obj = obj || new InlineObject13();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject7]);
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
+                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
+                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -62,16 +79,47 @@ class InlineObject13 {
 }
 
 /**
- * GUID для которой подтверждаем действие.
- * @member {String} guid
+ * @member {Number} lengthCmWarehouse
  */
-InlineObject13.prototype['guid'] = undefined;
+InlineObject13.prototype['lengthCmWarehouse'] = undefined;
 
 /**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject7>} additionalBoxes
+ * @member {Number} widthCmWarehouse
  */
-InlineObject13.prototype['additionalBoxes'] = undefined;
+InlineObject13.prototype['widthCmWarehouse'] = undefined;
+
+/**
+ * @member {Number} heightCmWarehouse
+ */
+InlineObject13.prototype['heightCmWarehouse'] = undefined;
+
+/**
+ * @member {Number} weighGrossKgWarehouse
+ */
+InlineObject13.prototype['weighGrossKgWarehouse'] = undefined;
+
+/**
+ * @member {Number} volumeWeightKgWarehouse
+ */
+InlineObject13.prototype['volumeWeightKgWarehouse'] = undefined;
+
+/**
+ * Прикреплен ли баркод к коробке сотрудником склада.
+ * @member {Boolean} isBarCodeAttachedByTheStorekeeper
+ */
+InlineObject13.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
+
+/**
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+InlineObject13.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
+ */
+InlineObject13.prototype['images'] = undefined;
 
 
 

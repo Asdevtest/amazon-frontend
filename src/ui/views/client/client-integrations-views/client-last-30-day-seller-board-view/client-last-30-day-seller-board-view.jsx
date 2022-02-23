@@ -16,7 +16,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/clientAvatar.jpg'
 import {ClientLast30DaySellerBoardViewModel} from './client-last-30-day-seller-board-view.model'
 import {styles} from './client-last-30-day-seller-board-view.style'
 
@@ -69,7 +68,6 @@ class ClientLast30DaySellerBoardViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawer}
           >

@@ -19,7 +19,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/adminAvatar.jpg'
 import {AdminExchangeViewModel} from './admin-exchange-views.model'
 import {styles} from './admin-exchange-views.style'
 
@@ -69,7 +68,7 @@ class AdminExchangeViewsRaw extends Component {
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
-          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <Grid container spacing={2}>
                 {adminExchangeBtnsConfig.map((buttonConfig, index) => (

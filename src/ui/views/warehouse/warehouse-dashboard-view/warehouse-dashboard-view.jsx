@@ -43,12 +43,7 @@ export class WarehouseDashboardViewRaw extends Component {
           user={textConsts.appUser}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc=""
-            setDrawerOpen={onChangeTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
               <DashboardBalance user={userInfo} />
 

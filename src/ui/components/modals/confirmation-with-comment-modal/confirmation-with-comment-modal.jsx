@@ -1,8 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 import {Typography} from '@material-ui/core'
-
-import {loadingStatuses} from '@constants/loading-statuses'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
@@ -11,7 +9,6 @@ import {Modal} from '@components/modal'
 import {useClassNames} from './confirmation-with-comment-modal.style'
 
 export const ConfirmWithCommentModal = ({
-  requestStatus,
   openModal,
   setOpenModal,
   titleText,
@@ -23,6 +20,19 @@ export const ConfirmWithCommentModal = ({
   const classNames = useClassNames()
 
   const [comment, setComment] = useState('')
+
+  const [submitIsClicked, setSubmitIsClicked] = useState(false)
+
+  useEffect(() => {
+    if (openModal) {
+      setSubmitIsClicked(false)
+    }
+  }, [openModal])
+
+  const onClickSubmit = () => {
+    onSubmit(comment)
+    setSubmitIsClicked(!submitIsClicked)
+  }
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
@@ -38,15 +48,21 @@ export const ConfirmWithCommentModal = ({
       />
       <div className={classNames.buttonsWrapper}>
         <Button
-          disabled={requestStatus === loadingStatuses.isLoading}
+          disabled={submitIsClicked}
           color="primary"
           variant="contained"
           className={classNames.button}
-          onClick={() => onSubmit(comment)}
+          onClick={onClickSubmit}
         >
           {okBtnText}
         </Button>
-        <Button color="primary" variant="contained" className={classNames.button} onClick={setOpenModal}>
+        <Button
+          disabled={submitIsClicked}
+          color="primary"
+          variant="contained"
+          className={classNames.button}
+          onClick={setOpenModal}
+        >
           {cancelBtnText}
         </Button>
       </div>

@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**execution_time** | **Number** | Время на выполнение, в минутах. | [optional] 
-**price** | **Number** | Цена предложения. | [optional] 
+**suppliersIds** | **[String]** | GUIDы поставщиков, которые нужно добавить в БД. | [optional] 
 
 

@@ -16,7 +16,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/adminAvatar.jpg'
 import {AdminInventoryViewModel} from './admin-inventory-view.model'
 import {styles} from './admin-inventory-view.style'
 
@@ -60,7 +59,7 @@ export class AdminInventoryViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <DataGrid
                 pagination

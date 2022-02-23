@@ -15,7 +15,6 @@ import {OrderContent} from '@components/screens/orders-view/order-content'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/clientAvatar.jpg'
 import {ClientOrderViewModel} from './client-order-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrderView
@@ -55,12 +54,7 @@ export class ClientOrderView extends Component {
           user={textConsts.appUser}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
               <OrderContent

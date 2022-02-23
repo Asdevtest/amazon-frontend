@@ -88,4 +88,8 @@ export const useClassNames = makeStyles(() => ({
   userRating: {
     marginLeft: '50px',
   },
+
+  userNameWrapper: {
+    marginLeft: '10px',
+  },
 }))

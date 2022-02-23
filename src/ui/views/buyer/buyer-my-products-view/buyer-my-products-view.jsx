@@ -17,7 +17,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/buyerAvatar.jpg'
 import {BuyerMyProductsViewModel} from './buyer-my-products-view.model'
 import {styles} from './buyer-my-products-view.style'
 
@@ -74,7 +73,6 @@ export class BuyerMyProductsViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
           >

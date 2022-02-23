@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**scheduledDispatchDate** | **Date** | Запланированная дата отправки. | [optional] 
+**cancel** | **Boolean** | Флаг отмены. Если он true - то все списания будут сделаны с обратным знаком. | [optional] [default to false]
 **boxesIds** | **[String]** |  | 
 
 

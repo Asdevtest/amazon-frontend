@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## apiV1ShopsGet
 
-> [InlineResponse20016] apiV1ShopsGet(opts)
+> [InlineResponse20015] apiV1ShopsGet(opts)
 
 # Получить все магазины пользователя.
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20016]**](InlineResponse20016.md)
+[**[InlineResponse20015]**](InlineResponse20015.md)
 
 ### Authorization
 
@@ -140,7 +140,7 @@ let apiInstance = new TestSwagger.ShopApi();
 let guid = "guid_example"; // String | GUID объекта в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject45() // InlineObject45 | 
+  'body': new TestSwagger.InlineObject48() // InlineObject48 | 
 };
 apiInstance.apiV1ShopsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID объекта в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject45**](InlineObject45.md)|  | [optional] 
+ **body** | [**InlineObject48**](InlineObject48.md)|  | [optional] 
 
 ### Return type
 
@@ -195,7 +195,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ShopApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject44() // InlineObject44 | 
+  'body': new TestSwagger.InlineObject47() // InlineObject47 | 
 };
 apiInstance.apiV1ShopsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -211,7 +211,7 @@ apiInstance.apiV1ShopsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject44**](InlineObject44.md)|  | [optional] 
+ **body** | [**InlineObject47**](InlineObject47.md)|  | [optional] 
 
 ### Return type
 

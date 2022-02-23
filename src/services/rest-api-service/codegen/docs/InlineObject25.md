@@ -4,27 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
-**boxesBefore** | **[String]** |  | [optional] 
-**boxes** | **[String]** |  | [optional] 
-**operationType** | **String** | Тип операции | 
-**clientComment** | **String** | Комментарий клиента. | [optional] [default to &#39;&#39;]
-**images** | **[String]** | Массив картинок. | [optional] 
-**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
-
-
-
-## Enum: OperationTypeEnum
-
-
-* `merge` (value: `"merge"`)
-
-* `split` (value: `"split"`)
-
-* `receive` (value: `"receive"`)
-
-* `edit` (value: `"edit"`)
-
-
+**amount** | **Number** | Кол-во продукта по этой позиции. | 
+**deliveryMethod** | **Number** | Код метода доставки. | 
+**warehouse** | **Number** | Номер склада. | 
+**clientComment** | **String** | Комментарии клиента. | 
+**productId** | **String** | GUID заказанного продукта | 
+**images** | **[String]** | Массив изображений. | [optional] 
 
 

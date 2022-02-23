@@ -1,10 +1,13 @@
+import Rating from '@mui/material/Rating'
+
 import React from 'react'
 
-import {Grid, Typography} from '@material-ui/core'
+import {Grid, Typography, Avatar} from '@material-ui/core'
 
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime} from '@utils/date-time'
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './vacant-request-list-card.style'
@@ -17,12 +20,12 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
       <div className={classNames.cardWrapper}>
         <div className={classNames.cardTitleBlockWrapper}>
           <div className={classNames.userInfoWrapper}>
-            <img src="/assets/img/no-photo.jpg" className={classNames.cardImg} />
+            <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
 
             <div className={classNames.nameWrapper}>
-              <Typography>{'Екатерина П.'}</Typography>
+              <Typography>{item.createdBy.name}</Typography>
 
-              <Typography>{'4.9'}</Typography>
+              <Rating disabled value={item.createdBy.rating} />
             </div>
           </div>
 

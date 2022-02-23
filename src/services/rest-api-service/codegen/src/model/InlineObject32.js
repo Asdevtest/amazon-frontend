@@ -22,10 +22,11 @@ class InlineObject32 {
     /**
      * Constructs a new <code>InlineObject32</code>.
      * @alias module:model/InlineObject32
+     * @param fileUrl {String} Ссылка на файла, который нужно загрузить.
      */
-    constructor() { 
+    constructor(fileUrl) { 
         
-        InlineObject32.initialize(this);
+        InlineObject32.initialize(this, fileUrl);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject32 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, fileUrl) { 
+        obj['fileUrl'] = fileUrl;
     }
 
     /**
@@ -47,11 +49,8 @@ class InlineObject32 {
         if (data) {
             obj = obj || new InlineObject32();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('fileUrl')) {
+                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
             }
         }
         return obj;
@@ -61,16 +60,10 @@ class InlineObject32 {
 }
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * Ссылка на файла, который нужно загрузить.
+ * @member {String} fileUrl
  */
-InlineObject32.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject32.prototype['linksToMediaFiles'] = undefined;
+InlineObject32.prototype['fileUrl'] = undefined;
 
 
 

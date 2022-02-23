@@ -152,7 +152,6 @@ export const EditOrderModal = ({
           warehouses={warehouses}
           deliveryTypeByCode={deliveryTypeByCode}
           setOrderField={setOrderField}
-          // resetOrderField={resetOrderField}
           orderFields={orderFields}
           showProgress={showProgress}
           progressValue={progressValue}
@@ -180,7 +179,10 @@ export const EditOrderModal = ({
 
       <Box mt={2} className={classNames.buttonsBox}>
         <Button
-          disabled={requestStatus === loadingStatuses.isLoading}
+          disabled={
+            requestStatus === loadingStatuses.isLoading ||
+            orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
+          }
           className={classNames.saveBtn}
           onClick={() => {
             if (boxesForCreation.length > 0) {

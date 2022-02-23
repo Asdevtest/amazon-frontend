@@ -1,10 +1,13 @@
+import Rating from '@mui/material/Rating'
+
 import React from 'react'
 
-import {Typography} from '@material-ui/core'
+import {Typography, Avatar} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {Button} from '@components/buttons/button'
 
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './owner-request-proposals-card.style'
@@ -18,15 +21,15 @@ export const OwnerRequestProposalsCard = ({item}) => {
         <div className={classNames.userInfoMainWrapper}>
           <div className={classNames.userWrapper}>
             <div className={classNames.userInfoWrapper}>
-              <img src="/assets/img/no-photo.jpg" className={classNames.cardImg} />
+              <Avatar src={getUserAvatarSrc(item.proposal.createdBy._id)} className={classNames.cardImg} />
 
               <div className={classNames.userNameWrapper}>
-                <Typography>{'Екатерина П.'}</Typography>
+                <Typography>{item.proposal.createdBy.name}</Typography>
 
                 <Typography>{'Отзывы'}</Typography>
               </div>
 
-              <Typography className={classNames.userRating}>{'4.9'}</Typography>
+              <Rating disabled className={classNames.userRating} value={item.proposal.createdBy.rating} />
             </div>
 
             <Typography className={classNames.successDeals}>{`Количество общих успешных сделок: 12`}</Typography>

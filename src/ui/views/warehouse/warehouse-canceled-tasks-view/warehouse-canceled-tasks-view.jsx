@@ -72,7 +72,6 @@ export class WarehouseCanceledTasksViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc=""
             history={history}
             setDrawerOpen={onChangeTriggerDrawerOpen}
           >

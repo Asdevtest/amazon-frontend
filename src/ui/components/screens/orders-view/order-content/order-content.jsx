@@ -68,7 +68,7 @@ export const OrderContent = ({order, boxes, history, onClickCancelOrder}) => {
           <Divider orientation={'horizontal'} />
 
           <div className={classNames.btnsWrapper}>
-            {order.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] && (
+            {order.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] && onClickCancelOrder && (
               <ErrorButton className={classNames.cancelBtn} onClick={onClickCancelOrder}>
                 {textConsts.cancelBtn}
               </ErrorButton>

@@ -47,11 +47,8 @@ class InlineObject33 {
         if (data) {
             obj = obj || new InlineObject33();
 
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -61,16 +58,10 @@ class InlineObject33 {
 }
 
 /**
- * Время на выполнение, в минутах.
- * @member {Number} execution_time
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject33.prototype['execution_time'] = undefined;
-
-/**
- * Цена предложения.
- * @member {Number} price
- */
-InlineObject33.prototype['price'] = undefined;
+InlineObject33.prototype['suppliersIds'] = undefined;
 
 
 

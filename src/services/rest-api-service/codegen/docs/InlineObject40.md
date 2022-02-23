@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**price** | **Number** | Цена от исполнителя | [optional] 
-**execution_time** | **Number** | Время за которое исполнитель предлагает выполнить, в минутах. | [optional] 
+**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
+**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
 
 

@@ -109,6 +109,9 @@ class UserAdminFullSchemaWithSubUsers {
             if (data.hasOwnProperty('canByMasterUser')) {
                 obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
             }
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
             if (data.hasOwnProperty('subUsers')) {
                 obj['subUsers'] = ApiClient.convertToType(data['subUsers'], ['String']);
             }
@@ -214,6 +217,12 @@ UserAdminFullSchemaWithSubUsers.prototype['allowedRoles'] = undefined;
  * @member {Boolean} canByMasterUser
  */
 UserAdminFullSchemaWithSubUsers.prototype['canByMasterUser'] = undefined;
+
+/**
+ * Рейтинг пользователя.
+ * @member {Number} rating
+ */
+UserAdminFullSchemaWithSubUsers.prototype['rating'] = undefined;
 
 /**
  * Массив id сабюзеров.

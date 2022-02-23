@@ -76,7 +76,6 @@ export class AdminWarehouseTasksViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc=""
             history={history}
             setDrawerOpen={onChangeDrawerOpen}
           >

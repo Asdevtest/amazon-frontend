@@ -18,7 +18,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/researcherAvatar.jpg'
 import {ResearcherSettingsViewModel} from './researcher-settings-view.model'
 import {styles} from './researcher-settings-view.style'
 
@@ -42,12 +41,7 @@ class ResearcherSettingsViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               {formFields ? (
                 <Paper className={this.props.classes.card}>
