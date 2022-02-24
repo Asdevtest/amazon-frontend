@@ -37,6 +37,7 @@ export class CreateOrEditRequestView extends Component {
       onTriggerOpenModal,
       onSubmitCreateRequest,
       onSubmitEditRequest,
+      onClickOkInfoModal,
     } = this.viewModel
 
     return (
@@ -46,16 +47,9 @@ export class CreateOrEditRequestView extends Component {
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={''}
-            user={textConsts.appUser}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <CreateOrEditRequestContent
                 requestToEdit={requestToEdit}
@@ -72,9 +66,7 @@ export class CreateOrEditRequestView extends Component {
           setOpenModal={() => onTriggerOpenModal('showInfoModal')}
           title={infoModalText}
           btnText={textConsts.closeBtn}
-          onClickBtn={() => {
-            onTriggerOpenModal('showInfoModal')
-          }}
+          onClickBtn={onClickOkInfoModal}
         />
       </React.Fragment>
     )

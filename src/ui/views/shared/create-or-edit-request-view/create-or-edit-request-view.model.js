@@ -62,8 +62,6 @@ export class CreateOrEditRequestViewModel {
 
       this.infoModalText = textConsts.infoEditRequest
       this.onTriggerOpenModal('showInfoModal')
-
-      this.history.goBack()
     } catch (error) {
       console.log(error)
 
@@ -72,6 +70,11 @@ export class CreateOrEditRequestViewModel {
 
       this.error = error
     }
+  }
+
+  onClickOkInfoModal() {
+    this.onTriggerOpenModal('showInfoModal')
+    this.history.goBack()
   }
 
   onTriggerOpenModal(modal) {

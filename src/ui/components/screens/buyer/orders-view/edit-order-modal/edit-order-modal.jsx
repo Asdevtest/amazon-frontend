@@ -42,6 +42,11 @@ const confirmModalModes = {
   SUBMIT: 'SUBMIT',
 }
 
+const disabledOrderStatuses = [
+  OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
+  OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+]
+
 export const EditOrderModal = ({
   requestStatus,
   order,
@@ -139,6 +144,11 @@ export const EditOrderModal = ({
 
   const [photosToLoad, setPhotosToLoad] = useState([])
 
+  const disableSubmit =
+    requestStatus === loadingStatuses.isLoading ||
+    disabledOrderStatuses.includes(order.status) ||
+    orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
+
   return (
     <Box className={classNames.modalWrapper}>
       <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
@@ -179,10 +189,7 @@ export const EditOrderModal = ({
 
       <Box mt={2} className={classNames.buttonsBox}>
         <Button
-          disabled={
-            requestStatus === loadingStatuses.isLoading ||
-            orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
-          }
+          disabled={disableSubmit}
           className={classNames.saveBtn}
           onClick={() => {
             if (boxesForCreation.length > 0) {

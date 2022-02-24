@@ -69,12 +69,7 @@ class AdminWarehouseBatchesViewRaw extends Component {
         />
 
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            user={textConsts.appUser}
-            setDrawerOpen={onTriggerDrawer}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawer}>
             <MainContent>
               <DataGrid
                 pagination

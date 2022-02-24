@@ -96,16 +96,10 @@ class ClientDailySellerBoardViewRaw extends Component {
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawer}
-          user={textConsts.appUser}
         />
 
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            user={textConsts.appUser}
-            setDrawerOpen={onTriggerDrawer}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawer}>
             <MainContent>
               <Button
                 disableElevation

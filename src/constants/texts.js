@@ -2409,6 +2409,8 @@ export const texts = {
       creatorNameField: 'Инициатор',
       recipientNameField: 'Реципиент ',
       typeField: 'Тип',
+      paymentTypeField: 'Категория',
+      entityIdField: 'ID сущности',
     },
 
     buyerFinancesTableColumns: {

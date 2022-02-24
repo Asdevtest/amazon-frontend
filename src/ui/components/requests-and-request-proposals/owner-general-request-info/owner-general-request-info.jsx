@@ -105,7 +105,7 @@ export const OwnerGeneralRequestInfo = ({
         </div>
       </div>
 
-      {request?.request.status === RequestStatus.DRAFT && (
+      {request && request?.request.status === RequestStatus.DRAFT && (
         <div className={classNames.btnsBlockWrapper}>
           <div className={classNames.btnsWrapper}>
             <Button color="primary" className={classNames.button} onClick={onClickEditBtn}>
@@ -119,7 +119,7 @@ export const OwnerGeneralRequestInfo = ({
         </div>
       )}
 
-      {request?.request.status !== RequestStatus.DRAFT && (
+      {request && request?.request.status !== RequestStatus.DRAFT && (
         <div className={classNames.btnsBlockWrapper}>
           <div className={classNames.btnsWrapper}>
             <Button variant="outlined" color="danger" className={classNames.button} onClick={onClickCancelBtn}>

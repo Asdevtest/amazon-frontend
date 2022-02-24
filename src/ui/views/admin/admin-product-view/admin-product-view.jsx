@@ -42,13 +42,12 @@ export class AdminProductView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} user={textConsts.appUser} />
+        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
             history={history}
-            user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>

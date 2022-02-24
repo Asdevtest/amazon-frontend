@@ -3,6 +3,7 @@ import Radio from '@mui/material/Radio'
 import React, {useState} from 'react'
 
 import {Checkbox, Divider, Typography} from '@material-ui/core'
+import clsx from 'clsx'
 
 // import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
@@ -46,6 +47,8 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
 
+  const [deadlineError, setDeadlineError] = useState(false)
+
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
     if (['maxAmountOfProposals'].includes(fieldName)) {
@@ -57,7 +60,7 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
       return
     } else if (['timeoutAt'].includes(fieldName)) {
       newFormFields[section][fieldName] = event
-      // setDeadlineError(false) // пока оставлю
+      setDeadlineError(false) // пока оставлю
     } else {
       newFormFields[section][fieldName] = event.target.value
     }
@@ -65,19 +68,29 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
     setFormFields(newFormFields)
   }
 
+  const isDeadlineError = formFields.request.timeoutAt < new Date()
+
   const onSuccessSubmit = () => {
-    if (curStep === stepVariant.STEP_ONE) {
-      setCurStep(stepVariant.STEP_TWO)
+    if (isDeadlineError) {
+      setDeadlineError(!deadlineError)
     } else {
-      onCreateSubmit(formFields)
+      if (curStep === stepVariant.STEP_ONE) {
+        setCurStep(stepVariant.STEP_TWO)
+      } else {
+        onCreateSubmit(formFields)
+      }
     }
   }
 
   const onClickBackBtn = () => {
-    if (curStep === stepVariant.STEP_ONE) {
-      history.goBack()
+    if (isDeadlineError) {
+      setDeadlineError(!deadlineError)
     } else {
-      setCurStep(stepVariant.STEP_ONE)
+      if (curStep === stepVariant.STEP_ONE) {
+        history.goBack()
+      } else {
+        setCurStep(stepVariant.STEP_ONE)
+      }
     }
   }
 
@@ -134,7 +147,7 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
 
             <div className={classNames.rightWrapper}>
               <Field
-                label={'Введите цену предложения*'}
+                label={'Введите цену предложения $*'}
                 value={formFields.request.price}
                 onChange={onChangeField('request')('price')}
               />
@@ -148,7 +161,7 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
               /> */}
 
               <Field
-                label={'Введите количество предложений'}
+                label={'Введите количество предложений*'}
                 value={formFields.request.maxAmountOfProposals}
                 onChange={onChangeField('request')('maxAmountOfProposals')}
               />
@@ -156,9 +169,13 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
               <Field
                 label={'Когда Вы хотите получить результат?*'}
                 inputComponent={
-                  <div /* className={clsx({[classNames.deadlineError]: deadlineError})}*/>
+                  <div className={clsx({[classNames.deadlineError]: deadlineError})}>
                     <DatePicker value={formFields.request.timeoutAt} onChange={onChangeField('request')('timeoutAt')} />
-                    {/* {deadlineError && <p className={classNames.deadlineErrorText}>{textConsts.deadlineError}</p>} */}
+                    {deadlineError && (
+                      <p className={classNames.deadlineErrorText}>
+                        {'The deadline date cannot be later than the current date'}
+                      </p>
+                    )}
                   </div>
                 }
               />

@@ -158,7 +158,7 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onClickEditBtn() {
-    this.history.push('/client/create-or-edit-request', {request: toJS(this.request)})
+    this.history.push('/create-or-edit-request', {request: toJS(this.request)})
   }
 
   async onSubmitAbortRequest(comment) {

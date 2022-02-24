@@ -18,14 +18,14 @@ export const financesViewColumns = () => [
     field: 'createdAt',
     headerName: textConsts.createDateField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 130,
+    width: 110,
     type: 'date',
   },
 
   {
     field: 'type',
     headerName: textConsts.typeField,
-    width: 110,
+    width: 90,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
@@ -48,6 +48,13 @@ export const financesViewColumns = () => [
     field: 'recipientName',
     headerName: textConsts.recipientNameField,
     width: 170,
+    renderCell: params => renderFieldValueCell(params.value),
+  },
+
+  {
+    field: 'paymentType',
+    headerName: textConsts.paymentTypeField,
+    width: 230,
     renderCell: params => renderFieldValueCell(params.value),
   },
 

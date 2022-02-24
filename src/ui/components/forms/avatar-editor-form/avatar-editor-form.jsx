@@ -4,11 +4,16 @@ import {Typography} from '@material-ui/core'
 import Avatar from 'react-avatar-edit'
 
 import {Button} from '@components/buttons/button'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
 import {useClassNames} from './avatar-editor-form.style'
 
 export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
   const classNames = useClassNames()
+
+  const [showInfoModal, setShowInfoModal] = useState(false)
+
+  const [showInfoModalText, setShowInfoModalText] = useState('')
 
   const [state, setState] = useState({
     preview: null,
@@ -23,8 +28,23 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
   }
 
   const onBeforeFileLoad = elem => {
+    console.log('elem', elem)
+
     if (elem.target.files[0].size > 15728640) {
-      alert('File is too big!')
+      // alert('File is too big!')
+
+      setShowInfoModalText('Файл слишком большой!')
+      setShowInfoModal(true)
+      elem.target.value = ''
+    } else if (
+      !['image/jpeg', 'image/png', 'image/ico', 'image/gif', 'image/svg', 'image/webp', 'image/avif'].includes(
+        elem.target.files[0].type,
+      )
+    ) {
+      // alert('Noooooo!')
+
+      setShowInfoModalText('Неподходящий формат!')
+      setShowInfoModal(true)
       elem.target.value = ''
     }
   }
@@ -68,6 +88,16 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
       </div>
 
       <Button onClick={onCloseModal}>{'Отмена'}</Button>
+
+      <WarningInfoModal
+        openModal={showInfoModal}
+        setOpenModal={() => setShowInfoModal(!showInfoModal)}
+        title={showInfoModalText}
+        btnText={'Ок'}
+        onClickBtn={() => {
+          setShowInfoModal(!showInfoModal)
+        }}
+      />
     </div>
   )
 }

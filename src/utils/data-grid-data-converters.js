@@ -444,6 +444,8 @@ export const financesDataConverter = data =>
     comment: item.comment,
     sum: item.sum,
     type: item.sum > 0 ? 'replenish' : item.sum < 0 ? 'fine' : 'zero',
+    paymentType: item.paymentType,
+    entityId: item.entityId,
   }))
 
 export const adminUsersDataConverter = data =>

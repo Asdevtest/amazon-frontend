@@ -85,12 +85,7 @@ class WarehouseSubUsersViewRaw extends Component {
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={''}
-            setDrawerOpen={onChangeDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <Box className={this.props.classes.buttonBox}>
                 <SuccessButton onClick={() => onTriggerOpenModal('showAddSubUserModal')}>

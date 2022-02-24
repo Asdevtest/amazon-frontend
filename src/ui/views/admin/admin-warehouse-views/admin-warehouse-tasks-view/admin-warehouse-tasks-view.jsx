@@ -70,7 +70,6 @@ export class AdminWarehouseTasksViewRaw extends Component {
           activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeDrawerOpen}
-          user={textConsts.appUser}
         />
         <Main>
           <Appbar

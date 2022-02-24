@@ -29,6 +29,12 @@ const allowOrderStatuses = [
   `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
   `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
   `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+  `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+]
+
+const disabledOrderStatuses = [
+  `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+  `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
 ]
 
 export const SelectFields = ({
@@ -122,10 +128,9 @@ export const SelectFields = ({
                 key={statusIndex}
                 value={statusCode}
                 className={clsx({
-                  [classNames.disableSelect]:
-                    statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+                  [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
                 })}
-                disabled={statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`}
+                disabled={disabledOrderStatuses.includes(statusCode)}
               >
                 {getOrderStatusOptionByCode(statusCode).label}
               </option>

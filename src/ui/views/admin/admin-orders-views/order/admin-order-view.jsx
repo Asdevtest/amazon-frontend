@@ -33,7 +33,7 @@ export class AdminOrderView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} user={textConsts.appUser} />
+        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
