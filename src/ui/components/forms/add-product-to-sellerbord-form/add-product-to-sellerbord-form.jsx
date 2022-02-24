@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useState} from 'react'
@@ -106,7 +107,7 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
       </div>
 
       <div>
-        <Field
+        {/* <Field
           label={textConsts.linkLabel}
           inputComponent={
             <div className={classNames.inputWrapper}>
@@ -127,9 +128,10 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
               </Button>
             </div>
           }
-        />
+        /> */}
 
         <Field
+          disabled
           inputProps={{maxLength: 1000}}
           label={textConsts.asin}
           value={formFields.id}
@@ -147,15 +149,15 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
                     <Grid key={index} item className={classNames.skuItemWrapper}>
                       <Typography className={classNames.skuItemTitle}>{item}</Typography>
 
-                      <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
+                      {/* <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
                         <DeleteIcon className={classNames.deleteBtn} />
-                      </IconButton>
+                      </IconButton> */}
                     </Grid>
                   ))}
                 </Grid>
               ) : null}
 
-              <div className={classNames.inputWrapper}>
+              {/* <div className={classNames.inputWrapper}>
                 <Input
                   placeholder={textConsts.skuHolder}
                   value={skuLine}
@@ -172,12 +174,13 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
                 >
                   {textConsts.addSkuBtn}
                 </Button>
-              </div>
+              </div> */}
             </div>
           }
         />
 
         <Field
+          disabled
           label={textConsts.title}
           value={formFields.amazonTitle}
           placeholder={textConsts.title}

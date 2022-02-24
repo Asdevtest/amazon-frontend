@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 
-import {Typography} from '@material-ui/core'
+import {Typography, Avatar as AvatarMui} from '@material-ui/core'
+import clsx from 'clsx'
 import Avatar from 'react-avatar-edit'
 
 import {Button} from '@components/buttons/button'
@@ -28,21 +29,22 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
   }
 
   const onBeforeFileLoad = elem => {
-    console.log('elem', elem)
-
     if (elem.target.files[0].size > 15728640) {
-      // alert('File is too big!')
-
       setShowInfoModalText('Файл слишком большой!')
       setShowInfoModal(true)
       elem.target.value = ''
     } else if (
-      !['image/jpeg', 'image/png', 'image/ico', 'image/gif', 'image/svg', 'image/webp', 'image/avif'].includes(
-        elem.target.files[0].type,
-      )
+      ![
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/ico',
+        'image/gif',
+        'image/svg',
+        'image/webp',
+        'image/avif',
+      ].includes(elem.target.files[0].type)
     ) {
-      // alert('Noooooo!')
-
       setShowInfoModalText('Неподходящий формат!')
       setShowInfoModal(true)
       elem.target.value = ''
@@ -51,7 +53,7 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h4">{'Установите свой аватар'}</Typography>
+      <Typography variant="h4">{'Загрузить фотографию'}</Typography>
 
       <div className={classNames.mainWrapper}>
         <Avatar
@@ -59,6 +61,7 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
           height={210}
           labelStyle={{
             width: '100%',
+            backgroundColor: '#EBEBEB',
             textAlign: 'center',
             transition: '0.3s ease',
             cursor: 'pointer',
@@ -76,18 +79,33 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
           onBeforeFileLoad={onBeforeFileLoad}
         />
 
-        {state.preview && (
-          <div className={classNames.imgWrapper}>
-            <img className={classNames.img} src={state.preview} alt="Preview" />
-
-            <div className={classNames.btnsWrapper}>
-              <Button onClick={() => onSubmit(state.preview)}>{'Сохранить'}</Button>
-            </div>
-          </div>
-        )}
+        <div className={classNames.imgWrapper}>
+          <AvatarMui className={classNames.img} src={state.preview} />
+        </div>
       </div>
 
-      <Button onClick={onCloseModal}>{'Отмена'}</Button>
+      <div className={classNames.textsWrapper}>
+        <Typography className={clsx({[classNames.successText]: state.preview})}>
+          {`Размер изображения не должен превышать`} {<span className={classNames.spanText}>{'15 Мб.'}</span>}
+        </Typography>
+
+        <Typography className={clsx({[classNames.successText]: state.preview})}>
+          {'Допустимые форматы изображений '}
+          {'('}
+          {<span className={classNames.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}
+          {')'}
+        </Typography>
+      </div>
+
+      <div className={classNames.btnsWrapper}>
+        <Button disabled={!state.preview} onClick={() => onSubmit(state.preview)}>
+          {'Загрузить фотографию'}
+        </Button>
+
+        <Button variant="text" className={classNames.cancelBtn} onClick={onCloseModal}>
+          {'Отмена'}
+        </Button>
+      </div>
 
       <WarningInfoModal
         openModal={showInfoModal}

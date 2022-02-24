@@ -209,6 +209,8 @@ export class ClientDailySellerBoardViewModel {
 
       const result = await ClientModel.createProduct(resData)
 
+      await SellerBoardModel.bindStockProductsBySku({productId: result.guid, skus: data.skusByClient})
+
       if (result) {
         this.selectedRowId = result.guid
 

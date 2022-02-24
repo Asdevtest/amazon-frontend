@@ -59,6 +59,11 @@ class OtherModelStatic {
     return response
   }
 
+  uploadFileByUrl = async url => {
+    const response = await restApiService.otherApi.apiV1OtherUploadFileByUrlPost({body: {fileUrl: url}})
+    return response
+  }
+
   getPaymentsByProductId = async id => {
     const response = await restApiService.otherApi.apiV1OtherPaymentsByProductGuidGet(id)
     return response

@@ -38,7 +38,9 @@ export async function onSubmitPostImages({images, type}) {
     const image = images[i]
 
     if (typeof image === 'string') {
-      this[type].push(image)
+      const result = await OtherModel.uploadFileByUrl(image)
+
+      this[type].push(BACKEND_API_URL + '/uploads/' + result.fileName)
     } else {
       await onPostImage(image)
     }
