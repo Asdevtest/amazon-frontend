@@ -392,7 +392,7 @@ export const adminTasksDataConverter = data =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     description: item.description,
-    storekeeper: item.storekeeper?.email,
+    storekeeper: item.storekeeper?.name || '',
   }))
 
 export const adminBoxesDataConverter = data =>

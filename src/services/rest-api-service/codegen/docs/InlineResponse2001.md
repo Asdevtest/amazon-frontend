@@ -27,6 +27,6 @@ Name | Type | Description | Notes
 **updatedAt** | **String** |  | [optional] 
 **amount** | **Number** | кол-во | [optional] 
 **product** | [**InlineResponse200**](InlineResponse200.md) |  | 
-**createdBy** | [**ApiV1AdminsOrdersCreatedBy**](ApiV1AdminsOrdersCreatedBy.md) |  | [optional] 
+**createdBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
 
 

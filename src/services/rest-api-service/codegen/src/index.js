@@ -20,9 +20,10 @@ import ApiV1AdminsBatchesItems from './model/ApiV1AdminsBatchesItems';
 import ApiV1AdminsGetProductsByStatusClient from './model/ApiV1AdminsGetProductsByStatusClient';
 import ApiV1AdminsGetProductsByStatusCurrentSupplier from './model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
 import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
-import ApiV1AdminsOrdersCreatedBy from './model/ApiV1AdminsOrdersCreatedBy';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
+import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
 import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
+import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStorekeeper';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
@@ -265,22 +266,28 @@ export {
     ApiV1AdminsGetProductsByStatusListingSupplierCompetitors,
 
     /**
-     * The ApiV1AdminsOrdersCreatedBy model constructor.
-     * @property {module:model/ApiV1AdminsOrdersCreatedBy}
-     */
-    ApiV1AdminsOrdersCreatedBy,
-
-    /**
      * The ApiV1AdminsPaymentsCreatedBy model constructor.
      * @property {module:model/ApiV1AdminsPaymentsCreatedBy}
      */
     ApiV1AdminsPaymentsCreatedBy,
 
     /**
+     * The ApiV1AdminsProductsVacCheckedby model constructor.
+     * @property {module:model/ApiV1AdminsProductsVacCheckedby}
+     */
+    ApiV1AdminsProductsVacCheckedby,
+
+    /**
      * The ApiV1AdminsTasksLightBoxes model constructor.
      * @property {module:model/ApiV1AdminsTasksLightBoxes}
      */
     ApiV1AdminsTasksLightBoxes,
+
+    /**
+     * The ApiV1AdminsTasksLightStorekeeper model constructor.
+     * @property {module:model/ApiV1AdminsTasksLightStorekeeper}
+     */
+    ApiV1AdminsTasksLightStorekeeper,
 
     /**
      * The ApiV1BoxesItems model constructor.

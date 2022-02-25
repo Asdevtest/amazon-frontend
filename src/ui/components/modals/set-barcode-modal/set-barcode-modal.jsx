@@ -29,7 +29,7 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, product, orde
           className={classNames.input}
           inputProps={{maxLength: 2000}}
           value={barCode}
-          onChange={e => setBarCode(e.target.value)}
+          onChange={e => setBarCode(e.target.value.replace(' ', ''))}
         />
       </Box>
       <Divider className={classNames.divider} />

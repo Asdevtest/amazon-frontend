@@ -99,7 +99,7 @@ export const MergeBoxesModal = ({
         label={textConsts.shippingLabel}
         value={boxBody.shippingLabel}
         error={boxBody.shippingLabel.length < 5 && boxBody.shippingLabel.length > 0 && textConsts.shippingLabelError}
-        onChange={e => setBoxBody({...boxBody, shippingLabel: e.target.value})}
+        onChange={e => setBoxBody({...boxBody, shippingLabel: e.target.value.replace(' ', '')})}
       />
 
       <Field

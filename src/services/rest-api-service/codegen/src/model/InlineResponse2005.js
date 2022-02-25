@@ -15,6 +15,7 @@ import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
 import ApiV1AdminsGetProductsByStatusCurrentSupplier from './ApiV1AdminsGetProductsByStatusCurrentSupplier';
 import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
+import ApiV1AdminsProductsVacCheckedby from './ApiV1AdminsProductsVacCheckedby';
 
 /**
  * The InlineResponse2005 model module.
@@ -26,7 +27,6 @@ class InlineResponse2005 {
      * Constructs a new <code>InlineResponse2005</code>.
      * @alias module:model/InlineResponse2005
      * @param _id {String} GUID продукта в базе данных
-     * @param asin {String} ASIN продукта
      * @param lamazon {String} Ссылка на этот продукт на амазоне.
      * @param bsr {Number} 
      * @param fba {Boolean} Признак fba
@@ -34,9 +34,9 @@ class InlineResponse2005 {
      * @param suppliers {Array.<module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier>} 
      * @param icomment {String} Комментарии к товару.
      */
-    constructor(_id, asin, lamazon, bsr, fba, amazon, suppliers, icomment) { 
+    constructor(_id, lamazon, bsr, fba, amazon, suppliers, icomment) { 
         
-        InlineResponse2005.initialize(this, _id, asin, lamazon, bsr, fba, amazon, suppliers, icomment);
+        InlineResponse2005.initialize(this, _id, lamazon, bsr, fba, amazon, suppliers, icomment);
     }
 
     /**
@@ -44,9 +44,8 @@ class InlineResponse2005 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, asin, lamazon, bsr, fba, amazon, suppliers, icomment) { 
+    static initialize(obj, _id, lamazon, bsr, fba, amazon, suppliers, icomment) { 
         obj['_id'] = _id;
-        obj['asin'] = asin;
         obj['lamazon'] = lamazon;
         obj['bsr'] = bsr;
         obj['fba'] = fba;
@@ -271,7 +270,7 @@ class InlineResponse2005 {
                 obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
             }
             if (data.hasOwnProperty('checkedby')) {
-                obj['checkedby'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['checkedby']);
+                obj['checkedby'] = ApiV1AdminsProductsVacCheckedby.constructFromObject(data['checkedby']);
             }
         }
         return obj;
@@ -682,7 +681,7 @@ InlineResponse2005.prototype['strategyStatus'] = undefined;
 InlineResponse2005.prototype['needCheckBySupervisor'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusClient} checkedby
+ * @member {module:model/ApiV1AdminsProductsVacCheckedby} checkedby
  */
 InlineResponse2005.prototype['checkedby'] = undefined;
 

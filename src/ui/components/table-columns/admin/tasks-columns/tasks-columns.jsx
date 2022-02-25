@@ -17,7 +17,7 @@ export const adminTasksViewColumns = handlers => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
-    width: 250,
+    width: 110,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
@@ -25,7 +25,7 @@ export const adminTasksViewColumns = handlers => [
   {
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
-    width: 250,
+    width: 110,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
@@ -33,7 +33,7 @@ export const adminTasksViewColumns = handlers => [
   {
     field: 'operationType',
     headerName: textConsts.typeField,
-    width: 250,
+    width: 120,
     renderCell: params => renderFieldValueCell(params.value),
   },
 

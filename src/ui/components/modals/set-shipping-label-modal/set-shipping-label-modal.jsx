@@ -30,7 +30,7 @@ export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, o
         inputProps={{maxLength: 1000}}
         value={shippingLabel}
         error={shippingLabel.length < 5 && shippingLabel.length > 0 && textConsts.shippingLabelError}
-        onChange={e => setShippingLabel(e.target.value)}
+        onChange={e => setShippingLabel(e.target.value.replace(' ', ''))}
       />
 
       <Divider className={classNames.divider} />

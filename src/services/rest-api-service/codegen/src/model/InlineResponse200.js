@@ -26,7 +26,6 @@ class InlineResponse200 {
      * Constructs a new <code>InlineResponse200</code>.
      * @alias module:model/InlineResponse200
      * @param _id {String} GUID продукта в базе данных
-     * @param asin {String} ASIN продукта
      * @param lamazon {String} Ссылка на этот продукт на амазоне.
      * @param bsr {Number} 
      * @param fba {Boolean} Признак fba
@@ -34,9 +33,9 @@ class InlineResponse200 {
      * @param suppliers {Array.<module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier>} 
      * @param icomment {String} Комментарии к товару.
      */
-    constructor(_id, asin, lamazon, bsr, fba, amazon, suppliers, icomment) { 
+    constructor(_id, lamazon, bsr, fba, amazon, suppliers, icomment) { 
         
-        InlineResponse200.initialize(this, _id, asin, lamazon, bsr, fba, amazon, suppliers, icomment);
+        InlineResponse200.initialize(this, _id, lamazon, bsr, fba, amazon, suppliers, icomment);
     }
 
     /**
@@ -44,9 +43,8 @@ class InlineResponse200 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, asin, lamazon, bsr, fba, amazon, suppliers, icomment) { 
+    static initialize(obj, _id, lamazon, bsr, fba, amazon, suppliers, icomment) { 
         obj['_id'] = _id;
-        obj['asin'] = asin;
         obj['lamazon'] = lamazon;
         obj['bsr'] = bsr;
         obj['fba'] = fba;

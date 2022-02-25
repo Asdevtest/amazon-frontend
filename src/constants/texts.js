@@ -2618,8 +2618,8 @@ export const texts = {
     },
 
     adminTasksTableColumns: {
-      createDateField: 'Дата создания',
-      updateDateField: 'Последнее обновление',
+      createDateField: 'Создано',
+      updateDateField: 'Обновлено',
       typeField: 'Тип',
       descriptionField: 'Описание',
       actionField: 'Действие',

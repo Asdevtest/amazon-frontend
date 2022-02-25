@@ -201,6 +201,7 @@ export const FieldsAndSuppliers = observer(
               input={<Input />}
               onChange={onChangeField('strategyStatus')}
             >
+              <option>{'none'}</option>
               {Object.keys(mapProductStrategyStatusEnum)
                 .filter(el => el > 0)
                 .map((statusCode, statusIndex) => (
@@ -218,7 +219,9 @@ export const FieldsAndSuppliers = observer(
             (checkIsClient(curUserRole) && !product.isCreatedByClient) ||
             (checkIsClient(curUserRole) && !clientToEditStatuses.includes(productBase.status)) ||
             checkIsSupervisor(curUserRole) ||
-            checkIsAdmin(curUserRole)
+            checkIsAdmin(curUserRole) ||
+            (checkIsResearcher(curUserRole) &&
+              productBase.status === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])
           ) ? (
             <div className={classNames.supplierActionsWrapper}>
               <Typography variant="h6" className={classNames.supplierActionsTitle}>

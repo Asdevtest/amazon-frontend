@@ -49,18 +49,18 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cancelBtn: {
-    backgroundColor: '#FF1616',
+    backgroundColor: '#F44336',
     '&:hover': {
       opacity: '0.8',
-      backgroundColor: '#FF1616',
+      backgroundColor: '#F44336',
     },
   },
 
   successBtn: {
-    backgroundColor: '#00B746',
+    backgroundColor: '#4CAF50',
     '&:hover': {
       opacity: '0.8',
-      backgroundColor: '#00B746',
+      backgroundColor: '#4CAF50',
     },
   },
 

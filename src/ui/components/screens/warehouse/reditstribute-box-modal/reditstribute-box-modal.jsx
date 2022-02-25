@@ -201,7 +201,11 @@ export const RedistributeBox = ({
 
   const onChangeField = (e, field, boxId) => {
     const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
-    const updatedTargetBox = {...targetBox, [field]: e.target.value}
+
+    const updatedTargetBox = {
+      ...targetBox,
+      [field]: field === 'shippingLabel' ? e.target.value.replace(' ', '') : e.target.value,
+    }
 
     const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
 

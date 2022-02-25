@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsOrdersCreatedBy from './ApiV1AdminsOrdersCreatedBy';
+import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
 import InlineResponse200 from './InlineResponse200';
 
 /**
@@ -130,7 +130,7 @@ class InlineResponse2001 {
                 obj['product'] = InlineResponse200.constructFromObject(data['product']);
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsOrdersCreatedBy.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['createdBy']);
             }
         }
         return obj;
@@ -274,7 +274,7 @@ InlineResponse2001.prototype['amount'] = undefined;
 InlineResponse2001.prototype['product'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsOrdersCreatedBy} createdBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} createdBy
  */
 InlineResponse2001.prototype['createdBy'] = undefined;
 
