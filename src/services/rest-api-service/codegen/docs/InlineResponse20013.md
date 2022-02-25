@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**isExist** | **Boolean** | Флаг, показывает есть ли такой id в базе или нет | [optional] 
+**isExist** | **Boolean** | Флаг, показывает есть ли такой ASIN в базе или нет | [optional] 
 
 

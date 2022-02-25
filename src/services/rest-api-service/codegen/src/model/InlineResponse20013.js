@@ -59,7 +59,7 @@ class InlineResponse20013 {
 }
 
 /**
- * Флаг, показывает есть ли такой id в базе или нет
+ * Флаг, показывает есть ли такой ASIN в базе или нет
  * @member {Boolean} isExist
  */
 InlineResponse20013.prototype['isExist'] = undefined;

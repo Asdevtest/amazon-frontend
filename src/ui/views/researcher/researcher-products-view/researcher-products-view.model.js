@@ -122,6 +122,7 @@ export class ResearcherProductsViewModel {
       this.error = 'Product code field is required for this action'
       return
     }
+
     const checkProductExistResult = await this.checkProductExists(this.formFields.productCode)
     if (checkProductExistResult) {
       runInAction(() => {
@@ -129,6 +130,7 @@ export class ResearcherProductsViewModel {
         return
       })
     }
+
     runInAction(() => {
       this.chekedCode = this.formFields.productCode
     })
@@ -141,7 +143,7 @@ export class ResearcherProductsViewModel {
         return
       }
       const product = {
-        id: this.formFields.productCode,
+        asin: this.formFields.productCode,
         lamazon: this.formFields.amazonLink,
         strategyStatus: Number(this.formFields.strategyStatus),
         fba: true,
@@ -166,6 +168,7 @@ export class ResearcherProductsViewModel {
         ...product,
         reffee: 15,
       }
+
       const response = await ResearcherModel.createProduct(productFullData)
 
       this.setActionStatus(loadingStatuses.success)

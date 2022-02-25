@@ -46,22 +46,22 @@ export default class ResearcherApi {
 
     /**
      * Проверить продукт по ID существует ли он в базе.
-     * Проверить продукт по ID существует ли он в базе.  В базе id продукта (asin) должно быть уникально. База не даст завести дубль. Перед добавление продукта   нужно проверить, нет ли в базе уже продукта с таким ID   
-     * @param {String} id id для проверки
+     * Проверить продукт по ID существует ли он в базе.  В базе ASIN продукта должно быть уникально. База не даст завести дубль. Перед добавление продукта   нужно проверить, нет ли в базе уже продукта с таким ID   
+     * @param {String} asin ASIN для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20013} and HTTP response
      */
-    apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts) {
+    apiV1ResearchersCheckProductsAsinGetWithHttpInfo(asin, opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling apiV1ResearchersCheckProductsIdGet");
+      // verify the required parameter 'asin' is set
+      if (asin === undefined || asin === null) {
+        throw new Error("Missing the required parameter 'asin' when calling apiV1ResearchersCheckProductsAsinGet");
       }
 
       let pathParams = {
-        'id': id
+        'asin': asin
       };
       let queryParams = {
       };
@@ -76,7 +76,7 @@ export default class ResearcherApi {
       let accepts = ['application/json'];
       let returnType = InlineResponse20013;
       return this.apiClient.callApi(
-        '/api/v1/researchers/check_products/{id}', 'GET',
+        '/api/v1/researchers/check_products/{asin}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -84,14 +84,14 @@ export default class ResearcherApi {
 
     /**
      * Проверить продукт по ID существует ли он в базе.
-     * Проверить продукт по ID существует ли он в базе.  В базе id продукта (asin) должно быть уникально. База не даст завести дубль. Перед добавление продукта   нужно проверить, нет ли в базе уже продукта с таким ID   
-     * @param {String} id id для проверки
+     * Проверить продукт по ID существует ли он в базе.  В базе ASIN продукта должно быть уникально. База не даст завести дубль. Перед добавление продукта   нужно проверить, нет ли в базе уже продукта с таким ID   
+     * @param {String} asin ASIN для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20013}
      */
-    apiV1ResearchersCheckProductsIdGet(id, opts) {
-      return this.apiV1ResearchersCheckProductsIdGetWithHttpInfo(id, opts)
+    apiV1ResearchersCheckProductsAsinGet(asin, opts) {
+      return this.apiV1ResearchersCheckProductsAsinGetWithHttpInfo(asin, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -156,7 +156,7 @@ export default class ResearcherApi {
      * Получить данные о продукте с SellerCentral
      * Получить данные о продукте с SellerCentral  
      * @param {Object} opts Optional parameters
-     * @param {String} opts.id ASIN продукта
+     * @param {String} opts.asin ASIN продукта
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20014} and HTTP response
@@ -168,7 +168,7 @@ export default class ResearcherApi {
       let pathParams = {
       };
       let queryParams = {
-        'id': opts['id'],
+        'asin': opts['asin'],
         'price': opts['price']
       };
       let headerParams = {
@@ -192,7 +192,7 @@ export default class ResearcherApi {
      * Получить данные о продукте с SellerCentral
      * Получить данные о продукте с SellerCentral  
      * @param {Object} opts Optional parameters
-     * @param {String} opts.id ASIN продукта
+     * @param {String} opts.asin ASIN продукта
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20014}

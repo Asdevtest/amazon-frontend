@@ -71,13 +71,13 @@ class InlineObject48 {
 InlineObject48.prototype['name'] = undefined;
 
 /**
- * URL для скачивания ежедневных отчетов SellerBoard.
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
  * @member {String} sellerBoardWarehouseReportUrlDaily
  */
 InlineObject48.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
 
 /**
- * URL для скачивания отчетов SellerBoard за последний месяц.
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
  * @member {String} sellerBoardWarehouseReportUrlMonthly
  */
 InlineObject48.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;

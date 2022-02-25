@@ -24,8 +24,8 @@ class InlineObject47 {
      * Схема магазина.
      * @alias module:model/InlineObject47
      * @param name {String} Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
-     * @param sellerBoardWarehouseReportUrlDaily {String} URL для скачивания ежедневных отчетов SellerBoard.
-     * @param sellerBoardWarehouseReportUrlMonthly {String} URL для скачивания отчетов SellerBoard за последний месяц.
+     * @param sellerBoardWarehouseReportUrlDaily {String} uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+     * @param sellerBoardWarehouseReportUrlMonthly {String} uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
      */
     constructor(name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
         
@@ -77,13 +77,13 @@ class InlineObject47 {
 InlineObject47.prototype['name'] = undefined;
 
 /**
- * URL для скачивания ежедневных отчетов SellerBoard.
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
  * @member {String} sellerBoardWarehouseReportUrlDaily
  */
 InlineObject47.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
 
 /**
- * URL для скачивания отчетов SellerBoard за последний месяц.
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
  * @member {String} sellerBoardWarehouseReportUrlMonthly
  */
 InlineObject47.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;

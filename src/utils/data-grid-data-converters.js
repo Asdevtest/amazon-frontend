@@ -35,7 +35,8 @@ export const researcherProductsDataConverter = data =>
     createdAt: item.createdAt,
     amazon: item.amazon,
     bsr: item.bsr,
-    id: item.id,
+    asin: item.asin,
+    id: item._id,
   }))
 
 export const researcherFinancesDataConverter = data =>

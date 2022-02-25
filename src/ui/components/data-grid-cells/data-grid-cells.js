@@ -37,7 +37,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
         <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
         <Typography className={classNames.typoCell}>
           {textConsts.asinTypo}
-          <span className={classNames.typoSpan}>{product.id}</span>
+          <span className={classNames.typoSpan}>{product.asin}</span>
           {` | ${formatDateDistanceFromNow(product.createdAt)}`}
         </Typography>
         <Typography className={classNames.csCodeTypo}>{product.category}</Typography>
@@ -177,7 +177,7 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
       <Typography className={classNames.orderTitle}>{product.amazonTitle}</Typography>
       <Typography className={classNames.orderText}>
         <span className={classNames.orderTextSpan}>{textConsts.id}</span>
-        {product.id}
+        {product.asin}
       </Typography>
       {superbox && (
         <Typography className={classNames.superboxTypo}>{`${textConsts.superboxTypo} x ${superbox}`}</Typography>
@@ -464,7 +464,7 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box}
             <Typography className={classNames.manyItemsOrderTitle}>{item.product.amazonTitle}</Typography>
             <Typography className={classNames.orderText}>
               <span className={classNames.orderTextSpan}>{textConsts.id}</span>
-              {item.product.id}
+              {item.product.asin}
             </Typography>
           </div>
         </div>
@@ -539,7 +539,7 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
             <Typography className={classNames.batchProductTitle}>{item.product.amazonTitle}</Typography>
             <Typography className={classNames.orderText}>
               <span className={classNames.orderTextSpan}>{textConsts.id}</span>
-              {item.product.id}
+              {item.product.asin}
               {box.sendToBatchComplete && <span className={classNames.sendSuccess}>{' Отправлено'}</span>}
             </Typography>
             <Typography className={classNames.imgNum}>{`x ${item.amount}`}</Typography>

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | ASIN продукта | 
+**asin** | **String** | ASIN продукта | 
 **lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
 **lsupplier** | **String** | Ссылка на этот продукт на поставщика. | [optional] 
 **currentSupplierId** | **String** | GUID поставщика | [optional] 

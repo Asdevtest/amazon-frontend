@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | ASIN продукта | 
+**asin** | **String** | ASIN продукта | 
 **skusByClient** | **[String]** |  | [optional] 
 **material** | **String** | add to new functional | [optional] 
 **currentSupplierId** | **String** | GUID поставщика, если передать строку \&quot;clear\&quot; то поставщику будет сброшен (у байера и ресечера). | [optional] 

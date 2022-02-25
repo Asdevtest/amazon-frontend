@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestsGuidPickupProposalDetails from './ApiV1RequestsGuidPickupProposalDetails';
 
 /**
  * The InlineObject43 model module.
@@ -54,6 +55,9 @@ class InlineObject43 {
             if (data.hasOwnProperty('execution_time')) {
                 obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
+            if (data.hasOwnProperty('proposalDetails')) {
+                obj['proposalDetails'] = ApiV1RequestsGuidPickupProposalDetails.constructFromObject(data['proposalDetails']);
+            }
         }
         return obj;
     }
@@ -72,6 +76,11 @@ InlineObject43.prototype['price'] = undefined;
  * @member {Number} execution_time
  */
 InlineObject43.prototype['execution_time'] = undefined;
+
+/**
+ * @member {module:model/ApiV1RequestsGuidPickupProposalDetails} proposalDetails
+ */
+InlineObject43.prototype['proposalDetails'] = undefined;
 
 
 

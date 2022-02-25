@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV1ResearchersCheckProductsIdGet**](ResearcherApi.md#apiV1ResearchersCheckProductsIdGet) | **GET** /api/v1/researchers/check_products/{id} | Проверить продукт по ID существует ли он в базе.
+[**apiV1ResearchersCheckProductsAsinGet**](ResearcherApi.md#apiV1ResearchersCheckProductsAsinGet) | **GET** /api/v1/researchers/check_products/{asin} | Проверить продукт по ID существует ли он в базе.
 [**apiV1ResearchersParseAmazonIdGet**](ResearcherApi.md#apiV1ResearchersParseAmazonIdGet) | **GET** /api/v1/researchers/parse_amazon/{id} | Получить данные о продукте с сайта Амазон по id(asin)
 [**apiV1ResearchersParseSellercentralGet**](ResearcherApi.md#apiV1ResearchersParseSellercentralGet) | **GET** /api/v1/researchers/parse_sellercentral | Получить данные о продукте с SellerCentral
 [**apiV1ResearchersProductsGet**](ResearcherApi.md#apiV1ResearchersProductsGet) | **GET** /api/v1/researchers/products | Получить список товаров созданных данным пользователем.
@@ -15,13 +15,13 @@ Method | HTTP request | Description
 
 
 
-## apiV1ResearchersCheckProductsIdGet
+## apiV1ResearchersCheckProductsAsinGet
 
-> InlineResponse20013 apiV1ResearchersCheckProductsIdGet(id, opts)
+> InlineResponse20013 apiV1ResearchersCheckProductsAsinGet(asin, opts)
 
 Проверить продукт по ID существует ли он в базе.
 
-Проверить продукт по ID существует ли он в базе.  В базе id продукта (asin) должно быть уникально. База не даст завести дубль. Перед добавление продукта   нужно проверить, нет ли в базе уже продукта с таким ID   
+Проверить продукт по ID существует ли он в базе.  В базе ASIN продукта должно быть уникально. База не даст завести дубль. Перед добавление продукта   нужно проверить, нет ли в базе уже продукта с таким ID   
 
 ### Example
 
@@ -35,11 +35,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.ResearcherApi();
-let id = "id_example"; // String | id для проверки
+let asin = "asin_example"; // String | ASIN для проверки
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1ResearchersCheckProductsIdGet(id, opts).then((data) => {
+apiInstance.apiV1ResearchersCheckProductsAsinGet(asin, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -52,7 +52,7 @@ apiInstance.apiV1ResearchersCheckProductsIdGet(id, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| id для проверки | 
+ **asin** | **String**| ASIN для проверки | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -144,7 +144,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.ResearcherApi();
 let opts = {
-  'id': "id_example", // String | ASIN продукта
+  'asin': "asin_example", // String | ASIN продукта
   'price': 3.4, // Number | Цена продукта.
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -161,7 +161,7 @@ apiInstance.apiV1ResearchersParseSellercentralGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| ASIN продукта | [optional] 
+ **asin** | **String**| ASIN продукта | [optional] 
  **price** | **Number**| Цена продукта. | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 

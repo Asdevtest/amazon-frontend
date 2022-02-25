@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **date** | **String** | \&quot;Date\&quot; | [optional] 
 **marketplace** | **String** | Marketplace | [optional] 
 **asin** | **String** | ASIN | [optional] 
-**sku** | **String** | SKU | 
+**sku** | **String** | SKU | [optional] 
 **name** | **String** | Name | [optional] 
 **salesorganic** | **Number** | SalesOrganic | [optional] 
 **salesppc** | **Number** | SalesPPC | [optional] 

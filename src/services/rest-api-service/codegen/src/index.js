@@ -33,6 +33,7 @@ import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetails';
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
+import ApiV1RequestsGuidPickupProposalDetails from './model/ApiV1RequestsGuidPickupProposalDetails';
 import BadRequestError from './model/BadRequestError';
 import CheckIsUniqueNameOrEmailReqSchema from './model/CheckIsUniqueNameOrEmailReqSchema';
 import CheckIsUniqueNameOrEmailSchema from './model/CheckIsUniqueNameOrEmailSchema';
@@ -340,6 +341,12 @@ export {
      * @property {module:model/ApiV1RequestsCustomRequest}
      */
     ApiV1RequestsCustomRequest,
+
+    /**
+     * The ApiV1RequestsGuidPickupProposalDetails model constructor.
+     * @property {module:model/ApiV1RequestsGuidPickupProposalDetails}
+     */
+    ApiV1RequestsGuidPickupProposalDetails,
 
     /**
      * The BadRequestError model constructor.

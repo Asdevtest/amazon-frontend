@@ -22,12 +22,12 @@ class InlineObject45 {
     /**
      * Constructs a new <code>InlineObject45</code>.
      * @alias module:model/InlineObject45
-     * @param id {String} ASIN продукта
+     * @param asin {String} ASIN продукта
      * @param lamazon {String} Ссылка на этот продукт на амазоне.
      */
-    constructor(id, lamazon) { 
+    constructor(asin, lamazon) { 
         
-        InlineObject45.initialize(this, id, lamazon);
+        InlineObject45.initialize(this, asin, lamazon);
     }
 
     /**
@@ -35,8 +35,8 @@ class InlineObject45 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, lamazon) { 
-        obj['id'] = id;
+    static initialize(obj, asin, lamazon) { 
+        obj['asin'] = asin;
         obj['lamazon'] = lamazon;
     }
 
@@ -51,8 +51,8 @@ class InlineObject45 {
         if (data) {
             obj = obj || new InlineObject45();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
             if (data.hasOwnProperty('lamazon')) {
                 obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
@@ -114,9 +114,9 @@ class InlineObject45 {
 
 /**
  * ASIN продукта
- * @member {String} id
+ * @member {String} asin
  */
-InlineObject45.prototype['id'] = undefined;
+InlineObject45.prototype['asin'] = undefined;
 
 /**
  * Ссылка на этот продукт на амазоне.

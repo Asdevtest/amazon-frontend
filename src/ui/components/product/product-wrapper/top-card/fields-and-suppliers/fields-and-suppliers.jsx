@@ -67,8 +67,8 @@ export const FieldsAndSuppliers = observer(
               )
             }
             label={textConsts.fieldAsin}
-            value={product.id}
-            onChange={onChangeField('id')}
+            value={product.asin}
+            onChange={onChangeField('asin')}
           />
           <Field
             disabled

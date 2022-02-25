@@ -26,7 +26,7 @@ class InlineResponse200 {
      * Constructs a new <code>InlineResponse200</code>.
      * @alias module:model/InlineResponse200
      * @param _id {String} GUID продукта в базе данных
-     * @param id {String} ASIN продукта
+     * @param asin {String} ASIN продукта
      * @param lamazon {String} Ссылка на этот продукт на амазоне.
      * @param bsr {Number} 
      * @param fba {Boolean} Признак fba
@@ -34,9 +34,9 @@ class InlineResponse200 {
      * @param suppliers {Array.<module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier>} 
      * @param icomment {String} Комментарии к товару.
      */
-    constructor(_id, id, lamazon, bsr, fba, amazon, suppliers, icomment) { 
+    constructor(_id, asin, lamazon, bsr, fba, amazon, suppliers, icomment) { 
         
-        InlineResponse200.initialize(this, _id, id, lamazon, bsr, fba, amazon, suppliers, icomment);
+        InlineResponse200.initialize(this, _id, asin, lamazon, bsr, fba, amazon, suppliers, icomment);
     }
 
     /**
@@ -44,9 +44,9 @@ class InlineResponse200 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, id, lamazon, bsr, fba, amazon, suppliers, icomment) { 
+    static initialize(obj, _id, asin, lamazon, bsr, fba, amazon, suppliers, icomment) { 
         obj['_id'] = _id;
-        obj['id'] = id;
+        obj['asin'] = asin;
         obj['lamazon'] = lamazon;
         obj['bsr'] = bsr;
         obj['fba'] = fba;
@@ -69,8 +69,8 @@ class InlineResponse200 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
             if (data.hasOwnProperty('skusByClient')) {
                 obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
@@ -285,9 +285,9 @@ InlineResponse200.prototype['_id'] = undefined;
 
 /**
  * ASIN продукта
- * @member {String} id
+ * @member {String} asin
  */
-InlineResponse200.prototype['id'] = undefined;
+InlineResponse200.prototype['asin'] = undefined;
 
 /**
  * @member {Array.<String>} skusByClient

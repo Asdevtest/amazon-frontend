@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | ASIN продукта | [optional] 
+**asin** | **String** | ASIN продукта | [optional] 
 **skusByClient** | **[String]** |  | [optional] 
 **material** | **String** | add to new functional | [optional] 
 **fbm** | **Boolean** | Признак fbm | [optional] 

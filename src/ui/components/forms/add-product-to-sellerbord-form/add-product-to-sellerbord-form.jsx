@@ -40,14 +40,14 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
 
     setFormFields({
       ...formFields,
-      id: item?.asin || '',
+      asin: item?.asin || '',
       skusByClient: item ? [item.sku] : [],
       amazonTitle: item?.title || '',
     })
   }
 
   const sourceFormFields = {
-    id: '',
+    asin: '',
     skusByClient: [],
     amazonTitle: '',
     images: [],
@@ -70,7 +70,7 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
   }
 
   const onClickParseBtn = () => {
-    setFormFields({...formFields, id: getAmazonCodeFromLink(formFields.lamazon) || ''})
+    setFormFields({...formFields, asin: getAmazonCodeFromLink(formFields.lamazon) || ''})
   }
 
   const onClickSkuBtn = () => {
@@ -134,9 +134,9 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
           disabled
           inputProps={{maxLength: 1000}}
           label={textConsts.asin}
-          value={formFields.id}
+          value={formFields.asin}
           placeholder={textConsts.asin}
-          onChange={onChangeField('id')}
+          onChange={onChangeField('asin')}
         />
 
         <Field

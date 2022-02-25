@@ -94,7 +94,7 @@ const formFieldsDefault = {
   fba: false,
   fbafee: '',
   icomment: '',
-  id: '',
+  asin: '',
   images: [],
   lamazon: '',
   material: '',
@@ -463,9 +463,9 @@ export class ResearcherProductViewModel {
       const parseResult = await (() => {
         switch (productDataParser) {
           case ProductDataParser.AMAZON:
-            return ResearcherModel.parseAmazon(product.id)
+            return ResearcherModel.parseAmazon(product.asin)
           case ProductDataParser.SELLCENTRAL:
-            return ResearcherModel.parseParseSellerCentral(product.id)
+            return ResearcherModel.parseParseSellerCentral(product.asin)
         }
       })()
 

@@ -48,8 +48,8 @@ class InlineObject23 {
         if (data) {
             obj = obj || new InlineObject23();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
             if (data.hasOwnProperty('skusByClient')) {
                 obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
@@ -186,9 +186,9 @@ class InlineObject23 {
 
 /**
  * ASIN продукта
- * @member {String} id
+ * @member {String} asin
  */
-InlineObject23.prototype['id'] = undefined;
+InlineObject23.prototype['asin'] = undefined;
 
 /**
  * @member {Array.<String>} skusByClient

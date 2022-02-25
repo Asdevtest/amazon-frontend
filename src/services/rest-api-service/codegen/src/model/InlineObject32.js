@@ -22,7 +22,7 @@ class InlineObject32 {
     /**
      * Constructs a new <code>InlineObject32</code>.
      * @alias module:model/InlineObject32
-     * @param fileUrl {String} Ссылка на файла, который нужно загрузить.
+     * @param fileUrl {String} uri полный путь до файла, для скачивания
      */
     constructor(fileUrl) { 
         
@@ -60,7 +60,7 @@ class InlineObject32 {
 }
 
 /**
- * Ссылка на файла, который нужно загрузить.
+ * uri полный путь до файла, для скачивания
  * @member {String} fileUrl
  */
 InlineObject32.prototype['fileUrl'] = undefined;

@@ -23,11 +23,11 @@ class InlineObject28 {
     /**
      * Constructs a new <code>InlineObject28</code>.
      * @alias module:model/InlineObject28
-     * @param id {String} ASIN продукта
+     * @param asin {String} ASIN продукта
      */
-    constructor(id) { 
+    constructor(asin) { 
         
-        InlineObject28.initialize(this, id);
+        InlineObject28.initialize(this, asin);
     }
 
     /**
@@ -35,8 +35,8 @@ class InlineObject28 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id) { 
-        obj['id'] = id;
+    static initialize(obj, asin) { 
+        obj['asin'] = asin;
     }
 
     /**
@@ -50,8 +50,8 @@ class InlineObject28 {
         if (data) {
             obj = obj || new InlineObject28();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
             if (data.hasOwnProperty('skusByClient')) {
                 obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
@@ -191,9 +191,9 @@ class InlineObject28 {
 
 /**
  * ASIN продукта
- * @member {String} id
+ * @member {String} asin
  */
-InlineObject28.prototype['id'] = undefined;
+InlineObject28.prototype['asin'] = undefined;
 
 /**
  * @member {Array.<String>} skusByClient

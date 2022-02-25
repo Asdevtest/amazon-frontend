@@ -25,7 +25,7 @@ export const inventoryColumns = (handlers, selectedRow) => [
   },
 
   {
-    field: 'id',
+    field: 'asin',
     headerName: textConsts.asinField,
     width: 120,
   },
