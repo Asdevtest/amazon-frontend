@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {getBuyerDashboardCardConfig, BuyerDashboardCardDataKey} from '@constants/dashboard-configs'
+import {getBuyerDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
@@ -55,22 +55,6 @@ export class BuyerDashboardViewRaw extends Component {
         </Main>
       </React.Fragment>
     )
-  }
-
-  getCardValueByDataKey = dataKey => {
-    const {productsVacant, productsMy, ordersMy, ordersVacant} = this.viewModel
-    switch (dataKey) {
-      case BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_SUPERVISOR:
-        return productsVacant.length
-      case BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT:
-        return 0
-      case BuyerDashboardCardDataKey.ME_PRODUCTS:
-        return productsMy.length
-      case BuyerDashboardCardDataKey.ME_ORDERS:
-        return ordersMy.length
-      case BuyerDashboardCardDataKey.FREE_ORDERS:
-        return ordersVacant.length
-    }
   }
 }
 

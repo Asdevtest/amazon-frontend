@@ -1,24 +1,79 @@
 export const ResearcherDashboardCardDataKey = {
-  PRODUCTS: 'PRODUCTS',
-  CUR_BALANCE: 'CUR_BALANCE',
+  ALL_PRODUCTS: 'ALL_PRODUCTS',
+  SUCCESS_PRODUCTS: 'SUCCESS_PRODUCTS',
+
+  REJECTED_PRODUCTS: 'REJECTED_PRODUCTS',
+  ON_SUPERVISOR_CHECKING: 'ON_SUPERVISOR_CHECKING',
+  ON_SUPPLIER_SEEKING_BY_BUYER: 'ON_SUPPLIER_SEEKING_BY_BUYER',
+  NO_STATUS: 'NO_STATUS',
+
+  REPLENISH: 'REPLENISH',
   FINES: 'FINES',
 }
+
 export const getResearcherDashboardCardConfig = textConsts => [
   {
-    dataKey: ResearcherDashboardCardDataKey.PRODUCTS,
-    title: textConsts.myProductsCardTitle,
-    color: '#63c2de',
-    route: '/researcher/products',
+    key: 'PRODUCTS',
+    title: textConsts.productsTitle,
+    items: [
+      {
+        dataKey: ResearcherDashboardCardDataKey.ALL_PRODUCTS,
+        title: textConsts.allProducts,
+        color: '#006CFF',
+        route: '/researcher/products',
+      },
+      {
+        dataKey: ResearcherDashboardCardDataKey.SUCCESS_PRODUCTS,
+        title: textConsts.successProduts,
+        color: '#00B746',
+        route: '/researcher/products',
+      },
+
+      {
+        dataKey: ResearcherDashboardCardDataKey.REJECTED_PRODUCTS,
+        title: textConsts.rejectedProduts,
+        color: '#BC3030',
+        route: '/researcher/products',
+      },
+
+      {
+        dataKey: ResearcherDashboardCardDataKey.ON_SUPERVISOR_CHECKING,
+        title: textConsts.onSupervisor,
+        color: '#00B746',
+        route: '/researcher/products',
+      },
+
+      {
+        dataKey: ResearcherDashboardCardDataKey.ON_SUPPLIER_SEEKING_BY_BUYER,
+        title: textConsts.seekingByBuyer,
+        color: '#ffc107',
+      },
+      {
+        dataKey: ResearcherDashboardCardDataKey.NO_STATUS,
+        title: textConsts.noStatus,
+        color: '#4dbd74',
+        route: '/researcher/search-supplier-by-client',
+      },
+    ],
   },
+
   {
-    dataKey: ResearcherDashboardCardDataKey.CUR_BALANCE,
-    title: textConsts.curBalanceCardTitle,
-    color: '#4dbd74',
-  },
-  {
-    dataKey: ResearcherDashboardCardDataKey.FINES,
-    title: textConsts.finesCardTitle,
-    color: '#f86c6b',
+    key: 'FINANCES',
+    title: textConsts.financesTitle,
+    items: [
+      {
+        dataKey: ResearcherDashboardCardDataKey.REPLENISH,
+        title: textConsts.replenish,
+        color: '#00B746',
+        route: '/researcher/finances',
+      },
+      {
+        dataKey: ResearcherDashboardCardDataKey.FINES,
+        title: textConsts.fines,
+        color: '#BC3030',
+        route: '/researcher/finances',
+      },
+    ],
   },
 ]
 
@@ -41,59 +96,6 @@ export const getFreelancerDashboardCardConfig = textConsts => [
   },
   {
     dataKey: FreelancerDashboardCardDataKey.FINES,
-    title: textConsts.finesCardTitle,
-    color: '#f86c6b',
-  },
-]
-
-export const SupervisorDashboardCardDataKey = {
-  NEW_PRODUCTS: 'NEW_PRODUCTS',
-  ME_CHECKING: 'ME_CHECKING',
-
-  SUPLIER_FOUNDED: 'SUPLIER_FOUNDED',
-  COMPLETE_SUCCESS: 'COMPLETE_SUCCESS',
-  PURCHASED: 'PURCHASED',
-
-  ACCURED: 'ACCURED',
-  FINES: 'FINES',
-}
-export const getSupervisorDashboardCardConfig = textConsts => [
-  {
-    dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS,
-    title: textConsts.newProductsCardTitle,
-    color: '#63c2de',
-    route: '/supervisor/ready-to-check',
-  },
-  {
-    dataKey: SupervisorDashboardCardDataKey.ME_CHECKING,
-    title: textConsts.meCheckingCardTitle,
-    color: '#FFC107',
-    route: '/supervisor/products',
-  },
-
-  {
-    dataKey: SupervisorDashboardCardDataKey.SUPLIER_FOUNDED,
-    title: textConsts.suplierFoundedCardTitle,
-    color: '#4d23c2',
-  },
-  {
-    dataKey: SupervisorDashboardCardDataKey.COMPLETE_SUCCESS,
-    title: textConsts.completeSuccessCardTitle,
-    color: '#236dc2',
-  },
-  {
-    dataKey: SupervisorDashboardCardDataKey.PURCHASED,
-    title: textConsts.purchasedCardTitle,
-    color: '#5fc2b0',
-  },
-
-  {
-    dataKey: SupervisorDashboardCardDataKey.ACCURED,
-    title: textConsts.accuredCardTitle,
-    color: '#4dbd74',
-  },
-  {
-    dataKey: SupervisorDashboardCardDataKey.FINES,
     title: textConsts.finesCardTitle,
     color: '#f86c6b',
   },
@@ -448,6 +450,94 @@ export const getBuyerDashboardCardConfig = textConsts => [
       },
       {
         dataKey: BuyerDashboardCardDataKey.FINES,
+        title: textConsts.fines,
+        color: '#BC3030',
+        route: '/buyer/finances',
+      },
+    ],
+  },
+]
+
+export const SupervisorDashboardCardDataKey = {
+  ALL_PRODUCTS: 'ALL_PRODUCTS',
+  SUCCESS_PRODUCTS: 'SUCCESS_PRODUCTS',
+  PAYED_PRODUCTS: 'PAYED_PRODUCTS',
+
+  NEW_PRODUCTS_AT_RESEARCHER: 'NEW_PRODUCTS_AT_RESEARCHER',
+  NEW_PRODUCTS_AT_CLIENT: 'NEW_PRODUCTS_AT_CLIENT',
+
+  IN_SEARCH_PRODUCTS: 'IN_SEARCH_PRODUCTS',
+  REJECTED_PRODUCTS: 'REJECTED_PRODUCTS',
+
+  REPLENISH: 'REPLENISH',
+  FINES: 'FINES',
+}
+
+export const getSupervisorDashboardCardConfig = textConsts => [
+  {
+    key: 'PRODUCTS',
+    title: textConsts.productsTitle,
+    items: [
+      {
+        dataKey: SupervisorDashboardCardDataKey.ALL_PRODUCTS,
+        title: textConsts.allProducts,
+        color: '#006CFF',
+        route: '/buyer/my-products',
+      },
+      {
+        dataKey: SupervisorDashboardCardDataKey.SUCCESS_PRODUCTS,
+        title: textConsts.successProduts,
+        color: '#00B746',
+        route: '/buyer/my-products',
+      },
+      {
+        dataKey: SupervisorDashboardCardDataKey.PAYED_PRODUCTS,
+        title: textConsts.payedProducts,
+        color: '#00B746',
+        route: '/buyer/my-products',
+      },
+
+      {
+        dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_RESEARCHER,
+        title: textConsts.produtsAtResearcher,
+        color: '#ffc107',
+        route: '/buyer/search-supplier-by-supervisor',
+      },
+      {
+        dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT,
+        title: textConsts.produtsAtClient,
+        color: '#4dbd74',
+        route: '/buyer/search-supplier-by-client',
+      },
+
+      {
+        dataKey: SupervisorDashboardCardDataKey.IN_SEARCH_PRODUCTS,
+        title: textConsts.inSearchProduts,
+        color: '#ffc107',
+        route: '/buyer/my-products',
+      },
+
+      {
+        dataKey: SupervisorDashboardCardDataKey.REJECTED_PRODUCTS,
+        title: textConsts.rejectedProduts,
+        color: '#BC3030',
+        route: '/buyer/my-products',
+      },
+    ],
+  },
+
+  {
+    key: 'FINANCES',
+    title: textConsts.financesTitle,
+    items: [
+      {
+        dataKey: SupervisorDashboardCardDataKey.REPLENISH,
+        title: textConsts.replenish,
+        color: '#00B746',
+        route: '/buyer/finances',
+      },
+      {
+        dataKey: SupervisorDashboardCardDataKey.FINES,
         title: textConsts.fines,
         color: '#BC3030',
         route: '/buyer/finances',

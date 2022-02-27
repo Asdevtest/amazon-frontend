@@ -1065,10 +1065,31 @@ export const texts = {
       mainTitle: 'Dashboard',
       myRequestsCardTitle: 'Мои заявки',
       curBalanceCardTitle: 'Текущий баланс',
-      finesCardTitle: 'Штрафы',
-      newProductsCardTitle: 'Новых товаров в базе',
-      meCheckingCardTitle: 'У меня на проверке',
-      accuredCardTitle: 'Начислено',
+
+      productsTitle: 'Продукты',
+      ordersTitle: 'Заказы',
+      financesTitle: 'Финансы',
+
+      allProducts: 'Всего товаров',
+      successProduts: 'На бирже',
+      payedProducts: 'Оплаченные',
+      produtsAtSupervisor: 'Новый поиск от супервизора',
+      produtsAtClient: 'Новый поиск от клиента',
+      inSearchProduts: 'В процессе поиска',
+      rejectedProduts: 'Отклоненные',
+
+      inProcessOrders: 'В процессе обработки',
+      freeOrders: 'Свободные',
+      rejectedOrders: 'Выполненные',
+
+      replenish: 'Начисления',
+      fines: 'Штрафы',
+
+      onSupervisor: 'На проверке у супервайзера',
+
+      seekingByBuyer: 'Поиск поставщика байером',
+
+      noStatus: 'Без статуса',
     },
 
     supervisorDashboardView: {
@@ -1088,6 +1109,27 @@ export const texts = {
 
       finesCardTitle: 'Штрафы',
       accuredCardTitle: 'Начислено',
+
+      productsTitle: 'Продукты',
+      ordersTitle: 'Заказы',
+      financesTitle: 'Финансы',
+
+      allProducts: 'Всего товаров',
+      successProduts: 'Выполненные',
+      payedProducts: 'Оплаченные',
+      produtsAtSupervisor: 'Новый поиск от супервизора',
+      produtsAtClient: 'Новый поиск от клиента',
+      inSearchProduts: 'В процессе поиска',
+      rejectedProduts: 'Отклоненные',
+
+      inProcessOrders: 'В процессе обработки',
+      freeOrders: 'Свободные',
+      rejectedOrders: 'Выполненные',
+
+      replenish: 'Начисления',
+      fines: 'Штрафы',
+
+      produtsAtResearcher: 'Новый поиск от ресерчера',
     },
 
     buyerDashboardView: {
