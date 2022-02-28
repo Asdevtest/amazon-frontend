@@ -40,11 +40,7 @@ export const CustomSearchRequestDetails = ({request}) => {
               label={textConsts.conditionsRequest}
               containerClasses={classNames.conditionsFieldWrapper}
               inputComponent={
-                <TextareaAutosize
-                  disabled
-                  className={classNames.conditionsField}
-                  value={request?.details?.conditions}
-                />
+                <TextareaAutosize disabled className={classNames.conditionsField} value={request?.details.conditions} />
               }
             />
           </div>

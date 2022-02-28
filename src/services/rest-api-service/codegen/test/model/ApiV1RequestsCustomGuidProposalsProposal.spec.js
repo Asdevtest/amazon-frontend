@@ -66,15 +66,6 @@
       //expect(instance).to.be();
     });
 
-<<<<<<< HEAD
-=======
-    it('should have the property accepted (base name: "accepted")', function() {
-      // uncomment below and update the code to test the property accepted
-      //var instance = new TestSwagger.ApiV1RequestsCustomGuidProposalsProposal();
-      //expect(instance).to.be();
-    });
-
->>>>>>> c7aea67 (AMAZONSERVICE-820 1/2)
     it('should have the property createdById (base name: "createdById")', function() {
       // uncomment below and update the code to test the property createdById
       //var instance = new TestSwagger.ApiV1RequestsCustomGuidProposalsProposal();

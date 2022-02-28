@@ -7,6 +7,7 @@ export const RequestType = {
 export const RequestSubType = {
   VACANT: 'VACANT',
   MY: 'MY',
-  ASSIGNEES: 'ASSIGNEES',
+  ASSIGNED_TO_ME: 'ASSIGNED_TO_ME',
+  PICKUPED_BY_ME: 'PICKUPED_BY_ME',
   ALL: 'ALL ',
 }

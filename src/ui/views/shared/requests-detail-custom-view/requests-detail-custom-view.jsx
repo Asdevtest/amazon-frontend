@@ -8,6 +8,7 @@ import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {MultipleChats} from '@components/chat/multiple-chats'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -43,6 +44,12 @@ export class RequestDetailCustomViewRaw extends Component {
       request,
       showWarningModal,
       warningInfoModalSettings,
+      chats,
+      userInfo,
+      chatSelectedId,
+      chatIsConnected,
+      onClickChat,
+      onSubmitMessage,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onClickBackBtn,
@@ -77,6 +84,17 @@ export class RequestDetailCustomViewRaw extends Component {
               <div className={classNames.detailsWrapper}>
                 <CustomSearchRequestDetails request={request} />
               </div>
+              {chatIsConnected ? (
+                <div className={classNames.chatWrapper}>
+                  <MultipleChats
+                    chats={chats}
+                    userId={userInfo._id}
+                    chatSelectedId={chatSelectedId}
+                    onSubmitMessage={onSubmitMessage}
+                    onClickChat={onClickChat}
+                  />
+                </div>
+                ) : undefined}
             </MainContent>
           </Appbar>
         </Main>

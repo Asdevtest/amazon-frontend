@@ -60,27 +60,6 @@
       //expect(instance).to.be();
     });
 
-<<<<<<< HEAD
-=======
-    it('should have the property email (base name: "email")', function() {
-      // uncomment below and update the code to test the property email
-      //var instance = new TestSwagger.SubUserPatchDtoSchema();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property fba (base name: "fba")', function() {
-      // uncomment below and update the code to test the property fba
-      //var instance = new TestSwagger.SubUserPatchDtoSchema();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property active (base name: "active")', function() {
-      // uncomment below and update the code to test the property active
-      //var instance = new TestSwagger.SubUserPatchDtoSchema();
-      //expect(instance).to.be();
-    });
-
->>>>>>> 7f563425... 989, 1085, 1086, 1083, 1090, 1091, 1089, 1087, 1092, 1094, 1086, 1082, 1085, 1073, 1076, 1075, 1077, 1078, 1068 tasks
     it('should have the property permissions (base name: "permissions")', function() {
       // uncomment below and update the code to test the property permissions
       //var instance = new TestSwagger.SubUserPatchDtoSchema();
