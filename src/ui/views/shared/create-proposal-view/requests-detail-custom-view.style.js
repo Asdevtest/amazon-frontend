@@ -13,4 +13,9 @@ export const styles = createStyles(() => ({
     justifyContent: 'flex-end',
     marginBottom: '30px',
   },
+  chatWrapper: {
+    marginTop: '20px',
+    width: '100%',
+    height: '60vh',
+  },
 }))

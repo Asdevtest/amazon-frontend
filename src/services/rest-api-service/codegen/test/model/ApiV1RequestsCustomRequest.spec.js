@@ -54,7 +54,6 @@
       //expect(instance).to.be.a(TestSwagger.ApiV1RequestsCustomRequest);
     });
 
-<<<<<<< HEAD
     it('should have the property _id (base name: "_id")', function() {
       // uncomment below and update the code to test the property _id
       //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
@@ -67,8 +66,6 @@
       //expect(instance).to.be();
     });
 
-=======
->>>>>>> c7aea67 (AMAZONSERVICE-820 1/2)
     it('should have the property maxAmountOfProposals (base name: "maxAmountOfProposals")', function() {
       // uncomment below and update the code to test the property maxAmountOfProposals
       //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
@@ -81,15 +78,12 @@
       //expect(instance).to.be();
     });
 
-<<<<<<< HEAD
     it('should have the property status (base name: "status")', function() {
       // uncomment below and update the code to test the property status
       //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
       //expect(instance).to.be();
     });
 
-=======
->>>>>>> c7aea67 (AMAZONSERVICE-820 1/2)
     it('should have the property timeoutAt (base name: "timeoutAt")', function() {
       // uncomment below and update the code to test the property timeoutAt
       //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
@@ -114,7 +108,6 @@
       //expect(instance).to.be();
     });
 
-<<<<<<< HEAD
     it('should have the property createdById (base name: "createdById")', function() {
       // uncomment below and update the code to test the property createdById
       //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
@@ -139,8 +132,6 @@
       //expect(instance).to.be();
     });
 
-=======
->>>>>>> c7aea67 (AMAZONSERVICE-820 1/2)
   });
 
 }));

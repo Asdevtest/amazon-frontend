@@ -1,3 +1,6 @@
+import * as Showdown from 'showdown'
+import * as xssFilter from 'showdown-xss-filter'
+
 import {checkIsAbsoluteUrl} from './checks'
 
 export const getModelNameWithotPostfix = modelName => modelName.replace('Static', '')
@@ -30,3 +33,16 @@ export const withText = (str, text) => (str && str !== 0 ? `${str}${text}` : str
 export const checkAndMakeAbsoluteUrl = urlStr => (checkIsAbsoluteUrl(urlStr) ? urlStr : `https://${urlStr}`)
 
 export const clearSpecialCharacters = str => str.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '')
+
+export const shortenLongString = (value, lengthBreakpoint) =>
+  value.length > lengthBreakpoint ? `${value.slice(0, lengthBreakpoint)}...` : value
+
+const converter = new Showdown.Converter({
+  tables: true,
+  simplifiedAutoLink: true,
+  strikethrough: true,
+  tasklists: true,
+  extensions: [xssFilter],
+})
+
+export const getTextFromMarkdown = markdown => converter.makeHtml(markdown)

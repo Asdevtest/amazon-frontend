@@ -1,9 +1,11 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {ChatModel} from '@models/chat-model'
 import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
+import {UserModel} from '@models/user-model'
 
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
@@ -25,12 +27,40 @@ export class OwnerRequestDetailCustomViewModel {
     onSubmit: () => {},
   }
 
+  chatSelectedId = undefined
+  chatIsConnected = false
+
+  get chats() {
+    return ChatModel.chats || []
+  }
+
   constructor({history, location}) {
     this.history = history
     if (location.state) {
       this.requestId = location.state.request._id
     }
     makeAutoObservable(this, undefined, {autoBind: true})
+    try {
+      if (ChatModel.isConnected) {
+        runInAction(() => {
+          this.chatIsConnected = ChatModel.isConnected
+        })
+      } else {
+        reaction(
+          () => ChatModel.isConnected,
+          isConnected => {
+            if (isConnected) {
+              runInAction(() => {
+                this.chatIsConnected = isConnected
+              })
+            }
+          },
+        )
+      }
+      ChatModel.init()
+    } catch (error) {
+      console.warn(error)
+    }
   }
 
   async loadData() {
@@ -47,6 +77,18 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
+  get userInfo() {
+    return UserModel.userInfo || {}
+  }
+
+  onClickChat(chat) {
+    if (this.chatSelectedId === chat._id) {
+      this.chatSelectedId = undefined
+    } else {
+      this.chatSelectedId = chat._id
+    }
+  }
+
   async getCustomRequestById() {
     try {
       const result = await RequestModel.getCustomRequestById(this.requestId)
@@ -57,6 +99,17 @@ export class OwnerRequestDetailCustomViewModel {
     } catch (error) {
       console.log(error)
       this.error = error
+    }
+  }
+
+  async onSubmitMessage(message, chatIdId) {
+    try {
+      await ChatModel.sendMessage({
+        chatId: chatIdId,
+        text: message,
+      })
+    } catch (error) {
+      console.warn('onSubmitMessage error ', error)
     }
   }
 

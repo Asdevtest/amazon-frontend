@@ -9,6 +9,7 @@ import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
 import {OwnerRequestProposalsCard} from '@components/cards/owner-request-proposals-card'
+import {MultipleChats} from '@components/chat/multiple-chats'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -48,6 +49,11 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       showRequestForm,
       showConfirmModal,
       showConfirmWithCommentModal,
+      chatSelectedId,
+      chats,
+      userInfo,
+      chatIsConnected,
+      onSubmitMessage,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onSubmitEditCustomSearchRequest,
@@ -56,6 +62,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       onClickCancelBtn,
       onClickAbortBtn,
       onSubmitAbortRequest,
+      onClickChat,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -94,6 +101,18 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                   <OwnerRequestProposalsCard key={item.proposal._id} item={item} />
                 ))}
               </Paper>
+
+              {chatIsConnected ? (
+                <div className={classNames.chatWrapper}>
+                  <MultipleChats
+                    chats={chats}
+                    userId={userInfo._id}
+                    chatSelectedId={chatSelectedId}
+                    onSubmitMessage={onSubmitMessage}
+                    onClickChat={onClickChat}
+                  />
+                </div>
+              ) : undefined}
             </MainContent>
           </Appbar>
 

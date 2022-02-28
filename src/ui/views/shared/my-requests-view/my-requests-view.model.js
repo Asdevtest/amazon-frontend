@@ -11,6 +11,7 @@ import {myRequestsViewColumns} from '@components/table-columns/overall/my-reques
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import { UserModel } from '@models/user-model'
 
 export class MyRequestsViewModel {
   history = undefined
@@ -43,6 +44,10 @@ export class MyRequestsViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  get userInfo() {
+    return UserModel.userInfo || {}
   }
 
   onChangeFilterModel(model) {
@@ -179,7 +184,8 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
-      const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY)
+      const isFreelancer =  this.userInfo.role === 35
+      const result = await RequestModel.getRequests(RequestType.CUSTOM, isFreelancer ? RequestSubType.PICKUPED_BY_ME : RequestSubType.MY)
 
       runInAction(() => {
         this.searchRequests = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
