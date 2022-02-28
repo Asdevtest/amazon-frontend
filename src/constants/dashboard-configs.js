@@ -465,6 +465,9 @@ export const SupervisorDashboardCardDataKey = {
 
   NEW_PRODUCTS_AT_RESEARCHER: 'NEW_PRODUCTS_AT_RESEARCHER',
   NEW_PRODUCTS_AT_CLIENT: 'NEW_PRODUCTS_AT_CLIENT',
+  AWAIT_SOLVE: 'AWAIT_SOLVE',
+
+  ON_CHECKING: 'ON_CHECKING',
 
   IN_SEARCH_PRODUCTS: 'IN_SEARCH_PRODUCTS',
   REJECTED_PRODUCTS: 'REJECTED_PRODUCTS',
@@ -508,6 +511,20 @@ export const getSupervisorDashboardCardConfig = textConsts => [
         title: textConsts.produtsAtClient,
         color: '#4dbd74',
         route: '/supervisor/ready-to-check-by-client',
+      },
+
+      {
+        dataKey: SupervisorDashboardCardDataKey.ON_CHECKING,
+        title: textConsts.onChecking,
+        color: '#FFC7C7',
+        route: '/supervisor/products',
+      },
+
+      {
+        dataKey: SupervisorDashboardCardDataKey.AWAIT_SOLVE,
+        title: textConsts.awaitingSolve,
+        color: '#ffc107',
+        route: '/supervisor/products',
       },
 
       {

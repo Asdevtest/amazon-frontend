@@ -126,9 +126,6 @@ class InlineObject23 {
             if (data.hasOwnProperty('amazonTitle')) {
                 obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
             if (data.hasOwnProperty('minpurchase')) {
                 obj['minpurchase'] = ApiClient.convertToType(data['minpurchase'], 'Number');
             }
@@ -330,11 +327,6 @@ InlineObject23.prototype['amazonDetail'] = undefined;
  * @member {String} amazonTitle
  */
 InlineObject23.prototype['amazonTitle'] = undefined;
-
-/**
- * @member {String} barCode
- */
-InlineObject23.prototype['barCode'] = undefined;
 
 /**
  * @member {Number} minpurchase

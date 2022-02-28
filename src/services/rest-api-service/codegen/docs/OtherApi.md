@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 # Загрузить изображение по ссылке.
 
-## Загрузить изображение ссылке.   При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
+## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \&quot;fileName\&quot; + \&quot;.preview.webp\&quot; При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
 
 ### Example
 
@@ -302,7 +302,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.OtherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject32() // InlineObject32 | 
+  'body': new TestSwagger.InlineObject33() // InlineObject33 | 
 };
 apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -318,7 +318,7 @@ apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject32**](InlineObject32.md)|  | [optional] 
+ **body** | [**InlineObject33**](InlineObject33.md)|  | [optional] 
 
 ### Return type
 
@@ -340,7 +340,7 @@ Name | Type | Description  | Notes
 
 # Загрузить изображение.
 
-## Загрузить изображение.   
+## Загрузить изображение.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \&quot;fileName\&quot; + \&quot;.preview.webp\&quot;
 
 ### Example
 

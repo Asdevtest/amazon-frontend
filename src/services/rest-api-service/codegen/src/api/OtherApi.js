@@ -14,7 +14,7 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineObject32 from '../model/InlineObject32';
+import InlineObject33 from '../model/InlineObject33';
 import InlineResponse2002 from '../model/InlineResponse2002';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InternalServerError from '../model/InternalServerError';
@@ -298,10 +298,10 @@ export default class OtherApi {
 
     /**
      * # Загрузить изображение по ссылке.
-     * ## Загрузить изображение ссылке.   При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
+     * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject32} opts.body 
+     * @param {module:model/InlineObject33} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
     apiV1OtherUploadFileByUrlPostWithHttpInfo(opts) {
@@ -331,10 +331,10 @@ export default class OtherApi {
 
     /**
      * # Загрузить изображение по ссылке.
-     * ## Загрузить изображение ссылке.   При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
+     * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject32} opts.body 
+     * @param {module:model/InlineObject33} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
     apiV1OtherUploadFileByUrlPost(opts) {
@@ -347,7 +347,7 @@ export default class OtherApi {
 
     /**
      * # Загрузить изображение.
-     * ## Загрузить изображение.   
+     * ## Загрузить изображение.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
@@ -379,7 +379,7 @@ export default class OtherApi {
 
     /**
      * # Загрузить изображение.
-     * ## Загрузить изображение.   
+     * ## Загрузить изображение.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}

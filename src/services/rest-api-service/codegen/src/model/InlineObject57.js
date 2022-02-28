@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
-import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 
 /**
  * The InlineObject57 model module.
@@ -23,14 +21,11 @@ import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 class InlineObject57 {
     /**
      * Constructs a new <code>InlineObject57</code>.
-     * Схема универсальной заявки.
      * @alias module:model/InlineObject57
-     * @param request {module:model/ApiV1RequestsCustomRequest} 
-     * @param details {module:model/ApiV1RequestsCustomDetails} 
      */
-    constructor(request, details) { 
+    constructor() { 
         
-        InlineObject57.initialize(this, request, details);
+        InlineObject57.initialize(this);
     }
 
     /**
@@ -38,9 +33,7 @@ class InlineObject57 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, request, details) { 
-        obj['request'] = request;
-        obj['details'] = details;
+    static initialize(obj) { 
     }
 
     /**
@@ -54,11 +47,14 @@ class InlineObject57 {
         if (data) {
             obj = obj || new InlineObject57();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('result')) {
+                obj['result'] = ApiClient.convertToType(data['result'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -68,14 +64,22 @@ class InlineObject57 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomRequest} request
+ * Результат работы исполнителя.
+ * @member {String} result
  */
-InlineObject57.prototype['request'] = undefined;
+InlineObject57.prototype['result'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestsCustomDetails} details
+ * Комментарии исполнителя.
+ * @member {String} comment
  */
-InlineObject57.prototype['details'] = undefined;
+InlineObject57.prototype['comment'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject57.prototype['linksToMediaFiles'] = undefined;
 
 
 

@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestsGuidPickupProposalDetails from './ApiV1RequestsGuidPickupProposalDetails';
 
 /**
  * The InlineObject44 model module.
@@ -21,6 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineObject44 {
     /**
      * Constructs a new <code>InlineObject44</code>.
+     * Если исполнителю нужно он может предложить свои условия.
      * @alias module:model/InlineObject44
      */
     constructor() { 
@@ -47,8 +49,14 @@ class InlineObject44 {
         if (data) {
             obj = obj || new InlineObject44();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
+            }
+            if (data.hasOwnProperty('proposalDetails')) {
+                obj['proposalDetails'] = ApiV1RequestsGuidPickupProposalDetails.constructFromObject(data['proposalDetails']);
             }
         }
         return obj;
@@ -58,10 +66,21 @@ class InlineObject44 {
 }
 
 /**
- * Причины закрытия приема предложений.
- * @member {String} reason
+ * Цена от исполнителя
+ * @member {Number} price
  */
-InlineObject44.prototype['reason'] = undefined;
+InlineObject44.prototype['price'] = undefined;
+
+/**
+ * Время за которое исполнитель предлагает выполнить, в минутах.
+ * @member {Number} execution_time
+ */
+InlineObject44.prototype['execution_time'] = undefined;
+
+/**
+ * @member {module:model/ApiV1RequestsGuidPickupProposalDetails} proposalDetails
+ */
+InlineObject44.prototype['proposalDetails'] = undefined;
 
 
 

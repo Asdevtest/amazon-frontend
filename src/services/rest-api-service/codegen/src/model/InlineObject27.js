@@ -22,12 +22,10 @@ class InlineObject27 {
     /**
      * Constructs a new <code>InlineObject27</code>.
      * @alias module:model/InlineObject27
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param operationType {module:model/InlineObject27.OperationTypeEnum} Тип операции
      */
-    constructor(taskId, operationType) { 
+    constructor() { 
         
-        InlineObject27.initialize(this, taskId, operationType);
+        InlineObject27.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject27 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, operationType) { 
-        obj['taskId'] = taskId;
-        obj['operationType'] = operationType;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,26 +47,23 @@ class InlineObject27 {
         if (data) {
             obj = obj || new InlineObject27();
 
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
-            }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
             }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -80,81 +73,43 @@ class InlineObject27 {
 }
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
  */
-InlineObject27.prototype['taskId'] = undefined;
+InlineObject27.prototype['amount'] = undefined;
 
 /**
- * @member {Array.<String>} boxesBefore
+ * Код метода доставки.
+ * @member {Number} deliveryMethod
  */
-InlineObject27.prototype['boxesBefore'] = undefined;
+InlineObject27.prototype['deliveryMethod'] = undefined;
 
 /**
- * @member {Array.<String>} boxes
+ * Номер склада.
+ * @member {Number} warehouse
  */
-InlineObject27.prototype['boxes'] = undefined;
+InlineObject27.prototype['warehouse'] = undefined;
 
 /**
- * Тип операции
- * @member {module:model/InlineObject27.OperationTypeEnum} operationType
- */
-InlineObject27.prototype['operationType'] = undefined;
-
-/**
- * Комментарий клиента.
+ * Комментарии клиента.
  * @member {String} clientComment
- * @default ''
  */
-InlineObject27.prototype['clientComment'] = '';
+InlineObject27.prototype['clientComment'] = undefined;
 
 /**
- * Массив картинок.
+ * GUID заказанного продукта
+ * @member {String} productId
+ */
+InlineObject27.prototype['productId'] = undefined;
+
+/**
+ * Массив изображений.
  * @member {Array.<String>} images
  */
 InlineObject27.prototype['images'] = undefined;
 
-/**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineObject27.prototype['storekeeperComment'] = undefined;
 
 
-
-
-
-/**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject27['OperationTypeEnum'] = {
-
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
-
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
-
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive",
-
-    /**
-     * value: "edit"
-     * @const
-     */
-    "edit": "edit"
-};
 
 
 

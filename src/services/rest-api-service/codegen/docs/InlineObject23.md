@@ -30,7 +30,6 @@ Name | Type | Description | Notes
 **amazonDescription** | **String** |  | [optional] 
 **amazonDetail** | **String** |  | [optional] 
 **amazonTitle** | **String** |  | [optional] 
-**barCode** | **String** |  | [optional] 
 **minpurchase** | **Number** |  | [optional] 
 **profit** | **Number** | Прибыль | [optional] 
 **margin** | **Number** | Маржа | [optional] 

@@ -22,12 +22,12 @@ class InlineObject30 {
     /**
      * Constructs a new <code>InlineObject30</code>.
      * @alias module:model/InlineObject30
-     * @param productId {String} 
-     * @param skus {Array.<String>} 
+     * @param clientComment {String} 
+     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
      */
-    constructor(productId, skus) { 
+    constructor(clientComment, priceForClient) { 
         
-        InlineObject30.initialize(this, productId, skus);
+        InlineObject30.initialize(this, clientComment, priceForClient);
     }
 
     /**
@@ -35,9 +35,9 @@ class InlineObject30 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, skus) { 
-        obj['productId'] = productId;
-        obj['skus'] = skus;
+    static initialize(obj, clientComment, priceForClient) { 
+        obj['clientComment'] = clientComment;
+        obj['priceForClient'] = priceForClient;
     }
 
     /**
@@ -51,11 +51,11 @@ class InlineObject30 {
         if (data) {
             obj = obj || new InlineObject30();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('skus')) {
-                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -65,14 +65,15 @@ class InlineObject30 {
 }
 
 /**
- * @member {String} productId
+ * @member {String} clientComment
  */
-InlineObject30.prototype['productId'] = undefined;
+InlineObject30.prototype['clientComment'] = undefined;
 
 /**
- * @member {Array.<String>} skus
+ * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+ * @member {Number} priceForClient
  */
-InlineObject30.prototype['skus'] = undefined;
+InlineObject30.prototype['priceForClient'] = undefined;
 
 
 

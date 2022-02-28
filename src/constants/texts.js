@@ -1117,7 +1117,7 @@ export const texts = {
       allProducts: 'Всего товаров',
       successProduts: 'Опубликованные на бирже',
       payedProducts: 'Оплаченные',
-      produtsAtSupervisor: 'Новый поиск от супервизора',
+      produtsAtSupervisor: 'На проверку от супервизора',
       produtsAtClient: 'Новый поиск от клиента',
       inSearchProduts: 'В работе у байера',
       rejectedProduts: 'Отклоненные',
@@ -1129,7 +1129,10 @@ export const texts = {
       replenish: 'Начисления',
       fines: 'Штрафы',
 
-      produtsAtResearcher: 'Новый поиск от ресерчера',
+      produtsAtResearcher: 'На проверку от ресерчера',
+
+      onChecking: 'На проверке',
+      awaitingSolve: 'Ожидает проверки',
     },
 
     buyerDashboardView: {

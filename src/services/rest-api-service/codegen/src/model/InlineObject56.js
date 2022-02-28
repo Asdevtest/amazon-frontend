@@ -47,14 +47,32 @@ class InlineObject56 {
         if (data) {
             obj = obj || new InlineObject56();
 
-            if (data.hasOwnProperty('result')) {
-                obj['result'] = ApiClient.convertToType(data['result'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('delivery')) {
+                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            }
+            if (data.hasOwnProperty('lotcost')) {
+                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
             if (data.hasOwnProperty('comment')) {
                 obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -64,22 +82,58 @@ class InlineObject56 {
 }
 
 /**
- * Результат работы исполнителя.
- * @member {String} result
+ * Название поставщика.
+ * @member {String} name
  */
-InlineObject56.prototype['result'] = undefined;
+InlineObject56.prototype['name'] = undefined;
 
 /**
- * Комментарии исполнителя.
+ * Ссылка на поставщика.
+ * @member {String} link
+ */
+InlineObject56.prototype['link'] = undefined;
+
+/**
+ * Цена
+ * @member {Number} price
+ */
+InlineObject56.prototype['price'] = undefined;
+
+/**
+ * Тип доставки
+ * @member {Number} delivery
+ */
+InlineObject56.prototype['delivery'] = undefined;
+
+/**
+ * кол-во
+ * @member {Number} amount
+ */
+InlineObject56.prototype['amount'] = undefined;
+
+/**
+ * Минимальный лот.
+ * @member {Number} minlot
+ */
+InlineObject56.prototype['minlot'] = undefined;
+
+/**
+ * Стоимость лота.
+ * @member {Number} lotcost
+ */
+InlineObject56.prototype['lotcost'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject56.prototype['images'] = undefined;
+
+/**
+ * Комментарий
  * @member {String} comment
  */
 InlineObject56.prototype['comment'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject56.prototype['linksToMediaFiles'] = undefined;
 
 
 

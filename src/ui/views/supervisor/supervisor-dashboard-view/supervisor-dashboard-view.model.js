@@ -27,6 +27,9 @@ export class SupervisorDashboardViewModel {
 
     [SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_RESEARCHER]: '',
     [SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT]: '',
+    [SupervisorDashboardCardDataKey.ON_CHECKING]: '',
+    [SupervisorDashboardCardDataKey.AWAIT_SOLVE]: '',
+
     [SupervisorDashboardCardDataKey.IN_SEARCH_PRODUCTS]: '',
     [SupervisorDashboardCardDataKey.REJECTED_PRODUCTS]: '',
 
@@ -57,6 +60,29 @@ export class SupervisorDashboardViewModel {
             [
               ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT],
               ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT],
+            ].includes(el.status),
+          ).length,
+
+          [SupervisorDashboardCardDataKey.ON_CHECKING]: result.filter(el =>
+            [
+              ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
+              ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
+              ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER],
+            ].includes(el.status),
+          ).length,
+
+          [SupervisorDashboardCardDataKey.AWAIT_SOLVE]: result.filter(el =>
+            [
+              ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
+              ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
+              ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
+
+              ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
+              ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
+              ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER],
+
+              ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
+              ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
             ].includes(el.status),
           ).length,
 

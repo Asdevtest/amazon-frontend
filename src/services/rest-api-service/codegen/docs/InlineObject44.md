@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**reason** | **String** | Причины закрытия приема предложений. | [optional] 
+**price** | **Number** | Цена от исполнителя | [optional] 
+**execution_time** | **Number** | Время за которое исполнитель предлагает выполнить, в минутах. | [optional] 
+**proposalDetails** | [**ApiV1RequestsGuidPickupProposalDetails**](ApiV1RequestsGuidPickupProposalDetails.md) |  | [optional] 
 
 

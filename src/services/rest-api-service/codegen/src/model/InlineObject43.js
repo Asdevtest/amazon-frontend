@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsGuidPickupProposalDetails from './ApiV1RequestsGuidPickupProposalDetails';
 
 /**
  * The InlineObject43 model module.
@@ -22,12 +21,12 @@ import ApiV1RequestsGuidPickupProposalDetails from './ApiV1RequestsGuidPickupPro
 class InlineObject43 {
     /**
      * Constructs a new <code>InlineObject43</code>.
-     * Если исполнителю нужно он может предложить свои условия.
      * @alias module:model/InlineObject43
+     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
      */
-    constructor() { 
+    constructor(totalCost) { 
         
-        InlineObject43.initialize(this);
+        InlineObject43.initialize(this, totalCost);
     }
 
     /**
@@ -35,7 +34,8 @@ class InlineObject43 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, totalCost) { 
+        obj['totalCost'] = totalCost;
     }
 
     /**
@@ -49,14 +49,8 @@ class InlineObject43 {
         if (data) {
             obj = obj || new InlineObject43();
 
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
-            }
-            if (data.hasOwnProperty('proposalDetails')) {
-                obj['proposalDetails'] = ApiV1RequestsGuidPickupProposalDetails.constructFromObject(data['proposalDetails']);
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -66,21 +60,10 @@ class InlineObject43 {
 }
 
 /**
- * Цена от исполнителя
- * @member {Number} price
+ * Для подтверждения нужно вернуть totalCost из калькулятора.
+ * @member {Number} totalCost
  */
-InlineObject43.prototype['price'] = undefined;
-
-/**
- * Время за которое исполнитель предлагает выполнить, в минутах.
- * @member {Number} execution_time
- */
-InlineObject43.prototype['execution_time'] = undefined;
-
-/**
- * @member {module:model/ApiV1RequestsGuidPickupProposalDetails} proposalDetails
- */
-InlineObject43.prototype['proposalDetails'] = undefined;
+InlineObject43.prototype['totalCost'] = undefined;
 
 
 

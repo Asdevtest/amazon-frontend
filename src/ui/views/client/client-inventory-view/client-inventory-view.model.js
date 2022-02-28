@@ -192,7 +192,8 @@ export class ClientInventoryViewModel {
   }
 
   async onClickSaveBarcode(barCode) {
-    await this.onSaveProductData(this.selectedProduct._id, {barCode})
+    await ClientModel.updateProductBarCode(this.selectedProduct._id, {barCode})
+
     this.onTriggerOpenModal('showSetBarcodeModal')
     runInAction(() => {
       this.selectedProduct = undefined
@@ -254,7 +255,9 @@ export class ClientInventoryViewModel {
   async createOrder(orderObject) {
     try {
       await ClientModel.createOrder(getObjectFilteredByKeyArrayBlackList(orderObject, ['barCode']))
-      await this.onSaveProductData(orderObject.productId, {barCode: orderObject.barCode})
+
+      await ClientModel.updateProductBarCode(orderObject.productId, {barCode: orderObject.barCode})
+
       await this.updateUserInfo()
     } catch (error) {
       console.log(error)
@@ -378,7 +381,7 @@ export class ClientInventoryViewModel {
   }
 
   async onDeleteBarcode(product) {
-    await this.onSaveProductData(product._id, {barCode: ''})
+    await ClientModel.updateProductBarCode(product._id, {barCode: ''})
   }
 
   async onClickBindInventoryGoodsToStockBtn() {

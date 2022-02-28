@@ -21,11 +21,20 @@ import ApiClient from '../ApiClient';
 class InlineObject55 {
     /**
      * Constructs a new <code>InlineObject55</code>.
+     * Новый поставщик.
      * @alias module:model/InlineObject55
+     * @param name {String} Название поставщика.
+     * @param link {String} Ссылка на поставщика.
+     * @param price {Number} Цена
+     * @param delivery {Number} Тип доставки
+     * @param amount {Number} кол-во
+     * @param minlot {Number} Минимальный лот.
+     * @param lotcost {Number} Стоимость лота.
+     * @param comment {String} Комментарий
      */
-    constructor() { 
+    constructor(name, link, price, delivery, amount, minlot, lotcost, comment) { 
         
-        InlineObject55.initialize(this);
+        InlineObject55.initialize(this, name, link, price, delivery, amount, minlot, lotcost, comment);
     }
 
     /**
@@ -33,7 +42,15 @@ class InlineObject55 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, link, price, delivery, amount, minlot, lotcost, comment) { 
+        obj['name'] = name;
+        obj['link'] = link;
+        obj['price'] = price;
+        obj['delivery'] = delivery;
+        obj['amount'] = amount;
+        obj['minlot'] = minlot;
+        obj['lotcost'] = lotcost;
+        obj['comment'] = comment;
     }
 
     /**

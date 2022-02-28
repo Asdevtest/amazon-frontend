@@ -146,7 +146,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = "guid_example"; // String | GUID ордера, который мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject51() // InlineObject51 | 
+  'body': new TestSwagger.InlineObject52() // InlineObject52 | 
 };
 apiInstance.apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID ордера, который мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject51**](InlineObject51.md)|  | [optional] 
+ **body** | [**InlineObject52**](InlineObject52.md)|  | [optional] 
 
 ### Return type
 
@@ -256,7 +256,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = "guid_example"; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject50() // InlineObject50 | 
+  'body': new TestSwagger.InlineObject51() // InlineObject51 | 
 };
 apiInstance.apiV1StorekeepersTasksDoneGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject50**](InlineObject50.md)|  | [optional] 
+ **body** | [**InlineObject51**](InlineObject51.md)|  | [optional] 
 
 ### Return type
 
@@ -366,7 +366,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = "guid_example"; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject49() // InlineObject49 | 
+  'body': new TestSwagger.InlineObject50() // InlineObject50 | 
 };
 apiInstance.apiV1StorekeepersTasksGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -383,7 +383,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject49**](InlineObject49.md)|  | [optional] 
+ **body** | [**InlineObject50**](InlineObject50.md)|  | [optional] 
 
 ### Return type
 

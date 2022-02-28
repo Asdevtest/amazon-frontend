@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**request** | [**ApiV1RequestsCustomRequest**](ApiV1RequestsCustomRequest.md) |  | 
-**details** | [**ApiV1RequestsCustomDetails**](ApiV1RequestsCustomDetails.md) |  | 
+**result** | **String** | Результат работы исполнителя. | [optional] 
+**comment** | **String** | Комментарии исполнителя. | [optional] 
+**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
 
 

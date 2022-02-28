@@ -96,6 +96,7 @@ import InlineObject55 from './model/InlineObject55';
 import InlineObject56 from './model/InlineObject56';
 import InlineObject57 from './model/InlineObject57';
 import InlineObject58 from './model/InlineObject58';
+import InlineObject59 from './model/InlineObject59';
 import InlineObject6 from './model/InlineObject6';
 import InlineObject7 from './model/InlineObject7';
 import InlineObject8 from './model/InlineObject8';
@@ -720,6 +721,12 @@ export {
      * @property {module:model/InlineObject58}
      */
     InlineObject58,
+
+    /**
+     * The InlineObject59 model constructor.
+     * @property {module:model/InlineObject59}
+     */
+    InlineObject59,
 
     /**
      * The InlineObject6 model constructor.

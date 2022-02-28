@@ -89,6 +89,7 @@ docs/InlineObject55.md
 docs/InlineObject56.md
 docs/InlineObject57.md
 docs/InlineObject58.md
+docs/InlineObject59.md
 docs/InlineObject6.md
 docs/InlineObject7.md
 docs/InlineObject8.md
@@ -276,6 +277,7 @@ src/model/InlineObject55.js
 src/model/InlineObject56.js
 src/model/InlineObject57.js
 src/model/InlineObject58.js
+src/model/InlineObject59.js
 src/model/InlineObject6.js
 src/model/InlineObject7.js
 src/model/InlineObject8.js
@@ -347,5 +349,4 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/ApiV1AdminsProductsVacCheckedby.spec.js
-test/model/ApiV1AdminsTasksLightStorekeeper.spec.js
+test/model/InlineObject59.spec.js

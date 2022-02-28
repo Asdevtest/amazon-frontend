@@ -4,8 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**result** | **String** | Результат работы исполнителя. | [optional] 
-**comment** | **String** | Комментарии исполнителя. | [optional] 
-**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**name** | **String** | Название поставщика. | [optional] 
+**link** | **String** | Ссылка на поставщика. | [optional] 
+**price** | **Number** | Цена | [optional] 
+**delivery** | **Number** | Тип доставки | [optional] 
+**amount** | **Number** | кол-во | [optional] 
+**minlot** | **Number** | Минимальный лот. | [optional] 
+**lotcost** | **Number** | Стоимость лота. | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**comment** | **String** | Комментарий | [optional] 
 
 

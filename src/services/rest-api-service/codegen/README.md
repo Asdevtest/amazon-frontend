@@ -193,6 +193,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ClientApi* | [**apiV1ClientsOrdersGuidGet**](docs/ClientApi.md#apiV1ClientsOrdersGuidGet) | **GET** /api/v1/clients/orders/{guid} | # Получить заказ по его GUID.
 *TestSwagger.ClientApi* | [**apiV1ClientsOrdersGuidPatch**](docs/ClientApi.md#apiV1ClientsOrdersGuidPatch) | **PATCH** /api/v1/clients/orders/{guid} | # Внести изменения в заказ.
 *TestSwagger.ClientApi* | [**apiV1ClientsOrdersPost**](docs/ClientApi.md#apiV1ClientsOrdersPost) | **POST** /api/v1/clients/orders | # Создать заказ.
+*TestSwagger.ClientApi* | [**apiV1ClientsProductsGuidChangeBarCodePatch**](docs/ClientApi.md#apiV1ClientsProductsGuidChangeBarCodePatch) | **PATCH** /api/v1/clients/products/{guid}/change_barCode | # Внести изменения в баркод товара.
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch**](docs/ClientApi.md#apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch) | **PATCH** /api/v1/clients/products/{guid}/from_client_ready_to_be_checked_by_supervisor | # Отправить  созданный клиентом товар на проверку супервайзеру.
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsGuidGetPriceForClientGet**](docs/ClientApi.md#apiV1ClientsProductsGuidGetPriceForClientGet) | **GET** /api/v1/clients/products/{guid}/get_price_for_client | # Получить цену для клиента на поиск поставщика
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsGuidPatch**](docs/ClientApi.md#apiV1ClientsProductsGuidPatch) | **PATCH** /api/v1/clients/products/{guid} | # Внести изменения в товар.
@@ -382,6 +383,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject56](docs/InlineObject56.md)
  - [TestSwagger.InlineObject57](docs/InlineObject57.md)
  - [TestSwagger.InlineObject58](docs/InlineObject58.md)
+ - [TestSwagger.InlineObject59](docs/InlineObject59.md)
  - [TestSwagger.InlineObject6](docs/InlineObject6.md)
  - [TestSwagger.InlineObject7](docs/InlineObject7.md)
  - [TestSwagger.InlineObject8](docs/InlineObject8.md)

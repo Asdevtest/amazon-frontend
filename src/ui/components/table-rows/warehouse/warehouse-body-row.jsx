@@ -13,7 +13,7 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {toFixedWithDollarSign, withKg} from '@utils/text'
+import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
 
 import {styles} from './warehouse-body-row.style'
 
@@ -118,11 +118,11 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
         )}
 
         <TableCell className={classNames.cellValueNumber}>
-          {toFixedWithDollarSign((parseFloat(order.product.amazon) || 0) * (parseInt(order.amount) || 0))}
+          {toFixedWithDollarSign((parseFloat(order.product.amazon) || 0) * (parseInt(order.amount) || 0), 2)}
         </TableCell>
 
         <TableCell className={classNames.cellValueNumber}>
-          {withKg(
+          {toFixedWithKg(
             Math.max(
               parseFloat(box.volumeWeightKgWarehouse ? box.volumeWeightKgWarehouse : box.volumeWeightKgSupplier) || 0,
               parseFloat(
@@ -131,11 +131,12 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
                   : box.weightFinalAccountingKgSupplier,
               ) || 0,
             ),
+            2,
           )}
         </TableCell>
 
         <TableCell className={classNames.cellValueNumber}>
-          {withKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier)}
+          {toFixedWithKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier, 2)}
         </TableCell>
 
         <TableCell>{order.order.trackingNumberChina || 'N/A'}</TableCell>
