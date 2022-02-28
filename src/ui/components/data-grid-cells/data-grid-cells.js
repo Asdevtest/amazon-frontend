@@ -87,47 +87,27 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
   </div>
 ))
 
-export const SupervisorCell = withStyles(styles)(({classes: classNames, product, onlyName}) => (
+export const SupervisorCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
     <Typography className={classNames.researcherCell}>{!product.checkedBy ? 'N/A' : product.checkedBy.name}</Typography>
-    {!onlyName && (
-      <Typography className={classNames.researcherCell}>{`rate: ${
-        !product.checkedBy ? 'N/A' : product.checkedBy.rate
-      }`}</Typography>
-    )}
   </div>
 ))
 
-export const ResearcherCell = withStyles(styles)(({classes: classNames, product, onlyName}) => (
+export const ResearcherCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
     <Typography className={classNames.researcherCell}>{!product.createdBy ? 'N/A' : product.createdBy.name}</Typography>
-    {!onlyName && (
-      <Typography className={classNames.researcherCell}>{`rate: ${
-        !product.createdBy ? 'N/A' : product.createdBy.rate
-      }`}</Typography>
-    )}
   </div>
 ))
 
-export const ClientCell = withStyles(styles)(({classes: classNames, product, onlyName}) => (
+export const ClientCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
     <Typography className={classNames.researcherCell}>{!product.client ? 'N/A' : product.client.name}</Typography>
-    {!onlyName && (
-      <Typography className={classNames.researcherCell}>{`rate: ${
-        !product.client ? 'N/A' : product.client.rate
-      }`}</Typography>
-    )}
   </div>
 ))
 
-export const BuyerCell = withStyles(styles)(({classes: classNames, product, onlyName}) => (
+export const BuyerCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
     <Typography className={classNames.researcherCell}>{!product.buyer ? 'N/A' : product.buyer.name}</Typography>
-    {!onlyName && (
-      <Typography className={classNames.researcherCell}>{`rate: ${
-        !product.buyer ? 'N/A' : product.buyer.rate
-      }`}</Typography>
-    )}
   </div>
 ))
 

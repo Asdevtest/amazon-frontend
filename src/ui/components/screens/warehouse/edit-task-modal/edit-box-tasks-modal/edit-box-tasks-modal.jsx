@@ -11,6 +11,7 @@ import {ImageFileInput} from '@components/image-file-input'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixed} from '@utils/text'
 
 import {useClassNames} from './edit-box-tasks-modal.style'
 
@@ -53,14 +54,14 @@ const AttributesEditBlock = ({box, setNewBoxField}) => {
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.volumeWeightKgWarehouse}
-          value={box.volumeWeightKgWarehouse}
+          value={toFixed(box.volumeWeightKgWarehouse, 2)}
           onChange={setNewBoxField('volumeWeightKgWarehouse')}
         />
         <Field
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.weightFinalAccountingKgWarehouse}
-          value={box.weightFinalAccountingKgWarehouse}
+          value={toFixed(box.weightFinalAccountingKgWarehouse, 2)}
         />
       </div>
     </div>

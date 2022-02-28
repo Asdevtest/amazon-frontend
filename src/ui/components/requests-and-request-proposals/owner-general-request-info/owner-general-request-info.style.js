@@ -11,7 +11,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   mainBlockWrapper: {
-    width: '660px',
+    minWidth: '660px',
   },
 
   middleBlockWrapper: {
@@ -55,7 +55,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   blockInfoWrapper: {
-    width: '322px',
+    minWidth: '322px',
 
     height: '120px',
 
@@ -103,6 +103,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   requestStatus: {
+    marginLeft: '15px',
     fontSize: '18px',
     lineHeight: '140%',
     color: '#00B746',

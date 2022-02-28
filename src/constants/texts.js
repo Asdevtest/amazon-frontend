@@ -1071,12 +1071,12 @@ export const texts = {
       financesTitle: 'Финансы',
 
       allProducts: 'Всего товаров',
-      successProduts: 'На бирже',
+      successProduts: 'Выполненные',
       payedProducts: 'Оплаченные',
       produtsAtSupervisor: 'Новый поиск от супервизора',
       produtsAtClient: 'Новый поиск от клиента',
       inSearchProduts: 'В процессе поиска',
-      rejectedProduts: 'Отклоненные',
+      rejectedProduts: 'Отклонены супервайзером/байером',
 
       inProcessOrders: 'В процессе обработки',
       freeOrders: 'Свободные',
@@ -1115,11 +1115,11 @@ export const texts = {
       financesTitle: 'Финансы',
 
       allProducts: 'Всего товаров',
-      successProduts: 'Выполненные',
+      successProduts: 'Опубликованные на бирже',
       payedProducts: 'Оплаченные',
       produtsAtSupervisor: 'Новый поиск от супервизора',
       produtsAtClient: 'Новый поиск от клиента',
-      inSearchProduts: 'В процессе поиска',
+      inSearchProduts: 'В работе у байера',
       rejectedProduts: 'Отклоненные',
 
       inProcessOrders: 'В процессе обработки',
@@ -3144,6 +3144,19 @@ export const texts = {
       cancelBtn: 'Отмена',
     },
 
+    avatarEditorForm: {
+      fileIsBig: 'Файл слишком большой!',
+      badFormat: 'Неподходящий формат!',
+      title: 'Загрузить фотографию',
+      sizeFile: `Размер изображения не должен превышать`,
+      allowedFormats: 'Допустимые форматы изображений ',
+      formats: `'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`,
+      loadBtn: 'Загрузить фотографию',
+      cancelBtn: 'Отмена',
+
+      okBtn: 'Ок',
+    },
+
     adminSettingsForm: {
       yuanToDollarRate: 'Курс юаня к доллару Ұ',
       airDeliveryPrice: 'Цена за авиа доставку $',
@@ -3160,6 +3173,8 @@ export const texts = {
         'Время, после которого, автоматически будет снят супервизор с проверки Ч.',
       deadlineForFindingSupplier: 'Время на поиск поставщика Ч.',
       saveBtn: 'Сохранить',
+
+      closeBtn: 'Ок',
     },
 
     userSettingsForm: {

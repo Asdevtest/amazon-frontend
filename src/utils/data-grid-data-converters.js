@@ -410,8 +410,8 @@ export const adminBoxesDataConverter = data =>
     grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
     warehouses: warehouses[item.warehouse],
 
-    client: item.createdBy.email,
-    storekeeper: item.storekeeper?.email,
+    client: item.createdBy.name,
+    storekeeper: item.storekeeper?.name,
 
     humanFriendlyId: item.humanFriendlyId,
 

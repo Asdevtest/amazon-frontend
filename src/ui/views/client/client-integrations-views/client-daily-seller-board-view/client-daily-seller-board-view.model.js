@@ -16,6 +16,7 @@ import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {toFixed} from '@utils/text'
 import {onSubmitPostImages} from '@utils/upload-files'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientDailySellerBoardView
@@ -235,7 +236,10 @@ export class ClientDailySellerBoardViewModel {
 
       this.priceForSeekSupplier = result.priceForClient
 
-      this.confirmMessage = `Стоимость услуги поиска поставщика составит ${result.priceForClient} $. Подать заявку?`
+      this.confirmMessage = `Стоимость услуги поиска поставщика составит $${toFixed(
+        result.priceForClient,
+        2,
+      )}.\n Подать заявку?`
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {

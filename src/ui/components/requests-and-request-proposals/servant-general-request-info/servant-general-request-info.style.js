@@ -46,7 +46,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   requestInfoWrapper: {
-    width: '660px',
+    minWwidth: '660px',
     display: 'flex',
     justifyContent: 'space-between',
 
@@ -60,7 +60,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   blockInfoWrapper: {
-    width: '322px',
+    minWidth: '322px',
 
     height: '120px',
 
@@ -103,6 +103,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   requestStatus: {
+    marginLeft: '15px',
     fontSize: '18px',
     lineHeight: '140%',
     color: '#00B746',

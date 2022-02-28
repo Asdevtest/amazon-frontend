@@ -80,7 +80,6 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
         )}
         <TableCell>{boxCreatedAt}</TableCell>
         <ProductCell imgSrc={getAmazonImageUrl(order.product.images[0])} title={order.product.amazonTitle} />
-        <TableCell>{order.order._id}</TableCell>
 
         {orderIndex === 0 && (
           <React.Fragment>
@@ -106,7 +105,6 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           <Typography className={classNames.barCode}>{order.product.barCode || 'N/A'}</Typography>
         </TableCell>
 
-        <TableCell>{order.product.id}</TableCell>
         <TableCell className={classNames.cellValueNumber}>
           {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
         </TableCell>

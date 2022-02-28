@@ -154,7 +154,7 @@ export const EditOrderModal = ({
       <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
 
       <Paper elevation={0} className={classNames.paper}>
-        <Typography className={classNames.modalText}>{`${textConsts.orderNum} ${order._id}`}</Typography>
+        <Typography className={classNames.modalText}>{`${textConsts.orderNum} # ${order.id}`}</Typography>
 
         <SelectFields
           photosToLoad={photosToLoad}

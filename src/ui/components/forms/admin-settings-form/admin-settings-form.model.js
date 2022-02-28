@@ -8,8 +8,10 @@ export class AdminSettingsModel {
   error = undefined
 
   adminSettings = {}
+  infoModalText = ''
 
   showSuccessModal = false
+  showInfoModal = false
 
   constructor({history}) {
     this.history = history
@@ -40,9 +42,15 @@ export class AdminSettingsModel {
     try {
       await AdministratorModel.setSettings(data)
 
+      this.infoModalText = 'Настройки сохранены.'
+      this.onTriggerOpenModal('showInfoModal')
+
       await this.getAdminSettings()
     } catch (error) {
       console.log(error)
+
+      this.infoModalText = 'Настройки не сохранены!'
+      this.onTriggerOpenModal('showInfoModal')
     }
   }
 
