@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20018Details from './InlineResponse20018Details';
-import InlineResponse20018Request from './InlineResponse20018Request';
+import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './ApiV1RequestProposalsCustomByRequestIdGuidDetails';
+import InlineResponse20011 from './InlineResponse20011';
 
 /**
  * The InlineResponse20018 model module.
@@ -23,7 +23,7 @@ import InlineResponse20018Request from './InlineResponse20018Request';
 class InlineResponse20018 {
     /**
      * Constructs a new <code>InlineResponse20018</code>.
-     * Схема детали на поиск ниш.
+     * Схема универсального предложения
      * @alias module:model/InlineResponse20018
      */
     constructor() { 
@@ -50,11 +50,11 @@ class InlineResponse20018 {
         if (data) {
             obj = obj || new InlineResponse20018();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = InlineResponse20018Request.constructFromObject(data['request']);
+            if (data.hasOwnProperty('proposal')) {
+                obj['proposal'] = InlineResponse20011.constructFromObject(data['proposal']);
             }
             if (data.hasOwnProperty('details')) {
-                obj['details'] = InlineResponse20018Details.constructFromObject(data['details']);
+                obj['details'] = ApiV1RequestProposalsCustomByRequestIdGuidDetails.constructFromObject(data['details']);
             }
         }
         return obj;
@@ -64,12 +64,12 @@ class InlineResponse20018 {
 }
 
 /**
- * @member {module:model/InlineResponse20018Request} request
+ * @member {module:model/InlineResponse20011} proposal
  */
-InlineResponse20018.prototype['request'] = undefined;
+InlineResponse20018.prototype['proposal'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20018Details} details
+ * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails} details
  */
 InlineResponse20018.prototype['details'] = undefined;
 

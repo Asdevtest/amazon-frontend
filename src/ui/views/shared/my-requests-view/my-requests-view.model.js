@@ -6,12 +6,12 @@ import {RequestSubType, RequestType} from '@constants/request-type'
 
 import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 import {myRequestsViewColumns} from '@components/table-columns/overall/my-requests-columns'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import { UserModel } from '@models/user-model'
 
 export class MyRequestsViewModel {
   history = undefined
@@ -184,8 +184,11 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
-      const isFreelancer =  this.userInfo.role === 35
-      const result = await RequestModel.getRequests(RequestType.CUSTOM, isFreelancer ? RequestSubType.PICKUPED_BY_ME : RequestSubType.MY)
+      const isFreelancer = this.userInfo.role === 35
+      const result = await RequestModel.getRequests(
+        RequestType.CUSTOM,
+        isFreelancer ? RequestSubType.PICKUPED_BY_ME : RequestSubType.MY,
+      )
 
       runInAction(() => {
         this.searchRequests = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))

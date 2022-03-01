@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## apiV1IntegrationsGetSkusByProductIdGuidGet
 
-> [InlineResponse2008] apiV1IntegrationsGetSkusByProductIdGuidGet(guid, opts)
+> [InlineResponse2009] apiV1IntegrationsGetSkusByProductIdGuidGet(guid, opts)
 
 Получить товары из склада (sku), через GUID продукта.
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2009]**](InlineResponse2009.md)
 
 ### Authorization
 
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet
 
-> [InlineResponse2009] apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(opts)
+> [InlineResponse20010] apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(opts)
 
 Получить месячный отчет селерборда.
 
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2009]**](InlineResponse2009.md)
+[**[InlineResponse20010]**](InlineResponse20010.md)
 
 ### Authorization
 
@@ -121,7 +121,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsSellerboardWarehouseProductsGet
 
-> [InlineResponse2008] apiV1IntegrationsSellerboardWarehouseProductsGet(opts)
+> [InlineResponse2009] apiV1IntegrationsSellerboardWarehouseProductsGet(opts)
 
 Поиск по товарам со склада по: asin, sku, title..
 
@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2009]**](InlineResponse2009.md)
 
 ### Authorization
 
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsSellerboardWarehouseReportsDailyGet
 
-> [InlineResponse2008] apiV1IntegrationsSellerboardWarehouseReportsDailyGet(opts)
+> [InlineResponse2009] apiV1IntegrationsSellerboardWarehouseReportsDailyGet(opts)
 
 Получить дневной отчет селерборда.
 
@@ -321,7 +321,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2009]**](InlineResponse2009.md)
 
 ### Authorization
 

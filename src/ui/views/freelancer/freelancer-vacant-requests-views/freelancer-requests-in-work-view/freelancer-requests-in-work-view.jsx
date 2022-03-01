@@ -20,7 +20,6 @@ import {formatNormDateTime} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
-import avatar from '../../assets/researcherAvatar.jpg'
 import {FreelancerRequestsInWorkViewModel} from './freelancer-requests-in-work-view.model'
 import {styles} from './freelancer-requests-in-work-view.style'
 
@@ -59,13 +58,11 @@ class FreelancerRequestsInWorkViewRaw extends Component {
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
         />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             setDrawerOpen={onTriggerDrawerOpen}
             curUserRole={UserRole.FREELANCER}
           >

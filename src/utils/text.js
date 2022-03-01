@@ -19,6 +19,8 @@ export const getIntOrZero = str => (str ? parseInt(str) || 0 : 0)
 export const getFloatWithoutDollarSign = str => (str ? getFloat(replaceDollarSign(str)) : str)
 
 export const toFixedWithDollarSign = (int, x) => withDollarSign(toFixed(int, x))
+export const toFixedWithYuanSign = (int, x) => withYuanSign(toFixed(int, x))
+
 export const toFixedWithKg = (int, x) => withKg(toFixed(int, x))
 export const toFixedWithCm = (int, x) => withCm(toFixed(int, x))
 

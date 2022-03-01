@@ -629,7 +629,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGuidGetPriceForClientGet
 
-> InlineResponse2007 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
+> InlineResponse2008 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
 
 # Получить цену для клиента на поиск поставщика
 
@@ -669,7 +669,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2007**](InlineResponse2007.md)
+[**InlineResponse2008**](InlineResponse2008.md)
 
 ### Authorization
 
@@ -739,7 +739,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyGet
 
-> [InlineResponse2005] apiV1ClientsProductsMyGet(opts)
+> [InlineResponse2007] apiV1ClientsProductsMyGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -779,7 +779,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -793,7 +793,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsPaidGet
 
-> [InlineResponse2005] apiV1ClientsProductsPaidGet(opts)
+> [InlineResponse2007] apiV1ClientsProductsPaidGet(opts)
 
 # Получить список товаров оплаченных данного клиента.
 
@@ -831,7 +831,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -899,7 +899,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsVacGet
 
-> [InlineResponse2005] apiV1ClientsProductsVacGet(opts)
+> [InlineResponse2007] apiV1ClientsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -937,7 +937,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 

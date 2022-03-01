@@ -1,4 +1,4 @@
-# TestSwagger.InlineResponse20013
+# TestSwagger.InlineResponse20019Request
 
 ## Properties
 
@@ -17,10 +17,10 @@ Name | Type | Description | Notes
 **roles** | **[Number]** | Массив массив ролей. | [optional] 
 **needCheckBySupervisor** | **Boolean** | Если требуется проверка супервайзером. | [optional] 
 **restrictMoreThanOneProposalFromOneAssignee** | **Boolean** | Запретить фрилансеру повторное отправление предложений. | [optional] 
+**createdById** | **String** | GUID клиента, который создал заявку. | [optional] 
 **lastModifiedById** | **String** | GUID клиента, который обновил запрос на поиск товара. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
-**createdBy** | [**ApiV1RequestProposalsCreatedBy**](ApiV1RequestProposalsCreatedBy.md) |  | [optional] 
 
 
 

@@ -22,7 +22,7 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
         <div>
           <Typography>{order.product.amazonTitle}</Typography>
           <Typography className={classNames.text}>
-            <span className={classNames.asinTypo}>{textConsts.id}</span> {order.product.id}
+            <span className={classNames.asinTypo}>{textConsts.id}</span> {order.product.asin}
           </Typography>
         </div>
       </div>

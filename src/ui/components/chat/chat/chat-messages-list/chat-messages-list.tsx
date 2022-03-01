@@ -1,10 +1,13 @@
 import React, {FC} from 'react'
 
+import {Avatar} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import ScrollView from 'react-inverted-scrollview'
 
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 
 import {useClassNames} from './chat-messages-list.style'
 import {ChatMessageBasicText} from './chat-messages/chat-message-basic-text'
@@ -16,6 +19,8 @@ interface Props {
 
 export const ChatMessagesList: FC<Props> = observer(({messages, userId}) => {
   const classNames = useClassNames()
+
+  console.log('messages', messages)
   return (
     <div className={classNames.root}>
       <ScrollView width="100%" height="100%" style={{padding: '20px 12px'}}>
@@ -34,7 +39,8 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId}) => {
                   })}
                 >
                   {!isNextMessageSameAuthor ? (
-                    <div
+                    <Avatar
+                      src={getUserAvatarSrc(messageItem.userId)}
                       className={clsx(classNames.messageAvatarWrapper, {
                         [classNames.messageAvatarWrapperIsIncomming]: isIncomming,
                       })}

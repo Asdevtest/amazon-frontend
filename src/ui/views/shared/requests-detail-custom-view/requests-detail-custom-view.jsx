@@ -88,7 +88,7 @@ export class RequestDetailCustomViewRaw extends Component {
                     onClickChat={onClickChat}
                   />
                 </div>
-                ) : undefined}
+              ) : undefined}
             </MainContent>
           </Appbar>
         </Main>

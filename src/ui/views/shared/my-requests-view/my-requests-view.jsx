@@ -95,7 +95,7 @@ class MyRequestsViewRaw extends Component {
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 rows={getCurrentData()}
-                rowHeight={100}
+                rowHeight={300}
                 components={{
                   Toolbar: GridToolbar,
                 }}

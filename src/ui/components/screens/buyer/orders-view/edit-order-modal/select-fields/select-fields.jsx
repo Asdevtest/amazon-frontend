@@ -17,7 +17,7 @@ import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} fr
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {toFixed, withDollarSign, withYuanSign} from '@utils/text'
+import {toFixed, toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
 
 import {useClassNames} from './select-fields.style'
 
@@ -30,11 +30,13 @@ const allowOrderStatuses = [
   `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
   `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
   `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+  `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
 ]
 
 const disabledOrderStatuses = [
   `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
   `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+  `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
 ]
 
 export const SelectFields = ({
@@ -293,8 +295,9 @@ export const SelectFields = ({
             <Typography className={classNames.totalPrice}>{textConsts.totalPriceInYuans}</Typography>
             <Input
               disabled
-              value={withYuanSign(
+              value={toFixedWithYuanSign(
                 calcExchangeDollarsInYuansPrice(orderFields.totalPrice, orderFields.yuanToDollarRate),
+                2,
               )}
               className={classNames.input}
             />
@@ -302,7 +305,7 @@ export const SelectFields = ({
 
           <Box className={classNames.tableCell}>
             <Typography className={classNames.totalPrice}>{textConsts.totalPrice}</Typography>
-            <Input disabled value={withDollarSign(orderFields.totalPrice)} className={classNames.input} />
+            <Input disabled value={toFixedWithDollarSign(orderFields.totalPrice, 2)} className={classNames.input} />
           </Box>
         </div>
       </Grid>

@@ -5,7 +5,6 @@ import {texts} from '@constants/texts'
 
 import {SuccessButton} from '@components/buttons/success-button'
 
-import {calcProductPrice} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
@@ -45,7 +44,7 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, classes: classNames}) =>
           handlers.onTriggerOpenModal('showConfirmPayModal')
         }}
       >
-        {`${textConsts.byForBtn} ${toFixedWithDollarSign(calcProductPrice(item))}`}
+        {`${textConsts.byForBtn} ${toFixedWithDollarSign(item.priceForClient, 2)}`}
       </SuccessButton>
     </TableCell>
   </TableRow>

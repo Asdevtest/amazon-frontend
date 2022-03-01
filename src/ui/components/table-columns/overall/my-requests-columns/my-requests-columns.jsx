@@ -3,6 +3,8 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
+  MultilineRequestStatusCell,
+  MultilineTextCell,
   NormDateCell,
   renderFieldValueCell,
   ToFixedWithDollarSignCell,
@@ -16,14 +18,14 @@ export const myRequestsViewColumns = () => [
   {
     field: 'status',
     headerName: textConsts.statusField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineRequestStatusCell status={params.value} />,
     width: 150,
   },
 
   {
     field: 'title',
     headerName: textConsts.nameRequestField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 200,
   },
 
@@ -31,7 +33,7 @@ export const myRequestsViewColumns = () => [
     field: 'price',
     headerName: textConsts.price,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
-    width: 100,
+    width: 150,
   },
 
   {

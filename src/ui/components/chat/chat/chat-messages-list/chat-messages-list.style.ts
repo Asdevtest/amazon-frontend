@@ -38,10 +38,8 @@ export const useClassNames = makeStyles(() => ({
     marginLeft: '44px',
   },
   messageAvatarWrapper: {
-    backgroundColor: 'red',
     height: '32px',
     width: '32px',
-    borderRadius: '32px',
   },
   messageAvatarWrapperIsIncomming: {},
 }))

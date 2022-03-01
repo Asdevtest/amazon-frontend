@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestsCustomGuidDetails from './ApiV1RequestsCustomGuidDetails';
+import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 
 /**
  * The InlineObject57 model module.
@@ -21,6 +23,7 @@ import ApiClient from '../ApiClient';
 class InlineObject57 {
     /**
      * Constructs a new <code>InlineObject57</code>.
+     * Схема универсальной заявки.
      * @alias module:model/InlineObject57
      */
     constructor() { 
@@ -47,14 +50,11 @@ class InlineObject57 {
         if (data) {
             obj = obj || new InlineObject57();
 
-            if (data.hasOwnProperty('result')) {
-                obj['result'] = ApiClient.convertToType(data['result'], 'String');
+            if (data.hasOwnProperty('request')) {
+                obj['request'] = ApiV1RequestsCustomGuidRequest.constructFromObject(data['request']);
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('details')) {
+                obj['details'] = ApiV1RequestsCustomGuidDetails.constructFromObject(data['details']);
             }
         }
         return obj;
@@ -64,22 +64,14 @@ class InlineObject57 {
 }
 
 /**
- * Результат работы исполнителя.
- * @member {String} result
+ * @member {module:model/ApiV1RequestsCustomGuidRequest} request
  */
-InlineObject57.prototype['result'] = undefined;
+InlineObject57.prototype['request'] = undefined;
 
 /**
- * Комментарии исполнителя.
- * @member {String} comment
+ * @member {module:model/ApiV1RequestsCustomGuidDetails} details
  */
-InlineObject57.prototype['comment'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject57.prototype['linksToMediaFiles'] = undefined;
+InlineObject57.prototype['details'] = undefined;
 
 
 

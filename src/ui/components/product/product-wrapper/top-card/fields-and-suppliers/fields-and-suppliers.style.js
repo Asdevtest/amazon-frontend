@@ -191,6 +191,13 @@ export const useClassNames = makeStyles(() => ({
     maxWidth: '200px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+
+    '&:hover': {
+      zIndex: '10',
+      overflow: 'visible',
+      fontWeight: 'bold',
+      backgroundColor: 'rgba(0,0,0, .2)',
+    },
   },
 
   skuItemWrapper: {

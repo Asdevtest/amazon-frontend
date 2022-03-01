@@ -4,55 +4,41 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | Guid продожения к заявке. | [optional] 
-**requestId** | **String** | Guid заявки к которой относится данное предложение. | [optional] 
-**type** | **String** | Тип предложения. | [optional] 
-**status** | **String** |  CREATED - предложение по заявке создано, с ценой и временем выполнения от исполнителя OFFER_CONDITIONS_ACCEPTED - условия предложения были приняты клиентом, после этого начиначется отсчет времени на выполнение заявки, с этого статуса можно перейти только на READY_TO_VERIFY, с этого момента начинаем учитывать этого исполнителя в счетчике людей работающих по заявке OFFER_CONDITIONS_REJECTED - условия предложения были отклонены клиентом. После изменения условий клиентом выставляется статус OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_CORRECTED - исполнитель отредактировал свои условия по предложению чтобы клиент опять их посмотрел и решил принимает или нет, после этого статуса можно опять перейти на OFFER_CONDITIONS_ACCEPTED или OFFER_CONDITIONS_REJECTED READY_TO_VERIFY - статус выставляет исполнитель, статус говорит о том что исполнитель выполнил работу и клиент/супервизор может ее проверять, после этого статуса можно выставить VERIFYING_BY_SUPERVISOR или TO_CORRECT, а так же закрывающие статусы VERIFYING_BY_SUPERVISOR - работа проверяется супервизором TO_CORRECT - отправляется на доработку от клиента/супервизора CORRECTED - исполнитель отмечает работу как исправленная CANCELED_BY_CREATOR - предложение закрывается клиентом, обязательно с комментарием, финальный статус, может быть выставлено только при статусе OFFER_CONDITIONS_REJECTED. Думаю что тут будет еще условия но нужно это обсудить. Этот статус не очень безопасный или может привести к перегрузу админа для решения конфликтных ситуаций CANCELED_BY_SUPERVISOR - предложение закрывается супервизором, обязательно с комментарием, финальный статус, может быть выставлен в любой момент. Тут должна появиться возможность создать запрос в поддержку для решения конфликтных ситуаций, это позже обсудим. CANCELED_BY_EXECUTOR - закрыто исполнителем, обязательно с комментарием, финальный статус, может быть выставлен в любой момент ACCEPTED_BY_CREATOR - принято клиентом, происходи оплата ACCEPTED_BY_SUPERVISOR - принято супервизором, происходи оплата EXPIRED - проставляется автоматически, если время указанное в предложении от исполнителя истекло а предложение не было уже в одном из финальных статусов  | [optional] 
-**timeoutAt** | **Date** | Время закрытия предложения. | [optional] 
-**execution_time** | **Number** | Время на выполнение, в часах. | [optional] 
-**attempts** | **Number** | Количество попыток, подать предложение или исправить результат работы. | [optional] 
-**price** | **Number** | Цена предложения. | [optional] 
-**clientId** | **String** | GUID клиента . | [optional] 
-**supervisorId** | **String** | GUID супервизора. | [optional] 
-**chatId** | **String** | GUID чата. | [optional] 
-**lastModifiedById** | **String** | GUID любого, кто последний редактировал предложение. | [optional] 
-**createdAt** | **Date** | Дата создания | [optional] 
-**updatedAt** | **Date** | Дата изменения | [optional] 
-**createdBy** | [**ApiV1RequestProposalsCreatedBy**](ApiV1RequestProposalsCreatedBy.md) |  | [optional] 
-
-
-
-## Enum: StatusEnum
-
-
-* `CREATED` (value: `"CREATED"`)
-
-* `OFFER_CONDITIONS_ACCEPTED` (value: `"OFFER_CONDITIONS_ACCEPTED"`)
-
-* `READY_TO_VERIFY` (value: `"READY_TO_VERIFY"`)
-
-* `OFFER_CONDITIONS_REJECTED` (value: `"OFFER_CONDITIONS_REJECTED"`)
-
-* `OFFER_CONDITIONS_CORRECTED` (value: `"OFFER_CONDITIONS_CORRECTED"`)
-
-* `VERIFYING_BY_SUPERVISOR` (value: `"VERIFYING_BY_SUPERVISOR"`)
-
-* `TO_CORRECT` (value: `"TO_CORRECT"`)
-
-* `CORRECTED` (value: `"CORRECTED"`)
-
-* `CANCELED_BY_CREATOR` (value: `"CANCELED_BY_CREATOR"`)
-
-* `CANCELED_BY_SUPERVISOR` (value: `"CANCELED_BY_SUPERVISOR"`)
-
-* `CANCELED_BY_EXECUTOR` (value: `"CANCELED_BY_EXECUTOR"`)
-
-* `ACCEPTED_BY_CREATOR` (value: `"ACCEPTED_BY_CREATOR"`)
-
-* `ACCEPTED_BY_SUPERVISOR` (value: `"ACCEPTED_BY_SUPERVISOR"`)
-
-* `EXPIRED` (value: `"EXPIRED"`)
-
-
+**date** | **String** | \&quot;Date\&quot; | [optional] 
+**marketplace** | **String** | Marketplace | [optional] 
+**asin** | **String** | ASIN | [optional] 
+**sku** | **String** | SKU | [optional] 
+**name** | **String** | Name | [optional] 
+**salesorganic** | **Number** | SalesOrganic | [optional] 
+**salesppc** | **Number** | SalesPPC | [optional] 
+**unitsorganic** | **Number** | UnitsOrganic | [optional] 
+**unitsppc** | **Number** | UnitsPPC | [optional] 
+**refunds** | **Number** | Refunds | [optional] 
+**promovalue** | **Number** | PromoValue | [optional] 
+**sponsoredproducts** | **Number** | SponsoredProducts | [optional] 
+**sponsoreddisplay** | **Number** | SponsoredDisplay | [optional] 
+**sponsoredRands** | **Number** | SponsoredВrands | [optional] 
+**sponsoredbrandsvideo** | **Number** | SponsoredBrandsVideo | [optional] 
+**giftwrap** | **Number** | GiftWrap | [optional] 
+**shipping** | **Number** | Shipping | [optional] 
+**refundcost** | **Number** | RefundCost | [optional] 
+**valueOfReturnedItems** | **Number** | Value of returned items | [optional] 
+**productcostUnsellableRefunds** | **Number** | ProductCost Unsellable Refunds | [optional] 
+**commission** | **Number** | Commission | [optional] 
+**fbadisposalfee** | **Number** | FBADisposalFee | [optional] 
+**fbaperunitfulfillmentfee** | **Number** | FBAPerUnitFulfillmentFee | [optional] 
+**fbastoragefee** | **Number** | FBAStorageFee | [optional] 
+**subscription** | **Number** | Subscription | [optional] 
+**estimatedpayout** | **Number** | EstimatedPayout | [optional] 
+**productcostSales** | **Number** | ProductCost Sales | [optional] 
+**productcostNonAmazon** | **Number** | ProductCost Non-Amazon | [optional] 
+**productcostMultichannelcosts** | **Number** | ProductCost MultichannelCosts | [optional] 
+**productcostMissingfrominbound** | **Number** | ProductCost MissingFromInbound | [optional] 
+**productcostCostofmissingreturns** | **Number** | ProductCost CostOfMissingReturns | [optional] 
+**vat** | **Number** | VAT | [optional] 
+**grossprofit** | **Number** | GrossProfit | [optional] 
+**netprofit** | **Number** | NetProfit | [optional] 
+**margin** | **Number** | Margin | [optional] 
+**realAcos** | **Number** | Real ACOS | [optional] 
 
 

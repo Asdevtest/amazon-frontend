@@ -5,6 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
 
+import {RequestStatus} from '@constants/request-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {texts} from '@constants/texts'
@@ -167,6 +168,39 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
 ))
 
 export const renderFieldValueCell = value => (!value && value !== 0 ? 'N/A' : value)
+
+export const MultilineTextCell = withStyles(styles)(({classes: classNames, text}) => (
+  <div className={classNames.multilineTextWrapper}>
+    <Typography className={classNames.multilineText}>{text}</Typography>
+  </div>
+))
+
+export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNames, status}) => {
+  const colorByStatus = () => {
+    if ([RequestStatus.DRAFT, RequestStatus.CANCELED_BY_CREATOR].includes(status)) {
+      return '#006CFF'
+    } else if ([RequestStatus.IN_PROCESS, RequestStatus.CANCELED_BY_ADMIN].includes(status)) {
+      return '#F3AF00'
+    } else if ([RequestStatus.PUBLISHED, RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED].includes(status)) {
+      return '#00B746'
+    } else if ([RequestStatus.EXPIRED].includes(status)) {
+      return '#C4C4C4'
+    } else {
+      return 'black'
+    }
+  }
+
+  const colorStatus = colorByStatus()
+  console.log('colorStatus', colorStatus)
+
+  return (
+    <div className={classNames.multilineTextWrapper}>
+      <Typography className={classNames.multilineStatusText} style={{color: colorStatus}}>
+        {status.replace(/_/g, ' ')}
+      </Typography>
+    </div>
+  )
+})
 
 export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, task, hideImage}) => {
   const renderProductImage = (box, key) => {

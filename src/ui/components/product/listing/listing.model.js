@@ -66,6 +66,10 @@ export class ListingModel {
 
       await this.onSaveProductData()
 
+      this.tmpListingImages = new Array()
+
+      this.loadData()
+
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       this.error = error

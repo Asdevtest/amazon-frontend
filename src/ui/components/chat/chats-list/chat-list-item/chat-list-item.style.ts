@@ -16,11 +16,10 @@ export const useClassNames = makeStyles(() => ({
     borderLeftColor: '#006CFF',
   },
   leftSide: {},
+
   avatarWrapper: {
     height: '50px',
     width: '50px',
-    backgroundColor: 'red',
-    borderRadius: '50px',
   },
   rightSide: {
     marginLeft: '12px',
