@@ -184,10 +184,11 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
-      const isFreelancer = this.userInfo.role === 35
+      // const isFreelancer = this.userInfo.role === 35
+
       const result = await RequestModel.getRequests(
         RequestType.CUSTOM,
-        isFreelancer ? RequestSubType.PICKUPED_BY_ME : RequestSubType.MY,
+        /* isFreelancer ? RequestSubType.PICKUPED_BY_ME : */ RequestSubType.MY,
       )
 
       runInAction(() => {

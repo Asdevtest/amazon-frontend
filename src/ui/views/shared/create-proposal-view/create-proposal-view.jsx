@@ -32,6 +32,8 @@ export class CreateProposalViewRaw extends Component {
 
   render() {
     const {
+      progressValue,
+      showProgress,
       request,
       infoModalText,
       drawerOpen,
@@ -40,6 +42,7 @@ export class CreateProposalViewRaw extends Component {
       onTriggerOpenModal,
       onSubmitCreateProposal,
       onClickBackBtn,
+      onClickOkInfoModal,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -61,7 +64,12 @@ export class CreateProposalViewRaw extends Component {
                 </Button>
               </div>
 
-              <CreateProposalContent request={request} onSubmit={onSubmitCreateProposal} />
+              <CreateProposalContent
+                progressValue={progressValue}
+                showProgress={showProgress}
+                request={request}
+                onSubmit={onSubmitCreateProposal}
+              />
             </MainContent>
           </Appbar>
         </Main>
@@ -71,9 +79,7 @@ export class CreateProposalViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showInfoModal')}
           title={infoModalText}
           btnText={textConsts.closeBtn}
-          onClickBtn={() => {
-            onTriggerOpenModal('showInfoModal')
-          }}
+          onClickBtn={onClickOkInfoModal}
         />
       </React.Fragment>
     )

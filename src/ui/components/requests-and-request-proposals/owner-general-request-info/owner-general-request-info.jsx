@@ -122,25 +122,30 @@ export const OwnerGeneralRequestInfo = ({
       {request && request?.request.status !== RequestStatus.DRAFT && (
         <div className={classNames.btnsBlockWrapper}>
           <div className={classNames.btnsWrapper}>
-            <Button variant="outlined" color="danger" className={classNames.button} onClick={onClickCancelBtn}>
-              {'Отменить'}
-            </Button>
+            {request?.request.status === RequestStatus.DRAFT ||
+              (request?.request.status === RequestStatus.PUBLISHED && (
+                <Button variant="outlined" color="danger" className={classNames.button} onClick={onClickCancelBtn}>
+                  {'Отменить'}
+                </Button>
+              ))}
 
             <Button variant="outlined" color="primary" className={classNames.button} onClick={onClickEditBtn}>
               {'Редактировать'}
             </Button>
           </div>
 
-          <Button
-            variant="contained"
-            color="primary"
-            className={clsx({[classNames.stopBtn]: request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS})}
-            onClick={request?.request.status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
-          >
-            {request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS
-              ? 'Возобновить прием заявок'
-              : 'Остановить прием заявок'}
-          </Button>
+          {request?.request.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED && (
+            <Button
+              variant="contained"
+              color="primary"
+              className={clsx({[classNames.stopBtn]: request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS})}
+              onClick={request?.request.status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
+            >
+              {request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS
+                ? 'Возобновить прием заявок'
+                : 'Остановить прием заявок'}
+            </Button>
+          )}
         </div>
       )}
     </Paper>

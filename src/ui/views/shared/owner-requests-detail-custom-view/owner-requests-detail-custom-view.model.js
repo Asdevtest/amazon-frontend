@@ -142,7 +142,6 @@ export class OwnerRequestDetailCustomViewModel {
   async onClickPublishBtn() {
     try {
       const result = await RequestModel.calculateRequestCost(this.requestId)
-      console.log('result', result)
 
       this.confirmModalSettings = {
         isWarning: false,

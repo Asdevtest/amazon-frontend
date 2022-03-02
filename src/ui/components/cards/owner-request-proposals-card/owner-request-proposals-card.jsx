@@ -1,11 +1,14 @@
 import Rating from '@mui/material/Rating'
 
-import React from 'react'
+import React, {useState} from 'react'
 
 import {Typography, Avatar} from '@material-ui/core'
 import clsx from 'clsx'
+import Carousel from 'react-material-ui-carousel'
 
 import {Button} from '@components/buttons/button'
+import {Field} from '@components/field/field'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
@@ -14,6 +17,10 @@ import {useClassNames} from './owner-request-proposals-card.style'
 
 export const OwnerRequestProposalsCard = ({item}) => {
   const classNames = useClassNames()
+
+  const [showImageModal, setShowImageModal] = useState(false)
+
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   return (
     <div className={classNames.cardMainWrapper}>
@@ -32,14 +39,38 @@ export const OwnerRequestProposalsCard = ({item}) => {
               <Rating disabled className={classNames.userRating} value={item.proposal.createdBy.rating} />
             </div>
 
-            <Typography className={classNames.successDeals}>{`Количество общих успешных сделок: 12`}</Typography>
+            <Typography className={classNames.successDeals}>{`Количество общих успешных сделок: n/a`}</Typography>
           </div>
 
-          <Typography className={classNames.proposalDescription}>
-            {
-              'Добрый вечер,готов приступить к работе.Для начала скажите какой сайт вам нужен?Тот который можно купить под себя или тот на котором вы сможете продавать товары.Если второй вариант есть целая площадка в которой вы можете себя зарегистрировать как ФОП'
-            }
-          </Typography>
+          <div className={classNames.proposalDescriptionWrapper}>
+            <Typography className={classNames.proposalDescription}>{item.details.comment}</Typography>
+
+            {item.details.linksToMediaFiles.length && (
+              <div className={classNames.photoWrapper}>
+                <Field
+                  multiline
+                  containerClasses={classNames.conditionsFieldWrapper}
+                  inputComponent={
+                    <Carousel autoPlay={false} timeout={100} animation="fade">
+                      {item.details.linksToMediaFiles.map((el, index) => (
+                        <div key={index}>
+                          <img
+                            alt=""
+                            className={classNames.imgBox}
+                            src={el}
+                            onClick={() => {
+                              setShowImageModal(!showImageModal)
+                              setBigImagesOptions({images: item.details.linksToMediaFiles, imgIndex: index})
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </Carousel>
+                  }
+                />
+              </div>
+            )}
+          </div>
         </div>
 
         <div className={classNames.timeInfoWrapper}>
@@ -73,6 +104,14 @@ export const OwnerRequestProposalsCard = ({item}) => {
           </Button>
         </div>
       </div>
+
+      <BigImagesModal
+        isAmazone
+        openModal={showImageModal}
+        setOpenModal={() => setShowImageModal(!showImageModal)}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
+      />
     </div>
   )
 }

@@ -8,6 +8,7 @@ import clsx from 'clsx'
 // import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {DatePicker} from '@components/date-picker'
 import {Field} from '@components/field'
 import {ImageFileInput} from '@components/image-file-input'
@@ -25,7 +26,14 @@ const stepVariant = {
   STEP_TWO: 'STEP_TWO',
 }
 
-export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubmit, onEditSubmit}) => {
+export const CreateOrEditRequestContent = ({
+  requestToEdit,
+  history,
+  onCreateSubmit,
+  onEditSubmit,
+  showProgress,
+  progressValue,
+}) => {
   const classNames = useClassNames()
 
   const [images, setImages] = useState([])
@@ -77,7 +85,7 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
       if (curStep === stepVariant.STEP_ONE) {
         setCurStep(stepVariant.STEP_TWO)
       } else {
-        onCreateSubmit(formFields)
+        onCreateSubmit(formFields, images)
       }
     }
   }
@@ -263,7 +271,7 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
                 <SuccessButton
                   disabled={disableSubmit}
                   className={classNames.successBtn}
-                  onClick={() => onEditSubmit(formFields)}
+                  onClick={() => onEditSubmit(formFields, images)}
                 >
                   {'Редактировать'}
                 </SuccessButton>
@@ -313,6 +321,8 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
           </div>
         )}
       </div>
+
+      {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
     </div>
   )
 }

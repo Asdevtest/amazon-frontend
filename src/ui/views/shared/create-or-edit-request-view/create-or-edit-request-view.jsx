@@ -29,6 +29,8 @@ export class CreateOrEditRequestView extends Component {
 
   render() {
     const {
+      progressValue,
+      showProgress,
       requestToEdit,
       infoModalText,
       drawerOpen,
@@ -52,6 +54,8 @@ export class CreateOrEditRequestView extends Component {
           <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <CreateOrEditRequestContent
+                progressValue={progressValue}
+                showProgress={showProgress}
                 requestToEdit={requestToEdit}
                 history={this.props.history}
                 onCreateSubmit={onSubmitCreateRequest}

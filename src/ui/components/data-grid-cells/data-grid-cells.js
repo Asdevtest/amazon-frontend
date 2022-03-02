@@ -191,7 +191,6 @@ export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNam
   }
 
   const colorStatus = colorByStatus()
-  console.log('colorStatus', colorStatus)
 
   return (
     <div className={classNames.multilineTextWrapper}>

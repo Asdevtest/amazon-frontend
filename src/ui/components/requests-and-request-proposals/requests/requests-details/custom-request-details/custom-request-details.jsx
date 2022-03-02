@@ -6,10 +6,12 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import React, {useState} from 'react'
 
 import {TextareaAutosize, Paper, Typography} from '@material-ui/core'
+import Carousel from 'react-material-ui-carousel'
 
 import {texts} from '@constants/texts'
 
 import {Field} from '@components/field/field'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -21,6 +23,10 @@ export const CustomSearchRequestDetails = ({request}) => {
   const classNames = useClassNames()
 
   const [showDetails, setShowDetails] = useState(false)
+
+  const [showImageModal, setShowImageModal] = useState(false)
+
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   return (
     <Paper className={classNames.root}>
@@ -35,6 +41,33 @@ export const CustomSearchRequestDetails = ({request}) => {
 
         <AccordionDetails>
           <div className={classNames.mainWrapper}>
+            {request?.details.linksToMediaFiles.length && (
+              <div className={classNames.photoWrapper}>
+                <Field
+                  multiline
+                  label={'Фотографии к заявке:'}
+                  containerClasses={classNames.conditionsFieldWrapper}
+                  inputComponent={
+                    <Carousel autoPlay={false} timeout={100} animation="fade">
+                      {request.details.linksToMediaFiles.map((el, index) => (
+                        <div key={index}>
+                          <img
+                            alt=""
+                            className={classNames.imgBox}
+                            src={el}
+                            onClick={() => {
+                              setShowImageModal(!showImageModal)
+                              setBigImagesOptions({images: request.details.linksToMediaFiles, imgIndex: index})
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </Carousel>
+                  }
+                />
+              </div>
+            )}
+
             <Field
               multiline
               label={textConsts.conditionsRequest}
@@ -46,6 +79,14 @@ export const CustomSearchRequestDetails = ({request}) => {
           </div>
         </AccordionDetails>
       </Accordion>
+
+      <BigImagesModal
+        isAmazone
+        openModal={showImageModal}
+        setOpenModal={() => setShowImageModal(!showImageModal)}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
+      />
     </Paper>
   )
 }

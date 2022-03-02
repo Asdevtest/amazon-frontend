@@ -5,6 +5,7 @@ import {texts} from '@constants/texts'
 import {RequestModel} from '@models/request-model'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientCreateRequestView
 
@@ -21,8 +22,7 @@ export class CreateOrEditRequestViewModel {
 
   infoModalText = ''
 
-  imagesForLoad = []
-  uploadedImages = []
+  uploadedFiles = []
 
   readyImages = []
   progressValue = 0
@@ -38,14 +38,20 @@ export class CreateOrEditRequestViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  async onSubmitCreateRequest(data) {
+  async onSubmitCreateRequest(data, files) {
     try {
-      await RequestModel.createRequest(data)
+      this.uploadedFiles = []
+
+      if (files.length) {
+        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+      }
+
+      const dataWithFiles = {...data, details: {...data.details, linksToMediaFiles: this.uploadedFiles}}
+
+      await RequestModel.createRequest(dataWithFiles)
 
       this.infoModalText = textConsts.infoCreateRequest
       this.onTriggerOpenModal('showInfoModal')
-
-      this.history.goBack()
     } catch (error) {
       console.log(error)
 
@@ -56,9 +62,18 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
-  async onSubmitEditRequest(data) {
+  async onSubmitEditRequest(data, files) {
     try {
-      await RequestModel.editRequest(this.requestToEdit.request._id, data)
+      if (files.length) {
+        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+      }
+
+      const dataWithFiles = {
+        ...data,
+        details: {...data.details, linksToMediaFiles: [...data.details.linksToMediaFiles, ...this.uploadedFiles]},
+      }
+
+      await RequestModel.editRequest(this.requestToEdit.request._id, dataWithFiles)
 
       this.infoModalText = textConsts.infoEditRequest
       this.onTriggerOpenModal('showInfoModal')

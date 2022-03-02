@@ -138,7 +138,9 @@ export const OrderProductModal = ({
                 order.warehouse === 'none' ||
                 Number(order.amount) <= 0 ||
                 !Number.isInteger(Number(order.amount)),
-            ) || requestStatus === loadingStatuses.isLoading
+            ) ||
+            requestStatus === loadingStatuses.isLoading ||
+            productsForRender.some(item => !item.currentSupplier)
           }
           onClick={() => {
             onTriggerOpenModal('showOrderModal')

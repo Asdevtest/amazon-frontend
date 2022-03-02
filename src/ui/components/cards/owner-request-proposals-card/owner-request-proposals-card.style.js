@@ -92,4 +92,28 @@ export const useClassNames = makeStyles(() => ({
   userNameWrapper: {
     marginLeft: '10px',
   },
+
+  proposalDescription: {
+    marginTop: '10px',
+  },
+
+  proposalDescriptionWrapper: {
+    display: 'flex',
+  },
+
+  imgBox: {
+    width: '160px',
+    height: '50px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+    transition: '.2s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
+  },
+  photoWrapper: {
+    marginLeft: '10px',
+    width: '160px',
+  },
 }))
