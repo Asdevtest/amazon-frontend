@@ -69,6 +69,9 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '21px',
     color: '#354256',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    height: '60px',
   },
 
   subTitle: {

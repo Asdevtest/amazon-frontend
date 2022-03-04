@@ -11,6 +11,7 @@ import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {DatePicker} from '@components/date-picker'
 import {Field} from '@components/field'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
@@ -40,6 +41,8 @@ export const CreateOrEditRequestContent = ({
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
 
+  const [showPhotosModal, setShowPhotosModal] = useState(false)
+
   const sourceFormFields = {
     request: {
       title: requestToEdit?.request.title || '',
@@ -47,6 +50,7 @@ export const CreateOrEditRequestContent = ({
       price: requestToEdit?.request.price || '',
       timeoutAt: requestToEdit?.request.timeoutAt || '',
       direction: requestToEdit?.request.direction || 'IN',
+      roles: [10, 20, 30, 35],
     },
     details: {
       conditions: requestToEdit?.details.conditions || '',
@@ -108,7 +112,7 @@ export const CreateOrEditRequestContent = ({
       formFields.request.price === '' ||
       formFields.request.timeoutAt === '' ||
       formFields.details.conditions === '') &&
-    curStep === stepVariant.STEP_TWO
+    (curStep === stepVariant.STEP_TWO || requestToEdit)
 
   return (
     <div className={classNames.mainWrapper}>
@@ -133,7 +137,12 @@ export const CreateOrEditRequestContent = ({
           <div className={classNames.mainSubRightWrapper}>
             <div className={classNames.middleWrapper}>
               <Field
+                multiline
+                inputProps={{maxLength: 250}}
                 label={'Название заявки*'}
+                className={classNames.nameField}
+                minRows={2}
+                rowsMax={2}
                 value={formFields.request.title}
                 onChange={onChangeField('request')('title')}
               />
@@ -150,11 +159,23 @@ export const CreateOrEditRequestContent = ({
 
               <div className={classNames.imageFileInputWrapper}>
                 <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
+
+                <Button
+                  disableElevation
+                  disabled={!formFields.details.linksToMediaFiles.length}
+                  color="primary"
+                  className={classNames.imagesButton}
+                  variant="contained"
+                  onClick={() => setShowPhotosModal(!showPhotosModal)}
+                >
+                  {'Имеющиеся файлы'}
+                </Button>
               </div>
             </div>
 
             <div className={classNames.rightWrapper}>
               <Field
+                inputProps={{maxLength: 15}}
                 label={'Введите цену предложения $*'}
                 value={formFields.request.price}
                 onChange={onChangeField('request')('price')}
@@ -169,6 +190,7 @@ export const CreateOrEditRequestContent = ({
               /> */}
 
               <Field
+                inputProps={{maxLength: 10}}
                 label={'Введите количество предложений*'}
                 value={formFields.request.maxAmountOfProposals}
                 onChange={onChangeField('request')('maxAmountOfProposals')}
@@ -323,6 +345,13 @@ export const CreateOrEditRequestContent = ({
       </div>
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+
+      <BigImagesModal
+        isAmazone
+        openModal={showPhotosModal}
+        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        images={formFields.details.linksToMediaFiles || []}
+      />
     </div>
   )
 }

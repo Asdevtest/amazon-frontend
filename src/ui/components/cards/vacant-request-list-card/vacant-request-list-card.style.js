@@ -35,6 +35,8 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '16px',
     color: '#354256',
     marginBottom: '20px',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
 
   cardSubTitle: {

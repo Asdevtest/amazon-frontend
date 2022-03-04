@@ -4,7 +4,7 @@ import {Container, Button, Typography, NativeSelect, Checkbox, Select, ListItemT
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
-import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
+import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {Field} from '@components/field'
 import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit-user-permissions-form'
@@ -206,7 +206,7 @@ export const AdminContentModal = observer(
         <div className={classNames.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={editUserFormFields.masterUser}
+            disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
             checked={formFields.canByMasterUser}
             onChange={onChangeFormField('canByMasterUser')}
           />

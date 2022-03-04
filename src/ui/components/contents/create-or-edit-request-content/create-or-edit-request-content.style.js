@@ -132,4 +132,10 @@ export const useClassNames = makeStyles(() => ({
   deadlineErrorText: {
     color: 'red',
   },
+
+  nameField: {
+    height: '60px',
+    width: '100%',
+    overflowY: 'hidden',
+  },
 }))

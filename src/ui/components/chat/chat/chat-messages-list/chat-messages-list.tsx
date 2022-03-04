@@ -20,6 +20,8 @@ interface Props {
 export const ChatMessagesList: FC<Props> = observer(({messages, userId}) => {
   const classNames = useClassNames()
 
+  console.log('messages', messages)
+
   return (
     <div className={classNames.root}>
       <ScrollView width="100%" height="100%" style={{padding: '20px 12px'}}>

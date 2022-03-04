@@ -10,20 +10,22 @@ export const useClassNames = makeStyles(() => ({
 
   linkField: {
     minHeight: '100px',
-    minWidth: '400px',
-    display: 'block',
-    overflow: 'scroll',
+    width: '100%',
+    overflowY: 'hidden',
   },
 
   commentField: {
-    minHeight: '200px',
-    minWidth: '400px',
-    display: 'block',
-    overflow: 'scroll',
+    minHeight: '100px',
+    width: '100%',
+    overflowY: 'hidden',
   },
 
   buttonsWrapper: {
     display: 'flex',
     gap: '10px',
+  },
+
+  modalMessageWrapper: {
+    width: '400px',
   },
 }))

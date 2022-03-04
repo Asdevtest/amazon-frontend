@@ -35,7 +35,7 @@ const formFieldsDefault = {
   fba: false,
   fbafee: 0,
   icomment: '',
-  id: '',
+  asin: '',
   images: [],
   lamazon: '',
   material: '',
@@ -72,7 +72,7 @@ const fieldsOfProductAllowedToUpdate = [
   'fbaamount',
   'strategyStatus',
   'currentSupplierId',
-  'id',
+  'asin',
   'clientComment',
   'skusByClient',
 ]
@@ -156,7 +156,7 @@ export class ClientProductViewModel {
         [
           'icomment',
           'category',
-          'id',
+          'asin',
           'lamazon',
           'clientComment',
           'amazonTitle',
@@ -280,6 +280,8 @@ export class ClientProductViewModel {
   async onSaveProductData() {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
+
+      this.uploadedImages = []
 
       if (this.imagesForLoad.length) {
         await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'uploadedImages'})

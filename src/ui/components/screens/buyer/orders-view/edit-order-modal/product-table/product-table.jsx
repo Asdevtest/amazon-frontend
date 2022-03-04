@@ -33,7 +33,7 @@ export const ProductTable = ({modalHeadCells, order, orderFields}) => {
             </TableCell>
             <TableCell>
               <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
-              <Typography>{order.product.id}</Typography>
+              <Typography>{`ASIN: ${order.product.asin}`}</Typography>
             </TableCell>
             <TableCell>{order.product.currentSupplier ? order.product.currentSupplier.price : 'N/A'}</TableCell>
             <TableCell className={classNames.tableCell}>

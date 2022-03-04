@@ -46,11 +46,16 @@ class UserModelStatic {
         password,
       },
     })
+
     const accessToken = response.token
     runInAction(() => {
       this.accessToken = accessToken
+
+      console.log('this.accessToken', this.accessToken)
     })
     restApiService.setAccessToken(accessToken)
+
+    return accessToken
   }
 
   async signUp({name, email, password}) {

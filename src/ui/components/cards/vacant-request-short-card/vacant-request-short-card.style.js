@@ -2,8 +2,8 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   cardWrapper: {
-    width: '290px',
-    height: '330px',
+    width: '330px',
+    height: '360px',
 
     borderRadius: '4px',
     border: '1px solid rgba(0,0,0, .1)',
@@ -18,7 +18,10 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     lineHeight: '16px',
     color: '#354256',
-    marginBottom: '20px',
+    marginBottom: '10px',
+    height: '50px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 
   cardSubTitle: {
