@@ -330,6 +330,8 @@ export const texts = {
       mainTitle: 'Settings',
     },
     adminBalanceModal: {
+      paymentType: 'Type',
+
       titleReplenish: 'Replenish balance',
       titleWithdraw: 'Withdraw balance',
       balanceLabel: 'Balance change value',
@@ -1461,6 +1463,7 @@ export const texts = {
       fba: 'FBA',
       active: 'User status',
       rate: 'Rate',
+      masterUser: 'Master user id',
 
       fieldSecurity: 'Security/Sharing options',
       manageBtn: 'Manage Permissions',
@@ -2609,6 +2612,7 @@ export const texts = {
       roleField: 'Role',
       statusField: 'User status',
       actionsField: 'Actions',
+      subUserField: 'Sub status',
 
       editBtnText: 'Edit User',
       balanceBtnText: 'Balance',
@@ -3280,9 +3284,8 @@ export const texts = {
       amountIfItemsInBox: 'Items in box',
     },
 
-    addImagesFormText: {
-      title: 'Добавит избражения',
-      addPhotos: 'Добавьте фотографии:',
+    addFilesFormText: {
+      addFiles: 'Добавьте файлы:',
       saveBtn: 'Сохранить',
       closeBtn: 'Закрыть',
     },
@@ -3380,15 +3383,15 @@ export const texts = {
       reReceiveBoxBtn: 'Перераспределить',
     },
 
-    imageFileInput: {
+    uploadFilesInput: {
       dragAndDropBtn: 'Click or Drop here',
-      hideImagesBtn: 'Hide images',
-      showImagesBtn: 'Show images',
+      hideImagesBtn: 'Hide files',
+      showImagesBtn: 'Show files',
       removeAllBtn: 'Remove all',
 
-      addPhoto: 'Прикрепить фото',
+      addPhoto: 'Прикрепить файл',
       link: 'Ссылка',
-      loadBtn: 'Загрузить',
+      loadBtn: 'Добавить',
       maxNumberError: 'Нельзя загрузить больше 50 файлов за раз!',
     },
 

@@ -43,13 +43,13 @@ export const adminUsersViewColumns = handlers => [
     type: 'number',
   },
 
-  {field: 'email', headerName: textConsts.emailField, width: 150},
+  {field: 'email', headerName: textConsts.emailField, width: 200},
 
   {
     field: 'rate',
     headerName: textConsts.rateField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 150,
+    width: 100,
     type: 'number',
   },
 
@@ -64,7 +64,14 @@ export const adminUsersViewColumns = handlers => [
     field: 'active',
     headerName: textConsts.statusField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 150,
+    width: 120,
+  },
+
+  {
+    field: 'isSubUser',
+    headerName: textConsts.subUserField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 120,
   },
 
   {

@@ -54,6 +54,7 @@ export const OrderProductModal = ({
       barCode: product.barCode || '',
       productId: product._id,
       images: [],
+      tmpBarCode: [],
     })),
   )
 
@@ -80,6 +81,8 @@ export const OrderProductModal = ({
 
     setOrderState(newStateOrderState)
   }
+
+  console.log('orderState', orderState)
 
   return (
     <Container disableGutters>
@@ -161,9 +164,10 @@ export const OrderProductModal = ({
       </div>
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
         <SetBarcodeModal
-          order={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex]}
+          tmpCode={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex].tmpBarCode}
+          item={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex]}
           onClickSaveBarcode={barCode => {
-            setOrderStateFiled(tmpOrderIndex)('barCode')(barCode)
+            setOrderStateFiled(tmpOrderIndex)('tmpBarCode')(barCode)
             triggerBarcodeModal()
             setTmpOrderIndex(undefined)
           }}

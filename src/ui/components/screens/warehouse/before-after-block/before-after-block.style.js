@@ -41,6 +41,7 @@ export const useClassNames = makeStyles(() => ({
   },
   chipWrapper: {
     display: 'flex',
+    flexDirection: 'column',
     marginTop: '10px',
     padding: '5px',
   },
@@ -113,5 +114,11 @@ export const useClassNames = makeStyles(() => ({
     '&:hover': {
       transform: 'scale(1.02)',
     },
+  },
+
+  link: {
+    maxWidth: '325px',
+    whiteSpace: 'nowrap',
+    overflowX: 'scroll',
   },
 }))

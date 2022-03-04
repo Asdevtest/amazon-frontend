@@ -10,8 +10,8 @@ import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field/field'
-import {ImageFileInput} from '@components/image-file-input'
 import {Input} from '@components/input'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -152,7 +152,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
       </div>
 
       <div className={classNames.imageFileInputWrapper}>
-        <ImageFileInput images={images} setImages={setImages} maxNumber={50} />
+        <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
       </div>
 
       <div className={classNames.btnsWrapper}>

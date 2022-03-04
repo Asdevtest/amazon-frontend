@@ -114,6 +114,10 @@ export const AdminContentModal = observer(
           {`${title} ${editUserFormFields.name}`}
         </Typography>
 
+        {editUserFormFields.masterUser ? (
+          <Field disabled label={textConsts.masterUser} value={editUserFormFields.masterUser} />
+        ) : null}
+
         <Field
           label={textConsts.name}
           error={checkValidationNameOrEmail.nameIsUnique && 'Пользователь с таким именем уже существует'}
@@ -152,28 +156,30 @@ export const AdminContentModal = observer(
           }
         />
 
-        <Field
-          label={textConsts.allowedRoles}
-          inputComponent={
-            <Select
-              multiple
-              value={formFields.allowedRoles}
-              renderValue={selected => selected.map(el => UserRoleCodeMap[el]).join(', ')}
-              onChange={onChangeFormField('allowedRoles')}
-            >
-              {Object.keys(UserRoleCodeMap).map((role, index) => (
-                <MenuItem
-                  key={index}
-                  value={Number(role)}
-                  disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role])}
-                >
-                  <Checkbox color="primary" checked={formFields.allowedRoles.includes(Number(role))} />
-                  <ListItemText primary={UserRoleCodeMap[role]} />
-                </MenuItem>
-              ))}
-            </Select>
-          }
-        />
+        {!editUserFormFields.masterUser ? (
+          <Field
+            label={textConsts.allowedRoles}
+            inputComponent={
+              <Select
+                multiple
+                value={formFields.allowedRoles}
+                renderValue={selected => selected.map(el => UserRoleCodeMap[el]).join(', ')}
+                onChange={onChangeFormField('allowedRoles')}
+              >
+                {Object.keys(UserRoleCodeMap).map((role, index) => (
+                  <MenuItem
+                    key={index}
+                    value={Number(role)}
+                    disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role])}
+                  >
+                    <Checkbox color="primary" checked={formFields.allowedRoles.includes(Number(role))} />
+                    <ListItemText primary={UserRoleCodeMap[role]} />
+                  </MenuItem>
+                ))}
+              </Select>
+            }
+          />
+        ) : null}
 
         <Field
           label={textConsts.active}

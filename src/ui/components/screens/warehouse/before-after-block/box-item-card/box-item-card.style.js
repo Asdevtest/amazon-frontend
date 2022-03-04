@@ -67,6 +67,7 @@ export const useClassNames = makeStyles(theme => ({
   },
   chipWrapper: {
     display: 'flex',
+    flexDirection: 'column',
   },
   mainWrapper: {
     display: 'flex',
@@ -77,5 +78,11 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
+  },
+
+  link: {
+    maxWidth: '280px',
+    whiteSpace: 'nowrap',
+    overflowX: 'scroll',
   },
 }))

@@ -98,7 +98,13 @@ export const OrderModalBodyRow = ({
           }}
           className={clsx({[classNames.barcodeChipExists]: item.barCode})}
           size="small"
-          label={orderState.barCode ? trimBarcode(orderState.barCode) : textConsts.setBarcodeChipLabel}
+          label={
+            orderState.tmpBarCode.length
+              ? 'FILE IS ADDED'
+              : orderState.barCode
+              ? trimBarcode(orderState.barCode)
+              : textConsts.setBarcodeChipLabel
+          }
           onClick={() => onClickBarcode(item, itemIndex)}
           onDoubleClick={() => onDoubleClickBarcode(item, itemIndex)}
           onDelete={!orderState.barCode ? undefined : () => onDeleteBarcode(item, itemIndex)}

@@ -12,8 +12,8 @@ import {clientExchangeViewColumns} from '@components/table-columns/client/client
 import {clientProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {onSubmitPostImages} from '@utils/upload-files'
 
-const fieldsOfProductAllowedToUpdate = ['barCode']
 export class ClientExchangeViewModel {
   history = undefined
   requestStatus = undefined
@@ -29,6 +29,7 @@ export class ClientExchangeViewModel {
   showWarningModal = false
 
   selectedProduct = {}
+  uploadedFiles = []
 
   rowHandlers = {
     onClickLaunchPrivateLabelBtn: item => this.onClickLaunchPrivateLabelBtn(item),
@@ -55,24 +56,6 @@ export class ClientExchangeViewModel {
   onDoubleClickBarcode = item => {
     this.setSelectedProduct(item)
     this.onTriggerOpenModal('showSetBarcodeModal')
-  }
-
-  async onSaveProductData(productId, updateProductData) {
-    try {
-      const updateProductDataFiltered = getObjectFilteredByKeyArrayWhiteList(
-        toJS(updateProductData),
-        fieldsOfProductAllowedToUpdate,
-        true,
-      )
-
-      await ClientModel.updateProduct(productId, updateProductDataFiltered)
-      await this.loadData()
-    } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
-    }
   }
 
   setDataGridState(state) {
@@ -167,6 +150,12 @@ export class ClientExchangeViewModel {
 
   async createOrder(orderObject) {
     try {
+      this.uploadedFiles = []
+
+      if (orderObject.tmpBarCode.length) {
+        await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
+      }
+
       const createorderData = {
         amount: orderObject.amount,
         deliveryMethod: orderObject.deliveryMethod,
@@ -175,6 +164,11 @@ export class ClientExchangeViewModel {
         productId: orderObject.productId,
       }
       await ClientModel.createOrder(createorderData)
+
+      if (this.uploadedFiles.length) {
+        await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})
+      }
+
       this.selectedProduct = {}
       await this.updateUserInfo()
     } catch (error) {
@@ -195,7 +189,6 @@ export class ClientExchangeViewModel {
       ])
 
       await this.createOrder(requestProduct)
-      await this.onSaveProductData(requestProduct.productId, {barCode: requestProduct.barCode})
       this.setRequestStatus(loadingStatuses.success)
 
       this.onTriggerOpenModal('showOrderModal')

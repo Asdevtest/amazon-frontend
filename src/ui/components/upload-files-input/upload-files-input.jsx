@@ -16,13 +16,13 @@ import {Input} from '@components/input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import {useClassNames} from './image-file-input.style'
+import {useClassNames} from './upload-files-input.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').imageFileInput
+const textConsts = getLocalizedTexts(texts, 'ru').uploadFilesInput
 
 const maxSizeInBytes = 15728640
 
-export const ImageFileInput = observer(({images, setImages, maxNumber}) => {
+export const UploadFilesInput = observer(({images, setImages, maxNumber}) => {
   const classNames = useClassNames()
 
   const [linkInput, setLinkInput] = useState('')
@@ -111,7 +111,7 @@ export const ImageFileInput = observer(({images, setImages, maxNumber}) => {
               </button>
               <Typography className={classNames.imagesCount}>
                 {<span className={classNames.imagesCountSpan}>{`${images.length}/${maxNumber}`}</span>}
-                {` images`}{' '}
+                {` files`}{' '}
               </Typography>
               <button disabled={images.length === 0} className={classNames.removeAllBtn} onClick={onImageRemoveAll}>
                 {textConsts.removeAllBtn}

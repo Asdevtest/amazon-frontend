@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 
-import {Container, Button, Typography} from '@material-ui/core'
+import {Container, Button, Typography, NativeSelect} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {Field} from '@components/field'
+import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
@@ -22,10 +23,14 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
 
   const [reasonValue, setReasonValue] = useState('')
 
+  const [paymentType, setPaymentType] = useState('TRANSFER')
+
   const [showConfirmModal, setConfirmModal] = useState(false)
   const onTriggerConfirmModal = () => setConfirmModal(prevState => !prevState)
+
   const onConfirm = () => {
     const data = {
+      paymentType,
       recipientId: user.id || user._id,
       sum: isWithdraw ? Number(-balanceValue) : Number(balanceValue),
       comment: reasonValue,
@@ -64,6 +69,26 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
         <Typography paragraph variant="h3">
           {isWithdraw ? textConsts.titleWithdraw : textConsts.titleReplenish}
         </Typography>
+
+        {isWithdraw && (
+          <Field
+            label={textConsts.paymentType}
+            inputComponent={
+              <NativeSelect
+                input={<Input fullWidth />}
+                variant="filled"
+                value={paymentType}
+                onChange={e => setPaymentType(e.target.value)}
+              >
+                {['TRANSFER', 'FINE'].map(type => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </NativeSelect>
+            }
+          />
+        )}
 
         <Field
           label={textConsts.balanceLabel}

@@ -188,7 +188,7 @@ export class ClientInventoryViewRaw extends Component {
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
           <SetBarcodeModal
-            product={selectedProduct}
+            item={selectedProduct}
             onClickSaveBarcode={onClickSaveBarcode}
             onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
           />

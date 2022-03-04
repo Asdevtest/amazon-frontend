@@ -11,7 +11,7 @@ import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {DatePicker} from '@components/date-picker'
 import {Field} from '@components/field'
-import {ImageFileInput} from '@components/image-file-input'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatDateForShowWithoutParseISO} from '@utils/date-time'
@@ -149,7 +149,7 @@ export const CreateOrEditRequestContent = ({
               />
 
               <div className={classNames.imageFileInputWrapper}>
-                <ImageFileInput images={images} setImages={setImages} maxNumber={50} />
+                <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
               </div>
             </div>
 

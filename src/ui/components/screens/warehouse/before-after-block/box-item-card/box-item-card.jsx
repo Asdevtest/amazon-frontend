@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Paper, Typography} from '@material-ui/core'
+import {Link, Paper, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
@@ -8,6 +8,7 @@ import {Input} from '@components/input'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {useClassNames} from './box-item-card.style'
 
@@ -30,7 +31,16 @@ export const BoxItemCard = ({item, superCount}) => {
 
           <div className={classNames.chipWrapper}>
             <Typography className={classNames.subTitle}>{textConsts.barCode}</Typography>
-            <Typography className={classNames.barCodeField}>{item.product.barCode || 'N/A'}</Typography>
+
+            {/* <Typography className={classNames.barCodeField}>{item.product.barCode || 'N/A'}</Typography> */}
+
+            <Link
+              target="_blank"
+              rel="noopener"
+              href={checkAndMakeAbsoluteUrl(item.product.barCode ? item.product.barCode : 'N/A')}
+            >
+              <Typography className={classNames.link}>{item.product.barCode ? item.product.barCode : 'N/A'}</Typography>
+            </Link>
           </div>
         </div>
       </div>

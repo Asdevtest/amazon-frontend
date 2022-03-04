@@ -45,7 +45,7 @@ export const OwnerRequestProposalsCard = ({item}) => {
           <div className={classNames.proposalDescriptionWrapper}>
             <Typography className={classNames.proposalDescription}>{item.details.comment}</Typography>
 
-            {item.details.linksToMediaFiles.length && (
+            {item.details.linksToMediaFiles.length ? (
               <div className={classNames.photoWrapper}>
                 <Field
                   multiline
@@ -69,7 +69,7 @@ export const OwnerRequestProposalsCard = ({item}) => {
                   }
                 />
               </div>
-            )}
+            ) : null}
           </div>
         </div>
 

@@ -9,9 +9,9 @@ import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {ImageFileInput} from '@components/image-file-input'
 import {Input} from '@components/input'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
@@ -369,7 +369,7 @@ export const SelectFields = ({
 
         <div>
           <div className={classNames.imageFileInputWrapper}>
-            <ImageFileInput images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
+            <UploadFilesInput images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
           </div>
 
           <Button

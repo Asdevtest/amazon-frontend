@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Divider, Typography, Paper, Checkbox, NativeSelect} from '@material-ui/core'
+import {Divider, Typography, Paper, Checkbox, NativeSelect, Link} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
@@ -17,7 +17,7 @@ import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixedWithCm, toFixedWithKg} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, toFixedWithCm, toFixedWithKg} from '@utils/text'
 
 import {EditBoxTasksModal} from '../edit-task-modal/edit-box-tasks-modal'
 import {useClassNames} from './before-after-block.style'
@@ -241,9 +241,14 @@ const Box = ({
       <div>
         <div className={classNames.chipWrapper}>
           <Typography className={classNames.subTitle}>{textConsts.shippingLabel}</Typography>
-          <Typography className={classNames.shippingLabelField}>
-            {box.shippingLabel ? box.shippingLabel : 'N/A'}
-          </Typography>
+
+          <Link
+            target="_blank"
+            rel="noopener"
+            href={checkAndMakeAbsoluteUrl(box.shippingLabel ? box.shippingLabel : 'N/A')}
+          >
+            <Typography className={classNames.link}>{box.shippingLabel ? box.shippingLabel : 'N/A'}</Typography>
+          </Link>
         </div>
         <Field
           oneLine

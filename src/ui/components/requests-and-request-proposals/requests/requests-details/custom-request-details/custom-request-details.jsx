@@ -41,7 +41,7 @@ export const CustomSearchRequestDetails = ({request}) => {
 
         <AccordionDetails>
           <div className={classNames.mainWrapper}>
-            {request?.details.linksToMediaFiles.length && (
+            {request?.details.linksToMediaFiles.length ? (
               <div className={classNames.photoWrapper}>
                 <Field
                   multiline
@@ -66,7 +66,7 @@ export const CustomSearchRequestDetails = ({request}) => {
                   }
                 />
               </div>
-            )}
+            ) : null}
 
             <Field
               multiline

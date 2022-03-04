@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
-import {ImageFileInput} from '@components/image-file-input'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
@@ -118,7 +118,7 @@ export const CreateProposalContent = ({onSubmit, request, showProgress, progress
           </div>
 
           <div className={classNames.imageFileInputWrapper}>
-            <ImageFileInput images={images} setImages={setImages} maxNumber={50} />
+            <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
           </div>
         </div>
 
