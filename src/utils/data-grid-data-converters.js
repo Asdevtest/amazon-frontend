@@ -368,7 +368,7 @@ export const adminProductsDataConverter = data =>
 export const adminOrdersDataConverter = data =>
   data.map(item => ({
     originalData: item,
-    id: item._id,
+    id: item.id,
 
     barCode: item.product.barCode,
     totalPrice: calcTotalPriceForOrder(item),

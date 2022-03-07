@@ -87,4 +87,21 @@ export const useClassNames = makeStyles(() => ({
   disableSelect: {
     color: 'rgba(0,0,0, .3)',
   },
+
+  barCodeLinkWrapper: {
+    display: 'flex',
+  },
+
+  link: {
+    maxWidth: '325px',
+    whiteSpace: 'nowrap',
+    overflowX: 'scroll',
+  },
+
+  linkPreview: {
+    // marginLeft: '10px',
+    width: '100px',
+    height: '60px',
+    objectFit: 'contain',
+  },
 }))

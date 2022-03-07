@@ -17,7 +17,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').ordersViewsModalSetBarcode
 export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item}) => {
   const classNames = useClassNames()
 
-  const barCode = item.barCode || ''
+  const barCode = item?.barCode || ''
 
   const [files, setFiles] = useState(tmpCode?.length ? [...tmpCode] : [])
 
@@ -44,7 +44,7 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item
       <Divider className={classNames.divider} />
 
       <Box className={classNames.saveBox}>
-        <Button className={classNames.saveBtn} onClick={() => onClickSaveBarcode([files[0]])}>
+        <Button disabled={!files.length} className={classNames.saveBtn} onClick={() => onClickSaveBarcode([files[0]])}>
           {textConsts.saveBtn}
         </Button>
         <Button onClick={onCloseModal}>{textConsts.closeBtn}</Button>

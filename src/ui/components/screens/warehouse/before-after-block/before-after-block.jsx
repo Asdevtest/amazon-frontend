@@ -242,13 +242,13 @@ const Box = ({
         <div className={classNames.chipWrapper}>
           <Typography className={classNames.subTitle}>{textConsts.shippingLabel}</Typography>
 
-          <Link
-            target="_blank"
-            rel="noopener"
-            href={checkAndMakeAbsoluteUrl(box.shippingLabel ? box.shippingLabel : 'N/A')}
-          >
-            <Typography className={classNames.link}>{box.shippingLabel ? box.shippingLabel : 'N/A'}</Typography>
-          </Link>
+          {box.shippingLabel ? (
+            <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
+              <Typography className={classNames.link}>{box.shippingLabel}</Typography>
+            </Link>
+          ) : (
+            <Typography className={classNames.link}>{'N/A'}</Typography>
+          )}
         </div>
         <Field
           oneLine

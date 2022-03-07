@@ -18,7 +18,13 @@ export const dataURLtoFile = (dataurl, filename) => {
 export async function onSubmitPostImages({images, type}) {
   const onPostImage = async imageData => {
     const formData = new FormData()
-    formData.append('filename', imageData.file)
+
+    const fileWithoutSpaces = new File([imageData.file], imageData.file.name.replace(/ /g, ''), {
+      type: imageData.file.type,
+      lastModified: imageData.file.lastModified,
+    })
+
+    formData.append('filename', fileWithoutSpaces)
 
     try {
       const imageFile = await OtherModel.postImage(formData)
@@ -26,6 +32,16 @@ export async function onSubmitPostImages({images, type}) {
       this[type].push(BACKEND_API_URL + '/uploads/' + imageFile.data.fileName)
     } catch (error) {
       this.error = error
+    }
+  }
+
+  const uploadFileByUrl = async image => {
+    try {
+      const result = await OtherModel.uploadFileByUrl(image)
+
+      this[type].push(BACKEND_API_URL + '/uploads/' + result.fileName)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -38,9 +54,7 @@ export async function onSubmitPostImages({images, type}) {
     const image = images[i]
 
     if (typeof image === 'string') {
-      const result = await OtherModel.uploadFileByUrl(image)
-
-      this[type].push(BACKEND_API_URL + '/uploads/' + result.fileName)
+      await uploadFileByUrl(image)
     } else {
       await onPostImage(image)
     }

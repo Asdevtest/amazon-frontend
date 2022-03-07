@@ -32,13 +32,9 @@ export const useClassNames = makeStyles(theme => ({
     marginBottom: '20px',
   },
   barCodeField: {
-    fontSize: '14px',
-    fontWeight: 500,
-    lineHeight: '21px',
-    width: '200px',
-    height: '50px',
-    overflowX: 'scroll',
+    maxWidth: '280px',
     whiteSpace: 'nowrap',
+    overflowX: 'scroll',
   },
 
   subTitle: {
@@ -67,6 +63,7 @@ export const useClassNames = makeStyles(theme => ({
   },
   chipWrapper: {
     display: 'flex',
+    flexDirection: 'column',
   },
   mainWrapper: {
     display: 'flex',

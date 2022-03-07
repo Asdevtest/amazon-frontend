@@ -59,8 +59,8 @@ export const OrderProductModal = ({
   )
 
   const onRemoveProduct = itemId => {
-    const newStateOrderState = [...orderState].filter(el => el._id !== itemId)
-    const newRenderOrderState = [...productsForRender].filter(el => el._id !== itemId)
+    const newStateOrderState = [...orderState].filter(el => el.productId !== itemId)
+    const newRenderOrderState = productsForRender.filter(el => el._id !== itemId)
 
     setProductsForRender(newRenderOrderState)
     setOrderState(newStateOrderState)
@@ -83,6 +83,7 @@ export const OrderProductModal = ({
   }
 
   console.log('orderState', orderState)
+  console.log('productsForRender', productsForRender)
 
   return (
     <Container disableGutters>
@@ -107,7 +108,7 @@ export const OrderProductModal = ({
           <TableBody>
             {productsForRender.map((product, index) => (
               <OrderModalBodyRow
-                key={index}
+                key={product._id}
                 item={product}
                 withRemove={selectedProductsData.length > 1}
                 orderState={orderState[index]}
@@ -143,7 +144,8 @@ export const OrderProductModal = ({
                 !Number.isInteger(Number(order.amount)),
             ) ||
             requestStatus === loadingStatuses.isLoading ||
-            productsForRender.some(item => !item.currentSupplier)
+            productsForRender.some(item => !item.currentSupplier) ||
+            !orderState.length
           }
           onClick={() => {
             onTriggerOpenModal('showOrderModal')

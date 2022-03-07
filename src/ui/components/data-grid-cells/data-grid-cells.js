@@ -299,6 +299,20 @@ export const NoActiveBarcodeCell = withStyles(styles)(({classes: classNames, bar
   </React.Fragment>
 ))
 
+export const ActiveBarcodeCell = withStyles(styles)(({classes: classNames, barCode}) => (
+  <React.Fragment>
+    {/* <Typography className={classNames.noActivebarCode}>{barCode || 'N/A'}</Typography> */}
+
+    {barCode ? (
+      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
+        <Typography className={classNames.noActivebarCode}>{barCode}</Typography>
+      </Link>
+    ) : (
+      <Typography className={classNames.noActivebarCode}>{'N/A'}</Typography>
+    )}
+  </React.Fragment>
+))
+
 export const ToFixedWithKgSignCell = withStyles(styles)(({classes: classNames, value, fix}) => (
   <div className={classNames.priceTableCell}>{!value ? (value === 0 ? 0 : 'N/A') : toFixedWithKg(value, fix)}</div>
 ))

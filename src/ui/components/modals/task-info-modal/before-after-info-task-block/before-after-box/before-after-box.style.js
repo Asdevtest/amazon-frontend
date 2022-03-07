@@ -32,6 +32,7 @@ export const useClassNames = makeStyles(() => ({
 
   chipWrapper: {
     display: 'flex',
+    flexDirection: 'column',
     marginTop: '10px',
     padding: '5px',
   },
@@ -72,12 +73,8 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
   },
   shippingLabelField: {
-    marginLeft: '5px',
-    fontSize: '14px',
-    fontWeight: 500,
-    lineHeight: '21px',
-    width: '250px',
-    height: '45px',
+    maxWidth: '325px',
+    whiteSpace: 'nowrap',
     overflowX: 'scroll',
   },
   fieldsWrapper: {

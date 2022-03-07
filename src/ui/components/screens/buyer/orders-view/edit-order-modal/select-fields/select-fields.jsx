@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Box, Grid, InputLabel, NativeSelect, Typography, Checkbox} from '@material-ui/core'
+import {Box, Grid, InputLabel, NativeSelect, Typography, Checkbox, Link} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
@@ -17,7 +17,7 @@ import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} fr
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {toFixed, toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
 
 import {useClassNames} from './select-fields.style'
 
@@ -352,8 +352,23 @@ export const SelectFields = ({
               <Typography className={classNames.modalText}>{textConsts.supplierAddBarCode}</Typography>
             </div>
 
-            <Typography>{'Баркод:'}</Typography>
-            <Typography className={classNames.barCodeText}>{orderFields.product.barCode || 'N/A'}</Typography>
+            <div className={classNames.barCodeLinkWrapper}>
+              <div>
+                <Typography>{'Баркод:'}</Typography>
+
+                {orderFields.product.barCode ? (
+                  <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}>
+                    <Typography className={classNames.link}>{orderFields.product.barCode}</Typography>
+                  </Link>
+                ) : (
+                  <Typography className={classNames.barCodeText}>{'N/A'}</Typography>
+                )}
+              </div>
+
+              {orderFields.product.barCode && (
+                <img className={classNames.linkPreview} src={orderFields.product.barCode} alt={'баркод'} />
+              )}
+            </div>
           </div>
         </Box>
 

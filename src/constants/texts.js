@@ -1645,7 +1645,7 @@ export const texts = {
       appBarUsername: 'Client',
       appUser: 'client',
       closeBtn: 'Ок',
-      avatarUploadSuccess: 'Аватар загружен. Обновите страницу.',
+      avatarUploadSuccess: 'Аватар загружен. Обновление произойдёт в течение нескольких минут.',
     },
 
     buyerSubUsersBodyRow: {

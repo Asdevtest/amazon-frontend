@@ -91,7 +91,11 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber}) => {
           errors,
         }) => (
           <div className={classNames.mainWrapper}>
-            {errors?.maxNumber && <Typography className={classNames.errorText}>{textConsts.maxNumberError}</Typography>}
+            {errors?.maxNumber && (
+              <Typography className={classNames.errorText}>
+                {maxNumber === 1 ? 'Нельзя загрузить больше 1 файла!' : textConsts.maxNumberError}
+              </Typography>
+            )}
 
             <button
               className={clsx(classNames.dragAndDropBtn, {[classNames.dragingOnDropBtn]: isDragging})}

@@ -107,7 +107,7 @@ export const CreateProposalContent = ({onSubmit, request, showProgress, progress
           />
 
           <div className={classNames.middleSubWrapper}>
-            <Field label={'Введите цену предложения*'} value={formFields.price} onChange={onChangeField('price')} />
+            <Field label={'Введите цену предложения $*'} value={formFields.price} onChange={onChangeField('price')} />
 
             <Field
               label={'Время на выполнение мин.*'}

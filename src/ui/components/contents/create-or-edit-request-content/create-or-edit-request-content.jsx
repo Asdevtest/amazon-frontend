@@ -2,8 +2,10 @@ import Radio from '@mui/material/Radio'
 
 import React, {useState} from 'react'
 
-import {Checkbox, Divider, Typography} from '@material-ui/core'
+import {Checkbox, Divider, Typography, Select, ListItemText, MenuItem} from '@material-ui/core'
 import clsx from 'clsx'
+
+import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 // import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
@@ -50,7 +52,10 @@ export const CreateOrEditRequestContent = ({
       price: requestToEdit?.request.price || '',
       timeoutAt: requestToEdit?.request.timeoutAt || '',
       direction: requestToEdit?.request.direction || 'IN',
-      roles: [10, 20, 30, 35],
+      roles: requestToEdit?.request.roles.length ? requestToEdit?.request.roles : [10, 20, 30, 35],
+      needCheckBySupervisor: requestToEdit?.request.needCheckBySupervisor || false,
+      restrictMoreThanOneProposalFromOneAssignee:
+        requestToEdit?.request.restrictMoreThanOneProposalFromOneAssignee || false,
     },
     details: {
       conditions: requestToEdit?.details.conditions || '',
@@ -72,7 +77,9 @@ export const CreateOrEditRequestContent = ({
       return
     } else if (['timeoutAt'].includes(fieldName)) {
       newFormFields[section][fieldName] = event
-      setDeadlineError(false) // пока оставлю
+      setDeadlineError(false)
+    } else if (['needCheckBySupervisor', 'restrictMoreThanOneProposalFromOneAssignee'].includes(fieldName)) {
+      newFormFields[section][fieldName] = event.target.checked
     } else {
       newFormFields[section][fieldName] = event.target.value
     }
@@ -209,6 +216,44 @@ export const CreateOrEditRequestContent = ({
                   </div>
                 }
               />
+
+              <Field
+                label={'Смогут видет роли:'}
+                inputComponent={
+                  <Select
+                    multiple
+                    value={formFields.request.roles}
+                    renderValue={selected => selected.map(el => UserRoleCodeMap[el]).join(', ')}
+                    onChange={onChangeField('request')('roles')}
+                  >
+                    {Object.keys(UserRoleCodeMap)
+                      .filter(el =>
+                        [UserRole.CLIENT, UserRole.SUPERVISOR, UserRole.RESEARCHER, UserRole.FREELANCER].includes(
+                          UserRoleCodeMap[el],
+                        ),
+                      )
+                      .map((role, index) => (
+                        <MenuItem
+                          key={index}
+                          value={Number(role)}
+                          // disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role])}
+                        >
+                          <Checkbox color="primary" checked={formFields.request.roles.includes(Number(role))} />
+                          <ListItemText primary={UserRoleCodeMap[role]} />
+                        </MenuItem>
+                      ))}
+                  </Select>
+                }
+              />
+
+              <div className={classNames.checkboxWrapper}>
+                <Typography className={classNames.checkboxLabel}>{'Нужна проверка супервайзером'}</Typography>
+                <Checkbox
+                  color="primary"
+                  checked={formFields.request.needCheckBySupervisor}
+                  onChange={onChangeField('request')('needCheckBySupervisor')}
+                />
+              </div>
             </div>
           </div>
         )}
@@ -281,7 +326,11 @@ export const CreateOrEditRequestContent = ({
                   <Typography className={classNames.checkboxLabel}>
                     {'Разрешить многократное исполнение одному исполнителю'}
                   </Typography>
-                  <Checkbox color="primary" /* checked={formFields.fba} onChange={onChangeFormField('fba')} */ />
+                  <Checkbox
+                    color="primary"
+                    checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
+                    onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
+                  />
                 </div>
               )}
 

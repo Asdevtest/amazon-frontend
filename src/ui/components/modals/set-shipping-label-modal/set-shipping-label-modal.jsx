@@ -17,7 +17,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').ordersViewsModalSetShippingLab
 export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, item, tmpShippingLabel}) => {
   const classNames = useClassNames()
 
-  const shippingLabel = item.shippingLabel
+  const shippingLabel = item?.shippingLabel
 
   const [files, setFiles] = useState(tmpShippingLabel?.length ? [...tmpShippingLabel] : [])
 
@@ -43,7 +43,7 @@ export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, i
       <Divider className={classNames.divider} />
       <Box className={classNames.saveBox}>
         <Button
-          // disabled={shippingLabel.length < 5 && shippingLabel.length > 0}
+          disabled={!files.length}
           className={classNames.saveBtn}
           onClick={() => onClickSaveShippingLabel([files[0]])}
         >

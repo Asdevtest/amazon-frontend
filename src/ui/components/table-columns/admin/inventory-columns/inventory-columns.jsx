@@ -12,7 +12,7 @@ import {
   FeesValuesWithCalculateBtnCell,
   ClientCell,
   ToFixedWithDollarSignCell,
-  NoActiveBarcodeCell,
+  ActiveBarcodeCell,
   NormDateCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
@@ -72,7 +72,7 @@ export const exchangeInventoryColumns = () => [
     field: 'barCode',
     headerName: textConsts.barCodeField,
     width: 150,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.value} />,
+    renderCell: params => <ActiveBarcodeCell barCode={params.value} />,
   },
 
   {
