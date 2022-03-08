@@ -18,7 +18,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/researcherAvatar.jpg'
 import {ResearcherProductsViewModel} from './researcher-products-view.model'
 import {styles} from './researcher-products-view.style'
 
@@ -70,12 +69,7 @@ class ResearcherProductsViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <Paper className={classNames.card}>
                 <Typography variant="h6">{textConsts.cardMainTitle}</Typography>

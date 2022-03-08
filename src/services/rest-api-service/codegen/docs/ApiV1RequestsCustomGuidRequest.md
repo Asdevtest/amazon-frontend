@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **title** | **String** | Title заявки. | [optional] 
-**maxAmountOfProposals** | **Number** | Количество предложений, не менее. | [optional] 
 **price** | **Number** | Цена за каждое предложение. | [optional] 
 **timeoutAt** | **Date** | Время закрытия заявки. | [optional] 
 **timeLimitInMinutes** | **Number** | Время за которое должен отправить предложение после бронирования. В минутах, не менее 10. | [optional] 

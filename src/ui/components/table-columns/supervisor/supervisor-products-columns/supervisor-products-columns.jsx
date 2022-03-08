@@ -21,14 +21,6 @@ export const supervisorProductsViewColumns = () => [
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },
-  {
-    field: 'asinCell',
-    headerName: textConsts.asinField,
-    renderCell: params => <AsinCell product={params.row.originalData} />,
-    minWidth: 350,
-    filterable: false,
-    flex: 3,
-  },
 
   {
     field: 'updatedAt',
@@ -36,6 +28,15 @@ export const supervisorProductsViewColumns = () => [
     width: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
+  },
+
+  {
+    field: 'asinCell',
+    headerName: textConsts.asinField,
+    renderCell: params => <AsinCell product={params.row.originalData} />,
+    minWidth: 350,
+    filterable: false,
+    flex: 3,
   },
 
   {
@@ -79,7 +80,7 @@ export const supervisorProductsViewColumns = () => [
     field: 'bsr',
     headerName: textConsts.bsrField,
     renderCell: params => renderFieldValueCell(params.value),
-    minWidth: 130,
+    minWidth: 80,
     type: 'number',
     flex: 1,
   },
@@ -88,7 +89,7 @@ export const supervisorProductsViewColumns = () => [
     field: 'fbafee',
     headerName: textConsts.fbafeeField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.fbafee} fix={2} />,
-    minWidth: 130,
+    minWidth: 90,
     type: 'number',
     flex: 1,
   },

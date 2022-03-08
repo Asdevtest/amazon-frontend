@@ -7,10 +7,11 @@ import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
-import {ImageFileInput} from '@components/image-file-input'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixed} from '@utils/text'
 
 import {useClassNames} from './edit-box-tasks-modal.style'
 
@@ -53,14 +54,14 @@ const AttributesEditBlock = ({box, setNewBoxField}) => {
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.volumeWeightKgWarehouse}
-          value={box.volumeWeightKgWarehouse}
+          value={toFixed(box.volumeWeightKgWarehouse, 2)}
           onChange={setNewBoxField('volumeWeightKgWarehouse')}
         />
         <Field
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.weightFinalAccountingKgWarehouse}
-          value={box.weightFinalAccountingKgWarehouse}
+          value={toFixed(box.weightFinalAccountingKgWarehouse, 2)}
         />
       </div>
     </div>
@@ -152,7 +153,7 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
 
       <Box className={classNames.boxCode}>
         <div className={classNames.imageFileInputWrapper}>
-          <ImageFileInput images={editingBox.tmpImages} setImages={setImagesOfBox} maxNumber={50} />
+          <UploadFilesInput images={editingBox.tmpImages} setImages={setImagesOfBox} maxNumber={50} />
         </div>
       </Box>
 

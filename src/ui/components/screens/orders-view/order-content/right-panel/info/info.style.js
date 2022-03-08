@@ -120,4 +120,15 @@ export const useClassNames = makeStyles(theme => ({
       transform: 'scale(1.02)',
     },
   },
+
+  titleWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  orderNumber: {
+    marginLeft: '15px',
+    fontSize: '22px',
+    fontWeight: 'bold',
+  },
 }))

@@ -5,8 +5,9 @@ import clsx from 'clsx'
 
 // import {texts} from '@constants/texts'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
-import {ImageFileInput} from '@components/image-file-input'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
@@ -17,7 +18,7 @@ import {useClassNames} from './create-proposal-content.style'
 
 // const textConsts = getLocalizedTexts(texts, 'ru').CreateOrEditRequestContent
 
-export const CreateProposalContent = ({onSubmit, request}) => {
+export const CreateProposalContent = ({onSubmit, request, showProgress, progressValue}) => {
   const classNames = useClassNames()
 
   const [images, setImages] = useState([])
@@ -25,8 +26,10 @@ export const CreateProposalContent = ({onSubmit, request}) => {
   const sourceFormFields = {
     price: '',
     execution_time: '',
-    // comment: '',
-    // linksToMediaFiles: [],
+    proposalDetails: {
+      comment: '',
+      linksToMediaFiles: [],
+    },
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
 
@@ -34,6 +37,8 @@ export const CreateProposalContent = ({onSubmit, request}) => {
     const newFormFields = {...formFields}
     if (['execution_time'].includes(fieldName)) {
       newFormFields[fieldName] = parseInt(event.target.value) || ''
+    } else if (['comment'].includes(fieldName)) {
+      newFormFields.proposalDetails.comment = event.target.value
     } else if (
       ['price'].includes(fieldName) &&
       !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
@@ -93,7 +98,6 @@ export const CreateProposalContent = ({onSubmit, request}) => {
         <div className={classNames.middleWrapper}>
           <Field
             multiline
-            disabled
             className={classNames.descriptionField}
             minRows={4}
             rowsMax={4}
@@ -103,7 +107,7 @@ export const CreateProposalContent = ({onSubmit, request}) => {
           />
 
           <div className={classNames.middleSubWrapper}>
-            <Field label={'Введите цену предложения*'} value={formFields.price} onChange={onChangeField('price')} />
+            <Field label={'Введите цену предложения $*'} value={formFields.price} onChange={onChangeField('price')} />
 
             <Field
               label={'Время на выполнение мин.*'}
@@ -114,7 +118,7 @@ export const CreateProposalContent = ({onSubmit, request}) => {
           </div>
 
           <div className={classNames.imageFileInputWrapper}>
-            <ImageFileInput images={images} setImages={setImages} maxNumber={50} />
+            <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
           </div>
         </div>
 
@@ -126,6 +130,8 @@ export const CreateProposalContent = ({onSubmit, request}) => {
           </div>
         </div>
       </div>
+
+      {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
     </div>
   )
 }

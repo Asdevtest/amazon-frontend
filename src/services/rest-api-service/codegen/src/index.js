@@ -15,23 +15,26 @@
 import ApiClient from './ApiClient';
 import AdminUserPatchDtoSchema from './model/AdminUserPatchDtoSchema';
 import ApiV1AdminsBatchesBatch from './model/ApiV1AdminsBatchesBatch';
+import ApiV1AdminsBatchesBoxes from './model/ApiV1AdminsBatchesBoxes';
+import ApiV1AdminsBatchesItems from './model/ApiV1AdminsBatchesItems';
 import ApiV1AdminsGetProductsByStatusClient from './model/ApiV1AdminsGetProductsByStatusClient';
 import ApiV1AdminsGetProductsByStatusCurrentSupplier from './model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
 import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
-import ApiV1AdminsOrdersCreatedBy from './model/ApiV1AdminsOrdersCreatedBy';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
-import ApiV1AdminsTasksBoxesBefore from './model/ApiV1AdminsTasksBoxesBefore';
-import ApiV1AdminsTasksItems from './model/ApiV1AdminsTasksItems';
+import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
 import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
+import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStorekeeper';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
 import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
+import ApiV1RequestProposalsCreatedBy from './model/ApiV1RequestProposalsCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1RequestProposalsCustomByRequestIdGuidDetails';
 import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetails';
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
+import ApiV1RequestsGuidPickupProposalDetails from './model/ApiV1RequestsGuidPickupProposalDetails';
 import BadRequestError from './model/BadRequestError';
 import CheckIsUniqueNameOrEmailReqSchema from './model/CheckIsUniqueNameOrEmailReqSchema';
 import CheckIsUniqueNameOrEmailSchema from './model/CheckIsUniqueNameOrEmailSchema';
@@ -90,6 +93,10 @@ import InlineObject52 from './model/InlineObject52';
 import InlineObject53 from './model/InlineObject53';
 import InlineObject54 from './model/InlineObject54';
 import InlineObject55 from './model/InlineObject55';
+import InlineObject56 from './model/InlineObject56';
+import InlineObject57 from './model/InlineObject57';
+import InlineObject58 from './model/InlineObject58';
+import InlineObject59 from './model/InlineObject59';
 import InlineObject6 from './model/InlineObject6';
 import InlineObject7 from './model/InlineObject7';
 import InlineObject8 from './model/InlineObject8';
@@ -105,7 +112,9 @@ import InlineResponse20015 from './model/InlineResponse20015';
 import InlineResponse20016 from './model/InlineResponse20016';
 import InlineResponse20017 from './model/InlineResponse20017';
 import InlineResponse20018 from './model/InlineResponse20018';
-import InlineResponse20018Details from './model/InlineResponse20018Details';
+import InlineResponse20019 from './model/InlineResponse20019';
+import InlineResponse20019Details from './model/InlineResponse20019Details';
+import InlineResponse20019Request from './model/InlineResponse20019Request';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
@@ -229,6 +238,18 @@ export {
     ApiV1AdminsBatchesBatch,
 
     /**
+     * The ApiV1AdminsBatchesBoxes model constructor.
+     * @property {module:model/ApiV1AdminsBatchesBoxes}
+     */
+    ApiV1AdminsBatchesBoxes,
+
+    /**
+     * The ApiV1AdminsBatchesItems model constructor.
+     * @property {module:model/ApiV1AdminsBatchesItems}
+     */
+    ApiV1AdminsBatchesItems,
+
+    /**
      * The ApiV1AdminsGetProductsByStatusClient model constructor.
      * @property {module:model/ApiV1AdminsGetProductsByStatusClient}
      */
@@ -247,34 +268,28 @@ export {
     ApiV1AdminsGetProductsByStatusListingSupplierCompetitors,
 
     /**
-     * The ApiV1AdminsOrdersCreatedBy model constructor.
-     * @property {module:model/ApiV1AdminsOrdersCreatedBy}
-     */
-    ApiV1AdminsOrdersCreatedBy,
-
-    /**
      * The ApiV1AdminsPaymentsCreatedBy model constructor.
      * @property {module:model/ApiV1AdminsPaymentsCreatedBy}
      */
     ApiV1AdminsPaymentsCreatedBy,
 
     /**
-     * The ApiV1AdminsTasksBoxesBefore model constructor.
-     * @property {module:model/ApiV1AdminsTasksBoxesBefore}
+     * The ApiV1AdminsProductsVacCheckedby model constructor.
+     * @property {module:model/ApiV1AdminsProductsVacCheckedby}
      */
-    ApiV1AdminsTasksBoxesBefore,
-
-    /**
-     * The ApiV1AdminsTasksItems model constructor.
-     * @property {module:model/ApiV1AdminsTasksItems}
-     */
-    ApiV1AdminsTasksItems,
+    ApiV1AdminsProductsVacCheckedby,
 
     /**
      * The ApiV1AdminsTasksLightBoxes model constructor.
      * @property {module:model/ApiV1AdminsTasksLightBoxes}
      */
     ApiV1AdminsTasksLightBoxes,
+
+    /**
+     * The ApiV1AdminsTasksLightStorekeeper model constructor.
+     * @property {module:model/ApiV1AdminsTasksLightStorekeeper}
+     */
+    ApiV1AdminsTasksLightStorekeeper,
 
     /**
      * The ApiV1BoxesItems model constructor.
@@ -299,6 +314,12 @@ export {
      * @property {module:model/ApiV1BoxesSplitNewBoxesParams}
      */
     ApiV1BoxesSplitNewBoxesParams,
+
+    /**
+     * The ApiV1RequestProposalsCreatedBy model constructor.
+     * @property {module:model/ApiV1RequestProposalsCreatedBy}
+     */
+    ApiV1RequestProposalsCreatedBy,
 
     /**
      * The ApiV1RequestProposalsCustomByRequestIdGuidDetails model constructor.
@@ -329,6 +350,12 @@ export {
      * @property {module:model/ApiV1RequestsCustomRequest}
      */
     ApiV1RequestsCustomRequest,
+
+    /**
+     * The ApiV1RequestsGuidPickupProposalDetails model constructor.
+     * @property {module:model/ApiV1RequestsGuidPickupProposalDetails}
+     */
+    ApiV1RequestsGuidPickupProposalDetails,
 
     /**
      * The BadRequestError model constructor.
@@ -679,6 +706,30 @@ export {
     InlineObject55,
 
     /**
+     * The InlineObject56 model constructor.
+     * @property {module:model/InlineObject56}
+     */
+    InlineObject56,
+
+    /**
+     * The InlineObject57 model constructor.
+     * @property {module:model/InlineObject57}
+     */
+    InlineObject57,
+
+    /**
+     * The InlineObject58 model constructor.
+     * @property {module:model/InlineObject58}
+     */
+    InlineObject58,
+
+    /**
+     * The InlineObject59 model constructor.
+     * @property {module:model/InlineObject59}
+     */
+    InlineObject59,
+
+    /**
      * The InlineObject6 model constructor.
      * @property {module:model/InlineObject6}
      */
@@ -769,10 +820,22 @@ export {
     InlineResponse20018,
 
     /**
-     * The InlineResponse20018Details model constructor.
-     * @property {module:model/InlineResponse20018Details}
+     * The InlineResponse20019 model constructor.
+     * @property {module:model/InlineResponse20019}
      */
-    InlineResponse20018Details,
+    InlineResponse20019,
+
+    /**
+     * The InlineResponse20019Details model constructor.
+     * @property {module:model/InlineResponse20019Details}
+     */
+    InlineResponse20019Details,
+
+    /**
+     * The InlineResponse20019Request model constructor.
+     * @property {module:model/InlineResponse20019Request}
+     */
+    InlineResponse20019Request,
 
     /**
      * The InlineResponse2002 model constructor.

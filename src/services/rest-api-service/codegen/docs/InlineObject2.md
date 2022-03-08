@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**buyerComment** | **String** | комментарии байера. | [optional] 
-**warehouse** | **Number** | Номер склада. | [optional] 
-**deliveryMethod** | **Number** | Вид доставки. | [optional] 
-**fba** | **Boolean** | Признак FBA это заказ или нет. | [optional] 
-**status** | **Number** |    formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \&quot;требуется подтверждение для изменения цены \&quot;        paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      returnOrder: 35 Если Заказ пришёл не кондиционный - \&quot;возврат заказа\&quot;     | [optional] 
-**deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
-**images** | **[String]** | Массив картинок. | [optional] 
-**yuanToDollarRate** | **Number** | Курс юань доллар. | [optional] 
-**isBarCodeAlreadyAttachedByTheSupplier** | **Boolean** | Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика. | [optional] 
-**trackingNumberChina** | **String** | Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ. | [optional] 
-**amountPaymentPerConsignmentAtDollars** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
-**totalPriceChanged** | **Number** | Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа.  | [optional] 
-**totalPrice** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
+**name** | **String** | Имя пользователя. | [optional] 
+**email** | **String** | email | [optional] 
+**role** | **Number** | Код роли присвоенный пользователю.    roles.root &#x3D; 0    roles.client &#x3D; 10    roles.super &#x3D; 20    roles.researcher &#x3D; 30    roles.freelancer &#x3D; 35    roles.buyer &#x3D; 40    roles.storekeeper &#x3D; 45    roles.candidate &#x3D; 50     | [optional] 
+**fba** | **Boolean** | Флаг fba. | [optional] 
+**active** | **Boolean** | Если истина - пользователь активен. Если нет - заблокирован админом. | [optional] 
+**rate** | **Number** | Ставка, по который оплачивается сотрудник. | [optional] 
+**balance** | **Number** | Текущий баланс пользователя. | [optional] 
+**balanceFreeze** | **Number** | Замороженная при оплате ордера сумма. | [optional] 
+**overdraft** | **Number** | Сумма на которую может уходить в минус пользователь. | [optional] 
+**permissions** | **[String]** | Массив permission-ов. | [optional] 
+**permissionGroups** | **[String]** | Массив групп permission-ов. | [optional] 
+**allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
+**canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 
 
 

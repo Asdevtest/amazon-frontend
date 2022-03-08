@@ -17,7 +17,6 @@ import {TableBodyRow} from '@components/table-rows/buyer/products-view/table-bod
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/buyerAvatar.jpg'
 import {BuyerSearchSupplierBySupervisorModel} from './buyer-search-supplier-by-supervisor-view.model'
 import {styles} from './buyer-search-supplier-by-supervisor-view.style'
 
@@ -56,16 +55,9 @@ export class BuyerSearchSupplierBySupervisorViewRaw extends Component {
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            user={textConsts.appUser}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.tableWrapper}>
                 <Table

@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineObject40 {
     /**
      * Constructs a new <code>InlineObject40</code>.
-     * Если исполнителю нужно он может предложить свои условия.
      * @alias module:model/InlineObject40
      */
     constructor() { 
@@ -48,11 +47,11 @@ class InlineObject40 {
         if (data) {
             obj = obj || new InlineObject40();
 
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -62,16 +61,16 @@ class InlineObject40 {
 }
 
 /**
- * Цена от исполнителя
- * @member {Number} price
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject40.prototype['price'] = undefined;
+InlineObject40.prototype['reason'] = undefined;
 
 /**
- * Время за которое исполнитель предлагает выполнить, в минутах.
- * @member {Number} execution_time
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject40.prototype['execution_time'] = undefined;
+InlineObject40.prototype['linksToMediaFiles'] = undefined;
 
 
 

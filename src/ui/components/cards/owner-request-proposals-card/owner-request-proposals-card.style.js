@@ -49,18 +49,18 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cancelBtn: {
-    backgroundColor: '#FF1616',
+    backgroundColor: '#F44336',
     '&:hover': {
       opacity: '0.8',
-      backgroundColor: '#FF1616',
+      backgroundColor: '#F44336',
     },
   },
 
   successBtn: {
-    backgroundColor: '#00B746',
+    backgroundColor: '#4CAF50',
     '&:hover': {
       opacity: '0.8',
-      backgroundColor: '#00B746',
+      backgroundColor: '#4CAF50',
     },
   },
 
@@ -87,5 +87,33 @@ export const useClassNames = makeStyles(() => ({
 
   userRating: {
     marginLeft: '50px',
+  },
+
+  userNameWrapper: {
+    marginLeft: '10px',
+  },
+
+  proposalDescription: {
+    marginTop: '10px',
+  },
+
+  proposalDescriptionWrapper: {
+    display: 'flex',
+  },
+
+  imgBox: {
+    width: '160px',
+    height: '50px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+    transition: '.2s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
+  },
+  photoWrapper: {
+    marginLeft: '10px',
+    width: '160px',
   },
 }))

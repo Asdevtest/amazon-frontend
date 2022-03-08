@@ -10,11 +10,11 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
-import {ImageFileInput} from '@components/image-file-input'
 import {AddCompetitorModal} from '@components/modals/add-competitor-modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {UserBalanceHistory} from '@components/screens/user-balance-history'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsBuyer, checkIsClient, checkIsSupervisor} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
@@ -139,7 +139,7 @@ export const Listing = observer(({productId, onClickBack}) => {
           {userCanEdit && (
             <div>
               <div className={classNames.imageFileInputWrapper}>
-                <ImageFileInput images={tmpListingImages} setImages={setTmpListingImages} maxNumber={50} />
+                <UploadFilesInput images={tmpListingImages} setImages={setTmpListingImages} maxNumber={50} />
               </div>
             </div>
           )}

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Typography, Paper} from '@material-ui/core'
+import {Typography, Paper, Avatar} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {RequestStatus} from '@constants/request-status'
@@ -9,6 +9,7 @@ import {RequestStatus} from '@constants/request-status'
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime} from '@utils/date-time'
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 // import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
@@ -29,7 +30,7 @@ export const OwnerGeneralRequestInfo = ({
     <Paper className={classNames.root}>
       <div className={classNames.mainBlockWrapper}>
         <div className={classNames.titleBlockWrapper}>
-          <img src="/assets/img/no-photo.jpg" className={classNames.userPhoto} />
+          <Avatar src={getUserAvatarSrc(request?.request.createdById)} className={classNames.userPhoto} />
 
           <div className={classNames.titleWrapper}>
             <Typography className={classNames.title}>{request?.request.title}</Typography>
@@ -104,7 +105,7 @@ export const OwnerGeneralRequestInfo = ({
         </div>
       </div>
 
-      {request?.request.status === RequestStatus.DRAFT && (
+      {request && request?.request.status === RequestStatus.DRAFT && (
         <div className={classNames.btnsBlockWrapper}>
           <div className={classNames.btnsWrapper}>
             <Button color="primary" className={classNames.button} onClick={onClickEditBtn}>
@@ -118,28 +119,33 @@ export const OwnerGeneralRequestInfo = ({
         </div>
       )}
 
-      {request?.request.status !== RequestStatus.DRAFT && (
+      {request && request?.request.status !== RequestStatus.DRAFT && (
         <div className={classNames.btnsBlockWrapper}>
           <div className={classNames.btnsWrapper}>
-            <Button variant="outlined" color="danger" className={classNames.button} onClick={onClickCancelBtn}>
-              {'Отменить'}
-            </Button>
+            {request?.request.status === RequestStatus.DRAFT ||
+              (request?.request.status === RequestStatus.PUBLISHED && (
+                <Button variant="outlined" color="danger" className={classNames.button} onClick={onClickCancelBtn}>
+                  {'Отменить'}
+                </Button>
+              ))}
 
             <Button variant="outlined" color="primary" className={classNames.button} onClick={onClickEditBtn}>
               {'Редактировать'}
             </Button>
           </div>
 
-          <Button
-            variant="contained"
-            color="primary"
-            className={clsx({[classNames.stopBtn]: request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS})}
-            onClick={request?.request.status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
-          >
-            {request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS
-              ? 'Возобновить прием заявок'
-              : 'Остановить прием заявок'}
-          </Button>
+          {request?.request.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED && (
+            <Button
+              variant="contained"
+              color="primary"
+              className={clsx({[classNames.stopBtn]: request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS})}
+              onClick={request?.request.status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
+            >
+              {request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS
+                ? 'Возобновить прием заявок'
+                : 'Остановить прием заявок'}
+            </Button>
+          )}
         </div>
       )}
     </Paper>

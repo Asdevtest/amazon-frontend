@@ -21,11 +21,22 @@ import ApiClient from '../ApiClient';
 class InlineObject3 {
     /**
      * Constructs a new <code>InlineObject3</code>.
+     * Схема динамических настроек.
      * @alias module:model/InlineObject3
+     * @param yuanToDollarRate {Number} Курс юаня к доллару.
+     * @param airDeliveryPrice {Number} Цена за авиа доставку, доллар/кг.
+     * @param seaDeliveryPrice {Number} Цена за доставку морем, доллар/кг.
+     * @param costOfFindingSupplier {Number} Цена за поиск поставщика, оплата байеру, в долларах.
+     * @param deadlineForFindingSupplier {Number} Дедлайна на поиск поставщика., в часах.
+     * @param requestMinAmountPriceOfProposal {Number} Минимальная цена за предложение к заявке, в долларах.
+     * @param requestPlatformMarginInPercent {Number} Процент с каждого предложения, маржа платформы, в процентах.
+     * @param requestSupervisorFeeInPercent {Number} Процент с каждого предложения для супервайзера, в процентах.
+     * @param requestTimeLimitInHourForCancelingProposalsByClient {Number} Время после которого будет автоматом принято предложение клиентом, в часах.
+     * @param requestTimeLimitInHourForCheckingProposalBySuper {Number} Время после которого будет автоматом снят супервизор с проверки предложения, в часах.
      */
-    constructor() { 
+    constructor(yuanToDollarRate, airDeliveryPrice, seaDeliveryPrice, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper) { 
         
-        InlineObject3.initialize(this);
+        InlineObject3.initialize(this, yuanToDollarRate, airDeliveryPrice, seaDeliveryPrice, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper);
     }
 
     /**
@@ -33,7 +44,17 @@ class InlineObject3 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, yuanToDollarRate, airDeliveryPrice, seaDeliveryPrice, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper) { 
+        obj['yuanToDollarRate'] = yuanToDollarRate;
+        obj['airDeliveryPrice'] = airDeliveryPrice;
+        obj['seaDeliveryPrice'] = seaDeliveryPrice;
+        obj['costOfFindingSupplier'] = costOfFindingSupplier;
+        obj['deadlineForFindingSupplier'] = deadlineForFindingSupplier;
+        obj['requestMinAmountPriceOfProposal'] = requestMinAmountPriceOfProposal;
+        obj['requestPlatformMarginInPercent'] = requestPlatformMarginInPercent;
+        obj['requestSupervisorFeeInPercent'] = requestSupervisorFeeInPercent;
+        obj['requestTimeLimitInHourForCancelingProposalsByClient'] = requestTimeLimitInHourForCancelingProposalsByClient;
+        obj['requestTimeLimitInHourForCheckingProposalBySuper'] = requestTimeLimitInHourForCheckingProposalBySuper;
     }
 
     /**
@@ -47,44 +68,38 @@ class InlineObject3 {
         if (data) {
             obj = obj || new InlineObject3();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            if (data.hasOwnProperty('airDeliveryPrice')) {
+                obj['airDeliveryPrice'] = ApiClient.convertToType(data['airDeliveryPrice'], 'Number');
             }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            if (data.hasOwnProperty('seaDeliveryPrice')) {
+                obj['seaDeliveryPrice'] = ApiClient.convertToType(data['seaDeliveryPrice'], 'Number');
             }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            if (data.hasOwnProperty('costOfFindingSupplier')) {
+                obj['costOfFindingSupplier'] = ApiClient.convertToType(data['costOfFindingSupplier'], 'Number');
             }
-            if (data.hasOwnProperty('active')) {
-                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
+            if (data.hasOwnProperty('costOfCheckingProduct')) {
+                obj['costOfCheckingProduct'] = ApiClient.convertToType(data['costOfCheckingProduct'], 'Number');
             }
-            if (data.hasOwnProperty('rate')) {
-                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
+            if (data.hasOwnProperty('deadlineForFindingSupplier')) {
+                obj['deadlineForFindingSupplier'] = ApiClient.convertToType(data['deadlineForFindingSupplier'], 'Number');
             }
-            if (data.hasOwnProperty('balance')) {
-                obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
+            if (data.hasOwnProperty('requestMinAmountPriceOfProposal')) {
+                obj['requestMinAmountPriceOfProposal'] = ApiClient.convertToType(data['requestMinAmountPriceOfProposal'], 'Number');
             }
-            if (data.hasOwnProperty('balanceFreeze')) {
-                obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('overdraft')) {
-                obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
+            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
+                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('permissions')) {
-                obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
+            if (data.hasOwnProperty('requestTimeLimitInHourForCancelingProposalsByClient')) {
+                obj['requestTimeLimitInHourForCancelingProposalsByClient'] = ApiClient.convertToType(data['requestTimeLimitInHourForCancelingProposalsByClient'], 'Number');
             }
-            if (data.hasOwnProperty('permissionGroups')) {
-                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], ['String']);
-            }
-            if (data.hasOwnProperty('allowedRoles')) {
-                obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
-            }
-            if (data.hasOwnProperty('canByMasterUser')) {
-                obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
+            if (data.hasOwnProperty('requestTimeLimitInHourForCheckingProposalBySuper')) {
+                obj['requestTimeLimitInHourForCheckingProposalBySuper'] = ApiClient.convertToType(data['requestTimeLimitInHourForCheckingProposalBySuper'], 'Number');
             }
         }
         return obj;
@@ -94,82 +109,70 @@ class InlineObject3 {
 }
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * Курс юаня к доллару.
+ * @member {Number} yuanToDollarRate
  */
-InlineObject3.prototype['name'] = undefined;
+InlineObject3.prototype['yuanToDollarRate'] = undefined;
 
 /**
- * email
- * @member {String} email
+ * Цена за авиа доставку, доллар/кг.
+ * @member {Number} airDeliveryPrice
  */
-InlineObject3.prototype['email'] = undefined;
+InlineObject3.prototype['airDeliveryPrice'] = undefined;
 
 /**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
- * @member {Number} role
+ * Цена за доставку морем, доллар/кг.
+ * @member {Number} seaDeliveryPrice
  */
-InlineObject3.prototype['role'] = undefined;
+InlineObject3.prototype['seaDeliveryPrice'] = undefined;
 
 /**
- * Флаг fba.
- * @member {Boolean} fba
+ * Цена за поиск поставщика, оплата байеру, в долларах.
+ * @member {Number} costOfFindingSupplier
  */
-InlineObject3.prototype['fba'] = undefined;
+InlineObject3.prototype['costOfFindingSupplier'] = undefined;
 
 /**
- * Если истина - пользователь активен. Если нет - заблокирован админом.
- * @member {Boolean} active
+ * Цена за поиск поставщика, оплата ресерчера, в долларах.
+ * @member {Number} costOfCheckingProduct
  */
-InlineObject3.prototype['active'] = undefined;
+InlineObject3.prototype['costOfCheckingProduct'] = undefined;
 
 /**
- * Ставка, по который оплачивается сотрудник.
- * @member {Number} rate
+ * Дедлайна на поиск поставщика., в часах.
+ * @member {Number} deadlineForFindingSupplier
  */
-InlineObject3.prototype['rate'] = undefined;
+InlineObject3.prototype['deadlineForFindingSupplier'] = undefined;
 
 /**
- * Текущий баланс пользователя.
- * @member {Number} balance
+ * Минимальная цена за предложение к заявке, в долларах.
+ * @member {Number} requestMinAmountPriceOfProposal
  */
-InlineObject3.prototype['balance'] = undefined;
+InlineObject3.prototype['requestMinAmountPriceOfProposal'] = undefined;
 
 /**
- * Замороженная при оплате ордера сумма.
- * @member {Number} balanceFreeze
+ * Процент с каждого предложения, маржа платформы, в процентах.
+ * @member {Number} requestPlatformMarginInPercent
  */
-InlineObject3.prototype['balanceFreeze'] = undefined;
+InlineObject3.prototype['requestPlatformMarginInPercent'] = undefined;
 
 /**
- * Сумма на которую может уходить в минус пользователь.
- * @member {Number} overdraft
+ * Процент с каждого предложения для супервайзера, в процентах.
+ * @member {Number} requestSupervisorFeeInPercent
  */
-InlineObject3.prototype['overdraft'] = undefined;
+InlineObject3.prototype['requestSupervisorFeeInPercent'] = undefined;
 
 /**
- * Массив permission-ов.
- * @member {Array.<String>} permissions
+ * Время после которого будет автоматом принято предложение клиентом, в часах.
+ * @member {Number} requestTimeLimitInHourForCancelingProposalsByClient
  */
-InlineObject3.prototype['permissions'] = undefined;
+InlineObject3.prototype['requestTimeLimitInHourForCancelingProposalsByClient'] = undefined;
 
 /**
- * Массив групп permission-ов.
- * @member {Array.<String>} permissionGroups
+ * Время после которого будет автоматом снят супервизор с проверки предложения, в часах.
+ * @member {Number} requestTimeLimitInHourForCheckingProposalBySuper
  */
-InlineObject3.prototype['permissionGroups'] = undefined;
-
-/**
- * Массив массив ролей.
- * @member {Array.<Number>} allowedRoles
- */
-InlineObject3.prototype['allowedRoles'] = undefined;
-
-/**
- * Может ли данный пользователь быть мастер юзером.
- * @member {Boolean} canByMasterUser
- */
-InlineObject3.prototype['canByMasterUser'] = undefined;
+InlineObject3.prototype['requestTimeLimitInHourForCheckingProposalBySuper'] = undefined;
 
 
 

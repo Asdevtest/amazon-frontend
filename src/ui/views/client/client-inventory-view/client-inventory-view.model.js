@@ -13,7 +13,7 @@ import {UserModel} from '@models/user-model'
 
 import {clientInventoryColumns} from '@components/table-columns/client/client-inventory-columns'
 
-import {copyToClipBoard} from '@utils/clipboard'
+// import {copyToClipBoard} from '@utils/clipboard'
 import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -191,8 +191,17 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async onClickSaveBarcode(barCode) {
-    await this.onSaveProductData(this.selectedProduct._id, {barCode})
+  async onClickSaveBarcode(tmpBarCode) {
+    this.uploadedFiles = []
+
+    if (tmpBarCode.length) {
+      await onSubmitPostImages.call(this, {images: tmpBarCode, type: 'uploadedFiles'})
+    }
+
+    await ClientModel.updateProductBarCode(this.selectedProduct._id, {barCode: this.uploadedFiles[0]})
+
+    this.getProductsMy()
+
     this.onTriggerOpenModal('showSetBarcodeModal')
     runInAction(() => {
       this.selectedProduct = undefined
@@ -222,12 +231,12 @@ export class ClientInventoryViewModel {
   }
 
   onClickBarcode(item) {
-    if (item.barCode) {
-      copyToClipBoard(item.barCode)
-    } else {
-      this.setSelectedProduct(item)
-      this.onTriggerOpenModal('showSetBarcodeModal')
-    }
+    // if (item.barCode) {
+    //   copyToClipBoard(item.barCode)
+    // } else {
+    this.setSelectedProduct(item)
+    this.onTriggerOpenModal('showSetBarcodeModal')
+    // }
   }
 
   async onSubmitOrderProductModal(ordersDataState) {
@@ -236,13 +245,27 @@ export class ClientInventoryViewModel {
       this.error = undefined
       for (let i = 0; i < ordersDataState.length; i++) {
         const product = ordersDataState[i]
-        await this.createOrder(product)
+
+        this.uploadedFiles = []
+
+        if (product.tmpBarCode.length) {
+          await onSubmitPostImages.call(this, {images: product.tmpBarCode, type: 'uploadedFiles'})
+        }
+
+        const prodToCreate = getObjectFilteredByKeyArrayBlackList(
+          {...product, barCode: this.uploadedFiles.length ? this.uploadedFiles[0] : product.barCode},
+          ['tmpBarCode'],
+        )
+
+        await this.createOrder(prodToCreate)
       }
 
       if (!this.error) {
         this.successModalText = textConsts.successOrderTitle
         this.onTriggerOpenModal('showSuccessModal')
       }
+
+      await this.getProductsMy()
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
@@ -254,7 +277,9 @@ export class ClientInventoryViewModel {
   async createOrder(orderObject) {
     try {
       await ClientModel.createOrder(getObjectFilteredByKeyArrayBlackList(orderObject, ['barCode']))
-      await this.onSaveProductData(orderObject.productId, {barCode: orderObject.barCode})
+
+      await ClientModel.updateProductBarCode(orderObject.productId, {barCode: orderObject.barCode})
+
       await this.updateUserInfo()
     } catch (error) {
       console.log(error)
@@ -267,6 +292,8 @@ export class ClientInventoryViewModel {
 
   async onSubmitSaveSupplier(supplier, photosOfSupplier, addMore, makeMainSupplier) {
     try {
+      this.readyImages = []
+
       if (photosOfSupplier.length) {
         await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
       }
@@ -378,7 +405,7 @@ export class ClientInventoryViewModel {
   }
 
   async onDeleteBarcode(product) {
-    await this.onSaveProductData(product._id, {barCode: ''})
+    await ClientModel.updateProductBarCode(product._id, {barCode: null})
   }
 
   async onClickBindInventoryGoodsToStockBtn() {

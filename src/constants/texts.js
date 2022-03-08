@@ -330,6 +330,8 @@ export const texts = {
       mainTitle: 'Settings',
     },
     adminBalanceModal: {
+      paymentType: 'Type',
+
       titleReplenish: 'Replenish balance',
       titleWithdraw: 'Withdraw balance',
       balanceLabel: 'Balance change value',
@@ -1065,10 +1067,31 @@ export const texts = {
       mainTitle: 'Dashboard',
       myRequestsCardTitle: 'Мои заявки',
       curBalanceCardTitle: 'Текущий баланс',
-      finesCardTitle: 'Штрафы',
-      newProductsCardTitle: 'Новых товаров в базе',
-      meCheckingCardTitle: 'У меня на проверке',
-      accuredCardTitle: 'Начислено',
+
+      productsTitle: 'Продукты',
+      ordersTitle: 'Заказы',
+      financesTitle: 'Финансы',
+
+      allProducts: 'Всего товаров',
+      successProduts: 'Выполненные',
+      payedProducts: 'Оплаченные',
+      produtsAtSupervisor: 'Новый поиск от супервизора',
+      produtsAtClient: 'Новый поиск от клиента',
+      inSearchProduts: 'В процессе поиска',
+      rejectedProduts: 'Отклонены супервайзером/байером',
+
+      inProcessOrders: 'В процессе обработки',
+      freeOrders: 'Свободные',
+      rejectedOrders: 'Выполненные',
+
+      replenish: 'Начисления',
+      fines: 'Штрафы',
+
+      onSupervisor: 'На проверке у супервайзера',
+
+      seekingByBuyer: 'Поиск поставщика байером',
+
+      noStatus: 'Без статуса',
     },
 
     supervisorDashboardView: {
@@ -1088,6 +1111,30 @@ export const texts = {
 
       finesCardTitle: 'Штрафы',
       accuredCardTitle: 'Начислено',
+
+      productsTitle: 'Продукты',
+      ordersTitle: 'Заказы',
+      financesTitle: 'Финансы',
+
+      allProducts: 'Всего товаров',
+      successProduts: 'Опубликованные на бирже',
+      payedProducts: 'Оплаченные',
+      produtsAtSupervisor: 'На проверку от супервизора',
+      produtsAtClient: 'Новый поиск от клиента',
+      inSearchProduts: 'В работе у байера',
+      rejectedProduts: 'Отклоненные',
+
+      inProcessOrders: 'В процессе обработки',
+      freeOrders: 'Свободные',
+      rejectedOrders: 'Выполненные',
+
+      replenish: 'Начисления',
+      fines: 'Штрафы',
+
+      produtsAtResearcher: 'На проверку от ресерчера',
+
+      onChecking: 'На проверке',
+      awaitingSolve: 'Ожидает проверки',
     },
 
     buyerDashboardView: {
@@ -1416,6 +1463,7 @@ export const texts = {
       fba: 'FBA',
       active: 'User status',
       rate: 'Rate',
+      masterUser: 'Master user id',
 
       fieldSecurity: 'Security/Sharing options',
       manageBtn: 'Manage Permissions',
@@ -1596,6 +1644,8 @@ export const texts = {
       appBarTitle: 'User page',
       appBarUsername: 'Client',
       appUser: 'client',
+      closeBtn: 'Ок',
+      avatarUploadSuccess: 'Аватар загружен. Обновление произойдёт в течение нескольких минут.',
     },
 
     buyerSubUsersBodyRow: {
@@ -2407,6 +2457,8 @@ export const texts = {
       creatorNameField: 'Инициатор',
       recipientNameField: 'Реципиент ',
       typeField: 'Тип',
+      paymentTypeField: 'Категория',
+      entityIdField: 'ID сущности',
     },
 
     buyerFinancesTableColumns: {
@@ -2540,7 +2592,7 @@ export const texts = {
       qtyField: 'Количество',
       materialField: 'Материал',
       warehouseField: 'Склад',
-      boxIdField: 'id Коробки',
+      boxIdField: 'id',
       priceField: 'Общая цена',
       trackIdField: 'Трек номер',
       weightField: 'Финальный Вес',
@@ -2560,6 +2612,7 @@ export const texts = {
       roleField: 'Role',
       statusField: 'User status',
       actionsField: 'Actions',
+      subUserField: 'Sub status',
 
       editBtnText: 'Edit User',
       balanceBtnText: 'Balance',
@@ -2614,8 +2667,8 @@ export const texts = {
     },
 
     adminTasksTableColumns: {
-      createDateField: 'Дата создания',
-      updateDateField: 'Последнее обновление',
+      createDateField: 'Создано',
+      updateDateField: 'Обновлено',
       typeField: 'Тип',
       descriptionField: 'Описание',
       actionField: 'Действие',
@@ -3098,6 +3151,19 @@ export const texts = {
       cancelBtn: 'Отмена',
     },
 
+    avatarEditorForm: {
+      fileIsBig: 'Файл слишком большой!',
+      badFormat: 'Неподходящий формат!',
+      title: 'Загрузить фотографию',
+      sizeFile: `Размер изображения не должен превышать`,
+      allowedFormats: 'Допустимые форматы изображений ',
+      formats: `'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`,
+      loadBtn: 'Загрузить фотографию',
+      cancelBtn: 'Отмена',
+
+      okBtn: 'Ок',
+    },
+
     adminSettingsForm: {
       yuanToDollarRate: 'Курс юаня к доллару Ұ',
       airDeliveryPrice: 'Цена за авиа доставку $',
@@ -3114,6 +3180,8 @@ export const texts = {
         'Время, после которого, автоматически будет снят супервизор с проверки Ч.',
       deadlineForFindingSupplier: 'Время на поиск поставщика Ч.',
       saveBtn: 'Сохранить',
+
+      closeBtn: 'Ок',
     },
 
     userSettingsForm: {
@@ -3216,9 +3284,8 @@ export const texts = {
       amountIfItemsInBox: 'Items in box',
     },
 
-    addImagesFormText: {
-      title: 'Добавит избражения',
-      addPhotos: 'Добавьте фотографии:',
+    addFilesFormText: {
+      addFiles: 'Добавьте файлы:',
       saveBtn: 'Сохранить',
       closeBtn: 'Закрыть',
     },
@@ -3316,15 +3383,15 @@ export const texts = {
       reReceiveBoxBtn: 'Перераспределить',
     },
 
-    imageFileInput: {
+    uploadFilesInput: {
       dragAndDropBtn: 'Click or Drop here',
-      hideImagesBtn: 'Hide images',
-      showImagesBtn: 'Show images',
+      hideImagesBtn: 'Hide files',
+      showImagesBtn: 'Show files',
       removeAllBtn: 'Remove all',
 
-      addPhoto: 'Прикрепить фото',
+      addPhoto: 'Прикрепить файл',
       link: 'Ссылка',
-      loadBtn: 'Загрузить',
+      loadBtn: 'Добавить',
       maxNumberError: 'Нельзя загрузить больше 50 файлов за раз!',
     },
 

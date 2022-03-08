@@ -10,8 +10,8 @@ import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field/field'
-import {ImageFileInput} from '@components/image-file-input'
 import {Input} from '@components/input'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -28,7 +28,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
   const [images, setImages] = useState([])
 
   const sourceFormFields = {
-    id: '',
+    asin: '',
     skusByClient: [],
     amazonTitle: '',
     images: [],
@@ -38,7 +38,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
   const [formFields, setFormFields] = useState(sourceFormFields)
 
   const onClickParseBtn = () => {
-    setFormFields({...formFields, id: getAmazonCodeFromLink(formFields.lamazon) || ''})
+    setFormFields({...formFields, asin: getAmazonCodeFromLink(formFields.lamazon) || ''})
   }
 
   const onClickSkuBtn = () => {
@@ -59,7 +59,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
   }
 
   const disableSubmitBtn =
-    formFields.id === '' &&
+    formFields.asin === '' &&
     !formFields.skusByClient.length &&
     formFields.amazonTitle === '' &&
     formFields.lamazon === ''
@@ -97,9 +97,9 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
         <Field
           inputProps={{maxLength: 1000}}
           label={textConsts.asin}
-          value={formFields.id}
+          value={formFields.asin}
           placeholder={textConsts.asin}
-          onChange={onChangeField('id')}
+          onChange={onChangeField('asin')}
         />
 
         <Field
@@ -152,7 +152,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
       </div>
 
       <div className={classNames.imageFileInputWrapper}>
-        <ImageFileInput images={images} setImages={setImages} maxNumber={50} />
+        <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
       </div>
 
       <div className={classNames.btnsWrapper}>

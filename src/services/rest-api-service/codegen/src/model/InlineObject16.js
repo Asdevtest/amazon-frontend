@@ -49,8 +49,8 @@ class InlineObject16 {
         if (data) {
             obj = obj || new InlineObject16();
 
-            if (data.hasOwnProperty('scheduledDispatchDate')) {
-                obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'Date');
+            if (data.hasOwnProperty('cancel')) {
+                obj['cancel'] = ApiClient.convertToType(data['cancel'], 'Boolean');
             }
             if (data.hasOwnProperty('boxesIds')) {
                 obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
@@ -63,10 +63,11 @@ class InlineObject16 {
 }
 
 /**
- * Запланированная дата отправки.
- * @member {Date} scheduledDispatchDate
+ * Флаг отмены. Если он true - то все списания будут сделаны с обратным знаком.
+ * @member {Boolean} cancel
+ * @default false
  */
-InlineObject16.prototype['scheduledDispatchDate'] = undefined;
+InlineObject16.prototype['cancel'] = false;
 
 /**
  * @member {Array.<String>} boxesIds

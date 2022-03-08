@@ -15,10 +15,10 @@ Name | Type | Description | Notes
 **clientId** | **String** | GUID клиента . | [optional] 
 **supervisorId** | **String** | GUID супервизора. | [optional] 
 **chatId** | **String** | GUID чата. | [optional] 
-**createdById** | **String** | GUID любого, кто создал предложение. | [optional] 
 **lastModifiedById** | **String** | GUID любого, кто последний редактировал предложение. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
+**createdBy** | [**ApiV1RequestProposalsCreatedBy**](ApiV1RequestProposalsCreatedBy.md) |  | [optional] 
 
 
 

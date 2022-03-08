@@ -125,4 +125,17 @@ export const useClassNames = makeStyles(() => ({
   twoStepDeadlineField: {
     marginLeft: '30px',
   },
+
+  deadlineError: {
+    borderBottom: '1px solid red',
+  },
+  deadlineErrorText: {
+    color: 'red',
+  },
+
+  nameField: {
+    height: '60px',
+    width: '100%',
+    overflowY: 'hidden',
+  },
 }))

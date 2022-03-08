@@ -25,7 +25,6 @@ import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-sup
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/clientAvatar.jpg'
 import {ClientDailySellerBoardViewModel} from './client-daily-seller-board-view.model'
 import {styles} from './client-daily-seller-board-view.style'
 
@@ -97,17 +96,10 @@ class ClientDailySellerBoardViewRaw extends Component {
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawer}
-          user={textConsts.appUser}
         />
 
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            user={textConsts.appUser}
-            setDrawerOpen={onTriggerDrawer}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawer}>
             <MainContent>
               <Button
                 disableElevation

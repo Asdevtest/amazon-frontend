@@ -12,7 +12,6 @@ import {NicheSearchRequestDetails} from '@components/requests-and-request-propos
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/researcherAvatar.jpg'
 import {ResearcherRequestDetailNicheViewModel} from './researcher-requests-detail-niche-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'ru').ClientRequestView
@@ -31,12 +30,7 @@ export class ResearcherRequestDetailNicheView extends Component {
       <React.Fragment>
         <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <NicheSearchRequestDetails request={request} />
             </MainContent>

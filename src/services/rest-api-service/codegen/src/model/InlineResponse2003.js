@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsTasksLightBoxes from './ApiV1AdminsTasksLightBoxes';
+import ApiV1AdminsTasksLightStorekeeper from './ApiV1AdminsTasksLightStorekeeper';
 
 /**
  * The InlineResponse2003 model module.
@@ -63,6 +64,9 @@ class InlineResponse2003 {
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsTasksLightStorekeeper.constructFromObject(data['storekeeper']);
+            }
             if (data.hasOwnProperty('boxes')) {
                 obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsTasksLightBoxes]);
             }
@@ -105,6 +109,11 @@ InlineResponse2003.prototype['operationType'] = undefined;
  * @member {Number} status
  */
 InlineResponse2003.prototype['status'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsTasksLightStorekeeper} storekeeper
+ */
+InlineResponse2003.prototype['storekeeper'] = undefined;
 
 /**
  * Массив коробок которые были до переформирования коробок.

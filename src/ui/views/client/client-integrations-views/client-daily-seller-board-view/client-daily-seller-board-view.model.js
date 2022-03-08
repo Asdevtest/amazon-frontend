@@ -16,6 +16,7 @@ import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {toFixed} from '@utils/text'
 import {onSubmitPostImages} from '@utils/upload-files'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientDailySellerBoardView
@@ -153,7 +154,7 @@ export class ClientDailySellerBoardViewModel {
 
   async getMyDailyReports() {
     try {
-      const result = await SellerBoardModel.getMyDailyReports()
+      const result = await SellerBoardModel.getStockGoodsByFilters()
 
       runInAction(() => {
         this.sellerBoardDailyData = addIdDataConverter(result)
@@ -187,7 +188,7 @@ export class ClientDailySellerBoardViewModel {
     try {
       const result = await ClientModel.getProductsMy(filters)
       runInAction(() => {
-        this.inventoryProducts = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        this.inventoryProducts = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
       console.log(error)
@@ -208,6 +209,8 @@ export class ClientDailySellerBoardViewModel {
       const resData = {...data, images: this.readyImages.length ? this.readyImages : data.images}
 
       const result = await ClientModel.createProduct(resData)
+
+      await SellerBoardModel.bindStockProductsBySku({productId: result.guid, skus: data.skusByClient})
 
       if (result) {
         this.selectedRowId = result.guid
@@ -233,7 +236,10 @@ export class ClientDailySellerBoardViewModel {
 
       this.priceForSeekSupplier = result.priceForClient
 
-      this.confirmMessage = `Стоимость услуги поиска поставщика составит ${result.priceForClient} $. Подать заявку?`
+      this.confirmMessage = `Стоимость услуги поиска поставщика составит $${toFixed(
+        result.priceForClient,
+        2,
+      )}.\n Подать заявку?`
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {

@@ -7,15 +7,12 @@ import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 import {UserRoleCodeMap} from '@constants/user-roles'
 import {warehouses} from '@constants/warehouses'
 
-// import { fromUnixTime } from 'date-fns'
 import {
   calcAmazonPriceForBox,
   calcFinalWeightForBox,
   calcTotalPriceForBatch,
   calcTotalPriceForOrder,
 } from './calculation'
-
-// import { formatDateForShowWithoutParseISO } from './date-time'
 
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
 
@@ -38,7 +35,8 @@ export const researcherProductsDataConverter = data =>
     createdAt: item.createdAt,
     amazon: item.amazon,
     bsr: item.bsr,
-    id: item.id,
+    asin: item.asin,
+    id: item._id,
   }))
 
 export const researcherFinancesDataConverter = data =>
@@ -370,7 +368,7 @@ export const adminProductsDataConverter = data =>
 export const adminOrdersDataConverter = data =>
   data.map(item => ({
     originalData: item,
-    id: item._id,
+    id: item.id,
 
     barCode: item.product.barCode,
     totalPrice: calcTotalPriceForOrder(item),
@@ -394,7 +392,7 @@ export const adminTasksDataConverter = data =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     description: item.description,
-    storekeeper: item.storekeeper?.email,
+    storekeeper: item.storekeeper?.name || '',
   }))
 
 export const adminBoxesDataConverter = data =>
@@ -412,8 +410,10 @@ export const adminBoxesDataConverter = data =>
     grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
     warehouses: warehouses[item.warehouse],
 
-    client: item.createdBy.email,
-    storekeeper: item.storekeeper?.email,
+    client: item.createdBy.name,
+    storekeeper: item.storekeeper?.name,
+
+    humanFriendlyId: item.humanFriendlyId,
 
     isDraft: item.isDraft,
     createdAt: item.createdAt,
@@ -445,6 +445,8 @@ export const financesDataConverter = data =>
     comment: item.comment,
     sum: item.sum,
     type: item.sum > 0 ? 'replenish' : item.sum < 0 ? 'fine' : 'zero',
+    paymentType: item.paymentType,
+    entityId: item.entityId,
   }))
 
 export const adminUsersDataConverter = data =>
@@ -462,6 +464,7 @@ export const adminUsersDataConverter = data =>
     balanceFreeze: item.balanceFreeze,
     email: item.email,
     rate: item.rate,
+    isSubUser: item.masterUser ? 'SUB-USER' : 'USER',
   }))
 
 export const adminSinglePermissionsDataConverter = data =>

@@ -14,7 +14,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').researcherProductsTableColumns
 
 export const researcherProductsViewColumns = () => [
   {
-    field: 'id',
+    field: 'asin',
     headerName: textConsts.asinField,
     renderCell: params => renderFieldValueCell(params.value),
     minWidth: 150,

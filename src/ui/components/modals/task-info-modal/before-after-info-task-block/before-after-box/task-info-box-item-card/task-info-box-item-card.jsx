@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Paper, Typography, Checkbox} from '@material-ui/core'
+import {Paper, Typography, Checkbox, Link} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
@@ -11,7 +11,7 @@ import {Input} from '@components/input'
 import {calcMaxDeliveryForProduct, calcTotalFbaForProduct} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixed} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, toFixed} from '@utils/text'
 
 import {useClassNames} from './task-info-box-item-card.style'
 
@@ -44,7 +44,14 @@ export const TaskInfoBoxItemCard = ({item, superCount, box}) => {
 
             <div className={classNames.chipWrapper}>
               <Typography className={classNames.subTitle}>{textConsts.barCode}</Typography>
-              <Typography className={classNames.barCodeField}>{item.product.barCode || 'N/A'}</Typography>
+
+              {item.product.barCode ? (
+                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.product.barCode)}>
+                  <Typography className={classNames.barCodeField}>{item.product.barCode}</Typography>
+                </Link>
+              ) : (
+                <Typography className={classNames.barCodeField}>{'N/A'}</Typography>
+              )}
             </div>
 
             {box.isBarCodeAttachedByTheStorekeeper ? (

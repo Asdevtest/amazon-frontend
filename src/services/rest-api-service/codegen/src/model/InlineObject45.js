@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineObject45 {
     /**
      * Constructs a new <code>InlineObject45</code>.
-     * Схема магазина.
      * @alias module:model/InlineObject45
      */
     constructor() { 
@@ -48,14 +47,8 @@ class InlineObject45 {
         if (data) {
             obj = obj || new InlineObject45();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
-            }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -65,22 +58,10 @@ class InlineObject45 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * Причины закрытия приема предложений.
+ * @member {String} reason
  */
-InlineObject45.prototype['name'] = undefined;
-
-/**
- * URL для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
- */
-InlineObject45.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
-
-/**
- * URL для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
- */
-InlineObject45.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject45.prototype['reason'] = undefined;
 
 
 

@@ -9,7 +9,7 @@ import {texts} from '@constants/texts'
 import {BoxesWarehouseReceiveBoxModalContract} from '@models/boxes-model/boxes-model.contracts'
 
 import {Button} from '@components/buttons/button'
-import {AddImagesForm} from '@components/forms/add-images-form'
+import {AddFilesForm} from '@components/forms/add-files-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -356,7 +356,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
         setOpenModal={() => setShowAddImagesModal(!showAddImagesModal)}
         onCloseModal={() => setShowAddImagesModal(!showAddImagesModal)}
       >
-        <AddImagesForm
+        <AddFilesForm
           item={boxForImageEdit}
           allItemsArray={newBoxes}
           setAllItemsArray={setNewBoxes}

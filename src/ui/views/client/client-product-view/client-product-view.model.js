@@ -6,6 +6,7 @@ import {texts} from '@constants/texts'
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
 import {SupplierModel} from '@models/supplier-model'
+import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {
@@ -34,7 +35,7 @@ const formFieldsDefault = {
   fba: false,
   fbafee: 0,
   icomment: '',
-  id: '',
+  asin: '',
   images: [],
   lamazon: '',
   material: '',
@@ -71,7 +72,7 @@ const fieldsOfProductAllowedToUpdate = [
   'fbaamount',
   'strategyStatus',
   'currentSupplierId',
-  'id',
+  'asin',
   'clientComment',
   'skusByClient',
 ]
@@ -113,6 +114,10 @@ export class ClientProductViewModel {
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
+  get userInfo() {
+    return UserModel.userInfo
+  }
+
   constructor({history}) {
     this.history = history
 
@@ -151,7 +156,7 @@ export class ClientProductViewModel {
         [
           'icomment',
           'category',
-          'id',
+          'asin',
           'lamazon',
           'clientComment',
           'amazonTitle',
@@ -275,6 +280,8 @@ export class ClientProductViewModel {
   async onSaveProductData() {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
+
+      this.uploadedImages = []
 
       if (this.imagesForLoad.length) {
         await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'uploadedImages'})

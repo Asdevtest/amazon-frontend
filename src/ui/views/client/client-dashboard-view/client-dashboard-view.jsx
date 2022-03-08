@@ -18,7 +18,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/clientAvatar.jpg'
 import {ClientDashboardViewModel} from './client-dashboard-view.model'
 import {styles} from './client-dashboard-view.style'
 
@@ -54,12 +53,7 @@ export class ClientDashboardViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar
-            avatarSrc={avatar}
-            setDrawerOpen={onTriggerDrawer}
-            title={textConsts.appbarTitle}
-            balance={userInfo.balance}
-          >
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle} balance={userInfo.balance}>
             <MainContent>
               <div className={classes.mb5}>
                 <DashboardBalance user={userInfo} />

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Typography, Paper, Checkbox} from '@material-ui/core'
+import {Typography, Paper, Checkbox, Link} from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
@@ -13,7 +13,7 @@ import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixedWithCm, toFixedWithKg} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, toFixedWithCm, toFixedWithKg} from '@utils/text'
 
 import {useClassNames} from './before-after-box.style'
 import {TaskInfoBoxItemCard} from './task-info-box-item-card'
@@ -121,10 +121,16 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType}) => {
         <div>
           <div className={classNames.chipWrapper}>
             <Typography className={classNames.subTitle}>{textConsts.shippingLabel}</Typography>
-            <Typography className={classNames.shippingLabelField}>
-              {box.shippingLabel ? box.shippingLabel : 'N/A'}
-            </Typography>
+
+            {box.shippingLabel ? (
+              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
+                <Typography className={classNames.shippingLabelField}>{box.shippingLabel}</Typography>
+              </Link>
+            ) : (
+              <Typography className={classNames.shippingLabelField}>{'N/A'}</Typography>
+            )}
           </div>
+
           <Field
             oneLine
             containerClasses={classNames.field}

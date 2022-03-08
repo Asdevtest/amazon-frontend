@@ -17,6 +17,7 @@ import {clientTasksViewColumns} from '@components/table-columns/client/client-ta
 import {clientWarehouseDataConverter, warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate, sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 const updateBoxBlackList = [
   '_id',
@@ -47,6 +48,7 @@ const updateBoxBlackList = [
   'storekeeperId',
   'storekeeper',
   'humanFriendlyId',
+  'tmpShippingLabel',
 ]
 
 export class ClientWarehouseViewModel {
@@ -224,18 +226,34 @@ export class ClientWarehouseViewModel {
       if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
         this.onTriggerOpenModal('showRedistributeBoxFailModal')
       } else {
-        const boxes = updatedBoxes.map(el => ({
-          boxBody: {
-            shippingLabel: el.shippingLabel,
-            warehouse: el.warehouse,
-            deliveryMethod: el.deliveryMethod,
-          },
-          boxItems: [
-            ...el.items.map(item => ({amount: item.amount, productId: item.product._id, orderId: item.order._id})),
-          ],
-        }))
+        const resBoxes = []
 
-        const splitBoxesResult = await this.splitBoxes(id, boxes)
+        for (let i = 0; i < updatedBoxes.length; i++) {
+          this.uploadedFiles = []
+
+          if (updatedBoxes[i].tmpShippingLabel.length) {
+            await onSubmitPostImages.call(this, {images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles'})
+          }
+
+          const boxToPush = {
+            boxBody: {
+              shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
+              warehouse: updatedBoxes[i].warehouse,
+              deliveryMethod: updatedBoxes[i].deliveryMethod,
+            },
+            boxItems: [
+              ...updatedBoxes[i].items.map(item => ({
+                amount: item.amount,
+                productId: item.product._id,
+                orderId: item.order._id,
+              })),
+            ],
+          }
+
+          resBoxes.push(boxToPush)
+        }
+
+        const splitBoxesResult = await this.splitBoxes(id, resBoxes)
 
         await this.postTask({idsData: splitBoxesResult, idsBeforeData: [id], type, clientComment: comment})
         await this.getTasksMy()
@@ -264,6 +282,12 @@ export class ClientWarehouseViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.selectedBoxes = []
 
+      this.uploadedFiles = []
+
+      if (boxData.tmpShippingLabel.length) {
+        await onSubmitPostImages.call(this, {images: boxData.tmpShippingLabel, type: 'uploadedFiles'})
+      }
+
       const newItems = boxData.items.map(el => ({
         ...getObjectFilteredByKeyArrayBlackList(el, ['order', 'product']),
         amount: el.amount,
@@ -277,6 +301,7 @@ export class ClientWarehouseViewModel {
           isShippingLabelAttachedByStorekeeper:
             sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
           items: newItems,
+          shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxData.shippingLabel,
         },
         updateBoxBlackList,
       )
@@ -312,7 +337,18 @@ export class ClientWarehouseViewModel {
       const selectedIds = this.selectedBoxes
       this.selectedBoxes = []
 
-      const mergeBoxesResult = await this.mergeBoxes(selectedIds, boxBody)
+      this.uploadedFiles = []
+
+      if (boxBody.tmpShippingLabel.length) {
+        await onSubmitPostImages.call(this, {images: boxBody.tmpShippingLabel, type: 'uploadedFiles'})
+      }
+
+      const newBoxBody = getObjectFilteredByKeyArrayBlackList(
+        {...boxBody, shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel},
+        ['tmpShippingLabel'],
+      )
+
+      const mergeBoxesResult = await this.mergeBoxes(selectedIds, newBoxBody)
 
       mergeBoxesResult
         ? this.onTriggerOpenModal('showMergeBoxSuccessModal')

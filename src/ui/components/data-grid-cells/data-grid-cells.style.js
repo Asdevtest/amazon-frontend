@@ -388,4 +388,27 @@ export const styles = createStyles(() => ({
   cancelTaskBtn: {
     marginLeft: '20px',
   },
+
+  multilineTextWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  multilineText: {
+    textAlign: 'center',
+    whiteSpace: 'normal',
+
+    fontWeight: '600',
+    fontSize: '16px',
+    lineHeight: '19px',
+
+    color: '#354256',
+  },
+
+  multilineStatusText: {
+    textAlign: 'center',
+    whiteSpace: 'normal',
+  },
 }))

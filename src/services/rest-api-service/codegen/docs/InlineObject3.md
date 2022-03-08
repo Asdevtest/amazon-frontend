@@ -4,18 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Имя пользователя. | [optional] 
-**email** | **String** | email | [optional] 
-**role** | **Number** | Код роли присвоенный пользователю.    roles.root &#x3D; 0    roles.client &#x3D; 10    roles.super &#x3D; 20    roles.researcher &#x3D; 30    roles.freelancer &#x3D; 35    roles.buyer &#x3D; 40    roles.storekeeper &#x3D; 45    roles.candidate &#x3D; 50     | [optional] 
-**fba** | **Boolean** | Флаг fba. | [optional] 
-**active** | **Boolean** | Если истина - пользователь активен. Если нет - заблокирован админом. | [optional] 
-**rate** | **Number** | Ставка, по который оплачивается сотрудник. | [optional] 
-**balance** | **Number** | Текущий баланс пользователя. | [optional] 
-**balanceFreeze** | **Number** | Замороженная при оплате ордера сумма. | [optional] 
-**overdraft** | **Number** | Сумма на которую может уходить в минус пользователь. | [optional] 
-**permissions** | **[String]** | Массив permission-ов. | [optional] 
-**permissionGroups** | **[String]** | Массив групп permission-ов. | [optional] 
-**allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
-**canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 
+**yuanToDollarRate** | **Number** | Курс юаня к доллару. | 
+**airDeliveryPrice** | **Number** | Цена за авиа доставку, доллар/кг. | 
+**seaDeliveryPrice** | **Number** | Цена за доставку морем, доллар/кг. | 
+**costOfFindingSupplier** | **Number** | Цена за поиск поставщика, оплата байеру, в долларах. | 
+**costOfCheckingProduct** | **Number** | Цена за поиск поставщика, оплата ресерчера, в долларах. | [optional] 
+**deadlineForFindingSupplier** | **Number** | Дедлайна на поиск поставщика., в часах. | 
+**requestMinAmountPriceOfProposal** | **Number** | Минимальная цена за предложение к заявке, в долларах. | 
+**requestPlatformMarginInPercent** | **Number** | Процент с каждого предложения, маржа платформы, в процентах. | 
+**requestSupervisorFeeInPercent** | **Number** | Процент с каждого предложения для супервайзера, в процентах. | 
+**requestTimeLimitInHourForCancelingProposalsByClient** | **Number** | Время после которого будет автоматом принято предложение клиентом, в часах. | 
+**requestTimeLimitInHourForCheckingProposalBySuper** | **Number** | Время после которого будет автоматом снят супервизор с проверки предложения, в часах. | 
 
 

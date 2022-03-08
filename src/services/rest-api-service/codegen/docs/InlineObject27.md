@@ -4,7 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**clientComment** | **String** |  | 
-**priceForClient** | **Number** | Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика. | 
+**amount** | **Number** | Кол-во продукта по этой позиции. | [optional] 
+**deliveryMethod** | **Number** | Код метода доставки. | [optional] 
+**warehouse** | **Number** | Номер склада. | [optional] 
+**clientComment** | **String** | Комментарии клиента. | [optional] 
+**productId** | **String** | GUID заказанного продукта | [optional] 
+**images** | **[String]** | Массив изображений. | [optional] 
 
 

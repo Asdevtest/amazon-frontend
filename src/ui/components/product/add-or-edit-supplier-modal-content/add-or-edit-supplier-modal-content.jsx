@@ -10,8 +10,8 @@ import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
-import {ImageFileInput} from '@components/image-file-input'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -250,7 +250,7 @@ export const AddOrEditSupplierModalContent = observer(
         <div className={classNames.bottomWrapper}>
           <div>
             <div className={classNames.imageFileInputWrapper}>
-              <ImageFileInput
+              <UploadFilesInput
                 images={photosOfSupplier}
                 setImages={setPhotosOfSupplier}
                 maxNumber={50}

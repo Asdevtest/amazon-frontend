@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 
-import {Button, Divider, IconButton, InputLabel, NativeSelect, Typography} from '@material-ui/core'
+import {Button, Chip, Divider, IconButton, InputLabel, Link, NativeSelect, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import clsx from 'clsx'
 
 import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -11,11 +12,14 @@ import {warehouses} from '@constants/warehouses'
 
 import {Field} from '@components/field'
 import {Input} from '@components/input'
+import {Modal} from '@components/modal'
+import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {filterEmptyBoxes, filterEmptyOrders} from '@utils/filters'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {useClassNames} from './reditstribute-box-modal.style'
 
@@ -33,6 +37,21 @@ const Box = ({
   isNewBox,
 }) => {
   const classNames = useClassNames()
+
+  const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
+
+  const setShippingLabel = () => value => {
+    onChangeField({target: {value}}, 'tmpShippingLabel', box._id)
+  }
+
+  const onClickShippingLabel = () => {
+    setShowSetShippingLabelModal(!showSetShippingLabelModal)
+  }
+
+  const onDeleteShippingLabel = () => {
+    onChangeField({target: {value: ''}}, 'shippingLabel', box._id)
+  }
+
   return (
     <div className={classNames.box}>
       {!isNewBox && <Typography className={classNames.boxTitle}>{box.humanFriendlyId}</Typography>}
@@ -59,7 +78,7 @@ const Box = ({
             </div>
           ))}
 
-          <div>
+          <div className={classNames.itemSubWrapper}>
             <div>
               <InputLabel className={classNames.modalText}>{textConsts.warehouse}</InputLabel>
               <NativeSelect
@@ -100,14 +119,38 @@ const Box = ({
               </NativeSelect>
             </div>
 
-            <Field
-              multiline
-              disabled={!isNewBox}
-              label={textConsts.shippingLabel}
-              value={box.shippingLabel}
-              error={box.shippingLabel.length < 5 && box.shippingLabel.length > 0 && textConsts.shippingLabelError}
-              onChange={e => onChangeField(e, 'shippingLabel', box._id)}
-            />
+            {isNewBox ? (
+              <div>
+                <Typography className={classNames.linkTitle}>{'Шиппинг лейбл:'}</Typography>
+                <Chip
+                  classes={{
+                    root: classNames.barcodeChip,
+                    clickable: classNames.barcodeChipHover,
+                    deletable: classNames.barcodeChipHover,
+                    deleteIcon: classNames.barcodeChipIcon,
+                    label: classNames.barcodeChiplabel,
+                  }}
+                  className={clsx({[classNames.barcodeChipExists]: box.shippingLabel})}
+                  size="small"
+                  label={
+                    box.tmpShippingLabel?.length
+                      ? 'FILE IS ADDED'
+                      : box.shippingLabel
+                      ? box.shippingLabel
+                      : 'Set shipping label'
+                  }
+                  onClick={() => onClickShippingLabel()}
+                  onDelete={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                />
+              </div>
+            ) : (
+              <div>
+                <Typography className={classNames.linkTitle}>{'Шиппинг лейбл:'}</Typography>
+                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
+                  <Typography className={classNames.link}>{box.shippingLabel}</Typography>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
 
@@ -117,6 +160,21 @@ const Box = ({
           </IconButton>
         )}
       </div>
+
+      <Modal
+        openModal={showSetShippingLabelModal}
+        setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+      >
+        <SetShippingLabelModal
+          tmpShippingLabel={box.tmpShippingLabel}
+          item={box}
+          onClickSaveShippingLabel={shippingLabel => {
+            setShippingLabel()(shippingLabel)
+            setShowSetShippingLabelModal(!showSetShippingLabelModal)
+          }}
+          onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+        />
+      </Modal>
     </div>
   )
 }
@@ -162,7 +220,13 @@ export const RedistributeBox = ({
 
   const emptyProducts = currentBox.items.map(product => ({...product, amount: isMasterBox ? product.amount : 0}))
 
-  const getEmptyBox = () => ({...currentBox, _id: 'new_id_' + Date.now(), items: emptyProducts, amount: 1})
+  const getEmptyBox = () => ({
+    ...currentBox,
+    _id: 'new_id_' + Date.now(),
+    items: emptyProducts,
+    amount: 1,
+    tmpShippingLabel: [],
+  })
 
   const emptyBox = getEmptyBox()
   const [newBoxes, setNewBoxes] = useState([emptyBox])
@@ -201,7 +265,11 @@ export const RedistributeBox = ({
 
   const onChangeField = (e, field, boxId) => {
     const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
-    const updatedTargetBox = {...targetBox, [field]: e.target.value}
+
+    const updatedTargetBox = {
+      ...targetBox,
+      [field /* field === 'shippingLabel' ? e.target.value.replace(' ', '') :*/]: e.target.value,
+    }
 
     const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
 

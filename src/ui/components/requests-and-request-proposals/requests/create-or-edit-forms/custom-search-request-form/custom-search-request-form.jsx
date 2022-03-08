@@ -38,7 +38,9 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
     },
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
+
   const [deadlineError, setDeadlineError] = useState(false)
+
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
     if (['maxAmountOfProposals'].includes(fieldName)) {

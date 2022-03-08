@@ -18,7 +18,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/researcherAvatar.jpg'
 import {ResearcherVacantCustomRequestsViewModel} from './researcher-vacant-custom-requests-view.model'
 import {styles} from './researcher-vacant-custom-requests-view.style'
 
@@ -73,12 +72,7 @@ class ResearcherVacantCustomRequestsViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination

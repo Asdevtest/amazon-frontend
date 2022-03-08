@@ -11,7 +11,6 @@ import {
   ToFixedWithKgSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {calcProductPrice} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
@@ -109,7 +108,7 @@ export const clientExchangeViewColumns = handlers => [
     width: 190,
     renderCell: params => (
       <SuccessActionBtnCell
-        bTnText={`${textConsts.byForBtn} ${toFixedWithDollarSign(calcProductPrice(params.row.originalData), 2)}`}
+        bTnText={`${textConsts.byForBtn} ${toFixedWithDollarSign(params.row.originalData.priceForClient, 2)}`}
         onClickOkBtn={() => handlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}
       />
     ),

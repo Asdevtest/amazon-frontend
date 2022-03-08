@@ -12,6 +12,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   mainWrapper: {
+    display: 'flex',
+
     width: '100%',
   },
 
@@ -44,5 +46,21 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '21px',
     color: '#354256',
+  },
+
+  imgBox: {
+    width: '200px',
+    height: '200px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+    transition: '.2s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
+  },
+  photoWrapper: {
+    marginRight: '100px',
+    width: '200px',
   },
 }))

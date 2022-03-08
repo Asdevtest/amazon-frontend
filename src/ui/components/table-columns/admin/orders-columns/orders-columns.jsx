@@ -3,7 +3,7 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
-  NoActiveBarcodeCell,
+  ActiveBarcodeCell,
   NormDateCell,
   OrderCell,
   renderFieldValueCell,
@@ -32,12 +32,12 @@ export const adminOrdersViewColumns = () => [
     type: 'date',
   },
 
-  {field: 'id', headerName: 'ID', width: 100},
+  {field: 'id', headerName: 'ID', width: 60},
 
   {
     field: 'orders',
     headerName: textConsts.ordersField,
-    width: 350,
+    width: 400,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
     filterable: false,
     sortable: false,
@@ -46,7 +46,7 @@ export const adminOrdersViewColumns = () => [
   {
     field: 'status',
     headerName: textConsts.statusField,
-    width: 150,
+    width: 210,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
@@ -54,10 +54,10 @@ export const adminOrdersViewColumns = () => [
     field: 'barCode',
     headerName: textConsts.barCodeField,
     width: 200,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.value} />,
+    renderCell: params => <ActiveBarcodeCell barCode={params.value} />,
   },
 
-  {field: 'amount', headerName: textConsts.amountField, type: 'number', width: 130},
+  {field: 'amount', headerName: textConsts.amountField, type: 'number', width: 100},
 
   {
     field: 'warehouses',
@@ -69,7 +69,7 @@ export const adminOrdersViewColumns = () => [
   {
     field: 'totalPrice',
     headerName: textConsts.sumField,
-    width: 160,
+    width: 130,
     type: 'number',
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
   },
@@ -77,7 +77,7 @@ export const adminOrdersViewColumns = () => [
   {
     field: 'grossWeightKg',
     headerName: textConsts.grossWeightField,
-    width: 160,
+    width: 130,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
   },
   {

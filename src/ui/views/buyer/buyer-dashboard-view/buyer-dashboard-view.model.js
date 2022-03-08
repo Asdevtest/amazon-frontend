@@ -134,7 +134,7 @@ export class BuyerDashboardViewModel {
             ].includes(el.status),
           ).length,
 
-          [BuyerDashboardCardDataKey.SUCCESS_PRODUCTS]: result.filter(el =>
+          [BuyerDashboardCardDataKey.PAYED_PRODUCTS]: result.filter(el =>
             [
               ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT],
               ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT],

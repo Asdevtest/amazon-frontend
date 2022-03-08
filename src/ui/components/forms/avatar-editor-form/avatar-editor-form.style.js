@@ -1,0 +1,70 @@
+import {makeStyles} from '@material-ui/core'
+
+export const useClassNames = makeStyles(() => ({
+  root: {
+    width: '640px',
+
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  mainWrapper: {
+    width: '100%',
+    height: '300px',
+
+    display: 'flex',
+    alignItems: 'center',
+
+    padding: '20px',
+  },
+
+  imgWrapper: {
+    // border: '1px solid rgba(0,0,0, .1)',
+    // backgroundColor: '#C4C4C4',
+    // borderRadius: '2px',
+    marginLeft: '70px',
+    display: 'flex',
+    flexDirection: 'column',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  img: {
+    width: '208px',
+    height: '208px',
+
+    border: '1px solid #007BFF',
+    borderRadius: '50%',
+  },
+
+  btnsWrapper: {
+    display: 'flex',
+    margin: '30px 20px 10px 0',
+    justifyContent: 'flex-end',
+  },
+
+  cancelBtn: {
+    marginLeft: '30px',
+  },
+
+  successText: {
+    color: '#00B746',
+  },
+
+  spanText: {
+    color: '#007BFF',
+    fontWeight: '500',
+  },
+
+  textsWrapper: {
+    alignSelf: 'center',
+  },
+
+  title: {
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#354256',
+  },
+}))

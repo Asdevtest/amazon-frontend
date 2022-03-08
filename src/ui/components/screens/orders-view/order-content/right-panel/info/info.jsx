@@ -29,7 +29,11 @@ export const Info = ({order}) => {
 
   return (
     <div className={classNames.mainWrapper}>
-      <Typography className={(classNames.containerTitle, classNames.title)}>{textConsts.mainTitle}</Typography>
+      <div className={classNames.titleWrapper}>
+        <Typography className={classNames.title}>{textConsts.mainTitle}</Typography>
+        <Typography className={classNames.orderNumber}>{`# ${order.id}`}</Typography>
+      </div>
+
       <div className={classNames.orderWrapperInfo}>
         <div className={classNames.orderSubWrapperInfo}>
           <Typography className={(classNames.label, classNames.dividerTypo)}>{textConsts.priceBatch}</Typography>

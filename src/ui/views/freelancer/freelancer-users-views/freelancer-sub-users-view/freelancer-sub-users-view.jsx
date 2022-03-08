@@ -23,7 +23,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/researcherAvatar.jpg'
 import {FreelancerSubUsersViewModel} from './freelancer-sub-users-view.model'
 import {styles} from './freelancer-sub-users-view.style'
 
@@ -86,12 +85,7 @@ class FreelancerSubUsersViewRaw extends Component {
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            setDrawerOpen={onChangeDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <Box className={this.props.classes.buttonBox}>
                 <SuccessButton onClick={() => onTriggerOpenModal('showAddSubUserModal')}>

@@ -29,10 +29,6 @@ import UnLinkSubuserInputSchema from '../model/UnLinkSubuserInputSchema';
 import UserFullSchema from '../model/UserFullSchema';
 import UserInfoSchema from '../model/UserInfoSchema';
 import UserRegisterSchema from '../model/UserRegisterSchema';
-import UserSettingInputSchema from '../model/UserSettingInputSchema';
-import UserSettingPatchSchema from '../model/UserSettingPatchSchema';
-import UserSettingPostResponseSchema from '../model/UserSettingPostResponseSchema';
-import UserSettingResponseSchema from '../model/UserSettingResponseSchema';
 
 /**
 * User service.
@@ -257,7 +253,7 @@ export default class UserApi {
 
     /**
      * # Обновления информации о себе самим пользователем.
-     * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  
+     * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  При редактировании полей name email необходимо проверить на уникальность.  // POST /users/check_isUnique_name_or_email Проверки: Данный метод не доступен для сабюзера и админа   новое имя или почта должна быть уникальной.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/MePatchInputSchema} opts.body 
@@ -290,7 +286,7 @@ export default class UserApi {
 
     /**
      * # Обновления информации о себе самим пользователем.
-     * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  
+     * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  При редактировании полей name email необходимо проверить на уникальность.  // POST /users/check_isUnique_name_or_email Проверки: Данный метод не доступен для сабюзера и админа   новое имя или почта должна быть уникальной.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/MePatchInputSchema} opts.body 
@@ -539,158 +535,6 @@ export default class UserApi {
      */
     apiV1UsersUserSettingsAvailableGet(opts) {
       return this.apiV1UsersUserSettingsAvailableGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Получить настройки пользователя.
-     * ## Получить настройки пользователем.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UserSettingResponseSchema} and HTTP response
-     */
-    apiV1UsersUserSettingsMyGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = UserSettingResponseSchema;
-      return this.apiClient.callApi(
-        '/api/v1/users/user-settings/my', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Получить настройки пользователя.
-     * ## Получить настройки пользователем.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserSettingResponseSchema}
-     */
-    apiV1UsersUserSettingsMyGet(opts) {
-      return this.apiV1UsersUserSettingsMyGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * #  Изменения пользователем своих настроек.
-     * ## Изменения пользователем своих настроек.   
-     * @param {String} guid GUID permission в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/UserSettingPatchSchema} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1UsersUserSettingsMyPatchWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1UsersUserSettingsMyPatch");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/users/user-settings/my', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * #  Изменения пользователем своих настроек.
-     * ## Изменения пользователем своих настроек.   
-     * @param {String} guid GUID permission в БД
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/UserSettingPatchSchema} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1UsersUserSettingsMyPatch(guid, opts) {
-      return this.apiV1UsersUserSettingsMyPatchWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Создание настроек пользователя.
-     * ## Создание настроек пользователя.   ## У одного пользователя может быть только одна таблица настроек.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/UserSettingInputSchema} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UserSettingPostResponseSchema} and HTTP response
-     */
-    apiV1UsersUserSettingsPostWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = UserSettingPostResponseSchema;
-      return this.apiClient.callApi(
-        '/api/v1/users/user-settings', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Создание настроек пользователя.
-     * ## Создание настроек пользователя.   ## У одного пользователя может быть только одна таблица настроек.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/UserSettingInputSchema} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserSettingPostResponseSchema}
-     */
-    apiV1UsersUserSettingsPost(opts) {
-      return this.apiV1UsersUserSettingsPostWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

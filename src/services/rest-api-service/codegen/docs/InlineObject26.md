@@ -4,49 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | ASIN продукта | 
-**skusByClient** | **[String]** |  | [optional] 
-**material** | **String** | add to new functional | [optional] 
-**currentSupplierId** | **String** | GUID поставщика, если передать строку \&quot;clear\&quot; то поставщику будет сброшен (у байера и ресечера). | [optional] 
-**fbm** | **Boolean** | Признак fbm | [optional] 
-**category** | **String** | Категория | [optional] 
-**lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
-**lsupplier** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
-**bsr** | **Number** |  | [optional] 
-**fba** | **Boolean** | Признак fba | [optional] 
-**express** | **Boolean** |  уточнить  | [optional] 
-**amazon** | **Number** |  | [optional] 
-**height** | **Number** |  | [optional] 
-**width** | **Number** |  | [optional] 
-**length** | **Number** |  | [optional] 
-**weight** | **Number** |  | [optional] 
-**reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
-**fbafee** | **Number** | ФБА комиссия | [optional] 
-**fbaamount** | **Number** |  Общая сумма с фба. | [optional] 
-**fbalink** | **String** |  | [optional] 
-**delivery** | **Number** | Стоимость доставки. | [optional] 
-**icomment** | **String** | Комментарии к товару. | [optional] 
-**clientComment** | **String** | Комментарии к товару, от клиента. | [optional] 
+**amount** | **Number** | Кол-во продукта по этой позиции. | 
+**deliveryMethod** | **Number** | Код метода доставки. | 
+**warehouse** | **Number** | Номер склада. | 
+**clientComment** | **String** | Комментарии клиента. | 
+**productId** | **String** | GUID заказанного продукта | 
 **images** | **[String]** | Массив изображений. | [optional] 
-**amazonDescription** | **String** |  | [optional] 
-**amazonDetail** | **String** |  | [optional] 
-**amazonTitle** | **String** |  | [optional] 
-**barCode** | **String** |  | [optional] 
-**minpurchase** | **Number** |  | [optional] 
-**profit** | **Number** | Прибыль | [optional] 
-**margin** | **Number** | Маржа | [optional] 
-**byboxprice** | **Number** | Цена | [optional] 
-**listingName** | **String** |  | [optional] 
-**listingBulletPoints** | **[String]** | Массив ... | [optional] 
-**listingProductDetails** | **String** |  | [optional] 
-**listingSearchTerms** | **String** |  | [optional] 
-**listingSubjectMatters** | **[String]** | Массив ... | [optional] 
-**listingImages** | **[String]** | массив картинок(в виде прямых ссылок). | [optional] 
-**listingTaskToFindSupplier** | **String** |  | [optional] 
-**listingSupplierImportantPoints** | **String** |  | [optional] 
-**listingExtraInfo** | **String** |  | [optional] 
-**listingSupplierCompetitors** | [**[ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]**](ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md) | Массив объектов: ссылки и комментарии к конкурентам | [optional] 
-**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
-**needCheckBySupervisor** | **Boolean** | Признак needCheckBySupervisor | [optional] 
 
 

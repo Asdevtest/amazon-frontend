@@ -47,23 +47,8 @@ class InlineObject24 {
         if (data) {
             obj = obj || new InlineObject24();
 
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
         }
         return obj;
@@ -73,40 +58,10 @@ class InlineObject24 {
 }
 
 /**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
+ * uri полный путь до баркода, для скачивания
+ * @member {String} barCode
  */
-InlineObject24.prototype['amount'] = undefined;
-
-/**
- * Код метода доставки.
- * @member {Number} deliveryMethod
- */
-InlineObject24.prototype['deliveryMethod'] = undefined;
-
-/**
- * Номер склада.
- * @member {Number} warehouse
- */
-InlineObject24.prototype['warehouse'] = undefined;
-
-/**
- * Комментарии клиента.
- * @member {String} clientComment
- */
-InlineObject24.prototype['clientComment'] = undefined;
-
-/**
- * GUID заказанного продукта
- * @member {String} productId
- */
-InlineObject24.prototype['productId'] = undefined;
-
-/**
- * Массив изображений.
- * @member {Array.<String>} images
- */
-InlineObject24.prototype['images'] = undefined;
+InlineObject24.prototype['barCode'] = undefined;
 
 
 

@@ -3,7 +3,7 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
-  NoActiveBarcodeCell,
+  ActiveBarcodeCell,
   OrderCell,
   renderFieldValueCell,
   NormDateCell,
@@ -48,7 +48,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
   {
     field: 'barCode',
     headerName: textConsts.barcodeField,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.value} />,
+    renderCell: params => <ActiveBarcodeCell barCode={params.value} />,
     width: 200,
   },
 

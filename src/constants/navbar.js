@@ -175,16 +175,16 @@ export const navbarConfig = {
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INTEGRATIONS_CLIENT),
     },
-    {
-      icon: SettingsIcon,
-      title: 'Настройки',
-      route: '/client/settings',
-      subtitles: null,
-      key: navBarActiveCategory.NAVBAR_SETTINGS,
-      checkHideBlock: user =>
-        !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_USER_SETTINGS_CLIENT),
-    },
+    // { // ПОКА СКРЫТЬ
+    //   icon: SettingsIcon,
+    //   title: 'Настройки',
+    //   route: '/client/settings',
+    //   subtitles: null,
+    //   key: navBarActiveCategory.NAVBAR_SETTINGS,
+    //   checkHideBlock: user =>
+    //     !isMasterUser(user) ||
+    //     user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_USER_SETTINGS_CLIENT),
+    // },
     {
       icon: ChatBubbleOutlineOutlinedIcon,
       title: 'Сообщения',

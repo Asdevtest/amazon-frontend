@@ -20,7 +20,6 @@ import {AdminBalanceModal} from '@components/screens/users-views/sub-users-view/
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
-import avatar from '../../assets/adminAvatar.jpg'
 import {AdminUserBalanceViewModel} from './admin-user-balance-view.model'
 import {styles} from './admin-user-balance-view.style'
 
@@ -74,7 +73,7 @@ class AdminUserBalanceViewRaw extends Component {
       <>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <Typography variant="h5">{`${textConsts.balance} of ${user.email}`}</Typography>
               <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</Typography>

@@ -2,16 +2,21 @@ import {makeAutoObservable} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {OtherModel} from '@models/other-model'
 import {UserModel} from '@models/user-model'
+
+import {dataURLtoFile} from '@utils/upload-files'
 
 export class ProfileViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
-  get role() {
-    return UserModel.userInfo?.role
+  get user() {
+    return UserModel.userInfo
   }
+
+  showAvatarEditModal = false
 
   drawerOpen = false
   rowsPerPage = 15
@@ -22,6 +27,7 @@ export class ProfileViewModel {
   tabReview = 0
   selectedUser = undefined
   showTabModal = false
+  showInfoModal = false
 
   headerInfoData = {
     investorsCount: 255,
@@ -50,8 +56,25 @@ export class ProfileViewModel {
     }
   }
 
-  get user() {
-    return UserModel.userInfo
+  onClickChangeAvatar() {
+    this.onTriggerOpenModal('showAvatarEditModal')
+  }
+
+  async onSubmitAvatarEdit(imageData) {
+    const file = dataURLtoFile(imageData, this.user._id)
+
+    const formData = new FormData()
+    formData.append('filename', file)
+
+    try {
+      await OtherModel.postAvatar(formData)
+
+      this.onTriggerOpenModal('showAvatarEditModal')
+
+      this.onTriggerOpenModal('showInfoModal')
+    } catch (error) {
+      this.error = error
+    }
   }
 
   onTriggerShowTabModal() {
@@ -81,5 +104,9 @@ export class ProfileViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }

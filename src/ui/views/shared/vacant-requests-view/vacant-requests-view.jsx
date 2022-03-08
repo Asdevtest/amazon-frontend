@@ -43,6 +43,8 @@ class VacantRequestsViewRaw extends Component {
       this.viewModel
     const {classes: classNames} = this.props
 
+    const currentData = getCurrentData()
+
     return (
       <React.Fragment>
         <Navbar
@@ -50,15 +52,9 @@ class VacantRequestsViewRaw extends Component {
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
         />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={''}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.tablePanelViewWrapper}>
@@ -75,22 +71,31 @@ class VacantRequestsViewRaw extends Component {
                 </div>
               </div>
 
-              <Grid
-                container
-                classes={{root: classNames.dashboardCardWrapper}}
-                spacing={3}
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-              >
-                {getCurrentData().map(item =>
-                  viewMode === tableViewMode.LIST ? (
-                    <VacantRequestListCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
-                  ) : (
-                    <VacantRequestShortCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
-                  ),
-                )}
-              </Grid>
+              {currentData.length ? (
+                <Grid
+                  container
+                  classes={{root: classNames.dashboardCardWrapper}}
+                  spacing={3}
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="flex-start"
+                >
+                  {currentData.map(item =>
+                    viewMode === tableViewMode.LIST ? (
+                      <VacantRequestListCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
+                    ) : (
+                      <VacantRequestShortCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
+                    ),
+                  )}
+                </Grid>
+              ) : (
+                <div className={classNames.emptyTableWrapper}>
+                  <img src="/assets/icons/empty-table.svg" />
+                  <Typography variant="h5" className={classNames.emptyTableText}>
+                    {'Вакантных заявок пока нет.'}
+                  </Typography>
+                </div>
+              )}
             </MainContent>
           </Appbar>
         </Main>

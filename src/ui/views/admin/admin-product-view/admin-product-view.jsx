@@ -12,7 +12,6 @@ import {ProductWrapper} from '@components/product/product-wrapper'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/adminAvatar.jpg'
 import {AdminProductViewModel} from './admin-product-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').adminProductView
@@ -29,6 +28,7 @@ export class AdminProductView extends Component {
 
   render() {
     const {
+      userInfo,
       product,
       drawerOpen,
       history,
@@ -42,19 +42,18 @@ export class AdminProductView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} user={textConsts.appUser} />
+        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             history={history}
-            user={textConsts.appUser}
             setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  userRole={userInfo.role}
                   product={product}
                   selectedSupplier={selectedSupplier}
                   formFieldsValidationErrors={formFieldsValidationErrors}

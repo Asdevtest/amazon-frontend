@@ -29,7 +29,7 @@ export class AdminSettingsViewRaw extends Component {
       <>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={this.onTriggerDrawer} />
         <Main>
-          <Appbar avatarSrc="" setDrawerOpen={this.onTriggerDrawer} title={textConsts.appBarTitle}>
+          <Appbar setDrawerOpen={this.onTriggerDrawer} title={textConsts.appBarTitle}>
             <MainContent>
               <AdminSettingsForm />
             </MainContent>

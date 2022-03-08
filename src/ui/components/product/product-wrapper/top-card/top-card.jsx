@@ -12,7 +12,7 @@ import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {ImageFileInput} from '@components/image-file-input'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsClient, checkIsResearcher} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
@@ -98,7 +98,7 @@ export const TopCard = observer(
 
                     {(checkIsResearcher(curUserRole) || clientToEdit) && (
                       <div className={classNames.imageFileInputWrapper}>
-                        <ImageFileInput images={imagesForLoad} setImages={onChangeImagesForLoad} maxNumber={50} />
+                        <UploadFilesInput images={imagesForLoad} setImages={onChangeImagesForLoad} maxNumber={50} />
                       </div>
                     )}
                   </Box>

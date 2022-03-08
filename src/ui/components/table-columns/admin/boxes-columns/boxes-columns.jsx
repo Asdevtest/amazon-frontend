@@ -29,15 +29,15 @@ export const adminBoxesViewColumns = () => [
     field: 'createdAt',
     headerName: textConsts.createdAtField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 100,
+    width: 110,
     type: 'date',
   },
 
   {
-    field: 'id',
+    field: 'humanFriendlyId',
     headerName: textConsts.boxIdField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 300,
+    width: 60,
   },
 
   {
@@ -74,7 +74,7 @@ export const adminBoxesViewColumns = () => [
     field: 'updatedAt',
     headerName: textConsts.updatedAtField,
     renderCell: params => <NormDateCell params={params} />,
-    width: 100,
+    width: 110,
     type: 'date',
   },
 
@@ -87,7 +87,7 @@ export const adminBoxesViewColumns = () => [
       ) : (
         renderFieldValueCell(params.value)
       ),
-    width: 150,
+    width: 120,
     type: 'number',
   },
 
@@ -102,7 +102,7 @@ export const adminBoxesViewColumns = () => [
     field: 'amazonPrice',
     headerName: textConsts.priceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
-    width: 200,
+    width: 130,
     type: 'number',
   },
 
@@ -111,7 +111,7 @@ export const adminBoxesViewColumns = () => [
     headerName: textConsts.weightField,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 200,
+    width: 130,
   },
 
   {
@@ -119,7 +119,7 @@ export const adminBoxesViewColumns = () => [
     headerName: textConsts.grossWeightField,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 200,
+    width: 130,
   },
 
   {

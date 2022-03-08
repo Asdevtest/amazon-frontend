@@ -4,7 +4,7 @@ import {Container, Button, Typography, NativeSelect, Checkbox, Select, ListItemT
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
-import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
+import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {Field} from '@components/field'
 import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit-user-permissions-form'
@@ -114,6 +114,10 @@ export const AdminContentModal = observer(
           {`${title} ${editUserFormFields.name}`}
         </Typography>
 
+        {editUserFormFields.masterUser ? (
+          <Field disabled label={textConsts.masterUser} value={editUserFormFields.masterUser} />
+        ) : null}
+
         <Field
           label={textConsts.name}
           error={checkValidationNameOrEmail.nameIsUnique && 'Пользователь с таким именем уже существует'}
@@ -152,28 +156,30 @@ export const AdminContentModal = observer(
           }
         />
 
-        <Field
-          label={textConsts.allowedRoles}
-          inputComponent={
-            <Select
-              multiple
-              value={formFields.allowedRoles}
-              renderValue={selected => selected.map(el => UserRoleCodeMap[el]).join(', ')}
-              onChange={onChangeFormField('allowedRoles')}
-            >
-              {Object.keys(UserRoleCodeMap).map((role, index) => (
-                <MenuItem
-                  key={index}
-                  value={Number(role)}
-                  disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role])}
-                >
-                  <Checkbox color="primary" checked={formFields.allowedRoles.includes(Number(role))} />
-                  <ListItemText primary={UserRoleCodeMap[role]} />
-                </MenuItem>
-              ))}
-            </Select>
-          }
-        />
+        {!editUserFormFields.masterUser ? (
+          <Field
+            label={textConsts.allowedRoles}
+            inputComponent={
+              <Select
+                multiple
+                value={formFields.allowedRoles}
+                renderValue={selected => selected.map(el => UserRoleCodeMap[el]).join(', ')}
+                onChange={onChangeFormField('allowedRoles')}
+              >
+                {Object.keys(UserRoleCodeMap).map((role, index) => (
+                  <MenuItem
+                    key={index}
+                    value={Number(role)}
+                    disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role])}
+                  >
+                    <Checkbox color="primary" checked={formFields.allowedRoles.includes(Number(role))} />
+                    <ListItemText primary={UserRoleCodeMap[role]} />
+                  </MenuItem>
+                ))}
+              </Select>
+            }
+          />
+        ) : null}
 
         <Field
           label={textConsts.active}
@@ -193,14 +199,19 @@ export const AdminContentModal = observer(
           }
         />
         <div className={classNames.checkboxWrapper}>
-          <Checkbox color="primary" checked={formFields.fba} onChange={onChangeFormField('fba')} />
+          <Checkbox
+            color="primary"
+            disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+            checked={formFields.fba}
+            onChange={onChangeFormField('fba')}
+          />
           <Typography className={classNames.checkboxLabel}>{textConsts.fba}</Typography>
         </div>
 
         <div className={classNames.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={editUserFormFields.masterUser}
+            disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
             checked={formFields.canByMasterUser}
             onChange={onChangeFormField('canByMasterUser')}
           />

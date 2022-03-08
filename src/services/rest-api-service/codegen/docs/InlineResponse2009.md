@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **asin** | **String** | \&quot;ASIN\&quot; | [optional] 
-**sku** | **String** | SKU | 
+**sku** | **String** | SKU | [optional] 
 **title** | **String** | Title | [optional] 
 **roi** | **Number** | ROI, % | [optional] 
 **fbaFbmStock** | **Number** | FBA/FBM Stock | [optional] 

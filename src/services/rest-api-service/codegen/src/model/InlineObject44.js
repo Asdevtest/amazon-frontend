@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestsGuidPickupProposalDetails from './ApiV1RequestsGuidPickupProposalDetails';
 
 /**
  * The InlineObject44 model module.
@@ -21,15 +22,12 @@ import ApiClient from '../ApiClient';
 class InlineObject44 {
     /**
      * Constructs a new <code>InlineObject44</code>.
-     * Схема магазина.
+     * Если исполнителю нужно он может предложить свои условия.
      * @alias module:model/InlineObject44
-     * @param name {String} Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
-     * @param sellerBoardWarehouseReportUrlDaily {String} URL для скачивания ежедневных отчетов SellerBoard.
-     * @param sellerBoardWarehouseReportUrlMonthly {String} URL для скачивания отчетов SellerBoard за последний месяц.
      */
-    constructor(name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
+    constructor() { 
         
-        InlineObject44.initialize(this, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly);
+        InlineObject44.initialize(this);
     }
 
     /**
@@ -37,10 +35,7 @@ class InlineObject44 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
-        obj['name'] = name;
-        obj['sellerBoardWarehouseReportUrlDaily'] = sellerBoardWarehouseReportUrlDaily;
-        obj['sellerBoardWarehouseReportUrlMonthly'] = sellerBoardWarehouseReportUrlMonthly;
+    static initialize(obj) { 
     }
 
     /**
@@ -54,14 +49,14 @@ class InlineObject44 {
         if (data) {
             obj = obj || new InlineObject44();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('proposalDetails')) {
+                obj['proposalDetails'] = ApiV1RequestsGuidPickupProposalDetails.constructFromObject(data['proposalDetails']);
             }
         }
         return obj;
@@ -71,22 +66,21 @@ class InlineObject44 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * Цена от исполнителя
+ * @member {Number} price
  */
-InlineObject44.prototype['name'] = undefined;
+InlineObject44.prototype['price'] = undefined;
 
 /**
- * URL для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
+ * Время за которое исполнитель предлагает выполнить, в минутах.
+ * @member {Number} execution_time
  */
-InlineObject44.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+InlineObject44.prototype['execution_time'] = undefined;
 
 /**
- * URL для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
+ * @member {module:model/ApiV1RequestsGuidPickupProposalDetails} proposalDetails
  */
-InlineObject44.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject44.prototype['proposalDetails'] = undefined;
 
 
 

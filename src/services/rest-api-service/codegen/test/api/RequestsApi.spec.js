@@ -48,34 +48,20 @@
   }
 
   describe('RequestsApi', function() {
-<<<<<<< HEAD
     describe('apiV1RequestsCustomGet', function() {
       it('should call apiV1RequestsCustomGet successfully', function(done) {
         //uncomment below and update the code to test apiV1RequestsCustomGet
         //instance.apiV1RequestsCustomGet(function(error) {
-=======
-    describe('apiV1RequestsCustomGuidDelete', function() {
-      it('should call apiV1RequestsCustomGuidDelete successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsCustomGuidDelete
-        //instance.apiV1RequestsCustomGuidDelete(function(error) {
->>>>>>> c7aea67 (AMAZONSERVICE-820 1/2)
         //  if (error) throw error;
         //expect().to.be();
         //});
         done();
       });
     });
-<<<<<<< HEAD
     describe('apiV1RequestsCustomGuidDelete', function() {
       it('should call apiV1RequestsCustomGuidDelete successfully', function(done) {
         //uncomment below and update the code to test apiV1RequestsCustomGuidDelete
         //instance.apiV1RequestsCustomGuidDelete(function(error) {
-=======
-    describe('apiV1RequestsCustomGuidGet', function() {
-      it('should call apiV1RequestsCustomGuidGet successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsCustomGuidGet
-        //instance.apiV1RequestsCustomGuidGet(function(error) {
->>>>>>> c7aea67 (AMAZONSERVICE-820 1/2)
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -92,19 +78,6 @@
         done();
       });
     });
-<<<<<<< HEAD
-=======
-    describe('apiV1RequestsCustomGuidProposalsGet', function() {
-      it('should call apiV1RequestsCustomGuidProposalsGet successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsCustomGuidProposalsGet
-        //instance.apiV1RequestsCustomGuidProposalsGet(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
->>>>>>> c7aea67 (AMAZONSERVICE-820 1/2)
     describe('apiV1RequestsCustomPost', function() {
       it('should call apiV1RequestsCustomPost successfully', function(done) {
         //uncomment below and update the code to test apiV1RequestsCustomPost
@@ -115,39 +88,6 @@
         done();
       });
     });
-<<<<<<< HEAD
-=======
-    describe('apiV1RequestsGet', function() {
-      it('should call apiV1RequestsGet successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsGet
-        //instance.apiV1RequestsGet(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1RequestsGuidCompletePost', function() {
-      it('should call apiV1RequestsGuidCompletePost successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsGuidCompletePost
-        //instance.apiV1RequestsGuidCompletePost(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1RequestsGuidPickupPost', function() {
-      it('should call apiV1RequestsGuidPickupPost successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsGuidPickupPost
-        //instance.apiV1RequestsGuidPickupPost(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
->>>>>>> c7aea67 (AMAZONSERVICE-820 1/2)
     describe('apiV1RequestsSearchNicheGet', function() {
       it('should call apiV1RequestsSearchNicheGet successfully', function(done) {
         //uncomment below and update the code to test apiV1RequestsSearchNicheGet

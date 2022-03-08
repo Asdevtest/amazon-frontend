@@ -1,3 +1,6 @@
+import * as Showdown from 'showdown'
+import * as xssFilter from 'showdown-xss-filter'
+
 import {checkIsAbsoluteUrl} from './checks'
 
 export const getModelNameWithotPostfix = modelName => modelName.replace('Static', '')
@@ -16,6 +19,8 @@ export const getIntOrZero = str => (str ? parseInt(str) || 0 : 0)
 export const getFloatWithoutDollarSign = str => (str ? getFloat(replaceDollarSign(str)) : str)
 
 export const toFixedWithDollarSign = (int, x) => withDollarSign(toFixed(int, x))
+export const toFixedWithYuanSign = (int, x) => withYuanSign(toFixed(int, x))
+
 export const toFixedWithKg = (int, x) => withKg(toFixed(int, x))
 export const toFixedWithCm = (int, x) => withCm(toFixed(int, x))
 
@@ -30,3 +35,16 @@ export const withText = (str, text) => (str && str !== 0 ? `${str}${text}` : str
 export const checkAndMakeAbsoluteUrl = urlStr => (checkIsAbsoluteUrl(urlStr) ? urlStr : `https://${urlStr}`)
 
 export const clearSpecialCharacters = str => str.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '')
+
+export const shortenLongString = (value, lengthBreakpoint) =>
+  value.length > lengthBreakpoint ? `${value.slice(0, lengthBreakpoint)}...` : value
+
+const converter = new Showdown.Converter({
+  tables: true,
+  simplifiedAutoLink: true,
+  strikethrough: true,
+  tasklists: true,
+  extensions: [xssFilter],
+})
+
+export const getTextFromMarkdown = markdown => converter.makeHtml(markdown)

@@ -13,7 +13,6 @@ import {UserPermissions} from '@components/user-permissions/user-permissions'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/adminAvatar.jpg'
 import {AdminUserPermissionsViewModel} from './admin-user-permissions-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'ru').adminUserPermissionsView
@@ -41,7 +40,6 @@ export class AdminUserPermissionsView extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             history={history}
             setDrawerOpen={onTriggerDrawerOpen}
           >

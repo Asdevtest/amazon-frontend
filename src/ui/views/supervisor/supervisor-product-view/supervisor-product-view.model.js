@@ -8,6 +8,7 @@ import {ProductModel} from '@models/product-model'
 import {SupervisorModel} from '@models/supervisor-model'
 import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervisor-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
+import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {
@@ -117,6 +118,10 @@ export class SupervisorProductViewModel {
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
+  get userInfo() {
+    return UserModel.userInfo
+  }
+
   constructor({history}) {
     this.history = history
 
@@ -153,7 +158,7 @@ export class SupervisorProductViewModel {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
 
       if (['checkednotes'].includes(fieldName)) {
-        this.product[fieldName] = e.target.value
+        this.product = {...this.product, [fieldName]: e.target.value}
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
           return
@@ -168,9 +173,9 @@ export class SupervisorProductViewModel {
           return
         }
         if (['bsr', 'fbaamount'].includes(fieldName)) {
-          this.product[fieldName] = parseInt(e.target.value)
+          this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
         } else {
-          this.product[fieldName] = e.target.value
+          this.product = {...this.product, [fieldName]: e.target.value}
         }
       }
 

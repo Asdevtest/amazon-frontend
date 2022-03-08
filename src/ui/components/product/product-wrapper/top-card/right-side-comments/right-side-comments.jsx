@@ -51,8 +51,6 @@ export const RightSideComments = observer(
       (checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)) ||
       (checkIsResearcher(curUserRole) &&
         productBase.status < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) ||
-      (checkIsSupervisor(curUserRole) &&
-        productBase.status === ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]) ||
       (checkIsBuyer(curUserRole) && productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
       (checkIsBuyer(curUserRole) &&
         productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
@@ -76,17 +74,19 @@ export const RightSideComments = observer(
             value={product.icomment}
             onChange={onChangeField('icomment')}
           />
-          <ProductStatusButtons
-            product={product}
-            productStatus={product?.status}
-            buttonsConfig={productStatusButtonsConfig}
-            onClickButton={onClickSetProductStatusBtn}
-            onClickSaveWithoutStatusChange={
-              checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole)
-                ? () => handleProductActionButtons('accept', withoutStatus)
-                : undefined
-            }
-          />
+          {showActionBtns && (
+            <ProductStatusButtons
+              product={product}
+              productStatus={product?.status}
+              buttonsConfig={productStatusButtonsConfig}
+              onClickButton={onClickSetProductStatusBtn}
+              onClickSaveWithoutStatusChange={
+                checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole)
+                  ? () => handleProductActionButtons('accept', withoutStatus)
+                  : undefined
+              }
+            />
+          )}
           <Field
             multiline
             disabled={!checkIsSupervisor(curUserRole)}

@@ -15,11 +15,9 @@ import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {PrivateLabelCard} from '@components/private-label-card'
 
-import {calcProductPrice} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
-import avatar from '../../assets/clientAvatar.jpg'
 import {ClientExchangePrivateLabelViewModel} from './client-exchange-private-label-view.model'
 import {styles} from './client-exchange-private-label-view.style'
 
@@ -58,7 +56,7 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <div className={classNames.mb5}>
                 <div className={classNames.cardsWrapper}>
@@ -78,7 +76,7 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}
           title={textConsts.confirmTitle}
           message={`${textConsts.confirmMessage} (${
-            productToPay && toFixedWithDollarSign(calcProductPrice(productToPay), 2)
+            productToPay && toFixedWithDollarSign(productToPay.priceForClient, 2)
           })`}
           successBtnText={textConsts.confirmBtn}
           cancelBtnText={textConsts.cancelBtn}

@@ -13,7 +13,6 @@ import {OrderContent} from '@components/screens/orders-view/order-content'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/adminAvatar.jpg'
 import {AdminOrderViewModel} from './admin-order-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'ru').adminOrderView
@@ -34,12 +33,11 @@ export class AdminOrderView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} user={textConsts.appUser} />
+        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             history={history}
             setDrawerOpen={onTriggerDrawerOpen}
           >

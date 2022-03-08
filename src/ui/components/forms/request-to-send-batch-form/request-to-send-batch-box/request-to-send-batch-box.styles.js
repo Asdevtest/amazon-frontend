@@ -89,4 +89,10 @@ export const useClassNames = makeStyles(() => ({
 
     alignItems: 'center',
   },
+
+  link: {
+    maxWidth: '200px',
+    whiteSpace: 'nowrap',
+    overflowX: 'scroll',
+  },
 }))

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useState} from 'react'
@@ -12,8 +13,8 @@ import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field/field'
-import {ImageFileInput} from '@components/image-file-input'
 import {Input} from '@components/input'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -39,14 +40,14 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
 
     setFormFields({
       ...formFields,
-      id: item?.asin || '',
+      asin: item?.asin || '',
       skusByClient: item ? [item.sku] : [],
       amazonTitle: item?.title || '',
     })
   }
 
   const sourceFormFields = {
-    id: '',
+    asin: '',
     skusByClient: [],
     amazonTitle: '',
     images: [],
@@ -69,7 +70,7 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
   }
 
   const onClickParseBtn = () => {
-    setFormFields({...formFields, id: getAmazonCodeFromLink(formFields.lamazon) || ''})
+    setFormFields({...formFields, asin: getAmazonCodeFromLink(formFields.lamazon) || ''})
   }
 
   const onClickSkuBtn = () => {
@@ -106,7 +107,7 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
       </div>
 
       <div>
-        <Field
+        {/* <Field
           label={textConsts.linkLabel}
           inputComponent={
             <div className={classNames.inputWrapper}>
@@ -127,14 +128,15 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
               </Button>
             </div>
           }
-        />
+        /> */}
 
         <Field
+          disabled
           inputProps={{maxLength: 1000}}
           label={textConsts.asin}
-          value={formFields.id}
+          value={formFields.asin}
           placeholder={textConsts.asin}
-          onChange={onChangeField('id')}
+          onChange={onChangeField('asin')}
         />
 
         <Field
@@ -147,15 +149,15 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
                     <Grid key={index} item className={classNames.skuItemWrapper}>
                       <Typography className={classNames.skuItemTitle}>{item}</Typography>
 
-                      <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
+                      {/* <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
                         <DeleteIcon className={classNames.deleteBtn} />
-                      </IconButton>
+                      </IconButton> */}
                     </Grid>
                   ))}
                 </Grid>
               ) : null}
 
-              <div className={classNames.inputWrapper}>
+              {/* <div className={classNames.inputWrapper}>
                 <Input
                   placeholder={textConsts.skuHolder}
                   value={skuLine}
@@ -172,12 +174,13 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
                 >
                   {textConsts.addSkuBtn}
                 </Button>
-              </div>
+              </div> */}
             </div>
           }
         />
 
         <Field
+          disabled
           label={textConsts.title}
           value={formFields.amazonTitle}
           placeholder={textConsts.title}
@@ -186,7 +189,7 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
       </div>
 
       <div className={classNames.imageFileInputWrapper}>
-        <ImageFileInput images={images} setImages={setImages} maxNumber={50} />
+        <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
       </div>
 
       <div className={classNames.btnsWrapper}>

@@ -135,7 +135,7 @@ export const BindStockGoodsToInventoryForm = observer(
             />
 
             <button
-              disabled={chipConfig === chipConfigSettings.RECOMMENDED}
+              disabled={chipConfig === chipConfigSettings.RECOMMENDED || searchInputValue === ''}
               className={classNames.searchBtn}
               onClick={() => onClickSearch()}
             >

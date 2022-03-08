@@ -50,9 +50,6 @@ class ApiV1RequestsCustomGuidRequest {
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('maxAmountOfProposals')) {
-                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
-            }
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
@@ -89,12 +86,6 @@ class ApiV1RequestsCustomGuidRequest {
  * @member {String} title
  */
 ApiV1RequestsCustomGuidRequest.prototype['title'] = undefined;
-
-/**
- * Количество предложений, не менее.
- * @member {Number} maxAmountOfProposals
- */
-ApiV1RequestsCustomGuidRequest.prototype['maxAmountOfProposals'] = undefined;
 
 /**
  * Цена за каждое предложение.

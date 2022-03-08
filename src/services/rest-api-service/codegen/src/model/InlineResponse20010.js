@@ -23,11 +23,10 @@ class InlineResponse20010 {
      * Constructs a new <code>InlineResponse20010</code>.
      * Схема репорта за 30 дней с Seller-board
      * @alias module:model/InlineResponse20010
-     * @param sku {String} SKU
      */
-    constructor(sku) { 
+    constructor() { 
         
-        InlineResponse20010.initialize(this, sku);
+        InlineResponse20010.initialize(this);
     }
 
     /**
@@ -35,8 +34,7 @@ class InlineResponse20010 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, sku) { 
-        obj['sku'] = sku;
+    static initialize(obj) { 
     }
 
     /**

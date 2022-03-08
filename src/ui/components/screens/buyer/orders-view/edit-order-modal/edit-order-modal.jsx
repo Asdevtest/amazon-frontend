@@ -42,6 +42,11 @@ const confirmModalModes = {
   SUBMIT: 'SUBMIT',
 }
 
+const disabledOrderStatuses = [
+  OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
+  OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+]
+
 export const EditOrderModal = ({
   requestStatus,
   order,
@@ -139,12 +144,17 @@ export const EditOrderModal = ({
 
   const [photosToLoad, setPhotosToLoad] = useState([])
 
+  const disableSubmit =
+    requestStatus === loadingStatuses.isLoading ||
+    disabledOrderStatuses.includes(order.status) ||
+    orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
+
   return (
     <Box className={classNames.modalWrapper}>
       <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
 
       <Paper elevation={0} className={classNames.paper}>
-        <Typography className={classNames.modalText}>{`${textConsts.orderNum} ${order._id}`}</Typography>
+        <Typography className={classNames.modalText}>{`${textConsts.orderNum} # ${order.id}`}</Typography>
 
         <SelectFields
           photosToLoad={photosToLoad}
@@ -152,7 +162,6 @@ export const EditOrderModal = ({
           warehouses={warehouses}
           deliveryTypeByCode={deliveryTypeByCode}
           setOrderField={setOrderField}
-          // resetOrderField={resetOrderField}
           orderFields={orderFields}
           showProgress={showProgress}
           progressValue={progressValue}
@@ -161,7 +170,6 @@ export const EditOrderModal = ({
 
         <Divider className={classNames.divider} />
 
-        <Typography className={classNames.modalText}>{`${textConsts.productNum} ${order.product._id}`}</Typography>
         <ProductTable
           modalHeadCells={modalHeadCells}
           order={order}
@@ -180,7 +188,7 @@ export const EditOrderModal = ({
 
       <Box mt={2} className={classNames.buttonsBox}>
         <Button
-          disabled={requestStatus === loadingStatuses.isLoading}
+          disabled={disableSubmit}
           className={classNames.saveBtn}
           onClick={() => {
             if (boxesForCreation.length > 0) {

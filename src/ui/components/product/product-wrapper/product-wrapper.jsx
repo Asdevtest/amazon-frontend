@@ -1,6 +1,6 @@
 import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
 
-import React, {useRef} from 'react'
+import React from 'react'
 
 import {Typography, Box, Tabs, Tab} from '@material-ui/core'
 import {observer} from 'mobx-react'
@@ -13,7 +13,6 @@ import {Integrations} from '../integrations'
 import {Listing} from '../listing'
 import {Orders} from '../orders'
 import {BottomCard} from './bottom-card'
-import {ProductWrapperModel} from './product-wrapper.model'
 import {useClassNames} from './product-wrapper.style'
 import {TopCard} from './top-card'
 
@@ -48,6 +47,7 @@ export const ProductWrapper = observer(
     alertFailedText,
     product,
     productBase,
+    userRole,
 
     handleSupplierButtons,
     selectedSupplier,
@@ -62,9 +62,7 @@ export const ProductWrapper = observer(
   }) => {
     const classNames = useClassNames()
 
-    const componentModel = useRef(new ProductWrapperModel())
-
-    const curUserRole = UserRoleCodeMap[componentModel.current.role]
+    const curUserRole = UserRoleCodeMap[userRole]
 
     const [tabIndex, setTabIndex] = React.useState(tabsValues.MAIN_INFO)
     const tabItemStyles = twitterTabsStylesHook.useTabItem()

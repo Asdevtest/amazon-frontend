@@ -6,6 +6,7 @@ import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -32,7 +33,7 @@ export const AdminSettingsForm = observer(() => {
     asModel.current.loadData()
   }, [])
 
-  const {adminSettings, createAdminSettings} = asModel.current
+  const {adminSettings, infoModalText, showInfoModal, createAdminSettings, onTriggerOpenModal} = asModel.current
 
   const [formFields, setFormFields] = useState({})
 
@@ -180,6 +181,16 @@ export const AdminSettingsForm = observer(() => {
           {textConsts.saveBtn}
         </Button>
       </div>
+
+      <WarningInfoModal
+        openModal={showInfoModal}
+        setOpenModal={() => onTriggerOpenModal('showInfoModal')}
+        title={infoModalText}
+        btnText={textConsts.closeBtn}
+        onClickBtn={() => {
+          onTriggerOpenModal('showInfoModal')
+        }}
+      />
     </div>
   )
 })

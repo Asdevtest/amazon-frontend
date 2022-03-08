@@ -23,14 +23,14 @@ class ApiV1RequestsCustomRequest {
      * Constructs a new <code>ApiV1RequestsCustomRequest</code>.
      * @alias module:model/ApiV1RequestsCustomRequest
      * @param title {String} Title заявки.
-     * @param maxAmountOfProposals {Number} Количество предложений, не менее.
      * @param price {Number} Цена за каждое предложение.
      * @param timeoutAt {Date} Время закрытия заявки.
      * @param direction {module:model/ApiV1RequestsCustomRequest.DirectionEnum} Направление заявки, исходящая или входящая.
+     * @param roles {Array.<Number>} Массив массив ролей.
      */
-    constructor(title, maxAmountOfProposals, price, timeoutAt, direction) { 
+    constructor(title, price, timeoutAt, direction, roles) { 
         
-        ApiV1RequestsCustomRequest.initialize(this, title, maxAmountOfProposals, price, timeoutAt, direction);
+        ApiV1RequestsCustomRequest.initialize(this, title, price, timeoutAt, direction, roles);
     }
 
     /**
@@ -38,12 +38,12 @@ class ApiV1RequestsCustomRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, title, maxAmountOfProposals, price, timeoutAt, direction) { 
+    static initialize(obj, title, price, timeoutAt, direction, roles) { 
         obj['title'] = title;
-        obj['maxAmountOfProposals'] = maxAmountOfProposals;
         obj['price'] = price;
         obj['timeoutAt'] = timeoutAt;
         obj['direction'] = direction;
+        obj['roles'] = roles;
     }
 
     /**
@@ -59,9 +59,6 @@ class ApiV1RequestsCustomRequest {
 
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('maxAmountOfProposals')) {
-                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
@@ -99,12 +96,6 @@ class ApiV1RequestsCustomRequest {
  * @member {String} title
  */
 ApiV1RequestsCustomRequest.prototype['title'] = undefined;
-
-/**
- * Количество предложений, не менее.
- * @member {Number} maxAmountOfProposals
- */
-ApiV1RequestsCustomRequest.prototype['maxAmountOfProposals'] = undefined;
 
 /**
  * Цена за каждое предложение.

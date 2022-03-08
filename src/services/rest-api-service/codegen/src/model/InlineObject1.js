@@ -22,13 +22,14 @@ class InlineObject1 {
     /**
      * Constructs a new <code>InlineObject1</code>.
      * @alias module:model/InlineObject1
+     * @param paymentType {module:model/InlineObject1.PaymentTypeEnum} TRANSFER - перевод средств, FINE - штраф.
      * @param recipientId {String} GUID пользователя.
      * @param sum {Number} Начисленная сумма выплаты. Может быть отрицательной.
      * @param comment {String} комментарий
      */
-    constructor(recipientId, sum, comment) { 
+    constructor(paymentType, recipientId, sum, comment) { 
         
-        InlineObject1.initialize(this, recipientId, sum, comment);
+        InlineObject1.initialize(this, paymentType, recipientId, sum, comment);
     }
 
     /**
@@ -36,7 +37,8 @@ class InlineObject1 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, recipientId, sum, comment) { 
+    static initialize(obj, paymentType, recipientId, sum, comment) { 
+        obj['paymentType'] = paymentType;
         obj['recipientId'] = recipientId;
         obj['sum'] = sum;
         obj['comment'] = comment;
@@ -53,6 +55,9 @@ class InlineObject1 {
         if (data) {
             obj = obj || new InlineObject1();
 
+            if (data.hasOwnProperty('paymentType')) {
+                obj['paymentType'] = ApiClient.convertToType(data['paymentType'], 'String');
+            }
             if (data.hasOwnProperty('recipientId')) {
                 obj['recipientId'] = ApiClient.convertToType(data['recipientId'], 'String');
             }
@@ -68,6 +73,12 @@ class InlineObject1 {
 
 
 }
+
+/**
+ * TRANSFER - перевод средств, FINE - штраф.
+ * @member {module:model/InlineObject1.PaymentTypeEnum} paymentType
+ */
+InlineObject1.prototype['paymentType'] = undefined;
 
 /**
  * GUID пользователя.
@@ -89,6 +100,27 @@ InlineObject1.prototype['comment'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>paymentType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject1['PaymentTypeEnum'] = {
+
+    /**
+     * value: "TRANSFER"
+     * @const
+     */
+    "TRANSFER": "TRANSFER",
+
+    /**
+     * value: "FINE"
+     * @const
+     */
+    "FINE": "FINE"
+};
 
 
 

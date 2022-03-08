@@ -33,14 +33,14 @@ export const ProductTable = ({modalHeadCells, order, orderFields}) => {
             </TableCell>
             <TableCell>
               <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
-              <Typography>{order.product.id}</Typography>
+              <Typography>{`ASIN: ${order.product.asin}`}</Typography>
             </TableCell>
             <TableCell>{order.product.currentSupplier ? order.product.currentSupplier.price : 'N/A'}</TableCell>
             <TableCell className={classNames.tableCell}>
               {order.product.currentSupplier ? order.product.currentSupplier.delivery : 'N/A'}
             </TableCell>
             <TableCell className={classNames.tableCell}>{orderFields.amount}</TableCell>
-            <TableCell>{toFixedWithDollarSign(calcProductsPriceWithDelivery(order.product, orderFields))}</TableCell>
+            <TableCell>{toFixedWithDollarSign(calcProductsPriceWithDelivery(order.product, orderFields), 2)}</TableCell>
             <TableCell>
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.currentSupplier.link)}>
                 <Typography className={classNames.link}>{order.product.currentSupplier.link || 'N/A'}</Typography>

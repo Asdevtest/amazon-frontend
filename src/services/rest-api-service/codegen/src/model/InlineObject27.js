@@ -22,12 +22,10 @@ class InlineObject27 {
     /**
      * Constructs a new <code>InlineObject27</code>.
      * @alias module:model/InlineObject27
-     * @param clientComment {String} 
-     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
      */
-    constructor(clientComment, priceForClient) { 
+    constructor() { 
         
-        InlineObject27.initialize(this, clientComment, priceForClient);
+        InlineObject27.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject27 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment, priceForClient) { 
-        obj['clientComment'] = clientComment;
-        obj['priceForClient'] = priceForClient;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,23 @@ class InlineObject27 {
         if (data) {
             obj = obj || new InlineObject27();
 
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryMethod')) {
+                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('warehouse')) {
+                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -65,15 +73,40 @@ class InlineObject27 {
 }
 
 /**
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
+ */
+InlineObject27.prototype['amount'] = undefined;
+
+/**
+ * Код метода доставки.
+ * @member {Number} deliveryMethod
+ */
+InlineObject27.prototype['deliveryMethod'] = undefined;
+
+/**
+ * Номер склада.
+ * @member {Number} warehouse
+ */
+InlineObject27.prototype['warehouse'] = undefined;
+
+/**
+ * Комментарии клиента.
  * @member {String} clientComment
  */
 InlineObject27.prototype['clientComment'] = undefined;
 
 /**
- * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
- * @member {Number} priceForClient
+ * GUID заказанного продукта
+ * @member {String} productId
  */
-InlineObject27.prototype['priceForClient'] = undefined;
+InlineObject27.prototype['productId'] = undefined;
+
+/**
+ * Массив изображений.
+ * @member {Array.<String>} images
+ */
+InlineObject27.prototype['images'] = undefined;
 
 
 

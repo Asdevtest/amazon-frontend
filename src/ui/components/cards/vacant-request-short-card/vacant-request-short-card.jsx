@@ -1,10 +1,13 @@
+import Rating from '@mui/material/Rating'
+
 import React from 'react'
 
-import {Divider, Grid, Typography} from '@material-ui/core'
+import {Divider, Grid, Typography, Avatar} from '@material-ui/core'
 
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime} from '@utils/date-time'
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './vacant-request-short-card.style'
@@ -29,11 +32,13 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
 
         <div className={classNames.cardActionBlockWrapper}>
           <div className={classNames.userInfoWrapper}>
-            <img src="/assets/img/no-photo.jpg" className={classNames.cardImg} />
+            <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
 
-            <Typography>{'Екатерина П.'}</Typography>
+            <div className={classNames.nameRatingWrapper}>
+              <Typography>{item.createdBy.name}</Typography>
 
-            <Typography className={classNames.userRating}>{'4.9'}</Typography>
+              <Rating disabled value={item.createdBy.rating} />
+            </div>
           </div>
 
           <Divider orientation={'horizontal'} className={classNames.divider} />

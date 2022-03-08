@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestProposalsCreatedBy from './ApiV1RequestProposalsCreatedBy';
 
 /**
  * The InlineResponse20011 model module.
@@ -80,9 +81,6 @@ class InlineResponse20011 {
             if (data.hasOwnProperty('chatId')) {
                 obj['chatId'] = ApiClient.convertToType(data['chatId'], 'String');
             }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
             if (data.hasOwnProperty('lastModifiedById')) {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
@@ -91,6 +89,9 @@ class InlineResponse20011 {
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1RequestProposalsCreatedBy.constructFromObject(data['createdBy']);
             }
         }
         return obj;
@@ -166,12 +167,6 @@ InlineResponse20011.prototype['supervisorId'] = undefined;
 InlineResponse20011.prototype['chatId'] = undefined;
 
 /**
- * GUID любого, кто создал предложение.
- * @member {String} createdById
- */
-InlineResponse20011.prototype['createdById'] = undefined;
-
-/**
  * GUID любого, кто последний редактировал предложение.
  * @member {String} lastModifiedById
  */
@@ -188,6 +183,11 @@ InlineResponse20011.prototype['createdAt'] = undefined;
  * @member {Date} updatedAt
  */
 InlineResponse20011.prototype['updatedAt'] = undefined;
+
+/**
+ * @member {module:model/ApiV1RequestProposalsCreatedBy} createdBy
+ */
+InlineResponse20011.prototype['createdBy'] = undefined;
 
 
 

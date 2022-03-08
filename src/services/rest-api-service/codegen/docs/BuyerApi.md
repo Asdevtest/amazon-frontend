@@ -4,8 +4,13 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiV1BuyersOrdersGuidEditPatch**](BuyerApi.md#apiV1BuyersOrdersGuidEditPatch) | **PATCH** /api/v1/buyers/orders/{guid}/edit | # NEW! Редактировать заказ.
 [**apiV1BuyersOrdersGuidGet**](BuyerApi.md#apiV1BuyersOrdersGuidGet) | **GET** /api/v1/buyers/orders/{guid} | # Получить конкретный заказ по его GUID.
-[**apiV1BuyersOrdersGuidPatch**](BuyerApi.md#apiV1BuyersOrdersGuidPatch) | **PATCH** /api/v1/buyers/orders/{guid} | # Срочно требуется разделить на логические эндпоинты, это поддерживать невозможно!!!!! Редактировать заказ.
+[**apiV1BuyersOrdersGuidPatch**](BuyerApi.md#apiV1BuyersOrdersGuidPatch) | **PATCH** /api/v1/buyers/orders/{guid} | # deprecated! Редактировать заказ.
+[**apiV1BuyersOrdersGuidPayToSupplierPatch**](BuyerApi.md#apiV1BuyersOrdersGuidPayToSupplierPatch) | **PATCH** /api/v1/buyers/orders/{guid}/pay_to_supplier | # NEW! Выставить статус оплачено поставщику.
+[**apiV1BuyersOrdersGuidReturnOrderPatch**](BuyerApi.md#apiV1BuyersOrdersGuidReturnOrderPatch) | **PATCH** /api/v1/buyers/orders/{guid}/return_order | # NEW! Выставить статус пришёл не кондиционный - \&quot;возврат заказа\&quot;, returnOrder: 35.
+[**apiV1BuyersOrdersGuidSetTotalPriceChangedPatch**](BuyerApi.md#apiV1BuyersOrdersGuidSetTotalPriceChangedPatch) | **PATCH** /api/v1/buyers/orders/{guid}/set_totalPriceChanged | # NEW! Задать изменение итоговой цены, totalPriceChanged.
+[**apiV1BuyersOrdersGuidTrackNumberIssuedPatch**](BuyerApi.md#apiV1BuyersOrdersGuidTrackNumberIssuedPatch) | **PATCH** /api/v1/buyers/orders/{guid}/track_number_issued | # NEW! Выставить статус \&quot;выдан трек номер\&quot;.
 [**apiV1BuyersOrdersMyGet**](BuyerApi.md#apiV1BuyersOrdersMyGet) | **GET** /api/v1/buyers/orders/my | # Получить список заказов текущего байера.
 [**apiV1BuyersOrdersPickupGuidPost**](BuyerApi.md#apiV1BuyersOrdersPickupGuidPost) | **POST** /api/v1/buyers/orders/pickup/{guid} | # Закрепить заказ за байером. Взять его в работу.
 [**apiV1BuyersOrdersVacGet**](BuyerApi.md#apiV1BuyersOrdersVacGet) | **GET** /api/v1/buyers/orders/vac | # Получить список свободных заказов.
@@ -17,6 +22,62 @@ Method | HTTP request | Description
 [**apiV1BuyersTasksGet**](BuyerApi.md#apiV1BuyersTasksGet) | **GET** /api/v1/buyers/tasks | # Показать все задачи данного пользователя.
 [**apiV1BuyersTasksPost**](BuyerApi.md#apiV1BuyersTasksPost) | **POST** /api/v1/buyers/tasks | # Создать задачу.
 
+
+
+## apiV1BuyersOrdersGuidEditPatch
+
+> String apiV1BuyersOrdersGuidEditPatch(guid, opts)
+
+# NEW! Редактировать заказ.
+
+## NEW! Редактировать заказ.   Данный метод позволяет редактировать все поля кроме status и totalPriceChanged После оплаты поставщику нельзя менять warehouse и deliveryMethod Проверки:  Пока нет проверок
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BuyerApi();
+let guid = "guid_example"; // String | GUID заказа, который планируем изменить
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject21() // InlineObject21 | 
+};
+apiInstance.apiV1BuyersOrdersGuidEditPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID заказа, который планируем изменить | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject21**](InlineObject21.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 
 ## apiV1BuyersOrdersGuidGet
@@ -77,9 +138,9 @@ Name | Type | Description  | Notes
 
 > String apiV1BuyersOrdersGuidPatch(guid, opts)
 
-# Срочно требуется разделить на логические эндпоинты, это поддерживать невозможно!!!!! Редактировать заказ.
+# deprecated! Редактировать заказ.
 
-## Срочно требуется разделить на логические эндпоинты, это поддерживать невозможно!!!!!, Редактировать заказ.   Статус 20 и 25 приводит к оплате поставщику.  Только заказы со статусом 15 можно оплачивать. нельзя повторно оплачивать или менять цену после оплаты поставщику (paidAt &#x3D;&#x3D;&#x3D; null) при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены  при снижении цены автоматическим производиться возврат разницы клиенту.  статус 35 приведет к возврату средств и закрытию заказа, данный статус можно ставить только оплачено поставщику
+## deprecated!, Редактировать заказ.   Статус 20 и 25 приводит к оплате поставщику.  Только заказы со статусом 15 можно оплачивать. нельзя повторно оплачивать или менять цену после оплаты поставщику (paidAt &#x3D;&#x3D;&#x3D; null) при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены  при снижении цены автоматическим производиться возврат разницы клиенту.  статус 35 приведет к возврату средств и закрытию заказа, данный статус можно ставить только оплачено поставщику
 
 ### Example
 
@@ -96,7 +157,7 @@ let apiInstance = new TestSwagger.BuyerApi();
 let guid = "guid_example"; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject19() // InlineObject19 | 
+  'body': new TestSwagger.InlineObject18() // InlineObject18 | 
 };
 apiInstance.apiV1BuyersOrdersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -113,6 +174,116 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject18**](InlineObject18.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1BuyersOrdersGuidPayToSupplierPatch
+
+> String apiV1BuyersOrdersGuidPayToSupplierPatch(guid, opts)
+
+# NEW! Выставить статус оплачено поставщику.
+
+## NEW! Выставить статус оплачено поставщику.  При вызове данного метода статус меняется на 20 paid  Снимает средства с замороженных средств клиента и переводятся админу Проверки:  Нельзя повторно оплачивать поставщику. paidAt !&#x3D;&#x3D; null
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BuyerApi();
+let guid = "guid_example"; // String | GUID заказа
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BuyersOrdersGuidPayToSupplierPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID заказа | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1BuyersOrdersGuidReturnOrderPatch
+
+> String apiV1BuyersOrdersGuidReturnOrderPatch(guid, opts)
+
+# NEW! Выставить статус пришёл не кондиционный - \&quot;возврат заказа\&quot;, returnOrder: 35.
+
+## NEW! Выставить статус пришёл не кондиционный - \&quot;возврат заказа\&quot;, returnOrder: 35.   При вызове данного метода ставиться статус cancelByBuyer: 35 Средства обратно возвращаются на баланс клиента.  (если оплатили посташику то от баланса админа клиенту, если не было оплаты поставщику, то разморозка средств клиента)  В заявке обнулятся поля totalPrice, totalPriceChanged  Проверки:  Требуется комментарий байера. Нельзя вернуть заказ если заказ закрыт клиентом
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BuyerApi();
+let guid = "guid_example"; // String | GUID заказа.
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject19() // InlineObject19 | 
+};
+apiInstance.apiV1BuyersOrdersGuidReturnOrderPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID заказа. | 
+ **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject19**](InlineObject19.md)|  | [optional] 
 
 ### Return type
@@ -126,6 +297,116 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1BuyersOrdersGuidSetTotalPriceChangedPatch
+
+> String apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid, opts)
+
+# NEW! Задать изменение итоговой цены, totalPriceChanged.
+
+## NEW! Задать изменение итоговой цены, totalPriceChanged.   При повышении цены ставиться статус 19 needConfirmingToPriceChange, далее нужно ожидать подтверждения от клиента.  Если вернуть цену на старое значение, то статус возвращается к 15 atProcess. При понижении цены автоматом происходит возврат разницы клиенту, статус ставится 15 atProcess.  Проверки:  Нельзя менять цену после оплаты поставщику. paidAt !&#x3D;&#x3D; null
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BuyerApi();
+let guid = "guid_example"; // String | GUID заказа, который планируем изменить
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject20() // InlineObject20 | 
+};
+apiInstance.apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID заказа, который планируем изменить | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject20**](InlineObject20.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1BuyersOrdersGuidTrackNumberIssuedPatch
+
+> String apiV1BuyersOrdersGuidTrackNumberIssuedPatch(guid, opts)
+
+# NEW! Выставить статус \&quot;выдан трек номер\&quot;.
+
+## NEW! Выставить статус \&quot;выдан трек номер\&quot;.  При вызове данного метода статус меняется на 25 trackNumberIssued  Если ранее не была произведена оплата(paidAt &#x3D;&#x3D;&#x3D; null), то производит оплату:   при оплате снимает средства с замороженных средств клиента и переводит админу Проверки:  пока нет проверок
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BuyerApi();
+let guid = "guid_example"; // String | GUID заказа
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BuyersOrdersGuidTrackNumberIssuedPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | **String**| GUID заказа | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -312,7 +593,7 @@ let apiInstance = new TestSwagger.BuyerApi();
 let guid = "guid_example"; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject18() // InlineObject18 | 
+  'body': new TestSwagger.InlineObject17() // InlineObject17 | 
 };
 apiInstance.apiV1BuyersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -329,7 +610,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject18**](InlineObject18.md)|  | [optional] 
+ **body** | [**InlineObject17**](InlineObject17.md)|  | [optional] 
 
 ### Return type
 
@@ -561,7 +842,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksGet
 
-> [InlineResponse2007] apiV1BuyersTasksGet(opts)
+> [InlineResponse2006] apiV1BuyersTasksGet(opts)
 
 # Показать все задачи данного пользователя.
 
@@ -599,7 +880,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -633,7 +914,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BuyerApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject20() // InlineObject20 | 
+  'body': new TestSwagger.InlineObject22() // InlineObject22 | 
 };
 apiInstance.apiV1BuyersTasksPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -649,7 +930,7 @@ apiInstance.apiV1BuyersTasksPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject20**](InlineObject20.md)|  | [optional] 
+ **body** | [**InlineObject22**](InlineObject22.md)|  | [optional] 
 
 ### Return type
 

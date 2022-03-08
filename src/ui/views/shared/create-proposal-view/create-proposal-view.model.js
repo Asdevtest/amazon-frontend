@@ -5,6 +5,7 @@ import {texts} from '@constants/texts'
 import {RequestModel} from '@models/request-model'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 const textConsts = getLocalizedTexts(texts, 'en').freelancerCreateProposalView
 
@@ -21,8 +22,7 @@ export class CreateProposalViewModel {
 
   infoModalText = ''
 
-  imagesForLoad = []
-  uploadedImages = []
+  uploadedFiles = []
 
   readyImages = []
   progressValue = 0
@@ -38,22 +38,33 @@ export class CreateProposalViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  async onSubmitCreateProposal(data) {
+  async onSubmitCreateProposal(data, files) {
     try {
-      await RequestModel.pickupRequestById(this.request.request._id, data)
+      this.uploadedFiles = []
+
+      if (files.length) {
+        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+      }
+
+      const dataWithFiles = {...data, proposalDetails: {...data.proposalDetails, linksToMediaFiles: this.uploadedFiles}}
+
+      await RequestModel.pickupRequestById(this.request.request._id, dataWithFiles)
 
       this.infoModalText = textConsts.infoCreateRequest
       this.onTriggerOpenModal('showInfoModal')
-
-      this.history.goBack()
     } catch (error) {
       console.log(error)
 
-      this.infoModalText = textConsts.infoNoCreateRequest
+      this.infoModalText = error.body.message
       this.onTriggerOpenModal('showInfoModal')
 
       this.error = error
     }
+  }
+
+  onClickOkInfoModal() {
+    this.onTriggerOpenModal('showInfoModal')
+    this.history.goBack()
   }
 
   onClickBackBtn() {

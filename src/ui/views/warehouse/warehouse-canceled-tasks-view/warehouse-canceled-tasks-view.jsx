@@ -66,13 +66,11 @@ export class WarehouseCanceledTasksViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}
-          user={textConsts.appUser}
         />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc=""
             history={history}
             setDrawerOpen={onChangeTriggerDrawerOpen}
           >

@@ -4,12 +4,13 @@ import {observer} from 'mobx-react'
 
 import {CLIENT_USER_MANAGERS_LIST, CLIENT_USER_INITIAL_LIST} from '@constants/mocks'
 import {texts} from '@constants/texts'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {AvatarEditorForm} from '@components/forms/avatar-editor-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {ActiveOrders} from '@components/screens/users-views/user-profile-view/active-orders'
 import {ContentModal} from '@components/screens/users-views/user-profile-view/content-modal'
@@ -33,7 +34,6 @@ export class UserProfileView extends Component {
 
   render() {
     const {
-      role,
       drawerOpen,
       tabExchange,
       tabHistory,
@@ -42,21 +42,32 @@ export class UserProfileView extends Component {
       selectedUser,
       user,
       headerInfoData,
+      showAvatarEditModal,
+      showInfoModal,
       onTriggerDrawerOpen,
       onClickButtonPrivateLabel,
       onChangeTabExchange,
       onChangeTabHistory,
       onChangeTabReview,
       onTriggerShowTabModal,
+
+      onTriggerOpenModal,
+      onSubmitAvatarEdit,
+      onClickChangeAvatar,
     } = this.viewModel
 
     return (
       <>
-        <Navbar curUserRole={UserRoleCodeMap[role]} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
+        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <Header user={user} timer={textConsts.timer} headerInfoData={headerInfoData} /* avatar={avatar}*/ />
+              <Header
+                user={user}
+                timer={textConsts.timer}
+                headerInfoData={headerInfoData}
+                onClickChangeAvatar={onClickChangeAvatar}
+              />
 
               <ActiveOrders
                 tabExchange={tabExchange}
@@ -76,6 +87,23 @@ export class UserProfileView extends Component {
             managersList={CLIENT_USER_MANAGERS_LIST}
           />
         </Modal>
+
+        <Modal openModal={showAvatarEditModal} setOpenModal={() => onTriggerOpenModal('showAvatarEditModal')}>
+          <AvatarEditorForm
+            onSubmit={onSubmitAvatarEdit}
+            onCloseModal={() => onTriggerOpenModal('showAvatarEditModal')}
+          />
+        </Modal>
+
+        <WarningInfoModal
+          openModal={showInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
+          title={textConsts.avatarUploadSuccess}
+          btnText={textConsts.closeBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showInfoModal')
+          }}
+        />
       </>
     )
   }

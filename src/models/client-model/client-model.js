@@ -136,6 +136,13 @@ class ClientModelStatic {
     )
     return response
   }
+
+  updateProductBarCode = async (id, data) => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidChangeBarCodePatch(id, {
+      body: data,
+    })
+    return response
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

@@ -66,6 +66,10 @@ export class ListingModel {
 
       await this.onSaveProductData()
 
+      this.tmpListingImages = new Array()
+
+      this.loadData()
+
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       this.error = error
@@ -104,7 +108,7 @@ export class ListingModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      this.getProductById()
+      await this.getProductById()
 
       await this.getBoxes()
       !checkIsBuyer(UserRoleCodeMap[this.userRole]) && (await this.getPayments())

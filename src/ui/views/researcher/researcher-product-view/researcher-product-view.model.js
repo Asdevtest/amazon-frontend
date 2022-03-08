@@ -10,6 +10,7 @@ import {ProductModel} from '@models/product-model'
 import {ResearcherModel} from '@models/researcher-model'
 import {ResearcherUpdateProductContract} from '@models/researcher-model/researcher-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
+import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {
@@ -93,7 +94,7 @@ const formFieldsDefault = {
   fba: false,
   fbafee: '',
   icomment: '',
-  id: '',
+  asin: '',
   images: [],
   lamazon: '',
   material: '',
@@ -154,6 +155,10 @@ export class ResearcherProductViewModel {
   formFields = {...formFieldsDefault}
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history
@@ -458,9 +463,9 @@ export class ResearcherProductViewModel {
       const parseResult = await (() => {
         switch (productDataParser) {
           case ProductDataParser.AMAZON:
-            return ResearcherModel.parseAmazon(product.id)
+            return ResearcherModel.parseAmazon(product.asin)
           case ProductDataParser.SELLCENTRAL:
-            return ResearcherModel.parseParseSellerCentral(product.id)
+            return ResearcherModel.parseParseSellerCentral(product.asin)
         }
       })()
 

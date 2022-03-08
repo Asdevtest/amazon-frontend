@@ -5,6 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
 
+import {RequestStatus} from '@constants/request-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {texts} from '@constants/texts'
@@ -37,7 +38,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
         <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
         <Typography className={classNames.typoCell}>
           {textConsts.asinTypo}
-          <span className={classNames.typoSpan}>{product.id}</span>
+          <span className={classNames.typoSpan}>{product.asin}</span>
           {` | ${formatDateDistanceFromNow(product.createdAt)}`}
         </Typography>
         <Typography className={classNames.csCodeTypo}>{product.category}</Typography>
@@ -87,47 +88,27 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
   </div>
 ))
 
-export const SupervisorCell = withStyles(styles)(({classes: classNames, product, onlyName}) => (
+export const SupervisorCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
     <Typography className={classNames.researcherCell}>{!product.checkedBy ? 'N/A' : product.checkedBy.name}</Typography>
-    {!onlyName && (
-      <Typography className={classNames.researcherCell}>{`rate: ${
-        !product.checkedBy ? 'N/A' : product.checkedBy.rate
-      }`}</Typography>
-    )}
   </div>
 ))
 
-export const ResearcherCell = withStyles(styles)(({classes: classNames, product, onlyName}) => (
+export const ResearcherCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
     <Typography className={classNames.researcherCell}>{!product.createdBy ? 'N/A' : product.createdBy.name}</Typography>
-    {!onlyName && (
-      <Typography className={classNames.researcherCell}>{`rate: ${
-        !product.createdBy ? 'N/A' : product.createdBy.rate
-      }`}</Typography>
-    )}
   </div>
 ))
 
-export const ClientCell = withStyles(styles)(({classes: classNames, product, onlyName}) => (
+export const ClientCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
     <Typography className={classNames.researcherCell}>{!product.client ? 'N/A' : product.client.name}</Typography>
-    {!onlyName && (
-      <Typography className={classNames.researcherCell}>{`rate: ${
-        !product.client ? 'N/A' : product.client.rate
-      }`}</Typography>
-    )}
   </div>
 ))
 
-export const BuyerCell = withStyles(styles)(({classes: classNames, product, onlyName}) => (
+export const BuyerCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
     <Typography className={classNames.researcherCell}>{!product.buyer ? 'N/A' : product.buyer.name}</Typography>
-    {!onlyName && (
-      <Typography className={classNames.researcherCell}>{`rate: ${
-        !product.buyer ? 'N/A' : product.buyer.rate
-      }`}</Typography>
-    )}
   </div>
 ))
 
@@ -177,7 +158,7 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
       <Typography className={classNames.orderTitle}>{product.amazonTitle}</Typography>
       <Typography className={classNames.orderText}>
         <span className={classNames.orderTextSpan}>{textConsts.id}</span>
-        {product.id}
+        {product.asin}
       </Typography>
       {superbox && (
         <Typography className={classNames.superboxTypo}>{`${textConsts.superboxTypo} x ${superbox}`}</Typography>
@@ -187,6 +168,38 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
 ))
 
 export const renderFieldValueCell = value => (!value && value !== 0 ? 'N/A' : value)
+
+export const MultilineTextCell = withStyles(styles)(({classes: classNames, text}) => (
+  <div className={classNames.multilineTextWrapper}>
+    <Typography className={classNames.multilineText}>{text}</Typography>
+  </div>
+))
+
+export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNames, status}) => {
+  const colorByStatus = () => {
+    if ([RequestStatus.DRAFT, RequestStatus.CANCELED_BY_CREATOR].includes(status)) {
+      return '#006CFF'
+    } else if ([RequestStatus.IN_PROCESS, RequestStatus.CANCELED_BY_ADMIN].includes(status)) {
+      return '#F3AF00'
+    } else if ([RequestStatus.PUBLISHED, RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED].includes(status)) {
+      return '#00B746'
+    } else if ([RequestStatus.EXPIRED].includes(status)) {
+      return '#C4C4C4'
+    } else {
+      return 'black'
+    }
+  }
+
+  const colorStatus = colorByStatus()
+
+  return (
+    <div className={classNames.multilineTextWrapper}>
+      <Typography className={classNames.multilineStatusText} style={{color: colorStatus}}>
+        {status.replace(/_/g, ' ')}
+      </Typography>
+    </div>
+  )
+})
 
 export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, task, hideImage}) => {
   const renderProductImage = (box, key) => {
@@ -283,6 +296,20 @@ export const IdCell = withStyles(styles)(({id}) => (
 export const NoActiveBarcodeCell = withStyles(styles)(({classes: classNames, barCode}) => (
   <React.Fragment>
     <Typography className={classNames.noActivebarCode}>{barCode || 'N/A'}</Typography>
+  </React.Fragment>
+))
+
+export const ActiveBarcodeCell = withStyles(styles)(({classes: classNames, barCode}) => (
+  <React.Fragment>
+    {/* <Typography className={classNames.noActivebarCode}>{barCode || 'N/A'}</Typography> */}
+
+    {barCode ? (
+      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
+        <Typography className={classNames.noActivebarCode}>{barCode}</Typography>
+      </Link>
+    ) : (
+      <Typography className={classNames.noActivebarCode}>{'N/A'}</Typography>
+    )}
   </React.Fragment>
 ))
 
@@ -464,7 +491,7 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box}
             <Typography className={classNames.manyItemsOrderTitle}>{item.product.amazonTitle}</Typography>
             <Typography className={classNames.orderText}>
               <span className={classNames.orderTextSpan}>{textConsts.id}</span>
-              {item.product.id}
+              {item.product.asin}
             </Typography>
           </div>
         </div>
@@ -539,7 +566,7 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
             <Typography className={classNames.batchProductTitle}>{item.product.amazonTitle}</Typography>
             <Typography className={classNames.orderText}>
               <span className={classNames.orderTextSpan}>{textConsts.id}</span>
-              {item.product.id}
+              {item.product.asin}
               {box.sendToBatchComplete && <span className={classNames.sendSuccess}>{' Отправлено'}</span>}
             </Typography>
             <Typography className={classNames.imgNum}>{`x ${item.amount}`}</Typography>

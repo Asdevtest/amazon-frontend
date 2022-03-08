@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestProposalsCreatedBy from './ApiV1RequestProposalsCreatedBy';
 
 /**
  * The InlineResponse20013 model module.
@@ -99,9 +100,6 @@ class InlineResponse20013 {
             if (data.hasOwnProperty('restrictMoreThanOneProposalFromOneAssignee')) {
                 obj['restrictMoreThanOneProposalFromOneAssignee'] = ApiClient.convertToType(data['restrictMoreThanOneProposalFromOneAssignee'], 'Boolean');
             }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
             if (data.hasOwnProperty('lastModifiedById')) {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
@@ -110,6 +108,9 @@ class InlineResponse20013 {
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1RequestProposalsCreatedBy.constructFromObject(data['createdBy']);
             }
         }
         return obj;
@@ -197,12 +198,6 @@ InlineResponse20013.prototype['needCheckBySupervisor'] = undefined;
 InlineResponse20013.prototype['restrictMoreThanOneProposalFromOneAssignee'] = undefined;
 
 /**
- * GUID клиента, который создал заявку.
- * @member {String} createdById
- */
-InlineResponse20013.prototype['createdById'] = undefined;
-
-/**
  * GUID клиента, который обновил запрос на поиск товара.
  * @member {String} lastModifiedById
  */
@@ -219,6 +214,11 @@ InlineResponse20013.prototype['createdAt'] = undefined;
  * @member {Date} updatedAt
  */
 InlineResponse20013.prototype['updatedAt'] = undefined;
+
+/**
+ * @member {module:model/ApiV1RequestProposalsCreatedBy} createdBy
+ */
+InlineResponse20013.prototype['createdBy'] = undefined;
 
 
 

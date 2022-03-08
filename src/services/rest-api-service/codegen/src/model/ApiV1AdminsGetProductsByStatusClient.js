@@ -21,18 +21,12 @@ import ApiClient from '../ApiClient';
 class ApiV1AdminsGetProductsByStatusClient {
     /**
      * Constructs a new <code>ApiV1AdminsGetProductsByStatusClient</code>.
+     * Общая информация о пользователи
      * @alias module:model/ApiV1AdminsGetProductsByStatusClient
-     * @param _id {String} GUID пользователя в БД.
-     * @param name {String} Имя пользователя.
-     * @param email {String} email
-     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.director = 1    roles.super = 2    roles.researcher = 3    roles.buyer = 4    roles.candidate = 5    
-     * @param fba {Boolean} Флаг fba.
-     * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
-     * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
-    constructor(_id, name, email, role, fba, active, rate) { 
+    constructor() { 
         
-        ApiV1AdminsGetProductsByStatusClient.initialize(this, _id, name, email, role, fba, active, rate);
+        ApiV1AdminsGetProductsByStatusClient.initialize(this);
     }
 
     /**
@@ -40,14 +34,7 @@ class ApiV1AdminsGetProductsByStatusClient {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, name, email, role, fba, active, rate) { 
-        obj['_id'] = _id;
-        obj['name'] = name;
-        obj['email'] = email;
-        obj['role'] = role;
-        obj['fba'] = fba;
-        obj['active'] = active;
-        obj['rate'] = rate;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,41 +54,8 @@ class ApiV1AdminsGetProductsByStatusClient {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
-            }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('active')) {
-                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
-            }
-            if (data.hasOwnProperty('rate')) {
-                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
-            }
-            if (data.hasOwnProperty('balance')) {
-                obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
-            }
-            if (data.hasOwnProperty('balanceFreeze')) {
-                obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
-            }
-            if (data.hasOwnProperty('overdraft')) {
-                obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
-            }
-            if (data.hasOwnProperty('permissions')) {
-                obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
-            }
-            if (data.hasOwnProperty('permissionGroups')) {
-                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], ['String']);
-            }
-            if (data.hasOwnProperty('masterUser')) {
-                obj['masterUser'] = ApiClient.convertToType(data['masterUser'], 'String');
-            }
-            if (data.hasOwnProperty('allowedRoles')) {
-                obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
         }
         return obj;
@@ -111,7 +65,7 @@ class ApiV1AdminsGetProductsByStatusClient {
 }
 
 /**
- * GUID пользователя в БД.
+ * GUID пользователя.
  * @member {String} _id
  */
 ApiV1AdminsGetProductsByStatusClient.prototype['_id'] = undefined;
@@ -123,76 +77,10 @@ ApiV1AdminsGetProductsByStatusClient.prototype['_id'] = undefined;
 ApiV1AdminsGetProductsByStatusClient.prototype['name'] = undefined;
 
 /**
- * email
- * @member {String} email
+ * Рейтинг пользователя.
+ * @member {Number} rating
  */
-ApiV1AdminsGetProductsByStatusClient.prototype['email'] = undefined;
-
-/**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.director = 1    roles.super = 2    roles.researcher = 3    roles.buyer = 4    roles.candidate = 5    
- * @member {Number} role
- */
-ApiV1AdminsGetProductsByStatusClient.prototype['role'] = undefined;
-
-/**
- * Флаг fba.
- * @member {Boolean} fba
- */
-ApiV1AdminsGetProductsByStatusClient.prototype['fba'] = undefined;
-
-/**
- * Если истина - пользователь активен. Если нет - заблокирован админом.
- * @member {Boolean} active
- */
-ApiV1AdminsGetProductsByStatusClient.prototype['active'] = undefined;
-
-/**
- * Ставка, по который оплачивается сотрудник.
- * @member {Number} rate
- */
-ApiV1AdminsGetProductsByStatusClient.prototype['rate'] = undefined;
-
-/**
- * Баланс пользователя
- * @member {Number} balance
- */
-ApiV1AdminsGetProductsByStatusClient.prototype['balance'] = undefined;
-
-/**
- * Замороженная при оплате ордера сумма.
- * @member {Number} balanceFreeze
- */
-ApiV1AdminsGetProductsByStatusClient.prototype['balanceFreeze'] = undefined;
-
-/**
- * Овердрафт пользователя.
- * @member {Number} overdraft
- */
-ApiV1AdminsGetProductsByStatusClient.prototype['overdraft'] = undefined;
-
-/**
- * Массив permission-ов.
- * @member {Array.<String>} permissions
- */
-ApiV1AdminsGetProductsByStatusClient.prototype['permissions'] = undefined;
-
-/**
- * Массив групп permission-ов.
- * @member {Array.<String>} permissionGroups
- */
-ApiV1AdminsGetProductsByStatusClient.prototype['permissionGroups'] = undefined;
-
-/**
- * GUID мастер пользователя к которму относится данный субпользователь.
- * @member {String} masterUser
- */
-ApiV1AdminsGetProductsByStatusClient.prototype['masterUser'] = undefined;
-
-/**
- * Массив массив ролей.
- * @member {Array.<Number>} allowedRoles
- */
-ApiV1AdminsGetProductsByStatusClient.prototype['allowedRoles'] = undefined;
+ApiV1AdminsGetProductsByStatusClient.prototype['rating'] = undefined;
 
 
 

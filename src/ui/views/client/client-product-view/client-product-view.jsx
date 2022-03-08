@@ -17,7 +17,6 @@ import {ProductWrapper} from '@components/product/product-wrapper'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/clientAvatar.jpg'
 import {ClientProductViewModel} from './client-product-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientProductView
@@ -35,6 +34,7 @@ export class ClientProductView extends Component {
 
   render() {
     const {
+      userInfo,
       selectedSupplier,
       requestStatus,
       showProgress,
@@ -62,23 +62,13 @@ export class ClientProductView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-          user={textConsts.appUser}
-        />
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            user={textConsts.appUser}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  userRole={userInfo.role}
                   imagesForLoad={imagesForLoad}
                   showProgress={showProgress}
                   progressValue={progressValue}

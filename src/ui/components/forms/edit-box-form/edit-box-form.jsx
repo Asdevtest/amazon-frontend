@@ -125,6 +125,7 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
     shippingLabel: formItem?.shippingLabel || '',
     clientComment: formItem?.clientComment || '',
     images: formItem?.images || [],
+    tmpShippingLabel: [],
   }
 
   const [boxFields, setBoxFields] = useState(boxInitialState)
@@ -138,7 +139,7 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
 
   const setShippingLabel = () => value => {
     const newFormFields = {...boxFields}
-    newFormFields.shippingLabel = value
+    newFormFields.tmpShippingLabel = value
 
     setBoxFields(newFormFields)
   }
@@ -229,7 +230,13 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
                 }}
                 className={clsx({[classNames.barcodeChipExists]: boxFields.shippingLabel})}
                 size="small"
-                label={boxFields.shippingLabel ? boxFields.shippingLabel : 'Set shipping label'}
+                label={
+                  boxFields.tmpShippingLabel.length
+                    ? 'FILE IS ADDED'
+                    : boxFields.shippingLabel
+                    ? boxFields.shippingLabel
+                    : 'Set shipping label'
+                }
                 onClick={() => onClickShippingLabel()}
                 onDelete={!boxFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
               />
@@ -345,7 +352,8 @@ export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, re
         setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
       >
         <SetShippingLabelModal
-          order={boxFields}
+          tmpShippingLabel={boxFields.tmpShippingLabel}
+          item={boxFields}
           onClickSaveShippingLabel={shippingLabel => {
             setShippingLabel()(shippingLabel)
             setShowSetShippingLabelModal(!showSetShippingLabelModal)

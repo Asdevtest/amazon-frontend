@@ -2,14 +2,19 @@ import Radio from '@mui/material/Radio'
 
 import React, {useState} from 'react'
 
-import {Checkbox, Divider, Typography} from '@material-ui/core'
+import {Checkbox, Divider, Typography, Select, ListItemText, MenuItem} from '@material-ui/core'
+import clsx from 'clsx'
+
+import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 // import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {DatePicker} from '@components/date-picker'
 import {Field} from '@components/field'
-import {ImageFileInput} from '@components/image-file-input'
+import {BigImagesModal} from '@components/modals/big-images-modal'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatDateForShowWithoutParseISO} from '@utils/date-time'
@@ -24,12 +29,21 @@ const stepVariant = {
   STEP_TWO: 'STEP_TWO',
 }
 
-export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubmit, onEditSubmit}) => {
+export const CreateOrEditRequestContent = ({
+  requestToEdit,
+  history,
+  onCreateSubmit,
+  onEditSubmit,
+  showProgress,
+  progressValue,
+}) => {
   const classNames = useClassNames()
 
   const [images, setImages] = useState([])
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
+
+  const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   const sourceFormFields = {
     request: {
@@ -38,6 +52,10 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
       price: requestToEdit?.request.price || '',
       timeoutAt: requestToEdit?.request.timeoutAt || '',
       direction: requestToEdit?.request.direction || 'IN',
+      roles: requestToEdit?.request.roles.length ? requestToEdit?.request.roles : [10, 20, 30, 35],
+      needCheckBySupervisor: requestToEdit?.request.needCheckBySupervisor || false,
+      restrictMoreThanOneProposalFromOneAssignee:
+        requestToEdit?.request.restrictMoreThanOneProposalFromOneAssignee || false,
     },
     details: {
       conditions: requestToEdit?.details.conditions || '',
@@ -45,6 +63,8 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
     },
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
+
+  const [deadlineError, setDeadlineError] = useState(false)
 
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
@@ -57,7 +77,9 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
       return
     } else if (['timeoutAt'].includes(fieldName)) {
       newFormFields[section][fieldName] = event
-      // setDeadlineError(false) // пока оставлю
+      setDeadlineError(false)
+    } else if (['needCheckBySupervisor', 'restrictMoreThanOneProposalFromOneAssignee'].includes(fieldName)) {
+      newFormFields[section][fieldName] = event.target.checked
     } else {
       newFormFields[section][fieldName] = event.target.value
     }
@@ -65,19 +87,29 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
     setFormFields(newFormFields)
   }
 
+  const isDeadlineError = formFields.request.timeoutAt < new Date()
+
   const onSuccessSubmit = () => {
-    if (curStep === stepVariant.STEP_ONE) {
-      setCurStep(stepVariant.STEP_TWO)
+    if (isDeadlineError) {
+      setDeadlineError(!deadlineError)
     } else {
-      onCreateSubmit(formFields)
+      if (curStep === stepVariant.STEP_ONE) {
+        setCurStep(stepVariant.STEP_TWO)
+      } else {
+        onCreateSubmit(formFields, images)
+      }
     }
   }
 
   const onClickBackBtn = () => {
-    if (curStep === stepVariant.STEP_ONE) {
-      history.goBack()
+    if (isDeadlineError) {
+      setDeadlineError(!deadlineError)
     } else {
-      setCurStep(stepVariant.STEP_ONE)
+      if (curStep === stepVariant.STEP_ONE) {
+        history.goBack()
+      } else {
+        setCurStep(stepVariant.STEP_ONE)
+      }
     }
   }
 
@@ -87,7 +119,7 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
       formFields.request.price === '' ||
       formFields.request.timeoutAt === '' ||
       formFields.details.conditions === '') &&
-    curStep === stepVariant.STEP_TWO
+    (curStep === stepVariant.STEP_TWO || requestToEdit)
 
   return (
     <div className={classNames.mainWrapper}>
@@ -112,7 +144,12 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
           <div className={classNames.mainSubRightWrapper}>
             <div className={classNames.middleWrapper}>
               <Field
+                multiline
+                inputProps={{maxLength: 250}}
                 label={'Название заявки*'}
+                className={classNames.nameField}
+                minRows={2}
+                rowsMax={2}
                 value={formFields.request.title}
                 onChange={onChangeField('request')('title')}
               />
@@ -128,13 +165,25 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
               />
 
               <div className={classNames.imageFileInputWrapper}>
-                <ImageFileInput images={images} setImages={setImages} maxNumber={50} />
+                <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
+
+                <Button
+                  disableElevation
+                  disabled={!formFields.details.linksToMediaFiles.length}
+                  color="primary"
+                  className={classNames.imagesButton}
+                  variant="contained"
+                  onClick={() => setShowPhotosModal(!showPhotosModal)}
+                >
+                  {'Имеющиеся файлы'}
+                </Button>
               </div>
             </div>
 
             <div className={classNames.rightWrapper}>
               <Field
-                label={'Введите цену предложения*'}
+                inputProps={{maxLength: 15}}
+                label={'Введите цену предложения $*'}
                 value={formFields.request.price}
                 onChange={onChangeField('request')('price')}
               />
@@ -148,7 +197,8 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
               /> */}
 
               <Field
-                label={'Введите количество предложений'}
+                inputProps={{maxLength: 10}}
+                label={'Введите количество предложений*'}
                 value={formFields.request.maxAmountOfProposals}
                 onChange={onChangeField('request')('maxAmountOfProposals')}
               />
@@ -156,12 +206,54 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
               <Field
                 label={'Когда Вы хотите получить результат?*'}
                 inputComponent={
-                  <div /* className={clsx({[classNames.deadlineError]: deadlineError})}*/>
+                  <div className={clsx({[classNames.deadlineError]: deadlineError})}>
                     <DatePicker value={formFields.request.timeoutAt} onChange={onChangeField('request')('timeoutAt')} />
-                    {/* {deadlineError && <p className={classNames.deadlineErrorText}>{textConsts.deadlineError}</p>} */}
+                    {deadlineError && (
+                      <p className={classNames.deadlineErrorText}>
+                        {'The deadline date cannot be later than the current date'}
+                      </p>
+                    )}
                   </div>
                 }
               />
+
+              <Field
+                label={'Смогут видет роли:'}
+                inputComponent={
+                  <Select
+                    multiple
+                    value={formFields.request.roles}
+                    renderValue={selected => selected.map(el => UserRoleCodeMap[el]).join(', ')}
+                    onChange={onChangeField('request')('roles')}
+                  >
+                    {Object.keys(UserRoleCodeMap)
+                      .filter(el =>
+                        [UserRole.CLIENT, UserRole.SUPERVISOR, UserRole.RESEARCHER, UserRole.FREELANCER].includes(
+                          UserRoleCodeMap[el],
+                        ),
+                      )
+                      .map((role, index) => (
+                        <MenuItem
+                          key={index}
+                          value={Number(role)}
+                          // disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role])}
+                        >
+                          <Checkbox color="primary" checked={formFields.request.roles.includes(Number(role))} />
+                          <ListItemText primary={UserRoleCodeMap[role]} />
+                        </MenuItem>
+                      ))}
+                  </Select>
+                }
+              />
+
+              <div className={classNames.checkboxWrapper}>
+                <Typography className={classNames.checkboxLabel}>{'Нужна проверка супервайзером'}</Typography>
+                <Checkbox
+                  color="primary"
+                  checked={formFields.request.needCheckBySupervisor}
+                  onChange={onChangeField('request')('needCheckBySupervisor')}
+                />
+              </div>
             </div>
           </div>
         )}
@@ -234,7 +326,11 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
                   <Typography className={classNames.checkboxLabel}>
                     {'Разрешить многократное исполнение одному исполнителю'}
                   </Typography>
-                  <Checkbox color="primary" /* checked={formFields.fba} onChange={onChangeFormField('fba')} */ />
+                  <Checkbox
+                    color="primary"
+                    checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
+                    onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
+                  />
                 </div>
               )}
 
@@ -246,7 +342,7 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
                 <SuccessButton
                   disabled={disableSubmit}
                   className={classNames.successBtn}
-                  onClick={() => onEditSubmit(formFields)}
+                  onClick={() => onEditSubmit(formFields, images)}
                 >
                   {'Редактировать'}
                 </SuccessButton>
@@ -296,6 +392,15 @@ export const CreateOrEditRequestContent = ({requestToEdit, history, onCreateSubm
           </div>
         )}
       </div>
+
+      {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+
+      <BigImagesModal
+        isAmazone
+        openModal={showPhotosModal}
+        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        images={formFields.details.linksToMediaFiles || []}
+      />
     </div>
   )
 }

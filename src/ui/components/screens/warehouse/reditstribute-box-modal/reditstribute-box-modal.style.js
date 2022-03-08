@@ -74,5 +74,47 @@ export const useClassNames = makeStyles(theme => ({
   itemWrapper: {
     display: 'flex',
     alignItems: 'center',
+    marginBottom: '20px',
+  },
+
+  itemSubWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+
+  barcodeChip: {
+    backgroundColor: 'rgb(0, 123, 255)',
+    color: 'white',
+    fontSize: '13px',
+    borderRadius: '4px',
+    width: '300px',
+    height: '30px',
+  },
+  barcodeChipHover: {
+    '&:hover, &:focus': {
+      backgroundColor: 'rgb(0, 123, 255)',
+    },
+  },
+  barcodeChipIcon: {
+    color: 'rgba(255,255,255,0.26)',
+    '&:hover, &:focus': {
+      color: 'rgba(255,255,255,0.46)',
+    },
+  },
+  barcodeChiplabel: {
+    width: '300px',
+    textAlign: 'center',
+  },
+
+  barcodeChipExists: {
+    backgroundColor: 'rgb(61, 81, 112)',
+  },
+
+  link: {
+    maxWidth: '325px',
+    whiteSpace: 'nowrap',
+    overflowX: 'scroll',
   },
 }))

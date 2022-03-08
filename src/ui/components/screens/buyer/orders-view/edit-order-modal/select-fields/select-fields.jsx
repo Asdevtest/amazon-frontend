@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Box, Grid, InputLabel, NativeSelect, Typography, Checkbox} from '@material-ui/core'
+import {Box, Grid, InputLabel, NativeSelect, Typography, Checkbox, Link} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
@@ -9,15 +9,15 @@ import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {ImageFileInput} from '@components/image-file-input'
 import {Input} from '@components/input'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {toFixed, withDollarSign, withYuanSign} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
 
 import {useClassNames} from './select-fields.style'
 
@@ -28,7 +28,15 @@ const allowOrderStatuses = [
   `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
   `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
   `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
-  `${OrderStatusByKey[OrderStatus.RETURN_ORDER]}`,
+  `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+  `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+  `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+]
+
+const disabledOrderStatuses = [
+  `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+  `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+  `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
 ]
 
 export const SelectFields = ({
@@ -122,10 +130,9 @@ export const SelectFields = ({
                 key={statusIndex}
                 value={statusCode}
                 className={clsx({
-                  [classNames.disableSelect]:
-                    statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+                  [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
                 })}
-                disabled={statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`}
+                disabled={disabledOrderStatuses.includes(statusCode)}
               >
                 {getOrderStatusOptionByCode(statusCode).label}
               </option>
@@ -288,8 +295,9 @@ export const SelectFields = ({
             <Typography className={classNames.totalPrice}>{textConsts.totalPriceInYuans}</Typography>
             <Input
               disabled
-              value={withYuanSign(
+              value={toFixedWithYuanSign(
                 calcExchangeDollarsInYuansPrice(orderFields.totalPrice, orderFields.yuanToDollarRate),
+                2,
               )}
               className={classNames.input}
             />
@@ -297,7 +305,7 @@ export const SelectFields = ({
 
           <Box className={classNames.tableCell}>
             <Typography className={classNames.totalPrice}>{textConsts.totalPrice}</Typography>
-            <Input disabled value={withDollarSign(orderFields.totalPrice)} className={classNames.input} />
+            <Input disabled value={toFixedWithDollarSign(orderFields.totalPrice, 2)} className={classNames.input} />
           </Box>
         </div>
       </Grid>
@@ -344,8 +352,23 @@ export const SelectFields = ({
               <Typography className={classNames.modalText}>{textConsts.supplierAddBarCode}</Typography>
             </div>
 
-            <Typography>{'Баркод:'}</Typography>
-            <Typography className={classNames.barCodeText}>{orderFields.product.barCode || 'N/A'}</Typography>
+            <div className={classNames.barCodeLinkWrapper}>
+              <div>
+                <Typography>{'Баркод:'}</Typography>
+
+                {orderFields.product.barCode ? (
+                  <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}>
+                    <Typography className={classNames.link}>{orderFields.product.barCode}</Typography>
+                  </Link>
+                ) : (
+                  <Typography className={classNames.barCodeText}>{'N/A'}</Typography>
+                )}
+              </div>
+
+              {orderFields.product.barCode && (
+                <img className={classNames.linkPreview} src={orderFields.product.barCode} alt={'баркод'} />
+              )}
+            </div>
           </div>
         </Box>
 
@@ -361,7 +384,7 @@ export const SelectFields = ({
 
         <div>
           <div className={classNames.imageFileInputWrapper}>
-            <ImageFileInput images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
+            <UploadFilesInput images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
           </div>
 
           <Button

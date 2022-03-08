@@ -19,7 +19,6 @@ import {AdminContentModal} from '@components/screens/users-views/sub-users-view/
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/adminAvatar.jpg'
 import {AdminUsersViewModel} from './admin-users-view.model'
 import {styles} from './admin-users-view.style'
 
@@ -71,7 +70,7 @@ class AdminUsersViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar avatarSrc={avatar} setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <DataGrid
                 pagination

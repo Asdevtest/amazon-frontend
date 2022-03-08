@@ -12,7 +12,6 @@ import {ProductSearchRequestDetails} from '@components/requests-and-request-prop
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../../assets/researcherAvatar.jpg'
 import {ResearcherRequestDetailProductViewModel} from './researcher-requests-detail-product-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'ru').ClientRequestView
@@ -31,12 +30,7 @@ export class ResearcherRequestDetailProductView extends Component {
       <React.Fragment>
         <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar
-            title={textConsts.appBarTitle}
-            notificationCount={2}
-            avatarSrc={avatar}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <ProductSearchRequestDetails request={request} />
             </MainContent>

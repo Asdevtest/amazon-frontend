@@ -1,0 +1,50 @@
+import React, {useState} from 'react'
+
+import {Box, Typography} from '@material-ui/core'
+
+import {texts} from '@constants/texts'
+
+import {Button} from '@components/buttons/button'
+import {UploadFilesInput} from '@components/upload-files-input'
+
+import {getLocalizedTexts} from '@utils/get-localized-texts'
+
+import {useClassNames} from './add-files-form.style'
+
+const textConsts = getLocalizedTexts(texts, 'ru').addFilesFormText
+
+export const AddFilesForm = ({item, allItemsArray, setAllItemsArray, onCloseModal}) => {
+  const classNames = useClassNames()
+
+  const [editingItem, setEditingItem] = useState(item)
+
+  const setImagesOfItem = images => {
+    const newFormFields = {...editingItem}
+
+    newFormFields.tmpImages = [...images]
+
+    setEditingItem(newFormFields)
+  }
+
+  const onSubmith = () => {
+    const updatedNewItems = allItemsArray.map(oldItem => (oldItem._id === editingItem._id ? editingItem : oldItem))
+
+    setAllItemsArray([...updatedNewItems])
+
+    onCloseModal()
+  }
+
+  return (
+    <div className={classNames.root}>
+      <Box className={classNames.boxCode}>
+        <Typography className={(classNames.modalText, classNames.typoCode)}>{textConsts.addFiles}</Typography>
+
+        <div className={classNames.imageFileInputWrapper}>
+          <UploadFilesInput images={editingItem.tmpImages} setImages={setImagesOfItem} maxNumber={50} />
+        </div>
+      </Box>
+
+      <Button onClick={() => onSubmith()}>{textConsts.saveBtn}</Button>
+    </div>
+  )
+}

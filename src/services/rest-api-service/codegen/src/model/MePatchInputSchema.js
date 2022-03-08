@@ -22,11 +22,10 @@ class MePatchInputSchema {
     /**
      * Constructs a new <code>MePatchInputSchema</code>.
      * @alias module:model/MePatchInputSchema
-     * @param role {Number} Роль на которую требуется переключиться.
      */
-    constructor(role) { 
+    constructor() { 
         
-        MePatchInputSchema.initialize(this, role);
+        MePatchInputSchema.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class MePatchInputSchema {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, role) { 
-        obj['role'] = role;
+    static initialize(obj) { 
     }
 
     /**
@@ -52,6 +50,12 @@ class MePatchInputSchema {
             if (data.hasOwnProperty('role')) {
                 obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            }
         }
         return obj;
     }
@@ -64,6 +68,18 @@ class MePatchInputSchema {
  * @member {Number} role
  */
 MePatchInputSchema.prototype['role'] = undefined;
+
+/**
+ * Имя пользователя
+ * @member {String} name
+ */
+MePatchInputSchema.prototype['name'] = undefined;
+
+/**
+ * Почта пользователя
+ * @member {String} email
+ */
+MePatchInputSchema.prototype['email'] = undefined;
 
 
 

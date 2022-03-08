@@ -20,6 +20,7 @@ import {Badge} from '@components/badge'
 import {Button} from '@components/buttons/button'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixedWithDollarSign} from '@utils/text'
 
 import {AppbarModel} from './appbar.model'
@@ -34,7 +35,7 @@ interface Props {
   setDrawerOpen: () => void
 }
 
-export const Appbar: FC<Props> = observer(({avatarSrc, children, title, setDrawerOpen}) => {
+export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen}) => {
   const history = useHistory()
   const classNames = useClassNames()
   const componentModel = useRef(new AppbarModel())
@@ -119,7 +120,7 @@ export const Appbar: FC<Props> = observer(({avatarSrc, children, title, setDrawe
             aria-haspopup="true"
             onClick={handleClick}
           >
-            {avatarSrc ? <Avatar alt="avatar" className={classNames.avatar} src={avatarSrc} /> : undefined}
+            <Avatar className={classNames.avatar} src={getUserAvatarSrc(componentModel.current.userId)} />
 
             <div className={classNames.usernameAndBalanceWrapper}>
               <Typography className={classNames.username}>{componentModel.current.userName}</Typography>

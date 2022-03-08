@@ -17,7 +17,6 @@ import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import avatar from '../assets/researcherAvatar.jpg'
 import {FreelancerDashboardViewModel} from './freelacer-dashboard-view.model'
 import {styles} from './freelancer-dashboard-view.style'
 
@@ -49,7 +48,6 @@ export class FreelancerDashboardViewRaw extends Component {
           <Appbar
             title={textConsts.appBarTitle}
             notificationCount={2}
-            avatarSrc={avatar}
             drawerOpen={drawerOpen}
             setDrawerOpen={onTriggerDrawerOpen}
           >
