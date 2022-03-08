@@ -115,7 +115,6 @@ export const useClassNames = makeStyles(() => ({
       transform: 'scale(1.02)',
     },
   },
-
   link: {
     maxWidth: '325px',
     whiteSpace: 'nowrap',
