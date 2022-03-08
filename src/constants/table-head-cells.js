@@ -49,7 +49,6 @@ export const CLIENT_WAREHOUSE_HEAD_CELLS = [
   {id: 'img', label: 'CreatedAt'},
   {id: 'img', label: 'Product'},
   {id: 'img', label: 'Images'},
-  {id: 'img', label: 'Barcode'},
   {id: 'img', label: 'Qty'},
   {id: 'img', label: 'Material'},
   {id: 'img', label: 'Warehouse'},

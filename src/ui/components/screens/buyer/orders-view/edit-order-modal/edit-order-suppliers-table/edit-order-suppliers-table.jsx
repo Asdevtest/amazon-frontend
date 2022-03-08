@@ -50,7 +50,10 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                   [classNames.tableRowAcceptedSupplier]: selectedSupplier._id === supplier._id,
                 })}
               >
-                <TableCell className={(classNames.alignCenter, classNames.tableCellPadding)}>{supplier.name}</TableCell>
+                <TableCell className={clsx(classNames.alignCenter)}>
+                  <Typography className={classNames.nameCell}>{supplier.name}</Typography>
+                </TableCell>
+
                 <TableCell className={classNames.alignCenter}>
                   <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplier.link)}>
                     <Typography className={classNames.link}>{supplier.link}</Typography>
@@ -64,7 +67,9 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                 <TableCell className={classNames.alignCenter}>
                   {withDollarSign(priceCalculation(supplier.price, supplier.delivery, supplier.amount))}
                 </TableCell>
-                <TableCell className={classNames.alignCenter}>{supplier.comment}</TableCell>
+                <TableCell className={classNames.alignCenter}>
+                  <Typography className={classNames.commentCell}>{supplier.comment}</Typography>
+                </TableCell>
                 <TableCell>
                   <Button
                     disableElevation
@@ -90,7 +95,7 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
             ))
           ) : (
             <TableRow>
-              <TableCell className={(classNames.alignCenter, classNames.tableCellPadding)} colSpan={8}>
+              <TableCell className={clsx(classNames.alignCenter, classNames.tableCellPadding)} colSpan={8}>
                 {textConsts.tableCellNoVendors}
               </TableCell>
             </TableRow>

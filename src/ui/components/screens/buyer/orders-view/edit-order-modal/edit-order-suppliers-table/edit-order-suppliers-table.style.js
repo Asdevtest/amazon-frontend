@@ -126,9 +126,21 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: 'rgba(245, 0, 87, 0.08)',
   },
   link: {
-    width: '250px',
+    width: '100px',
     height: '50px',
     overflowX: 'scroll',
     whiteSpace: 'nowrap',
+  },
+
+  nameCell: {
+    width: '300px',
+    maxHeight: '200px',
+    overflowY: 'scroll',
+  },
+
+  commentCell: {
+    width: '300px',
+    maxHeight: '200px',
+    overflowY: 'scroll',
   },
 }))

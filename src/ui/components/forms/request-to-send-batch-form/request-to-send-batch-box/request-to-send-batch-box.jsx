@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Checkbox, Typography} from '@material-ui/core'
+import {Checkbox, Link, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {ErrorButton} from '@components/buttons/error-button/error-button'
@@ -8,7 +8,7 @@ import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {calcFinalWeightForBox} from '@utils/calculation'
 import {getShortenStringIfLongerThanCount} from '@utils/change-string-length'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
 
 import {useClassNames} from './request-to-send-batch-box.styles'
 
@@ -71,9 +71,15 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
       </td>
       <td className={clsx(tableCellClsx, classNames.shippingLabelCell)}>
         <div>
-          <Typography className={noShippingLabelClsx} variant="subtitle1">
-            {`Shipping Label: ${box.shippingLabel ? box.shippingLabel : 'None'}`}
-          </Typography>
+          <Typography className={noShippingLabelClsx}>{'Shipping Label:'}</Typography>
+
+          {box.shippingLabel ? (
+            <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
+              <Typography className={classNames.link}>{box.shippingLabel}</Typography>
+            </Link>
+          ) : (
+            <Typography className={noShippingLabelClsx}>{'N/A'}</Typography>
+          )}
 
           <div className={classNames.checkboxWrapper}>
             <Typography className={noShippingLabelGlueClsx}>{'проклеен'}</Typography>

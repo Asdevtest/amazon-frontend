@@ -170,7 +170,6 @@ export const EditOrderModal = ({
 
         <Divider className={classNames.divider} />
 
-        <Typography className={classNames.modalText}>{`${textConsts.productNum} ${order.product._id}`}</Typography>
         <ProductTable
           modalHeadCells={modalHeadCells}
           order={order}

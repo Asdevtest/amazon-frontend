@@ -199,7 +199,12 @@ export const AdminContentModal = observer(
           }
         />
         <div className={classNames.checkboxWrapper}>
-          <Checkbox color="primary" checked={formFields.fba} onChange={onChangeFormField('fba')} />
+          <Checkbox
+            color="primary"
+            disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+            checked={formFields.fba}
+            onChange={onChangeFormField('fba')}
+          />
           <Typography className={classNames.checkboxLabel}>{textConsts.fba}</Typography>
         </div>
 

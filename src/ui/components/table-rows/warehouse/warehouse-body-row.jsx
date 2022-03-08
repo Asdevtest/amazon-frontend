@@ -101,10 +101,6 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           </React.Fragment>
         )}
 
-        <TableCell>
-          <Typography className={classNames.barCode}>{order.product.barCode || 'N/A'}</Typography>
-        </TableCell>
-
         <TableCell className={classNames.cellValueNumber}>
           {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
         </TableCell>

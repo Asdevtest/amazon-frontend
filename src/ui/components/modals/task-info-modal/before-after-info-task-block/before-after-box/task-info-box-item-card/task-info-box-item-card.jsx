@@ -45,7 +45,7 @@ export const TaskInfoBoxItemCard = ({item, superCount, box}) => {
             <div className={classNames.chipWrapper}>
               <Typography className={classNames.subTitle}>{textConsts.barCode}</Typography>
 
-              {box.shippingLabel ? (
+              {item.product.barCode ? (
                 <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.product.barCode)}>
                   <Typography className={classNames.barCodeField}>{item.product.barCode}</Typography>
                 </Link>
