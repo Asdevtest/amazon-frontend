@@ -50,6 +50,8 @@ export class OwnerRequestDetailCustomViewModel {
           () => ChatModel.isConnected,
           isConnected => {
             if (isConnected) {
+              console.log('this.requestId ', this.requestId)
+              ChatModel.getChats(this.requestId, 'REQUEST')
               runInAction(() => {
                 this.chatIsConnected = isConnected
               })

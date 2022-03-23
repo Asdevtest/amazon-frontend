@@ -48,13 +48,21 @@ class ChatModelStatic {
       console.warn('onConnect websocketChatService is not initialized')
       return
     }
+  }
+
+  public async getChats(crmItemId: string, crmItemType: string): Promise<void> {
+    if (!this.websocketChatService) {
+      return
+    }
     try {
-      const getChatsResult = await this.websocketChatService.getChats()
+      console.log('crmItemId, crmItemType ', crmItemId, crmItemType)
+      console.log('getChats')
+      const getChatsResult = await this.websocketChatService.getChats(crmItemId, crmItemType)
       console.log('getChatsResult ', getChatsResult)
       runInAction(() => {
         this.chats = plainToClass(ChatContract, getChatsResult).map((chat: ChatContract) => ({
           ...chat,
-          messages: chat.messages.reverse(),
+          messages: chat.messages,
         }))
       })
     } catch (error) {
