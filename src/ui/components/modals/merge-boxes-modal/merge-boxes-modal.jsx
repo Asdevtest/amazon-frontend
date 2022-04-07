@@ -237,7 +237,7 @@ export const MergeBoxesModal = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
-          storekeepers={storekeepers.filter(el => el._id === selectedBoxes[0].storekeeper._id)}
+          storekeepers={storekeepers.filter(el => el._id === selectedBoxes[0]?.storekeeper._id)}
           curStorekeeperId={boxBody.storekeeperId}
           curTariffId={boxBody.logicsTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}

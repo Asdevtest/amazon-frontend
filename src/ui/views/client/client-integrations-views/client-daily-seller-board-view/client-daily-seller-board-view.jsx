@@ -12,7 +12,6 @@ import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
-// import {AddProductSellerboardForm} from '@components/forms/add-product-to-sellerbord-form'
 import {BindStockGoodsToInventoryForm} from '@components/forms/bind-stock-goods-to-inventory-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -60,7 +59,6 @@ class ClientDailySellerBoardViewRaw extends Component {
       drawerOpen,
       yuanToDollarRate,
       volumeWeightCoefficient,
-      // showAddProductSellerboardModal,
       showBindStockGoodsToInventoryModal,
       showInfoModal,
       showAddOrEditSupplierModal,
@@ -83,7 +81,6 @@ class ClientDailySellerBoardViewRaw extends Component {
       onChangeSortingModel,
       onSelectionModel,
 
-      // onSubmitCreateAndBindProduct,
       onSubmitSaveSupplier,
       onSubmitSeekSupplier,
       onSubmitCalculateSeekSupplier,
@@ -136,28 +133,30 @@ class ClientDailySellerBoardViewRaw extends Component {
                 ))}
               </div>
 
-              <Button
-                disableElevation
-                tooltipContent={textConsts.moveToInventoryBtnTooltip}
-                disabled={selectedRows.length === 0}
-                variant="contained"
-                color="primary"
-                // onClick={() => onTriggerOpenModal('showAddProductSellerboardModal')}
-                onClick={onSubmitMoveToInventoryGoods}
-              >
-                {textConsts.moveToInventoryBtn}
-              </Button>
+              <div className={className.btnsWrapper}>
+                <Button
+                  disableElevation
+                  tooltipContent={textConsts.moveToInventoryBtnTooltip}
+                  disabled={selectedRows.length === 0}
+                  variant="contained"
+                  color="primary"
+                  onClick={onSubmitMoveToInventoryGoods}
+                >
+                  {textConsts.moveToInventoryBtn}
+                </Button>
 
-              <Button
-                disableElevation
-                disabled={selectedRows.length === 0}
-                className={className.button}
-                variant="contained"
-                color="primary"
-                onClick={onClickBindStockGoodsToInventoryBtn}
-              >
-                {textConsts.bindBtn}
-              </Button>
+                <Button
+                  disableElevation
+                  disabled={selectedRows.length === 0}
+                  className={className.button}
+                  variant="contained"
+                  color="primary"
+                  onClick={onClickBindStockGoodsToInventoryBtn}
+                >
+                  {textConsts.bindBtn}
+                </Button>
+              </div>
+
               <DataGrid
                 pagination
                 useResizeContainer

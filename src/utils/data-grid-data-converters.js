@@ -191,6 +191,7 @@ export const clientInventoryDataConverter = data =>
     fbafee: item.fbafee,
 
     id: item._id,
+    _id: item._id,
     asin: item.asin,
     amountInOrders: item.amountInOrders,
     amountInBoxes: item.amountInBoxes,

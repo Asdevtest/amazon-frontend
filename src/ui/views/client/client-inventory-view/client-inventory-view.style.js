@@ -15,6 +15,10 @@ export const styles = createStyles({
     padding: '10px',
   },
 
+  btnsWrapper: {
+    display: 'flex',
+  },
+
   buttonOffset: {
     marginLeft: '20px',
   },

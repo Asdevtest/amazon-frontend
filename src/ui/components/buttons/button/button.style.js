@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    position: 'relative',
+    // position: 'relative'
   },
 
   success: {
@@ -47,9 +47,10 @@ export const useClassNames = makeStyles(() => ({
       cursor: 'default',
       transform: 'scale(1.1)',
     },
+    zIndex: '10',
   },
 
-  tooltipDisabled: {
-    opacity: '0.7',
+  btnWrapper: {
+    position: 'relative',
   },
 }))

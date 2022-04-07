@@ -61,6 +61,8 @@ export class ClientInventoryViewRaw extends Component {
       yuanToDollarRate,
       volumeWeightCoefficient,
 
+      isNoEditProductSelected,
+
       showProgress,
       progressValue,
       selectedRowId,
@@ -121,7 +123,7 @@ export class ClientInventoryViewRaw extends Component {
             <MainContent>
               <div className={classNames.addProductBtnsWrapper}>
                 {!isArchive && (
-                  <div>
+                  <div className={classNames.btnsWrapper}>
                     <Button variant="contained" disabled={selectedRowIds.length === 0} onClick={onClickOrderBtn}>
                       {textConsts.orderBtn}
                     </Button>
@@ -154,7 +156,9 @@ export class ClientInventoryViewRaw extends Component {
                   </Button>
 
                   <Button
-                    disabled={!selectedRowIds.length}
+                    disableElevation
+                    tooltipContent={isNoEditProductSelected && 'Выбран продукт с неподходящим статусом'}
+                    disabled={!selectedRowIds.length || isNoEditProductSelected}
                     variant="outlined"
                     onClick={onClickTriggerArchOrResetProducts}
                   >

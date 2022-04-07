@@ -17,6 +17,7 @@ export const styles = createStyles(() => ({
 
   shopsFiltersWrapper: {
     marginBottom: '10px',
+    display: 'flex',
   },
 
   selectedShopBtn: {

@@ -56,6 +56,7 @@ export const styles = createStyles(theme => ({
 
   boxesFiltersWrapper: {
     marginBottom: '10px',
+    display: 'flex',
   },
 
   selectedBoxesBtn: {

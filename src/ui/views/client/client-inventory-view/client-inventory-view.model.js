@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
+import {ProductStatus} from '@constants/product-status'
 import {texts} from '@constants/texts'
 
 import {ClientModel} from '@models/client-model'
@@ -120,6 +121,21 @@ export class ClientInventoryViewModel {
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = clientInventoryColumns(this.barCodeHandlers)
+
+  get isNoEditProductSelected() {
+    return this.selectedRowIds.some(prodId => {
+      const findProduct = this.productsMy.find(prod => prod._id === prodId)
+
+      return [
+        ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR,
+        ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH,
+        ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT,
+        ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
+        ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
+        ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
+      ].includes(findProduct?.status)
+    })
+  }
 
   constructor({history}) {
     this.history = history
