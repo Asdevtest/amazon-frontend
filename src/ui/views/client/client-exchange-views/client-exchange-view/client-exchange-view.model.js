@@ -2,17 +2,22 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {texts} from '@constants/texts'
 
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {clientExchangeViewColumns} from '@components/table-columns/client/client-exchange-columns'
 
 import {clientProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {onSubmitPostImages} from '@utils/upload-files'
+
+const textConsts = getLocalizedTexts(texts, 'en').clientExchangeView
 
 export class ClientExchangeViewModel {
   history = undefined
@@ -21,12 +26,16 @@ export class ClientExchangeViewModel {
 
   productsVacant = []
   dataToPay = {}
+  storekeepers = []
+  destinations = []
 
   drawerOpen = false
   showPrivateLabelModal = false
   showConfirmPayModal = false
   showSuccessModal = false
   showWarningModal = false
+
+  showWarningModalText = ''
 
   selectedProduct = {}
   uploadedFiles = []
@@ -162,6 +171,9 @@ export class ClientExchangeViewModel {
         warehouse: orderObject.warehouse,
         clientComment: orderObject.clientComment,
         productId: orderObject.productId,
+        storekeeperId: orderObject.storekeeperId,
+        destinationId: orderObject.destinationId,
+        logicsTariffId: orderObject.logicsTariffId,
       }
       await ClientModel.createOrder(createorderData)
 
@@ -204,16 +216,40 @@ export class ClientExchangeViewModel {
     }
   }
 
+  async openCreateOrder() {
+    try {
+      const result = await StorekeeperModel.getStorekeepers()
+      const destinations = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.storekeepers = result
+
+        this.destinations = destinations
+      })
+
+      this.onTriggerOpenModal('showOrderModal')
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
   async onClickBuyProductBtn(product) {
     try {
       await ClientModel.makePayments([product._id])
 
       this.onTriggerOpenModal('showConfirmPayModal')
-      this.onTriggerOpenModal('showOrderModal')
 
-      await this.updateUserInfo()
+      this.openCreateOrder()
+
+      this.updateUserInfo()
       this.loadData()
     } catch (error) {
+      this.showWarningModalText = textConsts.productNoBuy
+      this.onTriggerOpenModal('showWarningModal')
+
       console.log(error)
       if (error.body && error.body.message) {
         this.error = error.body.message
@@ -245,6 +281,8 @@ export class ClientExchangeViewModel {
     this.onTriggerOpenModal('showOrderModal')
 
     this.selectedProduct = {}
+
+    this.showWarningModalText = textConsts.productIsMoveToInventoryTitle
     this.onTriggerOpenModal('showWarningModal')
   }
 

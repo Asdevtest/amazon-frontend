@@ -13,23 +13,24 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiV1AdminsBatchesBoxes from '../model/ApiV1AdminsBatchesBoxes';
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject10 from '../model/InlineObject10';
-import InlineObject11 from '../model/InlineObject11';
 import InlineObject12 from '../model/InlineObject12';
 import InlineObject13 from '../model/InlineObject13';
 import InlineObject14 from '../model/InlineObject14';
 import InlineObject15 from '../model/InlineObject15';
 import InlineObject16 from '../model/InlineObject16';
-import InlineObject5 from '../model/InlineObject5';
-import InlineObject6 from '../model/InlineObject6';
-import InlineObject7 from '../model/InlineObject7';
-import InlineObject8 from '../model/InlineObject8';
-import InlineObject9 from '../model/InlineObject9';
-import InlineResponse201 from '../model/InlineResponse201';
+import InlineObject17 from '../model/InlineObject17';
+import InlineObject18 from '../model/InlineObject18';
+import InlineObject19 from '../model/InlineObject19';
+import InlineObject20 from '../model/InlineObject20';
+import InlineObject21 from '../model/InlineObject21';
+import InlineObject22 from '../model/InlineObject22';
+import InlineObject23 from '../model/InlineObject23';
+import InlineResponse2006 from '../model/InlineResponse2006';
 import InlineResponse2011 from '../model/InlineResponse2011';
+import InlineResponse2012 from '../model/InlineResponse2012';
+import InlineResponse2013 from '../model/InlineResponse2013';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -58,7 +59,7 @@ export default class BoxesApi {
      * ## Подтвердить операцию объединения/разъединения коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject12} opts.body 
+     * @param {module:model/InlineObject19} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesApprovePostWithHttpInfo(opts) {
@@ -91,7 +92,7 @@ export default class BoxesApi {
      * ## Подтвердить операцию объединения/разъединения коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject12} opts.body 
+     * @param {module:model/InlineObject19} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesApprovePost(opts) {
@@ -108,7 +109,7 @@ export default class BoxesApi {
      * @param {String} guid GUID
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
      */
     apiV1BoxesByOrderGuidGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -132,7 +133,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1AdminsBatchesBoxes];
+      let returnType = [InlineResponse2006];
       return this.apiClient.callApi(
         '/api/v1/boxes/by_order_guid/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -146,7 +147,7 @@ export default class BoxesApi {
      * @param {String} guid GUID
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
      */
     apiV1BoxesByOrderGuidGuidGet(guid, opts) {
       return this.apiV1BoxesByOrderGuidGuidGetWithHttpInfo(guid, opts)
@@ -162,7 +163,7 @@ export default class BoxesApi {
      * @param {String} guid GUID
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
      */
     apiV1BoxesByProductGuidGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -186,7 +187,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1AdminsBatchesBoxes];
+      let returnType = [InlineResponse2006];
       return this.apiClient.callApi(
         '/api/v1/boxes/by_product_guid/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -200,7 +201,7 @@ export default class BoxesApi {
      * @param {String} guid GUID
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
      */
     apiV1BoxesByProductGuidGuidGet(guid, opts) {
       return this.apiV1BoxesByProductGuidGuidGetWithHttpInfo(guid, opts)
@@ -211,11 +212,11 @@ export default class BoxesApi {
 
 
     /**
-     * # Рассчитать стоимость доставки коробов.
-     * ## Рассчитать стоимость доставки коробов.   
+     * # Deprecated! Рассчитать стоимость доставки коробов.
+     * ## Deprecated! Рассчитать стоимость доставки коробов.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject14} opts.body 
+     * @param {module:model/InlineObject21} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     apiV1BoxesCalculateBoxDeliveryCostsInBatchPostWithHttpInfo(opts) {
@@ -244,11 +245,11 @@ export default class BoxesApi {
     }
 
     /**
-     * # Рассчитать стоимость доставки коробов.
-     * ## Рассчитать стоимость доставки коробов.   
+     * # Deprecated! Рассчитать стоимость доставки коробов.
+     * ## Deprecated! Рассчитать стоимость доставки коробов.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject14} opts.body 
+     * @param {module:model/InlineObject21} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     apiV1BoxesCalculateBoxDeliveryCostsInBatchPost(opts) {
@@ -264,7 +265,7 @@ export default class BoxesApi {
      * ## Отменить редактирование коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject7} opts.body 
+     * @param {module:model/InlineObject14} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesCancelEditPostWithHttpInfo(opts) {
@@ -297,7 +298,7 @@ export default class BoxesApi {
      * ## Отменить редактирование коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject7} opts.body 
+     * @param {module:model/InlineObject14} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesCancelEditPost(opts) {
@@ -367,7 +368,7 @@ export default class BoxesApi {
      * ## Отменить объединение коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject9} opts.body 
+     * @param {module:model/InlineObject16} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesCancelMergePostWithHttpInfo(opts) {
@@ -400,7 +401,7 @@ export default class BoxesApi {
      * ## Отменить объединение коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject9} opts.body 
+     * @param {module:model/InlineObject16} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesCancelMergePost(opts) {
@@ -416,7 +417,7 @@ export default class BoxesApi {
      * ## Отменить разделение коробок.   ## !!! У каждой коробки которая была создана разделением есть братья.    ## !!! Братья - коробки которые были созданы с этой, при разделении родителя.    ## !!! При отмене текущая коробка и все ee братья будут удалены. Родитель восстановлен.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject11} opts.body 
+     * @param {module:model/InlineObject18} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesCancelSplitPostWithHttpInfo(opts) {
@@ -449,7 +450,7 @@ export default class BoxesApi {
      * ## Отменить разделение коробок.   ## !!! У каждой коробки которая была создана разделением есть братья.    ## !!! Братья - коробки которые были созданы с этой, при разделении родителя.    ## !!! При отмене текущая коробка и все ee братья будут удалены. Родитель восстановлен.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject11} opts.body 
+     * @param {module:model/InlineObject18} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesCancelSplitPost(opts) {
@@ -461,11 +462,11 @@ export default class BoxesApi {
 
 
     /**
-     * # Получить черновики коробок и их строки по текущему клиенту.
+     * # Получить черновики коробок и их строки по текущему клиенту. статус IN_STOCK
      * ## Получить черновики коробок и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
      */
     apiV1BoxesClientsDraftsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -484,7 +485,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1AdminsBatchesBoxes];
+      let returnType = [InlineResponse2006];
       return this.apiClient.callApi(
         '/api/v1/boxes/clients/drafts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -493,11 +494,11 @@ export default class BoxesApi {
     }
 
     /**
-     * # Получить черновики коробок и их строки по текущему клиенту.
+     * # Получить черновики коробок и их строки по текущему клиенту. статус IN_STOCK
      * ## Получить черновики коробок и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
      */
     apiV1BoxesClientsDraftsGet(opts) {
       return this.apiV1BoxesClientsDraftsGetWithHttpInfo(opts)
@@ -509,10 +510,11 @@ export default class BoxesApi {
 
     /**
      * # Получить коробки и их строки по текущему клиенту.
-     * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   
+     * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   Cтатус коробок IN_STOCK
      * @param {Object} opts Optional parameters
+     * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
      */
     apiV1BoxesClientsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -521,6 +523,7 @@ export default class BoxesApi {
       let pathParams = {
       };
       let queryParams = {
+        'storekeeperId': opts['storekeeperId']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -531,7 +534,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1AdminsBatchesBoxes];
+      let returnType = [InlineResponse2006];
       return this.apiClient.callApi(
         '/api/v1/boxes/clients', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -541,10 +544,11 @@ export default class BoxesApi {
 
     /**
      * # Получить коробки и их строки по текущему клиенту.
-     * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   
+     * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   Cтатус коробок IN_STOCK
      * @param {Object} opts Optional parameters
+     * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
      */
     apiV1BoxesClientsGet(opts) {
       return this.apiV1BoxesClientsGetWithHttpInfo(opts)
@@ -556,10 +560,10 @@ export default class BoxesApi {
 
     /**
      * # Получить коробки по текущему клиенту отправленные в партию.
-     * ## Получить коробки по текущему клиенту отправленные в партию.  ## GUID клиента получаем из токена.   
+     * ## Получить коробки по текущему клиенту отправленные в партию. статусы REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
      */
     apiV1BoxesClientsSentToBatchGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -578,7 +582,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1AdminsBatchesBoxes];
+      let returnType = [InlineResponse2006];
       return this.apiClient.callApi(
         '/api/v1/boxes/clients/sent_to_batch', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -588,10 +592,10 @@ export default class BoxesApi {
 
     /**
      * # Получить коробки по текущему клиенту отправленные в партию.
-     * ## Получить коробки по текущему клиенту отправленные в партию.  ## GUID клиента получаем из токена.   
+     * ## Получить коробки по текущему клиенту отправленные в партию. статусы REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
      */
     apiV1BoxesClientsSentToBatchGet(opts) {
       return this.apiV1BoxesClientsSentToBatchGetWithHttpInfo(opts)
@@ -606,7 +610,7 @@ export default class BoxesApi {
      * ## Получить черновики коробок и их строки.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
      */
     apiV1BoxesDraftsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -625,7 +629,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1AdminsBatchesBoxes];
+      let returnType = [InlineResponse2006];
       return this.apiClient.callApi(
         '/api/v1/boxes/drafts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -638,7 +642,7 @@ export default class BoxesApi {
      * ## Получить черновики коробок и их строки.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
      */
     apiV1BoxesDraftsGet(opts) {
       return this.apiV1BoxesDraftsGetWithHttpInfo(opts)
@@ -649,13 +653,13 @@ export default class BoxesApi {
 
 
     /**
-     * # Отредактировать коробку.
+     * # Отредактировать коробку. Сликом гибкий метод
      * ## ЭТО МЕТОД ИСОЛЬЗУЕТСЯ ДЛЯ ТАСКОВ  ## Отредактировать коробку. Коробка после редактирования станет черновиком. Ее нужно будет подтвердить  ## ВНИМАНИЕ - фактически будет создана новая коробка а старая пометится как удаленная.   ## ВНИМАНИЕ - передайте весь набор параметров как на создание новой коробки. Не только те которые нужно изменить.  
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject6} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
+     * @param {module:model/InlineObject13} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2012} and HTTP response
      */
     apiV1BoxesEditGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -679,7 +683,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2011;
+      let returnType = InlineResponse2012;
       return this.apiClient.callApi(
         '/api/v1/boxes/edit/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -688,13 +692,13 @@ export default class BoxesApi {
     }
 
     /**
-     * # Отредактировать коробку.
+     * # Отредактировать коробку. Сликом гибкий метод
      * ## ЭТО МЕТОД ИСОЛЬЗУЕТСЯ ДЛЯ ТАСКОВ  ## Отредактировать коробку. Коробка после редактирования станет черновиком. Ее нужно будет подтвердить  ## ВНИМАНИЕ - фактически будет создана новая коробка а старая пометится как удаленная.   ## ВНИМАНИЕ - передайте весь набор параметров как на создание новой коробки. Не только те которые нужно изменить.  
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject6} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
+     * @param {module:model/InlineObject13} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2012}
      */
     apiV1BoxesEditGuidPost(guid, opts) {
       return this.apiV1BoxesEditGuidPostWithHttpInfo(guid, opts)
@@ -709,7 +713,7 @@ export default class BoxesApi {
      * ## Получить коробки их строки.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
      */
     apiV1BoxesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -728,7 +732,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1AdminsBatchesBoxes];
+      let returnType = [InlineResponse2006];
       return this.apiClient.callApi(
         '/api/v1/boxes/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -741,7 +745,7 @@ export default class BoxesApi {
      * ## Получить коробки их строки.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsBatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
      */
     apiV1BoxesGet(opts) {
       return this.apiV1BoxesGetWithHttpInfo(opts)
@@ -807,11 +811,11 @@ export default class BoxesApi {
 
     /**
      * # Объединить две и более коробок.
-     * ## Объединить две и более коробок.   !!!при обединении id  сторкипера берется из первой корбки, не делал проверку чтобы все коробки были от одного сторкипера или вовсе из небыло!!! Эржигит
+     * ## Объединить две и более коробок.  Данный методод только для клиента Проверки: Все коробки должны быть от одного сторкипера, принадлежать одному клиенту,Тариф доставки должен принадлежать данному сторкиперу
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject8} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
+     * @param {module:model/InlineObject15} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2013} and HTTP response
      */
     apiV1BoxesMergePostWithHttpInfo(opts) {
       opts = opts || {};
@@ -830,7 +834,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2011;
+      let returnType = InlineResponse2013;
       return this.apiClient.callApi(
         '/api/v1/boxes/merge', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -840,11 +844,11 @@ export default class BoxesApi {
 
     /**
      * # Объединить две и более коробок.
-     * ## Объединить две и более коробок.   !!!при обединении id  сторкипера берется из первой корбки, не делал проверку чтобы все коробки были от одного сторкипера или вовсе из небыло!!! Эржигит
+     * ## Объединить две и более коробок.  Данный методод только для клиента Проверки: Все коробки должны быть от одного сторкипера, принадлежать одному клиенту,Тариф доставки должен принадлежать данному сторкиперу
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject8} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
+     * @param {module:model/InlineObject15} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2013}
      */
     apiV1BoxesMergePost(opts) {
       return this.apiV1BoxesMergePostWithHttpInfo(opts)
@@ -856,11 +860,11 @@ export default class BoxesApi {
 
     /**
      * # Создать коробку и ее строки.
-     * ## Создать коробку и ее строки.   ## Коробка состоит из шапки и строк (как накладная)   ## Коллекция Boxes содержит основные параметры коробки.   ## BoxesItems - коллекция которая содержит строки позиций в коробке.            У коробок есть еще такие параметры:            isActual - если false, то коробка удалена.            isDraft - если true, то коробка является черновиком. Его создал клиента при объеденении / разделении коробки            У клиента и у сотрудника склада их можно отфильтровать и обрабатывать в отдельном окне.         Сотрудник склада обработав позитивно изменение коробок от клиента просто ставит здесь (isDraft) false и коробка становится обычной.         Также у коробки созданной из других коробок заполнено поле parents. Это массив guid родительских коробок.         При отмене объединения коробок в базе по этим guid восстановим коробки isActual = true. А новые будут удалены isActual = false.         Также у коробки созданной при объединении/разделении будет заполнено поле brothers. Это guid других коробок которые были созданы вместе с этой из общих родителей.         Когда для любой из объединённых коробок будет запрошено удаление, восстановим старые коробки и кроме текущей коробки         будут удалены все ее братья.         
+     * ## Создать коробку и ее строки.  При создании коробка получает статус \"IN_STOCK\" ## Коробка состоит из шапки и строк (как накладная)  ## Коллекция Boxes содержит основные параметры коробки.  ## BoxesItems - коллекция которая содержит строки позиций в коробке.  У коробок есть еще такие параметры:         isActual - если false, то коробка удалена.         isDraft - если true, то коробка является черновиком. Его создал клиента при объеденении / разделении коробки          У клиента и у сотрудника склада их можно отфильтровать и обрабатывать в отдельном окне.         Сотрудник склада обработав позитивно изменение коробок от клиента просто ставит здесь (isDraft) false и коробка становится обычной.         Также у коробки созданной из других коробок заполнено поле parents. Это массив guid родительских коробок.         При отмене объединения коробок в базе по этим guid восстановим коробки isActual = true. А новые будут удалены isActual = false.         Также у коробки созданной при объединении/разделении будет заполнено поле brothers. Это guid других коробок которые были созданы вместе с этой из общих родителей.         Когда для любой из объединённых коробок будет запрошено удаление, восстановим старые коробки и кроме текущей коробки         будут удалены все ее братья.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject5} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
+     * @param {module:model/InlineObject12} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
      */
     apiV1BoxesPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -879,7 +883,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse201;
+      let returnType = InlineResponse2011;
       return this.apiClient.callApi(
         '/api/v1/boxes/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -889,11 +893,11 @@ export default class BoxesApi {
 
     /**
      * # Создать коробку и ее строки.
-     * ## Создать коробку и ее строки.   ## Коробка состоит из шапки и строк (как накладная)   ## Коллекция Boxes содержит основные параметры коробки.   ## BoxesItems - коллекция которая содержит строки позиций в коробке.            У коробок есть еще такие параметры:            isActual - если false, то коробка удалена.            isDraft - если true, то коробка является черновиком. Его создал клиента при объеденении / разделении коробки            У клиента и у сотрудника склада их можно отфильтровать и обрабатывать в отдельном окне.         Сотрудник склада обработав позитивно изменение коробок от клиента просто ставит здесь (isDraft) false и коробка становится обычной.         Также у коробки созданной из других коробок заполнено поле parents. Это массив guid родительских коробок.         При отмене объединения коробок в базе по этим guid восстановим коробки isActual = true. А новые будут удалены isActual = false.         Также у коробки созданной при объединении/разделении будет заполнено поле brothers. Это guid других коробок которые были созданы вместе с этой из общих родителей.         Когда для любой из объединённых коробок будет запрошено удаление, восстановим старые коробки и кроме текущей коробки         будут удалены все ее братья.         
+     * ## Создать коробку и ее строки.  При создании коробка получает статус \"IN_STOCK\" ## Коробка состоит из шапки и строк (как накладная)  ## Коллекция Boxes содержит основные параметры коробки.  ## BoxesItems - коллекция которая содержит строки позиций в коробке.  У коробок есть еще такие параметры:         isActual - если false, то коробка удалена.         isDraft - если true, то коробка является черновиком. Его создал клиента при объеденении / разделении коробки          У клиента и у сотрудника склада их можно отфильтровать и обрабатывать в отдельном окне.         Сотрудник склада обработав позитивно изменение коробок от клиента просто ставит здесь (isDraft) false и коробка становится обычной.         Также у коробки созданной из других коробок заполнено поле parents. Это массив guid родительских коробок.         При отмене объединения коробок в базе по этим guid восстановим коробки isActual = true. А новые будут удалены isActual = false.         Также у коробки созданной при объединении/разделении будет заполнено поле brothers. Это guid других коробок которые были созданы вместе с этой из общих родителей.         Когда для любой из объединённых коробок будет запрошено удаление, восстановим старые коробки и кроме текущей коробки         будут удалены все ее братья.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject5} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
+     * @param {module:model/InlineObject12} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
      */
     apiV1BoxesPost(opts) {
       return this.apiV1BoxesPostWithHttpInfo(opts)
@@ -904,11 +908,11 @@ export default class BoxesApi {
 
 
     /**
-     * # Запросить отправку набора коробок в партию.
-     * ## Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле sendToBatch должно выставиться в true.  Так же с клиента должны списаться деньги в пользу сотрудника склада.(и генерироваться оплаты) Проверки:  У каждой коробки поля clientId и storekeeperId должны быть заполнены. Наличие шипинг лейбла у всех коробок.
+     * # Deprecated! Запросить отправку набора коробок в партию.
+     * ## Deprecated! Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле sendToBatch должно выставиться в true.  Так же с клиента должны списаться деньги в пользу сотрудника склада.(и генерироваться оплаты) Проверки:  У каждой коробки поля clientId и storekeeperId должны быть заполнены. Наличие шипинг лейбла у всех коробок.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject16} opts.body 
+     * @param {module:model/InlineObject23} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesRequestSendBoxesToBatchPostWithHttpInfo(opts) {
@@ -937,11 +941,11 @@ export default class BoxesApi {
     }
 
     /**
-     * # Запросить отправку набора коробок в партию.
-     * ## Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле sendToBatch должно выставиться в true.  Так же с клиента должны списаться деньги в пользу сотрудника склада.(и генерироваться оплаты) Проверки:  У каждой коробки поля clientId и storekeeperId должны быть заполнены. Наличие шипинг лейбла у всех коробок.
+     * # Deprecated! Запросить отправку набора коробок в партию.
+     * ## Deprecated! Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле sendToBatch должно выставиться в true.  Так же с клиента должны списаться деньги в пользу сотрудника склада.(и генерироваться оплаты) Проверки:  У каждой коробки поля clientId и storekeeperId должны быть заполнены. Наличие шипинг лейбла у всех коробок.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject16} opts.body 
+     * @param {module:model/InlineObject23} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesRequestSendBoxesToBatchPost(opts) {
@@ -953,11 +957,11 @@ export default class BoxesApi {
 
 
     /**
-     * # Отправить набор коробок в партию.
+     * # Deprecated! Отправить набор коробок в партию.
      * ## Отправить набор коробок в партию.   Этот метод будет дергать склад и передавать в него массив id коробок, после этого метода у коробок sendToBatchComplete должен измениться на true
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject15} opts.body 
+     * @param {module:model/InlineObject22} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesSendBoxesToBatchPostWithHttpInfo(opts) {
@@ -986,11 +990,11 @@ export default class BoxesApi {
     }
 
     /**
-     * # Отправить набор коробок в партию.
+     * # Deprecated! Отправить набор коробок в партию.
      * ## Отправить набор коробок в партию.   Этот метод будет дергать склад и передавать в него массив id коробок, после этого метода у коробок sendToBatchComplete должен измениться на true
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject15} opts.body 
+     * @param {module:model/InlineObject22} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesSendBoxesToBatchPost(opts) {
@@ -1003,10 +1007,10 @@ export default class BoxesApi {
 
     /**
      * # Разделить коробку.
-     * ## Разделить коробку.   При разделении коробок странная сущность передается. Там массив массивов.Первый массив это          новые коробки - сколько элементов, столько и создаст коробок. Второй массив - это элементы в коробке.          В нем строки новой коробки. Фронт отвечает за то, что суммарное содержание новых коробок,          было ровно содержанию исходной коробки.           
+     * ## Разделить коробку.   При разделении коробок странная сущность передается. Там массив массивов.Первый массив это          новые коробки - сколько элементов, столько и создаст коробок. Второй массив - это элементы в коробке.          В нем строки новой коробки. Фронт отвечает за то, что суммарное содержание новых коробок,          было ровно содержанию исходной коробки.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject10} opts.body 
+     * @param {module:model/InlineObject17} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
      */
     apiV1BoxesSplitPostWithHttpInfo(opts) {
@@ -1036,10 +1040,10 @@ export default class BoxesApi {
 
     /**
      * # Разделить коробку.
-     * ## Разделить коробку.   При разделении коробок странная сущность передается. Там массив массивов.Первый массив это          новые коробки - сколько элементов, столько и создаст коробок. Второй массив - это элементы в коробке.          В нем строки новой коробки. Фронт отвечает за то, что суммарное содержание новых коробок,          было ровно содержанию исходной коробки.           
+     * ## Разделить коробку.   При разделении коробок странная сущность передается. Там массив массивов.Первый массив это          новые коробки - сколько элементов, столько и создаст коробок. Второй массив - это элементы в коробке.          В нем строки новой коробки. Фронт отвечает за то, что суммарное содержание новых коробок,          было ровно содержанию исходной коробки.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject10} opts.body 
+     * @param {module:model/InlineObject17} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
      */
     apiV1BoxesSplitPost(opts) {
@@ -1052,11 +1056,11 @@ export default class BoxesApi {
 
     /**
      * # Изменить коробку сотрудником склада.
-     * ## Изменить коробку сотрудником склада.            Сотрудник склада не может редактировать содержание коробки, но ему доступно для         редактирования параметры коробки.         
+     * ## Изменить коробку сотрудником склада.   Сотрудник склада не может редактировать содержание коробки, но ему доступно для         редактирования параметры коробки.
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject13} opts.body 
+     * @param {module:model/InlineObject20} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesStorekeepersGuidPatchWithHttpInfo(guid, opts) {
@@ -1091,15 +1095,62 @@ export default class BoxesApi {
 
     /**
      * # Изменить коробку сотрудником склада.
-     * ## Изменить коробку сотрудником склада.            Сотрудник склада не может редактировать содержание коробки, но ему доступно для         редактирования параметры коробки.         
+     * ## Изменить коробку сотрудником склада.   Сотрудник склада не может редактировать содержание коробки, но ему доступно для         редактирования параметры коробки.
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject13} opts.body 
+     * @param {module:model/InlineObject20} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesStorekeepersGuidPatch(guid, opts) {
       return this.apiV1BoxesStorekeepersGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить коробки по текущему сторкипера отправленные в партию.
+     * ## Получить коробки по текущему сторкипера отправленные в партию. REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
+     */
+    apiV1BoxesStorekeepersSentToBatchGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [InlineResponse2006];
+      return this.apiClient.callApi(
+        '/api/v1/boxes/storekeepers/sent_to_batch', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить коробки по текущему сторкипера отправленные в партию.
+     * ## Получить коробки по текущему сторкипера отправленные в партию. REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
+     */
+    apiV1BoxesStorekeepersSentToBatchGet(opts) {
+      return this.apiV1BoxesStorekeepersSentToBatchGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

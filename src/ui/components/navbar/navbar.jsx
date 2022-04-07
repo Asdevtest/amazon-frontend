@@ -20,8 +20,7 @@ export const Navbar = observer(
     const drawerContent = (
       <React.Fragment>
         <div className={classNames.logoWrapper}>
-          {/* <img alt="company logo" className={classNames.logo} src={'/logo192.png'} /> */}
-          <img alt="company logo" className={classNames.logo} src={'/assets/icons/new-logo.svg'} />
+          <img alt="company logo" className={classNames.logo} src={'/assets/icons/logo-var-2.svg'} />
         </div>
         <Divider />
 

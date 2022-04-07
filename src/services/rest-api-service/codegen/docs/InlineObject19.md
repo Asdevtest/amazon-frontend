@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**buyerComment** | **String** | Комментарии байера. | 
+**guid** | **String** | GUID для которой подтверждаем действие. | [optional] 
+**additionalBoxes** | [**[InlineObject12]**](InlineObject12.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

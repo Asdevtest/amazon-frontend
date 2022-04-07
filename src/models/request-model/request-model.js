@@ -109,6 +109,11 @@ class RequestModelStatic {
     return response
   }
 
+  getRequestsCustom = async userId => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGet(userId)
+    return response
+  }
+
   getCustomRequestById = async id => {
     const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidGet(id)
     return response

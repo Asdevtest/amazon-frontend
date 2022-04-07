@@ -21,13 +21,11 @@ import ApiClient from '../ApiClient';
 class InlineObject20 {
     /**
      * Constructs a new <code>InlineObject20</code>.
-     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject20
-     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
      */
-    constructor(totalPriceChanged) { 
+    constructor() { 
         
-        InlineObject20.initialize(this, totalPriceChanged);
+        InlineObject20.initialize(this);
     }
 
     /**
@@ -35,8 +33,7 @@ class InlineObject20 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalPriceChanged) { 
-        obj['totalPriceChanged'] = totalPriceChanged;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,8 +47,29 @@ class InlineObject20 {
         if (data) {
             obj = obj || new InlineObject20();
 
-            if (data.hasOwnProperty('totalPriceChanged')) {
-                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
+                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
+                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -61,10 +79,47 @@ class InlineObject20 {
 }
 
 /**
- * новое значение изменения итоговой цены.
- * @member {Number} totalPriceChanged
+ * @member {Number} lengthCmWarehouse
  */
-InlineObject20.prototype['totalPriceChanged'] = undefined;
+InlineObject20.prototype['lengthCmWarehouse'] = undefined;
+
+/**
+ * @member {Number} widthCmWarehouse
+ */
+InlineObject20.prototype['widthCmWarehouse'] = undefined;
+
+/**
+ * @member {Number} heightCmWarehouse
+ */
+InlineObject20.prototype['heightCmWarehouse'] = undefined;
+
+/**
+ * @member {Number} weighGrossKgWarehouse
+ */
+InlineObject20.prototype['weighGrossKgWarehouse'] = undefined;
+
+/**
+ * @member {Number} volumeWeightKgWarehouse
+ */
+InlineObject20.prototype['volumeWeightKgWarehouse'] = undefined;
+
+/**
+ * Прикреплен ли баркод к коробке сотрудником склада.
+ * @member {Boolean} isBarCodeAttachedByTheStorekeeper
+ */
+InlineObject20.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
+
+/**
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+InlineObject20.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
+ */
+InlineObject20.prototype['images'] = undefined;
 
 
 

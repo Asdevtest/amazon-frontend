@@ -34,7 +34,7 @@ export const useClassNames = makeStyles(theme => ({
   barCodeField: {
     maxWidth: '280px',
     whiteSpace: 'nowrap',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
 
   subTitle: {
@@ -55,6 +55,7 @@ export const useClassNames = makeStyles(theme => ({
   countWrapper: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   superCount: {
     marginLeft: '5px',
@@ -70,6 +71,7 @@ export const useClassNames = makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     width: '100%',
+    padding: '10px',
   },
 
   subWrapper: {

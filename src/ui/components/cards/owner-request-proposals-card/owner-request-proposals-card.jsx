@@ -22,6 +22,8 @@ export const OwnerRequestProposalsCard = ({item}) => {
 
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
+  console.log('item', item)
+
   return (
     <div className={classNames.cardMainWrapper}>
       <div className={classNames.cardWrapper}>

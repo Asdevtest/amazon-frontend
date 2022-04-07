@@ -1,6 +1,10 @@
+/* eslint-disable no-unused-vars */
+import {ToggleButton, ToggleButtonGroup} from '@mui/material'
+
 import {React, useState} from 'react'
 
-import {Checkbox, Container, Divider, Typography} from '@material-ui/core'
+import {Checkbox, Container, Divider, Grid, Typography} from '@material-ui/core'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -16,13 +20,23 @@ import {UploadFilesInput} from '@components/upload-files-input'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {priceCalculation} from '@utils/price-calculation'
+import {toFixed} from '@utils/text'
 
 import {useClassNames} from './add-or-edit-supplier-modal-content.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').addOrEditSupplierModalContent
 
+const sizesType = {
+  INCHES: 'INCHES',
+  CM: 'CM',
+}
+
+const inchesCoefficient = 2.54
+
 export const AddOrEditSupplierModalContent = observer(
   ({
+    sourceYuanToDollarRate,
+    volumeWeightCoefficient,
     title,
     onTriggerShowModal,
     supplier,
@@ -35,17 +49,93 @@ export const AddOrEditSupplierModalContent = observer(
   }) => {
     const classNames = useClassNames()
 
+    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+
+    const [yuanToDollarRate, setYuanToDollarRate] = useState(sourceYuanToDollarRate)
+
+    const handleChange = (event, newAlignment) => {
+      setSizeSetting(newAlignment)
+
+      if (newAlignment === sizesType.INCHES) {
+        setTmpSupplier({
+          ...tmpSupplier,
+          boxLengthCm: toFixed(tmpSupplier.boxLengthCm / inchesCoefficient, 2),
+          boxWidthCm: toFixed(tmpSupplier.boxWidthCm / inchesCoefficient, 2),
+          boxHeightCm: toFixed(tmpSupplier.boxHeightCm / inchesCoefficient, 2),
+        })
+      } else {
+        setTmpSupplier({
+          ...tmpSupplier,
+          boxLengthCm: toFixed(tmpSupplier.boxLengthCm * inchesCoefficient, 2),
+          boxWidthCm: toFixed(tmpSupplier.boxWidthCm * inchesCoefficient, 2),
+          boxHeightCm: toFixed(tmpSupplier.boxHeightCm * inchesCoefficient, 2),
+        })
+      }
+    }
+
     const [tmpSupplier, setTmpSupplier] = useState({
       amount: (supplier && supplier.amount) || '',
       comment: (supplier && supplier.comment) || '',
-      delivery: (supplier && supplier.delivery) || '',
       link: (supplier && supplier.link) || '',
       lotcost: (supplier && supplier.lotcost) || '',
       minlot: (supplier && supplier.minlot) || '',
       name: (supplier && supplier.name) || '',
       price: (supplier && supplier.price) || '',
       images: (supplier && supplier.images) || [],
+
+      priceInYuan: (supplier && supplier.priceInYuan) || '',
+      batchDeliveryCostInDollar: (supplier && supplier.batchDeliveryCostInDollar) || 0,
+      batchDeliveryCostInYuan: (supplier && supplier.batchDeliveryCostInYuan) || 0,
+      batchTotalCostInDollar: (supplier && supplier.batchTotalCostInDollar) || '',
+      batchTotalCostInYuan: (supplier && supplier.batchTotalCostInYuan) || '',
+
+      amountInBox: (supplier && supplier.amountInBox) || '',
+      boxLengthCm: (supplier && supplier.boxLengthCm) || '',
+      boxWidthCm: (supplier && supplier.boxWidthCm) || '',
+      boxHeightCm: (supplier && supplier.boxHeightCm) || '',
+      boxWeighGrossKg: (supplier && supplier.boxWeighGrossKg) || '',
+      boxVolumeWeightKg: (supplier && supplier.boxVolumeWeightKg) || '',
     })
+
+    const calculateFieldsToSubmit = () => {
+      const res = {
+        ...tmpSupplier,
+        batchTotalCostInYuan: toFixed(
+          +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
+          2,
+        ),
+        batchTotalCostInDollar: toFixed(
+          +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
+          2,
+        ),
+        boxLengthCm:
+          (sizeSetting === sizesType.INCHES ? tmpSupplier.boxLengthCm * inchesCoefficient : tmpSupplier.boxLengthCm) ||
+          0,
+        boxWidthCm:
+          (sizeSetting === sizesType.INCHES ? tmpSupplier.boxWidthCm * inchesCoefficient : tmpSupplier.boxWidthCm) || 0,
+        boxHeightCm:
+          (sizeSetting === sizesType.INCHES ? tmpSupplier.boxHeightCm * inchesCoefficient : tmpSupplier.boxHeightCm) ||
+          0,
+
+        lotcost: toFixed(+tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar, 2),
+
+        boxVolumeWeightKg: toFixed(
+          (sizeSetting === sizesType.INCHES
+            ? tmpSupplier.boxHeightCm *
+              inchesCoefficient *
+              tmpSupplier.boxWidthCm *
+              inchesCoefficient *
+              tmpSupplier.boxLengthCm *
+              inchesCoefficient
+            : tmpSupplier.boxHeightCm * tmpSupplier.boxWidthCm * tmpSupplier.boxLengthCm) / volumeWeightCoefficient,
+          2,
+        ),
+
+        amountInBox: tmpSupplier.amountInBox || 0,
+        boxWeighGrossKg: tmpSupplier.boxWeighGrossKg || 0,
+      }
+      return res
+    }
 
     const [makeMainSupplier, setMakeMainSupplier] = useState(false)
 
@@ -68,7 +158,7 @@ export const AddOrEditSupplierModalContent = observer(
                 variant="contained"
                 onClick={() => {
                   onClickSaveBtn(
-                    {...tmpSupplier, _id: supplier && supplier._id},
+                    {...calculateFieldsToSubmit(), _id: supplier && supplier._id},
                     photosOfSupplier,
                     false,
                     makeMainSupplier,
@@ -84,7 +174,7 @@ export const AddOrEditSupplierModalContent = observer(
                 variant="contained"
                 onClick={() => {
                   onClickSaveBtn(
-                    {...tmpSupplier, _id: supplier && supplier._id},
+                    {...calculateFieldsToSubmit(), _id: supplier && supplier._id},
                     photosOfSupplier,
                     true,
                     makeMainSupplier,
@@ -119,7 +209,7 @@ export const AddOrEditSupplierModalContent = observer(
               className={classNames.saveBtn}
               variant="contained"
               onClick={() => {
-                onClickSaveBtn({...tmpSupplier, _id: supplier && supplier._id}, photosOfSupplier)
+                onClickSaveBtn({...calculateFieldsToSubmit(), _id: supplier && supplier._id}, photosOfSupplier)
 
                 setPhotosOfSupplier(() => [])
               }}
@@ -149,8 +239,60 @@ export const AddOrEditSupplierModalContent = observer(
         return
       } else if (['minlot', 'amount'].includes(fieldName)) {
         setTmpSupplier({...tmpSupplier, [fieldName]: parseInt(event.target.value) || ''})
+      } else if (['price'].includes(fieldName)) {
+        setTmpSupplier({
+          ...tmpSupplier,
+          [fieldName]: event.target.value,
+          priceInYuan: toFixed(event.target.value * yuanToDollarRate, 2),
+        })
+      } else if (['priceInYuan'].includes(fieldName)) {
+        setTmpSupplier({
+          ...tmpSupplier,
+          [fieldName]: event.target.value,
+          price: toFixed(
+            event.target.value / (yuanToDollarRate === '' || parseFloat(yuanToDollarRate) === 0 ? 1 : yuanToDollarRate),
+            2,
+          ),
+        })
+      } else if (['batchDeliveryCostInDollar'].includes(fieldName)) {
+        setTmpSupplier({
+          ...tmpSupplier,
+          [fieldName]: event.target.value,
+          batchDeliveryCostInYuan: toFixed(
+            event.target.value * (yuanToDollarRate === ('' || '0') ? 1 : yuanToDollarRate),
+            2,
+          ),
+        })
+      } else if (['batchDeliveryCostInYuan'].includes(fieldName)) {
+        setTmpSupplier({
+          ...tmpSupplier,
+          [fieldName]: event.target.value,
+          batchDeliveryCostInDollar: toFixed(
+            event.target.value / (yuanToDollarRate === '' || parseFloat(yuanToDollarRate) === 0 ? 1 : yuanToDollarRate),
+            2,
+          ),
+        })
       } else {
         setTmpSupplier({...tmpSupplier, [fieldName]: event.target.value})
+      }
+    }
+
+    const onChangeYuanToDollarRate = e => {
+      if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+        setYuanToDollarRate(e.target.value)
+
+        setTmpSupplier({
+          ...tmpSupplier,
+          batchDeliveryCostInDollar: toFixed(
+            tmpSupplier.batchDeliveryCostInYuan /
+              (e.target.value === '' || parseFloat(e.target.value) === 0 ? 1 : e.target.value),
+            2,
+          ),
+          price: toFixed(
+            tmpSupplier.priceInYuan / (e.target.value === '' || parseFloat(e.target.value) === 0 ? 1 : e.target.value),
+            2,
+          ),
+        })
       }
     }
 
@@ -158,12 +300,14 @@ export const AddOrEditSupplierModalContent = observer(
       '' === tmpSupplier.price ||
       '' === tmpSupplier.link ||
       '' === tmpSupplier.amount ||
-      '' === tmpSupplier.delivery ||
-      '' === tmpSupplier.lotcost ||
       '' === tmpSupplier.minlot ||
-      0 === parseInt(tmpSupplier.price) ||
+      '' === tmpSupplier.priceInYuan ||
+      '' === tmpSupplier.batchDeliveryCostInDollar ||
+      '' === tmpSupplier.batchDeliveryCostInYuan ||
+      '' === yuanToDollarRate ||
+      '0' === yuanToDollarRate ||
+      0 === parseFloat(tmpSupplier.price) ||
       0 === parseInt(tmpSupplier.amount) ||
-      0 === parseInt(tmpSupplier.lotcost) ||
       0 === parseInt(tmpSupplier.minlot) ||
       requestStatus === loadingStatuses.isLoading
 
@@ -172,61 +316,261 @@ export const AddOrEditSupplierModalContent = observer(
         <Typography className={classNames.modalTitle}>{title}</Typography>
         <Divider className={classNames.titleDivider} />
 
-        <Field
-          label={textConsts.name}
-          inputProps={{maxLength: 1024}}
-          value={tmpSupplier.name}
-          onChange={onChangeField('name')}
-        />
-        <Field
-          label={textConsts.link}
-          inputProps={{maxLength: 2000}}
-          value={tmpSupplier.link}
-          onChange={onChangeField('link')}
-        />
-        <Field
-          label={textConsts.price}
-          inputProps={{maxLength: 50}}
-          value={tmpSupplier.price}
-          error={parseInt(tmpSupplier.price) === 0 && textConsts.errorNoZero}
-          onChange={onChangeField('price')}
-        />
-        <Field
-          label={textConsts.deliveryPrice}
-          inputProps={{maxLength: 50}}
-          value={tmpSupplier.delivery}
-          onChange={onChangeField('delivery')}
-        />
-        <Field
-          label={textConsts.qty}
-          inputProps={{maxLength: 50}}
-          value={tmpSupplier.amount}
-          error={parseInt(tmpSupplier.amount) === 0 && textConsts.errorNoZero}
-          onChange={onChangeField('amount')}
-        />
-        <Field
-          label={textConsts.minLot}
-          inputProps={{maxLength: 50}}
-          value={tmpSupplier.minlot}
-          error={parseInt(tmpSupplier.minlot) === 0 && textConsts.errorNoZero}
-          onChange={onChangeField('minlot')}
-        />
-        <Field
-          label={textConsts.lotCost}
-          inputProps={{maxLength: 50}}
-          value={tmpSupplier.lotcost}
-          error={parseInt(tmpSupplier.lotcost) === 0 && textConsts.errorNoZero}
-          onChange={onChangeField('lotcost')}
-        />
-        <Field
-          disabled
-          label={textConsts.csCode}
-          value={priceCalculation(tmpSupplier.price, tmpSupplier.delivery, tmpSupplier.amount)}
-        />
+        <div>
+          <Typography className={classNames.modalTitle}>{'Основная информация'}</Typography>
+
+          <div className={classNames.nameBlock}>
+            <Field
+              label={textConsts.name}
+              inputProps={{maxLength: 1024}}
+              containerClasses={classNames.nameContainer}
+              labelClasses={classNames.normalLabel}
+              value={tmpSupplier.name}
+              onChange={onChangeField('name')}
+            />
+
+            <Field
+              label={textConsts.qty}
+              inputProps={{maxLength: 10}}
+              containerClasses={classNames.middleContainer}
+              labelClasses={classNames.normalLabel}
+              value={tmpSupplier.amount}
+              error={parseInt(tmpSupplier.amount) === 0 && textConsts.errorNoZero}
+              onChange={onChangeField('amount')}
+            />
+            <Field
+              label={textConsts.minLot}
+              inputProps={{maxLength: 10}}
+              containerClasses={classNames.middleContainer}
+              labelClasses={classNames.normalLabel}
+              value={tmpSupplier.minlot}
+              error={parseInt(tmpSupplier.minlot) === 0 && textConsts.errorNoZero}
+              onChange={onChangeField('minlot')}
+            />
+          </div>
+
+          <Field
+            label={textConsts.link}
+            inputProps={{maxLength: 2000}}
+            labelClasses={classNames.normalLabel}
+            value={tmpSupplier.link}
+            onChange={onChangeField('link')}
+          />
+        </div>
+
+        <div>
+          <div className={classNames.costBlock}>
+            <Typography className={classNames.modalTitle}>{'Стоимость'}</Typography>
+
+            <Field
+              oneLine
+              label={'Курс Юань к Доллару'}
+              inputProps={{maxLength: 10}}
+              containerClasses={classNames.rateContainer}
+              labelClasses={clsx(classNames.rateLabel, classNames.rightMargin)}
+              inputClasses={classNames.middleInput}
+              value={yuanToDollarRate}
+              onChange={onChangeYuanToDollarRate}
+            />
+          </div>
+
+          <div className={classNames.calculationMainWrapper}>
+            <div className={classNames.calculationWrapper}>
+              <Typography className={classNames.modalTitle}>{'¥'}</Typography>
+
+              <Grid
+                container
+                classes={{root: classNames.calculationSubWrapper}}
+                spacing={1}
+                direction="row"
+                justifyContent="flex-end"
+                alignItems="flex-start"
+              >
+                <Grid item>
+                  <Field
+                    label={'Цена за единицу, ¥*'}
+                    inputProps={{maxLength: 10}}
+                    containerClasses={classNames.middleContainer}
+                    labelClasses={classNames.normalLabel}
+                    value={tmpSupplier.priceInYuan}
+                    onChange={onChangeField('priceInYuan')}
+                  />
+                </Grid>
+
+                <Grid item>
+                  <Field
+                    disabled
+                    label={'Цена партии, ¥*'}
+                    inputProps={{maxLength: 10}}
+                    containerClasses={classNames.middleContainer}
+                    labelClasses={classNames.normalLabel}
+                    value={toFixed(
+                      +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
+                      2,
+                    )}
+                  />
+                </Grid>
+
+                <Grid item>
+                  <Field
+                    label={'Доставка партии, ¥'}
+                    inputProps={{maxLength: 10}}
+                    containerClasses={classNames.middleContainer}
+                    labelClasses={classNames.normalLabel}
+                    value={tmpSupplier.batchDeliveryCostInYuan}
+                    onChange={onChangeField('batchDeliveryCostInYuan')}
+                  />
+                </Grid>
+              </Grid>
+            </div>
+
+            <Divider flexItem orientation="vertical" className={classNames.divider} />
+
+            <div className={classNames.calculationWrapper}>
+              <Typography className={classNames.modalTitle}>{'$'}</Typography>
+
+              <Grid
+                container
+                classes={{root: classNames.calculationSubWrapper}}
+                spacing={1}
+                direction="row"
+                justifyContent="flex-end"
+                alignItems="flex-start"
+              >
+                <Grid item>
+                  <Field
+                    label={'Цена за единицу, $*'}
+                    inputProps={{maxLength: 10}}
+                    containerClasses={classNames.middleContainer}
+                    labelClasses={classNames.normalLabel}
+                    value={tmpSupplier.price}
+                    onChange={onChangeField('price')}
+                  />
+                </Grid>
+
+                <Grid item>
+                  <Field
+                    disabled
+                    label={'Цена партии, $*'}
+                    inputProps={{maxLength: 15}}
+                    containerClasses={classNames.middleContainer}
+                    labelClasses={classNames.normalLabel}
+                    value={toFixed(
+                      +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
+                      2,
+                    )}
+                  />
+                </Grid>
+
+                <Grid item>
+                  <Field
+                    label={'Доставка партии, $'}
+                    inputProps={{maxLength: 15}}
+                    containerClasses={classNames.middleContainer}
+                    labelClasses={classNames.normalLabel}
+                    value={tmpSupplier.batchDeliveryCostInDollar}
+                    onChange={onChangeField('batchDeliveryCostInDollar')}
+                  />
+                </Grid>
+              </Grid>
+            </div>
+          </div>
+
+          <div>
+            <Typography className={classNames.modalTitle}>{'Информация о коробке'}</Typography>
+
+            <div className={classNames.boxInfoWrapper}>
+              <div className={classNames.sizesWrapper}>
+                <div className={classNames.sizesSubWrapper}>
+                  <Typography>{'Размеры'}</Typography>
+
+                  <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+                    <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+                      {'In'}
+                    </ToggleButton>
+                    <ToggleButton disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+                      {'Cm'}
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                </div>
+
+                <div className={classNames.sizesBottomWrapper}>
+                  <Field
+                    label={'H'}
+                    inputProps={{maxLength: 8}}
+                    containerClasses={classNames.sizeContainer}
+                    labelClasses={clsx(classNames.rateLabel)}
+                    inputClasses={classNames.sizeInput}
+                    value={tmpSupplier.boxHeightCm}
+                    onChange={onChangeField('boxHeightCm')}
+                  />
+
+                  <Field
+                    label={'W'}
+                    inputProps={{maxLength: 8}}
+                    containerClasses={classNames.sizeContainer}
+                    labelClasses={clsx(classNames.rateLabel)}
+                    inputClasses={classNames.sizeInput}
+                    value={tmpSupplier.boxWidthCm}
+                    onChange={onChangeField('boxWidthCm')}
+                  />
+
+                  <Field
+                    label={'L'}
+                    inputProps={{maxLength: 8}}
+                    containerClasses={classNames.sizeContainer}
+                    labelClasses={clsx(classNames.rateLabel)}
+                    inputClasses={classNames.sizeInput}
+                    value={tmpSupplier.boxLengthCm}
+                    onChange={onChangeField('boxLengthCm')}
+                  />
+                </div>
+              </div>
+
+              <Field
+                label={'Вес, кг'}
+                inputProps={{maxLength: 10}}
+                containerClasses={classNames.shortContainer}
+                labelClasses={classNames.normalLabel}
+                value={tmpSupplier.boxWeighGrossKg}
+                onChange={onChangeField('boxWeighGrossKg')}
+              />
+              <Field
+                label={'Количество единиц в коробке'}
+                inputProps={{maxLength: 10}}
+                containerClasses={classNames.shortContainer}
+                labelClasses={classNames.normalLabel}
+                value={tmpSupplier.amountInBox}
+                onChange={onChangeField('amountInBox')}
+              />
+
+              <Field
+                disabled
+                label={'Объемный вес, кг'}
+                inputProps={{maxLength: 15}}
+                containerClasses={classNames.shortContainer}
+                labelClasses={classNames.normalLabel}
+                value={toFixed(
+                  (sizeSetting === sizesType.INCHES
+                    ? tmpSupplier.boxHeightCm *
+                      inchesCoefficient *
+                      tmpSupplier.boxWidthCm *
+                      inchesCoefficient *
+                      tmpSupplier.boxLengthCm *
+                      inchesCoefficient
+                    : tmpSupplier.boxHeightCm * tmpSupplier.boxWidthCm * tmpSupplier.boxLengthCm) /
+                    volumeWeightCoefficient,
+                  2,
+                )}
+              />
+            </div>
+          </div>
+        </div>
 
         <Field
           multiline
           className={classNames.commentField}
+          labelClasses={classNames.normalLabel}
           inputProps={{maxLength: 2000}}
           rows={4}
           rowsMax={6}

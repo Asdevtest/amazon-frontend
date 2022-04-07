@@ -44,7 +44,10 @@ export const RightSideComments = observer(
       productStatusButtonsConfigs[curUserRole] && productStatusButtonsConfigs[curUserRole](productBase.status)
 
     const showActionBtns =
-      (checkIsSupervisor(curUserRole) && productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
+      (checkIsSupervisor(curUserRole) &&
+        productBase.status !== ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP] &&
+        checkIsSupervisor(curUserRole) &&
+        productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
       (checkIsSupervisor(curUserRole) &&
         productBase.status >= ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
         productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS]) ||
@@ -151,7 +154,7 @@ export const RightSideComments = observer(
                 {checkIsClient(curUserRole) ? textConsts.buttonClose : textConsts.buttonCancel}
               </ErrorButton>
 
-              {checkIsResearcher(curUserRole) ? (
+              {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product.archive) ? (
                 <ErrorButton
                   className={classNames.buttonDelete}
                   variant="contained"
@@ -160,6 +163,17 @@ export const RightSideComments = observer(
                   {textConsts.buttonDelete}
                 </ErrorButton>
               ) : undefined}
+
+              {checkIsClient(curUserRole) && product.archive && (
+                <Button
+                  className={classNames.restoreBtn}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => handleProductActionButtons('restore')}
+                >
+                  {textConsts.restoreBtn}
+                </Button>
+              )}
             </div>
           ) : (
             <div className={classNames.buttonsWrapper}>

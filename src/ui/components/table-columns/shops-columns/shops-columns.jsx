@@ -37,14 +37,14 @@ export const shopsColumns = handlers => [
 
   {
     field: 'sellerBoardWarehouseReportUrlDaily',
-    headerName: textConsts.dailyReportField,
+    headerName: textConsts.warehouseReportField,
     width: 350,
     renderCell: params => <ScrollingLinkCell value={params.value} />,
   },
 
   {
     field: 'sellerBoardWarehouseReportUrlMonthly',
-    headerName: textConsts.monthlyReportField,
+    headerName: textConsts.dashboardField,
     width: 350,
     renderCell: params => <ScrollingLinkCell value={params.value} />,
   },

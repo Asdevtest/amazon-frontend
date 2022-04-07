@@ -52,6 +52,7 @@ class BuyerFreeOrdersViewRaw extends Component {
       selectedOrder,
       curPage,
       rowsPerPage,
+      warningTitle,
       showOrderModal,
       showWarningModal,
       onTriggerShowBarcodeModal,
@@ -119,7 +120,7 @@ class BuyerFreeOrdersViewRaw extends Component {
         <WarningInfoModal
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-          title={textConsts.warningTitle}
+          title={warningTitle}
           btnText={textConsts.okBtn}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')

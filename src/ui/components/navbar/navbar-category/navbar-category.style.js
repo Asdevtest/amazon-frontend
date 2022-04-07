@@ -23,6 +23,11 @@ export const styles = theme =>
     },
     selected: {
       color: theme.palette.primary.main,
+      background: 'linear-gradient(90deg, rgba(0, 108, 255, 0.2) 0%, rgba(0, 108, 255, 0) 100%)',
+    },
+
+    selectedIcon: {
+      color: theme.palette.primary.main,
     },
     notSelected: {
       color: 'rgba(189, 194, 209, 1)',
@@ -43,5 +48,9 @@ export const styles = theme =>
       justifyContent: 'center',
       alignItems: 'center',
       color: 'white',
+    },
+
+    icon: {
+      backgroundColor: 'none',
     },
   })

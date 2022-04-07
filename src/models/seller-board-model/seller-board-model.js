@@ -6,14 +6,19 @@ class SellerBoardModelStatic {
     return response
   }
 
-  getMyDailyReportsLast30Days = async () => {
+  getMyDailyReportsLast30Days = async shopId => {
     const response =
-      await restApiService.integrationsApi.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet()
+      await restApiService.integrationsApi.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(shopId)
+    return response
+  }
+
+  getStockGoods = async shopId => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseStocksGet(shopId)
     return response
   }
 
   getStockGoodsByFilters = async filters => {
-    const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseProductsGet({filters})
+    const response = await restApiService.integrationsApi.apiV1IntegrationsWarehouseReportGet({filters})
     return response
   }
 
@@ -26,6 +31,13 @@ class SellerBoardModelStatic {
 
   getProductsWithSkuById = async id => {
     const response = await restApiService.integrationsApi.apiV1IntegrationsGetSkusByProductIdGuidGet(id)
+    return response
+  }
+
+  createAndLinkSkuProducts = async data => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsCreateAndLinkSkuProductsPost({
+      body: data,
+    })
     return response
   }
 }

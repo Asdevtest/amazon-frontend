@@ -38,14 +38,6 @@ export class BoxesCreateBoxContract {
   @IsString()
   clientId
 
-  @IsNotEmpty()
-  @IsNumber()
-  deliveryMethod
-
-  @IsNotEmpty()
-  @IsNumber()
-  warehouse
-
   @IsArray() items
 
   @IsOptional()

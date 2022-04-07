@@ -24,17 +24,12 @@ class UserInfoSchema {
     /**
      * Constructs a new <code>UserInfoSchema</code>.
      * @alias module:model/UserInfoSchema
-     * @param _id {String} GUID пользователя в БД.
      * @param name {String} Имя пользователя.
      * @param email {String} email
-     * @param role {Number} 
-     * @param fba {Boolean} Флаг fba.
-     * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
-     * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
-    constructor(_id, name, email, role, fba, active, rate) { 
+    constructor(name, email) { 
         
-        UserInfoSchema.initialize(this, _id, name, email, role, fba, active, rate);
+        UserInfoSchema.initialize(this, name, email);
     }
 
     /**
@@ -42,14 +37,9 @@ class UserInfoSchema {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, name, email, role, fba, active, rate) { 
-        obj['_id'] = _id;
+    static initialize(obj, name, email) { 
         obj['name'] = name;
         obj['email'] = email;
-        obj['role'] = role;
-        obj['fba'] = fba;
-        obj['active'] = active;
-        obj['rate'] = rate;
     }
 
     /**

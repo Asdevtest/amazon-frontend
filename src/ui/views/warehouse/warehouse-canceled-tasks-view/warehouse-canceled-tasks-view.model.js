@@ -6,6 +6,7 @@ import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
+import {UserModel} from '@models/user-model'
 
 import {warehouseCanceledTasksViewColumns} from '@components/table-columns/warehouse/canceled-tasks-columns'
 
@@ -20,6 +21,8 @@ export class WarehouseCanceledTasksViewModel {
 
   tasksMy = []
   curOpenedTask = {}
+
+  volumeWeightCoefficient = undefined
 
   drawerOpen = false
 
@@ -111,6 +114,10 @@ export class WarehouseCanceledTasksViewModel {
   async setCurrentOpenedTask(item) {
     try {
       const result = await StorekeeperModel.getTaskById(item._id)
+
+      const platformSettingsResult = await UserModel.getPlatformSettings()
+
+      this.volumeWeightCoefficient = platformSettingsResult.volumeWeightCoefficient
 
       this.curOpenedTask = result
       this.onTriggerOpenModal('showTaskInfoModal')

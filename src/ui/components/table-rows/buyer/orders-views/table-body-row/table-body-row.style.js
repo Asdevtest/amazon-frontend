@@ -75,7 +75,7 @@ export const useClassNames = makeStyles(() => ({
     maxWidth: '200px',
     height: '50px',
     whiteSpace: 'nowrap',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
 
   row: {

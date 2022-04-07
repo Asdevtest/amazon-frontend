@@ -17,7 +17,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
-    width: 250,
+    width: 150,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
@@ -25,7 +25,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
   {
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
-    width: 250,
+    width: 150,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
@@ -33,7 +33,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
   {
     field: 'operationType',
     headerName: textConsts.typeField,
-    width: 250,
+    width: 200,
     renderCell: params => renderFieldValueCell(params.value),
   },
   {
@@ -41,6 +41,15 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     headerName: textConsts.descriptionField,
     width: 400,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
+    filterable: false,
+    sortable: false,
+  },
+
+  {
+    field: 'status',
+    headerName: textConsts.statusField,
+    width: 150,
+    renderCell: params => renderFieldValueCell(params.value),
     filterable: false,
     sortable: false,
   },
@@ -55,14 +64,6 @@ export const warehouseCanceledTasksViewColumns = handlers => [
         onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
       />
     ),
-    filterable: false,
-    sortable: false,
-  },
-  {
-    field: 'status',
-    headerName: textConsts.statusField,
-    width: 250,
-    renderCell: params => renderFieldValueCell(params.value),
     filterable: false,
     sortable: false,
   },

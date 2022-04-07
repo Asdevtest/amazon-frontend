@@ -6,7 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
@@ -21,7 +21,8 @@ import {WarehouseVacantViewModel} from './warehouse-vacant-tasks-view.model'
 import {styles} from './warehouse-vacant-tasks-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseVacantTasksView
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_VACANT_TASKS
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_TASKS
+const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_VAC_TASKS
 
 @observer
 export class WarehouseVacantTasksViewRaw extends Component {
@@ -62,6 +63,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
       <React.Fragment>
         <Navbar
           activeCategory={navbarActiveCategory}
+          activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}
         />
@@ -80,7 +82,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 rows={getCurrentData()}
-                rowHeight={70}
+                rowHeight={200}
                 components={{
                   Toolbar: GridToolbar,
                 }}

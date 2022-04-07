@@ -41,12 +41,12 @@ export const useClassNames = makeStyles(theme => ({
     height: '50px',
     whiteSpace: 'nowrap',
     width: '300px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
 
   buyerComment: {
     height: '60px',
     width: '300px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
 }))

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
 
 import {Divider, Typography, Paper, Checkbox, NativeSelect, Link} from '@material-ui/core'
@@ -35,6 +36,7 @@ const Box = ({
   taskType,
   setNewBoxes,
   newBoxes,
+  volumeWeightCoefficient,
 }) => {
   const classNames = useClassNames()
 
@@ -53,7 +55,7 @@ const Box = ({
 
   return (
     <Paper className={(classNames.box, classNames.mainPaper)}>
-      {isNewBox && (
+      {/* {isNewBox && (
         <div className={classNames.fieldsWrapper}>
           <Field
             label={textConsts.warehouseLabel}
@@ -97,7 +99,7 @@ const Box = ({
             }
           />
         </div>
-      )}
+      )} */}
 
       <Typography className={classNames.boxTitle}>{`${textConsts.boxNum} ${box.humanFriendlyId}`}</Typography>
       {box.amount > 1 && (
@@ -114,129 +116,159 @@ const Box = ({
         ))}
       </div>
 
-      <div className={classNames.imagesWrapper}>
-        {box.images && (
-          <div className={classNames.photoWrapper}>
-            <Typography>{'Фотографии коробки:'}</Typography>
+      <Paper className={classNames.boxInfoWrapper}>
+        {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
+          <div className={classNames.demensionsWrapper}>
+            <Typography className={classNames.categoryTitle}>{textConsts.demensionsSupplier}</Typography>
+            <Typography>
+              {textConsts.length}
+              {toFixedWithCm(box.lengthCmSupplier, 2)}
+            </Typography>
+            <Typography>
+              {textConsts.width}
+              {toFixedWithCm(box.widthCmSupplier, 2)}
+            </Typography>
+            <Typography>
+              {textConsts.height}
+              {toFixedWithCm(box.heightCmSupplier, 2)}
+            </Typography>
 
-            {box.images.length > 0 ? (
-              <Carousel autoPlay={false} timeout={100} animation="fade">
-                {box.images.map((el, index) => (
-                  <div key={index}>
-                    <img
-                      alt=""
-                      className={classNames.imgBox}
-                      src={el}
-                      onClick={() => {
-                        setShowImageModal(!showImageModal)
-                        setBigImagesOptions({images: box.images, imgIndex: index})
-                      }}
-                    />
-                  </div>
-                ))}
-              </Carousel>
-            ) : (
-              <Typography>{'Фотографий пока нет...'}</Typography>
-            )}
+            <Typography>
+              {textConsts.weight}
+              {toFixedWithKg(box.weighGrossKgSupplier, 2)}
+            </Typography>
+
+            <Typography>
+              {textConsts.volumeWeigh}
+              {toFixedWithKg(
+                ((parseFloat(box.lengthCmSupplier) || 0) *
+                  (parseFloat(box.heightCmSupplier) || 0) *
+                  (parseFloat(box.widthCmSupplier) || 0)) /
+                  volumeWeightCoefficient,
+                2,
+              )}
+            </Typography>
+
+            <Typography>
+              {textConsts.finalWeight}
+              {toFixedWithKg(
+                box.weighGrossKgSupplier >
+                  ((parseFloat(box.lengthCmSupplier) || 0) *
+                    (parseFloat(box.heightCmSupplier) || 0) *
+                    (parseFloat(box.widthCmSupplier) || 0)) /
+                    volumeWeightCoefficient
+                  ? box.weighGrossKgSupplier
+                  : ((parseFloat(box.lengthCmSupplier) || 0) *
+                      (parseFloat(box.heightCmSupplier) || 0) *
+                      (parseFloat(box.widthCmSupplier) || 0)) /
+                      volumeWeightCoefficient,
+                2,
+              )}
+            </Typography>
+          </div>
+        ) : (
+          <div className={classNames.demensionsWrapper}>
+            <Typography className={classNames.categoryTitle}>{textConsts.demensionsWarehouse}</Typography>
+            <Typography>
+              {textConsts.length}
+              {toFixedWithCm(box.lengthCmWarehouse, 2)}
+            </Typography>
+            <Typography>
+              {textConsts.width}
+              {toFixedWithCm(box.widthCmWarehouse, 2)}
+            </Typography>
+            <Typography>
+              {textConsts.height}
+              {toFixedWithCm(box.heightCmWarehouse, 2)}
+            </Typography>
+
+            <Typography>
+              {textConsts.weight}
+              {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
+            </Typography>
+            <Typography>
+              {textConsts.volumeWeigh}
+              {toFixedWithKg(
+                ((parseFloat(box.lengthCmWarehouse) || 0) *
+                  (parseFloat(box.heightCmWarehouse) || 0) *
+                  (parseFloat(box.widthCmWarehouse) || 0)) /
+                  volumeWeightCoefficient,
+                2,
+              )}
+            </Typography>
+            <Typography>
+              {textConsts.finalWeight}
+              {toFixedWithKg(
+                box.weighGrossKgWarehouse >
+                  ((parseFloat(box.lengthCmWarehouse) || 0) *
+                    (parseFloat(box.heightCmWarehouse) || 0) *
+                    (parseFloat(box.widthCmWarehouse) || 0)) /
+                    volumeWeightCoefficient
+                  ? box.weighGrossKgWarehouse
+                  : ((parseFloat(box.lengthCmWarehouse) || 0) *
+                      (parseFloat(box.heightCmWarehouse) || 0) *
+                      (parseFloat(box.widthCmWarehouse) || 0)) /
+                      volumeWeightCoefficient,
+                2,
+              )}
+            </Typography>
           </div>
         )}
 
-        {box.items[0].order.images && (
-          <div className={classNames.photoWrapper}>
-            <Typography>{'Фотографии заказа:'}</Typography>
+        <div className={classNames.imagesWrapper}>
+          {box.images && (
+            <div className={classNames.photoWrapper}>
+              <Typography>{'Фотографии коробки:'}</Typography>
 
-            {box.items[0].order.images.length > 0 ? (
-              <Carousel autoPlay={false} timeout={100} animation="fade">
-                {box.items[0].order.images.map((el, index) => (
-                  <div key={index}>
-                    <img
-                      alt=""
-                      className={classNames.imgBox}
-                      src={el}
-                      onClick={() => {
-                        setShowImageModal(!showImageModal)
-                        setBigImagesOptions({images: box.items[0].order.images, imgIndex: index})
-                      }}
-                    />
-                  </div>
-                ))}
-              </Carousel>
-            ) : (
-              <Typography>{'Фотографий пока нет...'}</Typography>
-            )}
-          </div>
-        )}
-      </div>
+              {box.images.length > 0 ? (
+                <Carousel autoPlay={false} timeout={100} animation="fade">
+                  {box.images.map((el, index) => (
+                    <div key={index}>
+                      <img
+                        alt=""
+                        className={classNames.imgBox}
+                        src={el}
+                        onClick={() => {
+                          setShowImageModal(!showImageModal)
+                          setBigImagesOptions({images: box.images, imgIndex: index})
+                        }}
+                      />
+                    </div>
+                  ))}
+                </Carousel>
+              ) : (
+                <Typography>{'Фотографий пока нет...'}</Typography>
+              )}
+            </div>
+          )}
 
-      {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
-        <Paper className={classNames.demensionsWrapper}>
-          <Typography className={classNames.categoryTitle}>{textConsts.demensionsSupplier}</Typography>
-          <Typography>
-            {textConsts.length}
-            {toFixedWithCm(box.lengthCmSupplier, 2)}
-          </Typography>
-          <Typography>
-            {textConsts.width}
-            {toFixedWithCm(box.widthCmSupplier, 2)}
-          </Typography>
-          <Typography>
-            {textConsts.height}
-            {toFixedWithCm(box.heightCmSupplier, 2)}
-          </Typography>
+          {box.items[0].order.images && (
+            <div className={classNames.photoWrapper}>
+              <Typography>{'Фотографии заказа:'}</Typography>
 
-          <Typography>
-            {textConsts.weight}
-            {toFixedWithKg(box.weighGrossKgSupplier, 2)}
-          </Typography>
-          <Typography>
-            {textConsts.volumeWeigh}
-            {toFixedWithKg(box.volumeWeightKgSupplier, 2)}
-          </Typography>
-          <Typography>
-            {textConsts.finalWeight}
-            {toFixedWithKg(
-              box.weighGrossKgSupplier > box.volumeWeightKgSupplier
-                ? box.weighGrossKgSupplier
-                : box.volumeWeightKgSupplier,
-              2,
-            )}
-          </Typography>
-        </Paper>
-      ) : (
-        <Paper className={classNames.demensionsWrapper}>
-          <Typography className={classNames.categoryTitle}>{textConsts.demensionsWarehouse}</Typography>
-          <Typography>
-            {textConsts.length}
-            {toFixedWithCm(box.lengthCmWarehouse, 2)}
-          </Typography>
-          <Typography>
-            {textConsts.width}
-            {toFixedWithCm(box.widthCmWarehouse, 2)}
-          </Typography>
-          <Typography>
-            {textConsts.height}
-            {toFixedWithCm(box.heightCmWarehouse, 2)}
-          </Typography>
-
-          <Typography>
-            {textConsts.weight}
-            {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
-          </Typography>
-          <Typography>
-            {textConsts.volumeWeigh}
-            {toFixedWithKg(box.volumeWeightKgWarehouse, 2)}
-          </Typography>
-          <Typography>
-            {textConsts.finalWeight}
-            {toFixedWithKg(
-              box.weighGrossKgWarehouse > box.volumeWeightKgWarehouse
-                ? box.weighGrossKgWarehouse
-                : box.volumeWeightKgWarehouse,
-              2,
-            )}
-          </Typography>
-        </Paper>
-      )}
+              {box.items[0].order.images.length > 0 ? (
+                <Carousel autoPlay={false} timeout={100} animation="fade">
+                  {box.items[0].order.images.map((el, index) => (
+                    <div key={index}>
+                      <img
+                        alt=""
+                        className={classNames.imgBox}
+                        src={el}
+                        onClick={() => {
+                          setShowImageModal(!showImageModal)
+                          setBigImagesOptions({images: box.items[0].order.images, imgIndex: index})
+                        }}
+                      />
+                    </div>
+                  ))}
+                </Carousel>
+              ) : (
+                <Typography>{'Фотографий пока нет...'}</Typography>
+              )}
+            </div>
+          )}
+        </div>
+      </Paper>
 
       <div>
         <div className={classNames.chipWrapper}>
@@ -252,7 +284,7 @@ const Box = ({
         </div>
         <Field
           oneLine
-          containerClasses={classNames.field}
+          containerClasses={classNames.checkboxContainer}
           label={textConsts.shippingLabelIsGluedWarehouse}
           inputComponent={
             <Checkbox
@@ -274,7 +306,7 @@ const Box = ({
               {box.isBarCodeAttachedByTheStorekeeper === false && (
                 <Field
                   oneLine
-                  containerClasses={classNames.field}
+                  containerClasses={classNames.checkboxContainer}
                   label={textConsts.codeCheck}
                   inputComponent={
                     <Checkbox
@@ -289,7 +321,7 @@ const Box = ({
                 box.isBarCodeAttachedByTheStorekeeper === false && (
                   <Field
                     oneLine
-                    containerClasses={classNames.field}
+                    containerClasses={classNames.checkboxContainer}
                     label={textConsts.barCodeReallyIsGlued}
                     inputComponent={
                       <Checkbox
@@ -305,7 +337,7 @@ const Box = ({
                 barCodeReallyIsGlued === false) && (
                 <Field
                   oneLine
-                  containerClasses={classNames.field}
+                  containerClasses={classNames.checkboxContainer}
                   label={textConsts.barCodeIsGluedWarehouse}
                   inputComponent={
                     <Checkbox
@@ -357,6 +389,7 @@ const NewBoxes = ({
   showEditBoxModal,
   onTriggerShowEditBoxModal,
   setNewBoxes,
+  volumeWeightCoefficient,
 }) => {
   const classNames = useClassNames()
 
@@ -369,6 +402,7 @@ const NewBoxes = ({
       {newBoxes.map((box, boxIndex) => (
         <Box
           key={boxIndex}
+          volumeWeightCoefficient={volumeWeightCoefficient}
           isNewBox={isNewBox}
           box={box}
           setCurBox={setCurBox}
@@ -384,6 +418,7 @@ const NewBoxes = ({
 
       <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
         <EditBoxTasksModal
+          volumeWeightCoefficient={volumeWeightCoefficient}
           setEditModal={onTriggerShowEditBoxModal}
           box={curBox}
           newBoxes={newBoxes}
@@ -406,6 +441,7 @@ export const BeforeAfterBlock = observer(
     onTriggerShowEditBoxModal,
     setNewBoxes,
     setAmountFieldNewBox,
+    volumeWeightCoefficient,
   }) => {
     const classNames = useClassNames()
 
@@ -419,7 +455,7 @@ export const BeforeAfterBlock = observer(
 
         {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
           <div className={classNames.fieldsWrapper}>
-            <Field
+            {/* <Field
               disabled
               label={textConsts.warehouseLabel}
               value={getWarehousesOptionByCode(currentBoxes[0].warehouse).label}
@@ -429,7 +465,7 @@ export const BeforeAfterBlock = observer(
               disabled
               label={textConsts.deliveryMethodLabel}
               value={getDeliveryOptionByCode(currentBoxes[0].deliveryMethod).label}
-            />
+            /> */}
             {taskType === TaskOperationType.RECEIVE && (
               <Field
                 disabled
@@ -441,7 +477,15 @@ export const BeforeAfterBlock = observer(
         )}
 
         {currentBoxes &&
-          currentBoxes.map((box, boxIndex) => <Box key={boxIndex} isCurrentBox box={box} taskType={taskType} />)}
+          currentBoxes.map((box, boxIndex) => (
+            <Box
+              key={boxIndex}
+              isCurrentBox
+              box={box}
+              taskType={taskType}
+              volumeWeightCoefficient={volumeWeightCoefficient}
+            />
+          ))}
       </div>
     )
 
@@ -455,6 +499,7 @@ export const BeforeAfterBlock = observer(
           <NewBoxes
             isNewBox
             isEdit={isEdit}
+            volumeWeightCoefficient={volumeWeightCoefficient}
             newBoxes={desiredBoxes}
             taskType={taskType}
             setNewBoxes={setNewBoxes}

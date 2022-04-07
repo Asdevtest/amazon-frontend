@@ -1,7 +1,6 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {BoxesModel} from '@models/boxes-model'
 import {OtherModel} from '@models/other-model'
@@ -9,7 +8,6 @@ import {ProductModel} from '@models/product-model'
 import {SupervisorModel} from '@models/supervisor-model'
 import {UserModel} from '@models/user-model'
 
-import {checkIsBuyer} from '@utils/checks'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -111,7 +109,7 @@ export class ListingModel {
       await this.getProductById()
 
       await this.getBoxes()
-      !checkIsBuyer(UserRoleCodeMap[this.userRole]) && (await this.getPayments())
+      await this.getPayments()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

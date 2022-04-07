@@ -37,9 +37,13 @@ export const Parameters = ({order, collapsed}) => {
             <Typography className={classNames.containerTitle}>{textConsts.supplier}</Typography>
           </TableCell>
           <TableCell className={classNames.parameterTableCell}>
-            <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.currentSupplier.link)}>
+            {order.product.currentSupplier.link === 'access denied' ? (
               <Typography className={classNames.scrollingText}>{order.product.currentSupplier.link}</Typography>
-            </Link>
+            ) : (
+              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.currentSupplier.link)}>
+                <Typography className={classNames.scrollingText}>{order.product.currentSupplier.link}</Typography>
+              </Link>
+            )}
           </TableCell>
         </TableRow>
 
@@ -63,7 +67,13 @@ export const Parameters = ({order, collapsed}) => {
             <Typography className={classNames.containerTitle}>{'Баркод'}</Typography>
           </TableCell>
           <TableCell className={classNames.parameterTableCell}>
-            <Typography className={classNames.scrollingText}>{order.product.barCode}</Typography>
+            {order.product.barCode ? (
+              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.barCode)}>
+                <Typography className={classNames.scrollingText}>{order.product.barCode}</Typography>
+              </Link>
+            ) : (
+              <Typography className={classNames.scrollingText}>{'N/A'}</Typography>
+            )}
           </TableCell>
         </TableRow>
 

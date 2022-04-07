@@ -103,4 +103,108 @@ export const useClassNames = makeStyles(() => ({
     color: 'rgba(61, 81, 112, 1)',
     fontWeight: '600',
   },
+
+  nameBlock: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+
+  nameContainer: {
+    width: '340px',
+  },
+
+  middleContainer: {
+    width: '160px',
+  },
+
+  shortContainer: {
+    width: '120px',
+  },
+
+  middleInput: {
+    width: '160px',
+  },
+
+  normalLabel: {
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+  },
+
+  leftMargin: {
+    marginLeft: '10px',
+  },
+
+  rightMargin: {
+    marginRight: '10px',
+  },
+
+  costBlock: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+
+  rateLabel: {
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+    whiteSpace: 'nowrap',
+  },
+
+  rateContainer: {
+    width: '310px',
+  },
+
+  calculationMainWrapper: {
+    display: 'flex',
+  },
+
+  calculationWrapper: {
+    // display: 'flex',
+    // width: '350px'
+  },
+
+  calculationSubWrapper: {
+    // padding: '10px',
+    // width: '370px'
+  },
+
+  divider: {
+    margin: '35px 18px 10px',
+  },
+
+  sizesSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  sizesBottomWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: '10px',
+  },
+
+  sizesWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    width: '270px',
+  },
+
+  sizeContainer: {
+    width: '100px',
+  },
+  sizeInput: {
+    width: '85px',
+  },
+
+  boxInfoWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+  },
 }))

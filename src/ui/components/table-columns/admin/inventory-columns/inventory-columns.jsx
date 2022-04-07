@@ -4,16 +4,13 @@ import {texts} from '@constants/texts'
 
 import {
   AsinCell,
-  BuyerCell,
-  ResearcherCell,
-  SupervisorCell,
   SupplierCell,
   renderFieldValueCell,
   FeesValuesWithCalculateBtnCell,
-  ClientCell,
   ToFixedWithDollarSignCell,
   ActiveBarcodeCell,
   NormDateCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -38,12 +35,10 @@ export const exchangeInventoryColumns = () => [
   },
 
   {
-    field: 'asinCell',
+    field: 'asin',
     headerName: textConsts.asinField,
     renderCell: params => <AsinCell product={params.row.originalData} />,
     width: 300,
-    filterable: false,
-    sortable: false,
   },
 
   {
@@ -78,26 +73,27 @@ export const exchangeInventoryColumns = () => [
   {
     field: 'clientName',
     headerName: 'Client',
-    renderCell: params => <ClientCell product={params.row.originalData} />,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.client?._id} />,
     width: 200,
   },
 
   {
-    field: 'researcherName',
+    field: 'createdBy',
     headerName: textConsts.researcherField,
-    renderCell: params => <ResearcherCell product={params.row.originalData} />,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
     width: 250,
   },
   {
     field: 'supervisor',
     headerName: textConsts.supervisorField,
-    renderCell: params => <SupervisorCell product={params.row.originalData} />,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.checkedBy?._id} />,
     width: 250,
   },
+
   {
-    field: 'buyerName',
+    field: 'buyer',
     headerName: textConsts.buyerField,
-    renderCell: params => <BuyerCell product={params.row.originalData} />,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.buyer?._id} />,
     width: 250,
   },
   {

@@ -48,7 +48,7 @@ export const useClassNames = makeStyles(() => ({
   barCodeText: {
     width: '300px',
     height: '46px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
   barCodeWrapper: {
     display: 'flex',
@@ -95,7 +95,7 @@ export const useClassNames = makeStyles(() => ({
   link: {
     maxWidth: '325px',
     whiteSpace: 'nowrap',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
 
   linkPreview: {

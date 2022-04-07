@@ -6,9 +6,20 @@ import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {texts} from '@constants/texts'
+
+import {Button} from '@components/buttons/button'
+import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
+import {Modal} from '@components/modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
+
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {IntegrationsModel} from './integrations.model'
 import {useClassNames} from './integrations.style'
+
+const textConsts = getLocalizedTexts(texts, 'en').integrations
 
 export const Integrations = observer(({productId}) => {
   const classNames = useClassNames()
@@ -19,10 +30,34 @@ export const Integrations = observer(({productId}) => {
     model.current.loadData()
   }, [])
 
-  const {getCurrentData, requestStatus, columnsModel} = model.current
+  const {
+    getCurrentData,
+    showBindInventoryGoodsToStockModal,
+    showSuccessModal,
+    showInfoModal,
+    requestStatus,
+    columnsModel,
+    onTriggerOpenModal,
+    sellerBoardDailyData,
+    getStockGoodsByFilters,
+    onSubmitBindStockGoods,
+    onClickBindInventoryGoodsToStockBtn,
+  } = model.current
 
   return (
     <div className={classNames.mainWrapper}>
+      <div className={classNames.addProductBtnsWrapper}>
+        <Button
+          disableElevation
+          className={classNames.buttonOffset}
+          variant="contained"
+          color="primary"
+          onClick={onClickBindInventoryGoodsToStockBtn}
+        >
+          {textConsts.bindGoodsBtn}
+        </Button>
+      </div>
+
       <DataGrid
         pagination
         useResizeContainer
@@ -37,6 +72,38 @@ export const Integrations = observer(({productId}) => {
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}
+      />
+
+      <Modal
+        openModal={showBindInventoryGoodsToStockModal}
+        setOpenModal={() => onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
+      >
+        <BindInventoryGoodsToStockForm
+          selectedRowId={productId}
+          stockData={sellerBoardDailyData}
+          updateStockData={getStockGoodsByFilters}
+          onSubmit={onSubmitBindStockGoods}
+        />
+      </Modal>
+
+      <SuccessInfoModal
+        openModal={showSuccessModal}
+        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+        title={textConsts.successBindTitle}
+        successBtnText={textConsts.successBtn}
+        onClickSuccessBtn={() => {
+          onTriggerOpenModal('showSuccessModal')
+        }}
+      />
+
+      <WarningInfoModal
+        openModal={showInfoModal}
+        setOpenModal={() => onTriggerOpenModal('showInfoModal')}
+        title={textConsts.infoModalTitle}
+        btnText={textConsts.okBtn}
+        onClickBtn={() => {
+          onTriggerOpenModal('showInfoModal')
+        }}
       />
     </div>
   )

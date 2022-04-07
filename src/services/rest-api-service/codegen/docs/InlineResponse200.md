@@ -7,8 +7,9 @@ Name | Type | Description | Notes
 **_id** | **String** | GUID продукта в базе данных | 
 **asin** | **String** | ASIN продукта | [optional] 
 **skusByClient** | **[String]** |  | [optional] 
+**suppliers** | [**[ApiV1AdminsGetProductsByStatusSuppliers]**](ApiV1AdminsGetProductsByStatusSuppliers.md) |  | 
 **material** | **String** |  | [optional] 
-**currentSupplier** | [**ApiV1AdminsGetProductsByStatusCurrentSupplier**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md) |  | [optional] 
+**currentSupplier** | [**ApiV1AdminsGetProductsByStatusSuppliers**](ApiV1AdminsGetProductsByStatusSuppliers.md) |  | [optional] 
 **currentSupplierId** | **String** | GUID поставщика в базе данных | [optional] 
 **category** | **String** | Категория | [optional] 
 **lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
@@ -22,7 +23,6 @@ Name | Type | Description | Notes
 **width** | **Number** | Ширина | [optional] 
 **length** | **Number** | Длинна | [optional] 
 **weight** | **Number** | Вес | [optional] 
-**suppliers** | [**[ApiV1AdminsGetProductsByStatusCurrentSupplier]**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md) |  | 
 **reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
 **fbafee** | **Number** | ФБА комиссия | [optional] 
 **delivery** | **Number** | Стоимость доставки. | [optional] 
@@ -72,5 +72,9 @@ Name | Type | Description | Notes
 **listingSupplierCompetitors** | [**[ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]**](ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md) | Массив объектов: ссылки и комментарии к конкурентам | [optional] 
 **strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
 **needCheckBySupervisor** | **Boolean** | Признак needCheckBySupervisor | [optional] 
+**amountInOrders** | **Number** | Сколько такого продукта находится в заказах. | [optional] 
+**amountInBoxes** | **Number** | Сколько такого продукта находится в коробках. | [optional] 
+**archive** | **Boolean** | Флаг указывает что продукт в архиве. | [optional] 
+**hsCode** | **String** | hsCode продукта. | [optional] 
 
 

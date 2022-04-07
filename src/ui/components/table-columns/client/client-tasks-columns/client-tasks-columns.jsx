@@ -7,6 +7,7 @@ import {
   TaskDescriptionCell,
   renderFieldValueCell,
   ClientTasksActionBtnsCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -17,7 +18,7 @@ export const clientTasksViewColumns = handlers => [
   {
     field: 'createdAt',
     headerName: textConsts.createDateField,
-    width: 150,
+    width: 110,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
@@ -25,7 +26,7 @@ export const clientTasksViewColumns = handlers => [
   {
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
-    width: 150,
+    width: 110,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
@@ -33,7 +34,7 @@ export const clientTasksViewColumns = handlers => [
   {
     field: 'operationType',
     headerName: textConsts.typeField,
-    width: 150,
+    width: 130,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
@@ -47,9 +48,16 @@ export const clientTasksViewColumns = handlers => [
   },
 
   {
+    field: 'storekeeper',
+    headerName: textConsts.storekeeperField,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
+    width: 170,
+  },
+
+  {
     field: 'action',
     headerName: textConsts.actionField,
-    width: 350,
+    width: 330,
 
     renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,
@@ -58,7 +66,7 @@ export const clientTasksViewColumns = handlers => [
   {
     field: 'status',
     headerName: textConsts.statusField,
-    width: 150,
+    width: 130,
     renderCell: params => renderFieldValueCell(params.value),
     filterable: false,
     sortable: false,

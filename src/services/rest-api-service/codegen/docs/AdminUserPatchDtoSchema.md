@@ -17,5 +17,6 @@ Name | Type | Description | Notes
 **permissionGroups** | **[String]** | Массив групп permission-ов. | [optional] 
 **allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
 **canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 
+**hideSuppliers** | **Boolean** | Скрывать поставщиков от пользователя. | [optional] 
 
 

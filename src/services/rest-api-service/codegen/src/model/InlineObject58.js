@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
-import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 
 /**
  * The InlineObject58 model module.
@@ -23,14 +21,11 @@ import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 class InlineObject58 {
     /**
      * Constructs a new <code>InlineObject58</code>.
-     * Схема универсальной заявки.
      * @alias module:model/InlineObject58
-     * @param request {module:model/ApiV1RequestsCustomRequest} 
-     * @param details {module:model/ApiV1RequestsCustomDetails} 
      */
-    constructor(request, details) { 
+    constructor() { 
         
-        InlineObject58.initialize(this, request, details);
+        InlineObject58.initialize(this);
     }
 
     /**
@@ -38,9 +33,7 @@ class InlineObject58 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, request, details) { 
-        obj['request'] = request;
-        obj['details'] = details;
+    static initialize(obj) { 
     }
 
     /**
@@ -54,11 +47,14 @@ class InlineObject58 {
         if (data) {
             obj = obj || new InlineObject58();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            }
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'], 'Boolean');
             }
         }
         return obj;
@@ -68,14 +64,22 @@ class InlineObject58 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomRequest} request
+ * Статус
+ * @member {Number} status
  */
-InlineObject58.prototype['request'] = undefined;
+InlineObject58.prototype['status'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestsCustomDetails} details
+ * Признак того, что баркод поклеен у поставщика.
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
  */
-InlineObject58.prototype['details'] = undefined;
+InlineObject58.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+
+/**
+ * ???===нет описания===
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper
+ */
+InlineObject58.prototype['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = undefined;
 
 
 

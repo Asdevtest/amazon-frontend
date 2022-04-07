@@ -130,12 +130,6 @@ export const getClientDashboardCardConfig = textConsts => [
         route: '/client/inventory',
       },
       {
-        dataKey: ClientDashboardCardDataKey.IN_INVENTORY_BY_CLIENT,
-        title: textConsts.productsByClient,
-        color: '#63c2de',
-        route: '/client/inventory',
-      },
-      {
         dataKey: ClientDashboardCardDataKey.REPURCHASE_ITEMS,
         title: textConsts.productPaid,
         color: '#4dbd74',

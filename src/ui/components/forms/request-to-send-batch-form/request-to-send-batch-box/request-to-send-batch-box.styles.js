@@ -93,6 +93,6 @@ export const useClassNames = makeStyles(() => ({
   link: {
     maxWidth: '200px',
     whiteSpace: 'nowrap',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
 }))

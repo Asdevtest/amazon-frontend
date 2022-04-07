@@ -33,14 +33,22 @@ export const PurchaseHistory = ({user, tabHistory, setTabHistory}) => {
               [classNames.selected]: tabHistory === 0,
             })}
             index={0}
-            label={textConsts.buyInfo}
+            label={textConsts.all}
           />
+
           <Tab
             className={clsx(classNames.text, {
               [classNames.selected]: tabHistory === 1,
             })}
             index={1}
-            label={textConsts.pushedGoods}
+            label={textConsts.fromBuyers}
+          />
+          <Tab
+            className={clsx(classNames.text, {
+              [classNames.selected]: tabHistory === 2,
+            })}
+            index={2}
+            label={textConsts.fromSellers}
           />
         </Tabs>
         <div className={classNames.tabContent} role="tabpanel">

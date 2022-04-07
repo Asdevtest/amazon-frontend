@@ -80,7 +80,7 @@ export const useClassNames = makeStyles(() => ({
 
   btnsBlockWrapper: {
     marginLeft: '40px',
-    width: '250px',
+    width: '300px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
@@ -119,5 +119,21 @@ export const useClassNames = makeStyles(() => ({
       opacity: '0.8',
       backgroundColor: '#00B746',
     },
+  },
+
+  cancelBtn: {
+    marginLeft: '10px',
+    backgroundColor: '#F44336',
+    '&:hover': {
+      opacity: '0.8',
+      backgroundColor: '#F44336',
+    },
+  },
+
+  price: {
+    fontWeight: '400',
+    fontSize: '18px',
+    lineHeight: '21px',
+    color: '#0460DE',
   },
 }))

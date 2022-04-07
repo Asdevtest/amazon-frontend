@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
 **boxesBefore** | **[String]** |  | [optional] 
-**boxes** | **[String]** |  | [optional] 
+**boxes** | **[String]** |  | 
 **operationType** | **String** | Тип операции | 
 **clientComment** | **String** | Комментарий клиента. | [optional] [default to &#39;&#39;]
 **images** | **[String]** | Массив картинок. | [optional] 

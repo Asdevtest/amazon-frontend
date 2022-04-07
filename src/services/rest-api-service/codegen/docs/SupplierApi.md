@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## apiV1SuppliersGet
 
-> [ApiV1AdminsGetProductsByStatusCurrentSupplier] apiV1SuppliersGet(opts)
+> [ApiV1AdminsGetProductsByStatusSuppliers] apiV1SuppliersGet(opts)
 
 # Получить список поставщиков.
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1AdminsGetProductsByStatusCurrentSupplier]**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md)
+[**[ApiV1AdminsGetProductsByStatusSuppliers]**](ApiV1AdminsGetProductsByStatusSuppliers.md)
 
 ### Authorization
 
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 # Удалить поставщика.
 
-##  Удалить поставщика.   
+##  Удалить поставщика.   Запрещено редактировать. Если поставщик используется в карточке товара со статусами: 35, 40, 50, 60, 235, 240, 250, 260
 
 ### Example
 
@@ -178,7 +178,7 @@ Name | Type | Description  | Notes
 
 # Изменить поставщика.
 
-## Изменить  поставщика.   
+## Изменить  поставщика.   Байер может редактировать поставщика только если поставщик используется в карточке товара в котором является байером. Байер может редактировать  поставщика только если поставщик используется в карточке товара со статусами: 35, 40, 50, 60, 235, 240, 250, 260
 
 ### Example
 
@@ -192,10 +192,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.SupplierApi();
-let guid = "guid_example"; // String | GUID в сущности в БД
+let guid = null; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject56() // InlineObject56 | 
+  'body': new TestSwagger.InlineObject67() // InlineObject67 | 
 };
 apiInstance.apiV1SuppliersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -210,9 +210,9 @@ apiInstance.apiV1SuppliersGuidPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID в сущности в БД | 
+ **guid** | [**String**](.md)| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject56**](InlineObject56.md)|  | [optional] 
+ **body** | [**InlineObject67**](InlineObject67.md)|  | [optional] 
 
 ### Return type
 
@@ -230,11 +230,11 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersPost
 
-> InlineResponse2013 apiV1SuppliersPost(opts)
+> InlineResponse2018 apiV1SuppliersPost(opts)
 
 # Добавить нового поставщика.
 
-## Добавить нового поставщика.   
+## Добавить нового поставщика.   boxWeighGrossKg получить через метод   // POST /suppliers/calc_boxVolumeWeightKg 
 
 ### Example
 
@@ -250,7 +250,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.SupplierApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject55() // InlineObject55 | 
+  'body': new TestSwagger.InlineObject66() // InlineObject66 | 
 };
 apiInstance.apiV1SuppliersPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -266,11 +266,11 @@ apiInstance.apiV1SuppliersPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject55**](InlineObject55.md)|  | [optional] 
+ **body** | [**InlineObject66**](InlineObject66.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2013**](InlineResponse2013.md)
+[**InlineResponse2018**](InlineResponse2018.md)
 
 ### Authorization
 

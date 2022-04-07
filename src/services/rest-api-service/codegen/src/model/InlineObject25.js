@@ -21,11 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject25 {
     /**
      * Constructs a new <code>InlineObject25</code>.
+     * Схема комментарии байера.
      * @alias module:model/InlineObject25
+     * @param buyerComment {String} Комментарии байера.
      */
-    constructor() { 
+    constructor(buyerComment) { 
         
-        InlineObject25.initialize(this);
+        InlineObject25.initialize(this, buyerComment);
     }
 
     /**
@@ -33,7 +35,8 @@ class InlineObject25 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, buyerComment) { 
+        obj['buyerComment'] = buyerComment;
     }
 
     /**
@@ -47,8 +50,8 @@ class InlineObject25 {
         if (data) {
             obj = obj || new InlineObject25();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
         }
         return obj;
@@ -58,10 +61,10 @@ class InlineObject25 {
 }
 
 /**
- * массив GUIDов оплаченных товаров
- * @member {Array.<String>} guids
+ * Комментарии байера.
+ * @member {String} buyerComment
  */
-InlineObject25.prototype['guids'] = undefined;
+InlineObject25.prototype['buyerComment'] = undefined;
 
 
 

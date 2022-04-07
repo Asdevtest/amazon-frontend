@@ -6,7 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
@@ -22,7 +22,7 @@ import {styles} from './warehouse-my-warehouse-view.style'
 const textConsts = getLocalizedTexts(texts, 'en').warehouseMyWarehouseView
 
 const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
-const activeSubCategory = null
+const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES
 @observer
 export class WarehouseMyWarehouseViewRaw extends Component {
   viewModel = new WarehouseMyWarehouseViewModel({history: this.props.history})
@@ -72,7 +72,6 @@ export class WarehouseMyWarehouseViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
-                checkboxSelection
                 isRowSelectable={params => params.row.isDraft === false}
                 getRowClassName={getRowClassName}
                 selectionModel={selectedBoxes}

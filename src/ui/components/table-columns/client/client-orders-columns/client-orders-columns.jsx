@@ -3,12 +3,13 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
-  NoActiveBarcodeCell,
+  ActiveBarcodeCell,
   NormDateCell,
   OrderCell,
   renderFieldValueCell,
   ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -33,12 +34,10 @@ export const clientOrdersViewColumns = () => [
   },
 
   {
-    field: 'orders',
+    field: 'asin',
     headerName: textConsts.ordersField,
     width: 400,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
-    filterable: false,
-    sortable: false,
   },
 
   {
@@ -52,7 +51,7 @@ export const clientOrdersViewColumns = () => [
     field: 'barCode',
     headerName: textConsts.barCodeField,
     width: 150,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.value} />,
+    renderCell: params => <ActiveBarcodeCell barCode={params.value} />,
   },
 
   {
@@ -61,6 +60,13 @@ export const clientOrdersViewColumns = () => [
     renderCell: params => renderFieldValueCell(params.value),
     type: 'number',
     width: 90,
+  },
+
+  {
+    field: 'storekeeper',
+    headerName: textConsts.storekeeperNameField,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
+    width: 200,
   },
 
   {

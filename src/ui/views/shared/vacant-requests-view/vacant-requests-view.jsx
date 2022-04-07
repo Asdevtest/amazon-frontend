@@ -9,7 +9,7 @@ import {Grid, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {tableViewMode} from '@constants/table-view-modes'
 import {texts} from '@constants/texts'
 
@@ -28,7 +28,7 @@ import {styles} from './vacant-requests-view.style'
 const textConsts = getLocalizedTexts(texts, 'en').freelancerProductsRequestsView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = 0
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS
 
 @observer
 class VacantRequestsViewRaw extends Component {

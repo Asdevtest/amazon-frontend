@@ -50,9 +50,6 @@ class ApiV1RequestProposalsCustomByRequestIdGuidDetails {
             if (data.hasOwnProperty('result')) {
                 obj['result'] = ApiClient.convertToType(data['result'], 'String');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
@@ -68,12 +65,6 @@ class ApiV1RequestProposalsCustomByRequestIdGuidDetails {
  * @member {String} result
  */
 ApiV1RequestProposalsCustomByRequestIdGuidDetails.prototype['result'] = undefined;
-
-/**
- * Комментарии ресерчера.
- * @member {String} comment
- */
-ApiV1RequestProposalsCustomByRequestIdGuidDetails.prototype['comment'] = undefined;
 
 /**
  * Массив ссылок на медиафайлы.

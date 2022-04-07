@@ -9,7 +9,7 @@ export const DatePicker = ({value, onChange}) => (
       clearable
       value={value}
       placeholder="10/10/2018 10:00"
-      minDate={new Date()}
+      // minDate={new Date()}
       format="dd/MM/yyyy HH:mm"
       onChange={date => onChange(date)}
     />

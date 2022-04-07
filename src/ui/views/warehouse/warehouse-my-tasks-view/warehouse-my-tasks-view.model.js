@@ -11,6 +11,7 @@ import {BoxesModel} from '@models/boxes-model'
 import {BoxesWarehouseUpdateBoxInTaskContract} from '@models/boxes-model/boxes-model.contracts'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
+import {UserModel} from '@models/user-model'
 
 import {warehouseMyTasksViewColumns} from '@components/table-columns/warehouse/my-tasks-columns'
 
@@ -28,6 +29,8 @@ export class WarehouseVacantViewModel {
   currentBox = undefined
   imagesOfTask = []
   imagesOfBox = []
+
+  volumeWeightCoefficient = undefined
 
   showProgress = false
   progressValue = 0
@@ -182,7 +185,6 @@ export class WarehouseVacantViewModel {
             'widthCmWarehouse',
             'heightCmWarehouse',
             'weighGrossKgWarehouse',
-            'volumeWeightKgWarehouse',
             'isShippingLabelAttachedByStorekeeper',
             'images',
           ],
@@ -241,7 +243,7 @@ export class WarehouseVacantViewModel {
             await onSubmitPostImages.call(this, {images: box.tmpImages, type: 'imagesOfBox'})
           }
 
-          const newBox = getObjectFilteredByKeyArrayBlackList(
+          const newBox = getObjectFilteredByKeyArrayWhiteList(
             {
               ...box,
               items: [
@@ -254,24 +256,28 @@ export class WarehouseVacantViewModel {
               images: this.imagesOfBox || box.images,
             },
             [
-              '_id',
-              'id',
-              'status',
-              'createdBy',
-              'lastModifiedBy',
-              'createdAt',
-              'tmpImages',
-              'weightFinalAccountingKgWarehouse',
-              'buyerComment',
-              'shipmentPlanId',
-              'isDraft',
-              'scheduledDispatchDate',
-              'factDispatchDate',
-              'updatedAt',
-              'sendToBatchRequest',
-              'sendToBatchComplete',
-              'storekeeperId',
-              'humanFriendlyId',
+              'amount',
+              'weighGrossKg',
+              // 'volumeWeightKg',
+              'weightFinalAccountingKg',
+              'shippingLabel',
+              'warehouse',
+              'deliveryMethod',
+              'lengthCmSupplier',
+              'widthCmSupplier',
+              'heightCmSupplier',
+              'weighGrossKgSupplier',
+              // 'volumeWeightKgSupplier',
+              'lengthCmWarehouse',
+              'widthCmWarehouse',
+              'heightCmWarehouse',
+              'weighGrossKgWarehouse',
+              // 'volumeWeightKgWarehouse',
+              'isBarCodeAttachedByTheStorekeeper',
+              'isShippingLabelAttachedByStorekeeper',
+              'clientId',
+              'items',
+              'images',
             ],
           )
 
@@ -393,6 +399,10 @@ export class WarehouseVacantViewModel {
   async onClickResolveBtn(item) {
     try {
       const result = await StorekeeperModel.getTaskById(item._id)
+
+      const platformSettingsResult = await UserModel.getPlatformSettings()
+
+      this.volumeWeightCoefficient = platformSettingsResult.volumeWeightCoefficient
 
       this.onSelectTask(result)
       this.onTriggerEditTaskModal()

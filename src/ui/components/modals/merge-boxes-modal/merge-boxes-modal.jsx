@@ -3,13 +3,12 @@ import React, {useState} from 'react'
 import {Chip, InputLabel, NativeSelect, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
-import {warehouses} from '@constants/warehouses'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
+import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
@@ -22,6 +21,8 @@ import {useClassNames} from './merge-boxes-modal.style'
 const textConsts = getLocalizedTexts(texts, 'ru').mergeBoxModal
 
 export const MergeBoxesModal = ({
+  destinations,
+  storekeepers,
   selectedBoxes,
   requestStatus,
   openModal,
@@ -31,18 +32,26 @@ export const MergeBoxesModal = ({
 }) => {
   const classNames = useClassNames()
 
-  const [boxBody, setBoxBody] = useState({shippingLabel: '', warehouse: '', deliveryMethod: '', tmpShippingLabel: []})
+  const [boxBody, setBoxBody] = useState({
+    shippingLabel: '',
+    destinationId: '',
+
+    storekeeperId: '',
+    logicsTariffId: '',
+
+    tmpShippingLabel: [],
+  })
 
   const [comment, setComment] = useState('')
   const onSubmitBoxesModal = () => {
     onSubmit(boxBody, comment)
-    setBoxBody({shippingLabel: '', warehouse: '', deliveryMethod: '', tmpShippingLabel: []})
+    setBoxBody({shippingLabel: '', destinationId: '', logicsTariffId: '', tmpShippingLabel: []})
     setComment('')
   }
 
   const onCloseBoxesModal = () => {
     setOpenModal()
-    setBoxBody({shippingLabel: '', warehouse: '', deliveryMethod: '', tmpShippingLabel: []})
+    setBoxBody({shippingLabel: '', destinationId: '', logicsTariffId: '', tmpShippingLabel: []})
     setComment('')
   }
 
@@ -65,6 +74,24 @@ export const MergeBoxesModal = ({
     setBoxBody(newFormFields)
   }
 
+  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
+
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
+    setBoxBody({...boxBody, storekeeperId, logicsTariffId: tariffId})
+
+    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+  }
+
+  const isDifferentStorekeepers = selectedBoxes.some(el => el.storekeeper._id !== selectedBoxes[0].storekeeper._id)
+
+  const disabledSubmit =
+    requestStatus === loadingStatuses.isLoading ||
+    boxBody.destinationId === '' ||
+    boxBody.logicsTariffId === '' ||
+    selectedBoxes.length < 2 ||
+    (boxBody.shippingLabel.length < 5 && boxBody.shippingLabel.length > 0) ||
+    isDifferentStorekeepers
+
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.mainWrapper}>
@@ -79,50 +106,50 @@ export const MergeBoxesModal = ({
         <Typography>{textConsts.attention}</Typography>
 
         <div>
-          <InputLabel className={classNames.modalText}>{textConsts.warehouse}</InputLabel>
+          <InputLabel className={classNames.modalText}>{'Destination'}</InputLabel>
+
           <NativeSelect
             variant="filled"
-            value={boxBody.warehouse}
-            className={classNames.nativeSelect}
+            inputProps={{
+              name: 'destinationId',
+              id: 'destinationId',
+            }}
+            className={classNames.destinationSelect}
             input={<Input />}
-            onChange={e => setBoxBody({...boxBody, warehouse: e.target.value})}
+            onChange={e => setBoxBody({...boxBody, destinationId: e.target.value})}
           >
-            <option>{textConsts.valueNone}</option>
-            {Object.keys(warehouses).map((warehouseCode, warehouseIndex) => {
-              const warehouseKey = warehouses[warehouseCode]
-              return (
-                <option key={warehouseIndex} value={warehouseCode}>
-                  {warehouseKey}
-                </option>
-              )
-            })}
-          </NativeSelect>
-        </div>
-        <div>
-          <InputLabel className={classNames.modalText}>{textConsts.deliveryMethod}</InputLabel>
-          <NativeSelect
-            variant="filled"
-            value={boxBody.deliveryMethod}
-            className={classNames.nativeSelect}
-            input={<Input />}
-            onChange={e => setBoxBody({...boxBody, deliveryMethod: e.target.value})}
-          >
-            <option>{textConsts.valueNone}</option>
-            {Object.keys(DeliveryTypeByCode).map((deliveryCode, deliveryIndex) => (
-              <option key={deliveryIndex} value={deliveryCode}>
-                {getDeliveryOptionByCode(deliveryCode).label}
+            <option value={'none'}>{'none'}</option>
+
+            {destinations.map(item => (
+              <option key={item._id} value={item._id}>
+                {item.name}
               </option>
             ))}
           </NativeSelect>
         </div>
 
-        {/* <Field
-          multiline
-          label={textConsts.shippingLabel}
-          value={boxBody.shippingLabel}
-          error={boxBody.shippingLabel.length < 5 && boxBody.shippingLabel.length > 0 && textConsts.shippingLabelError}
-          onChange={e => setBoxBody({...boxBody, shippingLabel: e.target.value.replace(' ', '')})}
-        /> */}
+        <div>
+          <InputLabel className={classNames.modalText}>{'Storekeeper / Tariff'}</InputLabel>
+
+          <Button
+            disableElevation
+            color="primary"
+            variant={boxBody.logicsTariffId && 'text'}
+            className={clsx({[classNames.storekeeperBtn]: !boxBody.logicsTariffId})}
+            onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+          >
+            {boxBody.logicsTariffId
+              ? `${storekeepers.find(el => el._id === boxBody.storekeeperId).name} /  
+                ${
+                  boxBody.logicsTariffId
+                    ? storekeepers
+                        .find(el => el._id === boxBody.storekeeperId)
+                        .tariffLogistics.find(el => el._id === boxBody.logicsTariffId).name
+                    : 'none'
+                }`
+              : 'Выбрать'}
+          </Button>
+        </div>
 
         <div>
           <Typography className={classNames.linkTitle}>{'Шиппинг лейбл:'}</Typography>
@@ -158,15 +185,14 @@ export const MergeBoxesModal = ({
           value={comment}
           onChange={e => setComment(e.target.value)}
         />
+
+        {isDifferentStorekeepers && (
+          <Typography className={classNames.attentionDifStorekeepers}>{textConsts.attentionDifStorekeepers}</Typography>
+        )}
+
         <div className={classNames.buttonsWrapper}>
           <Button
-            disabled={
-              requestStatus === loadingStatuses.isLoading ||
-              boxBody.warehouse === '' ||
-              boxBody.deliveryMethod === '' ||
-              selectedBoxes.length < 2 ||
-              (boxBody.shippingLabel.length < 5 && boxBody.shippingLabel.length > 0)
-            }
+            disabled={disabledSubmit}
             color="primary"
             variant="contained"
             className={classNames.button}
@@ -202,6 +228,18 @@ export const MergeBoxesModal = ({
             setShowSetShippingLabelModal(!showSetShippingLabelModal)
           }}
           onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+        />
+      </Modal>
+
+      <Modal
+        openModal={showSelectionStorekeeperAndTariffModal}
+        setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+      >
+        <SelectStorekeeperAndTariffForm
+          storekeepers={storekeepers}
+          curStorekeeperId={boxBody.storekeeperId}
+          curTariffId={boxBody.logicsTariffId}
+          onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
       </Modal>
     </Modal>

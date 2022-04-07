@@ -24,8 +24,6 @@ class InlineObject3 {
      * Схема динамических настроек.
      * @alias module:model/InlineObject3
      * @param yuanToDollarRate {Number} Курс юаня к доллару.
-     * @param airDeliveryPrice {Number} Цена за авиа доставку, доллар/кг.
-     * @param seaDeliveryPrice {Number} Цена за доставку морем, доллар/кг.
      * @param costOfFindingSupplier {Number} Цена за поиск поставщика, оплата байеру, в долларах.
      * @param deadlineForFindingSupplier {Number} Дедлайна на поиск поставщика., в часах.
      * @param requestMinAmountPriceOfProposal {Number} Минимальная цена за предложение к заявке, в долларах.
@@ -34,9 +32,9 @@ class InlineObject3 {
      * @param requestTimeLimitInHourForCancelingProposalsByClient {Number} Время после которого будет автоматом принято предложение клиентом, в часах.
      * @param requestTimeLimitInHourForCheckingProposalBySuper {Number} Время после которого будет автоматом снят супервизор с проверки предложения, в часах.
      */
-    constructor(yuanToDollarRate, airDeliveryPrice, seaDeliveryPrice, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper) { 
+    constructor(yuanToDollarRate, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper) { 
         
-        InlineObject3.initialize(this, yuanToDollarRate, airDeliveryPrice, seaDeliveryPrice, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper);
+        InlineObject3.initialize(this, yuanToDollarRate, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper);
     }
 
     /**
@@ -44,10 +42,8 @@ class InlineObject3 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, yuanToDollarRate, airDeliveryPrice, seaDeliveryPrice, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper) { 
+    static initialize(obj, yuanToDollarRate, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper) { 
         obj['yuanToDollarRate'] = yuanToDollarRate;
-        obj['airDeliveryPrice'] = airDeliveryPrice;
-        obj['seaDeliveryPrice'] = seaDeliveryPrice;
         obj['costOfFindingSupplier'] = costOfFindingSupplier;
         obj['deadlineForFindingSupplier'] = deadlineForFindingSupplier;
         obj['requestMinAmountPriceOfProposal'] = requestMinAmountPriceOfProposal;
@@ -70,12 +66,6 @@ class InlineObject3 {
 
             if (data.hasOwnProperty('yuanToDollarRate')) {
                 obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
-            }
-            if (data.hasOwnProperty('airDeliveryPrice')) {
-                obj['airDeliveryPrice'] = ApiClient.convertToType(data['airDeliveryPrice'], 'Number');
-            }
-            if (data.hasOwnProperty('seaDeliveryPrice')) {
-                obj['seaDeliveryPrice'] = ApiClient.convertToType(data['seaDeliveryPrice'], 'Number');
             }
             if (data.hasOwnProperty('costOfFindingSupplier')) {
                 obj['costOfFindingSupplier'] = ApiClient.convertToType(data['costOfFindingSupplier'], 'Number');
@@ -101,6 +91,9 @@ class InlineObject3 {
             if (data.hasOwnProperty('requestTimeLimitInHourForCheckingProposalBySuper')) {
                 obj['requestTimeLimitInHourForCheckingProposalBySuper'] = ApiClient.convertToType(data['requestTimeLimitInHourForCheckingProposalBySuper'], 'Number');
             }
+            if (data.hasOwnProperty('volumeWeightCoefficient')) {
+                obj['volumeWeightCoefficient'] = ApiClient.convertToType(data['volumeWeightCoefficient'], 'Number');
+            }
         }
         return obj;
     }
@@ -113,18 +106,6 @@ class InlineObject3 {
  * @member {Number} yuanToDollarRate
  */
 InlineObject3.prototype['yuanToDollarRate'] = undefined;
-
-/**
- * Цена за авиа доставку, доллар/кг.
- * @member {Number} airDeliveryPrice
- */
-InlineObject3.prototype['airDeliveryPrice'] = undefined;
-
-/**
- * Цена за доставку морем, доллар/кг.
- * @member {Number} seaDeliveryPrice
- */
-InlineObject3.prototype['seaDeliveryPrice'] = undefined;
 
 /**
  * Цена за поиск поставщика, оплата байеру, в долларах.
@@ -173,6 +154,12 @@ InlineObject3.prototype['requestTimeLimitInHourForCancelingProposalsByClient'] =
  * @member {Number} requestTimeLimitInHourForCheckingProposalBySuper
  */
 InlineObject3.prototype['requestTimeLimitInHourForCheckingProposalBySuper'] = undefined;
+
+/**
+ * Коэффициент расчета объемного веса.
+ * @member {Number} volumeWeightCoefficient
+ */
+InlineObject3.prototype['volumeWeightCoefficient'] = undefined;
 
 
 

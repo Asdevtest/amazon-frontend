@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 
 /**
  * The InlineObject36 model module.
@@ -22,10 +23,12 @@ class InlineObject36 {
     /**
      * Constructs a new <code>InlineObject36</code>.
      * @alias module:model/InlineObject36
+     * @param productId {String} 
+     * @param warehouseStocks {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} 
      */
-    constructor() { 
+    constructor(productId, warehouseStocks) { 
         
-        InlineObject36.initialize(this);
+        InlineObject36.initialize(this, productId, warehouseStocks);
     }
 
     /**
@@ -33,7 +36,9 @@ class InlineObject36 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productId, warehouseStocks) { 
+        obj['productId'] = productId;
+        obj['warehouseStocks'] = warehouseStocks;
     }
 
     /**
@@ -47,11 +52,11 @@ class InlineObject36 {
         if (data) {
             obj = obj || new InlineObject36();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('warehouseStocks')) {
+                obj['warehouseStocks'] = ApiClient.convertToType(data['warehouseStocks'], [ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]);
             }
         }
         return obj;
@@ -61,16 +66,14 @@ class InlineObject36 {
 }
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * @member {String} productId
  */
-InlineObject36.prototype['reason'] = undefined;
+InlineObject36.prototype['productId'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * @member {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} warehouseStocks
  */
-InlineObject36.prototype['linksToMediaFiles'] = undefined;
+InlineObject36.prototype['warehouseStocks'] = undefined;
 
 
 

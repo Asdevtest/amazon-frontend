@@ -18,7 +18,7 @@ import {useClassNames} from './task-info-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').taskInfoModal
 
-export const TaskInfoModal = observer(({openModal, setOpenModal, task}) => {
+export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
 
   const [showImageModal, setShowImageModal] = useState(false)
@@ -94,6 +94,7 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task}) => {
         )}
 
         <BeforeAfterInfoTaskBlock
+          volumeWeightCoefficient={volumeWeightCoefficient}
           beforeBoxes={task.boxesBefore}
           afterBoxes={task.boxes}
           taskType={task.operationType}

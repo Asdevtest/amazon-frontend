@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineObject12 from './InlineObject12';
 
 /**
  * The InlineObject57 model module.
@@ -47,14 +48,8 @@ class InlineObject57 {
         if (data) {
             obj = obj || new InlineObject57();
 
-            if (data.hasOwnProperty('result')) {
-                obj['result'] = ApiClient.convertToType(data['result'], 'String');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject12]);
             }
         }
         return obj;
@@ -64,22 +59,10 @@ class InlineObject57 {
 }
 
 /**
- * Результат работы исполнителя.
- * @member {String} result
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject12>} additionalBoxes
  */
-InlineObject57.prototype['result'] = undefined;
-
-/**
- * Комментарии исполнителя.
- * @member {String} comment
- */
-InlineObject57.prototype['comment'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject57.prototype['linksToMediaFiles'] = undefined;
+InlineObject57.prototype['additionalBoxes'] = undefined;
 
 
 

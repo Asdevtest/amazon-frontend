@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {texts} from '@constants/texts'
 
 import {BuyerModel} from '@models/buyer-model'
 import {SettingsModel} from '@models/settings-model'
@@ -10,7 +11,10 @@ import {buyerFreeOrdersViewColumns} from '@components/table-columns/buyer/buyer-
 
 import {buyerVacantOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+
+const textConsts = getLocalizedTexts(texts, 'ru').freeOrdersView
 
 export class BuyerFreeOrdersViewModel {
   history = undefined
@@ -22,6 +26,8 @@ export class BuyerFreeOrdersViewModel {
   drawerOpen = false
   showBarcodeModal = false
   showOrderModal = false
+
+  warningTitle = ''
 
   rowHandlers = {
     onClickTableRowBtn: item => this.onClickTableRowBtn(item),
@@ -132,11 +138,20 @@ export class BuyerFreeOrdersViewModel {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       await BuyerModel.pickupOrder(order.originalData._id)
+
+      this.warningTitle = textConsts.warningTitleSuccess
+
       this.onTriggerOpenModal('showWarningModal')
       this.setActionStatus(loadingStatuses.success)
       this.loadData()
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
+
+      this.warningTitle = textConsts.warningTitleFail
+
+      this.onTriggerOpenModal('showWarningModal')
+
+      this.loadData()
       console.log(error)
     }
   }

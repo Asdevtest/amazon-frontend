@@ -78,6 +78,37 @@ class BuyerModelStatic {
 
     return response
   }
+
+  editOrder = async (id, data) => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidEditPatch(id, {
+      body: data,
+    })
+    return response
+  }
+
+  setOrderTotalPriceChanged = async (id, data) => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(id, {
+      body: data,
+    })
+    return response
+  }
+
+  orderPayToSupplier = async id => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidPayToSupplierPatch(id)
+    return response
+  }
+
+  orderTrackNumberIssued = async id => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidTrackNumberIssuedPatch(id)
+    return response
+  }
+
+  returnOrder = async (id, data) => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidReturnOrderPatch(id, {
+      body: data,
+    })
+    return response
+  }
 }
 
 export const BuyerModel = new BuyerModelStatic()

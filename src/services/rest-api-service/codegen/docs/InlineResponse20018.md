@@ -4,7 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**proposal** | [**InlineResponse20011**](InlineResponse20011.md) |  | [optional] 
-**details** | [**ApiV1RequestProposalsCustomByRequestIdGuidDetails**](ApiV1RequestProposalsCustomByRequestIdGuidDetails.md) |  | [optional] 
+**_id** | **String** | GUID сторкипера в DB | 
+**name** | **String** | Имя сторкипера. | [optional] 
+**tariffLogistics** | [**[ApiV1BoxesLogicsTariff]**](ApiV1BoxesLogicsTariff.md) | Тарифы логистики для сторкипера. | [optional] 
+**tariffWarehouses** | [**[ApiV1StorekeepersTariffWarehouses]**](ApiV1StorekeepersTariffWarehouses.md) | Тарифы складов для сторкипера. | [optional] 
+**boxesCount** | **Number** | Количество коробок в сторкепере. | [optional] 
 
 

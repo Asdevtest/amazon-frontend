@@ -18,7 +18,7 @@ import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 
-import {checkIsClient, checkIsSupervisor, checkIsAdmin, checkIsResearcher} from '@utils/checks'
+import {checkIsClient, checkIsSupervisor, checkIsAdmin, checkIsResearcher, checkIsBuyer} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 
@@ -35,7 +35,15 @@ const clientToEditStatuses = [
 ]
 
 export const FieldsAndSuppliers = observer(
-  ({curUserRole, onChangeField, product, productBase, onClickSupplierBtns, selectedSupplier}) => {
+  ({
+    curUserRole,
+    onChangeField,
+    product,
+    productBase,
+    onClickSupplierBtns,
+    selectedSupplier,
+    formFieldsValidationErrors,
+  }) => {
     const classNames = useClassNames()
 
     const [skuLine, setSkuLine] = useState('')
@@ -55,6 +63,22 @@ export const FieldsAndSuppliers = observer(
     const isSupplierAcceptRevokeActive =
       selectedSupplier && product.currentSupplierId && product.currentSupplierId === selectedSupplier._id
 
+    const showActionBtns =
+      (checkIsSupervisor(curUserRole) &&
+        productBase.status !== ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP] &&
+        checkIsSupervisor(curUserRole) &&
+        productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
+      (checkIsSupervisor(curUserRole) &&
+        productBase.status >= ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
+        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS]) ||
+      (checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)) ||
+      (checkIsResearcher(curUserRole) &&
+        productBase.status < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) ||
+      (checkIsBuyer(curUserRole) && productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
+      (checkIsBuyer(curUserRole) &&
+        productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
+        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
+
     return (
       <Grid item xs={12}>
         <Box className={classNames.productFieldBox}>
@@ -63,9 +87,13 @@ export const FieldsAndSuppliers = observer(
               !(
                 checkIsClient(curUserRole) &&
                 product.isCreatedByClient &&
-                clientToEditStatuses.includes(productBase.status)
+                clientToEditStatuses.includes(productBase.status) &&
+                checkIsClient(curUserRole) &&
+                !product.archive
               )
             }
+            inputProps={{maxLength: 254}}
+            error={formFieldsValidationErrors.asin}
             label={textConsts.fieldAsin}
             value={product.asin}
             onChange={onChangeField('asin')}
@@ -81,6 +109,7 @@ export const FieldsAndSuppliers = observer(
 
                 {checkIsClient(curUserRole) &&
                   product.isCreatedByClient &&
+                  !product.archive &&
                   clientToEditStatuses.includes(productBase.status) && (
                     <Input
                       disabled={!checkIsClient(curUserRole)}
@@ -118,6 +147,7 @@ export const FieldsAndSuppliers = observer(
 
                   {checkIsClient(curUserRole) &&
                     product.isCreatedByClient &&
+                    !product.archive &&
                     clientToEditStatuses.includes(productBase.status) && (
                       <div className={classNames.inputWrapper}>
                         <Input
@@ -125,7 +155,7 @@ export const FieldsAndSuppliers = observer(
                           inputProps={{maxLength: 1000}}
                           value={skuLine}
                           className={classNames.input}
-                          onChange={e => setSkuLine(e.target.value)}
+                          onChange={e => setSkuLine(e.target.value.replace(/ /g, ''))}
                         />
                         <Button
                           disableElevation
@@ -156,7 +186,9 @@ export const FieldsAndSuppliers = observer(
                     checkIsResearcher(curUserRole) ||
                     (checkIsClient(curUserRole) &&
                       product.isCreatedByClient &&
-                      clientToEditStatuses.includes(productBase.status))
+                      clientToEditStatuses.includes(productBase.status) &&
+                      checkIsClient(curUserRole) &&
+                      !product.archive)
                   )
                 }
                 color="primary"
@@ -174,7 +206,9 @@ export const FieldsAndSuppliers = observer(
                     checkIsResearcher(curUserRole) ||
                     (checkIsClient(curUserRole) &&
                       product.isCreatedByClient &&
-                      clientToEditStatuses.includes(productBase.status))
+                      clientToEditStatuses.includes(productBase.status) &&
+                      checkIsClient(curUserRole) &&
+                      !product.archive)
                   )
                 }
                 color="primary"
@@ -193,7 +227,9 @@ export const FieldsAndSuppliers = observer(
                   checkIsResearcher(curUserRole) ||
                   (checkIsClient(curUserRole) &&
                     product.isCreatedByClient &&
-                    clientToEditStatuses.includes(productBase.status))
+                    clientToEditStatuses.includes(productBase.status) &&
+                    checkIsClient(curUserRole) &&
+                    !product.archive)
                 )
               }
               value={product.strategyStatus}
@@ -215,7 +251,10 @@ export const FieldsAndSuppliers = observer(
           <Typography variant="h4" className={classNames.supplierTitle}>
             {textConsts.supplierTitle}
           </Typography>
+
           {!(
+            !showActionBtns ||
+            (checkIsClient(curUserRole) && product.archive) ||
             (checkIsClient(curUserRole) && !product.isCreatedByClient) ||
             (checkIsClient(curUserRole) && !clientToEditStatuses.includes(productBase.status)) ||
             checkIsSupervisor(curUserRole) ||

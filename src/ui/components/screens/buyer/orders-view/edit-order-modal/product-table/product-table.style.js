@@ -68,7 +68,7 @@ export const useClassNames = makeStyles(() => ({
   },
   suplierLinkCell: {
     maxWidth: '400px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
   amazonTitle: {
     maxWidth: '350px',
@@ -80,7 +80,7 @@ export const useClassNames = makeStyles(() => ({
   link: {
     width: '250px',
     height: '50px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
     whiteSpace: 'nowrap',
   },
 }))

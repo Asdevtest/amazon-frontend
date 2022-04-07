@@ -36,6 +36,7 @@ Name | Type | Description | Notes
 **updatedAt** | **Date** | Дата обновления | [optional] 
 **clientId** | **String** | Клиент кто или для кого создана коробка. | [optional] 
 **storekeeper** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**logicsTariffId** | **String** | GUID тарифа доставки. | [optional] 
 **buyerId** | **String** | Байер взявший коробку в работу. | [optional] 
 **lastModifiedBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
 **scheduledDispatchDate** | **Date** | Запланированная дата отправки. | [optional] 
@@ -45,5 +46,6 @@ Name | Type | Description | Notes
 **images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 **sendToBatchRequest** | **Boolean** | Сделан ли запрос на отправку коробки в партию. | [optional] 
 **sendToBatchComplete** | **Boolean** | Отправлена ли коробка в партию. | [optional] 
+**batchId** | **String** | GUID партии в БД | [optional] 
 
 

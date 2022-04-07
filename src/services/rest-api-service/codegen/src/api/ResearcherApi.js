@@ -15,12 +15,11 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject46 from '../model/InlineObject46';
-import InlineObject47 from '../model/InlineObject47';
+import InlineObject52 from '../model/InlineObject52';
+import InlineObject53 from '../model/InlineObject53';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse20014 from '../model/InlineResponse20014';
-import InlineResponse20015 from '../model/InlineResponse20015';
-import InlineResponse2014 from '../model/InlineResponse2014';
+import InlineResponse20016 from '../model/InlineResponse20016';
+import InlineResponse2015 from '../model/InlineResponse2015';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -50,7 +49,7 @@ export default class ResearcherApi {
      * @param {String} asin ASIN для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20014} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20016} and HTTP response
      */
     apiV1ResearchersCheckProductsAsinGetWithHttpInfo(asin, opts) {
       opts = opts || {};
@@ -74,7 +73,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20014;
+      let returnType = InlineResponse20016;
       return this.apiClient.callApi(
         '/api/v1/researchers/check_products/{asin}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -88,117 +87,10 @@ export default class ResearcherApi {
      * @param {String} asin ASIN для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20014}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20016}
      */
     apiV1ResearchersCheckProductsAsinGet(asin, opts) {
       return this.apiV1ResearchersCheckProductsAsinGetWithHttpInfo(asin, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Получить данные о продукте с сайта Амазон по id(asin)
-     * Получить данные о продукте с сайта Амазон по id(asin)  
-     * @param {String} id id(asin) для проверки
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, {String: Object}>} and HTTP response
-     */
-    apiV1ResearchersParseAmazonIdGetWithHttpInfo(id, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling apiV1ResearchersParseAmazonIdGet");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = {'String': Object};
-      return this.apiClient.callApi(
-        '/api/v1/researchers/parse_amazon/{id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Получить данные о продукте с сайта Амазон по id(asin)
-     * Получить данные о продукте с сайта Амазон по id(asin)  
-     * @param {String} id id(asin) для проверки
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, {String: Object}>}
-     */
-    apiV1ResearchersParseAmazonIdGet(id, opts) {
-      return this.apiV1ResearchersParseAmazonIdGetWithHttpInfo(id, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Получить данные о продукте с SellerCentral
-     * Получить данные о продукте с SellerCentral  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.asin ASIN продукта
-     * @param {Number} opts.price Цена продукта.
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20015} and HTTP response
-     */
-    apiV1ResearchersParseSellercentralGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-        'asin': opts['asin'],
-        'price': opts['price']
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = InlineResponse20015;
-      return this.apiClient.callApi(
-        '/api/v1/researchers/parse_sellercentral', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Получить данные о продукте с SellerCentral
-     * Получить данные о продукте с SellerCentral  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.asin ASIN продукта
-     * @param {Number} opts.price Цена продукта.
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20015}
-     */
-    apiV1ResearchersParseSellercentralGet(opts) {
-      return this.apiV1ResearchersParseSellercentralGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -366,7 +258,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject47} opts.body 
+     * @param {module:model/InlineObject53} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -405,7 +297,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject47} opts.body 
+     * @param {module:model/InlineObject53} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ResearchersProductsGuidPatch(guid, opts) {
@@ -421,8 +313,8 @@ export default class ResearcherApi {
      * ## Добавить новый продукт.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject46} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
+     * @param {module:model/InlineObject52} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
     apiV1ResearchersProductsPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -441,7 +333,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2014;
+      let returnType = InlineResponse2015;
       return this.apiClient.callApi(
         '/api/v1/researchers/products', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -454,8 +346,8 @@ export default class ResearcherApi {
      * ## Добавить новый продукт.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject46} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
+     * @param {module:model/InlineObject52} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
     apiV1ResearchersProductsPost(opts) {
       return this.apiV1ResearchersProductsPostWithHttpInfo(opts)

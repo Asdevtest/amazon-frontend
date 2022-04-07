@@ -50,11 +50,11 @@ export const BindStockGoodsToInventoryForm = observer(
     const filterByChipConfig = config => {
       switch (config) {
         case chipConfigSettings.RECOMMENDED:
-          return 'id'
+          return 'asin'
         case chipConfigSettings.NAME:
           return 'amazonTitle'
         case chipConfigSettings.ASIN:
-          return 'id'
+          return 'asin'
       }
     }
 
@@ -90,9 +90,9 @@ export const BindStockGoodsToInventoryForm = observer(
     }, [chipConfig])
 
     const onClickSubmit = () => {
-      const selectedSkus = chosenGoods.map(el => el.sku)
+      const selectedWarehouseStocks = chosenGoods.map(el => ({sku: el.sku, shopId: el.shop._id}))
 
-      onSubmit({productId: selectedRow._id, skus: selectedSkus})
+      onSubmit({productId: selectedRow._id, warehouseStocks: selectedWarehouseStocks})
     }
 
     return (
@@ -128,6 +128,7 @@ export const BindStockGoodsToInventoryForm = observer(
           <div className={classNames.searchInputWrapper}>
             <Input
               disabled={chipConfig === chipConfigSettings.RECOMMENDED}
+              inputProps={{maxLength: 200}}
               placeholder={textConsts.searchHolder}
               className={classNames.searchInput}
               value={searchInputValue}

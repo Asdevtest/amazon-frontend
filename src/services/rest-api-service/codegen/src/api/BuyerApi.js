@@ -15,16 +15,15 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject17 from '../model/InlineObject17';
-import InlineObject18 from '../model/InlineObject18';
-import InlineObject19 from '../model/InlineObject19';
-import InlineObject20 from '../model/InlineObject20';
-import InlineObject21 from '../model/InlineObject21';
-import InlineObject22 from '../model/InlineObject22';
+import InlineObject24 from '../model/InlineObject24';
+import InlineObject25 from '../model/InlineObject25';
+import InlineObject26 from '../model/InlineObject26';
+import InlineObject27 from '../model/InlineObject27';
+import InlineObject28 from '../model/InlineObject28';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
-import InlineResponse2006 from '../model/InlineResponse2006';
-import InlineResponse2012 from '../model/InlineResponse2012';
+import InlineResponse2007 from '../model/InlineResponse2007';
+import InlineResponse2014 from '../model/InlineResponse2014';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -49,12 +48,12 @@ export default class BuyerApi {
 
 
     /**
-     * # NEW! Редактировать заказ.
-     * ## NEW! Редактировать заказ.   Данный метод позволяет редактировать все поля кроме status и totalPriceChanged После оплаты поставщику нельзя менять warehouse и deliveryMethod Проверки:  Пока нет проверок
+     * # Редактировать заказ.
+     * ## Редактировать заказ.   Данный метод позволяет редактировать все поля кроме status и totalPriceChanged Проверки:  Пока нет проверок
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject21} opts.body 
+     * @param {module:model/InlineObject27} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersOrdersGuidEditPatchWithHttpInfo(guid, opts) {
@@ -88,12 +87,12 @@ export default class BuyerApi {
     }
 
     /**
-     * # NEW! Редактировать заказ.
-     * ## NEW! Редактировать заказ.   Данный метод позволяет редактировать все поля кроме status и totalPriceChanged После оплаты поставщику нельзя менять warehouse и deliveryMethod Проверки:  Пока нет проверок
+     * # Редактировать заказ.
+     * ## Редактировать заказ.   Данный метод позволяет редактировать все поля кроме status и totalPriceChanged Проверки:  Пока нет проверок
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject21} opts.body 
+     * @param {module:model/InlineObject27} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersOrdersGuidEditPatch(guid, opts) {
@@ -159,64 +158,8 @@ export default class BuyerApi {
 
 
     /**
-     * # deprecated! Редактировать заказ.
-     * ## deprecated!, Редактировать заказ.   Статус 20 и 25 приводит к оплате поставщику.  Только заказы со статусом 15 можно оплачивать. нельзя повторно оплачивать или менять цену после оплаты поставщику (paidAt === null) при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены  при снижении цены автоматическим производиться возврат разницы клиенту.  статус 35 приведет к возврату средств и закрытию заказа, данный статус можно ставить только оплачено поставщику
-     * @param {String} guid GUID заказа, который планируем изменить
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject18} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1BuyersOrdersGuidPatchWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1BuyersOrdersGuidPatch");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/buyers/orders/{guid}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # deprecated! Редактировать заказ.
-     * ## deprecated!, Редактировать заказ.   Статус 20 и 25 приводит к оплате поставщику.  Только заказы со статусом 15 можно оплачивать. нельзя повторно оплачивать или менять цену после оплаты поставщику (paidAt === null) при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены  при снижении цены автоматическим производиться возврат разницы клиенту.  статус 35 приведет к возврату средств и закрытию заказа, данный статус можно ставить только оплачено поставщику
-     * @param {String} guid GUID заказа, который планируем изменить
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject18} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1BuyersOrdersGuidPatch(guid, opts) {
-      return this.apiV1BuyersOrdersGuidPatchWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # NEW! Выставить статус оплачено поставщику.
-     * ## NEW! Выставить статус оплачено поставщику.  При вызове данного метода статус меняется на 20 paid  Снимает средства с замороженных средств клиента и переводятся админу Проверки:  Нельзя повторно оплачивать поставщику. paidAt !== null
+     * # Выставить статус оплачено поставщику.
+     * ## Выставить статус оплачено поставщику.  При вызове данного метода статус меняется на 20 paid  Снимает средства с замороженных средств клиента и переводятся админу Проверки:  Нельзя повторно оплачивать поставщику. paidAt !== null
      * @param {String} guid GUID заказа
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -253,8 +196,8 @@ export default class BuyerApi {
     }
 
     /**
-     * # NEW! Выставить статус оплачено поставщику.
-     * ## NEW! Выставить статус оплачено поставщику.  При вызове данного метода статус меняется на 20 paid  Снимает средства с замороженных средств клиента и переводятся админу Проверки:  Нельзя повторно оплачивать поставщику. paidAt !== null
+     * # Выставить статус оплачено поставщику.
+     * ## Выставить статус оплачено поставщику.  При вызове данного метода статус меняется на 20 paid  Снимает средства с замороженных средств клиента и переводятся админу Проверки:  Нельзя повторно оплачивать поставщику. paidAt !== null
      * @param {String} guid GUID заказа
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -269,12 +212,12 @@ export default class BuyerApi {
 
 
     /**
-     * # NEW! Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.
-     * ## NEW! Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.   При вызове данного метода ставиться статус cancelByBuyer: 35 Средства обратно возвращаются на баланс клиента.  (если оплатили посташику то от баланса админа клиенту, если не было оплаты поставщику, то разморозка средств клиента)  В заявке обнулятся поля totalPrice, totalPriceChanged  Проверки:  Требуется комментарий байера. Нельзя вернуть заказ если заказ закрыт клиентом
+     * # Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.
+     * ## Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.   При вызове данного метода ставиться статус cancelByBuyer: 35 Средства обратно возвращаются на баланс клиента.  (если оплатили посташику то от баланса админа клиенту, если не было оплаты поставщику, то разморозка средств клиента)  Проверки:  Требуется комментарий байера. Нельзя вернуть заказ если заказ закрыт клиентом
      * @param {String} guid GUID заказа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject19} opts.body 
+     * @param {module:model/InlineObject25} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersOrdersGuidReturnOrderPatchWithHttpInfo(guid, opts) {
@@ -308,12 +251,12 @@ export default class BuyerApi {
     }
 
     /**
-     * # NEW! Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.
-     * ## NEW! Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.   При вызове данного метода ставиться статус cancelByBuyer: 35 Средства обратно возвращаются на баланс клиента.  (если оплатили посташику то от баланса админа клиенту, если не было оплаты поставщику, то разморозка средств клиента)  В заявке обнулятся поля totalPrice, totalPriceChanged  Проверки:  Требуется комментарий байера. Нельзя вернуть заказ если заказ закрыт клиентом
+     * # Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.
+     * ## Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.   При вызове данного метода ставиться статус cancelByBuyer: 35 Средства обратно возвращаются на баланс клиента.  (если оплатили посташику то от баланса админа клиенту, если не было оплаты поставщику, то разморозка средств клиента)  Проверки:  Требуется комментарий байера. Нельзя вернуть заказ если заказ закрыт клиентом
      * @param {String} guid GUID заказа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject19} opts.body 
+     * @param {module:model/InlineObject25} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersOrdersGuidReturnOrderPatch(guid, opts) {
@@ -325,12 +268,12 @@ export default class BuyerApi {
 
 
     /**
-     * # NEW! Задать изменение итоговой цены, totalPriceChanged.
-     * ## NEW! Задать изменение итоговой цены, totalPriceChanged.   При повышении цены ставиться статус 19 needConfirmingToPriceChange, далее нужно ожидать подтверждения от клиента.  Если вернуть цену на старое значение, то статус возвращается к 15 atProcess. При понижении цены автоматом происходит возврат разницы клиенту, статус ставится 15 atProcess.  Проверки:  Нельзя менять цену после оплаты поставщику. paidAt !== null
+     * # Задать изменение итоговой цены, totalPriceChanged.
+     * ## Задать изменение итоговой цены, totalPriceChanged.   При повышении цены ставиться статус 19 needConfirmingToPriceChange, далее нужно ожидать подтверждения от клиента.  Если вернуть цену на старое значение, то статус возвращается к 15 atProcess. При понижении цены автоматом происходит возврат разницы клиенту, статус ставится 15 atProcess.  Проверки:  Нельзя менять цену после оплаты поставщику. paidAt !== null
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject20} opts.body 
+     * @param {module:model/InlineObject26} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersOrdersGuidSetTotalPriceChangedPatchWithHttpInfo(guid, opts) {
@@ -364,12 +307,12 @@ export default class BuyerApi {
     }
 
     /**
-     * # NEW! Задать изменение итоговой цены, totalPriceChanged.
-     * ## NEW! Задать изменение итоговой цены, totalPriceChanged.   При повышении цены ставиться статус 19 needConfirmingToPriceChange, далее нужно ожидать подтверждения от клиента.  Если вернуть цену на старое значение, то статус возвращается к 15 atProcess. При понижении цены автоматом происходит возврат разницы клиенту, статус ставится 15 atProcess.  Проверки:  Нельзя менять цену после оплаты поставщику. paidAt !== null
+     * # Задать изменение итоговой цены, totalPriceChanged.
+     * ## Задать изменение итоговой цены, totalPriceChanged.   При повышении цены ставиться статус 19 needConfirmingToPriceChange, далее нужно ожидать подтверждения от клиента.  Если вернуть цену на старое значение, то статус возвращается к 15 atProcess. При понижении цены автоматом происходит возврат разницы клиенту, статус ставится 15 atProcess.  Проверки:  Нельзя менять цену после оплаты поставщику. paidAt !== null
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject20} opts.body 
+     * @param {module:model/InlineObject26} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid, opts) {
@@ -381,8 +324,8 @@ export default class BuyerApi {
 
 
     /**
-     * # NEW! Выставить статус \"выдан трек номер\".
-     * ## NEW! Выставить статус \"выдан трек номер\".  При вызове данного метода статус меняется на 25 trackNumberIssued  Если ранее не была произведена оплата(paidAt === null), то производит оплату:   при оплате снимает средства с замороженных средств клиента и переводит админу Проверки:  пока нет проверок
+     * # Выставить статус \"выдан трек номер\".
+     * ## Выставить статус \"выдан трек номер\".  При вызове данного метода статус меняется на 25 trackNumberIssued  Если ранее не была произведена оплата(paidAt === null), то производит оплату:   при оплате снимает средства с замороженных средств клиента и переводит админу Проверки:  пока нет проверок
      * @param {String} guid GUID заказа
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -419,8 +362,8 @@ export default class BuyerApi {
     }
 
     /**
-     * # NEW! Выставить статус \"выдан трек номер\".
-     * ## NEW! Выставить статус \"выдан трек номер\".  При вызове данного метода статус меняется на 25 trackNumberIssued  Если ранее не была произведена оплата(paidAt === null), то производит оплату:   при оплате снимает средства с замороженных средств клиента и переводит админу Проверки:  пока нет проверок
+     * # Выставить статус \"выдан трек номер\".
+     * ## Выставить статус \"выдан трек номер\".  При вызове данного метода статус меняется на 25 trackNumberIssued  Если ранее не была произведена оплата(paidAt === null), то производит оплату:   при оплате снимает средства с замороженных средств клиента и переводит админу Проверки:  пока нет проверок
      * @param {String} guid GUID заказа
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -538,23 +481,17 @@ export default class BuyerApi {
     /**
      * # Получить список свободных заказов.
      * ## Получить список свободных заказов.   
-     * @param {Boolean} createdWithOutBuyersProducts Добавить ордеры с продуктами в которых не участвовали байеры?
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2001>} and HTTP response
      */
-    apiV1BuyersOrdersVacGetWithHttpInfo(createdWithOutBuyersProducts, opts) {
+    apiV1BuyersOrdersVacGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'createdWithOutBuyersProducts' is set
-      if (createdWithOutBuyersProducts === undefined || createdWithOutBuyersProducts === null) {
-        throw new Error("Missing the required parameter 'createdWithOutBuyersProducts' when calling apiV1BuyersOrdersVacGet");
-      }
 
       let pathParams = {
       };
       let queryParams = {
-        'createdWithOutBuyersProducts': createdWithOutBuyersProducts
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -576,13 +513,12 @@ export default class BuyerApi {
     /**
      * # Получить список свободных заказов.
      * ## Получить список свободных заказов.   
-     * @param {Boolean} createdWithOutBuyersProducts Добавить ордеры с продуктами в которых не участвовали байеры?
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2001>}
      */
-    apiV1BuyersOrdersVacGet(createdWithOutBuyersProducts, opts) {
-      return this.apiV1BuyersOrdersVacGetWithHttpInfo(createdWithOutBuyersProducts, opts)
+    apiV1BuyersOrdersVacGet(opts) {
+      return this.apiV1BuyersOrdersVacGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -595,7 +531,7 @@ export default class BuyerApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject17} opts.body 
+     * @param {module:model/InlineObject24} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -634,7 +570,7 @@ export default class BuyerApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject17} opts.body 
+     * @param {module:model/InlineObject24} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersProductsGuidPatch(guid, opts) {
@@ -693,7 +629,6 @@ export default class BuyerApi {
 
 
     /**
-     * # Закрепить продукт за байером. Взять его в работу.
      * ## Закрепить продукт за байером. Взять его в работу.  
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
@@ -731,7 +666,6 @@ export default class BuyerApi {
     }
 
     /**
-     * # Закрепить продукт за байером. Взять его в работу.
      * ## Закрепить продукт за байером. Взять его в работу.  
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
@@ -855,7 +789,7 @@ export default class BuyerApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2007>} and HTTP response
      */
     apiV1BuyersTasksGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -874,7 +808,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2006];
+      let returnType = [InlineResponse2007];
       return this.apiClient.callApi(
         '/api/v1/buyers/tasks', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -887,7 +821,7 @@ export default class BuyerApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2007>}
      */
     apiV1BuyersTasksGet(opts) {
       return this.apiV1BuyersTasksGetWithHttpInfo(opts)
@@ -902,8 +836,8 @@ export default class BuyerApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject22} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2012} and HTTP response
+     * @param {module:model/InlineObject28} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
      */
     apiV1BuyersTasksPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -922,7 +856,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2012;
+      let returnType = InlineResponse2014;
       return this.apiClient.callApi(
         '/api/v1/buyers/tasks', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -935,8 +869,8 @@ export default class BuyerApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject22} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2012}
+     * @param {module:model/InlineObject28} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
      */
     apiV1BuyersTasksPost(opts) {
       return this.apiV1BuyersTasksPostWithHttpInfo(opts)

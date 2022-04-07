@@ -19,7 +19,7 @@ export const useClassNames = makeStyles(theme => ({
     flexShrink: 0,
   },
   logo: {
-    marginTop: '10px',
+    marginTop: '15px',
     height: '100%',
     transform: 'scale(1.5)',
   },

@@ -115,6 +115,9 @@ class UserAdminFullSchemaWithSubUsers {
             if (data.hasOwnProperty('subUsers')) {
                 obj['subUsers'] = ApiClient.convertToType(data['subUsers'], ['String']);
             }
+            if (data.hasOwnProperty('hideSuppliers')) {
+                obj['hideSuppliers'] = ApiClient.convertToType(data['hideSuppliers'], 'Boolean');
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -229,6 +232,12 @@ UserAdminFullSchemaWithSubUsers.prototype['rating'] = undefined;
  * @member {Array.<String>} subUsers
  */
 UserAdminFullSchemaWithSubUsers.prototype['subUsers'] = undefined;
+
+/**
+ * Скрывать поставщиков от пользователя.
+ * @member {Boolean} hideSuppliers
+ */
+UserAdminFullSchemaWithSubUsers.prototype['hideSuppliers'] = undefined;
 
 /**
  * Дата создания

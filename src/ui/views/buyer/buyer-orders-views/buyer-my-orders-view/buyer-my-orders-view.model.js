@@ -3,11 +3,13 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
 import {BuyerModel} from '@models/buyer-model'
 import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
 
@@ -17,7 +19,6 @@ import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteLi
 import {onSubmitPostImages} from '@utils/upload-files'
 
 const updateOrderKeys = [
-  'status',
   'deliveryMethod',
   'warehouse',
   'barCode',
@@ -26,21 +27,6 @@ const updateOrderKeys = [
   'isBarCodeAlreadyAttachedByTheSupplier',
   'deliveryCostToTheWarehouse',
   'buyerComment',
-  'totalPriceChanged',
-  'images',
-  'yuanToDollarRate',
-]
-
-const updateOrderKeysWithoutStatus = [
-  'deliveryMethod',
-  'warehouse',
-  'barCode',
-  'trackingNumberChina',
-  'amountPaymentPerConsignmentAtDollars',
-  'isBarCodeAlreadyAttachedByTheSupplier',
-  'deliveryCostToTheWarehouse',
-  'buyerComment',
-  'totalPriceChanged',
   'images',
   'yuanToDollarRate',
 ]
@@ -53,6 +39,8 @@ export class BuyerMyOrdersViewModel {
 
   ordersMy = []
   curBoxesOfOrder = []
+
+  volumeWeightCoefficient = undefined
 
   drawerOpen = false
   showBarcodeModal = false
@@ -162,10 +150,19 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  onClickOrder(order) {
-    this.selectedOrder = order.originalData
-    this.getBoxesOfOrder(order.originalData._id)
-    this.onTriggerOpenModal('showOrderModal')
+  async onClickOrder(order) {
+    try {
+      this.selectedOrder = order.originalData
+      this.getBoxesOfOrder(order.originalData._id)
+
+      const result = await UserModel.getPlatformSettings()
+
+      this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+      this.onTriggerOpenModal('showOrderModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad) {
@@ -174,44 +171,61 @@ export class BuyerMyOrdersViewModel {
 
       const isMismatchOrderPrice = orderFields.totalPriceChanged - orderFields.totalPrice > 0
 
-      await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
+      if (isMismatchOrderPrice) {
+        this.onTriggerOpenModal('showOrderPriceMismatchModal')
+      }
+
+      this.readyImages = []
+      if (photosToLoad.length) {
+        await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
+      }
 
       orderFields = {
         ...orderFields,
         images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
       }
 
-      await this.onSaveOrder(order, orderFields, isMismatchOrderPrice)
+      await this.onSaveOrder(order, orderFields)
 
       if (boxesForCreation.length > 0 && !isMismatchOrderPrice) {
         await this.onSubmitCreateBoxes(order, boxesForCreation)
       }
 
+      if (orderFields.totalPriceChanged !== order.totalPriceChanged && isMismatchOrderPrice) {
+        await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
+      } else {
+        if (orderFields.totalPriceChanged !== order.totalPriceChanged) {
+          await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
+        }
+
+        if (orderFields.status === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`) {
+          await BuyerModel.orderPayToSupplier(order._id)
+        }
+
+        if (orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`) {
+          await BuyerModel.orderTrackNumberIssued(order._id)
+        }
+
+        if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
+          await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
+        }
+      }
+
       this.setRequestStatus(loadingStatuses.success)
       this.onTriggerOpenModal('showOrderModal')
+
+      this.loadData()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
 
-  async onSaveOrder(order, updateOrderData, isMismatchOrderPrice) {
+  async onSaveOrder(order, updateOrderData) {
     try {
-      if (isMismatchOrderPrice) {
-        this.onTriggerOpenModal('showOrderPriceMismatchModal')
-      }
+      const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(updateOrderData, updateOrderKeys, true)
 
-      const updateOrderDataFiltered = {
-        ...getObjectFilteredByKeyArrayWhiteList(
-          updateOrderData,
-          isMismatchOrderPrice ? updateOrderKeysWithoutStatus : updateOrderKeys,
-          true,
-        ),
-        totalPriceChanged: parseFloat(updateOrderData?.totalPriceChanged) || 0,
-      }
-      await BuyerModel.updateOrder(order._id, updateOrderDataFiltered)
-
-      this.loadData()
+      await BuyerModel.editOrder(order._id, updateOrderDataFiltered)
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
@@ -250,14 +264,18 @@ export class BuyerMyOrdersViewModel {
           'tmpDeliveryMethod',
           'tmpStatus',
           'weightFinalAccountingKgSupplier',
+
+          'deliveryMethod',
+          'volumeWeightKgSupplier',
+          'warehouse',
         ]),
         clientId: this.selectedOrder.createdBy._id,
-        deliveryMethod: formFields.deliveryMethod,
+        // deliveryMethod: formFields.deliveryMethod,
         lengthCmSupplier: parseFloat(formFields?.lengthCmSupplier) || 0,
         widthCmSupplier: parseFloat(formFields?.widthCmSupplier) || 0,
         heightCmSupplier: parseFloat(formFields?.heightCmSupplier) || 0,
         weighGrossKgSupplier: parseFloat(formFields?.weighGrossKgSupplier) || 0,
-        volumeWeightKgSupplier: parseFloat(formFields?.volumeWeightKgSupplier) || 0,
+        // volumeWeightKgSupplier: parseFloat(formFields?.volumeWeightKgSupplier) || 0,
         items: [
           {
             productId: formFields.items[0].product._id,

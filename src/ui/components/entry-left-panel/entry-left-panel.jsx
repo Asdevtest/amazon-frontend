@@ -15,15 +15,13 @@ export const EntryLeftPanel = () => {
   return (
     <div className={classNames.leftPanel}>
       <div className={classNames.header}>
-        <Typography>{textConsts.companyName}</Typography>
+        <img className={classNames.logo} alt="company logo" src={'/assets/icons/logo-var-2.svg'} />
       </div>
       <div className={classNames.main}>
         <Typography className={classNames.title}>{textConsts.greetingTitle}</Typography>
         <Typography className={classNames.subtitle}>{textConsts.greetingSubtitle}</Typography>
       </div>
-      <div className={classNames.footer}>
-        <Typography>{textConsts.footer}</Typography>
-      </div>
+      <div className={classNames.footer}></div>
     </div>
   )
 }

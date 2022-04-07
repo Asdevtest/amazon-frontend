@@ -123,8 +123,14 @@ export const useClassNames = makeStyles(() => ({
   },
   buttonDelete: {
     flexGrow: 1,
+    marginLeft: '15px',
   },
   errorActive: {
     borderColor: 'red',
+  },
+
+  restoreBtn: {
+    flexGrow: 1,
+    marginLeft: '15px',
   },
 }))

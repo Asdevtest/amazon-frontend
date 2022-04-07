@@ -54,6 +54,7 @@ export class SupervisorProductView extends Component {
       handleProductActionButtons,
       onTriggerOpenModal,
       onSaveProductData,
+      onClickParseProductData,
     } = this.viewModel
 
     return (
@@ -80,6 +81,7 @@ export class SupervisorProductView extends Component {
                   onClickSetProductStatusBtn={onClickSetProductStatusBtn}
                   onClickSupplier={onChangeSelectedSupplier}
                   onChangeField={onChangeProductFields}
+                  onClickParseProductData={onClickParseProductData}
                 />
               ) : undefined}
             </MainContent>

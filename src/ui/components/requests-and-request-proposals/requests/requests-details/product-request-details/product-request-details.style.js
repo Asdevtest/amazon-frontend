@@ -42,7 +42,7 @@ export const useClassNames = makeStyles(() => ({
   clientComment: {
     minHeight: '100px',
     maxHeight: '300px',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
 
   defaultBlock: {

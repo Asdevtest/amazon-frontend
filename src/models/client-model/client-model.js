@@ -77,8 +77,8 @@ class ClientModelStatic {
     return response
   }
 
-  getLightTasks = async () => {
-    const response = await restApiService.clientApi.apiV1ClientsTasksLightGet()
+  getTasks = async data => {
+    const response = await restApiService.clientApi.apiV1ClientsTasksGet(data)
     return response
   }
 
@@ -141,6 +141,11 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1ClientsProductsGuidChangeBarCodePatch(id, {
       body: data,
     })
+    return response
+  }
+
+  getDestinations = async () => {
+    const response = await restApiService.clientApi.apiV1ClientsWarehouseGet()
     return response
   }
 }

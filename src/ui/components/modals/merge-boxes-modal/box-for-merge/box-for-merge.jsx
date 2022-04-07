@@ -82,6 +82,12 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
           </NativeSelect>
         </div>
 
+        <div>
+          <InputLabel className={classNames.modalText}>{textConsts.storekeeper}</InputLabel>
+
+          <Typography variant="h6">{box.storekeeper?.name}</Typography>
+        </div>
+
         <IconButton onClick={() => onRemoveBox(box._id)}>
           <DeleteIcon className={classNames.deleteBtn} />
         </IconButton>

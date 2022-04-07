@@ -4,6 +4,7 @@ import {WarehouseDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
+import {BatchesModel} from '@models/batches-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
@@ -57,7 +58,7 @@ export class WarehouseDashboardViewModel {
 
   async getTasksVacant() {
     try {
-      const result = await StorekeeperModel.getTasksVacant()
+      const result = await StorekeeperModel.getLightTasksVacant()
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,
@@ -74,7 +75,7 @@ export class WarehouseDashboardViewModel {
 
   async getTasksMy() {
     try {
-      const result = await StorekeeperModel.getTasksMy()
+      const result = await StorekeeperModel.getLightTasksMy()
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,
@@ -114,7 +115,7 @@ export class WarehouseDashboardViewModel {
 
   async getBatches() {
     try {
-      const result = await StorekeeperModel.getBatches()
+      const result = await BatchesModel.getBatches()
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,

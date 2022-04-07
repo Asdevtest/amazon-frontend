@@ -39,38 +39,40 @@ export const AdminSettingsForm = observer(() => {
 
   useEffect(() => {
     const sourceFormFields = {
-      airDeliveryPrice: adminSettings?.dynamicSettings?.airDeliveryPrice || '',
-      costOfFindingSupplier: adminSettings?.dynamicSettings?.costOfFindingSupplier || '',
-      deadlineForFindingSupplier: adminSettings?.dynamicSettings?.deadlineForFindingSupplier || '',
-      requestMinAmountPriceOfProposal: adminSettings?.dynamicSettings?.requestMinAmountPriceOfProposal || '',
-      requestPlatformMarginInPercent: adminSettings?.dynamicSettings?.requestPlatformMarginInPercent || '',
-      requestSupervisorFeeInPercent: adminSettings?.dynamicSettings?.requestSupervisorFeeInPercent || '',
+      airDeliveryPrice: adminSettings?.dynamicSettings?.airDeliveryPrice || 0,
+      costOfFindingSupplier: adminSettings?.dynamicSettings?.costOfFindingSupplier || 0,
+      deadlineForFindingSupplier: adminSettings?.dynamicSettings?.deadlineForFindingSupplier || 0,
+      requestMinAmountPriceOfProposal: adminSettings?.dynamicSettings?.requestMinAmountPriceOfProposal || 0,
+      requestPlatformMarginInPercent: adminSettings?.dynamicSettings?.requestPlatformMarginInPercent || 0,
+      requestSupervisorFeeInPercent: adminSettings?.dynamicSettings?.requestSupervisorFeeInPercent || 0,
       requestTimeLimitInHourForCancelingProposalsByClient:
-        adminSettings?.dynamicSettings?.requestTimeLimitInHourForCancelingProposalsByClient || '',
+        adminSettings?.dynamicSettings?.requestTimeLimitInHourForCancelingProposalsByClient || 0,
       requestTimeLimitInHourForCheckingProposalBySuper:
-        adminSettings?.dynamicSettings?.requestTimeLimitInHourForCheckingProposalBySuper || '',
+        adminSettings?.dynamicSettings?.requestTimeLimitInHourForCheckingProposalBySuper || 0,
 
-      seaDeliveryPrice: adminSettings?.dynamicSettings?.seaDeliveryPrice || '',
-      yuanToDollarRate: adminSettings?.dynamicSettings?.yuanToDollarRate || '',
-      costOfCheckingProduct: adminSettings?.dynamicSettings?.costOfCheckingProduct || '',
+      seaDeliveryPrice: adminSettings?.dynamicSettings?.seaDeliveryPrice || 0,
+      yuanToDollarRate: adminSettings?.dynamicSettings?.yuanToDollarRate || 0,
+      costOfCheckingProduct: adminSettings?.dynamicSettings?.costOfCheckingProduct || 0,
+      volumeWeightCoefficient: adminSettings?.dynamicSettings?.volumeWeightCoefficient || 0,
     }
 
     setFormFields(sourceFormFields)
   }, [adminSettings])
 
-  const dataKeys = [
-    'yuanToDollarRate',
-    'airDeliveryPrice',
-    'seaDeliveryPrice',
-    'costOfFindingSupplier',
-    'costOfCheckingProduct',
-    'requestMinAmountPriceOfProposal',
-    'requestPlatformMarginInPercent',
-    'requestSupervisorFeeInPercent',
-    'requestTimeLimitInHourForCancelingProposalsByClient',
-    'requestTimeLimitInHourForCheckingProposalBySuper',
-    'deadlineForFindingSupplier',
-  ]
+  // const dataKeys = [
+  //   'yuanToDollarRate',
+  //   'airDeliveryPrice',
+  //   'seaDeliveryPrice',
+  //   'costOfFindingSupplier',
+  //   'costOfCheckingProduct',
+  //   'requestMinAmountPriceOfProposal',
+  //   'requestPlatformMarginInPercent',
+  //   'requestSupervisorFeeInPercent',
+  //   'requestTimeLimitInHourForCancelingProposalsByClient',
+  //   'requestTimeLimitInHourForCheckingProposalBySuper',
+  //   'deadlineForFindingSupplier',
+  //   'volumeWeightCoefficient'
+  // ]
 
   const onCreateSubmit = () => {
     // if (!adminSettings) { // ЕСЛИ НУЖНО ОБНОВЛЯТЬ ОТДЕЛЬНЫЕ КЛЮЧИ
@@ -173,10 +175,17 @@ export const AdminSettingsForm = observer(() => {
         onChange={onChangeField('deadlineForFindingSupplier')}
       />
 
+      <Field
+        label={textConsts.volumeWeightCoefficient}
+        className={classNames.textField}
+        value={formFields.volumeWeightCoefficient}
+        onChange={onChangeField('volumeWeightCoefficient')}
+      />
+
       <div className={classNames.placeAddBtnWrapper}>
         <Button
           disabled={JSON.stringify(adminSettings.dynamicSettings) === JSON.stringify(formFields)}
-          onClick={() => onCreateSubmit(dataKeys)}
+          onClick={() => onCreateSubmit(/* dataKeys*/)}
         >
           {textConsts.saveBtn}
         </Button>
