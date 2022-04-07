@@ -45,9 +45,6 @@ export class MyProposalsViewModel {
   }
 
   onClickEditBtn(request, proposal) {
-    console.log('request', request)
-    console.log('proposal', proposal)
-
     const convertedRequest = {
       details: {conditions: request.detailsCustom.conditions},
       request: {

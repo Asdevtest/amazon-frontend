@@ -84,8 +84,6 @@ export class ClientOrdersNotificationsViewModel {
   }
 
   onTriggerOpenConfirmModal(row) {
-    console.log('row', row)
-
     this.confirmModalSettings = {
       isWarning: false,
       message: `Необходимо доплатить: ${toFixedWithDollarSign(row.totalPriceChanged - row.totalPrice, 2)} ${
