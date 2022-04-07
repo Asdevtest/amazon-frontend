@@ -1,9 +1,11 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {ChatModel} from '@models/chat-model'
 // import {texts} from '@constants/texts'
 import {RequestModel} from '@models/request-model'
+import {UserModel} from '@models/user-model'
 
 // import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -25,12 +27,41 @@ export class RequestDetailCustomViewModel {
     title: '',
   }
 
+  chatSelectedId = undefined
+  chatIsConnected = false
+
   constructor({history, location}) {
     this.history = history
     if (location.state) {
       this.requestId = location.state.requestId
     }
     makeAutoObservable(this, undefined, {autoBind: true})
+    try {
+      if (ChatModel.isConnected) {
+        runInAction(() => {
+          this.chatIsConnected = ChatModel.isConnected
+        })
+      } else {
+        reaction(
+          () => ChatModel.isConnected,
+          isConnected => {
+            if (isConnected) {
+              ChatModel.getChats(this.requestId, 'REQUEST')
+              runInAction(() => {
+                this.chatIsConnected = isConnected
+              })
+            }
+          },
+        )
+      }
+      ChatModel.init()
+    } catch (error) {
+      console.warn(error)
+    }
+  }
+
+  get chats() {
+    return ChatModel.chats || []
   }
 
   async loadData() {
@@ -43,6 +74,29 @@ export class RequestDetailCustomViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+    }
+  }
+
+  get userInfo() {
+    return UserModel.userInfo || {}
+  }
+
+  onClickChat(chat) {
+    if (this.chatSelectedId === chat._id) {
+      this.chatSelectedId = undefined
+    } else {
+      this.chatSelectedId = chat._id
+    }
+  }
+
+  async onSubmitMessage(message, chatIdId) {
+    try {
+      await ChatModel.sendMessage({
+        chatId: chatIdId,
+        text: message,
+      })
+    } catch (error) {
+      console.warn('onSubmitMessage error ', error)
     }
   }
 

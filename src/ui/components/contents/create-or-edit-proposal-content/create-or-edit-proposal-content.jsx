@@ -34,10 +34,17 @@ export const CreateOrEditProposalContent = ({
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   const sourceFormFields = {
+<<<<<<< HEAD:src/ui/components/contents/create-or-edit-proposal-content/create-or-edit-proposal-content.jsx
     price: proposalToEdit?.price || '',
     execution_time: proposalToEdit?.execution_time || '',
     comment: proposalToEdit?.comment || '',
     linksToMediaFiles: proposalToEdit?.linksToMediaFiles || [],
+=======
+    price: '',
+    execution_time: '',
+    comment: '',
+    linksToMediaFiles: [],
+>>>>>>> 5eba01e8... Intermidiate commit:src/ui/components/contents/create-proposal-content/create-proposal-content.jsx
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)

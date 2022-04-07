@@ -15,7 +15,12 @@ import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './owner-request-proposals-card.style'
 
-export const OwnerRequestProposalsCard = ({item}) => {
+export const OwnerRequestProposalsCard = ({
+  item,
+  onClickContactWithExecutor,
+  onClickAcceptProposal,
+  onClickRejectProposal,
+}) => {
   const classNames = useClassNames()
 
   const [showImageModal, setShowImageModal] = useState(false)
@@ -92,14 +97,29 @@ export const OwnerRequestProposalsCard = ({item}) => {
         <Typography>{'Ожидает выбора'}</Typography>
 
         <div>
-          <Button variant="contained" color="primary" className={clsx(classNames.actionButton, classNames.cancelBtn)}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={clsx(classNames.actionButton, classNames.cancelBtn)}
+            onClick={() => onClickRejectProposal(item.proposal)}
+          >
             {'Отклонить'}
           </Button>
-          <Button variant="contained" color="primary" className={clsx(classNames.actionButton, classNames.successBtn)}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={clsx(classNames.actionButton, classNames.successBtn)}
+            onClick={() => onClickAcceptProposal(item.proposal)}
+          >
             {`Заказать за ${toFixedWithDollarSign(item.proposal.price)}`}
           </Button>
 
-          <Button variant="contained" color="primary" className={classNames.actionButton}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classNames.actionButton}
+            onClick={() => onClickContactWithExecutor(item.proposal)}
+          >
             {'Связаться с исполнителем'}
           </Button>
         </div>

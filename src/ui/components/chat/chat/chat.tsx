@@ -1,35 +1,52 @@
-import React, {FC, KeyboardEvent, useState} from 'react'
+import React, {FC, useState} from 'react'
 
 import {observer} from 'mobx-react'
-import ReactMde from 'react-mde'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
 import {Button} from '@components/buttons/button'
 
-import {getTextFromMarkdown} from '@utils/text'
-
+import {ChatLinksInput} from './chat-links-input'
 import {ChatMessagesList} from './chat-messages-list'
+import {ChatTextInput} from './chat-text-input'
 import {useClassNames} from './chat.style'
+
+export enum ChatInputMode {
+  TEXT = 'TEXT',
+  LINKS = 'LINKS',
+  FILES = 'FILES',
+}
 
 interface Props {
   messages: ChatMessageContract[]
   userId: string
-  onSubmitMessage: (message: string) => void
+  onSubmitMessage: (message: string, links: string[], files: string[]) => void
 }
 
 export const Chat: FC<Props> = observer(({messages, userId, onSubmitMessage}) => {
+  const [inputMode, setInputMode] = useState<ChatInputMode>(ChatInputMode.TEXT)
   const [message, setMessage] = useState('')
-  const [mdeSelectedTab, setMdeSelectedTab] = React.useState<'write' | 'preview'>('write')
+  const [links, setLinks] = useState<string[]>([''])
+  const [files, setFiles] = useState<string[]>([])
   const classNames = useClassNames()
 
-  const handleKeyPress = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      onSubmitMessage(message)
-      setMessage('')
-      event.preventDefault()
+  const onSubmitMessageInternal = () => {
+    onSubmitMessage(message, links, files)
+    setMessage('')
+  }
+
+  const setLink = (index: number) => (value: string) => {
+    const linksNewState = [...links]
+    linksNewState[index] = value
+    if (index === linksNewState.length - 1) {
+      linksNewState[index + 1] = ''
     }
+    setLinks(
+      linksNewState.filter((link: string, linksNewStateIndex: number) =>
+        linksNewStateIndex !== linksNewState.length - 1 ? !!link : true,
+      ),
+    )
   }
 
   return (
@@ -38,30 +55,34 @@ export const Chat: FC<Props> = observer(({messages, userId, onSubmitMessage}) =>
         <ChatMessagesList userId={userId} messages={messages} />
       </div>
       <div className={classNames.bottomPartWrapper}>
-        <div className={classNames.textInputWrapper}>
-          <ReactMde
-            value={message}
-            selectedTab={mdeSelectedTab}
-            generateMarkdownPreview={markdown => Promise.resolve(getTextFromMarkdown(markdown))}
-            maxEditorHeight={100}
-            heightUnits="%"
-            childProps={{
-              textArea: {
-                onKeyPress: handleKeyPress,
-              },
-            }}
-            onChange={setMessage}
-            onTabChange={setMdeSelectedTab}
-          />
-        </div>
+        {(() => {
+          switch (inputMode) {
+            case ChatInputMode.TEXT:
+              return (
+                <ChatTextInput
+                  message={message}
+                  setMessage={setMessage}
+                  setInputMode={setInputMode}
+                  onSubmitKeyPress={onSubmitMessageInternal}
+                />
+              )
+            case ChatInputMode.FILES:
+              return <div />
+            case ChatInputMode.LINKS:
+              return <ChatLinksInput links={links} setLink={setLink} />
+          }
+        })()}
         <div className={classNames.btnsWrapper}>
           <Button
             onClick={() => {
-              onSubmitMessage(message)
-              setMessage('')
+              if (inputMode === ChatInputMode.TEXT) {
+                onSubmitMessageInternal()
+              } else {
+                setInputMode(ChatInputMode.TEXT)
+              }
             }}
           >
-            Отправить сообщение
+            {inputMode === ChatInputMode.TEXT ? 'Отправить сообщение' : 'Прикрепить'}
           </Button>
         </div>
       </div>

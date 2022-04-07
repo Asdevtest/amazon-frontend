@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, createRef} from 'react'
 
 import {Typography, Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
@@ -32,9 +32,15 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS
 @observer
 export class OwnerRequestDetailCustomViewRaw extends Component {
+  chatRef = createRef()
   viewModel = new OwnerRequestDetailCustomViewModel({
     history: this.props.history,
     location: this.props.location,
+    scrollToChat: () => {
+      if (this.chatRef?.current) {
+        this.chatRef.current.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'})
+      }
+    },
   })
 
   componentDidMount() {
@@ -64,6 +70,9 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       onClickAbortBtn,
       onSubmitAbortRequest,
       onClickChat,
+      onClickContactWithExecutor,
+      onClickAcceptProposal,
+      onClickRejectProposal,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -101,13 +110,20 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
               <Paper className={classNames.proposalsWrapper}>
                 {requestProposals.map(item => (
-                  <OwnerRequestProposalsCard key={item.proposal._id} item={item} />
+                  <OwnerRequestProposalsCard
+                    key={item.proposal._id}
+                    item={item}
+                    onClickContactWithExecutor={onClickContactWithExecutor}
+                    onClickAcceptProposal={onClickAcceptProposal}
+                    onClickRejectProposal={onClickRejectProposal}
+                  />
                 ))}
               </Paper>
 
               {chatIsConnected ? (
                 <div className={classNames.chatWrapper}>
                   <MultipleChats
+                    ref={this.chatRef}
                     chats={chats}
                     userId={userInfo._id}
                     chatSelectedId={chatSelectedId}

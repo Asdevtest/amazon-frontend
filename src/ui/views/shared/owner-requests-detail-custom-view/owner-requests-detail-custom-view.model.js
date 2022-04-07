@@ -29,13 +29,11 @@ export class OwnerRequestDetailCustomViewModel {
 
   chatSelectedId = undefined
   chatIsConnected = false
+  scrollToChat = undefined
 
-  get chats() {
-    return ChatModel.chats || []
-  }
-
-  constructor({history, location}) {
+  constructor({history, location, scrollToChat}) {
     this.history = history
+    this.scrollToChat = scrollToChat
     if (location.state) {
       this.requestId = location.state.request._id
     }
@@ -50,7 +48,6 @@ export class OwnerRequestDetailCustomViewModel {
           () => ChatModel.isConnected,
           isConnected => {
             if (isConnected) {
-              console.log('this.requestId ', this.requestId)
               ChatModel.getChats(this.requestId, 'REQUEST')
               runInAction(() => {
                 this.chatIsConnected = isConnected
@@ -63,6 +60,10 @@ export class OwnerRequestDetailCustomViewModel {
     } catch (error) {
       console.warn(error)
     }
+  }
+
+  get chats() {
+    return ChatModel.chats || []
   }
 
   async loadData() {
@@ -140,6 +141,17 @@ export class OwnerRequestDetailCustomViewModel {
       this.error = error
     }
   }
+
+  onClickContactWithExecutor(proposal) {
+    this.chatSelectedId = proposal.chatId
+    if (this.scrollToChat) {
+      this.scrollToChat()
+    }
+  }
+
+  onClickAcceptProposal() {}
+
+  onClickRejectProposal() {}
 
   async onClickPublishBtn() {
     try {

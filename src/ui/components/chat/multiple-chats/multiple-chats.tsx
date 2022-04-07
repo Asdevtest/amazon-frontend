@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, {forwardRef} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -18,24 +18,26 @@ interface Props {
   onClickChat: (chat: ChatContract) => void
 }
 
-export const MultipleChats: FC<Props> = observer(({chats, userId, chatSelectedId, onSubmitMessage, onClickChat}) => {
-  const classNames = useClassNames()
-  const findChatByChatId = chats.find((chat: ChatContract) => chat._id === chatSelectedId)
-  return (
-    <div className={classNames.root}>
-      <div className={classNames.chatsWrapper}>
-        <ChatsList userId={userId} chats={chats} chatSelectedId={chatSelectedId} onClickChat={onClickChat} />
+export const MultipleChats = observer(
+  forwardRef<HTMLDivElement, Props>(({chats, userId, chatSelectedId, onSubmitMessage, onClickChat}, ref) => {
+    const classNames = useClassNames()
+    const findChatByChatId = chats.find((chat: ChatContract) => chat._id === chatSelectedId)
+    return (
+      <div ref={ref} className={classNames.root}>
+        <div className={classNames.chatsWrapper}>
+          <ChatsList userId={userId} chats={chats} chatSelectedId={chatSelectedId} onClickChat={onClickChat} />
+        </div>
+        <div className={classNames.chatWrapper}>
+          {isNotUndefined(chatSelectedId) && findChatByChatId ? (
+            <Chat
+              userId={userId}
+              messages={findChatByChatId.messages}
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              onSubmitMessage={(message: string) => onSubmitMessage(message, chatSelectedId!)}
+            />
+          ) : undefined}
+        </div>
       </div>
-      <div className={classNames.chatWrapper}>
-        {isNotUndefined(chatSelectedId) && findChatByChatId ? (
-          <Chat
-            userId={userId}
-            messages={findChatByChatId.messages}
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            onSubmitMessage={(message: string) => onSubmitMessage(message, chatSelectedId!)}
-          />
-        ) : undefined}
-      </div>
-    </div>
-  )
-})
+    )
+  }),
+)
