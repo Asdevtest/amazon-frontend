@@ -118,7 +118,7 @@ export const MergeBoxesModal = ({
             input={<Input />}
             onChange={e => setBoxBody({...boxBody, destinationId: e.target.value})}
           >
-            <option value={'none'}>{'none'}</option>
+            <option value={''}>{'none'}</option>
 
             {destinations.map(item => (
               <option key={item._id} value={item._id}>
@@ -133,6 +133,7 @@ export const MergeBoxesModal = ({
 
           <Button
             disableElevation
+            disabled={isDifferentStorekeepers}
             color="primary"
             variant={boxBody.logicsTariffId && 'text'}
             className={clsx({[classNames.storekeeperBtn]: !boxBody.logicsTariffId})}
@@ -236,7 +237,7 @@ export const MergeBoxesModal = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
-          storekeepers={storekeepers}
+          storekeepers={storekeepers.filter(el => el._id === selectedBoxes[0].storekeeper._id)}
           curStorekeeperId={boxBody.storekeeperId}
           curTariffId={boxBody.logicsTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}

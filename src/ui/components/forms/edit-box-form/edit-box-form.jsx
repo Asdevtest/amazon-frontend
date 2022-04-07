@@ -193,9 +193,10 @@ export const EditBoxForm = observer(
                     }}
                     className={classNames.destinationSelect}
                     input={<Input />}
+                    value={boxFields.destinationId}
                     onChange={e => setBoxFields({...boxFields, destinationId: e.target.value})}
                   >
-                    <option value={'none'}>{'none'}</option>
+                    <option value={''}>{'none'}</option>
 
                     {destinations.map(item => (
                       <option key={item._id} value={item._id}>
@@ -387,7 +388,7 @@ export const EditBoxForm = observer(
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
           <SelectStorekeeperAndTariffForm
-            storekeepers={storekeepers}
+            storekeepers={storekeepers.filter(el => el._id === formItem.storekeeper._id)}
             curStorekeeperId={boxFields.storekeeperId}
             curTariffId={boxFields.logicsTariffId}
             onSubmit={onSubmitSelectStorekeeperAndTariff}

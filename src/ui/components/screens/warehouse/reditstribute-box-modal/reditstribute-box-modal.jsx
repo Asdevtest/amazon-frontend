@@ -104,7 +104,7 @@ const Box = ({
                 input={<Input />}
                 onChange={e => onChangeField(e, 'destinationId', box._id)}
               >
-                <option value={'none'}>{'none'}</option>
+                <option value={''}>{'none'}</option>
 
                 {destinations.map(item => (
                   <option key={item._id} value={item._id}>
@@ -137,46 +137,6 @@ const Box = ({
                   : 'Выбрать'}
               </Button>
             </div>
-
-            {/* <div>
-              <InputLabel className={classNames.modalText}>{textConsts.warehouse}</InputLabel>
-              <NativeSelect
-                variant="filled"
-                disabled={!isNewBox}
-                value={box.warehouse}
-                className={classNames.nativeSelect}
-                input={<Input />}
-                onChange={e => onChangeField(e, 'warehouse', box._id)}
-              >
-                <option disabled>{textConsts.valueNone}</option>
-                {Object.keys(warehouses).map((warehouseCode, warehouseIndex) => {
-                  const warehouseKey = warehouses[warehouseCode]
-                  return (
-                    <option key={warehouseIndex} value={warehouseCode}>
-                      {warehouseKey}
-                    </option>
-                  )
-                })}
-              </NativeSelect>
-            </div>
-            <div>
-              <InputLabel className={classNames.modalText}>{textConsts.deliveryMethod}</InputLabel>
-              <NativeSelect
-                variant="filled"
-                disabled={!isNewBox}
-                value={box.deliveryMethod}
-                className={classNames.nativeSelect}
-                input={<Input />}
-                onChange={e => onChangeField(e, 'deliveryMethod', box._id)}
-              >
-                <option disabled>{textConsts.valueNone}</option>
-                {Object.keys(DeliveryTypeByCode).map((deliveryCode, deliveryIndex) => (
-                  <option key={deliveryIndex} value={deliveryCode}>
-                    {getDeliveryOptionByCode(deliveryCode).label}
-                  </option>
-                ))}
-              </NativeSelect>
-            </div> */}
 
             {isNewBox ? (
               <div>
@@ -240,7 +200,7 @@ const Box = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
-          storekeepers={storekeepers}
+          storekeepers={storekeepers.filter(el => el._id === box.storekeeper._id)}
           curStorekeeperId={box.storekeeperId}
           curTariffId={box.logicsTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
