@@ -7,6 +7,7 @@ import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
 import {AvatarEditorForm} from '@components/forms/avatar-editor-form'
+import {UserInfoEditForm} from '@components/forms/user-info-edit-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -14,9 +15,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {ActiveOrders} from '@components/screens/users-views/user-profile-view/active-orders'
 import {ContentModal} from '@components/screens/users-views/user-profile-view/content-modal'
-import {Header} from '@components/screens/users-views/user-profile-view/header'
-import {PurchaseHistory} from '@components/screens/users-views/user-profile-view/purchase-history'
-import {Reviews} from '@components/screens/users-views/user-profile-view/reviews'
+import {UserProfile} from '@components/screens/users-views/user-profile-view/user-profile'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -41,9 +40,11 @@ export class UserProfileView extends Component {
       showTabModal,
       selectedUser,
       user,
+      checkValidationNameOrEmail,
       headerInfoData,
       showAvatarEditModal,
       showInfoModal,
+      showUserInfoModal,
       onTriggerDrawerOpen,
       onClickButtonPrivateLabel,
       onChangeTabExchange,
@@ -54,6 +55,8 @@ export class UserProfileView extends Component {
       onTriggerOpenModal,
       onSubmitAvatarEdit,
       onClickChangeAvatar,
+      onClickChangeUserInfo,
+      onSubmitUserInfoEdit,
     } = this.viewModel
 
     return (
@@ -62,11 +65,16 @@ export class UserProfileView extends Component {
         <Main>
           <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <Header
+              <UserProfile
                 user={user}
                 timer={textConsts.timer}
                 headerInfoData={headerInfoData}
+                tabReview={tabReview}
+                tabHistory={tabHistory}
+                setTabHistory={onChangeTabHistory}
+                setTabReview={onChangeTabReview}
                 onClickChangeAvatar={onClickChangeAvatar}
+                onClickChangeUserInfo={onClickChangeUserInfo}
               />
 
               <ActiveOrders
@@ -75,8 +83,6 @@ export class UserProfileView extends Component {
                 productList={CLIENT_USER_INITIAL_LIST}
                 handlerClickButtonPrivateLabel={onClickButtonPrivateLabel}
               />
-              <PurchaseHistory user={user} tabHistory={tabHistory} setTabHistory={onChangeTabHistory} />
-              <Reviews tabReview={tabReview} setTabReview={onChangeTabReview} />
             </MainContent>
           </Appbar>
         </Main>
@@ -92,6 +98,15 @@ export class UserProfileView extends Component {
           <AvatarEditorForm
             onSubmit={onSubmitAvatarEdit}
             onCloseModal={() => onTriggerOpenModal('showAvatarEditModal')}
+          />
+        </Modal>
+
+        <Modal openModal={showUserInfoModal} setOpenModal={() => onTriggerOpenModal('showUserInfoModal')}>
+          <UserInfoEditForm
+            user={user}
+            checkValidationNameOrEmail={checkValidationNameOrEmail}
+            onSubmit={onSubmitUserInfoEdit}
+            onCloseModal={() => onTriggerOpenModal('showUserInfoModal')}
           />
         </Modal>
 

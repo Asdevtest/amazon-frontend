@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Typography, IconButton, Grid} from '@material-ui/core'
+import {Typography, IconButton, Grid, Checkbox} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
@@ -25,6 +25,10 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
 
   const [skuLine, setSkuLine] = useState('')
 
+  const [isNoAsin, setIsNoAsin] = useState(false)
+
+  const [submitIsClicked, setSubmitIsClicked] = useState(false)
+
   const [images, setImages] = useState([])
 
   const sourceFormFields = {
@@ -33,6 +37,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
     amazonTitle: '',
     images: [],
     lamazon: '',
+    fba: true,
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
@@ -59,10 +64,12 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
   }
 
   const disableSubmitBtn =
-    formFields.asin === '' &&
-    !formFields.skusByClient.length &&
-    formFields.amazonTitle === '' &&
-    formFields.lamazon === ''
+    (formFields.asin === '' &&
+      !formFields.skusByClient.length &&
+      formFields.amazonTitle === '' &&
+      formFields.lamazon === '') ||
+    (!isNoAsin && formFields.asin === '') ||
+    submitIsClicked
 
   return (
     <div className={classNames.root}>
@@ -70,90 +77,97 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
         {textConsts.formTitle}
       </Typography>
 
-      <div className={classNames.fieldsWrapper}>
-        <Field
-          label={textConsts.linkLabel}
-          inputComponent={
-            <div className={classNames.inputWrapper}>
-              <Input
-                placeholder={textConsts.linkHolder}
-                value={formFields.lamazon}
-                className={classNames.input}
-                onChange={onChangeField('lamazon')}
-              />
-              <Button
-                disableElevation
-                className={classNames.defaultBtn}
-                variant="contained"
-                color="primary"
-                onClick={onClickParseBtn}
-              >
-                {textConsts.parseBtn}
-              </Button>
-            </div>
-          }
-        />
+      <Field
+        label={textConsts.linkLabel}
+        inputComponent={
+          <div className={classNames.inputWrapper}>
+            <Input
+              placeholder={textConsts.linkHolder}
+              value={formFields.lamazon}
+              className={classNames.input}
+              onChange={onChangeField('lamazon')}
+            />
+            <Button
+              disableElevation
+              className={classNames.defaultBtn}
+              variant="contained"
+              color="primary"
+              onClick={onClickParseBtn}
+            >
+              {textConsts.parseBtn}
+            </Button>
+          </div>
+        }
+      />
 
-        <Field
-          inputProps={{maxLength: 1000}}
-          label={textConsts.asin}
-          value={formFields.asin}
-          placeholder={textConsts.asin}
-          onChange={onChangeField('asin')}
-        />
+      <Field
+        inputProps={{maxLength: 50}}
+        label={textConsts.asin}
+        value={formFields.asin}
+        placeholder={textConsts.asin}
+        onChange={onChangeField('asin')}
+      />
 
-        <Field
-          label={textConsts.sku}
-          inputComponent={
-            <div>
-              {formFields.skusByClient.length ? (
-                <Grid container spacing={2} className={classNames.skuItemsWrapper}>
-                  {formFields.skusByClient.map((item, index) => (
-                    <Grid key={index} item className={classNames.skuItemWrapper}>
-                      <Typography className={classNames.skuItemTitle}>{item}</Typography>
+      <div className={classNames.checkboxWrapper}>
+        <Checkbox color="primary" checked={isNoAsin} onChange={() => setIsNoAsin(!isNoAsin)} />
+        <Typography>{textConsts.noAsin}</Typography>
+      </div>
 
-                      <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
-                        <DeleteIcon className={classNames.deleteBtn} />
-                      </IconButton>
-                    </Grid>
-                  ))}
-                </Grid>
-              ) : null}
+      {isNoAsin && (
+        <div>
+          <Field
+            label={textConsts.sku}
+            inputComponent={
+              <div>
+                {formFields.skusByClient.length ? (
+                  <Grid container spacing={2} className={classNames.skuItemsWrapper}>
+                    {formFields.skusByClient.map((item, index) => (
+                      <Grid key={index} item className={classNames.skuItemWrapper}>
+                        <Typography className={classNames.skuItemTitle}>{item}</Typography>
 
-              <div className={classNames.inputWrapper}>
-                <Input
-                  placeholder={textConsts.skuHolder}
-                  inputProps={{maxLength: 1000}}
-                  value={skuLine}
-                  className={classNames.input}
-                  onChange={e => setSkuLine(e.target.value)}
-                />
-                <Button
-                  disableElevation
-                  disabled={skuLine === ''}
-                  className={classNames.defaultBtn}
-                  variant="contained"
-                  color="primary"
-                  onClick={onClickSkuBtn}
-                >
-                  {textConsts.addSkuBtn}
-                </Button>
+                        <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
+                          <DeleteIcon className={classNames.deleteBtn} />
+                        </IconButton>
+                      </Grid>
+                    ))}
+                  </Grid>
+                ) : null}
+
+                <div className={classNames.inputWrapper}>
+                  <Input
+                    placeholder={textConsts.skuHolder}
+                    inputProps={{maxLength: 1000}}
+                    value={skuLine}
+                    className={classNames.input}
+                    onChange={e => setSkuLine(e.target.value)}
+                  />
+                  <Button
+                    disableElevation
+                    disabled={skuLine === ''}
+                    className={classNames.defaultBtn}
+                    variant="contained"
+                    color="primary"
+                    onClick={onClickSkuBtn}
+                  >
+                    {textConsts.addSkuBtn}
+                  </Button>
+                </div>
               </div>
-            </div>
-          }
-        />
+            }
+          />
 
-        <Field
-          label={textConsts.title}
-          value={formFields.amazonTitle}
-          placeholder={textConsts.title}
-          onChange={onChangeField('amazonTitle')}
-        />
-      </div>
+          <Field
+            label={textConsts.title}
+            value={formFields.amazonTitle}
+            placeholder={textConsts.title}
+            onChange={onChangeField('amazonTitle')}
+          />
 
-      <div className={classNames.imageFileInputWrapper}>
-        <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
-      </div>
+          <div className={classNames.imageFileInputWrapper}>
+            <UploadFilesInput images={images} setImages={setImages} maxNumber={50} acceptType={['jpg', 'gif', 'png']} />
+          </div>
+        </div>
+      )}
 
       <div className={classNames.btnsWrapper}>
         <SuccessButton
@@ -161,7 +175,10 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
           disabled={disableSubmitBtn}
           variant="contained"
           color="primary"
-          onClick={() => onSubmit(formFields, images)}
+          onClick={() => {
+            onSubmit(formFields, images, isNoAsin)
+            setSubmitIsClicked(true)
+          }}
         >
           {textConsts.addAndBindBtn}
         </SuccessButton>

@@ -37,15 +37,13 @@ const WAREHOUSE_RECEIVE_HEAD_CELLS = [
   {title: 'Final weight'},
 ]
 
-const renderHeadRow = <TableHeadRow headCells={WAREHOUSE_RECEIVE_HEAD_CELLS} />
-
 const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
   const classNames = useClassNames()
 
   return (
     <TableRow className={classNames.row}>
       <TableCell className={classNames.standartCell}>
-        <Typography className={classNames.boxTitle}>{item._id}</Typography>
+        <Typography className={classNames.boxTitle}>{'new box'}</Typography>
         <div className={classNames.descriptionWrapper}>
           <img className={classNames.img} src={getAmazonImageUrl(item.items[0]?.product.images[0])} />
           <Typography className={classNames.title}>
@@ -57,6 +55,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.qtyCell}>
         <Input
           classes={{root: classNames.inputWrapper, input: classNames.input}}
+          inputProps={{maxLength: 10}}
           value={item.items[0].amount}
           onChange={e => handlers.onChangeQtyInput(e, item._id, item.items[0].order)}
         />
@@ -65,6 +64,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.standartCell}>
         <Input
           classes={{root: classNames.inputWrapper, input: classNames.input}}
+          inputProps={{maxLength: 10}}
           value={item.amount}
           onChange={e => handlers.onChangeFieldInput(e, item._id, 'amount')}
         />
@@ -83,6 +83,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           <Typography>{'H:'}</Typography>
           <Input
             classes={{root: classNames.inputWrapper, input: classNames.input}}
+            inputProps={{maxLength: 10}}
             value={item.heightCmWarehouse}
             onChange={e => handlers.onChangeFieldInput(e, item._id, 'heightCmWarehouse')}
           />
@@ -91,6 +92,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           <Typography>{'W:'}</Typography>
           <Input
             classes={{root: classNames.inputWrapper, input: classNames.input}}
+            inputProps={{maxLength: 10}}
             value={item.widthCmWarehouse}
             onChange={e => handlers.onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
           />
@@ -99,6 +101,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           <Typography>{'L:'}</Typography>
           <Input
             classes={{root: classNames.inputWrapper, input: classNames.input}}
+            inputProps={{maxLength: 10}}
             value={item.lengthCmWarehouse}
             onChange={e => handlers.onChangeFieldInput(e, item._id, 'lengthCmWarehouse')}
           />
@@ -107,6 +110,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.standartCell}>
         <Input
           classes={{root: classNames.inputWrapper, input: classNames.input}}
+          inputProps={{maxLength: 10}}
           value={item.weighGrossKgWarehouse}
           onChange={e => handlers.onChangeFieldInput(e, item._id, 'weighGrossKgWarehouse')}
         />
@@ -141,22 +145,27 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
 
 const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages}) => {
   const classNames = useClassNames()
+
+  const renderHeadRow = <TableHeadRow headCells={WAREHOUSE_RECEIVE_HEAD_CELLS} />
+
   return (
     <div className={classNames.newBoxes}>
       <Typography className={classNames.sectionTitle}>{textConsts.newBoxesTitle}</Typography>
 
-      <Table
-        rowsOnly
-        data={newBoxes}
-        BodyRow={TableBodyBoxRow}
-        renderHeadRow={renderHeadRow}
-        rowsHandlers={{onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages}}
-      />
+      <div className={classNames.tableWrapper}>
+        <Table
+          rowsOnly
+          data={newBoxes}
+          BodyRow={TableBodyBoxRow}
+          renderHeadRow={renderHeadRow}
+          rowsHandlers={{onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages}}
+        />
+      </div>
     </div>
   )
 }
 
-export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => {
+export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
   const [showNoDimensionsErrorModal, setShowNoDimensionsErrorModal] = useState(false)
   const [showAddImagesModal, setShowAddImagesModal] = useState(false)
@@ -187,19 +196,25 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
     selectedBox.items.reduce((acc, order) => acc + order.amount * selectedBox.amount, 0) - actuallyAssembled
 
   const onChangeFieldInput = (e, _id, field) => {
-    if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+    if (
+      isNaN(e.target.value) ||
+      Number(e.target.value) < 0 ||
+      (field === 'amount' && Number(e.target.value) === 0 && e.target.value !== '')
+    ) {
       return
     }
     const targetBox = newBoxes.filter(box => box._id === _id)[0]
 
     const updatedTargetBox =
-      field === 'amount' ? {...targetBox, [field]: Number(e.target.value)} : {...targetBox, [field]: e.target.value}
+      field === 'amount'
+        ? {...targetBox, [field]: e.target.value !== '' ? Number(e.target.value) : e.target.value}
+        : {...targetBox, [field]: e.target.value}
 
     updatedTargetBox.volumeWeightKgWarehouse =
       ((parseFloat(updatedTargetBox.lengthCmWarehouse) || 0) *
         (parseFloat(updatedTargetBox.heightCmWarehouse) || 0) *
         (parseFloat(updatedTargetBox.widthCmWarehouse) || 0)) /
-      5000
+      volumeWeightCoefficient
     updatedTargetBox.weightFinalAccountingKgWarehouse = Math.max(
       parseFloat(updatedTargetBox.volumeWeightKgWarehouse) || 0,
       parseFloat(updatedTargetBox.weighGrossKgWarehouse) || 0,
@@ -267,7 +282,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
   const CurrentBox = () => (
     <div className={classNames.currentBox}>
       <Typography className={classNames.sectionTitle}>{textConsts.redistributionTitle}</Typography>
-      <Typography className={classNames.boxTitle}>{selectedBox._id}</Typography>
+      <Typography className={classNames.boxTitle}>{`Box ${selectedBox.humanFriendlyId}`}</Typography>
       <div className={classNames.order}>
         <img className={classNames.img} src={getAmazonImageUrl(selectedBox?.items[0]?.product.images[0])} />
         <Typography className={classNames.titleOfCurBox}>{selectedBox.items[0].product.amazonTitle}</Typography>
@@ -292,7 +307,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes}) => 
     </div>
   )
 
-  const disableSubmit = newBoxes.some(box => box.items[0].amount < 1)
+  const disableSubmit = newBoxes.some(box => box.items[0].amount < 1 || box.amount === '')
 
   return (
     <div className={classNames.root}>

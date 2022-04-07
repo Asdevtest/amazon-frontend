@@ -24,6 +24,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').warehouseTaskForm
 
 export const EditTaskModal = observer(
   ({
+    volumeWeightCoefficient,
     requestStatus,
     task,
     onClickOpenCloseModal,
@@ -113,6 +114,7 @@ export const EditTaskModal = observer(
           </div>
 
           <BeforeAfterBlock
+            volumeWeightCoefficient={volumeWeightCoefficient}
             incomingBoxes={task.boxesBefore}
             desiredBoxes={newBoxes}
             taskType={task.operationType}
@@ -173,6 +175,7 @@ export const EditTaskModal = observer(
           onCloseModal={() => setReceiveBoxModal(!receiveBoxModal)}
         >
           <ReceiveBoxModal
+            volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
             selectedBox={task.boxesBefore[0]}
             setSourceBoxes={setNewBoxes}

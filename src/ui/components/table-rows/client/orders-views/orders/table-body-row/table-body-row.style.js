@@ -57,6 +57,6 @@ export const styles = createStyles({
     maxWidth: '200px',
     whiteSpace: 'nowrap',
     height: '50px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
 })

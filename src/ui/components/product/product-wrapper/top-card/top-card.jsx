@@ -14,7 +14,7 @@ import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsClient, checkIsResearcher} from '@utils/checks'
+import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -58,6 +58,22 @@ export const TopCard = observer(
     const clientToEdit =
       checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)
 
+    const showActionBtns =
+      (checkIsSupervisor(curUserRole) &&
+        productBase.status !== ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP] &&
+        checkIsSupervisor(curUserRole) &&
+        productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
+      (checkIsSupervisor(curUserRole) &&
+        productBase.status >= ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
+        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS]) ||
+      (checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)) ||
+      (checkIsResearcher(curUserRole) &&
+        productBase.status < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) ||
+      (checkIsBuyer(curUserRole) && productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
+      (checkIsBuyer(curUserRole) &&
+        productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
+        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
+
     return (
       <React.Fragment>
         <Paper className={classNames.mainCardWrapper}>
@@ -77,28 +93,33 @@ export const TopCard = observer(
                     </div>
                   ) : undefined}
                 </Box>
-                {checkIsResearcher(curUserRole) || checkIsClient(curUserRole) ? (
+                {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
+                !product.archive &&
+                showActionBtns ? (
                   <Box className={classNames.parseButtonsWrapper}>
-                    {checkIsResearcher(curUserRole) && (
-                      <React.Fragment>
-                        <Button
-                          className={classNames.buttonParseAmazon}
-                          onClick={() => onClickParseProductData(ProductDataParser.AMAZON, product)}
-                        >
-                          {textConsts.buttonParseAmazon}
-                        </Button>
-                        <Button
-                          className={classNames.buttonParseAmazon}
-                          onClick={() => onClickParseProductData(ProductDataParser.SELLCENTRAL, product)}
-                        >
-                          {textConsts.buttonParseSellcentrall}
-                        </Button>
-                      </React.Fragment>
-                    )}
+                    <React.Fragment>
+                      <Button
+                        className={classNames.buttonParseAmazon}
+                        onClick={() => onClickParseProductData(ProductDataParser.AMAZON, product)}
+                      >
+                        {textConsts.buttonParseAmazon}
+                      </Button>
+                      <Button
+                        className={classNames.buttonParseAmazon}
+                        onClick={() => onClickParseProductData(ProductDataParser.SELLCENTRAL, product)}
+                      >
+                        {textConsts.buttonParseSellcentrall}
+                      </Button>
+                    </React.Fragment>
 
                     {(checkIsResearcher(curUserRole) || clientToEdit) && (
                       <div className={classNames.imageFileInputWrapper}>
-                        <UploadFilesInput images={imagesForLoad} setImages={onChangeImagesForLoad} maxNumber={50} />
+                        <UploadFilesInput
+                          images={imagesForLoad}
+                          setImages={onChangeImagesForLoad}
+                          maxNumber={50}
+                          acceptType={['jpg', 'gif', 'png']}
+                        />
                       </div>
                     )}
                   </Box>
@@ -116,6 +137,7 @@ export const TopCard = observer(
                 ) : undefined}
               </Grid>
               <FieldsAndSuppliers
+                formFieldsValidationErrors={formFieldsValidationErrors}
                 curUserRole={curUserRole}
                 product={product}
                 productBase={productBase}

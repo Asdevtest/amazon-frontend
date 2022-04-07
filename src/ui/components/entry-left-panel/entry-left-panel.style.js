@@ -1,36 +1,44 @@
 import {makeStyles} from '@material-ui/styles'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles(() => ({
   leftPanel: {
     display: 'flex',
     flex: '0 0 45%',
     flexDirection: 'column',
     padding: '48px',
-    backgroundColor: theme.palette.primary.main,
-    color: '#fff',
+    background: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
+    color: '#354256',
   },
   header: {
-    minHeight: '20%',
+    minHeight: '40%',
     display: 'flex',
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   main: {
     flexGrow: 1,
     display: 'flex',
-    alignItems: 'start',
+    alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
   },
   title: {
-    fontSize: '48px',
+    fontSize: '44px',
+    fontWeight: 'bold',
   },
   subtitle: {
     fontSize: '20px',
     fontWeight: 700,
   },
   footer: {
-    minHeight: '20%',
+    minHeight: '40%',
     display: 'flex',
     alignItems: 'flex-end',
+  },
+
+  logo: {
+    width: '350px',
+    height: '150px',
+    objectFit: 'cover',
   },
 }))

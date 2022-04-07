@@ -51,6 +51,7 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'space-between',
 
     marginRight: '50px',
+    gap: '20px',
   },
 
   requestItemInfoWrapper: {
@@ -74,6 +75,8 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '21px',
     color: '#354256',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 
   subTitle: {

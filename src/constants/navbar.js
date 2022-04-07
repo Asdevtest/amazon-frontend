@@ -1,4 +1,4 @@
-import {Block, DoneOutline, LocalConvenienceStore, Work} from '@material-ui/icons'
+import {LocalConvenienceStore, Work} from '@material-ui/icons'
 import AllInboxIcon from '@material-ui/icons/AllInbox'
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined'
 import AssignmentIcon from '@material-ui/icons/Assignment'
@@ -12,7 +12,7 @@ import SettingsIcon from '@material-ui/icons/Settings'
 
 import {isMasterUser} from '@utils/checks'
 
-import {navBarActiveCategory} from './navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from './navbar-active-category'
 import {UserRole} from './user-roles'
 
 const permissionsKeys = {
@@ -43,6 +43,7 @@ const permissionsKeys = {
     SHOW_CANCELED_TASKS_STOREKEEPER: 'SHOW_CANCELED_TASKS_STOREKEEPER',
     SHOW_COMPLETED_TASKS_STOREKEEPER: 'SHOW_COMPLETED_TASKS_STOREKEEPER',
     SHOW_WAREHOUSE_STOREKEEPER: 'SHOW_WAREHOUSE_STOREKEEPER',
+    SHOW_WAREHOUSE_MANAGEMENT: 'SHOW_WAREHOUSE_MANAGEMENT',
     SHOW_MY_TASKS_STOREKEEPER: 'SHOW_MY_TASKS_STOREKEEPER',
     SHOW_VAC_TASKS_STOREKEEPER: 'SHOW_VAC_TASKS_STOREKEEPER',
   },
@@ -81,6 +82,38 @@ export const navbarConfig = {
       checkHideBlock: () => true,
     },
     {
+      icon: Work,
+      title: 'Фриланс',
+      route: '/vacant-requests',
+      subtitles: [
+        {
+          subtitle: 'Мои заявки',
+          subRoute: '/requests/my',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
+        },
+        {
+          subtitle: 'Вакантные заявки',
+          subRoute: '/vacant-requests',
+          key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
+        },
+      ],
+      key: navBarActiveCategory.NAVBAR_REQUESTS,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_REQUESTS_CLIENT),
+    },
+
+    {
+      icon: InboxOutlinedIcon,
+      title: 'Инвентарь',
+      route: '/client/inventory',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_INVENTORY,
+      checkHideBlock: user =>
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INVENTORY_CLIENT),
+    },
+
+    {
       icon: GavelIcon,
       title: 'Биржа товаров',
       route: '/client/exchange',
@@ -92,28 +125,7 @@ export const navbarConfig = {
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_VACANT_CLIENT),
     },
-    {
-      icon: InboxOutlinedIcon,
-      title: 'Инвентарь',
-      route: '/client/inventory',
-      subtitles: null,
-      key: navBarActiveCategory.NAVBAR_INVENTORY,
-      checkHideBlock: user =>
-        !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INVENTORY_CLIENT),
-    },
-    {
-      icon: Work,
-      title: 'Заявки',
-      route: '/vacant-requests',
-      subtitles: [
-        {subtitle: 'Вакантные заявки', subRoute: '/vacant-requests'},
-        {subtitle: 'Мои заявки', subRoute: '/requests/my'},
-      ],
-      key: navBarActiveCategory.NAVBAR_REQUESTS,
-      checkHideBlock: user =>
-        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_REQUESTS_CLIENT),
-    },
+
     {
       icon: AssignmentIcon,
       title: 'Мои заказы',
@@ -269,16 +281,7 @@ export const navbarConfig = {
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_USERS_RESEARCHER),
     },
-    {
-      icon: SettingsIcon,
-      title: 'Настройки',
-      subtitles: null,
-      route: '/researcher/settings',
-      key: navBarActiveCategory.NAVBAR_SETTINGS,
-      checkHideBlock: user =>
-        !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_SETTINGS_RESEARCHER),
-    },
+
     {
       icon: MonetizationOnOutlinedIcon,
       title: 'Финансы',
@@ -304,8 +307,18 @@ export const navbarConfig = {
       title: 'Заявки',
       route: '/vacant-requests',
       subtitles: [
-        {subtitle: 'Вакантные заявки', subRoute: '/vacant-requests'},
-        {subtitle: 'Мои заявки', subRoute: '/requests/my'},
+        {
+          subtitle: 'Вакантные заявки',
+          subRoute: '/vacant-requests',
+          key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
+        },
+
+        {
+          subtitle: 'Мои предложения',
+          subRoute: '/requests/my-proposals',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+        },
+
         // {subtitle: 'Заявки в работе', subRoute: '/freelancer/requests-in-work'},
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
@@ -385,16 +398,6 @@ export const navbarConfig = {
       checkHideBlock: user =>
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.supervisor.SHOW_USERS_SUPERVISOR),
-    },
-    {
-      icon: SettingsIcon,
-      title: 'Настройки',
-      subtitles: null,
-      route: '/supervisor/settings',
-      key: navBarActiveCategory.NAVBAR_SETTINGS,
-      checkHideBlock: user =>
-        !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.supervisor.SHOW_SETTINGS_SUPERVISOR),
     },
     {
       icon: MonetizationOnOutlinedIcon,
@@ -503,55 +506,87 @@ export const navbarConfig = {
     },
     {
       icon: AssignmentIcon,
-      title: 'Вакантные задачи',
-      subtitles: null,
-      route: '/warehouse/vacant-tasks',
-      key: navBarActiveCategory.NAVBAR_VACANT_TASKS,
-      checkHideBlock: user =>
-        !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_VAC_TASKS_STOREKEEPER),
-    },
-    {
-      icon: Work,
-      title: 'Мои задачи',
-      subtitles: null,
-      route: '/warehouse/my-tasks',
-      key: navBarActiveCategory.NAVBAR_MY_TASKS,
-      checkHideBlock: user =>
-        !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_MY_TASKS_STOREKEEPER),
-    },
+      title: 'Задачи',
+      subtitles: [
+        {
+          subtitle: 'Новые задачи',
+          subRoute: '/warehouse/vacant-tasks',
+          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_VAC_TASKS,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_VAC_TASKS_STOREKEEPER),
+        },
+        {
+          subtitle: 'Мои задачи',
+          subRoute: '/warehouse/my-tasks',
+          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_MY_TASKS_STOREKEEPER),
+        },
 
-    {
-      icon: DoneOutline,
-      title: 'Выполненые задачи',
-      subtitles: null,
-      route: '/warehouse/completed-tasks',
-      key: navBarActiveCategory.NAVBAR_COMPLETED_TASKS,
+        {
+          subtitle: 'Выполненые задачи',
+          subRoute: '/warehouse/completed-tasks',
+          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_COMPLETED_TASKS,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_COMPLETED_TASKS_STOREKEEPER),
+        },
+        {
+          subtitle: 'Отмененные задачи',
+          subRoute: '/warehouse/canceled-tasks',
+          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_CANCELED_TASKS_STOREKEEPER),
+        },
+      ],
+      route: '/warehouse/vacant-tasks',
+      key: navBarActiveCategory.NAVBAR_TASKS,
+
       checkHideBlock: user =>
         !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_COMPLETED_TASKS_STOREKEEPER),
-    },
-    {
-      icon: Block,
-      title: 'Отмененные задачи',
-      subtitles: null,
-      route: '/warehouse/canceled-tasks',
-      key: navBarActiveCategory.NAVBAR_CANCELED_TASKS,
-      checkHideBlock: user =>
-        !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_CANCELED_TASKS_STOREKEEPER),
+        user?.permissions.some(
+          item =>
+            item.key === permissionsKeys.storekeeper.SHOW_VAC_TASKS_STOREKEEPER ||
+            item.key === permissionsKeys.storekeeper.SHOW_MY_TASKS_STOREKEEPER ||
+            item.key === permissionsKeys.storekeeper.SHOW_COMPLETED_TASKS_STOREKEEPER ||
+            item.key === permissionsKeys.storekeeper.SHOW_CANCELED_TASKS_STOREKEEPER,
+        ),
     },
 
     {
       icon: ArchiveOutlinedIcon,
       title: 'Мой склад',
-      subtitles: null,
       route: '/warehouse/my-warehouse',
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
+
+      subtitles: [
+        {
+          subtitle: 'Товары',
+          subRoute: '/warehouse/my-warehouse',
+          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER),
+        },
+        {
+          subtitle: 'Управление складом',
+          subRoute: '/warehouse/management',
+          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MANAGEMENT,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_MANAGEMENT),
+        },
+      ],
       checkHideBlock: user =>
         !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER),
+        user?.permissions.some(
+          item =>
+            item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER ||
+            item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_MANAGEMENT,
+        ),
     },
 
     {
@@ -627,6 +662,7 @@ export const navbarConfig = {
       subtitles: [
         {subtitle: 'Задачи', subRoute: '/admin/warehouse/tasks'},
         {subtitle: 'Коробки', subRoute: '/admin/warehouse/boxes'},
+        {subtitle: 'Destinations', subRoute: '/admin/warehouse/destinations'},
         {subtitle: 'Партии', subRoute: '/admin/warehouse/batches'},
       ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,

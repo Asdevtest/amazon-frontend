@@ -3,6 +3,7 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 import React, {Component} from 'react'
 
 import {withStyles} from '@material-ui/styles'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -11,7 +12,7 @@ import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
-import {AddProductSellerboardForm} from '@components/forms/add-product-to-sellerbord-form'
+// import {AddProductSellerboardForm} from '@components/forms/add-product-to-sellerbord-form'
 import {BindStockGoodsToInventoryForm} from '@components/forms/bind-stock-goods-to-inventory-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -44,6 +45,9 @@ class ClientDailySellerBoardViewRaw extends Component {
   render() {
     const {
       getCurrentData,
+      infoModalText,
+      currentShop,
+      shopsData,
       sortModel,
       filterModel,
       requestStatus,
@@ -54,7 +58,9 @@ class ClientDailySellerBoardViewRaw extends Component {
       progressValue,
       showProgress,
       drawerOpen,
-      showAddProductSellerboardModal,
+      yuanToDollarRate,
+      volumeWeightCoefficient,
+      // showAddProductSellerboardModal,
       showBindStockGoodsToInventoryModal,
       showInfoModal,
       showAddOrEditSupplierModal,
@@ -77,10 +83,14 @@ class ClientDailySellerBoardViewRaw extends Component {
       onChangeSortingModel,
       onSelectionModel,
 
-      onSubmitCreateAndBindProduct,
+      // onSubmitCreateAndBindProduct,
       onSubmitSaveSupplier,
       onSubmitSeekSupplier,
       onSubmitCalculateSeekSupplier,
+
+      onClickShopBtn,
+      onSubmitMoveToInventoryGoods,
+      onClickAddSupplierButton,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -101,13 +111,39 @@ class ClientDailySellerBoardViewRaw extends Component {
         <Main>
           <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawer}>
             <MainContent>
+              <div className={className.shopsFiltersWrapper}>
+                <Button
+                  disabled={!currentShop?._id}
+                  className={clsx({[className.selectedShopBtn]: !currentShop?._id})}
+                  variant="text"
+                  color="primary"
+                  onClick={onClickShopBtn}
+                >
+                  {`Все магазины`}
+                </Button>
+
+                {shopsData.map(shop => (
+                  <Button
+                    key={shop._id}
+                    disabled={currentShop?._id === shop._id}
+                    className={clsx(className.button, {[className.selectedShopBtn]: currentShop?._id === shop._id})}
+                    variant="text"
+                    color="primary"
+                    onClick={() => onClickShopBtn(shop)}
+                  >
+                    {shop.name}
+                  </Button>
+                ))}
+              </div>
+
               <Button
                 disableElevation
                 tooltipContent={textConsts.moveToInventoryBtnTooltip}
                 disabled={selectedRows.length === 0}
                 variant="contained"
                 color="primary"
-                onClick={() => onTriggerOpenModal('showAddProductSellerboardModal')}
+                // onClick={() => onTriggerOpenModal('showAddProductSellerboardModal')}
+                onClick={onSubmitMoveToInventoryGoods}
               >
                 {textConsts.moveToInventoryBtn}
               </Button>
@@ -154,7 +190,7 @@ class ClientDailySellerBoardViewRaw extends Component {
           </Appbar>
         </Main>
 
-        <Modal
+        {/* <Modal
           openModal={showAddProductSellerboardModal}
           setOpenModal={() => onTriggerOpenModal('showAddProductSellerboardModal')}
         >
@@ -164,7 +200,7 @@ class ClientDailySellerBoardViewRaw extends Component {
             progressValue={progressValue}
             onSubmit={onSubmitCreateAndBindProduct}
           />
-        </Modal>
+        </Modal> */}
 
         <Modal
           openModal={showBindStockGoodsToInventoryModal}
@@ -184,6 +220,8 @@ class ClientDailySellerBoardViewRaw extends Component {
         >
           <AddOrEditSupplierModalContent
             outsideProduct
+            sourceYuanToDollarRate={yuanToDollarRate}
+            volumeWeightCoefficient={volumeWeightCoefficient}
             title={textConsts.addOrEditSupplierTitle}
             showProgress={showProgress}
             progressValue={progressValue}
@@ -197,7 +235,7 @@ class ClientDailySellerBoardViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
         >
           <SelectionSupplierModal
-            onTriggerOpenModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
+            onClickFinalAddSupplierButton={onClickAddSupplierButton}
             onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
             onSubmitSeekSupplier={onSubmitCalculateSeekSupplier}
           />
@@ -216,7 +254,7 @@ class ClientDailySellerBoardViewRaw extends Component {
         <WarningInfoModal
           openModal={showInfoModal}
           setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-          title={textConsts.infoModalTitle}
+          title={infoModalText}
           btnText={textConsts.okBtn}
           onClickBtn={() => {
             onTriggerOpenModal('showInfoModal')

@@ -68,7 +68,14 @@ const AttributesEditBlock = ({box, setNewBoxField}) => {
   )
 }
 
-export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes, newBoxes}) => {
+export const EditBoxTasksModal = ({
+  setEditModal,
+  box,
+  operationType,
+  setNewBoxes,
+  newBoxes,
+  volumeWeightCoefficient,
+}) => {
   const classNames = useClassNames()
 
   const [editingBox, setEditingBox] = useState(box)
@@ -87,7 +94,7 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
       ((parseFloat(newFormFields.lengthCmWarehouse) || 0) *
         (parseFloat(newFormFields.heightCmWarehouse) || 0) *
         (parseFloat(newFormFields.widthCmWarehouse) || 0)) /
-      5000
+      volumeWeightCoefficient
     newFormFields.weightFinalAccountingKgWarehouse = Math.max(
       parseFloat(newFormFields.volumeWeightKgWarehouse) || 0,
       parseFloat(newFormFields.weighGrossKgWarehouse) || 0,

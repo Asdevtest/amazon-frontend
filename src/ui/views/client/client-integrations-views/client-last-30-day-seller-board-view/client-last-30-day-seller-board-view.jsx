@@ -3,6 +3,7 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 import React, {Component} from 'react'
 
 import {withStyles} from '@material-ui/styles'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -10,6 +11,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -34,6 +36,8 @@ class ClientLast30DaySellerBoardViewRaw extends Component {
 
   render() {
     const {
+      currentShop,
+      shopsData,
       getCurrentData,
       sortModel,
       filterModel,
@@ -51,6 +55,7 @@ class ClientLast30DaySellerBoardViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      onClickShopBtn,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -66,6 +71,31 @@ class ClientLast30DaySellerBoardViewRaw extends Component {
         <Main>
           <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawer}>
             <MainContent>
+              <div className={className.shopsFiltersWrapper}>
+                <Button
+                  disabled={!currentShop?._id}
+                  className={clsx({[className.selectedShopBtn]: !currentShop?._id})}
+                  variant="text"
+                  color="primary"
+                  onClick={onClickShopBtn}
+                >
+                  {`Все магазины`}
+                </Button>
+
+                {shopsData.map(shop => (
+                  <Button
+                    key={shop._id}
+                    disabled={currentShop?._id === shop._id}
+                    className={clsx(className.button, {[className.selectedShopBtn]: currentShop?._id === shop._id})}
+                    variant="text"
+                    color="primary"
+                    onClick={() => onClickShopBtn(shop)}
+                  >
+                    {shop.name}
+                  </Button>
+                ))}
+              </div>
+
               <DataGrid
                 pagination
                 useResizeContainer

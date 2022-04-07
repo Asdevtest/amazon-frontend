@@ -4,10 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**asin** | **String** | ASIN продукта | 
+**asin** | **String** | ASIN продукта | [optional] 
 **skusByClient** | **[String]** |  | [optional] 
 **material** | **String** | add to new functional | [optional] 
-**currentSupplierId** | **String** | GUID поставщика, если передать строку \&quot;clear\&quot; то поставщику будет сброшен (у байера и ресечера). | [optional] 
 **fbm** | **Boolean** | Признак fbm | [optional] 
 **category** | **String** | Категория | [optional] 
 **lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
@@ -31,7 +30,6 @@ Name | Type | Description | Notes
 **amazonDescription** | **String** |  | [optional] 
 **amazonDetail** | **String** |  | [optional] 
 **amazonTitle** | **String** |  | [optional] 
-**barCode** | **String** |  | [optional] 
 **minpurchase** | **Number** |  | [optional] 
 **profit** | **Number** | Прибыль | [optional] 
 **margin** | **Number** | Маржа | [optional] 
@@ -48,5 +46,7 @@ Name | Type | Description | Notes
 **listingSupplierCompetitors** | [**[ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]**](ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md) | Массив объектов: ссылки и комментарии к конкурентам | [optional] 
 **strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
 **needCheckBySupervisor** | **Boolean** | Признак needCheckBySupervisor | [optional] 
+**archive** | **Boolean** | Флаг указывает что продукт в архиве. | [optional] 
+**hsCode** | **String** | hsCode продукта. | [optional] 
 
 

@@ -248,10 +248,15 @@ export class ResearcherSubUsersViewModel {
     }
   }
 
-  onSubmitlinkSubUser(data) {
-    this.linkSubUser(data)
-    this.getUsers()
-    this.onTriggerOpenModal('showAddSubUserModal')
+  async onSubmitlinkSubUser(data) {
+    try {
+      await this.linkSubUser(data)
+      await this.getUsers()
+      this.onTriggerOpenModal('showAddSubUserModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   async onSubmitUnlinkSubUser() {

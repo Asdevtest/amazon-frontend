@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesSplitNewBoxesParams from './ApiV1BoxesSplitNewBoxesParams';
 
 /**
  * The InlineObject17 model module.
@@ -47,38 +48,11 @@ class InlineObject17 {
         if (data) {
             obj = obj || new InlineObject17();
 
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbalink')) {
-                obj['fbalink'] = ApiClient.convertToType(data['fbalink'], 'String');
-            }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('lsupplier')) {
-                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
-            }
-            if (data.hasOwnProperty('buyersComment')) {
-                obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
+            if (data.hasOwnProperty('newBoxesParams')) {
+                obj['newBoxesParams'] = ApiClient.convertToType(data['newBoxesParams'], [ApiV1BoxesSplitNewBoxesParams]);
             }
         }
         return obj;
@@ -88,70 +62,15 @@ class InlineObject17 {
 }
 
 /**
- * 
- * @member {Number} amazon
+ * GUID коробки, которую делим
+ * @member {String} guid
  */
-InlineObject17.prototype['amazon'] = undefined;
+InlineObject17.prototype['guid'] = undefined;
 
 /**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
+ * @member {Array.<module:model/ApiV1BoxesSplitNewBoxesParams>} newBoxesParams
  */
-InlineObject17.prototype['reffee'] = undefined;
-
-/**
- * ФБА ссылка
- * @member {String} fbalink
- */
-InlineObject17.prototype['fbalink'] = undefined;
-
-/**
- * ФБА комиссия
- * @member {Number} fbafee
- */
-InlineObject17.prototype['fbafee'] = undefined;
-
-/**
- * ФБА кол-во
- * @member {Number} fbaamount
- */
-InlineObject17.prototype['fbaamount'] = undefined;
-
-/**
- * Стоимость доставки.
- * @member {Number} delivery
- */
-InlineObject17.prototype['delivery'] = undefined;
-
-/**
- * Код статуса
- * @member {Number} status
- */
-InlineObject17.prototype['status'] = undefined;
-
-/**
- * Прибыль
- * @member {Number} profit
- */
-InlineObject17.prototype['profit'] = undefined;
-
-/**
- * Маржа
- * @member {Number} margin
- */
-InlineObject17.prototype['margin'] = undefined;
-
-/**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lsupplier
- */
-InlineObject17.prototype['lsupplier'] = undefined;
-
-/**
- * Примечания байера.
- * @member {String} buyersComment
- */
-InlineObject17.prototype['buyersComment'] = undefined;
+InlineObject17.prototype['newBoxesParams'] = undefined;
 
 
 

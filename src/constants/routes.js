@@ -9,6 +9,7 @@ import {AdminSettingsView} from '@views/admin/admin-settings-view'
 import {AdminUserPermissionsView} from '@views/admin/admin-user-permissions-view'
 import {AdminUserBalanceView} from '@views/admin/admin-users-view/admin-user-balance-view'
 import {AdminUsersView} from '@views/admin/admin-users-view/admin-users-view'
+import {AdminDestinationsView} from '@views/admin/admin-warehouse-views/admin-destinations-view'
 import {AdminWarehouseBatchesView} from '@views/admin/admin-warehouse-views/admin-warehouse-batches-view'
 import {AdminWarehouseBoxesView} from '@views/admin/admin-warehouse-views/admin-warehouse-boxes-view'
 import {AdminWarehouseTasksView} from '@views/admin/admin-warehouse-views/admin-warehouse-tasks-view'
@@ -57,11 +58,13 @@ import {ResearcherSubUsersView} from '@views/researcher/researcher-users-views/r
 import {ResearcherVacantCustomRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-custom-requests-view'
 import {ResearcherVacantNichesRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-niches-requests-view'
 import {ResearcherVacantProductsRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-products-requests-view'
+import {AnotherUserProfileView} from '@views/shared/another-user-profile-view'
+import {CreateOrEditProposalView} from '@views/shared/create-or-edit-proposal-view'
 import {CreateOrEditRequestView} from '@views/shared/create-or-edit-request-view'
-import {CreateProposalView} from '@views/shared/create-proposal-view'
+import {MyProposalsView} from '@views/shared/my-proposals-view'
 import {MyRequestsView} from '@views/shared/my-requests-view'
 import {OwnerRequestDetailCustomView} from '@views/shared/owner-requests-detail-custom-view'
-import {RequestDetailCustomView} from '@views/shared/requests-detail-custom-view'
+import {RequestDetailCustomView} from '@views/shared/servant-requests-detail-custom-view'
 import {UserProfileView} from '@views/shared/user-profile-view/user-profile-view'
 import {VacantRequestsView} from '@views/shared/vacant-requests-view/vacant-requests-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
@@ -78,6 +81,7 @@ import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-canceled-ta
 import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-completed-tasks-view'
 import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
 import {WarehouseFinancesViews} from '@views/warehouse/warehouse-finances-views'
+import {WarehouseManagementView} from '@views/warehouse/warehouse-management-view'
 import {WarehouseMyTasksView} from '@views/warehouse/warehouse-my-tasks-view'
 import {WarehouseMyWarehouseView} from '@views/warehouse/warehouse-my-warehouse-view'
 import {WarehouseSubUsersView} from '@views/warehouse/warehouse-users-views/warehouse-sub-users-view'
@@ -117,8 +121,20 @@ export const overallRoutesConfigs = [
   },
 
   {
+    routePath: '/another-user',
+    component: AnotherUserProfileView,
+    exact: false,
+  },
+
+  {
     routePath: '/requests/my',
     component: MyRequestsView,
+    exact: false,
+  },
+
+  {
+    routePath: '/requests/my-proposals',
+    component: MyProposalsView,
     exact: false,
   },
 
@@ -147,8 +163,8 @@ export const overallRoutesConfigs = [
   },
 
   {
-    routePath: '/create-proposal',
-    component: CreateProposalView,
+    routePath: '/create-or-edit-proposal',
+    component: CreateOrEditProposalView,
     exact: false,
   },
 ]
@@ -501,6 +517,13 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.STOREKEEPER],
   },
+
+  {
+    routePath: '/warehouse/management',
+    component: WarehouseManagementView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+  },
   {
     routePath: '/warehouse/completed-tasks',
     component: WarehouseCompletedTasksView,
@@ -587,6 +610,14 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
   },
+
+  {
+    routePath: '/admin/warehouse/destinations',
+    component: AdminDestinationsView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+  },
+
   {
     routePath: '/admin/warehouse/batches',
     component: AdminWarehouseBatchesView,

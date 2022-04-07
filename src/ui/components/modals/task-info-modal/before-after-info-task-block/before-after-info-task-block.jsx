@@ -12,7 +12,7 @@ import {useClassNames} from './before-after-info-task-block.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').beforeAfterInfoTaskBlock
 
-export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, taskType}) => {
+export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, taskType, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
 
   return (
@@ -21,7 +21,13 @@ export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, task
         <Typography variant="h4">{textConsts.incom}</Typography>
 
         {beforeBoxes.map((box, boxIndex) => (
-          <BeforeAfterBox key={boxIndex} isCurrentBox box={box} taskType={taskType} />
+          <BeforeAfterBox
+            key={boxIndex}
+            isCurrentBox
+            box={box}
+            taskType={taskType}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+          />
         ))}
       </div>
 
@@ -32,7 +38,13 @@ export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, task
           <Typography variant="h4">{textConsts.newBoxes}</Typography>
 
           {afterBoxes.map((box, boxIndex) => (
-            <BeforeAfterBox key={boxIndex} box={box} taskType={taskType} newBoxes={afterBoxes} />
+            <BeforeAfterBox
+              key={boxIndex}
+              box={box}
+              taskType={taskType}
+              newBoxes={afterBoxes}
+              volumeWeightCoefficient={volumeWeightCoefficient}
+            />
           ))}
         </div>
       )}

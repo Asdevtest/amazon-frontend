@@ -6,7 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
@@ -21,7 +21,8 @@ import {WarehouseCanceledTasksViewModel} from './warehouse-canceled-tasks-view.m
 import {styles} from './warehouse-canceled-tasks-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseCanceledTasksView
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_CANCELED_TASKS
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_TASKS
+const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS
 
 @observer
 export class WarehouseCanceledTasksViewRaw extends Component {
@@ -41,6 +42,8 @@ export class WarehouseCanceledTasksViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
+
+      volumeWeightCoefficient,
 
       curOpenedTask,
       drawerOpen,
@@ -64,6 +67,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
       <React.Fragment>
         <Navbar
           activeCategory={navbarActiveCategory}
+          activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}
         />
@@ -108,6 +112,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
         <TaskInfoModal
           openModal={showTaskInfoModal}
           setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
+          volumeWeightCoefficient={volumeWeightCoefficient}
           task={curOpenedTask}
         />
       </React.Fragment>

@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 
 /**
  * The InlineObject8 model module.
@@ -23,12 +22,11 @@ class InlineObject8 {
     /**
      * Constructs a new <code>InlineObject8</code>.
      * @alias module:model/InlineObject8
-     * @param guids {Array.<String>} Массив коробок.
-     * @param boxBody {module:model/ApiV1BoxesMergeBoxBody} 
+     * @param boxesIds {Array.<String>} 
      */
-    constructor(guids, boxBody) { 
+    constructor(boxesIds) { 
         
-        InlineObject8.initialize(this, guids, boxBody);
+        InlineObject8.initialize(this, boxesIds);
     }
 
     /**
@@ -36,9 +34,8 @@ class InlineObject8 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, guids, boxBody) { 
-        obj['guids'] = guids;
-        obj['boxBody'] = boxBody;
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -52,11 +49,8 @@ class InlineObject8 {
         if (data) {
             obj = obj || new InlineObject8();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
-            }
-            if (data.hasOwnProperty('boxBody')) {
-                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -66,15 +60,9 @@ class InlineObject8 {
 }
 
 /**
- * Массив коробок.
- * @member {Array.<String>} guids
+ * @member {Array.<String>} boxesIds
  */
-InlineObject8.prototype['guids'] = undefined;
-
-/**
- * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
- */
-InlineObject8.prototype['boxBody'] = undefined;
+InlineObject8.prototype['boxesIds'] = undefined;
 
 
 

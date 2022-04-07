@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **fbaamount** | **Number** |  Общая сумма с фба. | [optional] 
 **fbalink** | **String** |  | [optional] 
 **delivery** | **Number** | Стоимость доставки. | [optional] 
-**status** | **Number** | См. описание статусов например в readMe.md | [optional] 
+**status** | **Number** |  Статус товара. У ресечера: 0 - новый товар. 5- готов к проверке супером. 10 - новый товар с поставщиком | [optional] 
 **icomment** | **String** | Комментарии к товару. | [optional] 
 **images** | **[String]** | Массив изображений. | [optional] 
 **amazonDescription** | **String** |  | [optional] 
@@ -44,6 +44,5 @@ Name | Type | Description | Notes
 **listingExtraInfo** | **String** |  | [optional] 
 **listingSupplierCompetitors** | [**[ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]**](ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md) | Массив объектов: ссылки и комментарии к конкурентам | [optional] 
 **strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
-**checkednotes** | **String** | Комментарий к статусу проверки. | [optional] 
 
 

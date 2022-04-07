@@ -4,6 +4,7 @@ import {Button, Chip, Link, Tooltip, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
+import {useHistory} from 'react-router-dom'
 
 import {RequestStatus} from '@constants/request-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
@@ -18,12 +19,14 @@ import {
   formatDateDistanceFromNow,
   formatDateForShowWithoutParseISO,
   formatDateTime,
+  formatDateWithoutTime,
   formatNormDateTime,
   formatNormDateTimeWithParseISO,
+  formatShortDateTime,
 } from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixedWithDollarSign, trimBarcode, toFixedWithKg, checkAndMakeAbsoluteUrl} from '@utils/text'
+import {toFixedWithDollarSign, trimBarcode, toFixedWithKg, checkAndMakeAbsoluteUrl, toFixed} from '@utils/text'
 
 import {styles} from './data-grid-cells.style'
 
@@ -80,13 +83,36 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
       {!product.currentSupplier ? 'N/A' : product.currentSupplier.name}
     </Typography>
 
-    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.currentSupplier?.link)}>
-      <Typography className={classNames.noActiveLink}>{`${
-        !product.currentSupplier ? 'N/A' : product.currentSupplier?.link
-      }`}</Typography>
-    </Link>
+    {product.currentSupplier && (
+      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.currentSupplier?.link)}>
+        <Typography className={classNames.noActiveLink}>{product.currentSupplier?.link}</Typography>
+      </Link>
+    )}
   </div>
 ))
+
+export const UserLinkCell = withStyles(styles)(({classes: classNames, name, userId}) => {
+  const history = useHistory()
+
+  const onLinkClick = () => {
+    history.push({
+      pathname: '/another-user',
+      search: userId,
+    })
+  }
+
+  return (
+    <div>
+      {name ? (
+        <Typography className={classNames.linkText} onClick={onLinkClick}>
+          {name}
+        </Typography>
+      ) : (
+        <Typography>{'N/A'}</Typography>
+      )}
+    </div>
+  )
+})
 
 export const SupervisorCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
@@ -141,6 +167,18 @@ export const NormDateCell = withStyles(styles)(({classes: classNames, params}) =
   </Typography>
 ))
 
+export const NormDateWithoutTimeCell = withStyles(styles)(({classes: classNames, params}) => (
+  <Typography className={classNames.normDateCellTypo}>
+    {!(params && params.value) ? 'N/A' : formatDateWithoutTime(params.value)}
+  </Typography>
+))
+
+export const ShortDateCell = withStyles(styles)(({classes: classNames, params}) => (
+  <Typography className={classNames.shortDateCellTypo}>
+    {!(params && params.value) ? 'N/A' : formatShortDateTime(params.value)}
+  </Typography>
+))
+
 export const NormDateFromUnixCell = withStyles(styles)(({classes: classNames, value}) => (
   <Typography className={classNames.normDateCellTypo}>
     {!value ? 'N/A' : formatDateForShowWithoutParseISO(fromUnixTime(value))}
@@ -169,9 +207,54 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
 
 export const renderFieldValueCell = value => (!value && value !== 0 ? 'N/A' : value)
 
+export const WarehouseTariffDestinationCell = withStyles(styles)(() => (
+  <div>
+    <Typography>{'US West Coast'}</Typography>
+    <Typography>{'US Central '}</Typography>
+    <Typography>{'US East Coast '}</Typography>
+  </div>
+))
+
+export const WarehouseTariffRatesCell = withStyles(styles)(({conditionsByRegion}) => (
+  <div>
+    <Typography>{toFixed(conditionsByRegion.west.rate, 2) || 'N/A'}</Typography>
+    <Typography>{toFixed(conditionsByRegion.central.rate, 2) || 'N/A'}</Typography>
+    <Typography>{toFixed(conditionsByRegion.east.rate, 2) || 'N/A'}</Typography>
+  </div>
+))
+
+export const WarehouseTariffDatesCell = withStyles(styles)(({classes: classNames, row}) => (
+  <div>
+    <div className={classNames.warehouseTariffDatesItem}>
+      <Typography>{'ETD(дата отправки):'}</Typography>
+      <Typography>{!row.cls ? 'N/A' : formatDateWithoutTime(row.cls)}</Typography>
+    </div>
+
+    <div className={classNames.warehouseTariffDatesItem}>
+      <Typography>{'ETA(дата прибытия):'}</Typography>
+      <Typography>{!row.etd ? 'N/A' : formatDateWithoutTime(row.etd)}</Typography>
+    </div>
+
+    <div className={classNames.warehouseTariffDatesItem}>
+      <Typography>{'CLS(дата закрытия партии):'}</Typography>
+      <Typography>{!row.atd ? 'N/A' : formatDateWithoutTime(row.atd)}</Typography>
+    </div>
+  </div>
+))
+
+export const RenderFieldValueCell = withStyles(styles)(({classes: classNames, value}) => (
+  <Typography className={classNames.renderFieldValueCellText}>{!value && value !== 0 ? 'N/A' : value}</Typography>
+))
+
 export const MultilineTextCell = withStyles(styles)(({classes: classNames, text}) => (
   <div className={classNames.multilineTextWrapper}>
     <Typography className={classNames.multilineText}>{text}</Typography>
+  </div>
+))
+
+export const MultilineStatusCell = withStyles(styles)(({classes: classNames, status}) => (
+  <div className={classNames.multilineTextWrapper}>
+    <Typography className={classNames.multilineText}>{status?.replace(/_/g, ' ')}</Typography>
   </div>
 ))
 
@@ -323,6 +406,10 @@ export const SmallRowImageCell = withStyles(styles)(({classes: classNames, image
   </div>
 ))
 
+export const ToFixedCell = withStyles(styles)(({classes: classNames, value, fix}) => (
+  <div className={classNames.priceTableCell}>{!value ? (value === 0 ? 0 : 'N/A') : toFixed(value, fix)}</div>
+))
+
 export const ToFixedWithDollarSignCell = withStyles(styles)(({classes: classNames, value, fix}) => (
   <div className={classNames.priceTableCell}>
     {!value ? (value === 0 ? 0 : 'N/A') : toFixedWithDollarSign(value, fix)}
@@ -345,13 +432,13 @@ export const NormalActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText}) 
 
 export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
   <div>
-    <Button variant="contained" color="primary" onClick={() => handlers.onClickResolveBtn(row)}>
+    <SuccessButton className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.onClickResolveBtn(row)}>
       {textConsts.resolveBtn}
-    </Button>
+    </SuccessButton>
 
     {row.operationType !== TaskOperationType.RECEIVE && (
       <ErrorButton
-        className={classNames.rowCancelBtn}
+        className={clsx(classNames.rowCancelBtn, classNames.warehouseMyTasksCancelBtn)}
         onClick={() => {
           handlers.onClickCancelTask(row.boxes[0]._id, row._id, row.operationType)
         }}

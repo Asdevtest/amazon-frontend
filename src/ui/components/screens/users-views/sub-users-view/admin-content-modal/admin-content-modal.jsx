@@ -57,6 +57,7 @@ export const AdminContentModal = observer(
       name: editUserFormFields?.name || '',
       rate: editUserFormFields?.rate || 0,
       role: editUserFormFields?.role || '',
+      hideSuppliers: editUserFormFields?.hideSuppliers || false,
 
       permissions: editUserFormFields?.permissions.map(perm => perm._id) || [],
       permissionGroups: editUserFormFields?.permissionGroups.map(permGroup => permGroup._id) || [],
@@ -64,14 +65,26 @@ export const AdminContentModal = observer(
 
     const [formFields, setFormFields] = useState(sourceFormFields)
 
+    const [permissionsToSelect, setPermissionsToSelect] = useState([
+      ...singlePermissions.filter(item => item.role === formFields.role),
+    ])
+    const [permissionGroupsToSelect, setPermissionGroupsToSelect] = useState([
+      ...groupPermissions.filter(item => item.role === formFields.role),
+    ])
+
     const onChangeFormField = fieldName => event => {
       const newFormFields = {...formFields}
       if (fieldName === 'rate') {
         newFormFields[fieldName] = event.target.value.replace(/[-]/, '')
-      } else if (['fba', 'canByMasterUser'].includes(fieldName)) {
+      } else if (['fba', 'canByMasterUser', 'hideSuppliers'].includes(fieldName)) {
         newFormFields[fieldName] = event.target.checked
       } else {
         newFormFields[fieldName] = event.target.value
+      }
+
+      if (fieldName === 'role') {
+        setPermissionsToSelect([...singlePermissions.filter(item => item.role === +event.target.value)])
+        setPermissionGroupsToSelect([...groupPermissions.filter(item => item.role === +event.target.value)])
       }
 
       if (fieldName === 'role' && fieldName === 'permissions' && fieldName === 'permissionGroups') {
@@ -131,7 +144,11 @@ export const AdminContentModal = observer(
           type="email"
           onChange={onChangeFormField('email')}
         />
-        <Field label={textConsts.rate} value={formFields.rate} onChange={onChangeFormField('rate')} />
+
+        {!editUserFormFields.masterUser ? (
+          <Field label={textConsts.rate} value={formFields.rate} onChange={onChangeFormField('rate')} />
+        ) : null}
+
         <Field
           label={textConsts.role}
           error={isWrongPermissionsSelect && textConsts.isWrongPermissionsSelect}
@@ -218,6 +235,16 @@ export const AdminContentModal = observer(
           <Typography className={classNames.checkboxLabel}>{textConsts.canByMasterUser}</Typography>
         </div>
 
+        <div className={classNames.checkboxWrapper}>
+          <Checkbox
+            color="primary"
+            disabled={formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+            checked={formFields.hideSuppliers}
+            onChange={onChangeFormField('hideSuppliers')}
+          />
+          <Typography className={classNames.checkboxLabel}>{textConsts.hideSuppliers}</Typography>
+        </div>
+
         <Field label={textConsts.fieldSecurity} inputComponent={renderPermissionBtn} />
 
         {isWrongPermissionsSelect && (
@@ -253,8 +280,8 @@ export const AdminContentModal = observer(
         </div>
         <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
           <NewAddOrEditUserPermissionsForm
-            permissionsToSelect={singlePermissions.filter(item => item.role === formFields.role)}
-            permissionGroupsToSelect={groupPermissions.filter(item => item.role === formFields.role)}
+            permissionsToSelect={permissionsToSelect}
+            permissionGroupsToSelect={permissionGroupsToSelect}
             sourceData={formFields}
             onCloseModal={() => setShowPermissionModal(!showPermissionModal)}
             onSubmit={onSubmitUserPermissionsForm}

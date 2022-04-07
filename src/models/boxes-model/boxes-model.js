@@ -79,8 +79,8 @@ class BoxesModelStatic {
     return response
   }
 
-  getBoxesForCurClient = async () => {
-    const response = await restApiService.boxesApi.apiV1BoxesClientsGet()
+  getBoxesForCurClient = async storekeeperId => {
+    const response = await restApiService.boxesApi.apiV1BoxesClientsGet(storekeeperId)
     return response
   }
 

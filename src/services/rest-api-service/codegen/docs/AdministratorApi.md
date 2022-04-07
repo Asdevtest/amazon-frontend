@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV1AdminsBatchesGet**](AdministratorApi.md#apiV1AdminsBatchesGet) | **GET** /api/v1/admins/batches | # Получить все партии.
+[**apiV1AdminsBatchesGet**](AdministratorApi.md#apiV1AdminsBatchesGet) | **GET** /api/v1/admins/batches | # DEPRECATED Получить все партии.
 [**apiV1AdminsGetCheckingProductsGet**](AdministratorApi.md#apiV1AdminsGetCheckingProductsGet) | **GET** /api/v1/admins/get_checking_products | # Получить список товаров, которые находятся на проверке. 
 [**apiV1AdminsGetPaidProductsGet**](AdministratorApi.md#apiV1AdminsGetPaidProductsGet) | **GET** /api/v1/admins/get_paid_products | # Получить список оплаченных товаров.
 [**apiV1AdminsGetProductsByStatusGet**](AdministratorApi.md#apiV1AdminsGetProductsByStatusGet) | **GET** /api/v1/admins/get_products_by_status | # Получить список продуктов с фильтром по статусу.
@@ -21,16 +21,19 @@ Method | HTTP request | Description
 [**apiV1AdminsUsersGet**](AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
 [**apiV1AdminsUsersGuidGet**](AdministratorApi.md#apiV1AdminsUsersGuidGet) | **GET** /api/v1/admins/users/{guid} | Получить пользователя по GUID.
 [**apiV1AdminsUsersGuidPatch**](AdministratorApi.md#apiV1AdminsUsersGuidPatch) | **PATCH** /api/v1/admins/users/{guid} | Изменить пользователя.
+[**apiV1AdminsWarehouseEditGuidPatch**](AdministratorApi.md#apiV1AdminsWarehouseEditGuidPatch) | **PATCH** /api/v1/admins/warehouse_edit/{guid} | #  Редактировать склад назначения.
+[**apiV1AdminsWarehouseGuidDelete**](AdministratorApi.md#apiV1AdminsWarehouseGuidDelete) | **DELETE** /api/v1/admins/warehouse/{guid} | #  Редактировать склад назначения.
+[**apiV1AdminsWarehousePost**](AdministratorApi.md#apiV1AdminsWarehousePost) | **POST** /api/v1/admins/warehouse | #  Создать склад назначения.
 
 
 
 ## apiV1AdminsBatchesGet
 
-> [InlineResponse2004] apiV1AdminsBatchesGet(opts)
+> apiV1AdminsBatchesGet(opts)
 
-# Получить все партии.
+# DEPRECATED Получить все партии.
 
-## Получить все партии.  
+##DEPRECATED Получить все партии.  
 
 ### Example
 
@@ -50,8 +53,8 @@ let opts = {
   'clientId': "clientId_example", // String | Id клиента. По умолчанию все.
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1AdminsBatchesGet(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
+apiInstance.apiV1AdminsBatchesGet(opts).then(() => {
+  console.log('API called successfully.');
 }, (error) => {
   console.error(error);
 });
@@ -70,7 +73,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+null (empty response body)
 
 ### Authorization
 
@@ -526,7 +529,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.AdministratorApi();
-let guid = "guid_example"; // String | GUID продукта в БД.
+let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject() // InlineObject | 
@@ -544,7 +547,7 @@ apiInstance.apiV1AdminsPatchProductsGuidPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID продукта в БД. | 
+ **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject**](InlineObject.md)|  | [optional] 
 
@@ -616,7 +619,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsProductsVacGet
 
-> [InlineResponse2005] apiV1AdminsProductsVacGet(opts)
+> [InlineResponse2004] apiV1AdminsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -654,7 +657,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -846,7 +849,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.AdministratorApi();
-let guid = "guid_example"; // String | 
+let guid = null; // String | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -863,7 +866,7 @@ apiInstance.apiV1AdminsUsersGuidGet(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**|  | 
+ **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -900,7 +903,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.AdministratorApi();
-let guid = "guid_example"; // String | GUID продукта в БД.
+let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject2() // InlineObject2 | 
@@ -918,13 +921,177 @@ apiInstance.apiV1AdminsUsersGuidPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID продукта в БД. | 
+ **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject2**](InlineObject2.md)|  | [optional] 
 
 ### Return type
 
 **String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1AdminsWarehouseEditGuidPatch
+
+> String apiV1AdminsWarehouseEditGuidPatch(guid, opts)
+
+#  Редактировать склад назначения.
+
+## Редактировать склад назначения.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.AdministratorApi();
+let guid = null; // String | 
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject6() // InlineObject6 | 
+};
+apiInstance.apiV1AdminsWarehouseEditGuidPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)|  | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject6**](InlineObject6.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1AdminsWarehouseGuidDelete
+
+> String apiV1AdminsWarehouseGuidDelete(guid, opts)
+
+#  Редактировать склад назначения.
+
+## Редактировать склад назначения.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.AdministratorApi();
+let guid = null; // String | 
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1AdminsWarehouseGuidDelete(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)|  | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1AdminsWarehousePost
+
+> SuccessResponseBodyWithGuid apiV1AdminsWarehousePost(opts)
+
+#  Создать склад назначения.
+
+## Создать склад назначения.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.AdministratorApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject5() // InlineObject5 | 
+};
+apiInstance.apiV1AdminsWarehousePost(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject5**](InlineObject5.md)|  | [optional] 
+
+### Return type
+
+[**SuccessResponseBodyWithGuid**](SuccessResponseBodyWithGuid.md)
 
 ### Authorization
 

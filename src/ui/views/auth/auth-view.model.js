@@ -34,7 +34,12 @@ export class AuthViewModel {
   setField = fieldName =>
     action(value => {
       this.formValidationErrors[fieldName] = null
-      this[fieldName] = value
+
+      if (fieldName === 'remember') {
+        this[fieldName] = !this.remember
+      } else {
+        this[fieldName] = value
+      }
     })
 
   async onSubmitForm() {

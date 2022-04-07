@@ -42,18 +42,6 @@ class ResearcherModelStatic {
     const response = await restApiService.researcherApi.apiV1ResearchersCheckProductsAsinGet(id)
     return response
   }
-
-  parseAmazon = async id => {
-    const response = await restApiService.researcherApi.apiV1ResearchersParseAmazonIdGet(id)
-    return response
-  }
-
-  parseParseSellerCentral = async id => {
-    const response = await restApiService.researcherApi.apiV1ResearchersParseSellercentralGet({
-      id,
-    })
-    return response
-  }
 }
 
 export const ResearcherModel = new ResearcherModelStatic()

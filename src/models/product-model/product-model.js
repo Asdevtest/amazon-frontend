@@ -34,6 +34,16 @@ class ProductModelStatic {
     })
     return response
   }
+
+  parseAmazon = async id => {
+    const response = await restApiService.product.apiV1ProductsParseAmazonIdGet(id)
+    return response
+  }
+
+  parseParseSellerCentral = async asin => {
+    const response = await restApiService.product.apiV1ProductsParseSellercentralGet(asin)
+    return response
+  }
 }
 
 export const ProductModel = new ProductModelStatic()

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**request** | [**InlineResponse20019Request**](InlineResponse20019Request.md) |  | [optional] 
-**details** | [**InlineResponse20019Details**](InlineResponse20019Details.md) |  | [optional] 
+**yuanToDollarRate** | **Number** | Курс юаня к доллару. | [optional] 
+**volumeWeightCoefficient** | **Number** | Коэффициент расчета объемного веса. | [optional] 
 
 

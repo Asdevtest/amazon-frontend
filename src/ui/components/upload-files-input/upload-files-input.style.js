@@ -69,7 +69,7 @@ export const useClassNames = makeStyles(() => ({
     margin: '0 auto',
 
     maxHeight: '250px',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
 
   image: {
@@ -111,6 +111,13 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '9px',
   },
 
+  linkName: {
+    maxWidth: '160px',
+    height: '80px',
+    overflow: 'auto',
+    fontSize: '10px',
+  },
+
   imageListItem: {
     border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
@@ -119,6 +126,19 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '3px',
+  },
+
+  imageLinkListItem: {
+    border: ' 1px solid rgba(0,123, 255, .7)',
+    borderRadius: '10px',
+    background: '#EFEFEF',
+
+    display: 'flex',
+    alignItems: 'center',
+    gap: '3px',
+    width: '280px',
+    justifyContent: 'space-between',
+    margin: '0',
   },
 
   actionIconsWrapper: {
@@ -156,5 +176,13 @@ export const useClassNames = makeStyles(() => ({
     color: 'red',
     fontWeight: 'bold',
     fontSize: '18px',
+  },
+
+  linkTypo: {
+    height: '100px',
+    // whiteSpace: 'nowrap',
+    color: 'white',
+    width: '300px',
+    overflowX: 'auto',
   },
 }))

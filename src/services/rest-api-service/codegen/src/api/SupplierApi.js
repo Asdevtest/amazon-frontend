@@ -13,11 +13,11 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiV1AdminsGetProductsByStatusCurrentSupplier from '../model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
+import ApiV1AdminsGetProductsByStatusSuppliers from '../model/ApiV1AdminsGetProductsByStatusSuppliers';
 import BadRequestError from '../model/BadRequestError';
-import InlineObject55 from '../model/InlineObject55';
-import InlineObject56 from '../model/InlineObject56';
-import InlineResponse2013 from '../model/InlineResponse2013';
+import InlineObject66 from '../model/InlineObject66';
+import InlineObject67 from '../model/InlineObject67';
+import InlineResponse2018 from '../model/InlineResponse2018';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -46,7 +46,7 @@ export default class SupplierApi {
      * ## Получить список поставщиков.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusSuppliers>} and HTTP response
      */
     apiV1SuppliersGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -65,7 +65,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1AdminsGetProductsByStatusCurrentSupplier];
+      let returnType = [ApiV1AdminsGetProductsByStatusSuppliers];
       return this.apiClient.callApi(
         '/api/v1/suppliers/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -78,7 +78,7 @@ export default class SupplierApi {
      * ## Получить список поставщиков.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusSuppliers>}
      */
     apiV1SuppliersGet(opts) {
       return this.apiV1SuppliersGetWithHttpInfo(opts)
@@ -90,7 +90,7 @@ export default class SupplierApi {
 
     /**
      * # Удалить поставщика.
-     * ##  Удалить поставщика.   
+     * ##  Удалить поставщика.   Запрещено редактировать. Если поставщик используется в карточке товара со статусами: 35, 40, 50, 60, 235, 240, 250, 260
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -128,7 +128,7 @@ export default class SupplierApi {
 
     /**
      * # Удалить поставщика.
-     * ##  Удалить поставщика.   
+     * ##  Удалить поставщика.   Запрещено редактировать. Если поставщик используется в карточке товара со статусами: 35, 40, 50, 60, 235, 240, 250, 260
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -198,11 +198,11 @@ export default class SupplierApi {
 
     /**
      * # Изменить поставщика.
-     * ## Изменить  поставщика.   
+     * ## Изменить  поставщика.   Байер может редактировать поставщика только если поставщик используется в карточке товара в котором является байером. Байер может редактировать  поставщика только если поставщик используется в карточке товара со статусами: 35, 40, 50, 60, 235, 240, 250, 260
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject56} opts.body 
+     * @param {module:model/InlineObject67} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SuppliersGuidPatchWithHttpInfo(guid, opts) {
@@ -237,11 +237,11 @@ export default class SupplierApi {
 
     /**
      * # Изменить поставщика.
-     * ## Изменить  поставщика.   
+     * ## Изменить  поставщика.   Байер может редактировать поставщика только если поставщик используется в карточке товара в котором является байером. Байер может редактировать  поставщика только если поставщик используется в карточке товара со статусами: 35, 40, 50, 60, 235, 240, 250, 260
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject56} opts.body 
+     * @param {module:model/InlineObject67} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SuppliersGuidPatch(guid, opts) {
@@ -254,11 +254,11 @@ export default class SupplierApi {
 
     /**
      * # Добавить нового поставщика.
-     * ## Добавить нового поставщика.   
+     * ## Добавить нового поставщика.   boxWeighGrossKg получить через метод   // POST /suppliers/calc_boxVolumeWeightKg 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject55} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2013} and HTTP response
+     * @param {module:model/InlineObject66} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2018} and HTTP response
      */
     apiV1SuppliersPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -277,7 +277,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2013;
+      let returnType = InlineResponse2018;
       return this.apiClient.callApi(
         '/api/v1/suppliers/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -287,11 +287,11 @@ export default class SupplierApi {
 
     /**
      * # Добавить нового поставщика.
-     * ## Добавить нового поставщика.   
+     * ## Добавить нового поставщика.   boxWeighGrossKg получить через метод   // POST /suppliers/calc_boxVolumeWeightKg 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject55} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2013}
+     * @param {module:model/InlineObject66} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2018}
      */
     apiV1SuppliersPost(opts) {
       return this.apiV1SuppliersPostWithHttpInfo(opts)

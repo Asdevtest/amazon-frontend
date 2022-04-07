@@ -19,6 +19,12 @@ export const styles = createStyles({
     marginLeft: '20px',
   },
 
+  archiveBtnsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '350px',
+  },
+
   row: {
     cursor: 'pointer',
     transition: '0.3s ease',

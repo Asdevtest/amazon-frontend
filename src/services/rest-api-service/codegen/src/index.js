@@ -14,27 +14,37 @@
 
 import ApiClient from './ApiClient';
 import AdminUserPatchDtoSchema from './model/AdminUserPatchDtoSchema';
-import ApiV1AdminsBatchesBatch from './model/ApiV1AdminsBatchesBatch';
-import ApiV1AdminsBatchesBoxes from './model/ApiV1AdminsBatchesBoxes';
-import ApiV1AdminsBatchesItems from './model/ApiV1AdminsBatchesItems';
 import ApiV1AdminsGetProductsByStatusClient from './model/ApiV1AdminsGetProductsByStatusClient';
-import ApiV1AdminsGetProductsByStatusCurrentSupplier from './model/ApiV1AdminsGetProductsByStatusCurrentSupplier';
 import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
+import ApiV1AdminsGetProductsByStatusSuppliers from './model/ApiV1AdminsGetProductsByStatusSuppliers';
+import ApiV1AdminsOrdersDestination from './model/ApiV1AdminsOrdersDestination';
+import ApiV1AdminsOrdersOrderSupplier from './model/ApiV1AdminsOrdersOrderSupplier';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
 import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
 import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
 import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStorekeeper';
+import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
+import ApiV1BatchesStorekeeper from './model/ApiV1BatchesStorekeeper';
+import ApiV1BoxesDestination from './model/ApiV1BoxesDestination';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
+import ApiV1BoxesItems1 from './model/ApiV1BoxesItems1';
+import ApiV1BoxesLogicsTariff from './model/ApiV1BoxesLogicsTariff';
+import ApiV1BoxesLogicsTariffConditionsByRegion from './model/ApiV1BoxesLogicsTariffConditionsByRegion';
+import ApiV1BoxesLogicsTariffConditionsByRegionWest from './model/ApiV1BoxesLogicsTariffConditionsByRegionWest';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
 import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
+import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
+import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
+import ApiV1IntegrationsSellerboardWarehouseStocksShop from './model/ApiV1IntegrationsSellerboardWarehouseStocksShop';
 import ApiV1RequestProposalsCreatedBy from './model/ApiV1RequestProposalsCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1RequestProposalsCustomByRequestIdGuidDetails';
 import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
+import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom';
 import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetails';
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
-import ApiV1RequestsGuidPickupProposalDetails from './model/ApiV1RequestsGuidPickupProposalDetails';
+import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
 import BadRequestError from './model/BadRequestError';
 import CheckIsUniqueNameOrEmailReqSchema from './model/CheckIsUniqueNameOrEmailReqSchema';
 import CheckIsUniqueNameOrEmailSchema from './model/CheckIsUniqueNameOrEmailSchema';
@@ -98,7 +108,18 @@ import InlineObject57 from './model/InlineObject57';
 import InlineObject58 from './model/InlineObject58';
 import InlineObject59 from './model/InlineObject59';
 import InlineObject6 from './model/InlineObject6';
+import InlineObject60 from './model/InlineObject60';
+import InlineObject61 from './model/InlineObject61';
+import InlineObject62 from './model/InlineObject62';
+import InlineObject63 from './model/InlineObject63';
+import InlineObject64 from './model/InlineObject64';
+import InlineObject65 from './model/InlineObject65';
+import InlineObject66 from './model/InlineObject66';
+import InlineObject67 from './model/InlineObject67';
+import InlineObject68 from './model/InlineObject68';
+import InlineObject69 from './model/InlineObject69';
 import InlineObject7 from './model/InlineObject7';
+import InlineObject70 from './model/InlineObject70';
 import InlineObject8 from './model/InlineObject8';
 import InlineObject9 from './model/InlineObject9';
 import InlineResponse200 from './model/InlineResponse200';
@@ -113,9 +134,13 @@ import InlineResponse20016 from './model/InlineResponse20016';
 import InlineResponse20017 from './model/InlineResponse20017';
 import InlineResponse20018 from './model/InlineResponse20018';
 import InlineResponse20019 from './model/InlineResponse20019';
-import InlineResponse20019Details from './model/InlineResponse20019Details';
-import InlineResponse20019Request from './model/InlineResponse20019Request';
 import InlineResponse2002 from './model/InlineResponse2002';
+import InlineResponse20020 from './model/InlineResponse20020';
+import InlineResponse20021 from './model/InlineResponse20021';
+import InlineResponse20022 from './model/InlineResponse20022';
+import InlineResponse20023 from './model/InlineResponse20023';
+import InlineResponse20023Details from './model/InlineResponse20023Details';
+import InlineResponse20023Request from './model/InlineResponse20023Request';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
 import InlineResponse2005 from './model/InlineResponse2005';
@@ -130,6 +155,8 @@ import InlineResponse2013 from './model/InlineResponse2013';
 import InlineResponse2014 from './model/InlineResponse2014';
 import InlineResponse2015 from './model/InlineResponse2015';
 import InlineResponse2016 from './model/InlineResponse2016';
+import InlineResponse2017 from './model/InlineResponse2017';
+import InlineResponse2018 from './model/InlineResponse2018';
 import InternalServerError from './model/InternalServerError';
 import LinkSubuserInputSchema from './model/LinkSubuserInputSchema';
 import MePatchInputSchema from './model/MePatchInputSchema';
@@ -170,6 +197,7 @@ import UserSettingPatchSchema from './model/UserSettingPatchSchema';
 import UserSettingPostResponseSchema from './model/UserSettingPostResponseSchema';
 import UserSettingResponseSchema from './model/UserSettingResponseSchema';
 import AdministratorApi from './api/AdministratorApi';
+import BatchesApi from './api/BatchesApi';
 import BoxesApi from './api/BoxesApi';
 import BuyerApi from './api/BuyerApi';
 import ClientApi from './api/ClientApi';
@@ -232,40 +260,34 @@ export {
     AdminUserPatchDtoSchema,
 
     /**
-     * The ApiV1AdminsBatchesBatch model constructor.
-     * @property {module:model/ApiV1AdminsBatchesBatch}
-     */
-    ApiV1AdminsBatchesBatch,
-
-    /**
-     * The ApiV1AdminsBatchesBoxes model constructor.
-     * @property {module:model/ApiV1AdminsBatchesBoxes}
-     */
-    ApiV1AdminsBatchesBoxes,
-
-    /**
-     * The ApiV1AdminsBatchesItems model constructor.
-     * @property {module:model/ApiV1AdminsBatchesItems}
-     */
-    ApiV1AdminsBatchesItems,
-
-    /**
      * The ApiV1AdminsGetProductsByStatusClient model constructor.
      * @property {module:model/ApiV1AdminsGetProductsByStatusClient}
      */
     ApiV1AdminsGetProductsByStatusClient,
 
     /**
-     * The ApiV1AdminsGetProductsByStatusCurrentSupplier model constructor.
-     * @property {module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier}
-     */
-    ApiV1AdminsGetProductsByStatusCurrentSupplier,
-
-    /**
      * The ApiV1AdminsGetProductsByStatusListingSupplierCompetitors model constructor.
      * @property {module:model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors}
      */
     ApiV1AdminsGetProductsByStatusListingSupplierCompetitors,
+
+    /**
+     * The ApiV1AdminsGetProductsByStatusSuppliers model constructor.
+     * @property {module:model/ApiV1AdminsGetProductsByStatusSuppliers}
+     */
+    ApiV1AdminsGetProductsByStatusSuppliers,
+
+    /**
+     * The ApiV1AdminsOrdersDestination model constructor.
+     * @property {module:model/ApiV1AdminsOrdersDestination}
+     */
+    ApiV1AdminsOrdersDestination,
+
+    /**
+     * The ApiV1AdminsOrdersOrderSupplier model constructor.
+     * @property {module:model/ApiV1AdminsOrdersOrderSupplier}
+     */
+    ApiV1AdminsOrdersOrderSupplier,
 
     /**
      * The ApiV1AdminsPaymentsCreatedBy model constructor.
@@ -292,10 +314,52 @@ export {
     ApiV1AdminsTasksLightStorekeeper,
 
     /**
+     * The ApiV1BatchesBoxes model constructor.
+     * @property {module:model/ApiV1BatchesBoxes}
+     */
+    ApiV1BatchesBoxes,
+
+    /**
+     * The ApiV1BatchesStorekeeper model constructor.
+     * @property {module:model/ApiV1BatchesStorekeeper}
+     */
+    ApiV1BatchesStorekeeper,
+
+    /**
+     * The ApiV1BoxesDestination model constructor.
+     * @property {module:model/ApiV1BoxesDestination}
+     */
+    ApiV1BoxesDestination,
+
+    /**
      * The ApiV1BoxesItems model constructor.
      * @property {module:model/ApiV1BoxesItems}
      */
     ApiV1BoxesItems,
+
+    /**
+     * The ApiV1BoxesItems1 model constructor.
+     * @property {module:model/ApiV1BoxesItems1}
+     */
+    ApiV1BoxesItems1,
+
+    /**
+     * The ApiV1BoxesLogicsTariff model constructor.
+     * @property {module:model/ApiV1BoxesLogicsTariff}
+     */
+    ApiV1BoxesLogicsTariff,
+
+    /**
+     * The ApiV1BoxesLogicsTariffConditionsByRegion model constructor.
+     * @property {module:model/ApiV1BoxesLogicsTariffConditionsByRegion}
+     */
+    ApiV1BoxesLogicsTariffConditionsByRegion,
+
+    /**
+     * The ApiV1BoxesLogicsTariffConditionsByRegionWest model constructor.
+     * @property {module:model/ApiV1BoxesLogicsTariffConditionsByRegionWest}
+     */
+    ApiV1BoxesLogicsTariffConditionsByRegionWest,
 
     /**
      * The ApiV1BoxesMergeBoxBody model constructor.
@@ -316,6 +380,24 @@ export {
     ApiV1BoxesSplitNewBoxesParams,
 
     /**
+     * The ApiV1IntegrationsCreateAndLinkSkuProductsPayload model constructor.
+     * @property {module:model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload}
+     */
+    ApiV1IntegrationsCreateAndLinkSkuProductsPayload,
+
+    /**
+     * The ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks model constructor.
+     * @property {module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks}
+     */
+    ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks,
+
+    /**
+     * The ApiV1IntegrationsSellerboardWarehouseStocksShop model constructor.
+     * @property {module:model/ApiV1IntegrationsSellerboardWarehouseStocksShop}
+     */
+    ApiV1IntegrationsSellerboardWarehouseStocksShop,
+
+    /**
      * The ApiV1RequestProposalsCreatedBy model constructor.
      * @property {module:model/ApiV1RequestProposalsCreatedBy}
      */
@@ -332,6 +414,12 @@ export {
      * @property {module:model/ApiV1RequestsCustomDetails}
      */
     ApiV1RequestsCustomDetails,
+
+    /**
+     * The ApiV1RequestsCustomDetailsCustom model constructor.
+     * @property {module:model/ApiV1RequestsCustomDetailsCustom}
+     */
+    ApiV1RequestsCustomDetailsCustom,
 
     /**
      * The ApiV1RequestsCustomGuidDetails model constructor.
@@ -352,10 +440,10 @@ export {
     ApiV1RequestsCustomRequest,
 
     /**
-     * The ApiV1RequestsGuidPickupProposalDetails model constructor.
-     * @property {module:model/ApiV1RequestsGuidPickupProposalDetails}
+     * The ApiV1StorekeepersTariffWarehouses model constructor.
+     * @property {module:model/ApiV1StorekeepersTariffWarehouses}
      */
-    ApiV1RequestsGuidPickupProposalDetails,
+    ApiV1StorekeepersTariffWarehouses,
 
     /**
      * The BadRequestError model constructor.
@@ -736,10 +824,76 @@ export {
     InlineObject6,
 
     /**
+     * The InlineObject60 model constructor.
+     * @property {module:model/InlineObject60}
+     */
+    InlineObject60,
+
+    /**
+     * The InlineObject61 model constructor.
+     * @property {module:model/InlineObject61}
+     */
+    InlineObject61,
+
+    /**
+     * The InlineObject62 model constructor.
+     * @property {module:model/InlineObject62}
+     */
+    InlineObject62,
+
+    /**
+     * The InlineObject63 model constructor.
+     * @property {module:model/InlineObject63}
+     */
+    InlineObject63,
+
+    /**
+     * The InlineObject64 model constructor.
+     * @property {module:model/InlineObject64}
+     */
+    InlineObject64,
+
+    /**
+     * The InlineObject65 model constructor.
+     * @property {module:model/InlineObject65}
+     */
+    InlineObject65,
+
+    /**
+     * The InlineObject66 model constructor.
+     * @property {module:model/InlineObject66}
+     */
+    InlineObject66,
+
+    /**
+     * The InlineObject67 model constructor.
+     * @property {module:model/InlineObject67}
+     */
+    InlineObject67,
+
+    /**
+     * The InlineObject68 model constructor.
+     * @property {module:model/InlineObject68}
+     */
+    InlineObject68,
+
+    /**
+     * The InlineObject69 model constructor.
+     * @property {module:model/InlineObject69}
+     */
+    InlineObject69,
+
+    /**
      * The InlineObject7 model constructor.
      * @property {module:model/InlineObject7}
      */
     InlineObject7,
+
+    /**
+     * The InlineObject70 model constructor.
+     * @property {module:model/InlineObject70}
+     */
+    InlineObject70,
 
     /**
      * The InlineObject8 model constructor.
@@ -826,22 +980,46 @@ export {
     InlineResponse20019,
 
     /**
-     * The InlineResponse20019Details model constructor.
-     * @property {module:model/InlineResponse20019Details}
-     */
-    InlineResponse20019Details,
-
-    /**
-     * The InlineResponse20019Request model constructor.
-     * @property {module:model/InlineResponse20019Request}
-     */
-    InlineResponse20019Request,
-
-    /**
      * The InlineResponse2002 model constructor.
      * @property {module:model/InlineResponse2002}
      */
     InlineResponse2002,
+
+    /**
+     * The InlineResponse20020 model constructor.
+     * @property {module:model/InlineResponse20020}
+     */
+    InlineResponse20020,
+
+    /**
+     * The InlineResponse20021 model constructor.
+     * @property {module:model/InlineResponse20021}
+     */
+    InlineResponse20021,
+
+    /**
+     * The InlineResponse20022 model constructor.
+     * @property {module:model/InlineResponse20022}
+     */
+    InlineResponse20022,
+
+    /**
+     * The InlineResponse20023 model constructor.
+     * @property {module:model/InlineResponse20023}
+     */
+    InlineResponse20023,
+
+    /**
+     * The InlineResponse20023Details model constructor.
+     * @property {module:model/InlineResponse20023Details}
+     */
+    InlineResponse20023Details,
+
+    /**
+     * The InlineResponse20023Request model constructor.
+     * @property {module:model/InlineResponse20023Request}
+     */
+    InlineResponse20023Request,
 
     /**
      * The InlineResponse2003 model constructor.
@@ -926,6 +1104,18 @@ export {
      * @property {module:model/InlineResponse2016}
      */
     InlineResponse2016,
+
+    /**
+     * The InlineResponse2017 model constructor.
+     * @property {module:model/InlineResponse2017}
+     */
+    InlineResponse2017,
+
+    /**
+     * The InlineResponse2018 model constructor.
+     * @property {module:model/InlineResponse2018}
+     */
+    InlineResponse2018,
 
     /**
      * The InternalServerError model constructor.
@@ -1166,6 +1356,12 @@ export {
     * @property {module:api/AdministratorApi}
     */
     AdministratorApi,
+
+    /**
+    * The BatchesApi service constructor.
+    * @property {module:api/BatchesApi}
+    */
+    BatchesApi,
 
     /**
     * The BoxesApi service constructor.

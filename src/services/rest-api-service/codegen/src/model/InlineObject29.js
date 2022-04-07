@@ -23,11 +23,10 @@ class InlineObject29 {
     /**
      * Constructs a new <code>InlineObject29</code>.
      * @alias module:model/InlineObject29
-     * @param asin {String} ASIN продукта
      */
-    constructor(asin) { 
+    constructor() { 
         
-        InlineObject29.initialize(this, asin);
+        InlineObject29.initialize(this);
     }
 
     /**
@@ -35,8 +34,7 @@ class InlineObject29 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, asin) { 
-        obj['asin'] = asin;
+    static initialize(obj) { 
     }
 
     /**
@@ -58,9 +56,6 @@ class InlineObject29 {
             }
             if (data.hasOwnProperty('material')) {
                 obj['material'] = ApiClient.convertToType(data['material'], 'String');
-            }
-            if (data.hasOwnProperty('currentSupplierId')) {
-                obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
             }
             if (data.hasOwnProperty('fbm')) {
                 obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean');
@@ -131,9 +126,6 @@ class InlineObject29 {
             if (data.hasOwnProperty('amazonTitle')) {
                 obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
             if (data.hasOwnProperty('minpurchase')) {
                 obj['minpurchase'] = ApiClient.convertToType(data['minpurchase'], 'Number');
             }
@@ -182,6 +174,12 @@ class InlineObject29 {
             if (data.hasOwnProperty('needCheckBySupervisor')) {
                 obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
             }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            }
+            if (data.hasOwnProperty('hsCode')) {
+                obj['hsCode'] = ApiClient.convertToType(data['hsCode'], 'String');
+            }
         }
         return obj;
     }
@@ -205,12 +203,6 @@ InlineObject29.prototype['skusByClient'] = undefined;
  * @member {String} material
  */
 InlineObject29.prototype['material'] = undefined;
-
-/**
- * GUID поставщика, если передать строку \"clear\" то поставщику будет сброшен (у байера и ресечера).
- * @member {String} currentSupplierId
- */
-InlineObject29.prototype['currentSupplierId'] = undefined;
 
 /**
  * Признак fbm
@@ -343,11 +335,6 @@ InlineObject29.prototype['amazonDetail'] = undefined;
 InlineObject29.prototype['amazonTitle'] = undefined;
 
 /**
- * @member {String} barCode
- */
-InlineObject29.prototype['barCode'] = undefined;
-
-/**
  * @member {Number} minpurchase
  */
 InlineObject29.prototype['minpurchase'] = undefined;
@@ -441,6 +428,18 @@ InlineObject29.prototype['strategyStatus'] = undefined;
  * @member {Boolean} needCheckBySupervisor
  */
 InlineObject29.prototype['needCheckBySupervisor'] = undefined;
+
+/**
+ * Флаг указывает что продукт в архиве.
+ * @member {Boolean} archive
+ */
+InlineObject29.prototype['archive'] = undefined;
+
+/**
+ * hsCode продукта.
+ * @member {String} hsCode
+ */
+InlineObject29.prototype['hsCode'] = undefined;
 
 
 

@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 
 /**
  * The InlineObject15 model module.
@@ -22,11 +23,12 @@ class InlineObject15 {
     /**
      * Constructs a new <code>InlineObject15</code>.
      * @alias module:model/InlineObject15
-     * @param boxesIds {Array.<String>} 
+     * @param guids {Array.<String>} Массив коробок.
+     * @param boxBody {module:model/ApiV1BoxesMergeBoxBody} 
      */
-    constructor(boxesIds) { 
+    constructor(guids, boxBody) { 
         
-        InlineObject15.initialize(this, boxesIds);
+        InlineObject15.initialize(this, guids, boxBody);
     }
 
     /**
@@ -34,8 +36,9 @@ class InlineObject15 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj, guids, boxBody) { 
+        obj['guids'] = guids;
+        obj['boxBody'] = boxBody;
     }
 
     /**
@@ -49,11 +52,11 @@ class InlineObject15 {
         if (data) {
             obj = obj || new InlineObject15();
 
-            if (data.hasOwnProperty('scheduledDispatchDate')) {
-                obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'Date');
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
             }
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('boxBody')) {
+                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
             }
         }
         return obj;
@@ -63,15 +66,15 @@ class InlineObject15 {
 }
 
 /**
- * Запланированная дата отправки.
- * @member {Date} scheduledDispatchDate
+ * Массив коробок.
+ * @member {Array.<String>} guids
  */
-InlineObject15.prototype['scheduledDispatchDate'] = undefined;
+InlineObject15.prototype['guids'] = undefined;
 
 /**
- * @member {Array.<String>} boxesIds
+ * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
  */
-InlineObject15.prototype['boxesIds'] = undefined;
+InlineObject15.prototype['boxBody'] = undefined;
 
 
 

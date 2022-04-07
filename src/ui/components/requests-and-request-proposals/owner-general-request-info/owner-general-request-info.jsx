@@ -8,7 +8,7 @@ import {RequestStatus} from '@constants/request-status'
 // import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 
-import {formatNormDateTime} from '@utils/date-time'
+import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 // import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
@@ -25,6 +25,8 @@ export const OwnerGeneralRequestInfo = ({
   onClickAbortBtn,
 }) => {
   const classNames = useClassNames()
+
+  const now = new Date()
 
   return (
     <Paper className={classNames.root}>
@@ -45,7 +47,7 @@ export const OwnerGeneralRequestInfo = ({
           <div className={classNames.blockInfoWrapper}>
             <div className={classNames.requestItemInfoWrapper}>
               <Typography>{'Время'}</Typography>
-              <Typography>{'11 ч. 55 мин.'}</Typography>
+              <Typography>{request && formatDateDistanceFromNowStrict(request?.request.timeoutAt, now)}</Typography>
             </div>
 
             <div className={classNames.requestItemInfoWrapper}>
@@ -62,7 +64,7 @@ export const OwnerGeneralRequestInfo = ({
 
             <div className={classNames.requestItemInfoWrapper}>
               <Typography>{'Стоимость'}</Typography>
-              <Typography>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
+              <Typography className={classNames.price}>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
             </div>
           </div>
         </div>
@@ -115,6 +117,10 @@ export const OwnerGeneralRequestInfo = ({
             <Button color="primary" className={classNames.successBtn} onClick={onClickPublishBtn}>
               {'Опубликовать'}
             </Button>
+
+            <Button variant="contained" color="primary" className={classNames.cancelBtn} onClick={onClickCancelBtn}>
+              {'Удалить'}
+            </Button>
           </div>
         </div>
       )}
@@ -125,13 +131,15 @@ export const OwnerGeneralRequestInfo = ({
             {request?.request.status === RequestStatus.DRAFT ||
               (request?.request.status === RequestStatus.PUBLISHED && (
                 <Button variant="outlined" color="danger" className={classNames.button} onClick={onClickCancelBtn}>
-                  {'Отменить'}
+                  {'Удалить'}
                 </Button>
               ))}
 
-            <Button variant="outlined" color="primary" className={classNames.button} onClick={onClickEditBtn}>
-              {'Редактировать'}
-            </Button>
+            {request?.request.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED && (
+              <Button variant="outlined" color="primary" className={classNames.button} onClick={onClickEditBtn}>
+                {'Редактировать'}
+              </Button>
+            )}
           </div>
 
           {request?.request.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED && (

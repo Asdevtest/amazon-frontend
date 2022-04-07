@@ -29,7 +29,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   urlInput: {
-    overflowY: 'scroll',
+    overflowY: 'auto',
     whiteSpace: 'wrap',
     height: '65px',
 

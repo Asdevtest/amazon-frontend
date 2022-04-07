@@ -54,7 +54,7 @@ export const useClassNames = makeStyles(() => ({
   link: {
     width: '100%',
     height: '50px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
     whiteSpace: 'nowrap',
   },
 
@@ -157,7 +157,7 @@ export const useClassNames = makeStyles(() => ({
     height: '60px',
     maxWidth: '400px',
     whiteSpace: 'nowrap',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
 
   inputFileWrapper: {

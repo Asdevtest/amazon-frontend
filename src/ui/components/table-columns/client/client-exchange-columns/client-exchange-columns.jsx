@@ -9,6 +9,7 @@ import {
   SuccessActionBtnCell,
   ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -91,14 +92,14 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'researcherName',
     headerName: textConsts.researcherField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
     width: 170,
   },
 
   {
     field: 'buyerName',
     headerName: textConsts.buyerField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.buyer?._id} />,
     width: 170,
   },
 

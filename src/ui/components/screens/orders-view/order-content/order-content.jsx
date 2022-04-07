@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow, TableCell} from '@material-ui/core'
 
 import {DELIVERY_OPTIONS} from '@constants/delivery-options'
-import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {OrderStatusByCode, OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
 
@@ -47,9 +47,7 @@ export const OrderContent = ({order, boxes, history, onClickCancelOrder}) => {
       <Container disableGutters maxWidth={false}>
         <div>
           <div className={classNames.orderContainer}>
-            <Typography className={classNames.containerTitle}>
-              {getOrderStatusOptionByCode(order.status).label}
-            </Typography>
+            <Typography className={classNames.containerTitle}>{OrderStatusByCode[order.status]}</Typography>
           </div>
 
           <Divider orientation={'horizontal'} />

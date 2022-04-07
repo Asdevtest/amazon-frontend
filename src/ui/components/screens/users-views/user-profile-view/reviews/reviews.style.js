@@ -52,4 +52,17 @@ export const useClassNames = makeStyles(() => ({
     color: 'rgb(0, 123, 255)',
     textTransform: 'none',
   },
+
+  mainWrapper: {
+    width: '100%',
+  },
+
+  normalBox: {
+    display: 'flex',
+    margin: '12px 0',
+  },
+
+  boxFeedbackCard: {
+    marginRight: '16px',
+  },
 }))

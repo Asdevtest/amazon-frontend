@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsBatchesBoxes from './ApiV1AdminsBatchesBoxes';
-import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
 
 /**
  * The InlineResponse20017 model module.
@@ -23,15 +21,12 @@ import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStat
 class InlineResponse20017 {
     /**
      * Constructs a new <code>InlineResponse20017</code>.
+     * Схема магазина.
      * @alias module:model/InlineResponse20017
-     * @param _id {String} GUID задачи в DB
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxes {Array.<module:model/ApiV1AdminsBatchesBoxes>} Массив коробок.
-     * @param status {Number} Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
      */
-    constructor(_id, taskId, boxes, status) { 
+    constructor() { 
         
-        InlineResponse20017.initialize(this, _id, taskId, boxes, status);
+        InlineResponse20017.initialize(this);
     }
 
     /**
@@ -39,11 +34,7 @@ class InlineResponse20017 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, taskId, boxes, status) { 
-        obj['_id'] = _id;
-        obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
-        obj['status'] = status;
+    static initialize(obj) { 
     }
 
     /**
@@ -60,32 +51,23 @@ class InlineResponse20017 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
             }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1AdminsBatchesBoxes]);
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsBatchesBoxes]);
+            if (data.hasOwnProperty('ownerId')) {
+                obj['ownerId'] = ApiClient.convertToType(data['ownerId'], 'String');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
-            if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['storekeeper']);
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -101,105 +83,61 @@ class InlineResponse20017 {
 }
 
 /**
- * GUID задачи в DB
+ * ID магазина.
  * @member {String} _id
  */
 InlineResponse20017.prototype['_id'] = undefined;
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineResponse20017.prototype['taskId'] = undefined;
+InlineResponse20017.prototype['name'] = undefined;
 
 /**
- * Тип операции
- * @member {module:model/InlineResponse20017.OperationTypeEnum} operationType
+ * URL для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
  */
-InlineResponse20017.prototype['operationType'] = undefined;
+InlineResponse20017.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
 
 /**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/ApiV1AdminsBatchesBoxes>} boxesBefore
+ * URL для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
  */
-InlineResponse20017.prototype['boxesBefore'] = undefined;
+InlineResponse20017.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 /**
- * Массив коробок.
- * @member {Array.<module:model/ApiV1AdminsBatchesBoxes>} boxes
+ * GUID, владелеца.
+ * @member {String} ownerId
  */
-InlineResponse20017.prototype['boxes'] = undefined;
+InlineResponse20017.prototype['ownerId'] = undefined;
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
+ * GUID любого, кто последний создал.
+ * @member {String} createdById
  */
-InlineResponse20017.prototype['status'] = undefined;
+InlineResponse20017.prototype['createdById'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusClient} storekeeper
+ * GUID любого, кто последний редактировал.
+ * @member {String} lastModifiedById
  */
-InlineResponse20017.prototype['storekeeper'] = undefined;
+InlineResponse20017.prototype['lastModifiedById'] = undefined;
 
 /**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineResponse20017.prototype['storekeeperComment'] = undefined;
-
-/**
- * Комментарий клиента.
- * @member {String} clientComment
- */
-InlineResponse20017.prototype['clientComment'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineResponse20017.prototype['images'] = undefined;
-
-/**
- * Дата создания.
+ * Дата создания
  * @member {Date} createdAt
  */
 InlineResponse20017.prototype['createdAt'] = undefined;
 
 /**
- * Дата создания.
+ * Дата изменения
  * @member {Date} updatedAt
  */
 InlineResponse20017.prototype['updatedAt'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse20017['OperationTypeEnum'] = {
-
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
-
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
-
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive"
-};
 
 
 

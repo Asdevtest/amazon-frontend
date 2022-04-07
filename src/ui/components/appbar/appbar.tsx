@@ -85,7 +85,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen}) => 
 
           <Typography className={classNames.title}>{title}</Typography>
 
-          <Typography className={classNames.userroleTitle}>{'role:'}</Typography>
+          <Typography className={classNames.userroleTitle}>{'your role:'}</Typography>
 
           <div className={classNames.allowedRolesWrapper}>
             {allowedRolesWithoutCandidate?.map((roleCode: number) => (
@@ -93,7 +93,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen}) => 
                 key={roleCode}
                 variant={'text'}
                 className={clsx(classNames.allowedRolesItem, {
-                  [classNames.CurrentAllowedRolesItem]: roleCode === componentModel.current.role,
+                  [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
                 })}
                 onClick={() => onChangeUserInfo(roleCode)}
               >
@@ -103,7 +103,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen}) => 
           </div>
 
           {!allowedRolesWithoutCandidate?.length && (
-            <Typography className={classNames.userrole}>
+            <Typography className={clsx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
               {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
             </Typography>
           )}

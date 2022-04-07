@@ -47,23 +47,32 @@ class InlineObject27 {
         if (data) {
             obj = obj || new InlineObject27();
 
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
+            }
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            }
+            if (data.hasOwnProperty('trackingNumberChina')) {
+                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
+            }
+            if (data.hasOwnProperty('orderSupplierId')) {
+                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
             }
         }
         return obj;
@@ -73,40 +82,58 @@ class InlineObject27 {
 }
 
 /**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
+ * комментарии байера.
+ * @member {String} buyerComment
  */
-InlineObject27.prototype['amount'] = undefined;
+InlineObject27.prototype['buyerComment'] = undefined;
 
 /**
- * Код метода доставки.
- * @member {Number} deliveryMethod
+ * GUID storekeeper-a
+ * @member {String} storekeeperId
  */
-InlineObject27.prototype['deliveryMethod'] = undefined;
+InlineObject27.prototype['storekeeperId'] = undefined;
 
 /**
- * Номер склада.
- * @member {Number} warehouse
+ * GUID тарифа доставки.
+ * @member {String} logicsTariffId
  */
-InlineObject27.prototype['warehouse'] = undefined;
+InlineObject27.prototype['logicsTariffId'] = undefined;
 
 /**
- * Комментарии клиента.
- * @member {String} clientComment
+ * GUID пункта назначения.
+ * @member {String} destinationId
  */
-InlineObject27.prototype['clientComment'] = undefined;
+InlineObject27.prototype['destinationId'] = undefined;
 
 /**
- * GUID заказанного продукта
- * @member {String} productId
- */
-InlineObject27.prototype['productId'] = undefined;
-
-/**
- * Массив изображений.
+ * Массив картинок.
  * @member {Array.<String>} images
  */
 InlineObject27.prototype['images'] = undefined;
+
+/**
+ * Курс юань доллар.
+ * @member {Number} yuanToDollarRate
+ */
+InlineObject27.prototype['yuanToDollarRate'] = undefined;
+
+/**
+ * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
+ */
+InlineObject27.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+
+/**
+ * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
+ * @member {String} trackingNumberChina
+ */
+InlineObject27.prototype['trackingNumberChina'] = undefined;
+
+/**
+ * GUID поставщика, для данного заказа.
+ * @member {String} orderSupplierId
+ */
+InlineObject27.prototype['orderSupplierId'] = undefined;
 
 
 

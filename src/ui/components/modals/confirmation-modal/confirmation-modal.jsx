@@ -39,9 +39,12 @@ export const ConfirmationModal = ({
   return (
     <Modal isWarning={isWarning} openModal={openModal} setOpenModal={setOpenModal}>
       <div className={clsx(classNames.modalMessageWrapper, {[classNames.warningModalMessageWrapper]: isWarning})}>
-        <Typography paragraph variant="h5" className={clsx({[classNames.title]: isWarning})}>
-          {title}
-        </Typography>
+        <div className={classNames.titleWrapper}>
+          <Typography paragraph variant="h5" className={clsx({[classNames.title]: isWarning})}>
+            {title}
+          </Typography>
+        </div>
+
         <Typography paragraph className={clsx(classNames.modalMessage, {[classNames.warningModalMessage]: isWarning})}>
           {message}
         </Typography>
@@ -59,6 +62,7 @@ export const ConfirmationModal = ({
           <Button
             disabled={submitIsClicked}
             className={classNames.cancelBtn}
+            variant={isWarning && 'text'}
             color="primary"
             onClick={onClickCancelBtn}
           >

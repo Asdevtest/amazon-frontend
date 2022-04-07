@@ -48,7 +48,7 @@ export const useClassNames = makeStyles(theme => ({
     height: '56px',
     whiteSpace: 'nowrap',
     width: '250px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
 
   imgBlock: {

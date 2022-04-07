@@ -2,7 +2,7 @@ import React from 'react'
 
 import {texts} from '@constants/texts'
 
-import {NormDateCell, renderFieldValueCell, ScrollingCell} from '@components/data-grid-cells/data-grid-cells'
+import {NormDateWithoutTimeCell, renderFieldValueCell, ScrollingCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -12,8 +12,8 @@ export const clientLast30DaySellerBoardColumns = () => [
   {
     field: 'date',
     headerName: textConsts.createDateField,
-    renderCell: params => <NormDateCell params={params} />,
-    minWidth: 100,
+    renderCell: params => <NormDateWithoutTimeCell params={params} />,
+    minWidth: 80,
     type: 'date',
   },
 

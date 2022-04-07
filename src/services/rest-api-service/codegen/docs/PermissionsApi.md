@@ -144,7 +144,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.PermissionsApi();
-let guid = "guid_example"; // String | GUID permission в БД
+let guid = null; // String | GUID permission в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -161,7 +161,7 @@ apiInstance.apiV1PermissionsGroupsGuidDelete(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID permission в БД | 
+ **guid** | [**String**](.md)| GUID permission в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -198,7 +198,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.PermissionsApi();
-let guid = "guid_example"; // String | GUID permission в БД
+let guid = null; // String | GUID permission в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.PermissionGroupPatchDtoSchema() // PermissionGroupPatchDtoSchema | 
@@ -216,7 +216,7 @@ apiInstance.apiV1PermissionsGroupsGuidPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID permission в БД | 
+ **guid** | [**String**](.md)| GUID permission в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**PermissionGroupPatchDtoSchema**](PermissionGroupPatchDtoSchema.md)|  | [optional] 
 
@@ -308,7 +308,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.PermissionsApi();
-let guid = "guid_example"; // String | GUID permission в БД
+let guid = null; // String | GUID permission в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -325,7 +325,7 @@ apiInstance.apiV1PermissionsGuidDelete(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID permission в БД | 
+ **guid** | [**String**](.md)| GUID permission в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -362,7 +362,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.PermissionsApi();
-let guid = "guid_example"; // String | GUID permission в БД
+let guid = null; // String | GUID permission в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.PermissionPatchDtoSchema() // PermissionPatchDtoSchema | 
@@ -380,7 +380,7 @@ apiInstance.apiV1PermissionsGuidPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID permission в БД | 
+ **guid** | [**String**](.md)| GUID permission в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**PermissionPatchDtoSchema**](PermissionPatchDtoSchema.md)|  | [optional] 
 
@@ -472,7 +472,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.PermissionsApi();
-let guid = "guid_example"; // String | GUID permission в БД
+let guid = null; // String | GUID permission в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.SetPermissionsForUsersPathDTOSchema() // SetPermissionsForUsersPathDTOSchema | 
@@ -490,7 +490,7 @@ apiInstance.apiV1PermissionsSetForUserGuidPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID permission в БД | 
+ **guid** | [**String**](.md)| GUID permission в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**SetPermissionsForUsersPathDTOSchema**](SetPermissionsForUsersPathDTOSchema.md)|  | [optional] 
 

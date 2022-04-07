@@ -22,11 +22,10 @@ class InlineObject16 {
     /**
      * Constructs a new <code>InlineObject16</code>.
      * @alias module:model/InlineObject16
-     * @param boxesIds {Array.<String>} 
      */
-    constructor(boxesIds) { 
+    constructor() { 
         
-        InlineObject16.initialize(this, boxesIds);
+        InlineObject16.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject16 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,8 @@ class InlineObject16 {
         if (data) {
             obj = obj || new InlineObject16();
 
-            if (data.hasOwnProperty('cancel')) {
-                obj['cancel'] = ApiClient.convertToType(data['cancel'], 'Boolean');
-            }
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -63,16 +58,10 @@ class InlineObject16 {
 }
 
 /**
- * Флаг отмены. Если он true - то все списания будут сделаны с обратным знаком.
- * @member {Boolean} cancel
- * @default false
+ * GUID коробки, объединение которой нужно отменить
+ * @member {String} guid
  */
-InlineObject16.prototype['cancel'] = false;
-
-/**
- * @member {Array.<String>} boxesIds
- */
-InlineObject16.prototype['boxesIds'] = undefined;
+InlineObject16.prototype['guid'] = undefined;
 
 
 

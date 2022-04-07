@@ -22,12 +22,10 @@ class InlineObject32 {
     /**
      * Constructs a new <code>InlineObject32</code>.
      * @alias module:model/InlineObject32
-     * @param productId {String} 
-     * @param skus {Array.<String>} 
      */
-    constructor(productId, skus) { 
+    constructor() { 
         
-        InlineObject32.initialize(this, productId, skus);
+        InlineObject32.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject32 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, skus) { 
-        obj['productId'] = productId;
-        obj['skus'] = skus;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,23 @@ class InlineObject32 {
         if (data) {
             obj = obj || new InlineObject32();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
-            if (data.hasOwnProperty('skus')) {
-                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -65,14 +73,40 @@ class InlineObject32 {
 }
 
 /**
- * @member {String} productId
+ * GUID storekeeper-a
+ * @member {String} storekeeperId
  */
-InlineObject32.prototype['productId'] = undefined;
+InlineObject32.prototype['storekeeperId'] = undefined;
 
 /**
- * @member {Array.<String>} skus
+ * GUID тарифа доставки
+ * @member {String} logicsTariffId
  */
-InlineObject32.prototype['skus'] = undefined;
+InlineObject32.prototype['logicsTariffId'] = undefined;
+
+/**
+ * GUID пункта назначения.
+ * @member {String} destinationId
+ */
+InlineObject32.prototype['destinationId'] = undefined;
+
+/**
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
+ */
+InlineObject32.prototype['amount'] = undefined;
+
+/**
+ * Комментарии клиента.
+ * @member {String} clientComment
+ */
+InlineObject32.prototype['clientComment'] = undefined;
+
+/**
+ * Массив изображений.
+ * @member {Array.<String>} images
+ */
+InlineObject32.prototype['images'] = undefined;
 
 
 

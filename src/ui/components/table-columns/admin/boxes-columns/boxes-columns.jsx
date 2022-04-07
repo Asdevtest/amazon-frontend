@@ -10,6 +10,7 @@ import {
   SuperboxQtyCell,
   ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -37,20 +38,21 @@ export const adminBoxesViewColumns = () => [
     field: 'humanFriendlyId',
     headerName: textConsts.boxIdField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 60,
+    width: 80,
   },
 
   {
     field: 'client',
     headerName: textConsts.clientNameField,
-    renderCell: params => renderFieldValueCell(params.value),
-    width: 250,
+    renderCell: params => (
+      <UserLinkCell name={params.value} userId={params.row.originalData.items[0].product.client?._id} />
+    ),
+    width: 200,
   },
-
   {
     field: 'storekeeper',
     headerName: textConsts.storekeeperNameField,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
     width: 250,
   },
 

@@ -12,18 +12,26 @@ import {useClassNames} from './field.style'
 interface Props {
   label: string
   containerClasses?: StyleClass
+  labelClasses?: StyleClass
+  inputClasses?: StyleClass
   inputComponent?: React.ComponentType
   error?: string
   oneLine?: boolean
 }
 
-export const Field: FC<Props> = observer(({label, containerClasses, inputComponent, error, oneLine, ...restProps}) => {
-  const classNames = useClassNames()
-  return (
-    <div className={clsx(classNames.root, containerClasses, {[classNames.rootOneLine]: oneLine})}>
-      <Typography className={clsx(classNames.label, {[classNames.labelOneLine]: oneLine})}>{label}</Typography>
-      {inputComponent || <Input className={clsx(classNames.input, {[classNames.errorActive]: error})} {...restProps} />}
-      {error && <Typography className={classNames.errorText}>{error}</Typography>}
-    </div>
-  )
-})
+export const Field: FC<Props> = observer(
+  ({label, labelClasses, containerClasses, inputClasses, inputComponent, error, oneLine, ...restProps}) => {
+    const classNames = useClassNames()
+    return (
+      <div className={clsx(classNames.root, containerClasses, {[classNames.rootOneLine]: oneLine})}>
+        <Typography className={clsx(classNames.label, labelClasses, {[classNames.labelOneLine]: oneLine})}>
+          {label}
+        </Typography>
+        {inputComponent || (
+          <Input className={clsx(classNames.input, inputClasses, {[classNames.errorActive]: error})} {...restProps} />
+        )}
+        {error && <Typography className={classNames.errorText}>{error}</Typography>}
+      </div>
+    )
+  },
+)

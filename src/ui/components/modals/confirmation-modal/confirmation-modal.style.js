@@ -26,8 +26,9 @@ export const useClassNames = makeStyles(() => ({
   },
 
   warningModalMessageWrapper: {
-    background: 'rgb(0, 0, 0)',
+    background: '#fff',
     borderRadius: '10px 10px',
+    padding: '10px',
   },
 
   modalMessage: {
@@ -36,7 +37,11 @@ export const useClassNames = makeStyles(() => ({
 
   warningModalMessage: {
     margin: '0 10px',
-    color: 'red',
+
+    fontWeight: '400',
+    fontSize: '18px',
+    lineHeight: '140%',
+    textAlign: 'center',
   },
 
   modalMessageBtn: {
@@ -47,26 +52,38 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     gap: '10px',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 
   warningButtonsWrapper: {
     borderRadius: '0 0 10px 10px',
-    background: 'rgb(71, 71, 77)',
+    background: '#fff',
+
+    height: '100px',
   },
 
   cancelBtn: {
     marginLeft: '10px',
   },
 
-  title: {
-    color: 'white',
-    width: '100%',
-    textAlign: 'center',
+  titleWrapper: {
     height: '72px',
-    lineHeight: '72px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  title: {
+    width: '100%',
     borderRadius: '10px',
-    background: 'tomato',
     backgroundSize: '400% 400%',
     animation: 'animate_gradient 1.5s ease infinite',
+
+    fontWeight: '600',
+    fontSize: '24px',
+    lineHeight: '28px',
+    textAlign: 'center',
+    color: '#354256',
+    verticalAlign: 'middle',
   },
 }))

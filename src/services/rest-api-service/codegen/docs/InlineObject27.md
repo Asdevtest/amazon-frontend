@@ -4,11 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**amount** | **Number** | Кол-во продукта по этой позиции. | [optional] 
-**deliveryMethod** | **Number** | Код метода доставки. | [optional] 
-**warehouse** | **Number** | Номер склада. | [optional] 
-**clientComment** | **String** | Комментарии клиента. | [optional] 
-**productId** | **String** | GUID заказанного продукта | [optional] 
-**images** | **[String]** | Массив изображений. | [optional] 
+**buyerComment** | **String** | комментарии байера. | [optional] 
+**storekeeperId** | **String** | GUID storekeeper-a | [optional] 
+**logicsTariffId** | **String** | GUID тарифа доставки. | [optional] 
+**destinationId** | **String** | GUID пункта назначения. | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**yuanToDollarRate** | **Number** | Курс юань доллар. | [optional] 
+**isBarCodeAlreadyAttachedByTheSupplier** | **Boolean** | Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика. | [optional] 
+**trackingNumberChina** | **String** | Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ. | [optional] 
+**orderSupplierId** | **String** | GUID поставщика, для данного заказа. | [optional] 
 
 

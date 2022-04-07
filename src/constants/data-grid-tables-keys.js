@@ -7,6 +7,7 @@ export const DataGridTablesKeys = {
   ADMIN_FINANCES: 'adminFinancesDataGridState',
   ADMIN_USER_FINANCES: 'adminUserFinancesDataGridState',
   ADMIN_BATCHES: 'adminBatchesDataGridState',
+  ADMIN_DESTINATIONS: 'adminDestinationsDataGridState',
 
   ADMIN_SINGLE_PERMISSIONS: 'adminSinglePermissionsDataGridState',
   ADMIN_GROUP_PERMISSIONS: 'adminGroupPermissionsDataGridState',
@@ -29,6 +30,9 @@ export const DataGridTablesKeys = {
   WAREHOUSE_BATCHES: 'warehouseBatchesDataGridState',
   WAREHOUSE_SUB_USERS: 'warehouseSubUsersDataGridState',
   WAREHOUSE_FINANCES: 'warehouseFinancesDataGridState',
+
+  WAREHOUSE_LOGISTICS_TARIFFS: 'warehouseLogisticsTariffsDataGridState',
+  WAREHOUSE_SELF_TARIFFS: 'warehouseSelfTariffsDataGridState',
 
   RESEARCHER_PRODUCTS: 'researcherProductsDataGridState',
   RESEARCHER_PRODUCT_VACANT_REQUESTS: 'researcherProductVacantRequestsDataGridState',

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productId** | **String** | GUID продукта в БД | 
+**product** | [**InlineResponse200**](InlineResponse200.md) |  | 
 **amount** | **Number** | Кол-во продукта | 
-**orderId** | **String** | GUID заказа в БД | 
+**order** | [**InlineResponse2001**](InlineResponse2001.md) |  | 
 
 

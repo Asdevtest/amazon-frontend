@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20019Details from './InlineResponse20019Details';
-import InlineResponse20019Request from './InlineResponse20019Request';
 
 /**
  * The InlineResponse20019 model module.
@@ -23,7 +21,6 @@ import InlineResponse20019Request from './InlineResponse20019Request';
 class InlineResponse20019 {
     /**
      * Constructs a new <code>InlineResponse20019</code>.
-     * Схема детали на поиск ниш.
      * @alias module:model/InlineResponse20019
      */
     constructor() { 
@@ -50,11 +47,11 @@ class InlineResponse20019 {
         if (data) {
             obj = obj || new InlineResponse20019();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = InlineResponse20019Request.constructFromObject(data['request']);
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = InlineResponse20019Details.constructFromObject(data['details']);
+            if (data.hasOwnProperty('volumeWeightCoefficient')) {
+                obj['volumeWeightCoefficient'] = ApiClient.convertToType(data['volumeWeightCoefficient'], 'Number');
             }
         }
         return obj;
@@ -64,14 +61,16 @@ class InlineResponse20019 {
 }
 
 /**
- * @member {module:model/InlineResponse20019Request} request
+ * Курс юаня к доллару.
+ * @member {Number} yuanToDollarRate
  */
-InlineResponse20019.prototype['request'] = undefined;
+InlineResponse20019.prototype['yuanToDollarRate'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20019Details} details
+ * Коэффициент расчета объемного веса.
+ * @member {Number} volumeWeightCoefficient
  */
-InlineResponse20019.prototype['details'] = undefined;
+InlineResponse20019.prototype['volumeWeightCoefficient'] = undefined;
 
 
 

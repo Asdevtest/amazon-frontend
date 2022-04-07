@@ -4,7 +4,7 @@ import {texts} from '@constants/texts'
 
 import {
   ClientOrdersNotificationsBtnsCell,
-  NoActiveBarcodeCell,
+  ActiveBarcodeCell,
   NormDateCell,
   OrderCell,
   renderFieldValueCell,
@@ -49,12 +49,10 @@ export const clientOrdersNotificationsViewColumns = handlers => [
   },
 
   {
-    field: 'orders',
+    field: 'asin',
     headerName: textConsts.ordersField,
     width: 400,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
-    filterable: false,
-    sortable: false,
   },
 
   {
@@ -75,7 +73,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'barCode',
     headerName: textConsts.barCodeField,
     width: 150,
-    renderCell: params => <NoActiveBarcodeCell barCode={params.value} />,
+    renderCell: params => <ActiveBarcodeCell barCode={params.value} />,
   },
 
   {

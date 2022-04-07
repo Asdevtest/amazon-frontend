@@ -116,4 +116,18 @@ export const useClassNames = makeStyles(theme => ({
     flexDirection: 'column',
     gap: '10px',
   },
+
+  attentionDifStorekeepers: {
+    color: 'red',
+    fontSize: '14px',
+    fontWeight: 'bold',
+  },
+
+  modalText: {
+    marginBottom: '8px',
+  },
+
+  storekeeperBtn: {
+    height: '32px',
+  },
 }))

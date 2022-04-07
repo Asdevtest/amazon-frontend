@@ -8,6 +8,7 @@ import {
   renderFieldValueCell,
   NormDateCell,
   NormalActionBtnCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -35,12 +36,10 @@ export const buyerFreeOrdersViewColumns = handlers => [
   },
 
   {
-    field: 'orders',
+    field: 'asin',
     headerName: textConsts.ordersField,
     width: 400,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
-    filterable: false,
-    sortable: false,
   },
 
   {field: 'amount', headerName: textConsts.amountField, type: 'number', width: 100},
@@ -53,17 +52,24 @@ export const buyerFreeOrdersViewColumns = handlers => [
   },
 
   {
-    field: 'warehouses',
-    headerName: textConsts.warehouseField,
-    renderCell: params => renderFieldValueCell(params.value),
+    field: 'storekeeper',
+    headerName: textConsts.storekeeperNameField,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
     width: 200,
   },
 
   {
-    field: 'deliveryMethod',
-    headerName: textConsts.deliveryField,
+    field: 'client',
+    headerName: textConsts.clientNameField,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
+    width: 200,
+  },
+
+  {
+    field: 'warehouses',
+    headerName: textConsts.warehouseField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 150,
+    width: 200,
   },
 
   {

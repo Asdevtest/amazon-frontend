@@ -40,6 +40,11 @@ export const useClassNames = makeStyles(theme => ({
   },
   userrole: {
     marginRight: '20px',
+    color: 'rgba(0, 0, 0, 0.54)',
+    fontSize: '16px',
+    padding: '6px 16px',
+    fontWeight: 500,
+    borderRadius: '4px',
   },
   userInfoWrapper: {
     display: 'flex',
@@ -133,7 +138,9 @@ export const useClassNames = makeStyles(theme => ({
     },
   },
 
-  CurrentAllowedRolesItem: {
-    color: 'blue',
+  сurrentAllowedRolesItem: {
+    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
+
+    borderBottom: '5px solid #0460DE',
   },
 }))

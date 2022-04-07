@@ -21,15 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineObject48 {
     /**
      * Constructs a new <code>InlineObject48</code>.
-     * Схема магазина.
      * @alias module:model/InlineObject48
-     * @param name {String} Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
-     * @param sellerBoardWarehouseReportUrlDaily {String} uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
-     * @param sellerBoardWarehouseReportUrlMonthly {String} uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+     * @param action {module:model/InlineObject48.ActionEnum} 
      */
-    constructor(name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
+    constructor(action) { 
         
-        InlineObject48.initialize(this, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly);
+        InlineObject48.initialize(this, action);
     }
 
     /**
@@ -37,10 +34,8 @@ class InlineObject48 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
-        obj['name'] = name;
-        obj['sellerBoardWarehouseReportUrlDaily'] = sellerBoardWarehouseReportUrlDaily;
-        obj['sellerBoardWarehouseReportUrlMonthly'] = sellerBoardWarehouseReportUrlMonthly;
+    static initialize(obj, action) { 
+        obj['action'] = action;
     }
 
     /**
@@ -54,14 +49,11 @@ class InlineObject48 {
         if (data) {
             obj = obj || new InlineObject48();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('action')) {
+                obj['action'] = ApiClient.convertToType(data['action'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
-            }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -71,25 +63,39 @@ class InlineObject48 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * @member {module:model/InlineObject48.ActionEnum} action
  */
-InlineObject48.prototype['name'] = undefined;
+InlineObject48.prototype['action'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
+ * Причина смены статуса.
+ * @member {String} reason
  */
-InlineObject48.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+InlineObject48.prototype['reason'] = undefined;
+
+
+
+
 
 /**
- * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
+ * Allowed values for the <code>action</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineObject48.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject48['ActionEnum'] = {
 
+    /**
+     * value: "LINK"
+     * @const
+     */
+    "LINK": "LINK",
 
-
+    /**
+     * value: "UNLINK"
+     * @const
+     */
+    "UNLINK": "UNLINK"
+};
 
 
 

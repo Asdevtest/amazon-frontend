@@ -1,21 +1,15 @@
 import {useState} from 'react'
 
-import {Button, Chip, Divider, NativeSelect, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Chip, Divider, NativeSelect, TableCell, TableRow, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
-import {
-  DeliveryType,
-  DeliveryTypeByCode,
-  deliveryTypeCodeToKey,
-  getDeliveryOptionByCode,
-} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {texts} from '@constants/texts'
-import {warehouses} from '@constants/warehouses'
 
+import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
@@ -26,8 +20,9 @@ import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal
 import {Table} from '@components/table'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {toFixed} from '@utils/text'
 
+import {SelectStorekeeperAndTariffForm} from '../select-storkeeper-and-tariff-form'
 import {useClassNames} from './edit-box-form.style'
 import {ProductInOrderTableRow} from './product-in-order-table-row'
 
@@ -71,13 +66,13 @@ const WarehouseDemensions = ({orderBox}) => {
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.volumeWeightKgWarehouse}
-          value={orderBox.volumeWeightKgWarehouse || 0}
+          value={toFixed(orderBox.volumeWeightKgWarehouse, 4) || 0}
         />
         <Field
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.weightFinalAccountingKgWarehouse}
-          value={orderBox.weightFinalAccountingKgWarehouse || 0}
+          value={toFixed(orderBox.weightFinalAccountingKgWarehouse, 4) || 0}
         />
       </div>
     </div>
@@ -94,273 +89,311 @@ const renderHeadRow = (
   </TableRow>
 )
 
-export const EditBoxForm = observer(({formItem, onSubmit, onTriggerOpenModal, requestStatus}) => {
-  const classNames = useClassNames()
+export const EditBoxForm = observer(
+  ({formItem, onSubmit, onTriggerOpenModal, requestStatus, volumeWeightCoefficient, destinations, storekeepers}) => {
+    const classNames = useClassNames()
 
-  const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
-  const [showPhotosModal, setShowPhotosModal] = useState(false)
+    const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
+    const [showPhotosModal, setShowPhotosModal] = useState(false)
 
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+    const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
-  const rowHandlers = {
-    onTriggerOpenModal: () => setShowPhotosModal(!showPhotosModal),
-    onSelectPhotos: setBigImagesOptions,
-  }
+    const rowHandlers = {
+      onTriggerOpenModal: () => setShowPhotosModal(!showPhotosModal),
+      onSelectPhotos: setBigImagesOptions,
+    }
 
-  const boxInitialState = {
-    ...formItem,
+    const boxInitialState = {
+      ...formItem,
 
-    lengthCmWarehouse: formItem?.lengthCmWarehouse || 0,
-    widthCmWarehouse: formItem?.widthCmWarehouse || 0,
-    heightCmWarehouse: formItem?.heightCmWarehouse || 0,
-    weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
-    volumeWeightKgWarehouse: formItem?.volumeWeightKgWarehouse || 0,
-    weightFinalAccountingKgWarehouse: Math.max(
-      parseFloat(formItem?.volumeWeightKgWarehouse) || 0,
-      parseFloat(formItem?.weighGrossKgWarehouse) || 0,
-    ),
-    warehouse: formItem?.warehouse.toString(),
-    deliveryMethod: formItem?.deliveryMethod.toString(),
-    amount: formItem?.amount,
-    shippingLabel: formItem?.shippingLabel || '',
-    clientComment: formItem?.clientComment || '',
-    images: formItem?.images || [],
-    tmpShippingLabel: [],
-  }
+      lengthCmWarehouse: formItem?.lengthCmWarehouse || 0,
+      widthCmWarehouse: formItem?.widthCmWarehouse || 0,
+      heightCmWarehouse: formItem?.heightCmWarehouse || 0,
+      weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
+      volumeWeightKgWarehouse: formItem
+        ? (formItem.lengthCmWarehouse * formItem.widthCmWarehouse * formItem.heightCmWarehouse) /
+          volumeWeightCoefficient
+        : 0,
+      weightFinalAccountingKgWarehouse: Math.max(
+        parseFloat(formItem?.volumeWeightKgWarehouse) || 0,
+        parseFloat(formItem?.weighGrossKgWarehouse) || 0,
+      ),
 
-  const [boxFields, setBoxFields] = useState(boxInitialState)
+      destinationId: formItem?.destinationId || '',
+      storekeeperId: formItem?.storekeeperId || '',
+      logicsTariffId: formItem?.logicsTariffId || '',
 
-  const setFormField = fieldName => e => {
-    const newFormFields = {...boxFields}
-    newFormFields[fieldName] = e.target.value
+      amount: formItem?.amount,
+      shippingLabel: formItem?.shippingLabel || '',
+      clientComment: formItem?.clientComment || '',
+      images: formItem?.images || [],
+      tmpShippingLabel: [],
+    }
 
-    setBoxFields(newFormFields)
-  }
+    const [boxFields, setBoxFields] = useState(boxInitialState)
 
-  const setShippingLabel = () => value => {
-    const newFormFields = {...boxFields}
-    newFormFields.tmpShippingLabel = value
+    const setFormField = fieldName => e => {
+      const newFormFields = {...boxFields}
+      newFormFields[fieldName] = e.target.value
 
-    setBoxFields(newFormFields)
-  }
+      setBoxFields(newFormFields)
+    }
 
-  const onClickShippingLabel = () => {
-    setShowSetShippingLabelModal(!showSetShippingLabelModal)
-  }
+    const setShippingLabel = () => value => {
+      const newFormFields = {...boxFields}
+      newFormFields.tmpShippingLabel = value
 
-  const onDeleteShippingLabel = () => {
-    const newFormFields = {...boxFields}
-    newFormFields.shippingLabel = ''
-    setBoxFields(newFormFields)
-  }
+      setBoxFields(newFormFields)
+    }
 
-  const disableSubmit =
-    JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
-    requestStatus === loadingStatuses.isLoading ||
-    (boxFields.shippingLabel.length < 5 && boxFields.shippingLabel.length > 0)
+    const onClickShippingLabel = () => {
+      setShowSetShippingLabelModal(!showSetShippingLabelModal)
+    }
 
-  return (
-    <div className={classNames.root}>
-      <div className={classNames.form}>
-        <div className={classNames.topWrapper}>
-          <div>
-            <Typography paragraph className={classNames.subTitle}>
-              {textConsts.updateBoxTitle}
-            </Typography>
+    const onDeleteShippingLabel = () => {
+      const newFormFields = {...boxFields}
+      newFormFields.shippingLabel = ''
+      setBoxFields(newFormFields)
+    }
 
-            <Field
-              containerClasses={classNames.field}
-              label={textConsts.warehouseLabel}
-              inputComponent={
-                <NativeSelect
-                  variant="filled"
-                  value={boxFields.warehouse}
-                  input={<Input fullWidth />}
-                  onChange={setFormField('warehouse')}
-                >
-                  {Object.keys(warehouses).map((warehouseCode, index) => (
-                    <option key={index} value={warehouseCode}>
-                      {warehouses[warehouseCode]}
-                    </option>
-                  ))}
-                </NativeSelect>
-              }
-            />
+    const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-            <Field
-              containerClasses={classNames.field}
-              label={textConsts.deliveryMethodLabel}
-              inputComponent={
-                <NativeSelect
-                  variant="filled"
-                  value={boxFields.deliveryMethod}
-                  input={<Input fullWidth />}
-                  onChange={setFormField('deliveryMethod')}
-                >
-                  {Object.keys(
-                    getObjectFilteredByKeyArrayWhiteList(DeliveryTypeByCode, [
-                      deliveryTypeCodeToKey[DeliveryType.SEA].toString(),
-                      deliveryTypeCodeToKey[DeliveryType.AIR].toString(),
-                    ]),
-                  ).map((deliveryOptionCode, index) => (
-                    <option key={index} value={deliveryOptionCode}>
-                      {getDeliveryOptionByCode(deliveryOptionCode).label}
-                    </option>
-                  ))}
-                </NativeSelect>
-              }
-            />
+    const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
+      setBoxFields({...boxFields, storekeeperId, logicsTariffId: tariffId})
 
-            <LabelField
-              containerClasses={classNames.field}
-              label={textConsts.statusLabel}
-              value={
-                boxFields.items[0].order.status && getOrderStatusOptionByCode(boxFields.items[0].order.status).label
-              }
-            />
+      setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+    }
 
+    const disableSubmit =
+      JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
+      requestStatus === loadingStatuses.isLoading ||
+      (boxFields.shippingLabel.length < 5 && boxFields.shippingLabel.length > 0) ||
+      boxFields.destinationId === '' ||
+      boxFields.storekeeperId === '' ||
+      boxFields.logicsTariffId === ''
+
+    return (
+      <div className={classNames.root}>
+        <div className={classNames.form}>
+          <div className={classNames.topWrapper}>
             <div>
-              <Chip
-                classes={{
-                  root: classNames.barcodeChip,
-                  clickable: classNames.barcodeChipHover,
-                  deletable: classNames.barcodeChipHover,
-                  deleteIcon: classNames.barcodeChipIcon,
-                  label: classNames.barcodeChiplabel,
-                }}
-                className={clsx({[classNames.barcodeChipExists]: boxFields.shippingLabel})}
-                size="small"
-                label={
-                  boxFields.tmpShippingLabel.length
-                    ? 'FILE IS ADDED'
-                    : boxFields.shippingLabel
-                    ? boxFields.shippingLabel
-                    : 'Set shipping label'
+              <Typography paragraph className={classNames.subTitle}>
+                {textConsts.updateBoxTitle}
+              </Typography>
+
+              <Field
+                containerClasses={classNames.field}
+                label={'Destination'}
+                inputComponent={
+                  <NativeSelect
+                    variant="filled"
+                    inputProps={{
+                      name: 'destinationId',
+                      id: 'destinationId',
+                    }}
+                    className={classNames.destinationSelect}
+                    input={<Input />}
+                    onChange={e => setBoxFields({...boxFields, destinationId: e.target.value})}
+                  >
+                    <option value={'none'}>{'none'}</option>
+
+                    {destinations.map(item => (
+                      <option key={item._id} value={item._id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </NativeSelect>
                 }
-                onClick={() => onClickShippingLabel()}
-                onDelete={!boxFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
               />
+
+              <Field
+                containerClasses={classNames.field}
+                label={'Storekeeper / Tariff'}
+                inputComponent={
+                  <Button
+                    disableElevation
+                    color="primary"
+                    variant={boxFields.storekeeperId && 'text'}
+                    className={clsx({[classNames.storekeeperBtn]: !boxFields.storekeeperId})}
+                    onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+                  >
+                    {boxFields.storekeeperId
+                      ? `${storekeepers.find(el => el._id === boxFields.storekeeperId).name} /  
+                        ${
+                          boxFields.storekeeperId
+                            ? storekeepers
+                                .find(el => el._id === boxFields.storekeeperId)
+                                .tariffLogistics.find(el => el._id === boxFields.logicsTariffId).name
+                            : 'none'
+                        }`
+                      : 'Выбрать'}
+                  </Button>
+                }
+              />
+
+              <LabelField
+                containerClasses={classNames.field}
+                label={textConsts.statusLabel}
+                value={
+                  boxFields.items[0].order.status && getOrderStatusOptionByCode(boxFields.items[0].order.status).label
+                }
+              />
+
+              <div>
+                <Chip
+                  classes={{
+                    root: classNames.barcodeChip,
+                    clickable: classNames.barcodeChipHover,
+                    deletable: classNames.barcodeChipHover,
+                    deleteIcon: classNames.barcodeChipIcon,
+                    label: classNames.barcodeChiplabel,
+                  }}
+                  className={clsx({[classNames.barcodeChipExists]: boxFields.shippingLabel})}
+                  size="small"
+                  label={
+                    boxFields.tmpShippingLabel.length
+                      ? 'FILE IS ADDED'
+                      : boxFields.shippingLabel
+                      ? boxFields.shippingLabel
+                      : 'Set shipping label'
+                  }
+                  onClick={() => onClickShippingLabel()}
+                  onDelete={!boxFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                />
+              </div>
+            </div>
+
+            <div className={classNames.blockOfNewBoxWrapper}>
+              <Typography paragraph className={classNames.subTitle}>
+                {textConsts.warehouseDemensions}
+              </Typography>
+              <WarehouseDemensions orderBox={boxFields} />
+
+              <div className={classNames.photoWrapper}>
+                <Typography className={classNames.subTitle}>{'Фотографии коробки, сделанные на складе:'}</Typography>
+
+                {boxFields.images.length > 0 ? (
+                  <Carousel autoPlay timeout={100} animation="fade">
+                    {boxFields.images.map((el, index) => (
+                      <div key={index}>
+                        <img
+                          alt=""
+                          className={classNames.imgBox}
+                          src={el}
+                          onClick={() => {
+                            setShowPhotosModal(!showPhotosModal)
+
+                            setBigImagesOptions({images: boxFields.images, imgIndex: index})
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </Carousel>
+                ) : (
+                  <Typography>{'Фотографий пока нет...'}</Typography>
+                )}
+              </div>
             </div>
           </div>
 
-          <div className={classNames.blockOfNewBoxWrapper}>
-            <Typography paragraph className={classNames.subTitle}>
-              {textConsts.warehouseDemensions}
-            </Typography>
-            <WarehouseDemensions orderBox={boxFields} />
+          <Divider className={classNames.divider} />
 
-            <div className={classNames.photoWrapper}>
-              <Typography className={classNames.subTitle}>{'Фотографии коробки, сделанные на складе:'}</Typography>
+          <div className={classNames.tableWrapper}>
+            <div className={classNames.boxTitleWrapper}>
+              <Typography className={classNames.tableTitle}>{`${textConsts.boxTitle} #${
+                formItem && formItem.humanFriendlyId
+              }`}</Typography>
 
-              {boxFields.images.length > 0 ? (
-                <Carousel autoPlay timeout={100} animation="fade">
-                  {boxFields.images.map((el, index) => (
-                    <div key={index}>
-                      <img
-                        alt=""
-                        className={classNames.imgBox}
-                        src={el}
-                        onClick={() => {
-                          setShowPhotosModal(!showPhotosModal)
-
-                          setBigImagesOptions({images: boxFields.images, imgIndex: index})
-                        }}
-                      />
-                    </div>
-                  ))}
-                </Carousel>
-              ) : (
-                <Typography>{'Фотографий пока нет...'}</Typography>
-              )}
+              <Typography variant="h4" className={classNames.amountSpan}>
+                {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
+              </Typography>
             </div>
+
+            <Table
+              rowsOnly
+              data={boxFields.items}
+              BodyRow={ProductInOrderTableRow}
+              renderHeadRow={renderHeadRow}
+              rowsHandlers={rowHandlers}
+            />
+          </div>
+
+          <Divider className={classNames.divider} />
+
+          <div className={classNames.commentsWrapper}>
+            <Field
+              multiline
+              className={classNames.heightFieldAuto}
+              rows={4}
+              rowsMax={6}
+              inputProps={{maxLength: 2000}}
+              label={'Оставить комментарий к задаче'}
+              placeholder={'Комментарий клиента к задаче'}
+              onChange={setFormField('clientComment')}
+            />
           </div>
         </div>
 
-        <Divider className={classNames.divider} />
+        <div className={classNames.buttonsWrapper}>
+          <SuccessButton
+            disableElevation
+            disabled={disableSubmit}
+            className={classNames.button}
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              onSubmit(formItem._id, boxFields, formItem)
+            }}
+          >
+            {textConsts.saveChangesBtn}
+          </SuccessButton>
 
-        <div className={classNames.tableWrapper}>
-          <div className={classNames.boxTitleWrapper}>
-            <Typography className={classNames.tableTitle}>{`${textConsts.boxTitle} #${
-              formItem && formItem.humanFriendlyId
-            }`}</Typography>
-
-            <Typography variant="h4" className={classNames.amountSpan}>
-              {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
-            </Typography>
-          </div>
-
-          <Table
-            rowsOnly
-            data={boxFields.items}
-            BodyRow={ProductInOrderTableRow}
-            renderHeadRow={renderHeadRow}
-            rowsHandlers={rowHandlers}
-          />
+          <Button
+            disableElevation
+            color="primary"
+            className={classNames.button}
+            variant="contained"
+            onClick={onTriggerOpenModal}
+          >
+            {textConsts.cancelChangesBtn}
+          </Button>
         </div>
 
-        <Divider className={classNames.divider} />
-
-        <div className={classNames.commentsWrapper}>
-          <Field
-            multiline
-            className={classNames.heightFieldAuto}
-            rows={4}
-            rowsMax={6}
-            inputProps={{maxLength: 2000}}
-            label={'Оставить комментарий к задаче'}
-            placeholder={'Комментарий клиента к задаче'}
-            onChange={setFormField('clientComment')}
-          />
-        </div>
-      </div>
-
-      <div className={classNames.buttonsWrapper}>
-        <SuccessButton
-          disableElevation
-          disabled={disableSubmit}
-          className={classNames.button}
-          color="primary"
-          variant="contained"
-          onClick={() => {
-            onSubmit(formItem._id, boxFields, formItem)
-          }}
-        >
-          {textConsts.saveChangesBtn}
-        </SuccessButton>
-
-        <Button
-          disableElevation
-          color="primary"
-          className={classNames.button}
-          variant="contained"
-          onClick={onTriggerOpenModal}
-        >
-          {textConsts.cancelChangesBtn}
-        </Button>
-      </div>
-
-      <BigImagesModal
-        isAmazone
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-      />
-
-      <Modal
-        openModal={showSetShippingLabelModal}
-        setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
-      >
-        <SetShippingLabelModal
-          tmpShippingLabel={boxFields.tmpShippingLabel}
-          item={boxFields}
-          onClickSaveShippingLabel={shippingLabel => {
-            setShippingLabel()(shippingLabel)
-            setShowSetShippingLabelModal(!showSetShippingLabelModal)
-          }}
-          onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+        <BigImagesModal
+          isAmazone
+          openModal={showPhotosModal}
+          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          images={bigImagesOptions.images}
+          imgIndex={bigImagesOptions.imgIndex}
         />
-      </Modal>
-    </div>
-  )
-})
+
+        <Modal
+          openModal={showSetShippingLabelModal}
+          setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+        >
+          <SetShippingLabelModal
+            tmpShippingLabel={boxFields.tmpShippingLabel}
+            item={boxFields}
+            onClickSaveShippingLabel={shippingLabel => {
+              setShippingLabel()(shippingLabel)
+              setShowSetShippingLabelModal(!showSetShippingLabelModal)
+            }}
+            onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+          />
+        </Modal>
+
+        <Modal
+          openModal={showSelectionStorekeeperAndTariffModal}
+          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+        >
+          <SelectStorekeeperAndTariffForm
+            storekeepers={storekeepers}
+            curStorekeeperId={boxFields.storekeeperId}
+            curTariffId={boxFields.logicsTariffId}
+            onSubmit={onSubmitSelectStorekeeperAndTariff}
+          />
+        </Modal>
+      </div>
+    )
+  },
+)

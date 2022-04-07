@@ -193,7 +193,7 @@ export class OwnerRequestDetailCustomViewModel {
   onClickCancelBtn() {
     this.confirmModalSettings = {
       isWarning: true,
-      message: `Отменить заявку?`,
+      message: `Удалить заявку?`,
       onSubmit: () => this.onDeleteRequest(),
     }
     this.onTriggerOpenModal('showConfirmModal')

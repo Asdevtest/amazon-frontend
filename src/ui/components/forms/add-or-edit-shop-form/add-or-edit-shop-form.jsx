@@ -60,8 +60,8 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
           minRows={4}
           rowsMax={4}
           className={classNames.descriptionField}
-          label={textConsts.dailyLabel}
-          placeholder={textConsts.dailyHolder}
+          placeholder={textConsts.warehouseReportHolder}
+          label={textConsts.warehouseReportField}
           value={formFields.sellerBoardWarehouseReportUrlDaily}
           onChange={onChangeField('sellerBoardWarehouseReportUrlDaily')}
         />
@@ -71,8 +71,8 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
           minRows={4}
           rowsMax={4}
           className={classNames.descriptionField}
-          label={textConsts.monthlyLabel}
-          placeholder={textConsts.monthlyHolder}
+          label={textConsts.dashboardField}
+          placeholder={textConsts.dashboardHolder}
           value={formFields.sellerBoardWarehouseReportUrlMonthly}
           onChange={onChangeField('sellerBoardWarehouseReportUrlMonthly')}
         />

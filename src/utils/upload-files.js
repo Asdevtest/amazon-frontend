@@ -41,6 +41,7 @@ export async function onSubmitPostImages({images, type}) {
 
       this[type].push(BACKEND_API_URL + '/uploads/' + result.fileName)
     } catch (error) {
+      this[type].push(image)
       console.log(error)
     }
   }

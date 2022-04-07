@@ -21,6 +21,7 @@ export const styles = theme =>
     },
     label: {
       fontWeight: 600,
+      cursor: 'pointer',
     },
     formFooter: {
       alignItems: 'center',

@@ -24,7 +24,12 @@ const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
 ]
 
-export const SelectionSupplierModal = ({product, onCloseModal, onTriggerOpenModal, onSubmitSeekSupplier}) => {
+export const SelectionSupplierModal = ({
+  product,
+  onCloseModal,
+  onClickFinalAddSupplierButton,
+  onSubmitSeekSupplier,
+}) => {
   const [selectedSendRequestButton, setSelectedSendRequestButton] = useState(false)
   const [selectedAddSupplierButton, setSelectedAddSupplierButton] = useState(false)
   const [selectedButtonValue, setSelectedButtonValue] = useState('')
@@ -71,7 +76,7 @@ export const SelectionSupplierModal = ({product, onCloseModal, onTriggerOpenModa
     if (selectedButtonValue === selectedButtonValueConfig.ADD_NEW_SUPPLIER) {
       setClickNextOrPrevButton(false)
       onCloseModal()
-      onTriggerOpenModal()
+      onClickFinalAddSupplierButton()
     }
   }
 
@@ -81,7 +86,6 @@ export const SelectionSupplierModal = ({product, onCloseModal, onTriggerOpenModa
 
       {selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
         <div>
-          {/* <Typography className={classNames.modalSubTitle}>{textConsts.modalSubTitle}</Typography> */}
           <Field
             multiline
             label={textConsts.modalSubTitle}
@@ -122,13 +126,7 @@ export const SelectionSupplierModal = ({product, onCloseModal, onTriggerOpenModa
               {textConsts.backBtn}
             </Button>
           </Grid>
-        ) : (
-          <Grid item>
-            <Button className={classNames.modalButtonBack} onClick={() => onCloseModal()}>
-              {textConsts.skipBtn}
-            </Button>
-          </Grid>
-        )}
+        ) : null}
 
         <Grid item>
           <Button

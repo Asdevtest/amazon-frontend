@@ -2,6 +2,7 @@ import {transformAndValidate} from 'class-transformer-validator'
 import {action, makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 
 import {ProductModel} from '@models/product-model'
@@ -20,6 +21,7 @@ import {
   getObjectFilteredByKeyArrayWhiteList,
   getObjectFilteredByKeyArrayBlackList,
 } from '@utils/object'
+import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
 const fieldsOfProductAllowedToUpdate = [
@@ -230,7 +232,7 @@ export class SupervisorProductViewModel {
             case 'bsr':
               return (value && parseInt(value)) || 0
             case 'amazon':
-              return (value && parseFloat(value)) || 0
+              return value && parseFloat(value)
             case 'weight':
               return value && parseFloat(value)
             case 'length':
@@ -368,5 +370,46 @@ export class SupervisorProductViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
+  }
+
+  async onClickParseProductData(productDataParser, product) {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+      this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+      if (product.asin) {
+        const parseResult = await (() => {
+          switch (productDataParser) {
+            case ProductDataParser.AMAZON:
+              return ProductModel.parseAmazon(product.asin)
+            case ProductDataParser.SELLCENTRAL:
+              return ProductModel.parseParseSellerCentral(product.asin)
+          }
+        })()
+
+        runInAction(() => {
+          if (Object.keys(parseResult).length > 5) {
+            // проверка, что ответ не пустой (иначе приходит объект {length: 2})
+            this.product = {
+              ...this.product,
+              ...parseFieldsAdapter(parseResult, productDataParser),
+              weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
+              amazonDescription: parseResult.info?.description || this.product.amazonDescription,
+              amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
+            }
+          }
+          updateProductAutoCalculatedFields.call(this)
+        })
+      } else {
+        this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: 'Пустой асин!'}
+      }
+
+      this.setActionStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log(error)
+      this.setActionStatus(loadingStatuses.failed)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
   }
 }

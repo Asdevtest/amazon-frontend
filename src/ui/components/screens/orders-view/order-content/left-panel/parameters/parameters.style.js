@@ -26,7 +26,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 400,
     lineHeight: '21px',
     maxWidth: '300px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
     height: '45px',
     whiteSpace: 'nowrap',
   },

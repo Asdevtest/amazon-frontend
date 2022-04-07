@@ -1,28 +1,21 @@
 import React from 'react'
 
 import {texts} from '@constants/texts'
-import {warehouses} from '@constants/warehouses'
 
 import {
+  NormalActionBtnCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
   renderFieldValueCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseBoxesTableColumns
 
-export const warehouseBoxesViewColumns = () => [
-  {
-    field: 'isDraft',
-    headerName: '',
-    renderCell: params => (params.row.isDraft ? 'isDraft' : 'OK'),
-    width: 60,
-    type: 'boolean',
-  },
-
+export const warehouseBoxesViewColumns = handlers => [
   {
     field: 'createdAt',
     headerName: textConsts.createdAtField,
@@ -43,7 +36,7 @@ export const warehouseBoxesViewColumns = () => [
     field: 'humanFriendlyId',
     headerName: textConsts.boxIdField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 130,
+    width: 110,
   },
 
   {
@@ -51,10 +44,13 @@ export const warehouseBoxesViewColumns = () => [
     headerName: textConsts.ordersField,
     width: 450,
     renderCell: params =>
-      params.row.items.length > 1 ? (
-        <OrderManyItemsCell box={params.row} />
+      params.row.originalData.items.length > 1 ? (
+        <OrderManyItemsCell box={params.row.originalData} />
       ) : (
-        <OrderCell product={params.row.items[0].product} superbox={params.row.amount > 1 && params.row.amount} />
+        <OrderCell
+          product={params.row.originalData.items[0].product}
+          superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
+        />
       ),
     filterable: false,
     sortable: false,
@@ -63,7 +59,35 @@ export const warehouseBoxesViewColumns = () => [
   {
     field: 'warehouse',
     headerName: textConsts.warehouseField,
-    renderCell: params => renderFieldValueCell(warehouses[params.value]),
-    width: 200,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 170,
+  },
+
+  {
+    field: 'client',
+    headerName: textConsts.clientNameField,
+    renderCell: params => (
+      <UserLinkCell name={params.value} userId={params.row.originalData.items[0].product.client?._id} />
+    ),
+    width: 230,
+  },
+
+  {
+    field: 'batchId',
+    headerName: textConsts.batchField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 170,
+  },
+
+  {
+    field: 'action',
+    headerName: textConsts.actionField,
+    width: 250,
+
+    renderCell: params => (
+      <NormalActionBtnCell bTnText={textConsts.actionBtnText} row={params.row.originalData} onClickOkBtn={handlers} />
+    ),
+    filterable: false,
+    sortable: false,
   },
 ]

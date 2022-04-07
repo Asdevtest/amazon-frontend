@@ -5,13 +5,11 @@ import React, {Component} from 'react'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {BUYER_MY_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
-import {warehouses} from '@constants/warehouses'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -44,6 +42,7 @@ class BuyerMyOrdersViewRaw extends Component {
 
   render() {
     const {
+      volumeWeightCoefficient,
       photosToLoad,
       requestStatus,
       getCurrentData,
@@ -132,13 +131,12 @@ class BuyerMyOrdersViewRaw extends Component {
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
+            volumeWeightCoefficient={volumeWeightCoefficient}
             photosToLoad={photosToLoad}
             requestStatus={requestStatus}
             boxes={curBoxesOfOrder}
             order={selectedOrder}
             modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS}
-            warehouses={warehouses}
-            deliveryTypeByCode={DeliveryTypeByCode}
             showProgress={showProgress}
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}

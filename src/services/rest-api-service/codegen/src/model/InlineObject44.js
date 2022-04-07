@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsGuidPickupProposalDetails from './ApiV1RequestsGuidPickupProposalDetails';
 
 /**
  * The InlineObject44 model module.
@@ -22,7 +21,6 @@ import ApiV1RequestsGuidPickupProposalDetails from './ApiV1RequestsGuidPickupPro
 class InlineObject44 {
     /**
      * Constructs a new <code>InlineObject44</code>.
-     * Если исполнителю нужно он может предложить свои условия.
      * @alias module:model/InlineObject44
      */
     constructor() { 
@@ -49,14 +47,11 @@ class InlineObject44 {
         if (data) {
             obj = obj || new InlineObject44();
 
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
-            }
-            if (data.hasOwnProperty('proposalDetails')) {
-                obj['proposalDetails'] = ApiV1RequestsGuidPickupProposalDetails.constructFromObject(data['proposalDetails']);
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -66,21 +61,16 @@ class InlineObject44 {
 }
 
 /**
- * Цена от исполнителя
- * @member {Number} price
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject44.prototype['price'] = undefined;
+InlineObject44.prototype['reason'] = undefined;
 
 /**
- * Время за которое исполнитель предлагает выполнить, в минутах.
- * @member {Number} execution_time
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject44.prototype['execution_time'] = undefined;
-
-/**
- * @member {module:model/ApiV1RequestsGuidPickupProposalDetails} proposalDetails
- */
-InlineObject44.prototype['proposalDetails'] = undefined;
+InlineObject44.prototype['linksToMediaFiles'] = undefined;
 
 
 

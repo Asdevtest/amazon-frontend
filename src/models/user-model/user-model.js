@@ -50,8 +50,6 @@ class UserModelStatic {
     const accessToken = response.token
     runInAction(() => {
       this.accessToken = accessToken
-
-      console.log('this.accessToken', this.accessToken)
     })
     restApiService.setAccessToken(accessToken)
 
@@ -85,6 +83,23 @@ class UserModelStatic {
       runInAction(() => {
         this.userInfo = response
       })
+      return response
+    } catch (error) {
+      this.accessToken = undefined
+      this.userInfo = undefined
+    }
+  }
+
+  async getPlatformSettings() {
+    const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
+
+    return response
+  }
+
+  async getUserInfoById(id) {
+    try {
+      const response = await restApiService.userApi.apiV1UsersInfoGuidGet(id)
+
       return response
     } catch (error) {
       this.accessToken = undefined

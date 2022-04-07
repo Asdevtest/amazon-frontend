@@ -29,15 +29,15 @@ export const useClassNames = makeStyles(theme => ({
     maxHeight: '150px',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
   barCodeField: {
     fontSize: '14px',
     fontWeight: 500,
     lineHeight: '21px',
-    width: '200px',
+    width: '280px',
     height: '50px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
     whiteSpace: 'nowrap',
   },
 
@@ -59,6 +59,7 @@ export const useClassNames = makeStyles(theme => ({
   countWrapper: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   superCount: {
     marginLeft: '5px',
@@ -73,6 +74,7 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
+    padding: '10px',
   },
   attributeWrapper: {
     display: 'flex',
@@ -83,6 +85,6 @@ export const useClassNames = makeStyles(theme => ({
   link: {
     maxWidth: '280px',
     whiteSpace: 'nowrap',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
 }))

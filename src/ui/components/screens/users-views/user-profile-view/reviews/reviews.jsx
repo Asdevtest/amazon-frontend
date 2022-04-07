@@ -15,7 +15,7 @@ export const Reviews = ({tabReview, setTabReview}) => {
   const classNames = useClassNames()
 
   return (
-    <React.Fragment>
+    <div className={classNames.mainWrapper}>
       <Typography variant="h6" className={classNames.mainTitle}>
         {textConsts.mainTitle}
       </Typography>
@@ -34,22 +34,31 @@ export const Reviews = ({tabReview, setTabReview}) => {
               [classNames.selected]: tabReview === 0,
             })}
             index={0}
-            label={textConsts.fromBuyers}
+            label={textConsts.all}
           />
           <Tab
             className={clsx(classNames.text, {
-              [classNames.selected]: tabReview === 0,
+              [classNames.selected]: tabReview === 1,
             })}
             index={1}
+            label={textConsts.fromBuyers}
+          />
+
+          <Tab
+            className={clsx(classNames.text, {
+              [classNames.selected]: tabReview === 2,
+            })}
+            index={2}
             label={textConsts.fromSellers}
           />
         </Tabs>
+
         <div className={classNames.tabContent} role="tabpanel">
           <div className={classNames.subTabWrapper}>
             <Typography className={(classNames.text, classNames.typoNoReviews)}>{textConsts.noReviews}</Typography>
           </div>
         </div>
       </Paper>
-    </React.Fragment>
+    </div>
   )
 }

@@ -39,13 +39,8 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
           onChange={onChangeFormField('password')}
         />
         <div className={classNames.formFooter}>
-          <div className={classNames.checkboxWrapper}>
-            <Checkbox
-              className={classNames.checkbox}
-              color="primary"
-              value={formFields.remember}
-              onChange={onChangeFormField('remember')}
-            />
+          <div className={classNames.checkboxWrapper} onClick={onChangeFormField('remember')}>
+            <Checkbox className={classNames.checkbox} color="primary" checked={formFields.remember} />
             <Typography className={classNames.label}>{textConsts.checkboxLabel}</Typography>
           </div>
           <Typography className={classNames.forgotPassword}>{textConsts.forgotPassword}</Typography>

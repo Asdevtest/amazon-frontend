@@ -17,6 +17,10 @@ export class ProfileViewModel {
   }
 
   showAvatarEditModal = false
+  showUserInfoModal = false
+
+  // changeNameAndEmail = {email: '', name: ''}
+  checkValidationNameOrEmail = {}
 
   drawerOpen = false
   rowsPerPage = 15
@@ -58,6 +62,31 @@ export class ProfileViewModel {
 
   onClickChangeAvatar() {
     this.onTriggerOpenModal('showAvatarEditModal')
+  }
+
+  onClickChangeUserInfo() {
+    this.onTriggerOpenModal('showUserInfoModal')
+  }
+
+  async onSubmitUserInfoEdit(data) {
+    try {
+      this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
+        name: data.name,
+        email: data.email,
+      })
+
+      if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
+        return
+      } else {
+        await UserModel.changeUserInfo(data)
+
+        await UserModel.getUserInfo()
+
+        this.onTriggerOpenModal('showUserInfoModal')
+      }
+    } catch (error) {
+      this.error = error
+    }
   }
 
   async onSubmitAvatarEdit(imageData) {

@@ -23,7 +23,7 @@ import {styles} from './admin-warehouse-batches-view.style'
 const textConsts = getLocalizedTexts(texts, 'ru').adminBatchesView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
-const navbarActiveSubCategory = 2
+const navbarActiveSubCategory = 3
 
 @observer
 class AdminWarehouseBatchesViewRaw extends Component {

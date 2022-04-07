@@ -5,7 +5,11 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  buttonsWrapper: {},
+  buttonsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '320px',
+  },
   currentBox: {
     marginBottom: '20px',
   },
@@ -115,6 +119,14 @@ export const useClassNames = makeStyles(theme => ({
   link: {
     maxWidth: '325px',
     whiteSpace: 'nowrap',
-    overflowX: 'scroll',
+    overflowX: 'auto',
+  },
+
+  modalText: {
+    marginBottom: '5px',
+  },
+
+  storekeeperBtn: {
+    height: '32px',
   },
 }))

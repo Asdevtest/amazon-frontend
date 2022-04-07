@@ -22,10 +22,11 @@ class InlineObject9 {
     /**
      * Constructs a new <code>InlineObject9</code>.
      * @alias module:model/InlineObject9
+     * @param boxesIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(boxesIds) { 
         
-        InlineObject9.initialize(this);
+        InlineObject9.initialize(this, boxesIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject9 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -47,8 +49,8 @@ class InlineObject9 {
         if (data) {
             obj = obj || new InlineObject9();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -58,10 +60,9 @@ class InlineObject9 {
 }
 
 /**
- * GUID коробки, объединение которой нужно отменить
- * @member {String} guid
+ * @member {Array.<String>} boxesIds
  */
-InlineObject9.prototype['guid'] = undefined;
+InlineObject9.prototype['boxesIds'] = undefined;
 
 
 

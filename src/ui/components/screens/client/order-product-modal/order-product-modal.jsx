@@ -20,14 +20,18 @@ import {Modal} from '@components/modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {OrderModalBodyRow} from '@components/table-rows/client/inventory/order-product-modal/order-modal-body-row'
 
+import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {checkIsPositiveNum, isNotUndefined} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './order-product-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrderProductModal
 
 export const OrderProductModal = ({
+  destinations,
+  storekeepers,
   requestStatus,
   onTriggerOpenModal,
   selectedProductsData,
@@ -48,13 +52,15 @@ export const OrderProductModal = ({
   const [orderState, setOrderState] = useState(
     selectedProductsData.map(product => ({
       amount: 1,
-      deliveryMethod: '',
-      warehouse: '',
       clientComment: '',
       barCode: product.barCode || '',
       productId: product._id,
       images: [],
       tmpBarCode: [],
+      destinationId: '',
+
+      storekeeperId: '',
+      logicsTariffId: '',
     })),
   )
 
@@ -69,24 +75,33 @@ export const OrderProductModal = ({
   const setOrderStateFiled = index => fieldsName => value => {
     const newStateOrderState = [...orderState]
 
+    const newRenderOrderState = [...productsForRender]
+
     if (['amount'].includes(fieldsName)) {
       if (!checkIsPositiveNum(value)) {
         return
       }
 
       newStateOrderState[index][fieldsName] = parseInt(value) || 0
+
+      newRenderOrderState[index][fieldsName] = parseInt(value) || 0
     } else {
       newStateOrderState[index][fieldsName] = value
+
+      newRenderOrderState[index][fieldsName] = value
     }
 
+    setProductsForRender(newRenderOrderState)
     setOrderState(newStateOrderState)
   }
 
-  console.log('orderState', orderState)
-  console.log('productsForRender', productsForRender)
+  const onClickSubmit = () => {
+    onTriggerOpenModal('showOrderModal')
+    onSubmit(orderState)
+  }
 
   return (
-    <Container disableGutters>
+    <Container disableGutters maxWidth={'xl'}>
       <Typography className={classNames.modalTitle}>{textConsts.mainTitle}</Typography>
       <Divider className={classNames.divider} />
       <TableContainer className={classNames.tableWrapper}>
@@ -100,8 +115,10 @@ export const OrderProductModal = ({
               <TableCell className={classNames.tableCell}>{textConsts.amount}</TableCell>
               <TableCell className={classNames.tableCell}>{textConsts.total}</TableCell>
               <TableCell className={classNames.tableCell}>{textConsts.barCode}</TableCell>
-              <TableCell className={classNames.tableCell}>{textConsts.deliveryMethod}</TableCell>
               <TableCell className={classNames.tableCell}>{textConsts.warehouse}</TableCell>
+
+              <TableCell className={classNames.tableCell}>{'Storekeeper / Tariff'}</TableCell>
+
               <TableCell className={classNames.tableCell}>{textConsts.comment}</TableCell>
             </TableRow>
           </TableHead>
@@ -109,6 +126,8 @@ export const OrderProductModal = ({
             {productsForRender.map((product, index) => (
               <OrderModalBodyRow
                 key={product._id}
+                destinations={destinations}
+                storekeepers={storekeepers}
                 item={product}
                 withRemove={selectedProductsData.length > 1}
                 orderState={orderState[index]}
@@ -128,6 +147,14 @@ export const OrderProductModal = ({
           </TableBody>
         </Table>
       </TableContainer>
+
+      <div className={classNames.sumWrapper}>
+        <Typography className={classNames.sumText}>{`Итого сумма заказов: ${toFixedWithDollarSign(
+          productsForRender.reduce((ac, cur) => (ac += calcProductsPriceWithDelivery(cur, cur)), 0),
+          2,
+        )}`}</Typography>
+      </div>
+
       <div className={classNames.buttonsWrapper}>
         <Button
           disableElevation
@@ -136,10 +163,9 @@ export const OrderProductModal = ({
           disabled={
             orderState.some(
               order =>
-                order.deliveryMethod === '' ||
-                order.warehouse === '' ||
-                order.deliveryMethod === 'none' ||
-                order.warehouse === 'none' ||
+                order.storekeeperId === '' ||
+                order.logicsTariffId === '' ||
+                order.destinationId === '' ||
                 Number(order.amount) <= 0 ||
                 !Number.isInteger(Number(order.amount)),
             ) ||
@@ -147,16 +173,14 @@ export const OrderProductModal = ({
             productsForRender.some(item => !item.currentSupplier) ||
             !orderState.length
           }
-          onClick={() => {
-            onTriggerOpenModal('showOrderModal')
-            onSubmit(orderState)
-          }}
+          onClick={onClickSubmit}
         >
           {textConsts.buyNowBtn}
         </Button>
 
         <Button
           disableElevation
+          color="primary"
           variant="contained"
           className={(classNames.modalButton, classNames.cancelBtn)}
           onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}

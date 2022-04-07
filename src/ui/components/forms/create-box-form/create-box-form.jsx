@@ -15,6 +15,7 @@ import {LabelField} from '@components/label-field/label-field'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixed} from '@utils/text'
 
 import {useClassNames} from './create-box-form.style'
 
@@ -27,12 +28,14 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField, o
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           containerClasses={classNames.numberInputField}
+          inputProps={{maxLength: 10}}
           label={textConsts.lengthCmSupplier}
           value={orderBox.lengthCmSupplier}
           onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
         />
         <Field
           containerClasses={classNames.numberInputField}
+          inputProps={{maxLength: 10}}
           label={textConsts.widthCmSupplier}
           value={orderBox.widthCmSupplier}
           onChange={setFormField('widthCmSupplier', orderBoxIndex)}
@@ -41,12 +44,14 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField, o
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           containerClasses={classNames.numberInputField}
+          inputProps={{maxLength: 10}}
           label={textConsts.heightCmSupplier}
           value={orderBox.heightCmSupplier}
           onChange={setFormField('heightCmSupplier', orderBoxIndex)}
         />
         <Field
           containerClasses={classNames.numberInputField}
+          inputProps={{maxLength: 10}}
           label={textConsts.weighGrossKgSupplier}
           value={orderBox.weighGrossKgSupplier}
           onChange={setFormField('weighGrossKgSupplier', orderBoxIndex)}
@@ -57,14 +62,14 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField, o
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.volumeWeightKgSupplier}
-          value={orderBox.volumeWeightKgSupplier}
+          value={toFixed(orderBox.volumeWeightKgSupplier, 4)}
           onChange={setFormField('volumeWeightKgSupplier', orderBoxIndex)}
         />
         <Field
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.weightFinalAccountingKgSupplier}
-          value={orderBox.weightFinalAccountingKgSupplier}
+          value={toFixed(orderBox.weightFinalAccountingKgSupplier, 4)}
         />
       </div>
 
@@ -84,157 +89,159 @@ const BlockOfNewBox = ({orderBoxIndex, orderBox, setFormField, setAmountField, o
   )
 }
 
-export const CreateBoxForm = observer(({formItem, boxesForCreation, onTriggerOpenModal, setBoxesForCreation}) => {
-  const classNames = useClassNames()
+export const CreateBoxForm = observer(
+  ({formItem, boxesForCreation, onTriggerOpenModal, setBoxesForCreation, volumeWeightCoefficient}) => {
+    const classNames = useClassNames()
 
-  const sourceBox = {
-    lengthCmSupplier: formItem?.lengthCmSupplier || '',
-    widthCmSupplier: formItem?.widthCmSupplier || '',
-    heightCmSupplier: formItem?.heightCmSupplier || '',
-    weighGrossKgSupplier: formItem?.weighGrossKgSupplier || '',
-    volumeWeightKgSupplier: formItem?.volumeWeightKgSupplier || '',
-    warehouse: formItem?.warehouse || '',
-    deliveryMethod: formItem?.deliveryMethod || '',
-    amount: 1,
-    items: formItem?.items || [
-      {
-        product: formItem?.product,
-        amount: formItem?.amount,
-        order: formItem,
-      },
-    ],
-  }
-
-  const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
-
-  const setFormField = (fieldName, orderBoxIndex) => e => {
-    if (isNaN(e.target.value) || Number(e.target.value) < 0) {
-      return
-    }
-
-    const newFormFields = {...formFieldsArr[orderBoxIndex]}
-    newFormFields[fieldName] = e.target.value
-    newFormFields.volumeWeightKgSupplier =
-      ((parseFloat(newFormFields.lengthCmSupplier) || 0) *
-        (parseFloat(newFormFields.heightCmSupplier) || 0) *
-        (parseFloat(newFormFields.widthCmSupplier) || 0)) /
-      5000
-    newFormFields.weightFinalAccountingKgSupplier = Math.max(
-      parseFloat(newFormFields.volumeWeightKgSupplier) || 0,
-      parseFloat(newFormFields.weighGrossKgSupplier) || 0,
-    )
-
-    const updatedNewBoxes = formFieldsArr.map((oldBox, index) => (index === orderBoxIndex ? newFormFields : oldBox))
-    setFormFieldsArr(updatedNewBoxes)
-  }
-
-  const setAmountField = orderBoxIndex => e => {
-    if (!checkIsPositiveNum(e.target.value)) {
-      return
-    }
-
-    const newStateFormFields = [...formFieldsArr]
-    newStateFormFields[orderBoxIndex] = {
-      ...newStateFormFields[orderBoxIndex],
-      items: [
+    const sourceBox = {
+      lengthCmSupplier: formItem?.lengthCmSupplier || '',
+      widthCmSupplier: formItem?.widthCmSupplier || '',
+      heightCmSupplier: formItem?.heightCmSupplier || '',
+      weighGrossKgSupplier: formItem?.weighGrossKgSupplier || '',
+      volumeWeightKgSupplier: formItem?.volumeWeightKgSupplier || '',
+      warehouse: formItem?.warehouse || '',
+      deliveryMethod: formItem?.deliveryMethod || '',
+      amount: 1,
+      items: formItem?.items || [
         {
-          ...newStateFormFields[orderBoxIndex].items[0],
-          amount: Number(e.target.value),
+          product: formItem?.product,
+          amount: formItem?.amount,
+          order: formItem,
         },
       ],
     }
-    setFormFieldsArr(newStateFormFields)
-  }
 
-  const onRemoveBox = boxIndex => {
-    const updatedNewBoxes = formFieldsArr.filter((box, i) => i !== boxIndex)
-    setFormFieldsArr(updatedNewBoxes)
-  }
+    const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
 
-  const disableSubmit = formFieldsArr.length < 1 || formFieldsArr.some(el => el.items[0].amount < 1)
+    const setFormField = (fieldName, orderBoxIndex) => e => {
+      if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+        return
+      }
 
-  return (
-    <div className={classNames.root}>
-      <div className={classNames.form}>
-        <Typography paragraph className={classNames.subTitle}>
-          {textConsts.newBoxTitle}
-        </Typography>
+      const newFormFields = {...formFieldsArr[orderBoxIndex]}
+      newFormFields[fieldName] = e.target.value
+      newFormFields.volumeWeightKgSupplier =
+        ((parseFloat(newFormFields.lengthCmSupplier) || 0) *
+          (parseFloat(newFormFields.heightCmSupplier) || 0) *
+          (parseFloat(newFormFields.widthCmSupplier) || 0)) /
+        volumeWeightCoefficient
+      newFormFields.weightFinalAccountingKgSupplier = Math.max(
+        parseFloat(newFormFields.volumeWeightKgSupplier) || 0,
+        parseFloat(newFormFields.weighGrossKgSupplier) || 0,
+      )
 
-        <div className={classNames.labelFieldsWrapper}>
-          <LabelField
-            containerClasses={classNames.field}
-            label={textConsts.warehouseLabel}
-            value={formItem.warehouse && warehouses[formItem.warehouse]}
-          />
+      const updatedNewBoxes = formFieldsArr.map((oldBox, index) => (index === orderBoxIndex ? newFormFields : oldBox))
+      setFormFieldsArr(updatedNewBoxes)
+    }
 
-          <LabelField
-            containerClasses={classNames.field}
-            label={textConsts.deliveryMethodLabel}
-            value={formItem.deliveryMethod && getDeliveryOptionByCode(formItem.deliveryMethod).label}
-          />
+    const setAmountField = orderBoxIndex => e => {
+      if (!checkIsPositiveNum(e.target.value)) {
+        return
+      }
 
-          <LabelField
-            containerClasses={classNames.field}
-            label={textConsts.statusLabel}
-            value={formItem.status && getOrderStatusOptionByCode(formItem.status).label}
-          />
-        </div>
+      const newStateFormFields = [...formFieldsArr]
+      newStateFormFields[orderBoxIndex] = {
+        ...newStateFormFields[orderBoxIndex],
+        items: [
+          {
+            ...newStateFormFields[orderBoxIndex].items[0],
+            amount: Number(e.target.value),
+          },
+        ],
+      }
+      setFormFieldsArr(newStateFormFields)
+    }
 
-        <Divider className={classNames.divider} />
+    const onRemoveBox = boxIndex => {
+      const updatedNewBoxes = formFieldsArr.filter((box, i) => i !== boxIndex)
+      setFormFieldsArr(updatedNewBoxes)
+    }
 
-        <div className={classNames.blockOfNewBoxWrapper}>
-          {formFieldsArr.map((orderBox, orderBoxIndex) => (
-            <BlockOfNewBox
-              key={orderBoxIndex}
-              orderBoxIndex={orderBoxIndex}
-              orderBox={orderBox}
-              setFormField={setFormField}
-              setAmountField={setAmountField}
-              onRemoveBox={onRemoveBox}
+    const disableSubmit = formFieldsArr.length < 1 || formFieldsArr.some(el => el.items[0].amount < 1)
+
+    return (
+      <div className={classNames.root}>
+        <div className={classNames.form}>
+          <Typography paragraph className={classNames.subTitle}>
+            {textConsts.newBoxTitle}
+          </Typography>
+
+          <div className={classNames.labelFieldsWrapper}>
+            <LabelField
+              containerClasses={classNames.field}
+              label={textConsts.warehouseLabel}
+              value={formItem.warehouse && warehouses[formItem.warehouse]}
             />
-          ))}
+
+            <LabelField
+              containerClasses={classNames.field}
+              label={textConsts.deliveryMethodLabel}
+              value={formItem.deliveryMethod && getDeliveryOptionByCode(formItem.deliveryMethod).label}
+            />
+
+            <LabelField
+              containerClasses={classNames.field}
+              label={textConsts.statusLabel}
+              value={formItem.status && getOrderStatusOptionByCode(formItem.status).label}
+            />
+          </div>
+
+          <Divider className={classNames.divider} />
+
+          <div className={classNames.blockOfNewBoxWrapper}>
+            {formFieldsArr.map((orderBox, orderBoxIndex) => (
+              <BlockOfNewBox
+                key={orderBoxIndex}
+                orderBoxIndex={orderBoxIndex}
+                orderBox={orderBox}
+                setFormField={setFormField}
+                setAmountField={setAmountField}
+                onRemoveBox={onRemoveBox}
+              />
+            ))}
+          </div>
+
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              disableElevation
+              className={classNames.button}
+              color="primary"
+              variant="contained"
+              onClick={() => {
+                setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
+              }}
+            >
+              {textConsts.addBoxBtn}
+            </Button>
+          </div>
         </div>
 
         <div className={classNames.buttonsWrapper}>
-          <Button
+          <SuccessButton
             disableElevation
+            disabled={disableSubmit}
             className={classNames.button}
             color="primary"
             variant="contained"
             onClick={() => {
-              setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
+              setBoxesForCreation([...boxesForCreation, ...formFieldsArr])
+              onTriggerOpenModal()
             }}
           >
-            {textConsts.addBoxBtn}
+            {textConsts.saveChangesBtn}
+          </SuccessButton>
+
+          <Button
+            disableElevation
+            color="primary"
+            className={classNames.button}
+            variant="contained"
+            onClick={() => onTriggerOpenModal()}
+          >
+            {textConsts.cancelChangesBtn}
           </Button>
         </div>
       </div>
-
-      <div className={classNames.buttonsWrapper}>
-        <SuccessButton
-          disableElevation
-          disabled={disableSubmit}
-          className={classNames.button}
-          color="primary"
-          variant="contained"
-          onClick={() => {
-            setBoxesForCreation([...boxesForCreation, ...formFieldsArr])
-            onTriggerOpenModal()
-          }}
-        >
-          {textConsts.saveChangesBtn}
-        </SuccessButton>
-
-        <Button
-          disableElevation
-          color="primary"
-          className={classNames.button}
-          variant="contained"
-          onClick={() => onTriggerOpenModal()}
-        >
-          {textConsts.cancelChangesBtn}
-        </Button>
-      </div>
-    </div>
-  )
-})
+    )
+  },
+)

@@ -22,10 +22,11 @@ class InlineObject39 {
     /**
      * Constructs a new <code>InlineObject39</code>.
      * @alias module:model/InlineObject39
+     * @param fileUrl {String} uri полный путь до файла, для скачивания
      */
-    constructor() { 
+    constructor(fileUrl) { 
         
-        InlineObject39.initialize(this);
+        InlineObject39.initialize(this, fileUrl);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject39 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, fileUrl) { 
+        obj['fileUrl'] = fileUrl;
     }
 
     /**
@@ -47,14 +49,8 @@ class InlineObject39 {
         if (data) {
             obj = obj || new InlineObject39();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('timeLimitInMinutes')) {
-                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            if (data.hasOwnProperty('fileUrl')) {
+                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
             }
         }
         return obj;
@@ -64,21 +60,10 @@ class InlineObject39 {
 }
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * uri полный путь до файла, для скачивания
+ * @member {String} fileUrl
  */
-InlineObject39.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject39.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * @member {Number} timeLimitInMinutes
- */
-InlineObject39.prototype['timeLimitInMinutes'] = undefined;
+InlineObject39.prototype['fileUrl'] = undefined;
 
 
 

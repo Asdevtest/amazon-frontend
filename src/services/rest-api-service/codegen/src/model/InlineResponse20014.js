@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20014 {
     /**
      * Constructs a new <code>InlineResponse20014</code>.
-     * Успешный ответ.
      * @alias module:model/InlineResponse20014
      */
     constructor() { 
@@ -48,8 +47,29 @@ class InlineResponse20014 {
         if (data) {
             obj = obj || new InlineResponse20014();
 
-            if (data.hasOwnProperty('isExist')) {
-                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
+            }
+            if (data.hasOwnProperty('platformMargin')) {
+                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
+            }
+            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
+                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
+            }
+            if (data.hasOwnProperty('supervisorFee')) {
+                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
+            }
+            if (data.hasOwnProperty('unitCost')) {
+                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
+            }
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+            }
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -59,10 +79,52 @@ class InlineResponse20014 {
 }
 
 /**
- * Флаг, показывает есть ли такой ASIN в базе или нет
- * @member {Boolean} isExist
+ * Цена за каждое предложение.
+ * @member {Number} price
  */
-InlineResponse20014.prototype['isExist'] = undefined;
+InlineResponse20014.prototype['price'] = undefined;
+
+/**
+ * Процент с каждого предложения, маржа платформы, в процентах.
+ * @member {Number} requestPlatformMarginInPercent
+ */
+InlineResponse20014.prototype['requestPlatformMarginInPercent'] = undefined;
+
+/**
+ * Услуги платформы.
+ * @member {Number} platformMargin
+ */
+InlineResponse20014.prototype['platformMargin'] = undefined;
+
+/**
+ * Процент с каждого предложения для супервайзера, в процентах.
+ * @member {Number} requestSupervisorFeeInPercent
+ */
+InlineResponse20014.prototype['requestSupervisorFeeInPercent'] = undefined;
+
+/**
+ * Услуги супервайзера.
+ * @member {Number} supervisorFee
+ */
+InlineResponse20014.prototype['supervisorFee'] = undefined;
+
+/**
+ * Сумма.
+ * @member {Number} unitCost
+ */
+InlineResponse20014.prototype['unitCost'] = undefined;
+
+/**
+ * Количество предложений, не менее.
+ * @member {Number} maxAmountOfProposals
+ */
+InlineResponse20014.prototype['maxAmountOfProposals'] = undefined;
+
+/**
+ * Итого.
+ * @member {Number} totalCost
+ */
+InlineResponse20014.prototype['totalCost'] = undefined;
 
 
 

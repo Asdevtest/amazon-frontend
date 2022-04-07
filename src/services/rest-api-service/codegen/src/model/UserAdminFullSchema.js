@@ -112,6 +112,9 @@ class UserAdminFullSchema {
             if (data.hasOwnProperty('rating')) {
                 obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
+            if (data.hasOwnProperty('hideSuppliers')) {
+                obj['hideSuppliers'] = ApiClient.convertToType(data['hideSuppliers'], 'Boolean');
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -220,6 +223,12 @@ UserAdminFullSchema.prototype['canByMasterUser'] = undefined;
  * @member {Number} rating
  */
 UserAdminFullSchema.prototype['rating'] = undefined;
+
+/**
+ * Скрывать поставщиков от пользователя.
+ * @member {Boolean} hideSuppliers
+ */
+UserAdminFullSchema.prototype['hideSuppliers'] = undefined;
 
 /**
  * Дата создания

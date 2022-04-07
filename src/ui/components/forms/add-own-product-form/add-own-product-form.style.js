@@ -83,8 +83,8 @@ export const useClassNames = makeStyles(() => ({
     width: '172px',
   },
 
-  fieldsWrapper: {
-    marginTop: '25px',
+  title: {
+    marginBottom: '25px',
   },
 
   skuItemsWrapper: {
@@ -113,5 +113,10 @@ export const useClassNames = makeStyles(() => ({
 
   skuItemTitle: {
     fontSize: '20px',
+  },
+
+  checkboxWrapper: {
+    display: 'flex',
+    alignItems: 'center',
   },
 }))

@@ -6,12 +6,12 @@ import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
+import {UserModel} from '@models/user-model'
 
 import {warehouseCompletedTasksViewColumns} from '@components/table-columns/warehouse/completed-tasks-columns'
 
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-// import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class WarehouseCompletedViewModel {
@@ -21,6 +21,8 @@ export class WarehouseCompletedViewModel {
 
   completedTasks = []
   curOpenedTask = {}
+
+  volumeWeightCoefficient = undefined
 
   drawerOpen = false
 
@@ -125,6 +127,10 @@ export class WarehouseCompletedViewModel {
   async setCurrentOpenedTask(item) {
     try {
       const result = await StorekeeperModel.getTaskById(item._id)
+
+      const platformSettingsResult = await UserModel.getPlatformSettings()
+
+      this.volumeWeightCoefficient = platformSettingsResult.volumeWeightCoefficient
 
       this.curOpenedTask = result
       this.onTriggerOpenModal('showTaskInfoModal')

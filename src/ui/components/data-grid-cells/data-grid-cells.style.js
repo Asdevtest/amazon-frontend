@@ -145,13 +145,13 @@ export const styles = createStyles(() => ({
   noActivebarCode: {
     width: '170px',
     height: '45px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
 
   noActiveLink: {
     width: '150px',
     height: '45px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
 
   order: {
@@ -270,6 +270,10 @@ export const styles = createStyles(() => ({
     marginLeft: '10px',
   },
 
+  warehouseMyTasksSuccessBtn: {
+    height: '36.5px',
+  },
+
   marginRightBtn: {
     marginRight: '10px',
   },
@@ -311,12 +315,17 @@ export const styles = createStyles(() => ({
   scrollingValue: {
     width: '100%',
     height: '45px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
 
   normDateCellTypo: {
     fontSize: '10px',
     fontWeight: '600',
+  },
+
+  shortDateCellTypo: {
+    width: '50px',
+    whiteSpace: 'pre-line',
   },
 
   taskDescriptionScrollWrapper: {
@@ -325,7 +334,7 @@ export const styles = createStyles(() => ({
     justifyContent: 'flex-start',
     maxWidth: '400px',
     maxHeight: '140px',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
 
   smallRowImgWrapper: {
@@ -338,7 +347,7 @@ export const styles = createStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    overflowY: 'scroll',
+    overflowY: 'auto',
     height: '100%',
     width: '100%',
     padding: '5px',
@@ -401,8 +410,8 @@ export const styles = createStyles(() => ({
     whiteSpace: 'normal',
 
     fontWeight: '600',
-    fontSize: '16px',
-    lineHeight: '19px',
+    fontSize: '12px',
+    lineHeight: '14px',
 
     color: '#354256',
   },
@@ -410,5 +419,26 @@ export const styles = createStyles(() => ({
   multilineStatusText: {
     textAlign: 'center',
     whiteSpace: 'normal',
+  },
+
+  linkText: {
+    color: '#007BFF',
+    cursor: 'pointer',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+      opacity: '0.8',
+    },
+  },
+
+  renderFieldValueCellText: {
+    fontSize: '12px',
+  },
+
+  warehouseTariffDatesItem: {
+    display: 'flex',
+    width: '300px',
+    justifyContent: 'space-between',
   },
 }))
