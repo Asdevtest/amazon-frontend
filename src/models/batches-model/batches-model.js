@@ -5,6 +5,13 @@ export class BatchesModelStatic {
     const response = await restApiService.batchesApi.apiV1BatchesGet()
     return response
   }
+
+  calculateBoxDeliveryCostsInBatch = async boxesIds => {
+    const response = await restApiService.batchesApi.apiV1BatchesCalculateBoxDeliveryCostsInBatchPost({
+      body: {boxesIds},
+    })
+    return response
+  }
 }
 
 export const BatchesModel = new BatchesModelStatic()

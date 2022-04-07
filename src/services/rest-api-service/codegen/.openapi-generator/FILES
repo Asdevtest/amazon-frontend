@@ -133,8 +133,9 @@ docs/InlineResponse20020.md
 docs/InlineResponse20021.md
 docs/InlineResponse20022.md
 docs/InlineResponse20023.md
-docs/InlineResponse20023Details.md
-docs/InlineResponse20023Request.md
+docs/InlineResponse20024.md
+docs/InlineResponse20024Details.md
+docs/InlineResponse20024Request.md
 docs/InlineResponse2003.md
 docs/InlineResponse2004.md
 docs/InlineResponse2005.md
@@ -350,8 +351,9 @@ src/model/InlineResponse20020.js
 src/model/InlineResponse20021.js
 src/model/InlineResponse20022.js
 src/model/InlineResponse20023.js
-src/model/InlineResponse20023Details.js
-src/model/InlineResponse20023Request.js
+src/model/InlineResponse20024.js
+src/model/InlineResponse20024Details.js
+src/model/InlineResponse20024Request.js
 src/model/InlineResponse2003.js
 src/model/InlineResponse2004.js
 src/model/InlineResponse2005.js

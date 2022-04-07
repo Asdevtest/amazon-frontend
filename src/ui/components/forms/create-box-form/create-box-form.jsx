@@ -4,10 +4,8 @@ import {Button, Divider, Typography, IconButton} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
-import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {texts} from '@constants/texts'
-import {warehouses} from '@constants/warehouses'
 
 import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
@@ -170,13 +168,7 @@ export const CreateBoxForm = observer(
             <LabelField
               containerClasses={classNames.field}
               label={textConsts.warehouseLabel}
-              value={formItem.warehouse && warehouses[formItem.warehouse]}
-            />
-
-            <LabelField
-              containerClasses={classNames.field}
-              label={textConsts.deliveryMethodLabel}
-              value={formItem.deliveryMethod && getDeliveryOptionByCode(formItem.deliveryMethod).label}
+              value={formItem.destination?.name}
             />
 
             <LabelField

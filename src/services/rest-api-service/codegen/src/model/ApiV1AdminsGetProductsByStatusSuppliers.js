@@ -23,18 +23,10 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
      * Constructs a new <code>ApiV1AdminsGetProductsByStatusSuppliers</code>.
      * Новый поставщик.
      * @alias module:model/ApiV1AdminsGetProductsByStatusSuppliers
-     * @param name {String} Название поставщика.
-     * @param link {String} Ссылка на поставщика.
-     * @param price {Number} Цена за еденицу, dollar
-     * @param amount {Number} кол-во
-     * @param minlot {Number} Минимальный лот.
-     * @param lotcost {Number} Стоимость лота.
-     * @param comment {String} Комментарий
-     * @param batchDeliveryCostInDollar {Number} Доставка партии, dollar
      */
-    constructor(name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar) { 
+    constructor() { 
         
-        ApiV1AdminsGetProductsByStatusSuppliers.initialize(this, name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar);
+        ApiV1AdminsGetProductsByStatusSuppliers.initialize(this);
     }
 
     /**
@@ -42,15 +34,7 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar) { 
-        obj['name'] = name;
-        obj['link'] = link;
-        obj['price'] = price;
-        obj['amount'] = amount;
-        obj['minlot'] = minlot;
-        obj['lotcost'] = lotcost;
-        obj['comment'] = comment;
-        obj['batchDeliveryCostInDollar'] = batchDeliveryCostInDollar;
+    static initialize(obj) { 
     }
 
     /**

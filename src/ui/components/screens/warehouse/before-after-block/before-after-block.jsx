@@ -55,51 +55,11 @@ const Box = ({
 
   return (
     <Paper className={(classNames.box, classNames.mainPaper)}>
-      {/* {isNewBox && (
+      {isNewBox && (
         <div className={classNames.fieldsWrapper}>
-          <Field
-            label={textConsts.warehouseLabel}
-            inputComponent={
-              <NativeSelect
-                disabled
-                variant="filled"
-                value={box.warehouse}
-                className={classNames.nativeSelect}
-                input={<Input />}
-              >
-                <option value={'None'} />
-                {Object.keys(warehouses).map((warehouseCode, warehouseIndex) => {
-                  const warehouseKey = warehouses[warehouseCode]
-                  return (
-                    <option key={warehouseIndex} value={warehouseCode}>
-                      {warehouseKey}
-                    </option>
-                  )
-                })}
-              </NativeSelect>
-            }
-          />
-
-          <Field
-            label={textConsts.deliveryMethodLabel}
-            inputComponent={
-              <NativeSelect
-                disabled
-                variant="filled"
-                value={box.deliveryMethod}
-                className={classNames.nativeSelect}
-                input={<Input />}
-              >
-                {Object.keys(DeliveryTypeByCode).map((deliveryCode, deliveryIndex) => (
-                  <option key={deliveryIndex} value={deliveryCode}>
-                    {getDeliveryOptionByCode(deliveryCode).label}
-                  </option>
-                ))}
-              </NativeSelect>
-            }
-          />
+          <Field disabled label={textConsts.warehouseLabel} value={box.destination?.name} />
         </div>
-      )} */}
+      )}
 
       <Typography className={classNames.boxTitle}>{`${textConsts.boxNum} ${box.humanFriendlyId}`}</Typography>
       {box.amount > 1 && (
@@ -455,17 +415,8 @@ export const BeforeAfterBlock = observer(
 
         {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
           <div className={classNames.fieldsWrapper}>
-            {/* <Field
-              disabled
-              label={textConsts.warehouseLabel}
-              value={getWarehousesOptionByCode(currentBoxes[0].warehouse).label}
-            />
+            <Field disabled label={textConsts.warehouseLabel} value={currentBoxes[0].destination?.name} />
 
-            <Field
-              disabled
-              label={textConsts.deliveryMethodLabel}
-              value={getDeliveryOptionByCode(currentBoxes[0].deliveryMethod).label}
-            /> */}
             {taskType === TaskOperationType.RECEIVE && (
               <Field
                 disabled

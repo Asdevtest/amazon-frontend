@@ -150,7 +150,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.AdministratorApi* | [**apiV1AdminsWarehouseGuidDelete**](docs/AdministratorApi.md#apiV1AdminsWarehouseGuidDelete) | **DELETE** /api/v1/admins/warehouse/{guid} | #  Редактировать склад назначения.
 *TestSwagger.AdministratorApi* | [**apiV1AdminsWarehousePost**](docs/AdministratorApi.md#apiV1AdminsWarehousePost) | **POST** /api/v1/admins/warehouse | #  Создать склад назначения.
 *TestSwagger.BatchesApi* | [**apiV1BatchesCalculateBoxDeliveryCostsInBatchPost**](docs/BatchesApi.md#apiV1BatchesCalculateBoxDeliveryCostsInBatchPost) | **POST** /api/v1/batches/calculate_box_delivery_costs_in_batch | # Рассчитать стоимость доставки коробов.
-*TestSwagger.BatchesApi* | [**apiV1BatchesGet**](docs/BatchesApi.md#apiV1BatchesGet) | **GET** /api/v1/batches/ | # Получить партии....
+*TestSwagger.BatchesApi* | [**apiV1BatchesGet**](docs/BatchesApi.md#apiV1BatchesGet) | **GET** /api/v1/batches/ | # Получить партии.
 *TestSwagger.BatchesApi* | [**apiV1BatchesGuidAddBoxesPatch**](docs/BatchesApi.md#apiV1BatchesGuidAddBoxesPatch) | **PATCH** /api/v1/batches/{guid}/add_boxes | # Добавить коробки в партию.
 *TestSwagger.BatchesApi* | [**apiV1BatchesGuidBatchHasDispatchedPatch**](docs/BatchesApi.md#apiV1BatchesGuidBatchHasDispatchedPatch) | **PATCH** /api/v1/batches/{guid}/batch_has_dispatched | # Выставить статус отбытия партии из склада.
 *TestSwagger.BatchesApi* | [**apiV1BatchesGuidRemoveBoxesPatch**](docs/BatchesApi.md#apiV1BatchesGuidRemoveBoxesPatch) | **PATCH** /api/v1/batches/{guid}/remove_boxes | # Удалить коробки из партии.
@@ -289,9 +289,10 @@ Class | Method | HTTP request | Description
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTariffWarehouseGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersTariffWarehouseGuidPatch) | **PATCH** /api/v1/storekeepers/tariff-warehouse/{guid} | # Редактировать тариф услуг склада.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTariffWarehouseMyGet**](docs/StorekeepersApi.md#apiV1StorekeepersTariffWarehouseMyGet) | **GET** /api/v1/storekeepers/tariff-warehouse/my | # Получить все тарифы сторкипером.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTariffWarehousesPost**](docs/StorekeepersApi.md#apiV1StorekeepersTariffWarehousesPost) | **POST** /api/v1/storekeepers/tariff-warehouses | # Создать тариф услуг склада.
+*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTaskLightGuidGet**](docs/StorekeepersApi.md#apiV1StorekeepersTaskLightGuidGet) | **GET** /api/v1/storekeepers/task_light/{guid} | # NEW! Получить задачу по его id.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksCancelGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksCancelGuidPost) | **POST** /api/v1/storekeepers/tasks/cancel/{guid} | # Отметить задачу, как отмененную..
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksDoneGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksDoneGuidPost) | **POST** /api/v1/storekeepers/tasks/done/{guid} | # Отметить задачу, как выполненную.
-*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksGuidGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksGuidGet) | **GET** /api/v1/storekeepers/tasks/{guid} | # Получить задачу по его id.
+*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksGuidGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksGuidGet) | **GET** /api/v1/storekeepers/tasks/{guid} | # DEPRECATED! Получить задачу по его id.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersTasksGuidPatch) | **PATCH** /api/v1/storekeepers/tasks/{guid} | # Изменить задачу.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksLightMyGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksLightMyGet) | **GET** /api/v1/storekeepers/tasks_light/my | # Получить задачи закрепленные за данным сборщиком..
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksLightVacGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksLightVacGet) | **GET** /api/v1/storekeepers/tasks_light/vac | # Получить задачи не закрепленные за сотрудниками склада.
@@ -451,8 +452,9 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20021](docs/InlineResponse20021.md)
  - [TestSwagger.InlineResponse20022](docs/InlineResponse20022.md)
  - [TestSwagger.InlineResponse20023](docs/InlineResponse20023.md)
- - [TestSwagger.InlineResponse20023Details](docs/InlineResponse20023Details.md)
- - [TestSwagger.InlineResponse20023Request](docs/InlineResponse20023Request.md)
+ - [TestSwagger.InlineResponse20024](docs/InlineResponse20024.md)
+ - [TestSwagger.InlineResponse20024Details](docs/InlineResponse20024Details.md)
+ - [TestSwagger.InlineResponse20024Request](docs/InlineResponse20024Request.md)
  - [TestSwagger.InlineResponse2003](docs/InlineResponse2003.md)
  - [TestSwagger.InlineResponse2004](docs/InlineResponse2004.md)
  - [TestSwagger.InlineResponse2005](docs/InlineResponse2005.md)

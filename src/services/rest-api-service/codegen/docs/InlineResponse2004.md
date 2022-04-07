@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID продукта в базе данных | 
+**_id** | **String** | GUID продукта в базе данных | [optional] 
 **asin** | **String** | ASIN продукта | [optional] 
 **skusByClient** | **[String]** |  | [optional] 
-**suppliers** | [**[ApiV1AdminsGetProductsByStatusSuppliers]**](ApiV1AdminsGetProductsByStatusSuppliers.md) |  | 
+**suppliers** | [**[ApiV1AdminsGetProductsByStatusSuppliers]**](ApiV1AdminsGetProductsByStatusSuppliers.md) |  | [optional] 
 **material** | **String** |  | [optional] 
 **currentSupplier** | [**ApiV1AdminsGetProductsByStatusSuppliers**](ApiV1AdminsGetProductsByStatusSuppliers.md) |  | [optional] 
 **currentSupplierId** | **String** | GUID поставщика в базе данных | [optional] 
 **category** | **String** | Категория | [optional] 
-**lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
+**lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
 **lsupplier** | **String** | Ссылка на поставщика. | [optional] 
-**bsr** | **Number** |  | 
-**fba** | **Boolean** | Признак fba | 
+**bsr** | **Number** |  | [optional] 
+**fba** | **Boolean** | Признак fba | [optional] 
 **fbm** | **Boolean** | Признак fbm | [optional] 
 **express** | **Boolean** | Признак экспресс доставки. | [optional] 
-**amazon** | **Number** |  | 
+**amazon** | **Number** |  | [optional] 
 **height** | **Number** | Высота | [optional] 
 **width** | **Number** | Ширина | [optional] 
 **length** | **Number** | Длинна | [optional] 
@@ -29,7 +29,7 @@ Name | Type | Description | Notes
 **fbaamount** | **Number** |  Общая сумма с фба. | [optional] 
 **fbalink** | **String** | ФБА ссылка | [optional] 
 **status** | **Number** | Код текущего статуса | [optional] 
-**icomment** | **String** | Комментарии к товару. | 
+**icomment** | **String** | Комментарии к товару. | [optional] 
 **clientComment** | **String** | Комментарии к товару, от клиента. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 **checkednotes** | **String** |  | [optional] 

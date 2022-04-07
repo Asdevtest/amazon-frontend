@@ -28,11 +28,7 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
   return (
     <Paper className={classNames.box}>
       <div className={classNames.fieldsWrapper}>
-        {/* <Field 
-          disabled 
-          label={textConsts.warehouseLabel} 
-          value={getWarehousesOptionByCode(box.warehouse).label} 
-        /> */}
+        <Field disabled label={textConsts.warehouseLabel} value={box.destination?.name} />
 
         {taskType === TaskOperationType.RECEIVE && (
           <Field

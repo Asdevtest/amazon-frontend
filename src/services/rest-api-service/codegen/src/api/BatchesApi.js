@@ -20,6 +20,7 @@ import InlineObject7 from '../model/InlineObject7';
 import InlineObject8 from '../model/InlineObject8';
 import InlineObject9 from '../model/InlineObject9';
 import InlineResponse2005 from '../model/InlineResponse2005';
+import InlineResponse2006 from '../model/InlineResponse2006';
 import InlineResponse201 from '../model/InlineResponse201';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -50,7 +51,7 @@ export default class BatchesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject8} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
      */
     apiV1BatchesCalculateBoxDeliveryCostsInBatchPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -69,7 +70,7 @@ export default class BatchesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = [Object];
+      let returnType = [InlineResponse2006];
       return this.apiClient.callApi(
         '/api/v1/batches/calculate_box_delivery_costs_in_batch', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -83,7 +84,7 @@ export default class BatchesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject8} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
      */
     apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts) {
       return this.apiV1BatchesCalculateBoxDeliveryCostsInBatchPostWithHttpInfo(opts)
@@ -94,8 +95,8 @@ export default class BatchesApi {
 
 
     /**
-     * # Получить партии....
-     * ## Получить партии. В зависимости от роли:  админ: получает все партии без исключения. клиент: получает все партии в которых есть его коробки. супер: получает все партии без исключения. байер: получает все партии в которых есть его коробки, которые он создал. сторкипер: получает только свои партии. 
+     * # Получить партии.
+     * ## Получить партии. В зависимости от роли:  админ - получает все партии без исключения.         клиент - получает все партии в которых есть его коробки.         супер: получает все партии без исключения.         байер: получает все партии в которых есть его коробки, которые он создал.         сторкипер: получает только свои партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
@@ -126,8 +127,8 @@ export default class BatchesApi {
     }
 
     /**
-     * # Получить партии....
-     * ## Получить партии. В зависимости от роли:  админ: получает все партии без исключения. клиент: получает все партии в которых есть его коробки. супер: получает все партии без исключения. байер: получает все партии в которых есть его коробки, которые он создал. сторкипер: получает только свои партии. 
+     * # Получить партии.
+     * ## Получить партии. В зависимости от роли:  админ - получает все партии без исключения.         клиент - получает все партии в которых есть его коробки.         супер: получает все партии без исключения.         байер: получает все партии в которых есть его коробки, которые он создал.         сторкипер: получает только свои партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
@@ -142,7 +143,7 @@ export default class BatchesApi {
 
     /**
      * # Добавить коробки в партию.
-     * ## Добавить коробки в партию.   В коробки вписывается id партии и статус меняется на IN_BATCH  Проверки:  Доступно только для сторкипера Только партии со статусом IS_BEING_COLLECTED Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH В партии все коробки должны быть от данного сторкипера В партии у всех коробок должен быть одинаковый адрес склада прибытия.  В партии все коробки должны быть с одинаковым тариф доставки Наличие шипинг лейбла у всех коробок.
+     * ## Добавить коробки в партию.   В коробки вписывается id партии и статус меняется на IN_BATCH         Проверки:         Доступно только для сторкипера         Только партии со статусом IS_BEING_COLLECTED         Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH         В партии все коробки должны быть от данного сторкипера         В партии у всех коробок должен быть одинаковый адрес склада прибытия.         В партии все коробки должны быть с одинаковым тариф доставки         Наличие шипинг лейбла у всех коробок.
      * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -181,7 +182,7 @@ export default class BatchesApi {
 
     /**
      * # Добавить коробки в партию.
-     * ## Добавить коробки в партию.   В коробки вписывается id партии и статус меняется на IN_BATCH  Проверки:  Доступно только для сторкипера Только партии со статусом IS_BEING_COLLECTED Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH В партии все коробки должны быть от данного сторкипера В партии у всех коробок должен быть одинаковый адрес склада прибытия.  В партии все коробки должны быть с одинаковым тариф доставки Наличие шипинг лейбла у всех коробок.
+     * ## Добавить коробки в партию.   В коробки вписывается id партии и статус меняется на IN_BATCH         Проверки:         Доступно только для сторкипера         Только партии со статусом IS_BEING_COLLECTED         Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH         В партии все коробки должны быть от данного сторкипера         В партии у всех коробок должен быть одинаковый адрес склада прибытия.         В партии все коробки должны быть с одинаковым тариф доставки         Наличие шипинг лейбла у всех коробок.
      * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -198,7 +199,7 @@ export default class BatchesApi {
 
     /**
      * # Выставить статус отбытия партии из склада.
-     * ## Выставить статус отбытия партии из склада.   Этот метод будет дергать склад, после этого у коробок партии sendToBatchComplete должен измениться на true.  Статус партии поменяется на \"HAS_DISPATCHED ##  Что делать с запланированной датой отправки scheduledDispatchDate в коробках? Проверки: Сторкипер может только свою партию редактировать Статус партии должен быть ранее \"IS_BEING_COLLECTED\" Проверка коробок: Должна быть хотя бы одна коробка в данной партии. В партии все коробки должны быть от одного сторкипера В партии у всех коробок должен быть одинаковый адрес склада прибытия. (warehouse, складом в Америке) В партии все коробки должны быть с одинаковым методом доставки Все коробки должны быть в статусе sendToBatchRequest === true (отправлена для набора в партию) Все коробки должны быть в статусе sendToBatchComplete === false (еще не завершена отправка для набора в партию) Наличие шипинг лейбла у всех коробок.
+     * ## Выставить статус отбытия партии из склада.  Этот метод будет дергать склад,         Статус партии поменяется на HAS_DISPATCHED.         Проверки:         Сторкипер может редактировать только свою партию          Статус партии должен быть ранее: IS_BEING_COLLECTED         В партии должна быть хотя бы одно коробка.
      * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -236,7 +237,7 @@ export default class BatchesApi {
 
     /**
      * # Выставить статус отбытия партии из склада.
-     * ## Выставить статус отбытия партии из склада.   Этот метод будет дергать склад, после этого у коробок партии sendToBatchComplete должен измениться на true.  Статус партии поменяется на \"HAS_DISPATCHED ##  Что делать с запланированной датой отправки scheduledDispatchDate в коробках? Проверки: Сторкипер может только свою партию редактировать Статус партии должен быть ранее \"IS_BEING_COLLECTED\" Проверка коробок: Должна быть хотя бы одна коробка в данной партии. В партии все коробки должны быть от одного сторкипера В партии у всех коробок должен быть одинаковый адрес склада прибытия. (warehouse, складом в Америке) В партии все коробки должны быть с одинаковым методом доставки Все коробки должны быть в статусе sendToBatchRequest === true (отправлена для набора в партию) Все коробки должны быть в статусе sendToBatchComplete === false (еще не завершена отправка для набора в партию) Наличие шипинг лейбла у всех коробок.
+     * ## Выставить статус отбытия партии из склада.  Этот метод будет дергать склад,         Статус партии поменяется на HAS_DISPATCHED.         Проверки:         Сторкипер может редактировать только свою партию          Статус партии должен быть ранее: IS_BEING_COLLECTED         В партии должна быть хотя бы одно коробка.
      * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -252,7 +253,7 @@ export default class BatchesApi {
 
     /**
      * # Удалить коробки из партии.
-     * ## Удалить коробки из партии.   В коробках поле batchId становиться null  Проверки:  Доступно только для сторкипера Только коробки которые есть в партии 
+     * ## Удалить коробки из партии.   В коробках поле batchId становиться null, и статус возвращается на REQUESTED_SEND_TO_BATCH         Проверки:         Доступно только для сторкипера         Только партии со статусом IS_BEING_COLLECTED         Только коробки которые есть в партии
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject11} opts.body 
@@ -285,7 +286,7 @@ export default class BatchesApi {
 
     /**
      * # Удалить коробки из партии.
-     * ## Удалить коробки из партии.   В коробках поле batchId становиться null  Проверки:  Доступно только для сторкипера Только коробки которые есть в партии 
+     * ## Удалить коробки из партии.   В коробках поле batchId становиться null, и статус возвращается на REQUESTED_SEND_TO_BATCH         Проверки:         Доступно только для сторкипера         Только партии со статусом IS_BEING_COLLECTED         Только коробки которые есть в партии
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject11} opts.body 
@@ -301,7 +302,7 @@ export default class BatchesApi {
 
     /**
      * # Создать партию.
-     * ## Создать партию.   При выполнении этого запроса создается партия со статусом IS_BEING_COLLECTED - набирается В коробки вписывается id партии и статус меняется на IN_BATCH  Проверки:  Доступно только для сторкипера Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH В партии все коробки должны быть от одного сторкипера В партии у всех коробок должен быть одинаковый адрес склада прибытия. В партии все коробки должны быть с одинаковым тарифом доставки Коробку нельзя повторно добавить в партию Наличие шипинг лейбла у всех коробок.
+     * ## Создать партию.   При выполнении этого запроса создается партия со статусом IS_BEING_COLLECTED - набирается         В коробки вписывается id партии и статус меняется на IN_BATCH         Проверки:         Доступно только для сторкипера         Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH         В партии все коробки должны быть от одного сторкипера         В партии у всех коробок должен быть одинаковый адрес склада прибытия.         В партии все коробки должны быть с одинаковым тарифом доставки         Коробку нельзя повторно добавить в партию         Наличие шипинг лейбла у всех коробок.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject7} opts.body 
@@ -334,7 +335,7 @@ export default class BatchesApi {
 
     /**
      * # Создать партию.
-     * ## Создать партию.   При выполнении этого запроса создается партия со статусом IS_BEING_COLLECTED - набирается В коробки вписывается id партии и статус меняется на IN_BATCH  Проверки:  Доступно только для сторкипера Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH В партии все коробки должны быть от одного сторкипера В партии у всех коробок должен быть одинаковый адрес склада прибытия. В партии все коробки должны быть с одинаковым тарифом доставки Коробку нельзя повторно добавить в партию Наличие шипинг лейбла у всех коробок.
+     * ## Создать партию.   При выполнении этого запроса создается партия со статусом IS_BEING_COLLECTED - набирается         В коробки вписывается id партии и статус меняется на IN_BATCH         Проверки:         Доступно только для сторкипера         Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH         В партии все коробки должны быть от одного сторкипера         В партии у всех коробок должен быть одинаковый адрес склада прибытия.         В партии все коробки должны быть с одинаковым тарифом доставки         Коробку нельзя повторно добавить в партию         Наличие шипинг лейбла у всех коробок.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject7} opts.body 
@@ -350,7 +351,7 @@ export default class BatchesApi {
 
     /**
      * # Запросить отправку набора коробок в партию.
-     * ## Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле статус должно выставиться в REQUESTED_SEND_TO_BATCH.  Так же с клиента должны списаться деньги в пользу сотрудника склада.(и генерироваться оплаты) Проверки:  Доступно только для клиента Коробку нельзя повторно отправлять для набора в партию, статус должен быть IN_STOCK Наличие шипинг лейбла у всех коробок.
+     * ## Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле статус меняется на  REQUESTED_SEND_TO_BATCH.         Так же с клиента должны списаться деньги в пользу сотрудника склада.(и генерироваться оплаты)         Проверки:         Доступно только для клиента         Коробку нельзя повторно отправлять для набора в партию, статус должен быть IN_STOCK         Наличие шипинг лейбла у всех коробок.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject9} opts.body 
@@ -383,7 +384,7 @@ export default class BatchesApi {
 
     /**
      * # Запросить отправку набора коробок в партию.
-     * ## Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле статус должно выставиться в REQUESTED_SEND_TO_BATCH.  Так же с клиента должны списаться деньги в пользу сотрудника склада.(и генерироваться оплаты) Проверки:  Доступно только для клиента Коробку нельзя повторно отправлять для набора в партию, статус должен быть IN_STOCK Наличие шипинг лейбла у всех коробок.
+     * ## Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле статус меняется на  REQUESTED_SEND_TO_BATCH.         Так же с клиента должны списаться деньги в пользу сотрудника склада.(и генерироваться оплаты)         Проверки:         Доступно только для клиента         Коробку нельзя повторно отправлять для набора в партию, статус должен быть IN_STOCK         Наличие шипинг лейбла у всех коробок.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject9} opts.body 

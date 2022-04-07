@@ -5,6 +5,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {TaskOperationType} from '@constants/task-operation-type'
 
+import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
@@ -599,7 +600,7 @@ export class ClientWarehouseViewModel {
   async onClickRequestToSendBatch() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const boxesDeliveryCosts = await BoxesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
+      const boxesDeliveryCosts = await BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
       runInAction(() => {
         this.boxesDeliveryCosts = boxesDeliveryCosts
       })

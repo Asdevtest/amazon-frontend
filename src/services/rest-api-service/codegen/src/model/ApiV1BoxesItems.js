@@ -24,13 +24,10 @@ class ApiV1BoxesItems {
     /**
      * Constructs a new <code>ApiV1BoxesItems</code>.
      * @alias module:model/ApiV1BoxesItems
-     * @param product {module:model/InlineResponse200} 
-     * @param amount {Number} Кол-во продукта
-     * @param order {module:model/InlineResponse2001} 
      */
-    constructor(product, amount, order) { 
+    constructor() { 
         
-        ApiV1BoxesItems.initialize(this, product, amount, order);
+        ApiV1BoxesItems.initialize(this);
     }
 
     /**
@@ -38,10 +35,7 @@ class ApiV1BoxesItems {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, product, amount, order) { 
-        obj['product'] = product;
-        obj['amount'] = amount;
-        obj['order'] = order;
+    static initialize(obj) { 
     }
 
     /**

@@ -64,7 +64,7 @@ class StorekeeperModelStatic {
   }
 
   getTaskById = async id => {
-    const response = await restApiService.strokeepersApi.apiV1StorekeepersTasksGuidGet(id)
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersTaskLightGuidGet(id)
     return response
   }
 

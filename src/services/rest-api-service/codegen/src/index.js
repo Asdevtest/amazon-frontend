@@ -139,8 +139,9 @@ import InlineResponse20020 from './model/InlineResponse20020';
 import InlineResponse20021 from './model/InlineResponse20021';
 import InlineResponse20022 from './model/InlineResponse20022';
 import InlineResponse20023 from './model/InlineResponse20023';
-import InlineResponse20023Details from './model/InlineResponse20023Details';
-import InlineResponse20023Request from './model/InlineResponse20023Request';
+import InlineResponse20024 from './model/InlineResponse20024';
+import InlineResponse20024Details from './model/InlineResponse20024Details';
+import InlineResponse20024Request from './model/InlineResponse20024Request';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
 import InlineResponse2005 from './model/InlineResponse2005';
@@ -1010,16 +1011,22 @@ export {
     InlineResponse20023,
 
     /**
-     * The InlineResponse20023Details model constructor.
-     * @property {module:model/InlineResponse20023Details}
+     * The InlineResponse20024 model constructor.
+     * @property {module:model/InlineResponse20024}
      */
-    InlineResponse20023Details,
+    InlineResponse20024,
 
     /**
-     * The InlineResponse20023Request model constructor.
-     * @property {module:model/InlineResponse20023Request}
+     * The InlineResponse20024Details model constructor.
+     * @property {module:model/InlineResponse20024Details}
      */
-    InlineResponse20023Request,
+    InlineResponse20024Details,
+
+    /**
+     * The InlineResponse20024Request model constructor.
+     * @property {module:model/InlineResponse20024Request}
+     */
+    InlineResponse20024Request,
 
     /**
      * The InlineResponse2003 model constructor.

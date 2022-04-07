@@ -270,8 +270,7 @@ export const clientWarehouseDataConverter = data =>
       parseFloat(item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier) || 0,
     ),
     grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
-    warehouses: warehouses[item.warehouse],
-    deliveryMethod: DeliveryTypeByCode[item.deliveryMethod],
+    warehouses: item.destination?.name,
 
     isDraft: item.isDraft,
     createdAt: item.createdAt,
