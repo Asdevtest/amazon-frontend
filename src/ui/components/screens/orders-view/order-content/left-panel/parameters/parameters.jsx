@@ -57,7 +57,7 @@ export const Parameters = ({order, collapsed}) => {
                 toFixed(order.product.height, 2) +
                 ' x ' +
                 toFixed(order.product.length, 2)
-              : 'undefined'
+              : 'Нет данных'
           }
         />
         <OrderParameter label={textConsts.weight} value={toFixed(order.product.weight, 2)} />

@@ -69,6 +69,12 @@ class InlineResponse2007 {
             if (data.hasOwnProperty('isDraft')) {
                 obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
             }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            }
             if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
                 obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
             }
@@ -195,6 +201,18 @@ InlineResponse2007.prototype['isActual'] = undefined;
  * @member {Boolean} isDraft
  */
 InlineResponse2007.prototype['isDraft'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+InlineResponse2007.prototype['fbaShipment'] = undefined;
+
+/**
+ * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
+ */
+InlineResponse2007.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
 
 /**
  * Прикреплен ли баркод к коробке сотрудником склада.

@@ -64,7 +64,7 @@ export const TaskInfoBoxItemCard = ({item, superCount, box}) => {
               <Field
                 oneLine
                 label={textConsts.codeCheck}
-                inputComponent={<Checkbox disabled checked={item.order.isBarCodeAlreadyAttachedByTheSupplier} />}
+                inputComponent={<Checkbox disabled checked={box.isBarCodeAlreadyAttachedByTheSupplier} />}
               />
             )}
           </div>

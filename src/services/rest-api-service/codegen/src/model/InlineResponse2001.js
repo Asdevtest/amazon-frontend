@@ -61,12 +61,6 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
-            }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'], 'Boolean');
-            }
             if (data.hasOwnProperty('trackingNumberChina')) {
                 obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
             }
@@ -90,6 +84,9 @@ class InlineResponse2001 {
             }
             if (data.hasOwnProperty('yuanToDollarRate')) {
                 obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
             }
             if (data.hasOwnProperty('productId')) {
                 obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
@@ -153,18 +150,6 @@ InlineResponse2001.prototype['_id'] = undefined;
 InlineResponse2001.prototype['clientComment'] = undefined;
 
 /**
- * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
- */
-InlineResponse2001.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
-
-/**
- * ????====нет описания ====
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper
- */
-InlineResponse2001.prototype['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = undefined;
-
-/**
  * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
  * @member {String} trackingNumberChina
  */
@@ -210,6 +195,12 @@ InlineResponse2001.prototype['paidAt'] = undefined;
  * @member {Number} yuanToDollarRate
  */
 InlineResponse2001.prototype['yuanToDollarRate'] = undefined;
+
+/**
+ * Стоимость доставки до склада.
+ * @member {Number} deliveryCostToTheWarehouse
+ */
+InlineResponse2001.prototype['deliveryCostToTheWarehouse'] = undefined;
 
 /**
  * GUID продукта

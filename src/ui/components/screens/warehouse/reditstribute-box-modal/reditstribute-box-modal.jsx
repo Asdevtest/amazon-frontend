@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Chip, Divider, IconButton, InputLabel, Link, NativeSelect, Typography} from '@material-ui/core'
+import {Chip, Divider, IconButton, Link, NativeSelect, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 
@@ -90,54 +90,66 @@ const Box = ({
           ))}
 
           <div className={classNames.itemSubWrapper}>
-            <div>
-              <InputLabel className={classNames.modalText}>{'Destination'}</InputLabel>
+            <Field
+              containerClasses={classNames.field}
+              label={'Destination'}
+              inputComponent={
+                <NativeSelect
+                  disabled={!isNewBox}
+                  variant="filled"
+                  inputProps={{
+                    name: 'destinationId',
+                    id: 'destinationId',
+                  }}
+                  className={classNames.destinationSelect}
+                  input={<Input />}
+                  value={box.destinationId}
+                  onChange={e => onChangeField(e, 'destinationId', box._id)}
+                >
+                  <option value={''}>{'none'}</option>
 
-              <NativeSelect
-                disabled={!isNewBox}
-                variant="filled"
-                inputProps={{
-                  name: 'destinationId',
-                  id: 'destinationId',
-                }}
-                className={classNames.destinationSelect}
-                input={<Input />}
-                value={box.destinationId}
-                onChange={e => onChangeField(e, 'destinationId', box._id)}
-              >
-                <option value={''}>{'none'}</option>
+                  {destinations.map(item => (
+                    <option key={item._id} value={item._id}>
+                      {item.name}
+                    </option>
+                  ))}
+                </NativeSelect>
+              }
+            />
 
-                {destinations.map(item => (
-                  <option key={item._id} value={item._id}>
-                    {item.name}
-                  </option>
-                ))}
-              </NativeSelect>
-            </div>
+            <Field
+              containerClasses={classNames.field}
+              label={'Storekeeper / Tariff'}
+              inputComponent={
+                <Button
+                  disableElevation
+                  disabled={!isNewBox}
+                  color="primary"
+                  variant={box.logicsTariffId && 'text'}
+                  className={clsx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
+                  onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+                >
+                  {box.logicsTariffId
+                    ? `${storekeepers.find(el => el._id === box.storekeeperId).name} /  
+                      ${
+                        box.logicsTariffId
+                          ? storekeepers
+                              .find(el => el._id === box.storekeeperId)
+                              .tariffLogistics.find(el => el._id === box.logicsTariffId).name
+                          : 'none'
+                      }`
+                    : 'Выбрать'}
+                </Button>
+              }
+            />
 
-            <div>
-              <InputLabel className={classNames.modalText}>{'Storekeeper / Tariff'}</InputLabel>
-
-              <Button
-                disableElevation
-                disabled={!isNewBox}
-                color="primary"
-                variant={box.logicsTariffId && 'text'}
-                className={clsx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
-                onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-              >
-                {box.logicsTariffId
-                  ? `${storekeepers.find(el => el._id === box.storekeeperId).name} /  
-                    ${
-                      box.logicsTariffId
-                        ? storekeepers
-                            .find(el => el._id === box.storekeeperId)
-                            .tariffLogistics.find(el => el._id === box.logicsTariffId).name
-                        : 'none'
-                    }`
-                  : 'Выбрать'}
-              </Button>
-            </div>
+            <Field
+              disabled={!isNewBox}
+              containerClasses={classNames.field}
+              label={'FBA SHIPMENT'}
+              value={box.fbaShipment}
+              onChange={e => onChangeField(e, 'fbaShipment', box._id)}
+            />
 
             {isNewBox ? (
               <div>

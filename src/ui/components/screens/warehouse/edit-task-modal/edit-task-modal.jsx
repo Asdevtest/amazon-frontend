@@ -51,12 +51,10 @@ export const EditTaskModal = observer(
             widthCmWarehouse: box?.widthCmWarehouse || '',
             heightCmWarehouse: box?.heightCmWarehouse || '',
             weighGrossKgWarehouse: box?.weighGrossKgWarehouse || '',
-            // volumeWeightKgWarehouse: box?.volumeWeightKgWarehouse || '',
-            // weightFinalAccountingKgWarehouse: Math.max(
-            //   parseFloat(box?.volumeWeightKgWarehouse) || 0,
-            //   parseFloat(box?.weighGrossKgWarehouse) || 0,
-            // ),
+
+            isBarCodeAlreadyAttachedByTheSupplier: box?.isBarCodeAlreadyAttachedByTheSupplier || false,
             isShippingLabelAttachedByStorekeeper: box?.isShippingLabelAttachedByStorekeeper || false,
+
             tmpImages: [],
             images: box?.images || [],
           }),

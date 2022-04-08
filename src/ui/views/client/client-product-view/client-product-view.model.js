@@ -222,7 +222,8 @@ export class ClientProductViewModel {
         this.openConfirmModalWithTextByStatus(withoutStatus)
         break
       case 'cancel':
-        this.history.goBack()
+        this.history.push('/client/inventory', {isArchive: this.product.archive})
+
         break
       case 'delete':
         this.confirmModalSettings = {

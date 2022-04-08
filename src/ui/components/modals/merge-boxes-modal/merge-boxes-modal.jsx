@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Chip, InputLabel, NativeSelect, Typography} from '@material-ui/core'
+import {Chip, NativeSelect, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -39,19 +39,21 @@ export const MergeBoxesModal = ({
     storekeeperId: '',
     logicsTariffId: '',
 
+    fbaShipment: '',
+
     tmpShippingLabel: [],
   })
 
   const [comment, setComment] = useState('')
   const onSubmitBoxesModal = () => {
     onSubmit(boxBody, comment)
-    setBoxBody({shippingLabel: '', destinationId: '', logicsTariffId: '', tmpShippingLabel: []})
+    setBoxBody({shippingLabel: '', destinationId: '', logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
     setComment('')
   }
 
   const onCloseBoxesModal = () => {
     setOpenModal()
-    setBoxBody({shippingLabel: '', destinationId: '', logicsTariffId: '', tmpShippingLabel: []})
+    setBoxBody({shippingLabel: '', destinationId: '', logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
     setComment('')
   }
 
@@ -105,52 +107,63 @@ export const MergeBoxesModal = ({
 
         <Typography>{textConsts.attention}</Typography>
 
-        <div>
-          <InputLabel className={classNames.modalText}>{'Destination'}</InputLabel>
+        <Field
+          containerClasses={classNames.field}
+          label={'Destination'}
+          inputComponent={
+            <NativeSelect
+              variant="filled"
+              inputProps={{
+                name: 'destinationId',
+                id: 'destinationId',
+              }}
+              className={classNames.destinationSelect}
+              input={<Input />}
+              onChange={e => setBoxBody({...boxBody, destinationId: e.target.value})}
+            >
+              <option value={''}>{'none'}</option>
 
-          <NativeSelect
-            variant="filled"
-            inputProps={{
-              name: 'destinationId',
-              id: 'destinationId',
-            }}
-            className={classNames.destinationSelect}
-            input={<Input />}
-            onChange={e => setBoxBody({...boxBody, destinationId: e.target.value})}
-          >
-            <option value={''}>{'none'}</option>
+              {destinations.map(item => (
+                <option key={item._id} value={item._id}>
+                  {item.name}
+                </option>
+              ))}
+            </NativeSelect>
+          }
+        />
 
-            {destinations.map(item => (
-              <option key={item._id} value={item._id}>
-                {item.name}
-              </option>
-            ))}
-          </NativeSelect>
-        </div>
+        <Field
+          containerClasses={classNames.field}
+          label={'Storekeeper / Tariff'}
+          inputComponent={
+            <Button
+              disableElevation
+              disabled={isDifferentStorekeepers}
+              color="primary"
+              variant={boxBody.logicsTariffId && 'text'}
+              className={clsx({[classNames.storekeeperBtn]: !boxBody.logicsTariffId})}
+              onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+            >
+              {boxBody.logicsTariffId
+                ? `${storekeepers.find(el => el._id === boxBody.storekeeperId).name} /  
+                  ${
+                    boxBody.logicsTariffId
+                      ? storekeepers
+                          .find(el => el._id === boxBody.storekeeperId)
+                          .tariffLogistics.find(el => el._id === boxBody.logicsTariffId).name
+                      : 'none'
+                  }`
+                : 'Выбрать'}
+            </Button>
+          }
+        />
 
-        <div>
-          <InputLabel className={classNames.modalText}>{'Storekeeper / Tariff'}</InputLabel>
-
-          <Button
-            disableElevation
-            disabled={isDifferentStorekeepers}
-            color="primary"
-            variant={boxBody.logicsTariffId && 'text'}
-            className={clsx({[classNames.storekeeperBtn]: !boxBody.logicsTariffId})}
-            onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-          >
-            {boxBody.logicsTariffId
-              ? `${storekeepers.find(el => el._id === boxBody.storekeeperId).name} /  
-                ${
-                  boxBody.logicsTariffId
-                    ? storekeepers
-                        .find(el => el._id === boxBody.storekeeperId)
-                        .tariffLogistics.find(el => el._id === boxBody.logicsTariffId).name
-                    : 'none'
-                }`
-              : 'Выбрать'}
-          </Button>
-        </div>
+        <Field
+          containerClasses={classNames.field}
+          label={'FBA SHIPMENT'}
+          value={boxBody.fbaShipment}
+          onChange={e => setBoxBody({...boxBody, fbaShipment: e.target.value})}
+        />
 
         <div>
           <Typography className={classNames.linkTitle}>{'Шиппинг лейбл:'}</Typography>

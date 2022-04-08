@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**apiV1StorekeepersBatchesGet**](StorekeepersApi.md#apiV1StorekeepersBatchesGet) | **GET** /api/v1/storekeepers/batches | #  Deprecated! Получить партии....
 [**apiV1StorekeepersBoxesGet**](StorekeepersApi.md#apiV1StorekeepersBoxesGet) | **GET** /api/v1/storekeepers/boxes | # Получить коробки и их строки по текущему сторкиперу.
 [**apiV1StorekeepersGet**](StorekeepersApi.md#apiV1StorekeepersGet) | **GET** /api/v1/storekeepers/ | # Получить всех сторкиперов(все склады).
-[**apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch**](StorekeepersApi.md#apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch) | **PATCH** /api/v1/storekeepers/orders/set_barcode_and_status/{guid} | # Изменить значение isBarCodeAlreadyAttachedByTheSupplier и status в сущности заказ.
+[**apiV1StorekeepersOrdersSetStatusGuidPatch**](StorekeepersApi.md#apiV1StorekeepersOrdersSetStatusGuidPatch) | **PATCH** /api/v1/storekeepers/orders/set_status/{guid} | # Изменить значение status в сущности заказ.
 [**apiV1StorekeepersProductsEditHsCodeGuidPatch**](StorekeepersApi.md#apiV1StorekeepersProductsEditHsCodeGuidPatch) | **PATCH** /api/v1/storekeepers/products_edit_hsCode/{guid} | # Редактирование поля hsCode в продукте сторкипером.
 [**apiV1StorekeepersTariffLogisticsGuidDelete**](StorekeepersApi.md#apiV1StorekeepersTariffLogisticsGuidDelete) | **DELETE** /api/v1/storekeepers/tariff-logistics/{guid} | # Удалить тариф доставки.
 [**apiV1StorekeepersTariffLogisticsGuidPatch**](StorekeepersApi.md#apiV1StorekeepersTariffLogisticsGuidPatch) | **PATCH** /api/v1/storekeepers/tariff-logistics/{guid} | # Редактировать тариф доставки.
@@ -186,13 +186,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch
+## apiV1StorekeepersOrdersSetStatusGuidPatch
 
-> String apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch(guid, opts)
+> String apiV1StorekeepersOrdersSetStatusGuidPatch(guid, opts)
 
-# Изменить значение isBarCodeAlreadyAttachedByTheSupplier и status в сущности заказ.
+# Изменить значение status в сущности заказ.
 
-## Изменить значение isBarCodeAlreadyAttachedByTheSupplier и status  в сущности заказ.   
+## Изменить значение status  в сущности заказ.   
 
 ### Example
 
@@ -211,7 +211,7 @@ let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject58() // InlineObject58 | 
 };
-apiInstance.apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch(guid, opts).then((data) => {
+apiInstance.apiV1StorekeepersOrdersSetStatusGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);

@@ -207,7 +207,7 @@ export class WarehouseVacantViewModel {
 
   async updateBarcodeAndStatusInOrder(id, data) {
     try {
-      await StorekeeperModel.updateBarcodeAndStatusInOrder(id, data)
+      await StorekeeperModel.updateStatusInOrder(id, data)
     } catch (error) {
       this.error = error
     }
@@ -258,7 +258,6 @@ export class WarehouseVacantViewModel {
             [
               'amount',
               'weighGrossKg',
-              // 'volumeWeightKg',
               'weightFinalAccountingKg',
               'shippingLabel',
               'warehouse',
@@ -267,12 +266,11 @@ export class WarehouseVacantViewModel {
               'widthCmSupplier',
               'heightCmSupplier',
               'weighGrossKgSupplier',
-              // 'volumeWeightKgSupplier',
               'lengthCmWarehouse',
               'widthCmWarehouse',
               'heightCmWarehouse',
               'weighGrossKgWarehouse',
-              // 'volumeWeightKgWarehouse',
+              'isBarCodeAlreadyAttachedByTheSupplier',
               'isBarCodeAttachedByTheStorekeeper',
               'isShippingLabelAttachedByStorekeeper',
               'clientId',

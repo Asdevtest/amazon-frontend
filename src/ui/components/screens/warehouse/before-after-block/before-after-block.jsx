@@ -270,14 +270,19 @@ const Box = ({
                   label={textConsts.codeCheck}
                   inputComponent={
                     <Checkbox
-                      disabled
                       color="primary"
-                      checked={box.items?.[0].order.isBarCodeAlreadyAttachedByTheSupplier}
+                      checked={box.isBarCodeAlreadyAttachedByTheSupplier}
+                      onClick={() =>
+                        onChangeField(
+                          !box.isBarCodeAlreadyAttachedByTheSupplier,
+                          'isBarCodeAlreadyAttachedByTheSupplier',
+                        )
+                      }
                     />
                   }
                 />
               )}
-              {box.items?.[0].order.isBarCodeAlreadyAttachedByTheSupplier === true &&
+              {box.isBarCodeAlreadyAttachedByTheSupplier === true &&
                 box.isBarCodeAttachedByTheStorekeeper === false && (
                   <Field
                     oneLine
@@ -293,8 +298,7 @@ const Box = ({
                   />
                 )}
 
-              {(box.items?.[0].order.isBarCodeAlreadyAttachedByTheSupplier === false ||
-                barCodeReallyIsGlued === false) && (
+              {(box.isBarCodeAlreadyAttachedByTheSupplier === false || barCodeReallyIsGlued === false) && (
                 <Field
                   oneLine
                   containerClasses={classNames.checkboxContainer}

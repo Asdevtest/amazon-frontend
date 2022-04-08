@@ -48,3 +48,5 @@ const converter = new Showdown.Converter({
 })
 
 export const getTextFromMarkdown = markdown => converter.makeHtml(markdown)
+
+export const minsToTimeRus = mins => `${mins / 60 > 1 ? mins / 60 : 0} часов ${mins % 60} минут`

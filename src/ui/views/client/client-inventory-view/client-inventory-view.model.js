@@ -137,8 +137,13 @@ export class ClientInventoryViewModel {
     })
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+
+    if (location.state) {
+      this.isArchive = location.state.isArchive
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 

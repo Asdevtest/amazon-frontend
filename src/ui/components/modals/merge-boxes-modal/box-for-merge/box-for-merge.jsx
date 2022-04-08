@@ -46,22 +46,6 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
 
         <div>
           <InputLabel className={classNames.modalText}>{textConsts.warehouse}</InputLabel>
-          {/* <NativeSelect
-            disabled
-            variant="filled"
-            value={box.warehouse}
-            className={classNames.nativeSelect}
-            input={<Input />}
-          >
-            {Object.keys(warehouses).map((warehouseCode, warehouseIndex) => {
-              const warehouseKey = warehouses[warehouseCode]
-              return (
-                <option key={warehouseIndex} value={warehouseCode}>
-                  {warehouseKey}
-                </option>
-              )
-            })}
-          </NativeSelect> */}
 
           <Typography variant="h6">{box.destination?.name}</Typography>
         </div>

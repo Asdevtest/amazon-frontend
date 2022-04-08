@@ -69,6 +69,9 @@ class InlineObject31 {
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
+            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
+            }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
@@ -108,6 +111,12 @@ InlineObject31.prototype['destinationId'] = undefined;
  * @member {Number} amount
  */
 InlineObject31.prototype['amount'] = undefined;
+
+/**
+ * Стоимость доставки до склада.
+ * @member {Number} deliveryCostToTheWarehouse
+ */
+InlineObject31.prototype['deliveryCostToTheWarehouse'] = undefined;
 
 /**
  * Комментарии клиента.

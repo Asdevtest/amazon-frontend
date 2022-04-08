@@ -24,7 +24,6 @@ const updateOrderKeys = [
   'barCode',
   'trackingNumberChina',
   'amountPaymentPerConsignmentAtDollars',
-  'isBarCodeAlreadyAttachedByTheSupplier',
   'deliveryCostToTheWarehouse',
   'buyerComment',
   'images',
@@ -180,14 +179,21 @@ export class BuyerMyOrdersViewModel {
         await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
       }
 
-      orderFields = {
-        ...orderFields,
-        images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
-      }
+      const orderFieldsToSave = getObjectFilteredByKeyArrayBlackList(
+        {
+          ...orderFields,
+          images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
+        },
+        ['isBarCodeAlreadyAttachedByTheSupplier'],
+      )
 
-      await this.onSaveOrder(order, orderFields)
+      await this.onSaveOrder(order, orderFieldsToSave)
 
       if (boxesForCreation.length > 0 && !isMismatchOrderPrice) {
+        if (orderFields.isBarCodeAlreadyAttachedByTheSupplier) {
+          boxesForCreation = boxesForCreation.slice().map(el => ({...el, isBarCodeAlreadyAttachedByTheSupplier: true}))
+        }
+
         await this.onSubmitCreateBoxes(order, boxesForCreation)
       }
 

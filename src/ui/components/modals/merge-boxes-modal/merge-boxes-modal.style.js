@@ -130,4 +130,8 @@ export const useClassNames = makeStyles(theme => ({
   storekeeperBtn: {
     height: '32px',
   },
+
+  field: {
+    margin: '0',
+  },
 }))

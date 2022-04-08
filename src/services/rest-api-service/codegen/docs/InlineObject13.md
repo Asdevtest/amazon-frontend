@@ -19,6 +19,8 @@ Name | Type | Description | Notes
 **clientId** | **String** | GUID клиента | [optional] 
 **images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 **shippingLabel** | **String** | Шипингш лейбл | [optional] 
+**fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**isBarCodeAlreadyAttachedByTheSupplier** | **Boolean** | Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика. | [optional] 
 **isShippingLabelAttachedByStorekeeper** | **Boolean** | Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл. | [optional] 
 **destinationId** | **String** | id склада - склады куда отправляют  | [optional] 
 **logicsTariffId** | **String** | GUID тарифа доставки  | [optional] 

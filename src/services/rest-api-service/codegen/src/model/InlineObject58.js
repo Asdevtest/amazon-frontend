@@ -50,12 +50,6 @@ class InlineObject58 {
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
-            }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'], 'Boolean');
-            }
         }
         return obj;
     }
@@ -68,18 +62,6 @@ class InlineObject58 {
  * @member {Number} status
  */
 InlineObject58.prototype['status'] = undefined;
-
-/**
- * Признак того, что баркод поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
- */
-InlineObject58.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
-
-/**
- * ???===нет описания===
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper
- */
-InlineObject58.prototype['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = undefined;
 
 
 

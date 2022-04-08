@@ -195,20 +195,20 @@ export default class StorekeepersApi {
 
 
     /**
-     * # Изменить значение isBarCodeAlreadyAttachedByTheSupplier и status в сущности заказ.
-     * ## Изменить значение isBarCodeAlreadyAttachedByTheSupplier и status  в сущности заказ.   
+     * # Изменить значение status в сущности заказ.
+     * ## Изменить значение status  в сущности заказ.   
      * @param {String} guid GUID ордера, который мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject58} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatchWithHttpInfo(guid, opts) {
+    apiV1StorekeepersOrdersSetStatusGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = opts['body'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch");
+        throw new Error("Missing the required parameter 'guid' when calling apiV1StorekeepersOrdersSetStatusGuidPatch");
       }
 
       let pathParams = {
@@ -227,23 +227,23 @@ export default class StorekeepersApi {
       let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
-        '/api/v1/storekeepers/orders/set_barcode_and_status/{guid}', 'PATCH',
+        '/api/v1/storekeepers/orders/set_status/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * # Изменить значение isBarCodeAlreadyAttachedByTheSupplier и status в сущности заказ.
-     * ## Изменить значение isBarCodeAlreadyAttachedByTheSupplier и status  в сущности заказ.   
+     * # Изменить значение status в сущности заказ.
+     * ## Изменить значение status  в сущности заказ.   
      * @param {String} guid GUID ордера, который мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject58} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatch(guid, opts) {
-      return this.apiV1StorekeepersOrdersSetBarcodeAndStatusGuidPatchWithHttpInfo(guid, opts)
+    apiV1StorekeepersOrdersSetStatusGuidPatch(guid, opts) {
+      return this.apiV1StorekeepersOrdersSetStatusGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -65,8 +65,8 @@ class InlineObject27 {
             if (data.hasOwnProperty('yuanToDollarRate')) {
                 obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
             }
             if (data.hasOwnProperty('trackingNumberChina')) {
                 obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
@@ -118,10 +118,10 @@ InlineObject27.prototype['images'] = undefined;
 InlineObject27.prototype['yuanToDollarRate'] = undefined;
 
 /**
- * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
+ * Стоимость доставки до склада.
+ * @member {Number} deliveryCostToTheWarehouse
  */
-InlineObject27.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+InlineObject27.prototype['deliveryCostToTheWarehouse'] = undefined;
 
 /**
  * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.

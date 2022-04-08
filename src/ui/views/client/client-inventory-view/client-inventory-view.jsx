@@ -37,7 +37,7 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_INVENTORY
 
 @observer
 export class ClientInventoryViewRaw extends Component {
-  viewModel = new ClientInventoryViewModel({history: this.props.history})
+  viewModel = new ClientInventoryViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()

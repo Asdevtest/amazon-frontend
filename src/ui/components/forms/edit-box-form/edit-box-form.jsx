@@ -13,7 +13,6 @@ import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
-import {LabelField} from '@components/label-field/label-field'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
@@ -127,6 +126,7 @@ export const EditBoxForm = observer(
       shippingLabel: formItem?.shippingLabel || '',
       clientComment: formItem?.clientComment || '',
       images: formItem?.images || [],
+      fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
     }
 
@@ -232,12 +232,20 @@ export const EditBoxForm = observer(
                 }
               />
 
-              <LabelField
+              <Field
+                disabled
                 containerClasses={classNames.field}
                 label={textConsts.statusLabel}
                 value={
                   boxFields.items[0].order.status && getOrderStatusOptionByCode(boxFields.items[0].order.status).label
                 }
+              />
+
+              <Field
+                containerClasses={classNames.field}
+                label={'FBA SHIPMENT'}
+                value={boxFields.fbaShipment}
+                onChange={setFormField('fbaShipment')}
               />
 
               <div>

@@ -107,6 +107,8 @@ export const CreateBoxForm = observer(
           order: formItem,
         },
       ],
+
+      isBarCodeAlreadyAttachedByTheSupplier: formItem?.isBarCodeAlreadyAttachedByTheSupplier || false,
     }
 
     const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
