@@ -388,7 +388,7 @@ export const EditBoxForm = observer(
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
           <SelectStorekeeperAndTariffForm
-            storekeepers={storekeepers.filter(el => el._id === formItem.storekeeper._id)}
+            storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
             curStorekeeperId={boxFields.storekeeperId}
             curTariffId={boxFields.logicsTariffId}
             onSubmit={onSubmitSelectStorekeeperAndTariff}

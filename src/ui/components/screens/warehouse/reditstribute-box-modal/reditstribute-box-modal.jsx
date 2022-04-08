@@ -200,7 +200,7 @@ const Box = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
-          storekeepers={storekeepers.filter(el => el._id === box.storekeeper._id)}
+          storekeepers={storekeepers.filter(el => el._id === box?.storekeeper._id)}
           curStorekeeperId={box.storekeeperId}
           curTariffId={box.logicsTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}

@@ -47,7 +47,12 @@ export const OrderProductModal = ({
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
 
-  const [productsForRender, setProductsForRender] = useState(selectedProductsData)
+  const [productsForRender, setProductsForRender] = useState(
+    selectedProductsData.map(product => ({
+      ...product,
+      amount: 1,
+    })),
+  )
 
   const [orderState, setOrderState] = useState(
     selectedProductsData.map(product => ({

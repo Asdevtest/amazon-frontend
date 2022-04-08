@@ -182,7 +182,6 @@ export const AddOrEditSupplierModalContent = observer(
                   setTmpSupplier({
                     amount: '',
                     comment: '',
-                    delivery: '',
                     link: '',
                     lotcost: '',
                     minlot: '',

@@ -52,5 +52,6 @@ export const useClassNames = makeStyles(() => ({
 
   btnWrapper: {
     position: 'relative',
+    display: 'inline-flex',
   },
 }))

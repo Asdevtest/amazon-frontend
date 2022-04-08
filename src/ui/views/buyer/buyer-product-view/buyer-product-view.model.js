@@ -380,7 +380,6 @@ export class BuyerProductViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-        delivery: parseFloat(supplier?.delivery) || 0,
         lotcost: parseFloat(supplier?.lotcost) || '',
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',

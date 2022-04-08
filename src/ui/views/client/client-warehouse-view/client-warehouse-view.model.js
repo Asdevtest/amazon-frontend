@@ -355,14 +355,17 @@ export class ClientWarehouseViewModel {
         clientComment: boxData.clientComment,
       })
 
-      await this.getBoxesMy()
+      // await this.getBoxesMy()
+      this.loadData()
       this.onTriggerOpenModal('showEditBoxModal')
 
       this.setRequestStatus(loadingStatuses.success)
 
+      // this.loadData()
+
       this.onTriggerOpenModal('showEditBoxSuccessModal')
 
-      await this.getTasksMy()
+      // await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
