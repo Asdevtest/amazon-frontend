@@ -1,11 +1,9 @@
 import React from 'react'
 
-import {IconButton, InputLabel, NativeSelect, Typography} from '@material-ui/core'
+import {IconButton, InputLabel, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 
-import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
 import {texts} from '@constants/texts'
-import {warehouses} from '@constants/warehouses'
 
 import {Input} from '@components/input'
 
@@ -48,7 +46,7 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
 
         <div>
           <InputLabel className={classNames.modalText}>{textConsts.warehouse}</InputLabel>
-          <NativeSelect
+          {/* <NativeSelect
             disabled
             variant="filled"
             value={box.warehouse}
@@ -63,23 +61,9 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
                 </option>
               )
             })}
-          </NativeSelect>
-        </div>
-        <div>
-          <InputLabel className={classNames.modalText}>{textConsts.deliveryMethod}</InputLabel>
-          <NativeSelect
-            disabled
-            variant="filled"
-            value={box.deliveryMethod}
-            className={classNames.nativeSelect}
-            input={<Input />}
-          >
-            {Object.keys(DeliveryTypeByCode).map((deliveryCode, deliveryIndex) => (
-              <option key={deliveryIndex} value={deliveryCode}>
-                {getDeliveryOptionByCode(deliveryCode).label}
-              </option>
-            ))}
-          </NativeSelect>
+          </NativeSelect> */}
+
+          <Typography variant="h6">{box.destination?.name}</Typography>
         </div>
 
         <div>

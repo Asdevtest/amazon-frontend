@@ -55,6 +55,9 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: '#d5d5d5',
     color: 'rgba(61, 81, 112, 1)',
     textTransform: 'none',
+    '&:hover': {
+      color: '#fff',
+    },
   },
   commentField: {
     height: 'auto',

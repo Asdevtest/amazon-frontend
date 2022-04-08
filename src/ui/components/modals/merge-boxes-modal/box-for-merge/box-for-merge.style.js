@@ -80,6 +80,6 @@ export const useClassNames = makeStyles(theme => ({
   itemsWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
+    gap: '25px',
   },
 }))

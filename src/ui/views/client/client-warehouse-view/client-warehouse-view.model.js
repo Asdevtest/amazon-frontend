@@ -205,9 +205,16 @@ export class ClientWarehouseViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      const result = await StorekeeperModel.getTaskById(item._id)
+      const task = await StorekeeperModel.getTaskById(item._id)
 
-      this.curOpenedTask = result
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.curOpenedTask = task
+      })
+
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
       console.log(error)

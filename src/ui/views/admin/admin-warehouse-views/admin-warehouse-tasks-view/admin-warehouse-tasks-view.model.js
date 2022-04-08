@@ -6,6 +6,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
+import {UserModel} from '@models/user-model'
 
 import {adminTasksViewColumns} from '@components/table-columns/admin/tasks-columns'
 
@@ -128,9 +129,16 @@ export class AdminWarehouseTasksViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      const result = await StorekeeperModel.getTaskById(item._id)
+      const task = await StorekeeperModel.getTaskById(item._id)
 
-      this.curOpenedTask = result
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.curOpenedTask = task
+      })
+
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
       console.log(error)

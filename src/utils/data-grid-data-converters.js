@@ -234,7 +234,7 @@ export const clientOrdersDataConverter = data =>
     barCode: item.product.barCode,
     totalPrice: item.totalPrice, // calcTotalPriceForOrder(item),
     grossWeightKg: item.product.weight * item.amount,
-    warehouses: warehouses[item.warehouse],
+    warehouses: item.destination?.name,
     status: OrderStatusByCode[item.status],
 
     createdAt: item.createdAt,
@@ -244,17 +244,6 @@ export const clientOrdersDataConverter = data =>
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
   }))
-
-// export const clientWarehouseTasksDataConverter = data =>
-//   data.map(item => ({
-//     originalData: item,
-
-//     createdAt: formatDateForShowWithoutParseISO(fromUnixTime(item.createdAt)),
-//     updatedAt: formatDateForShowWithoutParseISO(fromUnixTime(item.updateDate)),
-
-//     status: item.status
-
-//   }))
 
 export const clientWarehouseDataConverter = data =>
   data.map(item => ({

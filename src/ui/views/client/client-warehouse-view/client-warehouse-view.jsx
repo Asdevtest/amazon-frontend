@@ -252,6 +252,7 @@ export class ClientWarehouseViewRaw extends Component {
           openModal={showTaskInfoModal}
           setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
           task={curOpenedTask}
+          volumeWeightCoefficient={volumeWeightCoefficient}
         />
 
         <SuccessInfoModal

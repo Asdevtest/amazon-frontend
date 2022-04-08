@@ -102,6 +102,7 @@ const Box = ({
                 }}
                 className={classNames.destinationSelect}
                 input={<Input />}
+                value={box.destinationId}
                 onChange={e => onChangeField(e, 'destinationId', box._id)}
               >
                 <option value={''}>{'none'}</option>
