@@ -13,8 +13,8 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
-import ApiV1AdminsGetProductsByStatusCurrentSupplier from './ApiV1AdminsGetProductsByStatusCurrentSupplier';
 import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
+import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
 
 /**
  * The InlineResponse200 model module.
@@ -25,17 +25,10 @@ class InlineResponse200 {
     /**
      * Constructs a new <code>InlineResponse200</code>.
      * @alias module:model/InlineResponse200
-     * @param _id {String} GUID продукта в базе данных
-     * @param lamazon {String} Ссылка на этот продукт на амазоне.
-     * @param bsr {Number} 
-     * @param fba {Boolean} Признак fba
-     * @param amazon {Number} 
-     * @param suppliers {Array.<module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier>} 
-     * @param icomment {String} Комментарии к товару.
      */
-    constructor(_id, lamazon, bsr, fba, amazon, suppliers, icomment) { 
+    constructor() { 
         
-        InlineResponse200.initialize(this, _id, lamazon, bsr, fba, amazon, suppliers, icomment);
+        InlineResponse200.initialize(this);
     }
 
     /**
@@ -43,14 +36,7 @@ class InlineResponse200 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, lamazon, bsr, fba, amazon, suppliers, icomment) { 
-        obj['_id'] = _id;
-        obj['lamazon'] = lamazon;
-        obj['bsr'] = bsr;
-        obj['fba'] = fba;
-        obj['amazon'] = amazon;
-        obj['suppliers'] = suppliers;
-        obj['icomment'] = icomment;
+    static initialize(obj) { 
     }
 
     /**
@@ -73,11 +59,14 @@ class InlineResponse200 {
             if (data.hasOwnProperty('skusByClient')) {
                 obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
             }
+            if (data.hasOwnProperty('suppliers')) {
+                obj['suppliers'] = ApiClient.convertToType(data['suppliers'], [ApiV1AdminsGetProductsByStatusSuppliers]);
+            }
             if (data.hasOwnProperty('material')) {
                 obj['material'] = ApiClient.convertToType(data['material'], 'String');
             }
             if (data.hasOwnProperty('currentSupplier')) {
-                obj['currentSupplier'] = ApiV1AdminsGetProductsByStatusCurrentSupplier.constructFromObject(data['currentSupplier']);
+                obj['currentSupplier'] = ApiV1AdminsGetProductsByStatusSuppliers.constructFromObject(data['currentSupplier']);
             }
             if (data.hasOwnProperty('currentSupplierId')) {
                 obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
@@ -117,9 +106,6 @@ class InlineResponse200 {
             }
             if (data.hasOwnProperty('weight')) {
                 obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
-            }
-            if (data.hasOwnProperty('suppliers')) {
-                obj['suppliers'] = ApiClient.convertToType(data['suppliers'], [ApiV1AdminsGetProductsByStatusCurrentSupplier]);
             }
             if (data.hasOwnProperty('reffee')) {
                 obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
@@ -268,6 +254,18 @@ class InlineResponse200 {
             if (data.hasOwnProperty('needCheckBySupervisor')) {
                 obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
             }
+            if (data.hasOwnProperty('amountInOrders')) {
+                obj['amountInOrders'] = ApiClient.convertToType(data['amountInOrders'], 'Number');
+            }
+            if (data.hasOwnProperty('amountInBoxes')) {
+                obj['amountInBoxes'] = ApiClient.convertToType(data['amountInBoxes'], 'Number');
+            }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            }
+            if (data.hasOwnProperty('hsCode')) {
+                obj['hsCode'] = ApiClient.convertToType(data['hsCode'], 'String');
+            }
         }
         return obj;
     }
@@ -293,13 +291,18 @@ InlineResponse200.prototype['asin'] = undefined;
 InlineResponse200.prototype['skusByClient'] = undefined;
 
 /**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusSuppliers>} suppliers
+ */
+InlineResponse200.prototype['suppliers'] = undefined;
+
+/**
  * 
  * @member {String} material
  */
 InlineResponse200.prototype['material'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier} currentSupplier
+ * @member {module:model/ApiV1AdminsGetProductsByStatusSuppliers} currentSupplier
  */
 InlineResponse200.prototype['currentSupplier'] = undefined;
 
@@ -380,11 +383,6 @@ InlineResponse200.prototype['length'] = undefined;
  * @member {Number} weight
  */
 InlineResponse200.prototype['weight'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCurrentSupplier>} suppliers
- */
-InlineResponse200.prototype['suppliers'] = undefined;
 
 /**
  * комиссия которую берет амазон за любой заказ - 15%
@@ -675,6 +673,30 @@ InlineResponse200.prototype['strategyStatus'] = undefined;
  * @member {Boolean} needCheckBySupervisor
  */
 InlineResponse200.prototype['needCheckBySupervisor'] = undefined;
+
+/**
+ * Сколько такого продукта находится в заказах.
+ * @member {Number} amountInOrders
+ */
+InlineResponse200.prototype['amountInOrders'] = undefined;
+
+/**
+ * Сколько такого продукта находится в коробках.
+ * @member {Number} amountInBoxes
+ */
+InlineResponse200.prototype['amountInBoxes'] = undefined;
+
+/**
+ * Флаг указывает что продукт в архиве.
+ * @member {Boolean} archive
+ */
+InlineResponse200.prototype['archive'] = undefined;
+
+/**
+ * hsCode продукта.
+ * @member {String} hsCode
+ */
+InlineResponse200.prototype['hsCode'] = undefined;
 
 
 

@@ -4,11 +4,10 @@ import {texts} from '@constants/texts'
 
 import {
   AsinCell,
-  SupervisorCell,
   renderFieldValueCell,
-  ResearcherCell,
   ToFixedWithDollarSignCell,
   NormDateCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -32,12 +31,10 @@ export const exchangeSupplierSearchColumns = () => [
   },
 
   {
-    field: 'asinCell',
+    field: 'asin',
     headerName: textConsts.asinField,
     renderCell: params => <AsinCell product={params.row.originalData} />,
     width: 300,
-    filterable: false,
-    sortable: false,
   },
 
   {
@@ -57,13 +54,13 @@ export const exchangeSupplierSearchColumns = () => [
   {
     field: 'createdBy',
     headerName: textConsts.researcherField,
-    renderCell: params => <ResearcherCell product={params.row.originalData} />,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
     width: 200,
   },
   {
     field: 'supervisor',
     headerName: textConsts.supervisorField,
-    renderCell: params => <SupervisorCell product={params.row.originalData} />,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.checkedBy?._id} />,
     width: 200,
   },
 

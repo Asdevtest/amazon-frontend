@@ -47,11 +47,11 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
               <TableRow
                 key={`supplier_${supplier.id}_${index}`}
                 className={clsx({
-                  [classNames.tableRowAcceptedSupplier]: selectedSupplier._id === supplier._id,
+                  [classNames.tableRowAcceptedSupplier]: selectedSupplier?._id === supplier._id,
                 })}
               >
                 <TableCell className={clsx(classNames.alignCenter)}>
-                  <Typography className={classNames.nameCell}>{supplier.name}</Typography>
+                  <Typography className={classNames.textCell}>{supplier.name}</Typography>
                 </TableCell>
 
                 <TableCell className={classNames.alignCenter}>
@@ -68,7 +68,7 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                   {withDollarSign(priceCalculation(supplier.price, supplier.delivery, supplier.amount))}
                 </TableCell>
                 <TableCell className={classNames.alignCenter}>
-                  <Typography className={classNames.commentCell}>{supplier.comment}</Typography>
+                  <Typography className={classNames.textCell}>{supplier.comment}</Typography>
                 </TableCell>
                 <TableCell>
                   <Button

@@ -22,7 +22,7 @@ export const styles = createStyles(() => ({
   },
 
   detailsWrapper: {
-    marginTop: '20px',
+    marginTop: '10px',
   },
   proposalsWrapper: {
     marginTop: '20px',

@@ -38,14 +38,6 @@ export class BoxesCreateBoxContract {
   @IsString()
   clientId
 
-  @IsNotEmpty()
-  @IsNumber()
-  deliveryMethod
-
-  @IsNotEmpty()
-  @IsNumber()
-  warehouse
-
   @IsArray() items
 
   @IsOptional()
@@ -105,14 +97,6 @@ export class BoxesWarehouseUpdateBoxInTaskContract {
   @IsNotEmpty()
   @IsNumber()
   weighGrossKgWarehouse
-
-  @IsNotEmpty()
-  @IsNumber()
-  volumeWeightKgWarehouse
-
-  @IsNotEmpty()
-  @IsNumber()
-  weightFinalAccountingKgWarehouse
 
   @IsOptional()
   @IsBoolean()

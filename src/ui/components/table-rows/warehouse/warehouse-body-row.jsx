@@ -6,8 +6,6 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
-import {warehouses} from '@constants/warehouses'
-
 import {Button} from '@components/buttons/button'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
@@ -25,6 +23,8 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
   const [curImages, setCurImages] = useState([])
+
+  console.log('mainProductId', restProps.mainProductId)
 
   const onTriggerIsMaximizedMasterBox = () => {
     setIsMaximizedMasterBox(!isMaximizedMasterBox)
@@ -79,7 +79,14 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           </React.Fragment>
         )}
         <TableCell>{boxCreatedAt}</TableCell>
-        <ProductCell imgSrc={getAmazonImageUrl(order.product.images[0])} title={order.product.amazonTitle} />
+        <ProductCell
+          imgSrc={
+            restProps.mainProductId === order.product._id
+              ? getAmazonImageUrl(order.product.images[0])
+              : '/assets/img/no-photo.jpg'
+          }
+          title={restProps.mainProductId === order.product._id ? order.product.amazonTitle : '??'}
+        />
 
         {orderIndex === 0 && (
           <React.Fragment>
@@ -102,40 +109,53 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
         )}
 
         <TableCell className={classNames.cellValueNumber}>
-          {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
+          {restProps.mainProductId === order.product._id
+            ? isMasterBox
+              ? `${box.amount} boxes x ${order.amount} units`
+              : order.amount
+            : '??'}
         </TableCell>
-        <TableCell>{order.product.material}</TableCell>
+        <TableCell>{restProps.mainProductId === order.product._id ? order.product.material : '??'}</TableCell>
 
         {orderIndex === 0 && (
           <React.Fragment>
-            <TableCell rowSpan={ordersQty}>{warehouses[box.warehouse]}</TableCell>
+            <TableCell rowSpan={ordersQty}>{box.destination.name}</TableCell>
             <TableCell rowSpan={ordersQty}>{'ID: ' + box.humanFriendlyId}</TableCell>
           </React.Fragment>
         )}
 
         <TableCell className={classNames.cellValueNumber}>
-          {toFixedWithDollarSign((parseFloat(order.product.amazon) || 0) * (parseInt(order.amount) || 0), 2)}
+          {restProps.mainProductId === order.product._id
+            ? toFixedWithDollarSign((parseFloat(order.product.amazon) || 0) * (parseInt(order.amount) || 0), 2)
+            : '??'}
         </TableCell>
 
         <TableCell className={classNames.cellValueNumber}>
-          {toFixedWithKg(
-            Math.max(
-              parseFloat(box.volumeWeightKgWarehouse ? box.volumeWeightKgWarehouse : box.volumeWeightKgSupplier) || 0,
-              parseFloat(
-                box.weightFinalAccountingKgWarehouse
-                  ? box.weightFinalAccountingKgWarehouse
-                  : box.weightFinalAccountingKgSupplier,
-              ) || 0,
-            ),
-            2,
-          )}
+          {restProps.mainProductId === order.product._id
+            ? toFixedWithKg(
+                Math.max(
+                  parseFloat(box.volumeWeightKgWarehouse ? box.volumeWeightKgWarehouse : box.volumeWeightKgSupplier) ||
+                    0,
+                  parseFloat(
+                    box.weightFinalAccountingKgWarehouse
+                      ? box.weightFinalAccountingKgWarehouse
+                      : box.weightFinalAccountingKgSupplier,
+                  ) || 0,
+                ),
+                2,
+              )
+            : '??'}
         </TableCell>
 
         <TableCell className={classNames.cellValueNumber}>
-          {toFixedWithKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier, 2)}
+          {restProps.mainProductId === order.product._id
+            ? toFixedWithKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier, 2)
+            : '??'}
         </TableCell>
 
-        <TableCell>{order.order.trackingNumberChina || 'N/A'}</TableCell>
+        <TableCell>
+          {restProps.mainProductId === order.product._id ? order.order.trackingNumberChina || 'N/A' : '??'}
+        </TableCell>
       </TableRow>
       {isMaximizedMasterBox ? (
         <TableRow className={classNames.subBoxesTableWrapper}>

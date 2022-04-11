@@ -4,7 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | GUID для которой подтверждаем действие. | [optional] 
-**additionalBoxes** | [**[InlineObject6]**](InlineObject6.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
+**amount** | **Number** | Сколько таких же коробок в одной коробке | [optional] 
+**lengthCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
+**widthCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
+**heightCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
+**weighGrossKgSupplier** | **Number** | Общий вес кг коробки который назвал поставщик. | [optional] 
+**lengthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**widthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**heightCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**weighGrossKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**isDraft** | **Boolean** | true - если создаем черновик заказа. | [optional] 
+**isBarCodeAttachedByTheStorekeeper** | **Boolean** | Прикреплен ли баркод к коробке сотрудником склада. | [optional] 
+**items** | [**[ApiV1BoxesItems1]**](ApiV1BoxesItems1.md) | Массив коробок. | 
+**clientId** | **String** | GUID клиента | [optional] 
+**images** | **[String]** | Массив ссылок на фотографии. | [optional] 
+**shippingLabel** | **String** | Шипингш лейбл | [optional] 
+**fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**isBarCodeAlreadyAttachedByTheSupplier** | **Boolean** | Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика. | [optional] 
+**isShippingLabelAttachedByStorekeeper** | **Boolean** | Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл. | [optional] 
 
 

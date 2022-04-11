@@ -2,22 +2,27 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {ProductDataParser} from '@constants/product-data-parser'
+import {ProductStatus} from '@constants/product-status'
 import {texts} from '@constants/texts'
 
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
+import {ResearcherModel} from '@models/researcher-model'
 import {SellerBoardModel} from '@models/seller-board-model'
 import {SettingsModel} from '@models/settings-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
 import {clientInventoryColumns} from '@components/table-columns/client/client-inventory-columns'
 
-// import {copyToClipBoard} from '@utils/clipboard'
+import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
 import {toFixed} from '@utils/text'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -33,18 +38,55 @@ const fieldsOfProductAllowedToUpdate = [
   'clientComment',
 ]
 
+const fieldsOfProductAllowedToCreate = [
+  'lamazon',
+  'lsupplier',
+  'bsr',
+  'status',
+  'amazon',
+  'fbafee',
+  'reffee',
+  'delivery',
+  'icomment',
+  'fba',
+  'profit',
+  'margin',
+  'images',
+  'width',
+  'height',
+  'length',
+  'amazonTitle',
+  'amazonDetail',
+  'amazonDescription',
+  'category',
+  'weight',
+  'minpurchase',
+  'fbaamount',
+  'strategyStatus',
+  'currentSupplierId',
+  'asin',
+]
+
 export class ClientInventoryViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
   actionStatus = undefined
 
+  product = undefined
+
   productsMy = []
   orders = []
   selectedRowIds = []
   sellerBoardDailyData = []
+  storekeepers = []
+  destinations = []
+
+  isArchive = false
 
   selectedRowId = undefined
+  yuanToDollarRate = undefined
+  volumeWeightCoefficient = undefined
 
   drawerOpen = false
   showOrderModal = false
@@ -80,8 +122,28 @@ export class ClientInventoryViewModel {
   densityModel = 'compact'
   columnsModel = clientInventoryColumns(this.barCodeHandlers)
 
-  constructor({history}) {
+  get isNoEditProductSelected() {
+    return this.selectedRowIds.some(prodId => {
+      const findProduct = this.productsMy.find(prod => prod._id === prodId)
+
+      return [
+        ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR,
+        ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH,
+        ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT,
+        ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
+        ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
+        ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
+      ].includes(findProduct?.status)
+    })
+  }
+
+  constructor({history, location}) {
     this.history = history
+
+    if (location.state) {
+      this.isArchive = location.state.isArchive
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -145,7 +207,28 @@ export class ClientInventoryViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.productsMy)
+    return this.isArchive
+      ? toJS(this.productsMy.filter(el => el.originalData.archive))
+      : toJS(this.productsMy.filter(el => !el.originalData.archive))
+  }
+
+  async onClickTriggerArchOrResetProducts() {
+    try {
+      for (let i = 0; i < this.selectedRowIds.length; i++) {
+        const productId = this.selectedRowIds[i]
+
+        await ClientModel.updateProduct(productId, {archive: this.isArchive ? false : true})
+      }
+
+      await this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onTriggerArchive() {
+    this.selectedRowIds = []
+    this.isArchive = !this.isArchive
   }
 
   async loadData() {
@@ -156,6 +239,24 @@ export class ClientInventoryViewModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async onClickOrderBtn() {
+    try {
+      const storekeepers = await StorekeeperModel.getStorekeepers()
+
+      const destinations = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.storekeepers = storekeepers
+
+        this.destinations = destinations
+      })
+
+      this.onTriggerOpenModal('showOrderModal')
+    } catch (error) {
       console.log(error)
     }
   }
@@ -231,12 +332,8 @@ export class ClientInventoryViewModel {
   }
 
   onClickBarcode(item) {
-    // if (item.barCode) {
-    //   copyToClipBoard(item.barCode)
-    // } else {
     this.setSelectedProduct(item)
     this.onTriggerOpenModal('showSetBarcodeModal')
-    // }
   }
 
   async onSubmitOrderProductModal(ordersDataState) {
@@ -250,14 +347,11 @@ export class ClientInventoryViewModel {
 
         if (product.tmpBarCode.length) {
           await onSubmitPostImages.call(this, {images: product.tmpBarCode, type: 'uploadedFiles'})
+
+          await ClientModel.updateProductBarCode(product.productId, {barCode: this.uploadedFiles[0]})
         }
 
-        const prodToCreate = getObjectFilteredByKeyArrayBlackList(
-          {...product, barCode: this.uploadedFiles.length ? this.uploadedFiles[0] : product.barCode},
-          ['tmpBarCode'],
-        )
-
-        await this.createOrder(prodToCreate)
+        await this.createOrder(product)
       }
 
       if (!this.error) {
@@ -276,9 +370,7 @@ export class ClientInventoryViewModel {
 
   async createOrder(orderObject) {
     try {
-      await ClientModel.createOrder(getObjectFilteredByKeyArrayBlackList(orderObject, ['barCode']))
-
-      await ClientModel.updateProductBarCode(orderObject.productId, {barCode: orderObject.barCode})
+      await ClientModel.createOrder(getObjectFilteredByKeyArrayBlackList(orderObject, ['barCode', 'tmpBarCode']))
 
       await this.updateUserInfo()
     } catch (error) {
@@ -301,7 +393,6 @@ export class ClientInventoryViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-        delivery: parseFloat(supplier?.delivery) || 0,
         lotcost: parseFloat(supplier?.lotcost) || '',
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
@@ -324,6 +415,20 @@ export class ClientInventoryViewModel {
     } catch (error) {
       console.log(error)
       this.error = error
+    }
+  }
+
+  async onClickAddSupplierButton() {
+    try {
+      const result = await UserModel.getPlatformSettings()
+
+      this.yuanToDollarRate = result.yuanToDollarRate
+      this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+      this.onTriggerOpenModal('showAddOrEditSupplierModal')
+      this.onTriggerOpenModal('showSelectionSupplierModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -368,20 +473,109 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async onSubmitCreateProduct(data, photosOfNewProduct) {
+  async parseAmazon(asin) {
     try {
-      if (photosOfNewProduct.length) {
-        await onSubmitPostImages.call(this, {images: photosOfNewProduct, type: 'readyImages'})
-      }
+      const parseResult = await ResearcherModel.parseAmazon(asin)
 
-      const resData = {...data, images: this.readyImages.length ? this.readyImages : data.images}
+      runInAction(() => {
+        if (Object.keys(parseResult).length > 5) {
+          // проверка, что ответ не пустой (иначе приходит объект {length: 2})
+          this.product = {
+            ...this.product,
+            ...parseFieldsAdapter(parseResult, ProductDataParser.AMAZON),
+            weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
+            amazonDescription: parseResult.info?.description || this.product.amazonDescription,
+            amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
+          }
+        }
+        updateProductAutoCalculatedFields.call(this)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-      const result = await ClientModel.createProduct(resData)
+  async parseParseSellerCentral(asin) {
+    try {
+      const parseResult = await ResearcherModel.parseParseSellerCentral(asin)
 
-      if (result) {
-        this.selectedRowId = result.guid
+      runInAction(() => {
+        if (Object.keys(parseResult).length > 5) {
+          // проверка, что ответ не пустой (иначе приходит объект {length: 2})
+          this.product = {
+            ...this.product,
+            ...parseFieldsAdapter(parseResult, ProductDataParser.SELLCENTRAL),
+            weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
+            amazonDescription: parseResult.info?.description || this.product.amazonDescription,
+            amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
+          }
+        }
+        updateProductAutoCalculatedFields.call(this)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-        this.onTriggerOpenModal('showSelectionSupplierModal')
+  async onSubmitCreateProduct(data, photosOfNewProduct, isNoAsin) {
+    try {
+      if (!isNoAsin) {
+        this.product = {asin: data.asin, lamazon: data.lamazon, fba: true}
+
+        await this.parseAmazon(data.asin)
+        await this.parseParseSellerCentral(data.asin)
+
+        const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
+          toJS(this.product),
+          fieldsOfProductAllowedToCreate,
+          true,
+          (key, value) => {
+            switch (key) {
+              case 'bsr':
+                return (value && parseInt(value)) || 0
+              case 'amazon':
+                return (value && parseFloat(value)) || 0
+              case 'weight':
+                return (value && parseFloat(value)) || 0
+              case 'length':
+                return (value && parseFloat(value)) || 0
+              case 'width':
+                return (value && parseFloat(value)) || 0
+              case 'height':
+                return (value && parseFloat(value)) || 0
+              case 'fbaamount':
+                return (value && parseFloat(value)) || 0
+              case 'fbafee':
+                return (value && parseFloat(value)) || 0
+              case 'profit':
+                return value && parseFloat(value)
+              default:
+                return value
+            }
+          },
+        )
+
+        const result = await ClientModel.createProduct(curUpdateProductData)
+
+        if (result) {
+          this.selectedRowId = result.guid
+
+          this.onTriggerOpenModal('showSelectionSupplierModal')
+        }
+      } else {
+        if (photosOfNewProduct.length) {
+          await onSubmitPostImages.call(this, {images: photosOfNewProduct, type: 'readyImages'})
+        }
+
+        const resData = {...data, images: this.readyImages.length ? this.readyImages : data.images}
+
+        const result = await ClientModel.createProduct(resData)
+
+        if (result) {
+          this.selectedRowId = result.guid
+
+          this.onTriggerOpenModal('showSelectionSupplierModal')
+        }
       }
 
       this.successModalText = textConsts.successAddProductTitle
@@ -405,7 +599,13 @@ export class ClientInventoryViewModel {
   }
 
   async onDeleteBarcode(product) {
-    await ClientModel.updateProductBarCode(product._id, {barCode: null})
+    try {
+      await ClientModel.updateProductBarCode(product._id, {barCode: null})
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onClickBindInventoryGoodsToStockBtn() {

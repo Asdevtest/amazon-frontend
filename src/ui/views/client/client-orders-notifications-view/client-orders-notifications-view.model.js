@@ -14,6 +14,7 @@ import {clientOrdersNotificationsDataConverter} from '@utils/data-grid-data-conv
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {toFixedWithDollarSign} from '@utils/text'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersNotificationsView
 
@@ -85,7 +86,9 @@ export class ClientOrdersNotificationsViewModel {
   onTriggerOpenConfirmModal(row) {
     this.confirmModalSettings = {
       isWarning: false,
-      message: textConsts.confirmMessage,
+      message: `Необходимо доплатить: ${toFixedWithDollarSign(row.totalPriceChanged - row.totalPrice, 2)} ${
+        textConsts.confirmMessage
+      }`,
       onClickOkBtn: () => this.onClickConfirmOrderPriceChangeBtn(row),
     }
     this.onTriggerOpenModal('showConfirmModal')

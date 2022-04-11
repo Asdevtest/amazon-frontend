@@ -17,7 +17,7 @@ import {useClassNames} from './edit-box-tasks-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseViewsEditBoxModal
 
-const AttributesEditBlock = ({box, setNewBoxField}) => {
+const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
@@ -54,21 +54,36 @@ const AttributesEditBlock = ({box, setNewBoxField}) => {
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.volumeWeightKgWarehouse}
-          value={toFixed(box.volumeWeightKgWarehouse, 2)}
-          onChange={setNewBoxField('volumeWeightKgWarehouse')}
+          value={toFixed(
+            ((parseFloat(box.lengthCmWarehouse) || 0) *
+              (parseFloat(box.heightCmWarehouse) || 0) *
+              (parseFloat(box.widthCmWarehouse) || 0)) /
+              volumeWeightCoefficient,
+            2,
+          )}
         />
         <Field
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.weightFinalAccountingKgWarehouse}
-          value={toFixed(box.weightFinalAccountingKgWarehouse, 2)}
+          value={toFixed(
+            Math.max(parseFloat(box.volumeWeightKgWarehouse) || 0, parseFloat(box.weighGrossKgWarehouse) || 0),
+            2,
+          )}
         />
       </div>
     </div>
   )
 }
 
-export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes, newBoxes}) => {
+export const EditBoxTasksModal = ({
+  setEditModal,
+  box,
+  operationType,
+  setNewBoxes,
+  newBoxes,
+  volumeWeightCoefficient,
+}) => {
   const classNames = useClassNames()
 
   const [editingBox, setEditingBox] = useState(box)
@@ -83,15 +98,6 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
     }
     const newFormFields = {...editingBox}
     newFormFields[fieldName] = e.target.value
-    newFormFields.volumeWeightKgWarehouse =
-      ((parseFloat(newFormFields.lengthCmWarehouse) || 0) *
-        (parseFloat(newFormFields.heightCmWarehouse) || 0) *
-        (parseFloat(newFormFields.widthCmWarehouse) || 0)) /
-      5000
-    newFormFields.weightFinalAccountingKgWarehouse = Math.max(
-      parseFloat(newFormFields.volumeWeightKgWarehouse) || 0,
-      parseFloat(newFormFields.weighGrossKgWarehouse) || 0,
-    )
 
     setEditingBox(newFormFields)
   }
@@ -124,7 +130,12 @@ export const EditBoxTasksModal = ({setEditModal, box, operationType, setNewBoxes
       <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
       <Divider className={classNames.divider} />
 
-      <AttributesEditBlock box={editingBox} operationType={operationType} setNewBoxField={setNewBoxField} />
+      <AttributesEditBlock
+        box={editingBox}
+        operationType={operationType}
+        setNewBoxField={setNewBoxField}
+        volumeWeightCoefficient={volumeWeightCoefficient}
+      />
 
       <div className={classNames.photoWrapper}>
         <Typography>{'Текущие фотографии:'}</Typography>

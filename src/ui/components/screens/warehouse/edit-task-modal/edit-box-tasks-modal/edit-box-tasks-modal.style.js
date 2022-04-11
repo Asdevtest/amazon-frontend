@@ -87,6 +87,7 @@ export const useClassNames = makeStyles(() => ({
     alignSelf: 'center',
     width: '100%',
     marginTop: '20px',
+    gap: '10px',
   },
   numberInputFieldsWrapper: {
     display: 'flex',

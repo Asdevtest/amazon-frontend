@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineObject12 from './InlineObject12';
 
 /**
  * The InlineObject19 model module.
@@ -21,13 +22,11 @@ import ApiClient from '../ApiClient';
 class InlineObject19 {
     /**
      * Constructs a new <code>InlineObject19</code>.
-     * Схема комментарии байера.
      * @alias module:model/InlineObject19
-     * @param buyerComment {String} Комментарии байера.
      */
-    constructor(buyerComment) { 
+    constructor() { 
         
-        InlineObject19.initialize(this, buyerComment);
+        InlineObject19.initialize(this);
     }
 
     /**
@@ -35,8 +34,7 @@ class InlineObject19 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, buyerComment) { 
-        obj['buyerComment'] = buyerComment;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,8 +48,11 @@ class InlineObject19 {
         if (data) {
             obj = obj || new InlineObject19();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            }
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject12]);
             }
         }
         return obj;
@@ -61,10 +62,16 @@ class InlineObject19 {
 }
 
 /**
- * Комментарии байера.
- * @member {String} buyerComment
+ * GUID для которой подтверждаем действие.
+ * @member {String} guid
  */
-InlineObject19.prototype['buyerComment'] = undefined;
+InlineObject19.prototype['guid'] = undefined;
+
+/**
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject12>} additionalBoxes
+ */
+InlineObject19.prototype['additionalBoxes'] = undefined;
 
 
 

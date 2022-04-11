@@ -1,4 +1,5 @@
-import {format, formatDistance, compareDesc, parseISO} from 'date-fns'
+import {format, formatDistance, compareDesc, parseISO, formatDistanceStrict} from 'date-fns'
+import ruLocale from 'date-fns/locale/ru'
 
 export const formatDate = dateString => format(parseISO(dateString), 'dd-MM-yyyy') // предпочтительный формат
 export const formatDateForBackend = dateString => format(parseISO(dateString), 'yyyy-MM-dd')
@@ -16,11 +17,23 @@ export const formatNormDateTime = dateString => {
   }
 }
 
+export const formatShortDateTime = dateString => format(parseISO(dateString), 'dd-MM HH:mm')
+export const formatDateWithoutTime = dateString => format(parseISO(dateString), 'dd-MM-yyyy')
+
 export const formatDateTimeWithParseISO = dateString => format(parseISO(dateString), 'MM-dd-yyyy HH:mm')
 export const formatNormDateTimeWithParseISO = dateString => format(parseISO(dateString), 'dd-MM-yyyy HH:mm') // предпочтительный формат
+
 const now = new Date()
 
-export const formatDateDistanceFromNow = date => formatDistance(parseISO(date), now, {addSuffix: true})
+export const formatDateDistanceFromNowStrict = (date, tryNow) =>
+  formatDistanceStrict(parseISO(date), tryNow ? tryNow : now, {
+    addSuffix: true,
+    locale: ruLocale,
+    partialMethod: 'ceil',
+  })
+
+export const formatDateDistanceFromNow = date =>
+  formatDistance(parseISO(date), now, {addSuffix: true, locale: ruLocale})
 
 export const sortObjectsArrayByFiledDate = fieldName => (a, b) => compareDesc(a[fieldName], b[fieldName])
 

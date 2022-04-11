@@ -11,7 +11,7 @@ import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './owner-request-proposals-card.style'
 
@@ -77,7 +77,7 @@ export const OwnerRequestProposalsCard = ({item}) => {
           <div className={classNames.timeItemInfoWrapper}>
             <Typography className={classNames.cardTime}>{`Время на выполнение: `}</Typography>
 
-            <Typography>{`${toFixed(item.proposal.execution_time / 60, 2)} часов `}</Typography>
+            <Typography>{minsToTimeRus(item.proposal.execution_time)}</Typography>
           </div>
 
           <div className={classNames.timeItemInfoWrapper}>

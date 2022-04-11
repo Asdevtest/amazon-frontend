@@ -86,6 +86,9 @@ class InlineObject2 {
             if (data.hasOwnProperty('canByMasterUser')) {
                 obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
             }
+            if (data.hasOwnProperty('hideSuppliers')) {
+                obj['hideSuppliers'] = ApiClient.convertToType(data['hideSuppliers'], 'Boolean');
+            }
         }
         return obj;
     }
@@ -170,6 +173,12 @@ InlineObject2.prototype['allowedRoles'] = undefined;
  * @member {Boolean} canByMasterUser
  */
 InlineObject2.prototype['canByMasterUser'] = undefined;
+
+/**
+ * Скрывать поставщиков от пользователя.
+ * @member {Boolean} hideSuppliers
+ */
+InlineObject2.prototype['hideSuppliers'] = undefined;
 
 
 

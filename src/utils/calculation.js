@@ -8,7 +8,10 @@ export const calcProductPrice = product =>
 
 export const calcProductsPriceWithDelivery = (product, order) =>
   ((parseFloat(product.currentSupplier && product.currentSupplier.price) || 0) +
-    (parseFloat(product.currentSupplier && product.currentSupplier.delivery) || 0)) *
+    (parseFloat(
+      product.currentSupplier &&
+        toFixed(product.currentSupplier.batchDeliveryCostInDollar / product.currentSupplier.amount, 2),
+    ) || 0)) *
   (parseInt(order.amount) || 0)
 
 export const calcExchangePrice = (price, rate) => toFixed((parseFloat(price) || 0) / (parseFloat(rate) || 0), 2)

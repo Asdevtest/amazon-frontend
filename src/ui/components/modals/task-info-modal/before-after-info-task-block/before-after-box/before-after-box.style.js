@@ -50,6 +50,7 @@ export const useClassNames = makeStyles(() => ({
     minWidth: '200px',
     padding: '5px',
     marginTop: '10px',
+    height: '220px',
   },
   editBtn: {
     marginTop: '5px',
@@ -58,6 +59,14 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '5px',
     padding: '10px',
   },
+
+  boxInfoWrapper: {
+    marginTop: '5px',
+    padding: '10px',
+
+    display: 'flex',
+  },
+
   editBtnWrapper: {
     width: '100%',
     display: 'flex',
@@ -75,7 +84,7 @@ export const useClassNames = makeStyles(() => ({
   shippingLabelField: {
     maxWidth: '325px',
     whiteSpace: 'nowrap',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
   fieldsWrapper: {
     padding: '0 10px',
@@ -89,11 +98,13 @@ export const useClassNames = makeStyles(() => ({
   imagesWrapper: {
     display: 'flex',
     padding: '5px',
+    flexDirection: 'column',
   },
 
   photoWrapper: {
     width: '200px',
     marginLeft: '20px',
+    minHeight: '150px',
   },
 
   imgBox: {
@@ -106,5 +117,12 @@ export const useClassNames = makeStyles(() => ({
     '&:hover': {
       transform: 'scale(1.02)',
     },
+  },
+
+  checkboxContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+    padding: '5px',
   },
 }))

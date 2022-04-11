@@ -24,6 +24,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').warehouseTaskForm
 
 export const EditTaskModal = observer(
   ({
+    volumeWeightCoefficient,
     requestStatus,
     task,
     onClickOpenCloseModal,
@@ -50,12 +51,10 @@ export const EditTaskModal = observer(
             widthCmWarehouse: box?.widthCmWarehouse || '',
             heightCmWarehouse: box?.heightCmWarehouse || '',
             weighGrossKgWarehouse: box?.weighGrossKgWarehouse || '',
-            volumeWeightKgWarehouse: box?.volumeWeightKgWarehouse || '',
-            weightFinalAccountingKgWarehouse: Math.max(
-              parseFloat(box?.volumeWeightKgWarehouse) || 0,
-              parseFloat(box?.weighGrossKgWarehouse) || 0,
-            ),
+
+            isBarCodeAlreadyAttachedByTheSupplier: box?.isBarCodeAlreadyAttachedByTheSupplier || false,
             isShippingLabelAttachedByStorekeeper: box?.isShippingLabelAttachedByStorekeeper || false,
+
             tmpImages: [],
             images: box?.images || [],
           }),
@@ -113,6 +112,7 @@ export const EditTaskModal = observer(
           </div>
 
           <BeforeAfterBlock
+            volumeWeightCoefficient={volumeWeightCoefficient}
             incomingBoxes={task.boxesBefore}
             desiredBoxes={newBoxes}
             taskType={task.operationType}
@@ -173,6 +173,7 @@ export const EditTaskModal = observer(
           onCloseModal={() => setReceiveBoxModal(!receiveBoxModal)}
         >
           <ReceiveBoxModal
+            volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
             selectedBox={task.boxesBefore[0]}
             setSourceBoxes={setNewBoxes}

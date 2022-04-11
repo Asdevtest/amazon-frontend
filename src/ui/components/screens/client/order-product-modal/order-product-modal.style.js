@@ -34,13 +34,14 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '21px',
     marginBottom: '8px',
   },
+
   modalButton: {
     backgroundColor: 'rgba(0, 123, 255, 1)',
     color: '#fff',
     fontSize: '16px',
     fontWeight: 500,
     lineHeight: '19px',
-    textTransform: 'none',
+    // textTransform: 'none'
   },
   footerTitle: {
     color: 'rgba(189, 194, 209, 1)',
@@ -86,6 +87,7 @@ export const useClassNames = makeStyles(() => ({
   },
   tableCell: {
     align: 'center',
+    maxWidth: '100px',
   },
   divider: {
     margin: '0px -24px',
@@ -111,5 +113,18 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: '#d5d5d5',
     color: 'rgba(61, 81, 112, 1)',
     textTransform: 'none',
+    '&:hover': {
+      color: '#fff',
+    },
+  },
+
+  sumWrapper: {
+    textAlign: 'right',
+  },
+
+  sumText: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#354256',
   },
 }))

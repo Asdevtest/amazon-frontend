@@ -86,6 +86,9 @@ class AdminUserPatchDtoSchema {
             if (data.hasOwnProperty('canByMasterUser')) {
                 obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
             }
+            if (data.hasOwnProperty('hideSuppliers')) {
+                obj['hideSuppliers'] = ApiClient.convertToType(data['hideSuppliers'], 'Boolean');
+            }
         }
         return obj;
     }
@@ -170,6 +173,12 @@ AdminUserPatchDtoSchema.prototype['allowedRoles'] = undefined;
  * @member {Boolean} canByMasterUser
  */
 AdminUserPatchDtoSchema.prototype['canByMasterUser'] = undefined;
+
+/**
+ * Скрывать поставщиков от пользователя.
+ * @member {Boolean} hideSuppliers
+ */
+AdminUserPatchDtoSchema.prototype['hideSuppliers'] = undefined;
 
 
 

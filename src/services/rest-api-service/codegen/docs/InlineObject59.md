@@ -4,7 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**request** | [**ApiV1RequestsCustomGuidRequest**](ApiV1RequestsCustomGuidRequest.md) |  | [optional] 
-**details** | [**ApiV1RequestsCustomGuidDetails**](ApiV1RequestsCustomGuidDetails.md) |  | [optional] 
+**name** | **String** | Название тарифа | 
+**description** | **String** | Описание тарифа | [optional] 
+**deliveryTimeInDay** | **String** | Время доставки, днях | [optional] 
+**cls** | **Date** | Дата закрытия приема новых грузов. | [optional] 
+**etd** | **Date** | Ожидаема дата отбытия. | [optional] 
+**atd** | **Date** | Ожидаема дата прибытия. | [optional] 
+**minWeightInKg** | **Number** | Минимальный вес, в кг | [optional] 
+**conditionsByRegion** | [**ApiV1BoxesLogicsTariffConditionsByRegion**](ApiV1BoxesLogicsTariffConditionsByRegion.md) |  | 
 
 

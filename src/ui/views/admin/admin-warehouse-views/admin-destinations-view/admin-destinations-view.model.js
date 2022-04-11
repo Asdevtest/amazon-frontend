@@ -1,0 +1,225 @@
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
+
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
+import {loadingStatuses} from '@constants/loading-statuses'
+import {texts} from '@constants/texts'
+
+import {AdministratorModel} from '@models/administrator-model'
+import {ClientModel} from '@models/client-model'
+import {SettingsModel} from '@models/settings-model'
+
+import {destinationsColumns} from '@components/table-columns/admin/destinations-columns'
+
+import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+
+const textConsts = getLocalizedTexts(texts, 'ru').adminDestinationsView
+
+export class AdminDestinationsViewModel {
+  history = undefined
+  requestStatus = undefined
+  error = undefined
+
+  logisticsDestinations = []
+  destinationToEdit = undefined
+  destinationIdToRemove = undefined
+
+  showAddOrEditDestinationModal = false
+  showConfirmModal = false
+
+  confirmModalSettings = {
+    isWarning: false,
+    message: '',
+    onClickSuccess: () => {},
+  }
+
+  rowHandlers = {
+    onClickRemoveBtn: row => this.onClickRemoveBtn(row),
+    onClickEditBtn: row => this.onClickEditBtn(row),
+  }
+
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
+  rowsPerPage = 15
+  densityModel = 'compact'
+  columnsModel = destinationsColumns(this.rowHandlers)
+
+  constructor({history}) {
+    this.history = history
+    makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
+  setDataGridState(state) {
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_DESTINATIONS)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_DESTINATIONS]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter.filterModel
+      this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = destinationsColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns?.lookup[el?.field]?.hide,
+      }))
+    }
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
+  onChangeDrawerOpen(e, value) {
+    this.drawerOpen = value
+  }
+
+  onTriggerDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onSelectionModel(model) {
+    this.selectionModel = model
+  }
+
+  onChangeCurPage(e) {
+    this.curPage = e
+  }
+
+  getCurrentData() {
+    return toJS(this.destinations)
+  }
+
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await this.getDestinations()
+
+      this.getDataGridState()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getDestinations() {
+    try {
+      const result = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.destinations = addIdDataConverter(result)
+      })
+    } catch (error) {
+      this.destinations = []
+      console.log(error)
+    }
+  }
+
+  onClickEditBtn(row) {
+    this.destinationToEdit = row
+
+    this.onTriggerOpenModal('showAddOrEditDestinationModal')
+  }
+
+  async onSubmitCreateDestination(data) {
+    try {
+      await AdministratorModel.createDestination(data)
+
+      this.onTriggerOpenModal('showAddOrEditDestinationModal')
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onSubmitEditDestination(destinationId, data) {
+    try {
+      await AdministratorModel.editDestination(destinationId, data)
+
+      this.onTriggerOpenModal('showAddOrEditDestinationModal')
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  onClickAddBtn() {
+    this.destinationToEdit = undefined
+
+    this.onTriggerOpenModal('showAddOrEditDestinationModal')
+  }
+
+  onClickCancelBtn() {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: textConsts.confirmCloseModalMessage,
+      onClickSuccess: () => this.cancelTheOrder(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  cancelTheOrder() {
+    this.onTriggerOpenModal('showAddOrEditDestinationModal')
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  onClickRemoveBtn(row) {
+    this.destinationIdToRemove = row._id
+
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: textConsts.confirmRemoveDestMessage,
+      onClickSuccess: () => this.removeDestination(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async removeDestination() {
+    try {
+      await AdministratorModel.removeDestination(this.destinationIdToRemove)
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
+  }
+}

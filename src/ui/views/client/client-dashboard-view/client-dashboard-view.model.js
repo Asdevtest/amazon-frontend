@@ -4,6 +4,7 @@ import {ClientDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 
+import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {UserModel} from '@models/user-model'
@@ -17,7 +18,6 @@ export class ClientDashboardViewModel {
 
   dashboardData = {
     [ClientDashboardCardDataKey.IN_INVENTORY]: '',
-    [ClientDashboardCardDataKey.IN_INVENTORY_BY_CLIENT]: '',
     [ClientDashboardCardDataKey.REPURCHASE_ITEMS]: '',
     [ClientDashboardCardDataKey.ALL_ORDERS]: '',
     [ClientDashboardCardDataKey.PAID_ORDERS]: '',
@@ -71,7 +71,7 @@ export class ClientDashboardViewModel {
   async loadData() {
     try {
       this.requestStatus = loadingStatuses.isLoading
-      this.getProductsPaid()
+      this.getProductsMy()
       this.getOrders()
 
       this.getBoxesMy()
@@ -84,18 +84,6 @@ export class ClientDashboardViewModel {
       console.log(error)
     }
   }
-
-  // async getBoxesMy() {
-  //   try {
-  //     const result = await BoxesModel.getBoxes()
-  //     runInAction(() => {
-  //       this.boxesMy = result
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.error = error
-  //   }
-  // }
 
   async getOrders() {
     try {
@@ -122,15 +110,14 @@ export class ClientDashboardViewModel {
     }
   }
 
-  async getProductsPaid() {
+  async getProductsMy() {
     try {
       const result = await ClientModel.getProductsMy()
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,
           [ClientDashboardCardDataKey.IN_INVENTORY]: result.length,
-          [ClientDashboardCardDataKey.IN_INVENTORY_BY_CLIENT]: result.filter(el => el.isCreatedByClient).length,
-          [ClientDashboardCardDataKey.REPURCHASE_ITEMS]: result.filter(el => !el.isCreatedByClient).length,
+          [ClientDashboardCardDataKey.REPURCHASE_ITEMS]: result.filter(el => el.paidAt).length,
         }
       })
     } catch (error) {
@@ -157,7 +144,7 @@ export class ClientDashboardViewModel {
 
   async getBatches() {
     try {
-      const result = await ClientModel.getBatches()
+      const result = await BatchesModel.getBatches()
 
       const batchesBoxes = result.reduce((ac, cur) => ac.concat(cur.boxes), [])
 

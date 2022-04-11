@@ -145,6 +145,9 @@ class ApiV1AdminsBatchesBoxes {
             if (data.hasOwnProperty('storekeeper')) {
                 obj['storekeeper'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['storekeeper']);
             }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            }
             if (data.hasOwnProperty('buyerId')) {
                 obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
             }
@@ -171,6 +174,9 @@ class ApiV1AdminsBatchesBoxes {
             }
             if (data.hasOwnProperty('sendToBatchComplete')) {
                 obj['sendToBatchComplete'] = ApiClient.convertToType(data['sendToBatchComplete'], 'Boolean');
+            }
+            if (data.hasOwnProperty('batchId')) {
+                obj['batchId'] = ApiClient.convertToType(data['batchId'], 'String');
             }
         }
         return obj;
@@ -370,6 +376,12 @@ ApiV1AdminsBatchesBoxes.prototype['clientId'] = undefined;
 ApiV1AdminsBatchesBoxes.prototype['storekeeper'] = undefined;
 
 /**
+ * GUID тарифа доставки.
+ * @member {String} logicsTariffId
+ */
+ApiV1AdminsBatchesBoxes.prototype['logicsTariffId'] = undefined;
+
+/**
  * Байер взявший коробку в работу.
  * @member {String} buyerId
  */
@@ -421,6 +433,12 @@ ApiV1AdminsBatchesBoxes.prototype['sendToBatchRequest'] = undefined;
  * @member {Boolean} sendToBatchComplete
  */
 ApiV1AdminsBatchesBoxes.prototype['sendToBatchComplete'] = undefined;
+
+/**
+ * GUID партии в БД
+ * @member {String} batchId
+ */
+ApiV1AdminsBatchesBoxes.prototype['batchId'] = undefined;
 
 
 

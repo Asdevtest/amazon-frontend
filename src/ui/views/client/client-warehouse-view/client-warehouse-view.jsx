@@ -4,6 +4,7 @@ import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
@@ -46,7 +47,11 @@ export class ClientWarehouseViewRaw extends Component {
 
   render() {
     const {
+      volumeWeightCoefficient,
       taskColumnsModel,
+      currentStorekeeper,
+      storekeepersData,
+      destinations,
 
       requestStatus,
       getCurrentData,
@@ -96,6 +101,8 @@ export class ClientWarehouseViewRaw extends Component {
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+
+      onClickStorekeeperBtn,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -113,6 +120,38 @@ export class ClientWarehouseViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
+              <div className={classNames.boxesFiltersWrapper}>
+                <Button
+                  disabled={!currentStorekeeper?._id}
+                  className={clsx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
+                  variant="text"
+                  color="primary"
+                  onClick={onClickStorekeeperBtn}
+                >
+                  {`Все склады`}
+                </Button>
+
+                {storekeepersData
+                  .slice()
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map(storekeeper =>
+                    storekeeper.boxesCount !== 0 ? (
+                      <Button
+                        key={storekeeper._id}
+                        disabled={currentStorekeeper?._id === storekeeper._id}
+                        className={clsx(classNames.button, {
+                          [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
+                        })}
+                        variant="text"
+                        color="primary"
+                        onClick={() => onClickStorekeeperBtn(storekeeper)}
+                      >
+                        {storekeeper.name}
+                      </Button>
+                    ) : null,
+                  )}
+              </div>
+
               <div className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
               </div>
@@ -166,6 +205,9 @@ export class ClientWarehouseViewRaw extends Component {
           <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
 
           <EditBoxForm
+            destinations={destinations}
+            storekeepers={storekeepersData}
+            volumeWeightCoefficient={volumeWeightCoefficient}
             requestStatus={requestStatus}
             formItem={boxesMy.find(box => box._id === selectedBoxes[0])?.originalData}
             onSubmit={onEditBoxSubmit}
@@ -179,6 +221,8 @@ export class ClientWarehouseViewRaw extends Component {
               {textConsts.modalRedistributionTitle}
             </Typography>
             <RedistributeBox
+              destinations={destinations}
+              storekeepers={storekeepersData}
               requestStatus={requestStatus}
               addNewBoxModal={showRedistributeBoxAddNewBoxModal}
               setAddNewBoxModal={value => onModalRedistributeBoxAddNewBox(value)}
@@ -190,6 +234,8 @@ export class ClientWarehouseViewRaw extends Component {
         </Modal>
 
         <MergeBoxesModal
+          destinations={destinations}
+          storekeepers={storekeepersData}
           selectedBoxes={
             (selectedBoxes.length &&
               toJS(boxesMy.filter(box => selectedBoxes.includes(box._id)))?.map(box => box.originalData)) ||
@@ -206,6 +252,7 @@ export class ClientWarehouseViewRaw extends Component {
           openModal={showTaskInfoModal}
           setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
           task={curOpenedTask}
+          volumeWeightCoefficient={volumeWeightCoefficient}
         />
 
         <SuccessInfoModal
@@ -297,7 +344,15 @@ export class ClientWarehouseViewRaw extends Component {
   }
 
   renderButtons = () => {
-    const {selectedBoxes, isMasterBoxSelected, onTriggerOpenModal, onClickRequestToSendBatch} = this.viewModel
+    const {
+      selectedBoxes,
+      isMasterBoxSelected,
+      isOneItemInBox,
+      onClickRequestToSendBatch,
+      onClickEditBtn,
+      onClickMergeBtn,
+      onClickSplitBtn,
+    } = this.viewModel
     return (
       <React.Fragment>
         <Button
@@ -315,17 +370,17 @@ export class ClientWarehouseViewRaw extends Component {
           disabled={selectedBoxes.length <= 1 || isMasterBoxSelected}
           color="primary"
           variant="contained"
-          onClick={() => onTriggerOpenModal('showMergeBoxModal')}
+          onClick={onClickMergeBtn}
         >
           {textConsts.mergeBtn}
         </Button>
 
         <Button
           disableElevation
-          disabled={selectedBoxes.length !== 1}
+          disabled={selectedBoxes.length !== 1 || isOneItemInBox}
           color="primary"
           variant="contained"
-          onClick={() => onTriggerOpenModal('showRedistributeBoxModal')}
+          onClick={onClickSplitBtn}
         >
           {textConsts.redistributeBtn}
         </Button>
@@ -334,7 +389,7 @@ export class ClientWarehouseViewRaw extends Component {
           disabled={selectedBoxes.length !== 1}
           color="primary"
           variant="contained"
-          onClick={() => onTriggerOpenModal('showEditBoxModal')}
+          onClick={onClickEditBtn}
         >
           {textConsts.editBtn}
         </Button>

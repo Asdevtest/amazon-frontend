@@ -15,7 +15,12 @@ export class IntegrationsModel {
 
   productId = undefined
 
+  showBindInventoryGoodsToStockModal = false
+  showSuccessModal = false
+  showInfoModal = false
+
   sellerBoardDailyData = []
+  sellerBoardData = []
 
   columnsModel = productIntegrationsColumns()
 
@@ -31,7 +36,18 @@ export class IntegrationsModel {
   }
 
   getCurrentData() {
-    return toJS(this.sellerBoardDailyData)
+    return toJS(this.sellerBoardData)
+  }
+
+  async onClickBindInventoryGoodsToStockBtn() {
+    try {
+      this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
   }
 
   async loadData() {
@@ -46,12 +62,43 @@ export class IntegrationsModel {
     }
   }
 
+  async getStockGoodsByFilters(filter) {
+    try {
+      const result = await SellerBoardModel.getStockGoodsByFilters(filter)
+
+      runInAction(() => {
+        this.sellerBoardDailyData = addIdDataConverter(result)
+      })
+    } catch (error) {
+      console.log(error)
+      this.sellerBoardDailyData = []
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  async onSubmitBindStockGoods(data) {
+    try {
+      await SellerBoardModel.bindStockProductsBySku(data)
+      this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
+
+      this.onTriggerOpenModal('showSuccessModal')
+
+      this.loadData()
+    } catch (error) {
+      this.onTriggerOpenModal('showInfoModal')
+
+      console.log(error)
+    }
+  }
+
   async getProductsWithSkuById() {
     try {
       const result = await SellerBoardModel.getProductsWithSkuById(this.productId)
 
       runInAction(() => {
-        this.sellerBoardDailyData = addIdDataConverter(result)
+        this.sellerBoardData = addIdDataConverter(result)
       })
     } catch (error) {
       console.log(error)

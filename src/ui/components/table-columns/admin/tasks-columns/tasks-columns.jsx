@@ -7,6 +7,7 @@ import {
   TaskDescriptionCell,
   renderFieldValueCell,
   NormalActionBtnCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -50,7 +51,7 @@ export const adminTasksViewColumns = handlers => [
     field: 'storekeeper',
     headerName: textConsts.storekeeperField,
     width: 250,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
   },
 
   {

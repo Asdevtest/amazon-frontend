@@ -7,7 +7,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
@@ -26,7 +26,8 @@ import {WarehouseVacantViewModel} from './warehouse-my-tasks-view.model'
 import {styles} from './warehouse-my-tasks-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseMyTasksView
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_TASKS
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_TASKS
+const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS
 
 @observer
 export class WarehouseMyTasksViewRaw extends Component {
@@ -39,6 +40,7 @@ export class WarehouseMyTasksViewRaw extends Component {
 
   render() {
     const {
+      volumeWeightCoefficient,
       requestStatus,
       getCurrentData,
       sortModel,
@@ -79,6 +81,7 @@ export class WarehouseMyTasksViewRaw extends Component {
       <React.Fragment>
         <Navbar
           activeCategory={navbarActiveCategory}
+          activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}
         />
@@ -116,14 +119,11 @@ export class WarehouseMyTasksViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal
-          openModal={showEditTaskModal}
-          setOpenModal={onTriggerEditTaskModal}
-          onCloseModal={onTriggerEditTaskModal}
-        >
+        <Modal openModal={showEditTaskModal} setOpenModal={onTriggerEditTaskModal}>
           <Typography variant="h5">{textConsts.taskModalTitle}</Typography>
           <EditTaskModal
             requestStatus={requestStatus}
+            volumeWeightCoefficient={volumeWeightCoefficient}
             task={selectedTask}
             showEditBoxModal={showEditBoxModal}
             progressValue={progressValue}

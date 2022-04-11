@@ -3,7 +3,6 @@ import React, {useState} from 'react'
 import {Box, Grid, InputLabel, NativeSelect, Typography, Checkbox, Link} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode, OrderStatusByCode, OrderStatusByKey, OrderStatus} from '@constants/order-status'
 import {texts} from '@constants/texts'
 
@@ -44,8 +43,6 @@ export const SelectFields = ({
   order,
   setOrderField,
   orderFields,
-  warehouses,
-  deliveryTypeByCode,
   showProgress,
   progressValue,
   setPhotosToLoad,
@@ -70,44 +67,25 @@ export const SelectFields = ({
           <InputLabel id="warehouse-select" className={classNames.modalText}>
             {textConsts.warehouse}
           </InputLabel>
-          <NativeSelect
-            disabled
-            variant="filled"
-            value={orderFields.warehouse}
-            className={classNames.nativeSelect}
-            input={<Input />}
-            onChange={setOrderField('warehouse')}
-          >
-            <option value={'None'}>{textConsts.valueNone}</option>
-            {Object.keys(warehouses).map((warehouseCode, warehouseIndex) => {
-              const warehouseKey = warehouses[warehouseCode]
-              return (
-                <option key={warehouseIndex} value={warehouseCode}>
-                  {warehouseKey}
-                </option>
-              )
-            })}
-          </NativeSelect>
+
+          <Input disabled variant="filled" value={order.destination?.name} className={classNames.nativeSelect} />
         </Box>
+
         <Box mt={3}>
-          <InputLabel id="delivery-select" className={classNames.modalText}>
-            {textConsts.deliveryMethod}
+          <InputLabel id="warehouse-select" className={classNames.modalText}>
+            {textConsts.interimWarehouse}
           </InputLabel>
           <NativeSelect
             disabled
             variant="filled"
-            value={orderFields.deliveryMethod}
+            value={order.storekeeper?.name}
             className={classNames.nativeSelect}
             input={<Input />}
-            onChange={setOrderField('deliveryMethod')}
           >
-            {Object.keys(deliveryTypeByCode).map((deliveryCode, deliveryIndex) => (
-              <option key={deliveryIndex} value={deliveryCode}>
-                {getDeliveryOptionByCode(deliveryCode).label}
-              </option>
-            ))}
+            <option value={'None'}>{order.storekeeper?.name}</option>
           </NativeSelect>
         </Box>
+
         <Box mt={3}>
           <InputLabel id="status-select" className={classNames.modalText}>
             {textConsts.typoStatus}
@@ -151,7 +129,7 @@ export const SelectFields = ({
                 <Typography className={classNames.modalText}>{textConsts.priceYuansForBatchTypo}</Typography>
                 <Input
                   disabled={usePriceInDollars || checkIsPlanningPrice}
-                  inputProps={{maxLength: 24}}
+                  inputProps={{maxLength: 10}}
                   value={
                     usePriceInDollars
                       ? calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, orderFields.yuanToDollarRate)
@@ -177,7 +155,7 @@ export const SelectFields = ({
                 </Typography>
                 <Input
                   disabled={usePriceInDollars || checkIsPlanningPrice}
-                  inputProps={{maxLength: 24}}
+                  inputProps={{maxLength: 10}}
                   value={
                     usePriceInDollars
                       ? calcExchangeDollarsInYuansPrice(
@@ -188,7 +166,10 @@ export const SelectFields = ({
                   }
                   className={classNames.input}
                   onChange={e => {
-                    if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+                    if (
+                      checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
+                      e.target.value < priceYuansForBatch
+                    ) {
                       setPriceYuansDeliveryCostToTheWarehouse(e.target.value)
                       setOrderField('deliveryCostToTheWarehouse')({
                         target: {
@@ -220,7 +201,7 @@ export const SelectFields = ({
             <Typography className={classNames.modalText}>{textConsts.yuansToDollarRateTypo}</Typography>
             <Input
               disabled={checkIsPlanningPrice}
-              inputProps={{maxLength: 24}}
+              inputProps={{maxLength: 10}}
               value={orderFields.yuanToDollarRate}
               className={classNames.input}
               onChange={e => {
@@ -238,7 +219,7 @@ export const SelectFields = ({
                 <Typography className={classNames.modalText}>{textConsts.totalPriceChanged}</Typography>
                 <Input
                   disabled={!usePriceInDollars || checkIsPlanningPrice}
-                  inputProps={{maxLength: 24}}
+                  inputProps={{maxLength: 10}}
                   value={
                     !usePriceInDollars
                       ? calcExchangePrice(priceYuansForBatch, orderFields.yuanToDollarRate)
@@ -253,10 +234,12 @@ export const SelectFields = ({
                 <Typography className={classNames.modalText}>{textConsts.deliveryCostToTheWarehouse}</Typography>
                 <Input
                   disabled={!usePriceInDollars || checkIsPlanningPrice}
-                  inputProps={{maxLength: 24}}
+                  inputProps={{maxLength: 10}}
                   value={orderFields.deliveryCostToTheWarehouse}
                   className={classNames.input}
-                  onChange={setOrderField('deliveryCostToTheWarehouse')}
+                  onChange={e =>
+                    +e.target.value < orderFields.totalPriceChanged && setOrderField('deliveryCostToTheWarehouse')(e)
+                  }
                 />
               </div>
             </div>
@@ -364,10 +347,6 @@ export const SelectFields = ({
                   <Typography className={classNames.barCodeText}>{'N/A'}</Typography>
                 )}
               </div>
-
-              {orderFields.product.barCode && (
-                <img className={classNames.linkPreview} src={orderFields.product.barCode} alt={'баркод'} />
-              )}
             </div>
           </div>
         </Box>

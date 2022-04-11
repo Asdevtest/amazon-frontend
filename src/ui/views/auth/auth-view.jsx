@@ -32,6 +32,7 @@ export class AuthViewRaw extends Component {
             formFields={{
               email: this.viewModel.email,
               password: this.viewModel.password,
+              remember: this.viewModel.remember,
             }}
             onChangeFormField={this.onChangeFormField}
             onSubmit={this.viewModel.onSubmitForm}

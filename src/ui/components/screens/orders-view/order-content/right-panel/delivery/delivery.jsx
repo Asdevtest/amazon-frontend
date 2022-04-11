@@ -36,6 +36,8 @@ export const Delivery = ({order}) => {
           value={order.warehouse && warehouses[order.warehouse]}
         />
 
+        <LabelField containerClasses={classNames.field} label={'Промежуточный склад'} value={order.storekeeper?.name} />
+
         <LabelField
           containerClasses={classNames.field}
           label={'Метод доставки'}

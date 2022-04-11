@@ -1,24 +1,19 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {Chip, Typography, TableCell, TableRow, NativeSelect, IconButton} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 
-import {
-  DeliveryType,
-  DeliveryTypeByCode,
-  deliveryTypeCodeToKey,
-  getDeliveryOptionByCode,
-} from '@constants/delivery-options'
 import {texts} from '@constants/texts'
-import {warehouses} from '@constants/warehouses'
 
+import {Button} from '@components/buttons/button'
+import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {Input} from '@components/input'
+import {Modal} from '@components/modal'
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixed, trimBarcode} from '@utils/text'
 
 import {useClassNames} from './order-modal-body-row.style'
@@ -26,6 +21,8 @@ import {useClassNames} from './order-modal-body-row.style'
 const textConsts = getLocalizedTexts(texts, 'en').inventoryView
 
 export const OrderModalBodyRow = ({
+  destinations,
+  storekeepers,
   item,
   itemIndex,
   setOrderStateFiled,
@@ -40,6 +37,14 @@ export const OrderModalBodyRow = ({
 
   const onChangeInput = (event, nameInput) => {
     setOrderStateFiled(nameInput)(event.target.value)
+  }
+
+  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
+
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
+    onChangeInput({target: {value: storekeeperId}}, 'storekeeperId')
+    onChangeInput({target: {value: tariffId}}, 'logicsTariffId')
+    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
 
   return (
@@ -59,8 +64,8 @@ export const OrderModalBodyRow = ({
 
       <TableCell>
         <div>
-          <Typography>{item.amazonTitle}</Typography>
-          <Typography>{`ASIN: ${item.id}`}</Typography>
+          <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
+          <Typography>{`ASIN: ${item.asin}`}</Typography>
           {!item.currentSupplier && (
             <Typography className={classNames.noCurrentSupplierText}>{textConsts.noCurrentSupplier}</Typography>
           )}
@@ -72,7 +77,10 @@ export const OrderModalBodyRow = ({
       </TableCell>
 
       <TableCell>
-        <Typography>{item.currentSupplier && item.currentSupplier.delivery}</Typography>
+        <Typography>
+          {item.currentSupplier &&
+            toFixed(item.currentSupplier.batchDeliveryCostInDollar / item.currentSupplier.amount, 2)}
+        </Typography>
       </TableCell>
 
       <TableCell>
@@ -115,49 +123,53 @@ export const OrderModalBodyRow = ({
         <NativeSelect
           variant="filled"
           inputProps={{
-            name: 'delivery',
-            id: 'delivery',
+            name: 'destinationId',
+            id: 'destinationId',
           }}
-          className={classNames.select}
+          className={classNames.destinationSelect}
           input={<Input />}
-          onChange={e => onChangeInput(e, 'deliveryMethod')}
+          onChange={e => onChangeInput(e, 'destinationId')}
         >
           <option value={'none'}>{'none'}</option>
-          {Object.keys(
-            getObjectFilteredByKeyArrayWhiteList(DeliveryTypeByCode, [
-              deliveryTypeCodeToKey[DeliveryType.SEA].toString(),
-              deliveryTypeCodeToKey[DeliveryType.AIR].toString(),
-            ]),
-          ).map((deliveryOptionCode, index) => (
-            <option key={index} value={deliveryOptionCode}>
-              {getDeliveryOptionByCode(deliveryOptionCode).label}
+
+          {destinations.map(item => (
+            <option key={item._id} value={item._id}>
+              {item.name}
             </option>
           ))}
         </NativeSelect>
       </TableCell>
 
-      <TableCell>
-        <NativeSelect
-          variant="filled"
-          inputProps={{
-            name: 'warehouse',
-            id: 'warehouse',
-          }}
-          className={classNames.select}
-          input={<Input />}
-          onChange={e => onChangeInput(e, 'warehouse')}
+      <TableCell className={classNames.storekeeperSelectCell}>
+        <Button
+          disableElevation
+          color="primary"
+          variant={item.storekeeperId && 'text'}
+          className={clsx({[classNames.storekeeperBtn]: !item.storekeeperId})}
+          onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
-          <option value={'none'}>{'none'}</option>
-          {Object.keys(warehouses).map((warehouseOptionCode, index) => (
-            <option key={index} value={warehouseOptionCode}>
-              {warehouses[warehouseOptionCode]}
-            </option>
-          ))}
-        </NativeSelect>
+          {item.storekeeperId
+            ? `${storekeepers.find(el => el._id === item.storekeeperId).name} /  
+              ${
+                item.logicsTariffId
+                  ? storekeepers
+                      .find(el => el._id === item.storekeeperId)
+                      .tariffLogistics.find(el => el._id === item.logicsTariffId).name
+                  : 'none'
+              }`
+            : 'Выбрать'}
+        </Button>
       </TableCell>
 
       <TableCell>
-        <Input inputProps={{maxLength: 500}} onChange={e => onChangeInput(e, 'clientComment')} />
+        <Input
+          multiline
+          minRows={4}
+          rowsMax={4}
+          inputProps={{maxLength: 500}}
+          className={classNames.commentInput}
+          onChange={e => onChangeInput(e, 'clientComment')}
+        />
       </TableCell>
 
       {withRemove && (
@@ -167,6 +179,18 @@ export const OrderModalBodyRow = ({
           </IconButton>
         </TableCell>
       )}
+
+      <Modal
+        openModal={showSelectionStorekeeperAndTariffModal}
+        setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+      >
+        <SelectStorekeeperAndTariffForm
+          storekeepers={storekeepers}
+          curStorekeeperId={item.storekeeperId}
+          curTariffId={item.logicsTariffId}
+          onSubmit={onSubmitSelectStorekeeperAndTariff}
+        />
+      </Modal>
     </TableRow>
   )
 }

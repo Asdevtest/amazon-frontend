@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 
 **rating** | **Number** | Рейтинг пользователя. | [optional] 
 **subUsers** | **[String]** | Массив id сабюзеров. | [optional] 
+**hideSuppliers** | **Boolean** | Скрывать поставщиков от пользователя. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 

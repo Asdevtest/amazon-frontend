@@ -4,8 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**result** | **String** | Результат работы исполнителя. | [optional] 
-**comment** | **String** | Комментарии исполнителя. | [optional] 
-**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**additionalBoxes** | [**[InlineObject12]**](InlineObject12.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

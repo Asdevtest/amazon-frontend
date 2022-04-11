@@ -154,7 +154,8 @@ export class AdminUsersViewModel {
         email: this.changeNameAndEmail.email,
       })
 
-      this.submitEditData = data
+      this.submitEditData = {...data, permissions: data.active && data.active !== 'false' ? data.permissions : []} // удаляем пермишены если баним юзера
+
       this.availableSubUsers = undefined
 
       if (sourceData.canByMasterUser === true && data.canByMasterUser === false) {

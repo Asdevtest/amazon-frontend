@@ -28,7 +28,7 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
     >
       <ListItemIcon
         className={clsx(classNames.iconWrapper, {
-          [classNames.selected]: isSelected,
+          [classNames.selectedIcon]: isSelected,
           [classNames.notSelected]: !isSelected,
         })}
       >

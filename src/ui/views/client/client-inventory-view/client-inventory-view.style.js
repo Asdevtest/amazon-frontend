@@ -15,8 +15,18 @@ export const styles = createStyles({
     padding: '10px',
   },
 
+  btnsWrapper: {
+    display: 'flex',
+  },
+
   buttonOffset: {
     marginLeft: '20px',
+  },
+
+  archiveBtnsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '350px',
   },
 
   row: {

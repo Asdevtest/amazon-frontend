@@ -86,13 +86,6 @@ export const clientBoxesViewColumns = () => [
   },
 
   {
-    field: 'deliveryMethod',
-    headerName: textConsts.deliveryField,
-    renderCell: params => renderFieldValueCell(params.value),
-    width: 120,
-  },
-
-  {
     field: 'amazonPrice',
     headerName: textConsts.priceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {TableCell, TableRow, Typography} from '@material-ui/core'
+import {Link, TableCell, TableRow, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
@@ -12,7 +12,7 @@ import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixedWithKg} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, toFixedWithKg} from '@utils/text'
 
 import {BigImagesModal} from '../big-images-modal'
 import {useClassNames} from './batch-info-modal.style'
@@ -64,7 +64,13 @@ const TableBodyBoxRow = ({item, handlers}) => {
       </TableCell>
 
       <TableCell>
-        <Typography className={classNames.shippinLabel}>{item.shippingLabel || 'n/a'}</Typography>
+        {item.shippingLabel ? (
+          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.shippingLabel)}>
+            <Typography className={classNames.shippinLabel}>{item.shippingLabel}</Typography>
+          </Link>
+        ) : (
+          <Typography className={classNames.shippinLabel}>{'N/A'}</Typography>
+        )}
       </TableCell>
 
       <TableCell>

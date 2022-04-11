@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **_id** | **String** | GUID платежа | [optional] 
 **createdAt** | **Date** | Дата создания. | [optional] 
 **createdBy** | [**ApiV1AdminsPaymentsCreatedBy**](ApiV1AdminsPaymentsCreatedBy.md) |  | [optional] 
+**role** | **Number** | Роль пользователя на момент инициации платежа. | [optional] 
+**subUser** | [**ApiV1AdminsPaymentsCreatedBy**](ApiV1AdminsPaymentsCreatedBy.md) |  | [optional] 
 **entityId** | **String** | GUID товара или услуги. | [optional] 
 **paymentType** | **String** | Тип платежа | [optional] 
 **recipient** | [**ApiV1AdminsPaymentsCreatedBy**](ApiV1AdminsPaymentsCreatedBy.md) |  | [optional] 
@@ -23,6 +25,8 @@ Name | Type | Description | Notes
 * `ORDER` (value: `"ORDER"`)
 
 * `BOX` (value: `"BOX"`)
+
+* `BATCH` (value: `"BATCH"`)
 
 * `USER` (value: `"USER"`)
 

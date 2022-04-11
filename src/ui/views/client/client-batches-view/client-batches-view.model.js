@@ -3,7 +3,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
-import {ClientModel} from '@models/client-model'
+import {BatchesModel} from '@models/batches-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
@@ -117,7 +117,7 @@ export class ClientBatchesViewModel {
 
   async getBatches() {
     try {
-      const result = await ClientModel.getBatches()
+      const result = await BatchesModel.getBatches()
 
       runInAction(() => {
         this.batches = clientBatchesDataConverter(result)

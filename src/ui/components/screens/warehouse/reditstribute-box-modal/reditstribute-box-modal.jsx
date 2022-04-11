@@ -1,16 +1,16 @@
 import React, {useState} from 'react'
 
-import {Button, Chip, Divider, IconButton, InputLabel, Link, NativeSelect, Typography} from '@material-ui/core'
+import {Chip, Divider, IconButton, Link, NativeSelect, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 
-import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {texts} from '@constants/texts'
-import {warehouses} from '@constants/warehouses'
 
+import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
+import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
@@ -26,6 +26,8 @@ import {useClassNames} from './reditstribute-box-modal.style'
 const textConsts = getLocalizedTexts(texts, 'en').clientBoxRedistribution
 
 const Box = ({
+  destinations,
+  storekeepers,
   box,
   readOnly = false,
   boxIsMasterBox,
@@ -50,6 +52,15 @@ const Box = ({
 
   const onDeleteShippingLabel = () => {
     onChangeField({target: {value: ''}}, 'shippingLabel', box._id)
+  }
+
+  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
+
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
+    onChangeField({target: {value: storekeeperId}}, 'storekeeperId', box._id)
+    onChangeField({target: {value: tariffId}}, 'logicsTariffId', box._id)
+
+    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
 
   return (
@@ -79,45 +90,67 @@ const Box = ({
           ))}
 
           <div className={classNames.itemSubWrapper}>
-            <div>
-              <InputLabel className={classNames.modalText}>{textConsts.warehouse}</InputLabel>
-              <NativeSelect
-                variant="filled"
-                disabled={!isNewBox}
-                value={box.warehouse}
-                className={classNames.nativeSelect}
-                input={<Input />}
-                onChange={e => onChangeField(e, 'warehouse', box._id)}
-              >
-                <option>{textConsts.valueNone}</option>
-                {Object.keys(warehouses).map((warehouseCode, warehouseIndex) => {
-                  const warehouseKey = warehouses[warehouseCode]
-                  return (
-                    <option key={warehouseIndex} value={warehouseCode}>
-                      {warehouseKey}
+            <Field
+              containerClasses={classNames.field}
+              label={'Destination'}
+              inputComponent={
+                <NativeSelect
+                  disabled={!isNewBox}
+                  variant="filled"
+                  inputProps={{
+                    name: 'destinationId',
+                    id: 'destinationId',
+                  }}
+                  className={classNames.destinationSelect}
+                  input={<Input />}
+                  value={box.destinationId}
+                  onChange={e => onChangeField(e, 'destinationId', box._id)}
+                >
+                  <option value={''}>{'none'}</option>
+
+                  {destinations.map(item => (
+                    <option key={item._id} value={item._id}>
+                      {item.name}
                     </option>
-                  )
-                })}
-              </NativeSelect>
-            </div>
-            <div>
-              <InputLabel className={classNames.modalText}>{textConsts.deliveryMethod}</InputLabel>
-              <NativeSelect
-                variant="filled"
-                disabled={!isNewBox}
-                value={box.deliveryMethod}
-                className={classNames.nativeSelect}
-                input={<Input />}
-                onChange={e => onChangeField(e, 'deliveryMethod', box._id)}
-              >
-                <option>{textConsts.valueNone}</option>
-                {Object.keys(DeliveryTypeByCode).map((deliveryCode, deliveryIndex) => (
-                  <option key={deliveryIndex} value={deliveryCode}>
-                    {getDeliveryOptionByCode(deliveryCode).label}
-                  </option>
-                ))}
-              </NativeSelect>
-            </div>
+                  ))}
+                </NativeSelect>
+              }
+            />
+
+            <Field
+              containerClasses={classNames.field}
+              label={'Storekeeper / Tariff'}
+              inputComponent={
+                <Button
+                  disableElevation
+                  disabled={!isNewBox}
+                  color="primary"
+                  variant={box.logicsTariffId && 'text'}
+                  className={clsx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
+                  onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+                >
+                  {box.logicsTariffId
+                    ? `${storekeepers.find(el => el._id === box.storekeeperId).name} /  
+                      ${
+                        box.logicsTariffId
+                          ? storekeepers
+                              .find(el => el._id === box.storekeeperId)
+                              .tariffLogistics.find(el => el._id === box.logicsTariffId).name
+                          : 'none'
+                      }`
+                    : 'Выбрать'}
+                </Button>
+              }
+            />
+
+            <Field
+              disabled={!isNewBox}
+              inputProps={{maxLength: 255}}
+              containerClasses={classNames.field}
+              label={'FBA SHIPMENT'}
+              value={box.fbaShipment}
+              onChange={e => onChangeField(e, 'fbaShipment', box._id)}
+            />
 
             {isNewBox ? (
               <div>
@@ -175,11 +208,32 @@ const Box = ({
           onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
         />
       </Modal>
+
+      <Modal
+        openModal={showSelectionStorekeeperAndTariffModal}
+        setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+      >
+        <SelectStorekeeperAndTariffForm
+          storekeepers={storekeepers.filter(el => el._id === box?.storekeeper._id)}
+          curStorekeeperId={box.storekeeperId}
+          curTariffId={box.logicsTariffId}
+          onSubmit={onSubmitSelectStorekeeperAndTariff}
+        />
+      </Modal>
     </div>
   )
 }
 
-const NewBoxes = ({newBoxes, isMasterBox, selectedBox, onChangeAmountInput, onRemoveBox, onChangeField}) => {
+const NewBoxes = ({
+  newBoxes,
+  isMasterBox,
+  selectedBox,
+  onChangeAmountInput,
+  onRemoveBox,
+  onChangeField,
+  destinations,
+  storekeepers,
+}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.newBoxes}>
@@ -189,6 +243,8 @@ const NewBoxes = ({newBoxes, isMasterBox, selectedBox, onChangeAmountInput, onRe
         <Box
           key={boxIndex}
           isNewBox
+          destinations={destinations}
+          storekeepers={storekeepers}
           index={boxIndex}
           box={box}
           readOnly={isMasterBox}
@@ -204,6 +260,8 @@ const NewBoxes = ({newBoxes, isMasterBox, selectedBox, onChangeAmountInput, onRe
 }
 
 export const RedistributeBox = ({
+  destinations,
+  storekeepers,
   requestStatus,
   addNewBoxModal,
   setAddNewBoxModal,
@@ -313,6 +371,8 @@ export const RedistributeBox = ({
 
       <Box
         readOnly
+        destinations={destinations}
+        storekeepers={storekeepers}
         boxIsMasterBox={isMasterBox}
         box={currentBox}
         index={0}
@@ -333,7 +393,12 @@ export const RedistributeBox = ({
     totalProductsAmount !== 0 ||
     requestStatus === loadingStatuses.isLoading ||
     filterEmptyBoxes(newBoxes).length < 2 ||
-    filterEmptyBoxes(newBoxes).some(el => el.shippingLabel.length < 5 && el.shippingLabel.length > 0)
+    filterEmptyBoxes(newBoxes).some(
+      el =>
+        (el.shippingLabel.length < 5 && el.shippingLabel.length > 0) ||
+        el.logicsTariffId === '' ||
+        el.destinationId === '',
+    )
 
   return (
     <React.Fragment>
@@ -344,6 +409,8 @@ export const RedistributeBox = ({
           newBoxes={newBoxes}
           isMasterBox={isMasterBox}
           selectedBox={selectedBox}
+          destinations={destinations}
+          storekeepers={storekeepers}
           onChangeAmountInput={onChangeAmountInput}
           onChangeField={onChangeField}
           onRemoveBox={onRemoveBox}
@@ -362,7 +429,8 @@ export const RedistributeBox = ({
 
       <div className={classNames.buttonsWrapper}>
         <Button
-          variant="text"
+          color="primary"
+          variant="contained"
           disabled={disabledSubmitBtn}
           onClick={() => {
             onClickRedistributeBtn()
@@ -372,7 +440,8 @@ export const RedistributeBox = ({
         </Button>
         <Button
           disabled={totalProductsAmount < 1 && isMasterBox}
-          variant="text"
+          color="primary"
+          variant="contained"
           onClick={() => {
             addNewBoxModal ?? setAddNewBoxModal(true)
             setNewBoxes(newBoxes.concat(getEmptyBox()))
@@ -381,7 +450,8 @@ export const RedistributeBox = ({
           {textConsts.newBoxBtn}
         </Button>
         <Button
-          variant="text"
+          color="primary"
+          variant="contained"
           onClick={() => {
             onTriggerOpenModal('showRedistributeBoxModal')
             setAddNewBoxModal(null)

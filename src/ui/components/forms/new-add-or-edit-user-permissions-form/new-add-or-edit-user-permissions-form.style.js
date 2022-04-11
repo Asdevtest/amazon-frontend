@@ -6,7 +6,7 @@ export const useClassNames = makeStyles(() => ({
     height: '75vh',
     display: 'flex',
     flexDirection: 'column',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
 
   form: {
@@ -76,7 +76,7 @@ export const useClassNames = makeStyles(() => ({
   descriptionField: {
     minHeight: '100px',
     width: '100%',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
 
   allowUrlsWrapper: {
@@ -91,7 +91,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   urlInput: {
-    overflowY: 'scroll',
+    overflowY: 'auto',
     whiteSpace: 'wrap',
     height: '65px',
 

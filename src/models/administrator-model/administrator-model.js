@@ -116,6 +116,21 @@ class AdministratorModelStatic {
     })
     return response
   }
+
+  createDestination = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsWarehousePost({body: data})
+    return response
+  }
+
+  editDestination = async (id, data) => {
+    const response = await restApiService.administratorApi.apiV1AdminsWarehouseEditGuidPatch(id, {body: data})
+    return response
+  }
+
+  removeDestination = async id => {
+    const response = await restApiService.administratorApi.apiV1AdminsWarehouseGuidDelete(id)
+    return response
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

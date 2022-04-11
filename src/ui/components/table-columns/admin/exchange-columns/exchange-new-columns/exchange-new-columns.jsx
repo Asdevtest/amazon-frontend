@@ -6,9 +6,8 @@ import {
   AsinCell,
   NormDateCell,
   renderFieldValueCell,
-  ResearcherCell,
-  SupervisorCell,
   ToFixedWithDollarSignCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -32,12 +31,10 @@ export const exchangeNewColumns = () => [
   },
 
   {
-    field: 'asinCell',
+    field: 'asin',
     headerName: textConsts.asinField,
     renderCell: params => <AsinCell product={params.row.originalData} />,
     width: 300,
-    filterable: false,
-    sortable: false,
   },
   {
     field: 'strategyStatus',
@@ -57,13 +54,13 @@ export const exchangeNewColumns = () => [
   {
     field: 'createdBy',
     headerName: textConsts.researcherField,
-    renderCell: params => <ResearcherCell product={params.row.originalData} />,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
     width: 200,
   },
   {
     field: 'supervisor',
     headerName: textConsts.supervisorField,
-    renderCell: params => <SupervisorCell product={params.row.originalData} />,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.checkedBy?._id} />,
     width: 200,
   },
 

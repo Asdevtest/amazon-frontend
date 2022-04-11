@@ -8,7 +8,9 @@ import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
 import {SellerBoardModel} from '@models/seller-board-model'
 import {SettingsModel} from '@models/settings-model'
+import {ShopModel} from '@models/shop-model'
 import {SupplierModel} from '@models/supplier-model'
+import {UserModel} from '@models/user-model'
 
 import {clientDailySellerBoardColumns} from '@components/table-columns/client/client-daily-seller-board-columns'
 
@@ -29,6 +31,9 @@ export class ClientDailySellerBoardViewModel {
   sellerBoardDailyData = []
   selectedRowId = undefined
 
+  shopsData = []
+  currentShop = undefined
+
   inventoryProducts = []
   drawerOpen = false
 
@@ -36,6 +41,10 @@ export class ClientDailySellerBoardViewModel {
   confirmMessage = ''
   clientComment = ''
   priceForSeekSupplier = 0
+  yuanToDollarRate = undefined
+  volumeWeightCoefficient = undefined
+
+  infoModalText = ''
 
   showAddProductSellerboardModal = false
   showBindStockGoodsToInventoryModal = false
@@ -129,14 +138,36 @@ export class ClientDailySellerBoardViewModel {
     this.getDataGridState()
   }
 
+  onClickShopBtn(shop) {
+    this.currentShop = shop ? shop : undefined
+
+    this.getStockGoods(shop && {shopId: shop._id})
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getMyDailyReports()
+      await this.getShops()
+
+      await this.getStockGoods()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async onClickAddSupplierButton() {
+    try {
+      const result = await UserModel.getPlatformSettings()
+
+      this.yuanToDollarRate = result.yuanToDollarRate
+      this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+      this.onTriggerOpenModal('showAddOrEditSupplierModal')
+      this.onTriggerOpenModal('showSelectionSupplierModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -152,9 +183,46 @@ export class ClientDailySellerBoardViewModel {
     this.selectedRows = model
   }
 
-  async getMyDailyReports() {
+  async onSubmitMoveToInventoryGoods() {
     try {
-      const result = await SellerBoardModel.getStockGoodsByFilters()
+      const productsToCreate = []
+
+      this.sellerBoardDailyData.forEach(
+        (cur, index) =>
+          this.selectedRows.includes(index) &&
+          productsToCreate.push({shopId: cur.shop._id, asin: cur.asin, sku: cur.sku, title: cur.title}),
+      )
+
+      this.selectedRows = []
+
+      await SellerBoardModel.createAndLinkSkuProducts({payload: productsToCreate})
+
+      this.infoModalText = textConsts.infoModalTitleMoveSuccess
+      this.onTriggerOpenModal('showInfoModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+
+      this.infoModalText = textConsts.infoModalTitleMoveFail
+      this.onTriggerOpenModal('showInfoModal')
+    }
+  }
+
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShops()
+      runInAction(() => {
+        this.shopsData = addIdDataConverter(result)
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async getStockGoods(shopId) {
+    try {
+      const result = await SellerBoardModel.getStockGoods(shopId)
 
       runInAction(() => {
         this.sellerBoardDailyData = addIdDataConverter(result)
@@ -162,6 +230,8 @@ export class ClientDailySellerBoardViewModel {
     } catch (error) {
       console.log(error)
       this.error = error
+
+      this.sellerBoardDailyData = []
     }
   }
 
@@ -276,7 +346,6 @@ export class ClientDailySellerBoardViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-        delivery: parseFloat(supplier?.delivery) || 0,
         lotcost: parseFloat(supplier?.lotcost) || '',
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
@@ -310,6 +379,7 @@ export class ClientDailySellerBoardViewModel {
       this.successModalText = textConsts.successBindTitle
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
+      this.infoModalText = textConsts.infoModalTitleNoBind
       this.onTriggerOpenModal('showInfoModal')
       console.log(error)
     }

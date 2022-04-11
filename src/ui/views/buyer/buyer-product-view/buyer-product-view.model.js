@@ -103,6 +103,9 @@ export class BuyerProductViewModel {
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
 
+  yuanToDollarRate = undefined
+  volumeWeightCoefficient = undefined
+
   showWarningModal = false
   showConfirmModal = false
 
@@ -377,7 +380,6 @@ export class BuyerProductViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-        delivery: parseFloat(supplier?.delivery) || 0,
         lotcost: parseFloat(supplier?.lotcost) || '',
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
@@ -417,11 +419,21 @@ export class BuyerProductViewModel {
     this[modal] = !this[modal]
   }
 
-  onTriggerAddOrEditSupplierModal() {
-    if (this.showAddOrEditSupplierModal) {
-      this.selectedSupplier = undefined
+  async onTriggerAddOrEditSupplierModal() {
+    try {
+      if (this.showAddOrEditSupplierModal) {
+        this.selectedSupplier = undefined
+      } else {
+        const result = await UserModel.getPlatformSettings()
+
+        this.yuanToDollarRate = result.yuanToDollarRate
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      }
+
+      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+    } catch (error) {
+      console.log(error)
     }
-    this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
   }
 
   onTriggerDrawerOpen() {

@@ -9,7 +9,7 @@ import {UserModel} from '@models/user-model'
 
 import {warehouseBoxesViewColumns} from '@components/table-columns/warehouse/warehouse-boxes-columns'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {warehouseBoxesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -154,7 +154,7 @@ export class WarehouseMyWarehouseViewModel {
       const result = await StorekeeperModel.getBoxesMy()
 
       runInAction(() => {
-        this.boxesMy = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.boxesMy = warehouseBoxesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       console.log(error)

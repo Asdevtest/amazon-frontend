@@ -13,6 +13,8 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
+import ApiV1AdminsOrdersOrderSupplier from './ApiV1AdminsOrdersOrderSupplier';
 import InlineResponse200 from './InlineResponse200';
 
 /**
@@ -25,15 +27,10 @@ class InlineResponse2001 {
      * Constructs a new <code>InlineResponse2001</code>.
      * Заказ.
      * @alias module:model/InlineResponse2001
-     * @param clientComment {String} Комментарии клиента.
-     * @param warehouse {Number} Номер склада.
-     * @param deliveryMethod {Number} Вид доставки.
-     * @param deliveryCostToTheWarehouse {Number} Стоимость доставки до склада.
-     * @param product {module:model/InlineResponse200} 
      */
-    constructor(clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) { 
+    constructor() { 
         
-        InlineResponse2001.initialize(this, clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product);
+        InlineResponse2001.initialize(this);
     }
 
     /**
@@ -41,12 +38,7 @@ class InlineResponse2001 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment, warehouse, deliveryMethod, deliveryCostToTheWarehouse, product) { 
-        obj['clientComment'] = clientComment;
-        obj['warehouse'] = warehouse;
-        obj['deliveryMethod'] = deliveryMethod;
-        obj['deliveryCostToTheWarehouse'] = deliveryCostToTheWarehouse;
-        obj['product'] = product;
+    static initialize(obj) { 
     }
 
     /**
@@ -66,41 +58,20 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('buyerId')) {
-                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
-            }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
-            }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'], 'Boolean');
             }
             if (data.hasOwnProperty('trackingNumberChina')) {
                 obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
             }
-            if (data.hasOwnProperty('amountPaymentPerConsignmentAtDollars')) {
-                obj['amountPaymentPerConsignmentAtDollars'] = ApiClient.convertToType(data['amountPaymentPerConsignmentAtDollars'], 'Number');
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
             if (data.hasOwnProperty('totalPrice')) {
                 obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
@@ -114,8 +85,20 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('yuanToDollarRate')) {
                 obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('destination')) {
+                obj['destination'] = ApiV1AdminsOrdersDestination.constructFromObject(data['destination']);
+            }
+            if (data.hasOwnProperty('buyerId')) {
+                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
@@ -128,6 +111,15 @@ class InlineResponse2001 {
             }
             if (data.hasOwnProperty('product')) {
                 obj['product'] = InlineResponse200.constructFromObject(data['product']);
+            }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['storekeeper']);
+            }
+            if (data.hasOwnProperty('buyer')) {
+                obj['buyer'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['buyer']);
+            }
+            if (data.hasOwnProperty('orderSupplier')) {
+                obj['orderSupplier'] = ApiV1AdminsOrdersOrderSupplier.constructFromObject(data['orderSupplier']);
             }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['createdBy']);
@@ -152,64 +144,10 @@ InlineResponse2001.prototype['id'] = undefined;
 InlineResponse2001.prototype['_id'] = undefined;
 
 /**
- * GUID пользователя(байера)
- * @member {String} buyerId
- */
-InlineResponse2001.prototype['buyerId'] = undefined;
-
-/**
  * Комментарии клиента.
  * @member {String} clientComment
  */
 InlineResponse2001.prototype['clientComment'] = undefined;
-
-/**
- * комментарии байера.
- * @member {String} buyerComment
- */
-InlineResponse2001.prototype['buyerComment'] = undefined;
-
-/**
- * Номер склада.
- * @member {Number} warehouse
- */
-InlineResponse2001.prototype['warehouse'] = undefined;
-
-/**
- * Вид доставки.
- * @member {Number} deliveryMethod
- */
-InlineResponse2001.prototype['deliveryMethod'] = undefined;
-
-/**
- * Признак FBA это заказ или нет.
- * @member {Boolean} fba
- */
-InlineResponse2001.prototype['fba'] = undefined;
-
-/**
- *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
- * @member {Number} status
- */
-InlineResponse2001.prototype['status'] = undefined;
-
-/**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
- */
-InlineResponse2001.prototype['deliveryCostToTheWarehouse'] = undefined;
-
-/**
- * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
- */
-InlineResponse2001.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
-
-/**
- * ????====нет описания ====
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper
- */
-InlineResponse2001.prototype['isBarCodeAlreadyAttachedByTheSupplierConfirmedByStorekeeper'] = undefined;
 
 /**
  * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
@@ -218,10 +156,22 @@ InlineResponse2001.prototype['isBarCodeAlreadyAttachedByTheSupplierConfirmedBySt
 InlineResponse2001.prototype['trackingNumberChina'] = undefined;
 
 /**
- * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
- * @member {Number} amountPaymentPerConsignmentAtDollars
+ * комментарии байера.
+ * @member {String} buyerComment
  */
-InlineResponse2001.prototype['amountPaymentPerConsignmentAtDollars'] = undefined;
+InlineResponse2001.prototype['buyerComment'] = undefined;
+
+/**
+ *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
+ * @member {Number} status
+ */
+InlineResponse2001.prototype['status'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse2001.prototype['images'] = undefined;
 
 /**
  * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
@@ -247,10 +197,33 @@ InlineResponse2001.prototype['paidAt'] = undefined;
 InlineResponse2001.prototype['yuanToDollarRate'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * Стоимость доставки до склада.
+ * @member {Number} deliveryCostToTheWarehouse
  */
-InlineResponse2001.prototype['images'] = undefined;
+InlineResponse2001.prototype['deliveryCostToTheWarehouse'] = undefined;
+
+/**
+ * GUID продукта
+ * @member {String} productId
+ */
+InlineResponse2001.prototype['productId'] = undefined;
+
+/**
+ * GUID тарифа доставки
+ * @member {String} logicsTariffId
+ */
+InlineResponse2001.prototype['logicsTariffId'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersDestination} destination
+ */
+InlineResponse2001.prototype['destination'] = undefined;
+
+/**
+ * GUID пользователя(байера)
+ * @member {String} buyerId
+ */
+InlineResponse2001.prototype['buyerId'] = undefined;
 
 /**
  * @member {String} createdAt
@@ -272,6 +245,21 @@ InlineResponse2001.prototype['amount'] = undefined;
  * @member {module:model/InlineResponse200} product
  */
 InlineResponse2001.prototype['product'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} storekeeper
+ */
+InlineResponse2001.prototype['storekeeper'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} buyer
+ */
+InlineResponse2001.prototype['buyer'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersOrderSupplier} orderSupplier
+ */
+InlineResponse2001.prototype['orderSupplier'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusClient} createdBy

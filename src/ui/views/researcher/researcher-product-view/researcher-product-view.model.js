@@ -134,6 +134,9 @@ export class ResearcherProductViewModel {
   imagesForLoad = []
   uploadedImages = []
 
+  yuanToDollarRate = undefined
+  volumeWeightCoefficient = undefined
+
   drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
@@ -216,6 +219,11 @@ export class ResearcherProductViewModel {
           !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
         ) {
           return
+        }
+        if (['strategyStatus'].includes(fieldName)) {
+          this.product = {...this.product, [fieldName]: e.target.value}
+
+          this.product = {...this.product, status: this.productBase.status}
         }
         if (['fbaamount'].includes(fieldName)) {
           this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
@@ -421,7 +429,6 @@ export class ResearcherProductViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-        delivery: parseFloat(supplier?.delivery) || 0,
         lotcost: parseFloat(supplier?.lotcost) || '',
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
@@ -463,9 +470,9 @@ export class ResearcherProductViewModel {
       const parseResult = await (() => {
         switch (productDataParser) {
           case ProductDataParser.AMAZON:
-            return ResearcherModel.parseAmazon(product.asin)
+            return ProductModel.parseAmazon(product.asin)
           case ProductDataParser.SELLCENTRAL:
-            return ResearcherModel.parseParseSellerCentral(product.asin)
+            return ProductModel.parseParseSellerCentral(product.asin)
         }
       })()
 
@@ -584,11 +591,21 @@ export class ResearcherProductViewModel {
     }
   }
 
-  onTriggerAddOrEditSupplierModal() {
-    if (this.showAddOrEditSupplierModal) {
-      this.selectedSupplier = undefined
+  async onTriggerAddOrEditSupplierModal() {
+    try {
+      if (this.showAddOrEditSupplierModal) {
+        this.selectedSupplier = undefined
+      } else {
+        const result = await UserModel.getPlatformSettings()
+
+        this.yuanToDollarRate = result.yuanToDollarRate
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      }
+
+      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+    } catch (error) {
+      console.log(error)
     }
-    this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
   }
 
   setRequestStatus(requestStatus) {

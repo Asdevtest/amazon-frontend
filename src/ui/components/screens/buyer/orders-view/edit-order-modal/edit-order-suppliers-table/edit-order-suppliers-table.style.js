@@ -127,20 +127,15 @@ export const useClassNames = makeStyles(() => ({
   },
   link: {
     width: '100px',
-    height: '50px',
-    overflowX: 'scroll',
+    maxHeight: '50px',
+    overflowX: 'auto',
     whiteSpace: 'nowrap',
   },
 
-  nameCell: {
+  textCell: {
     width: '300px',
-    maxHeight: '200px',
-    overflowY: 'scroll',
-  },
-
-  commentCell: {
-    width: '300px',
-    maxHeight: '200px',
-    overflowY: 'scroll',
+    maxHeight: '100px',
+    overflowY: 'auto',
+    textAlign: 'center',
   },
 }))

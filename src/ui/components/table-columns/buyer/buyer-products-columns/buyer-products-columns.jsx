@@ -32,12 +32,10 @@ export const buyerProductsViewColumns = handlers => [
   },
 
   {
-    field: 'asinCell',
+    field: 'asin',
     headerName: textConsts.asinField,
     renderCell: params => <AsinCell product={params.row.originalData} />,
     minWidth: 350,
-    filterable: false,
-    sortable: false,
     flex: 3,
   },
 

@@ -59,6 +59,7 @@ export const useClassNames = makeStyles(() => ({
     minWidth: '200px',
     padding: '5px',
     marginTop: '10px',
+    height: '220px',
   },
   editBtn: {
     marginTop: '5px',
@@ -88,20 +89,27 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '21px',
     width: '250px',
     height: '45px',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
   fieldsWrapper: {
     padding: '0 10px',
   },
 
-  imagesWrapper: {
+  boxInfoWrapper: {
     display: 'flex',
+  },
+
+  imagesWrapper: {
+    marginTop: '10px',
+    display: 'flex',
+    flexDirection: 'column',
     padding: '5px',
   },
 
   photoWrapper: {
     width: '200px',
     marginLeft: '20px',
+    minHeight: '150px',
   },
 
   imgBox: {
@@ -118,6 +126,13 @@ export const useClassNames = makeStyles(() => ({
   link: {
     maxWidth: '325px',
     whiteSpace: 'nowrap',
-    overflowX: 'scroll',
+    overflowX: 'auto',
+  },
+
+  checkboxContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+    padding: '5px',
   },
 }))

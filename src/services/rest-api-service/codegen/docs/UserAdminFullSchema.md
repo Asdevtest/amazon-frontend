@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
 **canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 
 **rating** | **Number** | Рейтинг пользователя. | [optional] 
+**hideSuppliers** | **Boolean** | Скрывать поставщиков от пользователя. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 

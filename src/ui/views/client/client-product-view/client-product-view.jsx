@@ -34,6 +34,8 @@ export class ClientProductView extends Component {
 
   render() {
     const {
+      volumeWeightCoefficient,
+      yuanToDollarRate,
       userInfo,
       selectedSupplier,
       requestStatus,
@@ -58,6 +60,7 @@ export class ClientProductView extends Component {
       onClickSaveSupplierBtn,
       onTriggerAddOrEditSupplierModal,
       onChangeSelectedSupplier,
+      onClickParseProductData,
     } = this.viewModel
 
     return (
@@ -81,6 +84,7 @@ export class ClientProductView extends Component {
                   onClickSupplier={onChangeSelectedSupplier}
                   onChangeField={onChangeProductFields}
                   onChangeImagesForLoad={onChangeImagesForLoad}
+                  onClickParseProductData={onClickParseProductData}
                 />
               ) : undefined}
             </MainContent>
@@ -90,6 +94,8 @@ export class ClientProductView extends Component {
         <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
           <AddOrEditSupplierModalContent
             requestStatus={requestStatus}
+            sourceYuanToDollarRate={yuanToDollarRate}
+            volumeWeightCoefficient={volumeWeightCoefficient}
             title={textConsts.modalAddTitle}
             supplier={selectedSupplier}
             showProgress={showProgress}

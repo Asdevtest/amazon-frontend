@@ -27,7 +27,7 @@ const chipConfigSettings = {
   SKU: 'SKU',
 }
 
-export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockData, selectedRow, onSubmit}) => {
+export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockData, selectedRowId, onSubmit}) => {
   const classNames = useClassNames()
 
   const [chosenGoods, setChosenGoods] = useState([])
@@ -54,12 +54,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
   }
 
   const filter = qs
-    .stringify(
-      chipConfig === chipConfigSettings.RECOMMENDED
-        ? {[filterByChipConfig(chipConfig)]: {$contains: selectedRow.id}}
-        : {[filterByChipConfig(chipConfig)]: {$contains: searchInputValue}},
-      {encode: false},
-    )
+    .stringify({[filterByChipConfig(chipConfig)]: {$contains: searchInputValue}}, {encode: false})
     .replace(/&/, ';')
 
   const onClickSearch = () => {
@@ -87,9 +82,9 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
   }, [chipConfig])
 
   const onClickSubmit = () => {
-    const selectedSkus = chosenGoods.map(el => el.sku)
+    const selectedWarehouseStocks = chosenGoods.map(el => ({sku: el.sku, shopId: el.shop._id}))
 
-    onSubmit({productId: selectedRow.originalData._id, skus: selectedSkus})
+    onSubmit({productId: selectedRowId, warehouseStocks: selectedWarehouseStocks})
   }
 
   return (
@@ -131,6 +126,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
         <div className={classNames.searchInputWrapper}>
           <Input
             disabled={chipConfig === chipConfigSettings.RECOMMENDED}
+            inputProps={{maxLength: 200}}
             placeholder={textConsts.searchHolder}
             className={classNames.searchInput}
             value={searchInputValue}

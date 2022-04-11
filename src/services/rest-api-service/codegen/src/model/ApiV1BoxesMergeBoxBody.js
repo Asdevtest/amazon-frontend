@@ -23,10 +23,12 @@ class ApiV1BoxesMergeBoxBody {
      * Constructs a new <code>ApiV1BoxesMergeBoxBody</code>.
      * @alias module:model/ApiV1BoxesMergeBoxBody
      * @param shippingLabel {String} Ссылка на наклейку для коробки
+     * @param destinationId {String} id склада - склады куда отправляют.
+     * @param logicsTariffId {String} id тарифа доставки.
      */
-    constructor(shippingLabel) { 
+    constructor(shippingLabel, destinationId, logicsTariffId) { 
         
-        ApiV1BoxesMergeBoxBody.initialize(this, shippingLabel);
+        ApiV1BoxesMergeBoxBody.initialize(this, shippingLabel, destinationId, logicsTariffId);
     }
 
     /**
@@ -34,8 +36,10 @@ class ApiV1BoxesMergeBoxBody {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, shippingLabel) { 
+    static initialize(obj, shippingLabel, destinationId, logicsTariffId) { 
         obj['shippingLabel'] = shippingLabel;
+        obj['destinationId'] = destinationId;
+        obj['logicsTariffId'] = logicsTariffId;
     }
 
     /**
@@ -52,11 +56,11 @@ class ApiV1BoxesMergeBoxBody {
             if (data.hasOwnProperty('shippingLabel')) {
                 obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
         }
         return obj;
@@ -72,16 +76,16 @@ class ApiV1BoxesMergeBoxBody {
 ApiV1BoxesMergeBoxBody.prototype['shippingLabel'] = undefined;
 
 /**
- * id склада - склады куда отправляют 
- * @member {Number} warehouse
+ * id склада - склады куда отправляют.
+ * @member {String} destinationId
  */
-ApiV1BoxesMergeBoxBody.prototype['warehouse'] = undefined;
+ApiV1BoxesMergeBoxBody.prototype['destinationId'] = undefined;
 
 /**
- * Метод доставки - 1: Air , 2: Sea
- * @member {Number} deliveryMethod
+ * id тарифа доставки.
+ * @member {String} logicsTariffId
  */
-ApiV1BoxesMergeBoxBody.prototype['deliveryMethod'] = undefined;
+ApiV1BoxesMergeBoxBody.prototype['logicsTariffId'] = undefined;
 
 
 

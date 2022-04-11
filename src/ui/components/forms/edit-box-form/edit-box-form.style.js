@@ -59,6 +59,7 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    marginLeft: '10px',
   },
   numberInputField: {
     margin: '0 5px',
@@ -138,5 +139,9 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+
+  storekeeperBtn: {
+    height: '32px',
   },
 }))

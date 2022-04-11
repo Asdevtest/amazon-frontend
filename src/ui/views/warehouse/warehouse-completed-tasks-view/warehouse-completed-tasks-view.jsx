@@ -6,7 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
@@ -21,7 +21,8 @@ import {WarehouseCompletedViewModel} from './warehouse-completed-tasks-view.mode
 import {styles} from './warehouse-completed-tasks-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseCompletedTasksView
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_COMPLETED_TASKS
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_TASKS
+const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_COMPLETED_TASKS
 
 @observer
 export class WarehouseCompletedTasksViewRaw extends Component {
@@ -41,6 +42,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
+      volumeWeightCoefficient,
 
       curOpenedTask,
       drawerOpen,
@@ -63,6 +65,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
       <React.Fragment>
         <Navbar
           activeCategory={navbarActiveCategory}
+          activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onChangeTriggerDrawerOpen}
         />
@@ -100,6 +103,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
         <TaskInfoModal
           openModal={showTaskInfoModal}
           setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
+          volumeWeightCoefficient={volumeWeightCoefficient}
           task={curOpenedTask}
         />
       </React.Fragment>

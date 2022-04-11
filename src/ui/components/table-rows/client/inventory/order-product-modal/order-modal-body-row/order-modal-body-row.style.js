@@ -121,6 +121,7 @@ export const useClassNames = makeStyles(() => ({
     color: 'white',
     fontSize: '13px',
     borderRadius: '4px',
+    height: '32px',
   },
   barcodeChipHover: {
     '&:hover, &:focus': {
@@ -150,5 +151,29 @@ export const useClassNames = makeStyles(() => ({
 
   totalCell: {
     minWidth: '110px',
+  },
+
+  destinationSelect: {
+    minWidth: '150px',
+  },
+
+  storekeeperBtn: {
+    height: '32px',
+  },
+
+  commentInput: {
+    height: '100px',
+    width: '200px',
+  },
+
+  amazonTitle: {
+    maxWidth: '200px',
+    maxHeight: '110px',
+    overflowX: 'auto',
+    marginBottom: '5px',
+  },
+
+  storekeeperSelectCell: {
+    width: '150px',
   },
 }))

@@ -40,6 +40,7 @@ export class AdminWarehouseTasksViewRaw extends Component {
       curOpenedTask,
       showTaskInfoModal,
       onTriggerOpenModal,
+      volumeWeightCoefficient,
 
       densityModel,
       columnsModel,
@@ -114,6 +115,7 @@ export class AdminWarehouseTasksViewRaw extends Component {
           openModal={showTaskInfoModal}
           setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
           task={curOpenedTask}
+          volumeWeightCoefficient={volumeWeightCoefficient}
         />
       </React.Fragment>
     )

@@ -50,6 +50,9 @@ export class ClientExchangeViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
+      storekeepers,
+      destinations,
+      showWarningModalText,
 
       drawerOpen,
       curPage,
@@ -114,6 +117,8 @@ export class ClientExchangeViewRaw extends Component {
 
         <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
           <OrderProductModal
+            destinations={destinations}
+            storekeepers={storekeepers}
             requestStatus={requestStatus}
             selectedProductsData={[selectedProduct]}
             onTriggerOpenModal={onTriggerOpenModal}
@@ -140,7 +145,7 @@ export class ClientExchangeViewRaw extends Component {
         <WarningInfoModal
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-          title={textConsts.warningModalTitle}
+          title={showWarningModalText}
           btnText={textConsts.okBtn}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')

@@ -83,6 +83,10 @@ export const useClassNames = makeStyles(theme => ({
     outline: '1px solid rgba(143, 152, 165, 0.5)',
   },
 
+  tableWrapper: {
+    minWidth: '1275px',
+  },
+
   sizesCell: {
     minWidth: '140px',
     display: 'flex',

@@ -37,7 +37,7 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_INVENTORY
 
 @observer
 export class ClientInventoryViewRaw extends Component {
-  viewModel = new ClientInventoryViewModel({history: this.props.history})
+  viewModel = new ClientInventoryViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -55,6 +55,13 @@ export class ClientInventoryViewRaw extends Component {
       columnsModel,
       successModalText,
       confirmMessage,
+      storekeepers,
+      destinations,
+      isArchive,
+      yuanToDollarRate,
+      volumeWeightCoefficient,
+
+      isNoEditProductSelected,
 
       showProgress,
       progressValue,
@@ -97,6 +104,10 @@ export class ClientInventoryViewRaw extends Component {
       onClickAddSupplierBtn,
       onSubmitSeekSupplier,
       onSubmitCalculateSeekSupplier,
+      onClickOrderBtn,
+      onTriggerArchive,
+      onClickAddSupplierButton,
+      onClickTriggerArchOrResetProducts,
     } = this.viewModel
     const {classes: classNames} = this.props
     const onClickPrevButton = () => {
@@ -111,39 +122,55 @@ export class ClientInventoryViewRaw extends Component {
           <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <div className={classNames.addProductBtnsWrapper}>
-                <div>
-                  <Button
-                    variant="contained"
-                    disabled={selectedRowIds.length === 0}
-                    onClick={() => onTriggerOpenModal('showOrderModal')}
-                  >
-                    {textConsts.orderBtn}
+                {!isArchive && (
+                  <div className={classNames.btnsWrapper}>
+                    <Button variant="contained" disabled={selectedRowIds.length === 0} onClick={onClickOrderBtn}>
+                      {textConsts.orderBtn}
+                    </Button>
+
+                    <Button
+                      disableElevation
+                      disabled={selectedRowIds.length !== 1}
+                      className={classNames.buttonOffset}
+                      variant="contained"
+                      color="primary"
+                      onClick={onClickBindInventoryGoodsToStockBtn}
+                    >
+                      {textConsts.bindGoodsBtn}
+                    </Button>
+
+                    <Button
+                      variant="contained"
+                      disabled={selectedRowIds.length !== 1}
+                      className={classNames.buttonOffset}
+                      onClick={() => onClickAddSupplierBtn()}
+                    >
+                      {textConsts.addSupplierBtn}
+                    </Button>
+                  </div>
+                )}
+
+                <div className={classNames.archiveBtnsWrapper}>
+                  <Button variant="outlined" onClick={onTriggerArchive}>
+                    {isArchive ? 'Открыть инвентарь' : 'Открыть архив'}
                   </Button>
 
                   <Button
                     disableElevation
-                    disabled={selectedRowIds.length !== 1}
-                    className={classNames.buttonOffset}
-                    variant="contained"
-                    color="primary"
-                    onClick={onClickBindInventoryGoodsToStockBtn}
+                    tooltipContent={isNoEditProductSelected && 'Выбран продукт с неподходящим статусом'}
+                    disabled={!selectedRowIds.length || isNoEditProductSelected}
+                    variant="outlined"
+                    onClick={onClickTriggerArchOrResetProducts}
                   >
-                    {textConsts.bindGoodsBtn}
-                  </Button>
-
-                  <Button
-                    variant="contained"
-                    disabled={selectedRowIds.length !== 1}
-                    className={classNames.buttonOffset}
-                    onClick={() => onClickAddSupplierBtn()}
-                  >
-                    {textConsts.addSupplierBtn}
+                    {isArchive ? 'Восстановить' : 'Перенести в архив'}
                   </Button>
                 </div>
 
-                <SuccessButton onClick={() => onTriggerOpenModal('showSendOwnProductModal')}>
-                  {textConsts.addProductBtn}
-                </SuccessButton>
+                {!isArchive && (
+                  <SuccessButton onClick={() => onTriggerOpenModal('showSendOwnProductModal')}>
+                    {textConsts.addProductBtn}
+                  </SuccessButton>
+                )}
               </div>
 
               <DataGrid
@@ -200,6 +227,8 @@ export class ClientInventoryViewRaw extends Component {
         >
           <AddOrEditSupplierModalContent
             outsideProduct
+            sourceYuanToDollarRate={yuanToDollarRate}
+            volumeWeightCoefficient={volumeWeightCoefficient}
             title={textConsts.addOrEditSupplierTitle}
             showProgress={showProgress}
             progressValue={progressValue}
@@ -214,7 +243,7 @@ export class ClientInventoryViewRaw extends Component {
         >
           <SelectionSupplierModal
             product={productsMy.find(el => el.originalData._id === selectedRowId)}
-            onTriggerOpenModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
+            onClickFinalAddSupplierButton={onClickAddSupplierButton}
             onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
             onSubmitSeekSupplier={onSubmitCalculateSeekSupplier}
           />
@@ -222,6 +251,8 @@ export class ClientInventoryViewRaw extends Component {
 
         <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
           <OrderProductModal
+            destinations={destinations}
+            storekeepers={storekeepers}
             requestStatus={requestStatus}
             selectedProductsData={productsMy
               .filter(product => selectedRowIds.includes(product.id))
@@ -237,7 +268,7 @@ export class ClientInventoryViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
         >
           <BindInventoryGoodsToStockForm
-            selectedRow={getCurrentData().find(item => selectedRowIds.includes(item.id))}
+            selectedRowId={getCurrentData().find(item => selectedRowIds.includes(item.id))?.originalData._id}
             stockData={sellerBoardDailyData}
             updateStockData={getStockGoodsByFilters}
             onSubmit={onSubmitBindStockGoods}

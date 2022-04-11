@@ -11,7 +11,7 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {priceCalculation} from '@utils/price-calculation'
-import {toFixedWithDollarSign, withDollarSign, checkAndMakeAbsoluteUrl} from '@utils/text'
+import {toFixedWithDollarSign, checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {useClassNames} from './table-supplier.style'
 
@@ -59,12 +59,17 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                   </Link>
                 </TableCell>
                 <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.price, 2)}</TableCell>
-                <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.delivery, 2)}</TableCell>
+                <TableCell className={classNames.alignRight}>
+                  {toFixedWithDollarSign(supplier.batchDeliveryCostInDollar / supplier.amount, 2)}
+                </TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.amount}</TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.minlot}</TableCell>
                 <TableCell className={classNames.alignCenter}>{toFixedWithDollarSign(supplier.lotcost, 2)}</TableCell>
                 <TableCell className={classNames.alignCenter}>
-                  {withDollarSign(priceCalculation(supplier.price, supplier.delivery, supplier.amount))}
+                  {toFixedWithDollarSign(
+                    priceCalculation(supplier.price, supplier.batchDeliveryCostInDollar, supplier.amount),
+                    2,
+                  )}
                 </TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.comment}</TableCell>
                 <TableCell>

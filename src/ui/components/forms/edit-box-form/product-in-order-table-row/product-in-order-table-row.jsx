@@ -1,9 +1,10 @@
-import {TableCell, TableRow, Typography} from '@material-ui/core'
+import {Link, TableCell, TableRow, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {Button} from '@components/buttons/button'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {useClassNames} from './product-in-order-table-row.style'
 
@@ -27,9 +28,13 @@ export const ProductInOrderTableRow = observer(({item, handlers}) => {
       </TableCell>
 
       <TableCell>
-        <Typography className={classNames.barCodeTypo}>
-          {item.product && item.product.barCode ? item.product.barCode : 'N/A'}
-        </Typography>
+        {item.product.barCode ? (
+          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.product.barCode)}>
+            <Typography className={classNames.barCodeTypo}>{item.product.barCode}</Typography>
+          </Link>
+        ) : (
+          <Typography className={classNames.barCodeTypo}>{'N/A'}</Typography>
+        )}
       </TableCell>
 
       <TableCell>

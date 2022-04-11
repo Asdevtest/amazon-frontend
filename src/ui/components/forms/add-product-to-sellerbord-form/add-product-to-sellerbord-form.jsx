@@ -52,6 +52,7 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
     amazonTitle: '',
     images: [],
     lamazon: '',
+    fba: true,
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
@@ -189,7 +190,7 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
       </div>
 
       <div className={classNames.imageFileInputWrapper}>
-        <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
+        <UploadFilesInput images={images} setImages={setImages} maxNumber={50} acceptType={['jpg', 'gif', 'png']} />
       </div>
 
       <div className={classNames.btnsWrapper}>

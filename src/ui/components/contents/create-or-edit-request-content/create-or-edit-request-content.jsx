@@ -52,7 +52,7 @@ export const CreateOrEditRequestContent = ({
       price: requestToEdit?.request.price || '',
       timeoutAt: requestToEdit?.request.timeoutAt || '',
       direction: requestToEdit?.request.direction || 'IN',
-      roles: requestToEdit?.request.roles.length ? requestToEdit?.request.roles : [10, 20, 30, 35],
+      roles: requestToEdit?.request.roles.length ? requestToEdit?.request.roles : [10, 35],
       needCheckBySupervisor: requestToEdit?.request.needCheckBySupervisor || false,
       restrictMoreThanOneProposalFromOneAssignee:
         requestToEdit?.request.restrictMoreThanOneProposalFromOneAssignee || false,
@@ -182,7 +182,7 @@ export const CreateOrEditRequestContent = ({
 
             <div className={classNames.rightWrapper}>
               <Field
-                inputProps={{maxLength: 15}}
+                inputProps={{maxLength: 8}}
                 label={'Введите цену предложения $*'}
                 value={formFields.request.price}
                 onChange={onChangeField('request')('price')}
@@ -218,7 +218,7 @@ export const CreateOrEditRequestContent = ({
               />
 
               <Field
-                label={'Смогут видет роли:'}
+                label={'Смогут видеть роли:'}
                 inputComponent={
                   <Select
                     multiple
@@ -227,17 +227,9 @@ export const CreateOrEditRequestContent = ({
                     onChange={onChangeField('request')('roles')}
                   >
                     {Object.keys(UserRoleCodeMap)
-                      .filter(el =>
-                        [UserRole.CLIENT, UserRole.SUPERVISOR, UserRole.RESEARCHER, UserRole.FREELANCER].includes(
-                          UserRoleCodeMap[el],
-                        ),
-                      )
+                      .filter(el => [UserRole.CLIENT, UserRole.FREELANCER].includes(UserRoleCodeMap[el]))
                       .map((role, index) => (
-                        <MenuItem
-                          key={index}
-                          value={Number(role)}
-                          // disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role])}
-                        >
+                        <MenuItem key={index} value={Number(role)}>
                           <Checkbox color="primary" checked={formFields.request.roles.includes(Number(role))} />
                           <ListItemText primary={UserRoleCodeMap[role]} />
                         </MenuItem>
@@ -289,7 +281,7 @@ export const CreateOrEditRequestContent = ({
 
               <div className={classNames.rightTwoStepSubFieldWrapper}>
                 <Field
-                  label={'Цена'}
+                  label={'Цена $'}
                   inputComponent={
                     <Typography className={classNames.twoStepFieldResult}>{formFields.request.price}</Typography>
                   }

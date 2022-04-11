@@ -23,11 +23,12 @@ class InlineObject28 {
      * Constructs a new <code>InlineObject28</code>.
      * @alias module:model/InlineObject28
      * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param boxes {Array.<String>} 
      * @param operationType {module:model/InlineObject28.OperationTypeEnum} Тип операции
      */
-    constructor(taskId, operationType) { 
+    constructor(taskId, boxes, operationType) { 
         
-        InlineObject28.initialize(this, taskId, operationType);
+        InlineObject28.initialize(this, taskId, boxes, operationType);
     }
 
     /**
@@ -35,8 +36,9 @@ class InlineObject28 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, operationType) { 
+    static initialize(obj, taskId, boxes, operationType) { 
         obj['taskId'] = taskId;
+        obj['boxes'] = boxes;
         obj['operationType'] = operationType;
     }
 

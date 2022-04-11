@@ -57,6 +57,12 @@ class InlineResponse2002 {
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
             }
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            }
+            if (data.hasOwnProperty('subUser')) {
+                obj['subUser'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['subUser']);
+            }
             if (data.hasOwnProperty('entityId')) {
                 obj['entityId'] = ApiClient.convertToType(data['entityId'], 'String');
             }
@@ -95,6 +101,17 @@ InlineResponse2002.prototype['createdAt'] = undefined;
  * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy
  */
 InlineResponse2002.prototype['createdBy'] = undefined;
+
+/**
+ * Роль пользователя на момент инициации платежа.
+ * @member {Number} role
+ */
+InlineResponse2002.prototype['role'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} subUser
+ */
+InlineResponse2002.prototype['subUser'] = undefined;
 
 /**
  * GUID товара или услуги.
@@ -153,6 +170,12 @@ InlineResponse2002['PaymentTypeEnum'] = {
      * @const
      */
     "BOX": "BOX",
+
+    /**
+     * value: "BATCH"
+     * @const
+     */
+    "BATCH": "BATCH",
 
     /**
      * value: "USER"

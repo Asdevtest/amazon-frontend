@@ -1,9 +1,10 @@
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import Tooltip from '@mui/material/Tooltip'
 
 import React, {useState} from 'react'
 
-import {Grid, Typography, Tooltip} from '@material-ui/core'
+import {Grid, Typography, Avatar, Link} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import ImageUploading from 'react-images-uploading'
@@ -15,21 +16,38 @@ import {Field} from '@components/field/field'
 import {Input} from '@components/input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {useClassNames} from './upload-files-input.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').uploadFilesInput
 
+const regExpUriChecking =
+  /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|\/|\?)*)?$/i
+
 const maxSizeInBytes = 15728640
 
-export const UploadFilesInput = observer(({images, setImages, maxNumber}) => {
+export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptType}) => {
   const classNames = useClassNames()
 
   const [linkInput, setLinkInput] = useState('')
 
+  const [linkInputError, setLinkInputError] = useState(false)
+
+  const onChangeLinkInput = value => {
+    setLinkInputError(false)
+    setLinkInput(value)
+  }
+
   const onClickLoadBtn = () => {
-    setImages([...images, linkInput])
-    setLinkInput('')
+    const linkIsValid = regExpUriChecking.test(linkInput)
+
+    if (linkIsValid) {
+      setImages([...images, linkInput])
+      setLinkInput('')
+    } else {
+      setLinkInputError(true)
+    }
   }
 
   const onChange = (imageList /* , addUpdateIndex тут можно индекс получить*/) => {
@@ -38,8 +56,18 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber}) => {
 
   const renderImageInfo = (img, imgName) => (
     <div className={classNames.tooltipWrapper}>
-      <img alt={imgName} src={img} className={classNames.tooltipImg} />
-      {imgName && <Typography className={classNames.tooltipText}>{imgName}</Typography>}
+      <Avatar
+        variant="square"
+        alt={imgName}
+        src={img ? img : '/assets/icons/file.png'}
+        className={classNames.tooltipImg}
+      />
+
+      {typeof img === 'string' ? (
+        <Typography className={classNames.linkTypo}>{imgName}</Typography>
+      ) : (
+        <Typography className={classNames.tooltipText}>{imgName}</Typography>
+      )}
     </div>
   )
 
@@ -49,13 +77,14 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber}) => {
     <div>
       <Field
         label={textConsts.addPhoto}
+        error={linkInputError && 'Ссылка невалидна!'}
         inputComponent={
           <div className={classNames.amazonLinkWrapper}>
             <Input
               placeholder={textConsts.link}
               className={classNames.loadImageInput}
               value={linkInput}
-              onChange={e => setLinkInput(e.target.value)}
+              onChange={e => onChangeLinkInput(e.target.value)}
             />
 
             <Button
@@ -74,6 +103,7 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber}) => {
 
       <ImageUploading
         multiple
+        acceptType={acceptType ? acceptType : ['jpg', 'gif', 'png', 'pdf']}
         value={images}
         maxNumber={maxNumber}
         dataURLKey="data_url"
@@ -127,10 +157,14 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber}) => {
                 {imageList.map((image, index) =>
                   typeof image === 'string' ? (
                     <Grid key={index} item>
-                      <div className={classNames.imageListItem}>
-                        <Tooltip title={renderImageInfo(image)} classes={{popper: classNames.imgTooltip}}>
-                          <img className={classNames.image} src={image} />
+                      <div className={classNames.imageLinkListItem}>
+                        <Tooltip title={renderImageInfo(image, image)} classes={{popper: classNames.imgTooltip}}>
+                          <Avatar className={classNames.image} src={image} alt={image} />
                         </Tooltip>
+
+                        <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>
+                          <Typography className={classNames.linkName}>{image}</Typography>
+                        </Link>
 
                         <div className={classNames.actionIconsWrapper}>
                           <HighlightOffIcon className={classNames.actionIcon} onClick={() => onImageRemove(index)} />
@@ -144,7 +178,11 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber}) => {
                           title={renderImageInfo(image.data_url, image.file.name)}
                           classes={{popper: classNames.imgTooltip}}
                         >
-                          <img className={classNames.image} src={image.data_url} alt={image.file.name} />
+                          <img
+                            className={classNames.image}
+                            src={image.file.type.includes('image') ? image.data_url : '/assets/icons/file.png'}
+                            alt={image.file.name}
+                          />
                         </Tooltip>
 
                         <Typography className={classNames.fileName}>{image.file.name} </Typography>

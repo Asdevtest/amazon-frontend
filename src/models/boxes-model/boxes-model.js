@@ -79,8 +79,8 @@ class BoxesModelStatic {
     return response
   }
 
-  getBoxesForCurClient = async () => {
-    const response = await restApiService.boxesApi.apiV1BoxesClientsGet()
+  getBoxesForCurClient = async storekeeperId => {
+    const response = await restApiService.boxesApi.apiV1BoxesClientsGet(storekeeperId)
     return response
   }
 
@@ -106,20 +106,8 @@ class BoxesModelStatic {
     return response
   }
 
-  calculateBoxDeliveryCostsInBatch = async boxesIds => {
-    const response = await restApiService.boxesApi.apiV1BoxesCalculateBoxDeliveryCostsInBatchPost({body: {boxesIds}})
-    return response
-  }
-
   sendBoxesToBatch = async boxesIds => {
     const response = await restApiService.boxesApi.apiV1BoxesSendBoxesToBatchPost({body: {boxesIds}})
-    return response
-  }
-
-  requestSendBoxToBatch = async boxesIds => {
-    const response = await restApiService.boxesApi.apiV1BoxesRequestSendBoxesToBatchPost({
-      body: {cancel: false, boxesIds},
-    })
     return response
   }
 }

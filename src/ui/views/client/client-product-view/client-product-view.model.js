@@ -1,6 +1,7 @@
 import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {ProductDataParser} from '@constants/product-data-parser'
 import {texts} from '@constants/texts'
 
 import {ClientModel} from '@models/client-model'
@@ -19,6 +20,7 @@ import {
   getObjectFilteredByKeyArrayBlackList,
   getObjectFilteredByKeyArrayWhiteList,
 } from '@utils/object'
+import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
 import {onSubmitPostImages} from '@utils/upload-files'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientProductView
@@ -89,6 +91,9 @@ export class ClientProductViewModel {
   curUpdateProductData = {}
   warningModalTitle = ''
 
+  yuanToDollarRate = undefined
+  volumeWeightCoefficient = undefined
+
   drawerOpen = false
 
   selectedSupplier = undefined
@@ -152,11 +157,12 @@ export class ClientProductViewModel {
   onChangeProductFields = fieldName =>
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
+
       if (
         [
           'icomment',
           'category',
-          'asin',
+          // 'asin',
           'lamazon',
           'clientComment',
           'amazonTitle',
@@ -167,23 +173,30 @@ export class ClientProductViewModel {
       ) {
         this.product = {...this.product, [fieldName]: e.target.value}
       } else {
+        if (['asin'].includes(fieldName)) {
+          this.product = {...this.product, [fieldName]: e.target.value.replace(/[^0-9a-zA-Z]/g, '')}
+        }
+
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
           return
         }
+
         if (!['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 5)) {
           return
         }
+
         if (
           ['amazon', 'fbafee'].includes(fieldName) &&
           !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
         ) {
           return
         }
+
         if (['fbaamount'].includes(fieldName)) {
           this.product[fieldName] = parseInt(e.target.value)
-        } else {
-          this.product = {...this.product, [fieldName]: e.target.value}
         }
+
+        this.product = {...this.product, [fieldName]: e.target.value}
       }
 
       if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba'].includes(fieldName)) {
@@ -209,18 +222,60 @@ export class ClientProductViewModel {
         this.openConfirmModalWithTextByStatus(withoutStatus)
         break
       case 'cancel':
-        this.history.goBack()
+        this.history.push('/client/inventory', {isArchive: this.product.archive})
+
         break
       case 'delete':
-        // this.confirmModalSettings = {
-        //   isWarning: true,
-        //   message: textConsts.deleteMessage,
-        //   onClickOkBtn: () => this.onDeleteProduct()
-        // }
+        this.confirmModalSettings = {
+          isWarning: true,
+          message: textConsts.deleteMessage,
+          onClickOkBtn: () => this.onDeleteProduct(),
+        }
 
-        // this.onTriggerOpenModal('showConfirmModal')
+        this.onTriggerOpenModal('showConfirmModal')
 
         break
+
+      case 'restore':
+        this.confirmModalSettings = {
+          isWarning: false,
+          message: textConsts.restoreMessage,
+          onClickOkBtn: () => this.onRestoreProduct(),
+        }
+
+        this.onTriggerOpenModal('showConfirmModal')
+
+        break
+    }
+  }
+
+  async onRestoreProduct() {
+    try {
+      await ClientModel.updateProduct(
+        this.product._id,
+        getObjectFilteredByKeyArrayWhiteList({...this.product, archive: false}, ['archive']),
+      )
+
+      this.history.goBack()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onDeleteProduct() {
+    try {
+      await ClientModel.updateProduct(
+        this.product._id,
+        getObjectFilteredByKeyArrayWhiteList({...this.product, archive: true}, ['archive']),
+      )
+
+      this.history.goBack()
+    } catch (error) {
+      console.log(error)
+      this.setActionStatus(loadingStatuses.failed)
+
+      this.error = error
     }
   }
 
@@ -360,7 +415,6 @@ export class ClientProductViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-        delivery: parseFloat(supplier?.delivery) || 0,
         lotcost: parseFloat(supplier?.lotcost) || '',
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
@@ -444,11 +498,21 @@ export class ClientProductViewModel {
     this.actionStatus = actionStatus
   }
 
-  onTriggerAddOrEditSupplierModal() {
-    if (this.showAddOrEditSupplierModal) {
-      this.selectedSupplier = undefined
+  async onTriggerAddOrEditSupplierModal() {
+    try {
+      if (this.showAddOrEditSupplierModal) {
+        this.selectedSupplier = undefined
+      } else {
+        const result = await UserModel.getPlatformSettings()
+
+        this.yuanToDollarRate = result.yuanToDollarRate
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      }
+
+      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+    } catch (error) {
+      console.log(error)
     }
-    this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
   }
 
   onChangeSelectedSupplier(supplier) {
@@ -456,6 +520,48 @@ export class ClientProductViewModel {
       this.selectedSupplier = undefined
     } else {
       this.selectedSupplier = supplier
+    }
+  }
+
+  async onClickParseProductData(productDataParser, product) {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+      this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+
+      if (product.asin) {
+        const parseResult = await (() => {
+          switch (productDataParser) {
+            case ProductDataParser.AMAZON:
+              return ProductModel.parseAmazon(product.asin)
+            case ProductDataParser.SELLCENTRAL:
+              return ProductModel.parseParseSellerCentral(product.asin)
+          }
+        })()
+
+        runInAction(() => {
+          if (Object.keys(parseResult).length > 5) {
+            // проверка, что ответ не пустой (иначе приходит объект {length: 2})
+            this.product = {
+              ...this.product,
+              ...parseFieldsAdapter(parseResult, productDataParser),
+              weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
+              amazonDescription: parseResult.info?.description || this.product.amazonDescription,
+              amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
+            }
+          }
+          updateProductAutoCalculatedFields.call(this)
+        })
+      } else {
+        this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: textConsts.noAsin}
+      }
+
+      this.setActionStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log(error)
+      this.setActionStatus(loadingStatuses.failed)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
     }
   }
 }

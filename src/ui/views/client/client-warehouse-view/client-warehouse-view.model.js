@@ -5,6 +5,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {TaskOperationType} from '@constants/task-operation-type'
 
+import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
@@ -19,36 +20,30 @@ import {sortObjectsArrayByFiledDate, sortObjectsArrayByFiledDateWithParseISO} fr
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {onSubmitPostImages} from '@utils/upload-files'
 
-const updateBoxBlackList = [
-  '_id',
-  'id',
-  'status',
-  'createdBy',
-  'lastModifiedBy',
-  'clientComment',
-  'createdAt',
-  'tmpBarCode',
-  'tmpAsin',
-  'tmpQty',
-  'tmpMaterial',
-  'tmpAmazonPrice',
-  'tmpTrackingNumberChina',
-  'tmpFinalWeight',
-  'tmpGrossWeight',
-  'tmpWarehouses',
-  'weightFinalAccountingKgWarehouse',
-  'buyerComment',
-  'shipmentPlanId',
-  'isDraft',
-  'scheduledDispatchDate',
-  'factDispatchDate',
-  'updatedAt',
-  'sendToBatchRequest',
-  'sendToBatchComplete',
+const updateBoxWhiteList = [
+  'amount',
+  'weighGrossKg',
+  'volumeWeightKg',
+  'shippingLabel',
+  'warehouse',
+  'deliveryMethod',
+  'lengthCmSupplier',
+  'widthCmSupplier',
+  'heightCmSupplier',
+  'weighGrossKgSupplier',
+  'lengthCmWarehouse',
+  'widthCmWarehouse',
+  'heightCmWarehouse',
+  'weighGrossKgWarehouse',
+  'isBarCodeAttachedByTheStorekeeper',
+  'isShippingLabelAttachedByStorekeeper',
+  'clientId',
+  'items',
+  'images',
+  'destinationId',
   'storekeeperId',
-  'storekeeper',
-  'humanFriendlyId',
-  'tmpShippingLabel',
+  'logicsTariffId',
+  'fbaShipment',
 ]
 
 export class ClientWarehouseViewModel {
@@ -63,6 +58,11 @@ export class ClientWarehouseViewModel {
   selectedBoxes = []
   curOpenedTask = {}
   toCancelData = {}
+  currentStorekeeper = undefined
+  storekeepersData = []
+  destinations = []
+
+  volumeWeightCoefficient = undefined
 
   showMergeBoxModal = false
   showTaskInfoModal = false
@@ -98,6 +98,11 @@ export class ClientWarehouseViewModel {
       const findBox = this.boxesMy.find(box => box._id === boxId)
       return findBox.originalData?.amount && findBox.originalData?.amount > 1
     })
+  }
+
+  get isOneItemInBox() {
+    const findBox = this.boxesMy.find(box => box._id === this.selectedBoxes[0])
+    return findBox?.originalData.items.reduce((ac, cur) => (ac += cur.amount), 0) <= 1
   }
 
   constructor({history}) {
@@ -168,9 +173,32 @@ export class ClientWarehouseViewModel {
     return toJS(this.tasksMy)
   }
 
+  onClickStorekeeperBtn(storekeeper) {
+    this.selectedBoxes = []
+
+    this.currentStorekeeper = storekeeper ? storekeeper : undefined
+
+    this.getBoxesMy()
+
+    this.getTasksMy()
+  }
+
+  async getStorekeepers() {
+    try {
+      const result = await StorekeeperModel.getStorekeepers()
+
+      this.storekeepersData = result
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
+      await this.getStorekeepers()
+
       this.getBoxesMy()
 
       this.setRequestStatus(loadingStatuses.success)
@@ -183,9 +211,16 @@ export class ClientWarehouseViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      const result = await StorekeeperModel.getTaskById(item._id)
+      const task = await StorekeeperModel.getTaskById(item._id)
 
-      this.curOpenedTask = result
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.curOpenedTask = task
+      })
+
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
       console.log(error)
@@ -238,8 +273,8 @@ export class ClientWarehouseViewModel {
           const boxToPush = {
             boxBody: {
               shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
-              warehouse: updatedBoxes[i].warehouse,
-              deliveryMethod: updatedBoxes[i].deliveryMethod,
+              destinationId: updatedBoxes[i].destinationId,
+              logicsTariffId: updatedBoxes[i].logicsTariffId,
             },
             boxItems: [
               ...updatedBoxes[i].items.map(item => ({
@@ -273,8 +308,30 @@ export class ClientWarehouseViewModel {
     }
   }
 
+  async onClickEditBtn() {
+    try {
+      const result = await UserModel.getPlatformSettings()
+
+      const destinations = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.destinations = destinations
+
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showEditBoxModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   onRemoveBoxFromSelected(boxId) {
     this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
+
+    if (this.selectedBoxes.length < 2) {
+      this.onTriggerOpenModal('showMergeBoxModal')
+    }
   }
 
   async onEditBoxSubmit(id, boxData, sourceData) {
@@ -295,7 +352,7 @@ export class ClientWarehouseViewModel {
         productId: el.product._id,
       }))
 
-      const requestBox = getObjectFilteredByKeyArrayBlackList(
+      const requestBox = getObjectFilteredByKeyArrayWhiteList(
         {
           ...boxData,
           isShippingLabelAttachedByStorekeeper:
@@ -303,7 +360,7 @@ export class ClientWarehouseViewModel {
           items: newItems,
           shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxData.shippingLabel,
         },
-        updateBoxBlackList,
+        updateBoxWhiteList,
       )
 
       const editBoxesResult = await this.editBox({id, data: requestBox})
@@ -315,14 +372,17 @@ export class ClientWarehouseViewModel {
         clientComment: boxData.clientComment,
       })
 
-      await this.getBoxesMy()
+      // await this.getBoxesMy()
+      this.loadData()
       this.onTriggerOpenModal('showEditBoxModal')
 
       this.setRequestStatus(loadingStatuses.success)
 
+      // this.loadData()
+
       this.onTriggerOpenModal('showEditBoxSuccessModal')
 
-      await this.getTasksMy()
+      // await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
@@ -345,7 +405,7 @@ export class ClientWarehouseViewModel {
 
       const newBoxBody = getObjectFilteredByKeyArrayBlackList(
         {...boxBody, shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel},
-        ['tmpShippingLabel'],
+        ['tmpShippingLabel', 'storekeeperId'],
       )
 
       const mergeBoxesResult = await this.mergeBoxes(selectedIds, newBoxBody)
@@ -391,7 +451,7 @@ export class ClientWarehouseViewModel {
 
   async getTasksMy() {
     try {
-      const result = await ClientModel.getLightTasks()
+      const result = await ClientModel.getTasks(this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id})
 
       runInAction(() => {
         this.tasksMy = warehouseTasksDataConverter(result).sort(sortObjectsArrayByFiledDate('updatedAt'))
@@ -399,6 +459,8 @@ export class ClientWarehouseViewModel {
     } catch (error) {
       console.log(error)
       this.error = error
+
+      this.tasksMy = []
     }
   }
 
@@ -454,7 +516,9 @@ export class ClientWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      const result = await BoxesModel.getBoxesForCurClient()
+      const result = await BoxesModel.getBoxesForCurClient(
+        this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id},
+      )
 
       runInAction(() => {
         this.boxesMy = clientWarehouseDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
@@ -556,7 +620,7 @@ export class ClientWarehouseViewModel {
   async onClickRequestToSendBatch() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const boxesDeliveryCosts = await BoxesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
+      const boxesDeliveryCosts = await BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
       runInAction(() => {
         this.boxesDeliveryCosts = boxesDeliveryCosts
       })
@@ -574,7 +638,7 @@ export class ClientWarehouseViewModel {
       const boxesSendToBatch = this.selectedBoxes.filter(
         selectedBoxId => this.boxesDeliveryCosts.find(priceObj => priceObj.guid === selectedBoxId)?.deliveryCost,
       )
-      await BoxesModel.requestSendBoxToBatch(boxesSendToBatch)
+      await BatchesModel.requestSendBoxToBatch(boxesSendToBatch)
       runInAction(() => {
         this.showRequestToSendBatchModal = false
         this.selectedBoxes = []
@@ -584,6 +648,34 @@ export class ClientWarehouseViewModel {
       this.loadData()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async onClickMergeBtn() {
+    try {
+      const destinations = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.destinations = destinations
+      })
+
+      this.onTriggerOpenModal('showMergeBoxModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickSplitBtn() {
+    try {
+      const destinations = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.destinations = destinations
+      })
+
+      this.onTriggerOpenModal('showRedistributeBoxModal')
+    } catch (error) {
       console.log(error)
     }
   }

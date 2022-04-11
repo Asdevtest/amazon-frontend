@@ -16,7 +16,7 @@ import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {UserBalanceHistory} from '@components/screens/user-balance-history'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsBuyer, checkIsClient, checkIsSupervisor} from '@utils/checks'
+import {checkIsClient, checkIsSupervisor} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {Button} from '../../buttons/button'
@@ -323,7 +323,7 @@ export const Listing = observer(({productId, onClickBack}) => {
         </Paper>
       </div>
 
-      {!checkIsBuyer(UserRoleCodeMap[userRole]) && <UserBalanceHistory historyData={payments} title="Транзакции:" />}
+      <UserBalanceHistory historyData={payments} title="Транзакции:" />
 
       <BigImagesModal
         isAmazone

@@ -4,19 +4,18 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV1BuyersOrdersGuidEditPatch**](BuyerApi.md#apiV1BuyersOrdersGuidEditPatch) | **PATCH** /api/v1/buyers/orders/{guid}/edit | # NEW! Редактировать заказ.
+[**apiV1BuyersOrdersGuidEditPatch**](BuyerApi.md#apiV1BuyersOrdersGuidEditPatch) | **PATCH** /api/v1/buyers/orders/{guid}/edit | # Редактировать заказ.
 [**apiV1BuyersOrdersGuidGet**](BuyerApi.md#apiV1BuyersOrdersGuidGet) | **GET** /api/v1/buyers/orders/{guid} | # Получить конкретный заказ по его GUID.
-[**apiV1BuyersOrdersGuidPatch**](BuyerApi.md#apiV1BuyersOrdersGuidPatch) | **PATCH** /api/v1/buyers/orders/{guid} | # deprecated! Редактировать заказ.
-[**apiV1BuyersOrdersGuidPayToSupplierPatch**](BuyerApi.md#apiV1BuyersOrdersGuidPayToSupplierPatch) | **PATCH** /api/v1/buyers/orders/{guid}/pay_to_supplier | # NEW! Выставить статус оплачено поставщику.
-[**apiV1BuyersOrdersGuidReturnOrderPatch**](BuyerApi.md#apiV1BuyersOrdersGuidReturnOrderPatch) | **PATCH** /api/v1/buyers/orders/{guid}/return_order | # NEW! Выставить статус пришёл не кондиционный - \&quot;возврат заказа\&quot;, returnOrder: 35.
-[**apiV1BuyersOrdersGuidSetTotalPriceChangedPatch**](BuyerApi.md#apiV1BuyersOrdersGuidSetTotalPriceChangedPatch) | **PATCH** /api/v1/buyers/orders/{guid}/set_totalPriceChanged | # NEW! Задать изменение итоговой цены, totalPriceChanged.
-[**apiV1BuyersOrdersGuidTrackNumberIssuedPatch**](BuyerApi.md#apiV1BuyersOrdersGuidTrackNumberIssuedPatch) | **PATCH** /api/v1/buyers/orders/{guid}/track_number_issued | # NEW! Выставить статус \&quot;выдан трек номер\&quot;.
+[**apiV1BuyersOrdersGuidPayToSupplierPatch**](BuyerApi.md#apiV1BuyersOrdersGuidPayToSupplierPatch) | **PATCH** /api/v1/buyers/orders/{guid}/pay_to_supplier | # Выставить статус оплачено поставщику.
+[**apiV1BuyersOrdersGuidReturnOrderPatch**](BuyerApi.md#apiV1BuyersOrdersGuidReturnOrderPatch) | **PATCH** /api/v1/buyers/orders/{guid}/return_order | # Выставить статус пришёл не кондиционный - \&quot;возврат заказа\&quot;, returnOrder: 35.
+[**apiV1BuyersOrdersGuidSetTotalPriceChangedPatch**](BuyerApi.md#apiV1BuyersOrdersGuidSetTotalPriceChangedPatch) | **PATCH** /api/v1/buyers/orders/{guid}/set_totalPriceChanged | # Задать изменение итоговой цены, totalPriceChanged.
+[**apiV1BuyersOrdersGuidTrackNumberIssuedPatch**](BuyerApi.md#apiV1BuyersOrdersGuidTrackNumberIssuedPatch) | **PATCH** /api/v1/buyers/orders/{guid}/track_number_issued | # Выставить статус \&quot;выдан трек номер\&quot;.
 [**apiV1BuyersOrdersMyGet**](BuyerApi.md#apiV1BuyersOrdersMyGet) | **GET** /api/v1/buyers/orders/my | # Получить список заказов текущего байера.
 [**apiV1BuyersOrdersPickupGuidPost**](BuyerApi.md#apiV1BuyersOrdersPickupGuidPost) | **POST** /api/v1/buyers/orders/pickup/{guid} | # Закрепить заказ за байером. Взять его в работу.
 [**apiV1BuyersOrdersVacGet**](BuyerApi.md#apiV1BuyersOrdersVacGet) | **GET** /api/v1/buyers/orders/vac | # Получить список свободных заказов.
 [**apiV1BuyersProductsGuidPatch**](BuyerApi.md#apiV1BuyersProductsGuidPatch) | **PATCH** /api/v1/buyers/products/{guid} | # Внести изменения в продукт.
 [**apiV1BuyersProductsMyGet**](BuyerApi.md#apiV1BuyersProductsMyGet) | **GET** /api/v1/buyers/products/my | # Получить список товаров взятых в работу байером.
-[**apiV1BuyersProductsPickupGuidPost**](BuyerApi.md#apiV1BuyersProductsPickupGuidPost) | **POST** /api/v1/buyers/products/pickup/{guid} | # Закрепить продукт за байером. Взять его в работу.
+[**apiV1BuyersProductsPickupGuidPost**](BuyerApi.md#apiV1BuyersProductsPickupGuidPost) | **POST** /api/v1/buyers/products/pickup/{guid} | 
 [**apiV1BuyersProductsVacGet**](BuyerApi.md#apiV1BuyersProductsVacGet) | **GET** /api/v1/buyers/products/vac | # Получить список вакантных товаров.
 [**apiV1BuyersTasksCancelGuidPost**](BuyerApi.md#apiV1BuyersTasksCancelGuidPost) | **POST** /api/v1/buyers/tasks/cancel/{guid} | # Отменить задачу.
 [**apiV1BuyersTasksGet**](BuyerApi.md#apiV1BuyersTasksGet) | **GET** /api/v1/buyers/tasks | # Показать все задачи данного пользователя.
@@ -28,9 +27,9 @@ Method | HTTP request | Description
 
 > String apiV1BuyersOrdersGuidEditPatch(guid, opts)
 
-# NEW! Редактировать заказ.
+# Редактировать заказ.
 
-## NEW! Редактировать заказ.   Данный метод позволяет редактировать все поля кроме status и totalPriceChanged После оплаты поставщику нельзя менять warehouse и deliveryMethod Проверки:  Пока нет проверок
+## Редактировать заказ.   Данный метод позволяет редактировать все поля кроме status и totalPriceChanged Проверки:  Пока нет проверок
 
 ### Example
 
@@ -44,10 +43,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BuyerApi();
-let guid = "guid_example"; // String | GUID заказа, который планируем изменить
+let guid = null; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject21() // InlineObject21 | 
+  'body': new TestSwagger.InlineObject27() // InlineObject27 | 
 };
 apiInstance.apiV1BuyersOrdersGuidEditPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -62,9 +61,9 @@ apiInstance.apiV1BuyersOrdersGuidEditPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID заказа, который планируем изменить | 
+ **guid** | [**String**](.md)| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject21**](InlineObject21.md)|  | [optional] 
+ **body** | [**InlineObject27**](InlineObject27.md)|  | [optional] 
 
 ### Return type
 
@@ -100,7 +99,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BuyerApi();
-let guid = "guid_example"; // String | GUID заказа.
+let guid = null; // String | GUID заказа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -117,7 +116,7 @@ apiInstance.apiV1BuyersOrdersGuidGet(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID заказа. | 
+ **guid** | [**String**](.md)| GUID заказа. | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -134,69 +133,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1BuyersOrdersGuidPatch
-
-> String apiV1BuyersOrdersGuidPatch(guid, opts)
-
-# deprecated! Редактировать заказ.
-
-## deprecated!, Редактировать заказ.   Статус 20 и 25 приводит к оплате поставщику.  Только заказы со статусом 15 можно оплачивать. нельзя повторно оплачивать или менять цену после оплаты поставщику (paidAt &#x3D;&#x3D;&#x3D; null) при повышении цены ставится статус needConfirmingToPriceChange: 19, // требуется подтверждение для изменения цены  при снижении цены автоматическим производиться возврат разницы клиенту.  статус 35 приведет к возврату средств и закрытию заказа, данный статус можно ставить только оплачено поставщику
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.BuyerApi();
-let guid = "guid_example"; // String | GUID заказа, который планируем изменить
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject18() // InlineObject18 | 
-};
-apiInstance.apiV1BuyersOrdersGuidPatch(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID заказа, который планируем изменить | 
- **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject18**](InlineObject18.md)|  | [optional] 
-
-### Return type
-
-**String**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
 ## apiV1BuyersOrdersGuidPayToSupplierPatch
 
 > String apiV1BuyersOrdersGuidPayToSupplierPatch(guid, opts)
 
-# NEW! Выставить статус оплачено поставщику.
+# Выставить статус оплачено поставщику.
 
-## NEW! Выставить статус оплачено поставщику.  При вызове данного метода статус меняется на 20 paid  Снимает средства с замороженных средств клиента и переводятся админу Проверки:  Нельзя повторно оплачивать поставщику. paidAt !&#x3D;&#x3D; null
+## Выставить статус оплачено поставщику.  При вызове данного метода статус меняется на 20 paid  Снимает средства с замороженных средств клиента и переводятся админу Проверки:  Нельзя повторно оплачивать поставщику. paidAt !&#x3D;&#x3D; null
 
 ### Example
 
@@ -210,7 +153,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BuyerApi();
-let guid = "guid_example"; // String | GUID заказа
+let guid = null; // String | GUID заказа
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -227,7 +170,7 @@ apiInstance.apiV1BuyersOrdersGuidPayToSupplierPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID заказа | 
+ **guid** | [**String**](.md)| GUID заказа | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -248,9 +191,9 @@ Name | Type | Description  | Notes
 
 > String apiV1BuyersOrdersGuidReturnOrderPatch(guid, opts)
 
-# NEW! Выставить статус пришёл не кондиционный - \&quot;возврат заказа\&quot;, returnOrder: 35.
+# Выставить статус пришёл не кондиционный - \&quot;возврат заказа\&quot;, returnOrder: 35.
 
-## NEW! Выставить статус пришёл не кондиционный - \&quot;возврат заказа\&quot;, returnOrder: 35.   При вызове данного метода ставиться статус cancelByBuyer: 35 Средства обратно возвращаются на баланс клиента.  (если оплатили посташику то от баланса админа клиенту, если не было оплаты поставщику, то разморозка средств клиента)  В заявке обнулятся поля totalPrice, totalPriceChanged  Проверки:  Требуется комментарий байера. Нельзя вернуть заказ если заказ закрыт клиентом
+## Выставить статус пришёл не кондиционный - \&quot;возврат заказа\&quot;, returnOrder: 35.   При вызове данного метода ставиться статус cancelByBuyer: 35 Средства обратно возвращаются на баланс клиента.  (если оплатили посташику то от баланса админа клиенту, если не было оплаты поставщику, то разморозка средств клиента)  Проверки:  Требуется комментарий байера. Нельзя вернуть заказ если заказ закрыт клиентом
 
 ### Example
 
@@ -264,10 +207,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BuyerApi();
-let guid = "guid_example"; // String | GUID заказа.
+let guid = null; // String | GUID заказа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject19() // InlineObject19 | 
+  'body': new TestSwagger.InlineObject25() // InlineObject25 | 
 };
 apiInstance.apiV1BuyersOrdersGuidReturnOrderPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -282,9 +225,9 @@ apiInstance.apiV1BuyersOrdersGuidReturnOrderPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID заказа. | 
+ **guid** | [**String**](.md)| GUID заказа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject19**](InlineObject19.md)|  | [optional] 
+ **body** | [**InlineObject25**](InlineObject25.md)|  | [optional] 
 
 ### Return type
 
@@ -304,9 +247,9 @@ Name | Type | Description  | Notes
 
 > String apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid, opts)
 
-# NEW! Задать изменение итоговой цены, totalPriceChanged.
+# Задать изменение итоговой цены, totalPriceChanged.
 
-## NEW! Задать изменение итоговой цены, totalPriceChanged.   При повышении цены ставиться статус 19 needConfirmingToPriceChange, далее нужно ожидать подтверждения от клиента.  Если вернуть цену на старое значение, то статус возвращается к 15 atProcess. При понижении цены автоматом происходит возврат разницы клиенту, статус ставится 15 atProcess.  Проверки:  Нельзя менять цену после оплаты поставщику. paidAt !&#x3D;&#x3D; null
+## Задать изменение итоговой цены, totalPriceChanged.   При повышении цены ставиться статус 19 needConfirmingToPriceChange, далее нужно ожидать подтверждения от клиента.  Если вернуть цену на старое значение, то статус возвращается к 15 atProcess. При понижении цены автоматом происходит возврат разницы клиенту, статус ставится 15 atProcess.  Проверки:  Нельзя менять цену после оплаты поставщику. paidAt !&#x3D;&#x3D; null
 
 ### Example
 
@@ -320,10 +263,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BuyerApi();
-let guid = "guid_example"; // String | GUID заказа, который планируем изменить
+let guid = null; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject20() // InlineObject20 | 
+  'body': new TestSwagger.InlineObject26() // InlineObject26 | 
 };
 apiInstance.apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -338,9 +281,9 @@ apiInstance.apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid, opts).then((dat
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID заказа, который планируем изменить | 
+ **guid** | [**String**](.md)| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject20**](InlineObject20.md)|  | [optional] 
+ **body** | [**InlineObject26**](InlineObject26.md)|  | [optional] 
 
 ### Return type
 
@@ -360,9 +303,9 @@ Name | Type | Description  | Notes
 
 > String apiV1BuyersOrdersGuidTrackNumberIssuedPatch(guid, opts)
 
-# NEW! Выставить статус \&quot;выдан трек номер\&quot;.
+# Выставить статус \&quot;выдан трек номер\&quot;.
 
-## NEW! Выставить статус \&quot;выдан трек номер\&quot;.  При вызове данного метода статус меняется на 25 trackNumberIssued  Если ранее не была произведена оплата(paidAt &#x3D;&#x3D;&#x3D; null), то производит оплату:   при оплате снимает средства с замороженных средств клиента и переводит админу Проверки:  пока нет проверок
+## Выставить статус \&quot;выдан трек номер\&quot;.  При вызове данного метода статус меняется на 25 trackNumberIssued  Если ранее не была произведена оплата(paidAt &#x3D;&#x3D;&#x3D; null), то производит оплату:   при оплате снимает средства с замороженных средств клиента и переводит админу Проверки:  пока нет проверок
 
 ### Example
 
@@ -376,7 +319,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BuyerApi();
-let guid = "guid_example"; // String | GUID заказа
+let guid = null; // String | GUID заказа
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -393,7 +336,7 @@ apiInstance.apiV1BuyersOrdersGuidTrackNumberIssuedPatch(guid, opts).then((data) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID заказа | 
+ **guid** | [**String**](.md)| GUID заказа | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -482,7 +425,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BuyerApi();
-let guid = "guid_example"; // String | GUID заказа, который планируем изменить
+let guid = null; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -499,7 +442,7 @@ apiInstance.apiV1BuyersOrdersPickupGuidPost(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID заказа, который планируем изменить | 
+ **guid** | [**String**](.md)| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -518,7 +461,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersVacGet
 
-> [InlineResponse2001] apiV1BuyersOrdersVacGet(createdWithOutBuyersProducts, opts)
+> [InlineResponse2001] apiV1BuyersOrdersVacGet(opts)
 
 # Получить список свободных заказов.
 
@@ -536,11 +479,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BuyerApi();
-let createdWithOutBuyersProducts = true; // Boolean | Добавить ордеры с продуктами в которых не участвовали байеры?
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1BuyersOrdersVacGet(createdWithOutBuyersProducts, opts).then((data) => {
+apiInstance.apiV1BuyersOrdersVacGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -553,7 +495,6 @@ apiInstance.apiV1BuyersOrdersVacGet(createdWithOutBuyersProducts, opts).then((da
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createdWithOutBuyersProducts** | **Boolean**| Добавить ордеры с продуктами в которых не участвовали байеры? | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -590,10 +531,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BuyerApi();
-let guid = "guid_example"; // String | GUID продукта, который планируем изменить
+let guid = null; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject17() // InlineObject17 | 
+  'body': new TestSwagger.InlineObject24() // InlineObject24 | 
 };
 apiInstance.apiV1BuyersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -608,9 +549,9 @@ apiInstance.apiV1BuyersProductsGuidPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID продукта, который планируем изменить | 
+ **guid** | [**String**](.md)| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject17**](InlineObject17.md)|  | [optional] 
+ **body** | [**InlineObject24**](InlineObject24.md)|  | [optional] 
 
 ### Return type
 
@@ -682,7 +623,7 @@ Name | Type | Description  | Notes
 
 > String apiV1BuyersProductsPickupGuidPost(guid, opts)
 
-# Закрепить продукт за байером. Взять его в работу.
+
 
 ## Закрепить продукт за байером. Взять его в работу.  
 
@@ -698,7 +639,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BuyerApi();
-let guid = "guid_example"; // String | GUID продукта, который планируем изменить
+let guid = null; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -715,7 +656,7 @@ apiInstance.apiV1BuyersProductsPickupGuidPost(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| GUID продукта, который планируем изменить | 
+ **guid** | [**String**](.md)| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -806,7 +747,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BuyerApi();
-let guid = "guid_example"; // String | guid отменяемой задачи
+let guid = null; // String | guid отменяемой задачи
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -823,7 +764,7 @@ apiInstance.apiV1BuyersTasksCancelGuidPost(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | **String**| guid отменяемой задачи | 
+ **guid** | [**String**](.md)| guid отменяемой задачи | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -842,7 +783,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksGet
 
-> [InlineResponse2006] apiV1BuyersTasksGet(opts)
+> [InlineResponse2008] apiV1BuyersTasksGet(opts)
 
 # Показать все задачи данного пользователя.
 
@@ -880,7 +821,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2008]**](InlineResponse2008.md)
 
 ### Authorization
 
@@ -894,7 +835,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksPost
 
-> InlineResponse2012 apiV1BuyersTasksPost(opts)
+> InlineResponse2014 apiV1BuyersTasksPost(opts)
 
 # Создать задачу.
 
@@ -914,7 +855,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BuyerApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject22() // InlineObject22 | 
+  'body': new TestSwagger.InlineObject28() // InlineObject28 | 
 };
 apiInstance.apiV1BuyersTasksPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -930,11 +871,11 @@ apiInstance.apiV1BuyersTasksPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject22**](InlineObject22.md)|  | [optional] 
+ **body** | [**InlineObject28**](InlineObject28.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2012**](InlineResponse2012.md)
+[**InlineResponse2014**](InlineResponse2014.md)
 
 ### Authorization
 

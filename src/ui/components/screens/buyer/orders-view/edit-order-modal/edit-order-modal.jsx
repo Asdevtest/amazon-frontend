@@ -53,11 +53,10 @@ export const EditOrderModal = ({
   boxes,
   onTriggerOpenModal,
   modalHeadCells,
-  warehouses,
-  deliveryTypeByCode,
   onSubmitSaveOrder,
   showProgress,
   progressValue,
+  volumeWeightCoefficient,
 }) => {
   const classNames = useClassNames()
 
@@ -82,13 +81,10 @@ export const EditOrderModal = ({
 
   const [orderFields, setOrderFields] = useState({
     ...order,
-    warehouse: order?.warehouse || undefined,
-    deliveryMethod: order?.deliveryMethod || undefined,
     status: order?.status || undefined,
     clientComment: order?.clientComment || '',
     buyerComment: order?.buyerComment || '',
     deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || 0,
-    amountPaymentPerConsignmentAtDollars: order?.amountPaymentPerConsignmentAtDollars || 0,
     isBarCodeAlreadyAttachedByTheSupplier: order?.isBarCodeAlreadyAttachedByTheSupplier || false,
     trackId: '',
     material: order?.product?.material || '',
@@ -147,7 +143,7 @@ export const EditOrderModal = ({
   const disableSubmit =
     requestStatus === loadingStatuses.isLoading ||
     disabledOrderStatuses.includes(order.status) ||
-    orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
+    order.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
 
   return (
     <Box className={classNames.modalWrapper}>
@@ -159,8 +155,6 @@ export const EditOrderModal = ({
         <SelectFields
           photosToLoad={photosToLoad}
           order={order}
-          warehouses={warehouses}
-          deliveryTypeByCode={deliveryTypeByCode}
           setOrderField={setOrderField}
           orderFields={orderFields}
           showProgress={showProgress}
@@ -181,7 +175,7 @@ export const EditOrderModal = ({
 
         <Typography className={classNames.modalText}>{textConsts.suppliers}</Typography>
         <EditOrderSuppliersTable
-          selectedSupplier={orderFields.product.currentSupplier}
+          selectedSupplier={orderFields.orderSupplier}
           suppliers={orderFields.product.suppliers}
         />
       </Paper>
@@ -222,7 +216,13 @@ export const EditOrderModal = ({
       <div className={classNames.tableWrapper}>
         <Typography className={classNames.modalTitle}>{textConsts.boxesTitle}</Typography>
         {boxes.length > 0 ? (
-          <Table rowsOnly data={boxes} BodyRow={WarehouseBodyRow} renderHeadRow={renderHeadRow} />
+          <Table
+            rowsOnly
+            data={boxes}
+            BodyRow={WarehouseBodyRow}
+            renderHeadRow={renderHeadRow}
+            mainProductId={order.product._id}
+          />
         ) : (
           <Typography className={classNames.noBoxesText}>{textConsts.noBoxesYat}</Typography>
         )}
@@ -235,6 +235,7 @@ export const EditOrderModal = ({
       >
         <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
         <CreateBoxForm
+          volumeWeightCoefficient={volumeWeightCoefficient}
           formItem={orderFields}
           boxesForCreation={boxesForCreation}
           setBoxesForCreation={setBoxesForCreation}

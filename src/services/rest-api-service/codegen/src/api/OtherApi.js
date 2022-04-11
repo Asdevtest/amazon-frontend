@@ -14,9 +14,9 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineObject33 from '../model/InlineObject33';
+import InlineObject39 from '../model/InlineObject39';
 import InlineResponse2002 from '../model/InlineResponse2002';
-import InlineResponse2015 from '../model/InlineResponse2015';
+import InlineResponse2016 from '../model/InlineResponse2016';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -96,7 +96,7 @@ export default class OtherApi {
 
     /**
      * # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
-     * ## Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.  
+     * ## Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.  Админ видит все операции
      * @param {String} guid guid товара по которому нужны оплаты.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -134,7 +134,7 @@ export default class OtherApi {
 
     /**
      * # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
-     * ## Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.  
+     * ## Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.  Админ видит все операции
      * @param {String} guid guid товара по которому нужны оплаты.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -203,8 +203,8 @@ export default class OtherApi {
 
 
     /**
-     * # Получить все оплаты, которые были начислены обратившемуся пользователю.
-     * ## Получить все оплаты, которые были начислены обратившемуся пользователю.  
+     * # Получить все оплаты, которые были произведены обратившемся пользователем.
+     * ## Получить все оплаты, которые были произведены обратившемся пользователем.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
@@ -235,8 +235,8 @@ export default class OtherApi {
     }
 
     /**
-     * # Получить все оплаты, которые были начислены обратившемуся пользователю.
-     * ## Получить все оплаты, которые были начислены обратившемуся пользователю.  
+     * # Получить все оплаты, которые были произведены обратившемся пользователем.
+     * ## Получить все оплаты, которые были произведены обратившемся пользователем.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
@@ -254,7 +254,7 @@ export default class OtherApi {
      * ## Загрузить аватар.   Данный метод нужен для заливки аватара пользователем, при повторном вызове происходит обновление. Старая картинка затирается новой! картинка уменьшается до 300 на 300 точек(без обрезания). после сжиматься.  пример: \"https://amazonapi.fvds.ru/uploads/avatars/{userId}.webp\", где userId это GUID пользователя например, 90aac7d1-5777-4ef3-b29c-212f665a2543 https://amazonapi.fvds.ru/uploads/avatars/90aac7d1-5777-4ef3-b29c-212f665a2543.webp Проверки: Проверка расширений, доступные форматы:  'jpeg', 'jpg', 'png', 'webp', 'gif', 'avif', 'tiff' 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2016} and HTTP response
      */
     apiV1OtherUploadAvatarPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -273,7 +273,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2015;
+      let returnType = InlineResponse2016;
       return this.apiClient.callApi(
         '/api/v1/other/upload_avatar', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -286,7 +286,7 @@ export default class OtherApi {
      * ## Загрузить аватар.   Данный метод нужен для заливки аватара пользователем, при повторном вызове происходит обновление. Старая картинка затирается новой! картинка уменьшается до 300 на 300 точек(без обрезания). после сжиматься.  пример: \"https://amazonapi.fvds.ru/uploads/avatars/{userId}.webp\", где userId это GUID пользователя например, 90aac7d1-5777-4ef3-b29c-212f665a2543 https://amazonapi.fvds.ru/uploads/avatars/90aac7d1-5777-4ef3-b29c-212f665a2543.webp Проверки: Проверка расширений, доступные форматы:  'jpeg', 'jpg', 'png', 'webp', 'gif', 'avif', 'tiff' 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2016}
      */
     apiV1OtherUploadAvatarPost(opts) {
       return this.apiV1OtherUploadAvatarPostWithHttpInfo(opts)
@@ -298,11 +298,11 @@ export default class OtherApi {
 
     /**
      * # Загрузить изображение по ссылке.
-     * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
+     * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg Доступные форматы: jpeg, jpg, png, webp, gif, avif, tiff, pdf новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject33} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
+     * @param {module:model/InlineObject39} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2016} and HTTP response
      */
     apiV1OtherUploadFileByUrlPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -321,7 +321,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2015;
+      let returnType = InlineResponse2016;
       return this.apiClient.callApi(
         '/api/v1/other/upload_file_by_url', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -331,11 +331,11 @@ export default class OtherApi {
 
     /**
      * # Загрузить изображение по ссылке.
-     * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
+     * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg Доступные форматы: jpeg, jpg, png, webp, gif, avif, tiff, pdf новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject33} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
+     * @param {module:model/InlineObject39} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2016}
      */
     apiV1OtherUploadFileByUrlPost(opts) {
       return this.apiV1OtherUploadFileByUrlPostWithHttpInfo(opts)
@@ -350,7 +350,7 @@ export default class OtherApi {
      * ## Загрузить изображение.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2016} and HTTP response
      */
     apiV1OtherUploadFilePostWithHttpInfo(opts) {
       opts = opts || {};
@@ -369,7 +369,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2015;
+      let returnType = InlineResponse2016;
       return this.apiClient.callApi(
         '/api/v1/other/upload_file', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -382,7 +382,7 @@ export default class OtherApi {
      * ## Загрузить изображение.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2016}
      */
     apiV1OtherUploadFilePost(opts) {
       return this.apiV1OtherUploadFilePostWithHttpInfo(opts)

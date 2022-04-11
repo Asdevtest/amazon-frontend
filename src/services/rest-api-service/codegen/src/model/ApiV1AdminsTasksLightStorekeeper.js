@@ -47,8 +47,14 @@ class ApiV1AdminsTasksLightStorekeeper {
         if (data) {
             obj = obj || new ApiV1AdminsTasksLightStorekeeper();
 
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
         }
         return obj;
@@ -58,9 +64,19 @@ class ApiV1AdminsTasksLightStorekeeper {
 }
 
 /**
+ * @member {String} _id
+ */
+ApiV1AdminsTasksLightStorekeeper.prototype['_id'] = undefined;
+
+/**
  * @member {String} name
  */
 ApiV1AdminsTasksLightStorekeeper.prototype['name'] = undefined;
+
+/**
+ * @member {Number} rating
+ */
+ApiV1AdminsTasksLightStorekeeper.prototype['rating'] = undefined;
 
 
 

@@ -4,32 +4,32 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID продукта в базе данных | 
+**_id** | **String** | GUID продукта в базе данных | [optional] 
 **asin** | **String** | ASIN продукта | [optional] 
 **skusByClient** | **[String]** |  | [optional] 
+**suppliers** | [**[ApiV1AdminsGetProductsByStatusSuppliers]**](ApiV1AdminsGetProductsByStatusSuppliers.md) |  | [optional] 
 **material** | **String** |  | [optional] 
-**currentSupplier** | [**ApiV1AdminsGetProductsByStatusCurrentSupplier**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md) |  | [optional] 
+**currentSupplier** | [**ApiV1AdminsGetProductsByStatusSuppliers**](ApiV1AdminsGetProductsByStatusSuppliers.md) |  | [optional] 
 **currentSupplierId** | **String** | GUID поставщика в базе данных | [optional] 
 **category** | **String** | Категория | [optional] 
-**lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
+**lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
 **lsupplier** | **String** | Ссылка на поставщика. | [optional] 
-**bsr** | **Number** |  | 
-**fba** | **Boolean** | Признак fba | 
+**bsr** | **Number** |  | [optional] 
+**fba** | **Boolean** | Признак fba | [optional] 
 **fbm** | **Boolean** | Признак fbm | [optional] 
 **express** | **Boolean** | Признак экспресс доставки. | [optional] 
-**amazon** | **Number** |  | 
+**amazon** | **Number** |  | [optional] 
 **height** | **Number** | Высота | [optional] 
 **width** | **Number** | Ширина | [optional] 
 **length** | **Number** | Длинна | [optional] 
 **weight** | **Number** | Вес | [optional] 
-**suppliers** | [**[ApiV1AdminsGetProductsByStatusCurrentSupplier]**](ApiV1AdminsGetProductsByStatusCurrentSupplier.md) |  | 
 **reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
 **fbafee** | **Number** | ФБА комиссия | [optional] 
 **delivery** | **Number** | Стоимость доставки. | [optional] 
 **fbaamount** | **Number** |  Общая сумма с фба. | [optional] 
 **fbalink** | **String** | ФБА ссылка | [optional] 
 **status** | **Number** | Код текущего статуса | [optional] 
-**icomment** | **String** | Комментарии к товару. | 
+**icomment** | **String** | Комментарии к товару. | [optional] 
 **clientComment** | **String** | Комментарии к товару, от клиента. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 **checkednotes** | **String** |  | [optional] 
@@ -72,5 +72,9 @@ Name | Type | Description | Notes
 **listingSupplierCompetitors** | [**[ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]**](ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md) | Массив объектов: ссылки и комментарии к конкурентам | [optional] 
 **strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
 **needCheckBySupervisor** | **Boolean** | Признак needCheckBySupervisor | [optional] 
+**amountInOrders** | **Number** | Сколько такого продукта находится в заказах. | [optional] 
+**amountInBoxes** | **Number** | Сколько такого продукта находится в коробках. | [optional] 
+**archive** | **Boolean** | Флаг указывает что продукт в архиве. | [optional] 
+**hsCode** | **String** | hsCode продукта. | [optional] 
 
 

@@ -75,6 +75,7 @@ export const supervisorProductsDataConverter = data =>
     bsr: item.bsr,
     id: item._id,
     fbafee: item.fbafee,
+    asin: item.asin,
   }))
 
 export const buyerFinancesDataConverter = data =>
@@ -101,6 +102,7 @@ export const buyerProductsDataConverter = data =>
     bsr: item.bsr,
     id: item._id,
     fbaamount: item.fbaamount,
+    asin: item.asin,
   }))
 
 export const buyerMyOrdersDataConverter = data =>
@@ -108,7 +110,6 @@ export const buyerMyOrdersDataConverter = data =>
     originalData: item,
 
     barCode: item.product.barCode,
-    warehouses: warehouses[item.warehouse],
     deliveryMethod: DeliveryTypeByCode[item.deliveryMethod],
     status: OrderStatusByCode[item.status],
 
@@ -119,6 +120,10 @@ export const buyerMyOrdersDataConverter = data =>
     buyerComment: item.buyerComment,
 
     id: item._id,
+    asin: item.product.asin,
+    storekeeper: item.storekeeper?.name,
+    warehouses: item.destination?.name,
+    client: item.createdBy?.name,
   }))
 
 export const buyerVacantOrdersDataConverter = data =>
@@ -126,7 +131,8 @@ export const buyerVacantOrdersDataConverter = data =>
     originalData: item,
 
     barCode: item.product.barCode,
-    warehouses: warehouses[item.warehouse],
+    warehouses: item.destination?.name,
+
     deliveryMethod: DeliveryTypeByCode[item.deliveryMethod],
 
     createdAt: item.createdAt,
@@ -136,6 +142,9 @@ export const buyerVacantOrdersDataConverter = data =>
     buyerComment: item.buyerComment,
 
     id: item._id,
+    asin: item.product.asin,
+    storekeeper: item.storekeeper?.name,
+    client: item.createdBy?.name,
   }))
 
 export const clientProductsDataConverter = data =>
@@ -182,6 +191,13 @@ export const clientInventoryDataConverter = data =>
     fbafee: item.fbafee,
 
     id: item._id,
+    _id: item._id,
+    asin: item.asin,
+    amountInOrders: item.amountInOrders,
+    amountInBoxes: item.amountInBoxes,
+    stockValue: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.stockValue), 0),
+    reserved: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0),
+    inBoard: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0),
   }))
 
 export const clientCustomRequestsDataConverter = data =>
@@ -218,25 +234,16 @@ export const clientOrdersDataConverter = data =>
     barCode: item.product.barCode,
     totalPrice: item.totalPrice, // calcTotalPriceForOrder(item),
     grossWeightKg: item.product.weight * item.amount,
-    warehouses: warehouses[item.warehouse],
+    warehouses: item.destination?.name,
     status: OrderStatusByCode[item.status],
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     amount: item.amount,
     trackingNumberChina: item.trackingNumberChina,
+    asin: item.product.asin,
+    storekeeper: item.storekeeper?.name,
   }))
-
-// export const clientWarehouseTasksDataConverter = data =>
-//   data.map(item => ({
-//     originalData: item,
-
-//     createdAt: formatDateForShowWithoutParseISO(fromUnixTime(item.createdAt)),
-//     updatedAt: formatDateForShowWithoutParseISO(fromUnixTime(item.updateDate)),
-
-//     status: item.status
-
-//   }))
 
 export const clientWarehouseDataConverter = data =>
   data.map(item => ({
@@ -253,8 +260,7 @@ export const clientWarehouseDataConverter = data =>
       parseFloat(item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier) || 0,
     ),
     grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
-    warehouses: warehouses[item.warehouse],
-    deliveryMethod: DeliveryTypeByCode[item.deliveryMethod],
+    warehouses: item.destination?.name,
 
     isDraft: item.isDraft,
     createdAt: item.createdAt,
@@ -297,7 +303,7 @@ export const clientOrdersNotificationsDataConverter = data =>
     barCode: item.product.barCode,
     totalPrice: calcTotalPriceForOrder(item),
     grossWeightKg: item.product.weight * item.amount,
-    warehouses: warehouses[item.warehouse],
+    warehouses: item.destination.name,
     status: OrderStatusByCode[item.status],
 
     createdAt: item.createdAt,
@@ -306,6 +312,7 @@ export const clientOrdersNotificationsDataConverter = data =>
     totalPriceChanged: item.totalPriceChanged,
     deliveryCostToTheWarehouse: item.deliveryCostToTheWarehouse,
     buyerComment: item.buyerComment,
+    asin: item.product.asin,
   }))
 
 export const warehouseFinancesDataConverter = data =>
@@ -344,6 +351,7 @@ export const warehouseTasksDataConverter = data =>
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+    storekeeper: item.storekeeper?.name,
   }))
 
 export const adminProductsDataConverter = data =>
@@ -363,6 +371,11 @@ export const adminProductsDataConverter = data =>
     fbafee: item.fbafee,
     fbaamount: item.fbaamount,
     barCode: item.barCode,
+    asin: item.asin,
+    clientName: item.client?.name,
+    createdBy: item.createdBy?.name,
+    supervisor: item.checkedBy?.name,
+    buyer: item.buyer?.name,
   }))
 
 export const adminOrdersDataConverter = data =>
@@ -373,13 +386,16 @@ export const adminOrdersDataConverter = data =>
     barCode: item.product.barCode,
     totalPrice: calcTotalPriceForOrder(item),
     grossWeightKg: item.product.weight * item.amount,
-    warehouses: warehouses[item.warehouse],
     status: OrderStatusByCode[item.status],
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     amount: item.amount,
     trackingNumberChina: item.trackingNumberChina,
+    asin: item.product.asin,
+    buyer: item.buyer?.name,
+    storekeeper: item.storekeeper?.name,
+    warehouses: item.destination?.name,
   }))
 
 export const adminTasksDataConverter = data =>
@@ -408,9 +424,10 @@ export const adminBoxesDataConverter = data =>
     trackingNumberChina: item.items[0].order.trackingNumberChina,
     finalWeight: calcFinalWeightForBox(item),
     grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
-    warehouses: warehouses[item.warehouse],
 
-    client: item.createdBy.name,
+    warehouses: item.destination?.name,
+
+    client: item.items[0].product.client.name,
     storekeeper: item.storekeeper?.name,
 
     humanFriendlyId: item.humanFriendlyId,
@@ -418,6 +435,24 @@ export const adminBoxesDataConverter = data =>
     isDraft: item.isDraft,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+  }))
+
+export const warehouseBoxesDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    _id: item._id,
+
+    warehouse: item.destination?.name,
+
+    client: item.items[0].product.client.name,
+
+    humanFriendlyId: item.humanFriendlyId,
+
+    isDraft: item.isDraft,
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    batchId: item.batchId,
   }))
 
 export const adminBatchesDataConverter = data =>

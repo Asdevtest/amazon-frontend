@@ -5,10 +5,12 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {SellerBoardModel} from '@models/seller-board-model'
 import {SettingsModel} from '@models/settings-model'
+import {ShopModel} from '@models/shop-model'
 
 import {clientLast30DaySellerBoardColumns} from '@components/table-columns/client/client-last-30-day-seller-board-columns copy'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class ClientLast30DaySellerBoardViewModel {
@@ -18,6 +20,8 @@ export class ClientLast30DaySellerBoardViewModel {
 
   sellerBoardLast30DayData = []
   drawerOpen = false
+
+  shopsData = []
 
   sortModel = []
   filterModel = {items: []}
@@ -82,9 +86,29 @@ export class ClientLast30DaySellerBoardViewModel {
     return toJS(this.sellerBoardLast30DayData)
   }
 
+  onClickShopBtn(shop) {
+    this.currentShop = shop ? shop : undefined
+
+    this.getMyDailyReportsLast30Days()
+  }
+
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShops()
+      runInAction(() => {
+        this.shopsData = addIdDataConverter(result)
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      await this.getShops()
+
       await this.getMyDailyReportsLast30Days()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -103,10 +127,12 @@ export class ClientLast30DaySellerBoardViewModel {
 
   async getMyDailyReportsLast30Days() {
     try {
-      const result = await SellerBoardModel.getMyDailyReportsLast30Days()
+      const result = await SellerBoardModel.getMyDailyReportsLast30Days(
+        this.currentShop && {shopId: this.currentShop._id},
+      )
 
       runInAction(() => {
-        this.sellerBoardLast30DayData = addIdDataConverter(result)
+        this.sellerBoardLast30DayData = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('date'))
       })
     } catch (error) {
       console.log(error)

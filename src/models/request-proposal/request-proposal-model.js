@@ -12,7 +12,7 @@ class RequestProposalModelStatic {
   }
 
   updateRequestProposalCustom = async (id, data) => {
-    const response = await restApiService.SearchRequestProposalApi.apiV1RequestProposalsCustomGuidPatch(id, {
+    const response = await restApiService.SearchRequestProposalApi.apiV1RequestProposalsGuidProposalEditPatch(id, {
       body: data,
     })
     return response

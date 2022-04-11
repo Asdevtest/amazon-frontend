@@ -38,9 +38,9 @@ export const NavbarCollapse = ({activeCategory, activeSubCategory, category, ind
         {category.subtitles?.map((subCategory, subIndex) =>
           subCategory.checkHideSubBlock
             ? subCategory.checkHideSubBlock(userInfo)
-              ? renderSubCategory(subIndex, subCategory)
+              ? renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory)
               : null
-            : renderSubCategory(subIndex, subCategory),
+            : renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory),
         )}
       </List>
     </Collapse>

@@ -4,7 +4,7 @@ import {Typography, Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
@@ -17,6 +17,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
 import {Navbar} from '@components/navbar'
 import {OwnerGeneralRequestInfo} from '@components/requests-and-request-proposals/owner-general-request-info'
+import {DealsOfRequest} from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
 import {CustomSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 
@@ -28,7 +29,7 @@ import {styles} from './owner-requests-detail-custom-view.style'
 const textConsts = getLocalizedTexts(texts, 'ru').CustomRequestView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = 1
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS
 @observer
 export class OwnerRequestDetailCustomViewRaw extends Component {
   viewModel = new OwnerRequestDetailCustomViewModel({
@@ -78,17 +79,25 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
         <Main>
           <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <OwnerGeneralRequestInfo
-                request={request}
-                onClickPublishBtn={onClickPublishBtn}
-                onClickEditBtn={onClickEditBtn}
-                onClickCancelBtn={onClickCancelBtn}
-                onClickAbortBtn={onClickAbortBtn}
-              />
+              {request ? (
+                <OwnerGeneralRequestInfo
+                  request={request}
+                  onClickPublishBtn={onClickPublishBtn}
+                  onClickEditBtn={onClickEditBtn}
+                  onClickCancelBtn={onClickCancelBtn}
+                  onClickAbortBtn={onClickAbortBtn}
+                />
+              ) : null}
 
               <div className={classNames.detailsWrapper}>
                 <CustomSearchRequestDetails request={request} />
               </div>
+
+              {requestProposals ? (
+                <div className={classNames.detailsWrapper}>
+                  <DealsOfRequest requestProposals={requestProposals} />
+                </div>
+              ) : null}
 
               <Paper className={classNames.proposalsWrapper}>
                 {requestProposals.map(item => (
