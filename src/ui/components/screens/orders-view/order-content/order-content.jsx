@@ -86,7 +86,13 @@ export const OrderContent = ({order, boxes, history, onClickCancelOrder}) => {
           <div className={classNames.tableWrapper}>
             <Typography className={classNames.tableText}>{textConsts.boxesAtOrder}</Typography>
             {boxes.length > 0 ? (
-              <Table rowsOnly data={boxes} BodyRow={WarehouseBodyRow} renderHeadRow={renderHeadRow} />
+              <Table
+                rowsOnly
+                data={boxes}
+                BodyRow={WarehouseBodyRow}
+                renderHeadRow={renderHeadRow}
+                mainProductId={order.product._id}
+              />
             ) : (
               <Typography className={classNames.noBoxesText}>{textConsts.noBoxes}</Typography>
             )}
