@@ -21,18 +21,18 @@ export enum ChatInputMode {
 interface Props {
   messages: ChatMessageContract[]
   userId: string
-  onSubmitMessage: (message: string, links: string[], files: string[]) => void
+  onSubmitMessage: (message: string, links: string[] /* , files: string[]*/) => void
 }
 
 export const Chat: FC<Props> = observer(({messages, userId, onSubmitMessage}) => {
   const [inputMode, setInputMode] = useState<ChatInputMode>(ChatInputMode.TEXT)
   const [message, setMessage] = useState('')
   const [links, setLinks] = useState<string[]>([''])
-  const [files, setFiles] = useState<string[]>([])
+  // const [files, setFiles] = useState<string[]>([])
   const classNames = useClassNames()
 
   const onSubmitMessageInternal = () => {
-    onSubmitMessage(message, links, files)
+    onSubmitMessage(message, links /* , files*/)
     setMessage('')
   }
 
