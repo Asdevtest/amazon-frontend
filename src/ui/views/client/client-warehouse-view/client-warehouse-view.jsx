@@ -347,6 +347,7 @@ export class ClientWarehouseViewRaw extends Component {
     const {
       selectedBoxes,
       isMasterBoxSelected,
+      isOneItemInBox,
       onClickRequestToSendBatch,
       onClickEditBtn,
       onClickMergeBtn,
@@ -376,7 +377,7 @@ export class ClientWarehouseViewRaw extends Component {
 
         <Button
           disableElevation
-          disabled={selectedBoxes.length !== 1}
+          disabled={selectedBoxes.length !== 1 || isOneItemInBox}
           color="primary"
           variant="contained"
           onClick={onClickSplitBtn}

@@ -216,7 +216,13 @@ export const EditOrderModal = ({
       <div className={classNames.tableWrapper}>
         <Typography className={classNames.modalTitle}>{textConsts.boxesTitle}</Typography>
         {boxes.length > 0 ? (
-          <Table rowsOnly data={boxes} BodyRow={WarehouseBodyRow} renderHeadRow={renderHeadRow} />
+          <Table
+            rowsOnly
+            data={boxes}
+            BodyRow={WarehouseBodyRow}
+            renderHeadRow={renderHeadRow}
+            mainProductId={order.product._id}
+          />
         ) : (
           <Typography className={classNames.noBoxesText}>{textConsts.noBoxesYat}</Typography>
         )}

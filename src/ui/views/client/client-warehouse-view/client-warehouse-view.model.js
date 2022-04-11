@@ -100,6 +100,11 @@ export class ClientWarehouseViewModel {
     })
   }
 
+  get isOneItemInBox() {
+    const findBox = this.boxesMy.find(box => box._id === this.selectedBoxes[0])
+    return findBox?.originalData.items.reduce((ac, cur) => (ac += cur.amount), 0) <= 1
+  }
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -323,6 +328,10 @@ export class ClientWarehouseViewModel {
 
   onRemoveBoxFromSelected(boxId) {
     this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
+
+    if (this.selectedBoxes.length < 2) {
+      this.onTriggerOpenModal('showMergeBoxModal')
+    }
   }
 
   async onEditBoxSubmit(id, boxData, sourceData) {

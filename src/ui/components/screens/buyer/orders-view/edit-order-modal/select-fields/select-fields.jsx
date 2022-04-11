@@ -166,7 +166,10 @@ export const SelectFields = ({
                   }
                   className={classNames.input}
                   onChange={e => {
-                    if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+                    if (
+                      checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
+                      e.target.value < priceYuansForBatch
+                    ) {
                       setPriceYuansDeliveryCostToTheWarehouse(e.target.value)
                       setOrderField('deliveryCostToTheWarehouse')({
                         target: {
@@ -234,7 +237,9 @@ export const SelectFields = ({
                   inputProps={{maxLength: 10}}
                   value={orderFields.deliveryCostToTheWarehouse}
                   className={classNames.input}
-                  onChange={setOrderField('deliveryCostToTheWarehouse')}
+                  onChange={e =>
+                    +e.target.value < orderFields.totalPriceChanged && setOrderField('deliveryCostToTheWarehouse')(e)
+                  }
                 />
               </div>
             </div>

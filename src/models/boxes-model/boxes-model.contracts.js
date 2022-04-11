@@ -98,14 +98,6 @@ export class BoxesWarehouseUpdateBoxInTaskContract {
   @IsNumber()
   weighGrossKgWarehouse
 
-  @IsNotEmpty()
-  @IsNumber()
-  volumeWeightKgWarehouse
-
-  @IsNotEmpty()
-  @IsNumber()
-  weightFinalAccountingKgWarehouse
-
   @IsOptional()
   @IsBoolean()
   isShippingLabelAttachedByStorekeeper
