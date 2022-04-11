@@ -6,8 +6,6 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
-import {warehouses} from '@constants/warehouses'
-
 import {Button} from '@components/buttons/button'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
@@ -108,7 +106,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
         {orderIndex === 0 && (
           <React.Fragment>
-            <TableCell rowSpan={ordersQty}>{warehouses[box.warehouse]}</TableCell>
+            <TableCell rowSpan={ordersQty}>{box.destination.name}</TableCell>
             <TableCell rowSpan={ordersQty}>{'ID: ' + box.humanFriendlyId}</TableCell>
           </React.Fragment>
         )}

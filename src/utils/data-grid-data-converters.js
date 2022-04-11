@@ -303,7 +303,7 @@ export const clientOrdersNotificationsDataConverter = data =>
     barCode: item.product.barCode,
     totalPrice: calcTotalPriceForOrder(item),
     grossWeightKg: item.product.weight * item.amount,
-    warehouses: warehouses[item.warehouse],
+    warehouses: item.destination.name,
     status: OrderStatusByCode[item.status],
 
     createdAt: item.createdAt,

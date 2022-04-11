@@ -145,6 +145,7 @@ const Box = ({
 
             <Field
               disabled={!isNewBox}
+              inputProps={{maxLength: 255}}
               containerClasses={classNames.field}
               label={'FBA SHIPMENT'}
               value={box.fbaShipment}

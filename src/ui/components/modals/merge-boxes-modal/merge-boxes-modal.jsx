@@ -160,6 +160,7 @@ export const MergeBoxesModal = ({
 
         <Field
           containerClasses={classNames.field}
+          inputProps={{maxLength: 255}}
           label={'FBA SHIPMENT'}
           value={boxBody.fbaShipment}
           onChange={e => setBoxBody({...boxBody, fbaShipment: e.target.value})}

@@ -110,13 +110,6 @@ class BoxesModelStatic {
     const response = await restApiService.boxesApi.apiV1BoxesSendBoxesToBatchPost({body: {boxesIds}})
     return response
   }
-
-  requestSendBoxToBatch = async boxesIds => {
-    const response = await restApiService.boxesApi.apiV1BoxesRequestSendBoxesToBatchPost({
-      body: {cancel: false, boxesIds},
-    })
-    return response
-  }
 }
 
 export const BoxesModel = new BoxesModelStatic()

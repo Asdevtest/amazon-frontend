@@ -243,6 +243,7 @@ export const EditBoxForm = observer(
 
               <Field
                 containerClasses={classNames.field}
+                inputProps={{maxLength: 255}}
                 label={'FBA SHIPMENT'}
                 value={boxFields.fbaShipment}
                 onChange={setFormField('fbaShipment')}

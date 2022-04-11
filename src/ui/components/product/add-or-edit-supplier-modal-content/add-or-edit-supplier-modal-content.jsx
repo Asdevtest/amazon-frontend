@@ -236,7 +236,7 @@ export const AddOrEditSupplierModalContent = observer(
         !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)
       ) {
         return
-      } else if (['minlot', 'amount'].includes(fieldName)) {
+      } else if (['minlot', 'amount', 'amountInBox'].includes(fieldName)) {
         setTmpSupplier({...tmpSupplier, [fieldName]: parseInt(event.target.value) || ''})
       } else if (['price'].includes(fieldName)) {
         setTmpSupplier({

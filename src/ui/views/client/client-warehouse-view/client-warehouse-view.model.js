@@ -629,7 +629,7 @@ export class ClientWarehouseViewModel {
       const boxesSendToBatch = this.selectedBoxes.filter(
         selectedBoxId => this.boxesDeliveryCosts.find(priceObj => priceObj.guid === selectedBoxId)?.deliveryCost,
       )
-      await BoxesModel.requestSendBoxToBatch(boxesSendToBatch)
+      await BatchesModel.requestSendBoxToBatch(boxesSendToBatch)
       runInAction(() => {
         this.showRequestToSendBatchModal = false
         this.selectedBoxes = []
