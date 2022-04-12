@@ -14,7 +14,7 @@ interface Props {
   chats: ChatContract[]
   userId: string
   chatSelectedId?: string
-  onSubmitMessage: (message: string, chat: string) => void
+  onSubmitMessage: (message: string, files: any, chat: string) => void
   onClickChat: (chat: ChatContract) => void
 }
 
@@ -33,7 +33,7 @@ export const MultipleChats = observer(
               userId={userId}
               messages={findChatByChatId.messages}
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              onSubmitMessage={(message: string) => onSubmitMessage(message, chatSelectedId!)}
+              onSubmitMessage={(message: string, files: any) => onSubmitMessage(message, files, chatSelectedId!)}
             />
           ) : undefined}
         </div>

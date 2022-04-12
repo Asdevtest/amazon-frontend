@@ -2,6 +2,9 @@ import {plainToClass} from 'class-transformer'
 import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {BACKEND_API_URL} from '@constants/env'
+
+import {OtherModel} from '@models/other-model'
 import {UserModel} from '@models/user-model'
 
 import {WebsocketChatService} from '@services/websocket-chat-service'
@@ -17,6 +20,8 @@ class ChatModelStatic {
   public isConnected?: boolean // undefined in case if not initilized
 
   public chats: ChatContract[] = []
+
+  public loadedFiles: string[] = []
 
   constructor() {
     console.log('ChatModelStatic constructor')
@@ -65,8 +70,28 @@ class ChatModelStatic {
           messages: chat.messages,
         }))
       })
+
+      console.log('this.chats', this.chats)
     } catch (error) {
       console.warn(error)
+    }
+  }
+
+  public async onPostFile(fileData: File) {
+    const formData = new FormData()
+
+    const fileWithoutSpaces = new File([fileData], fileData.name.replace(/ /g, ''), {
+      type: fileData.type,
+      lastModified: fileData.lastModified,
+    })
+
+    formData.append('filename', fileWithoutSpaces)
+
+    try {
+      const imageFile: any = await OtherModel.postImage(formData)
+      this.loadedFiles.push(BACKEND_API_URL + '/uploads/' + imageFile.data.fileName)
+    } catch (error) {
+      console.log('error', error)
     }
   }
 
@@ -74,8 +99,21 @@ class ChatModelStatic {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
-    await transformAndValidate(SendMessageRequestParamsContract, params)
-    const sendMessageResult = await this.websocketChatService.sendMessage(params)
+
+    if (params?.files?.length) {
+      for (let i = 0; i < params.files.length; i++) {
+        const file: File = params.files[i]
+
+        await this.onPostFile(file)
+      }
+    }
+
+    const paramsWithLoadedFiles = {...params, files: this.loadedFiles}
+    this.loadedFiles = []
+
+    await transformAndValidate(SendMessageRequestParamsContract, paramsWithLoadedFiles)
+
+    const sendMessageResult = await this.websocketChatService.sendMessage(paramsWithLoadedFiles)
     return plainToClass(ChatMessageContract, sendMessageResult)
   }
 

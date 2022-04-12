@@ -2,14 +2,21 @@ import React, {FC} from 'react'
 
 import clsx from 'clsx'
 
+import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+
 import {Button} from '@components/buttons/button'
+
+import {formatNormDateTime} from '@utils/date-time'
+import {toFixedWithDollarSign} from '@utils/text'
 
 import {LabelValuePairBlock} from '../label-value-pair-block'
 import {useClassNames} from './chat-message-proposal.style'
 
-interface Props {}
+interface Props {
+  message: ChatMessageContract
+}
 
-export const ChatMessageProposal: FC<Props> = () => {
+export const ChatMessageProposal: FC<Props> = ({message}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.root}>
@@ -18,24 +25,27 @@ export const ChatMessageProposal: FC<Props> = () => {
           <p className={classNames.headerText}>ПРЕДЛОЖЕНИЕ</p>
         </div>
         <div className={classNames.timeWrapper}>
-          <p className={classNames.timeText}>17:00</p>
+          <p className={classNames.timeText}>{formatNormDateTime(message.updatedAt)}</p>
         </div>
       </div>
       <div className={classNames.mainInfoWrapper}>
-        <div className={classNames.titleWrapper}>
+        {/* <div className={classNames.titleWrapper}>
           <p className={classNames.titleText}>Сделаю за другую сумму</p>
-        </div>
+        </div> */}
         <div className={classNames.descriptionWrapper}>
-          <p className={classNames.descriptionText}>Добрый день! Готов выполнить задачу. Смогу справиться за 1 день!</p>
+          <p className={classNames.descriptionText}>{message.text}</p>
         </div>
       </div>
       <div className={classNames.footerWrapper}>
         <div className={classNames.leftSide}>
           <div className={classNames.labelValueBlockWrapper}>
-            <LabelValuePairBlock label="Время на выполнение" value="24 часа" />
+            <LabelValuePairBlock
+              label="Время на выполнение"
+              value={`${(message.data?.execution_time || 0) / 60} часов`}
+            />
           </div>
           <div className={clsx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
-            <LabelValuePairBlock label="Стоимость" value="30 $" />
+            <LabelValuePairBlock label="Стоимость" value={toFixedWithDollarSign(message.data?.price, 2)} />
           </div>
         </div>
         <div className={classNames.rightSide}>

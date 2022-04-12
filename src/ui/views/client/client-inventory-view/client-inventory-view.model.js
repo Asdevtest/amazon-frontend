@@ -8,7 +8,6 @@ import {texts} from '@constants/texts'
 
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
-import {ResearcherModel} from '@models/researcher-model'
 import {SellerBoardModel} from '@models/seller-board-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
@@ -475,7 +474,7 @@ export class ClientInventoryViewModel {
 
   async parseAmazon(asin) {
     try {
-      const parseResult = await ResearcherModel.parseAmazon(asin)
+      const parseResult = await ProductModel.parseAmazon(asin)
 
       runInAction(() => {
         if (Object.keys(parseResult).length > 5) {
@@ -497,7 +496,7 @@ export class ClientInventoryViewModel {
 
   async parseParseSellerCentral(asin) {
     try {
-      const parseResult = await ResearcherModel.parseParseSellerCentral(asin)
+      const parseResult = await ProductModel.parseParseSellerCentral(asin)
 
       runInAction(() => {
         if (Object.keys(parseResult).length > 5) {

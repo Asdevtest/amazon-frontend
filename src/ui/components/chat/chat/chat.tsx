@@ -7,6 +7,7 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 
 import {Button} from '@components/buttons/button'
 
+import {ChatFilesInput} from './chat-files-input'
 import {ChatLinksInput} from './chat-links-input'
 import {ChatMessagesList} from './chat-messages-list'
 import {ChatTextInput} from './chat-text-input'
@@ -21,18 +22,18 @@ export enum ChatInputMode {
 interface Props {
   messages: ChatMessageContract[]
   userId: string
-  onSubmitMessage: (message: string, links: string[] /* , files: string[]*/) => void
+  onSubmitMessage: (message: string, /* links: string[],*/ files: any[]) => void
 }
 
 export const Chat: FC<Props> = observer(({messages, userId, onSubmitMessage}) => {
   const [inputMode, setInputMode] = useState<ChatInputMode>(ChatInputMode.TEXT)
   const [message, setMessage] = useState('')
   const [links, setLinks] = useState<string[]>([''])
-  // const [files, setFiles] = useState<string[]>([])
+  const [files, setFiles] = useState<any[]>([])
   const classNames = useClassNames()
 
   const onSubmitMessageInternal = () => {
-    onSubmitMessage(message, links /* , files*/)
+    onSubmitMessage(message, /* links,*/ files)
     setMessage('')
   }
 
@@ -67,7 +68,7 @@ export const Chat: FC<Props> = observer(({messages, userId, onSubmitMessage}) =>
                 />
               )
             case ChatInputMode.FILES:
-              return <div />
+              return <ChatFilesInput files={files} setFiles={setFiles} />
             case ChatInputMode.LINKS:
               return <ChatLinksInput links={links} setLink={setLink} />
           }

@@ -42,4 +42,18 @@ export const useClassNames = makeStyles(() => ({
     width: '32px',
   },
   messageAvatarWrapperIsIncomming: {},
+
+  timeText: {
+    fontSize: '10px',
+    textAlign: 'center',
+  },
+
+  linkText: {
+    fontSize: '10px',
+    textAlign: 'center',
+    overflow: 'auto',
+    maxHeight: '40px',
+    maxWidth: '200px',
+    whiteSpace: 'nowrap',
+  },
 }))

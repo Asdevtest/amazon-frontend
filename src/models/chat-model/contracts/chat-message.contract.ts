@@ -16,6 +16,9 @@ export class ChatMessageContract implements TWebsocketChatService.ChatMessage {
   @IsString()
   public text!: string
   @IsNotEmpty()
+  @IsString()
+  public type!: string
+  @IsNotEmpty()
   @IsString({each: true})
   public images!: string[]
   @IsNotEmpty()
@@ -30,4 +33,6 @@ export class ChatMessageContract implements TWebsocketChatService.ChatMessage {
   @IsNotEmpty()
   @IsString()
   public updatedAt!: string
+  @IsOptional()
+  public data?: {price: string; execution_time: number; status: string; title?: string; timeoutAt?: string}
 }

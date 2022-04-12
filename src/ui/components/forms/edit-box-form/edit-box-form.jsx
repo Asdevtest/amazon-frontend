@@ -219,12 +219,12 @@ export const EditBoxForm = observer(
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {boxFields.storekeeperId
-                      ? `${storekeepers.find(el => el._id === boxFields.storekeeperId).name} /  
+                      ? `${storekeepers.find(el => el._id === boxFields.storekeeperId)?.name || 'N/A'} /  
                         ${
                           boxFields.storekeeperId
                             ? storekeepers
                                 .find(el => el._id === boxFields.storekeeperId)
-                                .tariffLogistics.find(el => el._id === boxFields.logicsTariffId).name
+                                .tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.name || 'N/A'
                             : 'none'
                         }`
                       : 'Выбрать'}

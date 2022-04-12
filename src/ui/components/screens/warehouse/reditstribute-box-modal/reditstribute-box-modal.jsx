@@ -130,12 +130,12 @@ const Box = ({
                   onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                 >
                   {box.logicsTariffId
-                    ? `${storekeepers.find(el => el._id === box.storekeeperId).name} /  
+                    ? `${storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'} /  
                       ${
                         box.logicsTariffId
                           ? storekeepers
                               .find(el => el._id === box.storekeeperId)
-                              .tariffLogistics.find(el => el._id === box.logicsTariffId).name
+                              .tariffLogistics.find(el => el._id === box.logicsTariffId)?.name || 'N/A'
                           : 'none'
                       }`
                     : 'Выбрать'}

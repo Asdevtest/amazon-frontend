@@ -17,7 +17,7 @@ export interface SendMessageRequestParams {
   chatId: string
   text: string
   images?: string[]
-  files?: string[]
+  files?: any[]
   is_draft?: boolean
 }
 
@@ -26,6 +26,7 @@ export interface ChatMessage {
   userId: string
   chatId: string
   text: string
+  type: string
   images: string[]
   files: string[]
   is_draft?: boolean
