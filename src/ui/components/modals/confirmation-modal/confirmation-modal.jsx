@@ -50,11 +50,23 @@ export const ConfirmationModal = ({
         </Typography>
         <div className={clsx(classNames.buttonsWrapper, {[classNames.warningButtonsWrapper]: isWarning})}>
           {isWarning ? (
-            <ErrorButton disableElevation disabled={submitIsClicked} variant="contained" onClick={onSubmit}>
+            <ErrorButton
+              disableElevation
+              className={classNames.button}
+              disabled={submitIsClicked}
+              variant="contained"
+              onClick={onSubmit}
+            >
               {successBtnText}
             </ErrorButton>
           ) : (
-            <SuccessButton disableElevation disabled={submitIsClicked} variant="contained" onClick={onSubmit}>
+            <SuccessButton
+              disableElevation
+              className={classNames.button}
+              disabled={submitIsClicked}
+              variant="contained"
+              onClick={onSubmit}
+            >
               {successBtnText}
             </SuccessButton>
           )}

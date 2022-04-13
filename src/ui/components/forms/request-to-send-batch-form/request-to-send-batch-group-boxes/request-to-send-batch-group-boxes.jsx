@@ -2,9 +2,7 @@ import React from 'react'
 
 import {Typography} from '@material-ui/core'
 
-import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {texts} from '@constants/texts'
-import {warehouses} from '@constants/warehouses'
 
 import {calcFinalWeightForBox} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -16,6 +14,7 @@ import {useClassNames} from './request-to-send-batch-group-boxes.style'
 const textConsts = getLocalizedTexts(texts, 'ru').requestToSendBatchModal
 
 export const RequestToSendBatchesGroupBoxes = ({
+  volumeWeightCoefficient,
   selectedGroup,
   boxesMy,
   boxesDeliveryCosts,
@@ -29,15 +28,12 @@ export const RequestToSendBatchesGroupBoxes = ({
   )
 
   const totalWeight = selectedGroup.boxes.reduce((acc, cur) => acc + calcFinalWeightForBox(cur), 0)
-  const warehousesBox = selectedGroup.warehouse
-
-  const deliveryMethod = selectedGroup.deliveryMethod
 
   return (
     <div className={classNames.tableWrapper}>
       {selectedGroup.price !== 0 && (
         <Typography className={classNames.tableWrapperInfo}>
-          {`Склад: ${warehouses[warehousesBox]} , Способ доставки: ${DeliveryTypeByCode[deliveryMethod]}`}
+          {`Destination: ${selectedGroup.destination?.name} , Промежуточный склад: ${selectedGroup.storekeeper?.name}`}
         </Typography>
       )}
 
@@ -51,6 +47,7 @@ export const RequestToSendBatchesGroupBoxes = ({
           return (
             <div key={`requestToSendBatchModalBox_${findBox._id}_${index}`} className={classNames.boxWrapper}>
               <RequestToSendBatchBox
+                volumeWeightCoefficient={volumeWeightCoefficient}
                 box={findBox}
                 index={index}
                 price={findRequestToSendBatchPriceForCurBox?.deliveryCost}

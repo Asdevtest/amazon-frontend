@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {IconButton, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Checkbox, IconButton, TableCell, TableRow, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import {texts} from '@constants/texts'
@@ -34,7 +34,7 @@ const renderHeadRow = (
   </TableRow>
 )
 
-const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
+const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
   const classNames = useClassNames()
 
   return (
@@ -121,6 +121,19 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           />
         </div>
       </TableCell>
+
+      <TableCell>
+        <div className={classNames.checkboxWithLabelWrapper}>
+          <Checkbox
+            color="primary"
+            disabled={!restProps.barcodeIsExist}
+            checked={item.isBarCodeAlreadyAttachedByTheSupplier}
+            onChange={e => handlers.onClickBarcodeCheckbox(itemIndex)(e)}
+          />
+          <Typography>{textConsts.supplierAddBarCode}</Typography>
+        </div>
+      </TableCell>
+
       <TableCell>
         <div className={classNames.normalCell}>
           <IconButton onClick={() => handlers.onRemoveBox(itemIndex)}>
@@ -132,7 +145,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
   )
 }
 
-export const BoxesToCreateTable = ({newBoxes, onRemoveBox}) => {
+export const BoxesToCreateTable = ({barcodeIsExist, newBoxes, onRemoveBox, onClickBarcodeCheckbox}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.newBoxes}>
@@ -145,7 +158,8 @@ export const BoxesToCreateTable = ({newBoxes, onRemoveBox}) => {
         data={newBoxes}
         BodyRow={TableBodyBoxRow}
         renderHeadRow={renderHeadRow}
-        rowsHandlers={{onRemoveBox}}
+        rowsHandlers={{onRemoveBox, onClickBarcodeCheckbox}}
+        barcodeIsExist={barcodeIsExist}
       />
     </div>
   )

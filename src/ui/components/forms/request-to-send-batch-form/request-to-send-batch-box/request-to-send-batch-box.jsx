@@ -12,7 +12,7 @@ import {checkAndMakeAbsoluteUrl, toFixedWithDollarSign, toFixedWithKg} from '@ut
 
 import {useClassNames} from './request-to-send-batch-box.styles'
 
-export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBatch}) => {
+export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBatch, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
   const tableCellClsx = clsx(classNames.tableCell, {[classNames.boxNoPrice]: !price})
   const noShippingLabelClsx = clsx({[classNames.noShippingLabel]: !box.shippingLabel})
@@ -64,10 +64,10 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
         <Typography variant="subtitle1">{`Реальный вес: ${toFixedWithKg(
           box.weighGrossKgWarehouse,
           2,
-        )}; Объемный вес: ${toFixedWithKg(box.volumeWeightKgWarehouse, 2)}; Финальный вес: ${toFixedWithKg(
-          calcFinalWeightForBox(box),
+        )}; Объемный вес: ${toFixedWithKg(
+          (box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / volumeWeightCoefficient,
           2,
-        )}`}</Typography>
+        )}; Финальный вес: ${toFixedWithKg(calcFinalWeightForBox(box), 2)}`}</Typography>
       </td>
       <td className={clsx(tableCellClsx, classNames.shippingLabelCell)}>
         <div>

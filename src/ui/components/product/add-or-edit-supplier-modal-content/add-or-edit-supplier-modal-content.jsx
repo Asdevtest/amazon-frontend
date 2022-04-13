@@ -188,6 +188,19 @@ export const AddOrEditSupplierModalContent = observer(
                     name: '',
                     price: '',
                     images: [],
+
+                    priceInYuan: '',
+                    batchDeliveryCostInDollar: 0,
+                    batchDeliveryCostInYuan: 0,
+                    batchTotalCostInDollar: '',
+                    batchTotalCostInYuan: '',
+
+                    amountInBox: '',
+                    boxLengthCm: '',
+                    boxWidthCm: '',
+                    boxHeightCm: '',
+                    boxWeighGrossKg: '',
+                    boxVolumeWeightKg: '',
                   })
 
                   setPhotosOfSupplier(() => [])

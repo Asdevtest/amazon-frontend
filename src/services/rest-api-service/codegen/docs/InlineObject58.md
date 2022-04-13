@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Статус | [optional] 
+**name** | **String** | Название услуги | [optional] 
+**description** | **String** | Описание услуги | [optional] 
+**price** | **Number** | Цена услуги. | 
 
 

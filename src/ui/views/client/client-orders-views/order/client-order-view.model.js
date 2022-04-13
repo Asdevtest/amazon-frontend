@@ -4,6 +4,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
+import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 
@@ -13,6 +14,8 @@ export class ClientOrderViewModel {
   error = undefined
 
   orderBoxes = []
+
+  volumeWeightCoefficient = undefined
 
   drawerOpen = false
   orderBase = undefined
@@ -33,9 +36,23 @@ export class ClientOrderViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getBoxesOfOrder(this.order._id)
+      await this.getVolumeWeightCoefficient()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getVolumeWeightCoefficient() {
+    try {
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+    } catch (error) {
       console.log(error)
     }
   }

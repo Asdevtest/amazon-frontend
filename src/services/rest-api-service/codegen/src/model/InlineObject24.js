@@ -47,38 +47,32 @@ class InlineObject24 {
         if (data) {
             obj = obj || new InlineObject24();
 
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
-            if (data.hasOwnProperty('fbalink')) {
-                obj['fbalink'] = ApiClient.convertToType(data['fbalink'], 'String');
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+            if (data.hasOwnProperty('trackingNumberChina')) {
+                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
             }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('lsupplier')) {
-                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
-            }
-            if (data.hasOwnProperty('buyersComment')) {
-                obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
+            if (data.hasOwnProperty('orderSupplierId')) {
+                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
             }
         }
         return obj;
@@ -88,70 +82,58 @@ class InlineObject24 {
 }
 
 /**
- * 
- * @member {Number} amazon
+ * комментарии байера.
+ * @member {String} buyerComment
  */
-InlineObject24.prototype['amazon'] = undefined;
+InlineObject24.prototype['buyerComment'] = undefined;
 
 /**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
+ * GUID storekeeper-a
+ * @member {String} storekeeperId
  */
-InlineObject24.prototype['reffee'] = undefined;
+InlineObject24.prototype['storekeeperId'] = undefined;
 
 /**
- * ФБА ссылка
- * @member {String} fbalink
+ * GUID тарифа доставки.
+ * @member {String} logicsTariffId
  */
-InlineObject24.prototype['fbalink'] = undefined;
+InlineObject24.prototype['logicsTariffId'] = undefined;
 
 /**
- * ФБА комиссия
- * @member {Number} fbafee
+ * GUID пункта назначения.
+ * @member {String} destinationId
  */
-InlineObject24.prototype['fbafee'] = undefined;
+InlineObject24.prototype['destinationId'] = undefined;
 
 /**
- * ФБА кол-во
- * @member {Number} fbaamount
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineObject24.prototype['fbaamount'] = undefined;
+InlineObject24.prototype['images'] = undefined;
 
 /**
- * Стоимость доставки.
- * @member {Number} delivery
+ * Курс юань доллар.
+ * @member {Number} yuanToDollarRate
  */
-InlineObject24.prototype['delivery'] = undefined;
+InlineObject24.prototype['yuanToDollarRate'] = undefined;
 
 /**
- * Код статуса
- * @member {Number} status
+ * Стоимость доставки до склада.
+ * @member {Number} deliveryCostToTheWarehouse
  */
-InlineObject24.prototype['status'] = undefined;
+InlineObject24.prototype['deliveryCostToTheWarehouse'] = undefined;
 
 /**
- * Прибыль
- * @member {Number} profit
+ * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
+ * @member {String} trackingNumberChina
  */
-InlineObject24.prototype['profit'] = undefined;
+InlineObject24.prototype['trackingNumberChina'] = undefined;
 
 /**
- * Маржа
- * @member {Number} margin
+ * GUID поставщика, для данного заказа.
+ * @member {String} orderSupplierId
  */
-InlineObject24.prototype['margin'] = undefined;
-
-/**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lsupplier
- */
-InlineObject24.prototype['lsupplier'] = undefined;
-
-/**
- * Примечания байера.
- * @member {String} buyersComment
- */
-InlineObject24.prototype['buyersComment'] = undefined;
+InlineObject24.prototype['orderSupplierId'] = undefined;
 
 
 

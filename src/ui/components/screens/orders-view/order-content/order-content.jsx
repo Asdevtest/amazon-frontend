@@ -30,7 +30,7 @@ const renderHeadRow = (
   </TableRow>
 )
 
-export const OrderContent = ({order, boxes, history, onClickCancelOrder}) => {
+export const OrderContent = ({order, boxes, history, onClickCancelOrder, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)
@@ -92,6 +92,7 @@ export const OrderContent = ({order, boxes, history, onClickCancelOrder}) => {
                 BodyRow={WarehouseBodyRow}
                 renderHeadRow={renderHeadRow}
                 mainProductId={order.product._id}
+                volumeWeightCoefficient={volumeWeightCoefficient}
               />
             ) : (
               <Typography className={classNames.noBoxesText}>{textConsts.noBoxes}</Typography>

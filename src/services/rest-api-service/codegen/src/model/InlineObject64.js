@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
 
 /**
  * The InlineObject64 model module.
@@ -48,128 +47,65 @@ class InlineObject64 {
         if (data) {
             obj = obj || new InlineObject64();
 
-            if (data.hasOwnProperty('material')) {
-                obj['material'] = ApiClient.convertToType(data['material'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('fbm')) {
-                obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean');
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
             }
-            if (data.hasOwnProperty('category')) {
-                obj['category'] = ApiClient.convertToType(data['category'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('lamazon')) {
-                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('lsupplier')) {
-                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
             }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('express')) {
-                obj['express'] = ApiClient.convertToType(data['express'], 'Boolean');
-            }
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
-            }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
-            }
-            if (data.hasOwnProperty('weight')) {
-                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
-            }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
-            }
-            if (data.hasOwnProperty('fbalink')) {
-                obj['fbalink'] = ApiClient.convertToType(data['fbalink'], 'String');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('icomment')) {
-                obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
+            if (data.hasOwnProperty('lotcost')) {
+                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('amazonDescription')) {
-                obj['amazonDescription'] = ApiClient.convertToType(data['amazonDescription'], 'String');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
-            if (data.hasOwnProperty('amazonDetail')) {
-                obj['amazonDetail'] = ApiClient.convertToType(data['amazonDetail'], 'String');
+            if (data.hasOwnProperty('yuanRate')) {
+                obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
             }
-            if (data.hasOwnProperty('amazonTitle')) {
-                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
+            if (data.hasOwnProperty('priceInYuan')) {
+                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
             }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
+                obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number');
             }
-            if (data.hasOwnProperty('minpurchase')) {
-                obj['minpurchase'] = ApiClient.convertToType(data['minpurchase'], 'Number');
+            if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
+                obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number');
             }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+            if (data.hasOwnProperty('batchTotalCostInDollar')) {
+                obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number');
             }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
+            if (data.hasOwnProperty('batchTotalCostInYuan')) {
+                obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
             }
-            if (data.hasOwnProperty('byboxprice')) {
-                obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number');
+            if (data.hasOwnProperty('amountInBox')) {
+                obj['amountInBox'] = ApiClient.convertToType(data['amountInBox'], 'Number');
             }
-            if (data.hasOwnProperty('listingName')) {
-                obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String');
+            if (data.hasOwnProperty('boxLengthCm')) {
+                obj['boxLengthCm'] = ApiClient.convertToType(data['boxLengthCm'], 'Number');
             }
-            if (data.hasOwnProperty('listingBulletPoints')) {
-                obj['listingBulletPoints'] = ApiClient.convertToType(data['listingBulletPoints'], ['String']);
+            if (data.hasOwnProperty('boxWidthCm')) {
+                obj['boxWidthCm'] = ApiClient.convertToType(data['boxWidthCm'], 'Number');
             }
-            if (data.hasOwnProperty('listingProductDetails')) {
-                obj['listingProductDetails'] = ApiClient.convertToType(data['listingProductDetails'], 'String');
+            if (data.hasOwnProperty('boxHeightCm')) {
+                obj['boxHeightCm'] = ApiClient.convertToType(data['boxHeightCm'], 'Number');
             }
-            if (data.hasOwnProperty('listingSearchTerms')) {
-                obj['listingSearchTerms'] = ApiClient.convertToType(data['listingSearchTerms'], 'String');
+            if (data.hasOwnProperty('boxWeighGrossKg')) {
+                obj['boxWeighGrossKg'] = ApiClient.convertToType(data['boxWeighGrossKg'], 'Number');
             }
-            if (data.hasOwnProperty('listingSubjectMatters')) {
-                obj['listingSubjectMatters'] = ApiClient.convertToType(data['listingSubjectMatters'], ['String']);
-            }
-            if (data.hasOwnProperty('listingImages')) {
-                obj['listingImages'] = ApiClient.convertToType(data['listingImages'], ['String']);
-            }
-            if (data.hasOwnProperty('listingTaskToFindSupplier')) {
-                obj['listingTaskToFindSupplier'] = ApiClient.convertToType(data['listingTaskToFindSupplier'], 'String');
-            }
-            if (data.hasOwnProperty('listingSupplierImportantPoints')) {
-                obj['listingSupplierImportantPoints'] = ApiClient.convertToType(data['listingSupplierImportantPoints'], 'String');
-            }
-            if (data.hasOwnProperty('listingExtraInfo')) {
-                obj['listingExtraInfo'] = ApiClient.convertToType(data['listingExtraInfo'], 'String');
-            }
-            if (data.hasOwnProperty('listingSupplierCompetitors')) {
-                obj['listingSupplierCompetitors'] = ApiClient.convertToType(data['listingSupplierCompetitors'], [ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]);
-            }
-            if (data.hasOwnProperty('strategyStatus')) {
-                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
-            }
-            if (data.hasOwnProperty('checkednotes')) {
-                obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
+            if (data.hasOwnProperty('boxVolumeWeightKg')) {
+                obj['boxVolumeWeightKg'] = ApiClient.convertToType(data['boxVolumeWeightKg'], 'Number');
             }
         }
         return obj;
@@ -179,240 +115,124 @@ class InlineObject64 {
 }
 
 /**
- * add to new functional
- * @member {String} material
+ * Название поставщика.
+ * @member {String} name
  */
-InlineObject64.prototype['material'] = undefined;
+InlineObject64.prototype['name'] = undefined;
 
 /**
- * Признак fbm
- * @member {Boolean} fbm
+ * Ссылка на поставщика.
+ * @member {String} link
  */
-InlineObject64.prototype['fbm'] = undefined;
+InlineObject64.prototype['link'] = undefined;
 
 /**
- * Категория
- * @member {String} category
+ * Цена за еденицу, dollar
+ * @member {Number} price
  */
-InlineObject64.prototype['category'] = undefined;
+InlineObject64.prototype['price'] = undefined;
 
 /**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lamazon
+ * кол-во
+ * @member {Number} amount
  */
-InlineObject64.prototype['lamazon'] = undefined;
+InlineObject64.prototype['amount'] = undefined;
 
 /**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lsupplier
+ * Минимальный лот.
+ * @member {Number} minlot
  */
-InlineObject64.prototype['lsupplier'] = undefined;
+InlineObject64.prototype['minlot'] = undefined;
 
 /**
- * 
- * @member {Number} bsr
+ * Стоимость лота.
+ * @member {Number} lotcost
  */
-InlineObject64.prototype['bsr'] = undefined;
+InlineObject64.prototype['lotcost'] = undefined;
 
 /**
- * Признак fba
- * @member {Boolean} fba
- */
-InlineObject64.prototype['fba'] = undefined;
-
-/**
- *  уточнить 
- * @member {Boolean} express
- */
-InlineObject64.prototype['express'] = undefined;
-
-/**
- * 
- * @member {Number} amazon
- */
-InlineObject64.prototype['amazon'] = undefined;
-
-/**
- * @member {Number} height
- */
-InlineObject64.prototype['height'] = undefined;
-
-/**
- * @member {Number} width
- */
-InlineObject64.prototype['width'] = undefined;
-
-/**
- * @member {Number} length
- */
-InlineObject64.prototype['length'] = undefined;
-
-/**
- * @member {Number} weight
- */
-InlineObject64.prototype['weight'] = undefined;
-
-/**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
- */
-InlineObject64.prototype['reffee'] = undefined;
-
-/**
- * ФБА комиссия
- * @member {Number} fbafee
- */
-InlineObject64.prototype['fbafee'] = undefined;
-
-/**
- *  Общая сумма с фба.
- * @member {Number} fbaamount
- */
-InlineObject64.prototype['fbaamount'] = undefined;
-
-/**
- * @member {String} fbalink
- */
-InlineObject64.prototype['fbalink'] = undefined;
-
-/**
- * Стоимость доставки.
- * @member {Number} delivery
- */
-InlineObject64.prototype['delivery'] = undefined;
-
-/**
- * См. описание статусов например в readMe.md
- * @member {Number} status
- */
-InlineObject64.prototype['status'] = undefined;
-
-/**
- * Комментарии к товару.
- * @member {String} icomment
- */
-InlineObject64.prototype['icomment'] = undefined;
-
-/**
- * Массив изображений.
+ * Массив картинок.
  * @member {Array.<String>} images
  */
 InlineObject64.prototype['images'] = undefined;
 
 /**
- * @member {String} amazonDescription
+ * Комментарий
+ * @member {String} comment
  */
-InlineObject64.prototype['amazonDescription'] = undefined;
+InlineObject64.prototype['comment'] = undefined;
 
 /**
- * @member {String} amazonDetail
+ * Курс доллара к юаню поставщика. 
+ * @member {Number} yuanRate
  */
-InlineObject64.prototype['amazonDetail'] = undefined;
+InlineObject64.prototype['yuanRate'] = undefined;
 
 /**
- * @member {String} amazonTitle
+ * Цена за еденицу, yuan
+ * @member {Number} priceInYuan
  */
-InlineObject64.prototype['amazonTitle'] = undefined;
+InlineObject64.prototype['priceInYuan'] = undefined;
 
 /**
- * @member {String} barCode
+ * Доставка партии, dollar
+ * @member {Number} batchDeliveryCostInDollar
  */
-InlineObject64.prototype['barCode'] = undefined;
+InlineObject64.prototype['batchDeliveryCostInDollar'] = undefined;
 
 /**
- * @member {Number} minpurchase
+ * Доставка партии, yuan
+ * @member {Number} batchDeliveryCostInYuan
  */
-InlineObject64.prototype['minpurchase'] = undefined;
+InlineObject64.prototype['batchDeliveryCostInYuan'] = undefined;
 
 /**
- * Прибыль
- * @member {Number} profit
+ * Цена партии, dollar
+ * @member {Number} batchTotalCostInDollar
  */
-InlineObject64.prototype['profit'] = undefined;
+InlineObject64.prototype['batchTotalCostInDollar'] = undefined;
 
 /**
- * Маржа
- * @member {Number} margin
+ * Цена партии, yuan
+ * @member {Number} batchTotalCostInYuan
  */
-InlineObject64.prototype['margin'] = undefined;
+InlineObject64.prototype['batchTotalCostInYuan'] = undefined;
 
 /**
- * Цена
- * @member {Number} byboxprice
+ * Количество единиц в коробке.
+ * @member {Number} amountInBox
  */
-InlineObject64.prototype['byboxprice'] = undefined;
+InlineObject64.prototype['amountInBox'] = undefined;
 
 /**
- * 
- * @member {String} listingName
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} boxLengthCm
  */
-InlineObject64.prototype['listingName'] = undefined;
+InlineObject64.prototype['boxLengthCm'] = undefined;
 
 /**
- * Массив ...
- * @member {Array.<String>} listingBulletPoints
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} boxWidthCm
  */
-InlineObject64.prototype['listingBulletPoints'] = undefined;
+InlineObject64.prototype['boxWidthCm'] = undefined;
 
 /**
- * 
- * @member {String} listingProductDetails
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} boxHeightCm
  */
-InlineObject64.prototype['listingProductDetails'] = undefined;
+InlineObject64.prototype['boxHeightCm'] = undefined;
 
 /**
- * 
- * @member {String} listingSearchTerms
+ * Общий вес кг коробки который назвал поставщик.
+ * @member {Number} boxWeighGrossKg
  */
-InlineObject64.prototype['listingSearchTerms'] = undefined;
+InlineObject64.prototype['boxWeighGrossKg'] = undefined;
 
 /**
- * Массив ...
- * @member {Array.<String>} listingSubjectMatters
+ * Объемный вес кг коробки, расчет на беке.
+ * @member {Number} boxVolumeWeightKg
  */
-InlineObject64.prototype['listingSubjectMatters'] = undefined;
-
-/**
- * массив картинок(в виде прямых ссылок).
- * @member {Array.<String>} listingImages
- */
-InlineObject64.prototype['listingImages'] = undefined;
-
-/**
- * 
- * @member {String} listingTaskToFindSupplier
- */
-InlineObject64.prototype['listingTaskToFindSupplier'] = undefined;
-
-/**
- * 
- * @member {String} listingSupplierImportantPoints
- */
-InlineObject64.prototype['listingSupplierImportantPoints'] = undefined;
-
-/**
- * 
- * @member {String} listingExtraInfo
- */
-InlineObject64.prototype['listingExtraInfo'] = undefined;
-
-/**
- * Массив объектов: ссылки и комментарии к конкурентам
- * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors>} listingSupplierCompetitors
- */
-InlineObject64.prototype['listingSupplierCompetitors'] = undefined;
-
-/**
- * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
- * @member {Number} strategyStatus
- */
-InlineObject64.prototype['strategyStatus'] = undefined;
-
-/**
- * Комментарий к статусу проверки.
- * @member {String} checkednotes
- */
-InlineObject64.prototype['checkednotes'] = undefined;
+InlineObject64.prototype['boxVolumeWeightKg'] = undefined;
 
 
 

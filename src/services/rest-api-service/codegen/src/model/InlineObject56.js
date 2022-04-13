@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesLogicsTariffConditionsByRegion from './ApiV1BoxesLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject56 model module.
@@ -22,10 +23,12 @@ class InlineObject56 {
     /**
      * Constructs a new <code>InlineObject56</code>.
      * @alias module:model/InlineObject56
+     * @param name {String} Название тарифа
+     * @param conditionsByRegion {module:model/ApiV1BoxesLogicsTariffConditionsByRegion} 
      */
-    constructor() { 
+    constructor(name, conditionsByRegion) { 
         
-        InlineObject56.initialize(this);
+        InlineObject56.initialize(this, name, conditionsByRegion);
     }
 
     /**
@@ -33,7 +36,9 @@ class InlineObject56 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, conditionsByRegion) { 
+        obj['name'] = name;
+        obj['conditionsByRegion'] = conditionsByRegion;
     }
 
     /**
@@ -47,14 +52,29 @@ class InlineObject56 {
         if (data) {
             obj = obj || new InlineObject56();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('deliveryTimeInDay')) {
+                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
+            }
+            if (data.hasOwnProperty('cls')) {
+                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
+            }
+            if (data.hasOwnProperty('etd')) {
+                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
+            }
+            if (data.hasOwnProperty('atd')) {
+                obj['atd'] = ApiClient.convertToType(data['atd'], 'Date');
+            }
+            if (data.hasOwnProperty('minWeightInKg')) {
+                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
+            }
+            if (data.hasOwnProperty('conditionsByRegion')) {
+                obj['conditionsByRegion'] = ApiV1BoxesLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
         }
         return obj;
@@ -64,22 +84,51 @@ class InlineObject56 {
 }
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
+ * Название тарифа
+ * @member {String} name
  */
-InlineObject56.prototype['status'] = undefined;
+InlineObject56.prototype['name'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * Описание тарифа
+ * @member {String} description
  */
-InlineObject56.prototype['images'] = undefined;
+InlineObject56.prototype['description'] = undefined;
 
 /**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
+ * Время доставки, днях
+ * @member {String} deliveryTimeInDay
  */
-InlineObject56.prototype['storekeeperComment'] = undefined;
+InlineObject56.prototype['deliveryTimeInDay'] = undefined;
+
+/**
+ * Дата закрытия приема новых грузов.
+ * @member {Date} cls
+ */
+InlineObject56.prototype['cls'] = undefined;
+
+/**
+ * Ожидаема дата отбытия.
+ * @member {Date} etd
+ */
+InlineObject56.prototype['etd'] = undefined;
+
+/**
+ * Ожидаема дата прибытия.
+ * @member {Date} atd
+ */
+InlineObject56.prototype['atd'] = undefined;
+
+/**
+ * Минимальный вес, в кг
+ * @member {Number} minWeightInKg
+ */
+InlineObject56.prototype['minWeightInKg'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BoxesLogicsTariffConditionsByRegion} conditionsByRegion
+ */
+InlineObject56.prototype['conditionsByRegion'] = undefined;
 
 
 

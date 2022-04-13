@@ -22,11 +22,10 @@ class InlineObject48 {
     /**
      * Constructs a new <code>InlineObject48</code>.
      * @alias module:model/InlineObject48
-     * @param action {module:model/InlineObject48.ActionEnum} 
      */
-    constructor(action) { 
+    constructor() { 
         
-        InlineObject48.initialize(this, action);
+        InlineObject48.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject48 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, action) { 
-        obj['action'] = action;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,9 +47,6 @@ class InlineObject48 {
         if (data) {
             obj = obj || new InlineObject48();
 
-            if (data.hasOwnProperty('action')) {
-                obj['action'] = ApiClient.convertToType(data['action'], 'String');
-            }
             if (data.hasOwnProperty('reason')) {
                 obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
@@ -63,39 +58,13 @@ class InlineObject48 {
 }
 
 /**
- * @member {module:model/InlineObject48.ActionEnum} action
- */
-InlineObject48.prototype['action'] = undefined;
-
-/**
- * Причина смены статуса.
+ * Причины закрытия приема предложений.
  * @member {String} reason
  */
 InlineObject48.prototype['reason'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>action</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject48['ActionEnum'] = {
-
-    /**
-     * value: "LINK"
-     * @const
-     */
-    "LINK": "LINK",
-
-    /**
-     * value: "UNLINK"
-     * @const
-     */
-    "UNLINK": "UNLINK"
-};
 
 
 

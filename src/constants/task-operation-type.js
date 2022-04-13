@@ -16,7 +16,7 @@ export const mapTaskOperationTypeKeyToEnum = {
 
 export const mapTaskOperationTypeToLabel = {
   [TaskOperationType.MERGE]: 'Соединить',
-  [TaskOperationType.SPLIT]: 'Разъединить',
+  [TaskOperationType.SPLIT]: 'Разделить',
   [TaskOperationType.RECEIVE]: 'Принять',
   [TaskOperationType.EDIT]: 'Изменить',
 }

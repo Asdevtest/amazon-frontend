@@ -14,7 +14,7 @@ export class BatchesModelStatic {
   }
 
   requestSendBoxToBatch = async boxesIds => {
-    const response = await restApiService.boxesApi.apiV1BoxesRequestSendBoxesToBatchPost({
+    const response = await restApiService.batchesApi.apiV1BatchesRequestSendBoxesToBatchPost({
       body: {cancel: false, boxesIds},
     })
     return response

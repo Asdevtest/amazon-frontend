@@ -1,19 +1,15 @@
-/* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
 
-import {Divider, Typography, Paper, Checkbox, NativeSelect, Link} from '@material-ui/core'
+import {Divider, Typography, Paper, Checkbox, Link} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
-import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {texts} from '@constants/texts'
-import {getWarehousesOptionByCode, warehouses} from '@constants/warehouses'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
-import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
@@ -54,10 +50,12 @@ const Box = ({
   }
 
   return (
-    <Paper className={(classNames.box, classNames.mainPaper)}>
+    <div className={(classNames.box, classNames.mainPaper)}>
       {isNewBox && (
         <div className={classNames.fieldsWrapper}>
           <Field disabled label={textConsts.warehouseLabel} value={box.destination?.name} />
+
+          <Field disabled label={textConsts.logicsTariffLabel} value={box.logicsTariff?.name || 'N/A'} />
         </div>
       )}
 
@@ -340,7 +338,7 @@ const Box = ({
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
       />
-    </Paper>
+    </div>
   )
 }
 
@@ -420,6 +418,8 @@ export const BeforeAfterBlock = observer(
         {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
           <div className={classNames.fieldsWrapper}>
             <Field disabled label={textConsts.warehouseLabel} value={currentBoxes[0].destination?.name} />
+
+            <Field disabled label={textConsts.logicsTariffLabel} value={currentBoxes[0].logicsTariff?.name || 'N/A'} />
 
             {taskType === TaskOperationType.RECEIVE && (
               <Field

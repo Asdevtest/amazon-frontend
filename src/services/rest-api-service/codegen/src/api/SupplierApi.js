@@ -15,8 +15,8 @@
 import ApiClient from "../ApiClient";
 import ApiV1AdminsGetProductsByStatusSuppliers from '../model/ApiV1AdminsGetProductsByStatusSuppliers';
 import BadRequestError from '../model/BadRequestError';
-import InlineObject66 from '../model/InlineObject66';
-import InlineObject67 from '../model/InlineObject67';
+import InlineObject63 from '../model/InlineObject63';
+import InlineObject64 from '../model/InlineObject64';
 import InlineResponse2018 from '../model/InlineResponse2018';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -90,7 +90,7 @@ export default class SupplierApi {
 
     /**
      * # Удалить поставщика.
-     * ##  Удалить поставщика.   Запрещено редактировать. Если поставщик используется в карточке товара со статусами: 35, 40, 50, 60, 235, 240, 250, 260
+     * ##  Удалить поставщика.   
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -128,7 +128,7 @@ export default class SupplierApi {
 
     /**
      * # Удалить поставщика.
-     * ##  Удалить поставщика.   Запрещено редактировать. Если поставщик используется в карточке товара со статусами: 35, 40, 50, 60, 235, 240, 250, 260
+     * ##  Удалить поставщика.   
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -198,11 +198,11 @@ export default class SupplierApi {
 
     /**
      * # Изменить поставщика.
-     * ## Изменить  поставщика.   Байер может редактировать поставщика только если поставщик используется в карточке товара в котором является байером. Байер может редактировать  поставщика только если поставщик используется в карточке товара со статусами: 35, 40, 50, 60, 235, 240, 250, 260
+     * ## Изменить  поставщика.   Байер может редактировать поставщика только если поставщик используется в карточке товара в котором является байером. 
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject67} opts.body 
+     * @param {module:model/InlineObject64} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SuppliersGuidPatchWithHttpInfo(guid, opts) {
@@ -237,11 +237,11 @@ export default class SupplierApi {
 
     /**
      * # Изменить поставщика.
-     * ## Изменить  поставщика.   Байер может редактировать поставщика только если поставщик используется в карточке товара в котором является байером. Байер может редактировать  поставщика только если поставщик используется в карточке товара со статусами: 35, 40, 50, 60, 235, 240, 250, 260
+     * ## Изменить  поставщика.   Байер может редактировать поставщика только если поставщик используется в карточке товара в котором является байером. 
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject67} opts.body 
+     * @param {module:model/InlineObject64} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SuppliersGuidPatch(guid, opts) {
@@ -257,7 +257,7 @@ export default class SupplierApi {
      * ## Добавить нового поставщика.   boxWeighGrossKg получить через метод   // POST /suppliers/calc_boxVolumeWeightKg 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject66} opts.body 
+     * @param {module:model/InlineObject63} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2018} and HTTP response
      */
     apiV1SuppliersPostWithHttpInfo(opts) {
@@ -290,7 +290,7 @@ export default class SupplierApi {
      * ## Добавить нового поставщика.   boxWeighGrossKg получить через метод   // POST /suppliers/calc_boxVolumeWeightKg 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject66} opts.body 
+     * @param {module:model/InlineObject63} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2018}
      */
     apiV1SuppliersPost(opts) {

@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject12 from './InlineObject12';
+import ApiV1BoxesLogicsTariffConditionsByRegion from './ApiV1BoxesLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject57 model module.
@@ -48,8 +48,29 @@ class InlineObject57 {
         if (data) {
             obj = obj || new InlineObject57();
 
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject12]);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('deliveryTimeInDay')) {
+                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
+            }
+            if (data.hasOwnProperty('cls')) {
+                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
+            }
+            if (data.hasOwnProperty('etd')) {
+                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
+            }
+            if (data.hasOwnProperty('atd')) {
+                obj['atd'] = ApiClient.convertToType(data['atd'], 'Date');
+            }
+            if (data.hasOwnProperty('minWeightInKg')) {
+                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
+            }
+            if (data.hasOwnProperty('conditionsByRegion')) {
+                obj['conditionsByRegion'] = ApiV1BoxesLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
         }
         return obj;
@@ -59,10 +80,51 @@ class InlineObject57 {
 }
 
 /**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject12>} additionalBoxes
+ * Название тарифа
+ * @member {String} name
  */
-InlineObject57.prototype['additionalBoxes'] = undefined;
+InlineObject57.prototype['name'] = undefined;
+
+/**
+ * Описание тарифа
+ * @member {String} description
+ */
+InlineObject57.prototype['description'] = undefined;
+
+/**
+ * Время доставки, днях
+ * @member {String} deliveryTimeInDay
+ */
+InlineObject57.prototype['deliveryTimeInDay'] = undefined;
+
+/**
+ * Дата закрытия приема новых грузов.
+ * @member {Date} cls
+ */
+InlineObject57.prototype['cls'] = undefined;
+
+/**
+ * Ожидаема дата отбытия.
+ * @member {Date} etd
+ */
+InlineObject57.prototype['etd'] = undefined;
+
+/**
+ * Ожидаема дата прибытия.
+ * @member {Date} atd
+ */
+InlineObject57.prototype['atd'] = undefined;
+
+/**
+ * Минимальный вес, в кг
+ * @member {Number} minWeightInKg
+ */
+InlineObject57.prototype['minWeightInKg'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BoxesLogicsTariffConditionsByRegion} conditionsByRegion
+ */
+InlineObject57.prototype['conditionsByRegion'] = undefined;
 
 
 

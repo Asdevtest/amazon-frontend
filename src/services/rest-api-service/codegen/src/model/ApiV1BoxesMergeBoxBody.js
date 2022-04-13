@@ -62,6 +62,9 @@ class ApiV1BoxesMergeBoxBody {
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
         }
         return obj;
     }
@@ -86,6 +89,12 @@ ApiV1BoxesMergeBoxBody.prototype['destinationId'] = undefined;
  * @member {String} logicsTariffId
  */
 ApiV1BoxesMergeBoxBody.prototype['logicsTariffId'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+ApiV1BoxesMergeBoxBody.prototype['fbaShipment'] = undefined;
 
 
 

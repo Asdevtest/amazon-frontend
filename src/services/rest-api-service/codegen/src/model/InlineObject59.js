@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesLogicsTariffConditionsByRegion from './ApiV1BoxesLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject59 model module.
@@ -23,12 +22,10 @@ class InlineObject59 {
     /**
      * Constructs a new <code>InlineObject59</code>.
      * @alias module:model/InlineObject59
-     * @param name {String} Название тарифа
-     * @param conditionsByRegion {module:model/ApiV1BoxesLogicsTariffConditionsByRegion} 
      */
-    constructor(name, conditionsByRegion) { 
+    constructor() { 
         
-        InlineObject59.initialize(this, name, conditionsByRegion);
+        InlineObject59.initialize(this);
     }
 
     /**
@@ -36,9 +33,7 @@ class InlineObject59 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, conditionsByRegion) { 
-        obj['name'] = name;
-        obj['conditionsByRegion'] = conditionsByRegion;
+    static initialize(obj) { 
     }
 
     /**
@@ -58,23 +53,8 @@ class InlineObject59 {
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('deliveryTimeInDay')) {
-                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
-            }
-            if (data.hasOwnProperty('cls')) {
-                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
-            }
-            if (data.hasOwnProperty('etd')) {
-                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
-            }
-            if (data.hasOwnProperty('atd')) {
-                obj['atd'] = ApiClient.convertToType(data['atd'], 'Date');
-            }
-            if (data.hasOwnProperty('minWeightInKg')) {
-                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
-            }
-            if (data.hasOwnProperty('conditionsByRegion')) {
-                obj['conditionsByRegion'] = ApiV1BoxesLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
         }
         return obj;
@@ -84,51 +64,22 @@ class InlineObject59 {
 }
 
 /**
- * Название тарифа
+ * Название услуги
  * @member {String} name
  */
 InlineObject59.prototype['name'] = undefined;
 
 /**
- * Описание тарифа
+ * Описание услуги
  * @member {String} description
  */
 InlineObject59.prototype['description'] = undefined;
 
 /**
- * Время доставки, днях
- * @member {String} deliveryTimeInDay
+ * Цена услуги.
+ * @member {Number} price
  */
-InlineObject59.prototype['deliveryTimeInDay'] = undefined;
-
-/**
- * Дата закрытия приема новых грузов.
- * @member {Date} cls
- */
-InlineObject59.prototype['cls'] = undefined;
-
-/**
- * Ожидаема дата отбытия.
- * @member {Date} etd
- */
-InlineObject59.prototype['etd'] = undefined;
-
-/**
- * Ожидаема дата прибытия.
- * @member {Date} atd
- */
-InlineObject59.prototype['atd'] = undefined;
-
-/**
- * Минимальный вес, в кг
- * @member {Number} minWeightInKg
- */
-InlineObject59.prototype['minWeightInKg'] = undefined;
-
-/**
- * @member {module:model/ApiV1BoxesLogicsTariffConditionsByRegion} conditionsByRegion
- */
-InlineObject59.prototype['conditionsByRegion'] = undefined;
+InlineObject59.prototype['price'] = undefined;
 
 
 

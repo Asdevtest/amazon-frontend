@@ -134,13 +134,14 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           {restProps.mainProductId === order.product._id
             ? toFixedWithKg(
                 Math.max(
-                  parseFloat(box.volumeWeightKgWarehouse ? box.volumeWeightKgWarehouse : box.volumeWeightKgSupplier) ||
-                    0,
                   parseFloat(
-                    box.weightFinalAccountingKgWarehouse
-                      ? box.weightFinalAccountingKgWarehouse
-                      : box.weightFinalAccountingKgSupplier,
+                    box.weighGrossKgWarehouse
+                      ? (box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) /
+                          restProps.volumeWeightCoefficient
+                      : (box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) /
+                          restProps.volumeWeightCoefficient,
                   ) || 0,
+                  parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) || 0,
                 ),
                 2,
               )

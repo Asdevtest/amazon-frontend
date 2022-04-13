@@ -24,9 +24,6 @@ import InlineObject17 from '../model/InlineObject17';
 import InlineObject18 from '../model/InlineObject18';
 import InlineObject19 from '../model/InlineObject19';
 import InlineObject20 from '../model/InlineObject20';
-import InlineObject21 from '../model/InlineObject21';
-import InlineObject22 from '../model/InlineObject22';
-import InlineObject23 from '../model/InlineObject23';
 import InlineResponse2007 from '../model/InlineResponse2007';
 import InlineResponse2011 from '../model/InlineResponse2011';
 import InlineResponse2012 from '../model/InlineResponse2012';
@@ -205,55 +202,6 @@ export default class BoxesApi {
      */
     apiV1BoxesByProductGuidGuidGet(guid, opts) {
       return this.apiV1BoxesByProductGuidGuidGetWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Deprecated! Рассчитать стоимость доставки коробов.
-     * ## Deprecated! Рассчитать стоимость доставки коробов.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject21} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
-     */
-    apiV1BoxesCalculateBoxDeliveryCostsInBatchPostWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = [Object];
-      return this.apiClient.callApi(
-        '/api/v1/boxes/calculate_box_delivery_costs_in_batch', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Deprecated! Рассчитать стоимость доставки коробов.
-     * ## Deprecated! Рассчитать стоимость доставки коробов.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject21} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
-     */
-    apiV1BoxesCalculateBoxDeliveryCostsInBatchPost(opts) {
-      return this.apiV1BoxesCalculateBoxDeliveryCostsInBatchPostWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -462,53 +410,6 @@ export default class BoxesApi {
 
 
     /**
-     * # Получить черновики коробок и их строки по текущему клиенту. статус IN_STOCK
-     * ## Получить черновики коробок и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2007>} and HTTP response
-     */
-    apiV1BoxesClientsDraftsGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = [InlineResponse2007];
-      return this.apiClient.callApi(
-        '/api/v1/boxes/clients/drafts', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Получить черновики коробок и их строки по текущему клиенту. статус IN_STOCK
-     * ## Получить черновики коробок и их строки по текущему клиенту.   ## GUID клиента получаем из токена.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2007>}
-     */
-    apiV1BoxesClientsDraftsGet(opts) {
-      return this.apiV1BoxesClientsDraftsGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
      * # Получить коробки и их строки по текущему клиенту.
      * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   Cтатус коробок IN_STOCK
      * @param {Object} opts Optional parameters
@@ -599,53 +500,6 @@ export default class BoxesApi {
      */
     apiV1BoxesClientsSentToBatchGet(opts) {
       return this.apiV1BoxesClientsSentToBatchGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Получить черновики коробок и их строки.
-     * ## Получить черновики коробок и их строки.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2007>} and HTTP response
-     */
-    apiV1BoxesDraftsGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = [InlineResponse2007];
-      return this.apiClient.callApi(
-        '/api/v1/boxes/drafts', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Получить черновики коробок и их строки.
-     * ## Получить черновики коробок и их строки.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2007>}
-     */
-    apiV1BoxesDraftsGet(opts) {
-      return this.apiV1BoxesDraftsGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -756,60 +610,6 @@ export default class BoxesApi {
 
 
     /**
-     * # Удалить коробку.
-     * ## Удалить коробку.  
-     * @param {String} guid GUID для которой подтверждаем действие.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1BoxesGuidDeleteWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesGuidDelete");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/boxes/{guid}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Удалить коробку.
-     * ## Удалить коробку.  
-     * @param {String} guid GUID для которой подтверждаем действие.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1BoxesGuidDelete(guid, opts) {
-      return this.apiV1BoxesGuidDeleteWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
      * # Объединить две и более коробок.
      * ## Объединить две и более коробок.  Данный методод только для клиента Проверки: Все коробки должны быть от одного сторкипера, принадлежать одному клиенту,Тариф доставки должен принадлежать данному сторкиперу
      * @param {Object} opts Optional parameters
@@ -901,104 +701,6 @@ export default class BoxesApi {
      */
     apiV1BoxesPost(opts) {
       return this.apiV1BoxesPostWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Deprecated! Запросить отправку набора коробок в партию.
-     * ## Deprecated! Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле sendToBatch должно выставиться в true.  Так же с клиента должны списаться деньги в пользу сотрудника склада.(и генерироваться оплаты) Проверки:  У каждой коробки поля clientId и storekeeperId должны быть заполнены. Наличие шипинг лейбла у всех коробок.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject23} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1BoxesRequestSendBoxesToBatchPostWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/boxes/request_send_boxes_to_batch', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Deprecated! Запросить отправку набора коробок в партию.
-     * ## Deprecated! Запросить отправку набора коробок в партию.   при выполнении этого запроса у всех этих коробок поле sendToBatch должно выставиться в true.  Так же с клиента должны списаться деньги в пользу сотрудника склада.(и генерироваться оплаты) Проверки:  У каждой коробки поля clientId и storekeeperId должны быть заполнены. Наличие шипинг лейбла у всех коробок.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject23} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1BoxesRequestSendBoxesToBatchPost(opts) {
-      return this.apiV1BoxesRequestSendBoxesToBatchPostWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Deprecated! Отправить набор коробок в партию.
-     * ## Отправить набор коробок в партию.   Этот метод будет дергать склад и передавать в него массив id коробок, после этого метода у коробок sendToBatchComplete должен измениться на true
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject22} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1BoxesSendBoxesToBatchPostWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/boxes/send_boxes_to_batch', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Deprecated! Отправить набор коробок в партию.
-     * ## Отправить набор коробок в партию.   Этот метод будет дергать склад и передавать в него массив id коробок, после этого метода у коробок sendToBatchComplete должен измениться на true
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject22} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1BoxesSendBoxesToBatchPost(opts) {
-      return this.apiV1BoxesSendBoxesToBatchPostWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

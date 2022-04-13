@@ -4,8 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
-**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
-**timeLimitInMinutes** | **Number** |  | [optional] 
+**action** | **String** |  | 
+**reason** | **String** | Причина смены статуса. | [optional] 
+
+
+
+## Enum: ActionEnum
+
+
+* `LINK` (value: `"LINK"`)
+
+* `UNLINK` (value: `"UNLINK"`)
+
+
 
 

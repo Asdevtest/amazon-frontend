@@ -4,16 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**amazon** | **Number** |  | [optional] 
-**reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
-**fbalink** | **String** | ФБА ссылка | [optional] 
-**fbafee** | **Number** | ФБА комиссия | [optional] 
-**fbaamount** | **Number** | ФБА кол-во | [optional] 
-**delivery** | **Number** | Стоимость доставки. | [optional] 
-**status** | **Number** | Код статуса | [optional] 
-**profit** | **Number** | Прибыль | [optional] 
-**margin** | **Number** | Маржа | [optional] 
-**lsupplier** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
-**buyersComment** | **String** | Примечания байера. | [optional] 
+**buyerComment** | **String** | комментарии байера. | [optional] 
+**storekeeperId** | **String** | GUID storekeeper-a | [optional] 
+**logicsTariffId** | **String** | GUID тарифа доставки. | [optional] 
+**destinationId** | **String** | GUID пункта назначения. | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**yuanToDollarRate** | **Number** | Курс юань доллар. | [optional] 
+**deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
+**trackingNumberChina** | **String** | Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ. | [optional] 
+**orderSupplierId** | **String** | GUID поставщика, для данного заказа. | [optional] 
 
 

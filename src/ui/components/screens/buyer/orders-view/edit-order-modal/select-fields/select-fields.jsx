@@ -321,7 +321,7 @@ export const SelectFields = ({
 
         <Box>
           <div className={classNames.barCodeWrapper}>
-            <div className={classNames.checkboxWithLabelWrapper}>
+            {/* <div className={classNames.checkboxWithLabelWrapper}>
               <Checkbox
                 color="primary"
                 disabled={!orderFields.product.barCode}
@@ -333,7 +333,7 @@ export const SelectFields = ({
                 }}
               />
               <Typography className={classNames.modalText}>{textConsts.supplierAddBarCode}</Typography>
-            </div>
+            </div> */}
 
             <div className={classNames.barCodeLinkWrapper}>
               <div>

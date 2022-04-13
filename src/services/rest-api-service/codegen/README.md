@@ -159,22 +159,16 @@ Class | Method | HTTP request | Description
 *TestSwagger.BoxesApi* | [**apiV1BoxesApprovePost**](docs/BoxesApi.md#apiV1BoxesApprovePost) | **POST** /api/v1/boxes/approve | # Подтвердить операцию объединения/разъединения коробок.
 *TestSwagger.BoxesApi* | [**apiV1BoxesByOrderGuidGuidGet**](docs/BoxesApi.md#apiV1BoxesByOrderGuidGuidGet) | **GET** /api/v1/boxes/by_order_guid/{guid} | # Получить коробки и их строки по GUID заказа.
 *TestSwagger.BoxesApi* | [**apiV1BoxesByProductGuidGuidGet**](docs/BoxesApi.md#apiV1BoxesByProductGuidGuidGet) | **GET** /api/v1/boxes/by_product_guid/{guid} | # Получить коробки и их строки по GUID продукта.
-*TestSwagger.BoxesApi* | [**apiV1BoxesCalculateBoxDeliveryCostsInBatchPost**](docs/BoxesApi.md#apiV1BoxesCalculateBoxDeliveryCostsInBatchPost) | **POST** /api/v1/boxes/calculate_box_delivery_costs_in_batch | # Deprecated! Рассчитать стоимость доставки коробов.
 *TestSwagger.BoxesApi* | [**apiV1BoxesCancelEditPost**](docs/BoxesApi.md#apiV1BoxesCancelEditPost) | **POST** /api/v1/boxes/cancel-edit | # Отменить редактирование коробок.
 *TestSwagger.BoxesApi* | [**apiV1BoxesCancelEditWithDraftGuidPost**](docs/BoxesApi.md#apiV1BoxesCancelEditWithDraftGuidPost) | **POST** /api/v1/boxes/cancel_edit_with_draft/{guid} | # Отменить редактирование коробок сотрудником склада.
 *TestSwagger.BoxesApi* | [**apiV1BoxesCancelMergePost**](docs/BoxesApi.md#apiV1BoxesCancelMergePost) | **POST** /api/v1/boxes/cancel-merge | # Отменить объединение коробок.
 *TestSwagger.BoxesApi* | [**apiV1BoxesCancelSplitPost**](docs/BoxesApi.md#apiV1BoxesCancelSplitPost) | **POST** /api/v1/boxes/cancel-split | # Отменить разделение коробок.
-*TestSwagger.BoxesApi* | [**apiV1BoxesClientsDraftsGet**](docs/BoxesApi.md#apiV1BoxesClientsDraftsGet) | **GET** /api/v1/boxes/clients/drafts | # Получить черновики коробок и их строки по текущему клиенту. статус IN_STOCK
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsGet**](docs/BoxesApi.md#apiV1BoxesClientsGet) | **GET** /api/v1/boxes/clients | # Получить коробки и их строки по текущему клиенту.
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsSentToBatchGet**](docs/BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # Получить коробки по текущему клиенту отправленные в партию.
-*TestSwagger.BoxesApi* | [**apiV1BoxesDraftsGet**](docs/BoxesApi.md#apiV1BoxesDraftsGet) | **GET** /api/v1/boxes/drafts | # Получить черновики коробок и их строки.
 *TestSwagger.BoxesApi* | [**apiV1BoxesEditGuidPost**](docs/BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку. Сликом гибкий метод
 *TestSwagger.BoxesApi* | [**apiV1BoxesGet**](docs/BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
-*TestSwagger.BoxesApi* | [**apiV1BoxesGuidDelete**](docs/BoxesApi.md#apiV1BoxesGuidDelete) | **DELETE** /api/v1/boxes/{guid} | # Удалить коробку.
 *TestSwagger.BoxesApi* | [**apiV1BoxesMergePost**](docs/BoxesApi.md#apiV1BoxesMergePost) | **POST** /api/v1/boxes/merge | # Объединить две и более коробок.
 *TestSwagger.BoxesApi* | [**apiV1BoxesPost**](docs/BoxesApi.md#apiV1BoxesPost) | **POST** /api/v1/boxes/ | # Создать коробку и ее строки.
-*TestSwagger.BoxesApi* | [**apiV1BoxesRequestSendBoxesToBatchPost**](docs/BoxesApi.md#apiV1BoxesRequestSendBoxesToBatchPost) | **POST** /api/v1/boxes/request_send_boxes_to_batch | # Deprecated! Запросить отправку набора коробок в партию.
-*TestSwagger.BoxesApi* | [**apiV1BoxesSendBoxesToBatchPost**](docs/BoxesApi.md#apiV1BoxesSendBoxesToBatchPost) | **POST** /api/v1/boxes/send_boxes_to_batch | # Deprecated! Отправить набор коробок в партию.
 *TestSwagger.BoxesApi* | [**apiV1BoxesSplitPost**](docs/BoxesApi.md#apiV1BoxesSplitPost) | **POST** /api/v1/boxes/split | # Разделить коробку.
 *TestSwagger.BoxesApi* | [**apiV1BoxesStorekeepersGuidPatch**](docs/BoxesApi.md#apiV1BoxesStorekeepersGuidPatch) | **PATCH** /api/v1/boxes/storekeepers/{guid} | # Изменить коробку сотрудником склада.
 *TestSwagger.BoxesApi* | [**apiV1BoxesStorekeepersSentToBatchGet**](docs/BoxesApi.md#apiV1BoxesStorekeepersSentToBatchGet) | **GET** /api/v1/boxes/storekeepers/sent_to_batch | # Получить коробки по текущему сторкипера отправленные в партию.
@@ -194,7 +188,8 @@ Class | Method | HTTP request | Description
 *TestSwagger.BuyerApi* | [**apiV1BuyersTasksCancelGuidPost**](docs/BuyerApi.md#apiV1BuyersTasksCancelGuidPost) | **POST** /api/v1/buyers/tasks/cancel/{guid} | # Отменить задачу.
 *TestSwagger.BuyerApi* | [**apiV1BuyersTasksGet**](docs/BuyerApi.md#apiV1BuyersTasksGet) | **GET** /api/v1/buyers/tasks | # Показать все задачи данного пользователя.
 *TestSwagger.BuyerApi* | [**apiV1BuyersTasksPost**](docs/BuyerApi.md#apiV1BuyersTasksPost) | **POST** /api/v1/buyers/tasks | # Создать задачу.
-*TestSwagger.ClientApi* | [**apiV1ClientsBatchesGet**](docs/ClientApi.md#apiV1ClientsBatchesGet) | **GET** /api/v1/clients/batches | # Deprecated! Получить партии.
+*TestSwagger.ClientApi* | [**apiV1ClientsBoxesConfirmDeliveryPriceChangePost**](docs/ClientApi.md#apiV1ClientsBoxesConfirmDeliveryPriceChangePost) | **POST** /api/v1/clients/boxes/confirm_delivery_price_change | # Подтвердить измение цены доставки за коробки.
+*TestSwagger.ClientApi* | [**apiV1ClientsBoxesReturnBoxesToStockPost**](docs/ClientApi.md#apiV1ClientsBoxesReturnBoxesToStockPost) | **POST** /api/v1/clients/boxes/return_boxes_to_stock | Вернуть коробки обратно на склад.
 *TestSwagger.ClientApi* | [**apiV1ClientsGetOrdersByProductIdGuidGet**](docs/ClientApi.md#apiV1ClientsGetOrdersByProductIdGuidGet) | **GET** /api/v1/clients/get_orders_by_product_id/{guid} | # Получить заказы текущего клиента через id товара.
 *TestSwagger.ClientApi* | [**apiV1ClientsMakePaymentsPost**](docs/ClientApi.md#apiV1ClientsMakePaymentsPost) | **POST** /api/v1/clients/make_payments | # Оплатить товары.
 *TestSwagger.ClientApi* | [**apiV1ClientsOrdersGet**](docs/ClientApi.md#apiV1ClientsOrdersGet) | **GET** /api/v1/clients/orders | # Получить заказы текущего клиента.
@@ -276,7 +271,6 @@ Class | Method | HTTP request | Description
 *TestSwagger.ShopApi* | [**apiV1ShopsGuidDelete**](docs/ShopApi.md#apiV1ShopsGuidDelete) | **DELETE** /api/v1/shops/{guid} | # Логическое удаление магазина по его GUID.
 *TestSwagger.ShopApi* | [**apiV1ShopsGuidPatch**](docs/ShopApi.md#apiV1ShopsGuidPatch) | **PATCH** /api/v1/shops/{guid} | # Редактировать магазин.
 *TestSwagger.ShopApi* | [**apiV1ShopsPost**](docs/ShopApi.md#apiV1ShopsPost) | **POST** /api/v1/shops/ | # Добавить новый магазин клиентом.
-*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersBatchesGet**](docs/StorekeepersApi.md#apiV1StorekeepersBatchesGet) | **GET** /api/v1/storekeepers/batches | #  Deprecated! Получить партии....
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersBoxesGet**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesGet) | **GET** /api/v1/storekeepers/boxes | # Получить коробки и их строки по текущему сторкиперу.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersGet**](docs/StorekeepersApi.md#apiV1StorekeepersGet) | **GET** /api/v1/storekeepers/ | # Получить всех сторкиперов(все склады).
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersOrdersSetStatusGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersOrdersSetStatusGuidPatch) | **PATCH** /api/v1/storekeepers/orders/set_status/{guid} | # Изменить значение status в сущности заказ.
@@ -292,7 +286,6 @@ Class | Method | HTTP request | Description
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTaskLightGuidGet**](docs/StorekeepersApi.md#apiV1StorekeepersTaskLightGuidGet) | **GET** /api/v1/storekeepers/task_light/{guid} | # NEW! Получить задачу по его id.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksCancelGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksCancelGuidPost) | **POST** /api/v1/storekeepers/tasks/cancel/{guid} | # Отметить задачу, как отмененную..
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksDoneGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksDoneGuidPost) | **POST** /api/v1/storekeepers/tasks/done/{guid} | # Отметить задачу, как выполненную.
-*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksGuidGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksGuidGet) | **GET** /api/v1/storekeepers/tasks/{guid} | # DEPRECATED! Получить задачу по его id.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersTasksGuidPatch) | **PATCH** /api/v1/storekeepers/tasks/{guid} | # Изменить задачу.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksLightMyGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksLightMyGet) | **GET** /api/v1/storekeepers/tasks_light/my | # Получить задачи закрепленные за данным сборщиком..
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksLightVacGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksLightVacGet) | **GET** /api/v1/storekeepers/tasks_light/vac | # Получить задачи не закрепленные за сотрудниками склада.
@@ -429,10 +422,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject65](docs/InlineObject65.md)
  - [TestSwagger.InlineObject66](docs/InlineObject66.md)
  - [TestSwagger.InlineObject67](docs/InlineObject67.md)
- - [TestSwagger.InlineObject68](docs/InlineObject68.md)
- - [TestSwagger.InlineObject69](docs/InlineObject69.md)
  - [TestSwagger.InlineObject7](docs/InlineObject7.md)
- - [TestSwagger.InlineObject70](docs/InlineObject70.md)
  - [TestSwagger.InlineObject8](docs/InlineObject8.md)
  - [TestSwagger.InlineObject9](docs/InlineObject9.md)
  - [TestSwagger.InlineResponse200](docs/InlineResponse200.md)

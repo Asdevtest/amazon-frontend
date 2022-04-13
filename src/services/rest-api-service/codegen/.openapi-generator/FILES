@@ -110,10 +110,7 @@ docs/InlineObject64.md
 docs/InlineObject65.md
 docs/InlineObject66.md
 docs/InlineObject67.md
-docs/InlineObject68.md
-docs/InlineObject69.md
 docs/InlineObject7.md
-docs/InlineObject70.md
 docs/InlineObject8.md
 docs/InlineObject9.md
 docs/InlineResponse200.md
@@ -328,10 +325,7 @@ src/model/InlineObject64.js
 src/model/InlineObject65.js
 src/model/InlineObject66.js
 src/model/InlineObject67.js
-src/model/InlineObject68.js
-src/model/InlineObject69.js
 src/model/InlineObject7.js
-src/model/InlineObject70.js
 src/model/InlineObject8.js
 src/model/InlineObject9.js
 src/model/InlineResponse200.js

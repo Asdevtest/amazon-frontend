@@ -21,12 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject23 {
     /**
      * Constructs a new <code>InlineObject23</code>.
+     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject23
-     * @param boxesIds {Array.<String>} 
+     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
      */
-    constructor(boxesIds) { 
+    constructor(totalPriceChanged) { 
         
-        InlineObject23.initialize(this, boxesIds);
+        InlineObject23.initialize(this, totalPriceChanged);
     }
 
     /**
@@ -34,8 +35,8 @@ class InlineObject23 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj, totalPriceChanged) { 
+        obj['totalPriceChanged'] = totalPriceChanged;
     }
 
     /**
@@ -49,11 +50,8 @@ class InlineObject23 {
         if (data) {
             obj = obj || new InlineObject23();
 
-            if (data.hasOwnProperty('cancel')) {
-                obj['cancel'] = ApiClient.convertToType(data['cancel'], 'Boolean');
-            }
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
         }
         return obj;
@@ -63,16 +61,10 @@ class InlineObject23 {
 }
 
 /**
- * Флаг отмены. Если он true - то все списания будут сделаны с обратным знаком.
- * @member {Boolean} cancel
- * @default false
+ * новое значение изменения итоговой цены.
+ * @member {Number} totalPriceChanged
  */
-InlineObject23.prototype['cancel'] = false;
-
-/**
- * @member {Array.<String>} boxesIds
- */
-InlineObject23.prototype['boxesIds'] = undefined;
+InlineObject23.prototype['totalPriceChanged'] = undefined;
 
 
 

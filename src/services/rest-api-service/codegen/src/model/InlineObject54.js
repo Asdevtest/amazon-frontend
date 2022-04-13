@@ -21,15 +21,11 @@ import ApiClient from '../ApiClient';
 class InlineObject54 {
     /**
      * Constructs a new <code>InlineObject54</code>.
-     * Схема магазина.
      * @alias module:model/InlineObject54
-     * @param name {String} Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
-     * @param sellerBoardWarehouseReportUrlDaily {String} uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
-     * @param sellerBoardWarehouseReportUrlMonthly {String} uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
      */
-    constructor(name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
+    constructor() { 
         
-        InlineObject54.initialize(this, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly);
+        InlineObject54.initialize(this);
     }
 
     /**
@@ -37,10 +33,7 @@ class InlineObject54 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
-        obj['name'] = name;
-        obj['sellerBoardWarehouseReportUrlDaily'] = sellerBoardWarehouseReportUrlDaily;
-        obj['sellerBoardWarehouseReportUrlMonthly'] = sellerBoardWarehouseReportUrlMonthly;
+    static initialize(obj) { 
     }
 
     /**
@@ -54,14 +47,14 @@ class InlineObject54 {
         if (data) {
             obj = obj || new InlineObject54();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -71,22 +64,22 @@ class InlineObject54 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject54.prototype['name'] = undefined;
+InlineObject54.prototype['status'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineObject54.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+InlineObject54.prototype['images'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
  */
-InlineObject54.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject54.prototype['storekeeperComment'] = undefined;
 
 
 

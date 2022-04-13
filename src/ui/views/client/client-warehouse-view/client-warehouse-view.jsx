@@ -320,6 +320,7 @@ export class ClientWarehouseViewRaw extends Component {
             closeModal={triggerRequestToSendBatchModal}
             boxesDeliveryCosts={boxesDeliveryCosts}
             selectedBoxes={selectedBoxes}
+            volumeWeightCoefficient={volumeWeightCoefficient}
             boxesMy={boxesMy.map(box => box.originalData)}
             onClickRemoveBoxFromBatch={onTriggerCheckbox}
             onClickSendBoxesToBatch={onClickSendBoxesToBatch}

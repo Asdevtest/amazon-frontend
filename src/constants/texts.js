@@ -2813,13 +2813,13 @@ export const texts = {
       createdAtField: 'Создано',
       updatedAtField: 'Обновлено',
       ordersField: 'Продукт',
-      ordersId: 'ID Заказа',
       warehouseField: 'Склад',
-      boxIdField: 'ID Коробки',
+      boxIdField: 'ID',
       clientNameField: 'Клиент',
       batchField: 'Партия',
       actionField: 'Действия',
       actionBtnText: 'Переместить',
+      logicsTariffField: 'Тариф',
     },
 
     batchesTableColumns: {
@@ -3528,6 +3528,7 @@ export const texts = {
       actuallyAssembled: 'Actually assembled',
       dimensionsMessage: 'Внесите размеры всех коробок',
       okBtn: 'Ок',
+      supplierAddBarCode: 'Поставщик поклеил баркод',
     },
 
     warehouseBeforeAfterBlock: {
@@ -3558,6 +3559,7 @@ export const texts = {
       warehouseLabel: 'Склад',
       deliveryMethodLabel: 'Метод доставки',
       statusLabel: 'Статус заказа',
+      logicsTariffLabel: 'Тариф логистики',
     },
 
     beforeAfterInfoTaskBlock: {
@@ -3584,6 +3586,7 @@ export const texts = {
       warehouseLabel: 'Склад',
       deliveryMethodLabel: 'Метод доставки',
       statusLabel: 'Статус заказа',
+      logicsTariffLabel: 'Тариф логистики',
     },
 
     warehouseTaskForm: {

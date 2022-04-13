@@ -22,10 +22,11 @@ class InlineObject46 {
     /**
      * Constructs a new <code>InlineObject46</code>.
      * @alias module:model/InlineObject46
+     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
      */
-    constructor() { 
+    constructor(totalCost) { 
         
-        InlineObject46.initialize(this);
+        InlineObject46.initialize(this, totalCost);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject46 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, totalCost) { 
+        obj['totalCost'] = totalCost;
     }
 
     /**
@@ -47,11 +49,8 @@ class InlineObject46 {
         if (data) {
             obj = obj || new InlineObject46();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -61,16 +60,10 @@ class InlineObject46 {
 }
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * Для подтверждения нужно вернуть totalCost из калькулятора.
+ * @member {Number} totalCost
  */
-InlineObject46.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject46.prototype['linksToMediaFiles'] = undefined;
+InlineObject46.prototype['totalCost'] = undefined;
 
 
 

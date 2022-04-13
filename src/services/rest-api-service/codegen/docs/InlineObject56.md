@@ -4,8 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено. | [optional] 
-**images** | **[String]** | Массив картинок. | [optional] 
-**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
+**name** | **String** | Название тарифа | 
+**description** | **String** | Описание тарифа | [optional] 
+**deliveryTimeInDay** | **String** | Время доставки, днях | [optional] 
+**cls** | **Date** | Дата закрытия приема новых грузов. | [optional] 
+**etd** | **Date** | Ожидаема дата отбытия. | [optional] 
+**atd** | **Date** | Ожидаема дата прибытия. | [optional] 
+**minWeightInKg** | **Number** | Минимальный вес, в кг | [optional] 
+**conditionsByRegion** | [**ApiV1BoxesLogicsTariffConditionsByRegion**](ApiV1BoxesLogicsTariffConditionsByRegion.md) |  | 
 
 

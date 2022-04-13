@@ -21,12 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject22 {
     /**
      * Constructs a new <code>InlineObject22</code>.
+     * Схема комментарии байера.
      * @alias module:model/InlineObject22
-     * @param boxesIds {Array.<String>} 
+     * @param buyerComment {String} Комментарии байера.
      */
-    constructor(boxesIds) { 
+    constructor(buyerComment) { 
         
-        InlineObject22.initialize(this, boxesIds);
+        InlineObject22.initialize(this, buyerComment);
     }
 
     /**
@@ -34,8 +35,8 @@ class InlineObject22 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj, buyerComment) { 
+        obj['buyerComment'] = buyerComment;
     }
 
     /**
@@ -49,11 +50,8 @@ class InlineObject22 {
         if (data) {
             obj = obj || new InlineObject22();
 
-            if (data.hasOwnProperty('scheduledDispatchDate')) {
-                obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'Date');
-            }
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
         }
         return obj;
@@ -63,15 +61,10 @@ class InlineObject22 {
 }
 
 /**
- * Запланированная дата отправки.
- * @member {Date} scheduledDispatchDate
+ * Комментарии байера.
+ * @member {String} buyerComment
  */
-InlineObject22.prototype['scheduledDispatchDate'] = undefined;
-
-/**
- * @member {Array.<String>} boxesIds
- */
-InlineObject22.prototype['boxesIds'] = undefined;
+InlineObject22.prototype['buyerComment'] = undefined;
 
 
 

@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
-**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**totalCost** | **Number** | Для подтверждения нужно вернуть totalCost из калькулятора. | 
 
 

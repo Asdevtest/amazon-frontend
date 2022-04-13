@@ -30,6 +30,8 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
       <div className={classNames.fieldsWrapper}>
         <Field disabled label={textConsts.warehouseLabel} value={box.destination?.name} />
 
+        <Field disabled label={textConsts.logicsTariffLabel} value={box.logicsTariff?.name || 'N/A'} />
+
         {taskType === TaskOperationType.RECEIVE && (
           <Field
             disabled

@@ -111,6 +111,12 @@ class InlineResponse2007 {
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
+            }
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
+            }
             if (data.hasOwnProperty('destinationId')) {
                 obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
@@ -287,6 +293,18 @@ InlineResponse2007.prototype['isShippingLabelAttachedByStorekeeper'] = undefined
 InlineResponse2007.prototype['images'] = undefined;
 
 /**
+ * Итого за доставку.
+ * @member {Number} totalPrice
+ */
+InlineResponse2007.prototype['totalPrice'] = undefined;
+
+/**
+ * Обновление итога за доставку.
+ * @member {Number} totalPriceChanged
+ */
+InlineResponse2007.prototype['totalPriceChanged'] = undefined;
+
+/**
  * id склада - склады куда отправляют 
  * @member {String} destinationId
  */
@@ -396,6 +414,12 @@ InlineResponse2007['StatusEnum'] = {
      * @const
      */
     "REQUESTED_SEND_TO_BATCH": "REQUESTED_SEND_TO_BATCH",
+
+    /**
+     * value: "NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE"
+     * @const
+     */
+    "NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE": "NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE",
 
     /**
      * value: "IN_BATCH"

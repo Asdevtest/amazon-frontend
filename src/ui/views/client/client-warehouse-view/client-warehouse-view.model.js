@@ -187,6 +187,8 @@ export class ClientWarehouseViewModel {
     try {
       const result = await StorekeeperModel.getStorekeepers()
 
+      console.log('result', result)
+
       this.storekeepersData = result
     } catch (error) {
       console.log(error)
@@ -621,9 +623,15 @@ export class ClientWarehouseViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       const boxesDeliveryCosts = await BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
+
+      const result = await UserModel.getPlatformSettings()
+
       runInAction(() => {
         this.boxesDeliveryCosts = boxesDeliveryCosts
+
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
+
       this.setRequestStatus(loadingStatuses.success)
       this.triggerRequestToSendBatchModal()
     } catch (error) {

@@ -444,6 +444,7 @@ export const warehouseBoxesDataConverter = data =>
     _id: item._id,
 
     warehouse: item.destination?.name,
+    logicsTariff: item.logicsTariff?.name,
 
     client: item.items[0].product.client.name,
 

@@ -36,13 +36,13 @@ export const warehouseBoxesViewColumns = handlers => [
     field: 'humanFriendlyId',
     headerName: textConsts.boxIdField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 110,
+    width: 70,
   },
 
   {
     field: 'orders',
     headerName: textConsts.ordersField,
-    width: 450,
+    width: 410,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
         <OrderManyItemsCell box={params.row.originalData} />
@@ -60,7 +60,14 @@ export const warehouseBoxesViewColumns = handlers => [
     field: 'warehouse',
     headerName: textConsts.warehouseField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 170,
+    width: 100,
+  },
+
+  {
+    field: 'logicsTariff',
+    headerName: textConsts.logicsTariffField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 250,
   },
 
   {
@@ -76,13 +83,13 @@ export const warehouseBoxesViewColumns = handlers => [
     field: 'batchId',
     headerName: textConsts.batchField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 170,
+    width: 140,
   },
 
   {
     field: 'action',
     headerName: textConsts.actionField,
-    width: 250,
+    width: 200,
 
     renderCell: params => (
       <NormalActionBtnCell bTnText={textConsts.actionBtnText} row={params.row.originalData} onClickOkBtn={handlers} />

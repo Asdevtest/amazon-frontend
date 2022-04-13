@@ -15,11 +15,11 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
+import InlineObject21 from '../model/InlineObject21';
+import InlineObject22 from '../model/InlineObject22';
+import InlineObject23 from '../model/InlineObject23';
 import InlineObject24 from '../model/InlineObject24';
 import InlineObject25 from '../model/InlineObject25';
-import InlineObject26 from '../model/InlineObject26';
-import InlineObject27 from '../model/InlineObject27';
-import InlineObject28 from '../model/InlineObject28';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse2008 from '../model/InlineResponse2008';
@@ -53,7 +53,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject27} opts.body 
+     * @param {module:model/InlineObject24} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersOrdersGuidEditPatchWithHttpInfo(guid, opts) {
@@ -92,7 +92,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject27} opts.body 
+     * @param {module:model/InlineObject24} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersOrdersGuidEditPatch(guid, opts) {
@@ -217,7 +217,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject25} opts.body 
+     * @param {module:model/InlineObject22} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersOrdersGuidReturnOrderPatchWithHttpInfo(guid, opts) {
@@ -256,7 +256,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject25} opts.body 
+     * @param {module:model/InlineObject22} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersOrdersGuidReturnOrderPatch(guid, opts) {
@@ -273,7 +273,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject26} opts.body 
+     * @param {module:model/InlineObject23} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersOrdersGuidSetTotalPriceChangedPatchWithHttpInfo(guid, opts) {
@@ -312,7 +312,7 @@ export default class BuyerApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject26} opts.body 
+     * @param {module:model/InlineObject23} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid, opts) {
@@ -531,7 +531,7 @@ export default class BuyerApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject24} opts.body 
+     * @param {module:model/InlineObject21} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BuyersProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -570,7 +570,7 @@ export default class BuyerApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject24} opts.body 
+     * @param {module:model/InlineObject21} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BuyersProductsGuidPatch(guid, opts) {
@@ -836,7 +836,7 @@ export default class BuyerApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject28} opts.body 
+     * @param {module:model/InlineObject25} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
      */
     apiV1BuyersTasksPostWithHttpInfo(opts) {
@@ -869,7 +869,7 @@ export default class BuyerApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject28} opts.body 
+     * @param {module:model/InlineObject25} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
      */
     apiV1BuyersTasksPost(opts) {

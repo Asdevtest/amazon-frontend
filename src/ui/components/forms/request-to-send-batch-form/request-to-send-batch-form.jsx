@@ -17,6 +17,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').requestToSendBatchModal
 
 export const RequestToSendBatchForm = observer(
   ({
+    volumeWeightCoefficient,
     boxesMy,
     openModal,
     setOpenModal,
@@ -52,14 +53,14 @@ export const RequestToSendBatchForm = observer(
     const boxesGroupedByWarehouseAndDeliveryMethod = boxesWithPriceRequest
       .reduce((acc, cur) => {
         const findGroupIndex = acc.findIndex(
-          group => group.warehouse === cur.warehouse && group.deliveryMethod === cur.deliveryMethod,
+          group => group.destination?._id === cur.destination?._id && group.storekeeper?._id === cur.storekeeper?._id,
         )
         if (findGroupIndex !== -1) {
           acc[findGroupIndex].boxes.push(cur)
         } else {
           acc.push({
-            warehouse: cur.warehouse,
-            deliveryMethod: cur.deliveryMethod,
+            destination: cur.destination,
+            storekeeper: cur.storekeeper,
             boxes: [cur],
           })
         }
@@ -77,6 +78,7 @@ export const RequestToSendBatchForm = observer(
           {boxesGroupedByWarehouseAndDeliveryMethod.map((selectedGroup, i) => (
             <div key={i}>
               <RequestToSendBatchesGroupBoxes
+                volumeWeightCoefficient={volumeWeightCoefficient}
                 boxesMy={boxesMy}
                 selectedGroup={selectedGroup}
                 boxesDeliveryCosts={boxesDeliveryCosts}

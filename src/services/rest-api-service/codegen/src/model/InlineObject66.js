@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
+import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 
 /**
  * The InlineObject66 model module.
@@ -21,20 +23,14 @@ import ApiClient from '../ApiClient';
 class InlineObject66 {
     /**
      * Constructs a new <code>InlineObject66</code>.
-     * Новый поставщик.
+     * Схема универсальной заявки.
      * @alias module:model/InlineObject66
-     * @param name {String} Название поставщика.
-     * @param link {String} Ссылка на поставщика.
-     * @param price {Number} Цена за еденицу, dollar
-     * @param amount {Number} кол-во
-     * @param minlot {Number} Минимальный лот.
-     * @param lotcost {Number} Стоимость лота.
-     * @param comment {String} Комментарий
-     * @param batchDeliveryCostInDollar {Number} Доставка партии, dollar
+     * @param request {module:model/ApiV1RequestsCustomRequest} 
+     * @param details {module:model/ApiV1RequestsCustomDetails} 
      */
-    constructor(name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar) { 
+    constructor(request, details) { 
         
-        InlineObject66.initialize(this, name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar);
+        InlineObject66.initialize(this, request, details);
     }
 
     /**
@@ -42,15 +38,9 @@ class InlineObject66 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar) { 
-        obj['name'] = name;
-        obj['link'] = link;
-        obj['price'] = price;
-        obj['amount'] = amount;
-        obj['minlot'] = minlot;
-        obj['lotcost'] = lotcost;
-        obj['comment'] = comment;
-        obj['batchDeliveryCostInDollar'] = batchDeliveryCostInDollar;
+    static initialize(obj, request, details) { 
+        obj['request'] = request;
+        obj['details'] = details;
     }
 
     /**
@@ -64,65 +54,11 @@ class InlineObject66 {
         if (data) {
             obj = obj || new InlineObject66();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('request')) {
+                obj['request'] = ApiV1RequestsCustomRequest.constructFromObject(data['request']);
             }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
-            }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('yuanRate')) {
-                obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
-            }
-            if (data.hasOwnProperty('priceInYuan')) {
-                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
-                obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number');
-            }
-            if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
-                obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('batchTotalCostInDollar')) {
-                obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number');
-            }
-            if (data.hasOwnProperty('batchTotalCostInYuan')) {
-                obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('amountInBox')) {
-                obj['amountInBox'] = ApiClient.convertToType(data['amountInBox'], 'Number');
-            }
-            if (data.hasOwnProperty('boxLengthCm')) {
-                obj['boxLengthCm'] = ApiClient.convertToType(data['boxLengthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxWidthCm')) {
-                obj['boxWidthCm'] = ApiClient.convertToType(data['boxWidthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxHeightCm')) {
-                obj['boxHeightCm'] = ApiClient.convertToType(data['boxHeightCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxWeighGrossKg')) {
-                obj['boxWeighGrossKg'] = ApiClient.convertToType(data['boxWeighGrossKg'], 'Number');
-            }
-            if (data.hasOwnProperty('boxVolumeWeightKg')) {
-                obj['boxVolumeWeightKg'] = ApiClient.convertToType(data['boxVolumeWeightKg'], 'Number');
+            if (data.hasOwnProperty('details')) {
+                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
             }
         }
         return obj;
@@ -132,124 +68,14 @@ class InlineObject66 {
 }
 
 /**
- * Название поставщика.
- * @member {String} name
+ * @member {module:model/ApiV1RequestsCustomRequest} request
  */
-InlineObject66.prototype['name'] = undefined;
+InlineObject66.prototype['request'] = undefined;
 
 /**
- * Ссылка на поставщика.
- * @member {String} link
+ * @member {module:model/ApiV1RequestsCustomDetails} details
  */
-InlineObject66.prototype['link'] = undefined;
-
-/**
- * Цена за еденицу, dollar
- * @member {Number} price
- */
-InlineObject66.prototype['price'] = undefined;
-
-/**
- * кол-во
- * @member {Number} amount
- */
-InlineObject66.prototype['amount'] = undefined;
-
-/**
- * Минимальный лот.
- * @member {Number} minlot
- */
-InlineObject66.prototype['minlot'] = undefined;
-
-/**
- * Стоимость лота.
- * @member {Number} lotcost
- */
-InlineObject66.prototype['lotcost'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject66.prototype['images'] = undefined;
-
-/**
- * Комментарий
- * @member {String} comment
- */
-InlineObject66.prototype['comment'] = undefined;
-
-/**
- * Курс доллара к юаню поставщика. 
- * @member {Number} yuanRate
- */
-InlineObject66.prototype['yuanRate'] = undefined;
-
-/**
- * Цена за еденицу, yuan
- * @member {Number} priceInYuan
- */
-InlineObject66.prototype['priceInYuan'] = undefined;
-
-/**
- * Доставка партии, dollar
- * @member {Number} batchDeliveryCostInDollar
- */
-InlineObject66.prototype['batchDeliveryCostInDollar'] = undefined;
-
-/**
- * Доставка партии, yuan
- * @member {Number} batchDeliveryCostInYuan
- */
-InlineObject66.prototype['batchDeliveryCostInYuan'] = undefined;
-
-/**
- * Цена партии, dollar
- * @member {Number} batchTotalCostInDollar
- */
-InlineObject66.prototype['batchTotalCostInDollar'] = undefined;
-
-/**
- * Цена партии, yuan
- * @member {Number} batchTotalCostInYuan
- */
-InlineObject66.prototype['batchTotalCostInYuan'] = undefined;
-
-/**
- * Количество единиц в коробке.
- * @member {Number} amountInBox
- */
-InlineObject66.prototype['amountInBox'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxLengthCm
- */
-InlineObject66.prototype['boxLengthCm'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxWidthCm
- */
-InlineObject66.prototype['boxWidthCm'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxHeightCm
- */
-InlineObject66.prototype['boxHeightCm'] = undefined;
-
-/**
- * Общий вес кг коробки который назвал поставщик.
- * @member {Number} boxWeighGrossKg
- */
-InlineObject66.prototype['boxWeighGrossKg'] = undefined;
-
-/**
- * Объемный вес кг коробки, расчет на беке.
- * @member {Number} boxVolumeWeightKg
- */
-InlineObject66.prototype['boxVolumeWeightKg'] = undefined;
+InlineObject66.prototype['details'] = undefined;
 
 
 

@@ -22,11 +22,10 @@ class InlineObject21 {
     /**
      * Constructs a new <code>InlineObject21</code>.
      * @alias module:model/InlineObject21
-     * @param boxesIds {Array.<String>} 
      */
-    constructor(boxesIds) { 
+    constructor() { 
         
-        InlineObject21.initialize(this, boxesIds);
+        InlineObject21.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject21 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,38 @@ class InlineObject21 {
         if (data) {
             obj = obj || new InlineObject21();
 
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('amazon')) {
+                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            }
+            if (data.hasOwnProperty('reffee')) {
+                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbalink')) {
+                obj['fbalink'] = ApiClient.convertToType(data['fbalink'], 'String');
+            }
+            if (data.hasOwnProperty('fbafee')) {
+                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaamount')) {
+                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
+            }
+            if (data.hasOwnProperty('delivery')) {
+                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('profit')) {
+                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+            }
+            if (data.hasOwnProperty('margin')) {
+                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
+            }
+            if (data.hasOwnProperty('lsupplier')) {
+                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
+            }
+            if (data.hasOwnProperty('buyersComment')) {
+                obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
             }
         }
         return obj;
@@ -60,9 +88,70 @@ class InlineObject21 {
 }
 
 /**
- * @member {Array.<String>} boxesIds
+ * 
+ * @member {Number} amazon
  */
-InlineObject21.prototype['boxesIds'] = undefined;
+InlineObject21.prototype['amazon'] = undefined;
+
+/**
+ * комиссия которую берет амазон за любой заказ - 15%
+ * @member {Number} reffee
+ */
+InlineObject21.prototype['reffee'] = undefined;
+
+/**
+ * ФБА ссылка
+ * @member {String} fbalink
+ */
+InlineObject21.prototype['fbalink'] = undefined;
+
+/**
+ * ФБА комиссия
+ * @member {Number} fbafee
+ */
+InlineObject21.prototype['fbafee'] = undefined;
+
+/**
+ * ФБА кол-во
+ * @member {Number} fbaamount
+ */
+InlineObject21.prototype['fbaamount'] = undefined;
+
+/**
+ * Стоимость доставки.
+ * @member {Number} delivery
+ */
+InlineObject21.prototype['delivery'] = undefined;
+
+/**
+ * Код статуса
+ * @member {Number} status
+ */
+InlineObject21.prototype['status'] = undefined;
+
+/**
+ * Прибыль
+ * @member {Number} profit
+ */
+InlineObject21.prototype['profit'] = undefined;
+
+/**
+ * Маржа
+ * @member {Number} margin
+ */
+InlineObject21.prototype['margin'] = undefined;
+
+/**
+ * Ссылка на этот продукт на амазоне.
+ * @member {String} lsupplier
+ */
+InlineObject21.prototype['lsupplier'] = undefined;
+
+/**
+ * Примечания байера.
+ * @member {String} buyersComment
+ */
+InlineObject21.prototype['buyersComment'] = undefined;
 
 
 

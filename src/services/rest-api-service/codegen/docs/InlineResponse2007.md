@@ -24,6 +24,8 @@ Name | Type | Description | Notes
 **weighGrossKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
 **isShippingLabelAttachedByStorekeeper** | **Boolean** | Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
+**totalPrice** | **Number** | Итого за доставку. | [optional] 
+**totalPriceChanged** | **Number** | Обновление итога за доставку. | [optional] 
 **destinationId** | **String** | id склада - склады куда отправляют  | [optional] 
 **logicsTariffId** | **String** | GUID тарифа доставки  | [optional] 
 **batchId** | **String** | Сторкипер взявший коробку в работу. | [optional] 
@@ -49,6 +51,8 @@ Name | Type | Description | Notes
 * `IN_STOCK` (value: `"IN_STOCK"`)
 
 * `REQUESTED_SEND_TO_BATCH` (value: `"REQUESTED_SEND_TO_BATCH"`)
+
+* `NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE` (value: `"NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE"`)
 
 * `IN_BATCH` (value: `"IN_BATCH"`)
 

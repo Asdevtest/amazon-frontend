@@ -79,6 +79,17 @@ export const EditOrderModal = ({
     setBoxesForCreation(updatedNewBoxes)
   }
 
+  const onClickBarcodeCheckbox = boxIndex => e => {
+    console.log('e', e)
+
+    const newStateFormFields = [...boxesForCreation]
+    newStateFormFields[boxIndex] = {
+      ...newStateFormFields[boxIndex],
+      isBarCodeAlreadyAttachedByTheSupplier: e.target.checked,
+    }
+    setBoxesForCreation(newStateFormFields)
+  }
+
   const [orderFields, setOrderFields] = useState({
     ...order,
     status: order?.status || undefined,
@@ -210,7 +221,12 @@ export const EditOrderModal = ({
       )}
 
       {boxesForCreation.length > 0 && (
-        <BoxesToCreateTable newBoxes={boxesForCreation} onRemoveBox={onRemoveForCreationBox} />
+        <BoxesToCreateTable
+          barcodeIsExist={order.product.barCode}
+          newBoxes={boxesForCreation}
+          onRemoveBox={onRemoveForCreationBox}
+          onClickBarcodeCheckbox={onClickBarcodeCheckbox}
+        />
       )}
 
       <div className={classNames.tableWrapper}>
@@ -222,6 +238,7 @@ export const EditOrderModal = ({
             BodyRow={WarehouseBodyRow}
             renderHeadRow={renderHeadRow}
             mainProductId={order.product._id}
+            volumeWeightCoefficient={volumeWeightCoefficient}
           />
         ) : (
           <Typography className={classNames.noBoxesText}>{textConsts.noBoxesYat}</Typography>

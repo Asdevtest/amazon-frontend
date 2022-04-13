@@ -86,4 +86,8 @@ export const useClassNames = makeStyles(() => ({
     color: '#354256',
     verticalAlign: 'middle',
   },
+
+  button: {
+    height: '36.5px',
+  },
 }))

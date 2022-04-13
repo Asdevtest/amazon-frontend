@@ -34,6 +34,7 @@ export class ClientOrderView extends Component {
 
   render() {
     const {
+      volumeWeightCoefficient,
       orderBoxes,
       drawerOpen,
       order,
@@ -53,6 +54,7 @@ export class ClientOrderView extends Component {
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
               <OrderContent
+                volumeWeightCoefficient={volumeWeightCoefficient}
                 order={order}
                 boxes={orderBoxes}
                 history={history}
