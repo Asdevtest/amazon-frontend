@@ -23,7 +23,9 @@ import {BuyerProductView} from '@views/buyer/buyer-product-view/'
 import {BuyerSearchSupplierByClientView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-client-view'
 import {BuyerSearchSupplierBySupervisorView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-supervisor-view'
 import {BuyerSubUsersView} from '@views/buyer/buyer-users-views/buyer-sub-users-view'
-import {ClientBatchesView} from '@views/client/client-batches-view'
+import {ClientAwaitingBatchesView} from '@views/client/client-batches-views/client-awaiting-batches-view'
+import {ClientBatchesView} from '@views/client/client-batches-views/client-batches-view'
+import {ClientReadyBoxesView} from '@views/client/client-batches-views/client-ready-boxes-view'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
 import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
@@ -361,6 +363,20 @@ export const privateRoutesConfigs = [
     routePath: '/client/exchange/private-label',
     component: ClientExchangePrivateLabelView,
     exact: true,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
+    routePath: '/client/boxes-ready-to-batch',
+    component: ClientReadyBoxesView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
+    routePath: '/client/awaiting-batch',
+    component: ClientAwaitingBatchesView,
+    exact: false,
     permission: [UserRole.CLIENT],
   },
 

@@ -84,6 +84,11 @@ class BoxesModelStatic {
     return response
   }
 
+  getBoxesReadyToBatchClient = async () => {
+    const response = await restApiService.boxesApi.apiV1BoxesClientsSentToBatchGet()
+    return response
+  }
+
   getBoxesDraftsForCurClient = async () => {
     const response = await restApiService.boxesApi.apiV1BoxesClientsDraftsGet()
     return response

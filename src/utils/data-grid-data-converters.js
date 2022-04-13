@@ -260,9 +260,11 @@ export const clientWarehouseDataConverter = data =>
       parseFloat(item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier) || 0,
     ),
     grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
-    warehouses: item.destination?.name,
 
-    isDraft: item.isDraft,
+    destination: item.destination?.name,
+    storekeeper: item.storekeeper?.name,
+    logicsTariff: item.logicsTariff?.name,
+
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
 

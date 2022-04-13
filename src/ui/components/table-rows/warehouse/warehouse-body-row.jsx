@@ -24,8 +24,6 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
   const [showPhotosModal, setShowPhotosModal] = useState(false)
   const [curImages, setCurImages] = useState([])
 
-  console.log('mainProductId', restProps.mainProductId)
-
   const onTriggerIsMaximizedMasterBox = () => {
     setIsMaximizedMasterBox(!isMaximizedMasterBox)
   }

@@ -7,6 +7,8 @@ import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
 import {UserModel} from '@models/user-model'
 
+import {toFixed} from '@utils/text'
+
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
   requestStatus = undefined
@@ -208,7 +210,7 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.confirmModalSettings = {
         isWarning: false,
-        message: `Точная стоимость заявки составит: ${result.totalCost} $. Подтвердить публикацию?`,
+        message: `Точная стоимость заявки составит: ${toFixed(result.totalCost, 2)} $. Подтвердить публикацию?`,
         onSubmit: () => this.toPublishRequest(result.totalCost),
       }
 

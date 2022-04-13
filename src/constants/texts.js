@@ -2809,6 +2809,26 @@ export const texts = {
       deliveryField: 'Доставка',
     },
 
+    clientBoxesReadyToBatchViewColumns: {
+      createdAtField: 'Создано',
+      updatedAtField: 'Обновлено',
+      ordersField: 'Продукт',
+      ordersId: 'id Заказа',
+      barCode: 'Баркод',
+      asinField: 'ASIN',
+      qtyField: 'Количество',
+      materialField: 'Материал',
+      warehouseField: 'Destination',
+      boxIdField: 'ID',
+      priceField: 'Общая цена',
+      trackIdField: 'Трек номер',
+      weightField: 'Финальный Вес',
+      grossWeightField: 'Общий вес',
+      deliveryField: 'Доставка',
+      storekeeperField: 'Пром-й склад',
+      logicsTariffField: 'Тариф',
+    },
+
     warehouseBoxesTableColumns: {
       createdAtField: 'Создано',
       updatedAtField: 'Обновлено',

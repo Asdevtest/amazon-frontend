@@ -80,8 +80,6 @@ export const EditOrderModal = ({
   }
 
   const onClickBarcodeCheckbox = boxIndex => e => {
-    console.log('e', e)
-
     const newStateFormFields = [...boxesForCreation]
     newStateFormFields[boxIndex] = {
       ...newStateFormFields[boxIndex],
@@ -114,7 +112,7 @@ export const EditOrderModal = ({
         return
       }
 
-      newOrderFieldsState[filedName] = e.target.value
+      newOrderFieldsState[filedName] = Number(e.target.value)
     } else if (filedName === 'status') {
       newOrderFieldsState[filedName] = e.target.value
       setTmpNewOrderFieldsState(newOrderFieldsState)

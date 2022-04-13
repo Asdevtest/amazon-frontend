@@ -6,7 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
@@ -23,6 +23,7 @@ import {styles} from './client-batches-view.style'
 const textConsts = getLocalizedTexts(texts, 'ru').clientBatchesView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_BATCHES
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BATCHES
 
 @observer
 class ClientBatchesViewRaw extends Component {
@@ -61,7 +62,12 @@ class ClientBatchesViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
+        <Navbar
+          activeCategory={navbarActiveCategory}
+          activeSubCategory={navbarActiveSubCategory}
+          drawerOpen={drawerOpen}
+          setDrawerOpen={onTriggerDrawer}
+        />
 
         <Main>
           <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawer}>

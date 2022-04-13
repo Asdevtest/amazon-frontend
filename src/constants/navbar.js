@@ -147,9 +147,25 @@ export const navbarConfig = {
     },
     {
       icon: AllInboxIcon,
-      title: 'Мои отправления',
-      route: '/client/batches',
-      subtitles: null,
+      title: 'Мои партии',
+      route: '/client/boxes-ready-to-batch',
+      subtitles: [
+        {
+          subtitle: 'Коробки готовые к отправке',
+          subRoute: '/client/boxes-ready-to-batch',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
+        },
+        {
+          subtitle: 'Ожидают отправки',
+          subRoute: '/client/awaiting-batch',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH,
+        },
+        {
+          subtitle: 'Отправленные',
+          subRoute: '/client/batches',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BATCHES,
+        },
+      ],
       key: navBarActiveCategory.NAVBAR_BATCHES,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_BATCHES_CLIENT),

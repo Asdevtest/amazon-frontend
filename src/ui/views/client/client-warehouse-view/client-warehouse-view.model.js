@@ -187,8 +187,6 @@ export class ClientWarehouseViewModel {
     try {
       const result = await StorekeeperModel.getStorekeepers()
 
-      console.log('result', result)
-
       this.storekeepersData = result
     } catch (error) {
       console.log(error)

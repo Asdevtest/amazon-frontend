@@ -276,12 +276,10 @@ export class BuyerMyOrdersViewModel {
           'warehouse',
         ]),
         clientId: this.selectedOrder.createdBy._id,
-        // deliveryMethod: formFields.deliveryMethod,
         lengthCmSupplier: parseFloat(formFields?.lengthCmSupplier) || 0,
         widthCmSupplier: parseFloat(formFields?.widthCmSupplier) || 0,
         heightCmSupplier: parseFloat(formFields?.heightCmSupplier) || 0,
         weighGrossKgSupplier: parseFloat(formFields?.weighGrossKgSupplier) || 0,
-        // volumeWeightKgSupplier: parseFloat(formFields?.volumeWeightKgSupplier) || 0,
         items: [
           {
             productId: formFields.items[0].product._id,

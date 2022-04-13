@@ -64,11 +64,14 @@ export const DataGridTablesKeys = {
   CLIENT_NICHE_SEARCH_REQUESTS: 'clientNicheSearchRequestsDataGridState',
 
   CLIENT_SUB_USERS: 'clientSubUsersDataGridState',
-  CLIENT_BATCHES: 'clientBatchesDataGridState',
   CLIENT_DAILY_SELLER_BOARD: 'clientDailySellerBoardDataGridState',
   CLIENT_LAST_30_DAY_SELLER_BOARD: 'clientLast30DaySellerBoardDataGridState',
   CLIENT_FINANCES: 'clientFinancesDataGridState',
   CLIENT_SHOPS: 'clientShopsDataGridState',
+
+  CLIENT_BATCHES: 'clientBatchesDataGridState',
+  CLIENT_AWAITING_BATCHES: 'clientAwaitingBatchesDataGridState',
+  CLIENT_BOXES_READY_TO_BATCH: 'clientReadyToBatchDataGridState',
 
   FREELANCER_FINANCES: 'freelancerFinancesDataGridState',
   FREELANCER_CUSTOM_MY_REQUESTS: 'freelancerCustomMyRequestsDataGridState',
