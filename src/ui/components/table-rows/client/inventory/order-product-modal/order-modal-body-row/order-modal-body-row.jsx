@@ -85,7 +85,7 @@ export const OrderModalBodyRow = ({
 
       <TableCell>
         <Input
-          inputProps={{maxLength: 7, min: 0}}
+          inputProps={{maxLength: 6, min: 0}}
           value={orderState.amount}
           className={classNames.amountCell}
           onChange={e => onChangeInput(e, 'amount')}

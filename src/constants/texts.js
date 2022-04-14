@@ -589,7 +589,7 @@ export const texts = {
       nameLabel: 'Название услуги*',
       nameHolder: 'наименование услуги',
 
-      priceField: 'Стоимость услуги, $*',
+      priceField: 'Стоимость услуги за кг, $*',
       priceHolder: 'стоимость',
 
       descriptionField: 'Описание услуги*',

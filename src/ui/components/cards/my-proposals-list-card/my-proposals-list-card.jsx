@@ -9,7 +9,7 @@ import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {minsToTimeRus, toFixed, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './my-proposals-list-card.style'
 
@@ -49,7 +49,9 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) =>
           <div className={classNames.rightSubWrapper}>
             <div className={classNames.timeWrapper}>
               <Typography>{'Время на выполнение в мин.'}</Typography>
-              <Typography className={classNames.timeCount}>{item.proposals[0].execution_time}</Typography>
+              <Typography className={classNames.timeCount}>
+                {minsToTimeRus(item.proposals[0].execution_time)}
+              </Typography>
             </div>
 
             <div className={classNames.rightItemSubWrapper}>

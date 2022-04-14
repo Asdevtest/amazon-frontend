@@ -1,3 +1,5 @@
+import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+
 import React, {FC, useContext} from 'react'
 
 import clsx from 'clsx'
@@ -11,8 +13,6 @@ import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
-
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
 import {LabelValuePairBlock} from '../label-value-pair-block'
 import {useClassNames} from './chat-message-proposal.style'
