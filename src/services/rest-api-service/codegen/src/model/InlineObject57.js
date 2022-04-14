@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesLogicsTariffConditionsByRegion from './ApiV1BoxesLogicsTariffConditionsByRegion';
+import ApiV1BatchesLogicsTariffConditionsByRegion from './ApiV1BatchesLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject57 model module.
@@ -63,14 +63,14 @@ class InlineObject57 {
             if (data.hasOwnProperty('etd')) {
                 obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
             }
-            if (data.hasOwnProperty('atd')) {
-                obj['atd'] = ApiClient.convertToType(data['atd'], 'Date');
+            if (data.hasOwnProperty('eta')) {
+                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
             }
             if (data.hasOwnProperty('minWeightInKg')) {
                 obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
             }
             if (data.hasOwnProperty('conditionsByRegion')) {
-                obj['conditionsByRegion'] = ApiV1BoxesLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
+                obj['conditionsByRegion'] = ApiV1BatchesLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
         }
         return obj;
@@ -111,9 +111,9 @@ InlineObject57.prototype['etd'] = undefined;
 
 /**
  * Ожидаема дата прибытия.
- * @member {Date} atd
+ * @member {Date} eta
  */
-InlineObject57.prototype['atd'] = undefined;
+InlineObject57.prototype['eta'] = undefined;
 
 /**
  * Минимальный вес, в кг
@@ -122,7 +122,7 @@ InlineObject57.prototype['atd'] = undefined;
 InlineObject57.prototype['minWeightInKg'] = undefined;
 
 /**
- * @member {module:model/ApiV1BoxesLogicsTariffConditionsByRegion} conditionsByRegion
+ * @member {module:model/ApiV1BatchesLogicsTariffConditionsByRegion} conditionsByRegion
  */
 InlineObject57.prototype['conditionsByRegion'] = undefined;
 

@@ -39,7 +39,6 @@ export const AdminSettingsForm = observer(() => {
 
   useEffect(() => {
     const sourceFormFields = {
-      airDeliveryPrice: adminSettings?.dynamicSettings?.airDeliveryPrice || 0,
       costOfFindingSupplier: adminSettings?.dynamicSettings?.costOfFindingSupplier || 0,
       deadlineForFindingSupplier: adminSettings?.dynamicSettings?.deadlineForFindingSupplier || 0,
       requestMinAmountPriceOfProposal: adminSettings?.dynamicSettings?.requestMinAmountPriceOfProposal || 0,
@@ -50,7 +49,6 @@ export const AdminSettingsForm = observer(() => {
       requestTimeLimitInHourForCheckingProposalBySuper:
         adminSettings?.dynamicSettings?.requestTimeLimitInHourForCheckingProposalBySuper || 0,
 
-      seaDeliveryPrice: adminSettings?.dynamicSettings?.seaDeliveryPrice || 0,
       yuanToDollarRate: adminSettings?.dynamicSettings?.yuanToDollarRate || 0,
       costOfCheckingProduct: adminSettings?.dynamicSettings?.costOfCheckingProduct || 0,
       volumeWeightCoefficient: adminSettings?.dynamicSettings?.volumeWeightCoefficient || 0,
@@ -110,18 +108,6 @@ export const AdminSettingsForm = observer(() => {
         className={classNames.textField}
         value={formFields.yuanToDollarRate}
         onChange={onChangeField('yuanToDollarRate')}
-      />
-      <Field
-        label={textConsts.airDeliveryPrice}
-        className={classNames.textField}
-        value={formFields.airDeliveryPrice}
-        onChange={onChangeField('airDeliveryPrice')}
-      />
-      <Field
-        label={textConsts.seaDeliveryPrice}
-        className={classNames.textField}
-        value={formFields.seaDeliveryPrice}
-        onChange={onChangeField('seaDeliveryPrice')}
       />
       <Field
         label={textConsts.costOfFindingSupplier}

@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesByOrderGuidGuidGet
 
-> [InlineResponse2007] apiV1BoxesByOrderGuidGuidGet(guid, opts)
+> [ApiV1BatchesBoxes] apiV1BoxesByOrderGuidGuidGet(guid, opts)
 
 # Получить коробки и их строки по GUID заказа.
 
@@ -119,7 +119,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
 
 ### Authorization
 
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesByProductGuidGuidGet
 
-> [InlineResponse2007] apiV1BoxesByProductGuidGuidGet(guid, opts)
+> [ApiV1BatchesBoxes] apiV1BoxesByProductGuidGuidGet(guid, opts)
 
 # Получить коробки и их строки по GUID продукта.
 
@@ -173,7 +173,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
 
 ### Authorization
 
@@ -403,7 +403,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsGet
 
-> [InlineResponse2007] apiV1BoxesClientsGet(opts)
+> [ApiV1BatchesBoxes] apiV1BoxesClientsGet(opts)
 
 # Получить коробки и их строки по текущему клиенту.
 
@@ -443,7 +443,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
 
 ### Authorization
 
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsSentToBatchGet
 
-> [InlineResponse2007] apiV1BoxesClientsSentToBatchGet(opts)
+> [ApiV1BatchesBoxes] apiV1BoxesClientsSentToBatchGet(opts)
 
 # Получить коробки по текущему клиенту отправленные в партию.
 
@@ -476,6 +476,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
+  'storekeeperId': null, // String | GUID склада который нужно получить.
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BoxesClientsSentToBatchGet(opts).then((data) => {
@@ -491,11 +492,12 @@ apiInstance.apiV1BoxesClientsSentToBatchGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
 
 ### Authorization
 
@@ -565,7 +567,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesGet
 
-> [InlineResponse2007] apiV1BoxesGet(opts)
+> [ApiV1BatchesBoxes] apiV1BoxesGet(opts)
 
 # Получить коробки и их строки.
 
@@ -603,7 +605,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
 
 ### Authorization
 
@@ -835,7 +837,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesStorekeepersSentToBatchGet
 
-> [InlineResponse2007] apiV1BoxesStorekeepersSentToBatchGet(opts)
+> [ApiV1BatchesBoxes] apiV1BoxesStorekeepersSentToBatchGet(opts)
 
 # Получить коробки по текущему сторкипера отправленные в партию.
 
@@ -873,7 +875,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
 
 ### Authorization
 

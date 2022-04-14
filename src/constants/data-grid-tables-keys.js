@@ -27,9 +27,11 @@ export const DataGridTablesKeys = {
   WAREHOUSE_MY_TASKS: 'warehouseMyTasksDataGridState',
   WAREHOUSE_COMPLETED_TASKS: 'warehouseCompletedTasksDataGridState',
   WAREHOUSE_CANCELED_TASKS: 'warehouseCanceledTasksDataGridState',
-  WAREHOUSE_BATCHES: 'warehouseBatchesDataGridState',
   WAREHOUSE_SUB_USERS: 'warehouseSubUsersDataGridState',
   WAREHOUSE_FINANCES: 'warehouseFinancesDataGridState',
+
+  WAREHOUSE_AWAITING_BATCHES: 'warehouseAwaitingBatchesDataGridState',
+  WAREHOUSE_BATCHES: 'warehouseBatchesDataGridState',
 
   WAREHOUSE_LOGISTICS_TARIFFS: 'warehouseLogisticsTariffsDataGridState',
   WAREHOUSE_SELF_TARIFFS: 'warehouseSelfTariffsDataGridState',

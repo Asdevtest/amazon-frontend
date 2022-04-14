@@ -24,13 +24,13 @@ import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheck
 import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
 import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStorekeeper';
 import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
+import ApiV1BatchesDestination from './model/ApiV1BatchesDestination';
+import ApiV1BatchesItems from './model/ApiV1BatchesItems';
+import ApiV1BatchesLogicsTariff from './model/ApiV1BatchesLogicsTariff';
+import ApiV1BatchesLogicsTariffConditionsByRegion from './model/ApiV1BatchesLogicsTariffConditionsByRegion';
+import ApiV1BatchesLogicsTariffConditionsByRegionWest from './model/ApiV1BatchesLogicsTariffConditionsByRegionWest';
 import ApiV1BatchesStorekeeper from './model/ApiV1BatchesStorekeeper';
-import ApiV1BoxesDestination from './model/ApiV1BoxesDestination';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
-import ApiV1BoxesItems1 from './model/ApiV1BoxesItems1';
-import ApiV1BoxesLogicsTariff from './model/ApiV1BoxesLogicsTariff';
-import ApiV1BoxesLogicsTariffConditionsByRegion from './model/ApiV1BoxesLogicsTariffConditionsByRegion';
-import ApiV1BoxesLogicsTariffConditionsByRegionWest from './model/ApiV1BoxesLogicsTariffConditionsByRegionWest';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
 import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
@@ -136,9 +136,8 @@ import InlineResponse20020 from './model/InlineResponse20020';
 import InlineResponse20021 from './model/InlineResponse20021';
 import InlineResponse20022 from './model/InlineResponse20022';
 import InlineResponse20023 from './model/InlineResponse20023';
-import InlineResponse20024 from './model/InlineResponse20024';
-import InlineResponse20024Details from './model/InlineResponse20024Details';
-import InlineResponse20024Request from './model/InlineResponse20024Request';
+import InlineResponse20023Details from './model/InlineResponse20023Details';
+import InlineResponse20023Request from './model/InlineResponse20023Request';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
 import InlineResponse2005 from './model/InlineResponse2005';
@@ -318,46 +317,46 @@ export {
     ApiV1BatchesBoxes,
 
     /**
+     * The ApiV1BatchesDestination model constructor.
+     * @property {module:model/ApiV1BatchesDestination}
+     */
+    ApiV1BatchesDestination,
+
+    /**
+     * The ApiV1BatchesItems model constructor.
+     * @property {module:model/ApiV1BatchesItems}
+     */
+    ApiV1BatchesItems,
+
+    /**
+     * The ApiV1BatchesLogicsTariff model constructor.
+     * @property {module:model/ApiV1BatchesLogicsTariff}
+     */
+    ApiV1BatchesLogicsTariff,
+
+    /**
+     * The ApiV1BatchesLogicsTariffConditionsByRegion model constructor.
+     * @property {module:model/ApiV1BatchesLogicsTariffConditionsByRegion}
+     */
+    ApiV1BatchesLogicsTariffConditionsByRegion,
+
+    /**
+     * The ApiV1BatchesLogicsTariffConditionsByRegionWest model constructor.
+     * @property {module:model/ApiV1BatchesLogicsTariffConditionsByRegionWest}
+     */
+    ApiV1BatchesLogicsTariffConditionsByRegionWest,
+
+    /**
      * The ApiV1BatchesStorekeeper model constructor.
      * @property {module:model/ApiV1BatchesStorekeeper}
      */
     ApiV1BatchesStorekeeper,
 
     /**
-     * The ApiV1BoxesDestination model constructor.
-     * @property {module:model/ApiV1BoxesDestination}
-     */
-    ApiV1BoxesDestination,
-
-    /**
      * The ApiV1BoxesItems model constructor.
      * @property {module:model/ApiV1BoxesItems}
      */
     ApiV1BoxesItems,
-
-    /**
-     * The ApiV1BoxesItems1 model constructor.
-     * @property {module:model/ApiV1BoxesItems1}
-     */
-    ApiV1BoxesItems1,
-
-    /**
-     * The ApiV1BoxesLogicsTariff model constructor.
-     * @property {module:model/ApiV1BoxesLogicsTariff}
-     */
-    ApiV1BoxesLogicsTariff,
-
-    /**
-     * The ApiV1BoxesLogicsTariffConditionsByRegion model constructor.
-     * @property {module:model/ApiV1BoxesLogicsTariffConditionsByRegion}
-     */
-    ApiV1BoxesLogicsTariffConditionsByRegion,
-
-    /**
-     * The ApiV1BoxesLogicsTariffConditionsByRegionWest model constructor.
-     * @property {module:model/ApiV1BoxesLogicsTariffConditionsByRegionWest}
-     */
-    ApiV1BoxesLogicsTariffConditionsByRegionWest,
 
     /**
      * The ApiV1BoxesMergeBoxBody model constructor.
@@ -990,22 +989,16 @@ export {
     InlineResponse20023,
 
     /**
-     * The InlineResponse20024 model constructor.
-     * @property {module:model/InlineResponse20024}
+     * The InlineResponse20023Details model constructor.
+     * @property {module:model/InlineResponse20023Details}
      */
-    InlineResponse20024,
+    InlineResponse20023Details,
 
     /**
-     * The InlineResponse20024Details model constructor.
-     * @property {module:model/InlineResponse20024Details}
+     * The InlineResponse20023Request model constructor.
+     * @property {module:model/InlineResponse20023Request}
      */
-    InlineResponse20024Details,
-
-    /**
-     * The InlineResponse20024Request model constructor.
-     * @property {module:model/InlineResponse20024Request}
-     */
-    InlineResponse20024Request,
+    InlineResponse20023Request,
 
     /**
      * The InlineResponse2003 model constructor.

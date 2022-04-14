@@ -680,6 +680,19 @@ export const texts = {
       bindBtn: 'Привязать',
     },
 
+    addOrEditBatchForm: {
+      mainTitle: 'Привязать товар со склада',
+      recommend: 'Рекомендованные',
+      asin: 'ASIN',
+      sku: 'SKU',
+      name: 'названию',
+      betweenChipsText: 'или поиск по',
+      searchHolder: `поиск...`,
+      searchBtn: 'Поиск',
+      chosenGoods: 'Выбранные товары со склада:',
+      bindBtn: 'Привязать',
+    },
+
     addOrEditGroupPermissionForm: {
       addTitle: 'Новоя группа разрешений',
       editTitle: 'Изменить группу разрешений',
@@ -737,6 +750,18 @@ export const texts = {
       stockValueField: 'Count',
       reservedField: 'Reserved',
       roiField: 'ROI',
+    },
+
+    addOrEditBatchFormColumnsTexts: {
+      qtyField: 'Кол-во',
+      ordersField: 'Продукт',
+      warehouseField: 'Destination',
+
+      clientField: 'Клиент',
+      logicsTariffField: 'Тариф',
+      updatedAtField: 'Обновлено',
+      weightField: 'Вес фин-й',
+      priceField: 'Стоимость',
     },
 
     addProductSellerboardForm: {
@@ -3727,6 +3752,20 @@ export const texts = {
       noBtn: 'Нет',
       confirmTitle: 'Внимание',
     },
+
+    warehouseAwaitingBatchesView: {
+      appbarTitle: 'Отправления',
+      mainTitle: 'Boxes for batches',
+      confirmSendBatchBtn: 'Confirm Send to batch',
+      confirmMessage: 'Отправить?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      confirmTitle: 'Внимание',
+
+      editBtn: 'Редактировать партию',
+      addBtn: 'Создать партию товара',
+    },
+
     appbarTexts: {
       menuTitle: 'Меню:',
       exit: 'Выйти',

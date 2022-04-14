@@ -28,7 +28,7 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
     minWeightInKg: tariffToEdit?.minWeightInKg || '',
     cls: tariffToEdit?.cls || null,
     etd: tariffToEdit?.etd || null,
-    atd: tariffToEdit?.atd || null,
+    eta: tariffToEdit?.eta || null,
     conditionsByRegion: {
       west: {
         rate: tariffToEdit?.conditionsByRegion.west.rate || '',
@@ -47,7 +47,7 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
   const onChangeField = (fieldName, direction) => event => {
     const newFormFields = {...formFields}
 
-    if (['cls', 'etd', 'atd'].includes(fieldName)) {
+    if (['cls', 'etd', 'eta'].includes(fieldName)) {
       newFormFields[fieldName] = event
     } else if (['price', 'rate', 'minWeightInKg'].includes(fieldName)) {
       if (!checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)) {
@@ -81,13 +81,13 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
     formFields.deliveryTimeInDay === '' ||
     formFields.cls === null ||
     formFields.etd === null ||
-    formFields.atd === null ||
+    formFields.eta === null ||
     formFields.conditionsByRegion.west.rate === '' ||
     formFields.conditionsByRegion.central.rate === '' ||
     formFields.conditionsByRegion.east.rate === '' ||
     checkDateByDeadline(formFields.cls) ||
     checkDateByDeadline(formFields.etd) ||
-    checkDateByDeadline(formFields.atd)
+    checkDateByDeadline(formFields.eta)
 
   return (
     <div className={classNames.root}>
@@ -192,11 +192,11 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
               inputComponent={
                 <div
                   className={clsx({
-                    [classNames.deadlineError]: checkDateByDeadline(formFields.atd),
+                    [classNames.deadlineError]: checkDateByDeadline(formFields.eta),
                   })}
                 >
-                  <DatePicker value={formFields.atd} onChange={onChangeField('atd')} />
-                  {checkDateByDeadline(formFields.atd) && (
+                  <DatePicker value={formFields.eta} onChange={onChangeField('eta')} />
+                  {checkDateByDeadline(formFields.eta) && (
                     <p className={classNames.deadlineErrorText}>
                       {'The deadline date cannot be later than the current date'}
                     </p>

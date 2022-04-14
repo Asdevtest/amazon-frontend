@@ -78,7 +78,8 @@ import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-
 import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view/supervisor-settings-view'
 import {SupervisorSubUsersView} from '@views/supervisor/supervisor-users-views/supervisor-sub-users-view'
 import {TermsView} from '@views/terms'
-import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-view/warehouse-batches-view'
+import {WarehouseAwaitingBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view'
+import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-batches-view/warehouse-batches-view'
 import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-canceled-tasks-view'
 import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-completed-tasks-view'
 import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
@@ -521,8 +522,16 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.STOREKEEPER],
   },
+
   {
-    routePath: '/warehouse/boxes',
+    routePath: '/warehouse/awaiting-batches',
+    component: WarehouseAwaitingBatchesView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+  },
+
+  {
+    routePath: '/warehouse/batches',
     component: WarehouseBatchesView,
     exact: false,
     permission: [UserRole.STOREKEEPER],

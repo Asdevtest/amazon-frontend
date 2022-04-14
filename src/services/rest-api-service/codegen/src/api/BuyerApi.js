@@ -22,7 +22,7 @@ import InlineObject24 from '../model/InlineObject24';
 import InlineObject25 from '../model/InlineObject25';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
-import InlineResponse2008 from '../model/InlineResponse2008';
+import InlineResponse2007 from '../model/InlineResponse2007';
 import InlineResponse2014 from '../model/InlineResponse2014';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -789,7 +789,7 @@ export default class BuyerApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2007>} and HTTP response
      */
     apiV1BuyersTasksGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -808,7 +808,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2008];
+      let returnType = [InlineResponse2007];
       return this.apiClient.callApi(
         '/api/v1/buyers/tasks', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -821,7 +821,7 @@ export default class BuyerApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2007>}
      */
     apiV1BuyersTasksGet(opts) {
       return this.apiV1BuyersTasksGetWithHttpInfo(opts)

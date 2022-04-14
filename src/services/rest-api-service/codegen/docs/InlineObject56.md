@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **deliveryTimeInDay** | **String** | Время доставки, днях | [optional] 
 **cls** | **Date** | Дата закрытия приема новых грузов. | [optional] 
 **etd** | **Date** | Ожидаема дата отбытия. | [optional] 
-**atd** | **Date** | Ожидаема дата прибытия. | [optional] 
+**eta** | **Date** | Ожидаема дата прибытия. | [optional] 
 **minWeightInKg** | **Number** | Минимальный вес, в кг | [optional] 
-**conditionsByRegion** | [**ApiV1BoxesLogicsTariffConditionsByRegion**](ApiV1BoxesLogicsTariffConditionsByRegion.md) |  | 
+**conditionsByRegion** | [**ApiV1BatchesLogicsTariffConditionsByRegion**](ApiV1BatchesLogicsTariffConditionsByRegion.md) |  | 
 
 

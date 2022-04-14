@@ -6,7 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
@@ -25,6 +25,7 @@ import {styles} from './warehouse-batches-view.style'
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseWarehouseView
 
 const activeCategory = navBarActiveCategory.NAVBAR_BATCHES
+const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BATCHES
 @observer
 export class WarehouseBatchesViewRaw extends Component {
   viewModel = new WarehouseBatchesViewModel({history: this.props.history})
@@ -67,7 +68,12 @@ export class WarehouseBatchesViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
+        <Navbar
+          activeCategory={activeCategory}
+          activeSubCategory={activeSubCategory}
+          drawerOpen={drawerOpen}
+          setDrawerOpen={onTriggerDrawer}
+        />
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>

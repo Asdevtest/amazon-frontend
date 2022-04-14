@@ -67,8 +67,8 @@ class ApiV1BoxesLogicsTariff {
             if (data.hasOwnProperty('etd')) {
                 obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
             }
-            if (data.hasOwnProperty('atd')) {
-                obj['atd'] = ApiClient.convertToType(data['atd'], 'Date');
+            if (data.hasOwnProperty('eta')) {
+                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
             }
             if (data.hasOwnProperty('minWeightInKg')) {
                 obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
@@ -121,9 +121,9 @@ ApiV1BoxesLogicsTariff.prototype['etd'] = undefined;
 
 /**
  * Ожидаема дата прибытия.
- * @member {Date} atd
+ * @member {Date} eta
  */
-ApiV1BoxesLogicsTariff.prototype['atd'] = undefined;
+ApiV1BoxesLogicsTariff.prototype['eta'] = undefined;
 
 /**
  * Минимальный вес, в кг

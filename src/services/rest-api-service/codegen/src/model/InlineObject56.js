@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesLogicsTariffConditionsByRegion from './ApiV1BoxesLogicsTariffConditionsByRegion';
+import ApiV1BatchesLogicsTariffConditionsByRegion from './ApiV1BatchesLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject56 model module.
@@ -24,7 +24,7 @@ class InlineObject56 {
      * Constructs a new <code>InlineObject56</code>.
      * @alias module:model/InlineObject56
      * @param name {String} Название тарифа
-     * @param conditionsByRegion {module:model/ApiV1BoxesLogicsTariffConditionsByRegion} 
+     * @param conditionsByRegion {module:model/ApiV1BatchesLogicsTariffConditionsByRegion} 
      */
     constructor(name, conditionsByRegion) { 
         
@@ -67,14 +67,14 @@ class InlineObject56 {
             if (data.hasOwnProperty('etd')) {
                 obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
             }
-            if (data.hasOwnProperty('atd')) {
-                obj['atd'] = ApiClient.convertToType(data['atd'], 'Date');
+            if (data.hasOwnProperty('eta')) {
+                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
             }
             if (data.hasOwnProperty('minWeightInKg')) {
                 obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
             }
             if (data.hasOwnProperty('conditionsByRegion')) {
-                obj['conditionsByRegion'] = ApiV1BoxesLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
+                obj['conditionsByRegion'] = ApiV1BatchesLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
         }
         return obj;
@@ -115,9 +115,9 @@ InlineObject56.prototype['etd'] = undefined;
 
 /**
  * Ожидаема дата прибытия.
- * @member {Date} atd
+ * @member {Date} eta
  */
-InlineObject56.prototype['atd'] = undefined;
+InlineObject56.prototype['eta'] = undefined;
 
 /**
  * Минимальный вес, в кг
@@ -126,7 +126,7 @@ InlineObject56.prototype['atd'] = undefined;
 InlineObject56.prototype['minWeightInKg'] = undefined;
 
 /**
- * @member {module:model/ApiV1BoxesLogicsTariffConditionsByRegion} conditionsByRegion
+ * @member {module:model/ApiV1BatchesLogicsTariffConditionsByRegion} conditionsByRegion
  */
 InlineObject56.prototype['conditionsByRegion'] = undefined;
 

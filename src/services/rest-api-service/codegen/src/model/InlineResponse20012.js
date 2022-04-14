@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IntegrationsSellerboardWarehouseStocksShop from './ApiV1IntegrationsSellerboardWarehouseStocksShop';
 
 /**
  * The InlineResponse20012 model module.
@@ -22,7 +21,7 @@ import ApiV1IntegrationsSellerboardWarehouseStocksShop from './ApiV1Integrations
 class InlineResponse20012 {
     /**
      * Constructs a new <code>InlineResponse20012</code>.
-     * Схема репорта за 30 дней с Seller-board
+     * Схема парсинга.
      * @alias module:model/InlineResponse20012
      */
     constructor() { 
@@ -49,143 +48,83 @@ class InlineResponse20012 {
         if (data) {
             obj = obj || new InlineResponse20012();
 
-            if (data.hasOwnProperty('date')) {
-                obj['date'] = ApiClient.convertToType(data['date'], 'String');
+            if (data.hasOwnProperty('amazonFee')) {
+                obj['amazonFee'] = ApiClient.convertToType(data['amazonFee'], 'Number');
             }
-            if (data.hasOwnProperty('marketplace')) {
-                obj['marketplace'] = ApiClient.convertToType(data['marketplace'], 'String');
+            if (data.hasOwnProperty('width')) {
+                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
+            }
+            if (data.hasOwnProperty('height')) {
+                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
+            }
+            if (data.hasOwnProperty('length')) {
+                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
+            }
+            if (data.hasOwnProperty('weight')) {
+                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
+            }
+            if (data.hasOwnProperty('weightUnitString')) {
+                obj['weightUnitString'] = ApiClient.convertToType(data['weightUnitString'], 'String');
+            }
+            if (data.hasOwnProperty('isWhiteGloveRequired')) {
+                obj['isWhiteGloveRequired'] = ApiClient.convertToType(data['isWhiteGloveRequired'], 'Boolean');
+            }
+            if (data.hasOwnProperty('subCategory')) {
+                obj['subCategory'] = ApiClient.convertToType(data['subCategory'], 'String');
+            }
+            if (data.hasOwnProperty('fnsku')) {
+                obj['fnsku'] = ApiClient.convertToType(data['fnsku'], 'String');
+            }
+            if (data.hasOwnProperty('dimensionUnit')) {
+                obj['dimensionUnit'] = ApiClient.convertToType(data['dimensionUnit'], 'String');
+            }
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            }
+            if (data.hasOwnProperty('binding')) {
+                obj['binding'] = ApiClient.convertToType(data['binding'], 'String');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('dimensionUnitString')) {
+                obj['dimensionUnitString'] = ApiClient.convertToType(data['dimensionUnitString'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('imageUrl')) {
+                obj['imageUrl'] = ApiClient.convertToType(data['imageUrl'], 'String');
+            }
+            if (data.hasOwnProperty('isAfn')) {
+                obj['isAfn'] = ApiClient.convertToType(data['isAfn'], 'Boolean');
+            }
+            if (data.hasOwnProperty('gl')) {
+                obj['gl'] = ApiClient.convertToType(data['gl'], 'String');
+            }
+            if (data.hasOwnProperty('TRexId')) {
+                obj['TRexId'] = ApiClient.convertToType(data['TRexId'], 'String');
+            }
+            if (data.hasOwnProperty('isAsinLimits')) {
+                obj['isAsinLimits'] = ApiClient.convertToType(data['isAsinLimits'], 'Boolean');
+            }
+            if (data.hasOwnProperty('originalUrl')) {
+                obj['originalUrl'] = ApiClient.convertToType(data['originalUrl'], 'String');
+            }
+            if (data.hasOwnProperty('productGroup')) {
+                obj['productGroup'] = ApiClient.convertToType(data['productGroup'], 'String');
+            }
+            if (data.hasOwnProperty('thumbStringUrl')) {
+                obj['thumbStringUrl'] = ApiClient.convertToType(data['thumbStringUrl'], 'String');
             }
             if (data.hasOwnProperty('asin')) {
                 obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('sku')) {
-                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
+            if (data.hasOwnProperty('encryptedMarketplaceId')) {
+                obj['encryptedMarketplaceId'] = ApiClient.convertToType(data['encryptedMarketplaceId'], 'String');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('salesorganic')) {
-                obj['salesorganic'] = ApiClient.convertToType(data['salesorganic'], 'Number');
-            }
-            if (data.hasOwnProperty('salesppc')) {
-                obj['salesppc'] = ApiClient.convertToType(data['salesppc'], 'Number');
-            }
-            if (data.hasOwnProperty('unitsorganic')) {
-                obj['unitsorganic'] = ApiClient.convertToType(data['unitsorganic'], 'Number');
-            }
-            if (data.hasOwnProperty('unitsppc')) {
-                obj['unitsppc'] = ApiClient.convertToType(data['unitsppc'], 'Number');
-            }
-            if (data.hasOwnProperty('refunds')) {
-                obj['refunds'] = ApiClient.convertToType(data['refunds'], 'Number');
-            }
-            if (data.hasOwnProperty('promovalue')) {
-                obj['promovalue'] = ApiClient.convertToType(data['promovalue'], 'Number');
-            }
-            if (data.hasOwnProperty('sponsoredproducts')) {
-                obj['sponsoredproducts'] = ApiClient.convertToType(data['sponsoredproducts'], 'Number');
-            }
-            if (data.hasOwnProperty('sponsoreddisplay')) {
-                obj['sponsoreddisplay'] = ApiClient.convertToType(data['sponsoreddisplay'], 'Number');
-            }
-            if (data.hasOwnProperty('sponsoredRands')) {
-                obj['sponsoredRands'] = ApiClient.convertToType(data['sponsoredRands'], 'Number');
-            }
-            if (data.hasOwnProperty('sponsoredbrandsvideo')) {
-                obj['sponsoredbrandsvideo'] = ApiClient.convertToType(data['sponsoredbrandsvideo'], 'Number');
-            }
-            if (data.hasOwnProperty('giftwrap')) {
-                obj['giftwrap'] = ApiClient.convertToType(data['giftwrap'], 'Number');
-            }
-            if (data.hasOwnProperty('shipping')) {
-                obj['shipping'] = ApiClient.convertToType(data['shipping'], 'Number');
-            }
-            if (data.hasOwnProperty('refundcost')) {
-                obj['refundcost'] = ApiClient.convertToType(data['refundcost'], 'Number');
-            }
-            if (data.hasOwnProperty('valueOfReturnedItems')) {
-                obj['valueOfReturnedItems'] = ApiClient.convertToType(data['valueOfReturnedItems'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostUnsellableRefunds')) {
-                obj['productcostUnsellableRefunds'] = ApiClient.convertToType(data['productcostUnsellableRefunds'], 'Number');
-            }
-            if (data.hasOwnProperty('commission')) {
-                obj['commission'] = ApiClient.convertToType(data['commission'], 'Number');
-            }
-            if (data.hasOwnProperty('compensatedClawback')) {
-                obj['compensatedClawback'] = ApiClient.convertToType(data['compensatedClawback'], 'Number');
-            }
-            if (data.hasOwnProperty('fbadisposalfee')) {
-                obj['fbadisposalfee'] = ApiClient.convertToType(data['fbadisposalfee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaperunitfulfillmentfee')) {
-                obj['fbaperunitfulfillmentfee'] = ApiClient.convertToType(data['fbaperunitfulfillmentfee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbastoragefee')) {
-                obj['fbastoragefee'] = ApiClient.convertToType(data['fbastoragefee'], 'Number');
-            }
-            if (data.hasOwnProperty('freeReplacementRefundItems')) {
-                obj['freeReplacementRefundItems'] = ApiClient.convertToType(data['freeReplacementRefundItems'], 'Number');
-            }
-            if (data.hasOwnProperty('subscription')) {
-                obj['subscription'] = ApiClient.convertToType(data['subscription'], 'Number');
-            }
-            if (data.hasOwnProperty('warehouseDamage')) {
-                obj['warehouseDamage'] = ApiClient.convertToType(data['warehouseDamage'], 'Number');
-            }
-            if (data.hasOwnProperty('warehouseLost')) {
-                obj['warehouseLost'] = ApiClient.convertToType(data['warehouseLost'], 'Number');
-            }
-            if (data.hasOwnProperty('estimatedpayout')) {
-                obj['estimatedpayout'] = ApiClient.convertToType(data['estimatedpayout'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostSales')) {
-                obj['productcostSales'] = ApiClient.convertToType(data['productcostSales'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostNonAmazon')) {
-                obj['productcostNonAmazon'] = ApiClient.convertToType(data['productcostNonAmazon'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostMultichannelcosts')) {
-                obj['productcostMultichannelcosts'] = ApiClient.convertToType(data['productcostMultichannelcosts'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostMissingfrominbound')) {
-                obj['productcostMissingfrominbound'] = ApiClient.convertToType(data['productcostMissingfrominbound'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostCostofmissingreturns')) {
-                obj['productcostCostofmissingreturns'] = ApiClient.convertToType(data['productcostCostofmissingreturns'], 'Number');
-            }
-            if (data.hasOwnProperty('vat')) {
-                obj['vat'] = ApiClient.convertToType(data['vat'], 'Number');
-            }
-            if (data.hasOwnProperty('grossprofit')) {
-                obj['grossprofit'] = ApiClient.convertToType(data['grossprofit'], 'Number');
-            }
-            if (data.hasOwnProperty('netprofit')) {
-                obj['netprofit'] = ApiClient.convertToType(data['netprofit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('realAcos')) {
-                obj['realAcos'] = ApiClient.convertToType(data['realAcos'], 'Number');
-            }
-            if (data.hasOwnProperty('adjustmentFbaperunitfulfillmentfee')) {
-                obj['adjustmentFbaperunitfulfillmentfee'] = ApiClient.convertToType(data['adjustmentFbaperunitfulfillmentfee'], 'Number');
-            }
-            if (data.hasOwnProperty('amazonfees')) {
-                obj['amazonfees'] = ApiClient.convertToType(data['amazonfees'], 'Number');
-            }
-            if (data.hasOwnProperty('costOfGoods')) {
-                obj['costOfGoods'] = ApiClient.convertToType(data['costOfGoods'], 'Number');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
-            }
-            if (data.hasOwnProperty('shop')) {
-                obj['shop'] = ApiV1IntegrationsSellerboardWarehouseStocksShop.constructFromObject(data['shop']);
+            if (data.hasOwnProperty('weightUnit')) {
+                obj['weightUnit'] = ApiClient.convertToType(data['weightUnit'], 'String');
             }
         }
         return obj;
@@ -195,279 +134,139 @@ class InlineResponse20012 {
 }
 
 /**
- * \"Date\"
- * @member {String} date
+ * 
+ * @member {Number} amazonFee
  */
-InlineResponse20012.prototype['date'] = undefined;
+InlineResponse20012.prototype['amazonFee'] = undefined;
 
 /**
- * Marketplace
- * @member {String} marketplace
+ * 
+ * @member {Number} width
  */
-InlineResponse20012.prototype['marketplace'] = undefined;
+InlineResponse20012.prototype['width'] = undefined;
 
 /**
- * ASIN
+ * 
+ * @member {Number} height
+ */
+InlineResponse20012.prototype['height'] = undefined;
+
+/**
+ * 
+ * @member {Number} length
+ */
+InlineResponse20012.prototype['length'] = undefined;
+
+/**
+ * 
+ * @member {Number} weight
+ */
+InlineResponse20012.prototype['weight'] = undefined;
+
+/**
+ * @member {String} weightUnitString
+ */
+InlineResponse20012.prototype['weightUnitString'] = undefined;
+
+/**
+ * @member {Boolean} isWhiteGloveRequired
+ */
+InlineResponse20012.prototype['isWhiteGloveRequired'] = undefined;
+
+/**
+ * @member {String} subCategory
+ */
+InlineResponse20012.prototype['subCategory'] = undefined;
+
+/**
+ * @member {String} fnsku
+ */
+InlineResponse20012.prototype['fnsku'] = undefined;
+
+/**
+ * @member {String} dimensionUnit
+ */
+InlineResponse20012.prototype['dimensionUnit'] = undefined;
+
+/**
+ * @member {String} link
+ */
+InlineResponse20012.prototype['link'] = undefined;
+
+/**
+ * @member {String} binding
+ */
+InlineResponse20012.prototype['binding'] = undefined;
+
+/**
+ * @member {String} title
+ */
+InlineResponse20012.prototype['title'] = undefined;
+
+/**
+ * @member {String} dimensionUnitString
+ */
+InlineResponse20012.prototype['dimensionUnitString'] = undefined;
+
+/**
+ * @member {Number} price
+ */
+InlineResponse20012.prototype['price'] = undefined;
+
+/**
+ * @member {String} imageUrl
+ */
+InlineResponse20012.prototype['imageUrl'] = undefined;
+
+/**
+ * @member {Boolean} isAfn
+ */
+InlineResponse20012.prototype['isAfn'] = undefined;
+
+/**
+ * @member {String} gl
+ */
+InlineResponse20012.prototype['gl'] = undefined;
+
+/**
+ * @member {String} TRexId
+ */
+InlineResponse20012.prototype['TRexId'] = undefined;
+
+/**
+ * @member {Boolean} isAsinLimits
+ */
+InlineResponse20012.prototype['isAsinLimits'] = undefined;
+
+/**
+ * @member {String} originalUrl
+ */
+InlineResponse20012.prototype['originalUrl'] = undefined;
+
+/**
+ * @member {String} productGroup
+ */
+InlineResponse20012.prototype['productGroup'] = undefined;
+
+/**
+ * @member {String} thumbStringUrl
+ */
+InlineResponse20012.prototype['thumbStringUrl'] = undefined;
+
+/**
  * @member {String} asin
  */
 InlineResponse20012.prototype['asin'] = undefined;
 
 /**
- * SKU
- * @member {String} sku
+ * @member {String} encryptedMarketplaceId
  */
-InlineResponse20012.prototype['sku'] = undefined;
+InlineResponse20012.prototype['encryptedMarketplaceId'] = undefined;
 
 /**
- * Name
- * @member {String} name
+ * @member {String} weightUnit
  */
-InlineResponse20012.prototype['name'] = undefined;
-
-/**
- * SalesOrganic
- * @member {Number} salesorganic
- */
-InlineResponse20012.prototype['salesorganic'] = undefined;
-
-/**
- * SalesPPC
- * @member {Number} salesppc
- */
-InlineResponse20012.prototype['salesppc'] = undefined;
-
-/**
- * UnitsOrganic
- * @member {Number} unitsorganic
- */
-InlineResponse20012.prototype['unitsorganic'] = undefined;
-
-/**
- * UnitsPPC
- * @member {Number} unitsppc
- */
-InlineResponse20012.prototype['unitsppc'] = undefined;
-
-/**
- * Refunds
- * @member {Number} refunds
- */
-InlineResponse20012.prototype['refunds'] = undefined;
-
-/**
- * PromoValue
- * @member {Number} promovalue
- */
-InlineResponse20012.prototype['promovalue'] = undefined;
-
-/**
- * SponsoredProducts
- * @member {Number} sponsoredproducts
- */
-InlineResponse20012.prototype['sponsoredproducts'] = undefined;
-
-/**
- * SponsoredDisplay
- * @member {Number} sponsoreddisplay
- */
-InlineResponse20012.prototype['sponsoreddisplay'] = undefined;
-
-/**
- * SponsoredВrands
- * @member {Number} sponsoredRands
- */
-InlineResponse20012.prototype['sponsoredRands'] = undefined;
-
-/**
- * SponsoredBrandsVideo
- * @member {Number} sponsoredbrandsvideo
- */
-InlineResponse20012.prototype['sponsoredbrandsvideo'] = undefined;
-
-/**
- * GiftWrap
- * @member {Number} giftwrap
- */
-InlineResponse20012.prototype['giftwrap'] = undefined;
-
-/**
- * Shipping
- * @member {Number} shipping
- */
-InlineResponse20012.prototype['shipping'] = undefined;
-
-/**
- * RefundCost
- * @member {Number} refundcost
- */
-InlineResponse20012.prototype['refundcost'] = undefined;
-
-/**
- * Value of returned items
- * @member {Number} valueOfReturnedItems
- */
-InlineResponse20012.prototype['valueOfReturnedItems'] = undefined;
-
-/**
- * ProductCost Unsellable Refunds
- * @member {Number} productcostUnsellableRefunds
- */
-InlineResponse20012.prototype['productcostUnsellableRefunds'] = undefined;
-
-/**
- * Commission
- * @member {Number} commission
- */
-InlineResponse20012.prototype['commission'] = undefined;
-
-/**
- * COMPENSATED_CLAWBACK
- * @member {Number} compensatedClawback
- */
-InlineResponse20012.prototype['compensatedClawback'] = undefined;
-
-/**
- * FBADisposalFee
- * @member {Number} fbadisposalfee
- */
-InlineResponse20012.prototype['fbadisposalfee'] = undefined;
-
-/**
- * FBAPerUnitFulfillmentFee
- * @member {Number} fbaperunitfulfillmentfee
- */
-InlineResponse20012.prototype['fbaperunitfulfillmentfee'] = undefined;
-
-/**
- * FBAStorageFee
- * @member {Number} fbastoragefee
- */
-InlineResponse20012.prototype['fbastoragefee'] = undefined;
-
-/**
- * FREE_REPLACEMENT_REFUND_ITEMS
- * @member {Number} freeReplacementRefundItems
- */
-InlineResponse20012.prototype['freeReplacementRefundItems'] = undefined;
-
-/**
- * Subscription
- * @member {Number} subscription
- */
-InlineResponse20012.prototype['subscription'] = undefined;
-
-/**
- * WAREHOUSE_DAMAGE
- * @member {Number} warehouseDamage
- */
-InlineResponse20012.prototype['warehouseDamage'] = undefined;
-
-/**
- * WAREHOUSE_LOST
- * @member {Number} warehouseLost
- */
-InlineResponse20012.prototype['warehouseLost'] = undefined;
-
-/**
- * EstimatedPayout
- * @member {Number} estimatedpayout
- */
-InlineResponse20012.prototype['estimatedpayout'] = undefined;
-
-/**
- * ProductCost Sales
- * @member {Number} productcostSales
- */
-InlineResponse20012.prototype['productcostSales'] = undefined;
-
-/**
- * ProductCost Non-Amazon
- * @member {Number} productcostNonAmazon
- */
-InlineResponse20012.prototype['productcostNonAmazon'] = undefined;
-
-/**
- * ProductCost MultichannelCosts
- * @member {Number} productcostMultichannelcosts
- */
-InlineResponse20012.prototype['productcostMultichannelcosts'] = undefined;
-
-/**
- * ProductCost MissingFromInbound
- * @member {Number} productcostMissingfrominbound
- */
-InlineResponse20012.prototype['productcostMissingfrominbound'] = undefined;
-
-/**
- * ProductCost CostOfMissingReturns
- * @member {Number} productcostCostofmissingreturns
- */
-InlineResponse20012.prototype['productcostCostofmissingreturns'] = undefined;
-
-/**
- * VAT
- * @member {Number} vat
- */
-InlineResponse20012.prototype['vat'] = undefined;
-
-/**
- * GrossProfit
- * @member {Number} grossprofit
- */
-InlineResponse20012.prototype['grossprofit'] = undefined;
-
-/**
- * NetProfit
- * @member {Number} netprofit
- */
-InlineResponse20012.prototype['netprofit'] = undefined;
-
-/**
- * Margin
- * @member {Number} margin
- */
-InlineResponse20012.prototype['margin'] = undefined;
-
-/**
- * Real ACOS
- * @member {Number} realAcos
- */
-InlineResponse20012.prototype['realAcos'] = undefined;
-
-/**
- * Adjustment_FBAPerUnitFulfillmentFee
- * @member {Number} adjustmentFbaperunitfulfillmentfee
- */
-InlineResponse20012.prototype['adjustmentFbaperunitfulfillmentfee'] = undefined;
-
-/**
- * AmazonFees
- * @member {Number} amazonfees
- */
-InlineResponse20012.prototype['amazonfees'] = undefined;
-
-/**
- * Cost of Goods
- * @member {Number} costOfGoods
- */
-InlineResponse20012.prototype['costOfGoods'] = undefined;
-
-/**
- * Дата создания
- * @member {Date} createdAt
- */
-InlineResponse20012.prototype['createdAt'] = undefined;
-
-/**
- * Дата обновления
- * @member {Date} updatedAt
- */
-InlineResponse20012.prototype['updatedAt'] = undefined;
-
-/**
- * @member {module:model/ApiV1IntegrationsSellerboardWarehouseStocksShop} shop
- */
-InlineResponse20012.prototype['shop'] = undefined;
+InlineResponse20012.prototype['weightUnit'] = undefined;
 
 
 

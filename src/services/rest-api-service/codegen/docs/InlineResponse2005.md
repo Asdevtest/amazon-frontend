@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **finalWeightSumEachBoxAmount** | **Number** | Финальный вес партии, если сложить все веса коробок по отдельности. | [optional] 
 **boxes** | [**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md) | Массив id коробок. | [optional] 
 **storekeeper** | [**ApiV1BatchesStorekeeper**](ApiV1BatchesStorekeeper.md) |  | [optional] 
-**client** | [**ApiV1BatchesStorekeeper**](ApiV1BatchesStorekeeper.md) |  | [optional] 
 **createdBy** | [**ApiV1BatchesStorekeeper**](ApiV1BatchesStorekeeper.md) |  | [optional] 
 **lastModifiedBy** | [**ApiV1BatchesStorekeeper**](ApiV1BatchesStorekeeper.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания. | [optional] 

@@ -25,8 +25,8 @@ import InlineObject30 from '../model/InlineObject30';
 import InlineObject31 from '../model/InlineObject31';
 import InlineObject32 from '../model/InlineObject32';
 import InlineResponse2001 from '../model/InlineResponse2001';
-import InlineResponse20010 from '../model/InlineResponse20010';
 import InlineResponse2003 from '../model/InlineResponse2003';
+import InlineResponse2008 from '../model/InlineResponse2008';
 import InlineResponse2009 from '../model/InlineResponse2009';
 import InlineResponse2014 from '../model/InlineResponse2014';
 import InlineResponse2015 from '../model/InlineResponse2015';
@@ -690,7 +690,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20010} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2009} and HTTP response
      */
     apiV1ClientsProductsGuidGetPriceForClientGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -714,7 +714,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20010;
+      let returnType = InlineResponse2009;
       return this.apiClient.callApi(
         '/api/v1/clients/products/{guid}/get_price_for_client', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -728,7 +728,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20010}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2009}
      */
     apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts) {
       return this.apiV1ClientsProductsGuidGetPriceForClientGetWithHttpInfo(guid, opts)
@@ -800,7 +800,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.  без или: /products?filters=[amazonTitle][$contains]=drive
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
      */
     apiV1ClientsProductsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -820,7 +820,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2009];
+      let returnType = [InlineResponse2008];
       return this.apiClient.callApi(
         '/api/v1/clients/products/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -834,7 +834,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.  без или: /products?filters=[amazonTitle][$contains]=drive
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
      */
     apiV1ClientsProductsMyGet(opts) {
       return this.apiV1ClientsProductsMyGetWithHttpInfo(opts)
@@ -898,7 +898,7 @@ export default class ClientApi {
      * ## Получить список  вакантных товаров. статусы 70 и 110(скрыты данные о поставщике, байере, супервайзере, создателе и skusByClient)  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
      */
     apiV1ClientsProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -917,7 +917,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2009];
+      let returnType = [InlineResponse2008];
       return this.apiClient.callApi(
         '/api/v1/clients/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -930,7 +930,7 @@ export default class ClientApi {
      * ## Получить список  вакантных товаров. статусы 70 и 110(скрыты данные о поставщике, байере, супервайзере, создателе и skusByClient)  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
      */
     apiV1ClientsProductsVacGet(opts) {
       return this.apiV1ClientsProductsVacGetWithHttpInfo(opts)

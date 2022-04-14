@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesItems1 from './ApiV1BoxesItems1';
+import ApiV1BoxesItems from './ApiV1BoxesItems';
 
 /**
  * The InlineObject13 model module.
@@ -24,7 +24,7 @@ class InlineObject13 {
      * Constructs a new <code>InlineObject13</code>.
      * Коробка
      * @alias module:model/InlineObject13
-     * @param items {Array.<module:model/ApiV1BoxesItems1>} Массив коробок.
+     * @param items {Array.<module:model/ApiV1BoxesItems>} Массив коробок.
      */
     constructor(items) { 
         
@@ -85,7 +85,7 @@ class InlineObject13 {
                 obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
             }
             if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems1]);
+                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems]);
             }
             if (data.hasOwnProperty('clientId')) {
                 obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
@@ -189,7 +189,7 @@ InlineObject13.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
 
 /**
  * Массив коробок.
- * @member {Array.<module:model/ApiV1BoxesItems1>} items
+ * @member {Array.<module:model/ApiV1BoxesItems>} items
  */
 InlineObject13.prototype['items'] = undefined;
 

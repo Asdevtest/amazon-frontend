@@ -89,6 +89,8 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.BatchesApi();
 let opts = {
+  'status': "status_example", // String | GUID склада который нужно получить.
+  'storekeeperId': null, // String | GUID склада который нужно получить.
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BatchesGet(opts).then((data) => {
@@ -104,6 +106,8 @@ apiInstance.apiV1BatchesGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **status** | **String**| GUID склада который нужно получить. | [optional] 
+ **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

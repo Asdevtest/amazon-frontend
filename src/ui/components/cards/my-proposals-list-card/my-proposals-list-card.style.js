@@ -35,7 +35,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     lineHeight: '16px',
     color: '#354256',
-    maxWidth: '350px',
+    maxWidth: '420px',
     marginBottom: '20px',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -43,8 +43,16 @@ export const useClassNames = makeStyles(() => ({
 
   cardSubTitle: {
     marginBottom: '5px',
-    maxWidth: '350px',
+    maxWidth: '420px',
     overflow: 'auto',
+    maxHeight: '90px',
+  },
+
+  proposalComment: {
+    marginBottom: '20px',
+    maxWidth: '720px',
+    overflow: 'auto',
+    maxHeight: '90px',
   },
 
   rightBlockWrapper: {

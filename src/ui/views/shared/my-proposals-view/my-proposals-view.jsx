@@ -1,8 +1,7 @@
-import TableRowsIcon from '@mui/icons-material/TableRows'
-import ViewModuleIcon from '@mui/icons-material/ViewModule'
-import ToggleButton from '@mui/material/ToggleButton'
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
-
+// import TableRowsIcon from '@mui/icons-material/TableRows'
+// import ViewModuleIcon from '@mui/icons-material/ViewModule'
+// import ToggleButton from '@mui/material/ToggleButton'
+// import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import React, {Component} from 'react'
 
 import {Grid, Typography} from '@material-ui/core'
@@ -45,7 +44,7 @@ class MyProposalsViewRaw extends Component {
       drawerOpen,
       showConfirmModal,
       onTriggerDrawerOpen,
-      onChangeViewMode,
+      // onChangeViewMode,
       onTriggerOpenModal,
       onSubmitDeleteProposal,
       onClickDeleteBtn,
@@ -66,11 +65,11 @@ class MyProposalsViewRaw extends Component {
         <Main>
           <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <div className={classNames.tablePanelWrapper}>
+              {/* <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.tablePanelViewWrapper}>
                   <Typography className={classNames.tablePanelViewText}>{'Вид'}</Typography>
 
-                  <ToggleButtonGroup exclusive value={viewMode} onChange={onChangeViewMode}>
+                  <ToggleButtonGroup  exclusive value={viewMode} onChange={onChangeViewMode}>
                     <ToggleButton value={tableViewMode.LIST}>
                       <TableRowsIcon color="primary" />
                     </ToggleButton>
@@ -79,7 +78,7 @@ class MyProposalsViewRaw extends Component {
                     </ToggleButton>
                   </ToggleButtonGroup>
                 </div>
-              </div>
+              </div> */}
 
               {currentData.length ? (
                 <Grid

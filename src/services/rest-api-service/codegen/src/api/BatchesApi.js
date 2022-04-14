@@ -98,6 +98,8 @@ export default class BatchesApi {
      * # Получить партии.
      * ## Получить партии. В зависимости от роли:  админ - получает все партии без исключения.         клиент - получает все партии в которых есть его коробки.         супер: получает все партии без исключения.         байер: получает все партии в которых есть его коробки, которые он создал.         сторкипер: получает только свои партии.
      * @param {Object} opts Optional parameters
+     * @param {module:model/String} opts.status GUID склада который нужно получить.
+     * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
      */
@@ -108,6 +110,8 @@ export default class BatchesApi {
       let pathParams = {
       };
       let queryParams = {
+        'status': opts['status'],
+        'storekeeperId': opts['storekeeperId']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -130,6 +134,8 @@ export default class BatchesApi {
      * # Получить партии.
      * ## Получить партии. В зависимости от роли:  админ - получает все партии без исключения.         клиент - получает все партии в которых есть его коробки.         супер: получает все партии без исключения.         байер: получает все партии в которых есть его коробки, которые он создал.         сторкипер: получает только свои партии.
      * @param {Object} opts Optional parameters
+     * @param {module:model/String} opts.status GUID склада который нужно получить.
+     * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
      */

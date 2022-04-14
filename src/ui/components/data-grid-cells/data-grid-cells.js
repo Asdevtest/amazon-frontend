@@ -227,17 +227,17 @@ export const WarehouseTariffDatesCell = withStyles(styles)(({classes: classNames
   <div>
     <div className={classNames.warehouseTariffDatesItem}>
       <Typography>{'ETD(дата отправки):'}</Typography>
-      <Typography>{!row.cls ? 'N/A' : formatDateWithoutTime(row.cls)}</Typography>
-    </div>
-
-    <div className={classNames.warehouseTariffDatesItem}>
-      <Typography>{'ETA(дата прибытия):'}</Typography>
       <Typography>{!row.etd ? 'N/A' : formatDateWithoutTime(row.etd)}</Typography>
     </div>
 
     <div className={classNames.warehouseTariffDatesItem}>
+      <Typography>{'ETA(дата прибытия):'}</Typography>
+      <Typography>{!row.eta ? 'N/A' : formatDateWithoutTime(row.eta)}</Typography>
+    </div>
+
+    <div className={classNames.warehouseTariffDatesItem}>
       <Typography>{'CLS(дата закрытия партии):'}</Typography>
-      <Typography>{!row.atd ? 'N/A' : formatDateWithoutTime(row.atd)}</Typography>
+      <Typography>{!row.cls ? 'N/A' : formatDateWithoutTime(row.cls)}</Typography>
     </div>
   </div>
 ))

@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsCreatedBy from './ApiV1RequestProposalsCreatedBy';
 
 /**
  * The InlineResponse20014 model module.
@@ -48,56 +47,29 @@ class InlineResponse20014 {
         if (data) {
             obj = obj || new InlineResponse20014();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
-            }
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
-            }
-            if (data.hasOwnProperty('timeoutAt')) {
-                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
-            }
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
-            }
-            if (data.hasOwnProperty('attempts')) {
-                obj['attempts'] = ApiClient.convertToType(data['attempts'], 'Number');
-            }
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('platformMargin')) {
+                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
             }
-            if (data.hasOwnProperty('clientId')) {
-                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
+            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
+                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('supervisorId')) {
-                obj['supervisorId'] = ApiClient.convertToType(data['supervisorId'], 'String');
+            if (data.hasOwnProperty('supervisorFee')) {
+                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
             }
-            if (data.hasOwnProperty('chatId')) {
-                obj['chatId'] = ApiClient.convertToType(data['chatId'], 'String');
+            if (data.hasOwnProperty('unitCost')) {
+                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
             }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1RequestProposalsCreatedBy.constructFromObject(data['createdBy']);
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -107,201 +79,55 @@ class InlineResponse20014 {
 }
 
 /**
- * Guid продожения к заявке.
- * @member {String} _id
- */
-InlineResponse20014.prototype['_id'] = undefined;
-
-/**
- * Guid заявки к которой относится данное предложение.
- * @member {String} requestId
- */
-InlineResponse20014.prototype['requestId'] = undefined;
-
-/**
- * Тип предложения.
- * @member {String} type
- */
-InlineResponse20014.prototype['type'] = undefined;
-
-/**
- *  CREATED - предложение по заявке создано, с ценой и временем выполнения от исполнителя OFFER_CONDITIONS_ACCEPTED - условия предложения были приняты клиентом, после этого начиначется отсчет времени на выполнение заявки, с этого статуса можно перейти только на READY_TO_VERIFY, с этого момента начинаем учитывать этого исполнителя в счетчике людей работающих по заявке OFFER_CONDITIONS_REJECTED - условия предложения были отклонены клиентом. После изменения условий клиентом выставляется статус OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_CORRECTED - исполнитель отредактировал свои условия по предложению чтобы клиент опять их посмотрел и решил принимает или нет, после этого статуса можно опять перейти на OFFER_CONDITIONS_ACCEPTED или OFFER_CONDITIONS_REJECTED READY_TO_VERIFY - статус выставляет исполнитель, статус говорит о том что исполнитель выполнил работу и клиент/супервизор может ее проверять, после этого статуса можно выставить VERIFYING_BY_SUPERVISOR или TO_CORRECT, а так же закрывающие статусы VERIFYING_BY_SUPERVISOR - работа проверяется супервизором TO_CORRECT - отправляется на доработку от клиента/супервизора CORRECTED - исполнитель отмечает работу как исправленная CANCELED_BY_CREATOR_OF_REQUEST - предложение закрывается клиентом, обязательно с комментарием, финальный статус, может быть выставлено только при статусе OFFER_CONDITIONS_REJECTED. Думаю что тут будет еще условия но нужно это обсудить. Этот статус не очень безопасный или может привести к перегрузу админа для решения конфликтных ситуаций CANCELED_BY_SUPERVISOR - предложение закрывается супервизором, обязательно с комментарием, финальный статус, может быть выставлен в любой момент. Тут должна появиться возможность создать запрос в поддержку для решения конфликтных ситуаций, это позже обсудим. CANCELED_BY_EXECUTOR - закрыто исполнителем, обязательно с комментарием, финальный статус, может быть выставлен в любой момент ACCEPTED_BY_CLIENT - принято клиентом, происходи оплата ACCEPTED_BY_SUPERVISOR - принято супервизором, происходи оплата EXPIRED - проставляется автоматически, если время указанное в предложении от исполнителя истекло а предложение не было уже в одном из финальных статусов 
- * @member {module:model/InlineResponse20014.StatusEnum} status
- */
-InlineResponse20014.prototype['status'] = undefined;
-
-/**
- * Время закрытия предложения.
- * @member {Date} timeoutAt
- */
-InlineResponse20014.prototype['timeoutAt'] = undefined;
-
-/**
- * Время на выполнение, в часах.
- * @member {Number} execution_time
- */
-InlineResponse20014.prototype['execution_time'] = undefined;
-
-/**
- * Количество попыток, подать предложение или исправить результат работы.
- * @member {Number} attempts
- */
-InlineResponse20014.prototype['attempts'] = undefined;
-
-/**
- * Цена предложения.
+ * Цена за каждое предложение.
  * @member {Number} price
  */
 InlineResponse20014.prototype['price'] = undefined;
 
 /**
- * Комментарий к предложению.
- * @member {String} comment
+ * Процент с каждого предложения, маржа платформы, в процентах.
+ * @member {Number} requestPlatformMarginInPercent
  */
-InlineResponse20014.prototype['comment'] = undefined;
+InlineResponse20014.prototype['requestPlatformMarginInPercent'] = undefined;
 
 /**
- * Ссылки на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * Услуги платформы.
+ * @member {Number} platformMargin
  */
-InlineResponse20014.prototype['linksToMediaFiles'] = undefined;
+InlineResponse20014.prototype['platformMargin'] = undefined;
 
 /**
- * GUID клиента .
- * @member {String} clientId
+ * Процент с каждого предложения для супервайзера, в процентах.
+ * @member {Number} requestSupervisorFeeInPercent
  */
-InlineResponse20014.prototype['clientId'] = undefined;
+InlineResponse20014.prototype['requestSupervisorFeeInPercent'] = undefined;
 
 /**
- * GUID супервизора.
- * @member {String} supervisorId
+ * Услуги супервайзера.
+ * @member {Number} supervisorFee
  */
-InlineResponse20014.prototype['supervisorId'] = undefined;
+InlineResponse20014.prototype['supervisorFee'] = undefined;
 
 /**
- * GUID чата.
- * @member {String} chatId
+ * Сумма.
+ * @member {Number} unitCost
  */
-InlineResponse20014.prototype['chatId'] = undefined;
+InlineResponse20014.prototype['unitCost'] = undefined;
 
 /**
- * GUID любого, кто последний редактировал предложение.
- * @member {String} lastModifiedById
+ * Количество предложений, не менее.
+ * @member {Number} maxAmountOfProposals
  */
-InlineResponse20014.prototype['lastModifiedById'] = undefined;
+InlineResponse20014.prototype['maxAmountOfProposals'] = undefined;
 
 /**
- * Дата создания
- * @member {Date} createdAt
+ * Итого.
+ * @member {Number} totalCost
  */
-InlineResponse20014.prototype['createdAt'] = undefined;
-
-/**
- * Дата изменения
- * @member {Date} updatedAt
- */
-InlineResponse20014.prototype['updatedAt'] = undefined;
-
-/**
- * @member {module:model/ApiV1RequestProposalsCreatedBy} createdBy
- */
-InlineResponse20014.prototype['createdBy'] = undefined;
+InlineResponse20014.prototype['totalCost'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>status</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse20014['StatusEnum'] = {
-
-    /**
-     * value: "CREATED"
-     * @const
-     */
-    "CREATED": "CREATED",
-
-    /**
-     * value: "OFFER_CONDITIONS_ACCEPTED"
-     * @const
-     */
-    "OFFER_CONDITIONS_ACCEPTED": "OFFER_CONDITIONS_ACCEPTED",
-
-    /**
-     * value: "READY_TO_VERIFY"
-     * @const
-     */
-    "READY_TO_VERIFY": "READY_TO_VERIFY",
-
-    /**
-     * value: "OFFER_CONDITIONS_REJECTED"
-     * @const
-     */
-    "OFFER_CONDITIONS_REJECTED": "OFFER_CONDITIONS_REJECTED",
-
-    /**
-     * value: "OFFER_CONDITIONS_CORRECTED"
-     * @const
-     */
-    "OFFER_CONDITIONS_CORRECTED": "OFFER_CONDITIONS_CORRECTED",
-
-    /**
-     * value: "VERIFYING_BY_SUPERVISOR"
-     * @const
-     */
-    "VERIFYING_BY_SUPERVISOR": "VERIFYING_BY_SUPERVISOR",
-
-    /**
-     * value: "TO_CORRECT"
-     * @const
-     */
-    "TO_CORRECT": "TO_CORRECT",
-
-    /**
-     * value: "CORRECTED"
-     * @const
-     */
-    "CORRECTED": "CORRECTED",
-
-    /**
-     * value: "CANCELED_BY_CREATOR_OF_REQUEST"
-     * @const
-     */
-    "CANCELED_BY_CREATOR_OF_REQUEST": "CANCELED_BY_CREATOR_OF_REQUEST",
-
-    /**
-     * value: "CANCELED_BY_SUPERVISOR"
-     * @const
-     */
-    "CANCELED_BY_SUPERVISOR": "CANCELED_BY_SUPERVISOR",
-
-    /**
-     * value: "CANCELED_BY_EXECUTOR"
-     * @const
-     */
-    "CANCELED_BY_EXECUTOR": "CANCELED_BY_EXECUTOR",
-
-    /**
-     * value: "ACCEPTED_BY_CLIENT"
-     * @const
-     */
-    "ACCEPTED_BY_CLIENT": "ACCEPTED_BY_CLIENT",
-
-    /**
-     * value: "ACCEPTED_BY_SUPERVISOR"
-     * @const
-     */
-    "ACCEPTED_BY_SUPERVISOR": "ACCEPTED_BY_SUPERVISOR",
-
-    /**
-     * value: "EXPIRED"
-     * @const
-     */
-    "EXPIRED": "EXPIRED"
-};
 
 
 

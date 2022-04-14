@@ -264,6 +264,9 @@ export const clientWarehouseDataConverter = data =>
     destination: item.destination?.name,
     storekeeper: item.storekeeper?.name,
     logicsTariff: item.logicsTariff?.name,
+    client: item.client?.name,
+
+    isDraft: item.isDraft,
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -329,12 +332,10 @@ export const warehouseFinancesDataConverter = data =>
   }))
 
 export const warehouseBatchesDataConverter = data =>
-  data.map((item, i) => ({
+  data.map(item => ({
     originalData: item,
-    id: i,
+    id: item._id,
 
-    delivery: DeliveryTypeByCode[item.batch.deliveryMethod],
-    warehouses: warehouses[item.batch.warehouse],
     finalWeight: item.boxes.reduce(
       (prev, box) => (prev = prev + calcFinalWeightForBox(box)),
 

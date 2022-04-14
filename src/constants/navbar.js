@@ -607,9 +607,21 @@ export const navbarConfig = {
 
     {
       icon: LocalConvenienceStore,
-      title: 'Отправления',
-      subtitles: null,
-      route: '/warehouse/boxes',
+      title: 'Мои партии',
+      route: '/warehouse/batches',
+      subtitles: [
+        {
+          subtitle: 'Ожидают отправки',
+          subRoute: '/warehouse/awaiting-batches',
+          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES,
+        },
+        {
+          subtitle: 'Отправленные',
+          subRoute: '/warehouse/batches',
+          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BATCHES,
+        },
+      ],
+
       key: navBarActiveCategory.NAVBAR_BATCHES,
       checkHideBlock: user =>
         !isMasterUser(user) ||

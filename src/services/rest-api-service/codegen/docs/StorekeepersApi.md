@@ -30,7 +30,7 @@ Method | HTTP request | Description
 
 ## apiV1StorekeepersBoxesGet
 
-> [InlineResponse2007] apiV1StorekeepersBoxesGet(opts)
+> [ApiV1BatchesBoxes] apiV1StorekeepersBoxesGet(opts)
 
 # Получить коробки и их строки по текущему сторкиперу.
 
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
 
 ### Authorization
 
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersGet
 
-> [InlineResponse20019] apiV1StorekeepersGet(opts)
+> [InlineResponse20018] apiV1StorekeepersGet(opts)
 
 # Получить всех сторкиперов(все склады).
 
@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20019]**](InlineResponse20019.md)
+[**[InlineResponse20018]**](InlineResponse20018.md)
 
 ### Authorization
 
@@ -356,7 +356,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTariffLogisticsMyGet
 
-> [ApiV1BoxesLogicsTariff] apiV1StorekeepersTariffLogisticsMyGet(opts)
+> [ApiV1BatchesLogicsTariff] apiV1StorekeepersTariffLogisticsMyGet(opts)
 
 # Получить всех тарифами доставки сторкипером.
 
@@ -394,7 +394,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BoxesLogicsTariff]**](ApiV1BoxesLogicsTariff.md)
+[**[ApiV1BatchesLogicsTariff]**](ApiV1BatchesLogicsTariff.md)
 
 ### Authorization
 
@@ -1004,7 +1004,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksMyGet
 
-> [InlineResponse2008] apiV1StorekeepersTasksMyGet(opts)
+> [InlineResponse2007] apiV1StorekeepersTasksMyGet(opts)
 
 # Получить задачи закрепленные за данным сборщиком..
 
@@ -1044,7 +1044,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -1112,7 +1112,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksVacGet
 
-> [InlineResponse2008] apiV1StorekeepersTasksVacGet(opts)
+> [InlineResponse2007] apiV1StorekeepersTasksVacGet(opts)
 
 # Deprecated! Получить задачи не закрепленные за сотрудниками склада.
 
@@ -1150,7 +1150,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 

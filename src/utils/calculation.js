@@ -91,13 +91,21 @@ export const calcTotalPriceForBatch = batch =>
       cur.amount > 1
         ? acc +
           cur.items.reduce(
-            (ac, cu) => ac + (cu.product.currentSupplier.price + cu.product.currentSupplier.delivery) * cu.amount,
+            (ac, cu) =>
+              ac +
+              (cu.product.currentSupplier.price +
+                cu.product.currentSupplier.batchDeliveryCostInDollar / cu.product.currentSupplier.amount) *
+                cu.amount,
             0,
           ) *
             cur.amount
         : acc +
           cur.items.reduce(
-            (ac, cu) => ac + (cu.product.currentSupplier.price + cu.product.currentSupplier.delivery) * cu.amount,
+            (ac, cu) =>
+              ac +
+              (cu.product.currentSupplier.price +
+                cu.product.currentSupplier.batchDeliveryCostInDollar / cu.product.currentSupplier.amount) *
+                cu.amount,
             0,
           ),
     0,

@@ -44,7 +44,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) =>
         <div className={classNames.rightBlockWrapper}>
           <Typography className={classNames.cardTitle}>{'Предложение'}</Typography>
 
-          <Typography className={classNames.cardSubTitle}>{item.proposals[0].detailsCustom.comment}</Typography>
+          <Typography className={classNames.proposalComment}>{item.proposals[0].comment}</Typography>
 
           <div className={classNames.rightSubWrapper}>
             <div className={classNames.timeWrapper}>

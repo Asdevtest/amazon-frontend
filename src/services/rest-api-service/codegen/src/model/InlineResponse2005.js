@@ -76,9 +76,6 @@ class InlineResponse2005 {
             if (data.hasOwnProperty('storekeeper')) {
                 obj['storekeeper'] = ApiV1BatchesStorekeeper.constructFromObject(data['storekeeper']);
             }
-            if (data.hasOwnProperty('client')) {
-                obj['client'] = ApiV1BatchesStorekeeper.constructFromObject(data['client']);
-            }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1BatchesStorekeeper.constructFromObject(data['createdBy']);
             }
@@ -150,11 +147,6 @@ InlineResponse2005.prototype['boxes'] = undefined;
  * @member {module:model/ApiV1BatchesStorekeeper} storekeeper
  */
 InlineResponse2005.prototype['storekeeper'] = undefined;
-
-/**
- * @member {module:model/ApiV1BatchesStorekeeper} client
- */
-InlineResponse2005.prototype['client'] = undefined;
 
 /**
  * @member {module:model/ApiV1BatchesStorekeeper} createdBy

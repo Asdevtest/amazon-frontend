@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## apiV1ResearchersCheckProductsAsinGet
 
-> InlineResponse20017 apiV1ResearchersCheckProductsAsinGet(asin, opts)
+> InlineResponse20016 apiV1ResearchersCheckProductsAsinGet(asin, opts)
 
 Проверить продукт по ID существует ли он в базе.
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20017**](InlineResponse20017.md)
+[**InlineResponse20016**](InlineResponse20016.md)
 
 ### Authorization
 

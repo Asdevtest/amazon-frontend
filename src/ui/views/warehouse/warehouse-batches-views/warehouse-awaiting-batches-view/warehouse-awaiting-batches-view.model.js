@@ -9,21 +9,25 @@ import {SettingsModel} from '@models/settings-model'
 
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
 
-import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
+import {clientWarehouseDataConverter, warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
-export class WarehouseBatchesViewModel {
+export class WarehouseAwaitingBatchesViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
   batches = []
+  boxesData = []
+
   selectedBatches = []
   curBatch = {}
   showConfirmModal = false
   drawerOpen = false
   isWarning = false
   showBatchInfoModal = false
+
+  showAddOrEditBatchModal = false
 
   rowHandlers = {
     setCurrentOpenedBatch: row => this.setCurrentOpenedBatch(row),
@@ -50,11 +54,11 @@ export class WarehouseBatchesViewModel {
       'columns',
     ])
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_BATCHES)
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_BATCHES]
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES]
 
     if (state) {
       this.sortModel = state.sorting.sortModel
@@ -118,11 +122,26 @@ export class WarehouseBatchesViewModel {
 
   async getBatches() {
     try {
-      const result = await BatchesModel.getBatches()
+      const result = await BatchesModel.getBatches('IS_BEING_COLLECTED')
 
       runInAction(() => {
         this.batches = warehouseBatchesDataConverter(result)
       })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onClickAddBatch() {
+    try {
+      const result = await BoxesModel.getBoxesReadyToBatchStorekeeper()
+
+      runInAction(() => {
+        this.boxesData = clientWarehouseDataConverter(result)
+      })
+
+      this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
       console.log(error)
       this.error = error

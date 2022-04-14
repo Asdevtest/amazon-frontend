@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **weighGrossKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
 **isDraft** | **Boolean** | true - если создаем черновик заказа. | [optional] 
 **isBarCodeAttachedByTheStorekeeper** | **Boolean** | Прикреплен ли баркод к коробке сотрудником склада. | [optional] 
-**items** | [**[ApiV1BoxesItems1]**](ApiV1BoxesItems1.md) | Массив коробок. | 
+**items** | [**[ApiV1BoxesItems]**](ApiV1BoxesItems.md) | Массив коробок. | 
 **clientId** | **String** | GUID клиента | [optional] 
 **images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 **shippingLabel** | **String** | Шипингш лейбл | [optional] 
