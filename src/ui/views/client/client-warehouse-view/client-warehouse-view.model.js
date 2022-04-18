@@ -37,7 +37,7 @@ const updateBoxWhiteList = [
   'weighGrossKgWarehouse',
   'isBarCodeAttachedByTheStorekeeper',
   'isShippingLabelAttachedByStorekeeper',
-  'clientId',
+  'isBarCodeAlreadyAttachedByTheSupplier',
   'items',
   'images',
   'destinationId',

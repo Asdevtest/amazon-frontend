@@ -50,7 +50,7 @@ export const CreateOrEditRequestContent = ({
       title: requestToEdit?.request.title || '',
       maxAmountOfProposals: requestToEdit?.request.maxAmountOfProposals || '',
       price: requestToEdit?.request.price || '',
-      timeoutAt: requestToEdit?.request.timeoutAt || '',
+      timeoutAt: requestToEdit?.request.timeoutAt || null,
       direction: requestToEdit?.request.direction || 'IN',
       roles: requestToEdit?.request.roles.length ? requestToEdit?.request.roles : [10, 35],
       needCheckBySupervisor: requestToEdit?.request.needCheckBySupervisor || false,

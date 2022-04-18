@@ -17,6 +17,14 @@ const textConsts = getLocalizedTexts(texts, 'ru').warehouseBoxesTableColumns
 
 export const warehouseBoxesViewColumns = handlers => [
   {
+    field: 'isDraft',
+    headerName: '',
+    renderCell: params => (params.value ? 'isDraft' : 'OK'),
+    width: 60,
+    type: 'boolean',
+  },
+
+  {
     field: 'createdAt',
     headerName: textConsts.createdAtField,
     renderCell: params => <NormDateCell params={params} />,
@@ -42,7 +50,7 @@ export const warehouseBoxesViewColumns = handlers => [
   {
     field: 'orders',
     headerName: textConsts.ordersField,
-    width: 410,
+    width: 380,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
         <OrderManyItemsCell box={params.row.originalData} />
@@ -83,7 +91,7 @@ export const warehouseBoxesViewColumns = handlers => [
     field: 'batchId',
     headerName: textConsts.batchField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 140,
+    width: 130,
   },
 
   {

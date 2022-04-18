@@ -136,9 +136,7 @@ export class ClientReadyBoxesViewModel {
 
   async getBoxesMy() {
     try {
-      const result = await BoxesModel.getBoxesReadyToBatchClient(
-        this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id},
-      )
+      const result = await BoxesModel.getBoxesReadyToBatchClient(this.currentStorekeeper && this.currentStorekeeper._id)
 
       runInAction(() => {
         this.boxesMy = clientWarehouseDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
