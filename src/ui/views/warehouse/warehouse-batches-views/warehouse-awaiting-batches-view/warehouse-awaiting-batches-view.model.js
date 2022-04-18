@@ -1,11 +1,13 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
 
@@ -16,6 +18,8 @@ export class WarehouseAwaitingBatchesViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
+
+  volumeWeightCoefficient = undefined
 
   batches = []
   boxesData = []
@@ -28,10 +32,6 @@ export class WarehouseAwaitingBatchesViewModel {
   showBatchInfoModal = false
 
   showAddOrEditBatchModal = false
-
-  rowHandlers = {
-    setCurrentOpenedBatch: row => this.setCurrentOpenedBatch(row),
-  }
 
   sortModel = []
   filterModel = {items: []}
@@ -122,23 +122,37 @@ export class WarehouseAwaitingBatchesViewModel {
 
   async getBatches() {
     try {
-      const result = await BatchesModel.getBatches('IS_BEING_COLLECTED')
+      const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
+
+      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.batches = warehouseBatchesDataConverter(result)
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient)
       })
     } catch (error) {
       console.log(error)
       this.error = error
+
+      this.batches = []
     }
   }
 
-  async onClickAddBatch() {
+  async onClickAddOrEditBatch(setting) {
     try {
-      const result = await BoxesModel.getBoxesReadyToBatchStorekeeper()
+      if (setting.isAdding) {
+        this.selectedBatches = []
+      }
+
+      const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
+
+      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.boxesData = clientWarehouseDataConverter(result)
+        this.boxesData = clientWarehouseDataConverter(boxes)
+
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showAddOrEditBatchModal')
@@ -148,24 +162,64 @@ export class WarehouseAwaitingBatchesViewModel {
     }
   }
 
-  setCurrentOpenedBatch(row) {
-    this.curBatch = row
-    this.onTriggerOpenModal('showBatchInfoModal')
+  async onSubmitAddOrEditBatch(boxesIds, sourceBoxesIds, batchToEditId) {
+    try {
+      if (!batchToEditId) {
+        await BatchesModel.createBatch(boxesIds)
+      } else {
+        const newBoxesIds = boxesIds.filter(boxId => !sourceBoxesIds.includes(boxId))
+        const boxesToRemoveIds = sourceBoxesIds.filter(boxId => !boxesIds.includes(boxId))
+
+        if (newBoxesIds.length) {
+          await BatchesModel.addBoxToBatch(batchToEditId, newBoxesIds)
+        }
+        if (boxesToRemoveIds.length) {
+          await BatchesModel.removeBoxFromBatch(batchToEditId, boxesToRemoveIds)
+        }
+      }
+
+      this.loadData()
+      this.onTriggerOpenModal('showAddOrEditBatchModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async setCurrentOpenedBatch(row) {
+    try {
+      this.curBatch = row
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showBatchInfoModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async confirmSendToBatch(batchId) {
+    try {
+      await BatchesModel.confirmSentToBatch(batchId)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onClickConfirmSendToBatchBtn() {
     try {
-      const boxesIds = []
+      for (let i = 0; i < this.selectedBatches.length; i++) {
+        const batchId = this.selectedBatches[i]
 
-      this.batches
-        .filter(batch => this.selectedBatches.includes(batch.id))
-        .map(batch => batch.originalData)
-        .forEach(batch => batch.boxes.forEach(box => boxesIds.push(box._id)))
+        await this.confirmSendToBatch(batchId)
+      }
 
-      await BoxesModel.sendBoxesToBatch(boxesIds)
-      runInAction(() => {
-        this.selectedBatches = []
-      })
+      this.selectedBatches = []
+
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {

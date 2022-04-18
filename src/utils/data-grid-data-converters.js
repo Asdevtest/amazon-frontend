@@ -10,8 +10,10 @@ import {warehouses} from '@constants/warehouses'
 import {
   calcAmazonPriceForBox,
   calcFinalWeightForBox,
+  calcPriceForBox,
   calcTotalPriceForBatch,
   calcTotalPriceForOrder,
+  calcVolumeWeightForBox,
 } from './calculation'
 
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
@@ -253,7 +255,8 @@ export const clientWarehouseDataConverter = data =>
 
     qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
 
-    amazonPrice: item.items.reduce((acc, cur) => acc + cur.product.amazon * cur.amount, 0),
+    amazonPrice: calcPriceForBox(item),
+    // amazonPrice: item.items.reduce((acc, cur) => acc + calcPriceForBox(cur), 0),
 
     finalWeight: Math.max(
       parseFloat(item.volumeWeightKgWarehouse ? item.volumeWeightKgWarehouse : item.volumeWeightKgSupplier) || 0,
@@ -274,19 +277,27 @@ export const clientWarehouseDataConverter = data =>
     humanFriendlyId: item.humanFriendlyId,
   }))
 
-export const clientBatchesDataConverter = data =>
+export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
   data.map((item, i) => ({
     originalData: item,
     id: i,
 
-    delivery: DeliveryTypeByCode[item.batch.deliveryMethod],
-    warehouses: warehouses[item.batch.warehouse],
-    finalWeight: item.boxes.reduce(
-      (prev, box) => (prev = prev + calcFinalWeightForBox(box)),
+    destination: item.boxes[0].destination?.name,
+    tariff: item.boxes[0].logicsTariff?.name,
+    humanFriendlyId: item.humanFriendlyId,
 
+    updatedAt: item.updatedAt,
+
+    volumeWeight: item.boxes.reduce(
+      (prev, box) => (prev = prev + calcVolumeWeightForBox(box, volumeWeightCoefficient)),
       0,
     ),
-    totalPrice: calcTotalPriceForBatch(item),
+
+    finalWeight: item.boxes.reduce(
+      (prev, box) => (prev = prev + calcFinalWeightForBox(box, volumeWeightCoefficient)),
+      0,
+    ),
+    totalPrice: item.boxes.reduce((prev, box) => (prev = prev + calcPriceForBox(box)), 0),
   }))
 
 export const clientFinancesDataConverter = data =>
@@ -331,17 +342,27 @@ export const warehouseFinancesDataConverter = data =>
     sum: item.sum,
   }))
 
-export const warehouseBatchesDataConverter = data =>
+export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
 
-    finalWeight: item.boxes.reduce(
-      (prev, box) => (prev = prev + calcFinalWeightForBox(box)),
+    destination: item.boxes[0].destination?.name,
+    tariff: item.boxes[0].logicsTariff?.name,
+    humanFriendlyId: item.humanFriendlyId,
 
+    updatedAt: item.updatedAt,
+
+    volumeWeight: item.boxes.reduce(
+      (prev, box) => (prev = prev + calcVolumeWeightForBox(box, volumeWeightCoefficient)),
       0,
     ),
-    totalPrice: calcTotalPriceForBatch(item),
+
+    finalWeight: item.boxes.reduce(
+      (prev, box) => (prev = prev + calcFinalWeightForBox(box, volumeWeightCoefficient)),
+      0,
+    ),
+    totalPrice: item.boxes.reduce((prev, box) => (prev = prev + calcPriceForBox(box)), 0),
   }))
 
 export const warehouseTasksDataConverter = data =>

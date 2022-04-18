@@ -23,6 +23,7 @@ import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
 import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
 import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
 import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStorekeeper';
+import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
 import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
 import ApiV1BatchesDestination from './model/ApiV1BatchesDestination';
 import ApiV1BatchesItems from './model/ApiV1BatchesItems';
@@ -45,6 +46,7 @@ import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetai
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
 import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
+import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties';
 import BadRequestError from './model/BadRequestError';
 import CheckIsUniqueNameOrEmailReqSchema from './model/CheckIsUniqueNameOrEmailReqSchema';
 import CheckIsUniqueNameOrEmailSchema from './model/CheckIsUniqueNameOrEmailSchema';
@@ -311,6 +313,12 @@ export {
     ApiV1AdminsTasksLightStorekeeper,
 
     /**
+     * The ApiV1BatchesBatch model constructor.
+     * @property {module:model/ApiV1BatchesBatch}
+     */
+    ApiV1BatchesBatch,
+
+    /**
      * The ApiV1BatchesBoxes model constructor.
      * @property {module:model/ApiV1BatchesBoxes}
      */
@@ -441,6 +449,12 @@ export {
      * @property {module:model/ApiV1StorekeepersTariffWarehouses}
      */
     ApiV1StorekeepersTariffWarehouses,
+
+    /**
+     * The ApiV1SuppliersBoxProperties model constructor.
+     * @property {module:model/ApiV1SuppliersBoxProperties}
+     */
+    ApiV1SuppliersBoxProperties,
 
     /**
      * The BadRequestError model constructor.

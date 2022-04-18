@@ -79,7 +79,7 @@ export const clientBoxesViewColumns = () => [
   },
 
   {
-    field: 'warehouses',
+    field: 'destination',
     headerName: textConsts.warehouseField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 160,

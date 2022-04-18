@@ -236,7 +236,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesGuidRemoveBoxesPatch
 
-> String apiV1BatchesGuidRemoveBoxesPatch(opts)
+> String apiV1BatchesGuidRemoveBoxesPatch(guid, opts)
 
 # Удалить коробки из партии.
 
@@ -254,11 +254,12 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BatchesApi();
+let guid = null; // String | GUID партии.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject11() // InlineObject11 | 
 };
-apiInstance.apiV1BatchesGuidRemoveBoxesPatch(opts).then((data) => {
+apiInstance.apiV1BatchesGuidRemoveBoxesPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -271,6 +272,7 @@ apiInstance.apiV1BatchesGuidRemoveBoxesPatch(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID партии. | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject11**](InlineObject11.md)|  | [optional] 
 

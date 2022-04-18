@@ -3,12 +3,12 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
-  NormalActionBtnCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
   renderFieldValueCell,
   UserLinkCell,
+  WarehouseBoxesBtnsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -91,9 +91,7 @@ export const warehouseBoxesViewColumns = handlers => [
     headerName: textConsts.actionField,
     width: 200,
 
-    renderCell: params => (
-      <NormalActionBtnCell bTnText={textConsts.actionBtnText} row={params.row.originalData} onClickOkBtn={handlers} />
-    ),
+    renderCell: params => <WarehouseBoxesBtnsCell row={params.row.originalData} handlers={handlers} />,
     filterable: false,
     sortable: false,
   },

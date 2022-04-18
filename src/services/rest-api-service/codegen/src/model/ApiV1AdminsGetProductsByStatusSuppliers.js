@@ -48,6 +48,9 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
         if (data) {
             obj = obj || new ApiV1AdminsGetProductsByStatusSuppliers();
 
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
@@ -105,18 +108,18 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
             if (data.hasOwnProperty('boxWeighGrossKg')) {
                 obj['boxWeighGrossKg'] = ApiClient.convertToType(data['boxWeighGrossKg'], 'Number');
             }
-            if (data.hasOwnProperty('boxVolumeWeightKg')) {
-                obj['boxVolumeWeightKg'] = ApiClient.convertToType(data['boxVolumeWeightKg'], 'Number');
-            }
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
         }
         return obj;
     }
 
 
 }
+
+/**
+ * GUID поставщика в БД
+ * @member {String} _id
+ */
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['_id'] = undefined;
 
 /**
  * Название поставщика.
@@ -209,40 +212,28 @@ ApiV1AdminsGetProductsByStatusSuppliers.prototype['batchTotalCostInYuan'] = unde
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['amountInBox'] = undefined;
 
 /**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * Длина коробки, назвал поставщик при заказе ( могут отличаться с реальными).
  * @member {Number} boxLengthCm
  */
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxLengthCm'] = undefined;
 
 /**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * Ширина коробки, назвал поставщик при заказе ( могут отличаться с реальными).
  * @member {Number} boxWidthCm
  */
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxWidthCm'] = undefined;
 
 /**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * Высота коробки, назвал поставщик при заказе ( могут отличаться с реальными).
  * @member {Number} boxHeightCm
  */
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxHeightCm'] = undefined;
 
 /**
- * Общий вес кг коробки который назвал поставщик.
+ * Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными).
  * @member {Number} boxWeighGrossKg
  */
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxWeighGrossKg'] = undefined;
-
-/**
- * Объемный вес кг коробки, расчет на беке.
- * @member {Number} boxVolumeWeightKg
- */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxVolumeWeightKg'] = undefined;
-
-/**
- * GUID поставщика в БД
- * @member {String} _id
- */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['_id'] = undefined;
 
 
 

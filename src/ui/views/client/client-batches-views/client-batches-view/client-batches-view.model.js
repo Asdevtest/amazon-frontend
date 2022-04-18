@@ -1,10 +1,12 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BatchesModel} from '@models/batches-model'
 import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
 
@@ -23,10 +25,6 @@ export class ClientBatchesViewModel {
   drawerOpen = false
 
   showBatchInfoModal = false
-
-  rowHandlers = {
-    setCurrentOpenedBatch: row => this.setCurrentOpenedBatch(row),
-  }
 
   sortModel = []
   filterModel = {items: []}
@@ -117,10 +115,14 @@ export class ClientBatchesViewModel {
 
   async getBatches() {
     try {
-      const result = await BatchesModel.getBatches()
+      const batches = await BatchesModel.getBatches(BatchStatus.HAS_DISPATCHED)
+
+      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.batches = clientBatchesDataConverter(result)
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.batches = clientBatchesDataConverter(batches, this.volumeWeightCoefficient)
       })
     } catch (error) {
       console.log(error)
@@ -128,9 +130,20 @@ export class ClientBatchesViewModel {
     }
   }
 
-  setCurrentOpenedBatch(row) {
-    this.curBatch = row
-    this.onTriggerOpenModal('showBatchInfoModal')
+  async setCurrentOpenedBatch(row) {
+    try {
+      this.curBatch = row
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showBatchInfoModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   onTriggerOpenModal(modal) {

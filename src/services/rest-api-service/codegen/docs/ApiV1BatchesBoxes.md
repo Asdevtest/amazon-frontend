@@ -42,6 +42,7 @@ Name | Type | Description | Notes
 **lastModifiedBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
 **destination** | [**ApiV1BatchesDestination**](ApiV1BatchesDestination.md) |  | [optional] 
 **logicsTariff** | [**ApiV1BatchesLogicsTariff**](ApiV1BatchesLogicsTariff.md) |  | [optional] 
+**batch** | [**ApiV1BatchesBatch**](ApiV1BatchesBatch.md) |  | [optional] 
 
 
 

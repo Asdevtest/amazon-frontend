@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
 
 /**
  * The InlineObject63 model module.
@@ -109,20 +110,8 @@ class InlineObject63 {
             if (data.hasOwnProperty('amountInBox')) {
                 obj['amountInBox'] = ApiClient.convertToType(data['amountInBox'], 'Number');
             }
-            if (data.hasOwnProperty('boxLengthCm')) {
-                obj['boxLengthCm'] = ApiClient.convertToType(data['boxLengthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxWidthCm')) {
-                obj['boxWidthCm'] = ApiClient.convertToType(data['boxWidthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxHeightCm')) {
-                obj['boxHeightCm'] = ApiClient.convertToType(data['boxHeightCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxWeighGrossKg')) {
-                obj['boxWeighGrossKg'] = ApiClient.convertToType(data['boxWeighGrossKg'], 'Number');
-            }
-            if (data.hasOwnProperty('boxVolumeWeightKg')) {
-                obj['boxVolumeWeightKg'] = ApiClient.convertToType(data['boxVolumeWeightKg'], 'Number');
+            if (data.hasOwnProperty('boxProperties')) {
+                obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
             }
         }
         return obj;
@@ -222,34 +211,9 @@ InlineObject63.prototype['batchTotalCostInYuan'] = undefined;
 InlineObject63.prototype['amountInBox'] = undefined;
 
 /**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxLengthCm
+ * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties
  */
-InlineObject63.prototype['boxLengthCm'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxWidthCm
- */
-InlineObject63.prototype['boxWidthCm'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxHeightCm
- */
-InlineObject63.prototype['boxHeightCm'] = undefined;
-
-/**
- * Общий вес кг коробки который назвал поставщик.
- * @member {Number} boxWeighGrossKg
- */
-InlineObject63.prototype['boxWeighGrossKg'] = undefined;
-
-/**
- * Объемный вес кг коробки, расчет на беке.
- * @member {Number} boxVolumeWeightKg
- */
-InlineObject63.prototype['boxVolumeWeightKg'] = undefined;
+InlineObject63.prototype['boxProperties'] = undefined;
 
 
 

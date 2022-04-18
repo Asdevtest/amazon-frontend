@@ -680,6 +680,11 @@ export const texts = {
       bindBtn: 'Привязать',
     },
 
+    moveBoxToBatchForm: {
+      saveBtn: 'Сохранить',
+      cancelBtn: 'Отмена',
+    },
+
     addOrEditBatchForm: {
       mainTitle: 'Привязать товар со склада',
       recommend: 'Рекомендованные',
@@ -689,7 +694,7 @@ export const texts = {
       betweenChipsText: 'или поиск по',
       searchHolder: `поиск...`,
       searchBtn: 'Поиск',
-      chosenGoods: 'Выбранные товары со склада:',
+      chosenGoods: 'Коробки в партии:',
       bindBtn: 'Привязать',
     },
 
@@ -750,6 +755,19 @@ export const texts = {
       stockValueField: 'Count',
       reservedField: 'Reserved',
       roiField: 'ROI',
+    },
+
+    moveBoxToBatchFormColumns: {
+      warehouseField: 'Destination',
+      boxIdField: 'ID',
+
+      logicsTariffField: 'Тариф',
+      updatedAtField: 'Обновлено',
+
+      volumeWeightField: 'Об-й вес',
+
+      weightField: 'Вес фин-й',
+      priceField: 'Стоимость',
     },
 
     addOrEditBatchFormColumnsTexts: {
@@ -2149,6 +2167,19 @@ export const texts = {
       makeMainSupplier: 'Сделать основным поставщиком',
       errorNoZero: 'не может быть ноль',
     },
+
+    boxViewForm: {
+      closeBtn: 'Закрыть',
+      length: 'Длина: ',
+      width: 'Ширина: ',
+      height: 'Высота: ',
+      weight: 'Вес: ',
+      volumeWeigh: 'Объемный вес: ',
+      finalWeight: 'Финальный вес: ',
+      shippingLabelIsGluedSupplier: 'Шиппинг Лейбл проклеено поставщиком',
+      shippingLabelIsGluedWarehouse: 'Баркод проклеен складом',
+    },
+
     productWrapperComponent: {
       buttonParseAmazon: ' Parse Amazon ',
       buttonParseSellcentrall: 'Parse Seller central',
@@ -2875,17 +2906,18 @@ export const texts = {
       asinField: 'ASIN',
       qtyField: 'Количество',
       materialField: 'Материал',
-      warehouseField: 'Склад',
+      warehouseField: 'Destination',
       boxIdField: 'id Коробки',
       priceField: 'Цена',
       trackIdField: 'Трек номер',
-      weightField: 'Общий финальный Вес',
+      weightField: 'Общий фин. Вес',
       grossWeightField: 'Общий вес',
-      deliveryField: 'Доставка',
+      deliveryField: 'Тариф',
       toralPriceField: 'Общая стоимость',
 
       showBtn: 'Смотреть',
       actionField: 'Действия',
+      humanFriendlyIdField: 'Номер',
     },
 
     adminTasksTableColumns: {
@@ -3814,7 +3846,7 @@ export const texts = {
 
       countTypo: 'Кол-во:',
       photos: 'Фотографии',
-      mainTitle: 'Поставка',
+      mainTitle: 'Просмотр партии',
     },
 
     supervisorReadyToCheckBodyRow: {

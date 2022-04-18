@@ -10,7 +10,6 @@ import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-a
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
@@ -37,7 +36,7 @@ export class WarehouseBatchesViewRaw extends Component {
 
   render() {
     const {
-      selectedBatches,
+      volumeWeightCoefficient,
       curBatch,
       showBatchInfoModal,
       onTriggerOpenModal,
@@ -62,6 +61,8 @@ export class WarehouseBatchesViewRaw extends Component {
 
       onClickConfirmSendToBatchBtn,
       onChangeFilterModel,
+
+      setCurrentOpenedBatch,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -77,15 +78,19 @@ export class WarehouseBatchesViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
-              <Button
-                disableElevation
-                disabled={!selectedBatches.length}
-                color="primary"
-                variant="contained"
-                onClick={() => onTriggerOpenModal('showConfirmModal')}
-              >
-                {textConsts.confirmSendBatchBtn}
-              </Button>
+              {/* <div className={classNames.btnsWrapper}>
+                <Button
+                  disableElevation
+                  disabled
+                  color="primary"
+                  variant="contained"
+                  onClick={() => onTriggerOpenModal('showConfirmModal')}
+                >
+                  {'Сancel sending'}
+                </Button>
+
+              </div> */}
+
               <DataGrid
                 checkboxSelection
                 pagination
@@ -114,6 +119,7 @@ export class WarehouseBatchesViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
+                onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
               />
             </MainContent>
           </Appbar>
@@ -132,6 +138,7 @@ export class WarehouseBatchesViewRaw extends Component {
         />
 
         <BatchInfoModal
+          volumeWeightCoefficient={volumeWeightCoefficient}
           openModal={showBatchInfoModal}
           setOpenModal={() => onTriggerOpenModal('showBatchInfoModal')}
           batch={curBatch}

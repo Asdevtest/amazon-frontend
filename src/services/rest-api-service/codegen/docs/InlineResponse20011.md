@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**date** | **String** | \&quot;Date\&quot; | [optional] 
+**date** | **String** | ﻿\&quot;Date\&quot; | [optional] 
 **marketplace** | **String** | Marketplace | [optional] 
 **asin** | **String** | ASIN | [optional] 
 **sku** | **String** | SKU | [optional] 

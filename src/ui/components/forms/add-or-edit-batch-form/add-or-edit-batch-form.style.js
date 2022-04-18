@@ -16,7 +16,7 @@ export const useClassNames = makeStyles(() => ({
 
   tableWrapper: {
     marginTop: '10px',
-    height: '30vh',
+    height: '37vh',
   },
 
   chosenGoodsTitle: {
@@ -72,6 +72,7 @@ export const useClassNames = makeStyles(() => ({
   filtersWrapper: {
     display: 'flex',
     margin: '20px 0 13px',
+    justifyContent: 'space-between',
   },
 
   chip: {
@@ -109,5 +110,19 @@ export const useClassNames = makeStyles(() => ({
 
   cancelBtn: {
     marginLeft: '40px',
+  },
+
+  filterField: {
+    width: '220px',
+  },
+
+  sumField: {
+    width: '230px',
+  },
+
+  sumsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '720px',
   },
 }))

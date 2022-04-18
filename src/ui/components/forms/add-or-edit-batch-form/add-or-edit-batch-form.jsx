@@ -1,6 +1,6 @@
 import {DataGrid} from '@mui/x-data-grid'
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Typography} from '@material-ui/core'
 import {toJS} from 'mobx'
@@ -11,63 +11,189 @@ import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {Field} from '@components/field/field'
 
+import {calcFinalWeightForBox, calcPriceForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
+import {formatDateWithoutTime} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixed} from '@utils/text'
 
 import {addOrEditBatchFormColumns} from './add-or-edit-batch-form-columns'
 import {useClassNames} from './add-or-edit-batch-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').addOrEditBatchForm
 
-export const AddOrEditBatchForm = observer(({boxesData, selectedRowId, onSubmit}) => {
+export const AddOrEditBatchForm = observer(({boxesData, onClose, volumeWeightCoefficient, onSubmit, batchToEdit}) => {
   const classNames = useClassNames()
 
-  const [chosenBoxes, setChosenBoxes] = useState([])
+  const [boxesToAddData, setBoxesToAddData] = useState([...boxesData])
 
-  // const onClickTrash = asin => {
-  //   const filteredArray = [...chosenGoods].filter(el => el.asin !== asin)
-  //   setChosenGoods(filteredArray)
-  // }
+  const [chosenBoxes, setChosenBoxes] = useState(
+    batchToEdit ? clientWarehouseDataConverter(batchToEdit.originalData?.boxes) : [],
+  )
 
-  const onSelectionModel = model => {
+  const [boxesToAddIds, setBoxesToAddIds] = useState([])
+
+  const [boxesToDeliteIds, setBoxesToDeliteIds] = useState([])
+
+  const [sourceDataForFilters, setSourceDataForFilters] = useState(undefined)
+
+  useEffect(() => {
+    if (batchToEdit) {
+      const newArr = boxesData.filter(
+        box =>
+          box.destination === chosenBoxes[0]?.originalData?.destination?.name &&
+          box.logicsTariff === chosenBoxes[0]?.originalData?.logicsTariff?.name,
+      )
+
+      setBoxesToAddData(newArr)
+
+      setSourceDataForFilters(chosenBoxes[0].originalData)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!batchToEdit) {
+      if (chosenBoxes.length) {
+        const newArr = boxesData.filter(
+          box =>
+            box.destination === chosenBoxes[0]?.originalData?.destination?.name &&
+            box.logicsTariff === chosenBoxes[0]?.originalData?.logicsTariff?.name,
+        )
+
+        setBoxesToAddData(newArr)
+      } else {
+        setBoxesToAddData([...boxesData])
+      }
+    }
+  }, [chosenBoxes])
+
+  const onClickTrash = () => {
+    const filteredArray = [...chosenBoxes].filter(el => !boxesToDeliteIds.includes(el.id))
+    setChosenBoxes(filteredArray)
+  }
+
+  const onClickAdd = () => {
     const curChosenGoodsIds = chosenBoxes.map(el => el.id)
 
-    const newRowIds = model.filter(el => !curChosenGoodsIds.includes(el))
+    const newRowIds = boxesToAddIds.filter(el => !curChosenGoodsIds.includes(el))
 
-    const newSelectedItems = toJS(boxesData).filter(el => newRowIds.includes(el.id))
+    const newSelectedItems = toJS(boxesToAddData).filter(el => newRowIds.includes(el.id))
     setChosenBoxes([...chosenBoxes, ...newSelectedItems])
+
+    setBoxesToAddIds([])
+  }
+
+  const onSelectionAwaitingBoxes = model => {
+    setBoxesToAddIds(model)
+  }
+
+  const onSelectionChoosenBoxes = model => {
+    setBoxesToDeliteIds(model)
   }
 
   const onClickSubmit = () => {
-    const selectedWarehouseStocks = chosenBoxes.map(el => ({sku: el.sku, shopId: el.shop._id}))
+    const chosenBoxesIds = chosenBoxes.map(el => el.id)
 
-    onSubmit({productId: selectedRowId, warehouseStocks: selectedWarehouseStocks})
+    const sourceBoxesIds = batchToEdit?.originalData.boxes.map(el => el._id) || []
+
+    onSubmit(chosenBoxesIds, sourceBoxesIds, batchToEdit?.id)
   }
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h5">{'Создание партии'}</Typography>
+      <Typography variant="h5">{batchToEdit ? 'Редактирование партии' : 'Создание партии'}</Typography>
 
       <div className={classNames.form}>
-        <div className={classNames.filtersWrapper}></div>
+        <div className={classNames.filtersWrapper}>
+          <Field
+            disabled
+            className={classNames.filterField}
+            label={'ETD (дата отправки)'}
+            value={
+              sourceDataForFilters
+                ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.etd)
+                : (chosenBoxes[0]?.originalData?.logicsTariff?.etd &&
+                    formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.etd)) ||
+                  ''
+            }
+            placeholder={'dd.mm.yyyy'}
+          />
 
+          <Field
+            disabled
+            className={classNames.filterField}
+            label={'ETA (дата прибытия)'}
+            value={
+              sourceDataForFilters
+                ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.eta)
+                : (chosenBoxes[0]?.originalData?.logicsTariff?.eta &&
+                    formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.eta)) ||
+                  ''
+            }
+            placeholder={'dd.mm.yyyy'}
+          />
+
+          <Field
+            disabled
+            className={classNames.filterField}
+            label={'CLS (дата закрытия партии)'}
+            value={
+              sourceDataForFilters
+                ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.cls)
+                : (chosenBoxes[0]?.originalData?.logicsTariff?.cls &&
+                    formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.cls)) ||
+                  ''
+            }
+            placeholder={'dd.mm.yyyy'}
+          />
+
+          <Field
+            disabled
+            className={classNames.filterField}
+            label={'Тариф'}
+            value={
+              (sourceDataForFilters
+                ? sourceDataForFilters.logicsTariff?.name
+                : chosenBoxes[0]?.originalData?.logicsTariff?.name) || ''
+            }
+            placeholder={'N/A'}
+          />
+
+          <Field
+            disabled
+            className={classNames.filterField}
+            label={'Destination'}
+            value={
+              (sourceDataForFilters
+                ? sourceDataForFilters.destination.name
+                : chosenBoxes[0]?.originalData?.destination.name) || ''
+            }
+            placeholder={'N/A'}
+          />
+        </div>
+
+        <Typography>{'Выберите коробки из списка:'}</Typography>
         <div className={classNames.tableWrapper}>
           <DataGrid
             hideFooter
             checkboxSelection
-            rows={toJS(boxesData)}
+            rows={toJS(boxesToAddData)}
             columns={addOrEditBatchFormColumns()}
             rowHeight={80}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            selectionModel={boxesToAddIds}
+            onSelectionModelChange={newSelection => onSelectionAwaitingBoxes(newSelection)}
           />
         </div>
 
         <div className={classNames.btnsWrapper}>
           <Button
-            disabled
+            tooltipContent={!chosenBoxes.length && !batchToEdit && 'Сначала выибирите одну коробку'}
+            disabled={!boxesToAddIds.length || (!chosenBoxes.length && boxesToAddIds.length !== 1 && !batchToEdit)}
             color="primary"
             variant="contained"
-            // onClick={() => onTriggerOpenModal('showConfirmModal')}
+            onClick={onClickAdd}
           >
             {'Добавить в партию'}
           </Button>
@@ -82,24 +208,61 @@ export const AddOrEditBatchForm = observer(({boxesData, selectedRowId, onSubmit}
             rows={chosenBoxes || []}
             columns={addOrEditBatchFormColumns()}
             rowHeight={80}
+            onSelectionModelChange={newSelection => onSelectionChoosenBoxes(newSelection)}
           />
         </div>
 
         <div className={classNames.btnsWrapper}>
-          <ErrorButton
-            disabled
-            color="primary"
-            variant="contained"
-            // onClick={() => onTriggerOpenModal('showConfirmModal')}
-          >
+          <ErrorButton disabled={!boxesToDeliteIds.length} color="primary" variant="contained" onClick={onClickTrash}>
             {'Удалить'}
           </ErrorButton>
+        </div>
+
+        <div className={classNames.sumsWrapper}>
+          <Field
+            disabled
+            containerClasses={classNames.sumField}
+            label={'Объемный вес'}
+            value={toFixed(
+              chosenBoxes.reduce(
+                (ac, cur) => (ac += calcVolumeWeightForBox(cur.originalData, volumeWeightCoefficient)),
+                0,
+              ),
+              4,
+            )}
+            placeholder={'0'}
+          />
+
+          <Field
+            disabled
+            containerClasses={classNames.sumField}
+            label={'Общий финальный вес'}
+            value={toFixed(
+              chosenBoxes.reduce(
+                (ac, cur) => (ac += calcFinalWeightForBox(cur.originalData, volumeWeightCoefficient)),
+                0,
+              ),
+              4,
+            )}
+            placeholder={'0'}
+          />
+
+          <Field
+            disabled
+            containerClasses={classNames.sumField}
+            label={'Общая финальная стоимость'}
+            value={toFixed(
+              chosenBoxes.reduce((ac, cur) => (ac += calcPriceForBox(cur.originalData)), 0),
+              2,
+            )}
+            placeholder={'0'}
+          />
         </div>
 
         <div className={classNames.btnsWrapper}>
           <SuccessButton
             disableElevation
-            disabled={chosenBoxes.length < 1}
+            disabled={chosenBoxes.length < 1 && !batchToEdit}
             variant="contained"
             color="primary"
             onClick={onClickSubmit}
@@ -107,12 +270,7 @@ export const AddOrEditBatchForm = observer(({boxesData, selectedRowId, onSubmit}
             {'Сохранить'}
           </SuccessButton>
 
-          <Button
-            color="primary"
-            variant="text"
-            className={classNames.cancelBtn}
-            // onClick={() => onTriggerOpenModal('showConfirmModal')}
-          >
+          <Button color="primary" variant="text" className={classNames.cancelBtn} onClick={onClose}>
             {'Отмена'}
           </Button>
         </div>

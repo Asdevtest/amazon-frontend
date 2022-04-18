@@ -148,7 +148,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, {String: Object}>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsGetProductsByStatusSuppliers} and HTTP response
      */
     apiV1SuppliersGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -172,7 +172,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = {'String': Object};
+      let returnType = ApiV1AdminsGetProductsByStatusSuppliers;
       return this.apiClient.callApi(
         '/api/v1/suppliers/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -186,7 +186,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, {String: Object}>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsGetProductsByStatusSuppliers}
      */
     apiV1SuppliersGuidGet(guid, opts) {
       return this.apiV1SuppliersGuidGetWithHttpInfo(guid, opts)
@@ -254,7 +254,7 @@ export default class SupplierApi {
 
     /**
      * # Добавить нового поставщика.
-     * ## Добавить нового поставщика.   boxWeighGrossKg получить через метод   // POST /suppliers/calc_boxVolumeWeightKg 
+     * ## Добавить нового поставщика.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject63} opts.body 
@@ -287,7 +287,7 @@ export default class SupplierApi {
 
     /**
      * # Добавить нового поставщика.
-     * ## Добавить нового поставщика.   boxWeighGrossKg получить через метод   // POST /suppliers/calc_boxVolumeWeightKg 
+     * ## Добавить нового поставщика.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject63} opts.body 

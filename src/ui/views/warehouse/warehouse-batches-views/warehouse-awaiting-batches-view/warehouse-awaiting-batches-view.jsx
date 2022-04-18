@@ -40,6 +40,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
 
   render() {
     const {
+      volumeWeightCoefficient,
       boxesData,
       selectedBatches,
       curBatch,
@@ -68,7 +69,9 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
       onClickConfirmSendToBatchBtn,
       onChangeFilterModel,
 
-      onClickAddBatch,
+      onClickAddOrEditBatch,
+      onSubmitAddOrEditBatch,
+      setCurrentOpenedBatch,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -90,22 +93,22 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                     disabled={!selectedBatches.length}
                     color="primary"
                     variant="contained"
-                    // onClick={() => onTriggerOpenModal('showConfirmModal')}
+                    onClick={() => onTriggerOpenModal('showConfirmModal')}
                   >
                     {textConsts.confirmSendBatchBtn}
                   </Button>
 
                   <Button
-                    disabled={!selectedBatches.length}
+                    disabled={selectedBatches.length !== 1}
                     color="primary"
                     variant="contained"
-                    // onClick={() => onTriggerOpenModal('showConfirmModal')}
+                    onClick={() => onClickAddOrEditBatch({isAdding: false})}
                   >
                     {textConsts.editBtn}
                   </Button>
                 </div>
 
-                <SuccessButton className={classNames.addBtn} onClick={onClickAddBatch}>
+                <SuccessButton className={classNames.addBtn} onClick={() => onClickAddOrEditBatch({isAdding: true})}>
                   {textConsts.addBtn}
                 </SuccessButton>
               </div>
@@ -117,13 +120,14 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                 classes={{
                   row: classNames.row,
                 }}
+                selectionModel={selectedBatches}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 rows={getCurrentData()}
-                rowHeight={200}
+                rowHeight={230}
                 components={{
                   Toolbar: GridToolbar,
                 }}
@@ -138,6 +142,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
+                onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
               />
             </MainContent>
           </Appbar>
@@ -145,8 +150,11 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
 
         <Modal openModal={showAddOrEditBatchModal} setOpenModal={() => onTriggerOpenModal('showAddOrEditBatchModal')}>
           <AddOrEditBatchForm
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            batchToEdit={getCurrentData().find(batch => batch.id === selectedBatches[0])}
             boxesData={boxesData}
-            // onSubmit={onSubmitAddOrEditBatch}
+            onClose={() => onTriggerOpenModal('showAddOrEditBatchModal')}
+            onSubmit={onSubmitAddOrEditBatch}
           />
         </Modal>
 
@@ -163,6 +171,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
         />
 
         <BatchInfoModal
+          volumeWeightCoefficient={volumeWeightCoefficient}
           openModal={showBatchInfoModal}
           setOpenModal={() => onTriggerOpenModal('showBatchInfoModal')}
           batch={curBatch}

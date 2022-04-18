@@ -108,14 +108,13 @@ AccessTokenBearer.apiKey = "YOUR API KEY"
 //AccessTokenBearer.apiKeyPrefix['Authorization'] = "Token"
 
 var api = new TestSwagger.AdministratorApi()
+var guid = null; // {String} 
 var opts = {
-  'isActual': true, // {Boolean} Только актуальные. По умолчанию False
-  'sendToBatchRequest': true, // {Boolean} Только сделаны запрос на отправку коробки в партию. По умолчанию False
-  'clientId': "clientId_example", // {String} Id клиента. По умолчанию все.
-  'Accept_Encoding': "Accept_Encoding_example" // {String} 
+  'Accept_Encoding': "Accept_Encoding_example", // {String} 
+  'body': new TestSwagger.InlineObject6() // {InlineObject6} 
 };
-api.apiV1AdminsBatchesGet(opts).then(function() {
-  console.log('API called successfully.');
+api.apiV1AdminsDestinationEditGuidPatch(guid, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
 });
@@ -129,7 +128,9 @@ All URIs are relative to *http://localhost:3000*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*TestSwagger.AdministratorApi* | [**apiV1AdminsBatchesGet**](docs/AdministratorApi.md#apiV1AdminsBatchesGet) | **GET** /api/v1/admins/batches | # DEPRECATED Получить все партии.
+*TestSwagger.AdministratorApi* | [**apiV1AdminsDestinationEditGuidPatch**](docs/AdministratorApi.md#apiV1AdminsDestinationEditGuidPatch) | **PATCH** /api/v1/admins/destination_edit/{guid} | #  Редактировать склад назначения.
+*TestSwagger.AdministratorApi* | [**apiV1AdminsDestinationGuidDelete**](docs/AdministratorApi.md#apiV1AdminsDestinationGuidDelete) | **DELETE** /api/v1/admins/destination/{guid} | #  Редактировать склад назначения.
+*TestSwagger.AdministratorApi* | [**apiV1AdminsDestinationPost**](docs/AdministratorApi.md#apiV1AdminsDestinationPost) | **POST** /api/v1/admins/destination | #  Создать склад назначения.
 *TestSwagger.AdministratorApi* | [**apiV1AdminsGetCheckingProductsGet**](docs/AdministratorApi.md#apiV1AdminsGetCheckingProductsGet) | **GET** /api/v1/admins/get_checking_products | # Получить список товаров, которые находятся на проверке. 
 *TestSwagger.AdministratorApi* | [**apiV1AdminsGetPaidProductsGet**](docs/AdministratorApi.md#apiV1AdminsGetPaidProductsGet) | **GET** /api/v1/admins/get_paid_products | # Получить список оплаченных товаров.
 *TestSwagger.AdministratorApi* | [**apiV1AdminsGetProductsByStatusGet**](docs/AdministratorApi.md#apiV1AdminsGetProductsByStatusGet) | **GET** /api/v1/admins/get_products_by_status | # Получить список продуктов с фильтром по статусу.
@@ -146,9 +147,6 @@ Class | Method | HTTP request | Description
 *TestSwagger.AdministratorApi* | [**apiV1AdminsUsersGet**](docs/AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
 *TestSwagger.AdministratorApi* | [**apiV1AdminsUsersGuidGet**](docs/AdministratorApi.md#apiV1AdminsUsersGuidGet) | **GET** /api/v1/admins/users/{guid} | Получить пользователя по GUID.
 *TestSwagger.AdministratorApi* | [**apiV1AdminsUsersGuidPatch**](docs/AdministratorApi.md#apiV1AdminsUsersGuidPatch) | **PATCH** /api/v1/admins/users/{guid} | Изменить пользователя.
-*TestSwagger.AdministratorApi* | [**apiV1AdminsWarehouseEditGuidPatch**](docs/AdministratorApi.md#apiV1AdminsWarehouseEditGuidPatch) | **PATCH** /api/v1/admins/warehouse_edit/{guid} | #  Редактировать склад назначения.
-*TestSwagger.AdministratorApi* | [**apiV1AdminsWarehouseGuidDelete**](docs/AdministratorApi.md#apiV1AdminsWarehouseGuidDelete) | **DELETE** /api/v1/admins/warehouse/{guid} | #  Редактировать склад назначения.
-*TestSwagger.AdministratorApi* | [**apiV1AdminsWarehousePost**](docs/AdministratorApi.md#apiV1AdminsWarehousePost) | **POST** /api/v1/admins/warehouse | #  Создать склад назначения.
 *TestSwagger.BatchesApi* | [**apiV1BatchesCalculateBoxDeliveryCostsInBatchPost**](docs/BatchesApi.md#apiV1BatchesCalculateBoxDeliveryCostsInBatchPost) | **POST** /api/v1/batches/calculate_box_delivery_costs_in_batch | # Рассчитать стоимость доставки коробов.
 *TestSwagger.BatchesApi* | [**apiV1BatchesGet**](docs/BatchesApi.md#apiV1BatchesGet) | **GET** /api/v1/batches/ | # Получить партии.
 *TestSwagger.BatchesApi* | [**apiV1BatchesGuidAddBoxesPatch**](docs/BatchesApi.md#apiV1BatchesGuidAddBoxesPatch) | **PATCH** /api/v1/batches/{guid}/add_boxes | # Добавить коробки в партию.
@@ -190,6 +188,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BuyerApi* | [**apiV1BuyersTasksPost**](docs/BuyerApi.md#apiV1BuyersTasksPost) | **POST** /api/v1/buyers/tasks | # Создать задачу.
 *TestSwagger.ClientApi* | [**apiV1ClientsBoxesConfirmDeliveryPriceChangePost**](docs/ClientApi.md#apiV1ClientsBoxesConfirmDeliveryPriceChangePost) | **POST** /api/v1/clients/boxes/confirm_delivery_price_change | # Подтвердить измение цены доставки за коробки.
 *TestSwagger.ClientApi* | [**apiV1ClientsBoxesReturnBoxesToStockPost**](docs/ClientApi.md#apiV1ClientsBoxesReturnBoxesToStockPost) | **POST** /api/v1/clients/boxes/return_boxes_to_stock | Вернуть коробки обратно на склад.
+*TestSwagger.ClientApi* | [**apiV1ClientsDestinationGet**](docs/ClientApi.md#apiV1ClientsDestinationGet) | **GET** /api/v1/clients/destination | #  Получить все склады назначения.
 *TestSwagger.ClientApi* | [**apiV1ClientsGetOrdersByProductIdGuidGet**](docs/ClientApi.md#apiV1ClientsGetOrdersByProductIdGuidGet) | **GET** /api/v1/clients/get_orders_by_product_id/{guid} | # Получить заказы текущего клиента через id товара.
 *TestSwagger.ClientApi* | [**apiV1ClientsMakePaymentsPost**](docs/ClientApi.md#apiV1ClientsMakePaymentsPost) | **POST** /api/v1/clients/make_payments | # Оплатить товары.
 *TestSwagger.ClientApi* | [**apiV1ClientsOrdersGet**](docs/ClientApi.md#apiV1ClientsOrdersGet) | **GET** /api/v1/clients/orders | # Получить заказы текущего клиента.
@@ -208,7 +207,6 @@ Class | Method | HTTP request | Description
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksCancelGuidPost**](docs/ClientApi.md#apiV1ClientsTasksCancelGuidPost) | **POST** /api/v1/clients/tasks/cancel/{guid} | # Отменить задачу.
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksGet**](docs/ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя в данном складе.
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksPost**](docs/ClientApi.md#apiV1ClientsTasksPost) | **POST** /api/v1/clients/tasks | # Создать задачу.
-*TestSwagger.ClientApi* | [**apiV1ClientsWarehouseGet**](docs/ClientApi.md#apiV1ClientsWarehouseGet) | **GET** /api/v1/clients/warehouse | #  Получить все склады назначения.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsCreateAndLinkSkuProductsPost**](docs/IntegrationsApi.md#apiV1IntegrationsCreateAndLinkSkuProductsPost) | **POST** /api/v1/integrations/create_and_link_sku_products | # Создать, привязать товары к SKU. Спарсить данные. 
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsGetSkusByProductIdGuidGet**](docs/IntegrationsApi.md#apiV1IntegrationsGetSkusByProductIdGuidGet) | **GET** /api/v1/integrations/get_skus_by_product_id/{guid} | Получить товары из склада (sku), через GUID продукта.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet) | **GET** /api/v1/integrations/sellerboard_dashboard_products_days_reports_last_30_days | Получить месячный отчет селерборда.
@@ -329,6 +327,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1AdminsProductsVacCheckedby](docs/ApiV1AdminsProductsVacCheckedby.md)
  - [TestSwagger.ApiV1AdminsTasksLightBoxes](docs/ApiV1AdminsTasksLightBoxes.md)
  - [TestSwagger.ApiV1AdminsTasksLightStorekeeper](docs/ApiV1AdminsTasksLightStorekeeper.md)
+ - [TestSwagger.ApiV1BatchesBatch](docs/ApiV1BatchesBatch.md)
  - [TestSwagger.ApiV1BatchesBoxes](docs/ApiV1BatchesBoxes.md)
  - [TestSwagger.ApiV1BatchesDestination](docs/ApiV1BatchesDestination.md)
  - [TestSwagger.ApiV1BatchesItems](docs/ApiV1BatchesItems.md)
@@ -351,6 +350,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1RequestsCustomGuidRequest](docs/ApiV1RequestsCustomGuidRequest.md)
  - [TestSwagger.ApiV1RequestsCustomRequest](docs/ApiV1RequestsCustomRequest.md)
  - [TestSwagger.ApiV1StorekeepersTariffWarehouses](docs/ApiV1StorekeepersTariffWarehouses.md)
+ - [TestSwagger.ApiV1SuppliersBoxProperties](docs/ApiV1SuppliersBoxProperties.md)
  - [TestSwagger.BadRequestError](docs/BadRequestError.md)
  - [TestSwagger.CheckIsUniqueNameOrEmailReqSchema](docs/CheckIsUniqueNameOrEmailReqSchema.md)
  - [TestSwagger.CheckIsUniqueNameOrEmailSchema](docs/CheckIsUniqueNameOrEmailSchema.md)

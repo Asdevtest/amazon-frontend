@@ -10,8 +10,11 @@ import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-a
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
+import {BoxViewForm} from '@components/forms/box-view-form'
+import {MoveBoxToBatchForm} from '@components/forms/move-box-to-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -34,6 +37,12 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
   render() {
     const {
+      curBoxToMove,
+      batches,
+      curBox,
+      volumeWeightCoefficient,
+      showBoxMoveToBatchModal,
+      showBoxViewModal,
       requestStatus,
       getCurrentData,
       sortModel,
@@ -52,6 +61,10 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+      onTriggerOpenModal,
+
+      setCurrentOpenedBox,
+      onSubmitMoveBoxToBatch,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -72,6 +85,9 @@ export class WarehouseMyWarehouseViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                classes={{
+                  row: classNames.row,
+                }}
                 isRowSelectable={params => params.row.isDraft === false}
                 getRowClassName={getRowClassName}
                 selectionModel={selectedBoxes}
@@ -94,10 +110,29 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onFilterModelChange={model => onChangeFilterModel(model)}
                 onStateChange={setDataGridState}
+                onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
               />
             </MainContent>
           </Appbar>
         </Main>
+
+        <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
+          <BoxViewForm
+            box={curBox}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
+          />
+        </Modal>
+
+        <Modal openModal={showBoxMoveToBatchModal} setOpenModal={() => onTriggerOpenModal('showBoxMoveToBatchModal')}>
+          <MoveBoxToBatchForm
+            box={curBoxToMove}
+            batches={batches}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            setOpenModal={() => onTriggerOpenModal('showBoxMoveToBatchModal')}
+            onSubmit={onSubmitMoveBoxToBatch}
+          />
+        </Modal>
       </React.Fragment>
     )
   }

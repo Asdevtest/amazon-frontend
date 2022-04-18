@@ -135,7 +135,7 @@ class InlineResponse20010 {
 }
 
 /**
- * \"ASIN\"
+ * ﻿\"ASIN\"
  * @member {String} asin
  */
 InlineResponse20010.prototype['asin'] = undefined;

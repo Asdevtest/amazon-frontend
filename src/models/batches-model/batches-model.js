@@ -19,6 +19,32 @@ export class BatchesModelStatic {
     })
     return response
   }
+
+  createBatch = async boxesIds => {
+    const response = await restApiService.batchesApi.apiV1BatchesPost({
+      body: {boxesIds},
+    })
+    return response
+  }
+
+  removeBoxFromBatch = async (id, boxesIds) => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidRemoveBoxesPatch(id, {
+      body: {boxesIds},
+    })
+    return response
+  }
+
+  addBoxToBatch = async (id, boxesIds) => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidAddBoxesPatch(id, {
+      body: {boxesIds},
+    })
+    return response
+  }
+
+  confirmSentToBatch = async id => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidBatchHasDispatchedPatch(id)
+    return response
+  }
 }
 
 export const BatchesModel = new BatchesModelStatic()

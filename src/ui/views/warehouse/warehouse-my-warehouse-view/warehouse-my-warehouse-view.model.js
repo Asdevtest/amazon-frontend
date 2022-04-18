@@ -1,15 +1,17 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {BatchesModel} from '@models/batches-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {warehouseBoxesViewColumns} from '@components/table-columns/warehouse/warehouse-boxes-columns'
 
-import {warehouseBoxesDataConverter} from '@utils/data-grid-data-converters'
+import {warehouseBatchesDataConverter, warehouseBoxesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -21,29 +23,27 @@ export class WarehouseMyWarehouseViewModel {
   boxesMy = []
   tasksMy = []
 
+  curBox = undefined
+  curBoxToMove = undefined
+
   drawerOpen = false
   selectedBoxes = []
   curOpenedTask = {}
   toCancelData = {}
 
-  showMergeBoxModal = false
-  showTaskInfoModal = false
-  showSendOwnProductModal = false
-  showEditBoxModal = false
-  showConfirmModal = false
-  showRedistributeBoxModal = false
-  showRedistributeBoxAddNewBoxModal = false
-  showRedistributeBoxSuccessModal = false
-  showRedistributeBoxFailModal = false
-  showRequestToSendBatchModal = false
-  boxesDeliveryCosts = undefined
+  showBoxViewModal = false
+  showBoxMoveToBatchModal = false
+
+  rowHandlers = {
+    moveBox: item => this.moveBox(item),
+  }
 
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = warehouseBoxesViewColumns()
+  columnsModel = warehouseBoxesViewColumns(this.rowHandlers)
 
   get isMasterBoxSelected() {
     return this.selectedBoxes.some(boxId => {
@@ -86,7 +86,10 @@ export class WarehouseMyWarehouseViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = warehouseBoxesViewColumns().map(el => ({...el, hide: state.columns?.lookup[el?.field]?.hide}))
+      this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns?.lookup[el?.field]?.hide,
+      }))
     }
   }
 
@@ -128,13 +131,56 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  setCurrentOpenedTask(item) {
-    this.curOpenedTask = item
-    this.onTriggerOpenModal('showTaskInfoModal')
+  async moveBox(row) {
+    try {
+      this.curBoxToMove = row
+      const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient)
+      })
+
+      this.onTriggerOpenModal('showBoxMoveToBatchModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
-  onModalRedistributeBoxAddNewBox(value) {
-    this.modalRedistributeBoxAddNewBox = value
+  async onSubmitMoveBoxToBatch(box, selectedBatch) {
+    try {
+      if (box.batchId) {
+        await BatchesModel.removeBoxFromBatch(box.batchId, [box._id])
+      }
+
+      await BatchesModel.addBoxToBatch(selectedBatch.id, [box._id])
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showBoxMoveToBatchModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async setCurrentOpenedBox(row) {
+    try {
+      this.curBox = row
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showBoxViewModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   onTriggerDrawer() {

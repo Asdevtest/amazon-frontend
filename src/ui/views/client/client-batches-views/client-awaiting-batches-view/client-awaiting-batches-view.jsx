@@ -35,6 +35,7 @@ class ClientAwaitingBatchesViewRaw extends Component {
 
   render() {
     const {
+      volumeWeightCoefficient,
       curBatch,
       showBatchInfoModal,
       onTriggerOpenModal,
@@ -57,6 +58,8 @@ class ClientAwaitingBatchesViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+
+      setCurrentOpenedBatch,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -99,12 +102,14 @@ class ClientAwaitingBatchesViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
+                onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
               />
             </MainContent>
           </Appbar>
         </Main>
 
         <BatchInfoModal
+          volumeWeightCoefficient={volumeWeightCoefficient}
           openModal={showBatchInfoModal}
           setOpenModal={() => onTriggerOpenModal('showBatchInfoModal')}
           batch={curBatch}

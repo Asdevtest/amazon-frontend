@@ -4,7 +4,6 @@ import {texts} from '@constants/texts'
 
 import {
   BatchBoxesCell,
-  NormalActionBtnCell,
   renderFieldValueCell,
   ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
@@ -14,7 +13,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'ru').batchesTableColumns
 
-export const batchesViewColumns = handlers => [
+export const batchesViewColumns = () => [
   {
     field: 'orders',
     headerName: textConsts.ordersField,
@@ -25,17 +24,24 @@ export const batchesViewColumns = handlers => [
   },
 
   {
-    field: 'warehouses',
+    field: 'destination',
     headerName: textConsts.warehouseField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 200,
+    width: 100,
   },
 
   {
-    field: 'delivery',
+    field: 'humanFriendlyId',
+    headerName: textConsts.humanFriendlyIdField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 80,
+  },
+
+  {
+    field: 'tariff',
     headerName: textConsts.deliveryField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 200,
+    width: 250,
   },
 
   {
@@ -43,7 +49,7 @@ export const batchesViewColumns = handlers => [
     headerName: textConsts.weightField,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 200,
+    width: 160,
   },
 
   {
@@ -51,20 +57,6 @@ export const batchesViewColumns = handlers => [
     headerName: textConsts.toralPriceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 250,
-  },
-
-  {
-    field: 'action',
-    headerName: textConsts.actionField,
-    width: 250,
-    renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={textConsts.showBtn}
-        onClickOkBtn={() => handlers.setCurrentOpenedBatch(params.row.originalData)}
-      />
-    ),
-    filterable: false,
-    sortable: false,
+    width: 160,
   },
 ]

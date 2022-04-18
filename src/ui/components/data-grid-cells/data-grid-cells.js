@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {Button, Chip, Link, Tooltip, Typography} from '@material-ui/core'
@@ -6,6 +7,7 @@ import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
 import {useHistory} from 'react-router-dom'
 
+import {BoxStatus} from '@constants/box-status'
 import {RequestStatus} from '@constants/request-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
@@ -678,5 +680,25 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
 export const TrashCell = withStyles(styles)(({classes: classNames, onClick}) => (
   <div className={classNames.trashWrapper}>
     <img className={classNames.trashImg} src="/assets/icons/trash.svg" alt="" onClick={onClick} />
+  </div>
+))
+
+export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
+  <div>
+    {row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
+      <Typography>{'Не готово к отправке'}</Typography>
+    )}
+
+    {row.batchId && row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE && (
+      <Button variant="contained" color="primary" onClick={() => handlers.moveBox(row)}>
+        {'Переместить'}
+      </Button>
+    )}
+
+    {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && (
+      <SuccessButton className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.moveBox(row)}>
+        {'Добавить в партию'}
+      </SuccessButton>
+    )}
   </div>
 ))

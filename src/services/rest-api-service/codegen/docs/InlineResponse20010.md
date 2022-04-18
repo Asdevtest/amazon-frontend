@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**asin** | **String** | \&quot;ASIN\&quot; | [optional] 
+**asin** | **String** | ﻿\&quot;ASIN\&quot; | [optional] 
 **sku** | **String** | SKU | [optional] 
 **title** | **String** | Title | [optional] 
 **roi** | **Number** | ROI, % | [optional] 

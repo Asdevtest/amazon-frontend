@@ -195,7 +195,7 @@ class InlineResponse20011 {
 }
 
 /**
- * \"Date\"
+ * ﻿\"Date\"
  * @member {String} date
  */
 InlineResponse20011.prototype['date'] = undefined;

@@ -833,7 +833,7 @@ export default class BuyerApi {
 
     /**
      * # Создать задачу.
-     * ## Создать задачу.   
+     * ## Создать задачу.   Проверки: Все коробки должны быть от одного сторкипера. Все коробки должны быть от одного клиента.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject25} opts.body 
@@ -866,7 +866,7 @@ export default class BuyerApi {
 
     /**
      * # Создать задачу.
-     * ## Создать задачу.   
+     * ## Создать задачу.   Проверки: Все коробки должны быть от одного сторкипера. Все коробки должны быть от одного клиента.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject25} opts.body 

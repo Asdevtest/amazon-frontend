@@ -22,9 +22,17 @@ export const calcExchangeDollarsInYuansPrice = (price, rate) =>
 export const calcPriceForItem = (fullPrice, amount) =>
   toFixedWithDollarSign((parseFloat(fullPrice) || 0) / (parseFloat(amount) || 0), 2)
 
-export const calcFinalWeightForBox = box =>
+export const calcVolumeWeightForBox = (box, coefficient) => {
+  if (box.lengthCmWarehouse && box.widthCmWarehouse && box.heightCmWarehouse) {
+    return (box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient || 0
+  } else {
+    return (box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient || 0
+  }
+}
+
+export const calcFinalWeightForBox = (box, coefficient) =>
   Math.max(
-    parseFloat(box.volumeWeightKgWarehouse ? box.volumeWeightKgWarehouse : box.volumeWeightKgSupplier) || 0,
+    parseFloat(calcVolumeWeightForBox(box, coefficient)) || 0,
     parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) || 0,
   )
 
@@ -112,3 +120,12 @@ export const calcTotalPriceForBatch = batch =>
   )
 
 export const calcAmazonPriceForBox = box => box.items.reduce((acc, cur) => acc + cur.product.amazon * cur.amount, 0)
+
+export const calcPriceForBox = box =>
+  box.items.reduce(
+    (acc, cur) =>
+      acc +
+      (cur.product.currentSupplier.price +
+        (cur.product.currentSupplier.batchDeliveryCostInDollar / cur.product.currentSupplier.amount) * cur.amount),
+    0,
+  )

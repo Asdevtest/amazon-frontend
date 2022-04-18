@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import ApiV1BatchesBatch from './ApiV1BatchesBatch';
 import ApiV1BatchesDestination from './ApiV1BatchesDestination';
 import ApiV1BatchesItems from './ApiV1BatchesItems';
 import ApiV1BatchesLogicsTariff from './ApiV1BatchesLogicsTariff';
@@ -164,6 +165,9 @@ class ApiV1BatchesBoxes {
             }
             if (data.hasOwnProperty('logicsTariff')) {
                 obj['logicsTariff'] = ApiV1BatchesLogicsTariff.constructFromObject(data['logicsTariff']);
+            }
+            if (data.hasOwnProperty('batch')) {
+                obj['batch'] = ApiV1BatchesBatch.constructFromObject(data['batch']);
             }
         }
         return obj;
@@ -391,6 +395,11 @@ ApiV1BatchesBoxes.prototype['destination'] = undefined;
  * @member {module:model/ApiV1BatchesLogicsTariff} logicsTariff
  */
 ApiV1BatchesBoxes.prototype['logicsTariff'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BatchesBatch} batch
+ */
+ApiV1BatchesBoxes.prototype['batch'] = undefined;
 
 
 

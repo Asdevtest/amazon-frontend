@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
@@ -7,9 +6,8 @@ import {Grid, Typography, Avatar, Divider} from '@material-ui/core'
 
 import {Button} from '@components/buttons/button'
 
-import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {minsToTimeRus, toFixed, toFixedWithDollarSign} from '@utils/text'
+import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './my-proposals-list-card.style'
 

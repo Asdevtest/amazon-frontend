@@ -275,7 +275,6 @@ export class BuyerMyOrdersViewModel {
           'volumeWeightKgSupplier',
           'warehouse',
         ]),
-        clientId: this.selectedOrder.createdBy._id,
         lengthCmSupplier: parseFloat(formFields?.lengthCmSupplier) || 0,
         widthCmSupplier: parseFloat(formFields?.widthCmSupplier) || 0,
         heightCmSupplier: parseFloat(formFields?.heightCmSupplier) || 0,

@@ -54,6 +54,12 @@ class InlineObject13 {
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
+            if (data.hasOwnProperty('isDraft')) {
+                obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
+            }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
             if (data.hasOwnProperty('lengthCmSupplier')) {
                 obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
             }
@@ -78,32 +84,23 @@ class InlineObject13 {
             if (data.hasOwnProperty('weighGrossKgWarehouse')) {
                 obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('isDraft')) {
-                obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
-            }
             if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
                 obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
             }
-            if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems]);
-            }
-            if (data.hasOwnProperty('clientId')) {
-                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
-            }
-            if (data.hasOwnProperty('fbaShipment')) {
-                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
             if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
                 obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
             }
-            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('items')) {
+                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems]);
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
             if (data.hasOwnProperty('destinationId')) {
                 obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
@@ -126,6 +123,18 @@ class InlineObject13 {
  * @member {Number} amount
  */
 InlineObject13.prototype['amount'] = undefined;
+
+/**
+ * true - если создаем черновик заказа.
+ * @member {Boolean} isDraft
+ */
+InlineObject13.prototype['isDraft'] = undefined;
+
+/**
+ * Шипингш лейбл
+ * @member {String} shippingLabel
+ */
+InlineObject13.prototype['shippingLabel'] = undefined;
 
 /**
  * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
@@ -176,46 +185,16 @@ InlineObject13.prototype['heightCmWarehouse'] = undefined;
 InlineObject13.prototype['weighGrossKgWarehouse'] = undefined;
 
 /**
- * true - если создаем черновик заказа.
- * @member {Boolean} isDraft
- */
-InlineObject13.prototype['isDraft'] = undefined;
-
-/**
  * Прикреплен ли баркод к коробке сотрудником склада.
  * @member {Boolean} isBarCodeAttachedByTheStorekeeper
  */
 InlineObject13.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
 
 /**
- * Массив коробок.
- * @member {Array.<module:model/ApiV1BoxesItems>} items
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
  */
-InlineObject13.prototype['items'] = undefined;
-
-/**
- * GUID клиента
- * @member {String} clientId
- */
-InlineObject13.prototype['clientId'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
- */
-InlineObject13.prototype['images'] = undefined;
-
-/**
- * Шипингш лейбл
- * @member {String} shippingLabel
- */
-InlineObject13.prototype['shippingLabel'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaShipment
- */
-InlineObject13.prototype['fbaShipment'] = undefined;
+InlineObject13.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
 
 /**
  * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
@@ -224,10 +203,22 @@ InlineObject13.prototype['fbaShipment'] = undefined;
 InlineObject13.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
 
 /**
- * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
  */
-InlineObject13.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+InlineObject13.prototype['fbaShipment'] = undefined;
+
+/**
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1BoxesItems>} items
+ */
+InlineObject13.prototype['items'] = undefined;
+
+/**
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
+ */
+InlineObject13.prototype['images'] = undefined;
 
 /**
  * id склада - склады куда отправляют 

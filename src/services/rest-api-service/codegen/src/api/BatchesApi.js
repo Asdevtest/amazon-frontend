@@ -260,16 +260,22 @@ export default class BatchesApi {
     /**
      * # Удалить коробки из партии.
      * ## Удалить коробки из партии.   В коробках поле batchId становиться null, и статус возвращается на REQUESTED_SEND_TO_BATCH         Проверки:         Доступно только для сторкипера         Только партии со статусом IS_BEING_COLLECTED         Только коробки которые есть в партии
+     * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject11} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1BatchesGuidRemoveBoxesPatchWithHttpInfo(opts) {
+    apiV1BatchesGuidRemoveBoxesPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BatchesGuidRemoveBoxesPatch");
+      }
 
       let pathParams = {
+        'guid': guid
       };
       let queryParams = {
       };
@@ -293,13 +299,14 @@ export default class BatchesApi {
     /**
      * # Удалить коробки из партии.
      * ## Удалить коробки из партии.   В коробках поле batchId становиться null, и статус возвращается на REQUESTED_SEND_TO_BATCH         Проверки:         Доступно только для сторкипера         Только партии со статусом IS_BEING_COLLECTED         Только коробки которые есть в партии
+     * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject11} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1BatchesGuidRemoveBoxesPatch(opts) {
-      return this.apiV1BatchesGuidRemoveBoxesPatchWithHttpInfo(opts)
+    apiV1BatchesGuidRemoveBoxesPatch(guid, opts) {
+      return this.apiV1BatchesGuidRemoveBoxesPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

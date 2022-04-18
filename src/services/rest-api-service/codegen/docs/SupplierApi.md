@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersGuidGet
 
-> {String: Object} apiV1SuppliersGuidGet(guid, opts)
+> ApiV1AdminsGetProductsByStatusSuppliers apiV1SuppliersGuidGet(guid, opts)
 
 # Получить одного поставщика.
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**{String: Object}**
+[**ApiV1AdminsGetProductsByStatusSuppliers**](ApiV1AdminsGetProductsByStatusSuppliers.md)
 
 ### Authorization
 
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 # Добавить нового поставщика.
 
-## Добавить нового поставщика.   boxWeighGrossKg получить через метод   // POST /suppliers/calc_boxVolumeWeightKg 
+## Добавить нового поставщика.   
 
 ### Example
 

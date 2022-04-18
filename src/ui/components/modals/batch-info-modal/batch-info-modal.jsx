@@ -1,42 +1,46 @@
+/* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
 
-import {Link, TableCell, TableRow, Typography} from '@material-ui/core'
+import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
+import {Field} from '@components/field/field'
+import {BoxViewForm} from '@components/forms/box-view-form'
 import {Modal} from '@components/modal'
 import {Table} from '@components/table'
 import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
+import {calcFinalWeightForBox, calcPriceForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {checkAndMakeAbsoluteUrl, toFixedWithKg} from '@utils/text'
+import {toFixedWithKg, toFixedWithDollarSign, toFixed} from '@utils/text'
 
-import {BigImagesModal} from '../big-images-modal'
 import {useClassNames} from './batch-info-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').batchInfoModal
 
 const BATCH_INFO_HEAD_CELLS = [
-  {title: 'Продукты в коробке'},
-  {title: 'id коробки'},
-  {title: 'Шиппинг-лейбл'},
-  {title: 'Отправка подтверждена'},
-  {title: 'Общий вес'},
-  {title: 'Объемный вес'},
-  {title: 'Финальный вес'},
-  {title: 'Фотографии'},
+  {title: 'Коробки'},
+  {title: 'Клиент'},
+  {title: 'Тариф'},
+  {title: 'Склад выгрузки'},
+  {title: 'Updated'},
+  {title: 'Вес фин-й'},
+  {title: 'Стоимость'},
 ]
 
 const renderHeadRow = <TableHeadRow headCells={BATCH_INFO_HEAD_CELLS} />
 
-const TableBodyBoxRow = ({item, handlers}) => {
+const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
   const classNames = useClassNames()
 
   return (
-    <TableRow className={classNames.row}>
+    <TableRow className={classNames.row} onDoubleClick={() => handlers.openBoxView(item)}>
       <TableCell>
         {item.items.map(el => (
           <div key={el.product._id} className={classNames.descriptionWrapper}>
@@ -60,84 +64,117 @@ const TableBodyBoxRow = ({item, handlers}) => {
       </TableCell>
 
       <TableCell>
-        <Typography>{item.humanFriendlyId}</Typography>
+        <UserLinkCell name={item.client.name} userId={item.client._id} />
       </TableCell>
 
       <TableCell>
-        {item.shippingLabel ? (
-          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.shippingLabel)}>
-            <Typography className={classNames.shippinLabel}>{item.shippingLabel}</Typography>
-          </Link>
-        ) : (
-          <Typography className={classNames.shippinLabel}>{'N/A'}</Typography>
-        )}
+        <Typography>{item.logicsTariff.name}</Typography>
       </TableCell>
 
       <TableCell>
-        <Typography>{item.sendToBatchComplete ? 'Да' : 'Нет'}</Typography>
+        <Typography>{item.destination.name}</Typography>
       </TableCell>
 
       <TableCell>
-        <Typography>{toFixedWithKg(item.weighGrossKgWarehouse, 2)}</Typography>
+        <Typography>{formatNormDateTime(item.updatedAt)}</Typography>
       </TableCell>
 
       <TableCell>
-        <Typography>{toFixedWithKg(item.volumeWeightKgWarehouse, 2)}</Typography>
+        <Typography>{toFixedWithKg(calcFinalWeightForBox(item, restProps.volumeWeightCoefficient), 2)}</Typography>
       </TableCell>
 
       <TableCell>
-        <Typography>
-          {toFixedWithKg(
-            Math.max(
-              parseFloat(item.volumeWeightKgWarehouse ? item.volumeWeightKgWarehouse : item.volumeWeightKgSupplier) ||
-                0,
-              parseFloat(item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier) || 0,
-            ),
-            2,
-          )}
-        </Typography>
-      </TableCell>
-
-      <TableCell>
-        <Button
-          disableElevation
-          disabled={item.images?.length < 1 || item.images === null}
-          color="primary"
-          variant="contained"
-          onClick={() => handlers.openImages(item.images)}
-        >
-          {textConsts.photos}
-        </Button>
+        <Typography>{toFixedWithDollarSign(calcPriceForBox(item), 2)}</Typography>
       </TableCell>
     </TableRow>
   )
 }
 
-export const BatchInfoModal = observer(({openModal, setOpenModal, batch}) => {
+export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
 
-  const [showImageModal, setShowImageModal] = useState(false)
+  const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+  const [curBox, setCurBox] = useState({})
 
-  const openImages = photos => {
-    setShowImageModal(!showImageModal)
-    setBigImagesOptions({images: photos, imgIndex: 0})
+  const openBoxView = box => {
+    setShowBoxViewModal(!showBoxViewModal)
+    setCurBox(box)
   }
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.form}>
-        <Typography className={classNames.modalTitle} variant="h3">
+        <Typography className={classNames.modalTitle} variant="h5">
           {textConsts.mainTitle}
         </Typography>
+
+        <div className={classNames.infoWrapper}>
+          <Field
+            disabled
+            containerClasses={classNames.infoField}
+            label={'Номер партии'}
+            value={batch?.humanFriendlyId}
+            placeholder={'N/A'}
+          />
+
+          <Field
+            disabled
+            containerClasses={classNames.sumField}
+            label={'Тариф'}
+            value={batch.boxes?.[0].logicsTariff?.name}
+            placeholder={'N/A'}
+          />
+
+          <Field
+            disabled
+            containerClasses={classNames.sumField}
+            label={'Destination'}
+            value={batch.boxes?.[0].destination?.name}
+            placeholder={'N/A'}
+          />
+
+          <Field
+            disabled
+            containerClasses={classNames.sumField}
+            label={'Объемный вес'}
+            value={toFixed(
+              batch.boxes?.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, volumeWeightCoefficient)), 0),
+              4,
+            )}
+            placeholder={'0'}
+          />
+
+          <Field
+            disabled
+            containerClasses={classNames.sumField}
+            label={'Общий финальный вес'}
+            value={toFixed(
+              batch.boxes?.reduce((ac, cur) => (ac += calcFinalWeightForBox(cur, volumeWeightCoefficient)), 0),
+              4,
+            )}
+            placeholder={'0'}
+          />
+
+          <Field
+            disabled
+            containerClasses={classNames.sumField}
+            label={'Общая финальная стоимость'}
+            value={toFixed(
+              batch.boxes?.reduce((ac, cur) => (ac += calcPriceForBox(cur)), 0),
+              2,
+            )}
+            placeholder={'0'}
+          />
+        </div>
 
         <Table
           rowsOnly
           data={batch.boxes}
           BodyRow={TableBodyBoxRow}
           renderHeadRow={renderHeadRow}
-          rowsHandlers={{openImages}}
+          rowsHandlers={{openBoxView}}
+          volumeWeightCoefficient={volumeWeightCoefficient}
         />
 
         <div className={classNames.buttonsWrapper}>
@@ -146,13 +183,14 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch}) => {
           </Button>
         </div>
 
-        <BigImagesModal
-          isAmazone
-          openModal={showImageModal}
-          setOpenModal={() => setShowImageModal(!showImageModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-        />
+        <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>
+          <BoxViewForm
+            box={curBox}
+            batchHumanFriendlyId={batch.humanFriendlyId}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}
+          />
+        </Modal>
       </div>
     </Modal>
   )

@@ -28,4 +28,16 @@ export const styles = createStyles(theme => ({
     width: '100%',
     height: '100%',
   },
+
+  btnsWrapper: {
+    margin: '10px 0 15px',
+  },
+
+  row: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
 }))
