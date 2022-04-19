@@ -33,7 +33,7 @@ export const RequestToSendBatchesGroupBoxes = ({
     <div className={classNames.tableWrapper}>
       {selectedGroup.price !== 0 && (
         <Typography className={classNames.tableWrapperInfo}>
-          {`Destination: ${selectedGroup.destination?.name} , Промежуточный склад: ${selectedGroup.storekeeper?.name}`}
+          {`Destination: ${selectedGroup.destination?.name} , Промежуточный склад: ${selectedGroup.storekeeper?.name} , Тариф: ${selectedGroup.logicsTariff?.name}`}
         </Typography>
       )}
 

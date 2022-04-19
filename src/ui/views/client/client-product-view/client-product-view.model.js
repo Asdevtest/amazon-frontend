@@ -158,6 +158,8 @@ export class ClientProductViewModel {
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
 
+      console.log('this.product', this.product)
+
       if (
         [
           'icomment',
@@ -353,7 +355,7 @@ export class ClientProductViewModel {
               ? [...this.curUpdateProductData.images, ...this.uploadedImages]
               : this.curUpdateProductData.images,
           },
-          this.curUpdateProductData.currentSupplierId === null ? ['suppliers', 'currentSupplierId'] : ['suppliers'],
+          ['suppliers'],
         ),
       )
       this.setActionStatus(loadingStatuses.success)

@@ -53,7 +53,10 @@ export const RequestToSendBatchForm = observer(
     const boxesGroupedByWarehouseAndDeliveryMethod = boxesWithPriceRequest
       .reduce((acc, cur) => {
         const findGroupIndex = acc.findIndex(
-          group => group.destination?._id === cur.destination?._id && group.storekeeper?._id === cur.storekeeper?._id,
+          group =>
+            group.destination?._id === cur.destination?._id &&
+            group.storekeeper?._id === cur.storekeeper?._id &&
+            group.logicsTariff?._id === cur.logicsTariff?._id,
         )
         if (findGroupIndex !== -1) {
           acc[findGroupIndex].boxes.push(cur)
@@ -61,6 +64,7 @@ export const RequestToSendBatchForm = observer(
           acc.push({
             destination: cur.destination,
             storekeeper: cur.storekeeper,
+            logicsTariff: cur.logicsTariff,
             boxes: [cur],
           })
         }

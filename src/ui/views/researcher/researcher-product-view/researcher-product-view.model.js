@@ -523,7 +523,7 @@ export class ResearcherProductViewModel {
               ? [...this.curUpdateProductData.images, ...this.uploadedImages]
               : this.curUpdateProductData.images,
           },
-          this.curUpdateProductData.currentSupplierId === null ? ['suppliers', 'currentSupplierId'] : ['suppliers'],
+          ['suppliers'],
         ),
       )
       this.setActionStatus(loadingStatuses.success)

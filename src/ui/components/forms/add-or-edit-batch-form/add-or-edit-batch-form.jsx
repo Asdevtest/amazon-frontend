@@ -39,33 +39,30 @@ export const AddOrEditBatchForm = observer(({boxesData, onClose, volumeWeightCoe
 
   const [sourceDataForFilters, setSourceDataForFilters] = useState(undefined)
 
+  const filterBoxesToAddData = () => {
+    const chosenBoxesIds = chosenBoxes.map(box => box._id)
+
+    const newArr = boxesData.filter(
+      box =>
+        box.destination === chosenBoxes[0]?.originalData?.destination?.name &&
+        box.logicsTariff === chosenBoxes[0]?.originalData?.logicsTariff?.name &&
+        !chosenBoxesIds.includes(box._id),
+    )
+
+    return newArr
+  }
+
   useEffect(() => {
     if (batchToEdit) {
-      const newArr = boxesData.filter(
-        box =>
-          box.destination === chosenBoxes[0]?.originalData?.destination?.name &&
-          box.logicsTariff === chosenBoxes[0]?.originalData?.logicsTariff?.name,
-      )
-
-      setBoxesToAddData(newArr)
-
       setSourceDataForFilters(chosenBoxes[0].originalData)
     }
   }, [])
 
   useEffect(() => {
-    if (!batchToEdit) {
-      if (chosenBoxes.length) {
-        const newArr = boxesData.filter(
-          box =>
-            box.destination === chosenBoxes[0]?.originalData?.destination?.name &&
-            box.logicsTariff === chosenBoxes[0]?.originalData?.logicsTariff?.name,
-        )
-
-        setBoxesToAddData(newArr)
-      } else {
-        setBoxesToAddData([...boxesData])
-      }
+    if (chosenBoxes.length) {
+      setBoxesToAddData(filterBoxesToAddData())
+    } else {
+      setBoxesToAddData([...boxesData])
     }
   }, [chosenBoxes])
 
