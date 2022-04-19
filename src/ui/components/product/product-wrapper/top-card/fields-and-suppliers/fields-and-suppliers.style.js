@@ -149,7 +149,6 @@ export const useClassNames = makeStyles(() => ({
   },
   amazonLink: {
     width: '100%',
-    height: '50px',
     overflowX: 'auto',
     whiteSpace: 'nowrap',
 

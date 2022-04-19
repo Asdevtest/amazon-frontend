@@ -73,7 +73,6 @@ export const useClassNames = makeStyles(() => ({
   },
   barCode: {
     maxWidth: '200px',
-    height: '50px',
     whiteSpace: 'nowrap',
     overflowX: 'auto',
   },

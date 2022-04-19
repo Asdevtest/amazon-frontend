@@ -180,7 +180,6 @@ export const useClassNames = makeStyles(() => ({
 
   linkTypo: {
     height: '100px',
-    // whiteSpace: 'nowrap',
     color: 'white',
     width: '300px',
     overflowX: 'auto',

@@ -36,7 +36,6 @@ export const styles = createStyles({
   barCode: {
     maxWidth: '200px',
     whiteSpace: 'nowrap',
-    height: '50px',
     overflowX: 'auto',
   },
 })

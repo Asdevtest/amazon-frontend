@@ -95,14 +95,6 @@ export const AddOrEditSupplierModalContent = observer(
       batchTotalCostInDollar: supplier?.batchTotalCostInDollar || '',
       batchTotalCostInYuan: supplier?.batchTotalCostInYuan || '',
 
-      // amountInBox: (supplier && supplier.amountInBox) || '',
-
-      // boxLengthCm: (supplier && supplier.boxLengthCm) || '',
-      // boxWidthCm: (supplier && supplier.boxWidthCm) || '',
-      // boxHeightCm: (supplier && supplier.boxHeightCm) || '',
-      // boxWeighGrossKg: (supplier && supplier.boxWeighGrossKg) || '',
-      // boxVolumeWeightKg: (supplier && supplier.boxVolumeWeightKg) || '',
-
       boxProperties: {
         amountInBox: supplier?.boxProperties.amountInBox || '',
         boxLengthCm: supplier?.boxProperties.boxLengthCm || '',

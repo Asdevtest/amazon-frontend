@@ -122,6 +122,8 @@ export const OrderProductModal = ({
     !orderState.length ||
     submitIsClicked
 
+  console.log('orderState', orderState)
+
   return (
     <Container disableGutters maxWidth={'xl'}>
       <Typography className={classNames.modalTitle}>{textConsts.mainTitle}</Typography>

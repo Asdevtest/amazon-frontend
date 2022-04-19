@@ -45,7 +45,6 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   shippinLabel: {
-    height: '56px',
     whiteSpace: 'nowrap',
     width: '250px',
     overflowX: 'auto',

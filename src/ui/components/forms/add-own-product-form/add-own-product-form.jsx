@@ -108,8 +108,8 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
         onChange={onChangeField('asin')}
       />
 
-      <div className={classNames.checkboxWrapper}>
-        <Checkbox color="primary" checked={isNoAsin} onChange={() => setIsNoAsin(!isNoAsin)} />
+      <div className={classNames.checkboxWrapper} onClick={() => setIsNoAsin(!isNoAsin)}>
+        <Checkbox color="primary" checked={isNoAsin} />
         <Typography>{textConsts.noAsin}</Typography>
       </div>
 

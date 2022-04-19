@@ -10,6 +10,7 @@ import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
+import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed} from '@utils/text'
 
@@ -54,22 +55,13 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient}) => 
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.volumeWeightKgWarehouse}
-          value={toFixed(
-            ((parseFloat(box.lengthCmWarehouse) || 0) *
-              (parseFloat(box.heightCmWarehouse) || 0) *
-              (parseFloat(box.widthCmWarehouse) || 0)) /
-              volumeWeightCoefficient,
-            2,
-          )}
+          value={toFixed(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
         />
         <Field
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.weightFinalAccountingKgWarehouse}
-          value={toFixed(
-            Math.max(parseFloat(box.volumeWeightKgWarehouse) || 0, parseFloat(box.weighGrossKgWarehouse) || 0),
-            2,
-          )}
+          value={toFixed(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)}
         />
       </div>
     </div>

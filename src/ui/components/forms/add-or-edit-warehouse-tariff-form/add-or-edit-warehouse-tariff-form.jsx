@@ -31,7 +31,10 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
     const newFormFields = {...formFields}
 
     if (['price'].includes(fieldName)) {
-      if (checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)) {
+      if (
+        checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
+        Number(event.target.value) < 100000
+      ) {
         newFormFields[fieldName] = event.target.value
       }
     } else {
@@ -53,7 +56,8 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
     JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
     formFields.name === '' ||
     formFields.description === '' ||
-    formFields.price === ''
+    formFields.price === '' ||
+    Number(formFields.price) < 100000
 
   return (
     <div className={classNames.root}>

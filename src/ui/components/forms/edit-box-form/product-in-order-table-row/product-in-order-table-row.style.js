@@ -38,7 +38,6 @@ export const useClassNames = makeStyles(theme => ({
     textOverflow: 'ellipsis',
   },
   barCodeTypo: {
-    height: '50px',
     whiteSpace: 'nowrap',
     width: '300px',
     overflowX: 'auto',

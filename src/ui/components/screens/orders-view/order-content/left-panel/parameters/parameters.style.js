@@ -27,7 +27,6 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '21px',
     maxWidth: '300px',
     overflowX: 'auto',
-    height: '45px',
     whiteSpace: 'nowrap',
   },
 }))
