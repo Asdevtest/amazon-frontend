@@ -26,6 +26,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').batchInfoModal
 
 const BATCH_INFO_HEAD_CELLS = [
   {title: 'Коробки'},
+  {title: 'ID'},
   {title: 'Клиент'},
   {title: 'Тариф'},
   {title: 'Склад выгрузки'},
@@ -61,6 +62,10 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
             <Typography className={classNames.productTitle}>{el.product.amazonTitle}</Typography>
           </div>
         ))}
+      </TableCell>
+
+      <TableCell>
+        <Typography>{item.humanFriendlyId}</Typography>
       </TableCell>
 
       <TableCell>

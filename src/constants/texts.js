@@ -92,6 +92,10 @@ export const texts = {
       sendBoxes: 'Отправленные коробки',
     },
 
+    clientReadyBoxesView: {
+      appbarTitle: 'Коробки готовые к отправке',
+    },
+
     clientWarehouseView: {
       appbarTitle: 'Мой склад',
       mainTitle: 'Boxes in warehouse',
@@ -2176,8 +2180,9 @@ export const texts = {
       weight: 'Вес: ',
       volumeWeigh: 'Объемный вес: ',
       finalWeight: 'Финальный вес: ',
-      shippingLabelIsGluedSupplier: 'Шиппинг Лейбл проклеено поставщиком',
-      shippingLabelIsGluedWarehouse: 'Баркод проклеен складом',
+      shippingLabelIsGluedSupplier: 'Шиппинг лебл проклеен',
+      isBarCodeAlreadyAttachedByTheSupplier: 'Баркод проклеен поставщиком',
+      isBarCodeAttachedByTheStorekeeper: 'Баркод проклеен складом',
     },
 
     productWrapperComponent: {
@@ -2259,12 +2264,17 @@ export const texts = {
       appBarUsername: 'Buyer',
       appUser: 'buyer',
     },
+
+    clientAwaitingBatchesView: {
+      editBatch: 'Редактировать партию',
+      mainTitle: 'Мои отправления',
+      appBarTitle: 'Ожидают отправки',
+    },
+
     clientBatchesView: {
       editBatch: 'Редактировать партию',
       mainTitle: 'Мои отправления',
-      appBarTitle: 'Мои отправления',
-      appBarUsername: 'Client',
-      appUser: 'client',
+      appBarTitle: 'Отправленные',
     },
 
     clientLast30DaySellerBoardView: {

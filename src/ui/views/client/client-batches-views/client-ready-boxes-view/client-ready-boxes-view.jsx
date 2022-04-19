@@ -12,8 +12,10 @@ import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {BoxViewForm} from '@components/forms/box-view-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -21,7 +23,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {ClientReadyBoxesViewModel} from './client-ready-boxes-view.model'
 import {styles} from './client-ready-boxes-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').clientWarehouseView
+const textConsts = getLocalizedTexts(texts, 'en').clientReadyBoxesView
 
 const activeCategory = navBarActiveCategory.NAVBAR_BATCHES
 const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH
@@ -36,6 +38,9 @@ export class ClientReadyBoxesViewRaw extends Component {
 
   render() {
     const {
+      showBoxViewModal,
+      curBox,
+      volumeWeightCoefficient,
       currentStorekeeper,
       storekeepersData,
 
@@ -59,6 +64,8 @@ export class ClientReadyBoxesViewRaw extends Component {
       onChangeSortingModel,
 
       onClickStorekeeperBtn,
+      onTriggerOpenModal,
+      setCurrentOpenedBox,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -111,6 +118,9 @@ export class ClientReadyBoxesViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                classes={{
+                  row: classNames.row,
+                }}
                 isRowSelectable={params => params.row.isDraft === false}
                 getRowClassName={getRowClassName}
                 selectionModel={selectedBoxes}
@@ -132,10 +142,19 @@ export class ClientReadyBoxesViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onFilterModelChange={model => onChangeFilterModel(model)}
                 onStateChange={setDataGridState}
+                onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
               />
             </MainContent>
           </Appbar>
         </Main>
+
+        <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
+          <BoxViewForm
+            box={curBox}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
+          />
+        </Modal>
       </React.Fragment>
     )
   }

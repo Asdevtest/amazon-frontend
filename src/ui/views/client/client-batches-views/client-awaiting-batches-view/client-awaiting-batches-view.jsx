@@ -20,7 +20,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {ClientAwaitingBatchesViewModel} from './client-awaiting-batches-view.model'
 import {styles} from './client-awaiting-batches-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').clientBatchesView
+const textConsts = getLocalizedTexts(texts, 'ru').clientAwaitingBatchesView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_BATCHES
 const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH

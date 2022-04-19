@@ -6,6 +6,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
+import {UserModel} from '@models/user-model'
 
 import {clientBoxesReadyToBatchViewColumns} from '@components/table-columns/client/client-boxes-ready-to-batch-columns'
 
@@ -19,11 +20,14 @@ export class ClientReadyBoxesViewModel {
   error = undefined
 
   boxesMy = []
+  curBox = undefined
 
   drawerOpen = false
   selectedBoxes = []
   currentStorekeeper = undefined
   storekeepersData = []
+
+  showBoxViewModal = false
 
   sortModel = []
   filterModel = {items: []}
@@ -128,6 +132,22 @@ export class ClientReadyBoxesViewModel {
 
   onChangeCurPage = e => {
     this.curPage = e
+  }
+
+  async setCurrentOpenedBox(row) {
+    try {
+      this.curBox = row
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showBoxViewModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   onTriggerOpenModal(modalState) {

@@ -239,7 +239,14 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
             <Field
               oneLine
               containerClasses={classNames.checkboxContainer}
-              label={textConsts.shippingLabelIsGluedWarehouse}
+              label={textConsts.isBarCodeAlreadyAttachedByTheSupplier}
+              inputComponent={<Checkbox disabled checked={box.isBarCodeAlreadyAttachedByTheSupplier} />}
+            />
+
+            <Field
+              oneLine
+              containerClasses={classNames.checkboxContainer}
+              label={textConsts.isBarCodeAttachedByTheStorekeeper}
               inputComponent={<Checkbox disabled checked={box.isBarCodeAttachedByTheStorekeeper} />}
             />
           </div>
