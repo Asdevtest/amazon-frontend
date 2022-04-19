@@ -17,6 +17,13 @@ const textConsts = getLocalizedTexts(texts, 'en').addOrEditBatchFormColumnsTexts
 
 export const addOrEditBatchFormColumns = () => [
   {
+    field: 'humanFriendlyId',
+    headerName: textConsts.humanFriendlyIdField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 70,
+  },
+
+  {
     field: 'qty',
     headerName: textConsts.qtyField,
     renderCell: params =>
@@ -80,14 +87,14 @@ export const addOrEditBatchFormColumns = () => [
     headerName: textConsts.weightField,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 140,
+    width: 100,
   },
 
   {
     field: 'amazonPrice',
     headerName: textConsts.priceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
-    width: 120,
+    width: 100,
     type: 'number',
   },
 ]

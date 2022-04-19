@@ -285,6 +285,7 @@ export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
     destination: item.boxes[0].destination?.name,
     tariff: item.boxes[0].logicsTariff?.name,
     humanFriendlyId: item.humanFriendlyId,
+    storekeeper: item.storekeeper?.name,
 
     updatedAt: item.updatedAt,
 

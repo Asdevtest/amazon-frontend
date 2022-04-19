@@ -14,6 +14,7 @@
 
 import ApiClient from './ApiClient';
 import AdminUserPatchDtoSchema from './model/AdminUserPatchDtoSchema';
+import ApiV1AdminsGetProductsByStatusBoxProperties from './model/ApiV1AdminsGetProductsByStatusBoxProperties';
 import ApiV1AdminsGetProductsByStatusClient from './model/ApiV1AdminsGetProductsByStatusClient';
 import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
 import ApiV1AdminsGetProductsByStatusSuppliers from './model/ApiV1AdminsGetProductsByStatusSuppliers';
@@ -117,7 +118,6 @@ import InlineObject63 from './model/InlineObject63';
 import InlineObject64 from './model/InlineObject64';
 import InlineObject65 from './model/InlineObject65';
 import InlineObject66 from './model/InlineObject66';
-import InlineObject67 from './model/InlineObject67';
 import InlineObject7 from './model/InlineObject7';
 import InlineObject8 from './model/InlineObject8';
 import InlineObject9 from './model/InlineObject9';
@@ -257,6 +257,12 @@ export {
      * @property {module:model/AdminUserPatchDtoSchema}
      */
     AdminUserPatchDtoSchema,
+
+    /**
+     * The ApiV1AdminsGetProductsByStatusBoxProperties model constructor.
+     * @property {module:model/ApiV1AdminsGetProductsByStatusBoxProperties}
+     */
+    ApiV1AdminsGetProductsByStatusBoxProperties,
 
     /**
      * The ApiV1AdminsGetProductsByStatusClient model constructor.
@@ -875,12 +881,6 @@ export {
      * @property {module:model/InlineObject66}
      */
     InlineObject66,
-
-    /**
-     * The InlineObject67 model constructor.
-     * @property {module:model/InlineObject67}
-     */
-    InlineObject67,
 
     /**
      * The InlineObject7 model constructor.

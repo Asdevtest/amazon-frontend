@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
+import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 
 /**
  * The InlineObject65 model module.
@@ -21,11 +23,14 @@ import ApiClient from '../ApiClient';
 class InlineObject65 {
     /**
      * Constructs a new <code>InlineObject65</code>.
+     * Схема универсальной заявки.
      * @alias module:model/InlineObject65
+     * @param request {module:model/ApiV1RequestsCustomRequest} 
+     * @param details {module:model/ApiV1RequestsCustomDetails} 
      */
-    constructor() { 
+    constructor(request, details) { 
         
-        InlineObject65.initialize(this);
+        InlineObject65.initialize(this, request, details);
     }
 
     /**
@@ -33,7 +38,9 @@ class InlineObject65 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, request, details) { 
+        obj['request'] = request;
+        obj['details'] = details;
     }
 
     /**
@@ -47,11 +54,11 @@ class InlineObject65 {
         if (data) {
             obj = obj || new InlineObject65();
 
-            if (data.hasOwnProperty('result')) {
-                obj['result'] = ApiClient.convertToType(data['result'], 'String');
+            if (data.hasOwnProperty('request')) {
+                obj['request'] = ApiV1RequestsCustomRequest.constructFromObject(data['request']);
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('details')) {
+                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
             }
         }
         return obj;
@@ -61,16 +68,14 @@ class InlineObject65 {
 }
 
 /**
- * Результат работы исполнителя.
- * @member {String} result
+ * @member {module:model/ApiV1RequestsCustomRequest} request
  */
-InlineObject65.prototype['result'] = undefined;
+InlineObject65.prototype['request'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * @member {module:model/ApiV1RequestsCustomDetails} details
  */
-InlineObject65.prototype['linksToMediaFiles'] = undefined;
+InlineObject65.prototype['details'] = undefined;
 
 
 

@@ -19,10 +19,6 @@ Name | Type | Description | Notes
 **batchDeliveryCostInYuan** | **Number** | Доставка партии, yuan | [optional] 
 **batchTotalCostInDollar** | **Number** | Цена партии, dollar | [optional] 
 **batchTotalCostInYuan** | **Number** | Цена партии, yuan | [optional] 
-**amountInBox** | **Number** | Количество единиц в коробке. | [optional] 
-**boxLengthCm** | **Number** | Длина коробки, назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
-**boxWidthCm** | **Number** | Ширина коробки, назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
-**boxHeightCm** | **Number** | Высота коробки, назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
-**boxWeighGrossKg** | **Number** | Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
+**boxProperties** | [**ApiV1AdminsGetProductsByStatusBoxProperties**](ApiV1AdminsGetProductsByStatusBoxProperties.md) |  | [optional] 
 
 

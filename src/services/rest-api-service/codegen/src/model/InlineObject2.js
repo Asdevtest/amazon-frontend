@@ -22,10 +22,12 @@ class InlineObject2 {
     /**
      * Constructs a new <code>InlineObject2</code>.
      * @alias module:model/InlineObject2
+     * @param productId {String} GUID продукта.
+     * @param hsCode {String} 
      */
-    constructor() { 
+    constructor(productId, hsCode) { 
         
-        InlineObject2.initialize(this);
+        InlineObject2.initialize(this, productId, hsCode);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject2 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productId, hsCode) { 
+        obj['productId'] = productId;
+        obj['hsCode'] = hsCode;
     }
 
     /**
@@ -47,47 +51,11 @@ class InlineObject2 {
         if (data) {
             obj = obj || new InlineObject2();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
-            }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
-            }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('active')) {
-                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
-            }
-            if (data.hasOwnProperty('rate')) {
-                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
-            }
-            if (data.hasOwnProperty('balance')) {
-                obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
-            }
-            if (data.hasOwnProperty('balanceFreeze')) {
-                obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
-            }
-            if (data.hasOwnProperty('overdraft')) {
-                obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
-            }
-            if (data.hasOwnProperty('permissions')) {
-                obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
-            }
-            if (data.hasOwnProperty('permissionGroups')) {
-                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], ['String']);
-            }
-            if (data.hasOwnProperty('allowedRoles')) {
-                obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
-            }
-            if (data.hasOwnProperty('canByMasterUser')) {
-                obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
-            }
-            if (data.hasOwnProperty('hideSuppliers')) {
-                obj['hideSuppliers'] = ApiClient.convertToType(data['hideSuppliers'], 'Boolean');
+            if (data.hasOwnProperty('hsCode')) {
+                obj['hsCode'] = ApiClient.convertToType(data['hsCode'], 'String');
             }
         }
         return obj;
@@ -97,88 +65,15 @@ class InlineObject2 {
 }
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * GUID продукта.
+ * @member {String} productId
  */
-InlineObject2.prototype['name'] = undefined;
+InlineObject2.prototype['productId'] = undefined;
 
 /**
- * email
- * @member {String} email
+ * @member {String} hsCode
  */
-InlineObject2.prototype['email'] = undefined;
-
-/**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
- * @member {Number} role
- */
-InlineObject2.prototype['role'] = undefined;
-
-/**
- * Флаг fba.
- * @member {Boolean} fba
- */
-InlineObject2.prototype['fba'] = undefined;
-
-/**
- * Если истина - пользователь активен. Если нет - заблокирован админом.
- * @member {Boolean} active
- */
-InlineObject2.prototype['active'] = undefined;
-
-/**
- * Ставка, по который оплачивается сотрудник.
- * @member {Number} rate
- */
-InlineObject2.prototype['rate'] = undefined;
-
-/**
- * Текущий баланс пользователя.
- * @member {Number} balance
- */
-InlineObject2.prototype['balance'] = undefined;
-
-/**
- * Замороженная при оплате ордера сумма.
- * @member {Number} balanceFreeze
- */
-InlineObject2.prototype['balanceFreeze'] = undefined;
-
-/**
- * Сумма на которую может уходить в минус пользователь.
- * @member {Number} overdraft
- */
-InlineObject2.prototype['overdraft'] = undefined;
-
-/**
- * Массив permission-ов.
- * @member {Array.<String>} permissions
- */
-InlineObject2.prototype['permissions'] = undefined;
-
-/**
- * Массив групп permission-ов.
- * @member {Array.<String>} permissionGroups
- */
-InlineObject2.prototype['permissionGroups'] = undefined;
-
-/**
- * Массив массив ролей.
- * @member {Array.<Number>} allowedRoles
- */
-InlineObject2.prototype['allowedRoles'] = undefined;
-
-/**
- * Может ли данный пользователь быть мастер юзером.
- * @member {Boolean} canByMasterUser
- */
-InlineObject2.prototype['canByMasterUser'] = undefined;
-
-/**
- * Скрывать поставщиков от пользователя.
- * @member {Boolean} hideSuppliers
- */
-InlineObject2.prototype['hideSuppliers'] = undefined;
+InlineObject2.prototype['hsCode'] = undefined;
 
 
 

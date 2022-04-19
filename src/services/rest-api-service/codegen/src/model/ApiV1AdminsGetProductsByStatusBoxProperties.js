@@ -14,24 +14,19 @@
 import ApiClient from '../ApiClient';
 
 /**
- * The ApiV1SuppliersBoxProperties model module.
- * @module model/ApiV1SuppliersBoxProperties
+ * The ApiV1AdminsGetProductsByStatusBoxProperties model module.
+ * @module model/ApiV1AdminsGetProductsByStatusBoxProperties
  * @version 0.1.0
  */
-class ApiV1SuppliersBoxProperties {
+class ApiV1AdminsGetProductsByStatusBoxProperties {
     /**
-     * Constructs a new <code>ApiV1SuppliersBoxProperties</code>.
+     * Constructs a new <code>ApiV1AdminsGetProductsByStatusBoxProperties</code>.
      * Параметры коробок.
-     * @alias module:model/ApiV1SuppliersBoxProperties
-     * @param amountInBox {Number} Количество единиц в коробке.
-     * @param boxLengthCm {Number} Длина коробки, назвал поставщик при заказе ( могут отличаться с реальными).
-     * @param boxWidthCm {Number} Ширина коробки, назвал поставщик при заказе ( могут отличаться с реальными).
-     * @param boxHeightCm {Number} Высота коробки, назвал поставщик при заказе ( могут отличаться с реальными).
-     * @param boxWeighGrossKg {Number} Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными).
+     * @alias module:model/ApiV1AdminsGetProductsByStatusBoxProperties
      */
-    constructor(amountInBox, boxLengthCm, boxWidthCm, boxHeightCm, boxWeighGrossKg) { 
+    constructor() { 
         
-        ApiV1SuppliersBoxProperties.initialize(this, amountInBox, boxLengthCm, boxWidthCm, boxHeightCm, boxWeighGrossKg);
+        ApiV1AdminsGetProductsByStatusBoxProperties.initialize(this);
     }
 
     /**
@@ -39,24 +34,19 @@ class ApiV1SuppliersBoxProperties {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, amountInBox, boxLengthCm, boxWidthCm, boxHeightCm, boxWeighGrossKg) { 
-        obj['amountInBox'] = amountInBox;
-        obj['boxLengthCm'] = boxLengthCm;
-        obj['boxWidthCm'] = boxWidthCm;
-        obj['boxHeightCm'] = boxHeightCm;
-        obj['boxWeighGrossKg'] = boxWeighGrossKg;
+    static initialize(obj) { 
     }
 
     /**
-     * Constructs a <code>ApiV1SuppliersBoxProperties</code> from a plain JavaScript object, optionally creating a new instance.
+     * Constructs a <code>ApiV1AdminsGetProductsByStatusBoxProperties</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @param {module:model/ApiV1SuppliersBoxProperties} obj Optional instance to populate.
-     * @return {module:model/ApiV1SuppliersBoxProperties} The populated <code>ApiV1SuppliersBoxProperties</code> instance.
+     * @param {module:model/ApiV1AdminsGetProductsByStatusBoxProperties} obj Optional instance to populate.
+     * @return {module:model/ApiV1AdminsGetProductsByStatusBoxProperties} The populated <code>ApiV1AdminsGetProductsByStatusBoxProperties</code> instance.
      */
     static constructFromObject(data, obj) {
         if (data) {
-            obj = obj || new ApiV1SuppliersBoxProperties();
+            obj = obj || new ApiV1AdminsGetProductsByStatusBoxProperties();
 
             if (data.hasOwnProperty('amountInBox')) {
                 obj['amountInBox'] = ApiClient.convertToType(data['amountInBox'], 'Number');
@@ -84,36 +74,36 @@ class ApiV1SuppliersBoxProperties {
  * Количество единиц в коробке.
  * @member {Number} amountInBox
  */
-ApiV1SuppliersBoxProperties.prototype['amountInBox'] = undefined;
+ApiV1AdminsGetProductsByStatusBoxProperties.prototype['amountInBox'] = undefined;
 
 /**
  * Длина коробки, назвал поставщик при заказе ( могут отличаться с реальными).
  * @member {Number} boxLengthCm
  */
-ApiV1SuppliersBoxProperties.prototype['boxLengthCm'] = undefined;
+ApiV1AdminsGetProductsByStatusBoxProperties.prototype['boxLengthCm'] = undefined;
 
 /**
  * Ширина коробки, назвал поставщик при заказе ( могут отличаться с реальными).
  * @member {Number} boxWidthCm
  */
-ApiV1SuppliersBoxProperties.prototype['boxWidthCm'] = undefined;
+ApiV1AdminsGetProductsByStatusBoxProperties.prototype['boxWidthCm'] = undefined;
 
 /**
  * Высота коробки, назвал поставщик при заказе ( могут отличаться с реальными).
  * @member {Number} boxHeightCm
  */
-ApiV1SuppliersBoxProperties.prototype['boxHeightCm'] = undefined;
+ApiV1AdminsGetProductsByStatusBoxProperties.prototype['boxHeightCm'] = undefined;
 
 /**
  * Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными).
  * @member {Number} boxWeighGrossKg
  */
-ApiV1SuppliersBoxProperties.prototype['boxWeighGrossKg'] = undefined;
+ApiV1AdminsGetProductsByStatusBoxProperties.prototype['boxWeighGrossKg'] = undefined;
 
 
 
 
 
 
-export default ApiV1SuppliersBoxProperties;
+export default ApiV1AdminsGetProductsByStatusBoxProperties;
 

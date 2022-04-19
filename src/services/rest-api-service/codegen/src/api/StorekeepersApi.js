@@ -18,6 +18,7 @@ import ApiV1BatchesLogicsTariff from '../model/ApiV1BatchesLogicsTariff';
 import ApiV1StorekeepersTariffWarehouses from '../model/ApiV1StorekeepersTariffWarehouses';
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
+import InlineObject2 from '../model/InlineObject2';
 import InlineObject53 from '../model/InlineObject53';
 import InlineObject54 from '../model/InlineObject54';
 import InlineObject55 from '../model/InlineObject55';
@@ -25,7 +26,6 @@ import InlineObject56 from '../model/InlineObject56';
 import InlineObject57 from '../model/InlineObject57';
 import InlineObject58 from '../model/InlineObject58';
 import InlineObject59 from '../model/InlineObject59';
-import InlineObject60 from '../model/InlineObject60';
 import InlineResponse20018 from '../model/InlineResponse20018';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2007 from '../model/InlineResponse2007';
@@ -206,22 +206,16 @@ export default class StorekeepersApi {
     /**
      * # Редактирование поля hsCode в продукте сторкипером.
      * ## Редактирование поля hsCode в продукте сторкипером.   
-     * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject60} opts.body 
+     * @param {Array.<module:model/InlineObject2>} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1StorekeepersProductsEditHsCodeGuidPatchWithHttpInfo(guid, opts) {
+    apiV1StorekeepersProductsEditHsCodePatchWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['body'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1StorekeepersProductsEditHsCodeGuidPatch");
-      }
 
       let pathParams = {
-        'guid': guid
       };
       let queryParams = {
       };
@@ -236,7 +230,7 @@ export default class StorekeepersApi {
       let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
-        '/api/v1/storekeepers/products_edit_hsCode/{guid}', 'PATCH',
+        '/api/v1/storekeepers/products_edit_hsCode', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -245,14 +239,13 @@ export default class StorekeepersApi {
     /**
      * # Редактирование поля hsCode в продукте сторкипером.
      * ## Редактирование поля hsCode в продукте сторкипером.   
-     * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject60} opts.body 
+     * @param {Array.<module:model/InlineObject2>} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1StorekeepersProductsEditHsCodeGuidPatch(guid, opts) {
-      return this.apiV1StorekeepersProductsEditHsCodeGuidPatchWithHttpInfo(guid, opts)
+    apiV1StorekeepersProductsEditHsCodePatch(opts) {
+      return this.apiV1StorekeepersProductsEditHsCodePatchWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

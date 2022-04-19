@@ -4,6 +4,7 @@
 README.md
 docs/AdminUserPatchDtoSchema.md
 docs/AdministratorApi.md
+docs/ApiV1AdminsGetProductsByStatusBoxProperties.md
 docs/ApiV1AdminsGetProductsByStatusClient.md
 docs/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md
 docs/ApiV1AdminsGetProductsByStatusSuppliers.md
@@ -111,7 +112,6 @@ docs/InlineObject63.md
 docs/InlineObject64.md
 docs/InlineObject65.md
 docs/InlineObject66.md
-docs/InlineObject67.md
 docs/InlineObject7.md
 docs/InlineObject8.md
 docs/InlineObject9.md
@@ -224,6 +224,7 @@ src/api/SupplierApi.js
 src/api/UserApi.js
 src/index.js
 src/model/AdminUserPatchDtoSchema.js
+src/model/ApiV1AdminsGetProductsByStatusBoxProperties.js
 src/model/ApiV1AdminsGetProductsByStatusClient.js
 src/model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.js
 src/model/ApiV1AdminsGetProductsByStatusSuppliers.js
@@ -327,7 +328,6 @@ src/model/InlineObject63.js
 src/model/InlineObject64.js
 src/model/InlineObject65.js
 src/model/InlineObject66.js
-src/model/InlineObject67.js
 src/model/InlineObject7.js
 src/model/InlineObject8.js
 src/model/InlineObject9.js
@@ -405,4 +405,4 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/ApiV1SuppliersBoxProperties.spec.js
+test/model/ApiV1AdminsGetProductsByStatusBoxProperties.spec.js

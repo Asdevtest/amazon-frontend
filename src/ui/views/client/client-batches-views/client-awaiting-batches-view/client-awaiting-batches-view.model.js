@@ -8,7 +8,7 @@ import {BatchesModel} from '@models/batches-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
-import {batchesViewColumns} from '@components/table-columns/batches-columns'
+import {clientBatchesViewColumns} from '@components/table-columns/client/client-batches-columns'
 
 import {clientBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
@@ -31,7 +31,7 @@ export class ClientAwaitingBatchesViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = batchesViewColumns(this.rowHandlers)
+  columnsModel = clientBatchesViewColumns(this.rowHandlers)
 
   constructor({history}) {
     this.history = history
@@ -59,7 +59,7 @@ export class ClientAwaitingBatchesViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = batchesViewColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = clientBatchesViewColumns(this.rowHandlers).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))

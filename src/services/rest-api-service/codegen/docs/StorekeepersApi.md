@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**apiV1StorekeepersBoxesGet**](StorekeepersApi.md#apiV1StorekeepersBoxesGet) | **GET** /api/v1/storekeepers/boxes | # Получить коробки и их строки по текущему сторкиперу.
 [**apiV1StorekeepersGet**](StorekeepersApi.md#apiV1StorekeepersGet) | **GET** /api/v1/storekeepers/ | # Получить всех сторкиперов(все склады).
 [**apiV1StorekeepersOrdersSetStatusGuidPatch**](StorekeepersApi.md#apiV1StorekeepersOrdersSetStatusGuidPatch) | **PATCH** /api/v1/storekeepers/orders/set_status/{guid} | # Изменить значение status в сущности заказ.
-[**apiV1StorekeepersProductsEditHsCodeGuidPatch**](StorekeepersApi.md#apiV1StorekeepersProductsEditHsCodeGuidPatch) | **PATCH** /api/v1/storekeepers/products_edit_hsCode/{guid} | # Редактирование поля hsCode в продукте сторкипером.
+[**apiV1StorekeepersProductsEditHsCodePatch**](StorekeepersApi.md#apiV1StorekeepersProductsEditHsCodePatch) | **PATCH** /api/v1/storekeepers/products_edit_hsCode | # Редактирование поля hsCode в продукте сторкипером.
 [**apiV1StorekeepersTariffLogisticsGuidDelete**](StorekeepersApi.md#apiV1StorekeepersTariffLogisticsGuidDelete) | **DELETE** /api/v1/storekeepers/tariff-logistics/{guid} | # Удалить тариф доставки.
 [**apiV1StorekeepersTariffLogisticsGuidPatch**](StorekeepersApi.md#apiV1StorekeepersTariffLogisticsGuidPatch) | **PATCH** /api/v1/storekeepers/tariff-logistics/{guid} | # Редактировать тариф доставки.
 [**apiV1StorekeepersTariffLogisticsMyGet**](StorekeepersApi.md#apiV1StorekeepersTariffLogisticsMyGet) | **GET** /api/v1/storekeepers/tariff-logistics/my | # Получить всех тарифами доставки сторкипером.
@@ -188,9 +188,9 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1StorekeepersProductsEditHsCodeGuidPatch
+## apiV1StorekeepersProductsEditHsCodePatch
 
-> String apiV1StorekeepersProductsEditHsCodeGuidPatch(guid, opts)
+> String apiV1StorekeepersProductsEditHsCodePatch(opts)
 
 # Редактирование поля hsCode в продукте сторкипером.
 
@@ -208,12 +208,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.StorekeepersApi();
-let guid = null; // String | GUID продукта, который будет изменен
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject60() // InlineObject60 | 
+  'body': [new TestSwagger.InlineObject2()] // [InlineObject2] | 
 };
-apiInstance.apiV1StorekeepersProductsEditHsCodeGuidPatch(guid, opts).then((data) => {
+apiInstance.apiV1StorekeepersProductsEditHsCodePatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -226,9 +225,8 @@ apiInstance.apiV1StorekeepersProductsEditHsCodeGuidPatch(guid, opts).then((data)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | [**String**](.md)| GUID продукта, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject60**](InlineObject60.md)|  | [optional] 
+ **body** | [**[InlineObject2]**](InlineObject2.md)|  | [optional] 
 
 ### Return type
 

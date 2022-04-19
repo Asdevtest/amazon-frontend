@@ -272,7 +272,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersBoxesGet**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesGet) | **GET** /api/v1/storekeepers/boxes | # Получить коробки и их строки по текущему сторкиперу.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersGet**](docs/StorekeepersApi.md#apiV1StorekeepersGet) | **GET** /api/v1/storekeepers/ | # Получить всех сторкиперов(все склады).
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersOrdersSetStatusGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersOrdersSetStatusGuidPatch) | **PATCH** /api/v1/storekeepers/orders/set_status/{guid} | # Изменить значение status в сущности заказ.
-*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersProductsEditHsCodeGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersProductsEditHsCodeGuidPatch) | **PATCH** /api/v1/storekeepers/products_edit_hsCode/{guid} | # Редактирование поля hsCode в продукте сторкипером.
+*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersProductsEditHsCodePatch**](docs/StorekeepersApi.md#apiV1StorekeepersProductsEditHsCodePatch) | **PATCH** /api/v1/storekeepers/products_edit_hsCode | # Редактирование поля hsCode в продукте сторкипером.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTariffLogisticsGuidDelete**](docs/StorekeepersApi.md#apiV1StorekeepersTariffLogisticsGuidDelete) | **DELETE** /api/v1/storekeepers/tariff-logistics/{guid} | # Удалить тариф доставки.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTariffLogisticsGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersTariffLogisticsGuidPatch) | **PATCH** /api/v1/storekeepers/tariff-logistics/{guid} | # Редактировать тариф доставки.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTariffLogisticsMyGet**](docs/StorekeepersApi.md#apiV1StorekeepersTariffLogisticsMyGet) | **GET** /api/v1/storekeepers/tariff-logistics/my | # Получить всех тарифами доставки сторкипером.
@@ -318,6 +318,7 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [TestSwagger.AdminUserPatchDtoSchema](docs/AdminUserPatchDtoSchema.md)
+ - [TestSwagger.ApiV1AdminsGetProductsByStatusBoxProperties](docs/ApiV1AdminsGetProductsByStatusBoxProperties.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusClient](docs/ApiV1AdminsGetProductsByStatusClient.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusListingSupplierCompetitors](docs/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers](docs/ApiV1AdminsGetProductsByStatusSuppliers.md)
@@ -421,7 +422,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject64](docs/InlineObject64.md)
  - [TestSwagger.InlineObject65](docs/InlineObject65.md)
  - [TestSwagger.InlineObject66](docs/InlineObject66.md)
- - [TestSwagger.InlineObject67](docs/InlineObject67.md)
  - [TestSwagger.InlineObject7](docs/InlineObject7.md)
  - [TestSwagger.InlineObject8](docs/InlineObject8.md)
  - [TestSwagger.InlineObject9](docs/InlineObject9.md)

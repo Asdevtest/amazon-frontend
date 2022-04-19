@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusBoxProperties from './ApiV1AdminsGetProductsByStatusBoxProperties';
 
 /**
  * The ApiV1AdminsGetProductsByStatusSuppliers model module.
@@ -93,20 +94,8 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
             if (data.hasOwnProperty('batchTotalCostInYuan')) {
                 obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
             }
-            if (data.hasOwnProperty('amountInBox')) {
-                obj['amountInBox'] = ApiClient.convertToType(data['amountInBox'], 'Number');
-            }
-            if (data.hasOwnProperty('boxLengthCm')) {
-                obj['boxLengthCm'] = ApiClient.convertToType(data['boxLengthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxWidthCm')) {
-                obj['boxWidthCm'] = ApiClient.convertToType(data['boxWidthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxHeightCm')) {
-                obj['boxHeightCm'] = ApiClient.convertToType(data['boxHeightCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxWeighGrossKg')) {
-                obj['boxWeighGrossKg'] = ApiClient.convertToType(data['boxWeighGrossKg'], 'Number');
+            if (data.hasOwnProperty('boxProperties')) {
+                obj['boxProperties'] = ApiV1AdminsGetProductsByStatusBoxProperties.constructFromObject(data['boxProperties']);
             }
         }
         return obj;
@@ -206,34 +195,9 @@ ApiV1AdminsGetProductsByStatusSuppliers.prototype['batchTotalCostInDollar'] = un
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['batchTotalCostInYuan'] = undefined;
 
 /**
- * Количество единиц в коробке.
- * @member {Number} amountInBox
+ * @member {module:model/ApiV1AdminsGetProductsByStatusBoxProperties} boxProperties
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['amountInBox'] = undefined;
-
-/**
- * Длина коробки, назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxLengthCm
- */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxLengthCm'] = undefined;
-
-/**
- * Ширина коробки, назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxWidthCm
- */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxWidthCm'] = undefined;
-
-/**
- * Высота коробки, назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxHeightCm
- */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxHeightCm'] = undefined;
-
-/**
- * Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxWeighGrossKg
- */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxWeighGrossKg'] = undefined;
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxProperties'] = undefined;
 
 
 

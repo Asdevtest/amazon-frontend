@@ -65,6 +65,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
       setCurrentOpenedBox,
       onSubmitMoveBoxToBatch,
+      onSubmitCreateBatch,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -131,6 +132,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => onTriggerOpenModal('showBoxMoveToBatchModal')}
             onSubmit={onSubmitMoveBoxToBatch}
+            onSubmitCreateBatch={onSubmitCreateBatch}
           />
         </Modal>
       </React.Fragment>

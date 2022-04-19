@@ -18,7 +18,7 @@ import {useClassNames} from './move-box-to-batch-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').moveBoxToBatchForm
 
-export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, box}) => {
+export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, box, onSubmitCreateBatch}) => {
   const classNames = useClassNames()
 
   const [selectedBatch, setSelectedBatch] = useState(null)
@@ -36,7 +36,7 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
   return (
     <div className={classNames.root}>
       <div className={classNames.titleWrapper}>
-        <Typography variant="h5">{'Переместить коробку'}</Typography>
+        <Typography variant="h5">{box.batchId ? 'Переместить коробку' : 'Добавить коробку в партию'}</Typography>
 
         <div className={classNames.titleSubWrapper}>
           <Typography variant="h6">{`Коробка: ${box.humanFriendlyId}`}</Typography>
@@ -56,19 +56,25 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
       </div>
 
       <div className={classNames.btnsWrapper}>
-        <SuccessButton
-          disableElevation
-          disabled={!selectedBatch}
-          variant="contained"
-          color="primary"
-          onClick={() => onSubmit(box, selectedBatch)}
-        >
-          {'Выбрать'}
+        <SuccessButton disableElevation variant="contained" color="primary" onClick={() => onSubmitCreateBatch(box)}>
+          {'Создать новую партию'}
         </SuccessButton>
 
-        <Button color="primary" variant="text" className={classNames.cancelBtn} onClick={setOpenModal}>
-          {textConsts.cancelBtn}
-        </Button>
+        <div className={classNames.btnsSubWrapper}>
+          <Button
+            disabled={!selectedBatch}
+            color="primary"
+            variant="contained"
+            className={classNames.cancelBtn}
+            onClick={() => onSubmit(box, selectedBatch)}
+          >
+            {box.batchId ? 'Переместить' : 'Добавить'}
+          </Button>
+
+          <Button color="primary" variant="text" className={classNames.cancelBtn} onClick={setOpenModal}>
+            {textConsts.cancelBtn}
+          </Button>
+        </div>
       </div>
     </div>
   )

@@ -183,6 +183,18 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
+  async onSubmitCreateBatch(box) {
+    try {
+      await BatchesModel.createBatch([box._id])
+
+      this.loadData()
+      this.onTriggerOpenModal('showBoxMoveToBatchModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
   onTriggerDrawer() {
     this.drawerOpen = !this.drawerOpen
   }

@@ -77,6 +77,7 @@ export const useClassNames = makeStyles(() => ({
     maxWidth: '240px',
     overflow: 'auto',
     height: '70px',
+    marginBottom: '10px',
   },
 
   linkField: {

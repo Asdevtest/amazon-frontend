@@ -99,6 +99,7 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
 
                   <Field
                     oneLine
+                    disabled
                     inputClasses={classNames.countField}
                     label={'Количество'}
                     value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}

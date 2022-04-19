@@ -775,6 +775,7 @@ export const texts = {
     },
 
     addOrEditBatchFormColumnsTexts: {
+      humanFriendlyIdField: 'ID',
       qtyField: 'Кол-во',
       ordersField: 'Продукт',
       warehouseField: 'Destination',
@@ -2906,6 +2907,30 @@ export const texts = {
       actionField: 'Действия',
       actionBtnText: 'Переместить',
       logicsTariffField: 'Тариф',
+    },
+
+    clientBatchesViewColumns: {
+      createdAtField: 'Дата создания',
+      ordersField: 'Продукт',
+      ordersId: 'id Заказа',
+      barCode: 'Баркод',
+      asinField: 'ASIN',
+      qtyField: 'Количество',
+      materialField: 'Материал',
+      warehouseField: 'Destination',
+      boxIdField: 'id Коробки',
+      priceField: 'Цена',
+      trackIdField: 'Трек номер',
+      weightField: 'Общий фин. Вес',
+      grossWeightField: 'Общий вес',
+      deliveryField: 'Тариф',
+      toralPriceField: 'Общая стоимость',
+
+      storekeeperField: 'Storekeeper',
+
+      showBtn: 'Смотреть',
+      actionField: 'Действия',
+      humanFriendlyIdField: 'Номер',
     },
 
     batchesTableColumns: {

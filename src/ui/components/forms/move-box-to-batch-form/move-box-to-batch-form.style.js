@@ -22,6 +22,11 @@ export const useClassNames = makeStyles(() => ({
   btnsWrapper: {
     marginTop: '20px',
     display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  btnsSubWrapper: {
+    display: 'flex',
     justifyContent: 'flex-end',
   },
 
