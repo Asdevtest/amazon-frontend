@@ -14,6 +14,7 @@ import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {BoxViewForm} from '@components/forms/box-view-form'
 import {EditBoxForm} from '@components/forms/edit-box-form'
 import {RequestToSendBatchForm} from '@components/forms/request-to-send-batch-form'
 import {Main} from '@components/main'
@@ -47,6 +48,8 @@ export class ClientWarehouseViewRaw extends Component {
 
   render() {
     const {
+      curBox,
+      showBoxViewModal,
       volumeWeightCoefficient,
       taskColumnsModel,
       currentStorekeeper,
@@ -100,6 +103,7 @@ export class ClientWarehouseViewRaw extends Component {
       onChangeSortingModel,
 
       onClickStorekeeperBtn,
+      setCurrentOpenedBox,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -158,6 +162,9 @@ export class ClientWarehouseViewRaw extends Component {
                 useResizeContainer
                 checkboxSelection
                 isRowSelectable={params => params.row.isDraft === false}
+                classes={{
+                  row: classNames.row,
+                }}
                 getRowClassName={getRowClassName}
                 selectionModel={selectedBoxes}
                 sortModel={sortModel}
@@ -179,6 +186,7 @@ export class ClientWarehouseViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onFilterModelChange={model => onChangeFilterModel(model)}
                 onStateChange={setDataGridState}
+                onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
               />
 
               <div className={classNames.tasksWrapper}>
@@ -337,6 +345,14 @@ export class ClientWarehouseViewRaw extends Component {
           }}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
+
+        <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
+          <BoxViewForm
+            box={curBox}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
+          />
+        </Modal>
       </React.Fragment>
     )
   }

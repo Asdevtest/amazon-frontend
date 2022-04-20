@@ -231,9 +231,12 @@ export const navbarConfig = {
     },
     {
       icon: ChatBubbleOutlineOutlinedIcon,
-      title: 'Уведомления по заказам',
+      title: 'Уведомления',
       route: '/client/orders-notifications',
-      subtitles: null,
+      subtitles: [
+        {subtitle: 'По заказам', subRoute: '/client/orders-notifications'},
+        {subtitle: 'По коробкам', subRoute: '/client/boxes-notifications'},
+      ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
         !isMasterUser(user) ||

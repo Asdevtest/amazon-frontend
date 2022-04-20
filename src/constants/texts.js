@@ -2516,9 +2516,17 @@ export const texts = {
     },
     clientOrdersNotificationsView: {
       mainTitle: 'Уведомления по заказам',
-      appBarTitle: 'Страница уведомлений по заказам',
-      appBarUsername: 'Client',
-      appUser: 'client',
+      appBarTitle: 'Уведомлений по заказам',
+      confirmTitle: 'Внимание',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      errorMessage: 'Вы хотите отменить?',
+      confirmMessage: 'Вы подтверждаете доплату?',
+    },
+
+    clientBoxesNotificationsView: {
+      mainTitle: 'Уведомления по заказам',
+      appBarTitle: 'Уведомлений по коробкам',
       confirmTitle: 'Внимание',
       yesBtn: 'Да',
       noBtn: 'Нет',
@@ -2761,6 +2769,20 @@ export const texts = {
       priceField: 'Стоимость за кг, $',
     },
 
+    clientBoxesNotificationsTableColumns: {
+      actionField: 'Действие',
+      boxIdField: 'ID',
+      updatedAtField: 'Обновлено',
+      ordersField: 'Продукт',
+      qtyField: 'Кол-во',
+      warehouseField: 'Куда',
+      logicsTariffField: 'Тариф',
+      priceField: 'Стоимость',
+      weightField: 'Вес фин-й',
+      grossWeight: 'Вес',
+      neededToPayExtraField: 'Доплатить',
+    },
+
     clientOrdersTableColumns: {
       createDateField: 'Создан',
       updateDateField: 'Обновлен',
@@ -2785,7 +2807,7 @@ export const texts = {
       weightField: 'Вес',
       grossWeightField: 'Общий вес',
       trackIdField: 'Трек номер',
-      neededToPayExtraField: 'Необходимо доплатить',
+      neededToPayExtraField: 'Доплатить',
       forDeliveryFromTheWarehouse: 'Из них за доставку до склада Китая',
       buyerCommentField: 'Комментарий баера',
     },

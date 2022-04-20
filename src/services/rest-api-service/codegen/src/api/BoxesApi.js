@@ -411,19 +411,25 @@ export default class BoxesApi {
 
     /**
      * # Получить коробки и их строки по текущему клиенту.
-     * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   Cтатус коробок IN_STOCK
+     * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
+     * @param {module:model/String} status 
      * @param {Object} opts Optional parameters
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
      */
-    apiV1BoxesClientsGetWithHttpInfo(opts) {
+    apiV1BoxesClientsGetWithHttpInfo(status, opts) {
       opts = opts || {};
       let postBody = null;
+      // verify the required parameter 'status' is set
+      if (status === undefined || status === null) {
+        throw new Error("Missing the required parameter 'status' when calling apiV1BoxesClientsGet");
+      }
 
       let pathParams = {
       };
       let queryParams = {
+        'status': status,
         'storekeeperId': opts['storekeeperId']
       };
       let headerParams = {
@@ -445,14 +451,15 @@ export default class BoxesApi {
 
     /**
      * # Получить коробки и их строки по текущему клиенту.
-     * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   Cтатус коробок IN_STOCK
+     * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
+     * @param {module:model/String} status 
      * @param {Object} opts Optional parameters
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
      */
-    apiV1BoxesClientsGet(opts) {
-      return this.apiV1BoxesClientsGetWithHttpInfo(opts)
+    apiV1BoxesClientsGet(status, opts) {
+      return this.apiV1BoxesClientsGetWithHttpInfo(status, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

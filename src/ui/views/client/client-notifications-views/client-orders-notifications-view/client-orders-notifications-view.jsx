@@ -23,6 +23,7 @@ import {styles} from './client-orders-notifications-view.style'
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersNotificationsView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS
+const navbarActiveSubCategory = 0
 
 @observer
 class ClientOrdersNotificationsViewRaw extends Component {
@@ -61,7 +62,12 @@ class ClientOrdersNotificationsViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
+        <Navbar
+          activeCategory={navbarActiveCategory}
+          activeSubCategory={navbarActiveSubCategory}
+          drawerOpen={drawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
+        />
         <Main>
           <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>

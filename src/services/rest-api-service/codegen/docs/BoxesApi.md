@@ -403,11 +403,11 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsGet
 
-> [ApiV1BatchesBoxes] apiV1BoxesClientsGet(opts)
+> [ApiV1BatchesBoxes] apiV1BoxesClientsGet(status, opts)
 
 # Получить коробки и их строки по текущему клиенту.
 
-## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   Cтатус коробок IN_STOCK
+## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
 
 ### Example
 
@@ -421,11 +421,12 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BoxesApi();
+let status = "status_example"; // String | 
 let opts = {
   'storekeeperId': null, // String | GUID склада который нужно получить.
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1BoxesClientsGet(opts).then((data) => {
+apiInstance.apiV1BoxesClientsGet(status, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -438,6 +439,7 @@ apiInstance.apiV1BoxesClientsGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **status** | **String**|  | 
  **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 

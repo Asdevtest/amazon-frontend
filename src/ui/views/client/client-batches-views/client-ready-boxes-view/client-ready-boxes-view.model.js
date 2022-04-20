@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {BoxStatus} from '@constants/box-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
@@ -156,7 +157,10 @@ export class ClientReadyBoxesViewModel {
 
   async getBoxesMy() {
     try {
-      const result = await BoxesModel.getBoxesReadyToBatchClient(this.currentStorekeeper && this.currentStorekeeper._id)
+      const result = await BoxesModel.getBoxesForCurClient(
+        BoxStatus.REQUESTED_SEND_TO_BATCH,
+        this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id},
+      )
 
       runInAction(() => {
         this.boxesMy = clientWarehouseDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))

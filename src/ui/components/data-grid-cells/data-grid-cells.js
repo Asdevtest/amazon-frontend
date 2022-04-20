@@ -511,7 +511,7 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
   return <div>{renderHistoryItem()}</div>
 })
 
-export const ClientOrdersNotificationsBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
+export const ClientNotificationsBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
   <div>
     <Button variant="contained" color="primary" onClick={() => handlers.onTriggerOpenConfirmModal(row)}>
       {textConsts.confirmBtn}

@@ -275,6 +275,7 @@ export const clientWarehouseDataConverter = data =>
     updatedAt: item.updatedAt,
 
     humanFriendlyId: item.humanFriendlyId,
+    totalPriceChanged: item.totalPriceChanged,
   }))
 
 export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>

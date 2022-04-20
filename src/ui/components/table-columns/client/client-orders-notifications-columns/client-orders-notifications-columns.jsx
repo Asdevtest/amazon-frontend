@@ -3,7 +3,7 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
-  ClientOrdersNotificationsBtnsCell,
+  ClientNotificationsBtnsCell,
   ActiveBarcodeCell,
   NormDateCell,
   OrderCell,
@@ -28,22 +28,15 @@ export const clientOrdersNotificationsViewColumns = handlers => [
   {
     field: 'totalPriceChanged',
     headerName: textConsts.neededToPayExtraField,
-    width: 250,
+    width: 100,
     renderCell: params => renderFieldValueCell((params.value - params.row.originalData.totalPrice).toFixed(2)),
-  },
-
-  {
-    field: 'deliveryCostToTheWarehouse',
-    headerName: textConsts.forDeliveryFromTheWarehouse,
-    width: 250,
-    renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'action',
     headerName: textConsts.actionField,
     width: 250,
-    renderCell: params => <ClientOrdersNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />,
+    renderCell: params => <ClientNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },

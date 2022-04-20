@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {BoxStatus} from '@constants/box-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
@@ -53,6 +54,9 @@ export class ClientWarehouseViewModel {
 
   boxesMy = []
   tasksMy = []
+
+  curBox = undefined
+  showBoxViewModal = false
 
   drawerOpen = false
   selectedBoxes = []
@@ -435,6 +439,22 @@ export class ClientWarehouseViewModel {
     }
   }
 
+  async setCurrentOpenedBox(row) {
+    try {
+      this.curBox = row
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showBoxViewModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
   async postTask({idsData, idsBeforeData, type, clientComment}) {
     try {
       await ClientModel.createTask({
@@ -518,6 +538,7 @@ export class ClientWarehouseViewModel {
   async getBoxesMy() {
     try {
       const result = await BoxesModel.getBoxesForCurClient(
+        BoxStatus.IN_STOCK,
         this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id},
       )
 
