@@ -478,7 +478,7 @@ export const warehouseBoxesDataConverter = data =>
     isDraft: item.isDraft,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
-    batchId: item.batchId,
+    batchId: item.batch?.humanFriendlyId,
   }))
 
 export const adminBatchesDataConverter = data =>

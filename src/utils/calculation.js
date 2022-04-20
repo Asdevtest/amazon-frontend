@@ -23,13 +23,18 @@ export const calcPriceForItem = (fullPrice, amount) =>
   toFixedWithDollarSign((parseFloat(fullPrice) || 0) / (parseFloat(amount) || 0), 2)
 
 export const calcVolumeWeightForBox = (box, coefficient) => {
-  if (box.lengthCmWarehouse && box.widthCmWarehouse && box.heightCmWarehouse) {
-    return (box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient || 0
+  if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
+    return (
+      Math.round(((box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient) * 100) / 100 ||
+      0
+    )
   } else {
-    return (box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient || 0
+    return (
+      Math.round(((box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient) * 100) / 100 || 0
+    )
   }
 }
-
+// Math.round(number * 100) / 100
 export const calcFinalWeightForBox = (box, coefficient) =>
   Math.max(
     parseFloat(calcVolumeWeightForBox(box, coefficient)) || 0,

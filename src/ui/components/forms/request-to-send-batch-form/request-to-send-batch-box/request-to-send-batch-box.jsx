@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 
-import {calcFinalWeightForBox} from '@utils/calculation'
+import {calcVolumeWeightForBox, calcFinalWeightForBox} from '@utils/calculation'
 import {getShortenStringIfLongerThanCount} from '@utils/change-string-length'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {checkAndMakeAbsoluteUrl, toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
@@ -65,9 +65,9 @@ export const RequestToSendBatchBox = ({index, box, price, onClickRemoveBoxFromBa
           box.weighGrossKgWarehouse,
           2,
         )}; Объемный вес: ${toFixedWithKg(
-          (box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / volumeWeightCoefficient,
+          calcVolumeWeightForBox(box, volumeWeightCoefficient),
           2,
-        )}; Финальный вес: ${toFixedWithKg(calcFinalWeightForBox(box), 2)}`}</Typography>
+        )}; Финальный вес: ${toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)}`}</Typography>
       </td>
       <td className={clsx(tableCellClsx, classNames.shippingLabelCell)}>
         <div>

@@ -57,7 +57,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
     formFields.name === '' ||
     formFields.description === '' ||
     formFields.price === '' ||
-    Number(formFields.price) < 100000
+    Number(formFields.price) > 100000
 
   return (
     <div className={classNames.root}>

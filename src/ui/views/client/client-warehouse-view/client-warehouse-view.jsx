@@ -62,7 +62,6 @@ export class ClientWarehouseViewRaw extends Component {
       columnsModel,
 
       curOpenedTask,
-      // tasksMy,
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -89,12 +88,10 @@ export class ClientWarehouseViewRaw extends Component {
       onTriggerOpenModal,
       onModalRedistributeBoxAddNewBox,
       onEditBoxSubmit,
-      // setCurrentOpenedTask,
       triggerRequestToSendBatchModal,
       onClickSendBoxesToBatch,
       onClickMerge,
       onRemoveBoxFromSelected,
-      // onClickCancelBtn,
       onClickCancelAfterConfirm,
 
       onChangeFilterModel,
