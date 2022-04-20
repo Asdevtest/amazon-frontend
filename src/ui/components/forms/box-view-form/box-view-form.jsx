@@ -145,13 +145,7 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
               label={'FBA Shipment'}
               inputComponent={
                 <div>
-                  {box.fbaShipment ? (
-                    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.fbaShipment)}>
-                      <Typography className={classNames.linkField}>{box.fbaShipment}</Typography>
-                    </Link>
-                  ) : (
-                    <Typography className={classNames.linkField}>{'N/A'}</Typography>
-                  )}
+                  <Typography className={classNames.linkField}>{box.fbaShipment || 'N/A'}</Typography>
                 </div>
               }
             />

@@ -33,6 +33,8 @@ export const AddOrEditBatchForm = observer(({boxesData, onClose, volumeWeightCoe
     batchToEdit ? clientWarehouseDataConverter(batchToEdit.originalData?.boxes) : [],
   )
 
+  console.log('chosenBoxes', chosenBoxes)
+
   const [boxesToAddIds, setBoxesToAddIds] = useState([])
 
   const [boxesToDeliteIds, setBoxesToDeliteIds] = useState([])

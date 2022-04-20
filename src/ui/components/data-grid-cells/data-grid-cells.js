@@ -93,28 +93,17 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
   </div>
 ))
 
-export const UserLinkCell = withStyles(styles)(({classes: classNames, name, userId}) => {
-  const history = useHistory()
-
-  const onLinkClick = () => {
-    history.push({
-      pathname: '/another-user',
-      search: userId,
-    })
-  }
-
-  return (
-    <div>
-      {name ? (
-        <Typography className={classNames.linkText} onClick={onLinkClick}>
-          {name}
-        </Typography>
-      ) : (
-        <Typography>{'N/A'}</Typography>
-      )}
-    </div>
-  )
-})
+export const UserLinkCell = withStyles(styles)(({classes: classNames, name, userId}) => (
+  <div>
+    {name ? (
+      <Link target="_blank" href={`${window.location.origin}/another-user?${userId}`}>
+        <Typography className={classNames.linkText}>{name}</Typography>
+      </Link>
+    ) : (
+      <Typography>{'N/A'}</Typography>
+    )}
+  </div>
+))
 
 export const SupervisorCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>

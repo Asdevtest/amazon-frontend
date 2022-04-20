@@ -4,7 +4,7 @@ export const calcProductPrice = product =>
   ((parseInt(product.createdBy?.rate) || 0) +
     (parseInt(product.buyer?.rate) || 0) +
     (parseInt(product.supervisorRate) || 0)) *
-  2 // TODO: добавить рейт супервизора
+  2
 
 export const calcProductsPriceWithDelivery = (product, order) =>
   ((parseFloat(product.currentSupplier && product.currentSupplier.price) || 0) +
@@ -34,7 +34,6 @@ export const calcVolumeWeightForBox = (box, coefficient) => {
     )
   }
 }
-// Math.round(number * 100) / 100
 export const calcFinalWeightForBox = (box, coefficient) =>
   Math.max(
     parseFloat(calcVolumeWeightForBox(box, coefficient)) || 0,

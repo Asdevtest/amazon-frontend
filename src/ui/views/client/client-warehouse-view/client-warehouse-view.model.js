@@ -275,6 +275,7 @@ export class ClientWarehouseViewModel {
               shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
               destinationId: updatedBoxes[i].destinationId,
               logicsTariffId: updatedBoxes[i].logicsTariffId,
+              fbaShipment: updatedBoxes[i].fbaShipment,
             },
             boxItems: [
               ...updatedBoxes[i].items.map(item => ({

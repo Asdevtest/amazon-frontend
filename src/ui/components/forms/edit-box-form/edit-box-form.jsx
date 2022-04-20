@@ -18,6 +18,7 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 import {Table} from '@components/table'
 
+import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed} from '@utils/text'
 
@@ -109,14 +110,8 @@ export const EditBoxForm = observer(
       widthCmWarehouse: formItem?.widthCmWarehouse || 0,
       heightCmWarehouse: formItem?.heightCmWarehouse || 0,
       weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
-      volumeWeightKgWarehouse: formItem
-        ? (formItem.lengthCmWarehouse * formItem.widthCmWarehouse * formItem.heightCmWarehouse) /
-          volumeWeightCoefficient
-        : 0,
-      weightFinalAccountingKgWarehouse: Math.max(
-        parseFloat(formItem?.volumeWeightKgWarehouse) || 0,
-        parseFloat(formItem?.weighGrossKgWarehouse) || 0,
-      ),
+      volumeWeightKgWarehouse: formItem ? calcVolumeWeightForBox(formItem, volumeWeightCoefficient) : 0,
+      weightFinalAccountingKgWarehouse: formItem ? calcFinalWeightForBox(formItem, volumeWeightCoefficient) : 0,
 
       destinationId: formItem?.destinationId || '',
       storekeeperId: formItem?.storekeeperId || '',
