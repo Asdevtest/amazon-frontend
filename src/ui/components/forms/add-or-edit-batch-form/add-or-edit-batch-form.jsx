@@ -33,16 +33,16 @@ export const AddOrEditBatchForm = observer(
     const [chosenBoxes, setChosenBoxes] = useState(
       batchToEdit
         ? clientWarehouseDataConverter(batchToEdit.originalData?.boxes)
-        : [...clientWarehouseDataConverter([sourceBox && sourceBox])],
+        : sourceBox
+        ? [...clientWarehouseDataConverter([sourceBox])]
+        : [],
     )
-
-    console.log('chosenBoxes', chosenBoxes)
 
     const [boxesToAddIds, setBoxesToAddIds] = useState([])
 
     const [boxesToDeliteIds, setBoxesToDeliteIds] = useState([])
 
-    const [sourceDataForFilters, setSourceDataForFilters] = useState(undefined)
+    const [sourceDataForFilters, setSourceDataForFilters] = useState(null)
 
     const filterBoxesToAddData = () => {
       const chosenBoxesIds = chosenBoxes.map(box => box._id)
@@ -59,13 +59,23 @@ export const AddOrEditBatchForm = observer(
 
     useEffect(() => {
       if (batchToEdit) {
-        setSourceDataForFilters(chosenBoxes[0].originalData)
+        setSourceDataForFilters(() => chosenBoxes[0].originalData)
       }
     }, [])
 
     useEffect(() => {
-      if (chosenBoxes.length) {
+      if (chosenBoxes.length && !batchToEdit) {
         setBoxesToAddData(filterBoxesToAddData())
+      } else if (batchToEdit) {
+        const chosenBoxesIds = chosenBoxes.map(box => box._id)
+        setBoxesToAddData([
+          ...boxesData.filter(
+            box =>
+              box.destination === batchToEdit.destination &&
+              box.logicsTariff === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
+              !chosenBoxesIds.includes(box._id),
+          ),
+        ])
       } else {
         setBoxesToAddData([...boxesData])
       }

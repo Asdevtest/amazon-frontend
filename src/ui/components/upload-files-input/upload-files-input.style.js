@@ -132,6 +132,7 @@ export const useClassNames = makeStyles(() => ({
     border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
     background: '#EFEFEF',
+    padding: '5px',
 
     display: 'flex',
     alignItems: 'center',

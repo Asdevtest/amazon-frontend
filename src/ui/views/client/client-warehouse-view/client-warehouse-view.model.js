@@ -539,7 +539,7 @@ export class ClientWarehouseViewModel {
     try {
       const result = await BoxesModel.getBoxesForCurClient(
         BoxStatus.IN_STOCK,
-        this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id},
+        this.currentStorekeeper && this.currentStorekeeper._id,
       )
 
       runInAction(() => {
@@ -549,11 +549,9 @@ export class ClientWarehouseViewModel {
       console.log(error)
       this.error = error
 
-      if (error.body.message === 'Коробки не найдены.') {
-        runInAction(() => {
-          this.boxesMy = []
-        })
-      }
+      runInAction(() => {
+        this.boxesMy = []
+      })
     }
   }
 

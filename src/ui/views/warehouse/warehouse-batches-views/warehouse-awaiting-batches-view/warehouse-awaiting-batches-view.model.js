@@ -150,9 +150,9 @@ export class WarehouseAwaitingBatchesViewModel {
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.boxesData = clientWarehouseDataConverter(boxes)
-
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.boxesData = clientWarehouseDataConverter(boxes)
       })
 
       this.onTriggerOpenModal('showAddOrEditBatchModal')

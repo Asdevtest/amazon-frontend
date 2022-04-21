@@ -161,7 +161,7 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptT
                     <Grid key={index} item>
                       <div className={classNames.imageLinkListItem}>
                         <Tooltip title={renderImageInfo(image, image)} classes={{popper: classNames.imgTooltip}}>
-                          <Avatar className={classNames.image} src={image} alt={image} />
+                          <Avatar className={classNames.image} src={image} alt={image} variant="square" />
                         </Tooltip>
 
                         <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>

@@ -28,6 +28,7 @@ export class WarehouseMyWarehouseViewModel {
   boxesMy = []
   tasksMy = []
   boxesData = []
+  batches = []
 
   curBox = undefined
   curBoxToMove = undefined
@@ -139,9 +140,8 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async moveBox(row) {
+  async getDataToMoveBatch() {
     try {
-      this.curBoxToMove = row
       const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
       const result = await UserModel.getPlatformSettings()
 
@@ -150,6 +150,15 @@ export class WarehouseMyWarehouseViewModel {
 
         this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient)
       })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async moveBox(row) {
+    try {
+      this.curBoxToMove = row
+      await this.getDataToMoveBatch()
 
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
