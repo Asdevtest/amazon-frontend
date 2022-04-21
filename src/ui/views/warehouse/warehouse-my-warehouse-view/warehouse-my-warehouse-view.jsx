@@ -10,6 +10,7 @@ import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-a
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
+import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {MoveBoxToBatchForm} from '@components/forms/move-box-to-batch-form'
 import {Main} from '@components/main'
@@ -37,11 +38,14 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
   render() {
     const {
+      sourceBoxForBatch,
+      boxesData,
       curBoxToMove,
       batches,
       curBox,
       volumeWeightCoefficient,
       showBoxMoveToBatchModal,
+      showAddBatchModal,
       showBoxViewModal,
       requestStatus,
       getCurrentData,
@@ -66,6 +70,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       setCurrentOpenedBox,
       onSubmitMoveBoxToBatch,
       onSubmitCreateBatch,
+
+      onSubmitAddBatch,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -133,6 +139,16 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             setOpenModal={() => onTriggerOpenModal('showBoxMoveToBatchModal')}
             onSubmit={onSubmitMoveBoxToBatch}
             onSubmitCreateBatch={onSubmitCreateBatch}
+          />
+        </Modal>
+
+        <Modal openModal={showAddBatchModal} setOpenModal={() => onTriggerOpenModal('showAddBatchModal')}>
+          <AddOrEditBatchForm
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            sourceBox={sourceBoxForBatch}
+            boxesData={boxesData}
+            onClose={() => onTriggerOpenModal('showAddBatchModal')}
+            onSubmit={onSubmitAddBatch}
           />
         </Modal>
       </React.Fragment>

@@ -6,7 +6,6 @@ import {observer} from 'mobx-react'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -28,18 +27,7 @@ class AnotherUserProfileViewRaw extends Component {
   }
 
   render() {
-    const {classes: classNames} = this.props
-
-    const {
-      drawerOpen,
-      tabHistory,
-      tabReview,
-      user,
-      headerInfoData,
-      onTriggerDrawerOpen,
-
-      onClickBackBtn,
-    } = this.viewModel
+    const {drawerOpen, tabHistory, tabReview, user, headerInfoData, onTriggerDrawerOpen} = this.viewModel
 
     return (
       <>
@@ -47,12 +35,6 @@ class AnotherUserProfileViewRaw extends Component {
         <Main>
           <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <div className={classNames.backBtnWrapper}>
-                <Button variant="contained" color="primary" onClick={onClickBackBtn}>
-                  {'Назад'}
-                </Button>
-              </div>
-
               {user && (
                 <UserProfile
                   isAnotherUser

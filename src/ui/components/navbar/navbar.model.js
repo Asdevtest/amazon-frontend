@@ -9,8 +9,8 @@ import {ClientModel} from '@models/client-model'
 import {UserModel} from '@models/user-model'
 
 export class NavbarModel {
-  ordersNotificationsAmount = undefined
-  boxesNotificationsAmount = undefined
+  ordersNotificationsAmount = 0
+  boxesNotificationsAmount = 0
   get userInfo() {
     return UserModel.userInfo
   }
@@ -26,13 +26,15 @@ export class NavbarModel {
     try {
       const orders = await ClientModel.getOrders()
 
-      const boxes = await BoxesModel.getBoxesForCurClient(BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE)
-
       runInAction(() => {
         this.ordersNotificationsAmount = orders.filter(
           order => order.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
         ).length
+      })
 
+      const boxes = await BoxesModel.getBoxesForCurClient(BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE)
+
+      runInAction(() => {
         this.boxesNotificationsAmount = boxes.length
       })
     } catch (error) {

@@ -1,8 +1,20 @@
 import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
-  root: {
+  root: {},
+
+  batchesExistBlock: {
     width: '900px',
+  },
+
+  title: {
+    textAlign: 'center',
+  },
+
+  messageWrapper: {
+    width: '460px',
+    textAlign: 'center',
+    margin: '30px 0',
   },
 
   mainTitle: {
@@ -23,6 +35,13 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '20px',
     display: 'flex',
     justifyContent: 'space-between',
+  },
+
+  btnsSecondWrapper: {
+    marginTop: '20px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '460px',
   },
 
   btnsSubWrapper: {

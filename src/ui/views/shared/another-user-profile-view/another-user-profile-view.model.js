@@ -70,10 +70,6 @@ export class AnotherProfileViewModel {
     }
   }
 
-  onClickBackBtn() {
-    this.history.goBack()
-  }
-
   onChangeTabReview(e, value) {
     this.tabReview = value
   }

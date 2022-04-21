@@ -5,13 +5,18 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BatchesModel} from '@models/batches-model'
+import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {warehouseBoxesViewColumns} from '@components/table-columns/warehouse/warehouse-boxes-columns'
 
-import {warehouseBatchesDataConverter, warehouseBoxesDataConverter} from '@utils/data-grid-data-converters'
+import {
+  clientWarehouseDataConverter,
+  warehouseBatchesDataConverter,
+  warehouseBoxesDataConverter,
+} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -22,9 +27,11 @@ export class WarehouseMyWarehouseViewModel {
 
   boxesMy = []
   tasksMy = []
+  boxesData = []
 
   curBox = undefined
   curBoxToMove = undefined
+  sourceBoxForBatch = undefined
 
   drawerOpen = false
   selectedBoxes = []
@@ -33,6 +40,7 @@ export class WarehouseMyWarehouseViewModel {
 
   showBoxViewModal = false
   showBoxMoveToBatchModal = false
+  showAddBatchModal = false
 
   rowHandlers = {
     moveBox: item => this.moveBox(item),
@@ -150,6 +158,19 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
+  async onSubmitAddBatch(boxesIds) {
+    try {
+      await BatchesModel.createBatch(boxesIds)
+
+      this.loadData()
+      this.onTriggerOpenModal('showAddBatchModal')
+      this.onTriggerOpenModal('showBoxMoveToBatchModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
   async onSubmitMoveBoxToBatch(box, selectedBatch) {
     try {
       if (box.batchId) {
@@ -185,10 +206,24 @@ export class WarehouseMyWarehouseViewModel {
 
   async onSubmitCreateBatch(box) {
     try {
-      await BatchesModel.createBatch([box._id])
+      const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
 
-      this.loadData()
-      this.onTriggerOpenModal('showBoxMoveToBatchModal')
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.boxesData = clientWarehouseDataConverter(boxes)
+
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.sourceBoxForBatch = box
+      })
+
+      this.onTriggerOpenModal('showAddBatchModal')
+
+      // await BatchesModel.createBatch([box._id])
+
+      // this.loadData()
+      // this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
       console.log(error)
       this.error = error

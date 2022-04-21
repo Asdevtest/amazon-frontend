@@ -684,7 +684,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
       </Button>
     )}
 
-    {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && (
+    {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
       <SuccessButton className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.moveBox(row)}>
         {'Добавить в партию'}
       </SuccessButton>
