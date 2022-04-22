@@ -645,7 +645,12 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
             <Typography className={classNames.orderText}>
               <span className={classNames.orderTextSpan}>{textConsts.id}</span>
               {item.product.asin}
-              {box.sendToBatchComplete && <span className={classNames.sendSuccess}>{' Отправлено'}</span>}
+              {box.totalPrice - box.totalPriceChanged < 0 && (
+                <span className={classNames.needPay}>{`Необходима доплата! (${toFixedWithDollarSign(
+                  box.totalPriceChanged - box.totalPrice,
+                  2,
+                )})`}</span>
+              )}
             </Typography>
             <Typography className={classNames.imgNum}>{`x ${item.amount}`}</Typography>
             {box.amount > 1 && (

@@ -372,9 +372,10 @@ export const styles = createStyles(() => ({
     textOverflow: 'ellipsis',
   },
 
-  sendSuccess: {
-    color: 'green',
+  needPay: {
+    color: 'red',
     fontWeight: 'bold',
+    marginLeft: '15px',
   },
 
   trashWrapper: {

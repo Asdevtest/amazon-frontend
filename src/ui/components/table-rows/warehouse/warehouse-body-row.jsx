@@ -7,6 +7,8 @@ import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
 import {Button} from '@components/buttons/button'
+import {BoxViewForm} from '@components/forms/box-view-form'
+import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {formatNormDateTime} from '@utils/date-time'
@@ -23,6 +25,8 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
   const [curImages, setCurImages] = useState([])
+
+  const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
   const onTriggerIsMaximizedMasterBox = () => {
     setIsMaximizedMasterBox(!isMaximizedMasterBox)
@@ -67,7 +71,10 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
   return box.items.map((order, orderIndex) => (
     <React.Fragment key={`orderBox_${order.order._id}_${orderIndex}`}>
-      <TableRow className={clsx({[classNames.boxLastRow]: orderIndex === ordersQty - 1})}>
+      <TableRow
+        className={clsx(classNames.row, {[classNames.boxLastRow]: orderIndex === ordersQty - 1})}
+        onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
+      >
         {orderIndex === 0 && (
           <React.Fragment>
             <TableCell rowSpan={ordersQty}>{boxIndex + 1}</TableCell>
@@ -160,6 +167,14 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={curImages}
       />
+
+      <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>
+        <BoxViewForm
+          box={box}
+          volumeWeightCoefficient={restProps.volumeWeightCoefficient}
+          setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}
+        />
+      </Modal>
     </React.Fragment>
   ))
 }

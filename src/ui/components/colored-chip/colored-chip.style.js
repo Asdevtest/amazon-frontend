@@ -13,13 +13,24 @@ export const useClassNames = makeStyles(() => ({
   },
 
   chip: props => ({
-    color: '#000',
-    fontSize: '14px',
+    fontSize: '15px',
+    fontWeight: '600',
+    lineHeight: '20p',
+
+    borderRadius: '4px',
+    height: '36.5px',
+    color: 'rgba(0,0,0,.7)',
     transition: '.7s ease-in-out',
     backgroundColor: props.color,
-    '&:hover, &:focus': {
+    '&:focus': {
       backgroundColor: props.colorHover,
       transform: 'scale(1.01)',
+      color: '#fff',
+    },
+    '&:hover': {
+      backgroundColor: props.colorHover,
+      transform: 'scale(1.01)',
+      color: 'rgba(255,255,255,.7)',
     },
   }),
   chipActive: () => ({
@@ -28,11 +39,11 @@ export const useClassNames = makeStyles(() => ({
     '&::before': {
       content: '""',
       backgroundColor: 'black',
-      height: '32px',
-      width: '32px',
+      height: '36.5px',
+      width: '36.5px',
       right: '30%',
       textAlign: 'center',
-      borderRadius: '16px',
+      borderRadius: '4px',
       opacity: '0.4',
       border: '7px solid white',
       animation: 'hypnoEye .7s ease-in-out',

@@ -38,4 +38,12 @@ export const styles = createStyles({
     whiteSpace: 'nowrap',
     overflowX: 'auto',
   },
+
+  row: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
 })

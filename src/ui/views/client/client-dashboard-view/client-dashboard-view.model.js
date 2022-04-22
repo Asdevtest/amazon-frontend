@@ -100,7 +100,9 @@ export class ClientDashboardViewModel {
             ].includes(el.status),
           ).length,
           [ClientDashboardCardDataKey.CANCELED_ORDERS]: result.filter(
-            el => el.status === OrderStatusByKey[OrderStatus.ORDER_CLOSED],
+            el =>
+              el.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
+              el.status === OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
           ).length,
         }
       })
