@@ -112,6 +112,11 @@ class StorekeeperModelStatic {
     const response = await restApiService.strokeepersApi.apiV1StorekeepersTariffWarehouseGuidDelete(id)
     return response
   }
+
+  editProductsHsCods = async data => {
+    const response = await restApiService.strokeepersApi.apiV1StorekeepersProductsEditHsCodePatch({body: data})
+    return response
+  }
 }
 
 export const StorekeeperModel = new StorekeeperModelStatic()

@@ -3927,6 +3927,14 @@ export const texts = {
       warehousePlaceholder: 'Комментарий склада к задаче для клиента',
     },
 
+    addOrEditHsCodeInBox: {
+      countTypo: 'Кол-во:',
+      photos: 'Фотографии',
+      mainTitle: 'Просмотр партии',
+      saveBtn: 'Сохранить',
+      closeBtn: 'Отмена',
+    },
+
     batchInfoModal: {
       divideBox: 'Разделить коробки',
       mergeBoxes: 'Соединить коробки',

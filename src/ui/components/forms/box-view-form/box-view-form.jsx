@@ -107,6 +107,14 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
                   />
 
                   <Field
+                    disabled
+                    inputClasses={classNames.countField}
+                    label={'HS Code'}
+                    value={item.product.hsCode}
+                    placeholder={'N/A'}
+                  />
+
+                  <Field
                     label={'Баркод'}
                     inputComponent={
                       <div>

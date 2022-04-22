@@ -1,10 +1,10 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {BoxStatus} from '@constants/box-status'
 import {ClientDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 
-import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {UserModel} from '@models/user-model'
@@ -76,8 +76,6 @@ export class ClientDashboardViewModel {
 
       this.getBoxesMy()
 
-      this.getBatches()
-
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       this.requestStatus = loadingStatuses.failed
@@ -130,31 +128,30 @@ export class ClientDashboardViewModel {
 
   async getBoxesMy() {
     try {
-      const result = await BoxesModel.getBoxesForCurClient()
+      const warehouseBoxes = await BoxesModel.getBoxesForCurClient(BoxStatus.IN_STOCK)
 
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,
-          [ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE]: result.filter(el => !el.isDraft).length,
+          [ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE]: warehouseBoxes.filter(el => !el.isDraft).length,
         }
       })
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
 
-  async getBatches() {
-    try {
-      const result = await BatchesModel.getBatches()
-
-      const batchesBoxes = result.reduce((ac, cur) => ac.concat(cur.boxes), [])
+      const readyBoxes = await BoxesModel.getBoxesForCurClient(BoxStatus.REQUESTED_SEND_TO_BATCH)
 
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,
-          [ClientDashboardCardDataKey.READY_TO_SEND]: batchesBoxes.filter(el => !el.sendToBatchComplete).length,
-          [ClientDashboardCardDataKey.SEND_BOXES]: batchesBoxes.filter(el => el.sendToBatchComplete).length,
+          [ClientDashboardCardDataKey.READY_TO_SEND]: readyBoxes.filter(el => !el.isDraft).length,
+        }
+      })
+
+      const sendedBoxes = await BoxesModel.getBoxesForCurClient(BoxStatus.IN_BATCH)
+
+      runInAction(() => {
+        this.dashboardData = {
+          ...this.dashboardData,
+          [ClientDashboardCardDataKey.SEND_BOXES]: sendedBoxes.filter(el => !el.isDraft).length,
         }
       })
     } catch (error) {

@@ -27,6 +27,7 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 export class ResearcherProductView extends Component {
   viewModel = new ResearcherProductViewModel({
     history: this.props.history,
+    location: this.props.location,
   })
 
   componentDidMount() {

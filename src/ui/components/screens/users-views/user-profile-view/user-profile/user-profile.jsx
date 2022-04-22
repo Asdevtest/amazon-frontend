@@ -14,6 +14,7 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 import {PurchaseHistory} from '@components/screens/users-views/user-profile-view/purchase-history'
 import {Reviews} from '@components/screens/users-views/user-profile-view/reviews'
 
+import {checkIsAdmin} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed} from '@utils/text'
@@ -39,6 +40,10 @@ export const UserProfile = observer(
     setTabReview,
   }) => {
     const classNames = useClassNames()
+
+    console.log('user.role', user.role)
+    console.log('checkIsAdmin(user.role)', checkIsAdmin(user.role))
+
     return (
       <Paper className={classNames.paper}>
         <div>
@@ -72,7 +77,7 @@ export const UserProfile = observer(
                 <Rating disabled className={classNames.userRating} value={user?.rating} />
               </div>
 
-              {!isAnotherUser && (
+              {!isAnotherUser && !checkIsAdmin(user.role) && (
                 <Button
                   id="user-profile-change-btn"
                   variant="contained"

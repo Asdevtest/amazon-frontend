@@ -42,9 +42,11 @@ export class WarehouseMyWarehouseViewModel {
   showBoxViewModal = false
   showBoxMoveToBatchModal = false
   showAddBatchModal = false
+  showAddOrEditHsCodeInBox = false
 
   rowHandlers = {
     moveBox: item => this.moveBox(item),
+    setHsCode: item => this.setHsCode(item),
   }
 
   sortModel = []
@@ -167,6 +169,17 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
+  async setHsCode(row) {
+    try {
+      this.curBox = row
+
+      this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
   async onSubmitAddBatch(boxesIds) {
     try {
       await BatchesModel.createBatch(boxesIds)
@@ -174,6 +187,18 @@ export class WarehouseMyWarehouseViewModel {
       this.loadData()
       this.onTriggerOpenModal('showAddBatchModal')
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onSubmitAddOrEditHsCode(data) {
+    try {
+      await StorekeeperModel.editProductsHsCods(data)
+
+      this.loadData()
+      this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
     } catch (error) {
       console.log(error)
       this.error = error
@@ -228,11 +253,6 @@ export class WarehouseMyWarehouseViewModel {
       })
 
       this.onTriggerOpenModal('showAddBatchModal')
-
-      // await BatchesModel.createBatch([box._id])
-
-      // this.loadData()
-      // this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
       console.log(error)
       this.error = error

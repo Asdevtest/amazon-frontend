@@ -11,6 +11,7 @@ import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
+import {AddOrEditHsCodeInBox} from '@components/forms/add-or-edit-hs-code-in-box-form'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {MoveBoxToBatchForm} from '@components/forms/move-box-to-batch-form'
 import {Main} from '@components/main'
@@ -45,6 +46,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       curBox,
       volumeWeightCoefficient,
       showBoxMoveToBatchModal,
+      showAddOrEditHsCodeInBox,
       showAddBatchModal,
       showBoxViewModal,
       requestStatus,
@@ -72,6 +74,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       onSubmitCreateBatch,
 
       onSubmitAddBatch,
+      onSubmitAddOrEditHsCode,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -149,6 +152,14 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             boxesData={boxesData}
             onClose={() => onTriggerOpenModal('showAddBatchModal')}
             onSubmit={onSubmitAddBatch}
+          />
+        </Modal>
+
+        <Modal openModal={showAddOrEditHsCodeInBox} setOpenModal={() => onTriggerOpenModal('showAddOrEditHsCodeInBox')}>
+          <AddOrEditHsCodeInBox
+            box={curBox}
+            setOpenModal={() => onTriggerOpenModal('showAddOrEditHsCodeInBox')}
+            onSubmit={onSubmitAddOrEditHsCode}
           />
         </Modal>
       </React.Fragment>

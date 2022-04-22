@@ -442,4 +442,13 @@ export const styles = createStyles(() => ({
     width: '300px',
     justifyContent: 'space-between',
   },
+
+  warehouseBoxesBtnsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    minWidth: '190px',
+  },
 }))

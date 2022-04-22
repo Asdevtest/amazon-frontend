@@ -137,6 +137,8 @@ export class ResearcherProductViewModel {
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
 
+  startParse = false
+
   drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
@@ -163,8 +165,14 @@ export class ResearcherProductViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+
+    console.log('location.state', location.state)
+
+    if (location.state) {
+      this.startParse = location.state.startParse
+    }
 
     this.productId = history.location.search.slice(1)
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -173,6 +181,13 @@ export class ResearcherProductViewModel {
   async loadData() {
     try {
       await this.getProductById()
+
+      if (this.startParse) {
+        this.onClickParseProductData(ProductDataParser.AMAZON, this.product)
+
+        this.onClickParseProductData(ProductDataParser.SELLCENTRAL, this.product)
+        this.startParse = false
+      }
     } catch (error) {
       console.log(error)
     }

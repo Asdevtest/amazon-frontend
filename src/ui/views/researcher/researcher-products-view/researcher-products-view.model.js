@@ -152,10 +152,13 @@ export class ResearcherProductsViewModel {
 
       const foundedProd = this.products.find(prod => prod.originalData._id === this.newProductId)
 
-      this.history.push({
-        pathname: '/researcher/product',
-        search: foundedProd.originalData._id,
-      })
+      this.history.push(
+        {
+          pathname: '/researcher/product',
+          search: foundedProd.originalData._id,
+        },
+        {startParse: true},
+      )
     } catch (error) {
       console.warn(error)
     }

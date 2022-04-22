@@ -678,7 +678,7 @@ export const TrashCell = withStyles(styles)(({classes: classNames, onClick}) => 
 ))
 
 export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
-  <div>
+  <div className={classNames.warehouseBoxesBtnsWrapper}>
     {row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
       <Typography>{'Не готово к отправке'}</Typography>
     )}
@@ -694,5 +694,9 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
         {'Добавить в партию'}
       </SuccessButton>
     )}
+
+    <Button variant="contained" color="primary" onClick={() => handlers.setHsCode(row)}>
+      {'HS Code'}
+    </Button>
   </div>
 ))

@@ -258,7 +258,9 @@ export class ClientDailySellerBoardViewModel {
     try {
       const result = await ClientModel.getProductsMy(filters)
       runInAction(() => {
-        this.inventoryProducts = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        this.inventoryProducts = addIdDataConverter(result)
+          .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+          .filter(el => !el.archive)
       })
     } catch (error) {
       console.log(error)
