@@ -77,7 +77,7 @@ export const UserProfile = observer(
                 <Rating disabled className={classNames.userRating} value={user?.rating} />
               </div>
 
-              {!isAnotherUser && !checkIsAdmin(user.role) && (
+              {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
                 <Button
                   id="user-profile-change-btn"
                   variant="contained"

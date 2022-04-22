@@ -10,7 +10,7 @@ export const checkIsResearcher = userRole => userRole === UserRole.RESEARCHER
 export const checkIsSupervisor = userRole => userRole === UserRole.SUPERVISOR
 export const checkIsBuyer = userRole => userRole === UserRole.BUYER
 export const checkIsClient = userRole => userRole === UserRole.CLIENT
-export const checkIsAdmin = userRole => userRole === 0 // не работает с  UserRole.ADMIN
+export const checkIsAdmin = userRole => userRole === UserRole.ADMIN
 
 export const checkIsAbsoluteUrl = url => new RegExp('^(?:[a-z]+:)?//', 'i').test(url)
 
